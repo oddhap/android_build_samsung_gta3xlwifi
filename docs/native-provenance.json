@@ -1,0 +1,38 @@
+{
+  "device": "SM-T510/gta3xlwifi",
+  "kind": "native device-specific development build",
+  "kernel_source_commit": "00e4b9481434f9b0b644925a9bb2feaf3940219d",
+  "kernel_sha256": "9827c8ac986f7497428ac27e9bc309ac8b62ee08fbb414e6d0c81653537ea4a2",
+  "vendor_sha256": "4cc684231b4a1c355169cea61b4ea5196401bc5f68c7f74a32c1ec290abc0006",
+  "dtbo_sha256": "b9041c37713a745290d9a0203423436b6caa7a1307ced79b6963b4f1f0271c4b",
+  "stock_firmware": "T510XXU5CWA1/T510OXM5CVG2",
+  "overlay_comparison": [
+    {
+      "revision": "03",
+      "same_as_stock": true
+    },
+    {
+      "revision": "04",
+      "same_as_stock": true
+    }
+  ],
+  "google_apps_added": false,
+  "hardware_tested": false,
+  "hardware_functional_tests": "partial, user confirmed rotation/cameras/Wi-Fi/browser video/audio",
+  "stable": false,
+  "frameworks_base_revision": "5f6b8d6098f8d858d1450db45c350c7ba08ae455",
+  "platform_patches": [
+    "bpf-legacy-kernel.patch",
+    "netd-legacy-network.patch",
+    "device-kernel-profile.patch",
+    "systemui-tuner-lifecycle.patch",
+    "power-boost.patch"
+  ],
+  "current_rom_sha256": "58e338e00fed0fbb9a96d2bce46c289322cf8ecc0aaea7845f2c0d74f8611c40",
+  "kernel_power_patches": [
+    "framework-cpu-qos.patch",
+    "framework-gpu-floor.patch"
+  ],
+  "power_boost_runtime_tested": true,
+  "current_native_library_sha256": "f5f7f16cc3e55084d36e3441517c23159732ca653804e052a765150379731423"
+}

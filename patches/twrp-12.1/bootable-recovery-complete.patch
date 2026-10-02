@@ -1,0 +1,34 @@
+diff --git a/partition.cpp b/partition.cpp
+index 184cb16..ccaf9c9 100755
+--- a/partition.cpp
++++ b/partition.cpp
+@@ -740,8 +740,14 @@ void TWPartition::Setup_Data_Partition(bool Display_Error) {
+ 		DataManager::GetValue(TW_IS_FBE, is_device_fbe);
+ 		char crypto_state[255];
+ 		property_get("ro.crypto.state", crypto_state, "error");
+-		if (!Decrypt_FBE_DE() && strcmp(crypto_state, "error") != 0) {
+-			if (is_device_fbe == 1)
++		if (!Decrypt_FBE_DE() && (Is_FBE || strcmp(crypto_state, "error") != 0)) {
++            // Preserve locked FBE state after a failed DE-key initialization.
++            Is_Encrypted = true;
++            Is_Decrypted = false;
++            DataManager::SetValue(TW_IS_ENCRYPTED, 1);
++            DataManager::SetValue(TW_IS_DECRYPTED, 0);
++            DataManager::SetValue(TW_IS_FBE, Is_FBE ? 1 : is_device_fbe);
++			if (is_device_fbe == 1 || Is_FBE)
+ 				LOGERR("Unable to decrypt FBE device\n");
+ 		} else {
+ 			DataManager::SetValue(TW_IS_ENCRYPTED, 0);
+diff --git a/prebuilt/Android.mk b/prebuilt/Android.mk
+index 3197ec1..fe78158 100755
+--- a/prebuilt/Android.mk
++++ b/prebuilt/Android.mk
+@@ -414,6 +414,8 @@ endif
+ 
+ include $(CLEAR_VARS)
+ LOCAL_MODULE := relink_libraries
++# SM-T510: required modules enforce ordering but not copy freshness.
++LOCAL_ADDITIONAL_DEPENDENCIES += $(TARGET_OUT_SHARED_LIBRARIES)/libminuitwrp.so $(TARGET_OUT_SHARED_LIBRARIES)/libresetprop.so $(TARGET_OUT_SHARED_LIBRARIES)/libfscrypttwrp.so
+ LOCAL_MODULE_TAGS := optional
+ LOCAL_MODULE_CLASS := EXECUTABLES
+ LOCAL_MODULE_PATH := $(TARGET_RECOVERY_ROOT_OUT)/

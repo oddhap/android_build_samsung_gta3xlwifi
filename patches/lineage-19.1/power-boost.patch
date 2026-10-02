@@ -1,0 +1,76 @@
+--- a/services/core/jni/Android.bp
++++ b/services/core/jni/Android.bp
+@@ -95,8 +95,23 @@
+     },
+ }
+ 
+-cc_defaults {
++// Product opt-in keeps the native backend specific to the SM-T510.
++soong_config_module_type {
++    name: "gta3xlwifi_services_defaults",
++    module_type: "cc_defaults",
++    config_namespace: "gta3xlwifi",
++    bool_variables: ["native_power"],
++    properties: ["static_libs", "cflags"],
++}
++
++gta3xlwifi_services_defaults {
+     name: "libservices.core-libs",
++    soong_config_variables: {
++        native_power: {
++            static_libs: ["libgta3xlwifi_power"],
++            cflags: ["-DGTA3XLWIFI_NATIVE_POWER"],
++        },
++    },
+     shared_libs: [
+         "libadb_pairing_server",
+         "libadb_pairing_connection",
+--- a/services/core/jni/com_android_server_power_PowerManagerService.cpp
++++ b/services/core/jni/com_android_server_power_PowerManagerService.cpp
+@@ -48,6 +48,9 @@
+ #include <utils/Log.h>
+ 
+ #include "com_android_server_power_PowerManagerService.h"
++#ifdef GTA3XLWIFI_NATIVE_POWER
++#include <Gta3xlwifiPower.h>
++#endif
+ 
+ using android::String8;
+ using android::hardware::power::Boost;
+@@ -90,18 +93,25 @@
+ }
+ 
+ static void setPowerBoost(Boost boost, int32_t durationMs) {
++#ifdef GTA3XLWIFI_NATIVE_POWER
++    if (boost == Boost::INTERACTION) gta3xlwifi::interactionBoost(durationMs);
++#endif
+     gPowerHalController.setBoost(boost, durationMs);
+     SurfaceComposerClient::notifyPowerBoost(static_cast<int32_t>(boost));
+ }
+ 
+ static bool setPowerMode(Mode mode, bool enabled) {
++    bool nativeHandled = false;
++#ifdef GTA3XLWIFI_NATIVE_POWER
++    nativeHandled = gta3xlwifi::powerMode(static_cast<int32_t>(mode), enabled);
++#endif
+     android::base::Timer t;
+     auto result = gPowerHalController.setMode(mode, enabled);
+     if (mode == Mode::INTERACTIVE && t.duration() > 20ms) {
+         ALOGD("Excessive delay in setting interactive mode to %s while turning screen %s",
+               enabled ? "true" : "false", enabled ? "on" : "off");
+     }
+-    return result.isOk();
++    return nativeHandled || result.isOk();
+ }
+ 
+ void android_server_PowerManagerService_userActivity(nsecs_t eventTime, int32_t eventType,
+@@ -209,6 +219,9 @@
+ static void nativeInit(JNIEnv* env, jobject obj) {
+     gPowerManagerServiceObj = env->NewGlobalRef(obj);
+     gPowerHalController.init();
++#ifdef GTA3XLWIFI_NATIVE_POWER
++    gta3xlwifi::initPower();
++#endif
+ }
+ 
+ static void nativeAcquireSuspendBlocker(JNIEnv *env, jclass /* clazz */, jstring nameStr) {

@@ -1,0 +1,19 @@
+diff --git a/Decrypt.cpp b/Decrypt.cpp
+index d9f034b..b85d76b 100755
+--- a/Decrypt.cpp
++++ b/Decrypt.cpp
+@@ -183,6 +183,14 @@ extern "C" bool lookup_ref_tar(fscrypt_policy *fep, uint8_t* policy) {
+ }
+ 
+ extern "C" bool Decrypt_DE() {
++    // SM-T510 recovery: Samsung's keystore service is not yet ported.
++    // Do not enter Keymaster's indefinite wait when the service is absent.
++    ndk::SpAIBinder service(AServiceManager_checkService(
++            "android.system.keystore2.IKeystoreService/default"));
++    if (!service.get()) {
++        printf("FBE keystore unavailable; encrypted data remains locked\n");
++        return false;
++    }
+ 	printf("Attempting to initialize DE keys\n");
+ 	if (!fscrypt_initialize_systemwide_keys()) { // this deals with the overarching device encryption
+ 		printf("fscrypt_initialize_systemwide_keys returned fail\n");

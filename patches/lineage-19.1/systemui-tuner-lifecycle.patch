@@ -1,0 +1,11 @@
+diff --git a/packages/SystemUI/src/com/android/systemui/statusbar/phone/fragment/CollapsedStatusBarFragment.java b/packages/SystemUI/src/com/android/systemui/statusbar/phone/fragment/CollapsedStatusBarFragment.java
+--- a/packages/SystemUI/src/com/android/systemui/statusbar/phone/fragment/CollapsedStatusBarFragment.java
++++ b/packages/SystemUI/src/com/android/systemui/statusbar/phone/fragment/CollapsedStatusBarFragment.java
+@@ -277,6 +277,7 @@ public class CollapsedStatusBarFragment extends Fragment implements
+     @Override
+     public void onDestroyView() {
+         super.onDestroyView();
++        Dependency.get(TunerService.class).removeTunable(this);
+         mStatusBarIconController.removeIconGroup(mDarkIconManager);
+         mAnimationScheduler.removeCallback(this);
+         if (mNetworkController.hasEmergencyCryptKeeperText()) {

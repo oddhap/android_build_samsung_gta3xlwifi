@@ -1,0 +1,26 @@
+diff --git a/drivers/media/platform/exynos/fimc-is2/fimc-is-resourcemgr.c b/drivers/media/platform/exynos/fimc-is2/fimc-is-resourcemgr.c
+index 71d59d29..0a58f735 100644
+--- a/drivers/media/platform/exynos/fimc-is2/fimc-is-resourcemgr.c
++++ b/drivers/media/platform/exynos/fimc-is2/fimc-is-resourcemgr.c
+@@ -712,7 +712,7 @@ static int __init fimc_is_lib_mem_map(void)
+ 	return 0;
+ }
+ 
+-static int __init fimc_is_heap_mem_map(struct fimc_is_resourcemgr *resourcemgr,
++static int fimc_is_heap_mem_map(struct fimc_is_resourcemgr *resourcemgr,
+ 	struct vm_struct *vm, int heap_size)
+ {
+ 	struct fimc_is_mem *mem = &resourcemgr->mem;
+diff --git a/drivers/media/platform/exynos/fimc-is2/sensor/module_framework/modules/fimc-is-device-module-5e9.c b/drivers/media/platform/exynos/fimc-is2/sensor/module_framework/modules/fimc-is-device-module-5e9.c
+index 9c327c31..2d74da23 100644
+--- a/drivers/media/platform/exynos/fimc-is2/sensor/module_framework/modules/fimc-is-device-module-5e9.c
++++ b/drivers/media/platform/exynos/fimc-is2/sensor/module_framework/modules/fimc-is-device-module-5e9.c
+@@ -534,7 +534,7 @@ static int sensor_module_5e9_power_setpin_with_otp(struct device *dev,
+ 	return 0;
+ }
+ 
+-static int __init sensor_module_5e9_probe(struct platform_device *pdev)
++static int sensor_module_5e9_probe(struct platform_device *pdev)
+ {
+ 	int ret = 0;
+ 	unsigned int use_cal_memory = 0;

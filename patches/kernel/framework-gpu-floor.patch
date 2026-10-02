@@ -1,0 +1,90 @@
+diff --git a/drivers/gpu/arm/b_r26p0/platform/exynos/gpu_custom_interface.c b/drivers/gpu/arm/b_r26p0/platform/exynos/gpu_custom_interface.c
+index ce584027..61d9ab55 100644
+--- a/drivers/gpu/arm/b_r26p0/platform/exynos/gpu_custom_interface.c
++++ b/drivers/gpu/arm/b_r26p0/platform/exynos/gpu_custom_interface.c
+@@ -658,6 +658,45 @@ static ssize_t set_min_lock_dvfs(struct device *dev, struct device_attribute *at
+ 	return count;
+ }
+ 
++/* Framework owns a separate minimum request; thermal maximums still win. */
++static ssize_t show_framework_min_lock(struct device *dev,
++		struct device_attribute *attr, char *buf)
++{
++	unsigned long flags;
++	int clock;
++	struct exynos_context *platform = pkbdev->platform_context;
++
++	if (!platform)
++		return -ENODEV;
++	spin_lock_irqsave(&platform->gpu_dvfs_spinlock, flags);
++	clock = platform->user_min_lock[FRAMEWORK_LOCK];
++	spin_unlock_irqrestore(&platform->gpu_dvfs_spinlock, flags);
++	return scnprintf(buf, PAGE_SIZE, "%d\n", clock);
++}
++
++static ssize_t set_framework_min_lock(struct device *dev,
++		struct device_attribute *attr, const char *buf, size_t count)
++{
++	int clock, ret;
++	struct exynos_context *platform = pkbdev->platform_context;
++
++	if (!platform)
++		return -ENODEV;
++	ret = kstrtoint(buf, 0, &clock);
++	if (ret)
++		return ret;
++	if (!clock) {
++		ret = gpu_dvfs_clock_lock(GPU_DVFS_MIN_UNLOCK, FRAMEWORK_LOCK, 0);
++	} else {
++		if (clock < platform->gpu_min_clock || clock > platform->gpu_max_clock ||
++				gpu_dvfs_get_level(clock) < 0)
++			return -EINVAL;
++		clock = min(clock, platform->gpu_max_clock_limit);
++		ret = gpu_dvfs_clock_lock(GPU_DVFS_MIN_LOCK, FRAMEWORK_LOCK, clock);
++	}
++	return ret < 0 ? ret : count;
++}
++
+ static ssize_t show_down_staycount(struct device *dev, struct device_attribute *attr, char *buf)
+ {
+ 	ssize_t ret = 0;
+@@ -1450,6 +1489,7 @@ DEVICE_ATTR(dvfs_max_lock_status, S_IRUGO, show_max_lock_status, NULL);
+ DEVICE_ATTR(dvfs_min_lock_status, S_IRUGO, show_min_lock_status, NULL);
+ DEVICE_ATTR(dvfs_max_lock, S_IRUGO|S_IWUSR, show_max_lock_dvfs, set_max_lock_dvfs);
+ DEVICE_ATTR(dvfs_min_lock, S_IRUGO|S_IWUSR, show_min_lock_dvfs, set_min_lock_dvfs);
++DEVICE_ATTR(gta3xlwifi_min_lock, S_IRUGO|S_IWUSR, show_framework_min_lock, set_framework_min_lock);
+ DEVICE_ATTR(down_staycount, S_IRUGO|S_IWUSR, show_down_staycount, set_down_staycount);
+ DEVICE_ATTR(highspeed_clock, S_IRUGO|S_IWUSR, show_highspeed_clock, set_highspeed_clock);
+ DEVICE_ATTR(highspeed_load, S_IRUGO|S_IWUSR, show_highspeed_load, set_highspeed_load);
+@@ -2102,6 +2142,11 @@ int gpu_create_sysfs_file(struct device *dev)
+ 		goto out;
+ 	}
+ 
++	if (device_create_file(dev, &dev_attr_gta3xlwifi_min_lock)) {
++		GPU_LOG(DVFS_ERROR, DUMMY, 0u, 0u, "couldn't create framework GPU floor\n");
++		goto out;
++	}
++
+ 	if (device_create_file(dev, &dev_attr_down_staycount)) {
+ 		GPU_LOG(DVFS_ERROR, DUMMY, 0u, 0u, "couldn't create sysfs file [down_staycount]\n");
+ 		goto out;
+@@ -2240,6 +2285,7 @@ void gpu_remove_sysfs_file(struct device *dev)
+ 	device_remove_file(dev, &dev_attr_dvfs_min_lock_status);
+ 	device_remove_file(dev, &dev_attr_dvfs_max_lock);
+ 	device_remove_file(dev, &dev_attr_dvfs_min_lock);
++	device_remove_file(dev, &dev_attr_gta3xlwifi_min_lock);
+ 	device_remove_file(dev, &dev_attr_down_staycount);
+ 	device_remove_file(dev, &dev_attr_highspeed_clock);
+ 	device_remove_file(dev, &dev_attr_highspeed_load);
+diff --git a/drivers/gpu/arm/b_r26p0/platform/exynos/mali_kbase_platform.h b/drivers/gpu/arm/b_r26p0/platform/exynos/mali_kbase_platform.h
+index d93e2e70..750d1254 100644
+--- a/drivers/gpu/arm/b_r26p0/platform/exynos/mali_kbase_platform.h
++++ b/drivers/gpu/arm/b_r26p0/platform/exynos/mali_kbase_platform.h
+@@ -93,6 +93,7 @@ typedef enum {
+ #ifdef CONFIG_MALI_ASV_CALIBRATION_SUPPORT
+ 	ASV_CALI_LOCK,
+ #endif
++	FRAMEWORK_LOCK,
+ 	NUMBER_LOCK
+ } gpu_dvfs_lock_type;
+ 

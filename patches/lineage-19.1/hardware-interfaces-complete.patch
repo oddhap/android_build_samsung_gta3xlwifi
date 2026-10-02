@@ -1,0 +1,41 @@
+diff --git a/compatibility_matrices/Android.bp b/compatibility_matrices/Android.bp
+index 31fa1ae..9bb4fd6 100644
+--- a/compatibility_matrices/Android.bp
++++ b/compatibility_matrices/Android.bp
+@@ -21,17 +21,34 @@ package {
+     default_applicable_licenses: ["hardware_interfaces_license"],
+ }
+ 
+-vintf_compatibility_matrix {
++// SM-T510 selects the requirements for its restored legacy networking path.
++// Other products retain the upstream kernel profiles.
++soong_config_module_type {
++    name: "gta3xlwifi_vintf_compatibility_matrix",
++    module_type: "vintf_compatibility_matrix",
++    config_namespace: "gta3xlwifi",
++    bool_variables: ["legacy_networking"],
++    properties: ["kernel_configs"],
++}
++
++gta3xlwifi_vintf_compatibility_matrix {
+     name: "framework_compatibility_matrix.3.xml",
+     stem: "compatibility_matrix.3.xml",
+     srcs: [
+         "compatibility_matrix.3.xml",
+     ],
+     kernel_configs: [
+-        "kernel_config_p_4.4",
+         "kernel_config_p_4.9",
+         "kernel_config_p_4.14",
+     ],
++    soong_config_variables: {
++        legacy_networking: {
++            kernel_configs: ["kernel_config_gta3xlwifi_p_4.4"],
++            conditions_default: {
++                kernel_configs: ["kernel_config_p_4.4"],
++            },
++        },
++    },
+ }
+ 
+ vintf_compatibility_matrix {
