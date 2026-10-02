@@ -44,7 +44,7 @@ part of the product package list.
 ## Verify before a hardware installation
 
 Capture the build's exit code in `/srv/android/logs/lineage21-rom-build-final.exit`.
-Run `verify-native-images.py`, `verify-port-package.py`, `check-native-vintf.py`
+Run `verify-native-images.py`, `verify-native-layout.py`, `verify-port-package.py`, `check-native-vintf.py`
 and `check-stock-vendor-policy.py --runtime-mode`. The image verifier checks the
 expanded sizes, boot headers, Samsung trailers, original kernel/vendor/DTBO,
 recovery layout and OTA metadata. The package verifier checks the Android

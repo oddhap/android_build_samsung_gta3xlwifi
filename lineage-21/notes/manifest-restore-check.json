@@ -1,0 +1,8 @@
+{
+  "standalone_manifest_initialization_passed": true,
+  "fresh_project_sync_passed": true,
+  "project": "device/lineage/sepolicy",
+  "revision": "126b2bdd0f6fdc815999e44b9e134c7ae6c39d8c",
+  "clean_pinned_patch_application_passed": true,
+  "entire_fresh_manifest_synced_in_this_check": false
+}

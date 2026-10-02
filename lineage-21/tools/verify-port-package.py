@@ -24,7 +24,7 @@ with zipfile.ZipFile(target_files) as archive:
         raise SystemExit('Packaged power init differs from the reviewed source')
     checks['power_init_sha256'] = hashlib.sha256(packaged_init).hexdigest()
     library = archive.read('SYSTEM/lib/libandroid_servers.so')
-    if library[:5] != b'\x7fELF\x01':
+    if library[:5] != b'\x7fELF\x01' or library[18:20] != b'\x28\x00':
         raise SystemExit('Unexpected system_server native library ABI')
     for marker in (b'Bounded CPU/GPU boost ready', b'gta3xlwifi_cluster0_min',
                    b'gta3xlwifi_cluster1_min', b'gta3xlwifi_min_lock'):

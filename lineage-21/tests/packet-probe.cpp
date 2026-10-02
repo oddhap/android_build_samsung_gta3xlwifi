@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: Apache-2.0
 // Run only in rooted debugging. Every hook is scoped to probe UID/UDP port;
-// production firewall chains are never flushed or edited.
+// existing policy rules are never flushed or replaced. A temporary OUTPUT
+// hook sends only the test UID/peer/port traffic into private test chains.
 #include "Gta3xlwifiLegacyFirewall.h"
 #include "NetdConstants.h"
 #include <arpa/inet.h>
