@@ -1,0 +1,26 @@
+{
+  "android_device_samsung_gta3xlwifi": {
+    "url": "https://github.com/oddhap/android_device_samsung_gta3xlwifi",
+    "branch": "lineage-21.0",
+    "commit": "8fb0ec89713286b18bd1ff3aa00e71af792c0034"
+  },
+  "android_kernel_samsung_gta3xlwifi": {
+    "url": "https://github.com/oddhap/android_kernel_samsung_gta3xlwifi",
+    "branch": "lineage-21.0",
+    "commit": "efbdbfa3e216b0c300d381c340b0a22b24e15c13"
+  },
+  "android_vendor_samsung_gta3xlwifi": {
+    "url": "https://github.com/oddhap/android_vendor_samsung_gta3xlwifi",
+    "branch": "lineage-21.0",
+    "commit": "29e8615b2f4af1da936bd791af45cd9632c286f7"
+  },
+  "inputs": {
+    "kernel_sha256": "9827c8ac986f7497428ac27e9bc309ac8b62ee08fbb414e6d0c81653537ea4a2",
+    "vendor_sha256": "4cc684231b4a1c355169cea61b4ea5196401bc5f68c7f74a32c1ec290abc0006",
+    "dtbo_sha256": "b9041c37713a745290d9a0203423436b6caa7a1307ced79b6963b4f1f0271c4b",
+    "gcc_revision": "961622e926a1b21382dba4dd9fe0e5fb3ee5ab7c",
+    "kernel_unchanged_from_android12_baseline": true,
+    "vendor_unchanged_from_stock": true,
+    "android14_hardware_tested": false
+  }
+}

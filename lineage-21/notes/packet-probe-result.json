@@ -1,0 +1,20 @@
+{
+  "device": "SM-T510",
+  "running_os": "LineageOS 19.1",
+  "tested_port": "LineageOS 21 legacy firewall core",
+  "packet_probe_sha256": "a88fd6ad0f4de8f0bccbf800c9fc74818a84c6c0b11ac593f7fdf7695526716a",
+  "ipv4_and_ipv6_kernel_rules_installed": true,
+  "ipv4_packet_allow_and_deny_passed": true,
+  "ipv6_packets_exercised": false,
+  "received_packets": [
+    "gta21-allow",
+    "gta21-clear"
+  ],
+  "blocked_packets_received": false,
+  "test_scope": "UID 99001 to the Mac on UDP port 45679 using private g21p_ chains",
+  "production_chains_modified": false,
+  "test_chains_removed": true,
+  "selinux_enforcing": true,
+  "rooted_adb_restored_to_unrooted": true,
+  "android14_rom_boot_tested": false
+}

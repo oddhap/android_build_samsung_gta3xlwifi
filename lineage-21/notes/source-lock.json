@@ -1,0 +1,57 @@
+[
+  {
+    "project": "frameworks/base",
+    "revision": "e46d78059500b71998de5b21e4225f18463b32f3",
+    "patch": "frameworks_base.patch",
+    "sha256": "e9ac266709a3710680e8dfb36e3758030302ca9c925a3174790c9f3d95ecad27",
+    "new_files": [],
+    "clean_index_patch_check_passed": true
+  },
+  {
+    "project": "system/netd",
+    "revision": "dbc81b7c46cc59f761c0ac5e390f3fc71dfa7b40",
+    "patch": "system_netd.patch",
+    "sha256": "4d8f24f6b2d1035e3543efa0374d676d31cf15e5213cc05330a5cb30b0c714dc",
+    "new_files": [
+      "server/Gta3xlwifiLegacyFirewall.cpp",
+      "server/Gta3xlwifiLegacyFirewall.h"
+    ],
+    "clean_index_patch_check_passed": true
+  },
+  {
+    "project": "system/bpf",
+    "revision": "d5e515c0085b354fb8f00ef3feb09ec0f0b1f60b",
+    "patch": "system_bpf.patch",
+    "sha256": "cc2e44856fbb3a6736375d20ac2f3d6ea81a3bf3b2c66b30bfbc48a5fc3cc451",
+    "new_files": [],
+    "clean_index_patch_check_passed": true
+  },
+  {
+    "project": "packages/modules/Connectivity",
+    "revision": "965d387f90f22d20c3cba4dc90fd900f2e1b7ed0",
+    "patch": "packages_modules_Connectivity.patch",
+    "sha256": "56cc3b471d025b6a772276624759715a68ffff22bf82b2e4824c895d1feb3d5f",
+    "new_files": [
+      "service-t/native/libs/libnetworkstats/Gta3xlwifiLegacyStats.cpp",
+      "service-t/native/libs/libnetworkstats/Gta3xlwifiLegacyStats.h",
+      "service/src/com/android/server/Gta3xlwifiLegacyNetworkRules.java"
+    ],
+    "clean_index_patch_check_passed": true
+  },
+  {
+    "project": "packages/modules/DnsResolver",
+    "revision": "fe72ac15ad7f0428e662415458cc51e03746e33e",
+    "patch": "packages_modules_DnsResolver.patch",
+    "sha256": "28d4544498cf197efbf229a8a8cc7a8336c137aeae32fe4c13f0d203d029c6e9",
+    "new_files": [],
+    "clean_index_patch_check_passed": true
+  },
+  {
+    "project": "device/lineage/sepolicy",
+    "revision": "126b2bdd0f6fdc815999e44b9e134c7ae6c39d8c",
+    "patch": "device_lineage_sepolicy.patch",
+    "sha256": "73da23c07d888a0611f790d35eb898a9a766899a010a9d82673abc4136fcc91b",
+    "new_files": [],
+    "clean_index_patch_check_passed": true
+  }
+]

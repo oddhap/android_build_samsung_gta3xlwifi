@@ -1,0 +1,16 @@
+diff --git a/bpfloader/BpfLoader.cpp b/bpfloader/BpfLoader.cpp
+index 08fd72d..fc09ef2 100644
+--- a/bpfloader/BpfLoader.cpp
++++ b/bpfloader/BpfLoader.cpp
+@@ -191,6 +191,11 @@ int main(int argc, char** argv) {
+     (void)argc;
+     android::base::InitLogging(argv, &android::base::KernelLogger);
+ 
++    if (android::base::GetBoolProperty("ro.gta3xlwifi.legacy_networking", false)) {
++        ALOGI("SM-T510 uses the iptables/qtaguid networking backend");
++        return android::base::SetProperty("bpf.progs_loaded", "1") ? 0 : 1;
++    }
++
+     // Create all the pin subdirectories
+     // (this must be done first to allow selinux_context and pin_subdir functionality,
+     //  which could otherwise fail with ENOENT during object pinning or renaming,

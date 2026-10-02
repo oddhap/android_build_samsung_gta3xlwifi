@@ -1,0 +1,24 @@
+diff --git a/DnsProxyListener.cpp b/DnsProxyListener.cpp
+index 8064aef..ad3f89d 100644
+--- a/DnsProxyListener.cpp
++++ b/DnsProxyListener.cpp
+@@ -35,6 +35,7 @@
+ #include <vector>
+ 
+ #include <android-base/parseint.h>
++#include <android-base/properties.h>
+ #include <android/multinetwork.h>  // ResNsendFlags
+ #include <cutils/misc.h>           // FIRST_APPLICATION_UID
+ #include <cutils/multiuser.h>
+@@ -705,6 +706,11 @@ IsUidBlockedFn resolveIsUidNetworkingBlockedFn() {
+ }
+ 
+ bool isUidNetworkingBlocked(uid_t uid, unsigned netId) {
++    if (android::base::GetBoolProperty("ro.gta3xlwifi.legacy_networking", false)) {
++        if (!ADnsHelper_isUidNetworkingBlocked) return true;
++        const int result = (*ADnsHelper_isUidNetworkingBlocked)(uid, resolv_is_metered_network(netId));
++        return result != 0;
++    }
+     if (!ADnsHelper_isUidNetworkingBlocked) return false;
+ 
+     // The enforceDnsUid is an OEM feature that sets DNS packet with AID_DNS instead of the

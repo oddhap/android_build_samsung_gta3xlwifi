@@ -1,3 +1,14 @@
+# SM-T510 LineageOS 21 development branch
+
+The native Android 14 port lives under [lineage-21](lineage-21/notes/build-guide.md).
+Targeted networking/APEX/ABI/SELinux and power builds pass; host and scoped kernel
+packet tests pass. The full installation ZIP is still being built. No Android 14
+hardware boot or stability claim has been made. See the port status and build
+notes for the known legacy vendor policy limitation and pending checks.
+
+This branch preserves the Android 12/TWRP integration below as provenance and
+rollback documentation. Use the LineageOS 21 guide for the new port.
+
 # SM-T510 native LineageOS and TWRP build integration
 
 Native LineageOS 19.1 / Android 12L, without Google apps, for Samsung Galaxy Tab A

@@ -1,0 +1,12 @@
+// SPDX-License-Identifier: Apache-2.0
+cc_binary {
+    name: "gta3xlwifi-network-probe",
+    srcs: ["packet-probe.cpp", "Gta3xlwifiLegacyFirewall.cpp"],
+    local_include_dirs: ["include"],
+    static_executable: true,
+    installable: false,
+    stl: "libc++_static",
+    compile_multilib: "32",
+    cppflags: ["-fexceptions"],
+    cflags: ["-Wall", "-Wextra", "-Werror"],
+}

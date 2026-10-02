@@ -1,0 +1,711 @@
+diff --git a/server/Android.bp b/server/Android.bp
+index d68950e..2be55be 100644
+--- a/server/Android.bp
++++ b/server/Android.bp
+@@ -14,6 +14,13 @@ aidl_interface {
+     // because those interfaces are versioned.
+     // These interfaces must never be versioned or OEMs will not be able to change them.
+     name: "oemnetd_aidl_interface",
++    backend: {
++        java: {
++            sdk_version: "system_server_current",
++            min_sdk_version: "30",
++            apex_available: ["com.android.tethering"],
++        },
++    },
+     unstable: true,
+     local_include_dir: "binder",
+     srcs: [
+@@ -48,6 +55,7 @@ cc_library_static {
+     ],
+     srcs: [
+         "BandwidthController.cpp",
++        "Gta3xlwifiLegacyFirewall.cpp",
+         "Controllers.cpp",
+         "NetdConstants.cpp",
+         "FirewallController.cpp",
+@@ -157,6 +165,10 @@ install_symlink {
+ 
+ cc_binary {
+     name: "netd",
++    ldflags: [
++        "-Wl,--export-dynamic-symbol=gta3xlwifi_legacy_is_uid_networking_blocked",
++        "-Wl,--export-dynamic-symbol=gta3xlwifi_legacy_has_stats_permission",
++    ],
+     defaults: [
+         "netd_default_sources",
+     ],
+diff --git a/server/BandwidthController.cpp b/server/BandwidthController.cpp
+index 438dbb8..4f0dbe0 100644
+--- a/server/BandwidthController.cpp
++++ b/server/BandwidthController.cpp
+@@ -51,6 +51,7 @@
+ 
+ #include <netdutils/Syscalls.h>
+ #include "BandwidthController.h"
++#include "Gta3xlwifiLegacyFirewall.h"
+ #include "Controllers.h"
+ #include "FirewallController.h" /* For makeCriticalCommands */
+ #include "Fwmark.h"
+@@ -254,6 +255,41 @@ std::vector<std::string> getBasicAccountingCommands() {
+             ("-A bw_mangle_POSTROUTING -m bpf --object-pinned " XT_BPF_EGRESS_PROG_PATH),
+             COMMIT_AND_CLOSE};
+     // clang-format on
++    if (::android::net::Gta3xlwifiLegacyFirewall::enabled()) {
++        // Preserve qtaguid's separate UID and interface accounting hooks, with
++        // the working pre-BPF IPsec/CLAT exemptions to prevent double counting.
++        return {
++            "*filter",
++            "-A bw_INPUT -j bw_global_alert",
++            "-A bw_INPUT -p esp -j RETURN",
++            StringPrintf("-A bw_INPUT -m mark --mark 0x%x/0x%x -j RETURN", uidBillingMask, uidBillingMask),
++            "-A bw_INPUT -m owner --socket-exists",
++            StringPrintf("-A bw_INPUT -j MARK --or-mark 0x%x", uidBillingMask),
++            "-A bw_OUTPUT -j bw_global_alert",
++            "-A bw_OUTPUT -o " IPSEC_IFACE_PREFIX "+ -j RETURN",
++            "-A bw_OUTPUT -m policy --pol ipsec --dir out -j RETURN",
++            "-A bw_OUTPUT -m owner --uid-owner clat -j RETURN",
++            "-A bw_OUTPUT -m owner --socket-exists",
++            "-A bw_costly_shared -j bw_penalty_box",
++            "-A bw_penalty_box -j bw_happy_box",
++            "-A bw_happy_box -j bw_data_saver",
++            "-A bw_data_saver -j RETURN",
++            "-I bw_happy_box -m owner --uid-owner 0-9999 -j RETURN",
++            "COMMIT",
++            "*raw",
++            "-A bw_raw_PREROUTING -i " IPSEC_IFACE_PREFIX "+ -j RETURN",
++            "-A bw_raw_PREROUTING -m policy --pol ipsec --dir in -j RETURN",
++            "-A bw_raw_PREROUTING -m owner --socket-exists",
++            "COMMIT",
++            "*mangle",
++            "-A bw_mangle_POSTROUTING -o " IPSEC_IFACE_PREFIX "+ -j RETURN",
++            "-A bw_mangle_POSTROUTING -m policy --pol ipsec --dir out -j RETURN",
++            StringPrintf("-A bw_mangle_POSTROUTING -j MARK --set-mark 0x0/0x%x", uidBillingMask),
++            "-A bw_mangle_POSTROUTING -m owner --uid-owner clat -j RETURN",
++            "-A bw_mangle_POSTROUTING -m owner --socket-exists",
++            COMMIT_AND_CLOSE,
++        };
++    }
+     return ipt_basic_accounting_commands;
+ }
+ 
+diff --git a/server/FirewallController.cpp b/server/FirewallController.cpp
+index 47975dd..c54af9f 100644
+--- a/server/FirewallController.cpp
++++ b/server/FirewallController.cpp
+@@ -33,6 +33,7 @@
+ 
+ #include "Controllers.h"
+ #include "FirewallController.h"
++#include "Gta3xlwifiLegacyFirewall.h"
+ #include "NetdConstants.h"
+ 
+ using android::base::Join;
+@@ -110,9 +111,28 @@ int FirewallController::flushRules() {
+ int FirewallController::resetFirewall(void) {
+     mFirewallType = ALLOWLIST;
+     mIfaceRules.clear();
++    mLegacyUidRules.clear();
+     return flushRules();
+ }
+ 
++int FirewallController::setUidRule(ChildChain chain, int uid, FirewallRule rule) {
++    if (!Gta3xlwifiLegacyFirewall::enabled() || chain != NONE || uid < 0 ||
++        (rule != static_cast<FirewallRule>(0) && rule != ALLOW && rule != DENY)) return -EINVAL;
++    const bool list = mFirewallType == ALLOWLIST;
++    const bool add = list ? rule == ALLOW : rule == DENY;
++    const bool exists = mLegacyUidRules.count(uid);
++    if (exists == add) return 0;
++    std::string command = "*filter\n";
++    for (const char* parent : {LOCAL_INPUT, LOCAL_OUTPUT})
++        StringAppendF(&command, "%s %s -m owner --uid-owner %d -j %s\n",
++                      add ? "-I" : "-D", parent, uid, list ? "RETURN" : "DROP");
++    command += "COMMIT\n";
++    const int res = execIptablesRestore(V4V6, command);
++    if (res) return -EREMOTEIO;
++    if (add) mLegacyUidRules.insert(uid); else mLegacyUidRules.erase(uid);
++    return 0;
++}
++
+ int FirewallController::isFirewallEnabled(void) {
+     // TODO: verify that rules are still in place near top
+     return -1;
+diff --git a/server/FirewallController.h b/server/FirewallController.h
+index 45ae082..a228447 100644
+--- a/server/FirewallController.h
++++ b/server/FirewallController.h
+@@ -70,6 +70,7 @@ protected:
+ private:
+   FirewallType mFirewallType;
+   std::set<std::string> mIfaceRules;
++  std::set<int> mLegacyUidRules;
+   int flushRules(void);
+ };
+ 
+diff --git a/server/NetdNativeService.cpp b/server/NetdNativeService.cpp
+index d3b48ee..8d4e3aa 100644
+--- a/server/NetdNativeService.cpp
++++ b/server/NetdNativeService.cpp
+@@ -37,6 +37,7 @@
+ #include <utils/String16.h>
+ 
+ #include "Controllers.h"
++#include "Gta3xlwifiLegacyFirewall.h"
+ #include "Fwmark.h"
+ #include "InterfaceController.h"
+ #include "NetdNativeService.h"
+@@ -208,14 +209,21 @@ binder::Status NetdNativeService::isAlive(bool *alive) {
+     return binder::Status::ok();
+ }
+ 
+-binder::Status NetdNativeService::firewallReplaceUidChain(const std::string&, bool,
+-                                                          const std::vector<int32_t>&, bool*) {
+-    DEPRECATED;
++binder::Status NetdNativeService::firewallReplaceUidChain(const std::string& name, bool list,
++                                                          const std::vector<int32_t>& uids, bool* ret) {
++    if (!::android::net::Gta3xlwifiLegacyFirewall::enabled()) { DEPRECATED; }
++    NETD_BIG_LOCK_RPC(PERM_NETWORK_STACK, PERM_MAINLINE_NETWORK_STACK);
++    int res = Gta3xlwifiLegacyFirewall::get().replaceChain(name, list, uids);
++    *ret = (res == 0);
++    return statusFromErrcode(res);
+ }
+ 
+ binder::Status NetdNativeService::bandwidthEnableDataSaver(bool enable, bool *ret) {
+-    NETD_LOCKING_RPC(gCtls->bandwidthCtrl.lock, PERM_NETWORK_STACK, PERM_MAINLINE_NETWORK_STACK);
++    NETD_BIG_LOCK_RPC(PERM_NETWORK_STACK, PERM_MAINLINE_NETWORK_STACK);
++    std::lock_guard bandwidthGuard(gCtls->bandwidthCtrl.lock);
+     int err = gCtls->bandwidthCtrl.enableDataSaver(enable);
++    if (!err && Gta3xlwifiLegacyFirewall::enabled())
++        Gta3xlwifiLegacyFirewall::get().setDataSaverState(enable);
+     *ret = (err == 0);
+     return binder::Status::ok();
+ }
+@@ -252,20 +260,28 @@ binder::Status NetdNativeService::bandwidthSetGlobalAlert(int64_t bytes) {
+     return statusFromErrcode(res);
+ }
+ 
+-binder::Status NetdNativeService::bandwidthAddNaughtyApp(int32_t) {
+-    DEPRECATED;
++binder::Status NetdNativeService::bandwidthAddNaughtyApp(int32_t uid) {
++    if (!::android::net::Gta3xlwifiLegacyFirewall::enabled()) { DEPRECATED; }
++    NETD_BIG_LOCK_RPC(PERM_NETWORK_STACK, PERM_MAINLINE_NETWORK_STACK);
++    return statusFromErrcode(Gta3xlwifiLegacyFirewall::get().setMeteredUid(uid, false, true));
+ }
+ 
+-binder::Status NetdNativeService::bandwidthRemoveNaughtyApp(int32_t) {
+-    DEPRECATED;
++binder::Status NetdNativeService::bandwidthRemoveNaughtyApp(int32_t uid) {
++    if (!::android::net::Gta3xlwifiLegacyFirewall::enabled()) { DEPRECATED; }
++    NETD_BIG_LOCK_RPC(PERM_NETWORK_STACK, PERM_MAINLINE_NETWORK_STACK);
++    return statusFromErrcode(Gta3xlwifiLegacyFirewall::get().setMeteredUid(uid, false, false));
+ }
+ 
+-binder::Status NetdNativeService::bandwidthAddNiceApp(int32_t) {
+-    DEPRECATED;
++binder::Status NetdNativeService::bandwidthAddNiceApp(int32_t uid) {
++    if (!::android::net::Gta3xlwifiLegacyFirewall::enabled()) { DEPRECATED; }
++    NETD_BIG_LOCK_RPC(PERM_NETWORK_STACK, PERM_MAINLINE_NETWORK_STACK);
++    return statusFromErrcode(Gta3xlwifiLegacyFirewall::get().setMeteredUid(uid, true, true));
+ }
+ 
+-binder::Status NetdNativeService::bandwidthRemoveNiceApp(int32_t) {
+-    DEPRECATED;
++binder::Status NetdNativeService::bandwidthRemoveNiceApp(int32_t uid) {
++    if (!::android::net::Gta3xlwifiLegacyFirewall::enabled()) { DEPRECATED; }
++    NETD_BIG_LOCK_RPC(PERM_NETWORK_STACK, PERM_MAINLINE_NETWORK_STACK);
++    return statusFromErrcode(Gta3xlwifiLegacyFirewall::get().setMeteredUid(uid, true, false));
+ }
+ 
+ // TODO: Remove this function when there are no users. Currently, it is still used by DNS resolver
+@@ -1108,8 +1124,11 @@ binder::Status NetdNativeService::networkCanProtect(int32_t uid, bool* ret) {
+     return binder::Status::ok();
+ }
+ 
+-binder::Status NetdNativeService::trafficSetNetPermForUids(int32_t, const std::vector<int32_t>&) {
+-    DEPRECATED;
++binder::Status NetdNativeService::trafficSetNetPermForUids(int32_t permissions, const std::vector<int32_t>& uids) {
++    if (!::android::net::Gta3xlwifiLegacyFirewall::enabled()) { DEPRECATED; }
++    NETD_BIG_LOCK_RPC(PERM_NETWORK_STACK, PERM_MAINLINE_NETWORK_STACK);
++    Gta3xlwifiLegacyFirewall::get().setPermissions(permissions, uids);
++    return binder::Status::ok();
+ }
+ 
+ binder::Status NetdNativeService::firewallSetFirewallType(int32_t firewallType) {
+@@ -1129,21 +1148,33 @@ binder::Status NetdNativeService::firewallSetInterfaceRule(const std::string& if
+     return statusFromErrcode(res);
+ }
+ 
+-binder::Status NetdNativeService::firewallSetUidRule(int32_t, int32_t, int32_t) {
+-    DEPRECATED;
++binder::Status NetdNativeService::firewallSetUidRule(int32_t chain, int32_t uid, int32_t rule) {
++    if (!::android::net::Gta3xlwifiLegacyFirewall::enabled()) { DEPRECATED; }
++    NETD_BIG_LOCK_RPC(PERM_NETWORK_STACK, PERM_MAINLINE_NETWORK_STACK);
++    if (chain == INetd::FIREWALL_CHAIN_NONE) {
++        std::lock_guard firewallGuard(gCtls->firewallCtrl.lock);
++        return statusFromErrcode(gCtls->firewallCtrl.setUidRule(NONE, uid, static_cast<FirewallRule>(rule)));
++    }
++    return statusFromErrcode(Gta3xlwifiLegacyFirewall::get().setUidRule(chain, uid, rule));
+ }
+ 
+-binder::Status NetdNativeService::firewallEnableChildChain(int32_t, bool) {
+-    DEPRECATED;
++binder::Status NetdNativeService::firewallEnableChildChain(int32_t chain, bool enable) {
++    if (!::android::net::Gta3xlwifiLegacyFirewall::enabled()) { DEPRECATED; }
++    NETD_BIG_LOCK_RPC(PERM_NETWORK_STACK, PERM_MAINLINE_NETWORK_STACK);
++    return statusFromErrcode(Gta3xlwifiLegacyFirewall::get().enableChain(chain, enable));
+ }
+ 
+-binder::Status NetdNativeService::firewallAddUidInterfaceRules(const std::string&,
+-                                                               const std::vector<int32_t>&) {
+-    DEPRECATED;
++binder::Status NetdNativeService::firewallAddUidInterfaceRules(const std::string& iface,
++                                                               const std::vector<int32_t>& uids) {
++    if (!::android::net::Gta3xlwifiLegacyFirewall::enabled()) { DEPRECATED; }
++    NETD_BIG_LOCK_RPC(PERM_NETWORK_STACK, PERM_MAINLINE_NETWORK_STACK);
++    return statusFromErrcode(Gta3xlwifiLegacyFirewall::get().setInterfaceRules(iface, uids));
+ }
+ 
+-binder::Status NetdNativeService::firewallRemoveUidInterfaceRules(const std::vector<int32_t>&) {
+-    DEPRECATED;
++binder::Status NetdNativeService::firewallRemoveUidInterfaceRules(const std::vector<int32_t>& uids) {
++    if (!::android::net::Gta3xlwifiLegacyFirewall::enabled()) { DEPRECATED; }
++    NETD_BIG_LOCK_RPC(PERM_NETWORK_STACK, PERM_MAINLINE_NETWORK_STACK);
++    return statusFromErrcode(Gta3xlwifiLegacyFirewall::get().removeInterfaceRules(uids));
+ }
+ 
+ binder::Status NetdNativeService::tetherAddForward(const std::string& intIface,
+diff --git a/server/OemNetdListener.cpp b/server/OemNetdListener.cpp
+index 9c44cf2..a15c40b 100644
+--- a/server/OemNetdListener.cpp
++++ b/server/OemNetdListener.cpp
+@@ -17,6 +17,13 @@
+ #define LOG_TAG "OemNetd"
+ 
+ #include "OemNetdListener.h"
++#include "Gta3xlwifiLegacyFirewall.h"
++#include "NetdConstants.h"
++#include <binder/IPCThreadState.h>
++#include <android-base/stringprintf.h>
++#include <fcntl.h>
++#include <unistd.h>
++#include <cerrno>
+ 
+ namespace com {
+ namespace android {
+@@ -30,6 +37,35 @@ namespace net {
+     return sIBinder;
+ }
+ 
++static ::android::binder::Status checkLegacyCaller() {
++    const auto uid = ::android::IPCThreadState::self()->getCallingUid();
++    if (uid != 0 && uid != 1000) return ::android::binder::Status::fromServiceSpecificError(EPERM);
++    if (!::android::net::Gta3xlwifiLegacyFirewall::enabled())
++        return ::android::binder::Status::fromServiceSpecificError(EOPNOTSUPP);
++    return ::android::binder::Status::ok();
++}
++::android::binder::Status OemNetdListener::gta3xlwifiStatsControl(int32_t op, int32_t uid, int32_t set) {
++    auto status = checkLegacyCaller(); if (!status.isOk()) return status;
++    if (uid < 0 || (op != 1 && op != 2) || (op == 1 && set != 0 && set != 1))
++        return ::android::binder::Status::fromServiceSpecificError(EINVAL);
++    const std::string command = op == 1 ? ::android::base::StringPrintf("s %d %u", set, uid)
++                                       : ::android::base::StringPrintf("d 0 %u", uid);
++    std::lock_guard guard(::android::net::gBigNetdLock);
++    int fd = TEMP_FAILURE_RETRY(open("/proc/net/xt_qtaguid/ctrl", O_WRONLY | O_CLOEXEC));
++    if (fd < 0) return ::android::binder::Status::fromServiceSpecificError(errno);
++    ssize_t count = TEMP_FAILURE_RETRY(write(fd, command.data(), command.size()));
++    int error = count == static_cast<ssize_t>(command.size()) ? 0 : (count < 0 ? errno : EIO);
++    close(fd);
++    return error ? ::android::binder::Status::fromServiceSpecificError(error) : ::android::binder::Status::ok();
++}
++::android::binder::Status OemNetdListener::gta3xlwifiSetIngressDiscardRule(
++        const std::string& address, const std::string& iface, bool add) {
++    auto status = checkLegacyCaller(); if (!status.isOk()) return status;
++    std::lock_guard guard(::android::net::gBigNetdLock);
++    int result = ::android::net::Gta3xlwifiLegacyFirewall::get().setIngressDiscard(address, iface, add);
++    return result ? ::android::binder::Status::fromServiceSpecificError(-result) : ::android::binder::Status::ok();
++}
++
+ ::android::binder::Status OemNetdListener::isAlive(bool* alive) {
+     *alive = true;
+     return ::android::binder::Status::ok();
+diff --git a/server/OemNetdListener.h b/server/OemNetdListener.h
+index b94827b..7a4dee1 100644
+--- a/server/OemNetdListener.h
++++ b/server/OemNetdListener.h
+@@ -39,6 +39,8 @@ class OemNetdListener : public BnOemNetd {
+     static ::android::sp<::android::IBinder> getListener();
+ 
+     ::android::binder::Status isAlive(bool* alive) override;
++    ::android::binder::Status gta3xlwifiStatsControl(int32_t operation, int32_t uid, int32_t counterSet) override;
++    ::android::binder::Status gta3xlwifiSetIngressDiscardRule(const std::string& address, const std::string& iface, bool add) override;
+     ::android::binder::Status registerOemUnsolicitedEventListener(
+             const ::android::sp<IOemNetdUnsolicitedEventListener>& listener) override;
+ 
+diff --git a/server/binder/com/android/internal/net/IOemNetd.aidl b/server/binder/com/android/internal/net/IOemNetd.aidl
+index bd55106..e86cc60 100644
+--- a/server/binder/com/android/internal/net/IOemNetd.aidl
++++ b/server/binder/com/android/internal/net/IOemNetd.aidl
+@@ -31,4 +31,6 @@ interface IOemNetd {
+     * @param listener oem unsolicited event listener to register
+     */
+     void registerOemUnsolicitedEventListener(IOemNetdUnsolicitedEventListener listener);
++    void gta3xlwifiStatsControl(int operation, int uid, int counterSet);
++    void gta3xlwifiSetIngressDiscardRule(@utf8InCpp String address, @utf8InCpp String iface, boolean add);
+ }
+diff --git a/server/main.cpp b/server/main.cpp
+index b0c5406..1b7519f 100644
+--- a/server/main.cpp
++++ b/server/main.cpp
+@@ -41,6 +41,7 @@
+ #include <processgroup/processgroup.h>
+ 
+ #include "Controllers.h"
++#include "Gta3xlwifiLegacyFirewall.h"
+ #include "FwmarkServer.h"
+ #include "MDnsService.h"
+ #include "NFLogListener.h"
+@@ -138,11 +139,18 @@ int main() {
+     }
+ 
+     std::string cg2_path;
+-    if (!CgroupGetControllerPath(CGROUPV2_HIERARCHY_NAME, &cg2_path)) {
++    if (!CgroupGetControllerPath(CGROUPV2_HIERARCHY_NAME, &cg2_path) &&
++        !::android::net::Gta3xlwifiLegacyFirewall::enabled()) {
+         ALOGE("Failed to find cgroup v2 root %s", strerror(errno));
+         exit(1);
+     }
+ 
++    if (::android::net::Gta3xlwifiLegacyFirewall::enabled() &&
++        libnetd_updatable_setLegacyCallbacks(&gta3xlwifi_legacy_is_uid_networking_blocked,
++                                            &gta3xlwifi_legacy_has_stats_permission)) {
++        ALOGE("Legacy firewall callback registration failed");
++        exit(1);
++    }
+     if (libnetd_updatable_init(cg2_path.c_str())) {
+         ALOGE("libnetd_updatable_init failed");
+         exit(1);
+diff --git a/server/Gta3xlwifiLegacyFirewall.cpp b/server/Gta3xlwifiLegacyFirewall.cpp
+new file mode 100644
+index 0000000..24ca06a
+--- /dev/null
++++ b/server/Gta3xlwifiLegacyFirewall.cpp
+@@ -0,0 +1,263 @@
++// SPDX-License-Identifier: Apache-2.0
++#include "Gta3xlwifiLegacyFirewall.h"
++#include "FirewallController.h"
++#include "NetdConstants.h"
++#include <android-base/properties.h>
++#include <android-base/stringprintf.h>
++#include <cerrno>
++#include <arpa/inet.h>
++#include <climits>
++using android::base::StringAppendF;
++namespace android::net {
++bool Gta3xlwifiLegacyFirewall::enabled() {
++    return android::base::GetBoolProperty("ro.gta3xlwifi.legacy_networking", false);
++}
++Gta3xlwifiLegacyFirewall& Gta3xlwifiLegacyFirewall::get() {
++    static Gta3xlwifiLegacyFirewall instance;
++    return instance;
++}
++const char* Gta3xlwifiLegacyFirewall::name(int chain) {
++    switch (chain) {
++        case 1: return "fw_dozable";
++        case 2: return "fw_standby";
++        case 3: return "fw_powersave";
++        case 4: return "fw_restricted";
++        case 5: return "fw_low_power_standby";
++        case 6: return "fw_background";
++        case 7: return "fw_oem_deny_1";
++        case 8: return "fw_oem_deny_2";
++        case 9: return "fw_oem_deny_3";
++        default: return nullptr;
++    }
++}
++bool Gta3xlwifiLegacyFirewall::allowlist(int chain) {
++    return chain == 1 || chain == 3 || chain == 4 || chain == 5 || chain == 6;
++}
++static int run(const std::string& commands) {
++    return execIptablesRestore(V4V6, commands) == 0 ? 0 : -EREMOTEIO;
++}
++int Gta3xlwifiLegacyFirewall::applyChain(int chain, const Chain& value) {
++    const char* n = name(chain);
++    if (!n) return -EINVAL;
++    // Android exempts loopback from these policies; neighbour discovery must
++    // remain usable on allowlist chains.
++    for (IptablesTarget family : {V4, V6}) {
++        std::string cmd = "*filter\n";
++        StringAppendF(&cmd, ":%s -\n", n);
++        StringAppendF(&cmd, "-A %s -i lo -j RETURN\n-A %s -o lo -j RETURN\n", n, n);
++        StringAppendF(&cmd, "-A %s -p tcp --tcp-flags RST RST -j RETURN\n", n);
++        if (allowlist(chain)) cmd += FirewallController::makeCriticalCommands(family, n);
++        if (allowlist(chain)) {
++            // Match Android's FIRST_APPLICATION_UID exemption and packets with
++            // no owning socket. Samsung qtaguid supplies owner matching at INPUT.
++            StringAppendF(&cmd, "-A %s -m owner --uid-owner 0-9999 -j RETURN\n", n);
++            StringAppendF(&cmd, "-A %s -m owner ! --uid-owner 0-%u -j RETURN\n", n, UINT_MAX - 1);
++            StringAppendF(&cmd, "-A %s -p esp -j RETURN\n", n);
++        }
++        for (int uid : value.uids)
++            StringAppendF(&cmd, "-A %s -m owner --uid-owner %d -j %s\n", n, uid,
++                          allowlist(chain) ? "RETURN" : "DROP");
++        if (allowlist(chain)) StringAppendF(&cmd, "-A %s -j DROP\n", n);
++        cmd += "COMMIT\n";
++        if (execIptablesRestore(family, cmd)) return -EREMOTEIO;
++    }
++    return 0;
++}
++int Gta3xlwifiLegacyFirewall::init() {
++    if (mInitialized) return 0;
++    for (int chain = 1; chain <= 9; ++chain) {
++        int res = applyChain(chain, {});
++        if (res) return res;
++    }
++    std::string cmd = "*filter\n:gta3xlwifi_iif -\n"
++                      ":gta3xlwifi_ingress -\n:gta3xlwifi_lockdown_output -\n"
++                      ":gta3xlwifi_INPUT -\n:gta3xlwifi_OUTPUT -\n"
++                      "-A INPUT -j gta3xlwifi_INPUT\n"
++                      "-A OUTPUT -j gta3xlwifi_OUTPUT\nCOMMIT\n";
++    int res = run(cmd);
++    if (!res) res = applyAttachments(mChains);
++    if (res) return res;
++    mInitialized = true;
++    return 0;
++}
++int Gta3xlwifiLegacyFirewall::setUidRule(int chain, int uid, int rule) {
++    if (!name(chain) || uid < 0 || (rule != 0 && rule != 1 && rule != 2)) return -EINVAL;
++    int res = init(); if (res) return res;
++    Chain next = mChains[chain];
++    if ((rule == 1 && allowlist(chain)) || (rule == 2 && !allowlist(chain))) next.uids.insert(uid);
++    else next.uids.erase(uid);
++    res = applyChain(chain, next);
++    if (res) { applyChain(chain, mChains[chain]); return res; }
++    mChains[chain] = std::move(next);
++    return 0;
++}
++int Gta3xlwifiLegacyFirewall::applyAttachments(const std::map<int, Chain>& chains) {
++    std::string cmd = "*filter\n:gta3xlwifi_INPUT -\n:gta3xlwifi_OUTPUT -\n"
++                      "-A gta3xlwifi_INPUT -j gta3xlwifi_ingress\n"
++                      "-A gta3xlwifi_INPUT -j gta3xlwifi_iif\n"
++                      "-A gta3xlwifi_OUTPUT -j gta3xlwifi_lockdown_output\n";
++    for (const auto& [chain, state] : chains) {
++        if (!state.enabled) continue;
++        StringAppendF(&cmd, "-A gta3xlwifi_INPUT -j %s\n-A gta3xlwifi_OUTPUT -j %s\n",
++                      name(chain), name(chain));
++    }
++    cmd += "COMMIT\n";
++    return run(cmd);
++}
++int Gta3xlwifiLegacyFirewall::enableChain(int chain, bool enable) {
++    if (!name(chain)) return -EINVAL;
++    int res = init(); if (res) return res;
++    if (mChains[chain].enabled == enable) return 0;
++    auto next = mChains; next[chain].enabled = enable;
++    res = applyAttachments(next);
++    if (res) { applyAttachments(mChains); return res; }
++    mChains = std::move(next);
++    return 0;
++}
++int Gta3xlwifiLegacyFirewall::replaceChain(const std::string& n, bool list,
++                                          const std::vector<int32_t>& uids) {
++    if (n == "gta3xlwifi_lockdown") {
++        if (!list) return -EINVAL;
++        for (int uid : uids) if (uid < 0) return -EINVAL;
++        int res = init(); if (res) return res;
++        auto old = mLockdown;
++        mLockdown = {uids.begin(), uids.end()};
++        res = applyInterfaces(mInterfaces);
++        if (res) { mLockdown = std::move(old); applyInterfaces(mInterfaces); }
++        return res;
++    }
++    int chain = 0;
++    for (int c = 1; c <= 9; ++c) if (n == name(c)) chain = c;
++    if (!chain || allowlist(chain) != list) return -EINVAL;
++    for (int uid : uids) if (uid < 0) return -EINVAL;
++    int res = init(); if (res) return res;
++    Chain next = mChains[chain]; next.uids = {uids.begin(), uids.end()};
++    res = applyChain(chain, next);
++    if (res) { applyChain(chain, mChains[chain]); return res; }
++    mChains[chain] = std::move(next);
++    return 0;
++}
++int Gta3xlwifiLegacyFirewall::setMeteredUid(int uid, bool nice, bool add) {
++    if (uid < 0) return -EINVAL;
++    auto& values = nice ? mNice : mNaughty;
++    const bool exists = values.count(uid);
++    if (exists == add) return 0;
++    std::string cmd = "*filter\n";
++    StringAppendF(&cmd, "%s %s -m owner --uid-owner %d -j %s\nCOMMIT\n",
++                  add ? "-I" : "-D", nice ? "bw_happy_box" : "bw_penalty_box", uid,
++                  nice ? "RETURN" : "REJECT");
++    int res = run(cmd);
++    if (!res) { if (add) values.insert(uid); else values.erase(uid); }
++    return res;
++}
++int Gta3xlwifiLegacyFirewall::applyInterfaces(const std::map<int, std::string>& values) {
++    std::string cmd = "*filter\n:gta3xlwifi_iif -\n:gta3xlwifi_lockdown_output -\n"
++                      "-A gta3xlwifi_iif -i lo -j RETURN\n"
++                      "-A gta3xlwifi_lockdown_output -o lo -j RETURN\n";
++    auto all = mLockdown;
++    for (const auto& [uid, iface] : values) all.insert(uid);
++    for (int uid : all) {
++        auto it = values.find(uid);
++        if (it != values.end()) {
++            StringAppendF(&cmd, "-A gta3xlwifi_iif -m owner --uid-owner %d -i %s -j RETURN\n",
++                          uid, it->second.c_str());
++            if (mLockdown.count(uid))
++                StringAppendF(&cmd, "-A gta3xlwifi_lockdown_output -m owner --uid-owner %d -o %s -j RETURN\n",
++                              uid, it->second.c_str());
++        }
++        StringAppendF(&cmd, "-A gta3xlwifi_iif -m owner --uid-owner %d -j DROP\n", uid);
++        if (mLockdown.count(uid))
++            StringAppendF(&cmd, "-A gta3xlwifi_lockdown_output -m owner --uid-owner %d -j DROP\n", uid);
++    }
++    cmd += "COMMIT\n";
++    return run(cmd);
++}
++int Gta3xlwifiLegacyFirewall::setInterfaceRules(const std::string& iface,
++                                               const std::vector<int32_t>& uids) {
++    if (!isIfaceName(iface)) return -EINVAL;
++    int res = init(); if (res) return res;
++    auto next = mInterfaces;
++    for (int uid : uids) { if (uid < 0) return -EINVAL; next[uid] = iface; }
++    res = applyInterfaces(next);
++    if (res) { applyInterfaces(mInterfaces); return res; }
++    mInterfaces = std::move(next);
++    return 0;
++}
++int Gta3xlwifiLegacyFirewall::removeInterfaceRules(const std::vector<int32_t>& uids) {
++    int res = init(); if (res) return res;
++    auto next = mInterfaces;
++    for (int uid : uids) next.erase(uid);
++    res = applyInterfaces(next);
++    if (res) { applyInterfaces(mInterfaces); return res; }
++    mInterfaces = std::move(next);
++    return 0;
++}
++int Gta3xlwifiLegacyFirewall::applyIngress(const std::map<std::string, std::string>& values) {
++    for (IptablesTarget family : {V4, V6}) {
++        std::string cmd = "*filter\n:gta3xlwifi_ingress -\n"
++                          "-A gta3xlwifi_ingress -i lo -j RETURN\n";
++        for (const auto& [address, iface] : values) {
++            const bool v6 = address.find(':') != std::string::npos;
++            if (v6 != (family == V6)) continue;
++            StringAppendF(&cmd, "-A gta3xlwifi_ingress -d %s ! -i %s -j DROP\n",
++                          address.c_str(), iface.c_str());
++        }
++        cmd += "COMMIT\n";
++        if (execIptablesRestore(family, cmd)) return -EREMOTEIO;
++    }
++    return 0;
++}
++int Gta3xlwifiLegacyFirewall::setIngressDiscard(const std::string& address,
++                                                const std::string& iface, bool add) {
++    unsigned char bytes[16]; char canonical[INET6_ADDRSTRLEN];
++    const int family = address.find(':') != std::string::npos ? AF_INET6 : AF_INET;
++    if (inet_pton(family, address.c_str(), bytes) != 1 ||
++        !inet_ntop(family, bytes, canonical, sizeof(canonical)) ||
++        (add && !isIfaceName(iface))) return -EINVAL;
++    int res = init(); if (res) return res;
++    auto next = mIngress;
++    if (add) next[canonical] = iface; else next.erase(canonical);
++    res = applyIngress(next);
++    if (res) { applyIngress(mIngress); return res; }
++    mIngress = std::move(next);
++    return 0;
++}
++void Gta3xlwifiLegacyFirewall::setPermissions(int permissions, const std::vector<int32_t>& uids) {
++    for (int uid : uids) {
++        if (permissions == INetd::PERMISSION_UNINSTALLED) mPermissions.erase(uid % 100000);
++        else mPermissions[uid % 100000] = permissions;
++    }
++}
++bool Gta3xlwifiLegacyFirewall::hasStatsPermission(int uid) const {
++    if (uid == 0 || uid == 1000 || uid == 1051) return true;
++    auto it = mPermissions.find(uid % 100000);
++    return it != mPermissions.end() && (it->second & INetd::PERMISSION_UPDATE_DEVICE_STATS);
++}
++bool Gta3xlwifiLegacyFirewall::isUidBlocked(int uid, bool metered) const {
++    if (uid < 10000) return false;
++    auto permission = mPermissions.find(uid % 100000);
++    if (permission != mPermissions.end() && !(permission->second & INetd::PERMISSION_INTERNET))
++        return true;
++    for (const auto& [chain, state] : mChains) {
++        if (state.enabled && (state.uids.count(uid) != allowlist(chain))) return true;
++    }
++    if (mLockdown.count(uid) && !mInterfaces.count(uid)) return true;
++    if (!metered) return false;
++    if (mNaughty.count(uid)) return true;
++    return !mNice.count(uid) && mDataSaver;
++}
++
++}
++
++// Resolver and socket tagging run inside the netd process. These read-only
++// callbacks preserve policy and permission checks without a BPF map.
++extern "C" __attribute__((visibility("default")))
++bool gta3xlwifi_legacy_is_uid_networking_blocked(unsigned uid, bool metered) {
++    std::lock_guard guard(android::net::gBigNetdLock);
++    return android::net::Gta3xlwifiLegacyFirewall::get().isUidBlocked(uid, metered);
++}
++extern "C" __attribute__((visibility("default")))
++bool gta3xlwifi_legacy_has_stats_permission(unsigned uid) {
++    std::lock_guard guard(android::net::gBigNetdLock);
++    return android::net::Gta3xlwifiLegacyFirewall::get().hasStatsPermission(uid);
++}
+diff --git a/server/Gta3xlwifiLegacyFirewall.h b/server/Gta3xlwifiLegacyFirewall.h
+new file mode 100644
+index 0000000..09f50d5
+--- /dev/null
++++ b/server/Gta3xlwifiLegacyFirewall.h
+@@ -0,0 +1,50 @@
++// SPDX-License-Identifier: Apache-2.0
++#pragma once
++#include <map>
++#include <set>
++#include <string>
++#include <vector>
++namespace android::net {
++// Caller holds netd's global lock. Rules are committed to IPv4 and IPv6 before
++// updating the state used to build subsequent transactions.
++class Gta3xlwifiLegacyFirewall {
++public:
++    static bool enabled();
++    static Gta3xlwifiLegacyFirewall& get();
++    int setUidRule(int chain, int uid, int rule);
++    int enableChain(int chain, bool enable);
++    int replaceChain(const std::string& name, bool allowlist, const std::vector<int32_t>& uids);
++    int setIngressDiscard(const std::string& address, const std::string& iface, bool add);
++    void setDataSaverState(bool enabled) { mDataSaver = enabled; }
++    void setPermissions(int permissions, const std::vector<int32_t>& uids);
++    bool isUidBlocked(int uid, bool metered) const;
++    bool hasStatsPermission(int uid) const;
++    int setMeteredUid(int uid, bool nice, bool add);
++    int setInterfaceRules(const std::string& iface, const std::vector<int32_t>& uids);
++    int removeInterfaceRules(const std::vector<int32_t>& uids);
++private:
++    struct Chain { std::set<int> uids; bool enabled = false; };
++    std::map<int, Chain> mChains;
++    std::set<int> mNice, mNaughty;
++    std::map<int, std::string> mInterfaces;
++    std::set<int> mLockdown;
++    std::map<std::string, std::string> mIngress;
++    std::map<int, int> mPermissions;
++    bool mDataSaver = false;
++    bool mInitialized = false;
++    int init();
++    static const char* name(int chain);
++    static bool allowlist(int chain);
++    static int applyChain(int chain, const Chain& value);
++    int applyAttachments(const std::map<int, Chain>& chains);
++    int applyIngress(const std::map<std::string, std::string>& values);
++    int applyInterfaces(const std::map<int, std::string>& values);
++};
++}
++
++extern "C" bool gta3xlwifi_legacy_is_uid_networking_blocked(unsigned uid, bool metered);
++extern "C" bool gta3xlwifi_legacy_has_stats_permission(unsigned uid);
++
++// Private port integration; not part of the netd updatable SDK header.
++extern "C" int libnetd_updatable_setLegacyCallbacks(bool (*blocked)(unsigned, bool),
++                                                  bool (*permission)(unsigned));
