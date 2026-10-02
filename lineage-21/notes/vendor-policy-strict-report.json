@@ -1,0 +1,58 @@
+{
+  "device": "SM-T510",
+  "stock_vendor_policy_version": "30.0",
+  "mode": "strict",
+  "neverallow_checks_enabled": true,
+  "exit_code": 255,
+  "command": [
+    "/srv/android/src/lineage-21.0/out/host/linux-x86/bin/secilc",
+    "-m",
+    "-M",
+    "true",
+    "-G",
+    "-c",
+    "30",
+    "-o",
+    "/srv/android/artifacts/lineage-21/stock-vendor-policy-check/strict-combined-sepolicy",
+    "-f",
+    "/dev/null",
+    "/srv/android/src/lineage-21.0/out/target/product/gta3xlwifi/system/etc/selinux/plat_sepolicy.cil",
+    "/srv/android/src/lineage-21.0/out/target/product/gta3xlwifi/system/etc/selinux/mapping/30.0.cil",
+    "/srv/android/src/lineage-21.0/out/target/product/gta3xlwifi/system/etc/selinux/mapping/30.0.compat.cil",
+    "/srv/android/src/lineage-21.0/out/target/product/gta3xlwifi/system/system_ext/etc/selinux/system_ext_sepolicy.cil",
+    "/srv/android/src/lineage-21.0/out/target/product/gta3xlwifi/system/system_ext/etc/selinux/mapping/30.0.compat.cil",
+    "/srv/android/vendor-stock/extracted/vendor/etc/selinux/plat_pub_versioned.cil",
+    "/srv/android/vendor-stock/extracted/vendor/etc/selinux/vendor_sepolicy.cil"
+  ],
+  "inputs": [
+    {
+      "path": "/srv/android/src/lineage-21.0/out/target/product/gta3xlwifi/system/etc/selinux/plat_sepolicy.cil",
+      "sha256": "1bf0d5413a0769c3c2137d2dd14e9087a5999f4268ca018cd59b788c6338f8c5"
+    },
+    {
+      "path": "/srv/android/src/lineage-21.0/out/target/product/gta3xlwifi/system/etc/selinux/mapping/30.0.cil",
+      "sha256": "2bc4da1eaf1d9c88d2e1f8a579ec874a380253f70a28d9e624288014bac41f1a"
+    },
+    {
+      "path": "/srv/android/src/lineage-21.0/out/target/product/gta3xlwifi/system/etc/selinux/mapping/30.0.compat.cil",
+      "sha256": "1175e95bee74172cee330fffd8b341a641cfb3dd7229bc618649e87d220b58d9"
+    },
+    {
+      "path": "/srv/android/src/lineage-21.0/out/target/product/gta3xlwifi/system/system_ext/etc/selinux/system_ext_sepolicy.cil",
+      "sha256": "18ecfba5cf4cc3230b8dcd8267db603a8fe1f8ccd873d306b3e84e86e16e20fc"
+    },
+    {
+      "path": "/srv/android/src/lineage-21.0/out/target/product/gta3xlwifi/system/system_ext/etc/selinux/mapping/30.0.compat.cil",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/srv/android/vendor-stock/extracted/vendor/etc/selinux/plat_pub_versioned.cil",
+      "sha256": "4dd55346c46e6d374c5fee79e1caeb1f971a4dc048cd96bedadfb676e0ec11c4"
+    },
+    {
+      "path": "/srv/android/vendor-stock/extracted/vendor/etc/selinux/vendor_sepolicy.cil",
+      "sha256": "8df663eb65a807e6ee99f8b2384cb52d34c994a25087410486b1f88e278e2e53"
+    }
+  ],
+  "hardware_tested": false
+}

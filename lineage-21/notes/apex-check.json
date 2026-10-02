@@ -1,0 +1,6 @@
+{
+  "apex_arm32_callbacks_exported": true,
+  "oem_binder_descriptor_preserved": true,
+  "service_connectivity_jar_sha256": "c0607ba393c8b4a1f7b1c5d6608fb894a5e6fab6089821bfb45d5125eff0db02",
+  "hardware_tested": false
+}

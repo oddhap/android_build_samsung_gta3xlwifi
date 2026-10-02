@@ -21,6 +21,9 @@ Stage the device repository into `device/samsung/gta3xlwifi`. Run
 `python3 tools/stage-native-device.py` after restoring the verified baseline
 inputs under `/srv/android`: `vendor-stock/images`, extracted CWA1 vendor files,
 and the original source-built `artifacts/kernel-smoke` kernel/config/DTBOs.
+`python3 tools/fetch-baseline-kernel.py` downloads and checks the exact baseline
+kernel inputs from the private `lineage21-baseline-kernel` release. Existing
+different inputs are rejected. GitHub CLI must be authenticated to the account.
 The device repository excludes large prebuilt inputs; staging checks their
 checksums. The baseline kernel build tools and private vendor release are in
 the existing integration/kernel/vendor repositories. Do not use the rejected
