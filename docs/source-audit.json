@@ -1,0 +1,49 @@
+{
+  "lineage_manifest_projects": 1144,
+  "twrp_manifest_projects": 249,
+  "modified_platform_projects": [
+    {
+      "checkout": "lineage-19.1",
+      "project": "frameworks/base",
+      "base": "5f6b8d6098f8d858d1450db45c350c7ba08ae455",
+      "patch": "patches/lineage-19.1/frameworks-base-complete.patch"
+    },
+    {
+      "checkout": "lineage-19.1",
+      "project": "system/bpf",
+      "base": "bb1485f836d496570a337f6d7b809a3e44191f71",
+      "patch": "patches/lineage-19.1/system-bpf-complete.patch"
+    },
+    {
+      "checkout": "lineage-19.1",
+      "project": "system/netd",
+      "base": "bb0df47d330bed1f1bfa59ffa54834da4c87b043",
+      "patch": "patches/lineage-19.1/system-netd-complete.patch"
+    },
+    {
+      "checkout": "lineage-19.1",
+      "project": "hardware/interfaces",
+      "base": "ae469cee0dce6d71489588126a15da8e67a50102",
+      "patch": "patches/lineage-19.1/hardware-interfaces-complete.patch"
+    },
+    {
+      "checkout": "twrp-12.1",
+      "project": "bootable/recovery",
+      "base": "5c3d206a5eeb3d446bcda8248a405a4b278bab5c",
+      "patch": "patches/twrp-12.1/bootable-recovery-complete.patch"
+    },
+    {
+      "checkout": "twrp-12.1",
+      "project": "system/vold",
+      "base": "a164ba05c5fef288059774a776b2e6e1119957cf",
+      "patch": "patches/twrp-12.1/system-vold-complete.patch"
+    }
+  ],
+  "source_diff_audit": "All tracked diffs and untracked source paths were examined across both pinned manifests; only the recorded projects were modified.",
+  "kernel_upstream": "https://github.com/gta3xlwifi-dev/android_kernel_gta3xlwifi",
+  "kernel_original_revision": "00e4b9481434f9b0b644925a9bb2feaf3940219d",
+  "kernel_original_history": "Shallow checkout; published repository imports the upstream file tree as a source snapshot, preserving license files and original revision metadata.",
+  "private_repositories": true,
+  "large_git_files_over_100MiB": false,
+  "raw_logs_or_credentials_committed": false
+}

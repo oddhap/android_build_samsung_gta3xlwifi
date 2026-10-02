@@ -1,15 +1,22 @@
 #!/usr/bin/env python3
 """Initialize clean, pinned SM-T510 source checkouts. Never flash a device."""
-import argparse, hashlib, shutil, subprocess, urllib.request
+import argparse, hashlib, json, shutil, subprocess, urllib.request
 from pathlib import Path
 p=argparse.ArgumentParser();p.add_argument('--sync',action='store_true',help='Download upstream Android sources');a=p.parse_args()
 R=Path('/srv/android');I=Path(__file__).resolve().parent.parent
 REPO=Path.home()/'bin/repo';REPO.parent.mkdir(exist_ok=True)
+LOCK=json.loads((I/'sources.lock.json').read_text())
 def run(*args,cwd=None):subprocess.run([str(x) for x in args],cwd=cwd,check=True)
 def clone(name,branch,path):
  if path.exists():raise SystemExit(f'Refusing to replace existing checkout: {path}')
  path.parent.mkdir(parents=True,exist_ok=True)
  run('git','clone','--branch',branch,f'https://github.com/oddhap/{name}.git',path)
+ if name in LOCK:run('git','-C',path,'checkout','--detach',LOCK[name]['commit'])
+def verify_sums(directory):
+ for line in (directory/'SHA256SUMS').read_text().splitlines():
+  digest,name=line.split(maxsplit=1)
+  if Path(name).name!=name:raise SystemExit('Invalid release checksum filename')
+  sha(directory/name,digest)
 def sha(path,expected):
  if hashlib.sha256(path.read_bytes()).hexdigest()!=expected:raise SystemExit(f'Checksum mismatch: {path}')
 if not a.sync:raise SystemExit('This initializes new sources; pass --sync to download the pinned checkouts.')
@@ -32,12 +39,14 @@ run('git','clone','--branch','android-9.0.0_r61','https://android.googlesource.c
 run('git','-C',tc,'checkout','961622e926a1b21382dba4dd9fe0e5fb3ee5ab7c')
 images=R/'vendor-stock/images';images.mkdir(parents=True,exist_ok=True)
 run('gh','release','download','stock-cwa1','--repo','oddhap/android_vendor_samsung_gta3xlwifi','--dir',images)
+verify_sums(images)
 sha(images/'vendor.img','4cc684231b4a1c355169cea61b4ea5196401bc5f68c7f74a32c1ec290abc0006')
 extracted=R/'vendor-stock/extracted/vendor';extracted.parent.mkdir(parents=True,exist_ok=True)
 if extracted.exists():raise SystemExit(f'Refusing to replace vendor extraction: {extracted}')
 shutil.copytree(R/'vendor-source/proprietary',extracted,symlinks=True)
 pre=R/'src/twrp-12.1/device/samsung/gta3xlwifi/prebuilt';pre.mkdir(parents=True)
 run('gh','release','download','tested-recovery-inputs','--repo','oddhap/android_device_samsung_gta3xlwifi_twrp','--dir',pre)
+verify_sums(pre)
 sha(pre/'Image','445f0b44dd53f2bc464e95e2729307cc2cea1baf6f35db9b22327b0f7c352edd')
 sha(pre/'dtbo.img','b9041c37713a745290d9a0203423436b6caa7a1307ced79b6963b4f1f0271c4b')
 (R/'tools').mkdir(exist_ok=True);(R/'patches').mkdir(exist_ok=True)

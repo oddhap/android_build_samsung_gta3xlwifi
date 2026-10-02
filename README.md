@@ -58,6 +58,10 @@ matching vendor image/stock DTBO and the previously tested TWRP kernel/DTBO.
 It refuses to replace populated checkouts. Existing build environments should
 use the patch/check tools directly instead of rerunning setup.
 
+Device, kernel and vendor revisions are pinned in `sources.lock.json`; the setup
+tool checks out those exact commits. The integration checkout itself should also
+be pinned to a recorded commit when reproducing a particular build.
+
 The full upstream manifests are pinned to the original source revisions. The
 GitHub fetch URL is explicit, so they also work when hosted in this repository.
 `patches/source-projects.json` records each modified platform project and its
