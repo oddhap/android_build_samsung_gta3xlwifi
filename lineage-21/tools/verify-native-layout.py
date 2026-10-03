@@ -81,6 +81,10 @@ with tempfile.TemporaryDirectory(prefix='gta3xlwifi-system-layout-', dir=report_
     if b'/system/etc/cgroups.gta3xlwifi.json' not in setup:
         raise SystemExit('System image processgroup setup lacks the device backend')
     checks['processgroup_setup_library_sha256'] = hashlib.sha256(setup).hexdigest()
+    samsung_init = read_file('/init.exynos7904.rc')
+    if re.search(rb'^\s*mount_all\s', samsung_init, re.M):
+        raise SystemExit('Root Samsung init duplicates the stock vendor mount_all')
+    checks['root_init_duplicate_mounts_absent'] = True
     device = top / 'device/samsung/gta3xlwifi'
     for member, source in (
         ('/fstab.exynos7904', device / 'rootdir/etc/fstab.exynos7904'),

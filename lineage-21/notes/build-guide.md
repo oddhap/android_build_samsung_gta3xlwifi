@@ -94,3 +94,12 @@ UID's cgroup, forks a descendant into its own Unix process group, and checks
 that the actual library kills both processes and removes the empty groups.
 It refuses to touch an existing test UID and has bounded timeout cleanup.
 It is not packaged in the ROM. Runtime execution is still pending.
+
+## Second-stage filesystem mounts
+
+Stock vendor init mounts cache, EFS and userdata on fs. The root device init
+only adds hardware/data-directory setup; its root fstab supplies first-stage
+vendor/product mounts. Repeating mount_all from both scripts produces EBUSY
+and prevents init from receiving FILE_ENCRYPTED and creating the session FBE
+keyring required by the 4.4 kernel. No format or encryption bypass is required
+to correct this ordering error. Actual FBE/user unlock testing is still pending.

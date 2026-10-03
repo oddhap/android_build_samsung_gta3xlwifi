@@ -1,0 +1,20 @@
+{
+  "rom_sha256": "26fc79b95aa3db80a3cfc96d592ccf3d7cc9dbdca25620e767015a5b9b90a7db",
+  "boot_successful": false,
+  "process_group_creation_progressed": true,
+  "apexd_bootstrap_exit": 0,
+  "bootstrap_apex_packages_mounted": 4,
+  "boringssl_self_test32_exit": 0,
+  "boringssl_self_test32_vendor_exit": 0,
+  "next_failure": "enablefilecrypto_failed",
+  "primary_observations": [
+    "root init mount_all --early mounts cache/EFS",
+    "vendor init repeats cache/EFS mounts and mounts data; returns -1 rather than FILE_ENCRYPTED",
+    "root init mount_all --late repeats data mount",
+    "vold cannot find legacy fscrypt session keyring",
+    "init requests recovery reboot"
+  ],
+  "candidate4_change": "Remove duplicate root init mount_all; stock vendor init performs second-stage mounts once",
+  "data_formatted": false,
+  "encryption_disabled": false
+}

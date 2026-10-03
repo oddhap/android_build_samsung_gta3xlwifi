@@ -1,6 +1,6 @@
 # SM-T510 LineageOS 21 development port
 
-Status: full Android 14 ROM build and offline checks pass. The first two hardware boots failed during process-group setup; a third candidate corrects read-only mountpoint ownership ordering.
+Status: full Android 14 ROM build and offline checks pass. The first two hardware boots failed during process-group setup; the third candidate passes process-group/APEX/crypto self-test startup but reboots into recovery during FBE setup. A fourth candidate removes duplicate second-stage mounts.
 
 The Android platform is the current LineageOS lineage-21.0 branch, downloaded
 independently from the working LineageOS 19.1 checkout. Android userspace remains
@@ -72,8 +72,8 @@ Current progress (2026-10-03):
 - A product-specific framework fragment declares stock vendor's System SDK 28
   resource contract. All 57 vendor APKs are resource-only overlays without DEX;
   native HALs retain VNDK 30. The vendor compatibility matrix is unchanged.
-- Third candidate: lineage-21.0-20261003-UNOFFICIAL-gta3xlwifi.zip.
-  SHA-256: 26fc79b95aa3db80a3cfc96d592ccf3d7cc9dbdca25620e767015a5b9b90a7db.
+- Fourth candidate: lineage-21.0-20261003-UNOFFICIAL-gta3xlwifi.zip.
+  SHA-256: 28d9e5ac1a133ca35164f2a282e0a4cda0c3386cfc37960acbf85b0d6f10e98e.
   Expanded images fit the physical partitions. The actual ext4 images use
   incompat 0x42 / ro_compat 0x7b, supported by the original kernel.
 - TWRP installed the candidate successfully (updater RC 0); boot readback matches
@@ -102,3 +102,15 @@ Current progress (2026-10-03):
   the rebuilt library (SHA-256 99d682eaa89a4f82c37b98199a03792fb13c8450bc21209582ab6039e03f250d).
   A targeted syscall-model regression test checks read-only mountpoint ordering
   and mount/post-mount error propagation; this is not a physical boot test.
+
+- Third hardware boot: ueventd and apexd-bootstrap run successfully; four
+  bootstrap APEX packages mount and the ARM32 vendor/platform BoringSSL tests
+  exit 0. The next stop is enablefilecrypto_failed: duplicate mount_all commands
+  for cache/EFS/userdata produce EBUSY and suppress queue_fs_event, leaving the
+  legacy fscrypt keyring uncreated. A fourth candidate delegates second-stage
+  mounts to stock vendor init once. Root fstab retains first-stage mounts.
+  No data format or encryption bypass was used.
+
+- Fourth full build and image/ZIP/layout/package checks pass. The actual system
+  root init matches the new source and contains no duplicate mount_all.
+  Hardware boot testing is pending.
