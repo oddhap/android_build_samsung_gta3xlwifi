@@ -1,10 +1,10 @@
 # SM-T510 LineageOS 21 development port
 
-Status: candidate 6 initially boots Android 14 with encrypted file data and SELinux enforcing,
-but later GPU memory reporting aborts system_server and causes repeated soft restarts.
-Audio/GPU services, IPv4/DNS and automatic Bluetooth startup work. Real process-group
-lifecycle and bounded touch/app-launch power tests pass. Complete physical function
-and stability tests remain pending; this is a development port.
+Status: candidate 7 boots Android 14 with encrypted file data and SELinux enforcing.
+GPU memory-query and ordinary RAM tests pass without the prior system-server abort;
+a complete local memory summary and the corrected bulk firewall update pass.
+Bluetooth and Internet/DNS work. A 16-scroll Wall You Picsum workload passes with unchanged system-server PID
+and no crash; camera performance and longer stability testing remain pending; this is a development port.
 
 The Android platform is the current LineageOS lineage-21.0 branch, downloaded
 independently from the working LineageOS 19.1 checkout. Android userspace remains
@@ -195,3 +195,30 @@ Current progress (2026-10-03):
   complete platform patches pass clean pinned-index application checks.
   The full ROM is building; current device-input code revision is
   38fe8f491e6ba959824cd6c11ef5965f1163b17f.
+
+- Candidate 7 full build passes (05:07). Image/ZIP, actual ext4 layout and
+  package checks pass. System libmeminfo SHA-256 is
+  01750da3da1c07806e4736bdaebeaf611ecfff3cca5bf6b2d5bc292cedd0746d,
+  matching the newly compiled capability-guarded library. ROM SHA-256 is
+  97be7701d2cc9e62954abd71d6e10b9bf1124ecaca9fe6b0a2497d8e5b450694.
+  Stock kernel/vendor/DTBO and system_ext policy are unchanged. Installation
+  and actual-library/runtime validation remain pending.
+
+- Candidate 7 installation succeeds (TWRP updater RC 0). Boot, libmeminfo and
+  netd bytes match readback. Android completes boot with encrypted file data
+  and SELinux Enforcing. The noninstalled probe executes as adb shell: all
+  three GPU queries return unavailable without abort and normal RAM reads
+  work. It is removed afterwards. A full -a memory dump exceeds the default
+  10-second timeout; the --local --oom summary completes with normal RAM
+  status. System-server PID remains unchanged and the crash buffer is empty.
+- The actual restricted allowlist update includes INVALID_UID and now returns
+  success. Restricted mode remains active and browser block-all policy stays
+  cleared. Bluetooth is ON with zero crashes and root RT budget unchanged.
+  User Wall You stress testing and longer observation remain pending.
+
+- Automated Wall You/Picsum stress: 16 scroll gestures leave the app resumed,
+  system-server PID unchanged and boot animation stopped; the crash buffer
+  is empty. App PSS reaches 888197 KiB and RSS 946888 KiB in this sample.
+  This is a short concrete workload, not a complete memory-leak or long-term
+  stability test. The user's original workload and longer observation remain
+  useful; camera lag is still an open performance observation.

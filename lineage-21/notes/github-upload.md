@@ -19,4 +19,5 @@ the unsupported BPF map constructor aborts system_server. Both per-process
 and aggregate GPU readers return unavailable when the kernel capability is
 false; Debug already represents this as -1. No fake memory total or accounting
 subtraction is introduced. An optional noninstalled probe exercises all three
-GPU APIs and ordinary RAM accounting. Full candidate 7 tests are pending.
+GPU APIs and ordinary RAM accounting. Candidate 7 full build/image/package, actual-library GPU/RAM and short Wall You
+scroll tests pass. Longer stability and camera performance tests remain pending.

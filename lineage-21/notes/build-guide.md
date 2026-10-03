@@ -138,7 +138,10 @@ the unsupported BPF map constructor aborts system_server. Both per-process
 and aggregate GPU readers return unavailable when the kernel capability is
 false; Debug already represents this as -1. No fake memory total or accounting
 subtraction is introduced. An optional noninstalled probe exercises all three
-GPU APIs and ordinary RAM accounting. Full candidate 7 tests are pending.
+GPU APIs and ordinary RAM accounting. Candidate 7 boots and the actual-library probe passes all three GPU APIs and
+ordinary RAM accounting. A local memory summary and 16-scroll Wall You workload
+pass without system-server restart. Longer tests and camera performance remain
+pending; see boot-candidate7-summary.json and wall-you-scroll-candidate7.json.
 
 The installed browser initially retained POLICY_REJECT_ALL from the Android
 12-to-14 network-policy migration. Its block-all bit was removed through the

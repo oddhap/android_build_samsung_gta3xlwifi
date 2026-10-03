@@ -3,12 +3,13 @@
 The native Android 14 port lives under [lineage-21](lineage-21/notes/build-guide.md).
 Targeted networking/APEX/ABI/SELinux and power builds pass; host and scoped kernel
 packet tests pass. The full installation ZIP and actual image/layout/ZIP/VINTF
-checks pass. Candidate 6 initially boots Android 14 with encrypted data, enforcing SELinux
-and functioning services, but later memory reporting hits another unsupported
-GPU BPF reader and repeatedly aborts system_server. Candidate 7 guards both
-libmeminfo readers and fixes bulk firewall INVALID_UID handling; targeted builds
-and ten clean pinned patches pass. Full ROM and hardware tests are pending.
-This remains a development port; no production stability claim has been made. See the port status and build
+checks pass. Candidate 7 boots Android 14 with encrypted file data and SELinux enforcing.
+GPU-memory APIs correctly report unavailable on the old kernel; real RAM
+accounting and a complete local memory summary pass. A 16-scroll Wall You
+Picsum workload passes with unchanged system-server PID and no crash. Bluetooth,
+DNS and the corrected bulk firewall update pass. Camera performance and longer
+stability tests remain pending. This is a development port; no production
+stability claim has been made. See the port status and build
 notes for the known legacy vendor policy limitation and pending checks.
 
 This branch preserves the Android 12/TWRP integration below as provenance and

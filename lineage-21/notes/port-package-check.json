@@ -5,6 +5,7 @@
   "processgroup_library_sha256": "c2911af2df44b0b1f16ac8433c52842adf73c926445e7442233363e87f06c000",
   "audio_hidl4_library_sha256": "320ad25586b79d03abe718c6650d523232332f486d0c4ca77276c367b22e1312",
   "gpuwork_library_sha256": "9f42bf920a76f8cdb814f2f8912da80eb735b689c493b0249798fc6844048ea1",
+  "meminfo_library_sha256": "01750da3da1c07806e4736bdaebeaf611ecfff3cca5bf6b2d5bc292cedd0746d",
   "system_ext_policy_sha256": "9edfd24c91cb8a20c0531f242cda8d84de9e94edf139efbda1756d806caa7817",
   "cpu_profiles_preserve_root_rt_budget": true,
   "vsync_property_label": "graphics_config_prop, exact string",
@@ -17,5 +18,5 @@
     "system"
   ],
   "passed": true,
-  "rom_zip_sha256": "733e56c6db1982b9d10d1b9ddca6e0f3cbddb5b428780a862108dca13b00aff7"
+  "rom_zip_sha256": "97be7701d2cc9e62954abd71d6e10b9bf1124ecaca9fe6b0a2497d8e5b450694"
 }

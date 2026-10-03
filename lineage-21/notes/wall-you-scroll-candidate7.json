@@ -1,0 +1,94 @@
+{
+  "application": "com.bnyro.wallpaper",
+  "gallery": "Picsum",
+  "scroll_gestures": 16,
+  "system_server_unchanged": true,
+  "boot_animation_remained_stopped": true,
+  "steps": [
+    {
+      "step": 1,
+      "system_server_unchanged": true,
+      "boot_animation": "stopped"
+    },
+    {
+      "step": 2,
+      "system_server_unchanged": true,
+      "boot_animation": "stopped"
+    },
+    {
+      "step": 3,
+      "system_server_unchanged": true,
+      "boot_animation": "stopped"
+    },
+    {
+      "step": 4,
+      "system_server_unchanged": true,
+      "boot_animation": "stopped"
+    },
+    {
+      "step": 5,
+      "system_server_unchanged": true,
+      "boot_animation": "stopped"
+    },
+    {
+      "step": 6,
+      "system_server_unchanged": true,
+      "boot_animation": "stopped"
+    },
+    {
+      "step": 7,
+      "system_server_unchanged": true,
+      "boot_animation": "stopped"
+    },
+    {
+      "step": 8,
+      "system_server_unchanged": true,
+      "boot_animation": "stopped"
+    },
+    {
+      "step": 9,
+      "system_server_unchanged": true,
+      "boot_animation": "stopped"
+    },
+    {
+      "step": 10,
+      "system_server_unchanged": true,
+      "boot_animation": "stopped"
+    },
+    {
+      "step": 11,
+      "system_server_unchanged": true,
+      "boot_animation": "stopped"
+    },
+    {
+      "step": 12,
+      "system_server_unchanged": true,
+      "boot_animation": "stopped"
+    },
+    {
+      "step": 13,
+      "system_server_unchanged": true,
+      "boot_animation": "stopped"
+    },
+    {
+      "step": 14,
+      "system_server_unchanged": true,
+      "boot_animation": "stopped"
+    },
+    {
+      "step": 15,
+      "system_server_unchanged": true,
+      "boot_animation": "stopped"
+    },
+    {
+      "step": 16,
+      "system_server_unchanged": true,
+      "boot_animation": "stopped"
+    }
+  ],
+  "long_term_stability_claim": false,
+  "app_pss_kb_after_test": 888197,
+  "app_rss_kb_after_test": 946888,
+  "application_remained_resumed": true,
+  "crash_buffer_empty_after_test": true
+}
