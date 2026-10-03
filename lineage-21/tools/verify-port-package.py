@@ -47,6 +47,16 @@ with TargetFilesTree() as archive:
     if b'/system/etc/cgroups.gta3xlwifi.json' not in processgroups:
         raise SystemExit('Packaged processgroup library lacks the device v1 backend')
     checks['processgroup_library_sha256'] = hashlib.sha256(processgroups).hexdigest()
+    audio4 = archive.read('SYSTEM/lib/libaudiohal@4.0.so')
+    if audio4[:5] != b'\x7fELF\x01' or audio4[18:20] != b'\x28\x00':
+        raise SystemExit('Stock audio HIDL 4 client has the wrong ABI')
+    if b'V4_0' not in audio4:
+        raise SystemExit('Stock audio client lacks HIDL 4 interface symbols')
+    checks['audio_hidl4_library_sha256'] = hashlib.sha256(audio4).hexdigest()
+    gpuwork = archive.read('SYSTEM/lib/libgpuwork.so')
+    if b'GPU BPF accounting unavailable on this kernel' not in gpuwork:
+        raise SystemExit('GPU work library lacks the kernel capability guard')
+    checks['gpuwork_library_sha256'] = hashlib.sha256(gpuwork).hexdigest()
     for target, source in (
         ('SYSTEM/etc/cgroups.gta3xlwifi.json', 'configs/cgroups.gta3xlwifi.json'),
         ('SYSTEM/etc/task_profiles.gta3xlwifi.json', 'configs/task_profiles.gta3xlwifi.json'),

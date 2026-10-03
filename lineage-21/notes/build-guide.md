@@ -29,7 +29,7 @@ checksums. The baseline kernel build tools and private vendor release are in
 the existing integration/kernel/vendor repositories. Do not use the rejected
 ramdisk experiment under `notes/rejected-ramdisk-research`.
 
-Run `python3 tools/apply-pinned-patches.py` to apply the seven final platform
+Run `python3 tools/apply-pinned-patches.py` to apply the nine final platform
 patches. It checks every revision, patch checksum and application before writing
 source. `--check-only` verifies the current tree without modifying it.
 The incremental development helpers are retained for review; they are not
@@ -103,3 +103,14 @@ vendor/product mounts. Repeating mount_all from both scripts produces EBUSY
 and prevents init from receiving FILE_ENCRYPTED and creating the session FBE
 keyring required by the 4.4 kernel. No format or encryption bypass is required
 to correct this ordering error. Actual FBE/user unlock testing is still pending.
+
+## Stock audio HAL and GPU metrics
+
+The vendor registers audio core/effects HIDL 4.0. Android 14 retains the version
+4 client branches but only builds/probes version 5 and newer by default. This
+port builds those current client sources for 4.0, includes the client in the
+device product and adds 4.0 to both native/Java version lists. No old framework
+or fabricated vendor HAL version is used. GPU work-per-UID BPF accounting is
+unavailable when ro.kernel.ebpf.supported=false; the service skips map setup
+and leaves statistics uninitialized rather than publishing fabricated values.
+Rendering and the bounded power boost are separate and unchanged.

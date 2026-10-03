@@ -1,0 +1,23 @@
+diff --git a/services/gpuservice/gpuwork/GpuWork.cpp b/services/gpuservice/gpuwork/GpuWork.cpp
+index fd70323..881ee24 100644
+--- a/services/gpuservice/gpuwork/GpuWork.cpp
++++ b/services/gpuservice/gpuwork/GpuWork.cpp
+@@ -20,6 +20,7 @@
+ 
+ #include "gpuwork/GpuWork.h"
+ 
++#include <android-base/properties.h>
+ #include <android-base/stringprintf.h>
+ #include <binder/PermissionCache.h>
+ #include <bpf/WaitForProgsLoaded.h>
+@@ -118,6 +119,10 @@ GpuWork::~GpuWork() {
+ }
+ 
+ void GpuWork::initialize() {
++    if (!base::GetBoolProperty("ro.kernel.ebpf.supported", true)) {
++        ALOGI("GPU BPF accounting unavailable on this kernel");
++        return;
++    }
+     // Make sure BPF programs are loaded.
+     bpf::waitForProgsLoaded();
+ 

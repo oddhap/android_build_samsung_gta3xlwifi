@@ -3,7 +3,7 @@
     "project": "frameworks/base",
     "revision": "e46d78059500b71998de5b21e4225f18463b32f3",
     "patch": "frameworks_base.patch",
-    "sha256": "e9ac266709a3710680e8dfb36e3758030302ca9c925a3174790c9f3d95ecad27",
+    "sha256": "a75c7de04208e3620e35c78b065cfab25e1786b82bc0adacf504e39eb64f73ac",
     "new_files": [],
     "clean_index_patch_check_passed": true
   },
@@ -59,6 +59,22 @@
     "revision": "ec299bf6da55702b7b9675d60a0faf2815f0dc6d",
     "patch": "system_core.patch",
     "sha256": "96ba44ff976d8a10f27ced71cca0d39d4be5be1c807730b08f02bd2c039cdfd2",
+    "new_files": [],
+    "clean_index_patch_check_passed": true
+  },
+  {
+    "project": "frameworks/av",
+    "revision": "43a832b45a7129f3db1357c18157dcfcfa53b82e",
+    "patch": "frameworks_av.patch",
+    "sha256": "ea8c000e506671d0502e7453f1087b21805efb947fff81362a3a0fa36aa4df1a",
+    "new_files": [],
+    "clean_index_patch_check_passed": true
+  },
+  {
+    "project": "frameworks/native",
+    "revision": "bb156c091b21aab6e5752bc7368832065c2fa0c8",
+    "patch": "frameworks_native.patch",
+    "sha256": "f2b18ede71bcac7547d2eea0707cf56a5b6361dee1be0742c3396895a099b952",
     "new_files": [],
     "clean_index_patch_check_passed": true
   }

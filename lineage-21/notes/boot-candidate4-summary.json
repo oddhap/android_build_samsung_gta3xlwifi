@@ -1,0 +1,21 @@
+{
+  "rom_sha256": "28d9e5ac1a133ca35164f2a282e0a4cda0c3386cfc37960acbf85b0d6f10e98e",
+  "kernel_stays_running": true,
+  "android_adb_responds": true,
+  "android_release": "14",
+  "platform_security_patch": "2026-09-01",
+  "boot_completed": false,
+  "screen_user_report": "Lineage animation",
+  "selinux": "Enforcing",
+  "data_crypto_state": "encrypted",
+  "data_crypto_type": "file",
+  "cgroup_lifecycle_probe": "PASS: real creation, inherited membership, escaped descendant SIGKILL and cleanup",
+  "remaining_failures": [
+    "audioserver null factory pointer: platform only probes audio HAL >=5, stock vendor registers core/effects4.0",
+    "SystemServer watchdog dump confirms main thread blocked waiting for audio policy service",
+    "gpuservice aborts when attempting BPF GPU metrics on kernel without eBPF"
+  ],
+  "candidate5_work": "Enable existing HIDL4 client branches, retain current Android14 source, skip unsupported optional GPU BPF accounting",
+  "data_formatted": false,
+  "stable_release": false
+}

@@ -1,6 +1,6 @@
 # SM-T510 LineageOS 21 development port
 
-Status: full Android 14 ROM build and offline checks pass. The first two hardware boots failed during process-group setup; the third candidate passes process-group/APEX/crypto self-test startup but reboots into recovery during FBE setup. A fourth candidate removes duplicate second-stage mounts.
+Status: full Android 14 ROM build and offline checks pass. The first two hardware boots failed during process-group setup; the fourth candidate runs Android 14 with encrypted data, ADB and enforcing SELinux but remains in the boot animation waiting for audio. A fifth candidate restores the current HIDL 4 client and skips unsupported GPU BPF metrics.
 
 The Android platform is the current LineageOS lineage-21.0 branch, downloaded
 independently from the working LineageOS 19.1 checkout. Android userspace remains
@@ -114,3 +114,18 @@ Current progress (2026-10-03):
 - Fourth full build and image/ZIP/layout/package checks pass. The actual system
   root init matches the new source and contains no duplicate mount_all.
   Hardware boot testing is pending.
+
+- Fourth hardware boot: encrypted data mounts once, ADB and Android 14 ART/
+  SystemServer run, SELinux remains Enforcing. The real cgroup lifecycle probe
+  passes creation, inherited membership, an escaped descendant SIGKILL and
+  cleanup. Boot does not complete: watchdog traces show main waiting for audio
+  policy, while audioserver dereferences a null factory (stock HAL 4.0 is not
+  probed). GPU service also aborts in an unavailable BPF map.
+- Fifth candidate work: current Android 14 HIDL client sources build for 4.0;
+  native and Java HAL version lists include 4.0. The optional GPU BPF accounting
+  checks the kernel capability property before opening maps. Targeted media
+  builds pass; the full ROM build and physical testing are pending. All nine
+  platform patches apply against clean pinned indexes.
+- Remaining observed issue: composer repeatedly reads unlabeled legacy property
+  hwc.exynos.vsync_mode, generating access denials. This has not been changed
+  in the fifth candidate. Performance and complete hardware tests remain pending.
