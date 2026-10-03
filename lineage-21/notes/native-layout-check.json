@@ -1,6 +1,6 @@
 {
   "hardware_tested": false,
-  "system_image_sha256": "8da047a3eb541d6177efd965b05ef62a96a00550963cf22b7180e44bc47977ce",
+  "system_image_sha256": "2581aa6e064e2025a43237ebb9cfbb3ea30afbd68184218bdee09beba836fe39",
   "ext4_features": {
     "system.img": {
       "incompat": "0x42",
@@ -14,6 +14,7 @@
     }
   },
   "init_sha256": "ce13480f98693d8459b661b896c7b9780345b6c8d9e6944fdf4271570c77b291",
+  "processgroup_setup_library_sha256": "99d682eaa89a4f82c37b98199a03792fb13c8450bc21209582ab6039e03f250d",
   "/fstab.exynos7904": "ae87c90434eb2cfe64bd04ec52ec4d7da8019d12395b9a67c8515975b48b3742",
   "/init.exynos7904.rc": "9cf66e058e5312dc91ff57cd05868d650701d74e2517b12114268b0a61a8f944",
   "/ueventd.exynos7904.rc": "1dc43d6fb0e426baea6f8a8a940dd92ac97dab9675c788dcee680ced92a1668d",

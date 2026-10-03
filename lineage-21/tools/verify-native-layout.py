@@ -75,6 +75,12 @@ with tempfile.TemporaryDirectory(prefix='gta3xlwifi-system-layout-', dir=report_
     if init[:5] != b'\x7fELF\x01' or init[18:20] != b'\x28\x00':
         raise SystemExit('System-root init is missing or is not ARM32 ELF')
     checks['init_sha256'] = hashlib.sha256(init).hexdigest()
+    setup = read_file('/system/lib/libprocessgroup_setup.so')
+    if setup != (out / 'system/lib/libprocessgroup_setup.so').read_bytes():
+        raise SystemExit('System image processgroup setup differs from the compiled library')
+    if b'/system/etc/cgroups.gta3xlwifi.json' not in setup:
+        raise SystemExit('System image processgroup setup lacks the device backend')
+    checks['processgroup_setup_library_sha256'] = hashlib.sha256(setup).hexdigest()
     device = top / 'device/samsung/gta3xlwifi'
     for member, source in (
         ('/fstab.exynos7904', device / 'rootdir/etc/fstab.exynos7904'),

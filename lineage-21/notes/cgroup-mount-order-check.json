@@ -1,0 +1,15 @@
+{
+  "source": "system/core/libprocessgroup/setup/cgroup_map_write.cpp:MountV1CgroupController",
+  "test": "tests/check-cgroup-mount-order.py",
+  "passed": true,
+  "scope": "actual patched function compiled against mocked syscall/filesystem boundary",
+  "cases": [
+    "read-only mountpoint cpuacct",
+    "read-only mountpoint cpuset",
+    "mount error propagated and post-mount ownership skipped",
+    "post-mount ownership error propagated",
+    "non-device read-only behavior unchanged",
+    "non-device writable behavior unchanged"
+  ],
+  "hardware_runtime_test": false
+}

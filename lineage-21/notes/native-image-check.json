@@ -15,11 +15,11 @@
     },
     "recovery.img": {
       "path": "/srv/android/src/lineage-21.0/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/IMAGES/recovery.img",
-      "sha256": "3a54e6bc814d72bc2e3c8a076164bb6ced98d473968472e0bab1d117ead14452",
+      "sha256": "9e8eef2852713cecbddf641b922b0c88ab22dc2e18754e1992295315ebbc6ca1",
       "file_bytes": 37036048,
       "expanded_bytes": 37036048,
       "partition_bytes": 47185920,
-      "ramdisk_bytes": 11490450,
+      "ramdisk_bytes": 11490200,
       "ramdisk_limit_bytes": 16777216,
       "recovery_usb_configfs_selected": true,
       "standard_recovery_misc_fstab_verified": true,
@@ -29,7 +29,7 @@
     },
     "system.img": {
       "path": "/srv/android/src/lineage-21.0/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/IMAGES/system.img",
-      "sha256": "8da047a3eb541d6177efd965b05ef62a96a00550963cf22b7180e44bc47977ce",
+      "sha256": "2581aa6e064e2025a43237ebb9cfbb3ea30afbd68184218bdee09beba836fe39",
       "file_bytes": 1092944284,
       "expanded_bytes": 3196059648,
       "partition_bytes": 3196059648
@@ -57,7 +57,7 @@
     }
   },
   "rom_zip": "/srv/android/src/lineage-21.0/out/target/product/gta3xlwifi/lineage-21.0-20261003-UNOFFICIAL-gta3xlwifi.zip",
-  "rom_zip_sha256": "a123820ccb97d7e10b3031ade46fa7fcb7a066949daf1167e8259915aa311c56",
+  "rom_zip_sha256": "26fc79b95aa3db80a3cfc96d592ccf3d7cc9dbdca25620e767015a5b9b90a7db",
   "ota_metadata": "ota-property-files=metadata:69:376,metadata.pb:513:262                 \nota-required-cache=0\nota-type=BLOCK\npost-build=samsung/lineage_gta3xlwifi/gta3xlwifi:14/AP2A.240905.003/eng.builde.20261002.181206:userdebug/test-keys\npost-build-incremental=eng.builde.20261002.181206\npost-sdk-level=34\npost-security-patch-level=2026-09-01\npost-timestamp=1790960555\npre-device=gta3xlwifi\n",
   "stability_claim": false
 }

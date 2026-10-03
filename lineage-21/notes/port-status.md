@@ -1,6 +1,6 @@
 # SM-T510 LineageOS 21 development port
 
-Status: full Android 14 ROM build and offline checks pass. First hardware boot failed at cgroup v2 setup; a corrected second candidate is being tested.
+Status: full Android 14 ROM build and offline checks pass. The first two hardware boots failed during process-group setup; a third candidate corrects read-only mountpoint ownership ordering.
 
 The Android platform is the current LineageOS lineage-21.0 branch, downloaded
 independently from the working LineageOS 19.1 checkout. Android userspace remains
@@ -72,8 +72,8 @@ Current progress (2026-10-03):
 - A product-specific framework fragment declares stock vendor's System SDK 28
   resource contract. All 57 vendor APKs are resource-only overlays without DEX;
   native HALs retain VNDK 30. The vendor compatibility matrix is unchanged.
-- Second candidate: lineage-21.0-20261003-UNOFFICIAL-gta3xlwifi.zip.
-  SHA-256: a123820ccb97d7e10b3031ade46fa7fcb7a066949daf1167e8259915aa311c56.
+- Third candidate: lineage-21.0-20261003-UNOFFICIAL-gta3xlwifi.zip.
+  SHA-256: 26fc79b95aa3db80a3cfc96d592ccf3d7cc9dbdca25620e767015a5b9b90a7db.
   Expanded images fit the physical partitions. The actual ext4 images use
   incompat 0x42 / ro_compat 0x7b, supported by the original kernel.
 - TWRP installed the candidate successfully (updater RC 0); boot readback matches
@@ -89,7 +89,16 @@ Current progress (2026-10-03):
   init's O_NOFOLLOW rejects the upstream zygote32 symlink. Upstream test services
   and failure handling remain enabled.
 - The second full build and all offline checks pass. TWRP installation and boot
-  readback pass. Hardware boot testing is in progress. The optional lifecycle
+  readback pass. Its boot log shows pre-mount lchown on the read-only /acct
+  mountpoint failed before cpuacct could mount. A third candidate prepares the
+  mountpoint without changing ownership, then assigns ownership after a real
+  successful v1 mount. Mount and post-mount errors remain fatal. The optional lifecycle
   probe compiled for ARM32; runtime tests have not yet run.
   Encryption and stability are not validated. Offline checks do not establish
   physical behavior.
+
+- The third full build completed successfully. Image/ZIP/layout/package checks
+  pass, including the actual libprocessgroup_setup.so in system.img matching
+  the rebuilt library (SHA-256 99d682eaa89a4f82c37b98199a03792fb13c8450bc21209582ab6039e03f250d).
+  A targeted syscall-model regression test checks read-only mountpoint ordering
+  and mount/post-mount error propagation; this is not a physical boot test.

@@ -1,0 +1,15 @@
+{
+  "rom_sha256": "a123820ccb97d7e10b3031ade46fa7fcb7a066949daf1167e8259915aa311c56",
+  "installation_updater_rc": 0,
+  "boot_readback_matches": true,
+  "boot_successful": false,
+  "observations": [
+    "init reached SetupCgroups after partition mounts and SELinux policy load",
+    "libprocessgroup lchown /acct/. failed with EROFS before mounting cpuacct",
+    "ueventd and apexd-bootstrap process-group creation failed with EROFS",
+    "init requested bootstrap-apexd-failed reboot"
+  ],
+  "log_limitation": "Samsung persistent kernel log contains corruption; the same primary failure appears across several boot cycles",
+  "third_candidate_change": "Prepare read-only mountpoint without pre-mount ownership changes; assign ownership only after successful v1 controller mount",
+  "runtime_validation_pending": true
+}

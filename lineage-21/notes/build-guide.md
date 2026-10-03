@@ -80,7 +80,9 @@ need physical validation. Do not label the build stable until these tests pass.
 
 The immutable `cgroups.gta3xlwifi.json` product file selects the device-only
 process tracking backend. Its mandatory cpuacct controller is mounted at /acct,
-with controller ownership assigned after mount. Process creation, signaling,
+with controller ownership assigned after mount. The mountpoint is prepared
+without ownership changes because /acct initially belongs to the read-only
+Samsung system root; ownership is applied only to the mounted controller. Process creation, signaling,
 cleanup and memory cgroup errors are preserved. Cleanup uses real cgroup.procs
 and bounded EBUSY retries, since this kernel has no v2 cgroup.events/cgroup.kill.
 The current v2 lifecycle remains unchanged on other products. The device task

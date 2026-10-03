@@ -43,6 +43,18 @@ edit('setup/cgroup_map_write.cpp', '    return true;\n}\n\nstatic bool SetupCgro
 }
 
 static bool SetupCgroup(const CgroupDescriptor& descriptor)''')
+edit('setup/cgroup_map_write.cpp', '''static bool MountV1CgroupController(const CgroupDescriptor& descriptor) {
+    const format::CgroupController* controller = descriptor.controller();
+
+    // mkdir <path> [mode] [owner] [group]
+    if (!Mkdir(controller->path(), descriptor.mode(), descriptor.uid(), descriptor.gid())) {''', '''static bool MountV1CgroupController(const CgroupDescriptor& descriptor) {
+    const format::CgroupController* controller = descriptor.controller();
+    const bool legacy = access("/system/etc/cgroups.gta3xlwifi.json", F_OK) == 0;
+
+    // /acct is initially part of the read-only system root. For this device,
+    // prepare only the mountpoint; set ownership on the controller after mount.
+    if (!(legacy ? Mkdir(controller->path(), 0, "", "")
+                 : Mkdir(controller->path(), descriptor.mode(), descriptor.uid(), descriptor.gid()))) {''')
 edit('task_profiles.cpp', '\n}\n\nbool TaskProfiles::Load(const CgroupMap& cg_map, const std::string& file_name)', '''
     const char* legacy = "/system/etc/task_profiles.gta3xlwifi.json";
     if (access(legacy, F_OK) == 0 && !Load(CgroupMap::GetInstance(), legacy)) {
