@@ -127,4 +127,7 @@ groups. RT permissions and the original root budget remain enforced; no
 unlimited RT setting or Bluetooth scheduling failure bypass is used.
 The exact hwc.exynos.vsync_mode property is labeled graphics_config_prop,
 with composer read access. No property value or broad default_prop access
-is changed. Runtime checks after the next boot remain required.
+is changed. Candidate 6 runtime tests confirm automatic Bluetooth ON with no crashes, CPU
+root placement and the original finite budget; the temporary subgroup budget
+is reset to zero. No vsync property read denials are observed after boot and
+power testing. See notes/boot-candidate6-summary.json.

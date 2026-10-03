@@ -1,6 +1,9 @@
 # SM-T510 LineageOS 21 development port
 
-Status: full Android 14 ROM build and offline checks pass. The first two hardware boots failed during process-group setup; the fifth candidate completes Android 14 boot with encrypted data, enforcing SELinux, audio, GPU service and working IPv4/DNS. A sixth candidate is built and verified offline, retaining CPU root RT scheduling and an exact legacy graphics property label. Physical installation/testing is pending.
+Status: candidate 6 boots Android 14 with encrypted file data and SELinux enforcing.
+Audio/GPU services, IPv4/DNS and automatic Bluetooth startup work. Real process-group
+lifecycle and bounded touch/app-launch power tests pass. Complete physical function
+and stability tests remain pending; this is a development port.
 
 The Android platform is the current LineageOS lineage-21.0 branch, downloaded
 independently from the working LineageOS 19.1 checkout. Android userspace remains
@@ -154,3 +157,20 @@ Current progress (2026-10-03):
   preserve CPU root scheduling; the exact vsync property label is present.
   ROM SHA-256: 733e56c6db1982b9d10d1b9ddca6e0f3cbddb5b428780a862108dca13b00aff7.
   Physical installation/testing is pending; data is not formatted.
+
+- Sixth physical installation succeeds (TWRP updater RC 0). Boot and new
+  task-profile bytes match readback; the exact vsync property label is present.
+  Android 14 completes boot with encrypted file data and SELinux Enforcing.
+  Bluetooth starts automatically, joins CPU root/cpuset foreground and records
+  zero crashes. Root RT budget remains 950000/1000000 us; the temporary
+  foreground budget is reset to 0. No vsync property denials or crash-buffer
+  entries are observed after boot and power tests. IPv4 Internet/DNS pass.
+- Real cgroup lifecycle test passes again. Touch boost reaches CPU
+  1248000/1352000 kHz and GPU 545000 kHz; actual app-launch logs reach
+  1248000/1560000 and 676000 kHz. Expiry, screen-off cancellation, wake idle
+  and battery saver cancellation pass. CPU aggregate idle returns to
+  449000/936000 kHz and the independent GPU request to 0. Battery overrides,
+  saver and diagnostic logging are restored. See boot-candidate6-summary.json.
+- Both cameras, rotation, browser media, Bluetooth pairing, Wi-Fi reconnect,
+  charging, credential/recovery behavior, overnight idle and Android 14
+  per-app firewall/VPN/IPv6 validation still require physical tests.

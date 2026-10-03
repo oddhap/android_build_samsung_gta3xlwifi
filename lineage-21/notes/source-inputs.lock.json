@@ -21,6 +21,8 @@
     "gcc_revision": "961622e926a1b21382dba4dd9fe0e5fb3ee5ab7c",
     "kernel_unchanged_from_android12_baseline": true,
     "vendor_unchanged_from_stock": true,
-    "android14_hardware_tested": false
+    "android14_hardware_tested": true,
+    "android14_full_hardware_validation_complete": false,
+    "android14_tested_rom_sha256": "733e56c6db1982b9d10d1b9ddca6e0f3cbddb5b428780a862108dca13b00aff7"
   }
 }

@@ -1,0 +1,80 @@
+{
+  "candidate": 6,
+  "rom_sha256": "733e56c6db1982b9d10d1b9ddca6e0f3cbddb5b428780a862108dca13b00aff7",
+  "android_release": "14",
+  "platform_security_patch": "2026-09-01",
+  "boot_completed": true,
+  "installation": {
+    "twrp_updater_exit_code": 0,
+    "boot_readback_matches": true,
+    "task_profiles_readback_matches": true,
+    "exact_vsync_property_context_present": true,
+    "data_formatted": false,
+    "tested_twrp_preserved": true
+  },
+  "selinux": "Enforcing",
+  "data_crypto_state": "encrypted",
+  "data_crypto_type": "file",
+  "audioserver_running": true,
+  "audio_mixer_outputs_present": true,
+  "gpu_service_running": true,
+  "gpu_bpf_metrics": "explicitly unavailable, no fabricated values",
+  "ipv4_internet_ping_passed": true,
+  "dns_resolution_and_ping_passed": true,
+  "bluetooth": {
+    "enabled": true,
+    "state": "ON",
+    "automatic_boot_enable": true,
+    "crash_count": 0,
+    "cpu_cgroup": "/",
+    "cpuset_cgroup": "/foreground"
+  },
+  "rt_budget": {
+    "root_runtime_us": 950000,
+    "root_period_us": 1000000,
+    "foreground_runtime_us": 0,
+    "candidate5_temporary_budget_reset_confirmed": true
+  },
+  "power": {
+    "touch_cpu_khz": [
+      1248000,
+      1352000
+    ],
+    "touch_gpu_khz": 545000,
+    "launch_cpu_khz": [
+      1248000,
+      1560000
+    ],
+    "launch_gpu_khz": 676000,
+    "expiry_passed": true,
+    "screen_off_cancellation_passed": true,
+    "wake_idle_passed": true,
+    "battery_saver_cancellation_passed": true,
+    "cpu_idle_aggregate_khz": [
+      449000,
+      936000
+    ],
+    "gpu_idle_floor_khz": 0,
+    "battery_override_restored": true,
+    "battery_saver_restored": true,
+    "diagnostic_logging_restored": true
+  },
+  "real_cgroup_lifecycle_probe_passed": true,
+  "vsync_property_denials_observed_after_boot_and_power_tests": 0,
+  "crash_buffer_empty_after_tests": true,
+  "physical_function_tests_pending": [
+    "both cameras",
+    "rotation",
+    "browser video/audio",
+    "Wi-Fi reconnect",
+    "Bluetooth pairing/audio",
+    "charging",
+    "credential encryption/recovery",
+    "overnight idle",
+    "Android 14 Binder firewall/data saver/VPN tests",
+    "IPv6 packets"
+  ],
+  "production_stability_claim": false,
+  "kernel_and_vendor_security_limitation": "Old Samsung 4.4 kernel and stock vendor do not inherit the reported Android platform security patch level.",
+  "miscpower_touch_and_lcd_fds_open": true
+}

@@ -9,5 +9,6 @@ The integration branch contains all nine complete platform patches, source
 manifest and locks, reviewed legacy network core, tests, staging/build tools
 and offline verification tools. Large images, test executables, SSH credentials,
 GitHub tokens and raw device logs are excluded. The full ROM build and offline
-image/layout/ZIP/VINTF/runtime-policy checks pass. Android 14 hardware testing
-is in progress; the branch remains a development port.
+image/layout/ZIP/VINTF/runtime-policy checks pass. Candidate 6 boots Android 14 with enforcing SELinux and encrypted file data;
+Bluetooth, IPv4/DNS, process-group lifecycle and bounded power tests pass.
+Complete physical hardware testing is in progress; the branch remains a development port.
