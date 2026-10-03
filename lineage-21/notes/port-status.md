@@ -1,6 +1,7 @@
 # SM-T510 LineageOS 21 development port
 
-Status: candidate 6 boots Android 14 with encrypted file data and SELinux enforcing.
+Status: candidate 6 initially boots Android 14 with encrypted file data and SELinux enforcing,
+but later GPU memory reporting aborts system_server and causes repeated soft restarts.
 Audio/GPU services, IPv4/DNS and automatic Bluetooth startup work. Real process-group
 lifecycle and bounded touch/app-launch power tests pass. Complete physical function
 and stability tests remain pending; this is a development port.
@@ -174,3 +175,23 @@ Current progress (2026-10-03):
 - Both cameras, rotation, browser media, Bluetooth pairing, Wi-Fi reconnect,
   charging, credential/recovery behavior, overnight idle and Android 14
   per-app firewall/VPN/IPv6 validation still require physical tests.
+
+- User confirms rotation, sound, camera, brightness and browsing after a scoped
+  browser policy repair. Camera feels laggy. Migrated browser POLICY_REJECT_ALL
+  was removed; restricted networking mode remains active and other app policies
+  are preserved. The legacy bulk-rule backend rejected INVALID_UID (-1) in the
+  actual framework package list. It now omits that non-application sentinel
+  while applying every valid UID; other negative values remain errors. Host
+  allow/deny/rollback/parser tests pass.
+- Under Wall You/image use, system_server aborts in libmeminfo GPU memory BPF
+  construction during AppProfiler.reportMemUsage; later memory reports repeat
+  the failure and the framework restarts. The kernel itself stays up. The tablet
+  is in tested TWRP. Candidate 7 adds a kernel capability guard to both GPU
+  memory readers, retaining the existing unavailable result. Targeted build
+  and optional actual-library probe, full ROM and hardware tests are pending.
+
+- Candidate 7 targeted build passes libmeminfo, netd and the optional ARM32
+  memory probe (16 seconds). Both GPU-reader guards apply idempotently. Ten
+  complete platform patches pass clean pinned-index application checks.
+  The full ROM is building; current device-input code revision is
+  38fe8f491e6ba959824cd6c11ef5965f1163b17f.

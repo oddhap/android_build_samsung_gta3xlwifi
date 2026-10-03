@@ -11,7 +11,7 @@
     "project": "system/netd",
     "revision": "dbc81b7c46cc59f761c0ac5e390f3fc71dfa7b40",
     "patch": "system_netd.patch",
-    "sha256": "4d8f24f6b2d1035e3543efa0374d676d31cf15e5213cc05330a5cb30b0c714dc",
+    "sha256": "a53866586df3ed34e0bc51ff719bc844a9b1d75879764bab1b60ca8b97873c7b",
     "new_files": [
       "server/Gta3xlwifiLegacyFirewall.cpp",
       "server/Gta3xlwifiLegacyFirewall.h"
@@ -75,6 +75,14 @@
     "revision": "bb156c091b21aab6e5752bc7368832065c2fa0c8",
     "patch": "frameworks_native.patch",
     "sha256": "f2b18ede71bcac7547d2eea0707cf56a5b6361dee1be0742c3396895a099b952",
+    "new_files": [],
+    "clean_index_patch_check_passed": true
+  },
+  {
+    "project": "system/memory/libmeminfo",
+    "revision": "aee59e17156fbcddc13051f92180cec8c1b2c278",
+    "patch": "system_memory_libmeminfo.patch",
+    "sha256": "52c394e0560defbae3b6cb7dca02e78b14466e255553a91c03ef427b31e76d00",
     "new_files": [],
     "clean_index_patch_check_passed": true
   }

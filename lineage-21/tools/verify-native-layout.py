@@ -91,7 +91,7 @@ with tempfile.TemporaryDirectory(prefix='gta3xlwifi-system-layout-', dir=report_
     if re.search(rb'^\s*mount_all\s', samsung_init, re.M):
         raise SystemExit('Root Samsung init duplicates the stock vendor mount_all')
     checks['root_init_duplicate_mounts_absent'] = True
-    for name in ('libaudiohal.so', 'libaudiohal@4.0.so', 'libgpuwork.so'):
+    for name in ('libaudiohal.so', 'libaudiohal@4.0.so', 'libgpuwork.so', 'libmeminfo.so'):
         library = read_file('/system/lib/' + name)
         if library != (out / 'system/lib' / name).read_bytes():
             raise SystemExit('System image media library differs from compiled output: ' + name)

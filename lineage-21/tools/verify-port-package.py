@@ -32,7 +32,8 @@ class TargetFilesTree:
 with TargetFilesTree() as archive:
     names = archive.namelist()
     if any(probe in name for name in names
-           for probe in ('gta3xlwifi-network-probe', 'gta3xlwifi-cgroup-probe')):
+           for probe in ('gta3xlwifi-network-probe', 'gta3xlwifi-cgroup-probe',
+                         'gta3xlwifi-meminfo-probe')):
         raise SystemExit('Optional test probe was included in the ROM')
     if any('android.hardware.power-service.gta3xlwifi' in name for name in names):
         raise SystemExit('Obsolete experimental Power HAL override was packaged')
@@ -63,6 +64,10 @@ with TargetFilesTree() as archive:
     if b'GPU BPF accounting unavailable on this kernel' not in gpuwork:
         raise SystemExit('GPU work library lacks the kernel capability guard')
     checks['gpuwork_library_sha256'] = hashlib.sha256(gpuwork).hexdigest()
+    meminfo = archive.read('SYSTEM/lib/libmeminfo.so')
+    if b'ro.kernel.ebpf.supported' not in meminfo:
+        raise SystemExit('GPU memory library lacks the kernel capability guard')
+    checks['meminfo_library_sha256'] = hashlib.sha256(meminfo).hexdigest()
     for target, source in (
         ('SYSTEM/etc/cgroups.gta3xlwifi.json', 'configs/cgroups.gta3xlwifi.json'),
         ('SYSTEM/etc/task_profiles.gta3xlwifi.json', 'configs/task_profiles.gta3xlwifi.json'),

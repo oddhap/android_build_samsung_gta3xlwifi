@@ -63,8 +63,6 @@
   "vsync_property_denials_observed_after_boot_and_power_tests": 0,
   "crash_buffer_empty_after_tests": true,
   "physical_function_tests_pending": [
-    "both cameras",
-    "rotation",
     "browser video/audio",
     "Wi-Fi reconnect",
     "Bluetooth pairing/audio",
@@ -76,5 +74,24 @@
   ],
   "production_stability_claim": false,
   "kernel_and_vendor_security_limitation": "Old Samsung 4.4 kernel and stock vendor do not inherit the reported Android platform security patch level.",
-  "miscpower_touch_and_lcd_fds_open": true
+  "miscpower_touch_and_lcd_fds_open": true,
+  "user_reported_functions": {
+    "rotation": true,
+    "audio": true,
+    "camera": true,
+    "brightness": true,
+    "browser_after_per_app_policy_repair": true
+  },
+  "remaining_observations": [
+    "Camera feels laggy",
+    "System server aborts under memory reporting in libmeminfo GPU BPF map; repeated soft restarts follow"
+  ],
+  "network_policy_repair": {
+    "browser_uid_block_all_removed": true,
+    "global_restricted_mode_restored": true,
+    "other_uid_policies_preserved": true,
+    "user_confirmed_browsing": true,
+    "bulk_rule_INVALID_UID_fix_pending_in_candidate7": true
+  },
+  "known_failure_after_initial_tests": "Wall You/image browsing triggered memory-reporting path; ReadProcessGpuUsageKb aborts on missing BPF capability. Both GPU memory readers require guard."
 }

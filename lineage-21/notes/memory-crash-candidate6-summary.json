@@ -1,0 +1,15 @@
+{
+  "candidate": 6,
+  "process": "system_server",
+  "signal": "SIGABRT",
+  "site": "libmeminfo ReadProcessGpuUsageKb -> BpfMapRO::abortOnMismatch",
+  "java_caller": "AppProfiler.reportMemUsage -> Debug.getGpuTotalUsageKb",
+  "kernel_reboot": false,
+  "repeated_framework_restarts": true,
+  "kernel_ebpf_supported": false,
+  "fix": "Guard both libmeminfo GPU BPF readers by ro.kernel.ebpf.supported; return existing unavailable result, Debug -1",
+  "full_rom_and_runtime_checks_pending": true,
+  "targeted_build_passed": true,
+  "gpu_reader_guards_idempotent": true,
+  "platform_patch_count": 10
+}

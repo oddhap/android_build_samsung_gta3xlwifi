@@ -129,9 +129,13 @@ int Gta3xlwifiLegacyFirewall::replaceChain(const std::string& n, bool list,
     int chain = 0;
     for (int c = 1; c <= 9; ++c) if (n == name(c)) chain = c;
     if (!chain || allowlist(chain) != list) return -EINVAL;
-    for (int uid : uids) if (uid < 0) return -EINVAL;
+    // Framework package enumeration can include INVALID_UID (-1). It has no
+    // application socket owner and must not invalidate every real UID's update.
+    // Ownerless packets already receive the normal kernel-traffic exemptions.
+    for (int uid : uids) if (uid < -1) return -EINVAL;
     int res = init(); if (res) return res;
-    Chain next = mChains[chain]; next.uids = {uids.begin(), uids.end()};
+    Chain next = mChains[chain]; next.uids.clear();
+    for (int uid : uids) if (uid >= 0) next.uids.insert(uid);
     res = applyChain(chain, next);
     if (res) { applyChain(chain, mChains[chain]); return res; }
     mChains[chain] = std::move(next);

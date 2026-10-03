@@ -32,6 +32,16 @@ int main(int argc, char** argv) {
     assert(fw.isUidBlocked(10001, false));
     assert(!fw.isUidBlocked(10002, false));
     assert(fw.enableChain(1, false) == 0);
+    // Real Android 14 startup supplied an INVALID_UID alongside valid package
+    // UIDs. Keep the real allowlist and its deny-by-default behavior intact.
+    assert(fw.replaceChain("fw_restricted", true, {-1, 10001}) == 0);
+    assert(fw.enableChain(4, true) == 0);
+    assert(!fw.isUidBlocked(10001, false));
+    assert(fw.isUidBlocked(10002, false));
+    assert(fw.replaceChain("fw_restricted", true, {-2, 10002}) == -EINVAL);
+    assert(!fw.isUidBlocked(10001, false));
+    assert(fw.isUidBlocked(10002, false));
+    assert(fw.enableChain(4, false) == 0);
     assert(fw.setUidRule(2, 10002, 2) == 0);
     assert(fw.enableChain(2, true) == 0);
     assert(fw.isUidBlocked(10002, false));

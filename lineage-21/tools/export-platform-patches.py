@@ -5,7 +5,7 @@ import hashlib, json, subprocess, tempfile
 root=Path('/srv/android/src/lineage-21.0')
 artifacts=Path('/srv/android/artifacts/lineage-21/source-patches')
 artifacts.mkdir(parents=True,exist_ok=True)
-projects=('frameworks/base','system/netd','system/bpf','packages/modules/Connectivity','packages/modules/DnsResolver','device/lineage/sepolicy','system/core','frameworks/av','frameworks/native')
+projects=('frameworks/base','system/netd','system/bpf','packages/modules/Connectivity','packages/modules/DnsResolver','device/lineage/sepolicy','system/core','frameworks/av','frameworks/native','system/memory/libmeminfo')
 records=[]
 for name in projects:
     repo=root/name

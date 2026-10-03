@@ -29,7 +29,7 @@ checksums. The baseline kernel build tools and private vendor release are in
 the existing integration/kernel/vendor repositories. Do not use the rejected
 ramdisk experiment under `notes/rejected-ramdisk-research`.
 
-Run `python3 tools/apply-pinned-patches.py` to apply the nine final platform
+Run `python3 tools/apply-pinned-patches.py` to apply the ten final platform
 patches. It checks every revision, patch checksum and application before writing
 source. `--check-only` verifies the current tree without modifying it.
 The incremental development helpers are retained for review; they are not
@@ -38,7 +38,7 @@ additional patches to apply after the final exported patches.
 Build with `bash tools/build-rom.sh bacon`. It selects
 `lineage_gta3xlwifi-ap2a-userdebug` and retains a single build timestamp across
 incremental retries. The original kernel, stock vendor and physical system root
-are preserved. The optional network and cgroup probes have `installable: false` and are not
+are preserved. The optional network, cgroup and GPU-memory probes have `installable: false` and are not
 part of the product package list.
 
 ## Verify before a hardware installation
@@ -131,3 +131,29 @@ is changed. Candidate 6 runtime tests confirm automatic Bluetooth ON with no cra
 root placement and the original finite budget; the temporary subgroup budget
 is reset to zero. No vsync property read denials are observed after boot and
 power testing. See notes/boot-candidate6-summary.json.
+
+GPU memory reads in libmeminfo also require a kernel capability guard. Under
+image-app load, AppProfiler.reportMemUsage calls Debug.getGpuTotalUsageKb and
+the unsupported BPF map constructor aborts system_server. Both per-process
+and aggregate GPU readers return unavailable when the kernel capability is
+false; Debug already represents this as -1. No fake memory total or accounting
+subtraction is introduced. An optional noninstalled probe exercises all three
+GPU APIs and ordinary RAM accounting. Full candidate 7 tests are pending.
+
+The installed browser initially retained POLICY_REJECT_ALL from the Android
+12-to-14 network-policy migration. Its block-all bit was removed through the
+network-policy service after the user reported failed browsing; restricted
+mode remains on and other UID policies are preserved. The user confirmed
+browsing works afterwards. Other migrated app policies should be reviewed
+through Settings when needed, rather than globally disabling enforcement.
+Actual bulk allowlist updates included INVALID_UID (-1) from package
+enumeration. The legacy backend omits that non-application sentinel, applies
+all valid UIDs transactionally and still rejects other negative values.
+Host tests verify real app allow/deny defaults and preservation on bad input.
+
+The optional `gta3xlwifi-meminfo-probe` is noninstallable and has no Make
+installation target. Build its ARM32 binary output declared in the generated
+Soong ninja file (the dependency-variant suffix is generated), rather than
+assuming an installation target. Run it via rooted ADB after installing the
+matching ROM library, then remove the temporary executable. It checks all
+three GPU-query APIs remain unavailable and ordinary RAM accounting works.
