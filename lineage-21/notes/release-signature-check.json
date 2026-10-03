@@ -1,0 +1,19 @@
+{
+  "hardware_tested": false,
+  "verified_private_apk_and_apex_container_signatures": 180,
+  "presigned_or_stock_vendor_packages_preserved": 1,
+  "verified_private_apex_payload_signatures": 30,
+  "boot_image_preserved": true,
+  "tested_platform_fixes_preserved": true,
+  "build_tags": "release-keys",
+  "build_type": "userdebug",
+  "ota_whole_file_signature_verified": true,
+  "ota_partition_references": [
+    "boot",
+    "product",
+    "system"
+  ],
+  "data_preserved_by_ota": true,
+  "rom_zip_sha256": "c40cb6e5ec4ad0b610236160849348a20fdcce0c34ddac1e2ce145ba4b57a020",
+  "passed": true
+}

@@ -1,0 +1,25 @@
+{
+  "images": {
+    "system.img": {
+      "path": "/srv/android/artifacts/lineage-21/release/verified-target-files/IMAGES/system.img",
+      "sha256": "794e759ec8db431b56945e704b6a867ca97f4280d8e23950576f7ea8d02b5950",
+      "expanded_bytes": 3196059648,
+      "partition_bytes": 3196059648
+    },
+    "product.img": {
+      "path": "/srv/android/artifacts/lineage-21/release/verified-target-files/IMAGES/product.img",
+      "sha256": "89631ff9de3064fcb82438888de440507b4ab842cdc8f98090abbb0bdf53c34b",
+      "expanded_bytes": 327155712,
+      "partition_bytes": 327155712
+    },
+    "boot.img": {
+      "path": "/srv/android/artifacts/lineage-21/release/verified-target-files/IMAGES/boot.img",
+      "sha256": "af90ea06ed4c36d8b88814d798d513bc58cd45e3ba8ea457e867f6cc105224bd",
+      "expanded_bytes": 25380880,
+      "partition_bytes": 33554432
+    }
+  },
+  "rom_zip": "/srv/android/artifacts/lineage-21/release/lineage-21.0-20261003-UNOFFICIAL-gta3xlwifi-privatekeys.zip",
+  "rom_zip_sha256": "c40cb6e5ec4ad0b610236160849348a20fdcce0c34ddac1e2ce145ba4b57a020",
+  "ota_metadata": "ota-property-files=metadata:69:379,metadata.pb:516:265                 \nota-required-cache=0\nota-type=BLOCK\npost-build=samsung/lineage_gta3xlwifi/gta3xlwifi:14/AP2A.240905.003/eng.builde.20261002.181206:userdebug/release-keys\npost-build-incremental=eng.builde.20261002.181206\npost-sdk-level=34\npost-security-patch-level=2026-09-01\npost-timestamp=1790960555\npre-device=gta3xlwifi\n"
+}

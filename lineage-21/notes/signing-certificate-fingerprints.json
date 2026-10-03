@@ -1,0 +1,345 @@
+{
+  "certificates": {
+    "build/make/target/product/security/testkey": {
+      "old_certificate_sha256": "a40da80a59d170caa950cf15c18c454d47a39b26989d8b640ecd745ba71bf5dc",
+      "new_certificate_sha256": "1e593d1563b438ceab3e694601a098cada7e983dfcb5164b6bf4cdce3171b852"
+    },
+    "art/build/apex/com.android.art": {
+      "old_certificate_sha256": "0dda096be3af77ee9e6b403c2e49ea5c409d5b2aa6ab5c41e32ee4049d448110",
+      "new_certificate_sha256": "14631e417cdfb211ffd489e251d51dc76fc8aeae9a3657deeba76c5a8ff58ae6"
+    },
+    "bionic/apex/com.android.runtime": {
+      "old_certificate_sha256": "4223b29f1525279fa81d7aedd9e3101d25247c578a7afd0d2e1275be0c48226c",
+      "new_certificate_sha256": "b6ce8d5f743a6d290e1f254b70863c2126573eb1fdddba73c6870be5473c31ea"
+    },
+    "build/make/target/product/security/bluetooth": {
+      "old_certificate_sha256": "a6ccc500ff0e7421200eb66a7fe174ef1b00e52ca91727070cbedf061ff76c35",
+      "new_certificate_sha256": "049863ce9ab801d023d7bb348e100717deb921b33b3c0efb12cf34f8f371cc71"
+    },
+    "build/make/target/product/security/cts_uicc_2021": {
+      "old_certificate_sha256": "ce7b2b47ae2b7552c8f92cc29124279883041fb623a5f194a82c9bf15d492aa0",
+      "new_certificate_sha256": "bb4fd8fd0b9d605c8814b33c520619cbf539ae0d27bb19c0b6760b4c4292de12"
+    },
+    "build/make/target/product/security/media": {
+      "old_certificate_sha256": "465983f7791f2abeb43ea2cbdc7f21a8260b72bc08a55c839fc1a43bc741a81e",
+      "new_certificate_sha256": "aaadaa13b8ab6614cf72b5724d76ac7c52e52b42e035c46a40ff07d2dd2e1f2f"
+    },
+    "build/make/target/product/security/networkstack": {
+      "old_certificate_sha256": "e1dbadce60dc080d15b58a014b0dcf9400e24de23fa00b287a5a982bfebda2ee",
+      "new_certificate_sha256": "5d924cda7c398ba02b76d2d42451d7f988fb161c7a19f43faeb07e4d3d0b6a7a"
+    },
+    "build/make/target/product/security/nfc": {
+      "old_certificate_sha256": "fae9122a8721d6e2a196d2224dffcf773c9127e2bb956cbddb40b009192ffdfd",
+      "new_certificate_sha256": "befba363321f6972797f22fab0dd4c6982fddef543d5a7e3d71d91753a96b1ab"
+    },
+    "build/make/target/product/security/platform": {
+      "old_certificate_sha256": "c8a2e9bccf597c2fb6dc66bee293fc13f2fc47ec77bc6b2b0d52c11f51192ab8",
+      "new_certificate_sha256": "324c225be1c90fe6fca688c8c28cd7cf4d9552cb032ccb724cf17ce2ea4c25b8"
+    },
+    "build/make/target/product/security/sdk_sandbox": {
+      "old_certificate_sha256": "abf21f9e2af1d881cc673fddcefa6ed9c269a437bd64b279cf45844cfd589126",
+      "new_certificate_sha256": "05338896890d0f90be1fffede697ae42dccce93047539cc50624c4c4164a0b97"
+    },
+    "build/make/target/product/security/shared": {
+      "old_certificate_sha256": "28bbfe4a7b97e74681dc55c2fbb6ccb8d6c74963733f6af6ae74d8c3a6e879fd",
+      "new_certificate_sha256": "22f13b11a4e4af51f24c0bcce35b6fde0bd8e3d2abe1e05e9610b7bf452e6497"
+    },
+    "cts/hostsidetests/appsearch/certs/cts-appsearch-hosttest-helper-cert-a": {
+      "old_certificate_sha256": "6c3e52078acc643f9eafbd23ca6e323ab1413d07f9fde3bb8ee09935a991c630",
+      "new_certificate_sha256": "33f01ab3d1808c677bd344f02b17941997e725d183f6fc787e3ce323db67a673"
+    },
+    "cts/hostsidetests/appsearch/certs/cts-appsearch-hosttest-helper-cert-b": {
+      "old_certificate_sha256": "3d7a1aae7ae8b9949be93e071f3702aa38695b0f99b5fc4b2e8b364ac78ffdb2",
+      "new_certificate_sha256": "91ff34c52f2cd35df3ac4f1a4318e30f9354dc1b42a8b19b40e87166287ade2d"
+    },
+    "cts/hostsidetests/appsecurity/certs/cts-testkey1": {
+      "old_certificate_sha256": "26e5eccf1a15ac62c9bb693fdc8faf72715562548ec13fad0d1177afd901df62",
+      "new_certificate_sha256": "b5c2a36d8cc982d5d67e50925d1e68212ab386b2a3dfe00220525863186a8e72"
+    },
+    "cts/hostsidetests/appsecurity/certs/cts-testkey2": {
+      "old_certificate_sha256": "904b1629a778c751db50bd1e28cafb84499d08562532ebefcd84762339d0c684",
+      "new_certificate_sha256": "04298db34acd5d9ad09b0768b49b486ac128d0c08de1bafdcc740edaf5c0bbd1"
+    },
+    "cts/hostsidetests/appsecurity/certs/keysets/cts-keyset-test-a": {
+      "old_certificate_sha256": "70fbd440503ec0bf41f3f21fcc83ffd39880133c27deb0945ed677c6f31d72fb",
+      "new_certificate_sha256": "d29ff232afa24d5e6d0fcf24631b92d1e2bfa9ce5f215505811dd508c93fab17"
+    },
+    "cts/hostsidetests/appsecurity/certs/keysets/cts-keyset-test-b": {
+      "old_certificate_sha256": "e49582ff3a0aa4c5589fc5feaac6b7d6e757199dd0c6742df7bf37c2ffef95f5",
+      "new_certificate_sha256": "5e9014ae2adedb5ecf1090eca1750496385b953feba203679ad978536d9f85fa"
+    },
+    "cts/hostsidetests/appsecurity/certs/keysets/cts-keyset-test-c": {
+      "old_certificate_sha256": "5c718dfae75063b885920b2ae0ac69760dbbf659a1c10d9c3f57abab017ad082",
+      "new_certificate_sha256": "03449d075093219a9d0e41ef823ed0533597742e6f31304aac59991906142f41"
+    },
+    "cts/hostsidetests/appsecurity/certs/keysets/cts-keyset-test-ec-a": {
+      "old_certificate_sha256": "10c8deed72f758c89bea0ebf1554cbea0e55b8d2893693f1f61aeab6f095ec82",
+      "new_certificate_sha256": "ef841c8efad86adc1db3e94f1c66515b6ee8d516112237cb1cd6d4c8a7948879"
+    },
+    "cts/hostsidetests/appsecurity/certs/pkgsigverify/ec-p256": {
+      "old_certificate_sha256": "6a8b96e278e58f62cfe3584022cec1d0527fcb85a9e5d2e1694eb0405be5b599",
+      "new_certificate_sha256": "dc80c70d9f136017e5b7ba6b155dd0cf0a66c2e9a13c0de71aa481470d282719"
+    },
+    "cts/hostsidetests/appsecurity/certs/pkgsigverify/ec-p256_2": {
+      "old_certificate_sha256": "d78405f761ff6236cc9b570347a570aba0c62a129a3ac30c831c64d09ad95469",
+      "new_certificate_sha256": "8eacff5b59c3b3ba2b38a4d4faad486749c3924fd5e9687c6a8264b7916f33c2"
+    },
+    "cts/hostsidetests/appsecurity/certs/pkgsigverify/ec-p256_3": {
+      "old_certificate_sha256": "9369370ffcfdc1e92dae777252c05c483b8cbb55fa9d5fd9f6317f623ae6d8c6",
+      "new_certificate_sha256": "9aab1e2e0a44a176020f6184b63de5adcfcb921014325dcba52f5c48a3903a69"
+    },
+    "cts/hostsidetests/appsecurity/certs/pkgsigverify/ec-p256_4": {
+      "old_certificate_sha256": "3dc83c04df9fd00b43ff78bdda11365da6a860b2a5af2c54ebeae86e9c7fce47",
+      "new_certificate_sha256": "c9bb3f7cfe6d67eb95d04522d84b1452d0471936989a5e5633c235aa2a8ac562"
+    },
+    "cts/hostsidetests/appsecurity/certs/pkgsigverify/ec-p256_5": {
+      "old_certificate_sha256": "947c7c4348ba3d8b08a2eae163c6838b541ad4a6b18a578ee036d5c6cadad047",
+      "new_certificate_sha256": "8fcaa2b802f8e70622ef12d7b392570ddcb8cef3dddbf7e2f1d1bf0d72a0b1aa"
+    },
+    "cts/hostsidetests/appsecurity/certs/pkgsigverify/rsa-2048": {
+      "old_certificate_sha256": "fb5dbd3c669af9fc236c6991e6387b7f11ff0590997f22d0f5c74ff40e04fca8",
+      "new_certificate_sha256": "c5f59e5b55baea6a65415712efe9109f3feda1659bbb08e5f02d416f05fe40f4"
+    },
+    "cts/libs/install/testapp/signing/ec-p256": {
+      "old_certificate_sha256": "6a8b96e278e58f62cfe3584022cec1d0527fcb85a9e5d2e1694eb0405be5b599",
+      "new_certificate_sha256": "dc80c70d9f136017e5b7ba6b155dd0cf0a66c2e9a13c0de71aa481470d282719"
+    },
+    "cts/tests/BlobStore/certs/cts-blob-helper-cert": {
+      "old_certificate_sha256": "187e3d3172f2177d6fec2ea53785bf1e25dff7b2e5f6e59807e365a7a837e6c3",
+      "new_certificate_sha256": "a7aeae0b107abecb806ee936495f2dce980824037f7b1d329f93fc6bf4250d0e"
+    },
+    "cts/tests/BlobStore/certs/cts-blob-helper-cert2": {
+      "old_certificate_sha256": "d760873d812fe1cfc02c15ed416ab774b2d4c2e936df6d8b6707277479d4812f",
+      "new_certificate_sha256": "5abc1e00604ef192a1b95f2c57d0a29d15bef8707a46b4566ce45ac4ce28ddf0"
+    },
+    "cts/tests/appsearch/certs/cts-appsearch-helper-cert-a": {
+      "old_certificate_sha256": "a90b80bd307b71bb4029674c5c4fe18066994e352eac933b7b68266210cafb53",
+      "new_certificate_sha256": "c3e6ae525cc98b4c9f814285e06ad85f58a1c3d6fd71aa30f6a1f4534e2c64d5"
+    },
+    "cts/tests/appsearch/certs/cts-appsearch-helper-cert-b": {
+      "old_certificate_sha256": "88c0b41a31943d13226c3f22a86a6b4f300315575a6bc533cbf16c4ef3cfaa37",
+      "new_certificate_sha256": "b3e12ba6de2eb536b2c288e768c127ad3b62bb2c65d18bd473b6f461c32b1866"
+    },
+    "cts/tests/tests/content/HelloWorldApp/hello_sufficient_verifier_cert": {
+      "old_certificate_sha256": "4d26efd8a7bc70ead8ba01fca088057fbcaafdff2855ff176b66e54cdd7a0979",
+      "new_certificate_sha256": "a098de4915aa816adbfcae799b2cc5d98c1799e1e295e22144aee6fab2c2ec96"
+    },
+    "cts/tests/tests/security/security_cts_test_cert": {
+      "old_certificate_sha256": "45e7ed496de0e6abad21854e1431e6bfb44a43dd1afe5d15a48d8d68291b2ea3",
+      "new_certificate_sha256": "b45ebae9a330b8843149f4836dfcdfa40407d4411b0567a871c1f4b2336b55a0"
+    },
+    "cts/tests/tests/security/test-cert-1": {
+      "old_certificate_sha256": "6a8b96e278e58f62cfe3584022cec1d0527fcb85a9e5d2e1694eb0405be5b599",
+      "new_certificate_sha256": "dc80c70d9f136017e5b7ba6b155dd0cf0a66c2e9a13c0de71aa481470d282719"
+    },
+    "cts/tests/tests/security/test-cert-2": {
+      "old_certificate_sha256": "d78405f761ff6236cc9b570347a570aba0c62a129a3ac30c831c64d09ad95469",
+      "new_certificate_sha256": "8eacff5b59c3b3ba2b38a4d4faad486749c3924fd5e9687c6a8264b7916f33c2"
+    },
+    "cts/tests/tests/security/test-cert-3": {
+      "old_certificate_sha256": "9369370ffcfdc1e92dae777252c05c483b8cbb55fa9d5fd9f6317f623ae6d8c6",
+      "new_certificate_sha256": "9aab1e2e0a44a176020f6184b63de5adcfcb921014325dcba52f5c48a3903a69"
+    },
+    "cts/tests/tests/security/test-cert-4": {
+      "old_certificate_sha256": "3dc83c04df9fd00b43ff78bdda11365da6a860b2a5af2c54ebeae86e9c7fce47",
+      "new_certificate_sha256": "c9bb3f7cfe6d67eb95d04522d84b1452d0471936989a5e5633c235aa2a8ac562"
+    },
+    "cts/tests/tests/telephony4/certs/android_telephony_cts_testkey": {
+      "old_certificate_sha256": "10428224015141fc15121feae4d137b81d97315e3b289f549feaa2564693f026",
+      "new_certificate_sha256": "ccf2cd09a2d0427e99a53fecd93f0616ba2906291ad42285f35e65a8b307a452"
+    },
+    "development/apps/PushApiAuthenticator/cert": {
+      "old_certificate_sha256": "16ffd9a462c0716acb613822ce9f39a1b829464e9ab1cedcf53234ae40e52774",
+      "new_certificate_sha256": "eaf69d6acd919f59a52b3e2388ed5475f4cf327b48caa39b8a4c6835829b4dff"
+    },
+    "development/apps/PushApiTestAppOne/cert": {
+      "old_certificate_sha256": "f467b63a10b5a51b35dade1cdb4dd4fbe4011855c9775a7fbdcdec8f1be20677",
+      "new_certificate_sha256": "1d89ff5ab3ce7a14af471a49b11cde00440601b2086810f62a53bcc5cfa130bd"
+    },
+    "development/apps/PushApiTestAppTwo/cert": {
+      "old_certificate_sha256": "6f69d07d2d491493f6bffdd6ecfbfb4e2da71c976f34ecb472e3c41d4ceda411",
+      "new_certificate_sha256": "e99bac66f2e7f187193e279963e58162da471901d7bd8c539dac7dbf67789057"
+    },
+    "external/conscrypt/apex/com.android.conscrypt": {
+      "old_certificate_sha256": "46e7e88c2a1bbbd77f1e2cc6d6ff52b3bd478f0d9c95b45a4d988719c76a7e9a",
+      "new_certificate_sha256": "22aac74d9041b962900e30f1b6db7f7ddf7a9aec63ba7654b1dfddd502ad3476"
+    },
+    "frameworks/av/apex/com.android.media.swcodec": {
+      "old_certificate_sha256": "f7314f4054db4835ecdca3aee08de6bbb32405dbf22bba31b52497c970626605",
+      "new_certificate_sha256": "6f891f4d2cb21c36f7a7f856f7ef304194e95b8f1edaec062a7b93e95da47745"
+    },
+    "frameworks/av/apex/com.android.media": {
+      "old_certificate_sha256": "279bcdb9bb447e153ab7611ee70ebee84bf2ecf026f15b91f1fcc615e5811f6d",
+      "new_certificate_sha256": "2f2780f2efa16b2038f9aa8b9fa7b9541cf94906a8c13e3ed85c383108dff743"
+    },
+    "frameworks/base/core/tests/coretests/certs/unit_test": {
+      "old_certificate_sha256": "ed1611db057d251ed588566771798af3d32d5872c2ce8b1477c25b1d9e6f8c8b",
+      "new_certificate_sha256": "1676dfe98141c50398e5052c2c4ae96b06b6ee3e226e8f60d11d68a8890e1920"
+    },
+    "frameworks/base/core/tests/overlaytests/remount/test-apps/certs/rro-remounted-test-a": {
+      "old_certificate_sha256": "e4f695f0edc1ee68a9e697b388be250ed635f80c6d098594f87e431e8aed59bc",
+      "new_certificate_sha256": "adabbb99b30239b0605b0fd0d635390e73a9030db3b93092f011c7f2609f173e"
+    },
+    "frameworks/base/services/tests/servicestests/certs/keyset_A": {
+      "old_certificate_sha256": "1fbe5ffbb0addc0ccdbf22b98a2f5a58a5c82980e1302f650e6bcaed0382bfcf",
+      "new_certificate_sha256": "8efed02326bd9c9638d2acf65c8d6099544cd9b77d5fce7b0b6842716f366c0b"
+    },
+    "frameworks/base/services/tests/servicestests/certs/keyset_B": {
+      "old_certificate_sha256": "4babdade29571c1e1c6b41ec84e02f940c842d7f19061e2e0fb122feebdc0297",
+      "new_certificate_sha256": "82d518669f48f4da9a3162806129f1039c015883453fcce97f03971cba6283cc"
+    },
+    "packages/apps/Car/Launcher/libs/appgrid/keys/com_android_car_launcher_test": {
+      "old_certificate_sha256": "7973821bda2cc1de2b1b88b57fa1276dc08e28f18f689f4abc4860cf1fc12189",
+      "new_certificate_sha256": "70da4365ddced5c254c9563f234a6b422731d3f121c8dc689921163f6c9a8d4c"
+    },
+    "packages/modules/AdServices/adservices/apk/com.android.adservices.api": {
+      "old_certificate_sha256": "ccc51124be4ab8f81bca7d32f6b3eb1ae04770e5ddfcc73a0108e1f94ec9f5f2",
+      "new_certificate_sha256": "9efead4da25103765cf104bfd7bca4fbc672a03bb93ea21b91f6c4648a917d27"
+    },
+    "packages/modules/AdServices/apex/com.android.adservices": {
+      "old_certificate_sha256": "5f75a8d41161e611b73c2aeb583fb1f115cdb0615ce88f4b91bd0d735a7dafce",
+      "new_certificate_sha256": "82325dbc9baf0f05fd596d5064660cd4cd38c92a49d55fb76fd6b6e228113d3b"
+    },
+    "packages/modules/AdServices/sdksandbox/tests/keys/sdksandbox-test": {
+      "old_certificate_sha256": "0b442d88faa7b3ad238dde298aa19bd56203920bbfd8d3ebc899332c8ee11599",
+      "new_certificate_sha256": "108acd84b1fa6a32400b41c22d276ed2eb2985d724b6d59077b9c5ee77aff8bd"
+    },
+    "packages/modules/AppSearch/com.android.appsearch": {
+      "old_certificate_sha256": "5e3d1cf772cf11a815a47abd8ef8cd59de48d2425dc663e065d5594b52db444d",
+      "new_certificate_sha256": "91fe6d9ac5e485f3def014e042d34321d45a2652725a30c1bfe3e5de4e9fe23b"
+    },
+    "packages/modules/Bluetooth/apex/com.android.btservices": {
+      "old_certificate_sha256": "453936d457354fa02e8d2a5dd66160dbaa5b95b80dfc9f2106102c484b0a5cf6",
+      "new_certificate_sha256": "4fd299accf24e092407b0c70b800effd2f121300153b77e88d92c3deb46b38ef"
+    },
+    "packages/modules/ConfigInfrastructure/apex/com.android.configinfrastructure": {
+      "old_certificate_sha256": "268a7f11be85df124407184dcfeb1661b5c0ce50a037a9575e3ecdbfa0506163",
+      "new_certificate_sha256": "6f33517153294f0565ad495b58ee69a47c768583061f684c5a9e6fa9f8500a01"
+    },
+    "packages/modules/Connectivity/service/ServiceConnectivityResources/resources-certs/com.android.connectivity.resources": {
+      "old_certificate_sha256": "c97c5176edc415d188eb1f33246e956920f399857ec9112a7c1e9dd9c0793637",
+      "new_certificate_sha256": "4328d1e2cc46abdc665859e057067b8c96ef6d41433e7b380ce4e0056d6abd4f"
+    },
+    "packages/modules/Connectivity/tests/cts/hostside/certs/cts-net-app": {
+      "old_certificate_sha256": "552f4552672cab675657c85b673467cbc3e8e5a0344548268625d5285340f11c",
+      "new_certificate_sha256": "f47f0e5f051908b94ba3d4b170ffb901463368033bf6ba785b4cf29445756c14"
+    },
+    "packages/modules/DeviceLock/apex/com.android.devicelock": {
+      "old_certificate_sha256": "cf56ad24a273ee26a656cc5cb5de804feb1806543105581ff43c1e1382aad9bd",
+      "new_certificate_sha256": "0722df2b472317f1518670f6bf3eb3e9b4e4d45d63222f1d45d10df40e17fcb0"
+    },
+    "packages/modules/DnsResolver/apex/testcert": {
+      "old_certificate_sha256": "f377b9b3bda066d041050e771649ad623afaf738bf8ca44f5b9de88e00cc1a89",
+      "new_certificate_sha256": "a62852031752b60b2d70602ae158e7c72d5bd3334ca9dbe4a3fc5e31f1c3beb2"
+    },
+    "packages/modules/ExtServices/apex/com.android.extservices": {
+      "old_certificate_sha256": "46c96885e5451a8c4d836d86848e5db1c1036695a8f42bd81fbfc11e8780355b",
+      "new_certificate_sha256": "c2b9e9c4fa92ad978b751b8b0a4b731a1fa2e499326ea99117ea8024e518531f"
+    },
+    "packages/modules/HealthFitness/apex/com.android.healthfitness": {
+      "old_certificate_sha256": "904077105277494dd77046a35c23af1a324fe05d4582c636e09cf8f88d4285d5",
+      "new_certificate_sha256": "6f2119a254b0dbf4766368e14f5390cc1b2601cc6f763235c80e6d461a16e29d"
+    },
+    "packages/modules/HealthFitness/apk/com.android.healthconnect.controller": {
+      "old_certificate_sha256": "f44c79af2f4ee6c96e340e31e6124ad045fa984e0fd79927e125ac06392dd31d",
+      "new_certificate_sha256": "30efaa76ce9f1572f4b9b420ee7ab1845c4e28d04d1ad4f79df952813c19b4f2"
+    },
+    "packages/modules/HealthFitness/backuprestore/com.android.health.connect.backuprestore": {
+      "old_certificate_sha256": "228835d76d34c0e7364f8f16b24d8892f92456c0b03d9ad57bb63878939abfb3",
+      "new_certificate_sha256": "8ef9fc873e9c5d29731e256bc401b95fb5bed31d057d425648057457c5ea298f"
+    },
+    "packages/modules/IPsec/apex/com.android.ipsec": {
+      "old_certificate_sha256": "8535e3451a4fbbd0b30552096875d7b6ecaef6212a2d4f542beb569c3b6232b7",
+      "new_certificate_sha256": "5d14243620065211a01a1f72c4350311202045db331d3975649dd5114308dfed"
+    },
+    "packages/modules/NeuralNetworks/apex/com.android.neuralnetworks": {
+      "old_certificate_sha256": "fb6f4cc467c55cc6ef1fce7198c49b5fe16749ee90135b8d593da0431d7f4407",
+      "new_certificate_sha256": "9320f26c679b1e0493c1083e0aeaf6baa7e76f86e47c9a4321f2e28122d844df"
+    },
+    "packages/modules/OnDevicePersonalization/federatedcompute/apk/com.android.federatedcompute": {
+      "old_certificate_sha256": "4e2c281c185bd3849b3c13976edaa82aa7d0990a891cac907ef6ac197af30ddc",
+      "new_certificate_sha256": "dd6925272b573e74c77994e8ec07aeaa739f943a5562766d22ba95014cfe7abd"
+    },
+    "packages/modules/Permission/SafetyCenter/Resources/com.android.safetycenter.resources": {
+      "old_certificate_sha256": "366f75e331af7cd858d44815dfc1e4f403b68093b7592ed71fd682b9f3af4cf7",
+      "new_certificate_sha256": "4d6cb4648ac17b44da2c7ff9f69c9b17bec87cd5ea92e11f4cc234733d417902"
+    },
+    "packages/modules/Permission/com.android.permission": {
+      "old_certificate_sha256": "39ebbb8341a47536f06618f7108e6b3a669c8586f84da6e479868766adacb63b",
+      "new_certificate_sha256": "c1a7accbc749e6abdac25696078c714793cf344a91dde2ef162ce5b0c6576f38"
+    },
+    "packages/modules/RemoteKeyProvisioning/apex/com.android.rkpd": {
+      "old_certificate_sha256": "55fa22ab72646dfea35e648724b0f4e4eb3ccba1b5f1779a986c56f5e3b2d28f",
+      "new_certificate_sha256": "6d7ca3c2f3a51b1e276600a65e77bba3587c0f06d1c0e5691b5e61364c972179"
+    },
+    "packages/modules/RuntimeI18n/apex/com.android.i18n": {
+      "old_certificate_sha256": "23afc3fc6944c73f768b77311ceedb94bb77d09f96b05ff9002391bea84f73ac",
+      "new_certificate_sha256": "c7e75d236bc79d8aff097b88a0e205448c5a6be681338d6b2585a91be02bc7c2"
+    },
+    "packages/modules/SdkExtensions/com.android.sdkext": {
+      "old_certificate_sha256": "dd15767b8bfe8c4105317f46bf4ea788e78d441aa90dc3768bb2da4b46c9a50e",
+      "new_certificate_sha256": "1f196d6548707ef352993bfe39ebf6664f721473972d38329bdad1fe3252f060"
+    },
+    "packages/modules/StatsD/apex/com.android.os.statsd": {
+      "old_certificate_sha256": "6d34fc8da57d5db252ec137a78763edc43829f70f76e0aceccf0b0715795b32e",
+      "new_certificate_sha256": "73ea91b48b627215734c130c4957adaf1bb9e7e53e149883e4f0cb32e9dc85c0"
+    },
+    "packages/modules/Uwb/apex/com.android.uwb": {
+      "old_certificate_sha256": "4a49ead5fe7cfbd01fbfc216ac0fe2a909e0f45dd9c4bdb9dc8d59e6036a6a0a",
+      "new_certificate_sha256": "da340999e9d7cb4fb52202b8bd9089995f050401a4515f26768a923f6e0dcca4"
+    },
+    "packages/modules/Uwb/service/ServiceUwbResources/resources-certs/com.android.uwb.resources": {
+      "old_certificate_sha256": "43ddcf4e8ad93c5b86dfa6911097f22767a3859af9696abfefc0e1fe275b8ad7",
+      "new_certificate_sha256": "267baedd5cc1e292cd4d9f81832091e170a29a5c654a9aa1e4a069ad0174da30"
+    },
+    "packages/modules/Virtualization/apex/com.android.virt": {
+      "old_certificate_sha256": "1ce37a0a9d002494ea013ac85ce7ade7fbfab68f6944be79e9f15db1460757ce",
+      "new_certificate_sha256": "c6bc350c3cd50d0f436aae9efd904cf2bd5fb08ffe639e1ff78cda64f84efc2b"
+    },
+    "packages/modules/Virtualization/tests/testapk/microdroid_test_app": {
+      "old_certificate_sha256": "92d03c410f1bfcbb8993361b5a146ef82b0fb09b85720d4a458c810e55989d06",
+      "new_certificate_sha256": "229ba74cfb809ae092db0eee07129354a671ee12c156ee4dd43a039b5090e539"
+    },
+    "packages/modules/Wifi/OsuLogin/certs/com.android.hotspot2.osulogin": {
+      "old_certificate_sha256": "936ef217719fcd1c387ae1f67addfdc53119c6097faec6867bfcbec14a2578de",
+      "new_certificate_sha256": "40328cc53b29890e074f6105973a0d3787d9be8f549465a0e3f3a318d45f92aa"
+    },
+    "packages/modules/Wifi/WifiDialog/certs/com.android.wifi.dialog": {
+      "old_certificate_sha256": "dc79bd290055f3d9add62f33a37e42fedfdc2ab10828d3a4d56d638ecebddfce",
+      "new_certificate_sha256": "a734190c4fc9cae3961d4f959903134b86295af0d0e9443559c444070daf24b2"
+    },
+    "packages/modules/Wifi/apex/com.android.wifi": {
+      "old_certificate_sha256": "b12d03bda8bcca69dae98ba760d3329080c51130d61c7728df0fb70bce826f9a",
+      "new_certificate_sha256": "8434f972cc25660e6621c77eb2a7bd0232b98a4b6ffad1be0c1e95b6be71e236"
+    },
+    "packages/modules/Wifi/service/ServiceWifiResources/resources-certs/com.android.wifi.resources": {
+      "old_certificate_sha256": "6ef8a09a1c719adcc9be004ee627a4b37cc7955f2f6e64e6b07d068f7798d384",
+      "new_certificate_sha256": "cee170197f7eb361a7c12d778fadeff91bd00a4d32e9ca2e28a8506200c21625"
+    },
+    "packages/modules/adb/apex/com.android.adbd": {
+      "old_certificate_sha256": "1a5b61bbf8eb851444fcd118518c7ffe9fc99201a85970ef92ff4f77a31f1288",
+      "new_certificate_sha256": "2f2c6eb5cffa4f6a01aebb20d9fd13ab78b4c1d7672b4df81e5bfe4028a66117"
+    },
+    "packages/modules/vndk/apex/com.android.vndk": {
+      "old_certificate_sha256": "ae0a71129a4e7ac2e0fe7b8a124732bc01668d5820da8af97f246696dc50752c",
+      "new_certificate_sha256": "c3f3a9ded930c222b3143bc6ae719da5ab3719dfe2db29a29726e7fa7ee25fa3"
+    },
+    "packages/providers/MediaProvider/apex/com.android.mediaprovider": {
+      "old_certificate_sha256": "4ec94e0b7c47e4921b60c57f9a1cc0f3d11b28b0e654f03867e08360e53f55d7",
+      "new_certificate_sha256": "4664327a069b9aa6e5adf7349813d95c0c9e024e5cf55e1ccb3a34394b1a5f3c"
+    },
+    "platform_testing/utils/shell-as/shell-as-test-app-key": {
+      "old_certificate_sha256": "340ecc58b9c3e43959b5934eabd7e506aa6215a2eb817ef522feafbe9a31f8bf",
+      "new_certificate_sha256": "156eb9ef40667bb509bd086f99789e462e02491824f0440b1ce78ad70befafc8"
+    },
+    "system/apex/tests/testdata/testcert": {
+      "old_certificate_sha256": "f377b9b3bda066d041050e771649ad623afaf738bf8ca44f5b9de88e00cc1a89",
+      "new_certificate_sha256": "a62852031752b60b2d70602ae158e7c72d5bd3334ca9dbe4a3fc5e31f1c3beb2"
+    },
+    "system/timezone/apex/com.android.tzdata": {
+      "old_certificate_sha256": "ac46d23a3ff846e549bbc21fd1e056e24464fec4a377497b1f319b7949b37214",
+      "new_certificate_sha256": "9ac21c14fe8b548e00e9200553684ee3cc155aa062d9a2b05a379f8301845ee5"
+    }
+  },
+  "private_material_included": false
+}

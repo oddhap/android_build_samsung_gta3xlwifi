@@ -222,3 +222,22 @@ Current progress (2026-10-03):
   This is a short concrete workload, not a complete memory-leak or long-term
   stability test. The user's original workload and longer observation remain
   useful; camera lag is still an open performance observation.
+
+## Private signing update (2026-10-03)
+
+Candidate 7 has been signed with project-owned APK/APEX/OTA keys and installed
+without formatting data. Build type remains userdebug; signing tags are now
+release-keys. Trust reports signing level GOOD (0). The 204 package records and
+UIDs survive, as do the three third-party signature records. Boot completes,
+SELinux is enforcing, file encryption is active, Bluetooth reaches ON, and
+browser page rendering/DNS pass. System-server PID 4347 remains unchanged and
+the crash buffer is empty during these checks. All earlier platform fixes and
+the tested boot image are unchanged. This does not establish long-term stability.
+
+The user reports camera lag is mainly brief initialization after app opening.
+The camera implementation has not been changed. See [signing](signing.md),
+[signature checks](release-signature-check.json), [migration checks](privatekeys-app-migration-check.json)
+and [runtime checks](privatekeys-runtime-check.json).
+
+Installed ZIP SHA-256:
+`c40cb6e5ec4ad0b610236160849348a20fdcce0c34ddac1e2ce145ba4b57a020`.

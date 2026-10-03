@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Inspect the completed Android 14 target-files and OTA without touching a device."""
+import argparse
 import hashlib
 import json
 import re
@@ -9,8 +10,12 @@ from pathlib import Path
 root = Path('/srv/android')
 top = root / 'src/lineage-21.0'
 out = top / 'out/target/product/gta3xlwifi'
-report = json.loads((root / 'artifacts/lineage-21/native-image-check.json').read_text())
-target_files = out / 'obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files'
+parser = argparse.ArgumentParser()
+parser.add_argument('--report-dir', type=Path, default=root / 'artifacts/lineage-21')
+parser.add_argument('--target-files', type=Path, default=out / 'obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files')
+args = parser.parse_args()
+report = json.loads((args.report_dir / 'native-image-check.json').read_text())
+target_files = args.target_files
 checks = {'hardware_tested': False}
 digest = hashlib.sha256()
 with Path(report['rom_zip']).open('rb') as stream:
@@ -121,5 +126,5 @@ with zipfile.ZipFile(report['rom_zip']) as archive:
     checks['ota_partition_references'] = sorted(partitions)
 checks['passed'] = True
 checks['rom_zip_sha256'] = report['rom_zip_sha256']
-(root / 'artifacts/lineage-21/port-package-check.json').write_text(json.dumps(checks, indent=2) + '\n')
+(args.report_dir / 'port-package-check.json').write_text(json.dumps(checks, indent=2) + '\n')
 print(json.dumps(checks, indent=2))

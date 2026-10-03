@@ -1,0 +1,22 @@
+{
+  "hardware_tested": false,
+  "power_init_sha256": "a907a42930d390f50b05bc0844ea1b297798a5f203c560591ffc60c2bf68db4a",
+  "native_power_library_sha256": "bc8a26c77617ca10ee8ed4850746761fadae2a02ecc2ae6156b064d4fc7b95ee",
+  "processgroup_library_sha256": "c2911af2df44b0b1f16ac8433c52842adf73c926445e7442233363e87f06c000",
+  "audio_hidl4_library_sha256": "320ad25586b79d03abe718c6650d523232332f486d0c4ca77276c367b22e1312",
+  "gpuwork_library_sha256": "9f42bf920a76f8cdb814f2f8912da80eb735b689c493b0249798fc6844048ea1",
+  "meminfo_library_sha256": "01750da3da1c07806e4736bdaebeaf611ecfff3cca5bf6b2d5bc292cedd0746d",
+  "system_ext_policy_sha256": "9edfd24c91cb8a20c0531f242cda8d84de9e94edf139efbda1756d806caa7817",
+  "cpu_profiles_preserve_root_rt_budget": true,
+  "vsync_property_label": "graphics_config_prop, exact string",
+  "android_release": "14",
+  "platform_security_patch": "2026-09-01",
+  "systemui_apk_sha256": "54a7ab0bd2a93e5918874475f22a0b9e0752a9d9b260b2cbb0077ecb5437ae61",
+  "ota_partition_references": [
+    "boot",
+    "product",
+    "system"
+  ],
+  "passed": true,
+  "rom_zip_sha256": "c40cb6e5ec4ad0b610236160849348a20fdcce0c34ddac1e2ce145ba4b57a020"
+}

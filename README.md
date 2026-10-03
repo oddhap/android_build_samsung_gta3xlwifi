@@ -7,10 +7,14 @@ checks pass. Candidate 7 boots Android 14 with encrypted file data and SELinux e
 GPU-memory APIs correctly report unavailable on the old kernel; real RAM
 accounting and a complete local memory summary pass. A 16-scroll Wall You
 Picsum workload passes with unchanged system-server PID and no crash. Bluetooth,
-DNS and the corrected bulk firewall update pass. Camera performance and longer
+DNS and the corrected bulk firewall update pass. A brief camera startup delay was reported; longer
 stability tests remain pending. This is a development port; no production
 stability claim has been made. See the port status and build
 notes for the known legacy vendor policy limitation and pending checks.
+
+The installed candidate now uses persistent project signing keys. Trust reports
+GOOD, and all 204 package records/UIDs survive the one-time migration. The build
+remains userdebug with release-keys signing tags. See [private signing](lineage-21/notes/signing.md).
 
 This branch preserves the Android 12/TWRP integration below as provenance and
 rollback documentation. Use the LineageOS 21 guide for the new port.

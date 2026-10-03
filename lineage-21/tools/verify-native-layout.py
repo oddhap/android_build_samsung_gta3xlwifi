@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Verify the actual ext4 system root used by Samsung's kernel-only boot."""
+import argparse
 import hashlib
 import json
 import re
@@ -11,7 +12,10 @@ from pathlib import Path
 root = Path('/srv/android')
 top = root / 'src/lineage-21.0'
 out = top / 'out/target/product/gta3xlwifi'
-report_dir = root / 'artifacts/lineage-21'
+parser = argparse.ArgumentParser()
+parser.add_argument('--report-dir', type=Path, default=root / 'artifacts/lineage-21')
+args = parser.parse_args()
+report_dir = args.report_dir
 images = json.loads((report_dir / 'native-image-check.json').read_text())
 image = Path(images['images']['system.img']['path'])
 digest = hashlib.sha256()

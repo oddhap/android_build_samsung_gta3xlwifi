@@ -1,0 +1,7 @@
+{
+  "certificates_replaced": 17,
+  "public_keys_replaced": 17,
+  "package_count": 204,
+  "only_exact_certificate_and_keyset_values_changed": true,
+  "wipes_data": false
+}

@@ -6,3 +6,8 @@ logs/
 out/
 ccache/
 artifacts/
+
+# Signing keys must stay outside version control.
+.signing/
+*.pk8
+*.pem
