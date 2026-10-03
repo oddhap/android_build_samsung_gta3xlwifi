@@ -1,6 +1,6 @@
 {
   "hardware_tested": false,
-  "system_image_sha256": "ed1c2abceb990291d66642e84210c85c42660522513fc24bc153504ab440ecb7",
+  "system_image_sha256": "0d2cebd408a507db380b90e893930b44c2fd5f15058efe513882e7785c932fdb",
   "ext4_features": {
     "system.img": {
       "incompat": "0x42",
@@ -16,6 +16,9 @@
   "init_sha256": "ce13480f98693d8459b661b896c7b9780345b6c8d9e6944fdf4271570c77b291",
   "processgroup_setup_library_sha256": "99d682eaa89a4f82c37b98199a03792fb13c8450bc21209582ab6039e03f250d",
   "root_init_duplicate_mounts_absent": true,
+  "libaudiohal.so_sha256": "079a6ddaef807cc664c1f63a924f4023f05ecb05de314fbbdfce97025f0b7253",
+  "libaudiohal@4.0.so_sha256": "320ad25586b79d03abe718c6650d523232332f486d0c4ca77276c367b22e1312",
+  "libgpuwork.so_sha256": "9f42bf920a76f8cdb814f2f8912da80eb735b689c493b0249798fc6844048ea1",
   "/fstab.exynos7904": "ae87c90434eb2cfe64bd04ec52ec4d7da8019d12395b9a67c8515975b48b3742",
   "/init.exynos7904.rc": "17b56bafc0d86e86f70f1db8dac3a06faa583296092b06d4f62c234bbf71c1ca",
   "/ueventd.exynos7904.rc": "1dc43d6fb0e426baea6f8a8a940dd92ac97dab9675c788dcee680ced92a1668d",

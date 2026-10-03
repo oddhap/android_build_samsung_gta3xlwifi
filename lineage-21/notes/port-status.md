@@ -72,8 +72,8 @@ Current progress (2026-10-03):
 - A product-specific framework fragment declares stock vendor's System SDK 28
   resource contract. All 57 vendor APKs are resource-only overlays without DEX;
   native HALs retain VNDK 30. The vendor compatibility matrix is unchanged.
-- Fourth candidate: lineage-21.0-20261003-UNOFFICIAL-gta3xlwifi.zip.
-  SHA-256: 28d9e5ac1a133ca35164f2a282e0a4cda0c3386cfc37960acbf85b0d6f10e98e.
+- Fifth candidate: lineage-21.0-20261003-UNOFFICIAL-gta3xlwifi.zip.
+  SHA-256: 44cb64925e2d665ef2853d0206043a8a95d097841680ed59abbe47e3627999cc.
   Expanded images fit the physical partitions. The actual ext4 images use
   incompat 0x42 / ro_compat 0x7b, supported by the original kernel.
 - TWRP installed the candidate successfully (updater RC 0); boot readback matches
@@ -129,3 +129,8 @@ Current progress (2026-10-03):
 - Remaining observed issue: composer repeatedly reads unlabeled legacy property
   hwc.exynos.vsync_mode, generating access denials. This has not been changed
   in the fifth candidate. Performance and complete hardware tests remain pending.
+
+- Fifth full build completed successfully (09:21). Image/ZIP/layout/package
+  checks pass, including exact media library bytes inside the actual ext4
+  image, HIDL4 factory exports and the GPU BPF capability guard.
+  Physical boot and audio verification remain pending.

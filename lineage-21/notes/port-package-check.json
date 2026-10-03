@@ -3,6 +3,8 @@
   "power_init_sha256": "a907a42930d390f50b05bc0844ea1b297798a5f203c560591ffc60c2bf68db4a",
   "native_power_library_sha256": "bc8a26c77617ca10ee8ed4850746761fadae2a02ecc2ae6156b064d4fc7b95ee",
   "processgroup_library_sha256": "c2911af2df44b0b1f16ac8433c52842adf73c926445e7442233363e87f06c000",
+  "audio_hidl4_library_sha256": "320ad25586b79d03abe718c6650d523232332f486d0c4ca77276c367b22e1312",
+  "gpuwork_library_sha256": "9f42bf920a76f8cdb814f2f8912da80eb735b689c493b0249798fc6844048ea1",
   "system_ext_policy_sha256": "809aaa0c90e635fb26d8f8f3084c030ca6a99cbee106290040d8cba912629c15",
   "android_release": "14",
   "platform_security_patch": "2026-09-01",
@@ -13,5 +15,5 @@
     "system"
   ],
   "passed": true,
-  "rom_zip_sha256": "28d9e5ac1a133ca35164f2a282e0a4cda0c3386cfc37960acbf85b0d6f10e98e"
+  "rom_zip_sha256": "44cb64925e2d665ef2853d0206043a8a95d097841680ed59abbe47e3627999cc"
 }
