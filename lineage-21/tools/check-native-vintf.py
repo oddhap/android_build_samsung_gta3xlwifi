@@ -21,11 +21,23 @@ required += [f'compatibility_matrix.{level}.xml' for level in ('3', '5', '6', '7
 missing = [name for name in required if not (system / 'etc/vintf' / name).exists()]
 if missing:
     raise SystemExit(f'Framework metadata is not fully built yet: {", ".join(missing)}')
+# Android 14 checks vendor APEX manifests too. Use the same activation helper as
+# official target-files verification, against the actual Samsung vendor tree.
+apex = artifacts / 'apex'
+apex.mkdir(exist_ok=True)
+host = top / 'out/host/linux-x86'
+activation = subprocess.run([str(host / 'bin/apexd_host'), '--tool_path', str(host),
+                            '--apex_path', str(apex), '--vendor_path',
+                            str(root / 'vendor-stock/extracted/vendor')],
+                           capture_output=True, text=True)
+(artifacts / 'apex-activation.log').write_text(activation.stdout + activation.stderr)
+if activation.returncode:
+    raise SystemExit(f'Actual vendor APEX preparation failed: {activation.returncode}')
 command = [str(top / 'out/host/linux-x86/bin/checkvintf'), '--check-compat']
 for partition, path in (
     ('system', system), ('system_ext', system / 'system_ext'),
     ('product', out / 'product'), ('vendor', root / 'vendor-stock/extracted/vendor'),
-    ('odm', empty),
+    ('odm', empty), ('apex', apex),
 ):
     command += ['--dirmap', f'/{partition}:{path}']
 command += ['--property', 'ro.product.first_api_level=28',
@@ -41,7 +53,7 @@ result = subprocess.run(command, capture_output=True, text=True)
     'actual_stock_vendor_used': True, 'kernel_config_checked': True,
     'hardware_tested': False,
 }, indent=2) + '\n')
-print(result.stdout, end='')
+print('\n'.join(result.stdout.splitlines()[-8:]))
 print('\n'.join(result.stderr.splitlines()[-16:]))
 print(f'Native VINTF compatibility exit code: {result.returncode}')
 raise SystemExit(result.returncode)

@@ -40,7 +40,7 @@
     },
     {
       "path": "/srv/android/src/lineage-21.0/out/target/product/gta3xlwifi/system/system_ext/etc/selinux/system_ext_sepolicy.cil",
-      "sha256": "18ecfba5cf4cc3230b8dcd8267db603a8fe1f8ccd873d306b3e84e86e16e20fc"
+      "sha256": "809aaa0c90e635fb26d8f8f3084c030ca6a99cbee106290040d8cba912629c15"
     },
     {
       "path": "/srv/android/src/lineage-21.0/out/target/product/gta3xlwifi/system/system_ext/etc/selinux/mapping/30.0.compat.cil",

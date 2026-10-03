@@ -1,0 +1,33 @@
+{
+  "device": "SM-T510",
+  "exit_code": 0,
+  "command": [
+    "/srv/android/src/lineage-21.0/out/host/linux-x86/bin/checkvintf",
+    "--check-compat",
+    "--dirmap",
+    "/system:/srv/android/src/lineage-21.0/out/target/product/gta3xlwifi/system",
+    "--dirmap",
+    "/system_ext:/srv/android/src/lineage-21.0/out/target/product/gta3xlwifi/system/system_ext",
+    "--dirmap",
+    "/product:/srv/android/src/lineage-21.0/out/target/product/gta3xlwifi/product",
+    "--dirmap",
+    "/vendor:/srv/android/vendor-stock/extracted/vendor",
+    "--dirmap",
+    "/odm:/srv/android/artifacts/lineage-21/native-vintf-check/empty-odm",
+    "--dirmap",
+    "/apex:/srv/android/artifacts/lineage-21/native-vintf-check/apex",
+    "--property",
+    "ro.product.first_api_level=28",
+    "--property",
+    "ro.boot.product.hardware.sku=",
+    "--property",
+    "ro.boot.product.vendor.sku=",
+    "--kernel",
+    "4.4.302:/srv/android/artifacts/kernel-smoke/config"
+  ],
+  "framework_kernel_profile": "SM-T510 legacy iptables/qtaguid; five networking requirements adapted",
+  "unmodified_upstream_kernel_profile_passed": false,
+  "actual_stock_vendor_used": true,
+  "kernel_config_checked": true,
+  "hardware_tested": false
+}

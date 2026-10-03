@@ -16,7 +16,7 @@ parser.add_argument('--expected-kernel-sha256', default='9827c8ac986f7497428ac27
                     help='SHA-256 of the independently reviewed source-built kernel')
 args = parser.parse_args()
 out = root / 'src/lineage-21.0/out/target/product/gta3xlwifi'
-packaged = out / 'obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files-eng.builder/IMAGES'
+packaged = out / 'obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/IMAGES'
 exit_file = args.build_exit
 if not exit_file.exists() or exit_file.read_text().strip() != '0':
     raise SystemExit('Full LineageOS 21 ROM build has not completed successfully')
@@ -119,7 +119,8 @@ if report['images']['vendor.img']['sha256'] != '4cc684231b4a1c355169cea61b4ea519
 if report['images']['dtbo.img']['sha256'] != 'b9041c37713a745290d9a0203423436b6caa7a1307ced79b6963b4f1f0271c4b':
     raise SystemExit('Packaged DTBO differs from the reviewed source-built container')
 
-packages = sorted(out.glob('lineage-21.0-*-gta3xlwifi.zip'), key=lambda p: p.stat().st_mtime)
+packages = sorted(out.glob('lineage-21.0-*-gta3xlwifi.zip'),
+                  key=lambda p: (p.stat().st_mtime_ns, p.name))
 if not packages:
     raise SystemExit('No device-specific LineageOS ZIP produced')
 package = packages[-1]

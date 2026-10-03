@@ -1,0 +1,16 @@
+{
+  "hardware_tested": false,
+  "power_init_sha256": "a907a42930d390f50b05bc0844ea1b297798a5f203c560591ffc60c2bf68db4a",
+  "native_power_library_sha256": "bc8a26c77617ca10ee8ed4850746761fadae2a02ecc2ae6156b064d4fc7b95ee",
+  "system_ext_policy_sha256": "809aaa0c90e635fb26d8f8f3084c030ca6a99cbee106290040d8cba912629c15",
+  "android_release": "14",
+  "platform_security_patch": "2026-09-01",
+  "systemui_apk_sha256": "721fc08563a261d6a895c2a07b95403bed13d332e17c94d86b7d7a1f147f49a3",
+  "ota_partition_references": [
+    "boot",
+    "product",
+    "system"
+  ],
+  "passed": true,
+  "rom_zip_sha256": "d1bf119e48c77909f897d4534f14bcf4aaa1ea6a91434df22b1a8538171e6584"
+}

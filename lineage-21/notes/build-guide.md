@@ -47,7 +47,10 @@ Capture the build's exit code in `/srv/android/logs/lineage21-rom-build-final.ex
 Run `verify-native-images.py`, `verify-native-layout.py`, `verify-port-package.py`, `check-native-vintf.py`
 and `check-stock-vendor-policy.py --runtime-mode`. The image verifier checks the
 expanded sizes, boot headers, Samsung trailers, original kernel/vendor/DTBO,
-recovery layout and OTA metadata. The package verifier checks the Android
+recovery layout and OTA metadata. The layout verifier checks actual ext4
+features against the original kernel and verifies /init plus the three Samsung
+boot files inside the physical system image, rather than relying on staging
+files in the unused boot ramdisk. The package verifier checks the Android
 version, packaged power backend, networking selector, absence of the probe and
 Google service APKs, and OTA partition references.
 

@@ -1,6 +1,6 @@
 # SM-T510 LineageOS 21 development port
 
-Status: source preparation and platform adaptation; no flashable build verified yet.
+Status: full Android 14 ROM build and offline checks pass. Hardware installation/testing is in progress.
 
 The Android platform is the current LineageOS lineage-21.0 branch, downloaded
 independently from the working LineageOS 19.1 checkout. Android userspace remains
@@ -35,7 +35,7 @@ Reference checkouts on build VM:
 Only selected, reviewed compatibility changes should be carried into fresh
 upstream projects; an old fork must not replace current security patches wholesale.
 
-Current progress (2026-10-02):
+Current progress (2026-10-03):
 - Source sync completed; exact manifest saved under
   /srv/android/artifacts/lineage-21/lineage-21.0-source-manifest.xml.
 - Targeted builds pass the complete Tethering APEX, netd, networking JNI and
@@ -60,6 +60,21 @@ Current progress (2026-10-02):
   strict check. This limitation remains documented rather than changing vendor
   rules or disabling generated platform policy checks.
 - All six platform patches apply against clean pinned source indexes. The full
-  bacon build is running with the original verified kernel/vendor/DTBO.
-- Full ROM completion, image/VINTF/encryption checks, hardware boot and stability
-  testing are pending. No LineageOS 21 image has been flashed.
+  bacon build completed with the original verified kernel/vendor/DTBO.
+- Full ROM/image/ZIP and stock-vendor VINTF checks pass. A separate physical
+  system-image inspection caught Samsung init/fstab/ueventd files in the unused
+  boot ramdisk. These now target TARGET_COPY_OUT_ROOT; the corrected build and
+  actual image-layout verification pass.
+- Recovery fstab uses /system for Android 14 OTA tools; the boot fstab and
+  kernel-only physical system root are preserved.
+- The device FCM 3 matrix omits the obsolete optional Wi-Fi offload HAL, absent
+  from actual vendor manifests and removed from Android 14's interface metadata.
+- A product-specific framework fragment declares stock vendor's System SDK 28
+  resource contract. All 57 vendor APKs are resource-only overlays without DEX;
+  native HALs retain VNDK 30. The vendor compatibility matrix is unchanged.
+- Final candidate: lineage-21.0-20261003-UNOFFICIAL-gta3xlwifi.zip.
+  SHA-256: d1bf119e48c77909f897d4534f14bcf4aaa1ea6a91434df22b1a8538171e6584.
+  Expanded images fit the physical partitions. The actual ext4 images use
+  incompat 0x42 / ro_compat 0x7b, supported by the original kernel.
+- Hardware installation is in progress; boot, encryption and stability have not
+  yet been validated. Offline reports do not establish physical behavior.

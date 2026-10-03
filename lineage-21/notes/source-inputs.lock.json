@@ -2,7 +2,7 @@
   "android_device_samsung_gta3xlwifi": {
     "url": "https://github.com/oddhap/android_device_samsung_gta3xlwifi",
     "branch": "lineage-21.0",
-    "commit": "8fb0ec89713286b18bd1ff3aa00e71af792c0034"
+    "commit": "de4f371134e05c78ea3217bcf471ab92725a598e"
   },
   "android_kernel_samsung_gta3xlwifi": {
     "url": "https://github.com/oddhap/android_kernel_samsung_gta3xlwifi",

@@ -10,9 +10,20 @@ root = Path('/srv/android')
 top = root / 'src/lineage-21.0'
 out = top / 'out/target/product/gta3xlwifi'
 report = json.loads((root / 'artifacts/lineage-21/native-image-check.json').read_text())
-target_files = out / 'obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files-eng.builder.zip'
+target_files = out / 'obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files'
 checks = {'hardware_tested': False}
-with zipfile.ZipFile(target_files) as archive:
+
+class TargetFilesTree:
+    def __enter__(self):
+        return self
+    def __exit__(self, *_):
+        return False
+    def namelist(self):
+        return [p.relative_to(target_files).as_posix() for p in target_files.rglob('*') if p.is_file()]
+    def read(self, name):
+        return (target_files / name).read_bytes()
+
+with TargetFilesTree() as archive:
     names = archive.namelist()
     if any('gta3xlwifi-network-probe' in name for name in names):
         raise SystemExit('Optional packet probe was included in the ROM')

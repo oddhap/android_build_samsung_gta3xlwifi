@@ -1,0 +1,22 @@
+{
+  "hardware_tested": false,
+  "system_image_sha256": "f489d50106dcba5418cfd89aa1adfcbaed527d177c834d1869db0668a2bc32aa",
+  "ext4_features": {
+    "system.img": {
+      "incompat": "0x42",
+      "ro_compat": "0x7b",
+      "original_kernel_support_checked": true
+    },
+    "product.img": {
+      "incompat": "0x42",
+      "ro_compat": "0x7b",
+      "original_kernel_support_checked": true
+    }
+  },
+  "init_sha256": "ce13480f98693d8459b661b896c7b9780345b6c8d9e6944fdf4271570c77b291",
+  "/fstab.exynos7904": "ae87c90434eb2cfe64bd04ec52ec4d7da8019d12395b9a67c8515975b48b3742",
+  "/init.exynos7904.rc": "9cf66e058e5312dc91ff57cd05868d650701d74e2517b12114268b0a61a8f944",
+  "/ueventd.exynos7904.rc": "1dc43d6fb0e426baea6f8a8a940dd92ac97dab9675c788dcee680ced92a1668d",
+  "/system/system_ext/etc/init/init.gta3xlwifi.power.rc": "a907a42930d390f50b05bc0844ea1b297798a5f203c560591ffc60c2bf68db4a",
+  "passed": true
+}
