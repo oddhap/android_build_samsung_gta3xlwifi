@@ -85,6 +85,16 @@ with tempfile.TemporaryDirectory(prefix='gta3xlwifi-system-layout-', dir=report_
     if init[:5] != b'\x7fELF\x01' or init[18:20] != b'\x28\x00':
         raise SystemExit('System-root init is missing or is not ARM32 ELF')
     checks['init_sha256'] = hashlib.sha256(init).hexdigest()
+    if b'libfs_mgr.so' not in init:
+        raise SystemExit('Actual init does not use the verified filesystem manager')
+    for name in ('libfs_mgr.so', 'libfs_mgr_binder.so'):
+        manager = read_file('/system/lib/' + name)
+        if b'ro.gta3xlwifi.ext4_project_quota' not in manager:
+            raise SystemExit('Filesystem manager lacks the project-quota capability guard')
+        if manager != (out / 'system/lib' / name).read_bytes():
+            raise SystemExit('Filesystem manager differs from the compiled quota fix')
+        checks[name + '_sha256'] = hashlib.sha256(manager).hexdigest()
+    checks['filesystem_manager_ext4_project_quota_guard'] = True
     setup = read_file('/system/lib/libprocessgroup_setup.so')
     if setup != (out / 'system/lib/libprocessgroup_setup.so').read_bytes():
         raise SystemExit('System image processgroup setup differs from the compiled library')
@@ -123,6 +133,8 @@ with tempfile.TemporaryDirectory(prefix='gta3xlwifi-system-layout-', dir=report_
         raise SystemExit('Physical system image incorrectly advertises eBPF support')
     if b'ro.hardware=exynos7904\n' not in props:
         raise SystemExit('Physical system image lacks the Samsung init hardware selector')
+    if b'ro.gta3xlwifi.ext4_project_quota=false\n' not in props:
+        raise SystemExit('Physical system image does not disable unsupported project quota')
 
 checks['passed'] = True
 (report_dir / 'native-layout-check.json').write_text(json.dumps(checks, indent=2) + '\n')

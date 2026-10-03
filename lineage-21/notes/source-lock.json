@@ -58,7 +58,7 @@
     "project": "system/core",
     "revision": "ec299bf6da55702b7b9675d60a0faf2815f0dc6d",
     "patch": "system_core.patch",
-    "sha256": "96ba44ff976d8a10f27ced71cca0d39d4be5be1c807730b08f02bd2c039cdfd2",
+    "sha256": "845e36afe413c48d931817b6448c985e4523e672481003eb92c84502b5ced414",
     "new_files": [],
     "clean_index_patch_check_passed": true
   },

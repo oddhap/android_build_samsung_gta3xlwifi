@@ -165,3 +165,11 @@ three GPU-query APIs remain unavailable and ordinary RAM accounting works.
 
 Use the [private signing and certificate migration guide](signing.md) for builds
 installed after the key migration. Plain development `bacon` builds use test keys.
+
+## Booting after a factory reset
+
+The SM-T510 kernel supports ext4 user/group quota but not project quota. The
+final system/core patch and `ro.gta3xlwifi.ext4_project_quota=false` must both be
+present before booting newly formatted data. An older Android 14 port enables
+project quota by default and makes the filesystem unmountable. See
+[the diagnosis, repair and regression test](factory-reset-quota.md).

@@ -1,3 +1,20 @@
+diff --git a/fs_mgr/fs_mgr.cpp b/fs_mgr/fs_mgr.cpp
+index 92a9bbe..8160f1e 100644
+--- a/fs_mgr/fs_mgr.cpp
++++ b/fs_mgr/fs_mgr.cpp
+@@ -375,8 +375,10 @@ static void tune_quota(const std::string& blk_device, const FstabEntry& entry,
+                        const struct ext4_super_block* sb, int* fs_stat) {
+     bool has_quota = (sb->s_feature_ro_compat & cpu_to_le32(EXT4_FEATURE_RO_COMPAT_QUOTA)) != 0;
+     bool want_quota = entry.fs_mgr_flags.quota;
+-    // Enable projid support by default
+-    bool want_projid = true;
++    // SM-T510's Samsung kernel supports user/group quotas but not the ext4
++    // project feature. Enabling it makes /data unmountable on the next boot.
++    // Other devices keep Android 14's default project-quota behavior.
++    bool want_projid = GetBoolProperty("ro.gta3xlwifi.ext4_project_quota", true);
+     if (has_quota == want_quota) {
+         return;
+     }
 diff --git a/libprocessgroup/processgroup.cpp b/libprocessgroup/processgroup.cpp
 index 94d9502..7752d7e 100644
 --- a/libprocessgroup/processgroup.cpp

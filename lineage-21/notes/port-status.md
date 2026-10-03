@@ -1,6 +1,7 @@
 # SM-T510 LineageOS 21 development port
 
-Status: candidate 7 boots Android 14 with encrypted file data and SELinux enforcing.
+Status: candidate 8 boots Android 14 after fresh data initialization and an ordinary reboot,
+with encrypted file data and SELinux enforcing.
 GPU memory-query and ordinary RAM tests pass without the prior system-server abort;
 a complete local memory summary and the corrected bulk firewall update pass.
 Bluetooth and Internet/DNS work. A 16-scroll Wall You Picsum workload passes with unchanged system-server PID
@@ -241,3 +242,29 @@ and [runtime checks](privatekeys-runtime-check.json).
 
 Installed ZIP SHA-256:
 `c40cb6e5ec4ad0b610236160849348a20fdcce0c34ddac1e2ce145ba4b57a020`.
+
+## Factory reset initialization fix (2026-10-03)
+
+A user-initiated TWRP Format Data exposed unsupported ext4 project-quota
+initialization in Android 14 fs_mgr. Candidate 8 disables project quota only for
+this device, retaining real user/group quotas. The existing empty filesystem was
+repaired in place, without formatting it again. The privately signed candidate
+passed image/layout/package/signature checks and TWRP installation (updater RC 0).
+
+Physical regression testing began with quota absent, matching the recorded
+TWRP format state. Android initialized user/group quotas with project absent,
+completed setup, and survived an ordinary reboot. Both checks retained
+read/write /data, file encryption, SELinux Enforcing, Trust signing level GOOD
+and an empty crash buffer. Runtime fs_mgr library hashes match the built image.
+The build remains userdebug with release-keys. The stock kernel/vendor and the
+previously tested power, networking, media and memory fixes remain unchanged.
+The user's format removed old apps/data; this test does not claim their retention.
+
+Installed ZIP SHA-256:
+`a1046f97465d2ff7b8a7db03c4855ccd69a57eb6b6704f97abeb3598c8c0da20`.
+
+See [diagnosis and repair](factory-reset-quota.md),
+[first-boot/reboot results](quota-firstboot-check.json),
+[image layout checks](quota-native-layout-check.json), and
+[private signature verification](quota-release-signature-check.json).
+Long-term stability and the remaining hardware tests are still pending.

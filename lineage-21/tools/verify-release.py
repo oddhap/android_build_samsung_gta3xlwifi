@@ -92,7 +92,10 @@ with tempfile.TemporaryDirectory(dir=args.release, prefix='verify-') as tmp:
         assert new.read('IMAGES/boot.img') == old.read('IMAGES/boot.img')
         checks['boot_image_preserved'] = True
         tree = args.release / 'verified-target-files'
-        tree.mkdir(exist_ok=True)
+        # Never let deleted files from an earlier build survive verification.
+        if tree.exists():
+            tree.rename(temp / 'previous-target-files')
+        tree.mkdir()
         new.extractall(tree)
         images = {}
         for name, limit in [('system.img',3196059648), ('product.img',327155712), ('boot.img',33554432)]:

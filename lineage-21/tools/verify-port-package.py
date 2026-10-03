@@ -105,6 +105,14 @@ with TargetFilesTree() as archive:
         raise SystemExit('Packaged platform is not Android 14')
     if values.get('ro.gta3xlwifi.legacy_networking') != 'true':
         raise SystemExit('Device legacy networking selector is missing')
+    if values.get('ro.gta3xlwifi.ext4_project_quota') != 'false':
+        raise SystemExit('Unsupported ext4 project-quota capability is not disabled')
+    checks['ext4_project_quota_supported'] = False
+    for name in ('libfs_mgr.so', 'libfs_mgr_binder.so'):
+        manager = archive.read('SYSTEM/lib/' + name)
+        if b'ro.gta3xlwifi.ext4_project_quota' not in manager:
+            raise SystemExit('Packaged filesystem manager lacks the quota guard')
+        checks[name + '_sha256'] = hashlib.sha256(manager).hexdigest()
     checks['android_release'] = values['ro.build.version.release']
     checks['platform_security_patch'] = values['ro.build.version.security_patch']
     systemui = [name for name in names if name.endswith('/SystemUI/SystemUI.apk')]

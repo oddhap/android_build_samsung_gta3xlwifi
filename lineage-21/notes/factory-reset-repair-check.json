@@ -1,0 +1,33 @@
+{
+  "device": "SM-T510",
+  "failure": "unsupported ext4 project quota after Format Data",
+  "unsupported_ro_compat_feature": "0x2000",
+  "in_place_repair": true,
+  "formatted_again": false,
+  "filesystem_check_phases_passed": 5,
+  "read_write_mount_after_repair": true,
+  "features_after_project_repair": [
+    "has_journal",
+    "ext_attr",
+    "resize_inode",
+    "dir_index",
+    "filetype",
+    "extent",
+    "64bit",
+    "flex_bg",
+    "encrypt",
+    "sparse_super",
+    "large_file",
+    "huge_file",
+    "dir_nlink",
+    "extra_isize",
+    "quota",
+    "metadata_csum"
+  ],
+  "user_quota_inode": 3,
+  "group_quota_inode": 4,
+  "undo_file_retained_locally": true,
+  "permanent_fix_property": "ro.gta3xlwifi.ext4_project_quota=false",
+  "permanent_fix_hardware_tested": true,
+  "hardware_test_report": "quota-firstboot-check.json"
+}

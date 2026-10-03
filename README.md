@@ -3,7 +3,8 @@
 The native Android 14 port lives under [lineage-21](lineage-21/notes/build-guide.md).
 Targeted networking/APEX/ABI/SELinux and power builds pass; host and scoped kernel
 packet tests pass. The full installation ZIP and actual image/layout/ZIP/VINTF
-checks pass. Candidate 7 boots Android 14 with encrypted file data and SELinux enforcing.
+checks pass. Candidate 8 boots Android 14 after fresh data initialization and a
+normal reboot, with encrypted file data and SELinux enforcing.
 GPU-memory APIs correctly report unavailable on the old kernel; real RAM
 accounting and a complete local memory summary pass. A 16-scroll Wall You
 Picsum workload passes with unchanged system-server PID and no crash. Bluetooth,
@@ -12,9 +13,15 @@ stability tests remain pending. This is a development port; no production
 stability claim has been made. See the port status and build
 notes for the known legacy vendor policy limitation and pending checks.
 
-The installed candidate now uses persistent project signing keys. Trust reports
-GOOD, and all 204 package records/UIDs survive the one-time migration. The build
-remains userdebug with release-keys signing tags. See [private signing](lineage-21/notes/signing.md).
+The installed candidate uses persistent project signing keys. Trust reports
+GOOD; the build remains userdebug with release-keys signing tags. The earlier
+candidate 7 migration preserved all 204 package records/UIDs; a subsequent user
+Format Data removed that data. See [private signing](lineage-21/notes/signing.md).
+
+Candidate 8 fixes Android 14 initialization of unsupported ext4 project quota
+after TWRP Format Data. User/group quota and file encryption remain active.
+The formerly failing first-boot path and an ordinary reboot pass on the tablet.
+See [diagnosis and regression evidence](lineage-21/notes/factory-reset-quota.md).
 
 This branch preserves the Android 12/TWRP integration below as provenance and
 rollback documentation. Use the LineageOS 21 guide for the new port.
