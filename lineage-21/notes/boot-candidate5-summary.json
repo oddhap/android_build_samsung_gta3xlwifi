@@ -1,0 +1,25 @@
+{
+  "rom_sha256": "44cb64925e2d665ef2853d0206043a8a95d097841680ed59abbe47e3627999cc",
+  "boot_completed": true,
+  "android_release": "14",
+  "selinux": "Enforcing",
+  "data_crypto_state": "encrypted",
+  "data_crypto_type": "file",
+  "audioserver_running": true,
+  "gpu_service_running": true,
+  "audio_mixer_outputs_present": true,
+  "gpu_bpf_metrics": "explicitly unavailable, no fabricated values",
+  "wifi_address_present": true,
+  "remaining_observations": [
+    "Bluetooth failed SCHED_FIFO because foreground CPU group had RT runtime=0",
+    "temporary foreground RT budget allowed Bluetooth to reach ON; moving Bluetooth to CPU root keeps it ON",
+    "foreground budget reset attempt did not take effect; the temporary 100000 budget must be confirmed reset after candidate6 reboot",
+    "stock composer property hwc.exynos.vsync_mode remains default_prop and generates repeated read denials"
+  ],
+  "candidate6_changes": [
+    "CPU root placement preserves existing 950000/1000000 RT limits, performance affinity uses supported cpuset groups",
+    "exact legacy graphics property label and composer read access"
+  ],
+  "full_physical_validation_pending": true,
+  "data_formatted": false
+}

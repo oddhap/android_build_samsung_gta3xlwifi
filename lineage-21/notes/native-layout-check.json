@@ -1,6 +1,6 @@
 {
   "hardware_tested": false,
-  "system_image_sha256": "0d2cebd408a507db380b90e893930b44c2fd5f15058efe513882e7785c932fdb",
+  "system_image_sha256": "af424b83a73c6eabafdba0efdece3e241d256d576f874e5b8581ba9230d15e31",
   "ext4_features": {
     "system.img": {
       "incompat": "0x42",
@@ -24,7 +24,7 @@
   "/ueventd.exynos7904.rc": "1dc43d6fb0e426baea6f8a8a940dd92ac97dab9675c788dcee680ced92a1668d",
   "/system/system_ext/etc/init/init.gta3xlwifi.power.rc": "a907a42930d390f50b05bc0844ea1b297798a5f203c560591ffc60c2bf68db4a",
   "/system/etc/cgroups.gta3xlwifi.json": "5a888561ad69f454fda7175196e0f77ce11d745bad7b69f748ee231f91e653f8",
-  "/system/etc/task_profiles.gta3xlwifi.json": "db5b3442c10fb6b2a4ce6d69617ae2214d7613386993a045ca5a6a633b048efa",
+  "/system/etc/task_profiles.gta3xlwifi.json": "198ebcd32793092f5344d3f2063d2d85639a232ca068279d50bf5240c4a8787e",
   "/system/etc/init/init.gta3xlwifi.crypto.rc": "8f27efddbf9d1909784cf734b94112a99c9f93a0f34d771b2ebd64287888472c",
   "passed": true
 }

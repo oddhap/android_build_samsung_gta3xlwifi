@@ -1,6 +1,6 @@
 # SM-T510 LineageOS 21 development port
 
-Status: full Android 14 ROM build and offline checks pass. The first two hardware boots failed during process-group setup; the fourth candidate runs Android 14 with encrypted data, ADB and enforcing SELinux but remains in the boot animation waiting for audio. A fifth candidate restores the current HIDL 4 client and skips unsupported GPU BPF metrics.
+Status: full Android 14 ROM build and offline checks pass. The first two hardware boots failed during process-group setup; the fifth candidate completes Android 14 boot with encrypted data, enforcing SELinux, audio, GPU service and working IPv4/DNS. A sixth candidate is built and verified offline, retaining CPU root RT scheduling and an exact legacy graphics property label. Physical installation/testing is pending.
 
 The Android platform is the current LineageOS lineage-21.0 branch, downloaded
 independently from the working LineageOS 19.1 checkout. Android userspace remains
@@ -134,3 +134,23 @@ Current progress (2026-10-03):
   checks pass, including exact media library bytes inside the actual ext4
   image, HIDL4 factory exports and the GPU BPF capability guard.
   Physical boot and audio verification remain pending.
+
+- Fifth physical boot completes (sys.boot_completed=1) with audio and GPU
+  services running. Audio mixer outputs exist; GPU work statistics report
+  unavailable. Wi-Fi, an external IPv4 ping and DNS resolution/ping pass.
+  Bluetooth reaches ON in a scoped diagnostic after a temporary RT subgroup
+  budget, and stays ON when moved to CPU root. The temporary subgroup value
+  must be confirmed reset after reboot.
+- Sixth candidate keeps the original root RT budget, places CPU scheduling
+  in root and uses supported cpuset groups for performance affinity. The
+  exact legacy vsync property uses the existing graphics_config_prop type
+  with composer read access; no value or broad default_prop access is changed.
+  Source and generated SELinux checks pass so far; full build/image/runtime
+  and physical function testing remain pending.
+
+- Sixth full build completed successfully (10:31). Image, actual ext4 layout,
+  package, native VINTF and stock-vendor runtime policy checks pass. Nine
+  platform patches match clean pinned source indexes. Packaged profiles
+  preserve CPU root scheduling; the exact vsync property label is present.
+  ROM SHA-256: 733e56c6db1982b9d10d1b9ddca6e0f3cbddb5b428780a862108dca13b00aff7.
+  Physical installation/testing is pending; data is not formatted.

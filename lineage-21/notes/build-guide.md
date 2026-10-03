@@ -86,14 +86,15 @@ Samsung system root; ownership is applied only to the mounted controller. Proces
 cleanup and memory cgroup errors are preserved. Cleanup uses real cgroup.procs
 and bounded EBUSY retries, since this kernel has no v2 cgroup.events/cgroup.kill.
 The current v2 lifecycle remains unchanged on other products. The device task
-profiles select existing CPU groups instead of the unsupported schedtune
-controller. Cached-app v2 freezing is not advertised as supported.
+profiles retain CPU root scheduling and use supported cpuset groups for affinity,
+instead of the unsupported schedtune controller. Cached-app v2 freezing is not advertised as supported.
 
 `tests/cgroup-probe.cpp` is an optional on-device test. It creates one isolated
 UID's cgroup, forks a descendant into its own Unix process group, and checks
 that the actual library kills both processes and removes the empty groups.
 It refuses to touch an existing test UID and has bounded timeout cleanup.
-It is not packaged in the ROM. Runtime execution is still pending.
+It is not packaged in the ROM. The physical lifecycle test passed on candidate 4;
+see boot-candidate4-summary.json.
 
 ## Second-stage filesystem mounts
 
@@ -102,7 +103,8 @@ only adds hardware/data-directory setup; its root fstab supplies first-stage
 vendor/product mounts. Repeating mount_all from both scripts produces EBUSY
 and prevents init from receiving FILE_ENCRYPTED and creating the session FBE
 keyring required by the 4.4 kernel. No format or encryption bypass is required
-to correct this ordering error. Actual FBE/user unlock testing is still pending.
+to correct this ordering error. Encrypted file data mounts successfully and candidate 5 completes Android boot;
+full credential/encryption and recovery testing remains pending.
 
 ## Stock audio HAL and GPU metrics
 
@@ -114,3 +116,15 @@ or fabricated vendor HAL version is used. GPU work-per-UID BPF accounting is
 unavailable when ro.kernel.ebpf.supported=false; the service skips map setup
 and leaves statistics uninitialized rather than publishing fabricated values.
 Rendering and the bounded power boost are separate and unchanged.
+
+## Kernel RT group scheduling and graphics property
+
+The 4.4 kernel enables CONFIG_RT_GROUP_SCHED and retains a finite root RT
+budget of 950000 us per 1000000 us. New CPU scheduling subgroups start at
+zero RT budget; joining them prevents Bluetooth SCHED_FIFO startup. Device
+performance profiles now join CPU root and the supported cpuset affinity
+groups. RT permissions and the original root budget remain enforced; no
+unlimited RT setting or Bluetooth scheduling failure bypass is used.
+The exact hwc.exynos.vsync_mode property is labeled graphics_config_prop,
+with composer read access. No property value or broad default_prop access
+is changed. Runtime checks after the next boot remain required.

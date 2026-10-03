@@ -12,6 +12,12 @@ out = top / 'out/target/product/gta3xlwifi'
 report = json.loads((root / 'artifacts/lineage-21/native-image-check.json').read_text())
 target_files = out / 'obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files'
 checks = {'hardware_tested': False}
+digest = hashlib.sha256()
+with Path(report['rom_zip']).open('rb') as stream:
+    while chunk := stream.read(4 * 1024 * 1024):
+        digest.update(chunk)
+if digest.hexdigest() != report['rom_zip_sha256']:
+    raise SystemExit('ZIP report is stale; run verify-native-images.py first')
 
 class TargetFilesTree:
     def __enter__(self):
@@ -70,6 +76,18 @@ with TargetFilesTree() as archive:
     if b'/11500000.mali/dvfs_min_lock' in policy:
         raise SystemExit('Original GPU endpoint was unexpectedly relabeled')
     checks['system_ext_policy_sha256'] = hashlib.sha256(policy).hexdigest()
+    profiles = json.loads(archive.read('SYSTEM/etc/task_profiles.gta3xlwifi.json'))
+    for profile in profiles['Profiles']:
+        cpu = [action['Params'] for action in profile['Actions']
+               if action['Name'] == 'JoinCgroup' and action['Params']['Controller'] == 'cpu']
+        if cpu != [{'Controller': 'cpu', 'Path': ''}]:
+            raise SystemExit(f"Profile does not preserve the root RT budget: {profile['Name']}")
+    checks['cpu_profiles_preserve_root_rt_budget'] = True
+    contexts = archive.read('SYSTEM/system_ext/etc/selinux/system_ext_property_contexts').decode()
+    expected = 'hwc.exynos.vsync_mode u:object_r:graphics_config_prop:s0 exact string'
+    if expected not in contexts.splitlines():
+        raise SystemExit('Exact legacy vsync property label is missing')
+    checks['vsync_property_label'] = 'graphics_config_prop, exact string'
     props = archive.read('SYSTEM/build.prop').decode()
     values = dict(line.split('=', 1) for line in props.splitlines()
                   if '=' in line and not line.startswith('#'))

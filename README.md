@@ -3,7 +3,10 @@
 The native Android 14 port lives under [lineage-21](lineage-21/notes/build-guide.md).
 Targeted networking/APEX/ABI/SELinux and power builds pass; host and scoped kernel
 packet tests pass. The full installation ZIP and actual image/layout/ZIP/VINTF
-checks pass. Hardware testing is in progress; no Android 14 stability claim
+checks pass. Candidate 5 completes Android 14 boot with encrypted data, enforcing SELinux,
+audio/GPU services and working IPv4/DNS. Candidate 6 is built and verified offline
+for Bluetooth RT scheduling and the legacy vsync property. Hardware testing is in
+progress; no Android 14 stability claim
 has been made. See the port status and build
 notes for the known legacy vendor policy limitation and pending checks.
 

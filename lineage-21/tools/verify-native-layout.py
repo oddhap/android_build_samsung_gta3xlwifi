@@ -14,6 +14,12 @@ out = top / 'out/target/product/gta3xlwifi'
 report_dir = root / 'artifacts/lineage-21'
 images = json.loads((report_dir / 'native-image-check.json').read_text())
 image = Path(images['images']['system.img']['path'])
+digest = hashlib.sha256()
+with image.open('rb') as stream:
+    while chunk := stream.read(4 * 1024 * 1024):
+        digest.update(chunk)
+if digest.hexdigest() != images['images']['system.img']['sha256']:
+    raise SystemExit('Image report is stale; run verify-native-images.py first')
 debugfs = top / 'out/host/linux-x86/bin/debugfs_static'
 checks = {'hardware_tested': False, 'system_image_sha256': images['images']['system.img']['sha256']}
 header = (root / 'src/kernel-gta3xlwifi/fs/ext4/ext4.h').read_text().replace('\\\n', ' ')
