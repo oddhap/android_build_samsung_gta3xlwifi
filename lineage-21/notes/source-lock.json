@@ -53,5 +53,13 @@
     "sha256": "73da23c07d888a0611f790d35eb898a9a766899a010a9d82673abc4136fcc91b",
     "new_files": [],
     "clean_index_patch_check_passed": true
+  },
+  {
+    "project": "system/core",
+    "revision": "ec299bf6da55702b7b9675d60a0faf2815f0dc6d",
+    "patch": "system_core.patch",
+    "sha256": "35c0a3949053ebdf0b9e33bff8e94f915f5ac9adb116082d7861dd3f11c6d8c7",
+    "new_files": [],
+    "clean_index_patch_check_passed": true
   }
 ]

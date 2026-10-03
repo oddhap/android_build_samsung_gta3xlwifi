@@ -1,6 +1,6 @@
 # SM-T510 LineageOS 21 development port
 
-Status: full Android 14 ROM build and offline checks pass. Hardware installation/testing is in progress.
+Status: full Android 14 ROM build and offline checks pass. First hardware boot failed at cgroup v2 setup; a corrected second candidate is being tested.
 
 The Android platform is the current LineageOS lineage-21.0 branch, downloaded
 independently from the working LineageOS 19.1 checkout. Android userspace remains
@@ -59,7 +59,7 @@ Current progress (2026-10-03):
   legacy Samsung neverallow conflicts; the Android 12 baseline also fails this
   strict check. This limitation remains documented rather than changing vendor
   rules or disabling generated platform policy checks.
-- All six platform patches apply against clean pinned source indexes. The full
+- All seven platform patches apply against clean pinned source indexes. The full
   bacon build completed with the original verified kernel/vendor/DTBO.
 - Full ROM/image/ZIP and stock-vendor VINTF checks pass. A separate physical
   system-image inspection caught Samsung init/fstab/ueventd files in the unused
@@ -72,9 +72,24 @@ Current progress (2026-10-03):
 - A product-specific framework fragment declares stock vendor's System SDK 28
   resource contract. All 57 vendor APKs are resource-only overlays without DEX;
   native HALs retain VNDK 30. The vendor compatibility matrix is unchanged.
-- Final candidate: lineage-21.0-20261003-UNOFFICIAL-gta3xlwifi.zip.
-  SHA-256: d1bf119e48c77909f897d4534f14bcf4aaa1ea6a91434df22b1a8538171e6584.
+- Second candidate: lineage-21.0-20261003-UNOFFICIAL-gta3xlwifi.zip.
+  SHA-256: a123820ccb97d7e10b3031ade46fa7fcb7a066949daf1167e8259915aa311c56.
   Expanded images fit the physical partitions. The actual ext4 images use
   incompat 0x42 / ro_compat 0x7b, supported by the original kernel.
-- Hardware installation is in progress; boot, encryption and stability have not
-  yet been validated. Offline reports do not establish physical behavior.
+- TWRP installed the candidate successfully (updater RC 0); boot readback matches
+  the reviewed image and tested TWRP is unchanged. First Android 14 boot loops
+  with a black screen and no ADB. The kernel log confirms successful partition
+  mounts and policy load, followed by cgroup v2 process-group ENOENT failures.
+- The second candidate uses real v1 cpuacct groups for process creation,
+  signaling and cleanup, with bounded EBUSY retries. Controller ownership is
+  assigned after mount. Unsupported v2/blkio/schedtune descriptors stay unusable;
+  existing CPU/cpuset task controls remain real. Cached-app v2 freezing remains
+  unsupported. Device task profiles use the actual CPU controller directories.
+- ARM32 BoringSSL self-test triggers are retained in a regular device init file;
+  init's O_NOFOLLOW rejects the upstream zygote32 symlink. Upstream test services
+  and failure handling remain enabled.
+- The second full build and all offline checks pass. TWRP installation and boot
+  readback pass. Hardware boot testing is in progress. The optional lifecycle
+  probe compiled for ARM32; runtime tests have not yet run.
+  Encryption and stability are not validated. Offline checks do not establish
+  physical behavior.

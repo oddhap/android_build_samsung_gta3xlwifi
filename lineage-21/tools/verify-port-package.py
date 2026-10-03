@@ -25,8 +25,9 @@ class TargetFilesTree:
 
 with TargetFilesTree() as archive:
     names = archive.namelist()
-    if any('gta3xlwifi-network-probe' in name for name in names):
-        raise SystemExit('Optional packet probe was included in the ROM')
+    if any(probe in name for name in names
+           for probe in ('gta3xlwifi-network-probe', 'gta3xlwifi-cgroup-probe')):
+        raise SystemExit('Optional test probe was included in the ROM')
     if any('android.hardware.power-service.gta3xlwifi' in name for name in names):
         raise SystemExit('Obsolete experimental Power HAL override was packaged')
     member = 'SYSTEM/system_ext/etc/init/init.gta3xlwifi.power.rc'
@@ -42,6 +43,17 @@ with TargetFilesTree() as archive:
         if marker not in library:
             raise SystemExit(f'Native library lacks {marker!r}')
     checks['native_power_library_sha256'] = hashlib.sha256(library).hexdigest()
+    processgroups = archive.read('SYSTEM/lib/libprocessgroup.so')
+    if b'/system/etc/cgroups.gta3xlwifi.json' not in processgroups:
+        raise SystemExit('Packaged processgroup library lacks the device v1 backend')
+    checks['processgroup_library_sha256'] = hashlib.sha256(processgroups).hexdigest()
+    for target, source in (
+        ('SYSTEM/etc/cgroups.gta3xlwifi.json', 'configs/cgroups.gta3xlwifi.json'),
+        ('SYSTEM/etc/task_profiles.gta3xlwifi.json', 'configs/task_profiles.gta3xlwifi.json'),
+        ('SYSTEM/etc/init/init.gta3xlwifi.crypto.rc', 'rootdir/init.gta3xlwifi.crypto.rc'),
+    ):
+        if archive.read(target) != (top / 'device/samsung/gta3xlwifi' / source).read_bytes():
+            raise SystemExit(f'Packaged legacy boot configuration differs: {target}')
     policy = archive.read('SYSTEM/system_ext/etc/selinux/system_ext_sepolicy.cil')
     if b'/11500000.mali/gta3xlwifi_min_lock' not in policy:
         raise SystemExit('Private GPU label is missing')

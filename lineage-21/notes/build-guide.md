@@ -29,7 +29,7 @@ checksums. The baseline kernel build tools and private vendor release are in
 the existing integration/kernel/vendor repositories. Do not use the rejected
 ramdisk experiment under `notes/rejected-ramdisk-research`.
 
-Run `python3 tools/apply-pinned-patches.py` to apply the six final platform
+Run `python3 tools/apply-pinned-patches.py` to apply the seven final platform
 patches. It checks every revision, patch checksum and application before writing
 source. `--check-only` verifies the current tree without modifying it.
 The incremental development helpers are retained for review; they are not
@@ -38,7 +38,7 @@ additional patches to apply after the final exported patches.
 Build with `bash tools/build-rom.sh bacon`. It selects
 `lineage_gta3xlwifi-ap2a-userdebug` and retains a single build timestamp across
 incremental retries. The original kernel, stock vendor and physical system root
-are preserved. The optional network probe has `installable: false` and is not
+are preserved. The optional network and cgroup probes have `installable: false` and are not
 part of the product package list.
 
 ## Verify before a hardware installation
@@ -75,3 +75,20 @@ sleep/wake and overnight idle. Check actual DNS, per-app data usage, data saver
 and always-on VPN lockdown. Verify CPU/GPU boost resets after its bounded window
 and during screen-off/battery saver. Encryption and recovery interaction also
 need physical validation. Do not label the build stable until these tests pass.
+
+## cgroup v1 compatibility
+
+The immutable `cgroups.gta3xlwifi.json` product file selects the device-only
+process tracking backend. Its mandatory cpuacct controller is mounted at /acct,
+with controller ownership assigned after mount. Process creation, signaling,
+cleanup and memory cgroup errors are preserved. Cleanup uses real cgroup.procs
+and bounded EBUSY retries, since this kernel has no v2 cgroup.events/cgroup.kill.
+The current v2 lifecycle remains unchanged on other products. The device task
+profiles select existing CPU groups instead of the unsupported schedtune
+controller. Cached-app v2 freezing is not advertised as supported.
+
+`tests/cgroup-probe.cpp` is an optional on-device test. It creates one isolated
+UID's cgroup, forks a descendant into its own Unix process group, and checks
+that the actual library kills both processes and removes the empty groups.
+It refuses to touch an existing test UID and has bounded timeout cleanup.
+It is not packaged in the ROM. Runtime execution is still pending.

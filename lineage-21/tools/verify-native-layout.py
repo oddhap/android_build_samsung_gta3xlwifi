@@ -81,6 +81,9 @@ with tempfile.TemporaryDirectory(prefix='gta3xlwifi-system-layout-', dir=report_
         ('/init.exynos7904.rc', device / 'rootdir/init.exynos7904.rc'),
         ('/ueventd.exynos7904.rc', device / 'rootdir/ueventd.exynos7904.rc'),
         ('/system/system_ext/etc/init/init.gta3xlwifi.power.rc', device / 'rootdir/init.gta3xlwifi.power.rc'),
+        ('/system/etc/cgroups.gta3xlwifi.json', device / 'configs/cgroups.gta3xlwifi.json'),
+        ('/system/etc/task_profiles.gta3xlwifi.json', device / 'configs/task_profiles.gta3xlwifi.json'),
+        ('/system/etc/init/init.gta3xlwifi.crypto.rc', device / 'rootdir/init.gta3xlwifi.crypto.rc'),
     ):
         data = read_file(member)
         if data != source.read_bytes():

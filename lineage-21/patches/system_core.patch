@@ -1,0 +1,179 @@
+diff --git a/libprocessgroup/processgroup.cpp b/libprocessgroup/processgroup.cpp
+index 94d9502..7752d7e 100644
+--- a/libprocessgroup/processgroup.cpp
++++ b/libprocessgroup/processgroup.cpp
+@@ -78,6 +78,16 @@ bool CgroupGetControllerPath(const std::string& cgroup_name, std::string* path)
+     return true;
+ }
+ 
++static bool LegacyGta3xlwifiProcessGroups() {
++    static const bool legacy = access("/system/etc/cgroups.gta3xlwifi.json", F_OK) == 0;
++    return legacy;
++}
++
++static bool GetProcessGroupHierarchyPath(std::string* path) {
++    return CgroupGetControllerPath(LegacyGta3xlwifiProcessGroups() ? "cpuacct"
++                                                                : CGROUPV2_HIERARCHY_NAME, path);
++}
++
+ static std::string ConvertUidToPath(const char* cgroup, uid_t uid) {
+     return StringPrintf("%s/uid_%u", cgroup, uid);
+ }
+@@ -87,11 +97,12 @@ static std::string ConvertUidPidToPath(const char* cgroup, uid_t uid, pid_t pid)
+ }
+ 
+ static bool CgroupKillAvailable() {
++    if (LegacyGta3xlwifiProcessGroups()) return false;
+     static std::once_flag f;
+     static bool cgroup_kill_available = false;
+     std::call_once(f, []() {
+         std::string cg_kill;
+-        CgroupGetControllerPath(CGROUPV2_HIERARCHY_NAME, &cg_kill);
++        GetProcessGroupHierarchyPath(&cg_kill);
+         // cgroup.kill is not on the root cgroup, so check a non-root cgroup that should always
+         // exist
+         cg_kill = ConvertUidToPath(cg_kill.c_str(), AID_ROOT) + '/' + PROCESSGROUP_CGROUP_KILL_FILE;
+@@ -286,7 +297,7 @@ void removeAllEmptyProcessGroups() {
+     std::vector<std::string> cgroups;
+     std::string path, memcg_apps_path;
+ 
+-    if (CgroupGetControllerPath(CGROUPV2_HIERARCHY_NAME, &path)) {
++    if (GetProcessGroupHierarchyPath(&path)) {
+         cgroups.push_back(path);
+     }
+     if (CgroupGetMemcgAppsPath(&memcg_apps_path) && memcg_apps_path != path) {
+@@ -376,7 +387,11 @@ bool sendSignalToProcessGroup(uid_t uid, pid_t initialPid, int signal) {
+ 
+     if (CgroupsAvailable()) {
+         std::string hierarchy_root_path, cgroup_v2_path;
+-        CgroupGetControllerPath(CGROUPV2_HIERARCHY_NAME, &hierarchy_root_path);
++        if (!GetProcessGroupHierarchyPath(&hierarchy_root_path)) {
++            kill(-initialPid, signal);
++            errno = ENODEV;
++            return false;
++        }
+         cgroup_v2_path = ConvertUidPidToPath(hierarchy_root_path.c_str(), uid, initialPid);
+ 
+         if (signal == SIGKILL && CgroupKillAvailable()) {
+@@ -522,6 +537,35 @@ static populated_status cgroupIsPopulated(int events_fd) {
+         populated_status::populated : populated_status::not_populated;
+ }
+ 
++// cgroup v1 has cgroup.procs and EBUSY directory removal, but no cgroup.events.
++// Keep real signaling and bounded cleanup rather than reporting a false success.
++static int KillLegacyProcessGroup(uid_t uid, pid_t pid, int signal, bool once,
++                                  std::chrono::steady_clock::time_point until) {
++    std::string root;
++    if (!GetProcessGroupHierarchyPath(&root)) { errno = ENODEV; return -1; }
++    int ret;
++    do {
++        if (!sendSignalToProcessGroup(uid, pid, signal) && errno != ENOENT) return -1;
++        ret = RemoveCgroup(root.c_str(), uid, pid);
++        if (ret && errno != EBUSY) return ret;
++        const int group_errno = errno;
++        if (isMemoryCgroupSupported() && UsePerAppMemcg()) {
++            std::string memory;
++            if (CgroupGetMemcgAppsPath(&memory) && memory != root) {
++                const int memory_ret = RemoveCgroup(memory.c_str(), uid, pid);
++                if (memory_ret && errno != EBUSY) return memory_ret;
++                if (memory_ret) ret = memory_ret;
++                else if (ret) errno = group_errno;
++            }
++        }
++        if (!ret || once) break;
++        auto now = std::chrono::steady_clock::now();
++        if (now >= until) break;
++        std::this_thread::sleep_for(std::min(5ms, toMillisec(until - now)));
++    } while (true);
++    return ret;
++}
++
+ // The default timeout of 2200ms comes from the default number of retries in a previous
+ // implementation of this function. The default retry value was 40 for killing and 400 for cgroup
+ // removal with 5ms sleeps between each retry.
+@@ -537,9 +581,12 @@ static int KillProcessGroup(
+     const bool signal_ret = sendSignalToProcessGroup(uid, initialPid, signal);
+ 
+     if (!CgroupsAvailable() || !signal_ret) return signal_ret ? 0 : -1;
++    if (LegacyGta3xlwifiProcessGroups()) {
++        return KillLegacyProcessGroup(uid, initialPid, signal, once, until);
++    }
+ 
+     std::string hierarchy_root_path;
+-    CgroupGetControllerPath(CGROUPV2_HIERARCHY_NAME, &hierarchy_root_path);
++    GetProcessGroupHierarchyPath(&hierarchy_root_path);
+ 
+     const std::string cgroup_v2_path =
+             ConvertUidPidToPath(hierarchy_root_path.c_str(), uid, initialPid);
+@@ -709,8 +756,9 @@ int createProcessGroup(uid_t uid, pid_t initialPid, bool memControl) {
+     }
+ 
+     std::string cgroup;
+-    CgroupGetControllerPath(CGROUPV2_HIERARCHY_NAME, &cgroup);
+-    return createProcessGroupInternal(uid, initialPid, cgroup, true);
++    if (!GetProcessGroupHierarchyPath(&cgroup)) return -ENODEV;
++    return createProcessGroupInternal(uid, initialPid, cgroup,
++                                      !LegacyGta3xlwifiProcessGroups());
+ }
+ 
+ static bool SetProcessGroupValue(pid_t tid, const std::string& attr_name, int64_t value) {
+diff --git a/libprocessgroup/setup/cgroup_map_write.cpp b/libprocessgroup/setup/cgroup_map_write.cpp
+index 4e44c91..2fef56e 100644
+--- a/libprocessgroup/setup/cgroup_map_write.cpp
++++ b/libprocessgroup/setup/cgroup_map_write.cpp
+@@ -248,6 +248,10 @@ static bool ReadDescriptors(std::map<std::string, CgroupDescriptor>* descriptors
+         return false;
+     }
+ 
++    const char* legacy = "/system/etc/cgroups.gta3xlwifi.json";
++    if (access(legacy, F_OK) == 0 && !ReadDescriptorsFromFile(legacy, descriptors)) {
++        return false;
++    }
+     return true;
+ }
+ 
+@@ -351,6 +355,13 @@ static bool MountV1CgroupController(const CgroupDescriptor& descriptor) {
+         PLOG(ERROR) << "Failed to mount controller " << controller->name();
+         return false;
+     }
++    // Ownership set before mount belongs to the underlying mountpoint, not
++    // the new controller filesystem. Match the v2 setup's post-mount ownership.
++    if (access("/system/etc/cgroups.gta3xlwifi.json", F_OK) == 0 &&
++        !ChangeDirModeAndOwner(controller->path(), descriptor.mode(), descriptor.uid(),
++                               descriptor.gid())) {
++        return false;
++    }
+     return true;
+ }
+ 
+@@ -447,8 +458,15 @@ bool CgroupSetup() {
+         return false;
+     }
+ 
++    // The SM-T510 kernel has cgroup v1, with no blkio/schedtune controllers.
++    const bool legacy = access("/system/etc/cgroups.gta3xlwifi.json", F_OK) == 0;
+     // setup cgroups
+     for (auto& [name, descriptor] : descriptors) {
++        if (legacy && (descriptor.controller()->version() == 2 ||
++                       name == "blkio" || name == "schedtune")) {
++            descriptor.set_mounted(false);
++            continue;
++        }
+         if (SetupCgroup(descriptor)) {
+             descriptor.set_mounted(true);
+         } else {
+diff --git a/libprocessgroup/task_profiles.cpp b/libprocessgroup/task_profiles.cpp
+index 2353cf1..f6b5755 100644
+--- a/libprocessgroup/task_profiles.cpp
++++ b/libprocessgroup/task_profiles.cpp
+@@ -805,6 +805,10 @@ TaskProfiles::TaskProfiles() {
+         LOG(ERROR) << "Loading " << TASK_PROFILE_DB_VENDOR_FILE << " for [" << getpid()
+                    << "] failed";
+     }
++    const char* legacy = "/system/etc/task_profiles.gta3xlwifi.json";
++    if (access(legacy, F_OK) == 0 && !Load(CgroupMap::GetInstance(), legacy)) {
++        LOG(ERROR) << "Failed to load SM-T510 cgroup v1 task profiles";
++    }
+ }
+ 
+ bool TaskProfiles::Load(const CgroupMap& cg_map, const std::string& file_name) {
