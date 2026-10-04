@@ -29,6 +29,9 @@ The startup guard reports unavailable keystore and preserves locked data.
 Recovery has unauthenticated ADB and TeamWin's recovery-domain policy differs
 from Android's enforcing system policy. No backup/restore or MTP claim is made.
 
+Recovery preference persistence and plain version display are described in
+[the TWRP settings update](docs/twrp-settings-update.md).
+
 ## Build environment and layout
 
 The scripts preserve the project's standard Ubuntu 22.04 layout `/srv/android`.
