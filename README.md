@@ -17,7 +17,7 @@ crash-buffer entry; browser rendering passes. See
 
 The previously tested networking, media, memory, Bluetooth and CPU/GPU power
 fixes are retained. The stock kernel/vendor remain unchanged. Longer stability,
-credential/recovery and full hardware tests remain pending; this is a
+other credential types, recovery backup/restore and full hardware tests remain pending; this is a
 development port, with the documented legacy vendor policy limitation.
 
 This branch preserves the Android 12/TWRP integration below as provenance and
@@ -49,8 +49,13 @@ See [power implementation/results](docs/power-boost.md) and
 [installed-build provenance](docs/native-provenance.json).
 
 TWRP boots its menu automatically, supports touch/root ADB/software recovery
-reboot and installed the ROM. Samsung hardware FBE decryption is unsupported.
-The startup guard reports unavailable keystore and preserves locked data.
+reboot and installed the ROM. PIN-based Samsung hardware FBE decryption passed
+a full recovery reboot with existing LineageOS 21 / Android 14 data: wrong PIN
+was rejected, correct PIN opened real CE storage, and Android subsequently
+booted with encrypted data and apps preserved. Other credential types, users,
+firmware and OS/SPL inputs remain untested. See [FBE implementation and results](docs/twrp-fbe-port.md).
+The startup guard preserves locked data when required services or matching
+Keymaster OS/SPL inputs are unavailable.
 Recovery has unauthenticated ADB and TeamWin's recovery-domain policy differs
 from Android's enforcing system policy. No backup/restore or MTP claim is made.
 
@@ -135,17 +140,22 @@ bash build-twrp.sh
 python3 verify-twrp-image.py
 ```
 
-The recovery tree has the previously tested, source-built kernel/DTBO staged from
-private release `tested-recovery-inputs`. Their hashes are pinned in the verifier.
-The kernel repository also has a `twrp-12.1` branch containing only the dtc
-and camera lifetime fixes, matching the recovery source changes. To rebuild it,
-use that branch and run `SMT510_POWER_BOOST=0 bash build-kernel-smoke.sh` with the
-same GCC and defconfig. Build and stage Android first or use a separate workspace
-to avoid replacing Android's kernel artifacts with the recovery baseline.
-Record new hashes before changing the recovery verifier. Its release asset is retained so
-the tested recovery can be rebuilt without substituting an untested kernel.
+The recovery tree uses the tested source-built kernel/DTBO from private release
+`tested-fbe-recovery-inputs-20261004`; the earlier `tested-recovery-inputs` remains
+available for rollback. Input hashes are pinned in the verifier. The kernel's
+`twrp-12.1` branch includes dtc/camera fixes, the framework QoS hooks used by this
+rebuild and secure-RPMB error handling. Build it in a separate workspace with
+the recorded GCC and defconfig, then explicitly stage its Image for recovery.
+Committed source builds may change version text/timestamps and checksums; record
+and review new artifacts before updating the verifier. The release preserves
+the exact inputs tested on hardware.
 
-`build-twrp.sh` applies the recovery-only FBE startup guard and adds real file
+The current recovery header matches LineageOS 21 Android 14 / SPL 2026-09-01.
+These are Samsung Keymaster compatibility inputs, not a security-patch claim
+for TWRP's Android 12.1 userspace. A ROM upgrade changing those inputs requires
+a matching recovery. Current decryption has not been tested with LineageOS 19.1.
+
+`build-twrp.sh` applies the recovery-only FBE startup, key-preservation and authentication fixes and adds real file
 dependencies to TWRP's library-relink copy step. The image verifier checks packed
 ELF dependency closure, current libraries, `/etc` symlink, Android `/misc` fstab,
 model, kernel/DTBO and a compressed ramdisk smaller than 16 MiB. XZ prevents

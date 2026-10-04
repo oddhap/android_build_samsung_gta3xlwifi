@@ -1,15 +1,30 @@
 diff --git a/Decrypt.cpp b/Decrypt.cpp
-index d9f034b..b85d76b 100755
+index d9f034b..c109c4e 100755
 --- a/Decrypt.cpp
 +++ b/Decrypt.cpp
-@@ -183,6 +183,14 @@ extern "C" bool lookup_ref_tar(fscrypt_policy *fep, uint8_t* policy) {
+@@ -47,6 +47,7 @@
+ 
+ #include <android/binder_manager.h>
+ #include <android-base/file.h>
++#include <android-base/properties.h>
+ #include <android-base/logging.h>
+ #include <base/threading/platform_thread.h>
+ #include <android/hardware/confirmationui/1.0/types.h>
+@@ -183,6 +184,21 @@ extern "C" bool lookup_ref_tar(fscrypt_policy *fep, uint8_t* policy) {
  }
  
  extern "C" bool Decrypt_DE() {
-+    // SM-T510 recovery: Samsung's keystore service is not yet ported.
++    android::base::SetLogger(android::base::StderrLogger);
++    android::base::SetMinimumLogSeverity(android::base::ERROR);
++    // SM-T510 recovery: Hardware HALs must be ready before loading keys.
 +    // Do not enter Keymaster's indefinite wait when the service is absent.
 +    ndk::SpAIBinder service(AServiceManager_checkService(
 +            "android.system.keystore2.IKeystoreService/default"));
++    for (int attempt = 0; !service.get() && attempt < 200; ++attempt) {
++        usleep(100000);
++        service = ndk::SpAIBinder(AServiceManager_checkService(
++                "android.system.keystore2.IKeystoreService/default"));
++    }
 +    if (!service.get()) {
 +        printf("FBE keystore unavailable; encrypted data remains locked\n");
 +        return false;
@@ -17,3 +32,221 @@ index d9f034b..b85d76b 100755
  	printf("Attempting to initialize DE keys\n");
  	if (!fscrypt_initialize_systemwide_keys()) { // this deals with the overarching device encryption
  		printf("fscrypt_initialize_systemwide_keys returned fail\n");
+@@ -425,16 +441,48 @@ namespace keystore {
+ 	}
+ 
+ 	void copySqliteDb() {
+-		std::string keystore_path = "/tmp/misc/keystore/";
+-		std::string dst = keystore_path + "persistent.sqlite";
+-		std::string src = "/data/misc/keystore/persistent.sqlite";
+-		std::ifstream srcif(src.c_str(), std::ios::binary);
+-		std::ofstream dstof(dst.c_str(), std::ios::binary);
+-		printf("copying '%s' to '%s'\n", src.c_str(), dst.c_str());
+-		dstof << srcif.rdbuf();
+-		srcif.close();
+-		dstof.close();
+-	}
++        // The source database belongs to Android and is never opened writable.
++        // Stop recovery's keystore before replacing its temporary database.
++        static bool copied = false;
++        if (copied) return;
++        const std::string src = "/data/misc/keystore/persistent.sqlite";
++        const std::string dst = "/tmp/misc/keystore/persistent.sqlite";
++        std::string database, wal;
++        if (!android::base::ReadFileToString(src, &database)) {
++            printf("Android keystore database is not readable yet\n");
++            return;
++        }
++        bool has_wal = access((src + "-wal").c_str(), F_OK) == 0;
++        if (has_wal && !android::base::ReadFileToString(src + "-wal", &wal)) {
++            printf("Unable to read Android keystore WAL\n");
++            return;
++        }
++        auto stage = [&](const std::string& content, const std::string& path) {
++            return android::base::WriteStringToFile(content, path, 0600, 1017, 1017);
++        };
++        if (!stage(database, dst + ".new") || (has_wal && !stage(wal, dst + "-wal.new"))) {
++            printf("Unable to stage temporary recovery keystore database\n");
++            return;
++        }
++        if (!android::base::SetProperty("ctl.stop", "keystore2") ||
++            !android::base::WaitForProperty("init.svc.keystore2", "stopped", std::chrono::seconds(5))) {
++            printf("Recovery keystore did not stop; database left unchanged\n");
++            return;
++        }
++        // These paths are in tmpfs, never the installed ROM's database.
++        unlink((dst + "-wal").c_str());
++        unlink((dst + "-shm").c_str());
++        bool replaced = rename((dst + ".new").c_str(), dst.c_str()) == 0;
++        if (replaced && has_wal) replaced = rename((dst + "-wal.new").c_str(), (dst + "-wal").c_str()) == 0;
++        bool started = android::base::SetProperty("ctl.start", "keystore2") &&
++            android::base::WaitForProperty("init.svc.keystore2", "running", std::chrono::seconds(5));
++        if (!replaced || !started) {
++            printf("Recovery keystore database initialization failed\n");
++            return;
++        }
++        copied = true;
++        printf("Android keystore snapshot loaded into recovery tmpfs\n");
++    }
+ 
+ 	/* C++ replacement for function of the same name
+ 	* https://android.googlesource.com/platform/frameworks/base/+/android-8.0.0_r23/services/core/java/com/android/server/locksettings/SyntheticPasswordManager.java#867
+@@ -771,39 +819,43 @@ bool Decrypt_User_Synth_Pass(const userid_t user_id, const std::string& Password
+ 			android::hardware::hidl_vec<uint8_t> gk_pwd_token_hidl;
+ 			GKResponse gkResponse;
+ 			gk_pwd_token_hidl.setToExternal(const_cast<uint8_t *>((const uint8_t *)gk_pwd_token), SHA512_DIGEST_LENGTH);
+-			android::hardware::Return<void> hwRet =
+-				gk_device->verify(fakeUid(user_id), 0 /* challenge */,
+-								  pwd_handle_hidl,
+-								  gk_pwd_token_hidl,
+-								  [&gkResponse]
+-									// []
+-									(const android::hardware::gatekeeper::V1_0::GatekeeperResponse &rsp) {
+-										// ret = static_cast<int>(rsp.code); // propagate errors
+-										if (rsp.code >= android::hardware::gatekeeper::V1_0::GatekeeperStatusCode::STATUS_OK) {
+-											gkResponse = GKResponse::ok({rsp.data.begin(), rsp.data.end()});
+-											const hw_auth_token_t* hwAuthToken =
+-												reinterpret_cast<const hw_auth_token_t*>(gkResponse.payload().data());
+-											HardwareAuthToken authToken;
+-											authToken.timestamp.milliSeconds = betoh64(hwAuthToken->timestamp);
+-											authToken.challenge = hwAuthToken->challenge;
+-											authToken.userId = hwAuthToken->user_id;
+-											authToken.authenticatorId = hwAuthToken->authenticator_id;
+-											authToken.authenticatorType = static_cast<HardwareAuthenticatorType>(
+-													betoh32(hwAuthToken->authenticator_type));
+-											authToken.mac.assign(&hwAuthToken->hmac[0], &hwAuthToken->hmac[32]);
+-											AIBinder* authzAIBinder = AServiceManager_getService("android.security.authorization");
+-											::ndk::SpAIBinder binder(authzAIBinder);
+-											auto service = aidl::android::security::authorization::IKeystoreAuthorization::fromBinder(binder);
+-											if (service == NULL) {
+-												printf("error: could not connect to keystore service\n");
+-												ALOGE("error: could not connect to keystore service\n");
+-											}
+-											auto binder_result = service->addAuthToken(authToken);
+-										}
+-									}
+-								 );
++            bool verified = false;
++            android::hardware::Return<void> hwRet =
++                gk_device->verify(fakeUid(user_id), 0 /* challenge */,
++                                 pwd_handle_hidl, gk_pwd_token_hidl,
++                    [&verified](const android::hardware::gatekeeper::V1_0::GatekeeperResponse& rsp) {
++                        if (rsp.code < android::hardware::gatekeeper::V1_0::GatekeeperStatusCode::STATUS_OK) {
++                            printf("Gatekeeper rejected verification, status=%d timeout=%u\n",
++                                   static_cast<int>(rsp.code), rsp.timeout);
++                            return;
++                        }
++                        if (rsp.data.size() != sizeof(hw_auth_token_t)) {
++                            printf("Gatekeeper returned an invalid auth token size\n");
++                            return;
++                        }
++                        const auto* token = reinterpret_cast<const hw_auth_token_t*>(rsp.data.data());
++                        HardwareAuthToken auth;
++                        auth.timestamp.milliSeconds = betoh64(token->timestamp);
++                        auth.challenge = token->challenge;
++                        auth.userId = token->user_id;
++                        auth.authenticatorId = token->authenticator_id;
++                        auth.authenticatorType = static_cast<HardwareAuthenticatorType>(betoh32(token->authenticator_type));
++                        auth.mac.assign(token->hmac, token->hmac + sizeof(token->hmac));
++                        ndk::SpAIBinder binder(AServiceManager_checkService("android.security.authorization"));
++                        auto service = aidl::android::security::authorization::IKeystoreAuthorization::fromBinder(binder);
++                        if (!service) {
++                            printf("Keystore authorization service unavailable\n");
++                            return;
++                        }
++                        auto status = service->addAuthToken(auth);
++                        if (!status.isOk()) {
++                            printf("Keystore rejected auth token, error=%d\n", status.getServiceSpecificError());
++                            return;
++                        }
++                        verified = true;
++                    });
+ 			free(gk_pwd_token);
+-			if (!hwRet.isOk()) {
++			if (!hwRet.isOk() || !verified) {
+ 				printf("gatekeeper verification failed\n");
+ 				return Free_Return(retval, weaver_key, &pwd);
+ 			}
+diff --git a/FsCrypt.cpp b/FsCrypt.cpp
+index 7505e56..a9f4641 100644
+--- a/FsCrypt.cpp
++++ b/FsCrypt.cpp
+@@ -206,7 +206,7 @@ static bool read_and_fixate_user_ce_key(userid_t user_id,
+         LOG(INFO) << "Trying user CE key " << ce_key_path;
+         if (retrieveKey(ce_key_path, auth, ce_key)) {
+             LOG(DEBUG) << "Successfully retrieved key";
+-            fixate_user_ce_key(directory_path, ce_key_path, paths);
++            // Recovery reads existing bindings without changing Android keys.
+             return true;
+         }
+     }
+@@ -456,44 +456,16 @@ bool fscrypt_initialize_systemwide_keys() {
+     if (!get_data_file_encryption_options(&options)) return false;
+ 
+     KeyBuffer device_key;
+-install:
+-    if (!retrieveOrGenerateKey(device_key_path, device_key_temp, kEmptyAuthentication,
+-                               makeGen(options), &device_key))
++    if (!retrieveKey(device_key_path, kEmptyAuthentication, &device_key))
+         return false;
+ 
+     EncryptionPolicy device_policy;
+     if (!install_storage_key(DATA_MNT_POINT, options, device_key, &device_policy)) {
+-        if (retry) {
+-            printf("Trying %s wrappedkey\n", options.use_hw_wrapped_key ? "without" : "with");
+-            GetEntryForMountPoint(&fstab_default, DATA_MNT_POINT)->fs_mgr_flags.wrapped_key =
+-                options.use_hw_wrapped_key = !options.use_hw_wrapped_key;
+-            retry = false;
+-            goto install;
+-        }
+-        return false;
+-    }
+-
+-    std::string options_string;
+-    if (!OptionsToString(device_policy.options, &options_string)) {
+-        LOG(ERROR) << "Unable to serialize options";
+         return false;
+     }
+-    std::string options_filename = std::string(DATA_MNT_POINT) + fscrypt_key_mode;
+-    if (!android::vold::writeStringToFile(options_string, options_filename)) return false;
+ 
+-    std::string ref_filename = std::string(DATA_MNT_POINT) + fscrypt_key_ref;
++    // Keep references in recovery memory; Android's files are untouched.
+     de_key_raw_ref = device_policy.key_raw_ref;
+-    if (!android::vold::writeStringToFile(device_policy.key_raw_ref, ref_filename)) return false;
+-    LOG(INFO) << "Wrote system DE key reference to:" << ref_filename;
+-
+-    KeyBuffer per_boot_key;
+-    if (!generateStorageKey(makeGen(options), &per_boot_key)) return false;
+-    EncryptionPolicy per_boot_policy;
+-    if (!install_storage_key(DATA_MNT_POINT, options, per_boot_key, &per_boot_policy)) return false;
+-    std::string per_boot_ref_filename = std::string("/data") + fscrypt_key_per_boot_ref;
+-    if (!android::vold::writeStringToFile(per_boot_policy.key_raw_ref, per_boot_ref_filename))
+-        return false;
+-    LOG(INFO) << "Wrote per boot key reference to:" << per_boot_ref_filename;
+ 
+     return true;
+ }
+@@ -505,7 +477,8 @@ bool fscrypt_init_user0() {
+         if (!prepare_dir(user_key_dir + "/ce", 0700, AID_ROOT, AID_ROOT)) return false;
+         if (!prepare_dir(user_key_dir + "/de", 0700, AID_ROOT, AID_ROOT)) return false;
+         if (!android::vold::pathExists(get_de_key_path(0))) {
+-            if (!create_and_install_user_keys(0, false)) return false;
++            LOG(ERROR) << "User 0 DE key missing; refusing to create replacement keys";
++            return false;
+         }
+         // TODO: switch to loading only DE_0 here once framework makes
+         // explicit calls to install DE keys for secondary users
+diff --git a/KeyStorage.cpp b/KeyStorage.cpp
+index 51fc4f6..a6b81a3 100644
+--- a/KeyStorage.cpp
++++ b/KeyStorage.cpp
+@@ -370,7 +370,7 @@ static KeymasterOperation BeginKeymasterOp(Keymaster& keymaster, const std::stri
+     if (!opHandle) return opHandle;
+ 
+     // If key blob wasn't upgraded, nothing left to do.
+-    // if (!opHandle.getUpgradedBlob()) return opHandle;
++    if (!opHandle.getUpgradedBlob()) return opHandle;
+ 
+     // if (already_upgraded) {
+     //     LOG(ERROR) << "Unexpected case; already-upgraded key " << upgraded_blob_file

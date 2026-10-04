@@ -301,3 +301,13 @@ add practical coverage without certifying all codecs, peripheral types, storage
 formats, suspend/resume behavior or prolonged operation. Recovery FBE decryption
 remains unsupported; setting an Android PIN does not make Samsung keystore
 available in TWRP. See the recovery settings update in the build repository.
+
+
+Recovery FBE validation (2026-10-04): TWRP 3.7.1_12 decrypts the existing
+PIN-protected user-0 data on candidate 12. A full recovery reboot starts with CE
+storage locked; an incorrect PIN is rejected, the correct PIN opens real CE
+storage, and Android subsequently boots with file encryption and all 210 package
+records retained. User confirmed normal apps/data operation. No format or new
+key creation was used. See ../../docs/twrp-fbe-port.md for scoped results and
+OS/SPL compatibility requirements. Other credentials and backup/restore remain
+untested. Android boot/kernel/vendor images are unchanged by this recovery update.

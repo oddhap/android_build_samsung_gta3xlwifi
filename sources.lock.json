@@ -12,7 +12,7 @@
   "android_device_samsung_gta3xlwifi_twrp": {
     "url": "https://github.com/oddhap/android_device_samsung_gta3xlwifi_twrp",
     "branch": "twrp-12.1",
-    "commit": "dd46523879ee1774264119794c304228ba6739c2"
+    "commit": "c3e95604ec4d8cf7410a8cf347aaf95fb5e13984"
   },
   "android_vendor_samsung_gta3xlwifi": {
     "url": "https://github.com/oddhap/android_vendor_samsung_gta3xlwifi",
@@ -22,6 +22,6 @@
   "recovery_kernel": {
     "url": "https://github.com/oddhap/android_kernel_samsung_gta3xlwifi",
     "branch": "twrp-12.1",
-    "commit": "96f6f707e7afc760191b721f8fd3e60ce05915c7"
+    "commit": "b1f46cb4ae4bb8bdf167d63a2192ead3e41028c1"
   }
 }
