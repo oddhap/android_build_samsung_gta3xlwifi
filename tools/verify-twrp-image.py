@@ -14,7 +14,7 @@ checkout = root / 'src/twrp-12.1'
 source = checkout / 'out/target/product/gta3xlwifi/recovery.img'
 destination = root / 'artifacts/twrp-sm-t510'
 maximum = 47185920
-kernel_sha = '445f0b44dd53f2bc464e95e2729307cc2cea1baf6f35db9b22327b0f7c352edd'
+kernel_sha = 'f170d1015157c6d82cc3880427245254640fcbf20ffc59538151bcf8d0273333'
 dtbo_sha = 'b9041c37713a745290d9a0203423436b6caa7a1307ced79b6963b4f1f0271c4b'
 marker = b'SEANDROIDENFORCE'
 
@@ -58,6 +58,7 @@ kernel_size, kernel_addr, ramdisk_size, ramdisk_addr, _, _, tags_addr, page_size
 require(ramdisk_size <= 16777216, 'Ramdisk overlaps bootloader DTB load address')
 require((kernel_addr, ramdisk_addr, tags_addr, page_size, version) ==
         (0x10008000, 0x11000000, 0x10000100, 2048, 1), 'Unexpected SM-T510 boot layout')
+require(struct.unpack_from('<I', data, 44)[0] == 0x1c0001a9, 'Keymaster boot version differs from LineageOS 21 input')
 require(data[48:64].rstrip(b'\0') == b'SRPSA25A005RU', 'Wrong CWA1 recovery board field')
 cmdline = (data[64:576].split(b'\0', 1)[0] + data[608:1632].split(b'\0', 1)[0]).decode()
 require('androidboot.hardware=exynos7904' in cmdline, 'Wrong recovery hardware')
@@ -82,8 +83,15 @@ for key, expected in [('model', 'SM-T510'), ('device', 'gta3xlwifi')]:
     require(values and all(value == expected for value in values), f'Wrong recovery {key}')
 usb_init = members['init.recovery.exynos7904.rc']
 require(b'setprop sys.usb.configfs 1' in usb_init, 'Missing SM-T510 configfs selection')
+require(b'install_keyring' in usb_init, 'Missing legacy fscrypt session keyring initialization')
+require(b'by-name/efs /mnt/vendor/efs rw' in usb_init, 'Gatekeeper EFS state remains read-only')
 require(b'mtp,adb' in usb_init and b'sys.usb.ffs.mtp.ready=1' in usb_init,
         'Missing MTP/ADB configfs support')
+require(b'twrp.crypto.props.ready=1' in usb_init, 'Missing guarded hardware crypto startup')
+require(b'on late-init' not in members['system/etc/init/keystore2.rc'], 'Keystore starts before vendor is available')
+require(b'android.hidl.manager' in members['system/etc/vintf/manifest.xml'], 'Missing framework HIDL manifest')
+require('system/bin/resetprop' in members, 'Missing resetprop binary')
+require(b'header_month' in members['system/bin/twrp-prepare-crypto.sh'], 'Missing OS/header match guard')
 recovery = members['system/bin/recovery']
 adbd = members['system/bin/adbd']
 for name, binary in [('recovery', recovery), ('adbd', adbd)]:
@@ -93,13 +101,25 @@ require(b'3.7.1_12\0' in recovery, 'Missing plain TWRP version')
 require(b'sm-t510-native-test' not in recovery and b'3.7.1_12-0\0' not in recovery,
         'Device version suffix remains')
 require(b'/cache\0' in recovery, 'Recovery settings cache path missing')
+require(b'recovery_rpmb_block_device' in members.get('sepolicy', b''),
+        'Missing dedicated recovery RPMB device policy')
+require(b'Android keystore database is not readable yet' in recovery,
+        'Missing safe temporary keystore database snapshot')
+require(b'Gatekeeper rejected verification, status=' in recovery,
+        'Missing fail-closed Gatekeeper response validation')
+require(b'User 0 DE key missing; refusing to create replacement keys' in recovery,
+        'Missing read-only decryption key guard')
 ramdisk_root = checkout / 'out/target/product/gta3xlwifi/recovery/root'
 for library in ('libminuitwrp.so', 'libresetprop.so', 'libfscrypttwrp.so'):
     current_library = checkout / 'out/target/product/gta3xlwifi/system/lib' / library
+    if library == 'libresetprop.so':
+        # The recovery-only resetprop executable selects Soong's recovery
+        # library variant; compare against that exact current build input.
+        current_library = checkout / 'out/soong/.intermediates/external/magisk-prebuilt/resetprop/libresetprop/android_recovery_arm_armv8-a_shared/libresetprop.so'
     require(members.get(f'system/lib/{library}') == current_library.read_bytes(),
             f'Stale runtime library copied into recovery ramdisk: {library}')
 libraries = {p.name: p for p in ramdisk_root.rglob('*.so') if p.is_file()}
-pending = [ramdisk_root / f'system/bin/{name}' for name in ('init', 'recovery', 'adbd')]
+pending = [ramdisk_root / f'system/bin/{name}' for name in ('init', 'recovery', 'adbd', 'resetprop', 'keystore2')]
 visited = set()
 while pending:
     binary_path = pending.pop().resolve()
@@ -144,6 +164,8 @@ report = {
     'ramdisk_compression': 'xz',
     'adb_auth_required_in_recovery': False, 'usb_configfs': True,
     'fbe_enabled_in_device_config': True, 'samsung_fbe_runtime_tested': False,
+    'keymaster_boot_header_os': '14.0.0', 'keymaster_boot_header_patch': '2026-09-01',
+    'recovery_platform_base': 'Android 12.1', 'hardware_crypto_startup_included': True,
     'upstream_twrp_permissive_recovery_domains': True,
     'hardware_tested': False, 'stability_claim': False,
     'plain_version_string_verified': True, 'settings_storage_path': '/cache',

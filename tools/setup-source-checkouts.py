@@ -45,14 +45,14 @@ extracted=R/'vendor-stock/extracted/vendor';extracted.parent.mkdir(parents=True,
 if extracted.exists():raise SystemExit(f'Refusing to replace vendor extraction: {extracted}')
 shutil.copytree(R/'vendor-source/proprietary',extracted,symlinks=True)
 pre=R/'src/twrp-12.1/device/samsung/gta3xlwifi/prebuilt';pre.mkdir(parents=True)
-run('gh','release','download','tested-recovery-inputs','--repo','oddhap/android_device_samsung_gta3xlwifi_twrp','--dir',pre)
+run('gh','release','download','tested-fbe-recovery-inputs-20261004','--repo','oddhap/android_device_samsung_gta3xlwifi_twrp','--dir',pre)
 verify_sums(pre)
-sha(pre/'Image','445f0b44dd53f2bc464e95e2729307cc2cea1baf6f35db9b22327b0f7c352edd')
+sha(pre/'Image','f170d1015157c6d82cc3880427245254640fcbf20ffc59538151bcf8d0273333')
 sha(pre/'dtbo.img','b9041c37713a745290d9a0203423436b6caa7a1307ced79b6963b4f1f0271c4b')
 (R/'tools').mkdir(exist_ok=True);(R/'patches').mkdir(exist_ok=True)
 for src in (I/'tools').iterdir():
  if src.is_file():shutil.copy2(src,R/'tools'/src.name)
 shutil.copytree(I/'patches',R/'patches',dirs_exist_ok=True)
-for name in ['build-native-rom.sh','build-kernel-smoke.sh','build-twrp.sh','fix-twrp-relink-dependencies.py','fix-twrp-fbe-startup.py','verify-twrp-image.py']:
+for name in ['build-native-rom.sh','build-kernel-smoke.sh','build-twrp.sh','fix-twrp-relink-dependencies.py','fix-twrp-fbe-startup.py','fix-twrp-settings.py','verify-twrp-image.py']:
  shutil.copy2(I/'tools'/name,R/name)
 print('Pinned sources and inputs staged. Apply platform patches and build; see README.md.')
