@@ -173,3 +173,29 @@ final system/core patch and `ro.gta3xlwifi.ext4_project_quota=false` must both b
 present before booting newly formatted data. An older Android 14 port enables
 project quota by default and makes the filesystem unmountable. See
 [the diagnosis, repair and regression test](factory-reset-quota.md).
+
+## Wi-Fi-only and usage compatibility cleanup
+
+The current device configuration disables mobile data, SIM hardware and the
+shared vendor image's unused IMS feature. Product init stops the modem
+service before class main and stops mobicore in the shutdown event.
+The device also labels exact charger type files and skips absent blkio groups.
+Platform patches now include packages/apps/Settings and packages/services/Telephony
+(12 pinned projects in source-lock.json), plus the optional CPU reader guard in
+frameworks/base. The TeleService application enabled and persistent flags use
+a static capability resource, disabled by the Wi-Fi-only device overlay.
+See [rationale and limits](usage-compat.md). After private signing, run
+`verify-usage-compat.py` in addition to the normal image/layout/package checks;
+it inspects the physical product image, init syntax, compiled framework guard
+and reviewed Settings/TeleService artifacts. Physical runtime/reboot checks remain required.
+
+## Release identity and package caches
+
+`build-release.sh` records a new UTC build number and timestamp before compiling
+and signing a release. `build-rom.sh` reuses that recorded identity for partial
+builds of the same candidate. Keep these two files with the artifact when
+recording a build; do not reuse their values for a changed release. Android keys
+its package parser cache on partition fingerprints, and APK mtimes in these
+images are deliberately fixed. Reusing a fingerprint can retain stale manifest
+flags after a full OTA. Signature verification also checks the explicit build
+number against the signed system fingerprint and OTA metadata.

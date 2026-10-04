@@ -3,7 +3,7 @@
     "project": "frameworks/base",
     "revision": "e46d78059500b71998de5b21e4225f18463b32f3",
     "patch": "frameworks_base.patch",
-    "sha256": "a75c7de04208e3620e35c78b065cfab25e1786b82bc0adacf504e39eb64f73ac",
+    "sha256": "0080ec02ded70b3506b8a928f8e597b4378ba7432609ca55f71860c6d5bfdb75",
     "new_files": [],
     "clean_index_patch_check_passed": true
   },
@@ -83,6 +83,22 @@
     "revision": "aee59e17156fbcddc13051f92180cec8c1b2c278",
     "patch": "system_memory_libmeminfo.patch",
     "sha256": "52c394e0560defbae3b6cb7dca02e78b14466e255553a91c03ef427b31e76d00",
+    "new_files": [],
+    "clean_index_patch_check_passed": true
+  },
+  {
+    "project": "packages/apps/Settings",
+    "revision": "ff82ae7605fea833fe347424e82cd848f042fce7",
+    "patch": "packages_apps_Settings.patch",
+    "sha256": "802a2bf277c67d096113333475a1b906835a71ee13ee6f9a9e273b21a4231802",
+    "new_files": [],
+    "clean_index_patch_check_passed": true
+  },
+  {
+    "project": "packages/services/Telephony",
+    "revision": "b17668b134791341fd8d564f9f2943b6a5c585c7",
+    "patch": "packages_services_Telephony.patch",
+    "sha256": "536085005ec204d7a3ebdb797e10e126f3139b7b74d0e54000d6a04b9d22cddf",
     "new_files": [],
     "clean_index_patch_check_passed": true
   }

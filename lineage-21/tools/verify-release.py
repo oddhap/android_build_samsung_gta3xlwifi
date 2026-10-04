@@ -114,12 +114,20 @@ with tempfile.TemporaryDirectory(dir=args.release, prefix='verify-') as tmp:
         version = re.search(r'^ro.lineage.version=(21\.0-[0-9]{8}-UNOFFICIAL-gta3xlwifi)$', props, re.M).group(1)
         checks['build_tags'] = 'release-keys'
         checks['build_type'] = 'userdebug'
+        checks['build_incremental'] = re.search(r'^ro.build.version.incremental=(.+)$',props,re.M).group(1)
+        checks['system_build_fingerprint'] = re.search(r'^ro.system.build.fingerprint=(.+)$',props,re.M).group(1)
+        assert checks['build_incremental'].startswith('gta3xlwifi.'), 'Release identity must be explicit'
+
 
     ota = args.release / ('lineage-' + version + '-privatekeys.zip')
     with zipfile.ZipFile(ota) as archive:
         assert archive.testzip() is None
         metadata = archive.read('META-INF/com/android/metadata').decode()
         assert 'pre-device=gta3xlwifi' in metadata.splitlines()
+        assert 'post-build-incremental='+checks['build_incremental'] in metadata.splitlines()
+        checks['build_fingerprint'] = re.search(r'^post-build=(.+)$',metadata,re.M).group(1)
+        assert checks['build_incremental'] in checks['build_fingerprint']
+        assert checks['build_incremental'] in checks['system_build_fingerprint']
         assert '/release-keys' in metadata
         assert 'ota-wipe=yes' not in metadata
         script = archive.read('META-INF/com/google/android/updater-script').decode()

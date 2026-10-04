@@ -1,0 +1,2 @@
+# Unified diffs intentionally contain blank context lines prefixed by a space.
+lineage-21/patches/*.patch -whitespace

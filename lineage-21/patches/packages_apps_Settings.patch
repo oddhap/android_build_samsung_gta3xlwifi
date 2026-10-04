@@ -1,0 +1,17 @@
+diff --git a/src/com/android/settings/fuelgauge/batteryusage/BatteryEntry.java b/src/com/android/settings/fuelgauge/batteryusage/BatteryEntry.java
+index 4b65cc9..c59f880 100644
+--- a/src/com/android/settings/fuelgauge/batteryusage/BatteryEntry.java
++++ b/src/com/android/settings/fuelgauge/batteryusage/BatteryEntry.java
+@@ -648,6 +648,12 @@ public class BatteryEntry {
+ 
+     private static double safeGetConsumedPower(
+             final UidBatteryConsumer uidBatteryConsumer, final Dimensions dimension) {
++        // Older kernels/snapshots may have totals but no process-state columns.
++        // Keep the existing unavailable-value fallback without repeatedly throwing.
++        if (uidBatteryConsumer.getKey(BatteryConsumer.POWER_COMPONENT_CPU,
++                dimension.processState) == null) {
++            return 0.0d;
++        }
+         try {
+             return uidBatteryConsumer.getConsumedPower(dimension);
+         } catch (IllegalArgumentException e) {

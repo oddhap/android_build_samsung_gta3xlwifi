@@ -1,0 +1,34 @@
+{
+  "hardware_tested": false,
+  "system_image_sha256": "9cd9bcbd69a17d6dfc6b4916c32e751b6623067ab1406c3fc38a9fe77fc115f4",
+  "ext4_features": {
+    "system.img": {
+      "incompat": "0x42",
+      "ro_compat": "0x7b",
+      "original_kernel_support_checked": true
+    },
+    "product.img": {
+      "incompat": "0x42",
+      "ro_compat": "0x7b",
+      "original_kernel_support_checked": true
+    }
+  },
+  "init_sha256": "ce13480f98693d8459b661b896c7b9780345b6c8d9e6944fdf4271570c77b291",
+  "libfs_mgr.so_sha256": "81f1ae9ee7406ff83baffa288690622f431e09666c3e47038cd5e94d0b8a7452",
+  "libfs_mgr_binder.so_sha256": "b81135403631f8e92115d0b3e8742d203c49e54ad51a3dcf7e342a2dc8b5fe7e",
+  "filesystem_manager_ext4_project_quota_guard": true,
+  "processgroup_setup_library_sha256": "99d682eaa89a4f82c37b98199a03792fb13c8450bc21209582ab6039e03f250d",
+  "root_init_duplicate_mounts_absent": true,
+  "libaudiohal.so_sha256": "079a6ddaef807cc664c1f63a924f4023f05ecb05de314fbbdfce97025f0b7253",
+  "libaudiohal@4.0.so_sha256": "320ad25586b79d03abe718c6650d523232332f486d0c4ca77276c367b22e1312",
+  "libgpuwork.so_sha256": "9f42bf920a76f8cdb814f2f8912da80eb735b689c493b0249798fc6844048ea1",
+  "libmeminfo.so_sha256": "01750da3da1c07806e4736bdaebeaf611ecfff3cca5bf6b2d5bc292cedd0746d",
+  "/fstab.exynos7904": "ae87c90434eb2cfe64bd04ec52ec4d7da8019d12395b9a67c8515975b48b3742",
+  "/init.exynos7904.rc": "17b56bafc0d86e86f70f1db8dac3a06faa583296092b06d4f62c234bbf71c1ca",
+  "/ueventd.exynos7904.rc": "1dc43d6fb0e426baea6f8a8a940dd92ac97dab9675c788dcee680ced92a1668d",
+  "/system/system_ext/etc/init/init.gta3xlwifi.power.rc": "a907a42930d390f50b05bc0844ea1b297798a5f203c560591ffc60c2bf68db4a",
+  "/system/etc/cgroups.gta3xlwifi.json": "5a888561ad69f454fda7175196e0f77ce11d745bad7b69f748ee231f91e653f8",
+  "/system/etc/task_profiles.gta3xlwifi.json": "ed5f1b040db100cdee0e483d87bb5ab6c4f15ff299c61a7a19bb935587223757",
+  "/system/etc/init/init.gta3xlwifi.crypto.rc": "8f27efddbf9d1909784cf734b94112a99c9f93a0f34d771b2ebd64287888472c",
+  "passed": true
+}

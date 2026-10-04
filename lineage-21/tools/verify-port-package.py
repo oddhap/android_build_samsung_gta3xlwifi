@@ -88,6 +88,10 @@ with TargetFilesTree() as archive:
     checks['system_ext_policy_sha256'] = hashlib.sha256(policy).hexdigest()
     profiles = json.loads(archive.read('SYSTEM/etc/task_profiles.gta3xlwifi.json'))
     for profile in profiles['Profiles']:
+        if profile['Name'] in ('LowIoPriority', 'NormalIoPriority', 'HighIoPriority', 'MaxIoPriority'):
+            if profile['Actions'] != []:
+                raise SystemExit('Unsupported blkio profile is not explicitly skipped')
+            continue
         cpu = [action['Params'] for action in profile['Actions']
                if action['Name'] == 'JoinCgroup' and action['Params']['Controller'] == 'cpu']
         if cpu != [{'Controller': 'cpu', 'Path': ''}]:

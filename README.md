@@ -1,27 +1,24 @@
 # SM-T510 LineageOS 21 development branch
 
 The native Android 14 port lives under [lineage-21](lineage-21/notes/build-guide.md).
-Targeted networking/APEX/ABI/SELinux and power builds pass; host and scoped kernel
-packet tests pass. The full installation ZIP and actual image/layout/ZIP/VINTF
-checks pass. Candidate 8 boots Android 14 after fresh data initialization and a
-normal reboot, with encrypted file data and SELinux enforcing.
-GPU-memory APIs correctly report unavailable on the old kernel; real RAM
-accounting and a complete local memory summary pass. A 16-scroll Wall You
-Picsum workload passes with unchanged system-server PID and no crash. Bluetooth,
-DNS and the corrected bulk firewall update pass. A brief camera startup delay was reported; longer
-stability tests remain pending. This is a development port; no production
-stability claim has been made. See the port status and build
-notes for the known legacy vendor policy limitation and pending checks.
+The installed candidate 12 passes signed-image/layout/package checks, physical
+boot and ordinary reboot with encrypted data, SELinux Enforcing and private
+release-keys signing. The build remains userdebug. All 210 installed package/UID
+records survive the latest update and reboot. The earlier user-authorized
+Format Data removed old data; this latest update preserves the subsequent setup.
 
-The installed candidate uses persistent project signing keys. Trust reports
-GOOD; the build remains userdebug with release-keys signing tags. The earlier
-candidate 7 migration preserved all 204 package records/UIDs; a subsequent user
-Format Data removed that data. See [private signing](lineage-21/notes/signing.md).
+Wi-Fi-only phone/modem services are disabled through product capabilities,
+optional legacy CPU/battery measurements are guarded, and exact health sysfs
+labels are corrected. The Samsung MobiCore shutdown handler is avoided before
+EFS unmount. Distinct release identities automatically invalidate stale package
+parser caches. Final reboot checks show no current-boot ANR/native tombstone or
+crash-buffer entry; browser rendering passes. See
+[rationale, limitations and physical results](lineage-21/notes/usage-compat.md).
 
-Candidate 8 fixes Android 14 initialization of unsupported ext4 project quota
-after TWRP Format Data. User/group quota and file encryption remain active.
-The formerly failing first-boot path and an ordinary reboot pass on the tablet.
-See [diagnosis and regression evidence](lineage-21/notes/factory-reset-quota.md).
+The previously tested networking, media, memory, Bluetooth and CPU/GPU power
+fixes are retained. The stock kernel/vendor remain unchanged. Longer stability,
+credential/recovery and full hardware tests remain pending; this is a
+development port, with the documented legacy vendor policy limitation.
 
 This branch preserves the Android 12/TWRP integration below as provenance and
 rollback documentation. Use the LineageOS 21 guide for the new port.

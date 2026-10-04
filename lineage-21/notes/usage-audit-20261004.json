@@ -1,0 +1,61 @@
+{
+  "audit_date": "2026-10-04",
+  "device_model": "SM-T510",
+  "installed_candidate": 8,
+  "rom_sha256": "a1046f97465d2ff7b8a7db03c4855ccd69a57eb6b6704f97abeb3598c8c0da20",
+  "uptime_seconds_at_start": 70897.87,
+  "system_server_pid": 4341,
+  "same_system_server_as_previous_reboot": true,
+  "audio_server_pid": 4112,
+  "surfaceflinger_pid": 4122,
+  "crash_log_empty": true,
+  "anr_files": 0,
+  "application_exit_reasons": {
+    "1": 1,
+    "13": 15
+  },
+  "current_boot_native_tombstones": 0,
+  "previous_boot_native_tombstones": 1,
+  "previous_native_failure": {
+    "process": "/vendor/bin/mcDriverDaemon",
+    "timestamp": "2026-10-03T14:42:32+02:00",
+    "signal": "SIGABRT",
+    "message": "thread::join failed: Resource deadlock would occur",
+    "stack_in_signal_handler": true,
+    "relation_to_planned_reboot": "timing and signal-handler stack suggest shutdown path; not independently reproduced"
+  },
+  "selinux": "Enforcing",
+  "file_encryption": true,
+  "trust_keys_level": 0,
+  "user_group_quota_enabled": true,
+  "project_quota_absent": true,
+  "memory_available_kib": 679960,
+  "battery_temperature_c": 23.4,
+  "ap_temperature_c": 24.7,
+  "thermal_status": 0,
+  "wifi_crash_counters": {
+    "numHalCrashes": 0,
+    "numWificondCrashes": 0,
+    "numSupplicantCrashes": 0,
+    "numHostapdCrashes": 0,
+    "numLastResortWatchdogTriggers": 0
+  },
+  "suspend_successes": 1091,
+  "suspend_failures": 22,
+  "suspend_resume_failures": 0,
+  "last_suspend_failure_device": "alarmtimer",
+  "last_suspend_errno": -16,
+  "findings": [
+    "Repeated RIL getCurrentCalls unsupported messages on Wi-Fi-only product",
+    "cpboot-daemon repeatedly attempts absent /dev/umts_boot0 despite ro.radio.noril=yes and ro.carrier=wifi-only",
+    "BatteryUsageStats process-state consumption missing; CPU frequency count unavailable",
+    "Sparse legacy vendor SELinux/property and unsupported blkio profile warnings",
+    "Wi-Fi WDT-active interrupt diagnostics around resume; zero Wi-Fi service crash/watchdog recovery counters"
+  ],
+  "raw_logs_kept_local_only": true,
+  "log_buffer_limit": "Circular logcat/dmesg buffers cover only retained history; persistent DropBox and process exit history supplement them",
+  "long_term_stability_certified": false,
+  "firmware_or_settings_changed": false,
+  "application_exit_records": 16,
+  "adb_returned_to_unrooted_shell": true
+}

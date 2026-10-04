@@ -268,3 +268,28 @@ See [diagnosis and repair](factory-reset-quota.md),
 [image layout checks](quota-native-layout-check.json), and
 [private signature verification](quota-release-signature-check.json).
 Long-term stability and the remaining hardware tests are still pending.
+
+## Wi-Fi and usage cleanup (2026-10-04)
+
+Candidate 12 disables the unused phone application in its compiled manifest,
+stops the absent modem daemon before class main, and gates optional per-thread
+CPU/battery measurements on actual capability. Supported CPU/cpuset profiles
+remain active; absent blkio profiles retain default scheduling. Four exact
+health sysfs files receive the existing battery label. A shutdown hook avoids
+Samsung MobiCore's broken SIGTERM handler before EFS unmount.
+
+Release builds now receive distinct recorded build identities. This corrects
+stale manifest flags cached across earlier candidates with reused fingerprints.
+The installed release automatically replaces its old package cache and retains
+all 210 package/UID records through update and normal reboot. Both final boots
+pass encryption, key availability, SELinux, signing, artifact readback and
+empty crash-buffer checks. The final reboot has zero current-boot ANR/native
+tombstones, successful EFS unmount and a 2414 ms init shutdown. Browser rendering
+passes. The user-authorized earlier data format removed old data; the final
+update performs no format and preserves the subsequently completed setup/apps.
+
+ZIP SHA-256: `80ac25b60c744836dbb225dfb81f64ce9ef1fc40e31557b67e8fe284c30c5286`.
+Build number: `gta3xlwifi.20261004.132339`.
+See [details and limits](usage-compat.md) and
+[physical results](usage-runtime-check.json). Full hardware and long-term
+stability validation remain incomplete.
