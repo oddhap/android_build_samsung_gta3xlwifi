@@ -1,3 +1,112 @@
+diff --git a/Android.mk b/Android.mk
+index 383adca..3b33ef2 100644
+--- a/Android.mk
++++ b/Android.mk
+@@ -47,11 +47,18 @@ TARGET_RECOVERY_GUI := true
+ LOCAL_STATIC_LIBRARIES :=
+ LOCAL_SHARED_LIBRARIES :=
+ 
++ifeq ($(TW_OMIT_DEVICE_VERSION),true)
++    LOCAL_CFLAGS += -DTW_DEVICE_VERSION='""'
++else
+ ifneq ($(TW_DEVICE_VERSION),)
+     LOCAL_CFLAGS += -DTW_DEVICE_VERSION='"-$(TW_DEVICE_VERSION)"'
+ else
+     LOCAL_CFLAGS += -DTW_DEVICE_VERSION='"-0"'
+ endif
++endif
++ifneq ($(TW_SETTINGS_STORAGE_PATH),)
++    LOCAL_CFLAGS += -DTW_SETTINGS_STORAGE_PATH='"$(TW_SETTINGS_STORAGE_PATH)"'
++endif
+ LOCAL_CFLAGS += -DPLATFORM_SDK_VERSION=$(PLATFORM_SDK_VERSION)
+ 
+ LOCAL_SRC_FILES := \
+diff --git a/data.cpp b/data.cpp
+index 0078524..78fb07b 100644
+--- a/data.cpp
++++ b/data.cpp
+@@ -609,6 +609,9 @@ void DataManager::SetDefaultValues()
+ #endif
+ 
+ 	mData.SetValue(TW_RECOVERY_FOLDER_VAR, TW_DEFAULT_RECOVERY_FOLDER);
++#ifdef TW_SETTINGS_STORAGE_PATH
++    mData.SetValue("tw_settings_path", TW_SETTINGS_STORAGE_PATH);
++#endif
+ 
+ 	str = GetCurrentStoragePath();
+ 	mPersist.SetValue(TW_ZIP_LOCATION_VAR, str);
+@@ -1115,8 +1118,8 @@ void DataManager::ReadSettingsFile(void)
+ 
+ 	memset(mkdir_path, 0, sizeof(mkdir_path));
+ 	memset(settings_file, 0, sizeof(settings_file));
+-	sprintf(mkdir_path, "%s%s", GetSettingsStoragePath().c_str(), GetStrValue(TW_RECOVERY_NAME).c_str());
+-	sprintf(settings_file, "%s%s", mkdir_path, TW_SETTINGS_FILE);
++	sprintf(mkdir_path, "%s%s", GetSettingsStoragePath().c_str(), GetStrValue(TW_RECOVERY_FOLDER_VAR).c_str());
++	sprintf(settings_file, "%s/%s", mkdir_path, TW_SETTINGS_FILE);
+ 
+ 	if (!PartitionManager.Mount_Settings_Storage(false))
+ 	{
+@@ -1126,6 +1129,13 @@ void DataManager::ReadSettingsFile(void)
+ 	}
+ 
+ 	mkdir(mkdir_path, 0777);
++#ifdef TW_SETTINGS_STORAGE_PATH
++    SetValue("tw_can_persist_settings",
++            PartitionManager.Is_Mounted_By_Path(GetSettingsStoragePath())
++                    && access(mkdir_path, W_OK) == 0 ? 1 : 0);
++#else
++    SetValue("tw_can_persist_settings", is_enc == 0 ? 1 : 0);
++#endif
+ 
+ 	LOGINFO("Attempt to load settings from settings file...\n");
+ 	LoadValues(settings_file);
+@@ -1143,7 +1153,13 @@ string DataManager::GetCurrentStoragePath(void)
+ 
+ string DataManager::GetSettingsStoragePath(void)
+ {
++#ifdef TW_SETTINGS_STORAGE_PATH
++    // Preferences must remain writable when the device's FBE storage is locked.
++    // Current storage, backups and encryption credentials use separate values.
++    return TW_SETTINGS_STORAGE_PATH;
++#else
+ 	return GetStrValue("tw_settings_path");
++#endif
+ }
+ 
+ void DataManager::Vibrate(const string& varName)
+@@ -1161,5 +1177,5 @@ void DataManager::Vibrate(const string& varName)
+ void DataManager::LoadTWRPFolderInfo(void)
+ {
+ 	SetValue(TW_RECOVERY_FOLDER_VAR, TWFunc::Check_For_TwrpFolder());
+-	mBackingFile = GetSettingsStoragePath() + GetStrValue(TW_RECOVERY_NAME) + TW_SETTINGS_FILE;
++	mBackingFile = GetSettingsStoragePath() + GetStrValue(TW_RECOVERY_FOLDER_VAR) + "/" + TW_SETTINGS_FILE;
+ }
+diff --git a/gui/theme/common/landscape.xml b/gui/theme/common/landscape.xml
+index f56ea4d..42a6693 100755
+--- a/gui/theme/common/landscape.xml
++++ b/gui/theme/common/landscape.xml
+@@ -3203,7 +3203,7 @@
+ 			</text>
+ 
+ 			<checkbox>
+-				<condition var1="tw_is_encrypted" var2="0"/>
++				<condition var1="tw_can_persist_settings" var2="1"/>
+ 				<placement x="%col1_x_left%" y="%row14_y%"/>
+ 				<text>{@sys_ro_never_show_chk=Never show this screen during boot again}</text>
+ 				<data variable="tw_never_show_system_ro_page"/>
+diff --git a/gui/theme/common/portrait.xml b/gui/theme/common/portrait.xml
+index 8b5324b..c9d77b7 100755
+--- a/gui/theme/common/portrait.xml
++++ b/gui/theme/common/portrait.xml
+@@ -3375,7 +3375,7 @@
+ 			</text>
+ 
+ 			<checkbox>
+-				<condition var1="tw_is_encrypted" var2="0"/>
++				<condition var1="tw_can_persist_settings" var2="1"/>
+ 				<placement x="%indent%" y="%row15_y%"/>
+ 				<text>{@sys_ro_never_show_chk=Never show this screen during boot again}</text>
+ 				<data variable="tw_never_show_system_ro_page"/>
 diff --git a/partition.cpp b/partition.cpp
 index 184cb16..ccaf9c9 100755
 --- a/partition.cpp
@@ -19,6 +128,24 @@ index 184cb16..ccaf9c9 100755
  				LOGERR("Unable to decrypt FBE device\n");
  		} else {
  			DataManager::SetValue(TW_IS_ENCRYPTED, 0);
+diff --git a/partitionmanager.cpp b/partitionmanager.cpp
+index 2766b4c..17b49d2 100755
+--- a/partitionmanager.cpp
++++ b/partitionmanager.cpp
+@@ -2124,6 +2124,13 @@ int TWPartitionManager::Decrypt_Device(string Password, int user_id) {
+ 		if (!Mount_By_Path("/data", true)) // /data has to be mounted for FBE
+ 			return -1;
+ 
++		Set_Crypto_Type("file");
++        if (Users_List.empty()) {
++            LOGERR("FBE users unavailable; encrypted data remains locked\n");
++            DataManager::SetValue(TW_IS_ENCRYPTED, 1);
++            DataManager::SetValue(TW_IS_DECRYPTED, 0);
++            return -1;
++        }
+ 		bool user_need_decrypt = false;
+ 		std::vector<users_struct>::iterator iter;
+ 		for (iter = Users_List.begin(); iter != Users_List.end(); iter++) {
 diff --git a/prebuilt/Android.mk b/prebuilt/Android.mk
 index 3197ec1..fe78158 100755
 --- a/prebuilt/Android.mk

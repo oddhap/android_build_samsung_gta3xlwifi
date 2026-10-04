@@ -36,3 +36,21 @@ if old in text:
     path.write_text(text.replace(old, new))
 else:
     assert new in text
+
+# Failed DE initialization leaves no parsed users. An empty list must not be
+# interpreted as a user who is already decrypted.
+path = root / 'bootable/recovery/partitionmanager.cpp'
+text = path.read_text()
+old = '''\t\tbool user_need_decrypt = false;
+'''
+new = '''\t\tSet_Crypto_Type("file");
+        if (Users_List.empty()) {
+            LOGERR("FBE users unavailable; encrypted data remains locked\\n");
+            DataManager::SetValue(TW_IS_ENCRYPTED, 1);
+            DataManager::SetValue(TW_IS_DECRYPTED, 0);
+            return -1;
+        }
+'''+old
+if new not in text:
+    assert text.count(old) == 1
+    path.write_text(text.replace(old, new, 1))

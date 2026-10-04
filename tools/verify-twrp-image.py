@@ -89,7 +89,10 @@ adbd = members['system/bin/adbd']
 for name, binary in [('recovery', recovery), ('adbd', adbd)]:
     require(binary[:6] == b'\x7fELF\x01\x01' and struct.unpack_from('<H', binary, 18)[0] == 40,
             f'{name}: wrong userspace ABI')
-require(b'3.7.1_12' in recovery, 'Recovery is not the expected TWRP version')
+require(b'3.7.1_12\0' in recovery, 'Missing plain TWRP version')
+require(b'sm-t510-native-test' not in recovery and b'3.7.1_12-0\0' not in recovery,
+        'Device version suffix remains')
+require(b'/cache\0' in recovery, 'Recovery settings cache path missing')
 ramdisk_root = checkout / 'out/target/product/gta3xlwifi/recovery/root'
 for library in ('libminuitwrp.so', 'libresetprop.so', 'libfscrypttwrp.so'):
     current_library = checkout / 'out/target/product/gta3xlwifi/system/lib' / library
@@ -143,6 +146,7 @@ report = {
     'fbe_enabled_in_device_config': True, 'samsung_fbe_runtime_tested': False,
     'upstream_twrp_permissive_recovery_domains': True,
     'hardware_tested': False, 'stability_claim': False,
+    'plain_version_string_verified': True, 'settings_storage_path': '/cache',
     'original_unmarked_image_sha256': digest(data),
     'source_manifest_sha256': digest((root / 'artifacts/twrp-12.1-source-manifest.xml').read_bytes()),
     'recovery_elf_sha256': digest(recovery), 'adbd_elf_sha256': digest(adbd),

@@ -1,11 +1,11 @@
 # SM-T510 LineageOS 21 development port
 
-Status: candidate 8 boots Android 14 after fresh data initialization and an ordinary reboot,
-with encrypted file data and SELinux enforcing.
-GPU memory-query and ordinary RAM tests pass without the prior system-server abort;
-a complete local memory summary and the corrected bulk firewall update pass.
-Bluetooth and Internet/DNS work. A 16-scroll Wall You Picsum workload passes with unchanged system-server PID
-and no crash; camera performance and longer stability testing remain pending; this is a development port.
+Status: candidate 12 boots Android 14, preserves the current setup through update
+and ordinary reboot, and retains file encryption and SELinux enforcing. Current
+crash/ANR/native tombstone checks pass. The user reports working rotation, both
+cameras, brightness, Wi-Fi browsing, browser video/audio, Bluetooth, microSD and
+USB-OTG. Camera startup has brief latency. These are scoped checks and user
+reports; complete hardware and long-term stability validation remain incomplete.
 
 The Android platform is the current LineageOS lineage-21.0 branch, downloaded
 independently from the working LineageOS 19.1 checkout. Android userspace remains
@@ -293,3 +293,11 @@ Build number: `gta3xlwifi.20261004.132339`.
 See [details and limits](usage-compat.md) and
 [physical results](usage-runtime-check.json). Full hardware and long-term
 stability validation remain incomplete.
+
+## Additional user hardware checks (2026-10-04)
+
+The user reports successful Bluetooth, microSD and USB-OTG tests. These reports
+add practical coverage without certifying all codecs, peripheral types, storage
+formats, suspend/resume behavior or prolonged operation. Recovery FBE decryption
+remains unsupported; setting an Android PIN does not make Samsung keystore
+available in TWRP. See the recovery settings update in the build repository.
