@@ -1,0 +1,31 @@
+{
+  "test_only": true,
+  "rom_release": "14",
+  "rom_patch": "2026-09-01",
+  "august_header_de_unlock": false,
+  "august_header_keymaster_error": -33,
+  "september_header_de_unlock": true,
+  "test_image_difference_byte_offsets": [
+    44
+  ],
+  "same_ramdisk_kernel_dtbo": true,
+  "hardware_key_mutation_guard_active": true,
+  "ce_pin_test_complete": true,
+  "rollback_complete": true,
+  "wrong_pin_rejected": true,
+  "correct_pin_unlocks_real_ce_data": true,
+  "original_key_inventory_unchanged": true,
+  "key_inventory_files": 15,
+  "blocked_hardware_mutation_requests": 0,
+  "android_boot_partition_unchanged": true,
+  "rollback_sha256": "391c36b92f65f39a87d476452195129a33e8f59a25566c367fa73a04cbcc7de7",
+  "normal_library_and_source_restored": true,
+  "android_boot_completed": true,
+  "android_ce_data_readable": true,
+  "android_fbe_retained": true,
+  "android_selinux_enforcing": true,
+  "android_package_records": 210,
+  "android_crash_buffer_empty": true,
+  "final_key_inventory_unchanged": true,
+  "user_confirmed_apps_and_data_retained": true
+}

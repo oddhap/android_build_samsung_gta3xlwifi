@@ -148,3 +148,15 @@ retain their owners' terms; no open-source license is granted to those blobs.
 
 No SSH credentials, access tokens, device identifiers, raw personal logs,
 ccache, toolchain binaries or Android build output are committed here.
+
+
+## Recovery header compatibility test
+
+The [2026-10-05 controlled header test](docs/twrp-header-compat-test.md) kept the
+ROM, live recovery properties, kernel, DTBO and test ramdisk identical. Changing
+only header byte 44 from September to August caused existing DE-key retrieval
+to fail with INVALID_KEY_BLOB; the September control passed wrong/correct PIN
+and real CE-read checks. Original key files and Android images were preserved.
+The normal recovery is restored. Simply copying ROM properties is insufficient
+for this tested mismatch. Automatic header synchronization during future ROM
+installation is a possible follow-up, not an implemented feature.

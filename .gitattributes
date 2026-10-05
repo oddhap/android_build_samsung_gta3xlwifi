@@ -1,1 +1,2 @@
 patches/twrp-12.1/*.patch -whitespace
+patches/twrp-header-test/*.patch -whitespace
