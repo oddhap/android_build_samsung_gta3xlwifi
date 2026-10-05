@@ -91,6 +91,8 @@ with tempfile.TemporaryDirectory(dir=args.release, prefix='verify-') as tmp:
         checks['verified_private_apex_payload_signatures'] = len(apexes)
         assert new.read('IMAGES/boot.img') == old.read('IMAGES/boot.img')
         checks['boot_image_preserved'] = True
+        assert new.read('META/releasetools.py') == old.read('META/releasetools.py')
+        recovery_helper = new.read('SYSTEM/bin/gta3xlwifi_recovery_header_sync')
         tree = args.release / 'verified-target-files'
         # Never let deleted files from an earlier build survive verification.
         if tree.exists():
@@ -135,6 +137,27 @@ with tempfile.TemporaryDirectory(dir=args.release, prefix='verify-') as tmp:
         assert partitions == {'system', 'product', 'boot'}, partitions
         assert 'format(' not in script and 'delete_recursive("/data' not in script
         assert archive.read('boot.img') == (tree / 'IMAGES/boot.img').read_bytes()
+        helper = archive.read('recovery-header-sync')
+        assert helper == recovery_helper
+        assert helper[:5] == b'\x7fELF\x01' and struct.unpack_from('<H', helper, 18)[0] == 40
+        phoff = struct.unpack_from('<I', helper, 28)[0]
+        phsize, phcount = struct.unpack_from('<HH', helper, 42)
+        assert phsize == 32 and phcount > 0
+        assert all(struct.unpack_from('<I', helper, phoff + i * phsize)[0] != 3 for i in range(phcount))
+        assert b'--test-image' not in helper and b'GTA3XLWIFI_TEST_FAIL_AFTER_WRITE' not in helper
+        boot = archive.read('boot.img')
+        year, month, _ = map(int, re.search(r'^ro.build.version.security_patch=(.+)$', props, re.M).group(1).split('-'))
+        word = (14 << 25) | ((year - 2000) << 4) | month
+        assert struct.unpack_from('<I', boot, 44)[0] == word
+        assert script.index('"--preflight", "0x%08x"' % word) < script.index('block_image_update(')
+        assert script.index('package_extract_file("boot.img",') < script.index('"--apply", "0x%08x"' % word)
+        checks['recovery_header_sync'] = {
+            'helper_sha256': hashlib.sha256(helper).hexdigest(),
+            'helper_static_arm32': True, 'host_test_controls_absent': True,
+            'target_header_os_word': '0x%08x' % word,
+            'preflight_before_partition_writes': True,
+            'synchronization_after_boot_write': True,
+        }
     with ota.open('rb') as stream:
         stream.seek(-6,2)
         start, magic, comment = struct.unpack('<H2sH',stream.read())

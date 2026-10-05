@@ -1,0 +1,13 @@
+diff --git a/Android.bp b/Android.bp
+index 476a195..7547f1e 100644
+--- a/Android.bp
++++ b/Android.bp
+@@ -353,6 +353,8 @@ cc_library_static {
+     visibility: [
+         "//art/build/sdk",
+         "//bootable/recovery/updater",
++        // Hash-only static helper shipped in SM-T510 recovery OTA packages.
++        "//device/samsung/gta3xlwifi/recovery-header-sync",
+         "//external/conscrypt",
+         "//external/python/cpython2",
+         "//external/rust/crates/quiche",

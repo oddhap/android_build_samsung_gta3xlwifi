@@ -12,6 +12,7 @@ root = Path('/srv/android')
 parser = argparse.ArgumentParser()
 parser.add_argument('--build-exit', type=Path, default=root / 'logs/lineage21-rom-build-final.exit')
 parser.add_argument('--report', type=Path, default=root / 'artifacts/lineage-21/native-image-check.json')
+parser.add_argument('--package', type=Path, help='Explicit OTA from the signed target-files release workflow')
 parser.add_argument('--expected-kernel-sha256', default='9827c8ac986f7497428ac27e9bc309ac8b62ee08fbb414e6d0c81653537ea4a2',
                     help='SHA-256 of the independently reviewed source-built kernel')
 args = parser.parse_args()
@@ -121,9 +122,9 @@ if report['images']['dtbo.img']['sha256'] != 'b9041c37713a745290d9a0203423436b6c
 
 packages = sorted(out.glob('lineage-21.0-*-gta3xlwifi.zip'),
                   key=lambda p: (p.stat().st_mtime_ns, p.name))
-if not packages:
+if not packages and args.package is None:
     raise SystemExit('No device-specific LineageOS ZIP produced')
-package = packages[-1]
+package = args.package if args.package is not None else packages[-1]
 with zipfile.ZipFile(package) as archive:
     failed_member = archive.testzip()
     if failed_member:

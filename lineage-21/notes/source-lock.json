@@ -101,5 +101,13 @@
     "sha256": "536085005ec204d7a3ebdb797e10e126f3139b7b74d0e54000d6a04b9d22cddf",
     "new_files": [],
     "clean_index_patch_check_passed": true
+  },
+  {
+    "project": "external/boringssl",
+    "revision": "f21377c0f019f12fcaf024983ca2ad603667282f",
+    "patch": "external_boringssl.patch",
+    "sha256": "4a33ecfd528d651e9c3a1e34a6de4bf853beb90b45fa529a616cc85d32771b44",
+    "new_files": [],
+    "clean_index_patch_check_passed": true
   }
 ]

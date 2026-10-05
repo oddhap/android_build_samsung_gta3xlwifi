@@ -1,0 +1,12 @@
+{
+  "helper_sha256": "b0d059e5008956db92891cf4e85b7f8313c979bec8f092f76e8a814676565177",
+  "helper_bytes": 182612,
+  "helper_static_arm32": true,
+  "host_test_controls_absent": true,
+  "target_header_os_word": "0x1c0001a9",
+  "preflight_before_partition_writes": true,
+  "synchronization_after_boot_write": true,
+  "data_wipe_absent": true,
+  "packaged_helper_and_hooks_match_built_sources": true,
+  "passed": true
+}

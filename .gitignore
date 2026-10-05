@@ -11,3 +11,7 @@ artifacts/
 .signing/
 *.pk8
 *.pem
+
+lineage-21/build-datetime
+
+lineage-21/build-number

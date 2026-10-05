@@ -1,0 +1,63 @@
+{
+  "device": "SM-T510",
+  "hardware_tested": false,
+  "images": {
+    "boot.img": {
+      "path": "/srv/android/src/lineage-21.0/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/IMAGES/boot.img",
+      "sha256": "af90ea06ed4c36d8b88814d798d513bc58cd45e3ba8ea457e867f6cc105224bd",
+      "file_bytes": 25380880,
+      "expanded_bytes": 25380880,
+      "partition_bytes": 33554432,
+      "ramdisk_bytes": 0,
+      "ramdisk_limit_bytes": 16777216,
+      "kernel_sha256": "9827c8ac986f7497428ac27e9bc309ac8b62ee08fbb414e6d0c81653537ea4a2",
+      "header_version": 1
+    },
+    "recovery.img": {
+      "path": "/srv/android/src/lineage-21.0/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/IMAGES/recovery.img",
+      "sha256": "90fa2f513b3f8f4902b24d98579b4023fc9781caca31c0bae8ccebc804923fa3",
+      "file_bytes": 37036048,
+      "expanded_bytes": 37036048,
+      "partition_bytes": 47185920,
+      "ramdisk_bytes": 11490714,
+      "ramdisk_limit_bytes": 16777216,
+      "recovery_usb_configfs_selected": true,
+      "standard_recovery_misc_fstab_verified": true,
+      "embedded_dtbo_sha256": "b9041c37713a745290d9a0203423436b6caa7a1307ced79b6963b4f1f0271c4b",
+      "kernel_sha256": "9827c8ac986f7497428ac27e9bc309ac8b62ee08fbb414e6d0c81653537ea4a2",
+      "header_version": 1
+    },
+    "system.img": {
+      "path": "/srv/android/src/lineage-21.0/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/IMAGES/system.img",
+      "sha256": "b9fc75ce98431d2e45a7fe6aa01253b41a090d7f32ad52cfa6907b8fd9202957",
+      "file_bytes": 1095045532,
+      "expanded_bytes": 3196059648,
+      "partition_bytes": 3196059648
+    },
+    "vendor.img": {
+      "path": "/srv/android/src/lineage-21.0/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/IMAGES/vendor.img",
+      "sha256": "4cc684231b4a1c355169cea61b4ea5196401bc5f68c7f74a32c1ec290abc0006",
+      "file_bytes": 214483140,
+      "expanded_bytes": 343932928,
+      "partition_bytes": 343932928
+    },
+    "product.img": {
+      "path": "/srv/android/src/lineage-21.0/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/IMAGES/product.img",
+      "sha256": "8d58e4fb600518ac6115eb775bd2575c4066c2009614bc232493d5184b01a27c",
+      "file_bytes": 288698516,
+      "expanded_bytes": 327155712,
+      "partition_bytes": 327155712
+    },
+    "dtbo.img": {
+      "path": "/srv/android/src/lineage-21.0/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/IMAGES/dtbo.img",
+      "sha256": "b9041c37713a745290d9a0203423436b6caa7a1307ced79b6963b4f1f0271c4b",
+      "file_bytes": 163252,
+      "expanded_bytes": 163252,
+      "partition_bytes": 8388608
+    }
+  },
+  "rom_zip": "/srv/android/artifacts/lineage-21/release/lineage-21.0-20261005-UNOFFICIAL-gta3xlwifi-privatekeys.zip",
+  "rom_zip_sha256": "94110cab46fa1edf908914dfbcc3c910ec5e5e16f306a810e13e673d3d5b597b",
+  "ota_metadata": "ota-property-files=metadata:69:379,metadata.pb:516:265                 \nota-required-cache=0\nota-type=BLOCK\npost-build=samsung/lineage_gta3xlwifi/gta3xlwifi:14/AP2A.240905.003/gta3xlwifi.20261005.180749:userdebug/release-keys\npost-build-incremental=gta3xlwifi.20261005.180749\npost-sdk-level=34\npost-security-patch-level=2026-09-01\npost-timestamp=1791223669\npre-device=gta3xlwifi\n",
+  "stability_claim": false
+}

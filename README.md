@@ -152,8 +152,9 @@ the exact inputs tested on hardware.
 
 The current recovery header matches LineageOS 21 Android 14 / SPL 2026-09-01.
 These are Samsung Keymaster compatibility inputs, not a security-patch claim
-for TWRP's Android 12.1 userspace. A ROM upgrade changing those inputs requires
-a matching recovery. Current decryption has not been tested with LineageOS 19.1.
+for TWRP's Android 12.1 userspace. The LineageOS 21 OTA hooks automatically
+align these fields for the recognized recovery; manual installation still needs
+a matching header. Current decryption has not been tested with LineageOS 19.1.
 
 `build-twrp.sh` applies the recovery-only FBE startup, key-preservation and authentication fixes and adds real file
 dependencies to TWRP's library-relink copy step. The image verifier checks packed
@@ -183,5 +184,4 @@ only header byte 44 from September to August caused existing DE-key retrieval
 to fail with INVALID_KEY_BLOB; the September control passed wrong/correct PIN
 and real CE-read checks. Original key files and Android images were preserved.
 The normal recovery is restored. Simply copying ROM properties is insufficient
-for this tested mismatch. Automatic header synchronization during future ROM
-installation is a possible follow-up, not an implemented feature.
+for this tested mismatch. The LineageOS 21 branch now implements [automatic OTA header synchronization](lineage-21/notes/recovery-header-sync.md). Its signed Android 14 packages synchronize only the recognized FBE-capable TWRP image, retaining its kernel/ramdisk/DTBO and encrypted data. The physical install test corrected an August header to September; subsequent PIN decryption and Android data checks pass. Manual flashes, other recoveries and a different Android major version remain outside this scope.
