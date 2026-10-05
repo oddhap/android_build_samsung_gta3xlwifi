@@ -1,0 +1,98 @@
+diff --git a/keystore2/src/km_compat/km_compat.cpp b/keystore2/src/km_compat/km_compat.cpp
+index 2c565c6..10960f3 100644
+--- a/keystore2/src/km_compat/km_compat.cpp
++++ b/keystore2/src/km_compat/km_compat.cpp
+@@ -33,6 +33,8 @@
+ #include <keymasterV4_1/Keymaster4.h>
+ 
+ #include <chrono>
++#include <cstdlib>
++#include <cstring>
+ 
+ #include "certificate_utils.h"
+ 
+@@ -61,6 +63,12 @@ using std::chrono::duration_cast;
+ 
+ static const KMV1::Tag KM_TAG_FBE_ICE = static_cast<KMV1::Tag>((7 << 28) | 16201);
+ 
++// Diagnostic recovery only: never mutate hardware keys during header tests.
++static bool recoveryHeaderTestReadOnlyKeys() {
++    const char* flag = std::getenv("TWRP_HEADER_TEST_READ_ONLY_KEYS");
++    return flag && std::strcmp(flag, "1") == 0;
++}
++
+ // Utility functions
+ 
+ // Returns true if this parameter may be passed to attestKey.
+@@ -437,6 +445,11 @@ ScopedAStatus KeyMintDevice::addRngEntropy(const std::vector<uint8_t>& in_data)
+ ScopedAStatus KeyMintDevice::generateKey(const std::vector<KeyParameter>& inKeyParams,
+                                          const std::optional<AttestationKey>& in_attestationKey,
+                                          KeyCreationResult* out_creationResult) {
++    if (recoveryHeaderTestReadOnlyKeys()) {
++        LOG(ERROR) << "Header compatibility test: blocked hardware key mutation " << __func__;
++        return convertErrorCode(KMV1::ErrorCode::KEY_REQUIRES_UPGRADE);
++    }
++
+ 
+     // Since KeyMaster doesn't support ECDH, route all key creation requests to
+     // soft-KeyMint if and only an ECDH key is requested.
+@@ -507,6 +520,11 @@ ScopedAStatus KeyMintDevice::importKey(const std::vector<KeyParameter>& inKeyPar
+                                        const std::vector<uint8_t>& in_inKeyData,
+                                        const std::optional<AttestationKey>& /* in_attestationKey */,
+                                        KeyCreationResult* out_creationResult) {
++    if (recoveryHeaderTestReadOnlyKeys()) {
++        LOG(ERROR) << "Header compatibility test: blocked hardware key mutation " << __func__;
++        return convertErrorCode(KMV1::ErrorCode::KEY_REQUIRES_UPGRADE);
++    }
++
+     auto legacyKeyGENParams = convertKeyParametersToLegacy(extractGenerationParams(inKeyParams));
+     auto legacyKeyFormat = convertKeyFormatToLegacy(in_inKeyFormat);
+     KMV1::ErrorCode errorCode;
+@@ -547,6 +565,11 @@ KeyMintDevice::importWrappedKey(const std::vector<uint8_t>& in_inWrappedKeyData,
+                                 const std::vector<KeyParameter>& in_inUnwrappingParams,
+                                 int64_t in_inPasswordSid, int64_t in_inBiometricSid,
+                                 KeyCreationResult* out_creationResult) {
++    if (recoveryHeaderTestReadOnlyKeys()) {
++        LOG(ERROR) << "Header compatibility test: blocked hardware key mutation " << __func__;
++        return convertErrorCode(KMV1::ErrorCode::KEY_REQUIRES_UPGRADE);
++    }
++
+     const std::vector<uint8_t>& wrappingKeyBlob =
+         prefixedKeyBlobRemovePrefix(in_inPrefixedWrappingKeyBlob);
+     if (prefixedKeyBlobIsSoftKeyMint(in_inPrefixedWrappingKeyBlob)) {
+@@ -577,6 +600,11 @@ KeyMintDevice::importWrappedKey(const std::vector<uint8_t>& in_inWrappedKeyData,
+ ScopedAStatus KeyMintDevice::upgradeKey(const std::vector<uint8_t>& in_inKeyBlobToUpgrade,
+                                         const std::vector<KeyParameter>& in_inUpgradeParams,
+                                         std::vector<uint8_t>* _aidl_return) {
++    if (recoveryHeaderTestReadOnlyKeys()) {
++        LOG(ERROR) << "Header compatibility test: blocked hardware key mutation " << __func__;
++        return convertErrorCode(KMV1::ErrorCode::KEY_REQUIRES_UPGRADE);
++    }
++
+     auto legacyUpgradeParams = convertKeyParametersToLegacy(in_inUpgradeParams);
+     V4_0_ErrorCode errorCode;
+ 
+@@ -594,6 +622,11 @@ ScopedAStatus KeyMintDevice::upgradeKey(const std::vector<uint8_t>& in_inKeyBlob
+ }
+ 
+ ScopedAStatus KeyMintDevice::deleteKey(const std::vector<uint8_t>& prefixedKeyBlob) {
++    if (recoveryHeaderTestReadOnlyKeys()) {
++        LOG(ERROR) << "Header compatibility test: blocked hardware key mutation " << __func__;
++        return convertErrorCode(KMV1::ErrorCode::KEY_REQUIRES_UPGRADE);
++    }
++
+     const std::vector<uint8_t>& keyBlob = prefixedKeyBlobRemovePrefix(prefixedKeyBlob);
+     if (prefixedKeyBlobIsSoftKeyMint(prefixedKeyBlob)) {
+         return softKeyMintDevice_->deleteKey(keyBlob);
+@@ -608,6 +641,11 @@ ScopedAStatus KeyMintDevice::deleteKey(const std::vector<uint8_t>& prefixedKeyBl
+ }
+ 
+ ScopedAStatus KeyMintDevice::deleteAllKeys() {
++    if (recoveryHeaderTestReadOnlyKeys()) {
++        LOG(ERROR) << "Header compatibility test: blocked hardware key mutation " << __func__;
++        return convertErrorCode(KMV1::ErrorCode::KEY_REQUIRES_UPGRADE);
++    }
++
+     auto result = mDevice->deleteAllKeys();
+     if (!result.isOk()) {
+         LOG(ERROR) << __func__ << " transaction failed. " << result.description();
