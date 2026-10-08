@@ -1,0 +1,183 @@
+{
+  "hardware_tested": false,
+  "files": {
+    "VENDOR/lib/egl/libGLES_mali.so": {
+      "bits": 32,
+      "sha256": "7bc07feb3c8dde0901e1f9b2149ee25d52c929613d1572603ca95268f528332f"
+    },
+    "VENDOR/lib/hw/gralloc.exynos7904.so": {
+      "bits": 32,
+      "sha256": "a897ca718a718b979ceb6a74f2cab8c2a3a3eb0ef2597a2226ead7cc7657c6a9"
+    },
+    "VENDOR/lib/hw/android.hardware.graphics.mapper@2.0-impl.so": {
+      "bits": 32,
+      "sha256": "a5ec12a9ad5e6e29c5ddad3f2661061af1eca998161e85bdd4ed364626ad5839"
+    },
+    "VENDOR/lib/hw/android.hardware.renderscript@1.0-impl.so": {
+      "bits": 32,
+      "sha256": "9ad523249202bb3a47f7169ea759873c601e49271961a7bda6dbfb17c7198f07"
+    },
+    "VENDOR/lib/libion_exynos.so": {
+      "bits": 32,
+      "sha256": "115ac30a740ef8f8e1b143f5ad5ee7c920eee39ab0b02f443a9980d75d1a6100"
+    },
+    "VENDOR/lib64/egl/libGLES_mali.so": {
+      "bits": 64,
+      "sha256": "70b4fd349187346c82648337d2138da3a0b4c36afe14c079e7cfce98f1be9613"
+    },
+    "VENDOR/lib64/hw/gralloc.exynos7904.so": {
+      "bits": 64,
+      "sha256": "747676ac723fdb47e9de6b2efa3cd4280070941f7a5c621ffa66a5fc0053b1c9"
+    },
+    "VENDOR/lib64/hw/android.hardware.graphics.mapper@2.0-impl.so": {
+      "bits": 64,
+      "sha256": "def375b269ad776b658933b520e56e1a709643f65a3bd6ff2585f55ae197a9ac"
+    },
+    "VENDOR/lib64/hw/android.hardware.renderscript@1.0-impl.so": {
+      "bits": 64,
+      "sha256": "ea1d5ff2b578a16087289b946db6885937f5e38cef29637bc4406ad2c87b2cba"
+    },
+    "VENDOR/lib64/libion_exynos.so": {
+      "bits": 64,
+      "sha256": "739817dcc2cc3e8caba5fe666f13c8f1516e4c1f56ec8e2180cda2db5a4c08e1"
+    },
+    "SYSTEM/bin/app_process32": {
+      "bits": 32,
+      "sha256": "65d22311b678f4cde30194372a6a33b23733876aa967108f67ffb4233f6ce94e"
+    },
+    "SYSTEM/lib/libEGL.so": {
+      "bits": 32,
+      "sha256": "a8c7668665f20b3259339097122aeeb563b886d1b5f8ed2f2205984c624ffa94"
+    },
+    "SYSTEM/lib/libGLESv2.so": {
+      "bits": 32,
+      "sha256": "6e256004897922d21e47b574cb6355f5bb5b86be2d7c91726769391578885f99"
+    },
+    "SYSTEM/lib/libandroid.so": {
+      "bits": 32,
+      "sha256": "67375c8468e444c274a22698f6af8c0967e8352ec9513ef98ed3baa5d7b0d56b"
+    },
+    "SYSTEM/lib/libnativewindow.so": {
+      "bits": 32,
+      "sha256": "14eb9db320fa8c823cc91359958aced31be6eec72fcee9f187d4f39a1aa5ad11"
+    },
+    "SYSTEM/lib/libprocessgroup.so": {
+      "bits": 32,
+      "sha256": "c2911af2df44b0b1f16ac8433c52842adf73c926445e7442233363e87f06c000"
+    },
+    "SYSTEM/lib/libaudiohal@4.0.so": {
+      "bits": 32,
+      "sha256": "320ad25586b79d03abe718c6650d523232332f486d0c4ca77276c367b22e1312"
+    },
+    "SYSTEM/lib/libgpuwork.so": {
+      "bits": 32,
+      "sha256": "9f42bf920a76f8cdb814f2f8912da80eb735b689c493b0249798fc6844048ea1"
+    },
+    "SYSTEM/lib/libmeminfo.so": {
+      "bits": 32,
+      "sha256": "01750da3da1c07806e4736bdaebeaf611ecfff3cca5bf6b2d5bc292cedd0746d"
+    },
+    "SYSTEM/lib/libfs_mgr.so": {
+      "bits": 32,
+      "sha256": "81f1ae9ee7406ff83baffa288690622f431e09666c3e47038cd5e94d0b8a7452"
+    },
+    "SYSTEM/lib/libfs_mgr_binder.so": {
+      "bits": 32,
+      "sha256": "b81135403631f8e92115d0b3e8742d203c49e54ad51a3dcf7e342a2dc8b5fe7e"
+    },
+    "SYSTEM/lib/libprocessgroup_setup.so": {
+      "bits": 32,
+      "sha256": "99d682eaa89a4f82c37b98199a03792fb13c8450bc21209582ab6039e03f250d"
+    },
+    "SYSTEM/bin/app_process64": {
+      "bits": 64,
+      "sha256": "225f398d8e13b89101187ab5649da2ba17bd6dc935dc75e714510cf6e2ddc54c"
+    },
+    "SYSTEM/lib64/libEGL.so": {
+      "bits": 64,
+      "sha256": "7b41f2f2db37ab5fca77049be91974a324ca204e935cbdd2e8d00c1d593dbf25"
+    },
+    "SYSTEM/lib64/libGLESv2.so": {
+      "bits": 64,
+      "sha256": "75a2e4d1c2a313bd9c006e66dd0fd8bcb29a605b84c7e791816bf7e8e5081dc0"
+    },
+    "SYSTEM/lib64/libandroid.so": {
+      "bits": 64,
+      "sha256": "e39490f4812241d23fc9350b645ebdb940e433cb67850259db5a49d7c9e47bab"
+    },
+    "SYSTEM/lib64/libnativewindow.so": {
+      "bits": 64,
+      "sha256": "f5bef27c2c5566d984badccb7b5ba9506243be66c2a7a42f412f8da729b35af3"
+    },
+    "SYSTEM/lib64/libprocessgroup.so": {
+      "bits": 64,
+      "sha256": "a41fdda78db6871044dd5d766004467cf9c092b4e7ca242ee4724747e06350b0"
+    },
+    "SYSTEM/lib64/libaudiohal@4.0.so": {
+      "bits": 64,
+      "sha256": "5983fcb3e4ac40ab47f4618e2afecc98fa3aa1f70ac2d573cb7ae8a6290a2be7"
+    },
+    "SYSTEM/lib64/libgpuwork.so": {
+      "bits": 64,
+      "sha256": "ae9a69413760bc4e40700c69280d659379bb9398fe08de5f498e48324ae3ef85"
+    },
+    "SYSTEM/lib64/libmeminfo.so": {
+      "bits": 64,
+      "sha256": "8b730baa72c63219b01f7049ace7ff4bb85de76c95ba3dae91ec2bcdf93bd2c8"
+    },
+    "SYSTEM/lib64/libfs_mgr.so": {
+      "bits": 64,
+      "sha256": "f8b691977ec5f1891a8a66fe0ca8c493a993d8c25b1e035f5a55411f17fc9a85"
+    },
+    "SYSTEM/lib64/libfs_mgr_binder.so": {
+      "bits": 64,
+      "sha256": "6ad43e17eefefa67dcced496488e923ee03857ed7dcf6f03007cf22e6f949083"
+    },
+    "SYSTEM/lib64/libprocessgroup_setup.so": {
+      "bits": 64,
+      "sha256": "0df4ecb89e1e67559f9ae49cd4b7ca760aa8528c6cd3a4ee0c551766124d2b15"
+    },
+    "com.android.runtime/bin/linker": {
+      "bits": 32,
+      "sha256": "29776d363a1afce75440135cf1c017ff9def88e8cfb891ec2d41dd5dc509feaa"
+    },
+    "com.android.runtime/bin/linker64": {
+      "bits": 64,
+      "sha256": "74368e0560ffa0630cdc4f8499735fe5b10402b289f591134252fca3e9c90de5"
+    },
+    "com.android.runtime/lib/bionic/libc.so": {
+      "bits": 32,
+      "sha256": "3eb4b1731fd482da20392196da0c589857f041fb58e667ad6bd75860fac09f44"
+    },
+    "com.android.runtime/lib64/bionic/libc.so": {
+      "bits": 64,
+      "sha256": "2ac9baaec8a56918aee9fad7e59280d1b6b6339f1839be5ab9affd14b12743a1"
+    },
+    "com.android.art/lib/libart.so": {
+      "bits": 32,
+      "sha256": "782448e7aba1dc6e63c4cf9c22563b481d9f1b7ae3fb0968d4e56da91e764212"
+    },
+    "com.android.art/lib64/libart.so": {
+      "bits": 64,
+      "sha256": "756c9b6fbd112e31231520e19df4adb3fafac4c23ef8fcb057f1da9d5bf8a515"
+    },
+    "SYSTEM/app/webview/webview.apk!lib/armeabi-v7a/libwebviewchromium.so": {
+      "bits": 32,
+      "sha256": "7620cc937c662b590e1b019b69ef948f11eb4a7bd9c95c19d8ae1be31d294c1a"
+    },
+    "SYSTEM/app/webview/webview.apk!lib/arm64-v8a/libwebviewchromium.so": {
+      "bits": 64,
+      "sha256": "4ce51069e9db7e8d57e1085de3927f7adf982268a7fc3c674bea9bb3ada6099a"
+    }
+  },
+  "properties": {
+    "ro.zygote": "zygote64_32",
+    "ro.vendor.product.cpu.abilist": "arm64-v8a,armeabi-v7a,armeabi",
+    "ro.vendor.product.cpu.abilist32": "armeabi-v7a,armeabi",
+    "ro.vendor.product.cpu.abilist64": "arm64-v8a",
+    "ro.system.product.cpu.abilist": "arm64-v8a,armeabi-v7a,armeabi",
+    "ro.system.product.cpu.abilist32": "armeabi-v7a,armeabi",
+    "ro.system.product.cpu.abilist64": "arm64-v8a"
+  },
+  "passed": true
+}

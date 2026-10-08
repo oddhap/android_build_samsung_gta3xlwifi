@@ -1,0 +1,15 @@
+{
+  "passed": true,
+  "apk_sha256": "4683182ff6307d9aeeaf5dd642064f23da3ed7c6b55249caf8b954dea825f793",
+  "apk_bytes": 16791,
+  "classes_dex_present": true,
+  "module_type": "android_test_helper_app",
+  "in_product_packages": false,
+  "hardware_tested": false,
+  "tests": [
+    "accelerometer samples",
+    "DNS/TLS/HTTPS in app",
+    "AudioTrack output advancement",
+    "front and back Camera2 frame streams"
+  ]
+}

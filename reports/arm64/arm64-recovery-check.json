@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "tested_at_utc": "2026-10-07T17:45:34.520113+00:00",
+  "rom_zip_sha256": "f07e52c0f91a66fa1e5342ef3211e4fb8efdf709f1ac37d07994796b16203b3e",
+  "recovery": "TWRP 3.7.1_12 ARM32",
+  "after_successful_arm64_boot": true,
+  "decrypt_done": true,
+  "ce_storage_readable": true,
+  "recovery_process_stable": true,
+  "recovery_payload_preserved": true,
+  "without_pin_tested": false,
+  "return_to_arm64_boot_completed": true
+}

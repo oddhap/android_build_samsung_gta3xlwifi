@@ -1,0 +1,911 @@
+{
+  "hardware_tested": false,
+  "providers": {
+    "/srv/android/src/lineage-21.0/prebuilts/runtime/mainline/runtime/sdk/android/arm64/lib/libc.so": {
+      "packaged_path": "APEX/com.android.runtime/lib64/bionic/libc.so",
+      "domain": "bionic-sdk",
+      "sha256": "2ac9baaec8a56918aee9fad7e59280d1b6b6339f1839be5ab9affd14b12743a1",
+      "needed": [
+        "ld-android.so",
+        "libdl.so"
+      ]
+    },
+    "/srv/android/src/lineage-21.0/prebuilts/runtime/mainline/runtime/sdk/android/arm64/lib/libdl.so": {
+      "packaged_path": "APEX/com.android.runtime/lib64/bionic/libdl.so",
+      "domain": "bionic-sdk",
+      "sha256": "42192bf1812b71e9a55e8383784efe399ba63f5d8c541326d5b1fb134f2a1d19",
+      "needed": [
+        "ld-android.so"
+      ]
+    },
+    "/srv/android/src/lineage-21.0/prebuilts/runtime/mainline/runtime/sdk/android/arm64/lib/libm.so": {
+      "packaged_path": "APEX/com.android.runtime/lib64/bionic/libm.so",
+      "domain": "bionic-sdk",
+      "sha256": "01e6fb9c4fabbf93451a48b3566fdd37f95109e62eeae8eee6e2c4716ba45d4d",
+      "needed": [
+        "libc.so"
+      ]
+    },
+    "/srv/android/src/lineage-21.0/prebuilts/vndk/v30/arm64/arch-arm64-armv8-a/shared/vndk-core/libcrypto.so": {
+      "packaged_path": "APEX/com.android.vndk.v30/lib64/libcrypto.so",
+      "domain": "vndk-core",
+      "sha256": "f96761f274f2af0dfa73aa68111a19949d341ac0d877f81e5009577470bfdee6",
+      "needed": [
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ]
+    },
+    "/srv/android/src/lineage-21.0/prebuilts/vndk/v30/arm64/arch-arm64-armv8-a/shared/vndk-sp/android.hardware.graphics.common@1.0.so": {
+      "packaged_path": "APEX/com.android.vndk.v30/lib64/android.hardware.graphics.common@1.0.so",
+      "domain": "vndk-sp",
+      "sha256": "1662118d7b3d56b85cf71d60b1b9832d6047bb5fa1e5c95433bb04a6d5384ce9",
+      "needed": [
+        "libhidlbase.so",
+        "liblog.so",
+        "libutils.so",
+        "libcutils.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ]
+    },
+    "/srv/android/src/lineage-21.0/prebuilts/vndk/v30/arm64/arch-arm64-armv8-a/shared/vndk-sp/android.hardware.graphics.mapper@2.0.so": {
+      "packaged_path": "APEX/com.android.vndk.v30/lib64/android.hardware.graphics.mapper@2.0.so",
+      "domain": "vndk-sp",
+      "sha256": "a16ad2e5f06bda90b2bb2705ac59554c3a45c5158204ad1625e672770bb59bac",
+      "needed": [
+        "android.hardware.graphics.common@1.0.so",
+        "libhidlbase.so",
+        "liblog.so",
+        "libutils.so",
+        "libcutils.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ]
+    },
+    "/srv/android/src/lineage-21.0/prebuilts/vndk/v30/arm64/arch-arm64-armv8-a/shared/vndk-sp/android.hardware.renderscript@1.0.so": {
+      "packaged_path": "APEX/com.android.vndk.v30/lib64/android.hardware.renderscript@1.0.so",
+      "domain": "vndk-sp",
+      "sha256": "a3c288fbbf1a56cfafd5e9017826d780a2fe582b2dec8d1069befae74b75b96e",
+      "needed": [
+        "libhidlbase.so",
+        "liblog.so",
+        "libutils.so",
+        "libcutils.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ]
+    },
+    "/srv/android/src/lineage-21.0/prebuilts/vndk/v30/arm64/arch-arm64-armv8-a/shared/vndk-sp/libRSCpuRef.so": {
+      "packaged_path": "APEX/com.android.vndk.v30/lib64/libRSCpuRef.so",
+      "domain": "vndk-sp",
+      "sha256": "aa3ab8b81fc4756430e79929f7cbb98f44a0a2b9a126d8f3850def5ddfd83f5d",
+      "needed": [
+        "libRS_internal.so",
+        "liblog.so",
+        "libz.so",
+        "libbcinfo.so",
+        "libblas.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ]
+    },
+    "/srv/android/src/lineage-21.0/prebuilts/vndk/v30/arm64/arch-arm64-armv8-a/shared/vndk-sp/libRSDriver.so": {
+      "packaged_path": "APEX/com.android.vndk.v30/lib64/libRSDriver.so",
+      "domain": "vndk-sp",
+      "sha256": "e71cee3647b9852c46e1cd6212e6ed710ad2f7483f01ceb537cb1c228776b821",
+      "needed": [
+        "libRS_internal.so",
+        "libRSCpuRef.so",
+        "liblog.so",
+        "libEGL.so",
+        "libGLESv1_CM.so",
+        "libGLESv2.so",
+        "libnativewindow.so",
+        "libbcinfo.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ]
+    },
+    "/srv/android/src/lineage-21.0/prebuilts/vndk/v30/arm64/arch-arm64-armv8-a/shared/vndk-sp/libRS_internal.so": {
+      "packaged_path": "APEX/com.android.vndk.v30/lib64/libRS_internal.so",
+      "domain": "vndk-sp",
+      "sha256": "5714ee747fc1b49bf5421b8fa8924636497261eb2ec6dba66ac5c2a500ce2538",
+      "needed": [
+        "liblog.so",
+        "libutilscallstack.so",
+        "libutils.so",
+        "libEGL.so",
+        "libGLESv1_CM.so",
+        "libGLESv2.so",
+        "libnativewindow.so",
+        "libft2.so",
+        "libbcinfo.so",
+        "libmediandk.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ]
+    },
+    "/srv/android/src/lineage-21.0/prebuilts/vndk/v30/arm64/arch-arm64-armv8-a/shared/vndk-sp/libbacktrace.so": {
+      "packaged_path": "APEX/com.android.vndk.v30/lib64/libbacktrace.so",
+      "domain": "vndk-sp",
+      "sha256": "4afa646698b4298e305121f26b64e13a37a2487780aac90bd8b6d5775ea3f868",
+      "needed": [
+        "libbase.so",
+        "liblog.so",
+        "libunwindstack.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ]
+    },
+    "/srv/android/src/lineage-21.0/prebuilts/vndk/v30/arm64/arch-arm64-armv8-a/shared/vndk-sp/libbase.so": {
+      "packaged_path": "APEX/com.android.vndk.v30/lib64/libbase.so",
+      "domain": "vndk-sp",
+      "sha256": "70f3f1b58a36aba2420882c8b86a58be4b90c50f2e0829ca7c44a998967d76bf",
+      "needed": [
+        "liblog.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ]
+    },
+    "/srv/android/src/lineage-21.0/prebuilts/vndk/v30/arm64/arch-arm64-armv8-a/shared/vndk-sp/libbcinfo.so": {
+      "packaged_path": "APEX/com.android.vndk.v30/lib64/libbcinfo.so",
+      "domain": "vndk-sp",
+      "sha256": "c3964c357b8af70da954d4e88764a27550248d102293b64c89c901d878dcfe47",
+      "needed": [
+        "liblog.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ]
+    },
+    "/srv/android/src/lineage-21.0/prebuilts/vndk/v30/arm64/arch-arm64-armv8-a/shared/vndk-sp/libblas.so": {
+      "packaged_path": "APEX/com.android.vndk.v30/lib64/libblas.so",
+      "domain": "vndk-sp",
+      "sha256": "2baea0a467ba1b8ba7ab85bc5afe463f008339b77a656aca8794697ccce360b2",
+      "needed": [
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ]
+    },
+    "/srv/android/src/lineage-21.0/prebuilts/vndk/v30/arm64/arch-arm64-armv8-a/shared/vndk-sp/libc++.so": {
+      "packaged_path": "APEX/com.android.vndk.v30/lib64/libc++.so",
+      "domain": "vndk-sp",
+      "sha256": "c11b1dde676a67cfbc27c8f3c47a5132959e477a12b96f23bb1fb09d66f40dd9",
+      "needed": [
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ]
+    },
+    "/srv/android/src/lineage-21.0/prebuilts/vndk/v30/arm64/arch-arm64-armv8-a/shared/vndk-sp/libcutils.so": {
+      "packaged_path": "APEX/com.android.vndk.v30/lib64/libcutils.so",
+      "domain": "vndk-sp",
+      "sha256": "0031d87c283735ac3ab2241f5d214d6c460ac9881a02660588b6b912d5537295",
+      "needed": [
+        "liblog.so",
+        "libbase.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ]
+    },
+    "/srv/android/src/lineage-21.0/prebuilts/vndk/v30/arm64/arch-arm64-armv8-a/shared/vndk-sp/libhardware.so": {
+      "packaged_path": "APEX/com.android.vndk.v30/lib64/libhardware.so",
+      "domain": "vndk-sp",
+      "sha256": "345726d1520f2855844c12872b913f09538e923b34a12f3023004fcde1f470e6",
+      "needed": [
+        "libcutils.so",
+        "liblog.so",
+        "libvndksupport.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ]
+    },
+    "/srv/android/src/lineage-21.0/prebuilts/vndk/v30/arm64/arch-arm64-armv8-a/shared/vndk-sp/libhidlbase.so": {
+      "packaged_path": "APEX/com.android.vndk.v30/lib64/libhidlbase.so",
+      "domain": "vndk-sp",
+      "sha256": "7bfbd57ee8afbde1c1be2ff7a710a56afad1e7f4e6501660d8074c8e8493aba5",
+      "needed": [
+        "libbase.so",
+        "liblog.so",
+        "libutils.so",
+        "libcutils.so",
+        "libvndksupport.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ]
+    },
+    "/srv/android/src/lineage-21.0/prebuilts/vndk/v30/arm64/arch-arm64-armv8-a/shared/vndk-sp/liblzma.so": {
+      "packaged_path": "APEX/com.android.vndk.v30/lib64/liblzma.so",
+      "domain": "vndk-sp",
+      "sha256": "044c454d3cadcc9f32ef29adc453ee76037a18486ad6eba1ed5c0ecd41165b17",
+      "needed": [
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ]
+    },
+    "/srv/android/src/lineage-21.0/prebuilts/vndk/v30/arm64/arch-arm64-armv8-a/shared/vndk-sp/libprocessgroup.so": {
+      "packaged_path": "APEX/com.android.vndk.v30/lib64/libprocessgroup.so",
+      "domain": "vndk-sp",
+      "sha256": "4671c51375ad5a421af35a7dc3eb22f464f1fda8246632e4403df19276c6eb46",
+      "needed": [
+        "libbase.so",
+        "libcgrouprc.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ]
+    },
+    "/srv/android/src/lineage-21.0/prebuilts/vndk/v30/arm64/arch-arm64-armv8-a/shared/vndk-sp/libunwindstack.so": {
+      "packaged_path": "APEX/com.android.vndk.v30/lib64/libunwindstack.so",
+      "domain": "vndk-sp",
+      "sha256": "62dbbf2e1fa5e6ee3d56d141dc0422bfb9819b4b9b749c0c8345cdec41e63855",
+      "needed": [
+        "libbase.so",
+        "liblog.so",
+        "liblzma.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ]
+    },
+    "/srv/android/src/lineage-21.0/prebuilts/vndk/v30/arm64/arch-arm64-armv8-a/shared/vndk-sp/libutils.so": {
+      "packaged_path": "APEX/com.android.vndk.v30/lib64/libutils.so",
+      "domain": "vndk-sp",
+      "sha256": "8a214952c74211d24913257f9f30dac04609d0a42c047c0f2970975a7d54df56",
+      "needed": [
+        "libcutils.so",
+        "liblog.so",
+        "libprocessgroup.so",
+        "libvndksupport.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ]
+    },
+    "/srv/android/src/lineage-21.0/prebuilts/vndk/v30/arm64/arch-arm64-armv8-a/shared/vndk-sp/libutilscallstack.so": {
+      "packaged_path": "APEX/com.android.vndk.v30/lib64/libutilscallstack.so",
+      "domain": "vndk-sp",
+      "sha256": "129c389564cce34c64c4884e88c7744f341424ab04ac84e3dfa5f33d90312264",
+      "needed": [
+        "libcutils.so",
+        "liblog.so",
+        "libutils.so",
+        "libbacktrace.so",
+        "libprocessgroup.so",
+        "libvndksupport.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ]
+    },
+    "/srv/android/src/lineage-21.0/prebuilts/vndk/v30/arm64/arch-arm64-armv8-a/shared/vndk-sp/libz.so": {
+      "packaged_path": "APEX/com.android.vndk.v30/lib64/libz.so",
+      "domain": "vndk-sp",
+      "sha256": "3f82352eb5081c2fc2772c7978a34d48a9fb8a2a43714ca862a273905733e001",
+      "needed": [
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ]
+    },
+    "/srv/android/src/lineage-21.0/prebuilts/vndk/v34/arm64/arch-arm64-armv8-a/shared/llndk-stub/libEGL.so": {
+      "packaged_path": "SYSTEM/lib64/libEGL.so",
+      "domain": "llndk-stub",
+      "sha256": "7b41f2f2db37ab5fca77049be91974a324ca204e935cbdd2e8d00c1d593dbf25",
+      "needed": [
+        "libcutils.so",
+        "liblog.so",
+        "libgraphicsenv.so",
+        "libnativewindow.so",
+        "libvndksupport.so",
+        "android.hardware.configstore@1.0.so",
+        "android.hardware.configstore-utils.so",
+        "libbase.so",
+        "libhidlbase.so",
+        "libnativebridge_lazy.so",
+        "libnativeloader_lazy.so",
+        "libutils.so",
+        "libSurfaceFlingerProp.so",
+        "libunwindstack.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ]
+    },
+    "/srv/android/src/lineage-21.0/prebuilts/vndk/v34/arm64/arch-arm64-armv8-a/shared/llndk-stub/libGLESv1_CM.so": {
+      "packaged_path": "SYSTEM/lib64/libGLESv1_CM.so",
+      "domain": "llndk-stub",
+      "sha256": "0fc863efc144c9d02d1e89f46da1783a0a57f3af979bfacb2913a28f3d889e01",
+      "needed": [
+        "libcutils.so",
+        "liblog.so",
+        "libEGL.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ]
+    },
+    "/srv/android/src/lineage-21.0/prebuilts/vndk/v34/arm64/arch-arm64-armv8-a/shared/llndk-stub/libGLESv2.so": {
+      "packaged_path": "SYSTEM/lib64/libGLESv2.so",
+      "domain": "llndk-stub",
+      "sha256": "75a2e4d1c2a313bd9c006e66dd0fd8bcb29a605b84c7e791816bf7e8e5081dc0",
+      "needed": [
+        "libcutils.so",
+        "liblog.so",
+        "libEGL.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ]
+    },
+    "/srv/android/src/lineage-21.0/prebuilts/vndk/v34/arm64/arch-arm64-armv8-a/shared/llndk-stub/libcgrouprc.so": {
+      "packaged_path": "SYSTEM/lib64/libcgrouprc.so",
+      "domain": "llndk-stub",
+      "sha256": "5182b6a25e52afeb7f9b8faff0be05b190ee2fafde7a0e4e609000c738a30311",
+      "needed": [
+        "libbase.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ]
+    },
+    "/srv/android/src/lineage-21.0/prebuilts/vndk/v34/arm64/arch-arm64-armv8-a/shared/llndk-stub/libft2.so": {
+      "packaged_path": "SYSTEM/lib64/libft2.so",
+      "domain": "llndk-stub",
+      "sha256": "d37fce5ecbbec76597d96d2549ed13bb8e875104ba0f989b388ee9a9b1654ab3",
+      "needed": [
+        "libpng.so",
+        "libz.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ]
+    },
+    "/srv/android/src/lineage-21.0/prebuilts/vndk/v34/arm64/arch-arm64-armv8-a/shared/llndk-stub/liblog.so": {
+      "packaged_path": "SYSTEM/lib64/liblog.so",
+      "domain": "llndk-stub",
+      "sha256": "b3cd12ed15930737a5d0c784fa3dbe141909660d1275f58b9c4cd8dfca8e5f55",
+      "needed": [
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ]
+    },
+    "/srv/android/src/lineage-21.0/prebuilts/vndk/v34/arm64/arch-arm64-armv8-a/shared/llndk-stub/libmediandk.so": {
+      "packaged_path": "SYSTEM/lib64/libmediandk.so",
+      "domain": "llndk-stub",
+      "sha256": "79330f46fd1fe293f2f93b0f9ee83b8633f5f06b19d1c1342ae48f40887f1183",
+      "needed": [
+        "android.hardware.graphics.bufferqueue@1.0.so",
+        "android.hidl.token@1.0-utils.so",
+        "libandroid_runtime_lazy.so",
+        "libbase.so",
+        "libdatasource.so",
+        "libmedia.so",
+        "libmediadrm.so",
+        "libmedia_omx.so",
+        "libmedia_jni_utils.so",
+        "libstagefright.so",
+        "libstagefright_foundation.so",
+        "liblog.so",
+        "libutils.so",
+        "libcutils.so",
+        "libnativewindow.so",
+        "libhidlbase.so",
+        "libgui.so",
+        "libui.so",
+        "libmediandk_utils.so",
+        "android.hardware.drm-V1-ndk.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ]
+    },
+    "/srv/android/src/lineage-21.0/prebuilts/vndk/v34/arm64/arch-arm64-armv8-a/shared/llndk-stub/libnativewindow.so": {
+      "packaged_path": "SYSTEM/lib64/libnativewindow.so",
+      "domain": "llndk-stub",
+      "sha256": "f5bef27c2c5566d984badccb7b5ba9506243be66c2a7a42f412f8da729b35af3",
+      "needed": [
+        "libcutils.so",
+        "liblog.so",
+        "libutils.so",
+        "libui.so",
+        "libbinder.so",
+        "libbinder_ndk.so",
+        "android.hardware.graphics.common@1.1.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ]
+    },
+    "/srv/android/src/lineage-21.0/prebuilts/vndk/v34/arm64/arch-arm64-armv8-a/shared/llndk-stub/libsync.so": {
+      "packaged_path": "SYSTEM/lib64/libsync.so",
+      "domain": "llndk-stub",
+      "sha256": "c1fe78017b3ee4e6aeb6de2a82ac623928e981664cec7eb6009df8a5ed4c54f4",
+      "needed": [
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ]
+    },
+    "/srv/android/src/lineage-21.0/prebuilts/vndk/v34/arm64/arch-arm64-armv8-a/shared/llndk-stub/libvndksupport.so": {
+      "packaged_path": "SYSTEM/lib64/libvndksupport.so",
+      "domain": "llndk-stub",
+      "sha256": "c0651cd002ecfb3d0e2108570b784729e13a5d2a4d04056a524acda0da666634",
+      "needed": [
+        "libdl_android.so",
+        "liblog.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ]
+    },
+    "/srv/android/vendor-donor/a305gt/vendor/bin/boringssl_self_test64": {
+      "packaged_path": "VENDOR/bin/boringssl_self_test64",
+      "domain": "donor",
+      "sha256": "8e98b032329f4a97d2a9f0b2f4e2c9798bd71f6e482ffb927a19501b3a6a1b8d",
+      "needed": [
+        "libcrypto.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ]
+    },
+    "/srv/android/vendor-donor/a305gt/vendor/bin/snap_utility_64": {
+      "packaged_path": "VENDOR/bin/snap_utility_64",
+      "domain": "donor",
+      "sha256": "7ebb3cd31141da2678ed9aebe872bee9acb304732f0abef4a6829d4e36e18722",
+      "needed": [
+        "libsnap_vndk.so",
+        "libz.so",
+        "liblog.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ]
+    },
+    "/srv/android/vendor-donor/a305gt/vendor/lib64/egl/libGLES_mali.so": {
+      "packaged_path": "VENDOR/lib64/egl/libGLES_mali.so",
+      "domain": "donor",
+      "sha256": "70b4fd349187346c82648337d2138da3a0b4c36afe14c079e7cfce98f1be9613",
+      "needed": [
+        "liblog.so",
+        "libz.so",
+        "libnativewindow.so",
+        "libm.so",
+        "libc.so",
+        "libdl.so",
+        "libion_exynos.so",
+        "libc++.so"
+      ]
+    },
+    "/srv/android/vendor-donor/a305gt/vendor/lib64/hw/android.hardware.graphics.mapper@2.0-impl.so": {
+      "packaged_path": "VENDOR/lib64/hw/android.hardware.graphics.mapper@2.0-impl.so",
+      "domain": "donor",
+      "sha256": "def375b269ad776b658933b520e56e1a709643f65a3bd6ff2585f55ae197a9ac",
+      "needed": [
+        "android.hardware.graphics.mapper@2.0.so",
+        "libbase.so",
+        "libcutils.so",
+        "libhardware.so",
+        "libhidlbase.so",
+        "liblog.so",
+        "libsync.so",
+        "libutils.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ]
+    },
+    "/srv/android/vendor-donor/a305gt/vendor/lib64/hw/android.hardware.renderscript@1.0-impl.so": {
+      "packaged_path": "VENDOR/lib64/hw/android.hardware.renderscript@1.0-impl.so",
+      "domain": "donor",
+      "sha256": "ea1d5ff2b578a16087289b946db6885937f5e38cef29637bc4406ad2c87b2cba",
+      "needed": [
+        "libbase.so",
+        "libhidlbase.so",
+        "libutils.so",
+        "android.hardware.renderscript@1.0.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ]
+    },
+    "/srv/android/vendor-donor/a305gt/vendor/lib64/hw/gralloc.default.so": {
+      "packaged_path": "VENDOR/lib64/hw/gralloc.default.so",
+      "domain": "donor",
+      "sha256": "9709ce588975888e8509aeb4af45315fe8009c6b1088be8b1e0c83e6986b76a8",
+      "needed": [
+        "liblog.so",
+        "libcutils.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ]
+    },
+    "/srv/android/vendor-donor/a305gt/vendor/lib64/hw/gralloc.exynos7904.so": {
+      "packaged_path": "VENDOR/lib64/hw/gralloc.exynos7904.so",
+      "domain": "donor",
+      "sha256": "747676ac723fdb47e9de6b2efa3cd4280070941f7a5c621ffa66a5fc0053b1c9",
+      "needed": [
+        "libhardware.so",
+        "liblog.so",
+        "libcutils.so",
+        "libGLESv1_CM.so",
+        "libion_exynos.so",
+        "libsync.so",
+        "libutils.so",
+        "libnativewindow.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ]
+    },
+    "/srv/android/vendor-donor/a305gt/vendor/lib64/hw/memtrack.exynos7904.so": {
+      "packaged_path": "VENDOR/lib64/hw/memtrack.exynos7904.so",
+      "domain": "donor",
+      "sha256": "a59b8bd4bd18f5db624dae3023d2a41e538b0a0532236f07a5815e991cf503f5",
+      "needed": [
+        "liblog.so",
+        "libion_exynos.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ]
+    },
+    "/srv/android/vendor-donor/a305gt/vendor/lib64/hw/vulkan.universal7904.so": {
+      "packaged_path": "VENDOR/lib64/egl/libGLES_mali.so",
+      "domain": "donor",
+      "sha256": "70b4fd349187346c82648337d2138da3a0b4c36afe14c079e7cfce98f1be9613",
+      "needed": [
+        "liblog.so",
+        "libz.so",
+        "libnativewindow.so",
+        "libm.so",
+        "libc.so",
+        "libdl.so",
+        "libion_exynos.so",
+        "libc++.so"
+      ]
+    },
+    "/srv/android/vendor-donor/a305gt/vendor/lib64/libOpenCL.so": {
+      "packaged_path": "VENDOR/lib64/egl/libGLES_mali.so",
+      "domain": "donor",
+      "sha256": "70b4fd349187346c82648337d2138da3a0b4c36afe14c079e7cfce98f1be9613",
+      "needed": [
+        "liblog.so",
+        "libz.so",
+        "libnativewindow.so",
+        "libm.so",
+        "libc.so",
+        "libdl.so",
+        "libion_exynos.so",
+        "libc++.so"
+      ]
+    },
+    "/srv/android/vendor-donor/a305gt/vendor/lib64/libion_exynos.so": {
+      "packaged_path": "VENDOR/lib64/libion_exynos.so",
+      "domain": "donor",
+      "sha256": "739817dcc2cc3e8caba5fe666f13c8f1516e4c1f56ec8e2180cda2db5a4c08e1",
+      "needed": [
+        "liblog.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ]
+    },
+    "/srv/android/vendor-donor/a305gt/vendor/lib64/libsnap_vndk.so": {
+      "packaged_path": "VENDOR/lib64/libsnap_vndk.so",
+      "domain": "donor",
+      "sha256": "4bba09269c9de983e27d7880fb24ec4171a5f9ea109cccc0c28051d8b85d5047",
+      "needed": [
+        "liblog.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ]
+    }
+  },
+  "closures": {
+    "lib64/egl/libGLES_mali.so": {
+      "unresolved_strong_symbols": {},
+      "bionic_global_version_fallbacks": {},
+      "actual_packaged_providers_checked": true
+    },
+    "lib64/hw/gralloc.exynos7904.so": {
+      "unresolved_strong_symbols": {},
+      "bionic_global_version_fallbacks": {
+        "sync_wait@LIBSYNC": [
+          "/srv/android/src/lineage-21.0/prebuilts/vndk/v34/arm64/arch-arm64-armv8-a/shared/llndk-stub/libsync.so"
+        ]
+      },
+      "actual_packaged_providers_checked": true
+    },
+    "lib64/hw/gralloc.default.so": {
+      "unresolved_strong_symbols": {},
+      "bionic_global_version_fallbacks": {},
+      "actual_packaged_providers_checked": true
+    },
+    "lib64/hw/android.hardware.graphics.mapper@2.0-impl.so": {
+      "unresolved_strong_symbols": {},
+      "bionic_global_version_fallbacks": {
+        "sync_wait@LIBSYNC": [
+          "/srv/android/src/lineage-21.0/prebuilts/vndk/v34/arm64/arch-arm64-armv8-a/shared/llndk-stub/libsync.so"
+        ]
+      },
+      "actual_packaged_providers_checked": true
+    },
+    "lib64/hw/memtrack.exynos7904.so": {
+      "unresolved_strong_symbols": {},
+      "bionic_global_version_fallbacks": {},
+      "actual_packaged_providers_checked": true
+    },
+    "lib64/hw/android.hardware.renderscript@1.0-impl.so": {
+      "unresolved_strong_symbols": {},
+      "bionic_global_version_fallbacks": {
+        "eglChooseConfig@LIBEGL": [
+          "/srv/android/src/lineage-21.0/prebuilts/vndk/v34/arm64/arch-arm64-armv8-a/shared/llndk-stub/libEGL.so"
+        ],
+        "eglCreateContext@LIBEGL": [
+          "/srv/android/src/lineage-21.0/prebuilts/vndk/v34/arm64/arch-arm64-armv8-a/shared/llndk-stub/libEGL.so"
+        ],
+        "eglCreatePbufferSurface@LIBEGL": [
+          "/srv/android/src/lineage-21.0/prebuilts/vndk/v34/arm64/arch-arm64-armv8-a/shared/llndk-stub/libEGL.so"
+        ],
+        "eglCreateSyncKHR@LIBEGL": [
+          "/srv/android/src/lineage-21.0/prebuilts/vndk/v34/arm64/arch-arm64-armv8-a/shared/llndk-stub/libEGL.so"
+        ],
+        "eglCreateWindowSurface@LIBEGL": [
+          "/srv/android/src/lineage-21.0/prebuilts/vndk/v34/arm64/arch-arm64-armv8-a/shared/llndk-stub/libEGL.so"
+        ],
+        "eglDestroyContext@LIBEGL": [
+          "/srv/android/src/lineage-21.0/prebuilts/vndk/v34/arm64/arch-arm64-armv8-a/shared/llndk-stub/libEGL.so"
+        ],
+        "eglDestroySurface@LIBEGL": [
+          "/srv/android/src/lineage-21.0/prebuilts/vndk/v34/arm64/arch-arm64-armv8-a/shared/llndk-stub/libEGL.so"
+        ],
+        "eglDestroySyncKHR@LIBEGL": [
+          "/srv/android/src/lineage-21.0/prebuilts/vndk/v34/arm64/arch-arm64-armv8-a/shared/llndk-stub/libEGL.so"
+        ],
+        "eglDupNativeFenceFDANDROID@LIBEGL": [
+          "/srv/android/src/lineage-21.0/prebuilts/vndk/v34/arm64/arch-arm64-armv8-a/shared/llndk-stub/libEGL.so"
+        ],
+        "eglGetConfigAttrib@LIBEGL": [
+          "/srv/android/src/lineage-21.0/prebuilts/vndk/v34/arm64/arch-arm64-armv8-a/shared/llndk-stub/libEGL.so"
+        ],
+        "eglGetDisplay@LIBEGL": [
+          "/srv/android/src/lineage-21.0/prebuilts/vndk/v34/arm64/arch-arm64-armv8-a/shared/llndk-stub/libEGL.so"
+        ],
+        "eglGetError@LIBEGL": [
+          "/srv/android/src/lineage-21.0/prebuilts/vndk/v34/arm64/arch-arm64-armv8-a/shared/llndk-stub/libEGL.so"
+        ],
+        "eglInitialize@LIBEGL": [
+          "/srv/android/src/lineage-21.0/prebuilts/vndk/v34/arm64/arch-arm64-armv8-a/shared/llndk-stub/libEGL.so"
+        ],
+        "eglMakeCurrent@LIBEGL": [
+          "/srv/android/src/lineage-21.0/prebuilts/vndk/v34/arm64/arch-arm64-armv8-a/shared/llndk-stub/libEGL.so"
+        ],
+        "eglQuerySurface@LIBEGL": [
+          "/srv/android/src/lineage-21.0/prebuilts/vndk/v34/arm64/arch-arm64-armv8-a/shared/llndk-stub/libEGL.so"
+        ],
+        "eglSwapBuffers@LIBEGL": [
+          "/srv/android/src/lineage-21.0/prebuilts/vndk/v34/arm64/arch-arm64-armv8-a/shared/llndk-stub/libEGL.so"
+        ],
+        "eglTerminate@LIBEGL": [
+          "/srv/android/src/lineage-21.0/prebuilts/vndk/v34/arm64/arch-arm64-armv8-a/shared/llndk-stub/libEGL.so"
+        ],
+        "glAttachShader@LIBGLESV2": [
+          "/srv/android/src/lineage-21.0/prebuilts/vndk/v34/arm64/arch-arm64-armv8-a/shared/llndk-stub/libGLESv2.so"
+        ],
+        "glBindAttribLocation@LIBGLESV2": [
+          "/srv/android/src/lineage-21.0/prebuilts/vndk/v34/arm64/arch-arm64-armv8-a/shared/llndk-stub/libGLESv2.so"
+        ],
+        "glBindFramebuffer@LIBGLESV2": [
+          "/srv/android/src/lineage-21.0/prebuilts/vndk/v34/arm64/arch-arm64-armv8-a/shared/llndk-stub/libGLESv2.so"
+        ],
+        "glBindRenderbuffer@LIBGLESV2": [
+          "/srv/android/src/lineage-21.0/prebuilts/vndk/v34/arm64/arch-arm64-armv8-a/shared/llndk-stub/libGLESv2.so"
+        ],
+        "glCheckFramebufferStatus@LIBGLESV2": [
+          "/srv/android/src/lineage-21.0/prebuilts/vndk/v34/arm64/arch-arm64-armv8-a/shared/llndk-stub/libGLESv2.so"
+        ],
+        "glCompileShader@LIBGLESV2": [
+          "/srv/android/src/lineage-21.0/prebuilts/vndk/v34/arm64/arch-arm64-armv8-a/shared/llndk-stub/libGLESv2.so"
+        ],
+        "glCreateProgram@LIBGLESV2": [
+          "/srv/android/src/lineage-21.0/prebuilts/vndk/v34/arm64/arch-arm64-armv8-a/shared/llndk-stub/libGLESv2.so"
+        ],
+        "glCreateShader@LIBGLESV2": [
+          "/srv/android/src/lineage-21.0/prebuilts/vndk/v34/arm64/arch-arm64-armv8-a/shared/llndk-stub/libGLESv2.so"
+        ],
+        "glDeleteFramebuffers@LIBGLESV2": [
+          "/srv/android/src/lineage-21.0/prebuilts/vndk/v34/arm64/arch-arm64-armv8-a/shared/llndk-stub/libGLESv2.so"
+        ],
+        "glDeleteProgram@LIBGLESV2": [
+          "/srv/android/src/lineage-21.0/prebuilts/vndk/v34/arm64/arch-arm64-armv8-a/shared/llndk-stub/libGLESv2.so"
+        ],
+        "glDeleteRenderbuffers@LIBGLESV2": [
+          "/srv/android/src/lineage-21.0/prebuilts/vndk/v34/arm64/arch-arm64-armv8-a/shared/llndk-stub/libGLESv2.so"
+        ],
+        "glDeleteShader@LIBGLESV2": [
+          "/srv/android/src/lineage-21.0/prebuilts/vndk/v34/arm64/arch-arm64-armv8-a/shared/llndk-stub/libGLESv2.so"
+        ],
+        "glDisableVertexAttribArray@LIBGLESV2": [
+          "/srv/android/src/lineage-21.0/prebuilts/vndk/v34/arm64/arch-arm64-armv8-a/shared/llndk-stub/libGLESv2.so"
+        ],
+        "glEnableVertexAttribArray@LIBGLESV2": [
+          "/srv/android/src/lineage-21.0/prebuilts/vndk/v34/arm64/arch-arm64-armv8-a/shared/llndk-stub/libGLESv2.so"
+        ],
+        "glFramebufferRenderbuffer@LIBGLESV2": [
+          "/srv/android/src/lineage-21.0/prebuilts/vndk/v34/arm64/arch-arm64-armv8-a/shared/llndk-stub/libGLESv2.so"
+        ],
+        "glFramebufferTexture2D@LIBGLESV2": [
+          "/srv/android/src/lineage-21.0/prebuilts/vndk/v34/arm64/arch-arm64-armv8-a/shared/llndk-stub/libGLESv2.so"
+        ],
+        "glGenFramebuffers@LIBGLESV2": [
+          "/srv/android/src/lineage-21.0/prebuilts/vndk/v34/arm64/arch-arm64-armv8-a/shared/llndk-stub/libGLESv2.so"
+        ],
+        "glGenRenderbuffers@LIBGLESV2": [
+          "/srv/android/src/lineage-21.0/prebuilts/vndk/v34/arm64/arch-arm64-armv8-a/shared/llndk-stub/libGLESv2.so"
+        ],
+        "glGenerateMipmap@LIBGLESV2": [
+          "/srv/android/src/lineage-21.0/prebuilts/vndk/v34/arm64/arch-arm64-armv8-a/shared/llndk-stub/libGLESv2.so"
+        ],
+        "glGetActiveUniform@LIBGLESV2": [
+          "/srv/android/src/lineage-21.0/prebuilts/vndk/v34/arm64/arch-arm64-armv8-a/shared/llndk-stub/libGLESv2.so"
+        ],
+        "glGetAttribLocation@LIBGLESV2": [
+          "/srv/android/src/lineage-21.0/prebuilts/vndk/v34/arm64/arch-arm64-armv8-a/shared/llndk-stub/libGLESv2.so"
+        ],
+        "glGetProgramInfoLog@LIBGLESV2": [
+          "/srv/android/src/lineage-21.0/prebuilts/vndk/v34/arm64/arch-arm64-armv8-a/shared/llndk-stub/libGLESv2.so"
+        ],
+        "glGetProgramiv@LIBGLESV2": [
+          "/srv/android/src/lineage-21.0/prebuilts/vndk/v34/arm64/arch-arm64-armv8-a/shared/llndk-stub/libGLESv2.so"
+        ],
+        "glGetShaderInfoLog@LIBGLESV2": [
+          "/srv/android/src/lineage-21.0/prebuilts/vndk/v34/arm64/arch-arm64-armv8-a/shared/llndk-stub/libGLESv2.so"
+        ],
+        "glGetShaderiv@LIBGLESV2": [
+          "/srv/android/src/lineage-21.0/prebuilts/vndk/v34/arm64/arch-arm64-armv8-a/shared/llndk-stub/libGLESv2.so"
+        ],
+        "glGetUniformLocation@LIBGLESV2": [
+          "/srv/android/src/lineage-21.0/prebuilts/vndk/v34/arm64/arch-arm64-armv8-a/shared/llndk-stub/libGLESv2.so"
+        ],
+        "glLinkProgram@LIBGLESV2": [
+          "/srv/android/src/lineage-21.0/prebuilts/vndk/v34/arm64/arch-arm64-armv8-a/shared/llndk-stub/libGLESv2.so"
+        ],
+        "glRenderbufferStorage@LIBGLESV2": [
+          "/srv/android/src/lineage-21.0/prebuilts/vndk/v34/arm64/arch-arm64-armv8-a/shared/llndk-stub/libGLESv2.so"
+        ],
+        "glShaderSource@LIBGLESV2": [
+          "/srv/android/src/lineage-21.0/prebuilts/vndk/v34/arm64/arch-arm64-armv8-a/shared/llndk-stub/libGLESv2.so"
+        ],
+        "glUniform1fv@LIBGLESV2": [
+          "/srv/android/src/lineage-21.0/prebuilts/vndk/v34/arm64/arch-arm64-armv8-a/shared/llndk-stub/libGLESv2.so"
+        ],
+        "glUniform1i@LIBGLESV2": [
+          "/srv/android/src/lineage-21.0/prebuilts/vndk/v34/arm64/arch-arm64-armv8-a/shared/llndk-stub/libGLESv2.so"
+        ],
+        "glUniform2fv@LIBGLESV2": [
+          "/srv/android/src/lineage-21.0/prebuilts/vndk/v34/arm64/arch-arm64-armv8-a/shared/llndk-stub/libGLESv2.so"
+        ],
+        "glUniform3fv@LIBGLESV2": [
+          "/srv/android/src/lineage-21.0/prebuilts/vndk/v34/arm64/arch-arm64-armv8-a/shared/llndk-stub/libGLESv2.so"
+        ],
+        "glUniform4fv@LIBGLESV2": [
+          "/srv/android/src/lineage-21.0/prebuilts/vndk/v34/arm64/arch-arm64-armv8-a/shared/llndk-stub/libGLESv2.so"
+        ],
+        "glUniformMatrix2fv@LIBGLESV2": [
+          "/srv/android/src/lineage-21.0/prebuilts/vndk/v34/arm64/arch-arm64-armv8-a/shared/llndk-stub/libGLESv2.so"
+        ],
+        "glUniformMatrix3fv@LIBGLESV2": [
+          "/srv/android/src/lineage-21.0/prebuilts/vndk/v34/arm64/arch-arm64-armv8-a/shared/llndk-stub/libGLESv2.so"
+        ],
+        "glUniformMatrix4fv@LIBGLESV2": [
+          "/srv/android/src/lineage-21.0/prebuilts/vndk/v34/arm64/arch-arm64-armv8-a/shared/llndk-stub/libGLESv2.so"
+        ],
+        "glUseProgram@LIBGLESV2": [
+          "/srv/android/src/lineage-21.0/prebuilts/vndk/v34/arm64/arch-arm64-armv8-a/shared/llndk-stub/libGLESv2.so"
+        ],
+        "glVertexAttribPointer@LIBGLESV2": [
+          "/srv/android/src/lineage-21.0/prebuilts/vndk/v34/arm64/arch-arm64-armv8-a/shared/llndk-stub/libGLESv2.so"
+        ],
+        "FT_Done_Face@LIBFT2": [
+          "/srv/android/src/lineage-21.0/prebuilts/vndk/v34/arm64/arch-arm64-armv8-a/shared/llndk-stub/libft2.so"
+        ],
+        "FT_Done_FreeType@LIBFT2": [
+          "/srv/android/src/lineage-21.0/prebuilts/vndk/v34/arm64/arch-arm64-armv8-a/shared/llndk-stub/libft2.so"
+        ],
+        "FT_Get_Char_Index@LIBFT2": [
+          "/srv/android/src/lineage-21.0/prebuilts/vndk/v34/arm64/arch-arm64-armv8-a/shared/llndk-stub/libft2.so"
+        ],
+        "FT_Init_FreeType@LIBFT2": [
+          "/srv/android/src/lineage-21.0/prebuilts/vndk/v34/arm64/arch-arm64-armv8-a/shared/llndk-stub/libft2.so"
+        ],
+        "FT_Load_Glyph@LIBFT2": [
+          "/srv/android/src/lineage-21.0/prebuilts/vndk/v34/arm64/arch-arm64-armv8-a/shared/llndk-stub/libft2.so"
+        ],
+        "FT_New_Face@LIBFT2": [
+          "/srv/android/src/lineage-21.0/prebuilts/vndk/v34/arm64/arch-arm64-armv8-a/shared/llndk-stub/libft2.so"
+        ],
+        "FT_New_Memory_Face@LIBFT2": [
+          "/srv/android/src/lineage-21.0/prebuilts/vndk/v34/arm64/arch-arm64-armv8-a/shared/llndk-stub/libft2.so"
+        ],
+        "FT_Set_Char_Size@LIBFT2": [
+          "/srv/android/src/lineage-21.0/prebuilts/vndk/v34/arm64/arch-arm64-armv8-a/shared/llndk-stub/libft2.so"
+        ]
+      },
+      "actual_packaged_providers_checked": true
+    },
+    "lib64/hw/vulkan.universal7904.so": {
+      "unresolved_strong_symbols": {},
+      "bionic_global_version_fallbacks": {},
+      "actual_packaged_providers_checked": true
+    },
+    "lib64/libOpenCL.so": {
+      "unresolved_strong_symbols": {},
+      "bionic_global_version_fallbacks": {},
+      "actual_packaged_providers_checked": true
+    },
+    "bin/boringssl_self_test64": {
+      "unresolved_strong_symbols": {},
+      "bionic_global_version_fallbacks": {},
+      "actual_packaged_providers_checked": true
+    },
+    "bin/snap_utility_64": {
+      "unresolved_strong_symbols": {},
+      "bionic_global_version_fallbacks": {},
+      "actual_packaged_providers_checked": true
+    }
+  },
+  "passed": true
+}

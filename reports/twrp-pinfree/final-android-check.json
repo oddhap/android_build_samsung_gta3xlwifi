@@ -1,0 +1,30 @@
+{
+  "passed": true,
+  "checked_at_utc": "2026-10-07T18:43:08.011221+00:00",
+  "recovery_image_sha256": "e6dcc17e478de9d1d3f1c398fd10c9bc9d7ac80e546f18f58cd20d52766485b4",
+  "rom_build": "gta3xlwifi.arm64.20261007.170546",
+  "credential": "none",
+  "boot_completed": true,
+  "automatic_ce_unlock": true,
+  "user_state": "RUNNING_UNLOCKED",
+  "selinux": "Enforcing",
+  "encryption": "encrypted/file",
+  "native_processes": {
+    "init": "ELF64 AArch64",
+    "system_server": "ELF64 AArch64",
+    "zygote64": "ELF64 AArch64",
+    "vold": "ELF64 AArch64",
+    "surfaceflinger": "ELF64 AArch64"
+  },
+  "recovery_writes_persisted_in_android": true,
+  "persistent_crypto_files_unchanged": 12,
+  "per_boot_reference_regenerated": true,
+  "firmware_partition_hashes_preserved": {
+    "boot": "51e362fefef61a002684ac80ff7c654ac0190fd216bbd351291ac47e6308602c",
+    "vendor": "4c320e8bfd9db294e4027acae204a8276c8f06d0e522654f668e38550eded7b9",
+    "dtbo": "994407a1af0ac9301d8098f318580830c195bf17fe70b39b9f940bc000c3853d",
+    "vbmeta": "dc8d68beb887e86cc71741a1ab3c64e035abc38ec49ba09ca6e7df85b3afe06e"
+  },
+  "full_recovery_partition_matches_install": true,
+  "test_probe_removed": true
+}

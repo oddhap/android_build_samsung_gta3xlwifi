@@ -1,0 +1,35 @@
+{
+  "hardware_tested": false,
+  "verified_private_apk_and_apex_container_signatures": 180,
+  "presigned_or_stock_vendor_packages_preserved": 1,
+  "verified_private_apex_payload_signatures": 30,
+  "boot_image_preserved": true,
+  "tested_platform_fixes_preserved": true,
+  "build_tags": "release-keys",
+  "build_type": "userdebug",
+  "build_incremental": "gta3xlwifi.arm64.20261007.170546",
+  "system_build_fingerprint": "samsung/lineage_gta3xlwifi/gta3xlwifi:14/AP2A.240905.003/gta3xlwifi.arm64.20261007.170546:userdebug/release-keys",
+  "build_fingerprint": "samsung/lineage_gta3xlwifi/gta3xlwifi:14/AP2A.240905.003/gta3xlwifi.arm64.20261007.170546:userdebug/release-keys",
+  "vendor_unmounted_guard_before_writes": true,
+  "vendor_unmounted_guard_sha256": "4315938fd0d72dc00888979d8ec07008d51afa54841ec3f1990ac3640422872e",
+  "updater_static_arm64": true,
+  "updater_sha256": "1aa854aba5703fb9857385d3b5106432b98151bf8e93de50f2ce9ca635e90f08",
+  "recovery_header_sync": {
+    "helper_sha256": "b0d059e5008956db92891cf4e85b7f8313c979bec8f092f76e8a814676565177",
+    "helper_static_arm32": true,
+    "host_test_controls_absent": true,
+    "target_header_os_word": "0x1c0001a9",
+    "preflight_before_partition_writes": true,
+    "synchronization_after_boot_write": true
+  },
+  "ota_whole_file_signature_verified": true,
+  "ota_partition_references": [
+    "boot",
+    "product",
+    "system",
+    "vendor"
+  ],
+  "data_preserved_by_ota": true,
+  "rom_zip_sha256": "f07e52c0f91a66fa1e5342ef3211e4fb8efdf709f1ac37d07994796b16203b3e",
+  "passed": true
+}

@@ -1,0 +1,48 @@
+{
+  "model": "SM-A305GT",
+  "region": "ZTO",
+  "version": "A305GTVJU8CWE1/A305GTOWO8CWE1/A305GTVJU8CWE1/A305GTVJU8CWE1",
+  "archive": {
+    "name": "SM-A305GT_2_20230505020450_vcvjvr6kv1_fac.zip",
+    "bytes": 4113037684,
+    "sha256": "75db4b7cf5d8b0d43e528a2aa874611edf8c26c32c1ff24a62595bd60459d641"
+  },
+  "images": {
+    "boot.img": {
+      "bytes": 37748736,
+      "sha256": "c4aec872de338277305aae7ff079c349028985c5d282b027c57e1101bdc3c6ed"
+    },
+    "boot.img.lz4": {
+      "bytes": 17287675,
+      "sha256": "1af97bb566213191163b11d5ab110a7201326e19be3654c4dcb2ca183a12c377"
+    },
+    "dt.img": {
+      "bytes": 8388608,
+      "sha256": "378a6951d3ec0283515b5cbab881ed91c2d4e3c110aaed96f0ddf6edaf0f5d46"
+    },
+    "dt.img.lz4": {
+      "bytes": 65961,
+      "sha256": "4a217867e5083bb7d6cb0a6aeb5d430d5f4ea0b8cac3eb9a679c2f7cb728d67c"
+    },
+    "dtbo.img": {
+      "bytes": 8388608,
+      "sha256": "8857345f06b3f1bbb6291231c1f4a65f0b252dc4da8cb4768e81573b7c6849ca"
+    },
+    "dtbo.img.lz4": {
+      "bytes": 140821,
+      "sha256": "f0dfc4035d0312ab9a06d3c6beb326c7847f9fa483e3d83797f5752648dd9313"
+    },
+    "vendor.img": {
+      "bytes": 364187916,
+      "sha256": "7193998e6d050d9daf01898e49f46915c68c3ee107791a4a6a8b09f343b5a4e1"
+    },
+    "vendor.img.lz4": {
+      "bytes": 206940078,
+      "sha256": "02f52e66f6b49bdd40fad66a3866b8e9be2b950037e0cc1d1b6df3d0809c101a"
+    },
+    "vendor.raw.img": {
+      "bytes": 595591168,
+      "sha256": "710ea0e8c94864615fd24e6e6291164accdcec2d53169f8e0ad46e1fc1d375e3"
+    }
+  }
+}

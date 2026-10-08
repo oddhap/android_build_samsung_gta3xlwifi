@@ -1,0 +1,16 @@
+{
+  "physical_device_accessed": false,
+  "unreviewed_vendor_rejected": true,
+  "full": {
+    "standard_vendor_block_update": true,
+    "post_write_verification": true,
+    "package_bytes": 104034816,
+    "required_cache_bytes": 0
+  },
+  "incremental": {
+    "standard_vendor_block_update": true,
+    "post_write_verification": true,
+    "package_bytes": 42192361,
+    "required_cache_bytes": 19922944
+  }
+}

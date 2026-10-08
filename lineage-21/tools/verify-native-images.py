@@ -10,13 +10,13 @@ from pathlib import Path
 
 root = Path('/srv/android')
 parser = argparse.ArgumentParser()
-parser.add_argument('--build-exit', type=Path, default=root / 'logs/lineage21-rom-build-final.exit')
-parser.add_argument('--report', type=Path, default=root / 'artifacts/lineage-21/native-image-check.json')
+parser.add_argument('--build-exit', type=Path, default=root / 'logs/lineage-21-arm64/full-build.exit')
+parser.add_argument('--report', type=Path, default=root / 'artifacts/lineage-21-arm64/native-image-check.json')
 parser.add_argument('--package', type=Path, help='Explicit OTA from the signed target-files release workflow')
 parser.add_argument('--expected-kernel-sha256', default='9827c8ac986f7497428ac27e9bc309ac8b62ee08fbb414e6d0c81653537ea4a2',
                     help='SHA-256 of the independently reviewed source-built kernel')
 args = parser.parse_args()
-out = root / 'src/lineage-21.0/out/target/product/gta3xlwifi'
+out = root / 'src/lineage-21.0-arm64/out/target/product/gta3xlwifi'
 packaged = out / 'obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/IMAGES'
 exit_file = args.build_exit
 if not exit_file.exists() or exit_file.read_text().strip() != '0':
@@ -115,8 +115,8 @@ for name, maximum in limits.items():
         item['header_version'] = version
     report['images'][name] = item
 
-if report['images']['vendor.img']['sha256'] != '4cc684231b4a1c355169cea61b4ea5196401bc5f68c7f74a32c1ec290abc0006':
-    raise SystemExit('Packaged vendor image differs from verified stock image')
+if report['images']['vendor.img']['sha256'] != '276777b5bde1dac2f31dbe9299c79e02c07486df6ff7b2ecad03cc722edee939':
+    raise SystemExit('Packaged vendor image differs from reviewed hybrid vendor image')
 if report['images']['dtbo.img']['sha256'] != 'b9041c37713a745290d9a0203423436b6caa7a1307ced79b6963b4f1f0271c4b':
     raise SystemExit('Packaged DTBO differs from the reviewed source-built container')
 

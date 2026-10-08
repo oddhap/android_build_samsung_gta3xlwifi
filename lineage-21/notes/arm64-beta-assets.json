@@ -1,0 +1,42 @@
+[
+  {
+    "name": "INSTALL.md",
+    "bytes": 6983,
+    "sha256": "861d6d93fe672e11f01a68e73682c79e7ac1a14ba8e990650493a6cdf86c312f"
+  },
+  {
+    "name": "RESTORE_STOCK_VENDOR.sh",
+    "bytes": 2080,
+    "sha256": "a09eb3f7658eef215a52ccd8b8f9022991229f55ad63aad492cbbe2b1c396ef9"
+  },
+  {
+    "name": "lineage-21.0-20261007-UNOFFICIAL-gta3xlwifi-arm64-beta.zip",
+    "bytes": 912222234,
+    "sha256": "f07e52c0f91a66fa1e5342ef3211e4fb8efdf709f1ac37d07994796b16203b3e"
+  },
+  {
+    "name": "twrp-3.7.1_12-gta3xlwifi-pinfree-20261007-ap.tar",
+    "bytes": 38993920,
+    "sha256": "44171444091ba5be4390fdd0123fc02934815feb8db7ed38e8d2d93548493734"
+  },
+  {
+    "name": "twrp-3.7.1_12-gta3xlwifi-pinfree-20261007.img",
+    "bytes": 38981648,
+    "sha256": "e6dcc17e478de9d1d3f1c398fd10c9bc9d7ac80e546f18f58cd20d52766485b4"
+  },
+  {
+    "name": "vbmeta-disabled.img",
+    "bytes": 4096,
+    "sha256": "3e679bb0b8b2e6fb5d94d8316846b7459eead2209cee8f038cbbdda8c6483750"
+  },
+  {
+    "name": "vendor-stock-T510XXU5CWA1.raw.img",
+    "bytes": 343932928,
+    "sha256": "9c2c323343118f8a75d31c69c367e77144b6c74c660ca9930076ecc513b8d97c"
+  },
+  {
+    "name": "SHA256SUMS",
+    "bytes": 705,
+    "sha256": "7f0b75240836dd46c9a35b541d099bd5e92e8a2fa8bc4839112aae341205835d"
+  }
+]

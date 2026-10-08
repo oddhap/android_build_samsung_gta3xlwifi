@@ -1,0 +1,12 @@
+{
+  "phase": "existing ARM32 baseline, before ARM64 installation",
+  "timestamp_utc": "2026-10-06T20:00:03.683522+00:00",
+  "passed": true,
+  "abi": 32,
+  "frames": 120,
+  "hardware_renderer": "Mali-G71",
+  "driver_release": "r26p0-01eac0",
+  "pixel_readback_checked": true,
+  "apk_sha256": "98e90bb1fd1cc774f5cf28b78c758898c3cfd98ad80a8d77dc9aee6180491cde",
+  "arm64_hardware_tested": false
+}

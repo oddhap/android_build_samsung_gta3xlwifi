@@ -1,0 +1,147 @@
+{
+  "image_path": "/srv/android/artifacts/lineage-21-arm64/vendor-hybrid-arm64.raw.img",
+  "image_bytes": 343932928,
+  "physical_limit_bytes": 343932928,
+  "filesystem_total_bytes": 333086720,
+  "filesystem_used_bytes": 264798208,
+  "filesystem_free_bytes": 61521920,
+  "donor_bytes": 55978904,
+  "stock_files_checked": 960,
+  "changed_stock_files": {
+    "build.prop": {
+      "before": {
+        "sha256": "4161d31599e7e650e8338d76aee30332752716ea410932af0f7c10cefbc32960",
+        "mode": 384,
+        "uid": 0,
+        "gid": 0,
+        "label": "u:object_r:vendor_file:s0"
+      },
+      "after": {
+        "sha256": "c689a9aaa2b4f3e1dc33c99ac404c3ae4579eee9b98d63a9cad7ccd0364f2e94",
+        "mode": 384,
+        "uid": 0,
+        "gid": 0,
+        "label": "u:object_r:vendor_file:s0"
+      }
+    },
+    "default.prop": {
+      "before": {
+        "sha256": "4bf75973c75fcea41eed489bddd11315ea5e827f9d8c91c9744ac526b5607949",
+        "mode": 384,
+        "uid": 0,
+        "gid": 0,
+        "label": "u:object_r:vendor_file:s0"
+      },
+      "after": {
+        "sha256": "f79c33328cfbafbca1106b23dfebb6993e949ef3c8ba734e051fc96f949afcb8",
+        "mode": 384,
+        "uid": 0,
+        "gid": 0,
+        "label": "u:object_r:vendor_file:s0"
+      }
+    },
+    "etc/public.libraries.txt": {
+      "before": {
+        "sha256": "f5a8bca1caf16f1ec638852d012f25239e5e77b1c5b5bd6caf7415d419025d80",
+        "mode": 420,
+        "uid": 0,
+        "gid": 0,
+        "label": "u:object_r:vendor_configs_file:s0"
+      },
+      "after": {
+        "sha256": "a490d8e8f41e946bf27f75051128e75de8f05b781f11f4be5e73dc3afd9316a4",
+        "mode": 420,
+        "uid": 0,
+        "gid": 0,
+        "label": "u:object_r:vendor_configs_file:s0"
+      }
+    }
+  },
+  "added_files": {
+    "bin/boringssl_self_test64": {
+      "sha256": "8e98b032329f4a97d2a9f0b2f4e2c9798bd71f6e482ffb927a19501b3a6a1b8d",
+      "mode": 493,
+      "uid": 0,
+      "gid": 2000,
+      "label": "u:object_r:vendor_boringssl_self_test_exec:s0"
+    },
+    "bin/snap_utility_64": {
+      "sha256": "7ebb3cd31141da2678ed9aebe872bee9acb304732f0abef4a6829d4e36e18722",
+      "mode": 493,
+      "uid": 0,
+      "gid": 2000,
+      "label": "u:object_r:snap_utility_exec:s0"
+    },
+    "lib64/egl/libGLES_mali.so": {
+      "sha256": "70b4fd349187346c82648337d2138da3a0b4c36afe14c079e7cfce98f1be9613",
+      "mode": 420,
+      "uid": 0,
+      "gid": 0,
+      "label": "u:object_r:same_process_hal_file:s0"
+    },
+    "lib64/hw/android.hardware.graphics.mapper@2.0-impl.so": {
+      "sha256": "def375b269ad776b658933b520e56e1a709643f65a3bd6ff2585f55ae197a9ac",
+      "mode": 420,
+      "uid": 0,
+      "gid": 0,
+      "label": "u:object_r:same_process_hal_file:s0"
+    },
+    "lib64/hw/android.hardware.renderscript@1.0-impl.so": {
+      "sha256": "ea1d5ff2b578a16087289b946db6885937f5e38cef29637bc4406ad2c87b2cba",
+      "mode": 420,
+      "uid": 0,
+      "gid": 0,
+      "label": "u:object_r:same_process_hal_file:s0"
+    },
+    "lib64/hw/gralloc.default.so": {
+      "sha256": "9709ce588975888e8509aeb4af45315fe8009c6b1088be8b1e0c83e6986b76a8",
+      "mode": 420,
+      "uid": 0,
+      "gid": 0,
+      "label": "u:object_r:same_process_hal_file:s0"
+    },
+    "lib64/hw/gralloc.exynos7904.so": {
+      "sha256": "747676ac723fdb47e9de6b2efa3cd4280070941f7a5c621ffa66a5fc0053b1c9",
+      "mode": 420,
+      "uid": 0,
+      "gid": 0,
+      "label": "u:object_r:same_process_hal_file:s0"
+    },
+    "lib64/hw/memtrack.exynos7904.so": {
+      "sha256": "a59b8bd4bd18f5db624dae3023d2a41e538b0a0532236f07a5815e991cf503f5",
+      "mode": 420,
+      "uid": 0,
+      "gid": 0,
+      "label": "u:object_r:vendor_file:s0"
+    },
+    "lib64/hw/vulkan.universal7904.so": {
+      "link": "/vendor/lib64/egl/libGLES_mali.so",
+      "label": "u:object_r:same_process_hal_file:s0"
+    },
+    "lib64/libOpenCL.so": {
+      "link": "/vendor/lib64/egl/libGLES_mali.so",
+      "label": "u:object_r:vendor_file:s0"
+    },
+    "lib64/libion_exynos.so": {
+      "sha256": "739817dcc2cc3e8caba5fe666f13c8f1516e4c1f56ec8e2180cda2db5a4c08e1",
+      "mode": 420,
+      "uid": 0,
+      "gid": 0,
+      "label": "u:object_r:same_process_hal_file:s0"
+    },
+    "lib64/libsnap_vndk.so": {
+      "sha256": "4bba09269c9de983e27d7880fb24ec4171a5f9ea109cccc0c28051d8b85d5047",
+      "mode": 420,
+      "uid": 0,
+      "gid": 0,
+      "label": "u:object_r:same_process_hal_file:s0"
+    }
+  },
+  "all_other_stock_bytes_modes_owners_labels_preserved": true,
+  "hardware_tested": false,
+  "e2fsck_returncode": 0,
+  "e2fsck_output": "Pass 1: Checking inodes, blocks, and sizes\nPass 2: Checking directory structure\nPass 3: Checking directory connectivity\nPass 4: Checking reference counts\nPass 5: Checking group summary information\nvendor: 1084/20688 files (0.2% non-contiguous), 65951/82623 blocks\ne2fsck 1.46.5 (30-Dec-2021)\n",
+  "raw_sha256": "4c320e8bfd9db294e4027acae204a8276c8f06d0e522654f668e38550eded7b9",
+  "sparse_sha256": "276777b5bde1dac2f31dbe9299c79e02c07486df6ff7b2ecad03cc722edee939",
+  "sparse_bytes": 265669400
+}

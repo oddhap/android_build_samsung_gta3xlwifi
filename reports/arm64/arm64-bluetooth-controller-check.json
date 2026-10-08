@@ -1,0 +1,8 @@
+{
+  "passed": true,
+  "tested_at_utc": "2026-10-07T17:39:21.515029+00:00",
+  "rom_zip_sha256": "f07e52c0f91a66fa1e5342ef3211e4fb8efdf709f1ac37d07994796b16203b3e",
+  "controller_state_on_tested": true,
+  "original_setting_restored": true,
+  "pairing_tested": false
+}

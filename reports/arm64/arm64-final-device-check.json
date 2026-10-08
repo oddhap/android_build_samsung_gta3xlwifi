@@ -1,0 +1,22 @@
+{
+  "passed": true,
+  "tested_at_utc": "2026-10-07T17:49:16.672378+00:00",
+  "rom_zip_sha256": "f07e52c0f91a66fa1e5342ef3211e4fb8efdf709f1ac37d07994796b16203b3e",
+  "build_incremental": "gta3xlwifi.arm64.20261007.170546",
+  "second_arm64_boot_completed": true,
+  "pin_unlock_after_reboot": true,
+  "ce_storage_readable_after_reboot": true,
+  "selinux": "Enforcing",
+  "crypto_state": "encrypted",
+  "standalone_test_apps_removed": true,
+  "native_process_bits": {
+    "init": 64,
+    "system_server": 64,
+    "surfaceflinger": 64,
+    "zygote64": 64,
+    "vold": 64,
+    "audioserver": 64,
+    "cameraserver": 64,
+    "netd": 64
+  }
+}

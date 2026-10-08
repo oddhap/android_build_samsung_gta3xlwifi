@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "host_refusal_checks": [
+    "nonroot",
+    "model",
+    "recovery",
+    "missing-file",
+    "symlink",
+    "size"
+  ],
+  "physical_flash_during_publication": false,
+  "previous_physical_rollback_report": "baseline-rollback-check.json"
+}

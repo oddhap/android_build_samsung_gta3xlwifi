@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "binary_sha256": "8c3c2ef3716e79052bd227cb7ac4f105f07283ebf9dcbad156312b60449aafba",
+  "source_sha256": "5ff3e9558686d9869f69fddf98dfc79c818508447064b47b01a1324105a1b35e",
+  "abi": "static ARM32",
+  "physically_tested_preflight": true,
+  "physically_tested_already_aligned_apply": true,
+  "recovery_partition_unchanged": true,
+  "host_fixture_tests_passed_for_both_known_images": true,
+  "host_fault_injection_excluded": true,
+  "existing_rom_zip_contains_previous_helper": true,
+  "new_helper_used_by_future_builds": true
+}

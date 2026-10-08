@@ -1,0 +1,17 @@
+{
+  "passed": true,
+  "checked_at_utc": "2026-10-07T18:33:05.103053+00:00",
+  "image_sha256": "e6dcc17e478de9d1d3f1c398fd10c9bc9d7ac80e546f18f58cd20d52766485b4",
+  "credential": "PIN",
+  "ce_locked_before_credential_entry": true,
+  "user_confirmed_pin_prompt_and_main_menu": true,
+  "ce_decrypted_after_pin": true,
+  "media_probe_readable": true,
+  "single_recovery_start": true,
+  "stable_recovery_pid": 3326,
+  "no_fatal_signals": true,
+  "encryption_key_files_unchanged": 13,
+  "android_return_tested": true,
+  "android_return_build": "gta3xlwifi.arm64.20261007.170546",
+  "android_ce_available_after_user_unlock": true
+}

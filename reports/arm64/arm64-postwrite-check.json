@@ -1,0 +1,12 @@
+{
+  "checked_at_utc": "2026-10-07T17:32:27.002720+00:00",
+  "rom_zip_sha256": "f07e52c0f91a66fa1e5342ef3211e4fb8efdf709f1ac37d07994796b16203b3e",
+  "boot_readback_matches": true,
+  "recovery_payload_preserved": true,
+  "dtbo_preserved": true,
+  "vbmeta_preserved": true,
+  "vendor_added_and_changed_entries_checked": 15,
+  "vendor_unmounted_after_check": true,
+  "boot_tested": false,
+  "passed": true
+}

@@ -10,10 +10,10 @@ import tempfile
 from pathlib import Path
 
 root = Path('/srv/android')
-top = root / 'src/lineage-21.0'
+top = root / 'src/lineage-21.0-arm64'
 out = top / 'out/target/product/gta3xlwifi'
 parser = argparse.ArgumentParser()
-parser.add_argument('--report-dir', type=Path, default=root / 'artifacts/lineage-21')
+parser.add_argument('--report-dir', type=Path, default=root / 'artifacts/lineage-21-arm64')
 args = parser.parse_args()
 report_dir = args.report_dir
 images = json.loads((report_dir / 'native-image-check.json').read_text())
@@ -26,7 +26,7 @@ if digest.hexdigest() != images['images']['system.img']['sha256']:
     raise SystemExit('Image report is stale; run verify-native-images.py first')
 debugfs = top / 'out/host/linux-x86/bin/debugfs_static'
 checks = {'hardware_tested': False, 'system_image_sha256': images['images']['system.img']['sha256']}
-header = (root / 'src/kernel-gta3xlwifi/fs/ext4/ext4.h').read_text().replace('\\\n', ' ')
+header = (root / 'github-upload-lineage21/android_kernel_samsung_gta3xlwifi/fs/ext4/ext4.h').read_text().replace('\\\n', ' ')
 supported = {}
 for kind in ('INCOMPAT', 'RO_COMPAT'):
     values = dict((name, int(value, 16)) for name, value in re.findall(
@@ -82,21 +82,21 @@ with tempfile.TemporaryDirectory(prefix='gta3xlwifi-system-layout-', dir=report_
     if b'Fast link dest: "/system/bin/init"' not in result.stdout:
         raise SystemExit('System image /init does not point to /system/bin/init')
     init = read_file('/system/bin/init')
-    if init[:5] != b'\x7fELF\x01' or init[18:20] != b'\x28\x00':
-        raise SystemExit('System-root init is missing or is not ARM32 ELF')
+    if init[:5] != b'\x7fELF\x02' or init[18:20] != b'\xb7\x00':
+        raise SystemExit('System-root init is missing or is not ARM64 ELF')
     checks['init_sha256'] = hashlib.sha256(init).hexdigest()
     if b'libfs_mgr.so' not in init:
         raise SystemExit('Actual init does not use the verified filesystem manager')
     for name in ('libfs_mgr.so', 'libfs_mgr_binder.so'):
-        manager = read_file('/system/lib/' + name)
+        manager = read_file('/system/lib64/' + name)
         if b'ro.gta3xlwifi.ext4_project_quota' not in manager:
             raise SystemExit('Filesystem manager lacks the project-quota capability guard')
-        if manager != (out / 'system/lib' / name).read_bytes():
+        if manager != (out / 'system/lib64' / name).read_bytes():
             raise SystemExit('Filesystem manager differs from the compiled quota fix')
         checks[name + '_sha256'] = hashlib.sha256(manager).hexdigest()
     checks['filesystem_manager_ext4_project_quota_guard'] = True
-    setup = read_file('/system/lib/libprocessgroup_setup.so')
-    if setup != (out / 'system/lib/libprocessgroup_setup.so').read_bytes():
+    setup = read_file('/system/lib64/libprocessgroup_setup.so')
+    if setup != (out / 'system/lib64/libprocessgroup_setup.so').read_bytes():
         raise SystemExit('System image processgroup setup differs from the compiled library')
     if b'/system/etc/cgroups.gta3xlwifi.json' not in setup:
         raise SystemExit('System image processgroup setup lacks the device backend')
@@ -106,8 +106,8 @@ with tempfile.TemporaryDirectory(prefix='gta3xlwifi-system-layout-', dir=report_
         raise SystemExit('Root Samsung init duplicates the stock vendor mount_all')
     checks['root_init_duplicate_mounts_absent'] = True
     for name in ('libaudiohal.so', 'libaudiohal@4.0.so', 'libgpuwork.so', 'libmeminfo.so'):
-        library = read_file('/system/lib/' + name)
-        if library != (out / 'system/lib' / name).read_bytes():
+        library = read_file('/system/lib64/' + name)
+        if library != (out / 'system/lib64' / name).read_bytes():
             raise SystemExit('System image media library differs from compiled output: ' + name)
         checks[name + '_sha256'] = hashlib.sha256(library).hexdigest()
     device = top / 'device/samsung/gta3xlwifi'

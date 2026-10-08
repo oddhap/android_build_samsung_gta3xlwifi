@@ -1,0 +1,120 @@
+--- /srv/android/src/twrp-12.1/system/vold/Decrypt.cpp	2026-10-04 18:09:26.964000000 +0000
++++ /srv/android/src/twrp-12.1-pinfree/system/vold/Decrypt.cpp	2026-10-07 18:12:55.780000000 +0000
+@@ -498,6 +498,10 @@
+ 		std::string spblob_data;
+ 		if (!Get_Spblob_Data(spblob_path, handle_str, ".spblob", "spblob", &spblob_data))
+ 			return disk_decryption_secret_key;
++		if (spblob_data.size() < 2 + 12 + AES_BLOCK_SIZE) {
++			printf("Synthetic password blob is truncated\n");
++			return disk_decryption_secret_key;
++		}
+ 		unsigned char* byteptr = (unsigned char*)spblob_data.data();
+ 		if (*byteptr != SYNTHETIC_PASSWORD_VERSION_V2 && *byteptr != SYNTHETIC_PASSWORD_VERSION_V1
+ 				&& *byteptr != SYNTHETIC_PASSWORD_VERSION_V3) {
+@@ -551,7 +555,16 @@
+ 
+ 			ks2::KeyEntryResponse keyEntryResponse;
+ 			::ndk::SpAIBinder keystoreBinder(AServiceManager_checkService("android.system.keystore2.IKeystoreService/default"));
++			for (int attempt = 0; !keystoreBinder.get() && attempt < 200; ++attempt) {
++				usleep(100000);
++				keystoreBinder = ::ndk::SpAIBinder(AServiceManager_checkService(
++					"android.system.keystore2.IKeystoreService/default"));
++			}
+ 			auto keystore = ks2::IKeystoreService::fromBinder(keystoreBinder);
++			if (!keystore) {
++				printf("Synthetic password keystore unavailable; data remains locked\n");
++				return disk_decryption_secret_key;
++			}
+ 			auto rc = keystore->getKeyEntry(keyDescriptor(keystore_alias), &keyEntryResponse);
+ 			if (!rc.isOk()) {
+ 				auto error = unwrapError(rc);
+@@ -564,6 +577,10 @@
+ 			}
+ 			std::variant<int, ks2::KeyEntryResponse> response = keyEntryResponse;
+ 			auto keyResponse = std::get<ks2::KeyEntryResponse>(response);
++			if (!keyResponse.iSecurityLevel) {
++				printf("Synthetic password key has no security level\n");
++				return disk_decryption_secret_key;
++			}
+ 			ks2::CreateOperationResponse encOperationResponse;
+ 			auto begin_rc = keyResponse.iSecurityLevel->createOperation(
+ 				keyResponse.metadata.key, begin_params.vector_data(), true,
+@@ -572,6 +589,10 @@
+ 				printf("Begin Operation failed\n");
+ 				return disk_decryption_secret_key;
+ 			}
++			if (!encOperationResponse.iOperation) {
++				printf("Synthetic password operation unavailable\n");
++				return disk_decryption_secret_key;
++			}
+ 			std::optional<std::vector<uint8_t>> optPlaintext;
+ 
+ 			begin_rc = encOperationResponse.iOperation->finish(cipher_text_hidlvec, {}, &optPlaintext);
+@@ -580,6 +601,10 @@
+ 				return disk_decryption_secret_key;
+ 			}
+ 
++			if (!optPlaintext || optPlaintext->size() < 12 + AES_BLOCK_SIZE) {
++				printf("Synthetic password intermediate blob is truncated\n");
++				return disk_decryption_secret_key;
++			}
+ 			size_t keystore_result_size = optPlaintext->size();
+ 			unsigned char* keystore_result = (unsigned char*)malloc(keystore_result_size);
+ 			if (!keystore_result) {
+@@ -591,11 +616,12 @@
+ 			const unsigned char* intermediate_iv = keystore_result;
+ 			// printf("intermediate_iv: "); output_hex((const unsigned char*)intermediate_iv, 12); printf("\n");
+ 			const unsigned char* intermediate_cipher_text = (const unsigned char*)keystore_result + 12; // The cipher text comes immediately after the IV
+-			int cipher_size = keystore_result_size - 12;
++			int cipher_size = keystore_result_size - 12 - AES_BLOCK_SIZE;
+ 			// First we personalize as seen https://android.googlesource.com/platform/frameworks/base/+/android-8.0.0_r23/services/core/java/com/android/server/locksettings/SyntheticPasswordCrypto.java#102
+ 			void* personalized_application_id = PersonalizedHashBinary(PERSONALISATION_APPLICATION_ID, (const char*)application_id, application_id_size);
+ 			if (!personalized_application_id) {
+ 				printf("Unable to obtain personalized_application_id\n");
++				free(keystore_result);
+ 				return disk_decryption_secret_key;
+ 			}
+ 			// printf("personalized application id: "); output_hex((unsigned char*)personalized_application_id, SHA512_DIGEST_LENGTH); printf("\n");
+@@ -605,20 +631,22 @@
+ 			EVP_CIPHER_CTX *d_ctx = EVP_CIPHER_CTX_new();
+ 			const unsigned char* key = (const unsigned char*)personalized_application_id; // The key is the now personalized copy of the application ID
+ 			// printf("key: "); output_hex((const unsigned char*)key, 32); printf("\n");
+-			EVP_DecryptInit(d_ctx, EVP_aes_256_gcm(), key, intermediate_iv);
+-			unsigned char* secret_key = (unsigned char*)malloc(cipher_size);
+-			if (!secret_key) {
+-				printf("malloc failure on secret key\n");
+-				return disk_decryption_secret_key;
+-			}
+-			EVP_DecryptUpdate(d_ctx, secret_key, &actual_size, intermediate_cipher_text, cipher_size);
+-			unsigned char tag[AES_BLOCK_SIZE];
+-			EVP_CIPHER_CTX_ctrl(d_ctx, EVP_CTRL_GCM_SET_TAG, 16, tag);
+-			EVP_DecryptFinal_ex(d_ctx, secret_key + actual_size, &final_size);
++			unsigned char* secret_key = (unsigned char*)malloc(cipher_size + AES_BLOCK_SIZE);
++			bool authenticated = d_ctx && secret_key &&
++				EVP_DecryptInit_ex(d_ctx, EVP_aes_256_gcm(), nullptr, key, intermediate_iv) == 1 &&
++				EVP_DecryptUpdate(d_ctx, secret_key, &actual_size, intermediate_cipher_text, cipher_size) == 1 &&
++				EVP_CIPHER_CTX_ctrl(d_ctx, EVP_CTRL_GCM_SET_TAG, AES_BLOCK_SIZE,
++					const_cast<unsigned char*>(intermediate_cipher_text + cipher_size)) == 1 &&
++				EVP_DecryptFinal_ex(d_ctx, secret_key + actual_size, &final_size) == 1;
+ 			EVP_CIPHER_CTX_free(d_ctx);
+ 			free(personalized_application_id);
+ 			free(keystore_result);
+-			int secret_key_real_size = actual_size - 16;
++			if (!authenticated) {
++				printf("Synthetic password authentication failed; data remains locked\n");
++				free(secret_key);
++				return disk_decryption_secret_key;
++			}
++			int secret_key_real_size = actual_size + final_size;
+ 			// printf("secret key:  "); output_hex((const unsigned char*)secret_key, secret_key_real_size); printf("\n");
+ 			// The payload data from the keystore update is further personalized at https://android.googlesource.com/platform/frameworks/base/+/android-8.0.0_r23/services/core/java/com/android/server/locksettings/SyntheticPasswordManager.java#153
+ 			// We now have the disk decryption key!
+@@ -712,7 +740,7 @@
+ 	// printf("pwd N %i R %i P %i salt ", pwd.scryptN, pwd.scryptR, pwd.scryptP); output_hex((char*)pwd.salt, pwd.salt_len); printf("\n");
+ 	// printf("Password: '%s'\n", Password.c_str());
+ 	// The password token is the password scrypted with the parameters from the password data file
+-	unsigned char password_token[PASSWORD_TOKEN_SIZE];
++	unsigned char password_token[PASSWORD_TOKEN_SIZE] = {}; // Android NONE uses zero padding
+ 	if (Password != "!") {
+ 		if (!Get_Password_Data(spblob_path, handle_str, &pwd)) {
+ 			printf("Failed to Get_Password_Data\n");

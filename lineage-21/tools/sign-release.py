@@ -15,9 +15,11 @@ import zipfile
 
 parser = argparse.ArgumentParser()
 parser.add_argument('target_files', type=Path)
-parser.add_argument('--top', type=Path, default=Path('/srv/android/src/lineage-21.0'))
+parser.add_argument('--top', type=Path, default=Path('/srv/android/src/lineage-21.0-arm64'))
 parser.add_argument('--keys', type=Path, default=Path('/srv/android/signing/gta3xlwifi'))
-parser.add_argument('--output', type=Path, default=Path('/srv/android/artifacts/lineage-21/release'))
+parser.add_argument('--output', type=Path, default=Path('/srv/android/artifacts/lineage-21-arm64/release'))
+parser.add_argument('--resume-signed-target-files', action='store_true',
+                    help='Resume a completed signed ZIP; final signature verification remains mandatory')
 args = parser.parse_args()
 os.umask(0o077)
 args.keys.mkdir(parents=True, exist_ok=True, mode=0o700)
@@ -38,6 +40,10 @@ with zipfile.ZipFile(args.target_files) as archive:
     apks = [parse(line) for line in archive.read('META/apkcerts.txt').decode().splitlines() if line]
     apexes = [parse(line) for line in archive.read('META/apexkeys.txt').decode().splitlines() if line]
     old_boot = archive.read('BOOTABLE_IMAGES/boot.img')
+    vendor_before = archive.read('IMAGES/vendor.img')
+    vendor_info = archive.getinfo('IMAGES/vendor.img')
+    if hashlib.sha256(vendor_before).hexdigest() != '276777b5bde1dac2f31dbe9299c79e02c07486df6ff7b2ecad03cc722edee939':
+        raise SystemExit('Unsigned vendor differs from the reviewed image')
     properties = dict(line.split('=', 1) for line in archive.read('SYSTEM/build.prop').decode().splitlines()
                       if '=' in line and not line.startswith('#'))
     version = properties['ro.lineage.version']
@@ -52,16 +58,8 @@ mapping = []
 def make_key(name, bits=2048):
     stem = args.keys / name
     pk8, cert, pem = [Path(str(stem) + suffix) for suffix in ('.pk8', '.x509.pem', '.pem')]
-    if pk8.exists() != cert.exists():
-        raise SystemExit('Incomplete key pair: ' + name)
-    if not pk8.exists():
-        run(['openssl', 'genpkey', '-algorithm', 'RSA', '-pkeyopt', f'rsa_keygen_bits:{bits}', '-out', str(pem)], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-        run(['openssl', 'pkcs8', '-topk8', '-nocrypt', '-in', str(pem), '-outform', 'DER', '-out', str(pk8)])
-        run(['openssl', 'req', '-new', '-x509', '-sha256', '-key', str(pem), '-out', str(cert), '-days', '10000', '-subj', '/C=NO/O=SM-T510 Native Project/OU=LineageOS 21/CN=' + name])
-    if not pem.exists():
-        run(['openssl', 'pkcs8', '-nocrypt', '-inform', 'DER', '-in', str(pk8), '-out', str(pem)])
-    for path in (pk8, cert, pem):
-        path.chmod(0o600)
+    if not all(path.is_file() for path in (pk8, cert, pem)):
+        raise SystemExit('Missing persistent signing material: ' + name)
     return stem
 
 for original in sorted(cert_paths, key=lambda p: (not p.endswith('/testkey.x509.pem'), p)):
@@ -81,9 +79,9 @@ certificate_map = {item['old_path'] + '.x509.pem': item['new_path'] for item in 
 key_map_file = args.keys / 'certificate-map.json'
 if key_map_file.exists() and json.loads(key_map_file.read_text()) != mapping:
     raise SystemExit('Certificate map changed; review migration before proceeding')
-key_map_file.write_text(json.dumps(mapping, indent=2) + '\n')
+# The authoritative certificate map is read-only for this port.
 signed = args.output / 'signed-target-files.zip'
-ota = args.output / ('lineage-' + version + '-privatekeys.zip')
+ota = args.output / ('lineage-' + version + '-arm64-privatekeys.zip')
 command = ['sign_target_files_apks', '-o', '-p', str(args.top / 'out/host/linux-x86'), '--allow_gsi_debug_sepolicy', '--skip_apks_with_path_prefix=VENDOR/']
 for item in mapping:
     command += ['-k', item['old_path'] + '=' + item['new_path']]
@@ -96,11 +94,25 @@ for item in apexes:
                     '--extra_apex_payload_key', item['name'] + '=' + str(payload) + '.pem']
 command += [str(args.target_files.resolve()), str(signed)]
 print('Signing APKs and APEXes with persistent private keys', flush=True)
-run(command)
+if args.resume_signed_target_files:
+    with zipfile.ZipFile(signed) as archive:
+        if archive.testzip() is not None:
+            raise SystemExit('Existing signed target-files ZIP failed CRC verification')
+        if archive.read('IMAGES/boot.img') != old_boot:
+            raise SystemExit('Existing signed boot differs from the current input')
+else:
+    run(command)
+# sign_target_files_apks regenerates IMAGES and skips vendor without VENDOR/.
+# This project deliberately ships a reviewed prebuilt vendor, not a rebuilt
+# donor tree. Carry its exact bytes forward before whole-file OTA signing.
+with zipfile.ZipFile(signed, 'a') as archive:
+    if 'IMAGES/vendor.img' not in archive.namelist():
+        archive.writestr(vendor_info, vendor_before)
 with zipfile.ZipFile(signed) as archive:
     if archive.read('IMAGES/boot.img') != old_boot:
         raise SystemExit('Signing changed the tested Samsung boot image')
-    # Vendor is not installed by this OTA; retain the tested stock partition.
+    if archive.read("IMAGES/vendor.img") != vendor_before:
+        raise SystemExit("Signing changed the reviewed hybrid vendor image")
 print('Generating signed OTA', flush=True)
 run(['ota_from_target_files', '-k', str(args.keys / 'releasekey'), '--block', '--backup=true',
      str(signed), str(ota)])

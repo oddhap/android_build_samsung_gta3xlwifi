@@ -1,0 +1,12 @@
+{
+  "tested_at_utc": "2026-10-07T16:29:49.326713+00:00",
+  "recovery": "TWRP 3.7.1_12 ARM32",
+  "updater_static_arm64": true,
+  "updater_sha256": "1aa854aba5703fb9857385d3b5106432b98151bf8e93de50f2ce9ca635e90f08",
+  "boringssl_self_test_passed": true,
+  "expected_argument_rejection": true,
+  "exit_code": 1,
+  "partitions_written": false,
+  "arm64_rom_boot_tested": false,
+  "passed": true
+}

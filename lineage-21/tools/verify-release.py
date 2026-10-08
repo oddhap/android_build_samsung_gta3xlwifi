@@ -3,6 +3,9 @@
 import argparse
 from concurrent.futures import ThreadPoolExecutor
 import gzip
+import ast
+import io
+from elftools.elf.elffile import ELFFile
 import hashlib
 import json
 import os
@@ -15,10 +18,10 @@ import zipfile
 
 parser = argparse.ArgumentParser()
 parser.add_argument('original', type=Path)
-parser.add_argument('--release', type=Path, default=Path('/srv/android/artifacts/lineage-21/release'))
+parser.add_argument('--release', type=Path, default=Path('/srv/android/artifacts/lineage-21-arm64/release'))
 parser.add_argument('--keys', type=Path, default=Path('/srv/android/signing/gta3xlwifi'))
 args = parser.parse_args()
-top = Path('/srv/android/src/lineage-21.0')
+top = Path('/srv/android/src/lineage-21.0-arm64')
 host = top / 'out/host/linux-x86/bin'
 env = os.environ.copy()
 env['PATH'] = str(host) + ':' + str(top / 'prebuilts/jdk/jdk17/linux-x86/bin') + ':' + env['PATH']
@@ -100,15 +103,15 @@ with tempfile.TemporaryDirectory(dir=args.release, prefix='verify-') as tmp:
         tree.mkdir()
         new.extractall(tree)
         images = {}
-        for name, limit in [('system.img',3196059648), ('product.img',327155712), ('boot.img',33554432)]:
+        for name, limit in [('system.img',3196059648), ('product.img',327155712), ('boot.img',33554432), ('vendor.img',343932928), ('dtbo.img',8388608)]:
             path = tree / 'IMAGES' / name
             with path.open('rb') as stream:
                 header = stream.read(28)
             expanded = struct.unpack_from('<I', header,12)[0] * struct.unpack_from('<I', header,16)[0] if header[:4] == b'\x3a\xff\x26\xed' else path.stat().st_size
             assert expanded <= limit
             images[name] = {'path':str(path), 'sha256':sha(path), 'expanded_bytes':expanded, 'partition_bytes':limit}
-        for member in ('SYSTEM/lib/libmeminfo.so', 'SYSTEM/bin/netd', 'SYSTEM/lib/libgpuwork.so',
-                       'SYSTEM/lib/libaudiohal@4.0.so', 'SYSTEM/system_ext/etc/selinux/system_ext_sepolicy.cil'):
+        for member in ('SYSTEM/lib64/libmeminfo.so', 'SYSTEM/bin/netd', 'SYSTEM/lib64/libgpuwork.so',
+                       'SYSTEM/lib64/libaudiohal@4.0.so', 'SYSTEM/system_ext/etc/selinux/system_ext_sepolicy.cil'):
             assert new.read(member) == old.read(member), member + ' changed during signing'
         checks['tested_platform_fixes_preserved'] = True
         props = new.read('SYSTEM/build.prop').decode()
@@ -121,7 +124,7 @@ with tempfile.TemporaryDirectory(dir=args.release, prefix='verify-') as tmp:
         assert checks['build_incremental'].startswith('gta3xlwifi.'), 'Release identity must be explicit'
 
 
-    ota = args.release / ('lineage-' + version + '-privatekeys.zip')
+    ota = args.release / ('lineage-' + version + '-arm64-privatekeys.zip')
     with zipfile.ZipFile(ota) as archive:
         assert archive.testzip() is None
         metadata = archive.read('META-INF/com/android/metadata').decode()
@@ -134,9 +137,28 @@ with tempfile.TemporaryDirectory(dir=args.release, prefix='verify-') as tmp:
         assert 'ota-wipe=yes' not in metadata
         script = archive.read('META-INF/com/google/android/updater-script').decode()
         partitions = set(re.findall(r'/dev/block/platform/13500000\.dwmmc0/by-name/([a-zA-Z0-9_]+)', script))
-        assert partitions == {'system', 'product', 'boot'}, partitions
+        assert partitions == {'system', 'product', 'boot', 'vendor'}, partitions
         assert 'format(' not in script and 'delete_recursive("/data' not in script
         assert archive.read('boot.img') == (tree / 'IMAGES/boot.img').read_bytes()
+        updater = archive.read('META-INF/com/google/android/update-binary')
+        assert updater[:5] == b'\x7fELF\x02' and struct.unpack_from('<H', updater, 18)[0] == 183
+        updater_elf = ELFFile(io.BytesIO(updater))
+        for segment in updater_elf.iter_segments():
+            assert segment['p_type'] != 'PT_INTERP', 'Updater requires a missing ARM64 recovery linker'
+            if segment['p_type'] == 'PT_DYNAMIC':
+                assert all(tag.entry.d_tag != 'DT_NEEDED' for tag in segment.iter_tags())
+        guard = archive.read('vendor-unmounted-check.sh')
+        source = Path('/srv/android/src/lineage-21.0-arm64/device/samsung/gta3xlwifi/releasetools.py')
+        definitions = [node for node in ast.parse(source.read_text()).body
+                       if isinstance(node, ast.Assign) and any(isinstance(target, ast.Name)
+                       and target.id == '_VENDOR_MOUNT_GUARD' for target in node.targets)]
+        assert len(definitions) == 1 and guard == ast.literal_eval(definitions[0].value)
+        assert b'/proc/mounts' in guard
+        assert script.index('run_program("/sbin/sh", "/tmp/vendor-unmounted-check.sh")') < script.index('block_image_update(')
+        checks['vendor_unmounted_guard_before_writes'] = True
+        checks['vendor_unmounted_guard_sha256'] = hashlib.sha256(guard).hexdigest()
+        checks['updater_static_arm64'] = True
+        checks['updater_sha256'] = hashlib.sha256(updater).hexdigest()
         helper = archive.read('recovery-header-sync')
         assert helper == recovery_helper
         assert helper[:5] == b'\x7fELF\x01' and struct.unpack_from('<H', helper, 18)[0] == 40

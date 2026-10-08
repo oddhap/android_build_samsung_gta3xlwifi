@@ -1,0 +1,185 @@
+{
+  "vendor_elf_counts_including_aliases": {
+    "donor:ELF64:EM_AARCH64": 555,
+    "donor:ELF32:EM_ARM": 290,
+    "stock:ELF32:EM_ARM": 588
+  },
+  "selected_donor_files": {
+    "bin/boringssl_self_test64": {
+      "sha256": "8e98b032329f4a97d2a9f0b2f4e2c9798bd71f6e482ffb927a19501b3a6a1b8d",
+      "bytes": 11312,
+      "needed": [
+        "libcrypto.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ],
+      "symlink_target": null
+    },
+    "bin/snap_utility_64": {
+      "sha256": "7ebb3cd31141da2678ed9aebe872bee9acb304732f0abef4a6829d4e36e18722",
+      "bytes": 592376,
+      "needed": [
+        "libsnap_vndk.so",
+        "libz.so",
+        "liblog.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ],
+      "symlink_target": null
+    },
+    "lib64/egl/libGLES_mali.so": {
+      "sha256": "70b4fd349187346c82648337d2138da3a0b4c36afe14c079e7cfce98f1be9613",
+      "bytes": 52100080,
+      "needed": [
+        "liblog.so",
+        "libz.so",
+        "libnativewindow.so",
+        "libm.so",
+        "libc.so",
+        "libdl.so",
+        "libion_exynos.so",
+        "libc++.so"
+      ],
+      "symlink_target": null
+    },
+    "lib64/hw/android.hardware.graphics.mapper@2.0-impl.so": {
+      "sha256": "def375b269ad776b658933b520e56e1a709643f65a3bd6ff2585f55ae197a9ac",
+      "bytes": 30584,
+      "needed": [
+        "android.hardware.graphics.mapper@2.0.so",
+        "libbase.so",
+        "libcutils.so",
+        "libhardware.so",
+        "libhidlbase.so",
+        "liblog.so",
+        "libsync.so",
+        "libutils.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ],
+      "symlink_target": null
+    },
+    "lib64/hw/android.hardware.renderscript@1.0-impl.so": {
+      "sha256": "ea1d5ff2b578a16087289b946db6885937f5e38cef29637bc4406ad2c87b2cba",
+      "bytes": 64792,
+      "needed": [
+        "libbase.so",
+        "libhidlbase.so",
+        "libutils.so",
+        "android.hardware.renderscript@1.0.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ],
+      "symlink_target": null
+    },
+    "lib64/hw/gralloc.default.so": {
+      "sha256": "9709ce588975888e8509aeb4af45315fe8009c6b1088be8b1e0c83e6986b76a8",
+      "bytes": 20640,
+      "needed": [
+        "liblog.so",
+        "libcutils.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ],
+      "symlink_target": null
+    },
+    "lib64/hw/gralloc.exynos7904.so": {
+      "sha256": "747676ac723fdb47e9de6b2efa3cd4280070941f7a5c621ffa66a5fc0053b1c9",
+      "bytes": 80040,
+      "needed": [
+        "libhardware.so",
+        "liblog.so",
+        "libcutils.so",
+        "libGLESv1_CM.so",
+        "libion_exynos.so",
+        "libsync.so",
+        "libutils.so",
+        "libnativewindow.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ],
+      "symlink_target": null
+    },
+    "lib64/hw/memtrack.exynos7904.so": {
+      "sha256": "a59b8bd4bd18f5db624dae3023d2a41e538b0a0532236f07a5815e991cf503f5",
+      "bytes": 107160,
+      "needed": [
+        "liblog.so",
+        "libion_exynos.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ],
+      "symlink_target": null
+    },
+    "lib64/hw/vulkan.universal7904.so": {
+      "sha256": "70b4fd349187346c82648337d2138da3a0b4c36afe14c079e7cfce98f1be9613",
+      "bytes": 0,
+      "needed": [
+        "liblog.so",
+        "libz.so",
+        "libnativewindow.so",
+        "libm.so",
+        "libc.so",
+        "libdl.so",
+        "libion_exynos.so",
+        "libc++.so"
+      ],
+      "symlink_target": "/vendor/lib64/egl/libGLES_mali.so"
+    },
+    "lib64/libOpenCL.so": {
+      "sha256": "70b4fd349187346c82648337d2138da3a0b4c36afe14c079e7cfce98f1be9613",
+      "bytes": 0,
+      "needed": [
+        "liblog.so",
+        "libz.so",
+        "libnativewindow.so",
+        "libm.so",
+        "libc.so",
+        "libdl.so",
+        "libion_exynos.so",
+        "libc++.so"
+      ],
+      "symlink_target": "/vendor/lib64/egl/libGLES_mali.so"
+    },
+    "lib64/libion_exynos.so": {
+      "sha256": "739817dcc2cc3e8caba5fe666f13c8f1516e4c1f56ec8e2180cda2db5a4c08e1",
+      "bytes": 19752,
+      "needed": [
+        "liblog.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ],
+      "symlink_target": null
+    },
+    "lib64/libsnap_vndk.so": {
+      "sha256": "4bba09269c9de983e27d7880fb24ec4171a5f9ea109cccc0c28051d8b85d5047",
+      "bytes": 2952168,
+      "needed": [
+        "liblog.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ],
+      "symlink_target": null
+    }
+  },
+  "selected_donor_bytes": 55978904,
+  "whole_donor_lib64_bytes": 162831536,
+  "physical_vendor_partition_bytes": 343932928,
+  "hardware_compatibility_proven": false
+}

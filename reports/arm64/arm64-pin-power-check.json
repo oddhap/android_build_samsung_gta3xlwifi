@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "tested_at_utc": "2026-10-07T17:41:40.097820+00:00",
+  "rom_zip_sha256": "f07e52c0f91a66fa1e5342ef3211e4fb8efdf709f1ac37d07994796b16203b3e",
+  "ce_storage_readable_after_pin_unlock": true,
+  "owner_running_unlocked": true,
+  "screen_sleep_wake_passed": true,
+  "zygote_preserved_across_screen_sleep_wake": true,
+  "kernel_deep_suspend_tested": false
+}

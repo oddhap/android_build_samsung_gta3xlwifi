@@ -9,9 +9,9 @@ import subprocess
 from pathlib import Path
 
 root = Path('/srv/android')
-top = root / 'src/lineage-21.0'
+top = root / 'src/lineage-21.0-arm64'
 out = top / 'out/target/product/gta3xlwifi'
-artifacts = root / 'artifacts/lineage-21/native-vintf-check'
+artifacts = root / 'artifacts/lineage-21-arm64/native-vintf-check'
 artifacts.mkdir(parents=True, exist_ok=True)
 empty = artifacts / 'empty-odm'
 empty.mkdir(exist_ok=True)
@@ -28,7 +28,7 @@ apex.mkdir(exist_ok=True)
 host = top / 'out/host/linux-x86'
 activation = subprocess.run([str(host / 'bin/apexd_host'), '--tool_path', str(host),
                             '--apex_path', str(apex), '--vendor_path',
-                            str(root / 'vendor-stock/extracted/vendor')],
+                            str(root / 'artifacts/lineage-21-arm64/vendor-hybrid-mount')],
                            capture_output=True, text=True)
 (artifacts / 'apex-activation.log').write_text(activation.stdout + activation.stderr)
 if activation.returncode:
@@ -36,21 +36,21 @@ if activation.returncode:
 command = [str(top / 'out/host/linux-x86/bin/checkvintf'), '--check-compat']
 for partition, path in (
     ('system', system), ('system_ext', system / 'system_ext'),
-    ('product', out / 'product'), ('vendor', root / 'vendor-stock/extracted/vendor'),
+    ('product', out / 'product'), ('vendor', root / 'artifacts/lineage-21-arm64/vendor-hybrid-mount'),
     ('odm', empty), ('apex', apex),
 ):
     command += ['--dirmap', f'/{partition}:{path}']
 command += ['--property', 'ro.product.first_api_level=28',
             '--property', 'ro.boot.product.hardware.sku=',
             '--property', 'ro.boot.product.vendor.sku=',
-            '--kernel', f'4.4.302:{root}/artifacts/kernel-smoke/config']
+            '--kernel', f'4.4.302:{root}/artifacts/lineage-21-arm64/baseline-inputs/kernel.config']
 result = subprocess.run(command, capture_output=True, text=True)
 (artifacts / 'checkvintf.log').write_text(result.stdout + result.stderr)
 (artifacts / 'report.json').write_text(json.dumps({
     'device': 'SM-T510', 'exit_code': result.returncode, 'command': command,
     'framework_kernel_profile': 'SM-T510 legacy iptables/qtaguid; five networking requirements adapted',
     'unmodified_upstream_kernel_profile_passed': False,
-    'actual_stock_vendor_used': True, 'kernel_config_checked': True,
+    'actual_hybrid_vendor_used': True, 'kernel_config_checked': True,
     'hardware_tested': False,
 }, indent=2) + '\n')
 print('\n'.join(result.stdout.splitlines()[-8:]))

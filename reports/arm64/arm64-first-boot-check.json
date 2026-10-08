@@ -1,0 +1,13 @@
+{
+  "checked_at_utc": "2026-10-07T17:07:02.263709+00:00",
+  "rom_zip_sha256": "91676bc12db2008c8a0488b54e7cd727f4144cc252582668de46964e05f8d230",
+  "build_incremental": "gta3xlwifi.arm64.20261006.191128",
+  "boot_completed": false,
+  "zygote64_abort": "Unable to determine ABI list from property ro.product.cpu.abilist64",
+  "effective_abi_source": "odm",
+  "effective_abilist": "armeabi-v7a,armeabi",
+  "effective_abilist64": "",
+  "selinux_weakened": false,
+  "data_formatted": false,
+  "passed": false
+}

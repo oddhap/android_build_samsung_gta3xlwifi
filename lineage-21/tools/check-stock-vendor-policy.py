@@ -17,10 +17,10 @@ parser.add_argument('--runtime-mode', action='store_true')
 args = parser.parse_args()
 mode = 'runtime' if args.runtime_mode else 'strict'
 root = Path('/srv/android')
-top = root / 'src/lineage-21.0'
+top = root / 'src/lineage-21.0-arm64'
 out = top / 'out/target/product/gta3xlwifi'
-vendor = root / 'vendor-stock/extracted/vendor/etc/selinux'
-artifacts = root / 'artifacts/lineage-21/stock-vendor-policy-check'
+vendor = root / 'artifacts/lineage-21-arm64/vendor-hybrid-mount/etc/selinux'
+artifacts = root / 'artifacts/lineage-21-arm64/hybrid-vendor-policy-check'
 artifacts.mkdir(parents=True, exist_ok=True)
 
 version = (vendor / 'plat_sepolicy_vers.txt').read_text().strip()

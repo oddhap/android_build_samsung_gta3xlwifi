@@ -1,0 +1,17 @@
+{
+  "passed": true,
+  "checked_at_utc": "2026-10-07T18:22:36.131963+00:00",
+  "image_sha256": "e6dcc17e478de9d1d3f1c398fd10c9bc9d7ac80e546f18f58cd20d52766485b4",
+  "partition_bytes": 47185920,
+  "full_partition_sha256": "67885b1c6d253365ecb7f9a63065da831690b71e671837ee4846b307ab2be24e",
+  "full_readback_matches": true,
+  "unused_tail_preserved": true,
+  "other_firmware_partition_hashes_preserved": {
+    "boot": "51e362fefef61a002684ac80ff7c654ac0190fd216bbd351291ac47e6308602c",
+    "vendor": "4c320e8bfd9db294e4027acae204a8276c8f06d0e522654f668e38550eded7b9",
+    "dtbo": "994407a1af0ac9301d8098f318580830c195bf17fe70b39b9f940bc000c3853d",
+    "vbmeta": "dc8d68beb887e86cc71741a1ab3c64e035abc38ec49ba09ca6e7df85b3afe06e"
+  },
+  "backup_verified": true,
+  "boot_tested": false
+}

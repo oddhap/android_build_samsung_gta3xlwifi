@@ -1,0 +1,42 @@
+{
+  "tested_at_utc": "20261007T173629Z",
+  "build_incremental": "gta3xlwifi.arm64.20261007.170546",
+  "rom_zip_sha256": "f07e52c0f91a66fa1e5342ef3211e4fb8efdf709f1ac37d07994796b16203b3e",
+  "boot_completed": true,
+  "selinux": "Enforcing",
+  "crypto_state": "encrypted",
+  "zygote": "zygote64_32",
+  "graphics": {
+    "64": {
+      "passed": true,
+      "frames": 120,
+      "pixel_readback": true,
+      "renderer": "Mali-G71",
+      "apk_sha256": "b8b7e334af0d3bdc18459b6b05d90885efbd008a705ecc3cb4e8a931a0ac828a",
+      "process_bits": 64,
+      "vendor_mali_driver_mapped": true
+    },
+    "32": {
+      "passed": true,
+      "frames": 120,
+      "pixel_readback": true,
+      "renderer": "Mali-G71",
+      "apk_sha256": "98e90bb1fd1cc774f5cf28b78c758898c3cfd98ad80a8d77dc9aee6180491cde",
+      "process_bits": 32,
+      "vendor_mali_driver_mapped": true
+    }
+  },
+  "processes": {
+    "surfaceflinger": {
+      "bits": 64
+    },
+    "zygote64": {
+      "bits": 64
+    },
+    "zygote": {
+      "bits": 32
+    }
+  },
+  "all_hardware_functions_tested": false,
+  "passed": true
+}

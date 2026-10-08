@@ -1,0 +1,38 @@
+{
+  "passed": true,
+  "checked_at_utc": "2026-10-07T17:53:23.287278+00:00",
+  "device": "SM-T510 / gta3xlwifi",
+  "lineage_version": "21 / Android 14",
+  "build_incremental": "gta3xlwifi.arm64.20261007.170546",
+  "rom_zip_sha256": "f07e52c0f91a66fa1e5342ef3211e4fb8efdf709f1ac37d07994796b16203b3e",
+  "rom_zip_bytes": 912222234,
+  "native_arm64_userspace": true,
+  "arm32_apps_supported": true,
+  "physical_hardware_tested": true,
+  "selinux": "Enforcing",
+  "encrypted_userdata_preserved": true,
+  "existing_signing_keys_preserved": true,
+  "baseline_rollback_physically_tested": true,
+  "standalone_test_apps_removed": true,
+  "reports": {
+    "offline": "release/offline-validation.json",
+    "install": "arm64-install-check.json",
+    "postwrite": "arm64-postwrite-check.json",
+    "graphics": "arm64-device-graphics-20261007T173629Z.json",
+    "hardware": "arm64-device-hardware-20261007T173951Z.json",
+    "bluetooth": "arm64-bluetooth-controller-check.json",
+    "pin_power": "arm64-pin-power-check.json",
+    "recovery": "arm64-recovery-check.json",
+    "final_device": "arm64-final-device-check.json"
+  },
+  "rollback_report": "baseline-rollback-check.json",
+  "unverified": [
+    "long-term stability",
+    "Bluetooth pairing/audio with another device",
+    "microphone recording",
+    "video codecs and DRM",
+    "kernel deep suspend",
+    "TWRP without PIN",
+    "Vulkan/OpenCL/RenderScript API tests"
+  ]
+}

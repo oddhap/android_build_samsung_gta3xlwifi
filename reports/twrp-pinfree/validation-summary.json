@@ -1,0 +1,55 @@
+{
+  "passed": true,
+  "checked_at_utc": "2026-10-07T18:45:02.207125+00:00",
+  "device": "SM-T510",
+  "recovery_version": "3.7.1_12",
+  "image_sha256": "e6dcc17e478de9d1d3f1c398fd10c9bc9d7ac80e546f18f58cd20d52766485b4",
+  "file_bytes": 38981648,
+  "original_pinfree_crash_reproduced": true,
+  "original_recovery_sigsegv_count": 8,
+  "pinfree_boots_tested": 2,
+  "pin_regression_passed": true,
+  "automatic_ce_decryption": true,
+  "real_ce_read_write_and_android_persistence": true,
+  "persistent_crypto_files_preserved": true,
+  "data_formatted": false,
+  "encryption_disabled": false,
+  "rom_build_preserved": "gta3xlwifi.arm64.20261007.170546",
+  "final_device_state": "ARM64 Android, credential NONE, user 0 RUNNING_UNLOCKED, encrypted/file, SELinux Enforcing",
+  "test_probe_removed": true,
+  "reports": {
+    "image-check.json": {
+      "sha256": "e81f394b9a6983f321851ac199acac336f515e57713dd49913acc14bc581583a",
+      "passed": true
+    },
+    "crypto-regression-check.json": {
+      "sha256": "43d96385f22204eefc6ef48b4e18cb181c98e4fff7c40de080313867c0c720f5",
+      "passed": true
+    },
+    "install-check.json": {
+      "sha256": "de1063359c340bec351b4ca9a37c9cc581af9473783386255298051ef50e673d",
+      "passed": true
+    },
+    "header-helper-check.json": {
+      "sha256": "2973141ba51116389ae425bf218054a0fd59dc69565df418dee8a2025e2ec1e4",
+      "passed": true
+    },
+    "pinfree-first-boot-check.json": {
+      "sha256": "d9b9315304154f3591eb8d042c6e693f32538ce08fea77858269621f8f1b8f0a",
+      "passed": true
+    },
+    "pin-regression-check.json": {
+      "sha256": "fc9ea9363ebc887b4f2ea3f25d72125fe60fdad4f145f01936c7e5b2548fd23e",
+      "passed": true
+    },
+    "pinfree-final-recovery-check.json": {
+      "sha256": "170af348cdf936cae08f40d51b4fbc5cc452f1b4f2f3728e65f76daa3b1bee47",
+      "passed": true
+    },
+    "final-android-check.json": {
+      "sha256": "9326d085e79efe3e816ac061d24e48386cf5279d1431225a7026f07d95fbc4e4",
+      "passed": true
+    }
+  },
+  "scope": "This device, user 0, current Android 14/September 2026 header; no broad stability claim."
+}

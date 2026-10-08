@@ -1,0 +1,7 @@
+{
+  "passed": true,
+  "actual_twrp_tested": true,
+  "unmounted_exit_code": 0,
+  "mounted_exit_code": 1,
+  "partitions_written": false
+}

@@ -8,10 +8,10 @@ import zipfile
 from pathlib import Path
 
 root = Path('/srv/android')
-top = root / 'src/lineage-21.0'
+top = root / 'src/lineage-21.0-arm64'
 out = top / 'out/target/product/gta3xlwifi'
 parser = argparse.ArgumentParser()
-parser.add_argument('--report-dir', type=Path, default=root / 'artifacts/lineage-21')
+parser.add_argument('--report-dir', type=Path, default=root / 'artifacts/lineage-21-arm64')
 parser.add_argument('--target-files', type=Path, default=out / 'obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files')
 args = parser.parse_args()
 report = json.loads((args.report_dir / 'native-image-check.json').read_text())
@@ -38,7 +38,7 @@ with TargetFilesTree() as archive:
     names = archive.namelist()
     if any(probe in name for name in names
            for probe in ('gta3xlwifi-network-probe', 'gta3xlwifi-cgroup-probe',
-                         'gta3xlwifi-meminfo-probe')):
+                         'gta3xlwifi-meminfo-probe', 'gta3xlwifi_abi_probe')):
         raise SystemExit('Optional test probe was included in the ROM')
     if any('android.hardware.power-service.gta3xlwifi' in name for name in names):
         raise SystemExit('Obsolete experimental Power HAL override was packaged')
@@ -47,29 +47,29 @@ with TargetFilesTree() as archive:
     if packaged_init != (top / 'device/samsung/gta3xlwifi/rootdir/init.gta3xlwifi.power.rc').read_bytes():
         raise SystemExit('Packaged power init differs from the reviewed source')
     checks['power_init_sha256'] = hashlib.sha256(packaged_init).hexdigest()
-    library = archive.read('SYSTEM/lib/libandroid_servers.so')
-    if library[:5] != b'\x7fELF\x01' or library[18:20] != b'\x28\x00':
+    library = archive.read('SYSTEM/lib64/libandroid_servers.so')
+    if library[:5] != b'\x7fELF\x02' or library[18:20] != b'\xb7\x00':
         raise SystemExit('Unexpected system_server native library ABI')
     for marker in (b'Bounded CPU/GPU boost ready', b'gta3xlwifi_cluster0_min',
                    b'gta3xlwifi_cluster1_min', b'gta3xlwifi_min_lock'):
         if marker not in library:
             raise SystemExit(f'Native library lacks {marker!r}')
     checks['native_power_library_sha256'] = hashlib.sha256(library).hexdigest()
-    processgroups = archive.read('SYSTEM/lib/libprocessgroup.so')
+    processgroups = archive.read('SYSTEM/lib64/libprocessgroup.so')
     if b'/system/etc/cgroups.gta3xlwifi.json' not in processgroups:
         raise SystemExit('Packaged processgroup library lacks the device v1 backend')
     checks['processgroup_library_sha256'] = hashlib.sha256(processgroups).hexdigest()
-    audio4 = archive.read('SYSTEM/lib/libaudiohal@4.0.so')
-    if audio4[:5] != b'\x7fELF\x01' or audio4[18:20] != b'\x28\x00':
+    audio4 = archive.read('SYSTEM/lib64/libaudiohal@4.0.so')
+    if audio4[:5] != b'\x7fELF\x02' or audio4[18:20] != b'\xb7\x00':
         raise SystemExit('Stock audio HIDL 4 client has the wrong ABI')
     if b'V4_0' not in audio4:
         raise SystemExit('Stock audio client lacks HIDL 4 interface symbols')
     checks['audio_hidl4_library_sha256'] = hashlib.sha256(audio4).hexdigest()
-    gpuwork = archive.read('SYSTEM/lib/libgpuwork.so')
+    gpuwork = archive.read('SYSTEM/lib64/libgpuwork.so')
     if b'GPU BPF accounting unavailable on this kernel' not in gpuwork:
         raise SystemExit('GPU work library lacks the kernel capability guard')
     checks['gpuwork_library_sha256'] = hashlib.sha256(gpuwork).hexdigest()
-    meminfo = archive.read('SYSTEM/lib/libmeminfo.so')
+    meminfo = archive.read('SYSTEM/lib64/libmeminfo.so')
     if b'ro.kernel.ebpf.supported' not in meminfo:
         raise SystemExit('GPU memory library lacks the kernel capability guard')
     checks['meminfo_library_sha256'] = hashlib.sha256(meminfo).hexdigest()
@@ -113,7 +113,7 @@ with TargetFilesTree() as archive:
         raise SystemExit('Unsupported ext4 project-quota capability is not disabled')
     checks['ext4_project_quota_supported'] = False
     for name in ('libfs_mgr.so', 'libfs_mgr_binder.so'):
-        manager = archive.read('SYSTEM/lib/' + name)
+        manager = archive.read('SYSTEM/lib64/' + name)
         if b'ro.gta3xlwifi.ext4_project_quota' not in manager:
             raise SystemExit('Packaged filesystem manager lacks the quota guard')
         checks[name + '_sha256'] = hashlib.sha256(manager).hexdigest()
@@ -131,7 +131,7 @@ with TargetFilesTree() as archive:
 with zipfile.ZipFile(report['rom_zip']) as archive:
     script = archive.read('META-INF/com/google/android/updater-script').decode()
     partitions = set(re.findall(r'/dev/block/platform/13500000\.dwmmc0/by-name/([a-zA-Z0-9_]+)', script))
-    if partitions != {'system', 'product', 'boot'}:
+    if partitions != {'system', 'product', 'boot', 'vendor'}:
         raise SystemExit(f'Unexpected OTA partition references: {partitions}')
     if 'format(' in script or 'delete_recursive("/data' in script:
         raise SystemExit('Unexpected data formatting/deletion in OTA')

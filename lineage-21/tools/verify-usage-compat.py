@@ -3,9 +3,9 @@
 import argparse, hashlib, json, re, struct, subprocess, tempfile, zipfile
 from pathlib import Path
 parser = argparse.ArgumentParser()
-parser.add_argument('--release', type=Path, default=Path('/srv/android/artifacts/lineage-21/release'))
+parser.add_argument('--release', type=Path, default=Path('/srv/android/artifacts/lineage-21-arm64/release'))
 args = parser.parse_args()
-top = Path('/srv/android/src/lineage-21.0')
+top = Path('/srv/android/src/lineage-21.0-arm64')
 device = top / 'device/samsung/gta3xlwifi'
 checks = {'hardware_tested': False}
 tree = args.release / 'verified-target-files'

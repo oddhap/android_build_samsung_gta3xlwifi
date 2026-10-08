@@ -1,0 +1,16 @@
+{
+  "checked_at_utc": "20261007T170727Z",
+  "stock_vendor_full_readback_matches": true,
+  "baseline_ota_sha256": "94110cab46fa1edf908914dfbcc3c910ec5e5e16f306a810e13e673d3d5b597b",
+  "updater_exit_code": 0,
+  "data_formatted": false,
+  "boot_tested": true,
+  "passed": true,
+  "baseline_boot_completed": true,
+  "abi": "armeabi-v7a,armeabi",
+  "crypto_state": "encrypted",
+  "selinux": "Enforcing",
+  "pin_unlock_tested": true,
+  "ce_storage_accessible": true,
+  "graphics32_passed": true
+}

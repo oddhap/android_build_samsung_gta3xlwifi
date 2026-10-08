@@ -1,0 +1,23 @@
+{
+  "passed": true,
+  "checked_at_utc": "2026-10-07T18:26:32.115754+00:00",
+  "image_sha256": "e6dcc17e478de9d1d3f1c398fd10c9bc9d7ac80e546f18f58cd20d52766485b4",
+  "credential": "none",
+  "automatic_ce_decryption": true,
+  "recovery_pid_stable": 3325,
+  "single_recovery_start": true,
+  "no_fatal_signals": true,
+  "media_probe_read_and_write": true,
+  "ce_sqlite_header_readable": true,
+  "encryption_key_files_unchanged": 13,
+  "recovery_elf_matches_packed_image": true,
+  "fscrypt_library_matches_packed_image": true,
+  "global_selinux": "Enforcing",
+  "android_return_tested": true,
+  "android_return_build": "gta3xlwifi.arm64.20261007.170546",
+  "android_user_state": "RUNNING_UNLOCKED",
+  "android_encryption": "file",
+  "android_probe_persisted": true,
+  "android_persistent_crypto_files_unchanged": 12,
+  "android_per_boot_reference_regenerated": true
+}

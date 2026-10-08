@@ -1,0 +1,12 @@
+{
+  "system": {
+    "filesystem_bytes": 3196059648,
+    "free_bytes": 2053103616,
+    "used_bytes": 1142956032
+  },
+  "product": {
+    "filesystem_bytes": 327155712,
+    "free_bytes": 18153472,
+    "used_bytes": 309002240
+  }
+}

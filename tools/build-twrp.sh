@@ -4,6 +4,7 @@ cd /srv/android/src/twrp-12.1
 python3 /srv/android/fix-twrp-relink-dependencies.py
 python3 /srv/android/fix-twrp-fbe-startup.py
 python3 /srv/android/fix-twrp-settings.py
+python3 /srv/android/ports/lineage-21-arm64/tools/fix-twrp-pinfree.py /srv/android/src/twrp-12.1
 export USE_CCACHE=1
 export CCACHE_EXEC=/usr/bin/ccache
 export CCACHE_DIR=/srv/android/ccache

@@ -1,0 +1,237 @@
+{
+  "lib64/egl/libGLES_mali.so": {
+    "resolved_paths": [
+      "/srv/android/src/lineage-21.0/prebuilts/runtime/mainline/runtime/sdk/android/arm64/lib/libc.so",
+      "/srv/android/src/lineage-21.0/prebuilts/runtime/mainline/runtime/sdk/android/arm64/lib/libdl.so",
+      "/srv/android/src/lineage-21.0/prebuilts/runtime/mainline/runtime/sdk/android/arm64/lib/libm.so",
+      "/srv/android/src/lineage-21.0/prebuilts/vndk/v30/arm64/arch-arm64-armv8-a/shared/vndk-sp/libc++.so",
+      "/srv/android/src/lineage-21.0/prebuilts/vndk/v30/arm64/arch-arm64-armv8-a/shared/vndk-sp/libz.so",
+      "/srv/android/src/lineage-21.0/prebuilts/vndk/v34/arm64/arch-arm64-armv8-a/shared/llndk-stub/liblog.so",
+      "/srv/android/src/lineage-21.0/prebuilts/vndk/v34/arm64/arch-arm64-armv8-a/shared/llndk-stub/libnativewindow.so",
+      "/srv/android/vendor-donor/a305gt/vendor/lib64/egl/libGLES_mali.so",
+      "/srv/android/vendor-donor/a305gt/vendor/lib64/libion_exynos.so"
+    ],
+    "documented_dynamic_loads": {},
+    "missing_dependencies": [],
+    "unresolved_strong_symbols": {},
+    "vndk_core_in_closure": [],
+    "namespace_review_required": false,
+    "sdk_or_stub_providers_require_final_build_check": true
+  },
+  "lib64/hw/gralloc.exynos7904.so": {
+    "resolved_paths": [
+      "/srv/android/src/lineage-21.0/prebuilts/runtime/mainline/runtime/sdk/android/arm64/lib/libc.so",
+      "/srv/android/src/lineage-21.0/prebuilts/runtime/mainline/runtime/sdk/android/arm64/lib/libdl.so",
+      "/srv/android/src/lineage-21.0/prebuilts/runtime/mainline/runtime/sdk/android/arm64/lib/libm.so",
+      "/srv/android/src/lineage-21.0/prebuilts/vndk/v30/arm64/arch-arm64-armv8-a/shared/vndk-sp/libbase.so",
+      "/srv/android/src/lineage-21.0/prebuilts/vndk/v30/arm64/arch-arm64-armv8-a/shared/vndk-sp/libc++.so",
+      "/srv/android/src/lineage-21.0/prebuilts/vndk/v30/arm64/arch-arm64-armv8-a/shared/vndk-sp/libcutils.so",
+      "/srv/android/src/lineage-21.0/prebuilts/vndk/v30/arm64/arch-arm64-armv8-a/shared/vndk-sp/libhardware.so",
+      "/srv/android/src/lineage-21.0/prebuilts/vndk/v30/arm64/arch-arm64-armv8-a/shared/vndk-sp/libprocessgroup.so",
+      "/srv/android/src/lineage-21.0/prebuilts/vndk/v30/arm64/arch-arm64-armv8-a/shared/vndk-sp/libutils.so",
+      "/srv/android/src/lineage-21.0/prebuilts/vndk/v34/arm64/arch-arm64-armv8-a/shared/llndk-stub/libGLESv1_CM.so",
+      "/srv/android/src/lineage-21.0/prebuilts/vndk/v34/arm64/arch-arm64-armv8-a/shared/llndk-stub/libcgrouprc.so",
+      "/srv/android/src/lineage-21.0/prebuilts/vndk/v34/arm64/arch-arm64-armv8-a/shared/llndk-stub/liblog.so",
+      "/srv/android/src/lineage-21.0/prebuilts/vndk/v34/arm64/arch-arm64-armv8-a/shared/llndk-stub/libnativewindow.so",
+      "/srv/android/src/lineage-21.0/prebuilts/vndk/v34/arm64/arch-arm64-armv8-a/shared/llndk-stub/libsync.so",
+      "/srv/android/src/lineage-21.0/prebuilts/vndk/v34/arm64/arch-arm64-armv8-a/shared/llndk-stub/libvndksupport.so",
+      "/srv/android/vendor-donor/a305gt/vendor/lib64/hw/gralloc.exynos7904.so",
+      "/srv/android/vendor-donor/a305gt/vendor/lib64/libion_exynos.so"
+    ],
+    "documented_dynamic_loads": {},
+    "missing_dependencies": [],
+    "unresolved_strong_symbols": {},
+    "vndk_core_in_closure": [],
+    "namespace_review_required": false,
+    "sdk_or_stub_providers_require_final_build_check": true
+  },
+  "lib64/hw/gralloc.default.so": {
+    "resolved_paths": [
+      "/srv/android/src/lineage-21.0/prebuilts/runtime/mainline/runtime/sdk/android/arm64/lib/libc.so",
+      "/srv/android/src/lineage-21.0/prebuilts/runtime/mainline/runtime/sdk/android/arm64/lib/libdl.so",
+      "/srv/android/src/lineage-21.0/prebuilts/runtime/mainline/runtime/sdk/android/arm64/lib/libm.so",
+      "/srv/android/src/lineage-21.0/prebuilts/vndk/v30/arm64/arch-arm64-armv8-a/shared/vndk-sp/libbase.so",
+      "/srv/android/src/lineage-21.0/prebuilts/vndk/v30/arm64/arch-arm64-armv8-a/shared/vndk-sp/libc++.so",
+      "/srv/android/src/lineage-21.0/prebuilts/vndk/v30/arm64/arch-arm64-armv8-a/shared/vndk-sp/libcutils.so",
+      "/srv/android/src/lineage-21.0/prebuilts/vndk/v34/arm64/arch-arm64-armv8-a/shared/llndk-stub/liblog.so",
+      "/srv/android/vendor-donor/a305gt/vendor/lib64/hw/gralloc.default.so"
+    ],
+    "documented_dynamic_loads": {},
+    "missing_dependencies": [],
+    "unresolved_strong_symbols": {},
+    "vndk_core_in_closure": [],
+    "namespace_review_required": false,
+    "sdk_or_stub_providers_require_final_build_check": true
+  },
+  "lib64/hw/android.hardware.graphics.mapper@2.0-impl.so": {
+    "resolved_paths": [
+      "/srv/android/src/lineage-21.0/prebuilts/runtime/mainline/runtime/sdk/android/arm64/lib/libc.so",
+      "/srv/android/src/lineage-21.0/prebuilts/runtime/mainline/runtime/sdk/android/arm64/lib/libdl.so",
+      "/srv/android/src/lineage-21.0/prebuilts/runtime/mainline/runtime/sdk/android/arm64/lib/libm.so",
+      "/srv/android/src/lineage-21.0/prebuilts/vndk/v30/arm64/arch-arm64-armv8-a/shared/vndk-sp/android.hardware.graphics.common@1.0.so",
+      "/srv/android/src/lineage-21.0/prebuilts/vndk/v30/arm64/arch-arm64-armv8-a/shared/vndk-sp/android.hardware.graphics.mapper@2.0.so",
+      "/srv/android/src/lineage-21.0/prebuilts/vndk/v30/arm64/arch-arm64-armv8-a/shared/vndk-sp/libbase.so",
+      "/srv/android/src/lineage-21.0/prebuilts/vndk/v30/arm64/arch-arm64-armv8-a/shared/vndk-sp/libc++.so",
+      "/srv/android/src/lineage-21.0/prebuilts/vndk/v30/arm64/arch-arm64-armv8-a/shared/vndk-sp/libcutils.so",
+      "/srv/android/src/lineage-21.0/prebuilts/vndk/v30/arm64/arch-arm64-armv8-a/shared/vndk-sp/libhardware.so",
+      "/srv/android/src/lineage-21.0/prebuilts/vndk/v30/arm64/arch-arm64-armv8-a/shared/vndk-sp/libhidlbase.so",
+      "/srv/android/src/lineage-21.0/prebuilts/vndk/v30/arm64/arch-arm64-armv8-a/shared/vndk-sp/libprocessgroup.so",
+      "/srv/android/src/lineage-21.0/prebuilts/vndk/v30/arm64/arch-arm64-armv8-a/shared/vndk-sp/libutils.so",
+      "/srv/android/src/lineage-21.0/prebuilts/vndk/v34/arm64/arch-arm64-armv8-a/shared/llndk-stub/libcgrouprc.so",
+      "/srv/android/src/lineage-21.0/prebuilts/vndk/v34/arm64/arch-arm64-armv8-a/shared/llndk-stub/liblog.so",
+      "/srv/android/src/lineage-21.0/prebuilts/vndk/v34/arm64/arch-arm64-armv8-a/shared/llndk-stub/libsync.so",
+      "/srv/android/src/lineage-21.0/prebuilts/vndk/v34/arm64/arch-arm64-armv8-a/shared/llndk-stub/libvndksupport.so",
+      "/srv/android/vendor-donor/a305gt/vendor/lib64/hw/android.hardware.graphics.mapper@2.0-impl.so"
+    ],
+    "documented_dynamic_loads": {},
+    "missing_dependencies": [],
+    "unresolved_strong_symbols": {},
+    "vndk_core_in_closure": [],
+    "namespace_review_required": false,
+    "sdk_or_stub_providers_require_final_build_check": true
+  },
+  "lib64/hw/memtrack.exynos7904.so": {
+    "resolved_paths": [
+      "/srv/android/src/lineage-21.0/prebuilts/runtime/mainline/runtime/sdk/android/arm64/lib/libc.so",
+      "/srv/android/src/lineage-21.0/prebuilts/runtime/mainline/runtime/sdk/android/arm64/lib/libdl.so",
+      "/srv/android/src/lineage-21.0/prebuilts/runtime/mainline/runtime/sdk/android/arm64/lib/libm.so",
+      "/srv/android/src/lineage-21.0/prebuilts/vndk/v30/arm64/arch-arm64-armv8-a/shared/vndk-sp/libc++.so",
+      "/srv/android/src/lineage-21.0/prebuilts/vndk/v34/arm64/arch-arm64-armv8-a/shared/llndk-stub/liblog.so",
+      "/srv/android/vendor-donor/a305gt/vendor/lib64/hw/memtrack.exynos7904.so",
+      "/srv/android/vendor-donor/a305gt/vendor/lib64/libion_exynos.so"
+    ],
+    "documented_dynamic_loads": {},
+    "missing_dependencies": [],
+    "unresolved_strong_symbols": {},
+    "vndk_core_in_closure": [],
+    "namespace_review_required": false,
+    "sdk_or_stub_providers_require_final_build_check": true
+  },
+  "lib64/hw/android.hardware.renderscript@1.0-impl.so": {
+    "resolved_paths": [
+      "/srv/android/src/lineage-21.0/prebuilts/runtime/mainline/runtime/sdk/android/arm64/lib/libc.so",
+      "/srv/android/src/lineage-21.0/prebuilts/runtime/mainline/runtime/sdk/android/arm64/lib/libdl.so",
+      "/srv/android/src/lineage-21.0/prebuilts/runtime/mainline/runtime/sdk/android/arm64/lib/libm.so",
+      "/srv/android/src/lineage-21.0/prebuilts/vndk/v30/arm64/arch-arm64-armv8-a/shared/vndk-sp/android.hardware.renderscript@1.0.so",
+      "/srv/android/src/lineage-21.0/prebuilts/vndk/v30/arm64/arch-arm64-armv8-a/shared/vndk-sp/libRSCpuRef.so",
+      "/srv/android/src/lineage-21.0/prebuilts/vndk/v30/arm64/arch-arm64-armv8-a/shared/vndk-sp/libRSDriver.so",
+      "/srv/android/src/lineage-21.0/prebuilts/vndk/v30/arm64/arch-arm64-armv8-a/shared/vndk-sp/libRS_internal.so",
+      "/srv/android/src/lineage-21.0/prebuilts/vndk/v30/arm64/arch-arm64-armv8-a/shared/vndk-sp/libbacktrace.so",
+      "/srv/android/src/lineage-21.0/prebuilts/vndk/v30/arm64/arch-arm64-armv8-a/shared/vndk-sp/libbase.so",
+      "/srv/android/src/lineage-21.0/prebuilts/vndk/v30/arm64/arch-arm64-armv8-a/shared/vndk-sp/libbcinfo.so",
+      "/srv/android/src/lineage-21.0/prebuilts/vndk/v30/arm64/arch-arm64-armv8-a/shared/vndk-sp/libblas.so",
+      "/srv/android/src/lineage-21.0/prebuilts/vndk/v30/arm64/arch-arm64-armv8-a/shared/vndk-sp/libc++.so",
+      "/srv/android/src/lineage-21.0/prebuilts/vndk/v30/arm64/arch-arm64-armv8-a/shared/vndk-sp/libcutils.so",
+      "/srv/android/src/lineage-21.0/prebuilts/vndk/v30/arm64/arch-arm64-armv8-a/shared/vndk-sp/libhidlbase.so",
+      "/srv/android/src/lineage-21.0/prebuilts/vndk/v30/arm64/arch-arm64-armv8-a/shared/vndk-sp/liblzma.so",
+      "/srv/android/src/lineage-21.0/prebuilts/vndk/v30/arm64/arch-arm64-armv8-a/shared/vndk-sp/libprocessgroup.so",
+      "/srv/android/src/lineage-21.0/prebuilts/vndk/v30/arm64/arch-arm64-armv8-a/shared/vndk-sp/libunwindstack.so",
+      "/srv/android/src/lineage-21.0/prebuilts/vndk/v30/arm64/arch-arm64-armv8-a/shared/vndk-sp/libutils.so",
+      "/srv/android/src/lineage-21.0/prebuilts/vndk/v30/arm64/arch-arm64-armv8-a/shared/vndk-sp/libutilscallstack.so",
+      "/srv/android/src/lineage-21.0/prebuilts/vndk/v30/arm64/arch-arm64-armv8-a/shared/vndk-sp/libz.so",
+      "/srv/android/src/lineage-21.0/prebuilts/vndk/v34/arm64/arch-arm64-armv8-a/shared/llndk-stub/libEGL.so",
+      "/srv/android/src/lineage-21.0/prebuilts/vndk/v34/arm64/arch-arm64-armv8-a/shared/llndk-stub/libGLESv1_CM.so",
+      "/srv/android/src/lineage-21.0/prebuilts/vndk/v34/arm64/arch-arm64-armv8-a/shared/llndk-stub/libGLESv2.so",
+      "/srv/android/src/lineage-21.0/prebuilts/vndk/v34/arm64/arch-arm64-armv8-a/shared/llndk-stub/libcgrouprc.so",
+      "/srv/android/src/lineage-21.0/prebuilts/vndk/v34/arm64/arch-arm64-armv8-a/shared/llndk-stub/libft2.so",
+      "/srv/android/src/lineage-21.0/prebuilts/vndk/v34/arm64/arch-arm64-armv8-a/shared/llndk-stub/liblog.so",
+      "/srv/android/src/lineage-21.0/prebuilts/vndk/v34/arm64/arch-arm64-armv8-a/shared/llndk-stub/libmediandk.so",
+      "/srv/android/src/lineage-21.0/prebuilts/vndk/v34/arm64/arch-arm64-armv8-a/shared/llndk-stub/libnativewindow.so",
+      "/srv/android/src/lineage-21.0/prebuilts/vndk/v34/arm64/arch-arm64-armv8-a/shared/llndk-stub/libvndksupport.so",
+      "/srv/android/vendor-donor/a305gt/vendor/lib64/hw/android.hardware.renderscript@1.0-impl.so"
+    ],
+    "documented_dynamic_loads": {
+      "android.hardware.renderscript@1.0-impl.so": [
+        "libRS_internal.so"
+      ],
+      "libRS_internal.so": [
+        "libRSDriver.so"
+      ],
+      "libRSDriver.so": [
+        "libRSCpuRef.so"
+      ]
+    },
+    "missing_dependencies": [],
+    "unresolved_strong_symbols": {},
+    "vndk_core_in_closure": [],
+    "namespace_review_required": false,
+    "sdk_or_stub_providers_require_final_build_check": true
+  },
+  "lib64/hw/vulkan.universal7904.so": {
+    "resolved_paths": [
+      "/srv/android/src/lineage-21.0/prebuilts/runtime/mainline/runtime/sdk/android/arm64/lib/libc.so",
+      "/srv/android/src/lineage-21.0/prebuilts/runtime/mainline/runtime/sdk/android/arm64/lib/libdl.so",
+      "/srv/android/src/lineage-21.0/prebuilts/runtime/mainline/runtime/sdk/android/arm64/lib/libm.so",
+      "/srv/android/src/lineage-21.0/prebuilts/vndk/v30/arm64/arch-arm64-armv8-a/shared/vndk-sp/libc++.so",
+      "/srv/android/src/lineage-21.0/prebuilts/vndk/v30/arm64/arch-arm64-armv8-a/shared/vndk-sp/libz.so",
+      "/srv/android/src/lineage-21.0/prebuilts/vndk/v34/arm64/arch-arm64-armv8-a/shared/llndk-stub/liblog.so",
+      "/srv/android/src/lineage-21.0/prebuilts/vndk/v34/arm64/arch-arm64-armv8-a/shared/llndk-stub/libnativewindow.so",
+      "/srv/android/vendor-donor/a305gt/vendor/lib64/hw/vulkan.universal7904.so",
+      "/srv/android/vendor-donor/a305gt/vendor/lib64/libion_exynos.so"
+    ],
+    "documented_dynamic_loads": {},
+    "missing_dependencies": [],
+    "unresolved_strong_symbols": {},
+    "vndk_core_in_closure": [],
+    "namespace_review_required": false,
+    "sdk_or_stub_providers_require_final_build_check": true
+  },
+  "lib64/libMcClient.so": {
+    "missing_seed": true,
+    "resolution": "Retain stock ARM32 TEE; qualify libMcClient.so as 32 in vendor/etc/public.libraries.txt"
+  },
+  "lib64/libOpenCL.so": {
+    "resolved_paths": [
+      "/srv/android/src/lineage-21.0/prebuilts/runtime/mainline/runtime/sdk/android/arm64/lib/libc.so",
+      "/srv/android/src/lineage-21.0/prebuilts/runtime/mainline/runtime/sdk/android/arm64/lib/libdl.so",
+      "/srv/android/src/lineage-21.0/prebuilts/runtime/mainline/runtime/sdk/android/arm64/lib/libm.so",
+      "/srv/android/src/lineage-21.0/prebuilts/vndk/v30/arm64/arch-arm64-armv8-a/shared/vndk-sp/libc++.so",
+      "/srv/android/src/lineage-21.0/prebuilts/vndk/v30/arm64/arch-arm64-armv8-a/shared/vndk-sp/libz.so",
+      "/srv/android/src/lineage-21.0/prebuilts/vndk/v34/arm64/arch-arm64-armv8-a/shared/llndk-stub/liblog.so",
+      "/srv/android/src/lineage-21.0/prebuilts/vndk/v34/arm64/arch-arm64-armv8-a/shared/llndk-stub/libnativewindow.so",
+      "/srv/android/vendor-donor/a305gt/vendor/lib64/libOpenCL.so",
+      "/srv/android/vendor-donor/a305gt/vendor/lib64/libion_exynos.so"
+    ],
+    "documented_dynamic_loads": {},
+    "missing_dependencies": [],
+    "unresolved_strong_symbols": {},
+    "vndk_core_in_closure": [],
+    "namespace_review_required": false,
+    "sdk_or_stub_providers_require_final_build_check": true
+  },
+  "bin/boringssl_self_test64": {
+    "resolved_paths": [
+      "/srv/android/src/lineage-21.0/prebuilts/runtime/mainline/runtime/sdk/android/arm64/lib/libc.so",
+      "/srv/android/src/lineage-21.0/prebuilts/runtime/mainline/runtime/sdk/android/arm64/lib/libdl.so",
+      "/srv/android/src/lineage-21.0/prebuilts/runtime/mainline/runtime/sdk/android/arm64/lib/libm.so",
+      "/srv/android/src/lineage-21.0/prebuilts/vndk/v30/arm64/arch-arm64-armv8-a/shared/vndk-core/libcrypto.so",
+      "/srv/android/src/lineage-21.0/prebuilts/vndk/v30/arm64/arch-arm64-armv8-a/shared/vndk-sp/libc++.so",
+      "/srv/android/vendor-donor/a305gt/vendor/bin/boringssl_self_test64"
+    ],
+    "documented_dynamic_loads": {},
+    "missing_dependencies": [],
+    "unresolved_strong_symbols": {},
+    "vndk_core_in_closure": [
+      "libcrypto.so"
+    ],
+    "namespace_review_required": false,
+    "sdk_or_stub_providers_require_final_build_check": true
+  },
+  "bin/snap_utility_64": {
+    "resolved_paths": [
+      "/srv/android/src/lineage-21.0/prebuilts/runtime/mainline/runtime/sdk/android/arm64/lib/libc.so",
+      "/srv/android/src/lineage-21.0/prebuilts/runtime/mainline/runtime/sdk/android/arm64/lib/libdl.so",
+      "/srv/android/src/lineage-21.0/prebuilts/runtime/mainline/runtime/sdk/android/arm64/lib/libm.so",
+      "/srv/android/src/lineage-21.0/prebuilts/vndk/v30/arm64/arch-arm64-armv8-a/shared/vndk-sp/libz.so",
+      "/srv/android/src/lineage-21.0/prebuilts/vndk/v34/arm64/arch-arm64-armv8-a/shared/llndk-stub/liblog.so",
+      "/srv/android/vendor-donor/a305gt/vendor/bin/snap_utility_64",
+      "/srv/android/vendor-donor/a305gt/vendor/lib64/libsnap_vndk.so"
+    ],
+    "documented_dynamic_loads": {},
+    "missing_dependencies": [],
+    "unresolved_strong_symbols": {},
+    "vndk_core_in_closure": [],
+    "namespace_review_required": false,
+    "sdk_or_stub_providers_require_final_build_check": true
+  }
+}

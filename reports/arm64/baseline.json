@@ -1,0 +1,79 @@
+{
+  "checked_at_utc": "2026-10-06T18:15:13.712973+00:00",
+  "inputs": {
+    "kernel": {
+      "path": "/srv/android/src/lineage-21.0/device/samsung/gta3xlwifi/prebuilt/Image",
+      "bytes": 25378040,
+      "sha256": "9827c8ac986f7497428ac27e9bc309ac8b62ee08fbb414e6d0c81653537ea4a2",
+      "expected_sha256": "9827c8ac986f7497428ac27e9bc309ac8b62ee08fbb414e6d0c81653537ea4a2",
+      "matches": true
+    },
+    "vendor": {
+      "path": "/srv/android/vendor-stock/images/vendor.img",
+      "bytes": 214483140,
+      "sha256": "4cc684231b4a1c355169cea61b4ea5196401bc5f68c7f74a32c1ec290abc0006",
+      "expected_sha256": "4cc684231b4a1c355169cea61b4ea5196401bc5f68c7f74a32c1ec290abc0006",
+      "matches": true
+    },
+    "dtbo": {
+      "path": "/srv/android/src/lineage-21.0/device/samsung/gta3xlwifi/prebuilt/dtbo.img",
+      "bytes": 163252,
+      "sha256": "b9041c37713a745290d9a0203423436b6caa7a1307ced79b6963b4f1f0271c4b",
+      "expected_sha256": "b9041c37713a745290d9a0203423436b6caa7a1307ced79b6963b4f1f0271c4b",
+      "matches": true
+    },
+    "rom": {
+      "path": "/srv/android/artifacts/lineage-21/public-release-20261005/lineage-21.0-20261005-UNOFFICIAL-gta3xlwifi.zip",
+      "bytes": 654488265,
+      "sha256": "94110cab46fa1edf908914dfbcc3c910ec5e5e16f306a810e13e673d3d5b597b",
+      "expected_sha256": "94110cab46fa1edf908914dfbcc3c910ec5e5e16f306a810e13e673d3d5b597b",
+      "matches": true
+    },
+    "recovery": {
+      "path": "/srv/android/artifacts/lineage-21/public-release-20261005/twrp-3.7.1_12-gta3xlwifi.img",
+      "bytes": 38979600,
+      "sha256": "391c36b92f65f39a87d476452195129a33e8f59a25566c367fa73a04cbcc7de7",
+      "expected_sha256": "391c36b92f65f39a87d476452195129a33e8f59a25566c367fa73a04cbcc7de7",
+      "matches": true
+    },
+    "vbmeta": {
+      "path": "/srv/android/artifacts/lineage-21/public-release-20261005/vbmeta-disabled.img",
+      "bytes": 4096,
+      "sha256": "3e679bb0b8b2e6fb5d94d8316846b7459eead2209cee8f038cbbdda8c6483750",
+      "expected_sha256": "3e679bb0b8b2e6fb5d94d8316846b7459eead2209cee8f038cbbdda8c6483750",
+      "matches": true
+    }
+  },
+  "repositories": {
+    "integration": {
+      "path": "/srv/android/github-upload-lineage21/android_build_samsung_gta3xlwifi",
+      "commit": "021e84a7fb2695ccefb440f4e8df2121df7a86d4",
+      "expected": "021e84a7fb2695ccefb440f4e8df2121df7a86d4",
+      "clean": true
+    },
+    "device": {
+      "path": "/srv/android/github-upload-lineage21/android_device_samsung_gta3xlwifi",
+      "commit": "ba0cffa79e32f7a0fee3afc033669e8df1cd9c0c",
+      "expected": "ba0cffa79e32f7a0fee3afc033669e8df1cd9c0c",
+      "clean": true
+    },
+    "kernel": {
+      "path": "/srv/android/github-upload-lineage21/android_kernel_samsung_gta3xlwifi",
+      "commit": "b65ca196aab02b3ab7102c499a226b20095ba03b",
+      "expected": "b65ca196aab02b3ab7102c499a226b20095ba03b",
+      "clean": true
+    },
+    "vendor": {
+      "path": "/srv/android/github-upload-lineage21/android_vendor_samsung_gta3xlwifi",
+      "commit": "fd64f9be0c5bdddcd8b6b59f1c71cc0a732ce96a",
+      "expected": "fd64f9be0c5bdddcd8b6b59f1c71cc0a732ce96a",
+      "clean": true
+    }
+  },
+  "disk": {
+    "total_bytes": 844361502720,
+    "used_bytes": 477105946624,
+    "free_bytes": 324289163264
+  },
+  "hardware_tested_arm64": false
+}

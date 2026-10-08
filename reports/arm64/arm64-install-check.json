@@ -1,0 +1,9 @@
+{
+  "installed_at_utc": "20261007T173031Z",
+  "rom_zip_sha256": "f07e52c0f91a66fa1e5342ef3211e4fb8efdf709f1ac37d07994796b16203b3e",
+  "build_incremental": "gta3xlwifi.arm64.20261007.170546",
+  "updater_exit_code": 0,
+  "boot_tested": false,
+  "data_formatted": false,
+  "passed": true
+}

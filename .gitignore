@@ -15,3 +15,16 @@ artifacts/
 lineage-21/build-datetime
 
 lineage-21/build-number
+
+# Private data and build outputs are never source publication inputs.
+.private/
+publication/
+*.pk8
+*.pem
+*.key
+*.img
+*.zip
+*.tar
+*.tar.gz
+__pycache__/
+*.pyc

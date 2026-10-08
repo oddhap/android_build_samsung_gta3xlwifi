@@ -1,0 +1,123 @@
+{
+  "hardware_tested": false,
+  "files": {
+    "system/bin/init": {
+      "bits": 64,
+      "sha256": "a4bac745772d68c8141e1e599078d3c0e88c83c6f7322bc40508870086940369"
+    },
+    "system/lib/libEGL.so": {
+      "bits": 32,
+      "sha256": "a8c7668665f20b3259339097122aeeb563b886d1b5f8ed2f2205984c624ffa94"
+    },
+    "system/lib/libnativewindow.so": {
+      "bits": 32,
+      "sha256": "14eb9db320fa8c823cc91359958aced31be6eec72fcee9f187d4f39a1aa5ad11"
+    },
+    "system/lib/libaudiohal.so": {
+      "bits": 32,
+      "sha256": "079a6ddaef807cc664c1f63a924f4023f05ecb05de314fbbdfce97025f0b7253"
+    },
+    "system/lib/libaudiohal@4.0.so": {
+      "bits": 32,
+      "sha256": "320ad25586b79d03abe718c6650d523232332f486d0c4ca77276c367b22e1312"
+    },
+    "system/lib/libprocessgroup.so": {
+      "bits": 32,
+      "sha256": "c2911af2df44b0b1f16ac8433c52842adf73c926445e7442233363e87f06c000"
+    },
+    "system/lib/libprocessgroup_setup.so": {
+      "bits": 32,
+      "sha256": "99d682eaa89a4f82c37b98199a03792fb13c8450bc21209582ab6039e03f250d"
+    },
+    "system/lib/libgpuwork.so": {
+      "bits": 32,
+      "sha256": "9f42bf920a76f8cdb814f2f8912da80eb735b689c493b0249798fc6844048ea1"
+    },
+    "system/lib/libmeminfo.so": {
+      "bits": 32,
+      "sha256": "01750da3da1c07806e4736bdaebeaf611ecfff3cca5bf6b2d5bc292cedd0746d"
+    },
+    "system/lib/libfs_mgr.so": {
+      "bits": 32,
+      "sha256": "81f1ae9ee7406ff83baffa288690622f431e09666c3e47038cd5e94d0b8a7452"
+    },
+    "system/lib/libfs_mgr_binder.so": {
+      "bits": 32,
+      "sha256": "b81135403631f8e92115d0b3e8742d203c49e54ad51a3dcf7e342a2dc8b5fe7e"
+    },
+    "system/lib/libandroid_servers.so": {
+      "bits": 32,
+      "sha256": "bc8a26c77617ca10ee8ed4850746761fadae2a02ecc2ae6156b064d4fc7b95ee"
+    },
+    "system/lib64/libEGL.so": {
+      "bits": 64,
+      "sha256": "7b41f2f2db37ab5fca77049be91974a324ca204e935cbdd2e8d00c1d593dbf25"
+    },
+    "system/lib64/libnativewindow.so": {
+      "bits": 64,
+      "sha256": "f5bef27c2c5566d984badccb7b5ba9506243be66c2a7a42f412f8da729b35af3"
+    },
+    "system/lib64/libaudiohal.so": {
+      "bits": 64,
+      "sha256": "db0eb6b9b4d4e8e72ec7344dee2b046d85f1ab7dca798383c673ce80191b4bf0"
+    },
+    "system/lib64/libaudiohal@4.0.so": {
+      "bits": 64,
+      "sha256": "5983fcb3e4ac40ab47f4618e2afecc98fa3aa1f70ac2d573cb7ae8a6290a2be7"
+    },
+    "system/lib64/libprocessgroup.so": {
+      "bits": 64,
+      "sha256": "a41fdda78db6871044dd5d766004467cf9c092b4e7ca242ee4724747e06350b0"
+    },
+    "system/lib64/libprocessgroup_setup.so": {
+      "bits": 64,
+      "sha256": "0df4ecb89e1e67559f9ae49cd4b7ca760aa8528c6cd3a4ee0c551766124d2b15"
+    },
+    "system/lib64/libgpuwork.so": {
+      "bits": 64,
+      "sha256": "ae9a69413760bc4e40700c69280d659379bb9398fe08de5f498e48324ae3ef85"
+    },
+    "system/lib64/libmeminfo.so": {
+      "bits": 64,
+      "sha256": "8b730baa72c63219b01f7049ace7ff4bb85de76c95ba3dae91ec2bcdf93bd2c8"
+    },
+    "system/lib64/libfs_mgr.so": {
+      "bits": 64,
+      "sha256": "f8b691977ec5f1891a8a66fe0ca8c493a993d8c25b1e035f5a55411f17fc9a85"
+    },
+    "system/lib64/libfs_mgr_binder.so": {
+      "bits": 64,
+      "sha256": "6ad43e17eefefa67dcced496488e923ee03857ed7dcf6f03007cf22e6f949083"
+    },
+    "system/lib64/libandroid_servers.so": {
+      "bits": 64,
+      "sha256": "9d2a99b2585e25386395acb2b6d979c8dbddf94906d87e1d409d70e69e0cb351"
+    },
+    "system/bin/gta3xlwifi_recovery_header_sync": {
+      "bits": 32,
+      "sha256": "b0d059e5008956db92891cf4e85b7f8313c979bec8f092f76e8a814676565177"
+    },
+    "gta3xlwifi_abi_probe32/lib/armeabi-v7a/libgta3xlwifi_abi_probe.so": {
+      "bits": 32,
+      "sha256": "64c1d532ac7c4f20f6e9ee523c4181ff095a99fc391e79d79617535129eadbcd"
+    },
+    "gta3xlwifi_abi_probe64/lib/arm64-v8a/libgta3xlwifi_abi_probe.so": {
+      "bits": 64,
+      "sha256": "3fa983682edff75aeadb409865708265351e1aa1ef7aa7e3160772e00f777fbb"
+    }
+  },
+  "test_apks": {
+    "32": {
+      "path": "/srv/android/src/lineage-21.0-arm64/out/target/product/gta3xlwifi/testcases/gta3xlwifi_abi_probe32/arm64/gta3xlwifi_abi_probe32.apk",
+      "sha256": "98e90bb1fd1cc774f5cf28b78c758898c3cfd98ad80a8d77dc9aee6180491cde",
+      "abi": "armeabi-v7a"
+    },
+    "64": {
+      "path": "/srv/android/src/lineage-21.0-arm64/out/target/product/gta3xlwifi/testcases/gta3xlwifi_abi_probe64/arm64/gta3xlwifi_abi_probe64.apk",
+      "sha256": "b8b7e334af0d3bdc18459b6b05d90885efbd008a705ecc3cb4e8a931a0ac828a",
+      "abi": "arm64-v8a"
+    }
+  },
+  "helper_static_arm32": true,
+  "passed": true
+}
