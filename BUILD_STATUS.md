@@ -100,5 +100,11 @@ recovery-identiteter. Se [TWRP_PINFREE.md](TWRP_PINFREE.md).
 - Artefakter: `/srv/android/artifacts/lineage-21-arm64`
 - Logger: `/srv/android/logs/lineage-21-arm64`
 
-ARM32-kilder og publisert baseline er beholdt separat. ARM64-arbeidet er lokalt
-på egne grener; ingen GitHub-publisering er utført.
+ARM64-kildene og oppdatert TWRP-kode er publisert 8. oktober 2026.
+Device/integrasjon bruker `lineage-21.0-arm64`; TWRP bruker `twrp-12.1`.
+[ARM64-beta med oppdatert TWRP og installasjons-/rollback-veiledning](https://github.com/oddhap/android_build_samsung_gta3xlwifi/releases/tag/lineage-21.0-arm64-beta-20261007).
+Alle åtte releasefiler er kontrollert mot GitHubs SHA-256 og størrelse; ROM,
+recovery og Odin AP er tilgjengelige uten innlogging. Den opprinnelige
+ARM32-releasen er fortsatt siste stabile release.
+[XDA-hovedinnlegget](https://xdaforums.com/t/rom-unofficial-14-0-sm-t510-lineageos-21-0-for-galaxy-tab-a-10-1-2019.4804083/) har en ekstra beta-blokk med lenker;
+ARM32-teksten og trådtittelen er beholdt.
