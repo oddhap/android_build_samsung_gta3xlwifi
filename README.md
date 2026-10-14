@@ -16,6 +16,14 @@ libraries from SM-A305GT A305GTVJU8CWE1 ZTO while preserving Samsung's existing
 ARM32 HAL/TEE stack. **It writes vendor; returning to the ARM32 ROM requires
 restoring stock CWA1 vendor first.** See the release's INSTALL.md.
 
+## October 14 source update
+
+The current source adds double tap to wake and pins the latest fetched
+LineageOS 21.0 revisions with framework SPL 2026-10-01. Kernel/device and full
+ROM compilation pass; release signing and physical validation are in progress.
+See [candidate details](lineage-21/notes/double-tap-wake-20261014.md). The
+October 7 download above remains the previous tested release.
+
 ## Sources and build
 
 This branch contains all 13 pinned platform patches, ARM64 device/build/staging

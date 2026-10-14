@@ -1,7 +1,7 @@
 [
   {
     "project": "frameworks/base",
-    "revision": "e46d78059500b71998de5b21e4225f18463b32f3",
+    "revision": "7cb88ebbf2d107043e22fa0d562b2f9233faf30f",
     "patch": "frameworks_base.patch",
     "sha256": "0080ec02ded70b3506b8a928f8e597b4378ba7432609ca55f71860c6d5bfdb75",
     "new_files": [],

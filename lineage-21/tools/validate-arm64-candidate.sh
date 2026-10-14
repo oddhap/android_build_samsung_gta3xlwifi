@@ -31,13 +31,22 @@ check() {
     fi
 }
 check release-verification python3 "$port/tools/verify-release.py" "$original"
-check native-images python3 "$port/tools/verify-native-images.py" --package "$ota"
+kernel_sha256=$(python3 - "$port/notes/source-inputs.lock.json" <<'PY'
+import json, re, sys
+value = json.load(open(sys.argv[1]))['inputs']['kernel_sha256']
+if not re.fullmatch(r'[0-9a-f]{64}', value):
+    raise SystemExit('Invalid reviewed kernel SHA-256 in source input lock')
+print(value)
+PY
+)
+check native-images python3 "$port/tools/verify-native-images.py" --package "$ota" --expected-kernel-sha256 "$kernel_sha256"
 # Inspect the signed physical filesystems and actual signed package contents.
 check native-layout python3 "$port/tools/verify-native-layout.py" --report-dir "$release"
 check port-package python3 "$port/tools/verify-port-package.py" --report-dir "$release" --target-files "$release/verified-target-files"
 check usage-compat python3 "$port/tools/verify-usage-compat.py"
 check signed-multilib python3 "$port/tools/verify-arm64-multilib.py" "$release/signed-target-files.zip" --report "$release/multilib-check.json"
 check signed-donor python3 "$port/tools/verify-built-donor.py" "$release/signed-target-files.zip"
+check signed-double-tap python3 "$port/tools/verify-double-tap-wake.py" "$release/signed-target-files.zip" --report "$release/double-tap-wake-check.json"
 check signing-inputs python3 /srv/android/ports/lineage-21-arm64/check-signing-inputs.py /srv/android/signing/arm64-baseline-sha256.json
 python3 - "$release" <<'PY'
 import json, sys
@@ -52,7 +61,8 @@ result = {'passed': True, 'checked_at_utc': datetime.now(timezone.utc).isoformat
           'signed_filesystems_checked': True, 'hardware_tested': False,
           'checks': ['signatures', 'physical_image_bounds', 'signed_system_layout',
                      'packaged_platform_fixes', 'usage_compatibility',
-                     'signed_multilib', 'signed_donor_dependencies', 'unchanged_keys']}
+                     'signed_multilib', 'signed_donor_dependencies',
+                     'signed_double_tap_wake_controls', 'unchanged_keys']}
 (release/'offline-validation.json').write_text(json.dumps(result, indent=2)+'\n')
 PY
 printf 'All offline candidate checks passed: %s\n' "$ota"

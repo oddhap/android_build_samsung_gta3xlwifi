@@ -1,13 +1,13 @@
 {
   "android_device_samsung_gta3xlwifi": {
     "url": "https://github.com/oddhap/android_device_samsung_gta3xlwifi",
-    "branch": "lineage-21.0-arm64",
-    "commit": "03e4d7013c83f4e25af06909c5b4462751e6badf"
+    "branch": "lineage-21.0",
+    "commit": "988cddf9b8bb83cfbcd4a5d8b3eebd6387ec37d7"
   },
   "android_kernel_samsung_gta3xlwifi": {
     "url": "https://github.com/oddhap/android_kernel_samsung_gta3xlwifi",
     "branch": "lineage-21.0",
-    "commit": "efbdbfa3e216b0c300d381c340b0a22b24e15c13"
+    "commit": "669b9584e678ce5865ed38e04c24639082d78de1"
   },
   "android_vendor_samsung_gta3xlwifi": {
     "url": "https://github.com/oddhap/android_vendor_samsung_gta3xlwifi",
@@ -15,35 +15,40 @@
     "commit": "29e8615b2f4af1da936bd791af45cd9632c286f7"
   },
   "inputs": {
-    "kernel_sha256": "9827c8ac986f7497428ac27e9bc309ac8b62ee08fbb414e6d0c81653537ea4a2",
+    "kernel_sha256": "33c1a0d1b9e2696decd53fbedfc2231385b74464f4058a54b93ff06ff7c72553",
     "vendor_sha256": "276777b5bde1dac2f31dbe9299c79e02c07486df6ff7b2ecad03cc722edee939",
     "dtbo_sha256": "b9041c37713a745290d9a0203423436b6caa7a1307ced79b6963b4f1f0271c4b",
     "gcc_revision": "961622e926a1b21382dba4dd9fe0e5fb3ee5ab7c",
-    "kernel_unchanged_from_android12_baseline": true,
+    "kernel_unchanged_from_android12_baseline": false,
     "vendor_unchanged_from_stock": false,
-    "android14_hardware_tested": true,
+    "android14_hardware_tested": false,
     "android14_full_hardware_validation_complete": false,
     "twrp_ota_header_sync_hardware_tested": true,
     "twrp_supported_normalized_sha256": "0c641ba8f29bd9a4063cf9e8670dfc84124bc926f7bead643977685827306cc6",
     "baseline_arm32_vendor_sha256": "4cc684231b4a1c355169cea61b4ea5196401bc5f68c7f74a32c1ec290abc0006",
     "hybrid_vendor_report": "/srv/android/artifacts/lineage-21-arm64/vendor-image-report.json",
     "baseline_arm32_tested_rom_sha256": "94110cab46fa1edf908914dfbcc3c910ec5e5e16f306a810e13e673d3d5b597b",
-    "arm64_hardware_tested": true,
-    "twrp_supported_normalized_sha256_list": [
-      "0c641ba8f29bd9a4063cf9e8670dfc84124bc926f7bead643977685827306cc6",
-      "d8878895ec55959e9f3697c1ee3e8a983e304067a2cde26baa51d00fe664b751"
-    ]
+    "arm64_hardware_tested": false,
+    "baseline_kernel_sha256": "9827c8ac986f7497428ac27e9bc309ac8b62ee08fbb414e6d0c81653537ea4a2",
+    "kernel_follow_up": "DT2W: FTS wake key, narrow boolean control, sponge I2C error propagation; identical Kconfig and existing DTBO.",
+    "kernel_source_base": "efbdbfa3e216b0c300d381c340b0a22b24e15c13",
+    "kernel_built_from_uncommitted_patch": true,
+    "kernel_patch_sha256": "ed8774751a9b474c0d6dfb38059044ca6cac98b52780ce59bad4104b44bd5960",
+    "double_tap_wake_candidate": true,
+    "double_tap_wake_hardware_tested": false,
+    "kernel_config_sha256": "fac42e3bbf996bb9502bb1031c91b1950986ad3586d0f33cad869a6fd0b3acea",
+    "kernel_artifact": "/srv/android/artifacts/kernel-dt2w/Image",
+    "kernel_config_artifact": "/srv/android/artifacts/kernel-dt2w/kernel.config",
+    "kernel_build_counter": 2
   },
-  "publication": {
-    "date": "2026-10-08",
-    "tested_build": "gta3xlwifi.arm64.20261007.170546",
-    "tested_rom_sha256": "f07e52c0f91a66fa1e5342ef3211e4fb8efdf709f1ac37d07994796b16203b3e",
-    "tested_device_base_commit": "47f5ba64a405bb41aa788a24cf7b76a27569efc1",
-    "source_export_base_commit": "ba0cffa79e32f7a0fee3afc033669e8df1cd9c0c",
-    "source_follow_up": "Published source also includes the separately tested two-image recovery header helper; the released ROM retains the original helper and is byte-identical to the physically tested build.",
-    "rom_validation": "reports/arm64/arm64-validation-summary.json",
-    "twrp_validation": "reports/twrp-pinfree/validation-summary.json",
-    "full_hardware_validation_complete": false,
-    "twrp_source_commit": "92b6f4e706aa119c61800ccd4c3ed241e596dcda"
+  "upstream_refresh": {
+    "branch": "lineage-21.0",
+    "android_version": "14",
+    "fetched_at_utc": "2026-10-14T18:14:03.796892+00:00",
+    "lineage_projects_fetched": 280,
+    "changed_projects": 20,
+    "manifest_commit": "f9d26150827c099d4c391d72bc674bb02eac7e2b",
+    "fixed_aosp_revisions_preserved": true,
+    "report": "notes/upstream-refresh-20261014.json"
   }
 }

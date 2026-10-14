@@ -1,0 +1,186 @@
+--- a/drivers/input/touchscreen/stm_fts1ba90a/fts_sec.c
++++ b/drivers/input/touchscreen/stm_fts1ba90a/fts_sec.c
+@@ -818,6 +818,105 @@
+ 	return count;
+ }
+ 
++/* The Android power backend only needs this boolean, not factory commands. */
++static ssize_t double_tap_to_wake_show(struct device *dev,
++		struct device_attribute *attr, char *buf)
++{
++	struct sec_cmd_data *sec = dev_get_drvdata(dev);
++	struct fts_ts_info *info = container_of(sec, struct fts_ts_info, sec);
++	bool enabled;
++
++	mutex_lock(&info->device_mutex);
++	enabled = !!(info->lowpower_flag & FTS_MODE_DOUBLETAP_WAKEUP);
++	mutex_unlock(&info->device_mutex);
++	return scnprintf(buf, PAGE_SIZE, "%d\n", enabled);
++}
++
++static ssize_t double_tap_to_wake_store(struct device *dev,
++		struct device_attribute *attr, const char *buf, size_t count)
++{
++	struct sec_cmd_data *sec = dev_get_drvdata(dev);
++	struct fts_ts_info *info = container_of(sec, struct fts_ts_info, sec);
++	bool enabled;
++	u8 old_flags;
++	int ret;
++
++	if (!info->board->support_aot)
++		return -EOPNOTSUPP;
++	ret = kstrtobool(buf, &enabled);
++	if (ret)
++		return ret;
++	mutex_lock(&info->device_mutex);
++	if (!info->probe_done || info->shutdown_is_on_going) {
++		ret = -EAGAIN;
++		goto out;
++	}
++	old_flags = info->lowpower_flag;
++	if (enabled)
++		info->lowpower_flag |= FTS_MODE_DOUBLETAP_WAKEUP;
++	else
++		info->lowpower_flag &= ~FTS_MODE_DOUBLETAP_WAKEUP;
++#ifdef FTS_SUPPORT_SPONGELIB
++	/* POWERDOWN cannot accept I2C; start/close applies the pending flags. */
++	if (old_flags != info->lowpower_flag && info->use_sponge &&
++			info->fts_power_state != FTS_POWER_STATE_POWERDOWN) {
++		ret = info->fts_write_to_sponge(info, FTS_CMD_SPONGE_OFFSET_MODE,
++				&info->lowpower_flag, sizeof(info->lowpower_flag));
++		if (ret <= 0) {
++			info->lowpower_flag = old_flags;
++			ret = ret < 0 ? ret : -EIO;
++			goto out;
++		}
++	}
++#endif
++	ret = count;
++out:
++	mutex_unlock(&info->device_mutex);
++	return ret;
++}
++
++/* Share the input core state with the original enabled attribute. */
++static ssize_t input_enabled_show(struct device *dev,
++		struct device_attribute *attr, char *buf)
++{
++	struct sec_cmd_data *sec = dev_get_drvdata(dev);
++	struct fts_ts_info *info = container_of(sec, struct fts_ts_info, sec);
++	bool enabled;
++
++	if (!info->input_dev)
++		return -ENODEV;
++	mutex_lock(&info->input_dev->mutex);
++	enabled = !info->input_dev->disabled;
++	mutex_unlock(&info->input_dev->mutex);
++	return scnprintf(buf, PAGE_SIZE, "%d\n", enabled);
++}
++
++static ssize_t input_enabled_store(struct device *dev,
++		struct device_attribute *attr, const char *buf, size_t count)
++{
++	struct sec_cmd_data *sec = dev_get_drvdata(dev);
++	struct fts_ts_info *info = container_of(sec, struct fts_ts_info, sec);
++	bool enabled;
++	int ret;
++
++	ret = kstrtobool(buf, &enabled);
++	if (ret)
++		return ret;
++	if (!info->input_dev || !info->probe_done || !info->info_work_done ||
++			info->shutdown_is_on_going)
++		return -EAGAIN;
++	ret = input_set_enabled(info->input_dev, enabled);
++	if (ret)
++		return ret;
++	return count;
++}
++
++static DEVICE_ATTR(input_enabled, 0660,
++		input_enabled_show, input_enabled_store);
++
++static DEVICE_ATTR(double_tap_to_wake, 0660,
++		double_tap_to_wake_show, double_tap_to_wake_store);
++
+ static DEVICE_ATTR(ito_check, 0444, read_ito_check_show, NULL);
+ static DEVICE_ATTR(raw_check, 0444, read_raw_check_show, NULL);
+ static DEVICE_ATTR(multi_count, 0644, read_multi_count_show, clear_multi_count_store);
+@@ -859,6 +958,8 @@
+ 	&dev_attr_pressure_enable.attr,
+ #endif
+ 	&dev_attr_support_feature.attr,
++	&dev_attr_double_tap_to_wake.attr,
++	&dev_attr_input_enabled.attr,
+ #ifdef FTS_SUPPORT_SPONGELIB
+ 	&dev_attr_get_lp_dump.attr,
+ #endif
+--- a/drivers/input/touchscreen/stm_fts1ba90a/fts_ts.c
++++ b/drivers/input/touchscreen/stm_fts1ba90a/fts_ts.c
+@@ -693,6 +693,7 @@
+ 	if (ret <= 0) {
+ 		input_err(true, &info->client->dev,
+ 				"%s: sponge command is failed. ret: %d\n", __func__, ret);
++		return ret < 0 ? ret : -EIO;
+ 	}
+ 
+ 	// Notify Command
+@@ -1813,9 +1814,9 @@
+ 			if (p_gesture_status->sf == FTS_GESTURE_SAMSUNG_FEATURE) {
+ 				if ((info->lowpower_flag & FTS_MODE_DOUBLETAP_WAKEUP) &&
+ 						p_gesture_status->stype == FTS_SPONGE_EVENT_DOUBLETAP) {
+-					input_report_key(info->input_dev, KEY_HOMEPAGE, 1);
++					input_report_key(info->input_dev, KEY_WAKEUP, 1);
+ 					input_sync(info->input_dev);
+-					input_report_key(info->input_dev, KEY_HOMEPAGE, 0);
++					input_report_key(info->input_dev, KEY_WAKEUP, 0);
+ 					input_info(true, &info->client->dev, "%s: Dobule Tap Wake up\n", __func__);
+ 					break;
+ 				}
+@@ -1824,9 +1825,9 @@
+ 			{
+ 				if ((info->lowpower_flag & FTS_MODE_DOUBLETAP_WAKEUP) && p_gesture_status->gesture_id == 0x01) {
+ 					input_info(true, &info->client->dev, "%s: AOT\n", __func__);
+-					input_report_key(info->input_dev, KEY_HOMEPAGE, 1);
++					input_report_key(info->input_dev, KEY_WAKEUP, 1);
+ 					input_sync(info->input_dev);
+-					input_report_key(info->input_dev, KEY_HOMEPAGE, 0);
++					input_report_key(info->input_dev, KEY_WAKEUP, 0);
+ 				}
+ 			}
+ 			break;
+@@ -2501,6 +2502,7 @@
+ 	set_bit(BTN_TOOL_FINGER, dev->keybit);
+ 	set_bit(KEY_BLACK_UI_GESTURE, dev->keybit);
+ 	set_bit(KEY_HOMEPAGE, dev->keybit);
++	set_bit(KEY_WAKEUP, dev->keybit);
+ 
+ #ifdef FTS_SUPPORT_TOUCH_KEY
+ 	if (info->board->support_mskey) {
+--- a/drivers/input/input.c
++++ b/drivers/input/input.c
+@@ -1163,6 +1163,13 @@
+ 	return 0;
+ }
+ 
++/* Driver-local power controls share the users/disabled state and locking. */
++int input_set_enabled(struct input_dev *dev, bool enabled)
++{
++	return enabled ? input_enable_device(dev) : input_disable_device(dev);
++}
++EXPORT_SYMBOL_GPL(input_set_enabled);
++
+ /*
+  * Simulate keyup events for all keys that are marked as pressed.
+  * The function must be called with dev->event_lock held.
+--- a/include/linux/input.h
++++ b/include/linux/input.h
+@@ -467,6 +467,8 @@
+ int input_scancode_to_scalar(const struct input_keymap_entry *ke,
+ 			     unsigned int *scancode);
+ 
++int input_set_enabled(struct input_dev *dev, bool enabled);
++
+ int input_get_keycode(struct input_dev *dev, struct input_keymap_entry *ke);
+ int input_set_keycode(struct input_dev *dev,
+ 		      const struct input_keymap_entry *ke);

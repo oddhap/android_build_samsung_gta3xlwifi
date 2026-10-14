@@ -6,6 +6,14 @@ Arbeidstreet er isolert på Linux-byggemaskinen i
 `/srv/android/artifacts/lineage-21-arm64`. Eksisterende ARM32-tre og release
 er separate. Kilder og donor er låst; se `DONOR_REPORT.md` og rapportene.
 
+Kandidaten fra 14. oktober bruker siste hentede LineageOS 21.0-revisjoner,
+med Android 14 og plattformens sikkerhetsdato 2026-10-01. Alle 280 Lineage-
+prosjektene er hentet, 20 oppdatert, og de 13 port-patchene kontrollert på nytt.
+Se `lineage-21/notes/upstream-refresh-20261014.json` og det oppdaterte manifestet.
+Ny dobbelttrykk-kernel må stages sammen med den tilsvarende device-koden;
+oppskrift og komplett config ligger i `lineage-21/kernel/dt2w`.
+Fysisk validering av denne kandidaten pågår fortsatt.
+
 ## Nytt bygg
 
 Etter synkronisering, plattformpatcher og staging av de verifiserte inputene:

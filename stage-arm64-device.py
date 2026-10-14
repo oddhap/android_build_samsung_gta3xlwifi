@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Configure the isolated multilib product and stage exact reviewed inputs."""
+import argparse
 import hashlib
 import json
 import shutil
@@ -8,6 +9,10 @@ from pathlib import Path
 ROOT = Path('/srv/android')
 DEVICE = ROOT/'src/lineage-21.0-arm64/device/samsung/gta3xlwifi'
 OUT = ROOT/'artifacts/lineage-21-arm64'
+parser = argparse.ArgumentParser()
+parser.add_argument('--kernel-image', type=Path, help='Override the artifact path; the locked SHA-256 still applies')
+args = parser.parse_args()
+inputs = json.loads((Path(__file__).resolve().parent/'lineage-21/notes/source-inputs.lock.json').read_text())['inputs']
 def change(path, old, new):
     text = path.read_text()
     if new in text:
@@ -63,8 +68,12 @@ on property:apexd.status=ready && property:ro.product.cpu.abilist64=*
 (DEVICE/'rootdir/init.gta3xlwifi.crypto.rc').write_text(crypto)
 prebuilt = DEVICE/'prebuilt'
 prebuilt.mkdir(exist_ok=True)
-for name in ('Image', 'dtbo.img'):
-    shutil.copy2(OUT/'baseline-inputs'/name, prebuilt/name)
+kernel = args.kernel_image or Path(inputs.get('kernel_artifact', str(OUT/'baseline-inputs/Image')))
+for name, source, key in (('Image', kernel, 'kernel_sha256'),
+                          ('dtbo.img', OUT/'baseline-inputs/dtbo.img', 'dtbo_sha256')):
+    if hashlib.sha256(source.read_bytes()).hexdigest() != inputs[key]:
+        raise SystemExit('Reviewed input checksum mismatch: '+str(source))
+    shutil.copy2(source, prebuilt/name)
 report = json.loads((OUT/'vendor-image-report.json').read_text())
 vendor = OUT/'vendor-hybrid-arm64.img'
 if hashlib.sha256(vendor.read_bytes()).hexdigest() != report['sparse_sha256']:

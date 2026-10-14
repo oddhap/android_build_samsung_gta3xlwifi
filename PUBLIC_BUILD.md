@@ -15,10 +15,15 @@ e2fsprogs and Android sparse-image tools.
 2. Clone the published ARM64 device branch into the source tree's
    `device/samsung/gta3xlwifi`. Device/kernel/vendor revision and input hashes
    are in `lineage-21/notes/source-inputs.lock.json` and publication provenance.
-3. Prepare exact kernel `Image` and DTBO from the published kernel source/input
-   recipe; ROM-kernel hash is `9827c8ac986f7497428ac27e9bc309ac8b62ee08fbb414e6d0c81653537ea4a2`.
-   Do not substitute the separate TWRP kernel. Place baseline inputs under
-   `/srv/android/artifacts/lineage-21-arm64/baseline-inputs/`.
+3. Build the updated ROM kernel using the complete config, four-file patch and
+   recipe in [lineage-21/kernel/dt2w](lineage-21/kernel/dt2w/README.md).
+   The candidate Image hash is `33c1a0d1b9e2696decd53fbedfc2231385b74464f4058a54b93ff06ff7c72553`.
+   Stage it at `/srv/android/artifacts/kernel-dt2w/Image`, or pass
+   `--kernel-image` to `stage-arm64-device.py`; the locked checksum is enforced.
+   Retain the original DTBO and baseline inputs under
+   `/srv/android/artifacts/lineage-21-arm64/baseline-inputs/`. The October 7
+   release retains its original kernel `9827c8ac986f7497428ac27e9bc309ac8b62ee08fbb414e6d0c81653537ea4a2`.
+   Do not substitute the separate TWRP kernel.
 4. Obtain stock T510XXU5CWA1/T510OXM5CVG2 vendor inputs under `/srv/android/vendor-stock`
    using the existing stock-extraction tools. Download donor SM-A305GT ZTO
    A305GTVJU8CWE1 firmware, with exact archive/image hashes in
