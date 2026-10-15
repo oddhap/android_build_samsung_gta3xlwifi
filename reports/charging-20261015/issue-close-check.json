@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "verified_at_utc": "2026-10-15T08:05:31.127888+00:00",
+  "issue_url": "https://github.com/oddhap/android_build_samsung_gta3xlwifi/issues/2",
+  "state": "CLOSED",
+  "state_reason": "completed",
+  "closed_at": "2026-10-15T08:05:29Z",
+  "comment_url": "https://github.com/oddhap/android_build_samsung_gta3xlwifi/issues/2#issuecomment-6187474395",
+  "comment_id": 6187474395,
+  "arm64_only_future_maintenance_stated": true,
+  "arm32_no_further_updates_stated": true,
+  "updated_release_link_included": true
+}

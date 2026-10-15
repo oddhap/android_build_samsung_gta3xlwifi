@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "same_release_id_and_url": true,
+  "source_commit": "c702f713e7b7f57e143fa6bc7101844cbcfd2d00",
+  "original_source_archive_tag": "lineage-21.0-arm64-beta-20261014-original",
+  "original_source_commit": "12f4eb83c7873394f71de5b257a858c8d25c55aa",
+  "original_rom_retained_locally": true,
+  "new_rom_sha256": "ebce76e6d82dc45432652b48cb875fe667f8fb60ca3296dc5b7b4486ce1006c8",
+  "old_rom_asset_removed": true,
+  "asset_count": 8
+}
