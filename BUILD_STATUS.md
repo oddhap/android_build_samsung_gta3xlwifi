@@ -1,4 +1,19 @@
-# SM-T510: fungerende ARM64-kandidat
+# SM-T510: ARM64 beta med double tap to wake
+
+Gjeldende beta er bygget 14. oktober og fysisk testet 15. oktober 2026.
+Build `gta3xlwifi.arm64.20261014.175643`, SPL `2026-10-01`, ROM SHA256
+`b1f1f24f26aafb4c94b5479dc67221c68e6d3dcd35594092c3342611e07b8b7e`.
+Double tap to wake virker fysisk. ARM32/ARM64 Mali, Wi-Fi/HTTPS, lydutgang,
+kamera foran/bak, akselerometer, 104 HAL-er, sovende innstillingsendringer og
+PIN-fri TWRP/Android-retur passerer. Data er bevart og SELinux er Enforcing.
+[Ny beta med installasjonsveiledning](https://github.com/oddhap/android_build_samsung_gta3xlwifi/releases/tag/lineage-21.0-arm64-beta-20261014).
+[Oppdatert hashbundet rapport](reports/dt2w-20261014/validation-summary.json).
+Ny TWRP-fil har samme testede payload og bare oppdatert firebytes header.
+PIN-dialogen er tidligere testet med samme payload; oktober-testen var PIN-fri.
+Begrensningene i INSTALL.md gjelder fortsatt.
+
+## Historikk: opprinnelig beta fra 7. oktober
+
 
 Native LineageOS 21 / Android 14 med ARM32-appstøtte er **bygget, signert,
 installert og fysisk verifisert** på nettbrettet 7. oktober 2026. Nettbrettet er

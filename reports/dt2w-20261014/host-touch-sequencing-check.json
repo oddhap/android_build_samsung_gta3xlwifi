@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "asan_ubsan": true,
+  "cases": [
+    "enable while awake",
+    "sleep/wake touch mode",
+    "change preference while asleep",
+    "failed flag write",
+    "failed reopen still attempts close",
+    "failed close",
+    "retry after failure"
+  ],
+  "source_sha256": "231f6fffe4e2b00d845ad728c1b8df3fdcf89550e0a25d112e0f0b990e3aff27"
+}

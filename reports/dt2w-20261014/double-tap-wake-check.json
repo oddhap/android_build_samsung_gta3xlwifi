@@ -1,0 +1,19 @@
+{
+  "hardware_tested": false,
+  "native_libraries": {
+    "64": "0d5acc82101135d010f6856a0e7bbfb14625454f786ac7307104e69f033b102a",
+    "32": "f11468bc450b9691f246f502392b0b15b90a430234e473256b30ba7849fa37a6"
+  },
+  "two_boolean_controls_labeled": true,
+  "system_server_control_permissions": [
+    "getattr",
+    "open",
+    "read",
+    "write"
+  ],
+  "factory_command_access_added": false,
+  "framework_double_tap_supported": true,
+  "build_incremental": "gta3xlwifi.arm64.20261014.175643",
+  "platform_security_patch": "2026-10-01",
+  "passed": true
+}

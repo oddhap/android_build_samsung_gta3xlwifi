@@ -1,0 +1,46 @@
+{
+  "build_incremental": "gta3xlwifi.arm64.20261014.175643",
+  "tested_at_utc": "2026-10-15T06:48:41.814890+00:00",
+  "transitions": [
+    {
+      "setting": 0,
+      "asleep": true,
+      "nodes": {
+        "double_tap_to_wake": "0",
+        "input_enabled": "0",
+        "input/enabled": "0"
+      }
+    },
+    {
+      "setting": 1,
+      "asleep": true,
+      "nodes": {
+        "double_tap_to_wake": "1",
+        "input_enabled": "0",
+        "input/enabled": "0"
+      }
+    },
+    {
+      "setting": 0,
+      "asleep": true,
+      "nodes": {
+        "double_tap_to_wake": "0",
+        "input_enabled": "0",
+        "input/enabled": "0"
+      }
+    },
+    {
+      "setting": 1,
+      "asleep": true,
+      "nodes": {
+        "double_tap_to_wake": "1",
+        "input_enabled": "0",
+        "input/enabled": "0"
+      }
+    }
+  ],
+  "passed": true,
+  "interactive_touch_resumed": true,
+  "final_setting": 1,
+  "selinux": "Enforcing"
+}

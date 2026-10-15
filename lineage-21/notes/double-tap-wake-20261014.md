@@ -1,9 +1,23 @@
-# October 14 ARM64 candidate: double tap to wake
+# October 14 ARM64 beta: double tap to wake
 
-Status: kernel, targeted Android builds and complete updated ROM compilation
-pass. Actual Samsung vendor runtime-policy linking also passes. Signatures
-and physical tablet tests are still pending. The October 7 public
-beta and its assets remain unchanged.
+Status: complete ROM build, signatures, all nine offline gates, actual Samsung
+vendor runtime-policy linking and physical tablet checks pass. The signed
+October 14 build was installed with data preserved. The owner confirmed
+physical double-tap wake on October 15, and the event observer captured a real
+KEY_WAKEUP without injecting a wake event. Both Mali graphics ABIs (120 frames
+and pixel readback each), all 104 baseline HAL interfaces, Wi-Fi/HTTPS, audio
+output, front/back camera and accelerometer checks pass. Setting changes while
+asleep and normal touch resume pass. PIN-free TWRP at the new October security
+metadata decrypts CE storage automatically, reads/writes the storage marker,
+and returns to encrypted Android with the wake setting preserved.
+
+The paired recovery asset retains the October 7 tested TWRP payload; only the
+four compatibility header bytes change. Its installed prefix matches the
+published image. PIN entry was tested with the unchanged payload in the prior
+release; it was not repeated with October security metadata. USB-disconnected
+deep suspend, long-term stability and advanced hardware functions remain outside
+this test scope. See `../../reports/dt2w-20261014/validation-summary.json`.
+The October 7 public beta and its assets remain unchanged.
 
 All 280 Lineage projects in the official LineageOS 21.0 manifest were fetched
 from GitHub on October 14. Twenty projects changed; their exact revisions are
@@ -15,7 +29,7 @@ All 13 existing platform patches still pass their pinned application checks.
 The installed FTS1BA90A controller detected physical double taps in its proper
 low-power mode, but reported KEY_HOMEPAGE and did not wake Android. Android also
 lacked the framework capability and native touch suspend/resume integration.
-The candidate addresses these together:
+The release addresses these together:
 
 - Kernel: use KEY_WAKEUP for actual double-tap gestures; expose a boolean
   `double_tap_to_wake` control that preserves other low-power flags and handles

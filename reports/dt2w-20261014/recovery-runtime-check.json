@@ -1,0 +1,15 @@
+{
+  "passed": true,
+  "tested_at_utc": "2026-10-15T06:51:37.548330+00:00",
+  "credential": "none",
+  "automatic_ce_decryption": true,
+  "ce_sqlite_header_readable": true,
+  "media_read_write": true,
+  "recovery_image_matches_release_asset": true,
+  "recovery_sha256": "664ab3abc042b4a1d46d7d1cb8c98ebb17fc72b4e76c95947fec2f03bf86c983",
+  "single_recovery_start": true,
+  "stable_process_seconds": 64.1,
+  "recovery_binaries_unchanged": true,
+  "selinux": "Enforcing",
+  "pin_retested_with_october_spl": false
+}

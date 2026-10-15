@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "build_incremental": "gta3xlwifi.arm64.20261014.175643",
+  "framework_spl": "2026-10-01",
+  "android_return": true,
+  "media_recovery_write_preserved": true,
+  "double_tap_wake_setting_preserved": true,
+  "interactive_touch_resumed": true,
+  "encrypted_file": true,
+  "selinux": "Enforcing",
+  "tested_at_utc": "2026-10-15T06:53:01.231216+00:00"
+}

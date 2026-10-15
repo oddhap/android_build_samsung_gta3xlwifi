@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Exercise hardware from a 64-bit app, keeping raw diagnostics private."""
+import argparse
 import hashlib
 import json
 import os
@@ -12,11 +13,14 @@ from pathlib import Path
 
 os.umask(0o077)
 root = Path(__file__).resolve().parent.parent
+parser = argparse.ArgumentParser()
+parser.add_argument('--release-check', type=Path, default=root/'artifacts/release/release-signature-check.json')
+args = parser.parse_args()
 adb = '/opt/homebrew/bin/adb'
 stamp = datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%SZ')
 private = root/'.private'/f'arm64-hardware-{stamp}'
 private.mkdir(mode=0o700)
-release = json.loads((root/'artifacts/release/release-signature-check.json').read_text())
+release = json.loads(args.release_check.read_text())
 
 def run(*args, binary=False, timeout=30):
     result = subprocess.run([adb,*args],capture_output=True,check=True,timeout=timeout)

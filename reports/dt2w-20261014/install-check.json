@@ -1,0 +1,9 @@
+{
+  "passed": true,
+  "installed_at_utc": "20261014T194415Z",
+  "rom_zip_sha256": "b1f1f24f26aafb4c94b5479dc67221c68e6d3dcd35594092c3342611e07b8b7e",
+  "build_incremental": "gta3xlwifi.arm64.20261014.175643",
+  "data_formatted": false,
+  "updater_exit_code": 0,
+  "boot_tested": false
+}

@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "tested_at_utc": "2026-10-15T06:53:25.300195+00:00",
+  "build_incremental": "gta3xlwifi.arm64.20261014.175643",
+  "standalone_test_apps_removed": 3,
+  "own_storage_marker_removed": true,
+  "double_tap_wake_enabled": true,
+  "sysfs_owners_and_labels_correct": true,
+  "post_reboot_crash_buffer_fatal_exceptions": 0,
+  "selinux": "Enforcing",
+  "encrypted_file": true,
+  "adb_unrooted": true
+}

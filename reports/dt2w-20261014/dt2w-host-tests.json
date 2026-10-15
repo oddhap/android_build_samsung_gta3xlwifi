@@ -1,0 +1,35 @@
+{
+  "passed": true,
+  "targeted_build_exit": 0,
+  "built_against_pre_refresh_platform": true,
+  "tests": [
+    {
+      "module": "gta3xlwifi-touch-wake-test",
+      "bits": 64,
+      "passed": true,
+      "sha256": "b05af91926a9a6f5a6fd1732be73fcc69afb19951a6d455f5fc31dec5a4514cb",
+      "executed_before_upstream_refresh": true
+    },
+    {
+      "module": "gta3xlwifi-power-window-test",
+      "bits": 64,
+      "passed": true,
+      "sha256": "bc57197b047fba88bb5d4495ff53af0283603851fc05164b48c48e1328947381",
+      "executed_before_upstream_refresh": true
+    },
+    {
+      "module": "gta3xlwifi-touch-wake-test",
+      "bits": 32,
+      "passed": true,
+      "sha256": "34902f21e5d1fe841ba6654d28767c715227956d27edd1c432b49da679a8fd24",
+      "executed_before_upstream_refresh": true
+    },
+    {
+      "module": "gta3xlwifi-power-window-test",
+      "bits": 32,
+      "passed": true,
+      "sha256": "7346eb4a1e7dbb2f6cd8d910d28627e48b5a011dd673a8adb7b847eafe81f63c",
+      "executed_before_upstream_refresh": true
+    }
+  ]
+}

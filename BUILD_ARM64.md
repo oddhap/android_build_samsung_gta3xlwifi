@@ -6,13 +6,14 @@ Arbeidstreet er isolert på Linux-byggemaskinen i
 `/srv/android/artifacts/lineage-21-arm64`. Eksisterende ARM32-tre og release
 er separate. Kilder og donor er låst; se `DONOR_REPORT.md` og rapportene.
 
-Kandidaten fra 14. oktober bruker siste hentede LineageOS 21.0-revisjoner,
+Betaen fra 14. oktober bruker siste hentede LineageOS 21.0-revisjoner,
 med Android 14 og plattformens sikkerhetsdato 2026-10-01. Alle 280 Lineage-
 prosjektene er hentet, 20 oppdatert, og de 13 port-patchene kontrollert på nytt.
 Se `lineage-21/notes/upstream-refresh-20261014.json` og det oppdaterte manifestet.
 Ny dobbelttrykk-kernel må stages sammen med den tilsvarende device-koden;
 oppskrift og komplett config ligger i `lineage-21/kernel/dt2w`.
-Fysisk validering av denne kandidaten pågår fortsatt.
+Kandidaten er signert og fysisk testet 15. oktober. Se
+`reports/dt2w-20261014/validation-summary.json` for nøyaktig omfang.
 
 ## Nytt bygg
 
@@ -86,8 +87,14 @@ bygges med `build-arm64.sh gta3xlwifi_hardware_probe`. Modulen er en
 rapport legges i `artifacts/hardware-tests` og
 `artifacts/hardware-probe-build-check.json` på Mac-en.
 
-Etter grafikkkontrollen kjøres `python3 tools/check-device-hardware.py`. Den
-kontrollerer at responsive baseline-HAL-er fortsatt er responsive, Wi-Fi-
+Etter grafikkkontrollen kjøres:
+
+```sh
+python3 tools/check-device-hardware.py \
+  --release-check artifacts/dt2w/release/release-signature-check.json
+```
+
+Den kontrollerer at responsive baseline-HAL-er fortsatt er responsive, Wi-Fi-
 tilkobling/internett, DNS/TLS/HTTPS fra appen, faktisk 64-bit testprosess,
 akselerometer, fremgang i
 lydutgang og seks kameraframes fra både front og bak. Testappen får CAMERA

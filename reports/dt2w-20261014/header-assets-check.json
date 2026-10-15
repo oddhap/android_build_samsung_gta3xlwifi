@@ -1,0 +1,10 @@
+{
+  "rom_sha256": "b1f1f24f26aafb4c94b5479dc67221c68e6d3dcd35594092c3342611e07b8b7e",
+  "recovery_sha256": "664ab3abc042b4a1d46d7d1cb8c98ebb17fc72b4e76c95947fec2f03bf86c983",
+  "recovery_bytes": 38981648,
+  "header_matches_signed_rom": true,
+  "recovery_payload_unchanged": true,
+  "normalized_recovery_sha256": "d8878895ec55959e9f3697c1ee3e8a983e304067a2cde26baa51d00fe664b751",
+  "ap_archive_payloads_checked": true,
+  "hardware_tested": true
+}

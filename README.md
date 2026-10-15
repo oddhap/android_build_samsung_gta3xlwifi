@@ -5,7 +5,7 @@ Native **ARM64 Android 14** with **ARM32 app support**, for Galaxy Tab A 10.1
 the existing project release keys, SELinux Enforcing and file-based encryption.
 The previous ARM32 source/release remains on `lineage-21.0`.
 
-- [Beta ROM, updated PIN-free TWRP and install/rollback guide](https://github.com/oddhap/android_build_samsung_gta3xlwifi/releases/tag/lineage-21.0-arm64-beta-20261007)
+- [Beta ROM, updated PIN-free TWRP and install/rollback guide](https://github.com/oddhap/android_build_samsung_gta3xlwifi/releases/tag/lineage-21.0-arm64-beta-20261014)
 - [ARM64 device tree](https://github.com/oddhap/android_device_samsung_gta3xlwifi/tree/lineage-21.0-arm64)
 - [ROM kernel](https://github.com/oddhap/android_kernel_samsung_gta3xlwifi/tree/lineage-21.0)
 - [Stock vendor inputs](https://github.com/oddhap/android_vendor_samsung_gta3xlwifi/tree/lineage-21.0)
@@ -18,11 +18,14 @@ restoring stock CWA1 vendor first.** See the release's INSTALL.md.
 
 ## October 14 source update
 
-The current source adds double tap to wake and pins the latest fetched
-LineageOS 21.0 revisions with framework SPL 2026-10-01. Kernel/device and full
-ROM compilation pass; release signing and physical validation are in progress.
-See [candidate details](lineage-21/notes/double-tap-wake-20261014.md). The
-October 7 download above remains the previous tested release.
+The October 14 build adds working double tap to wake and pins the latest
+LineageOS 21.0 revisions fetched on October 14, with framework SPL 2026-10-01.
+It was installed over the October 7 ARM64 beta with data preserved. Physical
+wake, both Mali graphics ABIs, basic hardware, and PIN-free recovery/Android
+return were verified. Enable **Settings → Display → Tap to wake**.
+See [release details](lineage-21/notes/double-tap-wake-20261014.md) and the
+[hash-bound validation summary](reports/dt2w-20261014/validation-summary.json).
+The October 7 release remains available unchanged.
 
 ## Sources and build
 

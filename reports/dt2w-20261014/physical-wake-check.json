@@ -1,0 +1,9 @@
+{
+  "build_incremental": "gta3xlwifi.arm64.20261014.175643",
+  "awake": true,
+  "physical_key_wakeup_observed": true,
+  "input_enabled_after_wake": "1",
+  "selinux": "Enforcing",
+  "wake_event_injected": false,
+  "passed": true
+}

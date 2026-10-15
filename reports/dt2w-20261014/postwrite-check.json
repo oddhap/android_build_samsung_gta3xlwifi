@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "rom_zip_sha256": "b1f1f24f26aafb4c94b5479dc67221c68e6d3dcd35594092c3342611e07b8b7e",
+  "boot_prefix_matches_signed_package": true,
+  "vendor_unchanged": true,
+  "dtbo_unchanged": true,
+  "vbmeta_unchanged": true,
+  "twrp_payload_preserved": true,
+  "recovery_header_matches_new_boot": true,
+  "ce_storage_marker_preserved": true,
+  "vold_key_digests_preserved": true,
+  "boot_tested": false
+}

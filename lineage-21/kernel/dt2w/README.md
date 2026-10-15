@@ -25,6 +25,5 @@ Candidate Image SHA-256:
 `33c1a0d1b9e2696decd53fbedfc2231385b74464f4058a54b93ff06ff7c72553`.
 Config SHA-256:
 `fac42e3bbf996bb9502bb1031c91b1950986ad3586d0f33cad869a6fd0b3acea`.
-The candidate retains the preceding Kconfig settings and DTBO. Actual
-double-tap wake behavior still requires physical validation of the matching
-Android device/native integration.
+The candidate retains the preceding Kconfig settings and DTBO. Physical double-tap wake has been verified with the matching signed October
+14 Android/device integration. See the integration validation summary.
