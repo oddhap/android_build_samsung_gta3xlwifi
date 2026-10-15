@@ -47,6 +47,7 @@ check usage-compat python3 "$port/tools/verify-usage-compat.py"
 check signed-multilib python3 "$port/tools/verify-arm64-multilib.py" "$release/signed-target-files.zip" --report "$release/multilib-check.json"
 check signed-donor python3 "$port/tools/verify-built-donor.py" "$release/signed-target-files.zip"
 check signed-double-tap python3 "$port/tools/verify-double-tap-wake.py" "$release/signed-target-files.zip" --report "$release/double-tap-wake-check.json"
+check signed-charger python3 "$port/tools/verify-charger-package.py" "$release/signed-target-files.zip" --report "$release/charger-package-check.json" --init-verifier /srv/android/src/lineage-21.0-arm64/out/host/linux-x86/bin/host_init_verifier
 check signing-inputs python3 /srv/android/ports/lineage-21-arm64/check-signing-inputs.py /srv/android/signing/arm64-baseline-sha256.json
 python3 - "$release" <<'PY'
 import json, sys
@@ -62,7 +63,7 @@ result = {'passed': True, 'checked_at_utc': datetime.now(timezone.utc).isoformat
           'checks': ['signatures', 'physical_image_bounds', 'signed_system_layout',
                      'packaged_platform_fixes', 'usage_compatibility',
                      'signed_multilib', 'signed_donor_dependencies',
-                     'signed_double_tap_wake_controls', 'unchanged_keys']}
+                     'signed_double_tap_wake_controls', 'signed_charger_ui_startup', 'unchanged_keys']}
 (release/'offline-validation.json').write_text(json.dumps(result, indent=2)+'\n')
 PY
 printf 'All offline candidate checks passed: %s\n' "$ota"

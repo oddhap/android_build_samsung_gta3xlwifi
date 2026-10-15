@@ -6,14 +6,16 @@ Arbeidstreet er isolert på Linux-byggemaskinen i
 `/srv/android/artifacts/lineage-21-arm64`. Eksisterende ARM32-tre og release
 er separate. Kilder og donor er låst; se `DONOR_REPORT.md` og rapportene.
 
-Betaen fra 14. oktober bruker siste hentede LineageOS 21.0-revisjoner,
-med Android 14 og plattformens sikkerhetsdato 2026-10-01. Alle 280 Lineage-
-prosjektene er hentet, 20 oppdatert, og de 13 port-patchene kontrollert på nytt.
-Se `lineage-21/notes/upstream-refresh-20261014.json` og det oppdaterte manifestet.
-Ny dobbelttrykk-kernel må stages sammen med den tilsvarende device-koden;
+Betaen fra 15. oktober bygger på LineageOS 21.0 / Android 14 med
+sikkerhetsdato 2026-10-01. Alle 280 Lineage-prosjekter ble hentet på nytt
+15. oktober; ingen revisjoner endret seg siden 14. oktober. De 13 port-patchene
+og alle 1 430 checkout-HEADs er kontrollert mot det låste manifestet.
+Se `lineage-21/notes/upstream-refresh-20261015.json`.
+DT2W-kernel og tilsvarende native/device-kode er beholdt;
 oppskrift og komplett config ligger i `lineage-21/kernel/dt2w`.
-Kandidaten er signert og fysisk testet 15. oktober. Se
-`reports/dt2w-20261014/validation-summary.json` for nøyaktig omfang.
+Ladevisning krever også device-treets `init.gta3xlwifi.charger.rc` og
+plattformens `charger`-pakke. Kandidaten er signert og fysisk testet;
+se `reports/charging-20261015/validation-summary.json` for omfanget.
 
 ## Nytt bygg
 
@@ -49,7 +51,9 @@ Signeringen krever eksisterende prosjekt-nøkler. Den oppretter eller roterer
 ikke nøkler. Sluttkontrollen stopper ved første feil og kontrollerer blant
 annet signaturer, fysiske partisjonsgrenser, signerte filsystemer, begge ABI-er,
 donor-avhengigheter, statisk ARM64 OTA-updater og statisk ARM32 header-helper.
-`release/offline-validation.json` opprettes først når alle stegene passerer.
+Ladevisningens native ARM64-program, initservice og animasjons-/prosentressurser
+kontrolleres også. `release/offline-validation.json` opprettes først når alle
+ti stegene passerer.
 
 Kjør også VINTF- og policy-kontrollene mot det faktiske hybrid-vendor-imaget.
 Kryssversjons-neverallow-begrensningen er beskrevet i `BUILD_STATUS.md`.

@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "build_incremental": "gta3xlwifi.arm64.20261015.071117",
+  "tested_at_utc": "2026-10-15T07:42:54.727930+00:00",
+  "selinux": "Enforcing",
+  "encrypted_file": true,
+  "ce_marker_preserved": true,
+  "installed_init_rc_matches_signed_package": true,
+  "charger_ui_not_running_in_normal_android": true
+}

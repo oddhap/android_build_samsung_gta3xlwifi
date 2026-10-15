@@ -1,0 +1,20 @@
+{
+  "passed": true,
+  "checked_at_utc": "2026-10-15T07:38:37.454861+00:00",
+  "rom_zip_sha256": "ebce76e6d82dc45432652b48cb875fe667f8fb60ca3296dc5b7b4486ce1006c8",
+  "build_incremental": "gta3xlwifi.arm64.20261015.071117",
+  "signed_filesystems_checked": true,
+  "hardware_tested": false,
+  "checks": [
+    "signatures",
+    "physical_image_bounds",
+    "signed_system_layout",
+    "packaged_platform_fixes",
+    "usage_compatibility",
+    "signed_multilib",
+    "signed_donor_dependencies",
+    "signed_double_tap_wake_controls",
+    "signed_charger_ui_startup",
+    "unchanged_keys"
+  ]
+}

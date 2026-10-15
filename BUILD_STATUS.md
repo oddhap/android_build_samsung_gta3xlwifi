@@ -1,16 +1,20 @@
-# SM-T510: ARM64 beta med double tap to wake
+# SM-T510: ARM64 beta med ladevisning og double tap to wake
 
-Gjeldende beta er bygget 14. oktober og fysisk testet 15. oktober 2026.
-Build `gta3xlwifi.arm64.20261014.175643`, SPL `2026-10-01`, ROM SHA256
-`b1f1f24f26aafb4c94b5479dc67221c68e6d3dcd35594092c3342611e07b8b7e`.
-Double tap to wake virker fysisk. ARM32/ARM64 Mali, Wi-Fi/HTTPS, lydutgang,
-kamera foran/bak, akselerometer, 104 HAL-er, sovende innstillingsendringer og
-PIN-fri TWRP/Android-retur passerer. Data er bevart og SELinux er Enforcing.
-[Ny beta med installasjonsveiledning](https://github.com/oddhap/android_build_samsung_gta3xlwifi/releases/tag/lineage-21.0-arm64-beta-20261014).
-[Oppdatert hashbundet rapport](reports/dt2w-20261014/validation-summary.json).
-Ny TWRP-fil har samme testede payload og bare oppdatert firebytes header.
-PIN-dialogen er tidligere testet med samme payload; oktober-testen var PIN-fri.
-Begrensningene i INSTALL.md gjelder fortsatt.
+Gjeldende build er `gta3xlwifi.arm64.20261015.071117`, SPL `2026-10-01`.
+ROM SHA256: `ebce76e6d82dc45432652b48cb875fe667f8fb60ca3296dc5b7b4486ce1006c8`.
+Ladevisning ved avslått Android er fysisk verifisert: prosent vises omtrent
+sju sekunder ved 100 %, skjermen slukner, kort Power viser den igjen og langt
+Power starter Android. Ingen gjentatt blinking i testen uten berøring.
+Alle ti offline-kontroller, begge Mali-ABI-er og grunnmaskinvare passerer.
+Kryptert brukerlagring og SELinux Enforcing er bevart etter oppdatering og lading.
+Testapper er fjernet, ADB root er av. Samme fysisk testede DT2W-kernel/native-kode
+og PIN-frie TWRP fra 14. oktober er beholdt. PIN-dialogen er ikke retestet ved
+oktober-SPL. LineageOS 21-kilder ble hentet 15. oktober uten nye revisjoner.
+
+[Oppdatert beta på samme release-URL](https://github.com/oddhap/android_build_samsung_gta3xlwifi/releases/tag/lineage-21.0-arm64-beta-20261014).
+[Hashbundet validering](reports/charging-20261015/validation-summary.json) og
+[tekniske detaljer](lineage-21/notes/charging-ui-20261015.md).
+ARM32-ROM-en er ikke endret; begrensningene i INSTALL.md gjelder fortsatt.
 
 ## Historikk: opprinnelig beta fra 7. oktober
 

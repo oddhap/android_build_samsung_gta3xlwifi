@@ -16,6 +16,17 @@ libraries from SM-A305GT A305GTVJU8CWE1 ZTO while preserving Samsung's existing
 ARM32 HAL/TEE stack. **It writes vendor; returning to the ARM32 ROM requires
 restoring stock CWA1 vendor first.** See the release's INSTALL.md.
 
+## October 15 charging display update
+
+Build `gta3xlwifi.arm64.20261015.071117` starts the native charger UI while
+Android is powered off. Battery percentage, normal automatic blanking, short
+Power to show it again and long Power to boot Android were physically verified.
+The existing beta release above is updated in place. LineageOS 21 sources were
+fetched again October 15, with no revision changes since October 14. The DT2W
+kernel/native code and compatible PIN-free TWRP are retained.
+See [charging fix details](lineage-21/notes/charging-ui-20261015.md) and
+[validation results](reports/charging-20261015/validation-summary.json).
+
 ## October 14 source update
 
 The October 14 build adds working double tap to wake and pins the latest

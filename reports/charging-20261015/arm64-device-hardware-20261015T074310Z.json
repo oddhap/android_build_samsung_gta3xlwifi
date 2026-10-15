@@ -1,0 +1,19 @@
+{
+  "tested_at_utc": "20261015T074310Z",
+  "rom_zip_sha256": "ebce76e6d82dc45432652b48cb875fe667f8fb60ca3296dc5b7b4486ce1006c8",
+  "build_incremental": "gta3xlwifi.arm64.20261015.071117",
+  "camera_images_saved": false,
+  "audio_recorded": false,
+  "bluetooth_pairing_tested": false,
+  "long_term_stability_tested": false,
+  "baseline_responsive_hals_preserved": 104,
+  "wifi_connected_and_internet_ping_passed": true,
+  "probe_process_bits": 64,
+  "accelerometer_samples": 3,
+  "app_dns_tls_https_passed": true,
+  "audio_output_frames": 44100,
+  "camera_front_frames": 6,
+  "camera_back_frames": 6,
+  "hardware_probe_apk_sha256": "4683182ff6307d9aeeaf5dd642064f23da3ed7c6b55249caf8b954dea825f793",
+  "passed": true
+}

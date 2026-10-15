@@ -1,0 +1,17 @@
+{
+  "passed": true,
+  "tested_at_utc": "2026-10-15T07:57:05.789935+00:00",
+  "build_incremental": "gta3xlwifi.arm64.20261015.071117",
+  "physical_charging_percent_visible": true,
+  "physical_untouched_minute_no_repeated_flicker": true,
+  "physical_power_short_press_redisplays_percentage": true,
+  "physical_power_long_press_starts_android": true,
+  "reported_display_duration_seconds_at_100_percent": 7,
+  "single_charger_start_in_previous_boot_log": true,
+  "android_return_tested": true,
+  "ce_marker_preserved": true,
+  "encrypted_file": true,
+  "selinux": "Enforcing",
+  "dt2w_setting_preserved": true,
+  "entry_method": "normal Android shutdown with USB power connected"
+}

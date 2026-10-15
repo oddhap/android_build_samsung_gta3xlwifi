@@ -2,7 +2,7 @@
   "android_device_samsung_gta3xlwifi": {
     "url": "https://github.com/oddhap/android_device_samsung_gta3xlwifi",
     "branch": "lineage-21.0-arm64",
-    "commit": "988cddf9b8bb83cfbcd4a5d8b3eebd6387ec37d7"
+    "commit": "1bed5efbc20d36fe6f673aac71e890392a4110ba"
   },
   "android_kernel_samsung_gta3xlwifi": {
     "url": "https://github.com/oddhap/android_kernel_samsung_gta3xlwifi",
@@ -40,20 +40,23 @@
     "kernel_artifact": "/srv/android/artifacts/kernel-dt2w/Image",
     "kernel_config_artifact": "/srv/android/artifacts/kernel-dt2w/kernel.config",
     "kernel_build_counter": 2,
-    "twrp_supported_normalized_sha256_baseline": "0c641ba8f29bd9a4063cf9e8670dfc84124bc926f7bead643977685827306cc6"
+    "twrp_supported_normalized_sha256_baseline": "0c641ba8f29bd9a4063cf9e8670dfc84124bc926f7bead643977685827306cc6",
+    "charging_ui_candidate": false,
+    "charging_ui_hardware_tested": true,
+    "double_tap_wake_regression": "Same kernel and byte-identical native libraries as the physically tested October 14 ROM; setting retained on October 15."
   },
   "upstream_refresh": {
     "branch": "lineage-21.0",
     "android_version": "14",
-    "fetched_at_utc": "2026-10-14T18:14:03.796892+00:00",
+    "fetched_at_utc": "2026-10-15T07:08:05.510888+00:00",
     "lineage_projects_fetched": 280,
-    "changed_projects": 20,
+    "changed_projects": 0,
     "manifest_commit": "f9d26150827c099d4c391d72bc674bb02eac7e2b",
     "fixed_aosp_revisions_preserved": true,
-    "report": "notes/upstream-refresh-20261014.json"
+    "report": "notes/upstream-refresh-20261015.json"
   },
   "validation": {
-    "report": "../../reports/dt2w-20261014/validation-summary.json",
+    "report": "../../reports/charging-20261015/validation-summary.json",
     "hardware_tested_at": "2026-10-15",
     "full_hardware_validation_complete": false
   }

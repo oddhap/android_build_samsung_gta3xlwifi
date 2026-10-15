@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "build_incremental": "gta3xlwifi.arm64.20261015.071117",
+  "selinux": "Enforcing",
+  "encrypted_file": true,
+  "storage_preserved_after_poweroff_charging_and_return": true,
+  "standalone_test_apps_removed": true,
+  "own_marker_removed": true,
+  "normal_touch_resumed": true,
+  "dt2w_enabled": true,
+  "adb_unrooted": true,
+  "fresh_return_crash_buffer_fatal_errors": 0
+}
