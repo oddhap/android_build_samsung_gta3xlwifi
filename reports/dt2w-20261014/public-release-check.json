@@ -1,0 +1,63 @@
+{
+  "passed": true,
+  "release_url": "https://github.com/oddhap/android_build_samsung_gta3xlwifi/releases/tag/lineage-21.0-arm64-beta-20261014",
+  "published_at": "2026-10-15T06:55:46Z",
+  "verified_at": "2026-10-15T06:56:49.977675+00:00",
+  "draft": false,
+  "prerelease": true,
+  "unauthenticated_access": true,
+  "previous_beta_assets_unchanged": true,
+  "target_commitish": "12f4eb83c7873394f71de5b257a858c8d25c55aa",
+  "assets": [
+    {
+      "name": "INSTALL.md",
+      "bytes": 9544,
+      "sha256": "76eb94f91235c72759a2b7b266d49c7291d0f7be04b6094562e0cfc2f77ae878",
+      "anonymous_download_verified": true
+    },
+    {
+      "name": "lineage-21.0-20261014-UNOFFICIAL-gta3xlwifi-arm64-beta.zip",
+      "bytes": 907577556,
+      "sha256": "b1f1f24f26aafb4c94b5479dc67221c68e6d3dcd35594092c3342611e07b8b7e",
+      "anonymous_download_verified": true
+    },
+    {
+      "name": "RESTORE_STOCK_VENDOR.sh",
+      "bytes": 2080,
+      "sha256": "a09eb3f7658eef215a52ccd8b8f9022991229f55ad63aad492cbbe2b1c396ef9",
+      "anonymous_download_verified": true
+    },
+    {
+      "name": "SHA256SUMS",
+      "bytes": 705,
+      "sha256": "ebe58726e582fb539c577b55e6cccd9bfecbfdae6c8143022ec9f999d193f45c",
+      "anonymous_download_verified": true
+    },
+    {
+      "name": "twrp-3.7.1_12-gta3xlwifi-pinfree-20261014-ap.tar",
+      "bytes": 38993920,
+      "sha256": "43ece26dab3e06495bdf6b8743de52312036a172ede5bd595c846ef6d6cf72df",
+      "anonymous_download_verified": true
+    },
+    {
+      "name": "twrp-3.7.1_12-gta3xlwifi-pinfree-20261014.img",
+      "bytes": 38981648,
+      "sha256": "664ab3abc042b4a1d46d7d1cb8c98ebb17fc72b4e76c95947fec2f03bf86c983",
+      "anonymous_download_verified": true
+    },
+    {
+      "name": "vbmeta-disabled.img",
+      "bytes": 4096,
+      "sha256": "3e679bb0b8b2e6fb5d94d8316846b7459eead2209cee8f038cbbdda8c6483750",
+      "anonymous_download_verified": true
+    },
+    {
+      "name": "vendor-stock-T510XXU5CWA1.raw.img",
+      "bytes": 343932928,
+      "sha256": "9c2c323343118f8a75d31c69c367e77144b6c74c660ca9930076ecc513b8d97c",
+      "anonymous_download_verified": true
+    }
+  ],
+  "tag_commit_verified": true,
+  "previous_arm32_latest_release_preserved": true
+}
