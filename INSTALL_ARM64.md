@@ -1,44 +1,37 @@
-# SM-T510 ARM64 beta — installation and rollback
+# LineageOS 21 ARM64 for SM-T510
 
-LineageOS 21 / Android 14, build `gta3xlwifi.arm64.20261007.170546`.
-Only **SM-T510 / gta3xlwifi** is supported. Not SM-T515.
-Published 2026-10-08; ROM and recovery built/tested 2026-10-07.
+Android 14, build `gta3xlwifi.arm64.20261015.191854`, framework security patch
+2026-10-01. **SM-T510 / gta3xlwifi only**, not SM-T515. Native ARM64 Android
+with ARM32 app support, SELinux Enforcing and file-based encryption.
 
-This beta has native ARM64 userspace and supports ARM32 apps. It retains the
-existing partition layout and uses a minimal hybrid vendor based on SM-T510
-CWA1 plus selected ARM64 SM-A305GT graphics libraries. **The beta ZIP writes
-boot, system, product AND vendor.** It does not format userdata or write EFS.
-No GApps are included. Backup your files externally before changing firmware.
+The ROM writes **boot, system, product and vendor**. It retains partition sizes
+and does not format userdata or write EFS. Google apps are optional and downloaded
+separately. Only ARM64 releases will be maintained going forward.
 
-## Files
+## Downloads
 
-- `lineage-21.0-20261007-UNOFFICIAL-gta3xlwifi-arm64-beta.zip` — the exact signed, physically tested ROM, renamed for the beta release.
-- `twrp-3.7.1_12-gta3xlwifi-pinfree-20261007.img` — updated TWRP; encrypted data works with PIN and without PIN.
-- `twrp-3.7.1_12-gta3xlwifi-pinfree-20261007-ap.tar` — Odin AP archive containing recovery.img and vbmeta.img.
-- `vbmeta-disabled.img` — separate vbmeta for Heimdall.
-- `vendor-stock-T510XXU5CWA1.raw.img` — original stock vendor from the downloaded
-  firmware, for returning to the ARM32 ROM. Contains no device backup or userdata.
-- `RESTORE_STOCK_VENDOR.sh` — guarded TWRP-only stock-vendor restore helper.
-- `SHA256SUMS` — verify all downloads before flashing.
+- `lineage-21.0-20261015-UNOFFICIAL-gta3xlwifi-arm64.zip`: signed ROM.
+- `twrp-3.7.1_12-gta3xlwifi-arm64-20261015.img`: native ARM64 TWRP 3.7.1_12,
+  with working PIN and automatic PIN-free decryption.
+- `twrp-3.7.1_12-gta3xlwifi-arm64-20261015-ap.tar`: Odin AP archive containing
+  the same recovery and `vbmeta.img`.
+- `vbmeta-disabled.img`: vbmeta for Heimdall; disables AVB, not storage encryption.
+- `SHA256SUMS`: checksums for all assets.
+- Stock CWA1 vendor image and guarded restore helper: for rollback only.
 
-Bootloader unlocking erases data and custom firmware can permanently trip Knox.
-Do not relock the bootloader with custom firmware installed. Leave Re-Partition
-disabled. The supplied vbmeta disables AVB verification, not storage encryption.
+Keep a backup outside the tablet and verify SHA256SUMS before flashing.
+Bootloader unlocking erases data and custom firmware can trip Knox. Keep the
+bootloader unlocked with this ROM; leave **Re-Partition disabled**.
 
-## Upgrade from this project's signed ARM32 LineageOS 21 release
+## Update an existing signed ARM64 installation
 
-The in-place migration from the 2026-10-05 ARM32 build was physically tested:
-existing apps, release-key identity, userdata and FBE were retained.
-
-1. Download the beta ZIP, updated TWRP and recovery installation files. Verify
-   the checksums. Keep the ZIP on microSD/USB OTG or ready for ADB sideload.
-2. In existing TWRP, install `twrp-3.7.1_12-gta3xlwifi-pinfree-20261007.img` with **Install → Install Image → Recovery**,
-   then reboot to **Recovery**. Alternatively flash the AP archive in Download Mode
-   as below. Do not format data just to update recovery.
-3. If you have a PIN, enter it on the tablet. With no PIN, the updated TWRP
-   automatically decrypts user 0 storage. Confirm your storage is accessible.
-4. Uncheck Vendor in Mount. If recovery's crypto services hold vendor mounted,
-   use Advanced → Terminal (or `adb shell`) to stop their recovery instances:
+1. Install the new recovery image using **TWRP → Install → Install Image → Recovery**,
+   then **Reboot → Recovery**. This does not require Format Data. Existing ARM32
+   TWRP must be replaced to install ARM64 GApps.
+2. Enter your PIN on the tablet if prompted. Without a PIN, storage decrypts
+   automatically. Confirm internal storage is accessible.
+3. Keep **Vendor unmounted**. If recovery crypto services hold it mounted,
+   stop only their recovery instances using Advanced → Terminal or `adb shell`:
 
    ```sh
    for service in keystore2 recovery-keymaster recovery-gatekeeper recovery-mobicore recovery-crypto-props; do
@@ -46,85 +39,78 @@ existing apps, release-key identity, userdata and FBE were retained.
    done
    ```
 
-   Wait a few seconds, then unmount Vendor. Leave it unmounted. This is needed
-   because this beta installs its own vendor image. The installer refuses to
-   write images while vendor is mounted; do not bypass that guard.
-5. Install `lineage-21.0-20261007-UNOFFICIAL-gta3xlwifi-arm64-beta.zip`, then reboot to System. **Do not Format Data for this upgrade.**
-   First boot takes longer than a normal reboot.
-
-ADB sideload alternative:
-
-```sh
-adb sideload lineage-21.0-20261007-UNOFFICIAL-gta3xlwifi-arm64-beta.zip
-```
+   Wait a few seconds, then unmount Vendor. The installer refuses to write
+   images while Vendor is mounted; do not bypass that check.
+4. Install the ROM ZIP, or use `adb sideload lineage-21.0-20261015-UNOFFICIAL-gta3xlwifi-arm64.zip`.
+5. Existing MindTheGapps installation is preserved by addon.d during the tested
+   signed ARM64 update. Keep the same Android 14 ARM64 package available in case
+   recovery reports a restore failure. See the Google apps section before boot.
+   **Do not Format Data for a routine update.**
 
 ## First installation from stock or another ROM
 
-1. Start with **T510XXU5CWA1 / T510OXM5CVG2** stock firmware. Unlock the bootloader,
+1. Start from **T510XXU5CWA1 / T510OXM5CVG2** firmware. Unlock the bootloader,
    boot stock once, connect to the Internet and confirm OEM unlocking remains enabled.
-2. In Download Mode, use `twrp-3.7.1_12-gta3xlwifi-pinfree-20261007-ap.tar` in Odin's **AP** field.
+2. In Download Mode, flash the supplied AP archive using Odin's **AP** field.
    Disable **Auto Reboot** and **Re-Partition**.
-3. Boot directly into recovery before allowing stock Android to start. Keep USB
-   connected: Power + Volume Down until the screen turns black, then switch to
-   Power + Volume Up; release Power at the logo and hold Volume Up for TWRP.
-4. From stock/another ROM, use **Wipe → Format Data → type yes**. This erases
-   internal storage. Reboot to Recovery and install from microSD/USB OTG or
-   sideload; keep your only ROM copy off internal storage.
-5. Follow steps 3–5 of the upgrade instructions. The beta installs hybrid vendor
-   itself; do not flash the complete donor firmware or change partition sizes.
+3. Boot directly into recovery: keep USB connected, hold Power + Volume Down
+   until the screen turns black, switch to Power + Volume Up, release Power at
+   the logo and hold Volume Up until TWRP appears.
+4. Use **Wipe → Format Data → type yes** for this clean installation. This erases
+   internal storage. Reboot to Recovery. Keep the ROM on microSD/USB OTG or use
+   sideload so your only copy is not erased.
+5. Follow the update steps to install the ROM with Vendor unmounted.
+   The ROM includes its hybrid vendor; do not flash the complete donor firmware
+   or resize partitions.
+6. If wanted, install GApps **before the first Android boot**, then reboot System.
 
-Heimdall alternative for step 2:
+Heimdall alternative for the recovery installation:
 
 ```sh
-heimdall flash --RECOVERY twrp-3.7.1_12-gta3xlwifi-pinfree-20261007.img --VBMETA vbmeta-disabled.img --no-reboot
+heimdall flash --RECOVERY twrp-3.7.1_12-gta3xlwifi-arm64-20261015.img --VBMETA vbmeta-disabled.img --no-reboot
 ```
 
-## Return to the previous ARM32 LineageOS 21 release
+## Optional Google apps
 
-**The old ARM32 ZIP preserves vendor. Flashing it alone after this ARM64 beta
-leaves the wrong vendor installed. Restore stock vendor FIRST.**
+Use **Android 14 / ARM64 MindTheGapps** with the supplied **ARM64 TWRP**.
+The package tested on this tablet is
+[MindTheGapps-14.0.0-arm64-20250203_200051.zip](https://github.com/MindTheGapps/14.0.0-arm64/releases/tag/MindTheGapps-14.0.0-arm64-20250203_200051),
+SHA-256 `6e1c3616862ce5b33e2b96074f86ae846eb1351a26a980e1ed140f8a7e7a4fd6`.
 
-1. Download `vendor-stock-T510XXU5CWA1.raw.img` and `RESTORE_STOCK_VENDOR.sh`
-   from this beta release, and `lineage-21.0-20261005-UNOFFICIAL-gta3xlwifi.zip`
-   from the previous GitHub release.
-   Verify their checksums and keep an external backup.
-2. Boot the new PIN-free TWRP. Decrypt data if needed. Keep the new recovery;
-   it already has the Android 14 / September 2026 compatibility header.
-3. Restore stock vendor with the guarded helper, which stops recovery crypto
-   services, requires vendor to be unmounted, checks image/partition identity,
-   writes only vendor and verifies its full readback:
+Install the **original ZIP unchanged**, immediately after the ROM and before
+first boot. Its built-in minimum configuration is selected because the product
+partition is small. No architecture spoofing, partition resizing or patched
+Google ZIP is needed. Google apps are not included in the ROM download.
 
-   ```sh
-   adb push vendor-stock-T510XXU5CWA1.raw.img /tmp/vendor-stock-T510XXU5CWA1.raw.img
-   adb push RESTORE_STOCK_VENDOR.sh /tmp/RESTORE_STOCK_VENDOR.sh
-   adb shell sh /tmp/RESTORE_STOCK_VENDOR.sh /tmp/vendor-stock-T510XXU5CWA1.raw.img
-   adb shell rm /tmp/vendor-stock-T510XXU5CWA1.raw.img
-   ```
+Adding GApps to an already configured installation has not been validated.
+For a clean GApps installation, back up your files and follow the clean-install
+process. Do not install ARM GApps on this ARM64 ROM.
 
-   Removing that staged image frees recovery RAM for the old ZIP. Stop if the
-   helper reports a failure. Do not reboot Android with mixed ROM/vendor inputs.
-4. Install the original signed ARM32 ZIP, then reboot to System. The tested
-   rollback preserved userdata; no Format Data was used.
+## Older ROMs and rollback
 
-Previous release: https://github.com/oddhap/android_build_samsung_gta3xlwifi/releases/tag/lineage-21.0-20261005
+The ROM uses a hybrid vendor based on stock SM-T510 CWA1 with selected ARM64
+SM-A305GT graphics libraries. The old ARM32 ZIP preserves vendor, so flashing
+it alone after this ROM leaves an incompatible vendor installed.
 
-## Recovery/header scope
+For rollback, use the supplied stock vendor image and guarded helper **before**
+installing the old ARM32 ROM. See the previous release's full rollback procedure:
+[October 15 charging release](https://github.com/oddhap/android_build_samsung_gta3xlwifi/releases/tag/lineage-21.0-arm64-beta-20261014).
+Use a recovery with matching OS/SPL metadata. Downgrading security patch levels
+with retained userdata has not been validated; keep a matching backup.
 
-This beta ZIP is the exact tested 2026-10-07 package. Its earlier header helper
-does not recognize the new recovery payload and leaves it unchanged; both
-already use Android 14 / 2026-09-01 compatibility metadata. Source for future
-builds recognizes both recovery payloads. Other Android major versions or
-security-patch inputs are outside this test scope.
+## Test scope and remaining limits
 
-## Beta test scope
+The ROM retains working double tap to wake and powered-off charging display
+support. Enable **Settings → Display → Tap to wake**. On a full battery, the
+charging display normally blanks after about seven seconds; short Power shows
+it again and long Power starts Android.
 
-Verified: native ARM64 processes; ARM32/ARM64 GLES graphics on Mali-G71; Wi-Fi,
-DNS/TLS/HTTPS; speaker output; front/back Camera2 frames; accelerometer;
-Bluetooth controller activation; all 104 responsive baseline HAL interfaces;
-encrypted storage; PIN and PIN-free TWRP; ROM boot and rollback.
+Google login and app installation, ARM64 Google services, both Mali graphics
+ABIs, Wi-Fi/app internet, speaker, both cameras, accelerometer and PIN/PIN-free
+recovery have been tested. Detailed results and exact tested build identities
+are linked from the release notes.
 
-Not fully tested: long-term stability, Bluetooth pairing/audio, microphone,
-video/DRM codecs, microSD/OTG on this ARM64 build, deep suspend, Vulkan, OpenCL,
-RenderScript, GApps/microG/Play Integrity, adoptable storage and encrypted
-backup/restore. Built-in OTA downloads are not configured.
-Framework SPL: 2026-09-01; the legacy Samsung vendor/kernel remain older.
+Long-term stability, Bluetooth pairing/audio, microphone, video/DRM codecs,
+advanced graphics/storage features, Play Integrity and encrypted backup/restore
+are not fully validated. Built-in OTA downloads are not configured. Legacy
+Samsung vendor/kernel components remain older than the framework patch date.

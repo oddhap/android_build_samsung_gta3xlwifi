@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "build_incremental": "gta3xlwifi.arm64.20261015.191854",
+  "native_charger_bits": 64,
+  "charger_ui_not_disabled": true,
+  "charger_class_only": true,
+  "starts_android_main_classes": false,
+  "init_verifier_passed": true,
+  "battery_png_resources_present": true,
+  "lineage_animation_and_percentage_font_present": true,
+  "charger_sha256": "6afe6a686036b1ef20a45f3463e1576b4aaf6936353a15d02a8f2efd1dba0136",
+  "init_rc_sha256": "4288b1c47d8f6469192ebdb2f9321943052a43489d93e923be0bc77f775d9c11",
+  "hardware_tested": false
+}

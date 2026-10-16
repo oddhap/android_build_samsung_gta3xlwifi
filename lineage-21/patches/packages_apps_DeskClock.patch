@@ -1,0 +1,31 @@
+diff --git a/Android.bp b/Android.bp
+index ffafc99..368f5a9 100644
+--- a/Android.bp
++++ b/Android.bp
+@@ -15,7 +15,7 @@ android_app {
+         "src/**/*.java",
+         "gen/**/*.java",
+     ],
+-    product_specific: true,
++    product_specific: false,
+     static_libs: [
+         "androidx.annotation_annotation",
+         "androidx.collection_collection",
+@@ -40,7 +40,7 @@ android_app {
+ 
+ prebuilt_etc {
+     name: "com.android.deskclock_allowlist",
+-    product_specific: true,
++    product_specific: false,
+     sub_dir: "sysconfig",
+     src: "com.android.deskclock_allowlist.xml",
+     filename_from_src: true,
+@@ -48,7 +48,7 @@ prebuilt_etc {
+ 
+ prebuilt_etc {
+     name: "com.android.deskclock_default-permissions",
+-    product_specific: true,
++    product_specific: false,
+     sub_dir: "default-permissions",
+     src: "com.android.deskclock_default-permissions.xml",
+     filename_from_src: true,

@@ -1,0 +1,13 @@
+diff --git a/app/Android.bp b/app/Android.bp
+index 33aadac..f01cd8b 100644
+--- a/app/Android.bp
++++ b/app/Android.bp
+@@ -15,7 +15,7 @@ android_app {
+         "src/main/java/**/*.kt",
+     ],
+ 
+-    product_specific: true,
++    product_specific: false,
+ 
+     static_libs: [
+         // DO NOT EDIT THIS SECTION MANUALLY

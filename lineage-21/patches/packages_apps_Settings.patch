@@ -1,5 +1,5 @@
 diff --git a/src/com/android/settings/fuelgauge/batteryusage/BatteryEntry.java b/src/com/android/settings/fuelgauge/batteryusage/BatteryEntry.java
-index 4b65cc9..c59f880 100644
+index 4b65cc9c..c59f8805 100644
 --- a/src/com/android/settings/fuelgauge/batteryusage/BatteryEntry.java
 +++ b/src/com/android/settings/fuelgauge/batteryusage/BatteryEntry.java
 @@ -648,6 +648,12 @@ public class BatteryEntry {
@@ -15,3 +15,18 @@ index 4b65cc9..c59f880 100644
          try {
              return uidBatteryConsumer.getConsumedPower(dimension);
          } catch (IllegalArgumentException e) {
+diff --git a/src/com/android/settings/network/NetworkProviderSettings.java b/src/com/android/settings/network/NetworkProviderSettings.java
+index a9f2865f..9704a32d 100644
+--- a/src/com/android/settings/network/NetworkProviderSettings.java
++++ b/src/com/android/settings/network/NetworkProviderSettings.java
+@@ -1260,6 +1260,10 @@ public class NetworkProviderSettings extends RestrictedSettingsFragment
+      */
+     @VisibleForTesting
+     void changeNextButtonState(boolean enabled) {
++        // Wi-Fi callbacks may already be queued when the setup fragment detaches.
++        if (!isAdded()) {
++            return;
++        }
+         if (mEnableNextOnConnection && hasNextButton()) {
+             getNextButton().setEnabled(enabled);
+         }

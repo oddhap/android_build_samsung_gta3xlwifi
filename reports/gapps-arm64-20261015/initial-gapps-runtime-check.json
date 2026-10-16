@@ -1,0 +1,36 @@
+{
+  "passed": true,
+  "checked_at_utc": "2026-10-15T19:13:45.286901+00:00",
+  "build_incremental": "gta3xlwifi.arm64.20261015.140343",
+  "rom_zip_sha256": "1c44971bcbe315fb6912c055cce3818fdc5e3a0e1b9b830fef11b874d1aa4567",
+  "packages": {
+    "com.google.android.gms": {
+      "installed": true,
+      "version": "26.39.33",
+      "primary_cpu_abi": "arm64-v8a",
+      "system_privileged": true
+    },
+    "com.google.android.gsf": {
+      "installed": true,
+      "version": "14-10347885",
+      "primary_cpu_abi": "arm64-v8a",
+      "system_privileged": true
+    },
+    "com.android.vending": {
+      "installed": true,
+      "version": "53.5.48-34",
+      "primary_cpu_abi": "arm64-v8a",
+      "system_privileged": true
+    }
+  },
+  "play_store_launch_passed": true,
+  "gms_and_play_store_native_aarch64": true,
+  "monitored_processes_stable_seconds": 63.1,
+  "google_process_crashes_in_current_boot": false,
+  "selinux": "Enforcing",
+  "encryption": "encrypted/file",
+  "pre_android_storage_marker_survived_boot": true,
+  "account_contents_collected": false,
+  "app_download_physically_confirmed": true,
+  "runtime_checked_after_pin_and_pinfree_recovery": true
+}

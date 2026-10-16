@@ -1,0 +1,22 @@
+diff --git a/Android.bp b/Android.bp
+index adced7b..bef8262 100644
+--- a/Android.bp
++++ b/Android.bp
+@@ -44,7 +44,7 @@ android_app {
+ 
+     privileged: true,
+ 
+-    product_specific: true,
++    product_specific: false,
+ 
+     optimize: {
+         proguard_flags_files: ["proguard.cfg"],
+@@ -56,7 +56,7 @@ android_app {
+ 
+ prebuilt_etc {
+     name: "privapp_whitelist_org.lineageos.eleven",
+-    product_specific: true,
++    product_specific: false,
+     src: "privapp_whitelist_org.lineageos.eleven.xml",
+     sub_dir: "permissions",
+     filename_from_src: true,

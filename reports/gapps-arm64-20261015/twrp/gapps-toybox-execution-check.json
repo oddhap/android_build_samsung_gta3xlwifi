@@ -1,0 +1,7 @@
+{
+  "passed": true,
+  "original_zip_binary": "toybox",
+  "sha256": "5aacaf22029f6db386be95dfd22632da67098949f3feca342a0301c39b3f8486",
+  "executed_in_native_arm64_twrp": true,
+  "version": "toybox 0.8.3-android"
+}

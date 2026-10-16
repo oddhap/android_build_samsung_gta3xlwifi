@@ -1,0 +1,198 @@
+#!/usr/bin/env python3
+"""Check native TWRP output and create the Samsung-marked image; no USB access."""
+import gzip
+import lzma
+import hashlib
+import json
+import struct
+import subprocess
+import re
+from pathlib import Path
+
+root = Path('/srv/android')
+checkout = root / 'src/twrp-12.1-pinfree'
+source = checkout / 'out-arm64-gapps/target/product/gta3xlwifi/recovery.img'
+destination = root / 'artifacts/twrp-arm64-gapps'
+maximum = 47185920
+kernel_sha = 'f170d1015157c6d82cc3880427245254640fcbf20ffc59538151bcf8d0273333'
+dtbo_sha = 'b9041c37713a745290d9a0203423436b6caa7a1307ced79b6963b4f1f0271c4b'
+marker = b'SEANDROIDENFORCE'
+
+def require(condition, message):
+    if not condition:
+        raise SystemExit(message)
+
+def digest(data):
+    return hashlib.sha256(data).hexdigest()
+
+def cpio_members(data):
+    if data.startswith(b'\x1f\x8b'):
+        archive = gzip.decompress(data)
+    elif data.startswith(b'\xfd7zXZ\x00'):
+        archive = lzma.decompress(data)
+    else:
+        raise SystemExit('Unexpected recovery ramdisk compression')
+    offset = 0
+    result = {}
+    while offset + 110 <= len(archive):
+        header = archive[offset:offset + 110]
+        require(header[:6] in (b'070701', b'070702'), 'Unexpected recovery CPIO format')
+        size = int(header[54:62], 16)
+        name_size = int(header[94:102], 16)
+        name_start = offset + 110
+        name = archive[name_start:name_start + name_size].rstrip(b'\0').decode()
+        start = (name_start + name_size + 3) & ~3
+        end = start + size
+        require(end <= len(archive), 'Truncated recovery CPIO')
+        if name == 'TRAILER!!!':
+            return result
+        result[name.removeprefix('./')] = archive[start:end]
+        offset = (end + 3) & ~3
+    raise SystemExit('Recovery CPIO lacks trailer')
+
+require((root / 'logs/twrp-arm64-gapps/build.exit').read_text().strip() == '0', 'TWRP build did not pass')
+data = source.read_bytes()
+require(data[:8] == b'ANDROID!', 'Missing Android boot header')
+fields = struct.unpack_from('<10I', data, 8)
+kernel_size, kernel_addr, ramdisk_size, ramdisk_addr, _, _, tags_addr, page_size, version, _ = fields
+require(ramdisk_size <= 16777216, 'Ramdisk overlaps bootloader DTB load address')
+require((kernel_addr, ramdisk_addr, tags_addr, page_size, version) ==
+        (0x10008000, 0x11000000, 0x10000100, 2048, 1), 'Unexpected SM-T510 boot layout')
+require(struct.unpack_from('<I', data, 44)[0] == 0x1c0001aa, 'Keymaster boot version differs from LineageOS 21 input')
+require(data[48:64].rstrip(b'\0') == b'SRPSA25A005RU', 'Wrong CWA1 recovery board field')
+cmdline = (data[64:576].split(b'\0', 1)[0] + data[608:1632].split(b'\0', 1)[0]).decode()
+require('androidboot.hardware=exynos7904' in cmdline, 'Wrong recovery hardware')
+require('androidboot.selinux=enforcing' in cmdline and 'selinux=permissive' not in cmdline,
+        'Global SELinux boot mode changed')
+require(digest(data[page_size:page_size + kernel_size]) == kernel_sha, 'Unexpected kernel artifact')
+ramdisk_offset = page_size + ((kernel_size + page_size - 1) // page_size) * page_size
+members = cpio_members(data[ramdisk_offset:ramdisk_offset + ramdisk_size])
+props = {}
+for line in members['prop.default'].decode().splitlines():
+    if line and not line.startswith('#') and '=' in line:
+        key, value = line.split('=', 1)
+        props[key] = value
+require(props.get('ro.adb.secure') == '0', 'Recovery ADB still requires authorization')
+require(props.get('ro.adb.secure.recovery') == '0', 'Missing recovery authentication property')
+# Android init derives ro.product.model/device from partition-scoped properties.
+# An image's prop.default can correctly omit the derived runtime properties.
+for key, expected in [('model', 'SM-T510'), ('device', 'gta3xlwifi')]:
+    values = [value for name, value in props.items()
+              if name == f'ro.product.{key}' or
+              (name.startswith('ro.product.') and name.endswith(f'.{key}'))]
+    require(values and all(value == expected for value in values), f'Wrong recovery {key}')
+usb_init = members['init.recovery.exynos7904.rc']
+require(b'setprop sys.usb.configfs 1' in usb_init, 'Missing SM-T510 configfs selection')
+mobicore = usb_init.split(b'service recovery-mobicore ', 1)[1].split(b'\nservice ', 1)[0]
+require(b'setenv LD_LIBRARY_PATH /vendor/lib:/vendor/lib/hw:/system/lib' in mobicore, 'MobiCore must use ARM32 compatibility libraries')
+require('system/bin/keymaster-probe64' not in members and 'system/bin/twrp-keymaster-probe' not in members, 'Diagnostic probe included in recovery')
+require(b'install_keyring' in usb_init, 'Missing legacy fscrypt session keyring initialization')
+require(b'by-name/efs /mnt/vendor/efs rw' in usb_init, 'Gatekeeper EFS state remains read-only')
+require(b'mtp,adb' in usb_init and b'sys.usb.ffs.mtp.ready=1' in usb_init,
+        'Missing MTP/ADB configfs support')
+require(b'twrp.crypto.props.ready=1' in usb_init, 'Missing guarded hardware crypto startup')
+require(b'on late-init' not in members['system/etc/init/keystore2.rc'], 'Keystore starts before vendor is available')
+require(b'android.hidl.manager' in members['system/etc/vintf/manifest.xml'], 'Missing framework HIDL manifest')
+require('system/bin/resetprop' in members, 'Missing resetprop binary')
+require(b'header_month' in members['system/bin/twrp-prepare-crypto.sh'], 'Missing OS/header match guard')
+recovery = members['system/bin/recovery']
+adbd = members['system/bin/adbd']
+for name, binary in [('recovery', recovery), ('adbd', adbd)]:
+    require(binary[:6] == b'\x7fELF\x02\x01' and struct.unpack_from('<H', binary, 18)[0] == 183,
+            f'{name}: wrong userspace ABI')
+require(b'3.7.1_12\0' in recovery, 'Missing plain TWRP version')
+require(b'sm-t510-native-test' not in recovery and b'3.7.1_12-0\0' not in recovery,
+        'Device version suffix remains')
+require(b'/cache\0' in recovery, 'Recovery settings cache path missing')
+require(b'recovery_rpmb_block_device' in members.get('sepolicy', b''),
+        'Missing dedicated recovery RPMB device policy')
+require(b'Android keystore database is not readable yet' in recovery,
+        'Missing safe temporary keystore database snapshot')
+require(b'Gatekeeper rejected verification, status=' in recovery,
+        'Missing fail-closed Gatekeeper response validation')
+require(b'User 0 DE key missing; refusing to create replacement keys' in recovery,
+        'Missing read-only decryption key guard')
+ramdisk_root = checkout / 'out-arm64-gapps/target/product/gta3xlwifi/recovery/root'
+for library in ('libminuitwrp.so', 'libresetprop.so', 'libfscrypttwrp.so'):
+    current_library = checkout / 'out-arm64-gapps/target/product/gta3xlwifi/system/lib64' / library
+    if library == 'libresetprop.so':
+        # The recovery-only resetprop executable selects Soong's recovery
+        # library variant; compare against that exact current build input.
+        current_library = checkout / 'out-arm64-gapps/soong/.intermediates/external/magisk-prebuilt/resetprop/libresetprop/android_recovery_arm64_armv8-a_shared/libresetprop.so'
+    require(members.get(f'system/lib64/{library}') == current_library.read_bytes(),
+            f'Stale runtime library copied into recovery ramdisk: {library}')
+libraries = {p.name: p for p in (ramdisk_root/'system/lib64').rglob('*.so') if p.is_file()}
+pending = [ramdisk_root / f'system/bin/{name}' for name in ('init', 'recovery', 'adbd', 'resetprop', 'keystore2')]
+visited = set()
+while pending:
+    binary_path = pending.pop().resolve()
+    if binary_path in visited:
+        continue
+    visited.add(binary_path)
+    packed_path = binary_path.relative_to(ramdisk_root.resolve()).as_posix()
+    require(members.get(packed_path) == binary_path.read_bytes(),
+            f'Runtime dependency absent or different in packed ramdisk: {packed_path}')
+    dynamic = subprocess.run(['readelf', '-d', str(binary_path)],
+                             check=True, capture_output=True, text=True).stdout
+    for needed in re.findall(r'Shared library: \[(.*?)\]', dynamic):
+        require(needed in libraries, f'Missing recovery runtime dependency: {needed}')
+        pending.append(libraries[needed])
+require(members.get('etc') in (b'/system/etc', b'system/etc'), 'Recovery /etc symlink overwritten')
+require(b'/dev/block/platform/13500000.dwmmc0/by-name/userdata' in members['system/etc/twrp.fstab'],
+        'Wrong recovery data partition')
+require(b'fileencryption=ice' in members['system/etc/twrp.fstab'], 'FBE flag missing')
+standard_fstab = members['system/etc/recovery.fstab'].decode()
+misc_entries = [line.split() for line in standard_fstab.splitlines()
+                if line.strip() and not line.lstrip().startswith('#')]
+require(any(entry[:3] == ['/dev/block/platform/13500000.dwmmc0/by-name/misc',
+                         '/misc', 'emmc'] for entry in misc_entries),
+        'Android fs_mgr recovery fstab cannot find physical misc partition')
+dtbo_size, dtbo_offset, header_size = struct.unpack_from('<IQI', data, 1632)
+require(header_size == 1648 and dtbo_size > 0 and dtbo_offset % page_size == 0,
+        'Bad embedded recovery DTBO layout')
+require(digest(data[dtbo_offset:dtbo_offset + dtbo_size]) == dtbo_sha, 'Wrong embedded DTBO')
+
+# Preserve the already tested fail-closed PIN-free crypto fixes.
+crypto = recovery + members['system/lib64/libfscrypttwrp.so']
+for message in (b'Synthetic password keystore unavailable; data remains locked',
+                b'Synthetic password authentication failed; data remains locked',
+                b'Synthetic password intermediate blob is truncated',
+                b'Synthetic password operation unavailable'):
+    require(message in crypto, 'Missing guarded synthetic-password handling')
+require(props.get('ro.bionic.arch') == 'arm64', 'Recovery architecture does not match ARM64 GApps')
+compat = json.loads((destination/'compat32-check.json').read_text())
+require(compat['passed'], 'ARM32 vendor crypto runtime was not validated')
+for name, expected in compat['compat32_files'].items():
+    require(name in members and digest(members[name]) == expected['sha256'], 'Wrong or missing compat32 file: '+name)
+    require(members[name][:5] == b'\x7fELF\x01', 'Compatibility dependency is not ARM32: '+name)
+
+# Stock Samsung recovery carries this marker. It is not a cryptographic signature.
+marked = data if data.endswith(marker) else data + marker
+require(len(marked) <= maximum, 'TWRP exceeds actual RECOVERY PIT size')
+destination.mkdir(parents=True, exist_ok=True)
+image = destination / 'recovery-twrp-sm-t510.img'
+image.write_bytes(marked)
+report = {
+    'device': 'SM-T510', 'version': '3.7.1_12', 'build_exit_code': 0,
+    'image': str(image), 'sha256': digest(marked), 'file_bytes': len(marked),
+    'partition_bytes': maximum, 'kernel_sha256': kernel_sha, 'dtbo_sha256': dtbo_sha,
+    'boot_header_version': version, 'cmdline': cmdline,
+    'ramdisk_bytes': ramdisk_size, 'ramdisk_limit_bytes': 16777216,
+    'ramdisk_compression': 'xz',
+    'adb_auth_required_in_recovery': False, 'usb_configfs': True,
+    'fbe_enabled_in_device_config': True, 'samsung_fbe_runtime_tested': False,
+    'keymaster_boot_header_os': '14.0.0', 'keymaster_boot_header_patch': '2026-10-01',
+    'recovery_platform_base': 'Android 12.1', 'hardware_crypto_startup_included': True,
+    'upstream_twrp_permissive_recovery_domains': True,
+    'hardware_tested': False, 'stability_claim': False, 'userspace_bits': 64, 'samsung_vendor_crypto_compat32_files': len(compat['compat32_files']),
+    'plain_version_string_verified': True, 'settings_storage_path': '/cache',
+    'original_unmarked_image_sha256': digest(data),
+    'source_manifest_sha256': digest((root / 'artifacts/twrp-12.1-source-manifest.xml').read_bytes()),
+    'recovery_elf_sha256': digest(recovery), 'adbd_elf_sha256': digest(adbd),
+    'runtime_elf_dependencies_verified': len(visited),
+    'graphics_library_sha256': digest(members['system/lib64/libminuitwrp.so']),
+    'graphics_library_matches_current_build': True,
+    'fscrypt_library_sha256': digest(members['system/lib64/libfscrypttwrp.so']),
+}
+(destination / 'image-check.json').write_text(json.dumps(report, indent=2) + '\n')
+print(json.dumps(report, indent=2))

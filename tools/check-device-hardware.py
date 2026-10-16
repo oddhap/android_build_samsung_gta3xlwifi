@@ -52,10 +52,17 @@ for name, args in captures.items():
 def alive(text):
     return {line.split()[0] for line in text.splitlines()
             if len(line.split()) == 2 and line.split()[1] == 'alive'}
-baseline = alive((root/'.private/baseline-hardware/hals.txt').read_text())
+baseline_all = alive((root/'.private/baseline-hardware/hals.txt').read_text())
+# IBase entries are inherited interface aliases, not a concrete hardware API.
+# Compare every advertised concrete interface; instance aliases can vary with
+# service registration order without losing a camera/audio/etc. provider.
+base_aliases = {name for name in baseline_all
+                if name.startswith('android.hidl.base@1.0::IBase/')}
+baseline = baseline_all - base_aliases
 missing = baseline - alive(texts['hals'])
 assert not missing, ('Previously responsive HALs missing',sorted(missing))
 report['baseline_responsive_hals_preserved'] = len(baseline)
+report['nonconcrete_inherited_base_interface_aliases_excluded'] = sorted(base_aliases)
 assert 'Wifi is enabled' in texts['wifi'] and 'COMPLETED' in texts['wifi'], 'Wi-Fi is not connected'
 ping = run('shell','ping','-c','3','-W','3','1.1.1.1',timeout=15)
 (private/'ping.txt').write_text(ping)
@@ -65,7 +72,7 @@ apk = root/'artifacts/hardware-tests/gta3xlwifi_hardware_probe.apk'
 build = json.loads((root/'artifacts/hardware-probe-build-check.json').read_text())
 assert build['passed'] and hashlib.sha256(apk.read_bytes()).hexdigest() == build['apk_sha256']
 package = 'org.lineageos.gta3xlwifi.hardwareprobe'
-assert 'Success' in run('install','-r','-t',str(apk))
+assert 'Success' in run('install','--no-streaming','-r','-t',str(apk),timeout=300)
 run('shell','pm','grant',package,'android.permission.CAMERA')
 run('shell','am','force-stop',package)
 launch = run('shell','am','start','-W','-n',package+'/.MainActivity')

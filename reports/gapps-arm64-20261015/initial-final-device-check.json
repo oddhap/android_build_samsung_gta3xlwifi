@@ -1,0 +1,19 @@
+{
+  "passed": true,
+  "checked_at_utc": "2026-10-15T19:14:23.318078+00:00",
+  "pin_and_pinfree_android_returns_passed": true,
+  "temporary_pin_removed": true,
+  "settings_wifi_app_update_preserved": true,
+  "google_packages_preserved": true,
+  "owned_test_packages_removed": [
+    "org.lineageos.gta3xlwifi.smoke64",
+    "org.lineageos.gta3xlwifi.smoke32",
+    "org.lineageos.gta3xlwifi.hardwareprobe"
+  ],
+  "owned_root_and_ce_markers_removed": true,
+  "selinux": "Enforcing",
+  "file_encryption_preserved": true,
+  "userdata_formatted": false,
+  "adb_unroot_verified": true,
+  "adb_shell_uid": 2000
+}

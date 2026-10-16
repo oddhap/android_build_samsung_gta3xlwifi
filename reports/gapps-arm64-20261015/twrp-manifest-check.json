@@ -1,0 +1,8 @@
+{
+  "passed": true,
+  "projects_checked": 249,
+  "xml_semantics_including_remotes_and_copyfiles_identical": true,
+  "published_manifest_sha256": "85c08d52fe536c62a4fe0f2e1b9ef9067c641e4998ecd29ce356b0760985c111",
+  "build_manifest_sha256": "c26232919f8b44627b57729c097baf7569785d507653b2365fdf06b721f67ec2",
+  "difference": "XML serialization and whitespace only"
+}

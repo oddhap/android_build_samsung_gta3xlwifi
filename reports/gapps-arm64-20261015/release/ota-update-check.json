@@ -1,0 +1,18 @@
+{
+  "passed": true,
+  "checked_at_utc": "2026-10-16T05:03:22.339708+00:00",
+  "rom_zip_sha256": "f4505aef35f10de09c629dfb6cdfffd219e5a01bf7b67c5b5bf7a6a0ad093781",
+  "build_incremental": "gta3xlwifi.arm64.20261015.191854",
+  "rom_updater_exit_code": 0,
+  "data_formatted": false,
+  "boot_full_readback_verified": true,
+  "vendor_payload_preserved": true,
+  "vendor_mount_metadata_changed": true,
+  "vendor_readback_report": "vendor-readback-check.json",
+  "recovery_dtbo_vbmeta_preserved": true,
+  "ce_marker_and_encryption_keys_preserved": true,
+  "existing_gapps_preservation_check_pending": false,
+  "android_return_tested": true,
+  "original_gapps_payload_preserved_by_addon_d": true,
+  "ce_marker_and_encryption_keys_preserved_after_android": true
+}

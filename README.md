@@ -1,20 +1,33 @@
-# LineageOS 21 for SM-T510 — ARM64 beta
+# LineageOS 21 for SM-T510 — ARM64
 
 Native **ARM64 Android 14** with **ARM32 app support**, for Galaxy Tab A 10.1
-(2019) **SM-T510 / gta3xlwifi only**. Unofficial **beta**, no GApps, signed with
-the existing project release keys, SELinux Enforcing and file-based encryption.
-The previous ARM32 source/release remains on `lineage-21.0`.
+(2019) **SM-T510 / gta3xlwifi only**. Unofficial, signed with the existing project
+release keys, SELinux Enforcing and file-based encryption. Google apps are
+optional and are not bundled. Only ARM64 releases are maintained going forward.
+The historical ARM32 source/release remains on `lineage-21.0`.
 
-- [Beta ROM, updated PIN-free TWRP and install/rollback guide](https://github.com/oddhap/android_build_samsung_gta3xlwifi/releases/tag/lineage-21.0-arm64-beta-20261014)
+- [ROM, native ARM64 TWRP, checksums and installation guide](https://github.com/oddhap/android_build_samsung_gta3xlwifi/releases/tag/lineage-21.0-arm64-20261015)
+- [Installation](INSTALL_ARM64.md) and [GApps integration details](docs/gapps-arm64-build.md)
 - [ARM64 device tree](https://github.com/oddhap/android_device_samsung_gta3xlwifi/tree/lineage-21.0-arm64)
 - [ROM kernel](https://github.com/oddhap/android_kernel_samsung_gta3xlwifi/tree/lineage-21.0)
 - [Stock vendor inputs](https://github.com/oddhap/android_vendor_samsung_gta3xlwifi/tree/lineage-21.0)
-- [Updated TWRP code](https://github.com/oddhap/android_device_samsung_gta3xlwifi_twrp/tree/twrp-12.1)
+- [Native ARM64 TWRP source](https://github.com/oddhap/android_device_samsung_gta3xlwifi_twrp/tree/twrp-12.1-arm64)
 
-The beta ZIP installs a minimal hybrid vendor containing selected ARM64 graphics
+The ZIP installs a minimal hybrid vendor containing selected ARM64 graphics
 libraries from SM-A305GT A305GTVJU8CWE1 ZTO while preserving Samsung's existing
-ARM32 HAL/TEE stack. **It writes vendor; returning to the ARM32 ROM requires
-restoring stock CWA1 vendor first.** See the release's INSTALL.md.
+ARM32 HAL/TEE stack. **It writes vendor; returning to an ARM32 ROM requires
+restoring stock CWA1 vendor first.** See INSTALL_ARM64.md.
+
+## ARM64 GApps and recovery update (October 15 build)
+
+Native ARM64 TWRP and the ROM's product-layout changes allow the original
+MindTheGapps Android 14 ARM64 package to install unchanged. PIN and automatic
+PIN-free CE decryption, recovery read/write and Android return pass physical
+tests. The owner confirmed Google login and a working Play Store app download.
+The ROM also includes a guard against a delayed Wi-Fi setup callback accessing
+a detached Settings screen. Working double tap to wake and off-mode charging
+support are retained. See [current build status](BUILD_STATUS.md) and
+[hardware results](reports/gapps-arm64-20261015/validation-summary.json).
 
 ## October 15 charging display update
 
@@ -40,7 +53,7 @@ The October 7 release remains available unchanged.
 
 ## Sources and build
 
-This branch contains all 13 pinned platform patches, ARM64 device/build/staging
+This branch contains all 25 pinned platform patches, ARM64 device/build/staging
 tools, donor extraction and image preparation, complete recovery patches,
 multilib graphics/hardware test sources and public validation reports.
 
@@ -55,7 +68,7 @@ reports describe the phase when they were generated; the final summaries bind
 the subsequent physical tests. Raw logs, credentials and userdata/EFS backups
 are excluded.
 
-This remains a beta: long-term stability, Bluetooth pairing/audio, microphone,
+Long-term stability, Bluetooth pairing/audio, microphone,
 video/DRM codecs and advanced graphics/storage features are not fully tested.
 New tools/configuration are Apache-2.0 unless otherwise noted. Upstream
 patches, kernel and proprietary firmware retain their original licenses.

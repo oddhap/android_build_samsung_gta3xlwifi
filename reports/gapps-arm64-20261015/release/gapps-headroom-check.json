@@ -1,0 +1,17 @@
+{
+  "passed": true,
+  "gapps_zip_sha256": "6e1c3616862ce5b33e2b96074f86ae846eb1351a26a980e1ed140f8a7e7a4fd6",
+  "gapps_zip_unmodified": true,
+  "android_sdk": 34,
+  "architecture": "arm64",
+  "product_available_bytes": 267526144,
+  "minimal_product_payload_with_installer_buffer_bytes": 235712512,
+  "product_headroom_after_minimal_gapps_bytes": 31813632,
+  "partition_sizes_unchanged": true,
+  "moved_apps_jni_and_privileged_permission_allowlists_checked": true,
+  "previous_packaged_apk_names_preserved": 150,
+  "target_files_signed": true,
+  "product_image_sha256": "ca135578a3eece8e1694d8839b5929e9bef507af37790733a87184d2a46f291b",
+  "hardware_tested": false,
+  "signed_product_available_bytes": 267526144
+}

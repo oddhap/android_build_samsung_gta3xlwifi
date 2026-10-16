@@ -1,0 +1,13 @@
+diff --git a/Android.bp b/Android.bp
+index f9d8b0c..c8fa192 100644
+--- a/Android.bp
++++ b/Android.bp
+@@ -22,7 +22,7 @@ android_app {
+         proguard_flags_files: ["proguard.flags"],
+     },
+ 
+-    product_specific: true,
++    product_specific: false,
+ 
+     static_libs: [
+         // DO NOT EDIT THIS SECTION MANUALLY

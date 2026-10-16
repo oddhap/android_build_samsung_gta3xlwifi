@@ -1,20 +1,43 @@
-# SM-T510: ARM64 beta med ladevisning og double tap to wake
+# SM-T510: LineageOS 21 ARM64 med ARM64 TWRP og GApps-støtte
 
-Gjeldende build er `gta3xlwifi.arm64.20261015.071117`, SPL `2026-10-01`.
-ROM SHA256: `ebce76e6d82dc45432652b48cb875fe667f8fb60ca3296dc5b7b4486ce1006c8`.
-Ladevisning ved avslått Android er fysisk verifisert: prosent vises omtrent
-sju sekunder ved 100 %, skjermen slukner, kort Power viser den igjen og langt
-Power starter Android. Ingen gjentatt blinking i testen uten berøring.
-Alle ti offline-kontroller, begge Mali-ABI-er og grunnmaskinvare passerer.
-Kryptert brukerlagring og SELinux Enforcing er bevart etter oppdatering og lading.
-Testapper er fjernet, ADB root er av. Samme fysisk testede DT2W-kernel/native-kode
-og PIN-frie TWRP fra 14. oktober er beholdt. PIN-dialogen er ikke retestet ved
-oktober-SPL. LineageOS 21-kilder ble hentet 15. oktober uten nye revisjoner.
+Gjeldende build er `gta3xlwifi.arm64.20261015.191854`, SPL `2026-10-01`.
+ROM SHA256: `f4505aef35f10de09c629dfb6cdfffd219e5a01bf7b67c5b5bf7a6a0ad093781`.
+Native ARM64 TWRP SHA256:
+`10c2c2ee77ee593ace840a12fb90145809e4521942b681bcee6e9c3b364370ed`.
 
-[Oppdatert beta på samme release-URL](https://github.com/oddhap/android_build_samsung_gta3xlwifi/releases/tag/lineage-21.0-arm64-beta-20261014).
-[Hashbundet validering](reports/charging-20261015/validation-summary.json) og
-[tekniske detaljer](lineage-21/notes/charging-ui-20261015.md).
-ARM32-ROM-en er ikke endret; begrensningene i INSTALL.md gjelder fortsatt.
+ROM-en beholder begge app-ABI-er, alle 150 tidligere APK-navn, eksisterende
+signeringsnøkler, hybrid-vendor, DT2W-kernel og partisjonsstørrelser. Utvalgte
+apper, JNI og tillatelsesfiler flyttes fra product til system for å gi plass
+til original Android 14 ARM64 MindTheGapps. Google-apper er valgfrie og følger
+ikke med ROM-en. Forsinkede Wi-Fi-callbacks etter at Settings-fragmentet er
+lukket, ignoreres nå; alle tre DEX-filer samsvarer byte for byte med den fysisk
+testede apprettelsen. Rettelsen er bygget inn i ROM-en.
+
+Alle ti sluttkontroller, signert GApps-plasskontroll, VINTF/policy og kontroll
+av alle 328 signeringsfiler passerer. Kildegrunnlaget ble hentet på nytt før
+publisering; de 280 LineageOS 21-prosjektene hadde ingen nye revisjoner siden
+dagens første GApps-bygg. Alle 1 430 HEAD-er og 25 plattformpatcher er kontrollert.
+
+På første GApps-bygg `140343` installerte originalpakken uten endringer. Eier
+bekreftet Google-pålogging og at en gratisapp installerte og startet. Begge
+Mali-ABI-er og grunnmaskinvare passerte. Den samme ARM64-recoveryen passerte
+PIN, automatisk PIN-fri dekryptering, CE-lesing/skriving, bevaring av nøkkelfiler
+og Androidretur i begge runder. Detaljert proveniens og resultat for den nye
+oppdateringen finnes i [valideringen](reports/gapps-arm64-20261015/validation-summary.json).
+
+Den endelige signerte utgaven er installert som oppdatering uten formatering.
+Alle 29 originale GApps-filer ble bevart av addon.d. Androidretur, CE-lagring,
+krypteringsnøkler, native ARM64 Google-prosesser og over ett minutts stabilitet
+passerer. Begge Mali-ABI-er og hele grunnmaskinvaretesten passerer på denne
+utgaven. Testapper og egne testfiler er fjernet, skjermtidsavbruddet er tilbake
+på opprinnelig verdi, Play Protect er aktivt og ADB-root er slått av.
+
+[Ny release](https://github.com/oddhap/android_build_samsung_gta3xlwifi/releases/tag/lineage-21.0-arm64-20261015),
+[installasjon](INSTALL_ARM64.md) og [GApps-integrasjon](docs/gapps-arm64-build.md).
+Kun ARM64-utgaver vedlikeholdes videre. Langtidstabilitet, Bluetooth-paring/lyd,
+mikrofon, kodeker/DRM, Play Integrity og avansert lagring/grafikk er ikke fullt
+validert. Innebygde OTA-nedlastinger er ikke konfigurert. Samsungs eldre
+vendor/kernel har ikke samme sikkerhetsnivå som framework-datoen.
 
 ## Historikk: opprinnelig beta fra 7. oktober
 

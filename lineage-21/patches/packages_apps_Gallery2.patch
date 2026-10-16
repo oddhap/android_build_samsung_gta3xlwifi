@@ -1,0 +1,39 @@
+diff --git a/Android.bp b/Android.bp
+index 8860be7..d170f21 100644
+--- a/Android.bp
++++ b/Android.bp
+@@ -25,7 +25,7 @@ android_app {
+ 
+     resource_dirs: ["res"],
+ 
+-    product_specific: true,
++    product_specific: false,
+ 
+     overrides: [
+         "Gallery",
+diff --git a/jni/Android.bp b/jni/Android.bp
+index ea9fcc8..0338e9d 100644
+--- a/jni/Android.bp
++++ b/jni/Android.bp
+@@ -4,7 +4,7 @@ package {
+ 
+ cc_defaults {
+     name: "gallery2_jni_defaults",
+-    product_specific: true,
++    product_specific: false,
+ 
+     cflags: [
+         "-Wall",
+diff --git a/jni_jpegstream/Android.bp b/jni_jpegstream/Android.bp
+index f6e6071..e9cf653 100644
+--- a/jni_jpegstream/Android.bp
++++ b/jni_jpegstream/Android.bp
+@@ -5,7 +5,7 @@ package {
+ 
+ cc_library_shared {
+     name: "libjni_jpegstream",
+-    product_specific: true,
++    product_specific: false,
+ 
+     static_libs: ["libjpeg_static_ndk"],
+     shared_libs: ["liblog"],

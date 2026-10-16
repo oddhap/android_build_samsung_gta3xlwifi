@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "rom_zip_sha256": "f4505aef35f10de09c629dfb6cdfffd219e5a01bf7b67c5b5bf7a6a0ad093781",
+  "build_incremental": "gta3xlwifi.arm64.20261015.191854",
+  "settings_wifi_detach_guard_baked_into_rom": true,
+  "all_settings_dex_files_byte_identical_to_physically_tested_app_update": true,
+  "dex_files_compared": 3,
+  "signed_rom_settings_apk_sha256": "672590a1f30cde322af19ae5ded83f04edbe138eeed13bfadb66f74c6dfaa749",
+  "same_persistent_signing_keys_verified": true,
+  "separate_app_update_required": false
+}

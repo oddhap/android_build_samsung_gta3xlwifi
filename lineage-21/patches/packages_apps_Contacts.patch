@@ -1,0 +1,13 @@
+diff --git a/Android.bp b/Android.bp
+index 36923ab..ef556d4 100644
+--- a/Android.bp
++++ b/Android.bp
+@@ -47,7 +47,7 @@ android_app {
+     ],
+ 
+     certificate: "shared",
+-    product_specific: true,
++    product_specific: false,
+     privileged: true,
+     required: ["privapp_whitelist_com.android.contacts"],
+ 

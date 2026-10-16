@@ -6,16 +6,15 @@ Arbeidstreet er isolert på Linux-byggemaskinen i
 `/srv/android/artifacts/lineage-21-arm64`. Eksisterende ARM32-tre og release
 er separate. Kilder og donor er låst; se `DONOR_REPORT.md` og rapportene.
 
-Betaen fra 15. oktober bygger på LineageOS 21.0 / Android 14 med
-sikkerhetsdato 2026-10-01. Alle 280 Lineage-prosjekter ble hentet på nytt
-15. oktober; ingen revisjoner endret seg siden 14. oktober. De 13 port-patchene
-og alle 1 430 checkout-HEADs er kontrollert mot det låste manifestet.
-Se `lineage-21/notes/upstream-refresh-20261015.json`.
-DT2W-kernel og tilsvarende native/device-kode er beholdt;
-oppskrift og komplett config ligger i `lineage-21/kernel/dt2w`.
-Ladevisning krever også device-treets `init.gta3xlwifi.charger.rc` og
-plattformens `charger`-pakke. Kandidaten er signert og fysisk testet;
-se `reports/charging-20261015/validation-summary.json` for omfanget.
+Utgivelsen fra 15. oktober bygger på LineageOS 21.0 / Android 14 med
+sikkerhetsdato 2026-10-01. Alle 280 Lineage-prosjekter ble hentet på nytt før
+GApps-bygget og igjen før publisering. Den siste kontrollen fant ingen nye
+revisjoner; dagens første GApps-oppdatering hentet 19 endrede prosjekter.
+Alle 25 port-patcher og 1 430 checkout-HEADs er kontrollert mot låst manifest.
+Se `lineage-21/notes/gapps-release-upstream-refresh-20261015.json` og
+[detaljene om ARM64 GApps](docs/gapps-arm64-build.md).
+DT2W-kernel, hybrid-vendor og ladevisning er beholdt. ARM64 TWRP bygger med
+separat utdata og bevarer Samsungs ARM32 kryptotjenester og deres runtime.
 
 ## Nytt bygg
 
@@ -30,9 +29,9 @@ ARM32 recovery-header-helperen og separate test-APK-er. Deretter bygges
 `target-files-package` og `otatools`. Fullbyggets resultat står i
 `/srv/android/logs/lineage-21-arm64/full-build.exit`.
 
-WebView flyttes til `system` med byggsystemets eksisterende
-`PRODUCT_FORCE_PRODUCT_MODULES_TO_SYSTEM_PARTITION`. Begge WebView-ABI-er
-beholdes; `product` beholder sin fysiske størrelse på 327 155 712 byte.
+WebView flyttes til `system` med byggsystemets eksisterende Make-overstyring.
+Utvalgte Soong-apper, JNI-biblioteker og tilhørende tillatelsesfiler flyttes
+med de låste Android.bp-patchene. Begge WebView-ABI-er og alle apper beholdes; `product` beholder sin fysiske størrelse på 327 155 712 byte.
 Produktet deklarerer også ABI-listene via `PRODUCT_PRODUCT_PROPERTIES`: init
 prioriterer product før Samsungs bevarte ARM32 ODM-egenskaper. Multilib-
 kontrollen leser alle disse egenskapene og kontrollerer den effektive listen.
@@ -104,3 +103,8 @@ akselerometer, fremgang i
 lydutgang og seks kameraframes fra både front og bak. Testappen får CAMERA
 til dette forsøket; ingen bilder eller lydopptak lagres. Paring med Bluetooth
 og langtidstabilitet dekkes ikke av denne testen.
+
+Med Google-apper installert kan Play Protect vise en dialog for de lokalt
+bygde test-APK-ene. Fullfør dialogen for den kjente testappen på skjermen;
+ikke slå av Play Protect globalt. Installasjonssteget gir inntil fem minutter
+til dette. Testene trenger et opplåst skjermbilde under grafikk-/kamerakjøring.

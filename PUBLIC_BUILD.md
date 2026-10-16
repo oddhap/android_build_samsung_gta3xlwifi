@@ -52,3 +52,21 @@ is the original one-image implementation. The published device source includes
 the independently built/tested follow-up helper that recognizes the updated
 PIN-free TWRP as well. Future builds include that helper; the tested ROM itself
 was not silently rebuilt or re-signed for publication.
+
+## ARM64 GApps and recovery follow-up
+
+The current source snapshot includes 25 clean-index-checked platform patches.
+The app relocation patches in Android.bp are necessary for GApps capacity;
+Make's product-module override alone does not relocate Soong apps. Companions
+such as JNI and privileged permission allowlists must move with their apps.
+See [GApps integration](docs/gapps-arm64-build.md) and run
+`lineage-21/tools/verify-gapps-headroom.py` against unsigned and signed target-files.
+The Google ZIP is supplied separately and must remain unmodified.
+
+For recovery, use the published `twrp-12.1-arm64` device branch and its
+[ARM64 instructions](https://github.com/oddhap/android_device_samsung_gta3xlwifi_twrp/blob/twrp-12.1-arm64/ARM64.md).
+The existing pinned recovery platform/vold fixes remain required. Build the
+pinned ARM32 recovery first to provide the source-built vendor crypto runtime,
+then stage the 22 compatibility files with `tools/prepare-twrp-compat32.py` and
+apply `tools/fix-twrp-arm64-relink.py`. Use separate ARM64 output and enforce the
+16 MiB compressed ramdisk limit; do not prune crypto support to fit the image.

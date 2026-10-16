@@ -1,0 +1,20 @@
+{
+  "passed": true,
+  "checked_at_utc": "2026-10-16T05:19:20.227724+00:00",
+  "build_incremental": "gta3xlwifi.arm64.20261015.191854",
+  "google_packages_preserved": true,
+  "selinux": "Enforcing",
+  "file_encryption_preserved": true,
+  "no_pin": true,
+  "owned_test_packages_removed": [
+    "org.lineageos.gta3xlwifi.smoke64",
+    "org.lineageos.gta3xlwifi.smoke32",
+    "org.lineageos.gta3xlwifi.hardwareprobe"
+  ],
+  "owned_ce_root_and_staged_rom_files_removed": true,
+  "original_display_timeout_restored": true,
+  "play_protect_not_disabled": true,
+  "own_test_apk_uploads_declined": true,
+  "adb_unroot_verified": true,
+  "adb_shell_uid": 2000
+}

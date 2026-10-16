@@ -1,0 +1,37 @@
+{
+  "passed": true,
+  "checked_at_utc": "2026-10-16T05:18:27.496264+00:00",
+  "build_incremental": "gta3xlwifi.arm64.20261015.191854",
+  "rom_zip_sha256": "f4505aef35f10de09c629dfb6cdfffd219e5a01bf7b67c5b5bf7a6a0ad093781",
+  "packages": {
+    "com.google.android.gms": {
+      "installed": true,
+      "version": "26.39.33",
+      "primary_cpu_abi": "arm64-v8a",
+      "system_privileged": true
+    },
+    "com.google.android.gsf": {
+      "installed": true,
+      "version": "14-10347885",
+      "primary_cpu_abi": "arm64-v8a",
+      "system_privileged": true
+    },
+    "com.android.vending": {
+      "installed": true,
+      "version": "53.5.48-34",
+      "primary_cpu_abi": "arm64-v8a",
+      "system_privileged": true
+    }
+  },
+  "play_store_launch_passed": true,
+  "gms_and_play_store_native_aarch64": true,
+  "monitored_processes_stable_seconds": 63.2,
+  "google_process_crashes_in_current_boot": false,
+  "selinux": "Enforcing",
+  "encryption": "encrypted/file",
+  "pre_android_storage_marker_survived_boot": true,
+  "account_contents_collected": false,
+  "app_download_physically_confirmed": true,
+  "physical_app_download_tested_build": "gta3xlwifi.arm64.20261015.140343",
+  "runtime_checked_after_latest_non_wiping_ota": true
+}

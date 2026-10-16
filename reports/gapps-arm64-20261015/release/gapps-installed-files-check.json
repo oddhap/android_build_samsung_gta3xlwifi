@@ -1,0 +1,7 @@
+{
+  "passed": true,
+  "original_mandatory_payload_files_hash_verified": 29,
+  "original_gapps_zip_unmodified": true,
+  "addon_d_preservation_script_present": true,
+  "filesystems_verified_read_only": true
+}

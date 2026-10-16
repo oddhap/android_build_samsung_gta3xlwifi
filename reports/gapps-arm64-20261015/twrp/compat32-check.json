@@ -1,0 +1,96 @@
+{
+  "passed": true,
+  "source": "source-built PIN-free TWRP ARM32 runtime from the existing pinned Android 12.1 checkout",
+  "vendor_crypto_elfs_checked": 15,
+  "compat32_files": {
+    "system/bin/linker": {
+      "bytes": 1295884,
+      "sha256": "7ff1dd5029c775865ccb26be60d058a370403cf9703e8a7321a2013670740c7f"
+    },
+    "system/lib/android.hardware.gatekeeper@1.0.so": {
+      "bytes": 72000,
+      "sha256": "452284dee1f96559a2a66a3995980aea0de02a7ad9c9d50c627cfd46155cc7b8"
+    },
+    "system/lib/android.hardware.keymaster@3.0.so": {
+      "bytes": 123400,
+      "sha256": "e966cd90e777dddc884a73d71a8dd99cbcab7697864aa2d0bea47f47964239b2"
+    },
+    "system/lib/android.hardware.keymaster@4.0.so": {
+      "bytes": 146404,
+      "sha256": "ce5448c7befa44ce5ad7de0f0f0d9d578552c0ff5204213339134ebe0f3277fd"
+    },
+    "system/lib/android.hardware.keymaster@4.1.so": {
+      "bytes": 97832,
+      "sha256": "24d43b89f8cb3668f9c96e7d0814933156f1359a9045ccf2686c6687bb7c008d"
+    },
+    "system/lib/ld-android.so": {
+      "bytes": 2668,
+      "sha256": "c5925811743a760ded25ef6751552434878a8df404b33a6a0ea51de4427b5dbf"
+    },
+    "system/lib/libbase.so": {
+      "bytes": 170912,
+      "sha256": "f715aeedfa1e4e24ad2c3f49c5d1b59f339e226b9f1c12cfcad97967e2f2b664"
+    },
+    "system/lib/libc++.so": {
+      "bytes": 485848,
+      "sha256": "63d740cccc78f3e3612f5f801d9410d9651f4b54f1aec3222f434e022583710d"
+    },
+    "system/lib/libc.so": {
+      "bytes": 853188,
+      "sha256": "609c0db43c51fef232e36f019efca46fccb2ff8984fbb6d5837439c7403b7fb7"
+    },
+    "system/lib/libcgrouprc.so": {
+      "bytes": 8348,
+      "sha256": "e5077ee162955a0f1fcece25893cf147ed57f4b14b554eed2766a3d0b8b5445a"
+    },
+    "system/lib/libcrypto.so": {
+      "bytes": 895436,
+      "sha256": "a2e15d01e7bbb346889a4e621640b7a6f9c342d649fce461563640d3de414ddd"
+    },
+    "system/lib/libcutils.so": {
+      "bytes": 49588,
+      "sha256": "a1d44ce0def42681d6a54c83d19c373d8d1dd14a2b1289bd0ad4cf719c5b9e95"
+    },
+    "system/lib/libdl.so": {
+      "bytes": 5332,
+      "sha256": "8f25ee676e1a372b3d86fd7b9004e080c67fbf492268f53cf646083e6d3a863c"
+    },
+    "system/lib/libdl_android.so": {
+      "bytes": 3044,
+      "sha256": "01573a48aa13698cc2562e081d4c2dcb0cd343b5de0e98b9e0bf4f1dc1b3e40c"
+    },
+    "system/lib/libhardware.so": {
+      "bytes": 5596,
+      "sha256": "51e4cf156a6c86bfddcfc725fffe79cb70f45489c5fb7a2fa5400d58cb5f13bb"
+    },
+    "system/lib/libhidlbase.so": {
+      "bytes": 538104,
+      "sha256": "5e5660ec72e7fc795062b677e3afba785d575557032fbfe3b5da626a81be1855"
+    },
+    "system/lib/liblog.so": {
+      "bytes": 42024,
+      "sha256": "40b8f30895b0a8fd4f1eecc28faa08bedd5a47d26ce15ea8d4ea24c7b224d58c"
+    },
+    "system/lib/libm.so": {
+      "bytes": 122616,
+      "sha256": "fa6f2c5e571849491a56c39b643b1d6ed2f2de7bd20c893e8572cbe64a7ad1c6"
+    },
+    "system/lib/libnetd_client.so": {
+      "bytes": 25108,
+      "sha256": "e5f0b9a9d3b330eecab4ca1c5680887aa0d5d5bbc29594db418dfbb8b3d23495"
+    },
+    "system/lib/libprocessgroup.so": {
+      "bytes": 239256,
+      "sha256": "802fbb6c5cf2c3ba7f93fe0bc76d8815a4de4e3607562b2971687525d4a1da42"
+    },
+    "system/lib/libutils.so": {
+      "bytes": 75408,
+      "sha256": "32f204e1b644bbbb8344fbdf41ff96865737ba6f37da6403418009d3378c041e"
+    },
+    "system/lib/libvndksupport.so": {
+      "bytes": 4280,
+      "sha256": "5321ae9ccfe4ae101360e41ae3b702499673a49a3b1af0524f9bd24aa86c221b"
+    }
+  },
+  "native_arm64_recovery_preserved": true
+}

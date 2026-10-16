@@ -73,7 +73,7 @@ for bits in (64, 32):
     digest = hashlib.sha256(apk.read_bytes()).hexdigest()
     assert digest == targeted['test_apks'][str(bits)]['sha256'], apk
     package = f'org.lineageos.gta3xlwifi.smoke{bits}'
-    assert 'Success' in adb('install', '-r', '-t', str(apk))
+    assert 'Success' in adb('install', '--no-streaming', '-r', '-t', str(apk))
     adb('shell', 'am', 'force-stop', package)
     # A new process PID prevents a previous baseline PASS from being reused.
     launch = adb('shell', 'am', 'start', '-W', '-n', package+'/org.lineageos.gta3xlwifi.smoke.MainActivity')

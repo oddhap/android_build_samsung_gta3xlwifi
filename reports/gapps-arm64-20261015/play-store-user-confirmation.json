@@ -1,0 +1,9 @@
+{
+  "passed": true,
+  "confirmed_at_utc": "2026-10-15T18:47:59.318420+00:00",
+  "confirmed_by_device_owner": true,
+  "google_account_login_on_device": true,
+  "free_app_downloaded_installed_and_launched": true,
+  "account_credentials_collected": false,
+  "downloaded_app_identity_collected": false
+}

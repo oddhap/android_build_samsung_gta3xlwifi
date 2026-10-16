@@ -1,0 +1,20 @@
+diff --git a/contactsbackup/Android.bp b/contactsbackup/Android.bp
+index 7127a92..23d04ca 100644
+--- a/contactsbackup/Android.bp
++++ b/contactsbackup/Android.bp
+@@ -18,13 +18,13 @@ android_app {
+     required: [
+         "default-permissions_org.calyxos.backup.contacts",
+     ],
+-    product_specific: true,
++    product_specific: false,
+     sdk_version: "current",
+ }
+ 
+ prebuilt_etc {
+     name: "default-permissions_org.calyxos.backup.contacts",
+-    product_specific: true,
++    product_specific: false,
+     sub_dir: "default-permissions",
+     src: "default-permissions_org.calyxos.backup.contacts.xml",
+     filename_from_src: true,

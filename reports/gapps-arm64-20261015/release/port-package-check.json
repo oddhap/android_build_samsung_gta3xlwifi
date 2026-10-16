@@ -1,0 +1,26 @@
+{
+  "hardware_tested": false,
+  "power_init_sha256": "e084cdb3830a0a92832a997c3c7108f9ceea6c411cc5e29c0e44c0a648bb495f",
+  "native_power_library_sha256": "0d5acc82101135d010f6856a0e7bbfb14625454f786ac7307104e69f033b102a",
+  "processgroup_library_sha256": "a41fdda78db6871044dd5d766004467cf9c092b4e7ca242ee4724747e06350b0",
+  "audio_hidl4_library_sha256": "5983fcb3e4ac40ab47f4618e2afecc98fa3aa1f70ac2d573cb7ae8a6290a2be7",
+  "gpuwork_library_sha256": "ae9a69413760bc4e40700c69280d659379bb9398fe08de5f498e48324ae3ef85",
+  "meminfo_library_sha256": "8b730baa72c63219b01f7049ace7ff4bb85de76c95ba3dae91ec2bcdf93bd2c8",
+  "system_ext_policy_sha256": "18c3199ecc589c3b1f0c2a2d152715318f6e6843cf43b687face849554939aba",
+  "cpu_profiles_preserve_root_rt_budget": true,
+  "vsync_property_label": "graphics_config_prop, exact string",
+  "ext4_project_quota_supported": false,
+  "libfs_mgr.so_sha256": "f8b691977ec5f1891a8a66fe0ca8c493a993d8c25b1e035f5a55411f17fc9a85",
+  "libfs_mgr_binder.so_sha256": "6ad43e17eefefa67dcced496488e923ee03857ed7dcf6f03007cf22e6f949083",
+  "android_release": "14",
+  "platform_security_patch": "2026-10-01",
+  "systemui_apk_sha256": "44bcd551e2cb3ff34b391d9f4bbbda3d0acce045f044ae5e5f800ac0b78015ed",
+  "ota_partition_references": [
+    "boot",
+    "product",
+    "system",
+    "vendor"
+  ],
+  "passed": true,
+  "rom_zip_sha256": "f4505aef35f10de09c629dfb6cdfffd219e5a01bf7b67c5b5bf7a6a0ad093781"
+}

@@ -1,0 +1,20 @@
+{
+  "passed": true,
+  "checked_at_utc": "2026-10-15T19:06:30.063649+00:00",
+  "recovery_image_sha256": "10c2c2ee77ee593ace840a12fb90145809e4521942b681bcee6e9c3b364370ed",
+  "rom_build": "gta3xlwifi.arm64.20261015.140343",
+  "userspace_bits": 64,
+  "credential": "pin",
+  "automatic_ce_decryption": false,
+  "manual_pin_entry": true,
+  "media_read_write_passed": true,
+  "ce_sqlite_header_readable": true,
+  "encryption_key_file_hashes_unchanged": 13,
+  "stable_seconds": 66.6,
+  "single_recovery_start": true,
+  "no_fatal_signals": true,
+  "global_selinux": "Enforcing",
+  "android_return_tested": true,
+  "ce_write_persisted_in_android": true,
+  "persistent_encryption_keys_preserved_on_return": true
+}

@@ -1,0 +1,26 @@
+diff --git a/java/Android.bp b/java/Android.bp
+index acf6b26..ae374e2 100644
+--- a/java/Android.bp
++++ b/java/Android.bp
+@@ -59,7 +59,7 @@ android_app {
+     target_sdk_version: "30",
+     sdk_version: "current",
+ 
+-    product_specific: true,
++    product_specific: false,
+ 
+     optimize: {
+         proguard_flags_files: ["proguard.flags"],
+diff --git a/native/jni/Android.bp b/native/jni/Android.bp
+index ab14632..087c42a 100644
+--- a/native/jni/Android.bp
++++ b/native/jni/Android.bp
+@@ -114,7 +114,7 @@ filegroup {
+ cc_library {
+     name: "libjni_latinime",
+     host_supported: true,
+-    product_specific: true,
++    product_specific: false,
+ 
+     sdk_version: "14",
+     cflags: [

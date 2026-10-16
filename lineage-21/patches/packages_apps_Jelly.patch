@@ -1,0 +1,31 @@
+diff --git a/app/Android.bp b/app/Android.bp
+index c80ce0e..be6a69e 100644
+--- a/app/Android.bp
++++ b/app/Android.bp
+@@ -16,7 +16,7 @@ android_app {
+     resource_dirs: ["src/main/res"],
+     manifest: "src/main/AndroidManifest.xml",
+ 
+-    product_specific: true,
++    product_specific: false,
+ 
+     overrides: [
+         "Browser2",
+@@ -61,7 +61,7 @@ android_app {
+ 
+ prebuilt_etc {
+     name: "initial-package-stopped-states-org.lineageos.jelly",
+-    product_specific: true,
++    product_specific: false,
+     sub_dir: "sysconfig",
+     src: "initial-package-stopped-states-org.lineageos.jelly.xml",
+     filename_from_src: true,
+@@ -69,7 +69,7 @@ prebuilt_etc {
+ 
+ prebuilt_etc {
+     name: "preinstalled-packages-org.lineageos.jelly",
+-    product_specific: true,
++    product_specific: false,
+     sub_dir: "sysconfig",
+     src: "preinstalled-packages-org.lineageos.jelly.xml",
+     filename_from_src: true,

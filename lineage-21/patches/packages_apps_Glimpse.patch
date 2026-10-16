@@ -1,0 +1,31 @@
+diff --git a/app/Android.bp b/app/Android.bp
+index b8540ba..550a2e9 100644
+--- a/app/Android.bp
++++ b/app/Android.bp
+@@ -17,7 +17,7 @@ android_app {
+     manifest: "src/main/AndroidManifest.xml",
+ 
+     sdk_version: "34",
+-    product_specific: true,
++    product_specific: false,
+ 
+     use_embedded_native_libs: true,
+ 
+@@ -68,7 +68,7 @@ android_app {
+ 
+ prebuilt_etc {
+     name: "initial-package-stopped-states-org.lineageos.glimpse",
+-    product_specific: true,
++    product_specific: false,
+     sub_dir: "sysconfig",
+     src: "initial-package-stopped-states-org.lineageos.glimpse.xml",
+     filename_from_src: true,
+@@ -76,7 +76,7 @@ prebuilt_etc {
+ 
+ prebuilt_etc {
+     name: "preinstalled-packages-org.lineageos.glimpse",
+-    product_specific: true,
++    product_specific: false,
+     sub_dir: "sysconfig",
+     src: "preinstalled-packages-org.lineageos.glimpse.xml",
+     filename_from_src: true,

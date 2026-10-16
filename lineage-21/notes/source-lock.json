@@ -1,9 +1,9 @@
 [
   {
     "project": "frameworks/base",
-    "revision": "7cb88ebbf2d107043e22fa0d562b2f9233faf30f",
+    "revision": "993528cf0efb452d8d948ddbe17237f085454682",
     "patch": "frameworks_base.patch",
-    "sha256": "0080ec02ded70b3506b8a928f8e597b4378ba7432609ca55f71860c6d5bfdb75",
+    "sha256": "5cb906c2bb0c44d80e29cd8362f7a439bcbeda26b50374390cd8808f8bcf5d79",
     "new_files": [],
     "clean_index_patch_check_passed": true
   },
@@ -88,9 +88,9 @@
   },
   {
     "project": "packages/apps/Settings",
-    "revision": "ff82ae7605fea833fe347424e82cd848f042fce7",
+    "revision": "300ffdbc1c868dc64d60938ecb36e19a0077c8f7",
     "patch": "packages_apps_Settings.patch",
-    "sha256": "802a2bf277c67d096113333475a1b906835a71ee13ee6f9a9e273b21a4231802",
+    "sha256": "1960e70d5ae81ec84f4ad122c17b0dbc10ff1fe9bb5215d72a9f2bfd30a22972",
     "new_files": [],
     "clean_index_patch_check_passed": true
   },
@@ -107,6 +107,102 @@
     "revision": "f21377c0f019f12fcaf024983ca2ad603667282f",
     "patch": "external_boringssl.patch",
     "sha256": "4a33ecfd528d651e9c3a1e34a6de4bf853beb90b45fa529a616cc85d32771b44",
+    "new_files": [],
+    "clean_index_patch_check_passed": true
+  },
+  {
+    "project": "packages/apps/Aperture",
+    "revision": "ea0f2b48cb98bb75c1414cbc180ec4a248d583d1",
+    "patch": "packages_apps_Aperture.patch",
+    "sha256": "0127e9279742041b01ec729232bc11eb1364f77c79b1a3786214fbe682beeead",
+    "new_files": [],
+    "clean_index_patch_check_passed": true
+  },
+  {
+    "project": "packages/apps/DeskClock",
+    "revision": "f430a0efa7ae17fed95f5b744507a11f0386aee5",
+    "patch": "packages_apps_DeskClock.patch",
+    "sha256": "797fd321703f65b509fe5aeaa0f015ec9a930c4c0af53101833fec1f39b60ffe",
+    "new_files": [],
+    "clean_index_patch_check_passed": true
+  },
+  {
+    "project": "packages/apps/Etar",
+    "revision": "bd3ff03ac53a9e1919a67aa8e990ff222674fc57",
+    "patch": "packages_apps_Etar.patch",
+    "sha256": "f1fd191236891c1dc7c6111d2b3e35ba5279923610d5c505213ee88b501cbb0e",
+    "new_files": [],
+    "clean_index_patch_check_passed": true
+  },
+  {
+    "project": "packages/apps/ExactCalculator",
+    "revision": "b48c081ec462c5fdac7f09dfea91dac8f62a2ec3",
+    "patch": "packages_apps_ExactCalculator.patch",
+    "sha256": "97abe2987deec81ddfddcc22879f110426a408e5cd1e69a7b226ea0d5ed48463",
+    "new_files": [],
+    "clean_index_patch_check_passed": true
+  },
+  {
+    "project": "packages/apps/Gallery2",
+    "revision": "9c5801d456a616be0a7091e5b3be0f1ff965aeff",
+    "patch": "packages_apps_Gallery2.patch",
+    "sha256": "320a19cdecb33a6175667e69736da6501341263a2311a29e6637a26f850e45c4",
+    "new_files": [],
+    "clean_index_patch_check_passed": true
+  },
+  {
+    "project": "packages/apps/Glimpse",
+    "revision": "a1ec5c8763a2ce850ad03f69d6865d9a68341975",
+    "patch": "packages_apps_Glimpse.patch",
+    "sha256": "e024364e1b285d9006c2d83d296d9ee349d8380fce1925f8a078d60411575d8f",
+    "new_files": [],
+    "clean_index_patch_check_passed": true
+  },
+  {
+    "project": "packages/apps/Jelly",
+    "revision": "c228ac888cf6d8731f1ccc83460271d837978b4e",
+    "patch": "packages_apps_Jelly.patch",
+    "sha256": "d304ddbae19f7841fbb04ae764de9f651897783dce3de9e7d5ecbde7a4c6f770",
+    "new_files": [],
+    "clean_index_patch_check_passed": true
+  },
+  {
+    "project": "packages/inputmethods/LatinIME",
+    "revision": "2709738921980f4e28fd9b46dc62af07ea25cd82",
+    "patch": "packages_inputmethods_LatinIME.patch",
+    "sha256": "1de80cd203e004d266a635b15d49a30d1d59297a2ed5c1c0c795e846d4dda350",
+    "new_files": [],
+    "clean_index_patch_check_passed": true
+  },
+  {
+    "project": "packages/apps/Seedvault",
+    "revision": "7da1a5a7d04ff30a348806efca5f0b902fd12cc7",
+    "patch": "packages_apps_Seedvault.patch",
+    "sha256": "4cfe7efe2a2c9be92f7ab0abb4db8655e556cb7a0f1501fd71d440009b1cb83f",
+    "new_files": [],
+    "clean_index_patch_check_passed": true
+  },
+  {
+    "project": "packages/apps/Recorder",
+    "revision": "b444149585692e5d20053ab2eecaeed1828a4cce",
+    "patch": "packages_apps_Recorder.patch",
+    "sha256": "054d8cbfc4a8263a30239ab9fc7a7cbf8b5524687752e11ba3b339f487921034",
+    "new_files": [],
+    "clean_index_patch_check_passed": true
+  },
+  {
+    "project": "packages/apps/Contacts",
+    "revision": "68c892780d4b6d4d283be71ebf37574cf60c0d36",
+    "patch": "packages_apps_Contacts.patch",
+    "sha256": "259359fe1ac3f60e3c1762ac129eeba2bda970a64f6d5b9600c2e3e65cde0603",
+    "new_files": [],
+    "clean_index_patch_check_passed": true
+  },
+  {
+    "project": "packages/apps/Eleven",
+    "revision": "971ca68122a31057ad416f2843b60bad7bf15cc4",
+    "patch": "packages_apps_Eleven.patch",
+    "sha256": "4aefcd555f3e7e8bed24f3e7c4b9c6924b87b4629684734617ab24136bc66a4f",
     "new_files": [],
     "clean_index_patch_check_passed": true
   }

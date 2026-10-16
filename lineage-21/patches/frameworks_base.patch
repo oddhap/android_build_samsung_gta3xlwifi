@@ -59,6 +59,19 @@ index aa6b1c00d..c823dd840 100644
          if (DEBUG) {
              Slog.d(TAG, "Reading CPU thread usages for PID " + mPid);
          }
+diff --git a/data/etc/Android.bp b/data/etc/Android.bp
+index 141095096..4df8d746b 100644
+--- a/data/etc/Android.bp
++++ b/data/etc/Android.bp
+@@ -102,7 +102,7 @@ prebuilt_etc {
+ 
+ prebuilt_etc {
+     name: "privapp_whitelist_com.android.contacts",
+-    product_specific: true,
++    product_specific: false,
+     sub_dir: "permissions",
+     src: "com.android.contacts.xml",
+     filename_from_src: true,
 diff --git a/media/java/android/media/AudioHalVersionInfo.java b/media/java/android/media/AudioHalVersionInfo.java
 index 2b6f72eab..afcb812ab 100644
 --- a/media/java/android/media/AudioHalVersionInfo.java

@@ -1,0 +1,27 @@
+{
+  "tested_at_utc": "20261016T051552Z",
+  "rom_zip_sha256": "f4505aef35f10de09c629dfb6cdfffd219e5a01bf7b67c5b5bf7a6a0ad093781",
+  "build_incremental": "gta3xlwifi.arm64.20261015.191854",
+  "camera_images_saved": false,
+  "audio_recorded": false,
+  "bluetooth_pairing_tested": false,
+  "long_term_stability_tested": false,
+  "baseline_responsive_hals_preserved": 98,
+  "nonconcrete_inherited_base_interface_aliases_excluded": [
+    "android.hidl.base@1.0::IBase/ashmem",
+    "android.hidl.base@1.0::IBase/clearkey",
+    "android.hidl.base@1.0::IBase/default",
+    "android.hidl.base@1.0::IBase/legacy/0",
+    "android.hidl.base@1.0::IBase/software",
+    "android.hidl.base@1.0::IBase/widevine"
+  ],
+  "wifi_connected_and_internet_ping_passed": true,
+  "probe_process_bits": 64,
+  "accelerometer_samples": 3,
+  "app_dns_tls_https_passed": true,
+  "audio_output_frames": 44100,
+  "camera_front_frames": 6,
+  "camera_back_frames": 6,
+  "hardware_probe_apk_sha256": "4683182ff6307d9aeeaf5dd642064f23da3ed7c6b55249caf8b954dea825f793",
+  "passed": true
+}

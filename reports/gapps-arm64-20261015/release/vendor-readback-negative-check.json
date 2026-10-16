@@ -1,0 +1,5 @@
+{
+  "passed": true,
+  "changed_vendor_byte_outside_mount_metadata_rejected": true,
+  "device_modified_by_test": false
+}

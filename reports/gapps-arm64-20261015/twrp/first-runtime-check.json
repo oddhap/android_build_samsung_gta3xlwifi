@@ -1,0 +1,31 @@
+{
+  "passed": true,
+  "tested_at_utc": "2026-10-15T17:38:30.358597+00:00",
+  "recovery_bionic_arch": "arm64",
+  "recovery_executable_bits": 64,
+  "adb_connected": true,
+  "stable_recovery_processes": true,
+  "crypto_services": {
+    "keystore2": "running",
+    "recovery-mobicore": "running",
+    "recovery-keymaster": "running",
+    "recovery-gatekeeper": "running"
+  },
+  "recovery_version": "3.7.1_12",
+  "userdata_not_yet_android_provisioned": true,
+  "pin_decryption_tested": false,
+  "pinfree_fbe_decryption_tested": false,
+  "gui_physically_confirmed": true,
+  "native_arm64_hardware_binder_ok": true,
+  "samsung_trusted_environment_reachable": true,
+  "crypto_service_processes_stable": true,
+  "single_recovery_start": true,
+  "recovery_and_crypto_services_alive_since_boot": true,
+  "process_uptime_seconds": {
+    "recovery": 2360.0,
+    "mcDriverDaemon": 2360.0,
+    "android.hardware.keymaster@4.0-service": 2360.0,
+    "android.hardware.gatekeeper@1.0-service": 2360.0,
+    "keystore2": 2360.0
+  }
+}

@@ -2,10 +2,10 @@
 """Export all port changes and check each patch against a clean pinned index."""
 from pathlib import Path
 import hashlib, json, subprocess, tempfile
-root=Path('/srv/android/src/lineage-21.0')
-artifacts=Path('/srv/android/artifacts/lineage-21/source-patches')
+root=Path('/srv/android/src/lineage-21.0-arm64')
+artifacts=Path('/srv/android/artifacts/gapps-platform-patches')
 artifacts.mkdir(parents=True,exist_ok=True)
-projects=('frameworks/base','system/netd','system/bpf','packages/modules/Connectivity','packages/modules/DnsResolver','device/lineage/sepolicy','system/core','frameworks/av','frameworks/native','system/memory/libmeminfo','packages/apps/Settings','packages/services/Telephony','external/boringssl')
+projects=('frameworks/base','system/netd','system/bpf','packages/modules/Connectivity','packages/modules/DnsResolver','device/lineage/sepolicy','system/core','frameworks/av','frameworks/native','system/memory/libmeminfo','packages/apps/Settings','packages/services/Telephony','external/boringssl','packages/apps/Aperture','packages/apps/DeskClock','packages/apps/Etar','packages/apps/ExactCalculator','packages/apps/Gallery2','packages/apps/Glimpse','packages/apps/Jelly','packages/inputmethods/LatinIME','packages/apps/Seedvault','packages/apps/Recorder','packages/apps/Contacts','packages/apps/Eleven')
 records=[]
 for name in projects:
     repo=root/name

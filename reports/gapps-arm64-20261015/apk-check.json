@@ -1,0 +1,20 @@
+{
+  "passed": true,
+  "settings_package": "com.android.settings",
+  "build_exit_code": 0,
+  "original_rom_settings_apk_sha256": "5a26018311fdf6c662209e4477c4cb63e8c5ac4fe8b6a4e98f4e7516f7f8ee47",
+  "fixed_settings_apk_sha256": "70ef1d24b73ff29dbeac8502249ffa6a73c9126757a64f3452942a7669fdfbef",
+  "same_platform_certificate_as_installed_rom": true,
+  "platform_certificate_sha256": "324c225be1c90fe6fca688c8c28cd7cf4d9552cb032ccb724cf17ce2ea4c25b8",
+  "source_guard": "Ignore delayed Wi-Fi setup Next-button callbacks after the fragment detaches",
+  "built_as_separate_app_update": true,
+  "included_in_original_rom_zip": false,
+  "installed_on_tablet": true,
+  "hardware_regression_tested": true,
+  "checked_at_utc": "2026-10-15T18:59:51.022106+00:00",
+  "installed_apk_hash_readback_verified": true,
+  "wifi_open_scan_close_cycles": 6,
+  "normal_and_setup_next_button_modes_tested": true,
+  "new_crashes_during_regression": false,
+  "wifi_connection_preserved": true
+}

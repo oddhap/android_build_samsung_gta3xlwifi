@@ -1,0 +1,37 @@
+{
+  "passed": true,
+  "checked_at_utc": "2026-10-16T05:02:39.926761+00:00",
+  "expected_sparse_sha256": "276777b5bde1dac2f31dbe9299c79e02c07486df6ff7b2ecad03cc722edee939",
+  "expected_raw_sha256": "4c320e8bfd9db294e4027acae204a8276c8f06d0e522654f668e38550eded7b9",
+  "actual_raw_sha256": "1179f977922bc4fac92496c8e9de89642fc0f03181cec87033478eceb1003255",
+  "bytes_compared": 343932928,
+  "different_bytes": 18,
+  "only_permitted_ext4_mount_metadata_changed": true,
+  "vendor_file_data_and_other_metadata_byte_identical": true,
+  "counters_changed": {
+    "last_mount_time": {
+      "before": 1791311175,
+      "after": 1792093395
+    },
+    "last_write_time": {
+      "before": 1791311182,
+      "after": 1792093413
+    },
+    "mount_count": {
+      "before": 1,
+      "after": 2
+    },
+    "lifetime_kbytes_written": {
+      "before": 55453,
+      "after": 60357
+    }
+  },
+  "inode_table_zeroed_flag_added_groups": [
+    0,
+    1,
+    2
+  ],
+  "group_descriptor_checksums_validated_by_e2fsck": true,
+  "read_only_e2fsck_exit_code": 0,
+  "image_modified_by_check": false
+}

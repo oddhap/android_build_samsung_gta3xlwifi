@@ -1,0 +1,44 @@
+diff --git a/app/Android.bp b/app/Android.bp
+index 95b2e63..bc2ada9 100644
+--- a/app/Android.bp
++++ b/app/Android.bp
+@@ -17,7 +17,7 @@ android_app {
+     manifest: "src/main/AndroidManifest.xml",
+ 
+     sdk_version: "34",
+-    product_specific: true,
++    product_specific: false,
+ 
+     use_embedded_native_libs: true,
+ 
+@@ -67,7 +67,7 @@ android_app {
+ 
+ prebuilt_etc {
+     name: "initial-package-stopped-states-org.lineageos.aperture",
+-    product_specific: true,
++    product_specific: false,
+     sub_dir: "sysconfig",
+     src: "initial-package-stopped-states-org.lineageos.aperture.xml",
+     filename_from_src: true,
+@@ -75,7 +75,7 @@ prebuilt_etc {
+ 
+ prebuilt_etc {
+     name: "preinstalled-packages-org.lineageos.aperture",
+-    product_specific: true,
++    product_specific: false,
+     sub_dir: "sysconfig",
+     src: "preinstalled-packages-org.lineageos.aperture.xml",
+     filename_from_src: true,
+diff --git a/lens_launcher/Android.bp b/lens_launcher/Android.bp
+index 08f5c38..a5693e5 100644
+--- a/lens_launcher/Android.bp
++++ b/lens_launcher/Android.bp
+@@ -16,7 +16,7 @@ android_app {
+     manifest: "src/main/AndroidManifest.xml",
+ 
+     sdk_version: "current",
+-    product_specific: true,
++    product_specific: false,
+ 
+     optimize: {
+         optimize: true,

@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "source_sha256": "ed936e286facff10ed077f588f49e0824b36e849317e7bc550d3c586a600c8fa",
+  "checks": [
+    "NIST AES-256-GCM plaintext",
+    "altered tag rejected",
+    "altered ciphertext rejected",
+    "truncated blob rejected",
+    "Android 14 NONE token zero padding",
+    "ASan/UBSan"
+  ]
+}
