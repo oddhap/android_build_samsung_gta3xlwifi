@@ -1,0 +1,71 @@
+{
+  "passed": true,
+  "checked_at_utc": "2026-10-16T05:23:52.045116+00:00",
+  "release_id": 414567324,
+  "url": "https://github.com/oddhap/android_build_samsung_gta3xlwifi/releases/tag/lineage-21.0-arm64-20261015",
+  "tag": "lineage-21.0-arm64-20261015",
+  "source_commit": "80b907e198508ea32d17e694d11403a2ab05f5ca",
+  "draft": false,
+  "prerelease": false,
+  "default_branch": "lineage-21.0-arm64",
+  "latest_release_verified": true,
+  "all_asset_server_sha256_digests_verified": true,
+  "assets": [
+    {
+      "name": "INSTALL.md",
+      "bytes": 6167,
+      "sha256": "23da1f983836feaf1c848c2ab5bd662941161d33f04e7a10b0e283a8cfdc05b8",
+      "github_server_digest_matches": true,
+      "public_download_reachable": true
+    },
+    {
+      "name": "RESTORE_STOCK_VENDOR.sh",
+      "bytes": 2080,
+      "sha256": "a09eb3f7658eef215a52ccd8b8f9022991229f55ad63aad492cbbe2b1c396ef9",
+      "github_server_digest_matches": true,
+      "public_download_reachable": true
+    },
+    {
+      "name": "SHA256SUMS",
+      "bytes": 696,
+      "sha256": "4b1820b1f152bdc8cf4a1c184fe33d326d1c0ec748029bf155e63ce71ad00075",
+      "github_server_digest_matches": true,
+      "public_download_reachable": true
+    },
+    {
+      "name": "lineage-21.0-20261015-UNOFFICIAL-gta3xlwifi-arm64.zip",
+      "bytes": 904523305,
+      "sha256": "f4505aef35f10de09c629dfb6cdfffd219e5a01bf7b67c5b5bf7a6a0ad093781",
+      "github_server_digest_matches": true,
+      "public_download_reachable": true
+    },
+    {
+      "name": "twrp-3.7.1_12-gta3xlwifi-arm64-20261015-ap.tar",
+      "bytes": 40284160,
+      "sha256": "05232acf2e1386a9ef61833cfc6c3a2653abf6d61cd7f7522cf7fb902effa9a0",
+      "github_server_digest_matches": true,
+      "public_download_reachable": true
+    },
+    {
+      "name": "twrp-3.7.1_12-gta3xlwifi-arm64-20261015.img",
+      "bytes": 40275984,
+      "sha256": "10c2c2ee77ee593ace840a12fb90145809e4521942b681bcee6e9c3b364370ed",
+      "github_server_digest_matches": true,
+      "public_download_reachable": true
+    },
+    {
+      "name": "vbmeta-disabled.img",
+      "bytes": 4096,
+      "sha256": "3e679bb0b8b2e6fb5d94d8316846b7459eead2209cee8f038cbbdda8c6483750",
+      "github_server_digest_matches": true,
+      "public_download_reachable": true
+    },
+    {
+      "name": "vendor-stock-T510XXU5CWA1.raw.img",
+      "bytes": 343932928,
+      "sha256": "9c2c323343118f8a75d31c69c367e77144b6c74c660ca9930076ecc513b8d97c",
+      "github_server_digest_matches": true,
+      "public_download_reachable": true
+    }
+  ]
+}

@@ -1,5 +1,5 @@
 {
-  "status": "validated_pending_publication",
+  "status": "published",
   "goal_complete": true,
   "checked_at_utc": "2026-10-16T05:20:11.118674+00:00",
   "rom_build": "gta3xlwifi.arm64.20261015.191854",
@@ -39,6 +39,13 @@
   "long_term_stability_tested": false,
   "bluetooth_pairing_tested": false,
   "full_hardware_validation_complete": false,
-  "new_github_release_published": false,
-  "release_url": "https://github.com/oddhap/android_build_samsung_gta3xlwifi/releases/tag/lineage-21.0-arm64-20261015"
+  "new_github_release_published": true,
+  "release_url": "https://github.com/oddhap/android_build_samsung_gta3xlwifi/releases/tag/lineage-21.0-arm64-20261015",
+  "publication_goal_complete": true,
+  "release_tag": "lineage-21.0-arm64-20261015",
+  "source_commit": "80b907e198508ea32d17e694d11403a2ab05f5ca",
+  "public_release_check": "public-release-check.json",
+  "published_as_prerelease": false,
+  "latest_release_verified": true,
+  "all_public_asset_digests_and_downloads_verified": true
 }

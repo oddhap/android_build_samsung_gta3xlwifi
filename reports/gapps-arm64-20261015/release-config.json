@@ -1,0 +1,14 @@
+{
+  "tag": "lineage-21.0-arm64-20261015",
+  "url": "https://github.com/oddhap/android_build_samsung_gta3xlwifi/releases/tag/lineage-21.0-arm64-20261015",
+  "title": "LineageOS 21 \u2014 SM-T510 ARM64 + ARM64 TWRP / GApps support",
+  "rom": "lineage-21.0-20261015-UNOFFICIAL-gta3xlwifi-arm64.zip",
+  "recovery": "twrp-3.7.1_12-gta3xlwifi-arm64-20261015.img",
+  "ap": "twrp-3.7.1_12-gta3xlwifi-arm64-20261015-ap.tar",
+  "prerelease": false,
+  "draft": false,
+  "make_latest": true,
+  "build_incremental": "gta3xlwifi.arm64.20261015.191854",
+  "published_date": "2026-10-16",
+  "source_commit": "80b907e198508ea32d17e694d11403a2ab05f5ca"
+}
