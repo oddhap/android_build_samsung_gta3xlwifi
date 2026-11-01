@@ -1,0 +1,20 @@
+{
+  "checked_at_utc": "2026-11-01T17:37:53.657476+00:00",
+  "phase": "cleanup-and-independent-sync-running",
+  "full_sync_confirmed": false,
+  "full_source_audit_confirmed": false,
+  "product_configuration_confirmed": false,
+  "hardware_tested": false,
+  "flash_ready": false,
+  "exit_codes": {
+    "migration": null,
+    "setup": null,
+    "port-validation": null,
+    "host-preflight": "0"
+  },
+  "processes": {
+    "migration": "5893 S          27:52 bash /srv/android/ports/lineage-24.0-arm64/tools/replace-server23.sh",
+    "setup": "7656 S          16:13 bash /srv/android/ports/lineage-24.0-arm64/tools/setup.sh"
+  },
+  "disk": "Filesystem      Size  Used Avail Use% Mounted on\n/dev/sdb1       984G  484G  452G  52% /srv/android\n"
+}
