@@ -1,0 +1,634 @@
+diff --git a/bpf/dns_helper/DnsBpfHelper.cpp b/bpf/dns_helper/DnsBpfHelper.cpp
+index 835efee..b211662 100644
+--- a/bpf/dns_helper/DnsBpfHelper.cpp
++++ b/bpf/dns_helper/DnsBpfHelper.cpp
+@@ -17,6 +17,8 @@
+ #define LOG_TAG "DnsBpfHelper"
+ 
+ #include "DnsBpfHelper.h"
++#include "Gta3xlwifiDnsPolicy.h"
++#include "LegacyDnsPolicy.h"
+ 
+ #include <android-base/logging.h>
+ #include <android-base/properties.h>
+@@ -33,6 +35,8 @@ namespace net {
+     }                                                                                              \
+   } while (0)
+ 
++static LegacyDnsPolicy sLegacyDnsPolicy;
++
+ // copied from BpfHandler.cpp
+ static bool mainlineNetBpfLoadDone() {
+   return !access("/sys/fs/bpf/netd_shared/mainline_done", F_OK);
+@@ -56,6 +60,10 @@ static inline void waitForNetProgsLoaded() {
+ }
+ 
+ base::Result<void> DnsBpfHelper::init() {
++  if (base::GetBoolProperty("ro.gta3xlwifi.legacy_networking", false)) {
++    if (!sLegacyDnsPolicy.ready()) return base::Error(ENOTCONN) << "No legacy firewall callback";
++    return {};
++  }
+   if (!android::modules::sdklevel::IsAtLeastT()) {
+     LOG(INFO) << "performing Android S mainline NetBpfload magic!";
+     if (!mainlineNetBpfLoadDone()) {
+@@ -79,6 +87,11 @@ base::Result<void> DnsBpfHelper::init() {
+ }
+ 
+ base::Result<bool> DnsBpfHelper::isUidNetworkingBlocked(uid_t uid, bool metered) {
++  if (base::GetBoolProperty("ro.gta3xlwifi.legacy_networking", false)) {
++    const int decision = sLegacyDnsPolicy.evaluate(uid, metered);
++    if (decision < 0) return base::Error(-decision) << "Legacy firewall decision failed";
++    return decision == 1;
++  }
+   if (is_system_uid(uid)) return false;
+   if (!mConfigurationMap.isValid() || !mUidOwnerMap.isValid()) {
+     LOG(ERROR) << __func__
+@@ -119,3 +132,8 @@ base::Result<bool> DnsBpfHelper::isUidNetworkingBlocked(uid_t uid, bool metered)
+ 
+ }  // namespace net
+ }  // namespace android
++
++extern "C" int ADnsHelper_setLegacyCallbackV2(int (*callback)(uid_t, bool)) {
++  if (!android::base::GetBoolProperty("ro.gta3xlwifi.legacy_networking", false)) return -EOPNOTSUPP;
++  return android::net::sLegacyDnsPolicy.setCallback(callback);
++}
+diff --git a/bpf/dns_helper/LegacyDnsPolicy.h b/bpf/dns_helper/LegacyDnsPolicy.h
+new file mode 100644
+index 0000000..b1c1083
+--- /dev/null
++++ b/bpf/dns_helper/LegacyDnsPolicy.h
+@@ -0,0 +1,36 @@
++// SPDX-License-Identifier: Apache-2.0
++#pragma once
++#include <atomic>
++#include <cerrno>
++#include <sys/types.h>
++
++namespace android::net {
++// Private device-port extension, not an Android SDK API. Errors are never an
++// allow decision. The policy owner must register only after its real firewall
++// state is initialized; subsequent policy updates are synchronized by that owner.
++class LegacyDnsPolicy {
++ public:
++  using Callback = int (*)(uid_t, bool);  // 0 allow, 1 block, negative errno.
++
++  int setCallback(Callback callback) {
++    if (!callback) return -EINVAL;
++    Callback expected = nullptr;
++    if (mCallback.compare_exchange_strong(expected, callback, std::memory_order_acq_rel,
++                                         std::memory_order_acquire)) return 0;
++    return expected == callback ? 0 : -EALREADY;
++  }
++
++  bool ready() const { return mCallback.load(std::memory_order_acquire) != nullptr; }
++
++  int evaluate(uid_t uid, bool metered) const {
++    Callback callback = mCallback.load(std::memory_order_acquire);
++    if (!callback) return -ENOTCONN;
++    const int result = callback(uid, metered);
++    // Bound errno before any caller negates it; reject malformed bool/status values.
++    return result < -4095 || result > 1 ? -EPROTO : result;
++  }
++
++ private:
++  std::atomic<Callback> mCallback{nullptr};
++};
++}  // namespace android::net
+diff --git a/bpf/dns_helper/include/Gta3xlwifiDnsPolicy.h b/bpf/dns_helper/include/Gta3xlwifiDnsPolicy.h
+new file mode 100644
+index 0000000..7af46a0
+--- /dev/null
++++ b/bpf/dns_helper/include/Gta3xlwifiDnsPolicy.h
+@@ -0,0 +1,13 @@
++// SPDX-License-Identifier: Apache-2.0
++#pragma once
++#include <stdbool.h>
++#include <sys/types.h>
++#ifdef __cplusplus
++extern "C" {
++#endif
++// Local port extension, deliberately distinct from the older bool callback ABI.
++// Register only after the real legacy firewall has initialized successfully.
++int ADnsHelper_setLegacyCallbackV2(int (*callback)(uid_t uid, bool metered));
++#ifdef __cplusplus
++}
++#endif
+diff --git a/service-t/native/libs/libnetworkstats/Android.bp b/service-t/native/libs/libnetworkstats/Android.bp
+index b0521f9..f056b50 100644
+--- a/service-t/native/libs/libnetworkstats/Android.bp
++++ b/service-t/native/libs/libnetworkstats/Android.bp
+@@ -26,6 +26,8 @@ cc_library {
+     header_libs: ["bpf_connectivity_headers"],
+     srcs: [
+         "BpfNetworkStats.cpp",
++        "Gta3xlwifiLegacyStats.cpp",
++        "QtaguidStats.cpp",
+         "NetworkTraceHandler.cpp",
+         "NetworkTracePoller.cpp",
+     ],
+diff --git a/service-t/native/libs/libnetworkstats/BpfNetworkStats.cpp b/service-t/native/libs/libnetworkstats/BpfNetworkStats.cpp
+index e2b6e1e..9d8409b 100644
+--- a/service-t/native/libs/libnetworkstats/BpfNetworkStats.cpp
++++ b/service-t/native/libs/libnetworkstats/BpfNetworkStats.cpp
+@@ -28,6 +28,7 @@
+ #include "bpf/BpfMap.h"
+ #include "netd.h"
+ #include "netdbpf/BpfNetworkStats.h"
++#include "Gta3xlwifiLegacyStats.h"
+ 
+ #ifdef LOG_TAG
+ #undef LOG_TAG
+@@ -93,6 +94,8 @@ static Result<IfaceValue> ifindex2name(const uint32_t ifindex) {
+ }
+ 
+ void bpfRegisterIface(const char* iface) {
++    // xt_qtaguid discovers interfaces through its kernel netdevice notifier.
++    if (gta3xlwifiLegacyStatsEnabled()) return;
+     if (!iface) return;
+     if (strlen(iface) >= sizeof(IfaceValue)) return;
+     uint32_t ifindex = if_nametoindex(iface);
+@@ -115,6 +118,7 @@ int bpfGetUidStatsInternal(uid_t uid, StatsValue* stats,
+ }
+ 
+ int bpfGetUidStats(uid_t uid, StatsValue* stats) {
++    if (gta3xlwifiLegacyStatsEnabled()) return gta3xlwifiLegacyUidStats(uid, stats);
+     static BpfMapRO<uint32_t, StatsValue> appUidStatsMap(APP_UID_STATS_MAP_PATH);
+     return bpfGetUidStatsInternal(uid, stats, appUidStatsMap);
+ }
+@@ -170,6 +174,7 @@ int bpfGetIfaceStatsInternal(const char* iface, StatsValue* stats,
+ }
+ 
+ int bpfGetIfaceStats(const char* iface, StatsValue* stats) {
++    if (gta3xlwifiLegacyStatsEnabled()) return gta3xlwifiLegacyIfaceStats(iface, stats);
+     return bpfGetIfaceStatsInternal(iface, stats, getIfaceStatsMap(), ifindex2name);
+ }
+ 
+@@ -185,6 +190,11 @@ int bpfGetIfIndexStatsInternal(uint32_t ifindex, StatsValue* stats,
+ }
+ 
+ int bpfGetIfIndexStats(int ifindex, StatsValue* stats) {
++    if (gta3xlwifiLegacyStatsEnabled()) {
++        char iface[IF_NAMESIZE];
++        if (!if_indextoname(ifindex, iface)) return -errno;
++        return gta3xlwifiLegacyIfaceStats(iface, stats);
++    }
+     return bpfGetIfIndexStatsInternal(ifindex, stats, getIfaceStatsMap());
+ }
+ 
+@@ -253,6 +263,7 @@ int parseBpfNetworkStatsDetailInternal(std::vector<stats_line>& lines,
+ }
+ 
+ int parseBpfNetworkStatsDetail(std::vector<stats_line>* lines) {
++    if (gta3xlwifiLegacyStatsEnabled()) return gta3xlwifiLegacyDetail(lines);
+     static BpfMapRO<uint32_t, uint32_t> configurationMap(CONFIGURATION_MAP_PATH);
+     static BpfMap<StatsKey, StatsValue> statsMapA(STATS_MAP_A_PATH);
+     static BpfMap<StatsKey, StatsValue> statsMapB(STATS_MAP_B_PATH);
+@@ -317,6 +328,7 @@ int parseBpfNetworkStatsDevInternal(std::vector<stats_line>& lines,
+ }
+ 
+ int parseBpfNetworkStatsDev(std::vector<stats_line>* lines) {
++    if (gta3xlwifiLegacyStatsEnabled()) return gta3xlwifiLegacyDev(lines);
+     return parseBpfNetworkStatsDevInternal(*lines, getIfaceStatsMap(), ifindex2name);
+ }
+ 
+diff --git a/service-t/native/libs/libnetworkstats/Gta3xlwifiLegacyStats.cpp b/service-t/native/libs/libnetworkstats/Gta3xlwifiLegacyStats.cpp
+new file mode 100644
+index 0000000..2b8e5d6
+--- /dev/null
++++ b/service-t/native/libs/libnetworkstats/Gta3xlwifiLegacyStats.cpp
+@@ -0,0 +1,77 @@
++// SPDX-License-Identifier: Apache-2.0
++#include "Gta3xlwifiLegacyStats.h"
++#include "QtaguidStats.h"
++
++#include <android-base/properties.h>
++#include <algorithm>
++#include <cerrno>
++#include <cstring>
++
++namespace android::bpf {
++bool gta3xlwifiLegacyStatsEnabled() {
++    return android::base::GetBoolProperty("ro.gta3xlwifi.legacy_networking", false);
++}
++
++static int readRecords(bool detail, std::vector<legacy::Record>* records) {
++    const char* path = detail ? "/proc/net/xt_qtaguid/stats" : "/proc/net/xt_qtaguid/iface_stat_fmt";
++    FILE* file = fopen(path, "re");
++    if (!file) return -errno;
++    int error = legacy::readStats(file, detail, records);
++    if (fclose(file) && !error) error = -(errno ? errno : EIO);
++    return error;
++}
++
++static int readLines(bool detail, std::vector<stats_line>* lines) {
++    if (!lines) return -EINVAL;
++    std::vector<legacy::Record> records;
++    int error = readRecords(detail, &records);
++    if (error) return error;
++    std::vector<stats_line> next;
++    for (const auto& row : records) {
++        stats_line value{};
++        static_assert(sizeof(value.iface) >= 16);
++        memcpy(value.iface, row.iface.c_str(), row.iface.size() + 1);
++        value.uid = detail ? row.uid : UID_ALL;
++        value.set = detail ? row.set : SET_ALL;
++        value.tag = detail ? row.tag : TAG_NONE;
++        value.rxBytes = row.counters[0];
++        value.rxPackets = row.counters[1];
++        value.txBytes = row.counters[2];
++        value.txPackets = row.counters[3];
++        next.push_back(value);
++    }
++    // Kernel keys were checked for uniqueness, so sorting needs no unchecked summation.
++    std::sort(next.begin(), next.end());
++    *lines = std::move(next);
++    return 0;
++}
++
++int gta3xlwifiLegacyDetail(std::vector<stats_line>* lines) { return readLines(true, lines); }
++int gta3xlwifiLegacyDev(std::vector<stats_line>* lines) { return readLines(false, lines); }
++
++static int totalStats(bool detail, uid_t uid, const char* iface, StatsValue* stats) {
++    if (!stats) return -EINVAL;
++    *stats = {};
++    std::vector<legacy::Record> records;
++    int error = readRecords(detail, &records);
++    if (error) return error;
++    std::array<int64_t, 4> sum{};
++    for (const auto& row : records) {
++        if (detail && (row.uid != uid || row.tag != 0)) continue;
++        if (iface && row.iface != iface) continue;
++        if ((error = legacy::addCounters(row.counters, &sum))) return error;
++    }
++    stats->rxBytes = sum[0];
++    stats->rxPackets = sum[1];
++    stats->txBytes = sum[2];
++    stats->txPackets = sum[3];
++    return 0;
++}
++
++int gta3xlwifiLegacyUidStats(uid_t uid, StatsValue* stats) {
++    return totalStats(true, uid, nullptr, stats);
++}
++int gta3xlwifiLegacyIfaceStats(const char* iface, StatsValue* stats) {
++    return totalStats(false, 0, iface, stats);
++}
++}  // namespace android::bpf
+diff --git a/service-t/native/libs/libnetworkstats/Gta3xlwifiLegacyStats.h b/service-t/native/libs/libnetworkstats/Gta3xlwifiLegacyStats.h
+new file mode 100644
+index 0000000..8c1ca2e
+--- /dev/null
++++ b/service-t/native/libs/libnetworkstats/Gta3xlwifiLegacyStats.h
+@@ -0,0 +1,11 @@
++// SPDX-License-Identifier: Apache-2.0
++#pragma once
++#include <cinttypes>
++#include "netdbpf/BpfNetworkStats.h"
++namespace android::bpf {
++bool gta3xlwifiLegacyStatsEnabled();
++int gta3xlwifiLegacyUidStats(uid_t uid, StatsValue* stats);
++int gta3xlwifiLegacyIfaceStats(const char* iface, StatsValue* stats);
++int gta3xlwifiLegacyDetail(std::vector<stats_line>* lines);
++int gta3xlwifiLegacyDev(std::vector<stats_line>* lines);
++}  // namespace android::bpf
+diff --git a/service-t/native/libs/libnetworkstats/QtaguidStats.cpp b/service-t/native/libs/libnetworkstats/QtaguidStats.cpp
+new file mode 100644
+index 0000000..0dec57b
+--- /dev/null
++++ b/service-t/native/libs/libnetworkstats/QtaguidStats.cpp
+@@ -0,0 +1,130 @@
++// SPDX-License-Identifier: Apache-2.0
++#include "QtaguidStats.h"
++
++#include <cerrno>
++#include <charconv>
++#include <cstdlib>
++#include <limits>
++#include <set>
++#include <string_view>
++#include <tuple>
++#include <sys/types.h>
++
++namespace android::bpf::legacy {
++namespace {
++constexpr std::string_view kDetailHeader =
++        "idx iface acct_tag_hex uid_tag_int cnt_set rx_bytes rx_packets tx_bytes tx_packets "
++        "rx_tcp_bytes rx_tcp_packets rx_udp_bytes rx_udp_packets rx_other_bytes rx_other_packets "
++        "tx_tcp_bytes tx_tcp_packets tx_udp_bytes tx_udp_packets tx_other_bytes tx_other_packets";
++constexpr std::string_view kIfaceHeader =
++        "ifname total_skb_rx_bytes total_skb_rx_packets total_skb_tx_bytes total_skb_tx_packets "
++        "rx_tcp_bytes rx_tcp_packets rx_udp_bytes rx_udp_packets rx_other_bytes rx_other_packets "
++        "tx_tcp_bytes tx_tcp_packets tx_udp_bytes tx_udp_packets tx_other_bytes tx_other_packets";
++
++struct Line {
++    char* data = nullptr;
++    size_t capacity = 0;
++    ~Line() { free(data); }
++};
++
++bool space(char c) { return c == ' ' || c == '\t' || c == '\n' || c == '\r'; }
++
++std::vector<std::string_view> fields(std::string_view line) {
++    std::vector<std::string_view> result;
++    while (!line.empty()) {
++        if (space(line.front())) { line.remove_prefix(1); continue; }
++        size_t n = 0;
++        while (n < line.size() && !space(line[n])) ++n;
++        result.push_back(line.substr(0, n));
++        line.remove_prefix(n);
++    }
++    return result;
++}
++
++int number(std::string_view token, uint64_t max, uint64_t* value, int base = 10) {
++    if (token.empty() || token.front() == '-' || token.front() == '+') return -EINVAL;
++    auto result = std::from_chars(token.data(), token.data() + token.size(), *value, base);
++    if (result.ec == std::errc::result_out_of_range || *value > max) return -EOVERFLOW;
++    return result.ec == std::errc{} && result.ptr == token.data() + token.size() ? 0 : -EINVAL;
++}
++
++bool ifaceName(std::string_view name) {
++    // Match Linux interface length; never allow whitespace, paths or truncated names.
++    if (name.empty() || name.size() >= 16 || name == "." || name == "..") return false;
++    for (unsigned char c : name) if (c <= ' ' || c == '/' || c == ':' || c == 127) return false;
++    return true;
++}
++}  // namespace
++
++int addCounters(const std::array<int64_t, 4>& value, std::array<int64_t, 4>* sum) {
++    if (!sum) return -EINVAL;
++    auto next = *sum;
++    for (size_t i = 0; i < next.size(); ++i) {
++        if (next[i] < 0 || value[i] < 0) return -EINVAL;
++        if (value[i] > std::numeric_limits<int64_t>::max() - next[i]) return -EOVERFLOW;
++        next[i] += value[i];
++    }
++    *sum = next;
++    return 0;
++}
++
++int readStats(FILE* file, bool detail, std::vector<Record>* output) {
++    if (!file || !output) return -EINVAL;
++    Line line;
++    errno = 0;
++    ssize_t n = getline(&line.data, &line.capacity, file);
++    if (n < 0) return ferror(file) ? -(errno ? errno : EIO) : -EINVAL;
++    if (n > 4096 || std::string_view(line.data, n).find('\0') != std::string_view::npos)
++        return -EINVAL;
++    if (fields({line.data, static_cast<size_t>(n)}) != fields(detail ? kDetailHeader : kIfaceHeader))
++        return -EINVAL;
++
++    std::vector<Record> next;
++    std::set<std::tuple<std::string, uint32_t, uint32_t, uint32_t>> seen;
++    uint64_t previousIndex = 1;  // Samsung pp_stats_line starts at index 2.
++    while (true) {
++        errno = 0;
++        n = getline(&line.data, &line.capacity, file);
++        if (n < 0) {
++            if (ferror(file)) return -(errno ? errno : EIO);
++            break;
++        }
++        if (n > 4096 || std::string_view(line.data, n).find('\0') != std::string_view::npos)
++            return -EINVAL;
++        auto columns = fields({line.data, static_cast<size_t>(n)});
++        if (columns.size() != (detail ? 21U : 17U)) return -EINVAL;
++        Record row;
++        row.iface = std::string(columns[detail ? 1 : 0]);
++        if (!ifaceName(row.iface)) return -EINVAL;
++        if (detail) {
++            uint64_t index = 0, tag = 0, uid = 0, set = 0;
++            int error = number(columns[0], UINT32_MAX, &index);
++            if (error) return error;
++            if (index != previousIndex + 1) return -EINVAL;
++            previousIndex = index;
++            auto tagText = columns[2];
++            if (tagText.size() <= 2 || tagText.substr(0, 2) != "0x") return -EINVAL;
++            if ((error = number(tagText.substr(2), UINT64_MAX, &tag, 16))) return error;
++            if (tag & UINT32_MAX) return -EINVAL;  // Kernel acct_tag excludes low UID bits.
++            if ((error = number(columns[3], INT32_MAX, &uid))) return error;
++            if ((error = number(columns[4], UINT32_MAX, &set))) return error;
++            if (set > 1) return -EINVAL;
++            row.uid = static_cast<uint32_t>(uid);
++            row.set = static_cast<uint32_t>(set);
++            row.tag = static_cast<uint32_t>(tag >> 32);
++        }
++        const size_t start = detail ? 5 : 1;
++        // Validate protocol-breakdown columns too, not just the four aggregate counters.
++        for (size_t i = start; i < columns.size(); ++i) {
++            uint64_t value = 0;
++            int error = number(columns[i], INT64_MAX, &value);
++            if (error) return error;
++            if (i < start + row.counters.size()) row.counters[i - start] = static_cast<int64_t>(value);
++        }
++        if (!seen.emplace(row.iface, row.uid, row.set, row.tag).second) return -EINVAL;
++        next.push_back(std::move(row));
++    }
++    *output = std::move(next);
++    return 0;
++}
++}  // namespace android::bpf::legacy
+diff --git a/service-t/native/libs/libnetworkstats/QtaguidStats.h b/service-t/native/libs/libnetworkstats/QtaguidStats.h
+new file mode 100644
+index 0000000..b81d5d8
+--- /dev/null
++++ b/service-t/native/libs/libnetworkstats/QtaguidStats.h
+@@ -0,0 +1,24 @@
++// SPDX-License-Identifier: Apache-2.0
++#pragma once
++
++#include <array>
++#include <cstdint>
++#include <cstdio>
++#include <string>
++#include <vector>
++
++namespace android::bpf::legacy {
++// Kernel counters are cumulative. The upper bound matches NetworkStats' jlong ABI.
++struct Record {
++    std::string iface;
++    uint32_t uid = 0;
++    uint32_t set = 0;
++    uint32_t tag = 0;
++    std::array<int64_t, 4> counters{};  // rx bytes/packets, tx bytes/packets
++};
++
++// Parse the actual Samsung xt_qtaguid schemas. On error, leave output unchanged.
++// A header-only table is valid; an absent/malformed table is not zero traffic.
++int readStats(FILE* file, bool detail, std::vector<Record>* output);
++int addCounters(const std::array<int64_t, 4>& value, std::array<int64_t, 4>* sum);
++}  // namespace android::bpf::legacy
+diff --git a/service-t/src/com/android/server/net/NetworkStatsFactory.java b/service-t/src/com/android/server/net/NetworkStatsFactory.java
+index 7d48b71..b6b4bf1 100644
+--- a/service-t/src/com/android/server/net/NetworkStatsFactory.java
++++ b/service-t/src/com/android/server/net/NetworkStatsFactory.java
+@@ -22,6 +22,7 @@ import static android.net.NetworkStats.UID_ALL;
+ import static android.provider.DeviceConfig.NAMESPACE_TETHERING;
+ 
+ import android.annotation.NonNull;
++import android.annotation.Nullable;
+ import android.content.Context;
+ import android.net.NetworkStats;
+ import android.net.UnderlyingNetworkInfo;
+@@ -64,7 +65,9 @@ public class NetworkStatsFactory {
+ 
+     private final Context mContext;
+ 
++    @Nullable
+     private final BpfNetMaps mBpfNetMaps;
++    private final boolean mLegacyStats;
+ 
+     /**
+      * Guards persistent data access in this class
+@@ -93,6 +96,9 @@ public class NetworkStatsFactory {
+     @GuardedBy("mPersistentDataLock")
+     private NetworkStats mPersistSnapshot;
+ 
++    @GuardedBy("mPersistentDataLock")
++    private NetworkStats mLegacySnapshot = new NetworkStats(0, 0);
++
+     // The persistent snapshot of tun and 464xlat adjusted stats since device start
+     @GuardedBy("mPersistentDataLock")
+     private NetworkStats mTunAnd464xlatAdjustedStats;
+@@ -103,6 +109,11 @@ public class NetworkStatsFactory {
+      */
+     @VisibleForTesting
+     public static class Dependencies {
++        /** Select the product-gated cumulative qtaguid accounting backend. */
++        public boolean isLegacyNetworking() {
++            return android.os.SystemProperties.getBoolean("ro.gta3xlwifi.legacy_networking", false);
++        }
++
+         /**
+          * Parse detailed statistics from bpf into given {@link NetworkStats} object. Values
+          * are expected to monotonically increase since device boot.
+@@ -199,7 +210,8 @@ public class NetworkStatsFactory {
+ 
+     @VisibleForTesting
+     public NetworkStatsFactory(@NonNull Context ctx, Dependencies deps) {
+-        mBpfNetMaps = deps.createBpfNetMaps(ctx);
++        mLegacyStats = deps.isLegacyNetworking();
++        mBpfNetMaps = mLegacyStats ? null : deps.createBpfNetMaps(ctx);
+         synchronized (mPersistentDataLock) {
+             mPersistSnapshot = new NetworkStats(SystemClock.elapsedRealtime(), -1);
+             mTunAnd464xlatAdjustedStats = new NetworkStats(SystemClock.elapsedRealtime(), -1);
+@@ -227,6 +239,8 @@ public class NetworkStatsFactory {
+ 
+     @GuardedBy("mPersistentDataLock")
+     private void requestSwapActiveStatsMapLocked() throws IOException {
++        // qtaguid exposes one cumulative kernel table, not alternating BPF maps.
++        if (mBpfNetMaps == null) return;
+         try {
+             // Do a active map stats swap. Once the swap completes, this code
+             // can read and clean the inactive map without races.
+@@ -256,7 +270,19 @@ public class NetworkStatsFactory {
+             requestSwapActiveStatsMapLocked();
+             // Stats are always read from the inactive map, so they must be read after the
+             // swap
+-            final NetworkStats diff = mDeps.getNetworkStatsDetail();
++            final NetworkStats raw = mDeps.getNetworkStatsDetail();
++            final NetworkStats diff;
++            if (mLegacyStats) {
++                // Feed the Android 16 adjustment pipeline incremental data, not
++                // the entire cumulative table at every poll (which overcounts).
++                diff = raw.subtract(mLegacySnapshot);
++                // subtract() supplies an interval; the factory API returns
++                // cumulative uptime, as the ordinary BPF path does.
++                diff.setElapsedRealtime(raw.getElapsedRealtime());
++                mLegacySnapshot = raw;
++            } else {
++                diff = raw;
++            }
+             // Filter based on UID tag set before merging.
+             final NetworkStats filteredDiff = mSupportPerUidTagThrottling
+                     ? filterStatsByUidTagSets(diff) : diff;
+@@ -330,6 +356,7 @@ public class NetworkStatsFactory {
+     public void removeUidsLocked(int[] uids) {
+         synchronized (mPersistentDataLock) {
+             mPersistSnapshot.removeUids(uids);
++            mLegacySnapshot.removeUids(uids);
+             mTunAnd464xlatAdjustedStats.removeUids(uids);
+         }
+     }
+diff --git a/tests/unit/java/com/android/server/net/NetworkStatsFactoryTest.java b/tests/unit/java/com/android/server/net/NetworkStatsFactoryTest.java
+index 21e2d44..3b7794d 100644
+--- a/tests/unit/java/com/android/server/net/NetworkStatsFactoryTest.java
++++ b/tests/unit/java/com/android/server/net/NetworkStatsFactoryTest.java
+@@ -40,8 +40,12 @@ import static org.mockito.ArgumentMatchers.any;
+ import static org.mockito.ArgumentMatchers.anyInt;
+ import static org.mockito.ArgumentMatchers.anyString;
+ import static org.mockito.ArgumentMatchers.eq;
++import static org.mockito.Mockito.clearInvocations;
+ import static org.mockito.Mockito.doAnswer;
+ import static org.mockito.Mockito.doReturn;
++import static org.mockito.Mockito.doThrow;
++import static org.mockito.Mockito.never;
++import static org.mockito.Mockito.verify;
+ 
+ import android.content.Context;
+ import android.net.NetworkStats;
+@@ -489,6 +493,65 @@ public class NetworkStatsFactoryTest extends NetworkStatsBaseTest {
+         assertNoStatsEntry(stats, "wlan0", 1029, SET_DEFAULT, 0x0);
+     }
+ 
++    private void useLegacyStats() {
++        doReturn(true).when(mDeps).isLegacyNetworking();
++        clearInvocations(mDeps, mBpfNetMaps);
++        mFactory = new NetworkStatsFactory(mContext, mDeps);
++        verify(mDeps, never()).createBpfNetMaps(any());
++    }
++
++    private NetworkStats cumulativeStats(long elapsed, long bytes) {
++        return new NetworkStats(elapsed, 1).insertEntry(
++                TEST_IFACE, UID_RED, SET_DEFAULT, TAG_NONE, bytes, 1L, bytes, 1L, 0L);
++    }
++
++    @Test
++    public void testLegacyRepeatedSnapshotDoesNotDoubleCount() throws Exception {
++        useLegacyStats();
++        doReturn(cumulativeStats(1000L, 100L)).when(mDeps).getNetworkStatsDetail();
++        assertValues(mFactory.readNetworkStatsDetail(), TEST_IFACE, UID_RED, 100L, 1L, 100L, 1L);
++        doReturn(cumulativeStats(2000L, 100L)).when(mDeps).getNetworkStatsDetail();
++        final NetworkStats result = mFactory.readNetworkStatsDetail();
++        assertValues(result, TEST_IFACE, UID_RED, 100L, 1L, 100L, 1L);
++        assertEquals(2000L, result.getElapsedRealtime());
++        verify(mBpfNetMaps, never()).swapActiveStatsMap();
++    }
++
++    @Test
++    public void testLegacyIncrementsPreserveCumulativeUptime() throws Exception {
++        useLegacyStats();
++        doReturn(cumulativeStats(1000L, 100L)).when(mDeps).getNetworkStatsDetail();
++        mFactory.readNetworkStatsDetail();
++        doReturn(cumulativeStats(3000L, 150L)).when(mDeps).getNetworkStatsDetail();
++        final NetworkStats result = mFactory.readNetworkStatsDetail();
++        assertValues(result, TEST_IFACE, UID_RED, 150L, 1L, 150L, 1L);
++        assertEquals(3000L, result.getElapsedRealtime());
++    }
++
++    @Test
++    public void testLegacyUidRemovalClearsBaseline() throws Exception {
++        useLegacyStats();
++        doReturn(cumulativeStats(1000L, 100L)).when(mDeps).getNetworkStatsDetail();
++        mFactory.readNetworkStatsDetail();
++        mFactory.removeUidsLocked(new int[] {UID_RED});
++        doReturn(cumulativeStats(2000L, 10L)).when(mDeps).getNetworkStatsDetail();
++        assertValues(mFactory.readNetworkStatsDetail(), TEST_IFACE, UID_RED, 10L, 1L, 10L, 1L);
++    }
++
++    @Test
++    public void testLegacyReadFailureDoesNotConsumeBaseline() throws Exception {
++        useLegacyStats();
++        doReturn(cumulativeStats(1000L, 100L)).when(mDeps).getNetworkStatsDetail();
++        mFactory.readNetworkStatsDetail();
++        doThrow(new IOException("qtaguid unavailable")).when(mDeps).getNetworkStatsDetail();
++        try {
++            mFactory.readNetworkStatsDetail();
++            fail("Unavailable counters must not be reported as zero traffic");
++        } catch (IOException expected) { }
++        doReturn(cumulativeStats(3000L, 150L)).when(mDeps).getNetworkStatsDetail();
++        assertValues(mFactory.readNetworkStatsDetail(), TEST_IFACE, UID_RED, 150L, 1L, 150L, 1L);
++    }
++
+     @Test
+     public void testRemoveUidsStats() throws Exception {
+         final NetworkStats stats = new NetworkStats(SystemClock.elapsedRealtime(), 1)

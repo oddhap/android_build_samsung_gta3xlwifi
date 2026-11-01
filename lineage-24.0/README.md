@@ -52,7 +52,8 @@ No ROM is signed, installed or flashed by setup.
 ## Remaining compatibility gates
 
 The inherited [isolated experiments](experiments/) remain work in progress.
-Old Android 16 diagnostics and counts are historical; regenerate policy,
+The final networking/kernel graph also has a new Android 17 isolated rebase;
+old Android 16 diagnostics and counts are historical. Regenerate policy,
 networking and runtime evidence against Android 17. No experiment Image is
 promoted into the device prebuilts. Keep the combined FunctionFS/NNP patch graph.
 

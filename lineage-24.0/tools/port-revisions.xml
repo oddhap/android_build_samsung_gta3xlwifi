@@ -12,4 +12,7 @@
   <extend-project path="system/core" name="LineageOS/android_system_core" revision="65d661b1a536701e8b118be4e9728d7b5ca727c9" />
   <extend-project path="system/fs/fs_mgr" name="LineageOS/android_system_fs_fs_mgr" revision="f58ab8cf7115da90ba4db660cfdbf027de8fc872" />
   <extend-project path="system/memory/libmeminfo" name="platform/system/memory/libmeminfo" revision="d59c960b1fb93377bf68664918031ea5fe709f89" />
+  <extend-project path="packages/modules/Connectivity" name="LineageOS/android_packages_modules_Connectivity" revision="7c04d866538e6f689823b769fb5c1e614ca0e295" />
+  <extend-project path="packages/modules/DnsResolver" name="platform/packages/modules/DnsResolver" revision="0aeaf9d222ec761b9e0443a01c7a06590b9d1b4f" />
+  <extend-project path="system/netd" name="LineageOS/android_system_netd" revision="fb7e47052620fd1139522e2b3d1343c8680f7c0f" />
 </manifest>

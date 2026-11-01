@@ -1,0 +1,25 @@
+{
+  "project": "kernel/samsung/gta3xlwifi",
+  "revision": "669b9584e678ce5865ed38e04c24639082d78de1",
+  "url": "https://github.com/oddhap/android_kernel_samsung_gta3xlwifi",
+  "upstream_ref": "669b9584e678ce5865ed38e04c24639082d78de1",
+  "partial_tree": true,
+  "patches": [
+    {
+      "patch": "qtaguid-persistent-20261022-02/kernel_samsung_gta3xlwifi.patch",
+      "status": "applied-to-isolated-partial-tree"
+    },
+    {
+      "patch": "kernel-policy-reader-20261023-01/kernel_samsung_gta3xlwifi.patch",
+      "status": "applied-to-isolated-partial-tree"
+    },
+    {
+      "patch": "kernel-functionfs-20261023-01/kernel_samsung_gta3xlwifi.patch",
+      "status": "applied-to-isolated-partial-tree"
+    }
+  ],
+  "compiled_for_android17": false,
+  "active": false,
+  "status": "isolated-android17-partial-source-replay-pass",
+  "full_android_module_build": false
+}

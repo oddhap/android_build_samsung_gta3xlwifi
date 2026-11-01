@@ -1,0 +1,514 @@
+diff --git a/include/uapi/linux/netfilter/xt_qtaguid_sock.h b/include/uapi/linux/netfilter/xt_qtaguid_sock.h
+new file mode 100644
+index 0000000..f4177d4
+--- /dev/null
++++ b/include/uapi/linux/netfilter/xt_qtaguid_sock.h
+@@ -0,0 +1,15 @@
++/* SPDX-License-Identifier: GPL-2.0 WITH Linux-syscall-note */
++#ifndef _UAPI_XT_QTAGUID_SOCK_H
++#define _UAPI_XT_QTAGUID_SOCK_H
++
++#include <linux/ioctl.h>
++
++/* Private, opt-in gta3xlwifi ABI. No argument, same command on 32/64 bit.
++ * Requires initial-namespace root plus CAP_NET_ADMIN and an empty own session.
++ * New/retagged sockets then own their tags until explicit untag, UID deletion
++ * or inet_release, not until the tagging daemon's process/session exits.
++ * This does not authorize a caller or implement accounting budgets/readiness.
++ */
++#define QTAGUID_SOCKET_OWNED_SESSION _IO('q', 0x51)
++
++#endif
+diff --git a/net/netfilter/xt_qtaguid.c b/net/netfilter/xt_qtaguid.c
+index ec35df2..8df92e0 100644
+--- a/net/netfilter/xt_qtaguid.c
++++ b/net/netfilter/xt_qtaguid.c
+@@ -14,12 +14,14 @@
+  */
+ #define DEBUG
+ 
++#include <linux/capability.h>
+ #include <linux/file.h>
+ #include <linux/inetdevice.h>
+ #include <linux/module.h>
+ #include <linux/miscdevice.h>
+ #include <linux/netfilter/x_tables.h>
+ #include <linux/netfilter/xt_qtaguid.h>
++#include <uapi/linux/netfilter/xt_qtaguid_sock.h>
+ #include <linux/ratelimit.h>
+ #include <linux/seq_file.h>
+ #include <linux/skbuff.h>
+@@ -2195,6 +2197,7 @@ static int ctrl_cmd_tag(const char *input)
+ 	unsigned int uid_int = 0;
+ 	tag_t acct_tag = make_atag_from_value(0);
+ 	tag_t full_tag;
++	bool socket_owned;
+ 	struct socket *el_socket;
+ 	int res, argc;
+ 	struct sock_tag *sock_tag_entry;
+@@ -2254,7 +2257,20 @@ static int ctrl_cmd_tag(const char *input)
+ 
+ 	spin_lock_bh(&sock_tag_list_lock);
+ 	spin_lock_bh(&uid_tag_data_tree_lock);
++	pqd_entry = proc_qtu_data_tree_search(&proc_qtu_data_tree, current->tgid);
++	socket_owned = !IS_ERR_OR_NULL(pqd_entry) && pqd_entry->socket_owned;
+ 	sock_tag_entry = get_sock_stat_nl(el_socket->sk);
++	/* Only inet sockets have the required final file-release hook. Never
++	 * create/promote a socket-owned Unix/packet tag with no cleanup path.
++	 */
++	if ((socket_owned || (sock_tag_entry && !sock_tag_entry->pid)) &&
++	    (!el_socket->sk || (el_socket->sk->sk_family != AF_INET &&
++			      el_socket->sk->sk_family != AF_INET6))) {
++		res = -EAFNOSUPPORT;
++		spin_unlock_bh(&uid_tag_data_tree_lock);
++		spin_unlock_bh(&sock_tag_list_lock);
++		goto err_put;
++	}
+ 	tag_ref_entry = get_tag_ref(full_tag, &uid_tag_data_entry);
+ 	if (IS_ERR(tag_ref_entry)) {
+ 		res = PTR_ERR(tag_ref_entry);
+@@ -2275,6 +2291,19 @@ static int ctrl_cmd_tag(const char *input)
+ 		BUG_ON(IS_ERR_OR_NULL(prev_tag_ref_entry));
+ 		BUG_ON(prev_tag_ref_entry->num_sock_tags <= 0);
+ 		prev_tag_ref_entry->num_sock_tags--;
++		/* Once socket-owned, never reattach to a process lifetime. A
++		 * privileged retag also safely promotes an existing legacy tag.
++		 */
++		if (socket_owned || !sock_tag_entry->pid) {
++			if (sock_tag_entry->list.next)
++				list_del_init(&sock_tag_entry->list);
++			else
++				INIT_LIST_HEAD(&sock_tag_entry->list);
++			sock_tag_entry->pid = 0;
++			free_tag_ref_from_utd_entry(prev_tag_ref_entry,
++						   uid_tag_data_entry);
++			put_utd_entry(uid_tag_data_entry);
++		}
+ 		sock_tag_entry->tag = full_tag;
+ 	} else {
+ 		CT_DEBUG("qtaguid: ctrl_tag(%s): newtag for sk=%p\n",
+@@ -2300,16 +2329,19 @@ static int ctrl_cmd_tag(const char *input)
+ 		 */
+ 		sock_hold(el_socket->sk);
+ 		sock_tag_entry->sk = el_socket->sk;
+-		sock_tag_entry->pid = current->tgid;
++		sock_tag_entry->pid = socket_owned ? 0 : current->tgid;
+ 		sock_tag_entry->tag = combine_atag_with_uid(acct_tag, uid_int);
+-		pqd_entry = proc_qtu_data_tree_search(
+-			&proc_qtu_data_tree, current->tgid);
+ 		/*
+ 		 * TODO: remove if, and start failing.
+ 		 * At first, we want to catch user-space code that is not
+ 		 * opening the /dev/xt_qtaguid.
+ 		 */
+-		if (IS_ERR_OR_NULL(pqd_entry))
++		if (socket_owned) {
++			/* No process list owns this reference: the existing inet
++			 * final-release hook or explicit untag/delete releases it.
++			 */
++			INIT_LIST_HEAD(&sock_tag_entry->list);
++		} else if (IS_ERR_OR_NULL(pqd_entry))
+ 			pr_warn_once(
+ 				"qtaguid: %s(): "
+ 				"User space forgot to open /dev/xt_qtaguid? "
+@@ -2396,22 +2428,22 @@ int qtaguid_untag(struct socket *el_socket, bool kernel)
+ 	 */
+ 	rb_erase(&sock_tag_entry->sock_node, &sock_tag_tree);
+ 
++	spin_lock_bh(&uid_tag_data_tree_lock);
+ 	tag_ref_entry = lookup_tag_ref(sock_tag_entry->tag, &utd_entry);
+ 	BUG_ON(!tag_ref_entry);
+ 	BUG_ON(tag_ref_entry->num_sock_tags <= 0);
+-	spin_lock_bh(&uid_tag_data_tree_lock);
+ 	if (kernel)
+ 		pid = sock_tag_entry->pid;
+ 	else
+ 		pid = current->tgid;
+-	pqd_entry = proc_qtu_data_tree_search(
+-		&proc_qtu_data_tree, pid);
++	pqd_entry = sock_tag_entry->pid ? proc_qtu_data_tree_search(
++		&proc_qtu_data_tree, pid) : NULL;
+ 	/*
+ 	 * TODO: remove if, and start failing.
+ 	 * At first, we want to catch user-space code that is not
+ 	 * opening the /dev/xt_qtaguid.
+ 	 */
+-	if (IS_ERR_OR_NULL(pqd_entry))
++	if (sock_tag_entry->pid && IS_ERR_OR_NULL(pqd_entry))
+ 		pr_warn_once("qtaguid: %s(): "
+ 			     "User space forgot to open /dev/xt_qtaguid? "
+ 			     "pid=%u tgid=%u sk_pid=%u, uid=%u\n", __func__,
+@@ -2425,12 +2457,16 @@ int qtaguid_untag(struct socket *el_socket, bool kernel)
+ 	if (sock_tag_entry->list.next)
+ 		list_del(&sock_tag_entry->list);
+ 
+-	spin_unlock_bh(&uid_tag_data_tree_lock);
+-	/*
+-	 * We don't free tag_ref from the utd_entry here,
+-	 * only during a cmd_delete().
+-	 */
+ 	tag_ref_entry->num_sock_tags--;
++	if (!sock_tag_entry->pid) {
++		/* No process-release will retire a socket-owned tag reference.
++		 * Retire zero references now; leave accounting counters intact.
++		 */
++		free_tag_ref_from_utd_entry(tag_ref_entry, utd_entry);
++		put_utd_entry(utd_entry);
++	}
++	/* Legacy process-owned reference lifetime remains unchanged. */
++	spin_unlock_bh(&uid_tag_data_tree_lock);
+ 	spin_unlock_bh(&sock_tag_list_lock);
+ 	/*
+ 	 * Release the sock_fd that was grabbed at tag time.
+@@ -2879,11 +2915,43 @@ static int qtudev_release(struct inode *inode, struct file *file)
+ 	return 0;
+ }
+ 
++/* Private opt-in; default legacy process-exit cleanup is unchanged. */
++static long qtudev_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
++{
++	struct proc_qtu_data *pqd_entry = file->private_data;
++	int res = 0;
++
++	if (cmd != QTAGUID_SOCKET_OWNED_SESSION)
++		return -ENOTTY;
++	if (arg)
++		return -EINVAL;
++	if (!uid_eq(current_euid(), GLOBAL_ROOT_UID) || !capable(CAP_NET_ADMIN))
++		return -EPERM;
++	if (module_passive || qtu_proc_handling_passive)
++		return -EOPNOTSUPP;
++
++	spin_lock_bh(&sock_tag_list_lock);
++	spin_lock_bh(&uid_tag_data_tree_lock);
++	if (!pqd_entry || pqd_entry->pid != current->tgid)
++		res = -EPERM;
++	else if (!list_empty(&pqd_entry->sock_tag_list))
++		res = -EBUSY;
++	else
++		pqd_entry->socket_owned = true;
++	spin_unlock_bh(&uid_tag_data_tree_lock);
++	spin_unlock_bh(&sock_tag_list_lock);
++	return res;
++}
++
+ /*------------------------------------------*/
+ static const struct file_operations qtudev_fops = {
+ 	.owner = THIS_MODULE,
+ 	.open = qtudev_open,
+ 	.release = qtudev_release,
++	.unlocked_ioctl = qtudev_ioctl,
++#ifdef CONFIG_COMPAT
++	.compat_ioctl = qtudev_ioctl,
++#endif
+ };
+ 
+ static struct miscdevice qtu_device = {
+diff --git a/net/netfilter/xt_qtaguid_internal.h b/net/netfilter/xt_qtaguid_internal.h
+index c705270..d960e3a 100644
+--- a/net/netfilter/xt_qtaguid_internal.h
++++ b/net/netfilter/xt_qtaguid_internal.h
+@@ -258,6 +258,7 @@ struct sock_tag {
+ 	struct sock *sk;  /* Only used as a number, never dereferenced */
+ 	/* Used to associate with a given pid */
+ 	struct list_head list;   /* in proc_qtu_data.sock_tag_list */
++	/* Zero only for privileged opt-in socket-owned tags. Never a user PID. */
+ 	pid_t pid;
+ 
+ 	tag_t tag;
+@@ -341,6 +342,9 @@ struct proc_qtu_data {
+ 
+ 	struct uid_tag_data *parent_tag_data;
+ 
++	/* Opt-in only through the root/CAP_NET_ADMIN private ioctl. */
++	bool socket_owned;
++
+ 	/* Tracks the sock_tags that need freeing upon this proc's death */
+ 	struct list_head sock_tag_list;
+ 	/* No spinlock_t sock_tag_list_lock; use the global one. */
+diff --git a/security/selinux/hooks.c b/security/selinux/hooks.c
+index cc92dd0..aa38745 100644
+--- a/security/selinux/hooks.c
++++ b/security/selinux/hooks.c
+@@ -516,20 +516,37 @@ static int may_context_mount_inode_relabel(u32 sid,
+ 	return rc;
+ }
+ 
+-static int selinux_is_sblabel_mnt(struct super_block *sb)
++static int selinux_is_genfs_special_handling(struct super_block *sb)
+ {
+-	struct superblock_security_struct *sbsec = sb->s_security;
+-
+-	return sbsec->behavior == SECURITY_FS_USE_XATTR ||
+-		sbsec->behavior == SECURITY_FS_USE_TRANS ||
+-		sbsec->behavior == SECURITY_FS_USE_TASK ||
+-		sbsec->behavior == SECURITY_FS_USE_NATIVE ||
+-		/* Special handling. Genfs but also in-core setxattr handler */
+-		!strcmp(sb->s_type->name, "sysfs") ||
++	/* Genfs labeling with the existing in-core security xattr path. */
++	return !strcmp(sb->s_type->name, "sysfs") ||
+ 		!strcmp(sb->s_type->name, "pstore") ||
+ 		!strcmp(sb->s_type->name, "debugfs") ||
+ 		!strcmp(sb->s_type->name, "tracefs") ||
+-		!strcmp(sb->s_type->name, "rootfs");
++		!strcmp(sb->s_type->name, "rootfs") ||
++		(selinux_policycap_functionfs_seclabel &&
++		 !strcmp(sb->s_type->name, "functionfs"));
++}
++
++static int selinux_is_sblabel_mnt(struct super_block *sb)
++{
++	struct superblock_security_struct *sbsec = sb->s_security;
++
++	BUILD_BUG_ON(SECURITY_FS_USE_MAX != 7);
++	switch (sbsec->behavior) {
++	case SECURITY_FS_USE_XATTR:
++	case SECURITY_FS_USE_TRANS:
++	case SECURITY_FS_USE_TASK:
++	case SECURITY_FS_USE_NATIVE:
++		return 1;
++	case SECURITY_FS_USE_GENFS:
++		return selinux_is_genfs_special_handling(sb);
++	/* A context= mount has one fixed label, never per-inode relabeling. */
++	case SECURITY_FS_USE_MNTPOINT:
++	case SECURITY_FS_USE_NONE:
++	default:
++		return 0;
++	}
+ }
+ 
+ static int sb_finish_set_opts(struct super_block *sb)
+@@ -849,7 +866,9 @@ static int selinux_set_mnt_opts(struct super_block *sb,
+ 		// [ SEC_SELINUX_PORTING_COMMON
+ 		!strcmp(sb->s_type->name, "configfs") ||
+ 		// ] SEC_SELINUX_PORTING_COMMON
+-	    !strcmp(sb->s_type->name, "pstore"))
++	    !strcmp(sb->s_type->name, "pstore") ||
++	    (selinux_policycap_functionfs_seclabel &&
++	     !strcmp(sb->s_type->name, "functionfs")))
+ 		sbsec->flags |= SE_SBGENFS;
+ 
+ 	if (!sbsec->behavior) {
+@@ -2299,8 +2318,21 @@ static int check_nnp_nosuid(const struct linux_binprm *bprm,
+ 			    const struct task_security_struct *new_tsec)
+ {
+ 	int nnp = (bprm->unsafe & LSM_UNSAFE_NO_NEW_PRIVS);
+-	int nosuid = (bprm->file->f_path.mnt->mnt_flags & MNT_NOSUID);
++	int nosuid = (bprm->file->f_path.mnt->mnt_flags & MNT_NOSUID) ||
++		     !our_mnt(bprm->file->f_path.mnt);
+ 	int rc;
++	u32 av;
++
++	/*
++	 * Equivalent to modern mnt_may_suid() for this USER_NS=n kernel:
++	 * our_mnt() is check_mnt(real_mount(mnt)), and current_in_userns()
++	 * is always true without user namespaces. Foreign mounts must not
++	 * bypass nosuid checks through inherited FDs or /proc paths.
++	 * A USER_NS build needs a full superblock-owner backport first.
++	 */
++#ifdef CONFIG_USER_NS
++#error "gta3xlwifi NNP backport requires CONFIG_USER_NS=n"
++#endif
+ 
+ 	if (!nnp && !nosuid)
+ 		return 0; /* neither NNP nor nosuid */
+@@ -2309,8 +2341,25 @@ static int check_nnp_nosuid(const struct linux_binprm *bprm,
+ 		return 0; /* No change in credentials */
+ 
+ 	/*
+-	 * The only transitions we permit under NNP or nosuid
+-	 * are transitions to bounded SIDs, i.e. SIDs that are
++	 * The policy may explicitly allow the transition under NNP/nosuid.
++	 * Require every applicable process2 permission, not just either one.
++	 * Regular process:transition and file:entrypoint checks still follow
++	 * in selinux_bprm_set_creds(). Keep the bounded-SID fallback below.
++	 */
++	if (selinux_policycap_nnp_nosuid_transition) {
++		av = 0;
++		if (nnp)
++			av |= PROCESS2__NNP_TRANSITION;
++		if (nosuid)
++			av |= PROCESS2__NOSUID_TRANSITION;
++		rc = avc_has_perm(old_tsec->sid, new_tsec->sid,
++				  SECCLASS_PROCESS2, av, NULL);
++		if (!rc)
++			return 0;
++	}
++
++	/*
++	 * We also permit transitions to bounded SIDs, i.e. SIDs that are
+ 	 * guaranteed to only be allowed a subset of the permissions
+ 	 * of the current SID.
+ 	 */
+@@ -3178,7 +3227,7 @@ static int selinux_inode_setxattr(struct dentry *dentry, const char *name,
+ 
+ 			/* We strip a nul only if it is at the end, otherwise the
+ 			 * context contains a nul and we should audit that */
+-			if (value) {
++			if (value && size) {
+ 				str = value;
+ 				if (str[size - 1] == '\0')
+ 					audit_size = size - 1;
+diff --git a/security/selinux/include/classmap.h b/security/selinux/include/classmap.h
+index 31dc821..4fce8ac 100644
+--- a/security/selinux/include/classmap.h
++++ b/security/selinux/include/classmap.h
+@@ -157,5 +157,7 @@ struct security_class_mapping secclass_map[] = {
+ 	  { COMMON_SOCK_PERMS, "attach_queue", NULL } },
+ 	{ "binder", { "impersonate", "call", "set_context_mgr", "transfer",
+ 		      NULL } },
++	/* Append: preserve every pre-existing kernel class/permission ID. */
++	{ "process2", { "nnp_transition", "nosuid_transition", NULL } },
+ 	{ NULL }
+   };
+diff --git a/security/selinux/include/security.h b/security/selinux/include/security.h
+index e2cf548..f519836 100644
+--- a/security/selinux/include/security.h
++++ b/security/selinux/include/security.h
+@@ -75,6 +75,10 @@ enum {
+ 	POLICYDB_CAPABILITY_OPENPERM,
+ 	POLICYDB_CAPABILITY_REDHAT1,
+ 	POLICYDB_CAPABILITY_ALWAYSNETWORK,
++	/* Bit 4 (cgroup_seclabel) is not implemented on this legacy kernel. */
++	POLICYDB_CAPABILITY_NNP_NOSUID_TRANSITION = 5,
++	/* Bits 6-11 are not implemented by this backport. */
++	POLICYDB_CAPABILITY_FUNCTIONFS_SECLABEL = 12,
+ 	__POLICYDB_CAPABILITY_MAX
+ };
+ #define POLICYDB_CAPABILITY_MAX (__POLICYDB_CAPABILITY_MAX - 1)
+@@ -83,6 +87,8 @@ extern int selinux_android_netlink_route;
+ extern int selinux_policycap_netpeer;
+ extern int selinux_policycap_openperm;
+ extern int selinux_policycap_alwaysnetwork;
++extern int selinux_policycap_nnp_nosuid_transition;
++extern int selinux_policycap_functionfs_seclabel;
+ 
+ /*
+  * type_datum properties
+diff --git a/security/selinux/selinuxfs.c b/security/selinux/selinuxfs.c
+index e1e784a..88e123b 100644
+--- a/security/selinux/selinuxfs.c
++++ b/security/selinux/selinuxfs.c
+@@ -46,7 +46,10 @@ static char *policycap_names[] = {
+ 	"network_peer_controls",
+ 	"open_perms",
+ 	"redhat1",
+-	"always_check_network"
++	"always_check_network",
++	/* Unimplemented bit 4 remains unnamed; no cgroup_seclabel claim. */
++	[POLICYDB_CAPABILITY_NNP_NOSUID_TRANSITION] = "nnp_nosuid_transition",
++	[POLICYDB_CAPABILITY_FUNCTIONFS_SECLABEL] = "functionfs_seclabel"
+ };
+ 
+ unsigned int selinux_checkreqprot = CONFIG_SECURITY_SELINUX_CHECKREQPROT_VALUE;
+@@ -1705,11 +1708,10 @@ static int sel_make_policycap(void)
+ 	sel_remove_entries(policycap_dir);
+ 
+ 	for (iter = 0; iter <= POLICYDB_CAPABILITY_MAX; iter++) {
+-		if (iter < ARRAY_SIZE(policycap_names))
+-			dentry = d_alloc_name(policycap_dir,
+-					      policycap_names[iter]);
+-		else
+-			dentry = d_alloc_name(policycap_dir, "unknown");
++		/* Do not expose unimplemented gaps or duplicate "unknown" names. */
++		if (iter >= ARRAY_SIZE(policycap_names) || !policycap_names[iter])
++			continue;
++		dentry = d_alloc_name(policycap_dir, policycap_names[iter]);
+ 
+ 		if (dentry == NULL)
+ 			return -ENOMEM;
+diff --git a/security/selinux/ss/avtab.c b/security/selinux/ss/avtab.c
+index 3134537..4a9cb05 100644
+--- a/security/selinux/ss/avtab.c
++++ b/security/selinux/ss/avtab.c
+@@ -552,9 +552,15 @@ int avtab_read_item(struct avtab *a, void *fp, struct policydb *pol,
+ 			printk(KERN_ERR "SELinux: avtab: truncated entry\n");
+ 			return rc;
+ 		}
++		/* Kind 3 has a native driver byte too. Treating it as an old
++		 * Android-M driver consumes one byte too few and corrupts every
++		 * following record. Active netlink_xperm is rejected by policydb:
++		 * this legacy kernel only preserves inactive forward-format data.
++		 */
+ 		if (avtab_android_m_compat ||
+ 			    ((xperms.specified != AVTAB_XPERMS_IOCTLFUNCTION) &&
+ 			    (xperms.specified != AVTAB_XPERMS_IOCTLDRIVER) &&
++			    (xperms.specified != AVTAB_XPERMS_NLMSG) &&
+ 			    (vers == POLICYDB_VERSION_XPERMS_IOCTL))) {
+ 			xperms.driver = xperms.specified;
+ 			if (android_m_compat_optype)
+diff --git a/security/selinux/ss/avtab.h b/security/selinux/ss/avtab.h
+index d946c9d..52c7bce 100644
+--- a/security/selinux/ss/avtab.h
++++ b/security/selinux/ss/avtab.h
+@@ -58,6 +58,8 @@ struct avtab_extended_perms {
+ /* These are not flags. All 256 values may be used */
+ #define AVTAB_XPERMS_IOCTLFUNCTION	0x01
+ #define AVTAB_XPERMS_IOCTLDRIVER	0x02
++/* Native binary encoding, not proof of netlink enforcement support. */
++#define AVTAB_XPERMS_NLMSG		0x03
+ 	/* extension of the avtab_key specified */
+ 	u8 specified; /* ioctl, netfilter, ... */
+ 	/*
+diff --git a/security/selinux/ss/policydb.c b/security/selinux/ss/policydb.c
+index be7afea..0d994ed 100644
+--- a/security/selinux/ss/policydb.c
++++ b/security/selinux/ss/policydb.c
+@@ -2233,6 +2233,20 @@ out:
+ 	return rc;
+ }
+ 
++/* netlink_xperm is public policy-capability bit 9. Do not advertise support
++ * or accept an active feature whose AVC/netlink enforcement is absent here.
++ * Android 16 currently emits native kind-3 records with this capability off;
++ * those must be parsed without misidentifying them as Android-M ioctls.
++ */
++static int policydb_check_legacy_xperms(struct policydb *p)
++{
++	if (ebitmap_get_bit(&p->policycaps, 9)) {
++		printk(KERN_ERR "SELinux: active netlink_xperm is unsupported by this legacy kernel\n");
++		return -EOPNOTSUPP;
++	}
++	return 0;
++}
++
+ /*
+  * Read the configuration data from a policy database binary
+  * representation file into a policy database structure.
+@@ -2340,6 +2354,10 @@ int policydb_read(struct policydb *p, void *fp)
+ 			goto bad;
+ 	}
+ 
++	rc = policydb_check_legacy_xperms(p);
++	if (rc)
++		goto bad;
++
+ 	if (p->policyvers >= POLICYDB_VERSION_PERMISSIVE) {
+ 		rc = ebitmap_read(&p->permissive_map, fp);
+ 		if (rc)
+diff --git a/security/selinux/ss/services.c b/security/selinux/ss/services.c
+index af4f7f9..857bc21 100644
+--- a/security/selinux/ss/services.c
++++ b/security/selinux/ss/services.c
+@@ -74,6 +74,8 @@ int selinux_android_netlink_route;
+ int selinux_policycap_netpeer;
+ int selinux_policycap_openperm;
+ int selinux_policycap_alwaysnetwork;
++int selinux_policycap_nnp_nosuid_transition;
++int selinux_policycap_functionfs_seclabel;
+ 
+ static DEFINE_RWLOCK(policy_rwlock);
+ 
+@@ -2019,6 +2021,12 @@ static void security_load_policycaps(void)
+ 	selinux_policycap_alwaysnetwork = ebitmap_get_bit(&policydb.policycaps,
+ 						  POLICYDB_CAPABILITY_ALWAYSNETWORK);
+ 
++	selinux_policycap_nnp_nosuid_transition = ebitmap_get_bit(&policydb.policycaps,
++						  POLICYDB_CAPABILITY_NNP_NOSUID_TRANSITION);
++
++	selinux_policycap_functionfs_seclabel = ebitmap_get_bit(&policydb.policycaps,
++						  POLICYDB_CAPABILITY_FUNCTIONFS_SECLABEL);
++
+ 	selinux_android_netlink_route = policydb.android_netlink_route;
+ 	selinux_nlmsg_init();
+ }

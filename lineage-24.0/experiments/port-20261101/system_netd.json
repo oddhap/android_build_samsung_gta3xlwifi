@@ -1,0 +1,21 @@
+{
+  "project": "system/netd",
+  "revision": "fb7e47052620fd1139522e2b3d1343c8680f7c0f",
+  "url": "https://github.com/LineageOS/android_system_netd",
+  "upstream_ref": "refs/heads/lineage-24.0",
+  "partial_tree": true,
+  "patches": [
+    {
+      "patch": "uid-policy-20261021-01/system_netd.patch",
+      "status": "applied-to-isolated-partial-tree"
+    },
+    {
+      "patch": "qtaguid-persistent-20261022-02/system_netd.patch",
+      "status": "applied-to-isolated-partial-tree"
+    }
+  ],
+  "compiled_for_android17": false,
+  "active": false,
+  "status": "isolated-android17-partial-source-replay-pass",
+  "full_android_module_build": false
+}

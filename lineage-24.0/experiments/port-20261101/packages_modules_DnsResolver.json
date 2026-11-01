@@ -1,0 +1,18 @@
+{
+  "project": "packages/modules/DnsResolver",
+  "revision": "0aeaf9d222ec761b9e0443a01c7a06590b9d1b4f",
+  "url": "https://android.googlesource.com/platform/packages/modules/DnsResolver",
+  "upstream_ref": "refs/tags/android-17.0.0_r1",
+  "partial_tree": true,
+  "patches": [
+    {
+      "patch": "networking-20261021-01/packages_modules_DnsResolver.patch",
+      "status": "adapted-in-combined-patch",
+      "details": "error: patch failed: DnsProxyListener.cpp:727\nerror: DnsProxyListener.cpp: patch does not apply\n"
+    }
+  ],
+  "compiled_for_android17": false,
+  "active": false,
+  "status": "isolated-android17-partial-source-replay-pass",
+  "full_android_module_build": false
+}

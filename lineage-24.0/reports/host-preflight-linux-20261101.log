@@ -1,0 +1,10 @@
+PASS: 10 v1 cleanup scenarios and 4 v1/v2 path assertions
+PASS: 42 extracted Bionic fd-hygiene cases (fork/vfork, exec, errors).
+PASS: 36 actual qtaguid parser/counter cases; kernel schemas verified.
+PASS: 35 production DNS gate/resolver cases (including registration race).
+API checks: 192; actual upstream DNS oracle comparisons: 526888
+Actual upstream Java reason/decision oracle comparisons: 8336
+PASS: 45953 assertions, extracted production tag/untag/session/ioctl/ref helpers; fixture kernel primitives, NOT kernel execution
+PASS: 8192 capability combinations; actual helper, fixture bitmap, NOT kernel execution
+Production policydb.c SHA-256: bfb0aa8718b86868ad043c83b6e1c0ea6c81954741723e3ef130ea26e76ffb90
+PASS: 1825 transport/fixture assertions; real IPv4/IPv6 TCP/UDP and FD-reuse checks; mocked driver I/O only

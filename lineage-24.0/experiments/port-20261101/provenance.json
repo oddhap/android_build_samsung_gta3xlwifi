@@ -1,0 +1,84 @@
+[
+  {
+    "project": "kernel/samsung/gta3xlwifi",
+    "revision": "669b9584e678ce5865ed38e04c24639082d78de1",
+    "url": "https://github.com/oddhap/android_kernel_samsung_gta3xlwifi",
+    "upstream_ref": "669b9584e678ce5865ed38e04c24639082d78de1",
+    "partial_tree": true,
+    "patches": [
+      {
+        "patch": "qtaguid-persistent-20261022-02/kernel_samsung_gta3xlwifi.patch",
+        "status": "applied-to-isolated-partial-tree"
+      },
+      {
+        "patch": "kernel-policy-reader-20261023-01/kernel_samsung_gta3xlwifi.patch",
+        "status": "applied-to-isolated-partial-tree"
+      },
+      {
+        "patch": "kernel-functionfs-20261023-01/kernel_samsung_gta3xlwifi.patch",
+        "status": "applied-to-isolated-partial-tree"
+      }
+    ],
+    "compiled_for_android17": false,
+    "active": false,
+    "status": "isolated-android17-partial-source-replay-pass",
+    "full_android_module_build": false
+  },
+  {
+    "project": "packages/modules/Connectivity",
+    "revision": "7c04d866538e6f689823b769fb5c1e614ca0e295",
+    "url": "https://github.com/LineageOS/android_packages_modules_Connectivity",
+    "upstream_ref": "refs/heads/lineage-24.0",
+    "partial_tree": true,
+    "patches": [
+      {
+        "patch": "networking-20261021-01/packages_modules_Connectivity.patch",
+        "status": "adapted-in-combined-patch",
+        "details": "error: patch failed: bpf/dns_helper/DnsBpfHelper.cpp:17\nerror: bpf/dns_helper/DnsBpfHelper.cpp: patch does not apply\nerror: bpf/dns_helper/libcom.android.tethering.dns_helper.map.txt: No such file or directory\n"
+      }
+    ],
+    "compiled_for_android17": false,
+    "active": false,
+    "status": "isolated-android17-partial-source-replay-pass",
+    "full_android_module_build": false
+  },
+  {
+    "project": "packages/modules/DnsResolver",
+    "revision": "0aeaf9d222ec761b9e0443a01c7a06590b9d1b4f",
+    "url": "https://android.googlesource.com/platform/packages/modules/DnsResolver",
+    "upstream_ref": "refs/tags/android-17.0.0_r1",
+    "partial_tree": true,
+    "patches": [
+      {
+        "patch": "networking-20261021-01/packages_modules_DnsResolver.patch",
+        "status": "adapted-in-combined-patch",
+        "details": "error: patch failed: DnsProxyListener.cpp:727\nerror: DnsProxyListener.cpp: patch does not apply\n"
+      }
+    ],
+    "compiled_for_android17": false,
+    "active": false,
+    "status": "isolated-android17-partial-source-replay-pass",
+    "full_android_module_build": false
+  },
+  {
+    "project": "system/netd",
+    "revision": "fb7e47052620fd1139522e2b3d1343c8680f7c0f",
+    "url": "https://github.com/LineageOS/android_system_netd",
+    "upstream_ref": "refs/heads/lineage-24.0",
+    "partial_tree": true,
+    "patches": [
+      {
+        "patch": "uid-policy-20261021-01/system_netd.patch",
+        "status": "applied-to-isolated-partial-tree"
+      },
+      {
+        "patch": "qtaguid-persistent-20261022-02/system_netd.patch",
+        "status": "applied-to-isolated-partial-tree"
+      }
+    ],
+    "compiled_for_android17": false,
+    "active": false,
+    "status": "isolated-android17-partial-source-replay-pass",
+    "full_android_module_build": false
+  }
+]

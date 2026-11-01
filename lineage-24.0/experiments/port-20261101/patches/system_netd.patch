@@ -1,0 +1,493 @@
+diff --git a/server/Gta3xlwifiQtaguidProtocol.h b/server/Gta3xlwifiQtaguidProtocol.h
+new file mode 100644
+index 0000000..f4177d4
+--- /dev/null
++++ b/server/Gta3xlwifiQtaguidProtocol.h
+@@ -0,0 +1,15 @@
++/* SPDX-License-Identifier: GPL-2.0 WITH Linux-syscall-note */
++#ifndef _UAPI_XT_QTAGUID_SOCK_H
++#define _UAPI_XT_QTAGUID_SOCK_H
++
++#include <linux/ioctl.h>
++
++/* Private, opt-in gta3xlwifi ABI. No argument, same command on 32/64 bit.
++ * Requires initial-namespace root plus CAP_NET_ADMIN and an empty own session.
++ * New/retagged sockets then own their tags until explicit untag, UID deletion
++ * or inet_release, not until the tagging daemon's process/session exits.
++ * This does not authorize a caller or implement accounting budgets/readiness.
++ */
++#define QTAGUID_SOCKET_OWNED_SESSION _IO('q', 0x51)
++
++#endif
+diff --git a/server/Gta3xlwifiQtaguidTransport.cpp b/server/Gta3xlwifiQtaguidTransport.cpp
+new file mode 100644
+index 0000000..abff95a
+--- /dev/null
++++ b/server/Gta3xlwifiQtaguidTransport.cpp
+@@ -0,0 +1,220 @@
++/* SPDX-License-Identifier: Apache-2.0 */
++#include "Gta3xlwifiQtaguidTransport.h"
++#include "Gta3xlwifiQtaguidProtocol.h"
++
++#include <cerrno>
++#include <cinttypes>
++#include <climits>
++#include <cstdio>
++#include <cstring>
++#include <fcntl.h>
++#include <initializer_list>
++#include <netinet/in.h>
++#include <sys/socket.h>
++#include <sys/ioctl.h>
++#include <sys/stat.h>
++#include <sys/sysmacros.h>
++#include <sys/vfs.h>
++#include <unistd.h>
++
++namespace android::net::gta3xlwifi {
++namespace {
++constexpr uint64_t kProcMagic = 0x9fa0;
++constexpr uint64_t kSysfsMagic = 0x62656572;
++constexpr char kDevice[] = "/dev/xt_qtaguid";
++constexpr char kControl[] = "/proc/net/xt_qtaguid/ctrl";
++constexpr char kDeviceId[] = "/sys/class/misc/xt_qtaguid/dev";
++constexpr char kPassive[] = "/sys/module/xt_qtaguid/parameters/passive";
++constexpr char kTrackingPassive[] = "/sys/module/xt_qtaguid/parameters/tag_tracking_passive";
++
++class Fd {
++  public:
++    explicit Fd(int fd) : mFd(fd) {}
++    ~Fd() {
++        const int saved = errno;
++        if (mFd >= 0) close(mFd);  // Linux closes the descriptor even on EINTR.
++        errno = saved;
++    }
++    int get() const { return mFd; }
++    int release() { const int fd = mFd; mFd = -1; return fd; }
++  private:
++    int mFd;
++};
++
++int openFile(const char* path, int flags) {
++    int fd;
++    do { fd = open(path, flags | O_CLOEXEC | O_NOFOLLOW); } while (fd < 0 && errno == EINTR);
++    return fd;
++}
++
++int checkFile(int fd, uint64_t magic) {
++    struct stat st {};
++    if (fstat(fd, &st)) return -errno;
++    if (!S_ISREG(st.st_mode)) return -ENODEV;
++    struct statfs fs {};
++    if (fstatfs(fd, &fs)) return -errno;
++    return static_cast<uint64_t>(fs.f_type) == magic ? 0 : -ENODEV;
++}
++
++// Exact bounded sysfs text, not a generic file/property fallback. Inaccessible,
++// wrong filesystem, truncated, embedded-NUL or malformed input is an error.
++int readSysfs(const char* path, char* buffer, size_t capacity) {
++    Fd fd(openFile(path, O_RDONLY));
++    if (fd.get() < 0) return -errno;
++    int result = checkFile(fd.get(), kSysfsMagic);
++    if (result) return result;
++    size_t used = 0;
++    while (used < capacity) {
++        ssize_t count;
++        do { count = read(fd.get(), buffer + used, capacity - used); }
++        while (count < 0 && errno == EINTR);
++        if (count < 0) return -errno;
++        if (count == 0) {
++            if (used == 0 || memchr(buffer, '\0', used)) return -EPROTO;
++            buffer[used] = '\0';
++            return static_cast<int>(used);
++        }
++        used += static_cast<size_t>(count);
++    }
++    return -EOVERFLOW;
++}
++
++int checkActive() {
++    for (const char* path : {kPassive, kTrackingPassive}) {
++        char value[9];
++        const int size = readSysfs(path, value, sizeof(value) - 1);
++        if (size < 0) return size;
++        // param_get_bool in this kernel emits exactly Y\n or N\n. In passive
++        // mode ctrl writes silently succeed, so accepting it would be fake I/O.
++        if (size != 2 || value[1] != '\n') return -EPROTO;
++        if (value[0] == 'Y') return -EOPNOTSUPP;
++        if (value[0] != 'N') return -EPROTO;
++    }
++    return 0;
++}
++
++int deviceIdentity(dev_t* identity) {
++    char value[33];
++    const int size = readSysfs(kDeviceId, value, sizeof(value) - 1);
++    if (size < 0) return size;
++    unsigned int numbers[2] = {};
++    unsigned int part = 0;
++    bool digit = false;
++    for (int i = 0; i < size; ++i) {
++        const char c = value[i];
++        if (c >= '0' && c <= '9') {
++            if (numbers[part] > (UINT_MAX - static_cast<unsigned int>(c - '0')) / 10)
++                return -EPROTO;
++            numbers[part] = numbers[part] * 10 + static_cast<unsigned int>(c - '0');
++            digit = true;
++        } else if (c == ':' && part == 0 && digit) {
++            part = 1;
++            digit = false;
++        } else if (c == '\n' && i == size - 1 && part == 1 && digit) {
++            const dev_t dev = makedev(numbers[0], numbers[1]);
++            // Misc devices have major 10; also reject dev_t truncation.
++            if (numbers[0] != 10 || major(dev) != numbers[0] || minor(dev) != numbers[1])
++                return -ENODEV;
++            *identity = dev;
++            return 0;
++        } else {
++            return -EPROTO;
++        }
++    }
++    return -EPROTO;
++}
++
++int duplicateInetSocket(int fd) {
++    int copy;
++    do { copy = fcntl(fd, F_DUPFD_CLOEXEC, 3); } while (copy < 0 && errno == EINTR);
++    if (copy < 0) return -errno;
++    Fd stable(copy);
++    int value = 0;
++    socklen_t length = sizeof(value);
++    if (getsockopt(copy, SOL_SOCKET, SO_DOMAIN, &value, &length)) return -errno;
++    if (length != sizeof(value)) return -EPROTO;
++    if (value != AF_INET && value != AF_INET6) return -EAFNOSUPPORT;
++    length = sizeof(value);
++    if (getsockopt(copy, SOL_SOCKET, SO_PROTOCOL, &value, &length)) return -errno;
++    if (length != sizeof(value)) return -EPROTO;
++    if (value != IPPROTO_TCP && value != IPPROTO_UDP) return -EPROTONOSUPPORT;
++    return stable.release();
++}
++}  // namespace
++
++QtaguidTransport::~QtaguidTransport() {
++    std::lock_guard<std::mutex> lock(mMutex);
++    closeLocked();
++}
++
++void QtaguidTransport::closeLocked() {
++    if (mControl >= 0) { close(mControl); mControl = -1; }
++    if (mDevice >= 0) { close(mDevice); mDevice = -1; }
++}
++
++int QtaguidTransport::start() {
++    std::lock_guard<std::mutex> lock(mMutex);
++    if (mDevice >= 0 || mControl >= 0) return -EALREADY;
++    int result = checkActive();
++    if (result) return result;
++    dev_t identity {};
++    result = deviceIdentity(&identity);
++    if (result) return result;
++    Fd device(openFile(kDevice, O_RDONLY));
++    if (device.get() < 0) return -errno;
++    struct stat st {};
++    if (fstat(device.get(), &st)) return -errno;
++    if (!S_ISCHR(st.st_mode) || st.st_rdev != identity) return -ENODEV;
++    // Mandatory private kernel ABI. Old kernels return ENOTTY, never presumed
++    // compatible: process-owned tags would disappear on a Netd restart.
++    int ack;
++    do { ack = ioctl(device.get(), QTAGUID_SOCKET_OWNED_SESSION, 0UL); }
++    while (ack < 0 && errno == EINTR);
++    if (ack < 0) return -errno;
++    if (ack != 0) return -EPROTO;
++    Fd control(openFile(kControl, O_WRONLY));
++    if (control.get() < 0) return -errno;
++    result = checkFile(control.get(), kProcMagic);
++    if (result) return result;
++    mDevice = device.release();
++    mControl = control.release();
++    return 0;  // I/O session opened, NOT complete backend readiness.
++}
++
++int QtaguidTransport::tagSocket(int fd, uint32_t tag, uid_t uid) {
++    std::lock_guard<std::mutex> lock(mMutex);
++    if (uid > static_cast<uid_t>(INT_MAX)) return -EINVAL;
++    return commandLocked(fd, tag, uid, false);
++}
++
++int QtaguidTransport::untagSocket(int fd) {
++    std::lock_guard<std::mutex> lock(mMutex);
++    return commandLocked(fd, 0, 0, true);
++}
++
++int QtaguidTransport::commandLocked(int fd, uint32_t tag, uid_t uid, bool untag) {
++    if (mDevice < 0 || mControl < 0) return -ENOTCONN;
++    const int result = checkActive();
++    if (result) return result;
++    const int copy = duplicateInetSocket(fd);
++    if (copy < 0) return copy;
++    Fd stable(copy);  // Pin the file through write; never act on a reused fd.
++    char command[96];
++    const int length = untag
++            ? snprintf(command, sizeof(command), "u %d", copy)
++            : snprintf(command, sizeof(command), "t %d %" PRIu64 " %" PRIu32,
++                       copy, static_cast<uint64_t>(tag) << 32, static_cast<uint32_t>(uid));
++    if (length < 0 || static_cast<size_t>(length) >= sizeof(command)) return -EOVERFLOW;
++    ssize_t count;
++    do { count = write(mControl, command, static_cast<size_t>(length)); }
++    while (count < 0 && errno == EINTR);
++    if (count < 0) return -errno;
++    if (count != length) {
++        // A proc command must be one complete write. Never send a suffix as a
++        // second command or acknowledge uncertain state. Drop our session.
++        closeLocked();
++        return -EIO;
++    }
++    return 0;
++}
++}  // namespace android::net::gta3xlwifi
+diff --git a/server/Gta3xlwifiQtaguidTransport.h b/server/Gta3xlwifiQtaguidTransport.h
+new file mode 100644
+index 0000000..96ff7d5
+--- /dev/null
++++ b/server/Gta3xlwifiQtaguidTransport.h
+@@ -0,0 +1,38 @@
++/* SPDX-License-Identifier: Apache-2.0 */
++#pragma once
++
++#include <cstdint>
++#include <mutex>
++#include <sys/types.h>
++
++namespace android::net::gta3xlwifi {
++
++// Trusted low-level I/O only, NOT a public tagSocket policy endpoint or backend
++// readiness proof. The owner must authorize charge UID/CLAT, enforce tag budgets,
++// and validate the entire backend before publishing any state/callback.
++// One instance owns the process's sole /dev/xt_qtaguid session. Never silently
++// reuse another owner's session on EBUSY. Requires the private socket-owned
++// kernel ioctl: legacy process-owned cleanup loses live tags on Netd restart.
++// Tags are deliberately not owned by this session after the ioctl succeeds;
++// explicit untag/UID deletion/final socket release retire them. Opening this
++// transport does not reconstruct authorization or firewall state after restart.
++class QtaguidTransport final {
++  public:
++    QtaguidTransport() = default;
++    ~QtaguidTransport();
++    QtaguidTransport(const QtaguidTransport&) = delete;
++    QtaguidTransport& operator=(const QtaguidTransport&) = delete;
++
++    int start();
++    int tagSocket(int socketFd, uint32_t tag, uid_t chargeUid);
++    int untagSocket(int socketFd);
++
++  private:
++    int commandLocked(int socketFd, uint32_t tag, uid_t chargeUid, bool untag);
++    void closeLocked();
++    std::mutex mMutex;
++    int mDevice = -1;
++    int mControl = -1;
++};
++
++}  // namespace android::net::gta3xlwifi
+diff --git a/server/Gta3xlwifiUidPolicy.cpp b/server/Gta3xlwifiUidPolicy.cpp
+new file mode 100644
+index 0000000..c6f18aa
+--- /dev/null
++++ b/server/Gta3xlwifiUidPolicy.cpp
+@@ -0,0 +1,134 @@
++// SPDX-License-Identifier: Apache-2.0
++#include "Gta3xlwifiUidPolicy.h"
++
++#include <cerrno>
++#include <utility>
++
++namespace android::net::gta3xlwifi {
++
++const std::array<UidPolicy::Chain, 12>& UidPolicy::chains() {
++    // IDs: ConnectivityManager; matches: BpfNetMapsConstants/netd.h;
++    // blocked reasons: ConnectivityManager/BpfNetMapsUtils. Host validation
++    // binds these to the actual pinned Android 16 source constants.
++    static constexpr std::array<Chain, 12> table = {{
++        {1, 1u << 2, 1u << 1, true, false},   // dozable
++        {2, 1u << 3, 1u << 2, false, false},  // standby
++        {3, 1u << 4, 1u << 0, true, false},   // powersave
++        {4, 1u << 5, 1u << 3, true, false},   // restricted
++        {5, 1u << 6, 1u << 5, true, false},   // low power standby
++        {6, 1u << 12, 1u << 6, true, false},  // background
++        {7, 1u << 9, 1u << 7, false, false},  // OEM deny 1
++        {8, 1u << 10, 1u << 7, false, false}, // OEM deny 2
++        {9, 1u << 11, 1u << 7, false, false}, // OEM deny 3
++        {10, 1u << 0, DataSaverReason, true, true},
++        {11, 1u << 1, 1u << 17, false, true}, // metered deny user
++        {12, 1u << 13, 1u << 18, false, true}, // metered deny admin
++    }};
++    return table;
++}
++
++const UidPolicy::Chain* UidPolicy::findChain(int32_t id) {
++    for (const auto& chain : chains()) {
++        if (chain.id == id) return &chain;
++    }
++    return nullptr;
++}
++
++int UidPolicy::setChainEnabled(int32_t id, bool enabled) {
++    const Chain* chain = findChain(id);
++    if (!chain) return -EINVAL;
++    if (enabled) mEnabled |= chain->match;
++    else mEnabled &= ~chain->match;
++    return 0;
++}
++
++int UidPolicy::getChainEnabled(int32_t id, bool* enabled) const {
++    const Chain* chain = findChain(id);
++    if (!chain || !enabled) return -EINVAL;
++    *enabled = (mEnabled & chain->match) != 0;
++    return 0;
++}
++
++uint32_t UidPolicy::uidMatches(int32_t uid) const {
++    auto it = mUidMatches.find(uid);
++    return it == mUidMatches.end() ? 0 : it->second;
++}
++
++void UidPolicy::setMatch(int32_t uid, uint32_t match, bool present) {
++    const uint32_t previous = uidMatches(uid);
++    const uint32_t next = present ? (previous | match) : (previous & ~match);
++    if (next) mUidMatches[uid] = next;
++    else mUidMatches.erase(uid);
++}
++
++int UidPolicy::setUidRule(int32_t id, int32_t uid, int32_t rule) {
++    const Chain* chain = findChain(id);
++    if (!chain || uid < 0 || (rule != Default && rule != Allow && rule != Deny)) return -EINVAL;
++    const bool match = (rule == Allow && chain->allowlist) || (rule == Deny && !chain->allowlist);
++    setMatch(uid, chain->match, match);
++    return 0;
++}
++
++int UidPolicy::getUidRule(int32_t id, int32_t uid, int32_t* rule) const {
++    const Chain* chain = findChain(id);
++    if (!chain || uid < 0 || !rule) return -EINVAL;
++    const bool match = (uidMatches(uid) & chain->match) != 0;
++    *rule = match == chain->allowlist ? Allow : Deny;
++    return 0;
++}
++
++int UidPolicy::replaceUidChain(int32_t id, const std::vector<int32_t>& uids) {
++    const Chain* chain = findChain(id);
++    if (!chain) return -EINVAL;
++    for (int32_t uid : uids) {
++        if (uid < 0) return -EINVAL;
++    }
++    // Work on a candidate so validation/cross-chain preservation is explicit.
++    auto next = mUidMatches;
++    for (auto it = next.begin(); it != next.end();) {
++        it->second &= ~chain->match;
++        if (!it->second) it = next.erase(it);
++        else ++it;
++    }
++    for (int32_t uid : uids) next[uid] |= chain->match;
++    mUidMatches = std::move(next);
++    return 0;
++}
++
++int UidPolicy::removeUid(int32_t uid) {
++    if (uid < 0) return -EINVAL;
++    mUidMatches.erase(uid);
++    return 0;
++}
++
++int UidPolicy::blockedReasons(int32_t uid, uint32_t* reasons) const {
++    if (uid < 0 || !reasons) return -EINVAL;
++    uint32_t blocked = 0;
++    // Per-user appId, NOT uid < 10000: secondary-user core UIDs are exempt too.
++    if (uid % 100000 >= 10000) {
++        const uint32_t matches = uidMatches(uid);
++        for (const auto& chain : chains()) {
++            const bool matched = (matches & chain.match) != 0;
++            if (chain.metered) {
++                // These three chains currently ignore configuration-map enable
++                // bits. HAPPY_BOX removes only Data Saver, never user/admin deny.
++                if (chain.allowlist ? (mDataSaver && !matched) : matched) {
++                    blocked |= chain.blockedReason;
++                }
++            } else if ((mEnabled & chain.match) && matched != chain.allowlist) {
++                blocked |= chain.blockedReason;
++            }
++        }
++    }
++    *reasons = blocked;
++    return 0;
++}
++
++int UidPolicy::isNetworkingBlocked(int32_t uid, bool metered) const {
++    uint32_t reasons;
++    const int status = blockedReasons(uid, &reasons);
++    if (status) return status;
++    return (reasons & (metered ? UINT32_MAX : ~MeteredReasonMask)) != 0 ? 1 : 0;
++}
++
++}  // namespace android::net::gta3xlwifi
+diff --git a/server/Gta3xlwifiUidPolicy.h b/server/Gta3xlwifiUidPolicy.h
+new file mode 100644
+index 0000000..92687aa
+--- /dev/null
++++ b/server/Gta3xlwifiUidPolicy.h
+@@ -0,0 +1,56 @@
++// SPDX-License-Identifier: Apache-2.0
++#pragma once
++
++#include <array>
++#include <cstdint>
++#include <map>
++#include <vector>
++
++namespace android::net::gta3xlwifi {
++
++// Candidate UID-policy value, NOT a kernel backend or a readiness indicator.
++// Mutators change this value only. A future netd owner must apply the complete
++// kernel transaction before publishing it to DNS/Java readers. In particular,
++// do not register a DNS callback or skip NetBpfLoad merely because this exists.
++// Mirrors A16 BpfNetMapsUtils firewall queries, not INTERNET permission, VPN,
++// interface, local-network packet policy, quotas, or socket-tag permissions.
++class UidPolicy {
++public:
++    enum Rule : int32_t { Default = 0, Allow = 1, Deny = 2 };
++    struct Chain {
++        int32_t id;
++        uint32_t match;
++        uint32_t blockedReason;
++        bool allowlist;
++        bool metered;
++    };
++    static const std::array<Chain, 12>& chains();
++    static constexpr uint32_t MeteredReasonMask = 0xffff0000u;
++    static constexpr uint32_t DataSaverReason = 1u << 16;
++
++    int setChainEnabled(int32_t chain, bool enabled);
++    int getChainEnabled(int32_t chain, bool* enabled) const;
++    int setUidRule(int32_t chain, int32_t uid, int32_t rule);
++    int getUidRule(int32_t chain, int32_t uid, int32_t* rule) const;
++    // This list contains matching UIDs, not ALLOW rules for every chain. Thus
++    // for a denylist it specifies denied UIDs, exactly as replaceUidChain().
++    // Validates the entire input before changing state; duplicates are harmless.
++    int replaceUidChain(int32_t chain, const std::vector<int32_t>& uids);
++    int removeUid(int32_t uid);
++    void setDataSaver(bool enabled) { mDataSaver = enabled; }
++    bool dataSaver() const { return mDataSaver; }
++    int blockedReasons(int32_t uid, uint32_t* reasons) const;
++    // Same private V2 result convention: 0 allow, 1 block, negative errno.
++    // This is evaluation of a value, NOT a publishable callback owner.
++    int isNetworkingBlocked(int32_t uid, bool metered) const;
++
++private:
++    static const Chain* findChain(int32_t id);
++    void setMatch(int32_t uid, uint32_t match, bool present);
++    uint32_t uidMatches(int32_t uid) const;
++    uint32_t mEnabled = 0;
++    std::map<int32_t, uint32_t> mUidMatches;
++    bool mDataSaver = false;
++};
++
++}  // namespace android::net::gta3xlwifi

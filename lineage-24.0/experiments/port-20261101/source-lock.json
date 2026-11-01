@@ -1,0 +1,26 @@
+[
+  {
+    "project": "kernel/samsung/gta3xlwifi",
+    "revision": "669b9584e678ce5865ed38e04c24639082d78de1",
+    "patch": "kernel_samsung_gta3xlwifi.patch",
+    "sha256": "d1a45fa3e792f25c622c60c1c43c7dced937da3176d22dbde2959555e460d20a"
+  },
+  {
+    "project": "packages/modules/Connectivity",
+    "revision": "7c04d866538e6f689823b769fb5c1e614ca0e295",
+    "patch": "packages_modules_Connectivity.patch",
+    "sha256": "74ec912511d971b028cf8acf321506676910547f80a751ff8e20456119e293cf"
+  },
+  {
+    "project": "packages/modules/DnsResolver",
+    "revision": "0aeaf9d222ec761b9e0443a01c7a06590b9d1b4f",
+    "patch": "packages_modules_DnsResolver.patch",
+    "sha256": "e8915d0ef375f098d68cc4f3ec8bd0ddb8a94bd155f3feda9bd4c65fc640a7ed"
+  },
+  {
+    "project": "system/netd",
+    "revision": "fb7e47052620fd1139522e2b3d1343c8680f7c0f",
+    "patch": "system_netd.patch",
+    "sha256": "1b9f105d655632094cef21f5aa55a4749ba4d7c686fb7e6437bd9fc061e635f6"
+  }
+]

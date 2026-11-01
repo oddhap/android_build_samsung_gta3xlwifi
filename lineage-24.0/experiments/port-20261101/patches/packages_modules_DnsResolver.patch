@@ -1,0 +1,24 @@
+diff --git a/DnsProxyListener.cpp b/DnsProxyListener.cpp
+index f55d2c5..ea7adf3 100644
+--- a/DnsProxyListener.cpp
++++ b/DnsProxyListener.cpp
+@@ -35,6 +35,7 @@
+ #include <vector>
+ 
+ #include <android-base/parseint.h>
++#include <android-base/properties.h>
+ #include <android/multinetwork.h>  // ResNsendFlags
+ #include <cutils/misc.h>           // FIRST_APPLICATION_UID
+ #include <cutils/multiuser.h>
+@@ -686,6 +687,11 @@ extern "C" int ADnsHelper_init();
+ extern "C" int ADnsHelper_isUidNetworkingBlocked(uid_t, bool);
+ 
+ bool isUidNetworkingBlocked(uid_t uid, unsigned netId) {
++    if (android::base::GetBoolProperty("ro.gta3xlwifi.legacy_networking", false)) {
++        // Android 17 links the helper directly. Missing owner/negative errno
++        // still fails closed; no callback registration is fabricated here.
++        return ADnsHelper_isUidNetworkingBlocked(uid, resolv_is_metered_network(netId)) != 0;
++    }
+     static const bool hasBPF = isAtLeastT();  // Related BPF maps were only mainlined from T.
+     if (!hasBPF) return false;
+ 

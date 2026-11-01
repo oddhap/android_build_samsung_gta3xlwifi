@@ -8,5 +8,18 @@
   "full_checkout_audit": "pending server sync",
   "android_compilation": false,
   "hardware_tested": false,
-  "flash_ready": false
+  "flash_ready": false,
+  "linux_host_preflight_exit": 0,
+  "linux_log": "host-preflight-linux-20261101.log",
+  "bionic_spawn_cases": 42,
+  "qtaguid_parser_cases": 36,
+  "dns_callback_resolver_cases": 35,
+  "uid_api_cases": 192,
+  "android17_native_uid_oracle_comparisons": 526888,
+  "android17_java_uid_oracle_comparisons": 8336,
+  "qtaguid_kernel_primitive_fixture_assertions": 45953,
+  "unsupported_netlink_capability_fixture_combinations": 8192,
+  "transport_fixture_assertions": 1825,
+  "android_module_tests": false,
+  "real_kernel_execution": false
 }
