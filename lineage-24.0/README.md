@@ -84,3 +84,15 @@ diff hashing independent of repository size and `core.abbrev`. All 13 patch
 hunks are unchanged from snapshot 01. Eight replay-safety tests pass, including
 changed abbreviation settings; checksum, revision, untracked-file, local-edit
 and path/duplicate rejection checks remain. Historical snapshot 01 is retained.
+
+## First Android 17 native compilation
+
+`tools/build-bringup.sh NEW_LABEL [MODULE ...]` performs a full source audit and
+checks all three binary input digests before starting the named module build.
+It holds build.lock, refuses reused labels and audits again on successful exit.
+The default target set covers Samsung Audio HIDL 4.0, real VNDK30, cgroups,
+filesystem/memory/GPU support, Bionic/linker/linkerconfig and platform policy.
+It does not package or sign a ROM or contact the tablet. The first attempt is
+`native-policy-20261101-01`; inspect its log/exit and report before further work.
+Do not modify sources until the build has stopped. Platform-policy compilation
+alone does not establish strict compatibility with actual Samsung vendor policy.
