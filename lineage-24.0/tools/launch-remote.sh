@@ -10,6 +10,19 @@ port=/srv/android/ports/lineage-24.0-arm64
 remote_payload="$port/tools/$(date -u +%Y%m%dT%H%M%SZ)-$$"
 ssh_opts=(-i "$key" -o BatchMode=yes -o ConnectTimeout=10)
 [[ -r $key ]] || { printf 'SSH key is unavailable.\n' >&2; exit 1; }
+# Do not replace the integration inputs of an active setup job.
+remote_state=$(ssh "${ssh_opts[@]}" "$remote" 'bash -s' <<'STATE'
+logs=/srv/android/logs/lineage-24.0-arm64
+for name in migration setup; do
+    if [[ -f $logs/$name.pid ]] && kill -0 "$(cat "$logs/$name.pid")" 2>/dev/null; then
+        echo active
+        exit 0
+    fi
+done
+echo idle
+STATE
+)
+[[ $remote_state == idle ]] || { echo 'Remote migration/setup is active; inspect its log.'; exit 0; }
 ssh "${ssh_opts[@]}" "$remote" "mkdir -p $remote_payload /srv/android/logs/lineage-24.0-arm64"
 scp "${ssh_opts[@]}" "$payload/setup.sh" "$payload/audit.py" "$payload/gta3xlwifi.xml" "$payload/legacy-vndk.xml" "$payload/port-revisions.xml" "$remote:$remote_payload/"
 scp -r "${ssh_opts[@]}" "$integration" "$remote:$port/"
