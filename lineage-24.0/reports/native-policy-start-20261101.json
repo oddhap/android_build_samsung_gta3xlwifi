@@ -1,0 +1,31 @@
+{
+  "checked_at_utc": "2026-11-01T19:07:42.391290+00:00",
+  "label": "native-policy-20261101-01",
+  "pid": 114629,
+  "exit": null,
+  "process": "S          04:17 bash /srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/build-bringup.sh native-policy-20261101-01",
+  "targets": [
+    "libaudiohal@4.0",
+    "com.android.vndk.v30",
+    "gta3xlwifi_recovery_header_sync",
+    "selinux_policy",
+    "libprocessgroup",
+    "libprocessgroup_setup",
+    "libfs_mgr",
+    "libmeminfo",
+    "gpuservice",
+    "libc",
+    "linker",
+    "linkerconfig"
+  ],
+  "source_audit_passed": true,
+  "project_count": 1243,
+  "patch_count": 13,
+  "binary_inputs": {
+    "Image": "33c1a0d1b9e2696decd53fbedfc2231385b74464f4058a54b93ff06ff7c72553",
+    "dtbo.img": "b9041c37713a745290d9a0203423436b6caa7a1307ced79b6963b4f1f0271c4b",
+    "vendor.img": "a847a527931d61e5702b8a025210c84eb88a37ef1e60df93b6393a16dae9183a"
+  },
+  "hardware_tested": false,
+  "flash_ready": false
+}
