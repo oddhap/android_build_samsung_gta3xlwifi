@@ -1,0 +1,213 @@
+diff --git a/security/selinux/hooks.c b/security/selinux/hooks.c
+--- a/security/selinux/hooks.c
++++ b/security/selinux/hooks.c
+@@ -516,20 +516,37 @@
+ 	return rc;
+ }
+ 
+-static int selinux_is_sblabel_mnt(struct super_block *sb)
+-{
+-	struct superblock_security_struct *sbsec = sb->s_security;
+-
+-	return sbsec->behavior == SECURITY_FS_USE_XATTR ||
+-		sbsec->behavior == SECURITY_FS_USE_TRANS ||
+-		sbsec->behavior == SECURITY_FS_USE_TASK ||
+-		sbsec->behavior == SECURITY_FS_USE_NATIVE ||
+-		/* Special handling. Genfs but also in-core setxattr handler */
+-		!strcmp(sb->s_type->name, "sysfs") ||
++static int selinux_is_genfs_special_handling(struct super_block *sb)
++{
++	/* Genfs labeling with the existing in-core security xattr path. */
++	return !strcmp(sb->s_type->name, "sysfs") ||
+ 		!strcmp(sb->s_type->name, "pstore") ||
+ 		!strcmp(sb->s_type->name, "debugfs") ||
+ 		!strcmp(sb->s_type->name, "tracefs") ||
+-		!strcmp(sb->s_type->name, "rootfs");
++		!strcmp(sb->s_type->name, "rootfs") ||
++		(selinux_policycap_functionfs_seclabel &&
++		 !strcmp(sb->s_type->name, "functionfs"));
++}
++
++static int selinux_is_sblabel_mnt(struct super_block *sb)
++{
++	struct superblock_security_struct *sbsec = sb->s_security;
++
++	BUILD_BUG_ON(SECURITY_FS_USE_MAX != 7);
++	switch (sbsec->behavior) {
++	case SECURITY_FS_USE_XATTR:
++	case SECURITY_FS_USE_TRANS:
++	case SECURITY_FS_USE_TASK:
++	case SECURITY_FS_USE_NATIVE:
++		return 1;
++	case SECURITY_FS_USE_GENFS:
++		return selinux_is_genfs_special_handling(sb);
++	/* A context= mount has one fixed label, never per-inode relabeling. */
++	case SECURITY_FS_USE_MNTPOINT:
++	case SECURITY_FS_USE_NONE:
++	default:
++		return 0;
++	}
+ }
+ 
+ static int sb_finish_set_opts(struct super_block *sb)
+@@ -849,7 +866,9 @@
+ 		// [ SEC_SELINUX_PORTING_COMMON
+ 		!strcmp(sb->s_type->name, "configfs") ||
+ 		// ] SEC_SELINUX_PORTING_COMMON
+-	    !strcmp(sb->s_type->name, "pstore"))
++	    !strcmp(sb->s_type->name, "pstore") ||
++	    (selinux_policycap_functionfs_seclabel &&
++	     !strcmp(sb->s_type->name, "functionfs")))
+ 		sbsec->flags |= SE_SBGENFS;
+ 
+ 	if (!sbsec->behavior) {
+@@ -2299,8 +2318,21 @@
+ 			    const struct task_security_struct *new_tsec)
+ {
+ 	int nnp = (bprm->unsafe & LSM_UNSAFE_NO_NEW_PRIVS);
+-	int nosuid = (bprm->file->f_path.mnt->mnt_flags & MNT_NOSUID);
++	int nosuid = (bprm->file->f_path.mnt->mnt_flags & MNT_NOSUID) ||
++		     !our_mnt(bprm->file->f_path.mnt);
+ 	int rc;
++	u32 av;
++
++	/*
++	 * Equivalent to modern mnt_may_suid() for this USER_NS=n kernel:
++	 * our_mnt() is check_mnt(real_mount(mnt)), and current_in_userns()
++	 * is always true without user namespaces. Foreign mounts must not
++	 * bypass nosuid checks through inherited FDs or /proc paths.
++	 * A USER_NS build needs a full superblock-owner backport first.
++	 */
++#ifdef CONFIG_USER_NS
++#error "gta3xlwifi NNP backport requires CONFIG_USER_NS=n"
++#endif
+ 
+ 	if (!nnp && !nosuid)
+ 		return 0; /* neither NNP nor nosuid */
+@@ -2309,8 +2341,25 @@
+ 		return 0; /* No change in credentials */
+ 
+ 	/*
+-	 * The only transitions we permit under NNP or nosuid
+-	 * are transitions to bounded SIDs, i.e. SIDs that are
++	 * The policy may explicitly allow the transition under NNP/nosuid.
++	 * Require every applicable process2 permission, not just either one.
++	 * Regular process:transition and file:entrypoint checks still follow
++	 * in selinux_bprm_set_creds(). Keep the bounded-SID fallback below.
++	 */
++	if (selinux_policycap_nnp_nosuid_transition) {
++		av = 0;
++		if (nnp)
++			av |= PROCESS2__NNP_TRANSITION;
++		if (nosuid)
++			av |= PROCESS2__NOSUID_TRANSITION;
++		rc = avc_has_perm(old_tsec->sid, new_tsec->sid,
++				  SECCLASS_PROCESS2, av, NULL);
++		if (!rc)
++			return 0;
++	}
++
++	/*
++	 * We also permit transitions to bounded SIDs, i.e. SIDs that are
+ 	 * guaranteed to only be allowed a subset of the permissions
+ 	 * of the current SID.
+ 	 */
+@@ -3178,7 +3227,7 @@
+ 
+ 			/* We strip a nul only if it is at the end, otherwise the
+ 			 * context contains a nul and we should audit that */
+-			if (value) {
++			if (value && size) {
+ 				str = value;
+ 				if (str[size - 1] == '\0')
+ 					audit_size = size - 1;
+diff --git a/security/selinux/include/classmap.h b/security/selinux/include/classmap.h
+--- a/security/selinux/include/classmap.h
++++ b/security/selinux/include/classmap.h
+@@ -157,5 +157,7 @@
+ 	  { COMMON_SOCK_PERMS, "attach_queue", NULL } },
+ 	{ "binder", { "impersonate", "call", "set_context_mgr", "transfer",
+ 		      NULL } },
++	/* Append: preserve every pre-existing kernel class/permission ID. */
++	{ "process2", { "nnp_transition", "nosuid_transition", NULL } },
+ 	{ NULL }
+   };
+diff --git a/security/selinux/include/security.h b/security/selinux/include/security.h
+--- a/security/selinux/include/security.h
++++ b/security/selinux/include/security.h
+@@ -75,6 +75,10 @@
+ 	POLICYDB_CAPABILITY_OPENPERM,
+ 	POLICYDB_CAPABILITY_REDHAT1,
+ 	POLICYDB_CAPABILITY_ALWAYSNETWORK,
++	/* Bit 4 (cgroup_seclabel) is not implemented on this legacy kernel. */
++	POLICYDB_CAPABILITY_NNP_NOSUID_TRANSITION = 5,
++	/* Bits 6-11 are not implemented by this backport. */
++	POLICYDB_CAPABILITY_FUNCTIONFS_SECLABEL = 12,
+ 	__POLICYDB_CAPABILITY_MAX
+ };
+ #define POLICYDB_CAPABILITY_MAX (__POLICYDB_CAPABILITY_MAX - 1)
+@@ -83,6 +87,8 @@
+ extern int selinux_policycap_netpeer;
+ extern int selinux_policycap_openperm;
+ extern int selinux_policycap_alwaysnetwork;
++extern int selinux_policycap_nnp_nosuid_transition;
++extern int selinux_policycap_functionfs_seclabel;
+ 
+ /*
+  * type_datum properties
+diff --git a/security/selinux/selinuxfs.c b/security/selinux/selinuxfs.c
+--- a/security/selinux/selinuxfs.c
++++ b/security/selinux/selinuxfs.c
+@@ -46,7 +46,10 @@
+ 	"network_peer_controls",
+ 	"open_perms",
+ 	"redhat1",
+-	"always_check_network"
++	"always_check_network",
++	/* Unimplemented bit 4 remains unnamed; no cgroup_seclabel claim. */
++	[POLICYDB_CAPABILITY_NNP_NOSUID_TRANSITION] = "nnp_nosuid_transition",
++	[POLICYDB_CAPABILITY_FUNCTIONFS_SECLABEL] = "functionfs_seclabel"
+ };
+ 
+ unsigned int selinux_checkreqprot = CONFIG_SECURITY_SELINUX_CHECKREQPROT_VALUE;
+@@ -1705,11 +1708,10 @@
+ 	sel_remove_entries(policycap_dir);
+ 
+ 	for (iter = 0; iter <= POLICYDB_CAPABILITY_MAX; iter++) {
+-		if (iter < ARRAY_SIZE(policycap_names))
+-			dentry = d_alloc_name(policycap_dir,
+-					      policycap_names[iter]);
+-		else
+-			dentry = d_alloc_name(policycap_dir, "unknown");
++		/* Do not expose unimplemented gaps or duplicate "unknown" names. */
++		if (iter >= ARRAY_SIZE(policycap_names) || !policycap_names[iter])
++			continue;
++		dentry = d_alloc_name(policycap_dir, policycap_names[iter]);
+ 
+ 		if (dentry == NULL)
+ 			return -ENOMEM;
+diff --git a/security/selinux/ss/services.c b/security/selinux/ss/services.c
+--- a/security/selinux/ss/services.c
++++ b/security/selinux/ss/services.c
+@@ -74,6 +74,8 @@
+ int selinux_policycap_netpeer;
+ int selinux_policycap_openperm;
+ int selinux_policycap_alwaysnetwork;
++int selinux_policycap_nnp_nosuid_transition;
++int selinux_policycap_functionfs_seclabel;
+ 
+ static DEFINE_RWLOCK(policy_rwlock);
+ 
+@@ -2019,6 +2021,12 @@
+ 	selinux_policycap_alwaysnetwork = ebitmap_get_bit(&policydb.policycaps,
+ 						  POLICYDB_CAPABILITY_ALWAYSNETWORK);
+ 
++	selinux_policycap_nnp_nosuid_transition = ebitmap_get_bit(&policydb.policycaps,
++						  POLICYDB_CAPABILITY_NNP_NOSUID_TRANSITION);
++
++	selinux_policycap_functionfs_seclabel = ebitmap_get_bit(&policydb.policycaps,
++						  POLICYDB_CAPABILITY_FUNCTIONFS_SECLABEL);
++
+ 	selinux_android_netlink_route = policydb.android_netlink_route;
+ 	selinux_nlmsg_init();
+ }

@@ -1,0 +1,66 @@
+diff --git a/security/selinux/ss/avtab.c b/security/selinux/ss/avtab.c
+--- a/security/selinux/ss/avtab.c
++++ b/security/selinux/ss/avtab.c
+@@ -552,9 +552,15 @@
+ 			printk(KERN_ERR "SELinux: avtab: truncated entry\n");
+ 			return rc;
+ 		}
++		/* Kind 3 has a native driver byte too. Treating it as an old
++		 * Android-M driver consumes one byte too few and corrupts every
++		 * following record. Active netlink_xperm is rejected by policydb:
++		 * this legacy kernel only preserves inactive forward-format data.
++		 */
+ 		if (avtab_android_m_compat ||
+ 			    ((xperms.specified != AVTAB_XPERMS_IOCTLFUNCTION) &&
+ 			    (xperms.specified != AVTAB_XPERMS_IOCTLDRIVER) &&
++			    (xperms.specified != AVTAB_XPERMS_NLMSG) &&
+ 			    (vers == POLICYDB_VERSION_XPERMS_IOCTL))) {
+ 			xperms.driver = xperms.specified;
+ 			if (android_m_compat_optype)
+diff --git a/security/selinux/ss/avtab.h b/security/selinux/ss/avtab.h
+--- a/security/selinux/ss/avtab.h
++++ b/security/selinux/ss/avtab.h
+@@ -58,6 +58,8 @@
+ /* These are not flags. All 256 values may be used */
+ #define AVTAB_XPERMS_IOCTLFUNCTION	0x01
+ #define AVTAB_XPERMS_IOCTLDRIVER	0x02
++/* Native binary encoding, not proof of netlink enforcement support. */
++#define AVTAB_XPERMS_NLMSG		0x03
+ 	/* extension of the avtab_key specified */
+ 	u8 specified; /* ioctl, netfilter, ... */
+ 	/*
+diff --git a/security/selinux/ss/policydb.c b/security/selinux/ss/policydb.c
+--- a/security/selinux/ss/policydb.c
++++ b/security/selinux/ss/policydb.c
+@@ -2233,6 +2233,20 @@
+ 	return rc;
+ }
+ 
++/* netlink_xperm is public policy-capability bit 9. Do not advertise support
++ * or accept an active feature whose AVC/netlink enforcement is absent here.
++ * Android 16 currently emits native kind-3 records with this capability off;
++ * those must be parsed without misidentifying them as Android-M ioctls.
++ */
++static int policydb_check_legacy_xperms(struct policydb *p)
++{
++	if (ebitmap_get_bit(&p->policycaps, 9)) {
++		printk(KERN_ERR "SELinux: active netlink_xperm is unsupported by this legacy kernel\n");
++		return -EOPNOTSUPP;
++	}
++	return 0;
++}
++
+ /*
+  * Read the configuration data from a policy database binary
+  * representation file into a policy database structure.
+@@ -2339,6 +2353,10 @@
+ 		if (rc)
+ 			goto bad;
+ 	}
++
++	rc = policydb_check_legacy_xperms(p);
++	if (rc)
++		goto bad;
+ 
+ 	if (p->policyvers >= POLICYDB_VERSION_PERMISSIVE) {
+ 		rc = ebitmap_read(&p->permissive_map, fp);

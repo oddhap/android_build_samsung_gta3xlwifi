@@ -1,0 +1,57 @@
+{
+  "build": "full-platform-03",
+  "snapshot": "bringup-20261021-06",
+  "completed_at_utc": "2026-10-21T20:39:15Z",
+  "archive": "/srv/android/artifacts/lineage-23.2-arm64/diagnostic-full-platform-03/lineage_gta3xlwifi-target_files.zip",
+  "archive_bytes": 2243385767,
+  "archive_sha256": "e9e820308a7db943528afda4ca0f0d66ac56523df2c852ae17222f459af40da2",
+  "images": {
+    "boot.img": {
+      "path": "/srv/android/artifacts/lineage-23.2-arm64/diagnostic-full-platform-03/boot.img",
+      "bytes": 25380880,
+      "expanded_bytes": 25380880,
+      "sha256": "a4aed7fb2b5badfcee26c5af438d80ee3d9b06729c91c9f051ebbcb6edbc6cd3"
+    },
+    "recovery.img": {
+      "path": "/srv/android/artifacts/lineage-23.2-arm64/diagnostic-full-platform-03/recovery.img",
+      "bytes": 38742032,
+      "expanded_bytes": 38742032,
+      "sha256": "1b8c13a7ee389b19a668fc319cf2b55d6efcd2612f3253a273f2bd848d2411ae"
+    },
+    "system.img": {
+      "path": "/srv/android/artifacts/lineage-23.2-arm64/diagnostic-full-platform-03/system.img",
+      "bytes": 1809052228,
+      "expanded_bytes": 3196059648,
+      "sha256": "e6886c89c5ab650930c9bc08e40c84adfaba5f11e8bd773bd28c78a2d8902007"
+    },
+    "product.img": {
+      "path": "/srv/android/artifacts/lineage-23.2-arm64/diagnostic-full-platform-03/product.img",
+      "bytes": 195391636,
+      "expanded_bytes": 327155712,
+      "sha256": "1a5188e9dcd268c2ce2a21fb544fb7c0c1e5df28c9482a9a0f3266d282946832"
+    },
+    "vendor.img": {
+      "path": "/srv/android/artifacts/lineage-23.2-arm64/diagnostic-full-platform-03/vendor.img",
+      "bytes": 265669400,
+      "expanded_bytes": 343932928,
+      "sha256": "276777b5bde1dac2f31dbe9299c79e02c07486df6ff7b2ecad03cc722edee939"
+    },
+    "dtbo.img": {
+      "path": "/srv/android/artifacts/lineage-23.2-arm64/diagnostic-full-platform-03/dtbo.img",
+      "bytes": 163252,
+      "expanded_bytes": 163252,
+      "sha256": "b9041c37713a745290d9a0203423436b6caa7a1307ced79b6963b4f1f0271c4b"
+    },
+    "cache.img": {
+      "path": "/srv/android/artifacts/lineage-23.2-arm64/diagnostic-full-platform-03/cache.img",
+      "bytes": 57444,
+      "expanded_bytes": 159383552,
+      "sha256": "706b1d26bc8150fdbe17c3c6305823a6baef0eb66bcd1cc31a2171bc0fc152a6"
+    }
+  },
+  "installable_ota_created": false,
+  "runtime_validated": false,
+  "archive_crc_passed": true,
+  "archive_entries": 8045,
+  "observed_at_utc": "2026-10-21T20:42:58.440075+00:00"
+}

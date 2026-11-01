@@ -1,0 +1,55 @@
+{
+  "status": "EXPERIMENTAL_NOT_APPLIED_NOT_TEST_ROM",
+  "active_snapshot": "bringup-20261021-06",
+  "profile": "qtaguid-persistent",
+  "projects": [
+    {
+      "path": "system/netd",
+      "revision": "796eaca5ab9dfdd87751c51bb71fa3f26c87d034",
+      "patch": "system_netd.patch",
+      "sha256": "251d3636f1c432068efd31595202b75a627dc8b7e644d3762a95d846c4933b3d",
+      "files": [
+        {
+          "path": "server/Gta3xlwifiQtaguidTransport.cpp",
+          "reference_sha256": null,
+          "staged_sha256": "2884ebf90f8e3cc2fd1b90099e6ea7711e7ef473a480f0d6c1d57cf3596337b0"
+        },
+        {
+          "path": "server/Gta3xlwifiQtaguidTransport.h",
+          "reference_sha256": null,
+          "staged_sha256": "e7f8e0e0bc7a10525ee8eb5aa3e5a4ed0a078ff64777dde99663dc334111ad77"
+        },
+        {
+          "path": "server/Gta3xlwifiQtaguidProtocol.h",
+          "reference_sha256": null,
+          "staged_sha256": "9096f41f971a71018f49f155d3577204678e7298a0e44728e644361332f98387"
+        }
+      ],
+      "selected_file_git_replay_passed": true
+    },
+    {
+      "path": "kernel/samsung/gta3xlwifi",
+      "revision": "669b9584e678ce5865ed38e04c24639082d78de1",
+      "patch": "kernel_samsung_gta3xlwifi.patch",
+      "sha256": "91a9a64dd42490a588cab8dc73a2fc834148ae1696e7600ec64b3dec66d9a93b",
+      "files": [
+        {
+          "path": "net/netfilter/xt_qtaguid.c",
+          "reference_sha256": "820c02d16ab777502ac784ae3e800a171c70db8cf665d13dfab1b41d3874f776",
+          "staged_sha256": "212e2e4c3d459293a3427d2f715fb1843fac521787a7817c1f2d455598b254f3"
+        },
+        {
+          "path": "net/netfilter/xt_qtaguid_internal.h",
+          "reference_sha256": "74dd8b5ede13d8c366ee5cce3c998584a3c72878a1327c05082eb086cb0259c5",
+          "staged_sha256": "68ba021c7f67fa8578df3e7199944bb15cb0317c5a43ecc16b88becf11debde5"
+        },
+        {
+          "path": "include/uapi/linux/netfilter/xt_qtaguid_sock.h",
+          "reference_sha256": null,
+          "staged_sha256": "9096f41f971a71018f49f155d3577204678e7298a0e44728e644361332f98387"
+        }
+      ],
+      "selected_file_git_replay_passed": true
+    }
+  ]
+}

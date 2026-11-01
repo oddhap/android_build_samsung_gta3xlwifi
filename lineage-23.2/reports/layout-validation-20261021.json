@@ -1,0 +1,41 @@
+{
+  "records_checked": 4455,
+  "signing_metadata_unchanged": true,
+  "only_partition_fields_changed": [
+    "webview",
+    "Backgrounds",
+    "PhotoTable"
+  ],
+  "make_soong_agree": true,
+  "apps": [
+    {
+      "app": "webview",
+      "path": "/srv/android/src/lineage-23.2-arm64/out/target/product/gta3xlwifi/system/app/webview/webview.apk",
+      "bytes": 258716221,
+      "verified_certificate_sha256": [
+        "a40da80a59d170caa950cf15c18c454d47a39b26989d8b640ecd745ba71bf5dc"
+      ]
+    },
+    {
+      "app": "Backgrounds",
+      "path": "/srv/android/src/lineage-23.2-arm64/out/target/product/gta3xlwifi/system/app/Backgrounds/Backgrounds.apk",
+      "bytes": 7920218,
+      "verified_certificate_sha256": [
+        "a40da80a59d170caa950cf15c18c454d47a39b26989d8b640ecd745ba71bf5dc"
+      ]
+    },
+    {
+      "app": "PhotoTable",
+      "path": "/srv/android/src/lineage-23.2-arm64/out/target/product/gta3xlwifi/system/app/PhotoTable/PhotoTable.apk",
+      "bytes": 518172,
+      "verified_certificate_sha256": [
+        "a40da80a59d170caa950cf15c18c454d47a39b26989d8b640ecd745ba71bf5dc"
+      ]
+    }
+  ],
+  "passed": true,
+  "actual_apk_signatures_checked": true,
+  "private_signing_keys_read": false,
+  "tablet_accessed": false,
+  "scope": "APK layout and signing consistency only; not ROM readiness"
+}

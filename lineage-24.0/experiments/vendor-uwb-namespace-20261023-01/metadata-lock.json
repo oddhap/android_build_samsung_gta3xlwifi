@@ -1,0 +1,85 @@
+{
+  "checked_at_utc": "2026-10-23T17:12:26.942727+00:00",
+  "status": "STAGED_METADATA_ONLY_NOT_A_VENDOR_IMAGE_NOT_SECURITY_APPROVED",
+  "renames": {
+    "uwb_service": "vendor_samsung_legacy_uwb_service",
+    "hal_uwb_service": "vendor_samsung_legacy_hal_uwb_service"
+  },
+  "source_vendor": "/srv/android/artifacts/lineage-23.2-arm64/vendor-validation-20261020/vendor",
+  "changed_files": [
+    "vendor_sepolicy.cil",
+    "vendor_service_contexts"
+  ],
+  "symbol_occurrences": {
+    "hal_uwb_service": 4,
+    "uwb_service": 9
+  },
+  "rule_counts_before": {
+    "allow": 12528,
+    "allowx": 127,
+    "neverallow": 131,
+    "neverallowx": 2
+  },
+  "rule_counts_after": {
+    "allow": 12528,
+    "allowx": 127,
+    "neverallow": 131,
+    "neverallowx": 2
+  },
+  "byte_exact_inverse_verified": true,
+  "endpoint": "vendor.samsung.hardware.uwb@1.0::ISehUwb/default",
+  "full_vendor_tree_or_precompiled_policy_copied": false,
+  "vendor_image_validation_performed_by_this_tool": false,
+  "original_sources_images_or_device_modified": false,
+  "hardware_tested": false,
+  "security_approved": false,
+  "flash_ready": false,
+  "inputs": [
+    {
+      "name": "vendor_sepolicy.cil",
+      "sha256": "8df663eb65a807e6ee99f8b2384cb52d34c994a25087410486b1f88e278e2e53",
+      "staged_sha256": "70f41166fa82b7871f3d644335cdd09d555172a37f213d4e8718aae475902a4a"
+    },
+    {
+      "name": "plat_pub_versioned.cil",
+      "sha256": "4dd55346c46e6d374c5fee79e1caeb1f971a4dc048cd96bedadfb676e0ec11c4",
+      "staged_sha256": "4dd55346c46e6d374c5fee79e1caeb1f971a4dc048cd96bedadfb676e0ec11c4"
+    },
+    {
+      "name": "plat_sepolicy_vers.txt",
+      "sha256": "166983be04e2ab397fc7a70bb60a516b1cfd42a5ec6dd356df01ae63a8500ec0",
+      "staged_sha256": "166983be04e2ab397fc7a70bb60a516b1cfd42a5ec6dd356df01ae63a8500ec0"
+    },
+    {
+      "name": "vendor_service_contexts",
+      "sha256": "4d9b9bb9b8fa2534a45c3ad006117b4db9be2c8704e34fe2090ce447ccc5699c",
+      "staged_sha256": "5dc71762ea75986ef6bd2ce282f6920ec6cddc509b511bc940e6bc280c3ff3ec"
+    },
+    {
+      "name": "vendor_hwservice_contexts",
+      "sha256": "49c313c04575e51a76e6e0e8e2b32e39010033f3ab7e836ed5fc8d053defdf9c",
+      "staged_sha256": "49c313c04575e51a76e6e0e8e2b32e39010033f3ab7e836ed5fc8d053defdf9c"
+    },
+    {
+      "name": "vendor_file_contexts",
+      "sha256": "0dcf14fc0299035adbffd2a6cba5221843ca7c47c84748ac42f5d245fd2f2065",
+      "staged_sha256": "0dcf14fc0299035adbffd2a6cba5221843ca7c47c84748ac42f5d245fd2f2065"
+    },
+    {
+      "name": "vendor_property_contexts",
+      "sha256": "8379234e5ee1ffb7548eed1b49fb2545a20b055240ef3308729c9e57d3d1b17d",
+      "staged_sha256": "8379234e5ee1ffb7548eed1b49fb2545a20b055240ef3308729c9e57d3d1b17d"
+    },
+    {
+      "name": "vendor_seapp_contexts",
+      "sha256": "09723917f8fd99101e876158075cdee7592406f22e8ef5f946d161e73f7e375b",
+      "staged_sha256": "09723917f8fd99101e876158075cdee7592406f22e8ef5f946d161e73f7e375b"
+    },
+    {
+      "name": "vndservice_contexts",
+      "sha256": "94b336be8f83c49349fea3f22bc5b99f73ce726de79ded31bbeee04d9690708f",
+      "staged_sha256": "94b336be8f83c49349fea3f22bc5b99f73ce726de79ded31bbeee04d9690708f"
+    }
+  ],
+  "metadata_patch_sha256": "12788dde11a2941d76c5e2ab463f87800ec016d2e7f3f3c26418265b0012238e"
+}

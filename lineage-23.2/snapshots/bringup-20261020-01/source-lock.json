@@ -1,0 +1,56 @@
+[
+  {
+    "project": "frameworks/av",
+    "revision": "b6b36c1fdb3c6ffced822a054fbf035b544f0de2",
+    "patch": "frameworks_av.patch",
+    "sha256": "bf061d43025bd0a1fc8bfd03046acca3deba3ac8301d067e22a48f9ecb40f1c6"
+  },
+  {
+    "project": "frameworks/base",
+    "revision": "958afcc3d647d57571650cee4172afe0da619171",
+    "patch": "frameworks_base.patch",
+    "sha256": "367e3ce9115c8e5ed2b18badc9ba8be095565c41c22253b7672992bf3e81f8ed"
+  },
+  {
+    "project": "external/boringssl",
+    "revision": "1e3b727981831886a0910cd9e82d5bbee4cc7029",
+    "patch": "external_boringssl.patch",
+    "sha256": "4b1be789148ead583410ffa1a7d78ac9d7fa3fa8065057276d40c89e70eee158"
+  },
+  {
+    "project": "packages/modules/vndk",
+    "revision": "f2caada6c9378ba37879c5b952fab07cf0f46e16",
+    "patch": "packages_modules_vndk.patch",
+    "sha256": "72754ff9b4f0d5fcaff8385545fa20d95e1e2397b6eb2d1d7ee869e489a7b3a5"
+  },
+  {
+    "project": "system/core",
+    "revision": "eb2de7321317226bbc1951382b3171fa59bb4d1d",
+    "patch": "system_core.patch",
+    "sha256": "2ca5c4b6ca6e9a853e1a5086bacbf49f4b2a93e0417880fcb9c034f714892741"
+  },
+  {
+    "project": "system/memory/libmeminfo",
+    "revision": "49326ec942a00db8994f2dc69796ea28c99643e1",
+    "patch": "system_memory_libmeminfo.patch",
+    "sha256": "dbdb2aad1c9c79337757090ffc85460277837c4bb038ec604a7204ffaaed3bbf"
+  },
+  {
+    "project": "frameworks/native",
+    "revision": "9568531f9be7ae65f260699811f32ec4e461de6e",
+    "patch": "frameworks_native.patch",
+    "sha256": "96657c7d947dabe7551bf446440c1cac026f34caf37b2a41dbdaea86f8e92105"
+  },
+  {
+    "project": "device/lineage/sepolicy",
+    "revision": "0a9e75292f0ed1a83c31a311b1b32367a9faff75",
+    "patch": "device_lineage_sepolicy.patch",
+    "sha256": "73da23c07d888a0611f790d35eb898a9a766899a010a9d82673abc4136fcc91b"
+  },
+  {
+    "project": "device/samsung/gta3xlwifi",
+    "revision": "9103cae139f954cccb5d9b01808787571db3189e",
+    "patch": "device_samsung_gta3xlwifi.patch",
+    "sha256": "fb90b3c92d75c76da3371436e1571b20aee56abb18485dcbd48cf33d631b8c51"
+  }
+]

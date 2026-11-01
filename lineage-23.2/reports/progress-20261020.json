@@ -1,0 +1,104 @@
+{
+  "observed_at_utc": "2026-10-20T18:52:15+00:00",
+  "branch": "lineage-23.2",
+  "release_config": "bp4a",
+  "platform_version": "16",
+  "source_snapshot": "bringup-20261020-04",
+  "locked_projects": 1168,
+  "reviewed_patches": 10,
+  "source_audit_passed": true,
+  "source_audit_report": "snapshots/bringup-20261020-04/port-audit.json",
+  "host_tests": {
+    "v1_cleanup_cases_passed": 10,
+    "v1_v2_path_assertions_passed": 4,
+    "patch_replay_cases_passed": 7,
+    "spawn_fd_hygiene_linux_cases_passed": 42,
+    "vendor_validation_cli_safety_cases_passed": 6
+  },
+  "targeted_build": {
+    "label": "native-policy-04",
+    "pid": 90914,
+    "running": false,
+    "exit_code": 0,
+    "completed_at_utc": "2026-10-20T17:50:42+00:00",
+    "build_duration_seconds": 1329,
+    "last_logged_native_progress": {
+      "percent_of_targeted_actions": 100,
+      "completed_actions": 17467,
+      "total_actions": 17467
+    },
+    "all_requested_targets_completed": true
+  },
+  "followup_builds": [
+    {
+      "label": "vendor-metadata-02",
+      "source_snapshot": "bringup-20261020-01",
+      "exit_code": 0,
+      "completed_at_utc": "2026-10-20T18:31:50Z",
+      "build_duration_seconds": 268,
+      "completed_actions": 1985,
+      "total_actions": 1985
+    },
+    {
+      "label": "bionic-linker-02",
+      "source_snapshot": "bringup-20261020-03",
+      "exit_code": 0,
+      "completed_at_utc": "2026-10-20T18:46:21Z",
+      "build_duration_seconds": 483,
+      "completed_actions": 9065,
+      "total_actions": 9065,
+      "both_abi_test_binaries_built": true,
+      "android_tests_executed": false
+    }
+  ],
+  "current_build": {
+    "label": "bionic-linker-03",
+    "source_snapshot": "bringup-20261020-04",
+    "pid_at_start": 390281,
+    "targets": ["libc", "linker", "linkerconfig", "bionic-unit-tests"],
+    "running": false,
+    "exit_code": 0,
+    "completed_at_utc": "2026-10-20T18:51:34Z",
+    "build_duration_seconds": 254,
+    "all_requested_targets_completed": true,
+    "last_logged_native_progress": {
+      "percent_of_targeted_actions": 100,
+      "completed_actions": 157,
+      "total_actions": 157
+    },
+    "android_tests_executed": false,
+    "reason": "Extra real-procfs and scan-self-FD safeguards after the successful earlier cross-build"
+  },
+  "vendor_validation": {
+    "actual_image_extracted_without_mounts": true,
+    "metadata_files_checked": 41,
+    "all_metadata_matches_staged_stock_copy": true,
+    "input_provenance_report": "reports/vendor-inputs-20261020.json",
+    "policy_report": "reports/vendor-policy-20261020.json",
+    "strict_policy_passed": false,
+    "strict_policy_compiler_exit_code": 255,
+    "neverallow_diagnostics": 367,
+    "init_runtime_diagnostic_compiler_exit_code": 0,
+    "security_equivalence_approved": false,
+    "enforcement_settings_modified": false,
+    "inherited_permissive_domains": ["su", "backuptool"],
+    "vintf_report": "reports/vendor-vintf-20261020.json",
+    "current_static_vintf_exit_code": 0,
+    "kernel_profile": "Inherited device-specific legacy FCM 3",
+    "unmodified_android16_runtime_kernel_requirements_proven": false,
+    "complete_post_apex_validation_proven": false
+  },
+  "complete_rom_built": false,
+  "signed_release_candidate": false,
+  "hardware_tested": false,
+  "tablet_modified": false,
+  "existing_signing_keys_modified": false,
+  "major_remaining_gates": [
+    "real legacy networking backend; spawn fallback still needs Android runtime proof",
+    "strict cross-version policy/security review and complete post-APEX VINTF",
+    "HAL/graphics and kernel runtime audit",
+    "FBE/recovery and non-A/B OTA",
+    "full image sizes and signing",
+    "owner-approved physical validation"
+  ]
+}

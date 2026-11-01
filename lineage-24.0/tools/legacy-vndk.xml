@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest>
+  <!-- The Android 11 Samsung HAL/TEE stack needs its real VNDK 30 runtime.
+       This is the identical AOSP snapshot used by the working Android 14 port.
+       Fetch independently; never borrow objects from the preserved 21 tree. -->
+  <project name="platform/prebuilts/vndk/v30" path="prebuilts/vndk/v30"
+           remote="aosp" revision="b2a975dfb122d37c37af780be63a9faf8d76d143"
+           upstream="refs/tags/android-14.0.0_r75" clone-depth="1" groups="pdk" />
+</manifest>

@@ -1,0 +1,22 @@
+{
+  "passed": true,
+  "observed_at_utc": "2026-10-21T20:29:49.564377+00:00",
+  "scope": "Offline diagnostic boot packaging only; not boot, SELinux runtime or FBE approval",
+  "snapshot": "bringup-20261021-06",
+  "build": "full-platform-03",
+  "boot_sha256": "a4aed7fb2b5badfcee26c5af438d80ee3d9b06729c91c9f051ebbcb6edbc6cd3",
+  "bytes": 25380880,
+  "partition_bytes": 33554432,
+  "magic": "ANDROID!",
+  "header_version": 1,
+  "kernel_bytes": 25378168,
+  "ramdisk_bytes": 0,
+  "page_bytes": 2048,
+  "os_major": 16,
+  "board": "SRPSA25A005KU",
+  "kernel_sha256": "33c1a0d1b9e2696decd53fbedfc2231385b74464f4058a54b93ff06ff7c72553",
+  "samsung_trailer_present": true,
+  "enforcing_cmdline_present": true,
+  "hardware_executed": false,
+  "tablet_modified": false
+}

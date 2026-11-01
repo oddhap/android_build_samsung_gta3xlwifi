@@ -1,0 +1,41 @@
+{
+  "status": "EXPERIMENTAL_NOT_APPLIED_NOT_TEST_ROM",
+  "active_snapshot": "bringup-20261021-06",
+  "profile": "selinux-transitions",
+  "projects": [
+    {
+      "path": "kernel/samsung/gta3xlwifi",
+      "revision": "669b9584e678ce5865ed38e04c24639082d78de1",
+      "patch": "kernel_samsung_gta3xlwifi.patch",
+      "sha256": "4949c1d97acce48059d1031da9cc6fe4c0e985486c0fa6345be98d7fe1e02312",
+      "files": [
+        {
+          "path": "security/selinux/hooks.c",
+          "reference_sha256": "d0767047a33a0fafffdfe8119a5a3bd68b30dd673d319c727b9775dc0ba0d64d",
+          "staged_sha256": "cf4697b466bf0a2c3b88360b5946958b565cd637093cd01bdec7349c6739fbf5"
+        },
+        {
+          "path": "security/selinux/include/classmap.h",
+          "reference_sha256": "ffe30eef4378308e33219b59e22f05b3238595d3d0b73c14e1f9ec18f181f1b1",
+          "staged_sha256": "ed7f864e3ba30aa0136e1b8ca11e4919c1ef02b125ac32977ef161aa90aa451d"
+        },
+        {
+          "path": "security/selinux/include/security.h",
+          "reference_sha256": "89be1df7e25b0ee24623030ff56792d569f1d1f658a47907b3311553b43bd96f",
+          "staged_sha256": "043ca98c8468ac1a5666b9ac3f1eb08da33e47eb0c9c7ed925752f101eeaf7be"
+        },
+        {
+          "path": "security/selinux/selinuxfs.c",
+          "reference_sha256": "fb7dd595ff29a3f6e2ab74c745fb1495a5acfcebe3c823dcd1f0a7884c40c2d4",
+          "staged_sha256": "017353d32644793724a48a0e1cc6412050dd718eb64ccf4abb03acc0f0c266da"
+        },
+        {
+          "path": "security/selinux/ss/services.c",
+          "reference_sha256": "b249fac1390640fd34166479d7b7c9fa12c9d9309a9241c876237e78a6d9f67c",
+          "staged_sha256": "48e4caff3b1a34c71820ed915428d9f918d3a782307e8f9f54bfb5ca5a164452"
+        }
+      ],
+      "selected_file_git_replay_passed": true
+    }
+  ]
+}

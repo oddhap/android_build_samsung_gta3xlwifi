@@ -1,0 +1,91 @@
+{
+  "status": "EXPERIMENTAL_NOT_APPLIED_NOT_TEST_ROM",
+  "active_snapshot": "bringup-20261021-05",
+  "actual_locked_vm_forward_checks_passed": true,
+  "actual_locked_vm_forward_checks_date_utc": "2026-10-21",
+  "projects": [
+    {
+      "path": "packages/modules/Connectivity",
+      "revision": "c9f3e7795256bd4a3f99d02e604e24fd1552c2b3",
+      "patch": "packages_modules_Connectivity.patch",
+      "sha256": "0d46902b352b5f7827cb9e45b27a9bfb9e0bee984698e293f253bb4cc59b97c2",
+      "files": [
+        {
+          "path": "service-t/native/libs/libnetworkstats/Android.bp",
+          "reference_sha256": "3f7b50836779a4d9865f0ee42b9b5fb50e0ea605e9434c1c08075774fbd965c3",
+          "staged_sha256": "5a98312366f3d66ae887e857c5f84263a5eaf88ab21e98072fc28d47a123570c"
+        },
+        {
+          "path": "service-t/native/libs/libnetworkstats/BpfNetworkStats.cpp",
+          "reference_sha256": "29eb0581925245334860b7ced0798aeac21092592d2502e6d290e722677c4502",
+          "staged_sha256": "883341dd5a8178ecce09105eb25ea7a15fc16cb89f130712eab1606c408fcd5a"
+        },
+        {
+          "path": "service-t/native/libs/libnetworkstats/Gta3xlwifiLegacyStats.cpp",
+          "reference_sha256": null,
+          "staged_sha256": "5ceb7d30cd2a0bd9b8cebf9b667fab8ffaa441c2a85320492808d18ae1197c46"
+        },
+        {
+          "path": "service-t/native/libs/libnetworkstats/Gta3xlwifiLegacyStats.h",
+          "reference_sha256": null,
+          "staged_sha256": "963cf334287b205fa258a8a1e9e43279b2f6fd057085b6c626349a173ed4106d"
+        },
+        {
+          "path": "service-t/native/libs/libnetworkstats/QtaguidStats.cpp",
+          "reference_sha256": null,
+          "staged_sha256": "ea88ad02d5b2e46f5aa7b154451c7c209d9c1658815815ac6ecb88698e4a0729"
+        },
+        {
+          "path": "service-t/native/libs/libnetworkstats/QtaguidStats.h",
+          "reference_sha256": null,
+          "staged_sha256": "890551ab93bb209dd4824fda96c91fc92f61eb5dd4682bce993c14feefbf8861"
+        },
+        {
+          "path": "bpf/dns_helper/DnsBpfHelper.cpp",
+          "reference_sha256": "6f088068d1f936932b925d38955311bc55d5f9a5610a3a75662fb8273eff1b53",
+          "staged_sha256": "5e917a1ef978d594d8a6fc8c48d78dccae406ce8c1f99cbf7ae2973d606a0871"
+        },
+        {
+          "path": "bpf/dns_helper/libcom.android.tethering.dns_helper.map.txt",
+          "reference_sha256": "9116a297e81070cdb5b2991ff7d7dd4216cfe8356cf15bcd554e5e9632f17cb1",
+          "staged_sha256": "7335943de011b83c31c1fd37f8d8c3fb689e50f2dad79027b8cfd89dd868cebd"
+        },
+        {
+          "path": "bpf/dns_helper/LegacyDnsPolicy.h",
+          "reference_sha256": null,
+          "staged_sha256": "7744663f4dc97f17bcc870b3e217ff2e6c1294c9160225407ddd4cdb303f8e4a"
+        },
+        {
+          "path": "bpf/dns_helper/include/Gta3xlwifiDnsPolicy.h",
+          "reference_sha256": null,
+          "staged_sha256": "c92496264f5f3cc74d8b3fcbb32386d67966f096327c74eaccec08585277fcb4"
+        },
+        {
+          "path": "service-t/src/com/android/server/net/NetworkStatsFactory.java",
+          "reference_sha256": "c06e3c80b81a855329000a3bae6ff3712ee3e620c7a74db88a3fa427b97d72ce",
+          "staged_sha256": "33ca7c01d0749a335b2f9cd6f8b2563bd58cd0a1a9db633eab037c1d270f810e"
+        },
+        {
+          "path": "tests/unit/java/com/android/server/net/NetworkStatsFactoryTest.java",
+          "reference_sha256": "cef2821719c7dc60f5e4268154dc3a9d777c21b1bf8ea550c41be534735754c1",
+          "staged_sha256": "3abf54965e78e660003654ae5dd3d36afe803561aa8e2ab07c11a4ae139daef6"
+        }
+      ],
+      "selected_file_git_replay_passed": true
+    },
+    {
+      "path": "packages/modules/DnsResolver",
+      "revision": "278cc346b4a2afd88e9b1155b716ebcb50dff8ca",
+      "patch": "packages_modules_DnsResolver.patch",
+      "sha256": "91d1db33356780ae9e8b6f5f16016e74e0ce2c690d44936be2be4789606461b9",
+      "files": [
+        {
+          "path": "DnsProxyListener.cpp",
+          "reference_sha256": "529b489ad629c793be07a3e607b7bac5947d3da2f1a49a8f12063a2884cce426",
+          "staged_sha256": "b74de69b0aefad1e9781711b8f1fb91a9741c5d180bf65a97060f97e6e556e7d"
+        }
+      ],
+      "selected_file_git_replay_passed": true
+    }
+  ]
+}

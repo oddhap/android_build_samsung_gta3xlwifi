@@ -1,0 +1,44 @@
+diff --git a/AndroidProducts.mk b/AndroidProducts.mk
+index 17e4583..e5dafea 100644
+--- a/AndroidProducts.mk
++++ b/AndroidProducts.mk
+@@ -1,3 +1,4 @@
+ # SPDX-License-Identifier: Apache-2.0
+ PRODUCT_MAKEFILES := $(LOCAL_DIR)/lineage_gta3xlwifi.mk
+-COMMON_LUNCH_CHOICES := lineage_gta3xlwifi-userdebug
++# Android 16's aosp_current release alias resolves to bp4a in this source lock.
++COMMON_LUNCH_CHOICES := lineage_gta3xlwifi-bp4a-userdebug
+diff --git a/BoardConfig.mk b/BoardConfig.mk
+index b5a7529..2ef57fd 100644
+--- a/BoardConfig.mk
++++ b/BoardConfig.mk
+@@ -28,6 +28,10 @@ TARGET_KERNEL_ARCH := arm64
+ TARGET_KERNEL_CONFIG := exynos7885-gta3xlwifi_defconfig
+ BOARD_KERNEL_IMAGE_NAME := Image
+ TARGET_PREBUILT_KERNEL := $(DEVICE_PATH)/prebuilt/Image
++# Keep the separately source-built, checksum-pinned bring-up kernel. Merely
++# setting TARGET_PREBUILT_KERNEL does not prevent Lineage from rebuilding it
++# when kernel sources are present. A 23.2 kernel rebuild is a separate task.
++TARGET_FORCE_PREBUILT_KERNEL := true
+ BOARD_KERNEL_BASE := 0x10000000
+ BOARD_KERNEL_PAGESIZE := 2048
+ BOARD_BOOT_HEADER_VERSION := 1
+diff --git a/configs/cgroups.gta3xlwifi.json b/configs/cgroups.gta3xlwifi.json
+index be320d2..365dc6b 100644
+--- a/configs/cgroups.gta3xlwifi.json
++++ b/configs/cgroups.gta3xlwifi.json
+@@ -6,6 +6,14 @@
+       "Mode": "0775",
+       "UID": "system",
+       "GID": "system"
++    },
++    {
++      "Controller": "memory",
++      "Path": "/dev/memcg",
++      "Mode": "0700",
++      "UID": "root",
++      "GID": "system",
++      "Optional": true
+     }
+   ]
+ }

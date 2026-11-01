@@ -1,0 +1,47 @@
+{
+  "passed": true,
+  "hardware_tested": false,
+  "scope": "Offline filesystem layout only",
+  "snapshot": "bringup-20261021-06",
+  "archive_sha256": "e9e820308a7db943528afda4ca0f0d66ac56523df2c852ae17222f459af40da2",
+  "physical_partition_limits_passed": true,
+  "ext4_features": {
+    "system.img": {
+      "incompat": "0x42",
+      "ro_compat": "0x7b",
+      "actual_kernel_source_support_checked": true
+    },
+    "product.img": {
+      "incompat": "0x42",
+      "ro_compat": "0x7b",
+      "actual_kernel_source_support_checked": true
+    },
+    "cache.img": {
+      "incompat": "0x42",
+      "ro_compat": "0x7b",
+      "actual_kernel_source_support_checked": true
+    }
+  },
+  "files": {
+    "/fstab.exynos7904": "ae87c90434eb2cfe64bd04ec52ec4d7da8019d12395b9a67c8515975b48b3742",
+    "/init.exynos7904.rc": "17b56bafc0d86e86f70f1db8dac3a06faa583296092b06d4f62c234bbf71c1ca",
+    "/ueventd.exynos7904.rc": "1dc43d6fb0e426baea6f8a8a940dd92ac97dab9675c788dcee680ced92a1668d",
+    "/system/etc/cgroups.gta3xlwifi.json": "a86dc653e70ae4a20da815d32e36f1e982acb105ac331ef3491aeecd716b0a46",
+    "/system/etc/task_profiles.gta3xlwifi.json": "ed5f1b040db100cdee0e483d87bb5ab6c4f15ff299c61a7a19bb935587223757",
+    "/system/etc/init/init.gta3xlwifi.crypto.rc": "6b1a79ef50baef924cdc9b43563c7d72af31af02e7f231922ae68baa109cea12",
+    "/system/lib64/libfs_mgr.so": "c54cfe6fec69b6e9869fbe006543a61e84a46a50cde1645e368477d6f6dc9cf0",
+    "/system/lib64/libprocessgroup.so": "ee9a4cbfa7cdd718792df4c38265ff4fded7521fb23814e10ef705824b568691",
+    "/system/lib64/libprocessgroup_setup.so": "7a77f18fae61dbb0d2397b1915a1101402be3898baba8e1486b007d5748b413d",
+    "/system/lib64/libaudiohal.so": "3056f07bfd4fc6ced99629d9ef4bbd74df6a69d53872d36f487f305d7ada2e8b",
+    "/system/lib64/libaudiohal@4.0.so": "ad2d1161c25bbee4d582529516a9804a49da0e34b125137d621121434f0f5e2e",
+    "/system/lib64/libmeminfo.so": "8ba401dd1ef062f43695bc7469a84a176b38ad3d950169434148296542d7e0fa"
+  },
+  "init_sha256": "4c5b8faff6649a7831392cf2914ec8b2676e7ef451764c38acf5f9751b48ccb6",
+  "system_as_root_init_checked": true,
+  "android_release": "16",
+  "runtime_networking_validated": false,
+  "selinux_runtime_validated": false,
+  "fbe_recovery_ota_validated": false,
+  "installation_approved": false,
+  "tablet_modified": false
+}

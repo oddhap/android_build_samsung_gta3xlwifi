@@ -1,0 +1,15 @@
+<manifest>
+  <extend-project path="bionic" name="LineageOS/android_bionic" revision="ff3bb041547924ac1a7504e4b3bd3ea18169ca2f" />
+  <extend-project path="device/lineage/sepolicy" name="LineageOS/android_device_lineage_sepolicy" revision="a29110ed8d2933c8f0da9c6ff613c4b68b7e4ad8" />
+  <extend-project path="external/boringssl" name="platform/external/boringssl" revision="0cd1f6a94b670e6b61af95a06e71e690ae8e3262" />
+  <extend-project path="external/chromium-webview/patches" name="LineageOS/android_external_chromium-webview_patches" revision="ef69054c74f7d8306446969136c806738169f1e1" />
+  <extend-project path="frameworks/av" name="LineageOS/android_frameworks_av" revision="937eb9047ec2f88620f1f6a4d9e407f6c869d91a" />
+  <extend-project path="frameworks/base" name="LineageOS/android_frameworks_base" revision="03e13d72d00d80eeba4465893dfad669e3ad3ce6" />
+  <extend-project path="frameworks/native" name="LineageOS/android_frameworks_native" revision="46018f54b42489de960c62c3db9de131abce43ea" />
+  <extend-project path="packages/apps/Backgrounds" name="LineageOS/android_packages_apps_Backgrounds" revision="b087d2df6601aa25939e654028321bb59857d12e" />
+  <extend-project path="packages/modules/vndk" name="platform/packages/modules/vndk" revision="bcab18ef7ad195c3452e78b2eaf9bf7e4998c171" />
+  <extend-project path="packages/screensavers/PhotoTable" name="LineageOS/android_packages_screensavers_PhotoTable" revision="f3451a4cc5403f9b6f66d4864c21c19676704932" />
+  <extend-project path="system/core" name="LineageOS/android_system_core" revision="65d661b1a536701e8b118be4e9728d7b5ca727c9" />
+  <extend-project path="system/fs/fs_mgr" name="LineageOS/android_system_fs_fs_mgr" revision="f58ab8cf7115da90ba4db660cfdbf027de8fc872" />
+  <extend-project path="system/memory/libmeminfo" name="platform/system/memory/libmeminfo" revision="d59c960b1fb93377bf68664918031ea5fe709f89" />
+</manifest>

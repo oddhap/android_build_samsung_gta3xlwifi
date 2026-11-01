@@ -1,0 +1,359 @@
+{
+  "date_utc": "2026-10-23",
+  "status": "ISOLATED_NAMESPACE_AWARE_NNP_KERNEL_BUILD_AND_LINK_PASS_NOT_RUNTIME_OR_FLASH_READY",
+  "active_snapshot": "bringup-20261021-06",
+  "experiment": "experiments/kernel-nnp-transition-20261023-02",
+  "historical_mountflag_only_revision": "experiments/kernel-nnp-transition-20261023-01",
+  "historical_build_exit": 0,
+  "historical_build_finished_utc": "2026-10-23T17:49:19+00:00",
+  "source_lock": {
+    "status": "EXPERIMENTAL_NOT_APPLIED_NOT_TEST_ROM",
+    "active_snapshot": "bringup-20261021-06",
+    "profile": "selinux-transitions",
+    "projects": [
+      {
+        "path": "kernel/samsung/gta3xlwifi",
+        "revision": "669b9584e678ce5865ed38e04c24639082d78de1",
+        "patch": "kernel_samsung_gta3xlwifi.patch",
+        "sha256": "8fa47c2db99eab18d228c973765d282096d96ca73024c839fafd3be734e46df4",
+        "files": [
+          {
+            "path": "security/selinux/hooks.c",
+            "reference_sha256": "d0767047a33a0fafffdfe8119a5a3bd68b30dd673d319c727b9775dc0ba0d64d",
+            "staged_sha256": "311796b0daf03bf510202c2d3bfb1bde33a99199b8d36004ce05c64bd2591b60"
+          },
+          {
+            "path": "security/selinux/include/classmap.h",
+            "reference_sha256": "ffe30eef4378308e33219b59e22f05b3238595d3d0b73c14e1f9ec18f181f1b1",
+            "staged_sha256": "ed7f864e3ba30aa0136e1b8ca11e4919c1ef02b125ac32977ef161aa90aa451d"
+          },
+          {
+            "path": "security/selinux/include/security.h",
+            "reference_sha256": "89be1df7e25b0ee24623030ff56792d569f1d1f658a47907b3311553b43bd96f",
+            "staged_sha256": "043ca98c8468ac1a5666b9ac3f1eb08da33e47eb0c9c7ed925752f101eeaf7be"
+          },
+          {
+            "path": "security/selinux/selinuxfs.c",
+            "reference_sha256": "fb7dd595ff29a3f6e2ab74c745fb1495a5acfcebe3c823dcd1f0a7884c40c2d4",
+            "staged_sha256": "017353d32644793724a48a0e1cc6412050dd718eb64ccf4abb03acc0f0c266da"
+          },
+          {
+            "path": "security/selinux/ss/services.c",
+            "reference_sha256": "b249fac1390640fd34166479d7b7c9fa12c9d9309a9241c876237e78a6d9f67c",
+            "staged_sha256": "48e4caff3b1a34c71820ed915428d9f918d3a782307e8f9f54bfb5ca5a164452"
+          }
+        ],
+        "selected_file_git_replay_passed": true
+      }
+    ]
+  },
+  "unchanged_original_class_permission_tables": 56,
+  "new_policycap": {
+    "number": 5,
+    "name": "nnp_nosuid_transition",
+    "bit4_unnamed_not_cgroup_seclabel_support": true,
+    "both_required_permissions_checked_when_both_protections_apply": true,
+    "existing_bounded_fallback_preserved": true,
+    "whole_hooks_outside_modified_helper_byte_identical": true,
+    "mount_namespace_membership_now_required_for_non_nosuid": true,
+    "user_namespaces_disabled_in_actual_config": true,
+    "unsupported_user_ns_y_negative_compile_passed": true
+  },
+  "actual_policy_binary_inspection": {
+    "user": {
+      "policy_version": 30,
+      "nnp_nosuid_capability_bit5": true,
+      "unconditional_te_only": true,
+      "kernel_runtime_proven": false,
+      "queries": [
+        {
+          "source": "kernel",
+          "target": "overlay_remounter",
+          "nnp_transition": false,
+          "nosuid_transition": false
+        },
+        {
+          "source": "overlay_remounter",
+          "target": "init",
+          "nnp_transition": false,
+          "nosuid_transition": false
+        },
+        {
+          "source": "platform_app",
+          "target": "init",
+          "nnp_transition": false,
+          "nosuid_transition": false
+        }
+      ]
+    },
+    "userdebug": {
+      "policy_version": 30,
+      "nnp_nosuid_capability_bit5": true,
+      "unconditional_te_only": true,
+      "kernel_runtime_proven": false,
+      "queries": [
+        {
+          "source": "kernel",
+          "target": "overlay_remounter",
+          "nnp_transition": false,
+          "nosuid_transition": true
+        },
+        {
+          "source": "overlay_remounter",
+          "target": "init",
+          "nnp_transition": false,
+          "nosuid_transition": true
+        },
+        {
+          "source": "platform_app",
+          "target": "init",
+          "nnp_transition": false,
+          "nosuid_transition": false
+        }
+      ]
+    },
+    "hashes": {
+      "inspector": {
+        "path": "/srv/android/artifacts/lineage-23.2-arm64/policy-process2-20261023-01/inspect-policy-process2",
+        "sha256": "99433b494cbb0d7220ee3666f5ba2060cb0fbd91249df29725cc1400d56a29de"
+      },
+      "source": {
+        "path": "/srv/android/ports/lineage-23.2-arm64/lineage-23.2/tools/inspect-policy-process2.c",
+        "sha256": "a077623d840bf0bb9c7599b745c70286898ac1ee4b153af15328255c844a7ac4"
+      },
+      "libsepol": {
+        "path": "/srv/android/src/lineage-23.2-arm64/out/soong/.intermediates/external/selinux/libsepol/libsepol/linux_glibc_x86_64_static/libsepol.a",
+        "sha256": "525e9c1409c1575f5a5e2825427f1d52e533cdd99a2abc82307fb2c25c8f56e5"
+      },
+      "user_policy": {
+        "path": "/srv/android/artifacts/lineage-23.2-arm64/vendor-validation-20261020/policy-user-20261023-01/init-runtime-diagnostic.policy",
+        "sha256": "d4c8692028e6753f0fa08f74b845f796a53f863da648d8a3c82182b48dbfb3fb"
+      },
+      "userdebug_policy": {
+        "path": "/srv/android/artifacts/lineage-23.2-arm64/vendor-validation-20261020/policy-full-platform-03/init-runtime-diagnostic.policy",
+        "sha256": "83a85afdf4fb51db967084d22e1891ccc9ae57a2907b4aa48a5522dea97f1a0a"
+      }
+    },
+    "unconditional_te_not_full_avc_constraints_exec_authorization": true
+  },
+  "extracted_function_tests": {
+    "decision_cases": 16384,
+    "modern_oracle_decision_differences": 0,
+    "legacy_oracle_differences_reproduced": 936,
+    "load_helper_bitmap_combinations": 8192,
+    "passed_mac_and_linux_asan_ubsan_werror": true,
+    "actual_upstream_nnp_and_mount_helper_no_mount_expression_normalization": true,
+    "actual_old_our_mnt_check_mnt_compiled": true,
+    "mount_objects_avc_bounded_bitmap_nlmsg_are_fixtures": true,
+    "real_kernel_namespaces_avc_exec_policy_reload_concurrency_proven": false,
+    "first_host_failure": "reference/validation/nnp-transition-20261023/host-attempt01.log: original terminal sentinel missing-field-initializers",
+    "warning_not_disabled_only_fixture_zero_sentinel_unused_parameter_explicit": true
+  },
+  "kernel_build": {
+    "exit_code": 0,
+    "started_utc": "2026-10-23T17:52:08+00:00",
+    "finished_utc": "2026-10-23T17:54:53+00:00",
+    "evidence": {
+      "build_exit": 0,
+      "hashes": {
+        "config": {
+          "path": "/srv/android/artifacts/lineage-23.2-arm64/kernel-nnp-transition-build-20261023-02/kernel.config",
+          "sha256": "fac42e3bbf996bb9502bb1031c91b1950986ad3586d0f33cad869a6fd0b3acea"
+        },
+        "combined_tracked_patch": {
+          "path": "/srv/android/artifacts/lineage-23.2-arm64/kernel-nnp-transition-build-20261023-02/tracked-source.patch",
+          "sha256": "dac99b4ab2cfa912c3fb3c0e4e7083c2dc4a1ff5a8bde3d234325784194cd08f"
+        },
+        "baseline_touch": {
+          "path": "/srv/android/artifacts/lineage-23.2-arm64/kernel-nnp-transition-build-20261023-02/baseline-touch-complete.patch",
+          "sha256": "b36123955b7fc457c8df713dddcc371e68de92aa7709519c8778a6579d64a06c"
+        },
+        "patch_provenance": {
+          "path": "/srv/android/artifacts/lineage-23.2-arm64/kernel-nnp-transition-build-20261023-02/patch-provenance.json",
+          "sha256": "875ded2817fb5b039344fb016fbb54b8b03caf7fa98eb27219e13f2bc7dad5f3"
+        },
+        "vmlinux": {
+          "path": "/srv/android/ports/lineage-23.2-arm64/kernel-nnp-transition-20261023-02/out/vmlinux",
+          "sha256": "f825ad0c8dbe4f7d8acaccd0fea4e141a0619f011f94788076241ddbf47bf963"
+        }
+      },
+      "patches": [
+        {
+          "experiment": "qtaguid-persistent-20261022-02",
+          "lock_sha256": "5d12605f4eae9276cce9c67c68bdac47efa72a7e2aca04a3269e95fcc6ee3e4c",
+          "project": {
+            "path": "kernel/samsung/gta3xlwifi",
+            "revision": "669b9584e678ce5865ed38e04c24639082d78de1",
+            "patch": "kernel_samsung_gta3xlwifi.patch",
+            "sha256": "91a9a64dd42490a588cab8dc73a2fc834148ae1696e7600ec64b3dec66d9a93b",
+            "files": [
+              {
+                "path": "net/netfilter/xt_qtaguid.c",
+                "reference_sha256": "820c02d16ab777502ac784ae3e800a171c70db8cf665d13dfab1b41d3874f776",
+                "staged_sha256": "212e2e4c3d459293a3427d2f715fb1843fac521787a7817c1f2d455598b254f3"
+              },
+              {
+                "path": "net/netfilter/xt_qtaguid_internal.h",
+                "reference_sha256": "74dd8b5ede13d8c366ee5cce3c998584a3c72878a1327c05082eb086cb0259c5",
+                "staged_sha256": "68ba021c7f67fa8578df3e7199944bb15cb0317c5a43ecc16b88becf11debde5"
+              },
+              {
+                "path": "include/uapi/linux/netfilter/xt_qtaguid_sock.h",
+                "reference_sha256": null,
+                "staged_sha256": "9096f41f971a71018f49f155d3577204678e7298a0e44728e644361332f98387"
+              }
+            ],
+            "selected_file_git_replay_passed": true
+          }
+        },
+        {
+          "experiment": "kernel-policy-reader-20261023-01",
+          "lock_sha256": "d75a22c50f861c99497515564402e1260816f92327a5082a450202fc27bd6366",
+          "project": {
+            "path": "kernel/samsung/gta3xlwifi",
+            "revision": "669b9584e678ce5865ed38e04c24639082d78de1",
+            "patch": "kernel_samsung_gta3xlwifi.patch",
+            "sha256": "700847b98babb54bf9cf1bdb31e65c6a659e8766401d11a4d60ee12204bea7f6",
+            "files": [
+              {
+                "path": "security/selinux/ss/avtab.c",
+                "reference_sha256": "45f716fa189a7d209a5a27d78df691aa1025e66fa6ac0c74d9b6b5a5c7678df1",
+                "staged_sha256": "0e7cfb7d017944012bd7c1b241b37ea4859f14d35aa46d46e457862db3a660dc"
+              },
+              {
+                "path": "security/selinux/ss/avtab.h",
+                "reference_sha256": "1aa697528c2d10a8272c2c2e503c9f9805d0be392a0a90ccc554c5d59437fe89",
+                "staged_sha256": "f43803ad7360e4bcc8780d6289f8af3c7170dd111a847016f6ca34e88f497d85"
+              },
+              {
+                "path": "security/selinux/ss/policydb.c",
+                "reference_sha256": "663b48f177d85fd58366f1c167ea30c161aeabfcab4b445148b360fc109b0125",
+                "staged_sha256": "bfb0aa8718b86868ad043c83b6e1c0ea6c81954741723e3ef130ea26e76ffb90"
+              }
+            ],
+            "selected_file_git_replay_passed": true
+          }
+        },
+        {
+          "experiment": "kernel-nnp-transition-20261023-02",
+          "lock_sha256": "f21a03d83282ecb519bc5b9bcf3d98c22557e18b264e67592ce4cebc2f7f0fbb",
+          "project": {
+            "path": "kernel/samsung/gta3xlwifi",
+            "revision": "669b9584e678ce5865ed38e04c24639082d78de1",
+            "patch": "kernel_samsung_gta3xlwifi.patch",
+            "sha256": "8fa47c2db99eab18d228c973765d282096d96ca73024c839fafd3be734e46df4",
+            "files": [
+              {
+                "path": "security/selinux/hooks.c",
+                "reference_sha256": "d0767047a33a0fafffdfe8119a5a3bd68b30dd673d319c727b9775dc0ba0d64d",
+                "staged_sha256": "311796b0daf03bf510202c2d3bfb1bde33a99199b8d36004ce05c64bd2591b60"
+              },
+              {
+                "path": "security/selinux/include/classmap.h",
+                "reference_sha256": "ffe30eef4378308e33219b59e22f05b3238595d3d0b73c14e1f9ec18f181f1b1",
+                "staged_sha256": "ed7f864e3ba30aa0136e1b8ca11e4919c1ef02b125ac32977ef161aa90aa451d"
+              },
+              {
+                "path": "security/selinux/include/security.h",
+                "reference_sha256": "89be1df7e25b0ee24623030ff56792d569f1d1f658a47907b3311553b43bd96f",
+                "staged_sha256": "043ca98c8468ac1a5666b9ac3f1eb08da33e47eb0c9c7ed925752f101eeaf7be"
+              },
+              {
+                "path": "security/selinux/selinuxfs.c",
+                "reference_sha256": "fb7dd595ff29a3f6e2ab74c745fb1495a5acfcebe3c823dcd1f0a7884c40c2d4",
+                "staged_sha256": "017353d32644793724a48a0e1cc6412050dd718eb64ccf4abb03acc0f0c266da"
+              },
+              {
+                "path": "security/selinux/ss/services.c",
+                "reference_sha256": "b249fac1390640fd34166479d7b7c9fa12c9d9309a9241c876237e78a6d9f67c",
+                "staged_sha256": "48e4caff3b1a34c71820ed915428d9f918d3a782307e8f9f54bfb5ca5a164452"
+              }
+            ],
+            "selected_file_git_replay_passed": true
+          }
+        }
+      ]
+    },
+    "complete_baseline_touch_and_kernel_only_locked_qtaguid_reader_nnp_patches": true,
+    "independent_fresh_clone_output_no_hardlinks_or_alternates": true
+  },
+  "kernel_source_elf_image_link": {
+    "passed": true,
+    "checked_at_utc": "2026-10-23T17:55:25.549226+00:00",
+    "scope": "source/ELF/Image structural link only, not whole loader/kernel/AVC/runtime",
+    "live_namespace_policy_reload_exec_tested": false,
+    "security_approved": false,
+    "flash_ready": false,
+    "process2_kernel_class_id": 57,
+    "nnp_helper": "check_nnp_nosuid.isra.65",
+    "capability_address": "0xffffff80099c6cfc",
+    "capability_read_in_exec_helper": [
+      "ffffff80083b9410: b94cfc63     \tldr\tw3, [x3, #0xcfc]"
+    ],
+    "capability_store_on_load": [
+      "ffffff80083cac28: b9022e60     \tstr\tw0, [x19, #0x22c]"
+    ],
+    "namespace_avc_bounded_calls_present": true,
+    "explicit_and_auto_exec_calls_retained": true,
+    "source_lock_sha256": "f21a03d83282ecb519bc5b9bcf3d98c22557e18b264e67592ce4cebc2f7f0fbb",
+    "image_sha256": "88b9a98b42caa89f9848c7d44a89da58b23538b4ecb57c7d29ab9cd40ff9c4a5",
+    "image_bytes": 25411320,
+    "disassembly_sha256": "4dba1b52c225bc9ce4197c02db37406396714ec89cee49f89f546f460219b93d",
+    "owned_image_evidence": "owned-image-proof/report.json"
+  },
+  "retained_policy_reader_tests": {
+    "actual_record_cases": 25,
+    "passed": true,
+    "active_nlmsg_bit9_rejection_bitmap_combinations": 8192,
+    "whole_policy_loader_not_proven": true
+  },
+  "validation_cli_safety_tests": {
+    "count": 8,
+    "passed_mac_and_linux": true,
+    "successful_elf_not_fabricated": true
+  },
+  "capture_default_profile_original_13_file_two_patch_hashes_unchanged": true,
+  "upstream_mount_reference_lock": {
+    "revision": "e64d278d669fa423e1337ad06c6672336c13bea9",
+    "read_only_reference_not_resync": true,
+    "files": [
+      {
+        "path": "fs/namespace.c",
+        "url": "https://android.googlesource.com/kernel/common/+/e64d278d669fa423e1337ad06c6672336c13bea9/fs/namespace.c?format=TEXT",
+        "sha256": "ca1f76aa81143b8671322c9b7587a314c366fd7486b9708fb8740142b0bbaf64"
+      },
+      {
+        "path": "include/linux/user_namespace.h",
+        "url": "https://android.googlesource.com/kernel/common/+/e64d278d669fa423e1337ad06c6672336c13bea9/include/linux/user_namespace.h?format=TEXT",
+        "sha256": "4aa7d8fd93f3ee93da17b384820deaf27e7b77cd00796ed9d60bebdbc87aab72"
+      }
+    ]
+  },
+  "source_audit": {
+    "passed": true,
+    "checked_at_utc": "2026-10-23T17:55:47.685351+00:00",
+    "project_count": 1168,
+    "reviewed_patch_count": 13
+  },
+  "source_audit_report": "snapshots/bringup-20261021-06/port-audit-after-nnp-transition.json",
+  "rom_prebuilt_kernel_still_original_sha256": "33c1a0d1b9e2696decd53fbedfc2231385b74464f4058a54b93ff06ff7c72553",
+  "preserved_sources_outputs_vendor_dtbo_twrp_keys_userdata_modified": false,
+  "applied_to_android_top_or_prebuilt": false,
+  "security_approved": false,
+  "flash_ready_rom": false,
+  "remaining_limits": [
+    "Strict original user policy still fails 281; complete archived userdebug 367; separate metadata experiment 279",
+    "Whole-policy loading and all other enabled modern kernel policycaps, especially extended socket classes and functionfs, unvalidated",
+    "Real mount/FD namespace transitions, AVC/exec/reload races and qtaguid lifetime/concurrency untested",
+    "Full authoritative networking packet owner/transaction/readback/restart/permission/budget/quota/CLAT/Java integration incomplete",
+    "HAL/APEX/Bionic/ART/Binder/graphics/TEE/FBE/recovery/non-AB OTA/signing/install validation and approved hardware backup/rollback tests remain"
+  ],
+  "tool_sha256": {
+    "test-kernel-nnp-transition.py": "e09210cb09bb8e74cc9fa8f75960a85521c094c568b189de1364518b74ba6bc0",
+    "inspect-policy-process2.c": "a077623d840bf0bb9c7599b745c70286898ac1ee4b153af15328255c844a7ac4",
+    "check-nnp-transition-kernel.py": "0147e11f17d0d90307494e8d3e7b98a36427908f74b712879ccc89f9fc769675",
+    "test-nnp-kernel-cli.py": "93dbe1c48cc4958ab6db9e9a80883a973f71d2b3272229382511ac3a61a23f2c",
+    "capture-network-experiment.py": "fdb4a464466379db54897396587eef220295537e8488f5a607f263c8a619fc64"
+  },
+  "build_runner_sha256": "838e620b4c3753b223e13033f9373128ac8a87310250ceef7b26751181881ac2"
+}

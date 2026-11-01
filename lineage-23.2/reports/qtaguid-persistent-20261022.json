@@ -1,0 +1,193 @@
+{
+  "date_utc": "2026-10-22",
+  "status": "ISOLATED_SOCKET_OWNED_KERNEL_AND_TRANSPORT_NOT_A_FLASH_READY_ROM",
+  "active_snapshot": "bringup-20261021-06",
+  "experiment": "experiments/qtaguid-persistent-20261022-02",
+  "applied_to_android_top": false,
+  "installed_on_tablet": false,
+  "projects": [
+    {
+      "path": "system/netd",
+      "revision": "796eaca5ab9dfdd87751c51bb71fa3f26c87d034",
+      "patch": "system_netd.patch",
+      "sha256": "251d3636f1c432068efd31595202b75a627dc8b7e644d3762a95d846c4933b3d",
+      "files": [
+        {
+          "path": "server/Gta3xlwifiQtaguidTransport.cpp",
+          "reference_sha256": null,
+          "staged_sha256": "2884ebf90f8e3cc2fd1b90099e6ea7711e7ef473a480f0d6c1d57cf3596337b0"
+        },
+        {
+          "path": "server/Gta3xlwifiQtaguidTransport.h",
+          "reference_sha256": null,
+          "staged_sha256": "e7f8e0e0bc7a10525ee8eb5aa3e5a4ed0a078ff64777dde99663dc334111ad77"
+        },
+        {
+          "path": "server/Gta3xlwifiQtaguidProtocol.h",
+          "reference_sha256": null,
+          "staged_sha256": "9096f41f971a71018f49f155d3577204678e7298a0e44728e644361332f98387"
+        }
+      ],
+      "selected_file_git_replay_passed": true
+    },
+    {
+      "path": "kernel/samsung/gta3xlwifi",
+      "revision": "669b9584e678ce5865ed38e04c24639082d78de1",
+      "patch": "kernel_samsung_gta3xlwifi.patch",
+      "sha256": "91a9a64dd42490a588cab8dc73a2fc834148ae1696e7600ec64b3dec66d9a93b",
+      "files": [
+        {
+          "path": "net/netfilter/xt_qtaguid.c",
+          "reference_sha256": "820c02d16ab777502ac784ae3e800a171c70db8cf665d13dfab1b41d3874f776",
+          "staged_sha256": "212e2e4c3d459293a3427d2f715fb1843fac521787a7817c1f2d455598b254f3"
+        },
+        {
+          "path": "net/netfilter/xt_qtaguid_internal.h",
+          "reference_sha256": "74dd8b5ede13d8c366ee5cce3c998584a3c72878a1327c05082eb086cb0259c5",
+          "staged_sha256": "68ba021c7f67fa8578df3e7199944bb15cb0317c5a43ecc16b88becf11debde5"
+        },
+        {
+          "path": "include/uapi/linux/netfilter/xt_qtaguid_sock.h",
+          "reference_sha256": null,
+          "staged_sha256": "9096f41f971a71018f49f155d3577204678e7298a0e44728e644361332f98387"
+        }
+      ],
+      "selected_file_git_replay_passed": true
+    }
+  ],
+  "private_abi": {
+    "command": "0x7151 (_IO(q,0x51))",
+    "has_user_pointer_or_sized_argument": false,
+    "native_and_compat_use_same_handler": true,
+    "kernel_netd_protocol_headers_byte_identical": true,
+    "requires_global_root_and_cap_net_admin": true,
+    "requires_own_empty_session_and_nonpassive_driver": true,
+    "ordinary_legacy_behavior_unchanged_by_default": true,
+    "inet_only_socket_owned_creation_and_promotion": true,
+    "ack_required_no_old_kernel_fallback": true
+  },
+  "kernel_host_fixtures": {
+    "passed": true,
+    "assertions": 45953,
+    "extracted_production_functions": 23,
+    "sanitizers": [
+      "AddressSanitizer",
+      "UndefinedBehaviorSanitizer"
+    ],
+    "cases": [
+      "legacy session cleanup",
+      "root/capability/argument/owner/passive/list gates",
+      "session exit and PID reuse preserve socket-owned tags",
+      "shared references",
+      "cross-UID/same-tag retag",
+      "privileged promotion and no downgrade",
+      "unsupported family rejection preserves old tag",
+      "2048 reference-retirement churn cycles"
+    ],
+    "actual_kernel_execution": false,
+    "kernel_primitives_credentials_locks_trees_are_fixtures": true,
+    "vm_log": "/srv/android/logs/lineage-23.2-arm64/kernel-qtaguid-owned-host-04.log"
+  },
+  "transport_host_fixtures": {
+    "passed": true,
+    "assertions": 1825,
+    "asan_ubsan": true,
+    "real_host_ipv4_ipv6_tcp_udp_and_fd_reuse": true,
+    "actual_driver_io": false,
+    "ioctl_proc_sysfs_are_fixtures": true,
+    "vm_log": "/srv/android/logs/lineage-23.2-arm64/qtaguid-owned-transport-host-01.log"
+  },
+  "transport_actual_android_preflight": {
+    "passed": true,
+    "objects": 1,
+    "linked_netd": false,
+    "variant": "android_arm64_armv8-a_static_cfi",
+    "vm_directory": "/srv/android/artifacts/lineage-23.2-arm64/qtaguid-owned-preflight-20261022-01"
+  },
+  "kernel_full_source_build": {
+    "passed": true,
+    "label": "kernel-socket-owned-03",
+    "exit": 0,
+    "finished_at_utc": "2026-10-22T21:13:05Z",
+    "provenance": {
+      "source_revision": "efbdbfa3e216b0c300d381c340b0a22b24e15c13",
+      "kernel_config_sha256": "fac42e3bbf996bb9502bb1031c91b1950986ad3586d0f33cad869a6fd0b3acea",
+      "image_sha256": "a902b92f618885b690c27cf867cab2c7c5f3cf910852c697b805032cce0bc597",
+      "image_bytes": 25410936,
+      "complete_touch_patch_sha256": "b36123955b7fc457c8df713dddcc371e68de92aa7709519c8778a6579d64a06c",
+      "kernel_source": "/srv/android/ports/lineage-23.2-arm64/kernel-socket-owned-20261022-01/src3",
+      "kernel_output": "/srv/android/ports/lineage-23.2-arm64/kernel-socket-owned-20261022-01/out3",
+      "input_hashes": "b163b0b9de5f2b4a59bec9348a87578bf7e865572f392d79bf5c5e21fbec4cae  /srv/android/ports/lineage-23.2-arm64/kernel-socket-owned-20261022-01/out3/init/uh.elf\n3793478b6df52fe760a89cbcfb258a9c489365ee2d13d9dae8df2f161abadb61  /srv/android/ports/lineage-23.2-arm64/kernel-socket-owned-20261022-01/out3/firmware/exynos7885_acpm_fvp.fw\nfac42e3bbf996bb9502bb1031c91b1950986ad3586d0f33cad869a6fd0b3acea  /srv/android/ports/lineage-23.2-arm64/kernel-socket-owned-20261022-01/out3/.config\ncd25fd47ffea657e9e19f94cab444417051ed917644bb5206e9d2c23d6d124ca  /srv/android/artifacts/kernel-dt2w/kernel-double-tap-wake.patch\nb36123955b7fc457c8df713dddcc371e68de92aa7709519c8778a6579d64a06c  /srv/android/ports/lineage-23.2-arm64/kernel-socket-owned-20261022-01/baseline-touch-complete-03.patch\n212e2e4c3d459293a3427d2f715fb1843fac521787a7817c1f2d455598b254f3  /srv/android/ports/lineage-23.2-arm64/kernel-socket-owned-20261022-01/src3/net/netfilter/xt_qtaguid.c\n68ba021c7f67fa8578df3e7199944bb15cb0317c5a43ecc16b88becf11debde5  /srv/android/ports/lineage-23.2-arm64/kernel-socket-owned-20261022-01/src3/net/netfilter/xt_qtaguid_internal.h\n9096f41f971a71018f49f155d3577204678e7298a0e44728e644361332f98387  /srv/android/ports/lineage-23.2-arm64/kernel-socket-owned-20261022-01/src3/include/uapi/linux/netfilter/xt_qtaguid_sock.h\n",
+      "tracked_source_patch_sha256": "b55e4d2e5cebc47bba48612f2d149b8a661b809626851a333c99e08a5bcaecf9"
+    },
+    "old_config_unchanged": true,
+    "independent_clone_no_external_alternates": true,
+    "preserved_source_outputs_prebuilt_modified": false,
+    "vm_directory": "/srv/android/artifacts/lineage-23.2-arm64/kernel-socket-owned-20261022-03",
+    "earlier_success_retained": "kernel-socket-owned-02, 21:00:22 UTC; final revision adds kernel-side family guard",
+    "initial_failure_retained": "01 stopped before make: archived touch-only patch lacked additional existing input_set_enabled prerequisites; retry captures complete read-only allowlisted four-file baseline delta and byte-compares all inputs"
+  },
+  "kernel_binary_validation": {
+    "passed": true,
+    "started_at_utc": "2026-10-22T21:13:52.604384+00:00",
+    "scope": "source/protocol/ELF/link proof only, not kernel execution",
+    "physical_lifecycle_tested": false,
+    "flash_approved": false,
+    "source_revision": "efbdbfa3e216b0c300d381c340b0a22b24e15c13",
+    "source_sha256": {
+      "net/netfilter/xt_qtaguid.c": "212e2e4c3d459293a3427d2f715fb1843fac521787a7817c1f2d455598b254f3",
+      "net/netfilter/xt_qtaguid_internal.h": "68ba021c7f67fa8578df3e7199944bb15cb0317c5a43ecc16b88becf11debde5",
+      "include/uapi/linux/netfilter/xt_qtaguid_sock.h": "9096f41f971a71018f49f155d3577204678e7298a0e44728e644361332f98387"
+    },
+    "kernel_config_sha256": "fac42e3bbf996bb9502bb1031c91b1950986ad3586d0f33cad869a6fd0b3acea",
+    "vmlinux_sha256": "c4e39ae3ce280103b5e9e29f8d100313a655c9d3d7b920b9048c77ac63279529",
+    "image_sha256": "a902b92f618885b690c27cf867cab2c7c5f3cf910852c697b805032cce0bc597",
+    "reconstructed_image_sha256": "a902b92f618885b690c27cf867cab2c7c5f3cf910852c697b805032cce0bc597",
+    "fops": {
+      "ioctl_address": "0xffffff8008af678c",
+      "fops_address": "0xffffff8008da6a70",
+      "ioctl_pointer_offsets": [
+        64,
+        72
+      ]
+    },
+    "disassembly_sha256": "0cdae341881fa965bc7a184486cbc741f417f7ccd038ed64779db5ffb500806f",
+    "native_compat_ioctl_linked": true,
+    "private_command_and_capability_gate_linked": true,
+    "existing_release_hooks_retained": true,
+    "image_bytes": 25410936,
+    "finished_at_utc": "2026-10-22T21:13:53.687131+00:00"
+  },
+  "kernel_checker_cli_safety_cases": 7,
+  "kernel_checker_cli_test": "tools/test-qtaguid-lifetime.py --owned",
+  "read_only_exact_bases_apply_checks_passed": true,
+  "post_source_audit": {
+    "passed": true,
+    "checked_at_utc": "2026-10-22T21:14:13.957755+00:00",
+    "project_count": 1168,
+    "reviewed_patch_count": 13
+  },
+  "source_audit_evidence": "snapshots/bringup-20261021-06/port-audit-after-socket-owned-kernel.json",
+  "important_limits": [
+    "New Image is isolated diagnostic output, NOT in complete ROM or approved for flashing",
+    "Kernel fixture/ELF evidence is NOT actual driver concurrency, lifecycle, UID-removal, accounting or hardware execution",
+    "Existing inet hook is socket-file release, not proof of identical modern BPF destruction/queued-packet timing",
+    "Live owner/UPDATE_DEVICE_STATS/CLAT authorization and real accounting-row budgets are still absent; raw interface must not be exposed directly",
+    "Other firewall/permission state restart recovery, 12-chain packet engine, LNA/VPN/interface, quota/CLAT, Java/API and real loader integration remain missing",
+    "Exact ioctl/sysfs SELinux access unproven, strict vendor policy still fails; runtime/HAL/FBE/recovery/OTA/signing unapproved"
+  ],
+  "strict_vendor_policy_known_diagnostics": 367,
+  "complete_network_backend_ready": false,
+  "physical_restart_safety_validated": false,
+  "flash_ready_rom": false,
+  "tablet_lineage21_twrp_owner_keys_userdata_modified": false,
+  "tool_sha256": {
+    "test-kernel-qtaguid-socket-owned.py": "59516300b405af46c972b264353c3766b5c18cf882b04ac8ba9db6f70f436459",
+    "test-qtaguid-transport.py": "eaf0de80a89b4ab6073346740a4552ca54614bc2061e18b84f84c39cbb4f7a10",
+    "check-socket-owned-kernel.py": "36f60998eca8116ebb7c25819d7879e5b19165f81bf0772e1e0c576faf0cf790",
+    "test-qtaguid-lifetime.py": "9452aee654682e03fb96b938d57711702fce12c379049d3239e2b26e5e7a4693",
+    "compile-network-staging.py": "24002bc86d46013003a015e2a32544a8a7942e858cb6fa5e9c93335367528fb5",
+    "capture-network-experiment.py": "e29c3df7bc40bc099b1ce7f911c04f532e6118d3e1c2c38bff84319a448118e7"
+  },
+  "build_script_sha256": "79438afb0007ec114f515026e354993acc43cf41a94dd431390fbfb75ed0524b"
+}

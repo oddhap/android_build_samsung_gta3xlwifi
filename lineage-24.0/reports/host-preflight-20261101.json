@@ -1,0 +1,12 @@
+{
+  "scope": "partial revision-bound Android 17 upstream files",
+  "patch_changes": 14,
+  "device_committed_separately": true,
+  "platform_patches": 13,
+  "reverse_apply_checks": "pass",
+  "legacy_processgroups_host": "PASS: 10 cleanup scenarios, 4 v1/v2 path assertions (macOS)",
+  "full_checkout_audit": "pending server sync",
+  "android_compilation": false,
+  "hardware_tested": false,
+  "flash_ready": false
+}

@@ -1,0 +1,227 @@
+{
+  "checked_at_utc": "2026-10-20T18:42:43.532380+00:00",
+  "inputs": [
+    {
+      "path": "/srv/android/src/lineage-23.2-arm64/device/samsung/gta3xlwifi/prebuilt/vendor.img",
+      "sha256": "276777b5bde1dac2f31dbe9299c79e02c07486df6ff7b2ecad03cc722edee939"
+    },
+    {
+      "path": "/srv/android/artifacts/lineage-23.2-arm64/vendor-validation-20261020/vendor.raw.img",
+      "sha256": "4c320e8bfd9db294e4027acae204a8276c8f06d0e522654f668e38550eded7b9"
+    },
+    {
+      "path": "/srv/android/artifacts/kernel-dt2w/kernel.config",
+      "sha256": "fac42e3bbf996bb9502bb1031c91b1950986ad3586d0f33cad869a6fd0b3acea"
+    }
+  ],
+  "extraction": "simg2img, then read-only debugfs rdump; no mounts or device access",
+  "metadata": [
+    {
+      "path": "etc/selinux/plat_pub_versioned.cil",
+      "sha256": "4dd55346c46e6d374c5fee79e1caeb1f971a4dc048cd96bedadfb676e0ec11c4",
+      "matches_staged_stock_metadata": true
+    },
+    {
+      "path": "etc/selinux/plat_sepolicy_vers.txt",
+      "sha256": "166983be04e2ab397fc7a70bb60a516b1cfd42a5ec6dd356df01ae63a8500ec0",
+      "matches_staged_stock_metadata": true
+    },
+    {
+      "path": "etc/selinux/precompiled_sepolicy",
+      "sha256": "4faeb862e0c83b9bbc6d615792ae93b6ed608c241cebacf4ec167bb8780aeb1b",
+      "matches_staged_stock_metadata": true
+    },
+    {
+      "path": "etc/selinux/precompiled_sepolicy.plat_sepolicy_and_mapping.sha256",
+      "sha256": "3da85c5ff09242d66570df91511a5ac0992c7955a2d002e4d790df47e6e0dcb6",
+      "matches_staged_stock_metadata": true
+    },
+    {
+      "path": "etc/selinux/precompiled_sepolicy.product_sepolicy_and_mapping.sha256",
+      "sha256": "38acb15d02d5ac0f2a2789602e9df950c380d2799b4bdb59394e4eeabdd3a662",
+      "matches_staged_stock_metadata": true
+    },
+    {
+      "path": "etc/selinux/precompiled_sepolicy.system_ext_sepolicy_and_mapping.sha256",
+      "sha256": "0a96e90f4473837b3671c0746245f24a8f562d86eb87c4341d51d973cd5b9090",
+      "matches_staged_stock_metadata": true
+    },
+    {
+      "path": "etc/selinux/product_sepolicy_and_mapping.sha256",
+      "sha256": "38acb15d02d5ac0f2a2789602e9df950c380d2799b4bdb59394e4eeabdd3a662",
+      "matches_staged_stock_metadata": true
+    },
+    {
+      "path": "etc/selinux/selinux_denial_metadata",
+      "sha256": "72010b6d7567d6ffeb92d950dc21b6bc09fa4ed4f19ee0b0edcd0583e31b1820",
+      "matches_staged_stock_metadata": true
+    },
+    {
+      "path": "etc/selinux/sk/authorize.xml",
+      "sha256": "51961d5f5289d91175e4e13d4e742cbbbf4c59473018d5e663019a928c8a65ce",
+      "matches_staged_stock_metadata": true
+    },
+    {
+      "path": "etc/selinux/vendor_file_contexts",
+      "sha256": "0dcf14fc0299035adbffd2a6cba5221843ca7c47c84748ac42f5d245fd2f2065",
+      "matches_staged_stock_metadata": true
+    },
+    {
+      "path": "etc/selinux/vendor_hwservice_contexts",
+      "sha256": "49c313c04575e51a76e6e0e8e2b32e39010033f3ab7e836ed5fc8d053defdf9c",
+      "matches_staged_stock_metadata": true
+    },
+    {
+      "path": "etc/selinux/vendor_mac_permissions.xml",
+      "sha256": "9b28cd6b9f5e3ca17642c467e0cbe14c9f54018dd4a16e2807a6da78628fa2c2",
+      "matches_staged_stock_metadata": true
+    },
+    {
+      "path": "etc/selinux/vendor_property_contexts",
+      "sha256": "8379234e5ee1ffb7548eed1b49fb2545a20b055240ef3308729c9e57d3d1b17d",
+      "matches_staged_stock_metadata": true
+    },
+    {
+      "path": "etc/selinux/vendor_seapp_contexts",
+      "sha256": "09723917f8fd99101e876158075cdee7592406f22e8ef5f946d161e73f7e375b",
+      "matches_staged_stock_metadata": true
+    },
+    {
+      "path": "etc/selinux/vendor_sepolicy.cil",
+      "sha256": "8df663eb65a807e6ee99f8b2384cb52d34c994a25087410486b1f88e278e2e53",
+      "matches_staged_stock_metadata": true
+    },
+    {
+      "path": "etc/selinux/vendor_sepolicy_version",
+      "sha256": "4afcd1ff7c45ef441c62133ef8094c52dd42696c6da4562d03cf08868e9006ec",
+      "matches_staged_stock_metadata": true
+    },
+    {
+      "path": "etc/selinux/vendor_service_contexts",
+      "sha256": "4d9b9bb9b8fa2534a45c3ad006117b4db9be2c8704e34fe2090ce447ccc5699c",
+      "matches_staged_stock_metadata": true
+    },
+    {
+      "path": "etc/selinux/vndservice_contexts",
+      "sha256": "94b336be8f83c49349fea3f22bc5b99f73ce726de79ded31bbeee04d9690708f",
+      "matches_staged_stock_metadata": true
+    },
+    {
+      "path": "etc/vintf/compatibility_matrix.xml",
+      "sha256": "4a22ea99cc597fcdb4fa55df1bb9390195c2cb642dde14129fe0b09faf5cf374",
+      "matches_staged_stock_metadata": true
+    },
+    {
+      "path": "etc/vintf/manifest/android.hardware.cas@1.2-service.xml",
+      "sha256": "9357fb5a7b17fe81638ec82f79d06007bb35c19016e676104fa55449b5f0f0d2",
+      "matches_staged_stock_metadata": true
+    },
+    {
+      "path": "etc/vintf/manifest/android.hardware.dumpstate@1.1-service-lazy.xml",
+      "sha256": "388b9e7b24adf678fccf59dacc79b948093688bc34c40124c2563c2c3809747d",
+      "matches_staged_stock_metadata": true
+    },
+    {
+      "path": "etc/vintf/manifest/android.hardware.health@2.1-samsung.xml",
+      "sha256": "2ad8126c3afd2d52ac9d7e022e3d7716d17e03178bc11d1f7ad7a0aa585b5c28",
+      "matches_staged_stock_metadata": true
+    },
+    {
+      "path": "etc/vintf/manifest/android.hardware.wifi.hostapd.xml",
+      "sha256": "d42266c7638aacf0918164dff0ed50df0a8d50d3085a6d03dc2127718fc86f17",
+      "matches_staged_stock_metadata": true
+    },
+    {
+      "path": "etc/vintf/manifest/android.hardware.wifi@1.0-service.xml",
+      "sha256": "5b785b5e6f63baab071ca757ec3e5bf0ee7a877186c17e2b36ce5bc63112756e",
+      "matches_staged_stock_metadata": true
+    },
+    {
+      "path": "etc/vintf/manifest/engmode_manifest.xml",
+      "sha256": "29fd4d47a7e04224b708d95eb046118001e407aaa700978add8eb460d897b3e5",
+      "matches_staged_stock_metadata": true
+    },
+    {
+      "path": "etc/vintf/manifest/hyper-default-sec.xml",
+      "sha256": "bc7ab5cdae05b9a81b1d6e5466ec216e388cefe86822e4deec83e2d0de53ccb3",
+      "matches_staged_stock_metadata": true
+    },
+    {
+      "path": "etc/vintf/manifest/lights-default-sec.xml",
+      "sha256": "570ac710477a2e70c8c983e4eea18ddd398907af0502ac95557f4293e9f85cc9",
+      "matches_staged_stock_metadata": true
+    },
+    {
+      "path": "etc/vintf/manifest/manifest.xml",
+      "sha256": "e39163b460c1cc9eb4a245cf1083d62ecc777d8ae58daaff51ddaaea5c211a7e",
+      "matches_staged_stock_metadata": true
+    },
+    {
+      "path": "etc/vintf/manifest/manifest_android.hardware.drm@1.3-service.clearkey.xml",
+      "sha256": "4b9a9214df27df7f546dcd7b27efac3803f8d172548671c8d94903ef1d804aef",
+      "matches_staged_stock_metadata": true
+    },
+    {
+      "path": "etc/vintf/manifest/manifest_android.hardware.drm@1.3-service.widevine.xml",
+      "sha256": "61cee1f6a061cf5348ca82f5326bd09cedda6bf2eea016c9ad3374f2cd03df7a",
+      "matches_staged_stock_metadata": true
+    },
+    {
+      "path": "etc/vintf/manifest/power-samsung.xml",
+      "sha256": "faef8be2fdef7c56908853ee8256e5052d8e2f617351f0c306a5bfc365ab5892",
+      "matches_staged_stock_metadata": true
+    },
+    {
+      "path": "etc/vintf/manifest/sec_c2_manifest_default.xml",
+      "sha256": "81fc4e0018250141678c6f9c4ffd159c16cd80873f2bf066bc734bc1515a3b1b",
+      "matches_staged_stock_metadata": true
+    },
+    {
+      "path": "etc/vintf/manifest/vaultkeeper_manifest.xml",
+      "sha256": "a1afd66714d0dc4c5083a2a4f33d2ae7f1dde9d56adbd4c4c8b563143f709a52",
+      "matches_staged_stock_metadata": true
+    },
+    {
+      "path": "etc/vintf/manifest/vendor.samsung.hardware.hqm@1.0-manifest.xml",
+      "sha256": "963dd41e15b0c5b3ec8cac45abe2a9c845dff83eda529a2b77e8594c1d3008c2",
+      "matches_staged_stock_metadata": true
+    },
+    {
+      "path": "etc/vintf/manifest/vendor.samsung.hardware.thermal@1.0-manifest.xml",
+      "sha256": "3f5b1c78f8a06eb25ae5b4e873a010802ec8bd6546091095c5fdee22b45e1566",
+      "matches_staged_stock_metadata": true
+    },
+    {
+      "path": "etc/vintf/manifest/vendor.samsung.hardware.tlc.atn@1.0-manifest.xml",
+      "sha256": "30aa3eaf547c78707509cedc6fbe487dafc8d39435868db91356e6e8e5f290ea",
+      "matches_staged_stock_metadata": true
+    },
+    {
+      "path": "etc/vintf/manifest/vendor.samsung.hardware.tlc.iccc@1.0-manifest.xml",
+      "sha256": "36ff251646f672e18f55d740f669c88394f466c1c457ea4052047112f361c0cb",
+      "matches_staged_stock_metadata": true
+    },
+    {
+      "path": "etc/vintf/manifest/vendor.samsung.hardware.tlc.tima@1.0-manifest.xml",
+      "sha256": "1266ba34c026d2edc88e62d454eea3ca9f44cde796164174ddebbbd16b1da570",
+      "matches_staged_stock_metadata": true
+    },
+    {
+      "path": "etc/vintf/manifest/vendor.samsung.hardware.wifi.hostapd.xml",
+      "sha256": "39a43b18dc72af926510af3ef013d57ea7dbad4557a0476a6c06250cba274c72",
+      "matches_staged_stock_metadata": true
+    },
+    {
+      "path": "etc/vintf/manifest/vendor.samsung.hardware.wifi@2.0-service.xml",
+      "sha256": "7eeb437e701556615cc228784f3c2e101983ed9abacf0a19255418f659643c63",
+      "matches_staged_stock_metadata": true
+    },
+    {
+      "path": "etc/vintf/manifest.xml",
+      "sha256": "8c5ceef0b5b03b7a3d6a9b0bad0ff1f2b3880cf58a925253ec77d84e21765ff2",
+      "matches_staged_stock_metadata": true
+    }
+  ],
+  "metadata_files": 41,
+  "all_metadata_matches_staged_stock_copy": true
+}

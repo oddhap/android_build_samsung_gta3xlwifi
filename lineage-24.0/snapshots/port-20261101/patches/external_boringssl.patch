@@ -1,0 +1,13 @@
+diff --git a/Android.bp b/Android.bp
+index 2f7a86c..f113e97 100644
+--- a/Android.bp
++++ b/Android.bp
+@@ -354,6 +354,8 @@ cc_library_static {
+         "//art/tools/hiddenapi",
+         "//bootable/recovery/updater",
+         "//bootable/deprecated-ota/updater",
++        // Static hash-only helper; does not replace FIPS crypto in Android.
++        "//device/samsung/gta3xlwifi/recovery-header-sync",
+         "//external/conscrypt",
+         "//external/python/cpython2",
+         "//external/rust/android-crates-io/crates/quiche",

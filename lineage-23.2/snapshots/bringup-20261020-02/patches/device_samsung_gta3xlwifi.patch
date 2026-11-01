@@ -1,0 +1,29 @@
+diff --git a/AndroidProducts.mk b/AndroidProducts.mk
+index 17e4583..e5dafea 100644
+--- a/AndroidProducts.mk
++++ b/AndroidProducts.mk
+@@ -1,3 +1,4 @@
+ # SPDX-License-Identifier: Apache-2.0
+ PRODUCT_MAKEFILES := $(LOCAL_DIR)/lineage_gta3xlwifi.mk
+-COMMON_LUNCH_CHOICES := lineage_gta3xlwifi-userdebug
++# Android 16's aosp_current release alias resolves to bp4a in this source lock.
++COMMON_LUNCH_CHOICES := lineage_gta3xlwifi-bp4a-userdebug
+diff --git a/configs/cgroups.gta3xlwifi.json b/configs/cgroups.gta3xlwifi.json
+index be320d2..365dc6b 100644
+--- a/configs/cgroups.gta3xlwifi.json
++++ b/configs/cgroups.gta3xlwifi.json
+@@ -6,6 +6,14 @@
+       "Mode": "0775",
+       "UID": "system",
+       "GID": "system"
++    },
++    {
++      "Controller": "memory",
++      "Path": "/dev/memcg",
++      "Mode": "0700",
++      "UID": "root",
++      "GID": "system",
++      "Optional": true
+     }
+   ]
+ }

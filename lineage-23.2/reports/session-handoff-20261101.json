@@ -1,0 +1,59 @@
+{
+  "purpose": "Session restart handoff; read-only current status, NOT a new build/source audit/runtime approval",
+  "remote_status_checked_utc": "2026-11-01T08:28:25+00:00",
+  "last_code_build_work_date": "2026-10-23",
+  "current_jobs_observed": [],
+  "storage_gib_approx": {
+    "total": 984,
+    "used": 626,
+    "available": 310
+  },
+  "active_snapshot": "bringup-20261021-06",
+  "last_full_source_audit": {
+    "passed": true,
+    "checked_at_utc": "2026-10-23T18:15:39.252464+00:00",
+    "project_count": 1168,
+    "reviewed_patch_count": 13
+  },
+  "new_full_source_audit_run": false,
+  "device_contacted_or_modified": false,
+  "build_exit_markers_rechecked": {
+    "full-platform-03": 0,
+    "policy-user-20261023-01": 0,
+    "kernel-policy-reader-build-20261023-01": 0,
+    "kernel-nnp-transition-build-20261023-02": 0,
+    "kernel-functionfs-build-20261023-01": 0
+  },
+  "current_original_prebuilt_sha256": {
+    "Image": "33c1a0d1b9e2696decd53fbedfc2231385b74464f4058a54b93ff06ff7c72553",
+    "dtbo.img": "b9041c37713a745290d9a0203423436b6caa7a1307ced79b6963b4f1f0271c4b",
+    "vendor.img": "276777b5bde1dac2f31dbe9299c79e02c07486df6ff7b2ecad03cc722edee939"
+  },
+  "local_remote_existing_evidence_hashes_matched": {
+    "reports/kernel-functionfs-20261023.json": "ff701d69652de98a17b6cbde53d982eec0cab83f36f93e9577a2f8e376a9d278",
+    "snapshots/bringup-20261021-06/port-audit-after-functionfs.json": "cf934bee5c80898d56576a7c35de694ddf83aa3342e5a571fcb3eb3d2a126e43",
+    "experiments/kernel-functionfs-20261023-01/staging-lock.json": "88e6510bf811f32eee2dff7e55c27ab5786509bf2df83c783158fb5c934ae12b"
+  },
+  "artifact_existence_and_sizes_rechecked_not_new_crc_or_hash": {
+    "/srv/android/artifacts/lineage-23.2-arm64/kernel-functionfs-build-20261023-01/Image": 25411320,
+    "/srv/android/artifacts/lineage-23.2-arm64/diagnostic-full-platform-03/lineage_gta3xlwifi-target_files.zip": 2243385767
+  },
+  "handoff": {
+    "path": "/Users/oddi/Documents/Samsung-ARM64/HANDOFF_LINEAGE_23_2.md",
+    "sha256": "11ab550c3437c6f8b79baeeb3f8d28e611dc8eb4028625a95579e601fd18d5b7"
+  },
+  "local_git_status": {
+    "preserved_device_clean": true,
+    "integration": "?? lineage-23.2/"
+  },
+  "flash_ready": false,
+  "hardware_flash_reset_or_destructive_approval": false,
+  "recommended_next": "Scoped extended_socket_class bit2 semantic/active-config/protocol-hook investigation outside TOP, not merely rename redhat1; alternatively real Netd owner or strict policy blockers",
+  "restart_rules": [
+    "No automatic sync or version change; snapshot06 remains locked",
+    "Do not rerun used hardcoded fresh-path build runners",
+    "Combined FunctionFS patch replaces NNP-only; do not stack both",
+    "Preserve original images/21/TWRP/keys/data, no physical experiments without new concrete approval",
+    "Fixtures/link/packaging are not actual runtime/enforcement/flash readiness"
+  ]
+}

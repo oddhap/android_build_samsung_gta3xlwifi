@@ -1,0 +1,26 @@
+{
+  "status": "EXPERIMENTAL_NOT_APPLIED_NOT_TEST_ROM",
+  "active_snapshot": "bringup-20261021-06",
+  "profile": "qtaguid-socket",
+  "projects": [
+    {
+      "path": "system/netd",
+      "revision": "796eaca5ab9dfdd87751c51bb71fa3f26c87d034",
+      "patch": "system_netd.patch",
+      "sha256": "7a9e442e1f99b5e190e4f6d31f1d6f0c944ac0b83473487d151753597ced85de",
+      "files": [
+        {
+          "path": "server/Gta3xlwifiQtaguidTransport.cpp",
+          "reference_sha256": null,
+          "staged_sha256": "401b7218af06f3a4657204773b74039cc8a04729549ff8a2484fa26e8fab010e"
+        },
+        {
+          "path": "server/Gta3xlwifiQtaguidTransport.h",
+          "reference_sha256": null,
+          "staged_sha256": "28b6d669d2d10ca78c5ca5222930fac993119ec0da5ecbb6cdfbda60e150a418"
+        }
+      ],
+      "selected_file_git_replay_passed": true
+    }
+  ]
+}

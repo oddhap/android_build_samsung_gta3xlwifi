@@ -1,0 +1,175 @@
+{
+  "observed_date_utc": "2026-10-21",
+  "status": "ISOLATED_UID_POLICY_AND_DNS_LINK_NOT_A_COMPLETE_BACKEND",
+  "active_snapshot": "bringup-20261021-06",
+  "included_in_full_platform_03": false,
+  "experiment": "experiments/uid-policy-20261021-01",
+  "projects": [
+    {
+      "path": "system/netd",
+      "revision": "796eaca5ab9dfdd87751c51bb71fa3f26c87d034",
+      "patch": "system_netd.patch",
+      "sha256": "3a416b933f315e2fe521ca7f8810b318cce204d93d8c085d29a6b9a76777b498",
+      "files": [
+        {
+          "path": "server/Gta3xlwifiUidPolicy.cpp",
+          "reference_sha256": null,
+          "staged_sha256": "aeccc6204de667838b4043e12a118c852b492f9de63acec0e79698d394b90afb"
+        },
+        {
+          "path": "server/Gta3xlwifiUidPolicy.h",
+          "reference_sha256": null,
+          "staged_sha256": "c2afd36af3d5fbd2af170f238a7d4c98c1e62754313ecb297baa134a5139a8ef"
+        }
+      ],
+      "selected_file_git_replay_passed": true
+    }
+  ],
+  "implemented_scope": "Candidate policy value for all 12 A16 firewall-chain APIs and DNS/framework decisions, not live kernel policy or readiness",
+  "host_validation": {
+    "api_state_safety_checks": 192,
+    "chain_constants_bound_to_actual_a16_sources": true,
+    "actual_upstream_native_dns_comparisons": 526888,
+    "native_platforms_passed": [
+      "macOS",
+      "Linux"
+    ],
+    "address_and_undefined_behavior_sanitizers_passed": true,
+    "actual_upstream_java_reason_decision_comparisons_linux": 8336,
+    "java_oracle_uses_metadata_and_fixed_sdk_fixtures": true,
+    "android_java_modules_or_tests_executed": false,
+    "vm_log": "/srv/android/logs/lineage-23.2-arm64/uid-policy-host-20261021-01.log"
+  },
+  "netd_preflight": {
+    "passed": true,
+    "variant": "android_arm64_armv8-a_static_cfi",
+    "actual_owner_soong_flags": true,
+    "objects_compiled": 1,
+    "netd_daemon_linked_with_experiment": false,
+    "vm_evidence": "/srv/android/artifacts/lineage-23.2-arm64/uid-policy-preflight-20261021-01/report.json"
+  },
+  "dns_helper_links": [
+    {
+      "abi": "arm32",
+      "variant": "android_arm_armv8-a_shared_cfi",
+      "output_sha256": "610e8408a0ff95955bfa979404a71f5e3fb911420709ad67973870bf53b671ca",
+      "added_symbols": [
+        "ADnsHelper_setLegacyCallbackV2@@LIBCOM_ANDROID_TETHERING_DNS_HELPER"
+      ],
+      "needed_soname": [
+        [
+          "NEEDED",
+          "libbase.so"
+        ],
+        [
+          "NEEDED",
+          "libc++.so"
+        ],
+        [
+          "NEEDED",
+          "libc.so"
+        ],
+        [
+          "NEEDED",
+          "libdl.so"
+        ],
+        [
+          "NEEDED",
+          "libm.so"
+        ],
+        [
+          "SONAME",
+          "libcom.android.tethering.dns_helper.so"
+        ]
+      ],
+      "finished_at_utc": "2026-10-21T21:29:37.313550+00:00",
+      "vm_evidence": "/srv/android/artifacts/lineage-23.2-arm64/dns-link-preflight-20261021-02/report.json",
+      "complete_helper_shared_library_linked": true,
+      "full_header_abi_checked": false,
+      "android_runtime_executed": false
+    },
+    {
+      "abi": "arm64",
+      "variant": "android_arm64_armv8-a_shared_cfi_apex31",
+      "output_sha256": "903bc6fdad19d7b2af1cb7e19cb1f58278d3354c41ea5d6e46f828ab901f009b",
+      "added_symbols": [
+        "ADnsHelper_setLegacyCallbackV2@@LIBCOM_ANDROID_TETHERING_DNS_HELPER"
+      ],
+      "needed_soname": [
+        [
+          "NEEDED",
+          "libbase.so"
+        ],
+        [
+          "NEEDED",
+          "libc++.so"
+        ],
+        [
+          "NEEDED",
+          "libc.so"
+        ],
+        [
+          "NEEDED",
+          "libdl.so"
+        ],
+        [
+          "NEEDED",
+          "libm.so"
+        ],
+        [
+          "SONAME",
+          "libcom.android.tethering.dns_helper.so"
+        ]
+      ],
+      "finished_at_utc": "2026-10-21T21:29:59.307170+00:00",
+      "vm_evidence": "/srv/android/artifacts/lineage-23.2-arm64/dns-link-preflight-20261021-03/report.json",
+      "complete_helper_shared_library_linked": true,
+      "full_header_abi_checked": false,
+      "android_runtime_executed": false
+    }
+  ],
+  "original_source_arm32_dependency_build": {
+    "label": "dns-shared-deps-01",
+    "exit": 0,
+    "actions": 44,
+    "duration_seconds": 276,
+    "completed_at_utc": "2026-10-21T21:28:16Z",
+    "sources_patched": false,
+    "first_launch_failed_before_build": "Nonexecutable runner was mistakenly invoked directly; original log preserved, then correctly launched through bash"
+  },
+  "unchanged_source_audit": {
+    "passed": true,
+    "checked_at_utc": "2026-10-21T21:29:36.516112+00:00",
+    "project_count": 1168,
+    "reviewed_patch_count": 13
+  },
+  "source_audit_evidence": "snapshots/bringup-20261021-06/port-audit-after-network-preflight.json",
+  "replay_and_read_only_actual_vm_apply_check_passed": true,
+  "default_capture_profile_preserves_both_original_13_file_patch_hashes": true,
+  "kernel_image_dtbo_vendor_hashes_rechecked_unchanged": true,
+  "implementation_boundaries": [
+    "State mutator success means a candidate changed, not successful kernel enforcement",
+    "No kernel rules installed, callback owner registered or BPF readiness bypass added",
+    "No live owner/commit/readback/rollback/restart persistence, interface/VPN/LNA packet engine, permissions/socket lifetime, quota or CLAT integration yet",
+    "Invalid UID/rule handling deliberately rejects malformed input transactionally; upstream comparisons cover valid Android UIDs",
+    "Full header ABI, linked Netd/Java module validation and Android runtime remain unproven"
+  ],
+  "source_findings_for_next_work": [
+    "Old helper uid<10000 exemption misses secondary-user core UIDs; A16 uses uid%100000",
+    "Old blanket loopback exemptions differ from A16 packet path, which masks BACKGROUND only; packet and DNS policy must not be conflated",
+    "A16 metered user/admin deny both override happy-box membership and ignore configuration enable bits",
+    "Qtaguid ctrl_cmd_tag holds sk ref and attributes process tracking to current tgid; a long-lived Netd process device FD does not prove final-socket cleanup for foreign FDs; potential retained refs require a real lifecycle solution/test, not an assumption"
+  ],
+  "remaining_strict_vendor_policy_diagnostics": 367,
+  "kernel_backend_ready": false,
+  "test_ready_rom": false,
+  "tablet_modified": false,
+  "lineage21_twrp_owner_keys_userdata_changed": false,
+  "committed_or_published": false,
+  "tool_sha256": {
+    "test-uid-policy.py": "b1e60113e64583969d0fc7961423bda7efa78de83b3ee453d5ebaf40e236b732",
+    "compile-network-staging.py": "2b540dc2344f6af12eff8833c4b7eddaa9e0508fdc370c851e42bce6fc8e741a",
+    "link-dns-staging.py": "10d3b2ca0550512506acb8892badc15511d8d68459e6a1731311737cc7898313",
+    "capture-network-experiment.py": "55b029d2ec2ff401bd7a30d9318eae55c7fe8685408a9a5482534fa48ee5e475"
+  }
+}

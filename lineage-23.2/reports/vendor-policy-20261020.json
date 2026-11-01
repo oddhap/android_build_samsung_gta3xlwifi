@@ -1,0 +1,113 @@
+{
+  "checked_at_utc": "2026-10-20T18:23:16.267318+00:00",
+  "passed_strict": false,
+  "policy_binary_version": 30,
+  "vendor_policy_version": "30.0",
+  "vendor_genfs_version": 202404,
+  "genfs_fragment_present": false,
+  "inputs": [
+    {
+      "path": "/srv/android/src/lineage-23.2-arm64/out/target/product/gta3xlwifi/system/etc/selinux/plat_sepolicy.cil",
+      "sha256": "fef49002573cead841f9325d9c2475e561534510288f000d13ea1093c6b79de6"
+    },
+    {
+      "path": "/srv/android/src/lineage-23.2-arm64/out/target/product/gta3xlwifi/system/etc/selinux/mapping/30.0.cil",
+      "sha256": "a6c77f838dbbccd7c4310add36c7231c5f71771545cd65efa5bdb7b2bff685f9"
+    },
+    {
+      "path": "/srv/android/src/lineage-23.2-arm64/out/target/product/gta3xlwifi/system/etc/selinux/mapping/30.0.compat.cil",
+      "sha256": "2b40198379e1bb65ca2af156b25562381273144d94c5ae223b5ed9905d7437cc"
+    },
+    {
+      "path": "/srv/android/src/lineage-23.2-arm64/out/target/product/gta3xlwifi/system/system_ext/etc/selinux/system_ext_sepolicy.cil",
+      "sha256": "c0703505974c7e5064402bab8476e352ce4f9a5365c04936f7b465fcddd9597c"
+    },
+    {
+      "path": "/srv/android/src/lineage-23.2-arm64/out/target/product/gta3xlwifi/system/system_ext/etc/selinux/mapping/30.0.cil",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/srv/android/src/lineage-23.2-arm64/out/target/product/gta3xlwifi/system/system_ext/etc/selinux/mapping/30.0.compat.cil",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/srv/android/src/lineage-23.2-arm64/out/target/product/gta3xlwifi/product/etc/selinux/product_sepolicy.cil",
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+    },
+    {
+      "path": "/srv/android/src/lineage-23.2-arm64/out/target/product/gta3xlwifi/product/etc/selinux/mapping/30.0.cil",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/srv/android/artifacts/lineage-23.2-arm64/vendor-validation-20261020/vendor/etc/selinux/plat_pub_versioned.cil",
+      "sha256": "4dd55346c46e6d374c5fee79e1caeb1f971a4dc048cd96bedadfb676e0ec11c4"
+    },
+    {
+      "path": "/srv/android/artifacts/lineage-23.2-arm64/vendor-validation-20261020/vendor/etc/selinux/vendor_sepolicy.cil",
+      "sha256": "8df663eb65a807e6ee99f8b2384cb52d34c994a25087410486b1f88e278e2e53"
+    }
+  ],
+  "results": [
+    {
+      "mode": "strict",
+      "exit_code": 255,
+      "neverallow_checks_enabled": true,
+      "command": [
+        "/srv/android/src/lineage-23.2-arm64/out/host/linux-x86/bin/secilc",
+        "-m",
+        "-M",
+        "true",
+        "-G",
+        "-c",
+        "30",
+        "-o",
+        "/srv/android/artifacts/lineage-23.2-arm64/vendor-validation-20261020/policy-01/strict.policy",
+        "-f",
+        "/dev/null",
+        "/srv/android/src/lineage-23.2-arm64/out/target/product/gta3xlwifi/system/etc/selinux/plat_sepolicy.cil",
+        "/srv/android/src/lineage-23.2-arm64/out/target/product/gta3xlwifi/system/etc/selinux/mapping/30.0.cil",
+        "/srv/android/src/lineage-23.2-arm64/out/target/product/gta3xlwifi/system/etc/selinux/mapping/30.0.compat.cil",
+        "/srv/android/src/lineage-23.2-arm64/out/target/product/gta3xlwifi/system/system_ext/etc/selinux/system_ext_sepolicy.cil",
+        "/srv/android/src/lineage-23.2-arm64/out/target/product/gta3xlwifi/system/system_ext/etc/selinux/mapping/30.0.cil",
+        "/srv/android/src/lineage-23.2-arm64/out/target/product/gta3xlwifi/system/system_ext/etc/selinux/mapping/30.0.compat.cil",
+        "/srv/android/src/lineage-23.2-arm64/out/target/product/gta3xlwifi/product/etc/selinux/product_sepolicy.cil",
+        "/srv/android/src/lineage-23.2-arm64/out/target/product/gta3xlwifi/product/etc/selinux/mapping/30.0.cil",
+        "/srv/android/artifacts/lineage-23.2-arm64/vendor-validation-20261020/vendor/etc/selinux/plat_pub_versioned.cil",
+        "/srv/android/artifacts/lineage-23.2-arm64/vendor-validation-20261020/vendor/etc/selinux/vendor_sepolicy.cil"
+      ]
+    },
+    {
+      "mode": "init-runtime-diagnostic",
+      "exit_code": 0,
+      "neverallow_checks_enabled": false,
+      "command": [
+        "/srv/android/src/lineage-23.2-arm64/out/host/linux-x86/bin/secilc",
+        "-m",
+        "-M",
+        "true",
+        "-G",
+        "-c",
+        "30",
+        "-o",
+        "/srv/android/artifacts/lineage-23.2-arm64/vendor-validation-20261020/policy-01/init-runtime-diagnostic.policy",
+        "-f",
+        "/dev/null",
+        "-N",
+        "/srv/android/src/lineage-23.2-arm64/out/target/product/gta3xlwifi/system/etc/selinux/plat_sepolicy.cil",
+        "/srv/android/src/lineage-23.2-arm64/out/target/product/gta3xlwifi/system/etc/selinux/mapping/30.0.cil",
+        "/srv/android/src/lineage-23.2-arm64/out/target/product/gta3xlwifi/system/etc/selinux/mapping/30.0.compat.cil",
+        "/srv/android/src/lineage-23.2-arm64/out/target/product/gta3xlwifi/system/system_ext/etc/selinux/system_ext_sepolicy.cil",
+        "/srv/android/src/lineage-23.2-arm64/out/target/product/gta3xlwifi/system/system_ext/etc/selinux/mapping/30.0.cil",
+        "/srv/android/src/lineage-23.2-arm64/out/target/product/gta3xlwifi/system/system_ext/etc/selinux/mapping/30.0.compat.cil",
+        "/srv/android/src/lineage-23.2-arm64/out/target/product/gta3xlwifi/product/etc/selinux/product_sepolicy.cil",
+        "/srv/android/src/lineage-23.2-arm64/out/target/product/gta3xlwifi/product/etc/selinux/mapping/30.0.cil",
+        "/srv/android/artifacts/lineage-23.2-arm64/vendor-validation-20261020/vendor/etc/selinux/plat_pub_versioned.cil",
+        "/srv/android/artifacts/lineage-23.2-arm64/vendor-validation-20261020/vendor/etc/selinux/vendor_sepolicy.cil"
+      ],
+      "compiled_policy_sha256": "83a85afdf4fb51db967084d22e1891ccc9ae57a2907b4aa48a5522dea97f1a0a"
+    }
+  ],
+  "hardware_tested": false,
+  "source_or_device_modified": false,
+  "runtime_diagnostic_does_not_override_strict_result": true
+}

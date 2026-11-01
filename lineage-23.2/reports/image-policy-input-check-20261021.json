@@ -1,0 +1,20 @@
+{
+  "packaged_policy_input_correspondence_passed": true,
+  "system_and_product_image_inputs_verified": [
+    "/system/etc/selinux/plat_sepolicy.cil",
+    "/system/etc/selinux/mapping/30.0.cil",
+    "/system/etc/selinux/mapping/30.0.compat.cil",
+    "/system/system_ext/etc/selinux/system_ext_sepolicy.cil",
+    "/system/system_ext/etc/selinux/mapping/30.0.cil",
+    "/system/system_ext/etc/selinux/mapping/30.0.compat.cil",
+    "/etc/selinux/product_sepolicy.cil",
+    "/etc/selinux/mapping/30.0.cil"
+  ],
+  "actual_prebuilt_vendor_image_unchanged": true,
+  "strict_policy_passed": false,
+  "strict_secilc_exit": 255,
+  "strict_checker_exit": 1,
+  "neverallow_diagnostics": 367,
+  "runtime_diagnostic_does_not_override_strict_failure": true,
+  "hardware_tested": false
+}

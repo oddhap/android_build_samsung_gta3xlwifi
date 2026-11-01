@@ -1,0 +1,13 @@
+diff --git a/Android.bp b/Android.bp
+index bae686d..af5c36e 100644
+--- a/Android.bp
++++ b/Android.bp
+@@ -9,7 +9,7 @@ package {
+ 
+ android_app {
+     name: "Backgrounds",
++    defaults: ["gta3xlwifi_partition_app_defaults"],
+ 
+     sdk_version: "current",
+-    product_specific: true,
+ }

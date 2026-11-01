@@ -1,0 +1,17 @@
+{
+  "passed": true,
+  "scope": "One isolated production Java source with actual Soong SDK/compiler flags; no full module or Android test build",
+  "source": "NetworkStatsFactory.java",
+  "source_sha256": "33ca7c01d0749a335b2f9cd6f8b2563bd58cd0a1a9db633eab037c1d270f810e",
+  "exit_code": 0,
+  "argv_sha256": "a39bf9e4779142cc44054365d850a8305d62c3f33f08056725b92ea8a1f57397",
+  "compiler": "prebuilts/jdk/jdk21/linux-x86/bin/javac",
+  "vm_evidence": "/srv/android/artifacts/lineage-23.2-arm64/network-java-preflight-20261021-02/report.json",
+  "source_experiment": "experiments/networking-20261021-01",
+  "included_in_full_platform_03": false,
+  "java_regression_tests_compiled_or_executed": false,
+  "complete_module_built": false,
+  "runtime_validated": false,
+  "tablet_modified": false,
+  "earlier_attempt": "01 was a tooling failure reading a Ninja graph while Soong was still writing it, not a Java compile failure"
+}

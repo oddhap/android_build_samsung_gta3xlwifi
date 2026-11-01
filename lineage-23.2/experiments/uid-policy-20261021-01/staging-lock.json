@@ -1,0 +1,26 @@
+{
+  "status": "EXPERIMENTAL_NOT_APPLIED_NOT_TEST_ROM",
+  "active_snapshot": "bringup-20261021-06",
+  "profile": "uid-policy",
+  "projects": [
+    {
+      "path": "system/netd",
+      "revision": "796eaca5ab9dfdd87751c51bb71fa3f26c87d034",
+      "patch": "system_netd.patch",
+      "sha256": "3a416b933f315e2fe521ca7f8810b318cce204d93d8c085d29a6b9a76777b498",
+      "files": [
+        {
+          "path": "server/Gta3xlwifiUidPolicy.cpp",
+          "reference_sha256": null,
+          "staged_sha256": "aeccc6204de667838b4043e12a118c852b492f9de63acec0e79698d394b90afb"
+        },
+        {
+          "path": "server/Gta3xlwifiUidPolicy.h",
+          "reference_sha256": null,
+          "staged_sha256": "c2afd36af3d5fbd2af170f238a7d4c98c1e62754313ecb297baa134a5139a8ef"
+        }
+      ],
+      "selected_file_git_replay_passed": true
+    }
+  ]
+}

@@ -1,0 +1,221 @@
+[
+  {
+    "project": "bionic",
+    "revision": "ff3bb041547924ac1a7504e4b3bd3ea18169ca2f",
+    "upstream_ref": "refs/heads/lineage-24.0",
+    "url": "https://github.com/LineageOS/android_bionic",
+    "historical_patch": "bionic.patch",
+    "status": "applies",
+    "details": "",
+    "files": [
+      "libc/bionic/spawn.cpp",
+      "tests/spawn_test.cpp"
+    ],
+    "local_partial_tree": true,
+    "reverse_apply_check": true,
+    "complete_checkout_validated": false
+  },
+  {
+    "project": "device/lineage/sepolicy",
+    "revision": "a29110ed8d2933c8f0da9c6ff613c4b68b7e4ad8",
+    "upstream_ref": "refs/heads/lineage-24.0",
+    "url": "https://github.com/LineageOS/android_device_lineage_sepolicy",
+    "historical_patch": "device_lineage_sepolicy.patch",
+    "status": "applies",
+    "details": "",
+    "files": [
+      "common/private/genfs_contexts"
+    ],
+    "local_partial_tree": true,
+    "reverse_apply_check": true,
+    "complete_checkout_validated": false
+  },
+  {
+    "project": "device/samsung/gta3xlwifi",
+    "revision": "9103cae139f954cccb5d9b01808787571db3189e",
+    "upstream_ref": "9103cae139f954cccb5d9b01808787571db3189e",
+    "url": "https://github.com/oddhap/android_device_samsung_gta3xlwifi",
+    "historical_patch": "device_samsung_gta3xlwifi.patch",
+    "status": "committed-to-device-branch",
+    "details": "",
+    "files": [
+      "Android.bp",
+      "AndroidProducts.mk",
+      "BoardConfig.mk",
+      "configs/cgroups.gta3xlwifi.json"
+    ],
+    "local_partial_tree": true,
+    "reverse_apply_check": true,
+    "complete_checkout_validated": false,
+    "published_device_commit": "98f30094243aa9d3a8ae642404511fcc269b91a0"
+  },
+  {
+    "project": "external/boringssl",
+    "revision": "0cd1f6a94b670e6b61af95a06e71e690ae8e3262",
+    "upstream_ref": "refs/tags/android-17.0.0_r1",
+    "url": "https://android.googlesource.com/platform/external/boringssl",
+    "historical_patch": "external_boringssl.patch",
+    "status": "applies",
+    "details": "",
+    "files": [
+      "Android.bp"
+    ],
+    "local_partial_tree": true,
+    "reverse_apply_check": true,
+    "complete_checkout_validated": false
+  },
+  {
+    "project": "external/chromium-webview/patches",
+    "revision": "ef69054c74f7d8306446969136c806738169f1e1",
+    "upstream_ref": "main",
+    "url": "https://github.com/LineageOS/android_external_chromium-webview_patches",
+    "historical_patch": "external_chromium-webview_patches.patch",
+    "status": "applies",
+    "details": "",
+    "files": [
+      "os_pickup.bp"
+    ],
+    "local_partial_tree": true,
+    "reverse_apply_check": true,
+    "complete_checkout_validated": false
+  },
+  {
+    "project": "frameworks/av",
+    "revision": "937eb9047ec2f88620f1f6a4d9e407f6c869d91a",
+    "upstream_ref": "refs/heads/lineage-24.0",
+    "url": "https://github.com/LineageOS/android_frameworks_av",
+    "historical_patch": "frameworks_av.patch",
+    "status": "applies",
+    "details": "",
+    "files": [
+      "media/libaudiohal/FactoryHal.cpp",
+      "media/libaudiohal/impl/Android.bp"
+    ],
+    "local_partial_tree": true,
+    "reverse_apply_check": true,
+    "complete_checkout_validated": false
+  },
+  {
+    "project": "frameworks/base",
+    "revision": "03e13d72d00d80eeba4465893dfad669e3ad3ce6",
+    "upstream_ref": "refs/heads/lineage-24.0",
+    "url": "https://github.com/LineageOS/android_frameworks_base",
+    "historical_patch": "frameworks_base.patch",
+    "status": "applies",
+    "details": "",
+    "files": [
+      "media/java/android/media/AudioHalVersionInfo.java"
+    ],
+    "local_partial_tree": true,
+    "reverse_apply_check": true,
+    "complete_checkout_validated": false
+  },
+  {
+    "project": "frameworks/native",
+    "revision": "46018f54b42489de960c62c3db9de131abce43ea",
+    "upstream_ref": "refs/heads/lineage-24.0",
+    "url": "https://github.com/LineageOS/android_frameworks_native",
+    "historical_patch": "frameworks_native.patch",
+    "status": "applies",
+    "details": "",
+    "files": [
+      "services/gpuservice/gpuwork/GpuWork.cpp"
+    ],
+    "local_partial_tree": true,
+    "reverse_apply_check": true,
+    "complete_checkout_validated": false
+  },
+  {
+    "project": "packages/apps/Backgrounds",
+    "revision": "b087d2df6601aa25939e654028321bb59857d12e",
+    "upstream_ref": "refs/heads/lineage-24.0",
+    "url": "https://github.com/LineageOS/android_packages_apps_Backgrounds",
+    "historical_patch": "packages_apps_Backgrounds.patch",
+    "status": "applies",
+    "details": "",
+    "files": [
+      "Android.bp"
+    ],
+    "local_partial_tree": true,
+    "reverse_apply_check": true,
+    "complete_checkout_validated": false
+  },
+  {
+    "project": "packages/modules/vndk",
+    "revision": "bcab18ef7ad195c3452e78b2eaf9bf7e4998c171",
+    "upstream_ref": "refs/tags/android-17.0.0_r1",
+    "url": "https://android.googlesource.com/platform/packages/modules/vndk",
+    "historical_patch": "packages_modules_vndk.patch",
+    "status": "applies",
+    "details": "",
+    "files": [
+      "apex/Android.bp"
+    ],
+    "local_partial_tree": true,
+    "reverse_apply_check": true,
+    "complete_checkout_validated": false
+  },
+  {
+    "project": "packages/screensavers/PhotoTable",
+    "revision": "f3451a4cc5403f9b6f66d4864c21c19676704932",
+    "upstream_ref": "refs/heads/lineage-24.0",
+    "url": "https://github.com/LineageOS/android_packages_screensavers_PhotoTable",
+    "historical_patch": "packages_screensavers_PhotoTable.patch",
+    "status": "applies",
+    "details": "",
+    "files": [
+      "Android.bp"
+    ],
+    "local_partial_tree": true,
+    "reverse_apply_check": true,
+    "complete_checkout_validated": false
+  },
+  {
+    "project": "system/core",
+    "revision": "65d661b1a536701e8b118be4e9728d7b5ca727c9",
+    "upstream_ref": "refs/heads/lineage-24.0",
+    "url": "https://github.com/LineageOS/android_system_core",
+    "historical_patch": "system_core.patch",
+    "status": "needs-adaptation",
+    "details": "error: fs_mgr/fs_mgr.cpp: No such file or directory\nerror: patch failed: libprocessgroup/processgroup.cpp:311\nerror: libprocessgroup/processgroup.cpp: patch does not apply\nerror: patch failed: libprocessgroup/setup/cgroup_map_write.cpp:298\nerror: libprocessgroup/setup/cgroup_map_write.cpp: patch does not apply\nerror: patch failed: libprocessgroup/task_profiles.cpp:915\nerror: libprocessgroup/task_profiles.cpp: patch does not apply\n",
+    "files": [
+      "fs_mgr/fs_mgr.cpp",
+      "libprocessgroup/processgroup.cpp",
+      "libprocessgroup/setup/cgroup_map_write.cpp",
+      "libprocessgroup/task_profiles.cpp",
+      "libprocessgroup/util/util.cpp"
+    ],
+    "local_partial_tree": true,
+    "reverse_apply_check": true,
+    "complete_checkout_validated": false
+  },
+  {
+    "project": "system/fs/fs_mgr",
+    "revision": "f58ab8cf7115da90ba4db660cfdbf027de8fc872",
+    "upstream_ref": "refs/heads/lineage-24.0",
+    "url": "https://github.com/LineageOS/android_system_fs_fs_mgr",
+    "historical_patch": "system_core.patch",
+    "status": "moved-from-system/core",
+    "files": [
+      "fs_mgr.cpp"
+    ],
+    "local_partial_tree": true,
+    "reverse_apply_check": true,
+    "complete_checkout_validated": false
+  },
+  {
+    "project": "system/memory/libmeminfo",
+    "revision": "d59c960b1fb93377bf68664918031ea5fe709f89",
+    "upstream_ref": "refs/tags/android-17.0.0_r1",
+    "url": "https://android.googlesource.com/platform/system/memory/libmeminfo",
+    "historical_patch": "system_memory_libmeminfo.patch",
+    "status": "needs-adaptation",
+    "details": "error: patch failed: sysmeminfo.cpp:42\nerror: sysmeminfo.cpp: patch does not apply\n",
+    "files": [
+      "sysmeminfo.cpp"
+    ],
+    "local_partial_tree": true,
+    "reverse_apply_check": true,
+    "complete_checkout_validated": false
+  }
+]

@@ -1,0 +1,2343 @@
+{
+  "date_utc": "2026-10-23",
+  "status": "ISOLATED_READER_FIX_COMPILED_NOT_A_FLASH_READY_ROM",
+  "active_snapshot": "bringup-20261021-06",
+  "active_project_count": 1168,
+  "active_patch_count": 13,
+  "experiment": "experiments/kernel-policy-reader-20261023-01",
+  "applied_to_android_top": false,
+  "kernel_prebuilt_changed": false,
+  "tablet_twrp_lineage21_keys_userdata_changed": false,
+  "production_policy_only_build": {
+    "exit": 0,
+    "label": "policy-user-20261023-01",
+    "variant": "user",
+    "out_dir": "out-policy-user-20261023-01",
+    "actions": 2546,
+    "reported_seconds": 718,
+    "finished_at_utc": "2026-10-23T16:12:38Z",
+    "full_rom_built": false,
+    "main_out_directory_modified": false,
+    "strict_vendor_policy": {
+      "checked_at_utc": "2026-10-23T16:15:18.152024+00:00",
+      "passed_strict": false,
+      "build_output_root": "/srv/android/src/lineage-23.2-arm64/out-policy-user-20261023-01",
+      "compiler_sha256": "20d15f823bb0d25016a8e18b07597c522a05c9930f2953fbb9df7ab016cbaee4",
+      "policy_binary_version": 30,
+      "vendor_policy_version": "30.0",
+      "vendor_genfs_version": 202404,
+      "genfs_fragment_present": false,
+      "inputs": [
+        {
+          "path": "/srv/android/src/lineage-23.2-arm64/out-policy-user-20261023-01/target/product/gta3xlwifi/system/etc/selinux/plat_sepolicy.cil",
+          "sha256": "54ac75bae2d37760242983ff3a739ed070027309ef89ce4fdde90ab13626492b"
+        },
+        {
+          "path": "/srv/android/src/lineage-23.2-arm64/out-policy-user-20261023-01/target/product/gta3xlwifi/system/etc/selinux/mapping/30.0.cil",
+          "sha256": "a6c77f838dbbccd7c4310add36c7231c5f71771545cd65efa5bdb7b2bff685f9"
+        },
+        {
+          "path": "/srv/android/src/lineage-23.2-arm64/out-policy-user-20261023-01/target/product/gta3xlwifi/system/etc/selinux/mapping/30.0.compat.cil",
+          "sha256": "2b40198379e1bb65ca2af156b25562381273144d94c5ae223b5ed9905d7437cc"
+        },
+        {
+          "path": "/srv/android/src/lineage-23.2-arm64/out-policy-user-20261023-01/target/product/gta3xlwifi/system/system_ext/etc/selinux/system_ext_sepolicy.cil",
+          "sha256": "8e058f844cb7209673d5838c27e975dd6fc7e90c624c9671932eddd4621be05d"
+        },
+        {
+          "path": "/srv/android/src/lineage-23.2-arm64/out-policy-user-20261023-01/target/product/gta3xlwifi/system/system_ext/etc/selinux/mapping/30.0.cil",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "/srv/android/src/lineage-23.2-arm64/out-policy-user-20261023-01/target/product/gta3xlwifi/system/system_ext/etc/selinux/mapping/30.0.compat.cil",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "/srv/android/src/lineage-23.2-arm64/out-policy-user-20261023-01/target/product/gta3xlwifi/product/etc/selinux/product_sepolicy.cil",
+          "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+        },
+        {
+          "path": "/srv/android/src/lineage-23.2-arm64/out-policy-user-20261023-01/target/product/gta3xlwifi/product/etc/selinux/mapping/30.0.cil",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "/srv/android/artifacts/lineage-23.2-arm64/vendor-validation-20261020/vendor/etc/selinux/plat_pub_versioned.cil",
+          "sha256": "4dd55346c46e6d374c5fee79e1caeb1f971a4dc048cd96bedadfb676e0ec11c4"
+        },
+        {
+          "path": "/srv/android/artifacts/lineage-23.2-arm64/vendor-validation-20261020/vendor/etc/selinux/vendor_sepolicy.cil",
+          "sha256": "8df663eb65a807e6ee99f8b2384cb52d34c994a25087410486b1f88e278e2e53"
+        }
+      ],
+      "results": [
+        {
+          "mode": "strict",
+          "exit_code": 255,
+          "neverallow_checks_enabled": true,
+          "command": [
+            "/srv/android/src/lineage-23.2-arm64/out-policy-user-20261023-01/host/linux-x86/bin/secilc",
+            "-m",
+            "-M",
+            "true",
+            "-G",
+            "-c",
+            "30",
+            "-o",
+            "/srv/android/artifacts/lineage-23.2-arm64/vendor-validation-20261020/policy-user-20261023-01/strict.policy",
+            "-f",
+            "/dev/null",
+            "/srv/android/src/lineage-23.2-arm64/out-policy-user-20261023-01/target/product/gta3xlwifi/system/etc/selinux/plat_sepolicy.cil",
+            "/srv/android/src/lineage-23.2-arm64/out-policy-user-20261023-01/target/product/gta3xlwifi/system/etc/selinux/mapping/30.0.cil",
+            "/srv/android/src/lineage-23.2-arm64/out-policy-user-20261023-01/target/product/gta3xlwifi/system/etc/selinux/mapping/30.0.compat.cil",
+            "/srv/android/src/lineage-23.2-arm64/out-policy-user-20261023-01/target/product/gta3xlwifi/system/system_ext/etc/selinux/system_ext_sepolicy.cil",
+            "/srv/android/src/lineage-23.2-arm64/out-policy-user-20261023-01/target/product/gta3xlwifi/system/system_ext/etc/selinux/mapping/30.0.cil",
+            "/srv/android/src/lineage-23.2-arm64/out-policy-user-20261023-01/target/product/gta3xlwifi/system/system_ext/etc/selinux/mapping/30.0.compat.cil",
+            "/srv/android/src/lineage-23.2-arm64/out-policy-user-20261023-01/target/product/gta3xlwifi/product/etc/selinux/product_sepolicy.cil",
+            "/srv/android/src/lineage-23.2-arm64/out-policy-user-20261023-01/target/product/gta3xlwifi/product/etc/selinux/mapping/30.0.cil",
+            "/srv/android/artifacts/lineage-23.2-arm64/vendor-validation-20261020/vendor/etc/selinux/plat_pub_versioned.cil",
+            "/srv/android/artifacts/lineage-23.2-arm64/vendor-validation-20261020/vendor/etc/selinux/vendor_sepolicy.cil"
+          ]
+        },
+        {
+          "mode": "init-runtime-diagnostic",
+          "exit_code": 0,
+          "neverallow_checks_enabled": false,
+          "command": [
+            "/srv/android/src/lineage-23.2-arm64/out-policy-user-20261023-01/host/linux-x86/bin/secilc",
+            "-m",
+            "-M",
+            "true",
+            "-G",
+            "-c",
+            "30",
+            "-o",
+            "/srv/android/artifacts/lineage-23.2-arm64/vendor-validation-20261020/policy-user-20261023-01/init-runtime-diagnostic.policy",
+            "-f",
+            "/dev/null",
+            "-N",
+            "/srv/android/src/lineage-23.2-arm64/out-policy-user-20261023-01/target/product/gta3xlwifi/system/etc/selinux/plat_sepolicy.cil",
+            "/srv/android/src/lineage-23.2-arm64/out-policy-user-20261023-01/target/product/gta3xlwifi/system/etc/selinux/mapping/30.0.cil",
+            "/srv/android/src/lineage-23.2-arm64/out-policy-user-20261023-01/target/product/gta3xlwifi/system/etc/selinux/mapping/30.0.compat.cil",
+            "/srv/android/src/lineage-23.2-arm64/out-policy-user-20261023-01/target/product/gta3xlwifi/system/system_ext/etc/selinux/system_ext_sepolicy.cil",
+            "/srv/android/src/lineage-23.2-arm64/out-policy-user-20261023-01/target/product/gta3xlwifi/system/system_ext/etc/selinux/mapping/30.0.cil",
+            "/srv/android/src/lineage-23.2-arm64/out-policy-user-20261023-01/target/product/gta3xlwifi/system/system_ext/etc/selinux/mapping/30.0.compat.cil",
+            "/srv/android/src/lineage-23.2-arm64/out-policy-user-20261023-01/target/product/gta3xlwifi/product/etc/selinux/product_sepolicy.cil",
+            "/srv/android/src/lineage-23.2-arm64/out-policy-user-20261023-01/target/product/gta3xlwifi/product/etc/selinux/mapping/30.0.cil",
+            "/srv/android/artifacts/lineage-23.2-arm64/vendor-validation-20261020/vendor/etc/selinux/plat_pub_versioned.cil",
+            "/srv/android/artifacts/lineage-23.2-arm64/vendor-validation-20261020/vendor/etc/selinux/vendor_sepolicy.cil"
+          ],
+          "compiled_policy_sha256": "d4c8692028e6753f0fa08f74b845f796a53f863da648d8a3c82182b48dbfb3fb"
+        }
+      ],
+      "hardware_tested": false,
+      "source_or_device_modified": false,
+      "runtime_diagnostic_does_not_override_strict_result": true
+    },
+    "permissive_domains": []
+  },
+  "comparison_to_existing_userdebug": {
+    "user": {
+      "total": 281,
+      "by_diagnostic_origin": {
+        "vendor_sepolicy.cil": 1,
+        "plat_pub_versioned.cil": 82,
+        "hal_lineage_touch.te": 1,
+        "hal_lineage_powershare.te": 1,
+        "hal_lineage_livedisplay.te": 1,
+        "hal_lineage_health.te": 1,
+        "vold.te": 4,
+        "traced_probes.te": 2,
+        "traced.te": 3,
+        "system_suspend_internal_server.te": 1,
+        "system_server.te": 4,
+        "shell.te": 5,
+        "sdk_sandbox_all.te": 11,
+        "property.te": 24,
+        "priv_app.te": 1,
+        "perfetto.te": 2,
+        "network_stack.te": 10,
+        "netd.te": 1,
+        "mlstrustedsubject.te": 6,
+        "mediaextractor.te": 1,
+        "isolated_app_all.te": 11,
+        "init.te": 1,
+        "hal_wifi_hostapd.te": 1,
+        "hal_uwb.te": 1,
+        "hal_usb_gadget.te": 1,
+        "hal_usb.te": 1,
+        "hal_tv_tuner.te": 1,
+        "hal_tv_input.te": 1,
+        "hal_tv_hdmi_earc.te": 1,
+        "hal_tv_hdmi_connection.te": 1,
+        "hal_tv_hdmi_cec.te": 1,
+        "hal_threadnetwork.te": 1,
+        "hal_tetheroffload.te": 1,
+        "hal_telephony.te": 1,
+        "hal_secure_element.te": 1,
+        "hal_remotelyprovisionedcomponent_avf.te": 1,
+        "hal_remoteaccess.te": 1,
+        "hal_nlinterceptor.te": 1,
+        "hal_mediaquality.te": 1,
+        "hal_macsec.te": 1,
+        "hal_ivn.te": 1,
+        "hal_ir.te": 1,
+        "hal_health_storage.te": 1,
+        "hal_gatekeeper.te": 1,
+        "hal_fastboot.te": 1,
+        "hal_confirmationui.te": 1,
+        "hal_configstore.te": 1,
+        "hal_cas.te": 1,
+        "hal_can.te": 2,
+        "hal_bootctl.te": 1,
+        "hal_bluetooth_lpp.te": 1,
+        "gsid.te": 1,
+        "file.te": 1,
+        "early_virtmgr.te": 1,
+        "domain.te": 29,
+        "crosvm.te": 3,
+        "crash_dump.te": 1,
+        "coredomain.te": 3,
+        "charger_type.te": 2,
+        "bpfloader.te": 18,
+        "bpfdomain.te": 1,
+        "artd.te": 1,
+        "app_neverallows.te": 5,
+        "app.te": 6,
+        "apexd.te": 1,
+        "aconfigd.te": 4
+      }
+    },
+    "userdebug": {
+      "total": 367,
+      "by_diagnostic_origin": {
+        "vendor_sepolicy.cil": 14,
+        "plat_pub_versioned.cil": 155,
+        "hal_lineage_touch.te": 1,
+        "hal_lineage_powershare.te": 1,
+        "hal_lineage_livedisplay.te": 1,
+        "hal_lineage_health.te": 1,
+        "vold.te": 4,
+        "traced_probes.te": 2,
+        "traced.te": 3,
+        "system_suspend_internal_server.te": 1,
+        "system_server.te": 4,
+        "shell.te": 5,
+        "sdk_sandbox_all.te": 11,
+        "property.te": 24,
+        "priv_app.te": 1,
+        "perfetto.te": 2,
+        "network_stack.te": 10,
+        "netd.te": 1,
+        "mlstrustedsubject.te": 6,
+        "mediaextractor.te": 1,
+        "isolated_app_all.te": 11,
+        "init.te": 1,
+        "hal_wifi_hostapd.te": 1,
+        "hal_uwb.te": 1,
+        "hal_usb_gadget.te": 1,
+        "hal_usb.te": 1,
+        "hal_tv_tuner.te": 1,
+        "hal_tv_input.te": 1,
+        "hal_tv_hdmi_earc.te": 1,
+        "hal_tv_hdmi_connection.te": 1,
+        "hal_tv_hdmi_cec.te": 1,
+        "hal_threadnetwork.te": 1,
+        "hal_tetheroffload.te": 1,
+        "hal_telephony.te": 1,
+        "hal_secure_element.te": 1,
+        "hal_remotelyprovisionedcomponent_avf.te": 1,
+        "hal_remoteaccess.te": 1,
+        "hal_nlinterceptor.te": 1,
+        "hal_mediaquality.te": 1,
+        "hal_macsec.te": 1,
+        "hal_ivn.te": 1,
+        "hal_ir.te": 1,
+        "hal_health_storage.te": 1,
+        "hal_gatekeeper.te": 1,
+        "hal_fastboot.te": 1,
+        "hal_confirmationui.te": 1,
+        "hal_configstore.te": 1,
+        "hal_cas.te": 1,
+        "hal_can.te": 2,
+        "hal_bootctl.te": 1,
+        "hal_bluetooth_lpp.te": 1,
+        "gsid.te": 1,
+        "file.te": 1,
+        "early_virtmgr.te": 1,
+        "domain.te": 30,
+        "crosvm.te": 3,
+        "coredomain.te": 3,
+        "charger_type.te": 2,
+        "bpfloader.te": 18,
+        "bpfdomain.te": 1,
+        "artd.te": 1,
+        "app_neverallows.te": 5,
+        "app.te": 6,
+        "apexd.te": 1,
+        "aconfigd.te": 4
+      }
+    }
+  },
+  "debug_difference_is_not_a_source_security_fix": true,
+  "binary_inspection": {
+    "user": {
+      "policy_binary_version": 30,
+      "type_count": 3781,
+      "class_count": 107,
+      "nlmsg_samples": [
+        {
+          "table": "unconditional",
+          "source_type": 2014,
+          "target_type": 2014,
+          "target_class": 31,
+          "key_specified": 256,
+          "xperm_specified": 3,
+          "driver": 0,
+          "source_name": "sdk_sandbox_next",
+          "target_name": "sdk_sandbox_next",
+          "class_name": "netlink_route_socket",
+          "perms": [
+            71303168,
+            1141130308,
+            1413760000,
+            71566401,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "table": "unconditional",
+          "source_type": 3266,
+          "target_type": 3266,
+          "target_class": 31,
+          "key_specified": 256,
+          "xperm_specified": 3,
+          "driver": 0,
+          "source_name": "vzwfiltered_untrusted_app",
+          "target_name": "vzwfiltered_untrusted_app",
+          "class_name": "netlink_route_socket",
+          "perms": [
+            71303168,
+            1141130308,
+            1413760000,
+            71566401,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "table": "unconditional",
+          "source_type": 875,
+          "target_type": 875,
+          "target_class": 31,
+          "key_specified": 256,
+          "xperm_specified": 3,
+          "driver": 0,
+          "source_name": "mediaserver",
+          "target_name": "mediaserver",
+          "class_name": "netlink_route_socket",
+          "perms": [
+            71303168,
+            1141130308,
+            1413760000,
+            71566401,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "table": "unconditional",
+          "source_type": 1662,
+          "target_type": 1662,
+          "target_class": 31,
+          "key_specified": 256,
+          "xperm_specified": 3,
+          "driver": 0,
+          "source_name": "clatd",
+          "target_name": "clatd",
+          "class_name": "netlink_route_socket",
+          "perms": [
+            71303168,
+            1141130308,
+            1413760000,
+            71566401,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "table": "unconditional",
+          "source_type": 204,
+          "target_type": 204,
+          "target_class": 31,
+          "key_specified": 256,
+          "xperm_specified": 3,
+          "driver": 0,
+          "source_name": "bluetooth",
+          "target_name": "bluetooth",
+          "class_name": "netlink_route_socket",
+          "perms": [
+            71303168,
+            1141130308,
+            1413760000,
+            71566401,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "table": "unconditional",
+          "source_type": 761,
+          "target_type": 761,
+          "target_class": 31,
+          "key_specified": 256,
+          "xperm_specified": 3,
+          "driver": 0,
+          "source_name": "gmscore_app",
+          "target_name": "gmscore_app",
+          "class_name": "netlink_route_socket",
+          "perms": [
+            71303168,
+            1141130308,
+            1413760000,
+            71566401,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "table": "unconditional",
+          "source_type": 1170,
+          "target_type": 1170,
+          "target_class": 31,
+          "key_specified": 256,
+          "xperm_specified": 3,
+          "driver": 0,
+          "source_name": "runas_app",
+          "target_name": "runas_app",
+          "class_name": "netlink_route_socket",
+          "perms": [
+            71303168,
+            1141130308,
+            1413760000,
+            71566401,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "table": "unconditional",
+          "source_type": 309,
+          "target_type": 309,
+          "target_class": 31,
+          "key_specified": 256,
+          "xperm_specified": 3,
+          "driver": 0,
+          "source_name": "dnsmasq",
+          "target_name": "dnsmasq",
+          "class_name": "netlink_route_socket",
+          "perms": [
+            71303168,
+            1141130308,
+            1413760000,
+            71566401,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      ],
+      "xperm_kind_counts": {
+        "1": 1159,
+        "3": 91
+      },
+      "netlink_xperm_enabled": false,
+      "enabled_policy_capabilities": [
+        {
+          "bit": 0,
+          "name": "network_peer_controls"
+        },
+        {
+          "bit": 1,
+          "name": "open_perms"
+        },
+        {
+          "bit": 2,
+          "name": "extended_socket_class"
+        },
+        {
+          "bit": 5,
+          "name": "nnp_nosuid_transition"
+        },
+        {
+          "bit": 12,
+          "name": "functionfs_seclabel"
+        }
+      ],
+      "actual_kernel_execution": false
+    },
+    "userdebug": {
+      "policy_binary_version": 30,
+      "type_count": 3786,
+      "class_count": 107,
+      "nlmsg_samples": [
+        {
+          "table": "unconditional",
+          "source_type": 1166,
+          "target_type": 1166,
+          "target_class": 31,
+          "key_specified": 256,
+          "xperm_specified": 3,
+          "driver": 0,
+          "source_name": "rkpdapp",
+          "target_name": "rkpdapp",
+          "class_name": "netlink_route_socket",
+          "perms": [
+            71303168,
+            1141130308,
+            1413760000,
+            71566401,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "table": "unconditional",
+          "source_type": 3266,
+          "target_type": 3266,
+          "target_class": 31,
+          "key_specified": 256,
+          "xperm_specified": 3,
+          "driver": 0,
+          "source_name": "felica_app",
+          "target_name": "felica_app",
+          "class_name": "netlink_route_socket",
+          "perms": [
+            71303168,
+            1141130308,
+            1413760000,
+            71566401,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "table": "unconditional",
+          "source_type": 868,
+          "target_type": 868,
+          "target_class": 31,
+          "key_specified": 256,
+          "xperm_specified": 3,
+          "driver": 0,
+          "source_name": "mdnsd",
+          "target_name": "mdnsd",
+          "class_name": "netlink_route_socket",
+          "perms": [
+            71303168,
+            1141130308,
+            1413760000,
+            71566401,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "table": "unconditional",
+          "source_type": 2227,
+          "target_type": 2227,
+          "target_class": 31,
+          "key_specified": 256,
+          "xperm_specified": 3,
+          "driver": 0,
+          "source_name": "mediashell_app",
+          "target_name": "mediashell_app",
+          "class_name": "netlink_route_socket",
+          "perms": [
+            71303168,
+            1141130308,
+            1413760000,
+            71566401,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "table": "unconditional",
+          "source_type": 2130,
+          "target_type": 2130,
+          "target_class": 31,
+          "key_specified": 256,
+          "xperm_specified": 3,
+          "driver": 0,
+          "source_name": "vmlauncher_app",
+          "target_name": "vmlauncher_app",
+          "class_name": "netlink_route_socket",
+          "perms": [
+            71303168,
+            1141130308,
+            1413760000,
+            71566401,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "table": "unconditional",
+          "source_type": 2013,
+          "target_type": 2013,
+          "target_class": 31,
+          "key_specified": 256,
+          "xperm_specified": 3,
+          "driver": 0,
+          "source_name": "sdk_sandbox_34",
+          "target_name": "sdk_sandbox_34",
+          "class_name": "netlink_route_socket",
+          "perms": [
+            71303168,
+            1141130308,
+            1413760000,
+            71566401,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "table": "unconditional",
+          "source_type": 900,
+          "target_type": 900,
+          "target_class": 31,
+          "key_specified": 256,
+          "xperm_specified": 3,
+          "driver": 0,
+          "source_name": "priv_app",
+          "target_name": "priv_app",
+          "class_name": "netlink_route_socket",
+          "perms": [
+            71303168,
+            1141130308,
+            1413760000,
+            71566401,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "table": "unconditional",
+          "source_type": 3125,
+          "target_type": 3125,
+          "target_class": 31,
+          "key_specified": 256,
+          "xperm_specified": 3,
+          "driver": 0,
+          "source_name": "oneseg_mw",
+          "target_name": "oneseg_mw",
+          "class_name": "netlink_route_socket",
+          "perms": [
+            71303168,
+            1141130308,
+            1413760000,
+            71566401,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      ],
+      "xperm_kind_counts": {
+        "1": 1177,
+        "3": 92
+      },
+      "netlink_xperm_enabled": false,
+      "enabled_policy_capabilities": [
+        {
+          "bit": 0,
+          "name": "network_peer_controls"
+        },
+        {
+          "bit": 1,
+          "name": "open_perms"
+        },
+        {
+          "bit": 2,
+          "name": "extended_socket_class"
+        },
+        {
+          "bit": 5,
+          "name": "nnp_nosuid_transition"
+        },
+        {
+          "bit": 12,
+          "name": "functionfs_seclabel"
+        }
+      ],
+      "actual_kernel_execution": false
+    }
+  },
+  "original_reader_reproduction": {
+    "passed": false,
+    "actual_kernel_execution": false,
+    "whole_policy_load_proven": false,
+    "selinux_enforcement_proven": false,
+    "checked_at_utc": "2026-10-23T16:32:44.726676+00:00",
+    "modern_xperm_record_compatible": false,
+    "controls_passed": true,
+    "cases": [
+      {
+        "name": "control-normal-ioctl",
+        "return": 0,
+        "consumed": 42,
+        "record_bytes": 42,
+        "parsed_kind": 1,
+        "parsed_driver": 112,
+        "compat_mode": 0,
+        "inserted": 1
+      },
+      {
+        "name": "control-native-ioctl-driver",
+        "return": 0,
+        "consumed": 42,
+        "record_bytes": 42,
+        "parsed_kind": 2,
+        "parsed_driver": 0,
+        "compat_mode": 0,
+        "inserted": 1
+      },
+      {
+        "name": "control-android-m-ioctl",
+        "return": 0,
+        "consumed": 41,
+        "record_bytes": 41,
+        "parsed_kind": 1,
+        "parsed_driver": 137,
+        "compat_mode": 1,
+        "inserted": 1
+      },
+      {
+        "name": "actual-nlmsg-0",
+        "return": 0,
+        "consumed": 41,
+        "record_bytes": 42,
+        "parsed_kind": 1,
+        "parsed_driver": 3,
+        "compat_mode": 1,
+        "inserted": 1,
+        "modern_format_correct": false,
+        "real_binary_sample": {
+          "table": "unconditional",
+          "source_type": 2014,
+          "target_type": 2014,
+          "target_class": 31,
+          "key_specified": 256,
+          "xperm_specified": 3,
+          "driver": 0,
+          "source_name": "sdk_sandbox_next",
+          "target_name": "sdk_sandbox_next",
+          "class_name": "netlink_route_socket",
+          "perms": [
+            71303168,
+            1141130308,
+            1413760000,
+            71566401,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "name": "actual-nlmsg-followed-by-ioctl-0",
+        "return": -22,
+        "consumed": 49,
+        "record_bytes": 84,
+        "parsed_kind": 1,
+        "parsed_driver": 3,
+        "compat_mode": 1,
+        "inserted": 1,
+        "modern_sequence_correct": false
+      },
+      {
+        "name": "truncated-native-0",
+        "return": -22,
+        "consumed": 0,
+        "record_bytes": 0,
+        "parsed_kind": 0,
+        "parsed_driver": 0,
+        "compat_mode": 0,
+        "inserted": 0
+      },
+      {
+        "name": "truncated-native-7",
+        "return": -22,
+        "consumed": 0,
+        "record_bytes": 7,
+        "parsed_kind": 0,
+        "parsed_driver": 0,
+        "compat_mode": 0,
+        "inserted": 0
+      },
+      {
+        "name": "truncated-native-8",
+        "return": -22,
+        "consumed": 8,
+        "record_bytes": 8,
+        "parsed_kind": 0,
+        "parsed_driver": 0,
+        "compat_mode": 0,
+        "inserted": 0
+      },
+      {
+        "name": "truncated-native-9",
+        "return": -22,
+        "consumed": 9,
+        "record_bytes": 9,
+        "parsed_kind": 0,
+        "parsed_driver": 0,
+        "compat_mode": 1,
+        "inserted": 0
+      },
+      {
+        "name": "truncated-native-10",
+        "return": -22,
+        "consumed": 9,
+        "record_bytes": 10,
+        "parsed_kind": 0,
+        "parsed_driver": 0,
+        "compat_mode": 1,
+        "inserted": 0
+      },
+      {
+        "name": "truncated-native-41",
+        "return": 0,
+        "consumed": 41,
+        "record_bytes": 41,
+        "parsed_kind": 1,
+        "parsed_driver": 3,
+        "compat_mode": 1,
+        "inserted": 1,
+        "truncated_native_was_wrongly_accepted": true
+      },
+      {
+        "name": "actual-nlmsg-1",
+        "return": 0,
+        "consumed": 41,
+        "record_bytes": 42,
+        "parsed_kind": 1,
+        "parsed_driver": 3,
+        "compat_mode": 1,
+        "inserted": 1,
+        "modern_format_correct": false,
+        "real_binary_sample": {
+          "table": "unconditional",
+          "source_type": 3266,
+          "target_type": 3266,
+          "target_class": 31,
+          "key_specified": 256,
+          "xperm_specified": 3,
+          "driver": 0,
+          "source_name": "vzwfiltered_untrusted_app",
+          "target_name": "vzwfiltered_untrusted_app",
+          "class_name": "netlink_route_socket",
+          "perms": [
+            71303168,
+            1141130308,
+            1413760000,
+            71566401,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "name": "actual-nlmsg-followed-by-ioctl-1",
+        "return": -22,
+        "consumed": 49,
+        "record_bytes": 84,
+        "parsed_kind": 1,
+        "parsed_driver": 3,
+        "compat_mode": 1,
+        "inserted": 1,
+        "modern_sequence_correct": false
+      },
+      {
+        "name": "actual-nlmsg-2",
+        "return": 0,
+        "consumed": 41,
+        "record_bytes": 42,
+        "parsed_kind": 1,
+        "parsed_driver": 3,
+        "compat_mode": 1,
+        "inserted": 1,
+        "modern_format_correct": false,
+        "real_binary_sample": {
+          "table": "unconditional",
+          "source_type": 875,
+          "target_type": 875,
+          "target_class": 31,
+          "key_specified": 256,
+          "xperm_specified": 3,
+          "driver": 0,
+          "source_name": "mediaserver",
+          "target_name": "mediaserver",
+          "class_name": "netlink_route_socket",
+          "perms": [
+            71303168,
+            1141130308,
+            1413760000,
+            71566401,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "name": "actual-nlmsg-followed-by-ioctl-2",
+        "return": -22,
+        "consumed": 49,
+        "record_bytes": 84,
+        "parsed_kind": 1,
+        "parsed_driver": 3,
+        "compat_mode": 1,
+        "inserted": 1,
+        "modern_sequence_correct": false
+      },
+      {
+        "name": "actual-nlmsg-3",
+        "return": 0,
+        "consumed": 41,
+        "record_bytes": 42,
+        "parsed_kind": 1,
+        "parsed_driver": 3,
+        "compat_mode": 1,
+        "inserted": 1,
+        "modern_format_correct": false,
+        "real_binary_sample": {
+          "table": "unconditional",
+          "source_type": 1662,
+          "target_type": 1662,
+          "target_class": 31,
+          "key_specified": 256,
+          "xperm_specified": 3,
+          "driver": 0,
+          "source_name": "clatd",
+          "target_name": "clatd",
+          "class_name": "netlink_route_socket",
+          "perms": [
+            71303168,
+            1141130308,
+            1413760000,
+            71566401,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "name": "actual-nlmsg-followed-by-ioctl-3",
+        "return": -22,
+        "consumed": 49,
+        "record_bytes": 84,
+        "parsed_kind": 1,
+        "parsed_driver": 3,
+        "compat_mode": 1,
+        "inserted": 1,
+        "modern_sequence_correct": false
+      },
+      {
+        "name": "actual-nlmsg-4",
+        "return": 0,
+        "consumed": 41,
+        "record_bytes": 42,
+        "parsed_kind": 1,
+        "parsed_driver": 3,
+        "compat_mode": 1,
+        "inserted": 1,
+        "modern_format_correct": false,
+        "real_binary_sample": {
+          "table": "unconditional",
+          "source_type": 204,
+          "target_type": 204,
+          "target_class": 31,
+          "key_specified": 256,
+          "xperm_specified": 3,
+          "driver": 0,
+          "source_name": "bluetooth",
+          "target_name": "bluetooth",
+          "class_name": "netlink_route_socket",
+          "perms": [
+            71303168,
+            1141130308,
+            1413760000,
+            71566401,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "name": "actual-nlmsg-followed-by-ioctl-4",
+        "return": -22,
+        "consumed": 49,
+        "record_bytes": 84,
+        "parsed_kind": 1,
+        "parsed_driver": 3,
+        "compat_mode": 1,
+        "inserted": 1,
+        "modern_sequence_correct": false
+      },
+      {
+        "name": "actual-nlmsg-5",
+        "return": 0,
+        "consumed": 41,
+        "record_bytes": 42,
+        "parsed_kind": 1,
+        "parsed_driver": 3,
+        "compat_mode": 1,
+        "inserted": 1,
+        "modern_format_correct": false,
+        "real_binary_sample": {
+          "table": "unconditional",
+          "source_type": 761,
+          "target_type": 761,
+          "target_class": 31,
+          "key_specified": 256,
+          "xperm_specified": 3,
+          "driver": 0,
+          "source_name": "gmscore_app",
+          "target_name": "gmscore_app",
+          "class_name": "netlink_route_socket",
+          "perms": [
+            71303168,
+            1141130308,
+            1413760000,
+            71566401,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "name": "actual-nlmsg-followed-by-ioctl-5",
+        "return": -22,
+        "consumed": 49,
+        "record_bytes": 84,
+        "parsed_kind": 1,
+        "parsed_driver": 3,
+        "compat_mode": 1,
+        "inserted": 1,
+        "modern_sequence_correct": false
+      },
+      {
+        "name": "actual-nlmsg-6",
+        "return": 0,
+        "consumed": 41,
+        "record_bytes": 42,
+        "parsed_kind": 1,
+        "parsed_driver": 3,
+        "compat_mode": 1,
+        "inserted": 1,
+        "modern_format_correct": false,
+        "real_binary_sample": {
+          "table": "unconditional",
+          "source_type": 1170,
+          "target_type": 1170,
+          "target_class": 31,
+          "key_specified": 256,
+          "xperm_specified": 3,
+          "driver": 0,
+          "source_name": "runas_app",
+          "target_name": "runas_app",
+          "class_name": "netlink_route_socket",
+          "perms": [
+            71303168,
+            1141130308,
+            1413760000,
+            71566401,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "name": "actual-nlmsg-followed-by-ioctl-6",
+        "return": -22,
+        "consumed": 49,
+        "record_bytes": 84,
+        "parsed_kind": 1,
+        "parsed_driver": 3,
+        "compat_mode": 1,
+        "inserted": 1,
+        "modern_sequence_correct": false
+      },
+      {
+        "name": "actual-nlmsg-7",
+        "return": 0,
+        "consumed": 41,
+        "record_bytes": 42,
+        "parsed_kind": 1,
+        "parsed_driver": 3,
+        "compat_mode": 1,
+        "inserted": 1,
+        "modern_format_correct": false,
+        "real_binary_sample": {
+          "table": "unconditional",
+          "source_type": 309,
+          "target_type": 309,
+          "target_class": 31,
+          "key_specified": 256,
+          "xperm_specified": 3,
+          "driver": 0,
+          "source_name": "dnsmasq",
+          "target_name": "dnsmasq",
+          "class_name": "netlink_route_socket",
+          "perms": [
+            71303168,
+            1141130308,
+            1413760000,
+            71566401,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "name": "actual-nlmsg-followed-by-ioctl-7",
+        "return": -22,
+        "consumed": 49,
+        "record_bytes": 84,
+        "parsed_kind": 1,
+        "parsed_driver": 3,
+        "compat_mode": 1,
+        "inserted": 1,
+        "modern_sequence_correct": false
+      }
+    ],
+    "policy_sha256": "d4c8692028e6753f0fa08f74b845f796a53f863da648d8a3c82182b48dbfb3fb",
+    "inspector_sha256": "92e699fc20b3d6ec2d3d237f1939090d71b4f32153c18dc188f88f6d7b499ca6",
+    "kernel_reader_sha256": "45f716fa189a7d209a5a27d78df691aa1025e66fa6ac0c74d9b6b5a5c7678df1",
+    "kernel_header_sha256": "1aa697528c2d10a8272c2c2e503c9f9805d0be392a0a90ccc554c5d59437fe89",
+    "extracted_function_sha256": "34e8ce74e37f87e15ce6b967128a9f989c0a20288d0a266a410ba91760738730",
+    "compile_command": [
+      "cc",
+      "-std=gnu11",
+      "-Wall",
+      "-Werror",
+      "-g",
+      "-fsanitize=address,undefined",
+      "-fno-omit-frame-pointer",
+      "/srv/android/artifacts/lineage-23.2-arm64/kernel-policy-reader-old-20261023-02/reader.c",
+      "-o",
+      "/srv/android/artifacts/lineage-23.2-arm64/kernel-policy-reader-old-20261023-02/reader"
+    ],
+    "xperm_kind_counts": {
+      "1": 1159,
+      "3": 91
+    },
+    "netlink_xperm_enabled_in_input": false,
+    "enabled_policy_capabilities": [
+      {
+        "bit": 0,
+        "name": "network_peer_controls"
+      },
+      {
+        "bit": 1,
+        "name": "open_perms"
+      },
+      {
+        "bit": 2,
+        "name": "extended_socket_class"
+      },
+      {
+        "bit": 5,
+        "name": "nnp_nosuid_transition"
+      },
+      {
+        "bit": 12,
+        "name": "functionfs_seclabel"
+      }
+    ],
+    "type_class_table_checks_and_io_are_fixtures": true
+  },
+  "new_reader_user": {
+    "passed": true,
+    "actual_kernel_execution": false,
+    "whole_policy_load_proven": false,
+    "selinux_enforcement_proven": false,
+    "checked_at_utc": "2026-10-23T16:32:44.239137+00:00",
+    "modern_xperm_record_compatible": true,
+    "controls_passed": true,
+    "cases": [
+      {
+        "name": "control-normal-ioctl",
+        "return": 0,
+        "consumed": 42,
+        "record_bytes": 42,
+        "parsed_kind": 1,
+        "parsed_driver": 112,
+        "compat_mode": 0,
+        "inserted": 1
+      },
+      {
+        "name": "control-native-ioctl-driver",
+        "return": 0,
+        "consumed": 42,
+        "record_bytes": 42,
+        "parsed_kind": 2,
+        "parsed_driver": 0,
+        "compat_mode": 0,
+        "inserted": 1
+      },
+      {
+        "name": "control-android-m-ioctl",
+        "return": 0,
+        "consumed": 41,
+        "record_bytes": 41,
+        "parsed_kind": 1,
+        "parsed_driver": 137,
+        "compat_mode": 1,
+        "inserted": 1
+      },
+      {
+        "name": "actual-nlmsg-0",
+        "return": 0,
+        "consumed": 42,
+        "record_bytes": 42,
+        "parsed_kind": 3,
+        "parsed_driver": 0,
+        "compat_mode": 0,
+        "inserted": 1,
+        "modern_format_correct": true,
+        "real_binary_sample": {
+          "table": "unconditional",
+          "source_type": 2014,
+          "target_type": 2014,
+          "target_class": 31,
+          "key_specified": 256,
+          "xperm_specified": 3,
+          "driver": 0,
+          "source_name": "sdk_sandbox_next",
+          "target_name": "sdk_sandbox_next",
+          "class_name": "netlink_route_socket",
+          "perms": [
+            71303168,
+            1141130308,
+            1413760000,
+            71566401,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "name": "actual-nlmsg-followed-by-ioctl-0",
+        "return": 0,
+        "consumed": 84,
+        "record_bytes": 84,
+        "parsed_kind": 1,
+        "parsed_driver": 112,
+        "compat_mode": 0,
+        "inserted": 2,
+        "modern_sequence_correct": true
+      },
+      {
+        "name": "truncated-native-0",
+        "return": -22,
+        "consumed": 0,
+        "record_bytes": 0,
+        "parsed_kind": 0,
+        "parsed_driver": 0,
+        "compat_mode": 0,
+        "inserted": 0
+      },
+      {
+        "name": "truncated-native-7",
+        "return": -22,
+        "consumed": 0,
+        "record_bytes": 7,
+        "parsed_kind": 0,
+        "parsed_driver": 0,
+        "compat_mode": 0,
+        "inserted": 0
+      },
+      {
+        "name": "truncated-native-8",
+        "return": -22,
+        "consumed": 8,
+        "record_bytes": 8,
+        "parsed_kind": 0,
+        "parsed_driver": 0,
+        "compat_mode": 0,
+        "inserted": 0
+      },
+      {
+        "name": "truncated-native-9",
+        "return": -22,
+        "consumed": 9,
+        "record_bytes": 9,
+        "parsed_kind": 0,
+        "parsed_driver": 0,
+        "compat_mode": 0,
+        "inserted": 0
+      },
+      {
+        "name": "truncated-native-10",
+        "return": -22,
+        "consumed": 10,
+        "record_bytes": 10,
+        "parsed_kind": 0,
+        "parsed_driver": 0,
+        "compat_mode": 0,
+        "inserted": 0
+      },
+      {
+        "name": "truncated-native-41",
+        "return": -22,
+        "consumed": 10,
+        "record_bytes": 41,
+        "parsed_kind": 0,
+        "parsed_driver": 0,
+        "compat_mode": 0,
+        "inserted": 0
+      },
+      {
+        "name": "actual-nlmsg-1",
+        "return": 0,
+        "consumed": 42,
+        "record_bytes": 42,
+        "parsed_kind": 3,
+        "parsed_driver": 0,
+        "compat_mode": 0,
+        "inserted": 1,
+        "modern_format_correct": true,
+        "real_binary_sample": {
+          "table": "unconditional",
+          "source_type": 3266,
+          "target_type": 3266,
+          "target_class": 31,
+          "key_specified": 256,
+          "xperm_specified": 3,
+          "driver": 0,
+          "source_name": "vzwfiltered_untrusted_app",
+          "target_name": "vzwfiltered_untrusted_app",
+          "class_name": "netlink_route_socket",
+          "perms": [
+            71303168,
+            1141130308,
+            1413760000,
+            71566401,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "name": "actual-nlmsg-followed-by-ioctl-1",
+        "return": 0,
+        "consumed": 84,
+        "record_bytes": 84,
+        "parsed_kind": 1,
+        "parsed_driver": 112,
+        "compat_mode": 0,
+        "inserted": 2,
+        "modern_sequence_correct": true
+      },
+      {
+        "name": "actual-nlmsg-2",
+        "return": 0,
+        "consumed": 42,
+        "record_bytes": 42,
+        "parsed_kind": 3,
+        "parsed_driver": 0,
+        "compat_mode": 0,
+        "inserted": 1,
+        "modern_format_correct": true,
+        "real_binary_sample": {
+          "table": "unconditional",
+          "source_type": 875,
+          "target_type": 875,
+          "target_class": 31,
+          "key_specified": 256,
+          "xperm_specified": 3,
+          "driver": 0,
+          "source_name": "mediaserver",
+          "target_name": "mediaserver",
+          "class_name": "netlink_route_socket",
+          "perms": [
+            71303168,
+            1141130308,
+            1413760000,
+            71566401,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "name": "actual-nlmsg-followed-by-ioctl-2",
+        "return": 0,
+        "consumed": 84,
+        "record_bytes": 84,
+        "parsed_kind": 1,
+        "parsed_driver": 112,
+        "compat_mode": 0,
+        "inserted": 2,
+        "modern_sequence_correct": true
+      },
+      {
+        "name": "actual-nlmsg-3",
+        "return": 0,
+        "consumed": 42,
+        "record_bytes": 42,
+        "parsed_kind": 3,
+        "parsed_driver": 0,
+        "compat_mode": 0,
+        "inserted": 1,
+        "modern_format_correct": true,
+        "real_binary_sample": {
+          "table": "unconditional",
+          "source_type": 1662,
+          "target_type": 1662,
+          "target_class": 31,
+          "key_specified": 256,
+          "xperm_specified": 3,
+          "driver": 0,
+          "source_name": "clatd",
+          "target_name": "clatd",
+          "class_name": "netlink_route_socket",
+          "perms": [
+            71303168,
+            1141130308,
+            1413760000,
+            71566401,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "name": "actual-nlmsg-followed-by-ioctl-3",
+        "return": 0,
+        "consumed": 84,
+        "record_bytes": 84,
+        "parsed_kind": 1,
+        "parsed_driver": 112,
+        "compat_mode": 0,
+        "inserted": 2,
+        "modern_sequence_correct": true
+      },
+      {
+        "name": "actual-nlmsg-4",
+        "return": 0,
+        "consumed": 42,
+        "record_bytes": 42,
+        "parsed_kind": 3,
+        "parsed_driver": 0,
+        "compat_mode": 0,
+        "inserted": 1,
+        "modern_format_correct": true,
+        "real_binary_sample": {
+          "table": "unconditional",
+          "source_type": 204,
+          "target_type": 204,
+          "target_class": 31,
+          "key_specified": 256,
+          "xperm_specified": 3,
+          "driver": 0,
+          "source_name": "bluetooth",
+          "target_name": "bluetooth",
+          "class_name": "netlink_route_socket",
+          "perms": [
+            71303168,
+            1141130308,
+            1413760000,
+            71566401,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "name": "actual-nlmsg-followed-by-ioctl-4",
+        "return": 0,
+        "consumed": 84,
+        "record_bytes": 84,
+        "parsed_kind": 1,
+        "parsed_driver": 112,
+        "compat_mode": 0,
+        "inserted": 2,
+        "modern_sequence_correct": true
+      },
+      {
+        "name": "actual-nlmsg-5",
+        "return": 0,
+        "consumed": 42,
+        "record_bytes": 42,
+        "parsed_kind": 3,
+        "parsed_driver": 0,
+        "compat_mode": 0,
+        "inserted": 1,
+        "modern_format_correct": true,
+        "real_binary_sample": {
+          "table": "unconditional",
+          "source_type": 761,
+          "target_type": 761,
+          "target_class": 31,
+          "key_specified": 256,
+          "xperm_specified": 3,
+          "driver": 0,
+          "source_name": "gmscore_app",
+          "target_name": "gmscore_app",
+          "class_name": "netlink_route_socket",
+          "perms": [
+            71303168,
+            1141130308,
+            1413760000,
+            71566401,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "name": "actual-nlmsg-followed-by-ioctl-5",
+        "return": 0,
+        "consumed": 84,
+        "record_bytes": 84,
+        "parsed_kind": 1,
+        "parsed_driver": 112,
+        "compat_mode": 0,
+        "inserted": 2,
+        "modern_sequence_correct": true
+      },
+      {
+        "name": "actual-nlmsg-6",
+        "return": 0,
+        "consumed": 42,
+        "record_bytes": 42,
+        "parsed_kind": 3,
+        "parsed_driver": 0,
+        "compat_mode": 0,
+        "inserted": 1,
+        "modern_format_correct": true,
+        "real_binary_sample": {
+          "table": "unconditional",
+          "source_type": 1170,
+          "target_type": 1170,
+          "target_class": 31,
+          "key_specified": 256,
+          "xperm_specified": 3,
+          "driver": 0,
+          "source_name": "runas_app",
+          "target_name": "runas_app",
+          "class_name": "netlink_route_socket",
+          "perms": [
+            71303168,
+            1141130308,
+            1413760000,
+            71566401,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "name": "actual-nlmsg-followed-by-ioctl-6",
+        "return": 0,
+        "consumed": 84,
+        "record_bytes": 84,
+        "parsed_kind": 1,
+        "parsed_driver": 112,
+        "compat_mode": 0,
+        "inserted": 2,
+        "modern_sequence_correct": true
+      },
+      {
+        "name": "actual-nlmsg-7",
+        "return": 0,
+        "consumed": 42,
+        "record_bytes": 42,
+        "parsed_kind": 3,
+        "parsed_driver": 0,
+        "compat_mode": 0,
+        "inserted": 1,
+        "modern_format_correct": true,
+        "real_binary_sample": {
+          "table": "unconditional",
+          "source_type": 309,
+          "target_type": 309,
+          "target_class": 31,
+          "key_specified": 256,
+          "xperm_specified": 3,
+          "driver": 0,
+          "source_name": "dnsmasq",
+          "target_name": "dnsmasq",
+          "class_name": "netlink_route_socket",
+          "perms": [
+            71303168,
+            1141130308,
+            1413760000,
+            71566401,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "name": "actual-nlmsg-followed-by-ioctl-7",
+        "return": 0,
+        "consumed": 84,
+        "record_bytes": 84,
+        "parsed_kind": 1,
+        "parsed_driver": 112,
+        "compat_mode": 0,
+        "inserted": 2,
+        "modern_sequence_correct": true
+      }
+    ],
+    "policy_sha256": "d4c8692028e6753f0fa08f74b845f796a53f863da648d8a3c82182b48dbfb3fb",
+    "inspector_sha256": "92e699fc20b3d6ec2d3d237f1939090d71b4f32153c18dc188f88f6d7b499ca6",
+    "kernel_reader_sha256": "0e7cfb7d017944012bd7c1b241b37ea4859f14d35aa46d46e457862db3a660dc",
+    "kernel_header_sha256": "f43803ad7360e4bcc8780d6289f8af3c7170dd111a847016f6ca34e88f497d85",
+    "extracted_function_sha256": "e8b1f3f24667e662f0d9352b6218d9b8920866657fa9bcf0163eb613b6b1fb1a",
+    "compile_command": [
+      "cc",
+      "-std=gnu11",
+      "-Wall",
+      "-Werror",
+      "-g",
+      "-fsanitize=address,undefined",
+      "-fno-omit-frame-pointer",
+      "/srv/android/artifacts/lineage-23.2-arm64/kernel-policy-reader-host-20261023-04/reader.c",
+      "-o",
+      "/srv/android/artifacts/lineage-23.2-arm64/kernel-policy-reader-host-20261023-04/reader"
+    ],
+    "xperm_kind_counts": {
+      "1": 1159,
+      "3": 91
+    },
+    "netlink_xperm_enabled_in_input": false,
+    "enabled_policy_capabilities": [
+      {
+        "bit": 0,
+        "name": "network_peer_controls"
+      },
+      {
+        "bit": 1,
+        "name": "open_perms"
+      },
+      {
+        "bit": 2,
+        "name": "extended_socket_class"
+      },
+      {
+        "bit": 5,
+        "name": "nnp_nosuid_transition"
+      },
+      {
+        "bit": 12,
+        "name": "functionfs_seclabel"
+      }
+    ],
+    "type_class_table_checks_and_io_are_fixtures": true
+  },
+  "new_reader_userdebug": {
+    "passed": true,
+    "actual_kernel_execution": false,
+    "whole_policy_load_proven": false,
+    "selinux_enforcement_proven": false,
+    "checked_at_utc": "2026-10-23T16:31:44.814529+00:00",
+    "modern_xperm_record_compatible": true,
+    "controls_passed": true,
+    "cases": [
+      {
+        "name": "control-normal-ioctl",
+        "return": 0,
+        "consumed": 42,
+        "record_bytes": 42,
+        "parsed_kind": 1,
+        "parsed_driver": 112,
+        "compat_mode": 0,
+        "inserted": 1
+      },
+      {
+        "name": "control-native-ioctl-driver",
+        "return": 0,
+        "consumed": 42,
+        "record_bytes": 42,
+        "parsed_kind": 2,
+        "parsed_driver": 0,
+        "compat_mode": 0,
+        "inserted": 1
+      },
+      {
+        "name": "control-android-m-ioctl",
+        "return": 0,
+        "consumed": 41,
+        "record_bytes": 41,
+        "parsed_kind": 1,
+        "parsed_driver": 137,
+        "compat_mode": 1,
+        "inserted": 1
+      },
+      {
+        "name": "actual-nlmsg-0",
+        "return": 0,
+        "consumed": 42,
+        "record_bytes": 42,
+        "parsed_kind": 3,
+        "parsed_driver": 0,
+        "compat_mode": 0,
+        "inserted": 1,
+        "modern_format_correct": true,
+        "real_binary_sample": {
+          "table": "unconditional",
+          "source_type": 1166,
+          "target_type": 1166,
+          "target_class": 31,
+          "key_specified": 256,
+          "xperm_specified": 3,
+          "driver": 0,
+          "source_name": "rkpdapp",
+          "target_name": "rkpdapp",
+          "class_name": "netlink_route_socket",
+          "perms": [
+            71303168,
+            1141130308,
+            1413760000,
+            71566401,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "name": "actual-nlmsg-followed-by-ioctl-0",
+        "return": 0,
+        "consumed": 84,
+        "record_bytes": 84,
+        "parsed_kind": 1,
+        "parsed_driver": 112,
+        "compat_mode": 0,
+        "inserted": 2,
+        "modern_sequence_correct": true
+      },
+      {
+        "name": "truncated-native-0",
+        "return": -22,
+        "consumed": 0,
+        "record_bytes": 0,
+        "parsed_kind": 0,
+        "parsed_driver": 0,
+        "compat_mode": 0,
+        "inserted": 0
+      },
+      {
+        "name": "truncated-native-7",
+        "return": -22,
+        "consumed": 0,
+        "record_bytes": 7,
+        "parsed_kind": 0,
+        "parsed_driver": 0,
+        "compat_mode": 0,
+        "inserted": 0
+      },
+      {
+        "name": "truncated-native-8",
+        "return": -22,
+        "consumed": 8,
+        "record_bytes": 8,
+        "parsed_kind": 0,
+        "parsed_driver": 0,
+        "compat_mode": 0,
+        "inserted": 0
+      },
+      {
+        "name": "truncated-native-9",
+        "return": -22,
+        "consumed": 9,
+        "record_bytes": 9,
+        "parsed_kind": 0,
+        "parsed_driver": 0,
+        "compat_mode": 0,
+        "inserted": 0
+      },
+      {
+        "name": "truncated-native-10",
+        "return": -22,
+        "consumed": 10,
+        "record_bytes": 10,
+        "parsed_kind": 0,
+        "parsed_driver": 0,
+        "compat_mode": 0,
+        "inserted": 0
+      },
+      {
+        "name": "truncated-native-41",
+        "return": -22,
+        "consumed": 10,
+        "record_bytes": 41,
+        "parsed_kind": 0,
+        "parsed_driver": 0,
+        "compat_mode": 0,
+        "inserted": 0
+      },
+      {
+        "name": "actual-nlmsg-1",
+        "return": 0,
+        "consumed": 42,
+        "record_bytes": 42,
+        "parsed_kind": 3,
+        "parsed_driver": 0,
+        "compat_mode": 0,
+        "inserted": 1,
+        "modern_format_correct": true,
+        "real_binary_sample": {
+          "table": "unconditional",
+          "source_type": 3266,
+          "target_type": 3266,
+          "target_class": 31,
+          "key_specified": 256,
+          "xperm_specified": 3,
+          "driver": 0,
+          "source_name": "felica_app",
+          "target_name": "felica_app",
+          "class_name": "netlink_route_socket",
+          "perms": [
+            71303168,
+            1141130308,
+            1413760000,
+            71566401,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "name": "actual-nlmsg-followed-by-ioctl-1",
+        "return": 0,
+        "consumed": 84,
+        "record_bytes": 84,
+        "parsed_kind": 1,
+        "parsed_driver": 112,
+        "compat_mode": 0,
+        "inserted": 2,
+        "modern_sequence_correct": true
+      },
+      {
+        "name": "actual-nlmsg-2",
+        "return": 0,
+        "consumed": 42,
+        "record_bytes": 42,
+        "parsed_kind": 3,
+        "parsed_driver": 0,
+        "compat_mode": 0,
+        "inserted": 1,
+        "modern_format_correct": true,
+        "real_binary_sample": {
+          "table": "unconditional",
+          "source_type": 868,
+          "target_type": 868,
+          "target_class": 31,
+          "key_specified": 256,
+          "xperm_specified": 3,
+          "driver": 0,
+          "source_name": "mdnsd",
+          "target_name": "mdnsd",
+          "class_name": "netlink_route_socket",
+          "perms": [
+            71303168,
+            1141130308,
+            1413760000,
+            71566401,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "name": "actual-nlmsg-followed-by-ioctl-2",
+        "return": 0,
+        "consumed": 84,
+        "record_bytes": 84,
+        "parsed_kind": 1,
+        "parsed_driver": 112,
+        "compat_mode": 0,
+        "inserted": 2,
+        "modern_sequence_correct": true
+      },
+      {
+        "name": "actual-nlmsg-3",
+        "return": 0,
+        "consumed": 42,
+        "record_bytes": 42,
+        "parsed_kind": 3,
+        "parsed_driver": 0,
+        "compat_mode": 0,
+        "inserted": 1,
+        "modern_format_correct": true,
+        "real_binary_sample": {
+          "table": "unconditional",
+          "source_type": 2227,
+          "target_type": 2227,
+          "target_class": 31,
+          "key_specified": 256,
+          "xperm_specified": 3,
+          "driver": 0,
+          "source_name": "mediashell_app",
+          "target_name": "mediashell_app",
+          "class_name": "netlink_route_socket",
+          "perms": [
+            71303168,
+            1141130308,
+            1413760000,
+            71566401,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "name": "actual-nlmsg-followed-by-ioctl-3",
+        "return": 0,
+        "consumed": 84,
+        "record_bytes": 84,
+        "parsed_kind": 1,
+        "parsed_driver": 112,
+        "compat_mode": 0,
+        "inserted": 2,
+        "modern_sequence_correct": true
+      },
+      {
+        "name": "actual-nlmsg-4",
+        "return": 0,
+        "consumed": 42,
+        "record_bytes": 42,
+        "parsed_kind": 3,
+        "parsed_driver": 0,
+        "compat_mode": 0,
+        "inserted": 1,
+        "modern_format_correct": true,
+        "real_binary_sample": {
+          "table": "unconditional",
+          "source_type": 2130,
+          "target_type": 2130,
+          "target_class": 31,
+          "key_specified": 256,
+          "xperm_specified": 3,
+          "driver": 0,
+          "source_name": "vmlauncher_app",
+          "target_name": "vmlauncher_app",
+          "class_name": "netlink_route_socket",
+          "perms": [
+            71303168,
+            1141130308,
+            1413760000,
+            71566401,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "name": "actual-nlmsg-followed-by-ioctl-4",
+        "return": 0,
+        "consumed": 84,
+        "record_bytes": 84,
+        "parsed_kind": 1,
+        "parsed_driver": 112,
+        "compat_mode": 0,
+        "inserted": 2,
+        "modern_sequence_correct": true
+      },
+      {
+        "name": "actual-nlmsg-5",
+        "return": 0,
+        "consumed": 42,
+        "record_bytes": 42,
+        "parsed_kind": 3,
+        "parsed_driver": 0,
+        "compat_mode": 0,
+        "inserted": 1,
+        "modern_format_correct": true,
+        "real_binary_sample": {
+          "table": "unconditional",
+          "source_type": 2013,
+          "target_type": 2013,
+          "target_class": 31,
+          "key_specified": 256,
+          "xperm_specified": 3,
+          "driver": 0,
+          "source_name": "sdk_sandbox_34",
+          "target_name": "sdk_sandbox_34",
+          "class_name": "netlink_route_socket",
+          "perms": [
+            71303168,
+            1141130308,
+            1413760000,
+            71566401,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "name": "actual-nlmsg-followed-by-ioctl-5",
+        "return": 0,
+        "consumed": 84,
+        "record_bytes": 84,
+        "parsed_kind": 1,
+        "parsed_driver": 112,
+        "compat_mode": 0,
+        "inserted": 2,
+        "modern_sequence_correct": true
+      },
+      {
+        "name": "actual-nlmsg-6",
+        "return": 0,
+        "consumed": 42,
+        "record_bytes": 42,
+        "parsed_kind": 3,
+        "parsed_driver": 0,
+        "compat_mode": 0,
+        "inserted": 1,
+        "modern_format_correct": true,
+        "real_binary_sample": {
+          "table": "unconditional",
+          "source_type": 900,
+          "target_type": 900,
+          "target_class": 31,
+          "key_specified": 256,
+          "xperm_specified": 3,
+          "driver": 0,
+          "source_name": "priv_app",
+          "target_name": "priv_app",
+          "class_name": "netlink_route_socket",
+          "perms": [
+            71303168,
+            1141130308,
+            1413760000,
+            71566401,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "name": "actual-nlmsg-followed-by-ioctl-6",
+        "return": 0,
+        "consumed": 84,
+        "record_bytes": 84,
+        "parsed_kind": 1,
+        "parsed_driver": 112,
+        "compat_mode": 0,
+        "inserted": 2,
+        "modern_sequence_correct": true
+      },
+      {
+        "name": "actual-nlmsg-7",
+        "return": 0,
+        "consumed": 42,
+        "record_bytes": 42,
+        "parsed_kind": 3,
+        "parsed_driver": 0,
+        "compat_mode": 0,
+        "inserted": 1,
+        "modern_format_correct": true,
+        "real_binary_sample": {
+          "table": "unconditional",
+          "source_type": 3125,
+          "target_type": 3125,
+          "target_class": 31,
+          "key_specified": 256,
+          "xperm_specified": 3,
+          "driver": 0,
+          "source_name": "oneseg_mw",
+          "target_name": "oneseg_mw",
+          "class_name": "netlink_route_socket",
+          "perms": [
+            71303168,
+            1141130308,
+            1413760000,
+            71566401,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "name": "actual-nlmsg-followed-by-ioctl-7",
+        "return": 0,
+        "consumed": 84,
+        "record_bytes": 84,
+        "parsed_kind": 1,
+        "parsed_driver": 112,
+        "compat_mode": 0,
+        "inserted": 2,
+        "modern_sequence_correct": true
+      }
+    ],
+    "policy_sha256": "83a85afdf4fb51db967084d22e1891ccc9ae57a2907b4aa48a5522dea97f1a0a",
+    "inspector_sha256": "92e699fc20b3d6ec2d3d237f1939090d71b4f32153c18dc188f88f6d7b499ca6",
+    "kernel_reader_sha256": "0e7cfb7d017944012bd7c1b241b37ea4859f14d35aa46d46e457862db3a660dc",
+    "kernel_header_sha256": "f43803ad7360e4bcc8780d6289f8af3c7170dd111a847016f6ca34e88f497d85",
+    "extracted_function_sha256": "e8b1f3f24667e662f0d9352b6218d9b8920866657fa9bcf0163eb613b6b1fb1a",
+    "compile_command": [
+      "cc",
+      "-std=gnu11",
+      "-Wall",
+      "-Werror",
+      "-g",
+      "-fsanitize=address,undefined",
+      "-fno-omit-frame-pointer",
+      "/srv/android/artifacts/lineage-23.2-arm64/kernel-policy-reader-host-20261023-03/reader.c",
+      "-o",
+      "/srv/android/artifacts/lineage-23.2-arm64/kernel-policy-reader-host-20261023-03/reader"
+    ],
+    "xperm_kind_counts": {
+      "1": 1177,
+      "3": 92
+    },
+    "netlink_xperm_enabled_in_input": false,
+    "enabled_policy_capabilities": [
+      {
+        "bit": 0,
+        "name": "network_peer_controls"
+      },
+      {
+        "bit": 1,
+        "name": "open_perms"
+      },
+      {
+        "bit": 2,
+        "name": "extended_socket_class"
+      },
+      {
+        "bit": 5,
+        "name": "nnp_nosuid_transition"
+      },
+      {
+        "bit": 12,
+        "name": "functionfs_seclabel"
+      }
+    ],
+    "type_class_table_checks_and_io_are_fixtures": true
+  },
+  "capability_guard": {
+    "active_bit": 9,
+    "active_feature_supported": false,
+    "active_feature_rejected_with": "EOPNOTSUPP",
+    "public_capability_advertised": false,
+    "production_helper_extracted": true,
+    "fixture_combinations_passed": 8192,
+    "bitmap_is_fixture": true,
+    "callsite_after_capabilities_before_avtab_and_error_propagation_checked": true,
+    "no_policy_or_neverallow_changes": true,
+    "note": "Only inactive native-kind-3 encoding is parsed. No full modern netlink enforcement backport or whole-loader approval."
+  },
+  "legacy_format_caveat": "Native kind 3 is ambiguous with ancient Android-M driver-3 encoding; prefer modern format on this Android-9-shipping device. Normal native 1/2 and M driver 0x89 controls pass; not universal Android-6 policy compatibility.",
+  "kernel_full_build": {
+    "exit": 0,
+    "label": "kernel-policy-reader-build-20261023-01",
+    "finished_at_utc": "2026-10-23T16:29:25Z",
+    "unchanged_baseline_config": true,
+    "image_bytes": 25443704,
+    "image_sha256": "1967fd98c56c7812e6b8cb0450fc000052fc9709ce6a6221370afb50d7d8c665",
+    "config_sha256": "fac42e3bbf996bb9502bb1031c91b1950986ad3586d0f33cad869a6fd0b3acea",
+    "source_head": "efbdbfa3e216b0c300d381c340b0a22b24e15c13",
+    "source_sha256": {
+      "security/selinux/ss/avtab.c": "0e7cfb7d017944012bd7c1b241b37ea4859f14d35aa46d46e457862db3a660dc",
+      "security/selinux/ss/avtab.h": "f43803ad7360e4bcc8780d6289f8af3c7170dd111a847016f6ca34e88f497d85",
+      "security/selinux/ss/policydb.c": "bfb0aa8718b86868ad043c83b6e1c0ea6c81954741723e3ef130ea26e76ffb90"
+    },
+    "tracked_patch_sha256": "5c292c46e1cde994ad45956d84f972939e35d21b25fadd712b713424181c496f",
+    "independent_clone_no_alternates": true,
+    "base_delta": "complete preserved four-file touch/input prerequisite delta, qtaguid-persistent-20261022-02, this three-file reader fix",
+    "vm_artifacts": "/srv/android/artifacts/lineage-23.2-arm64/kernel-policy-reader-build-20261023-01"
+  },
+  "linked_kernel_validation": {
+    "passed": true,
+    "started_at_utc": "2026-10-23T16:31:45.346588+00:00",
+    "scope": "source/protocol/ELF/link proof only, not kernel execution",
+    "physical_lifecycle_tested": false,
+    "flash_approved": false,
+    "source_revision": "efbdbfa3e216b0c300d381c340b0a22b24e15c13",
+    "source_sha256": {
+      "net/netfilter/xt_qtaguid.c": "212e2e4c3d459293a3427d2f715fb1843fac521787a7817c1f2d455598b254f3",
+      "net/netfilter/xt_qtaguid_internal.h": "68ba021c7f67fa8578df3e7199944bb15cb0317c5a43ecc16b88becf11debde5",
+      "include/uapi/linux/netfilter/xt_qtaguid_sock.h": "9096f41f971a71018f49f155d3577204678e7298a0e44728e644361332f98387"
+    },
+    "kernel_config_sha256": "fac42e3bbf996bb9502bb1031c91b1950986ad3586d0f33cad869a6fd0b3acea",
+    "vmlinux_sha256": "e5d9c61768706426ffc669d25e688d0b80bfb7e2e19b4328d84c479d694fe9dd",
+    "image_sha256": "1967fd98c56c7812e6b8cb0450fc000052fc9709ce6a6221370afb50d7d8c665",
+    "reconstructed_image_sha256": "1967fd98c56c7812e6b8cb0450fc000052fc9709ce6a6221370afb50d7d8c665",
+    "fops": {
+      "ioctl_address": "0xffffff8008af678c",
+      "fops_address": "0xffffff8008da6a70",
+      "ioctl_pointer_offsets": [
+        64,
+        72
+      ]
+    },
+    "disassembly_sha256": "b3a84604d0c8c72a95dfc8b279c65a675f4f8ddd9fb588668f5d573edb62542c",
+    "native_compat_ioctl_linked": true,
+    "private_command_and_capability_gate_linked": true,
+    "existing_release_hooks_retained": true,
+    "image_bytes": 25443704,
+    "finished_at_utc": "2026-10-23T16:31:46.755867+00:00"
+  },
+  "kernel_source_lock": {
+    "status": "EXPERIMENTAL_NOT_APPLIED_NOT_TEST_ROM",
+    "active_snapshot": "bringup-20261021-06",
+    "profile": "selinux-reader",
+    "projects": [
+      {
+        "path": "kernel/samsung/gta3xlwifi",
+        "revision": "669b9584e678ce5865ed38e04c24639082d78de1",
+        "patch": "kernel_samsung_gta3xlwifi.patch",
+        "sha256": "700847b98babb54bf9cf1bdb31e65c6a659e8766401d11a4d60ee12204bea7f6",
+        "files": [
+          {
+            "path": "security/selinux/ss/avtab.c",
+            "reference_sha256": "45f716fa189a7d209a5a27d78df691aa1025e66fa6ac0c74d9b6b5a5c7678df1",
+            "staged_sha256": "0e7cfb7d017944012bd7c1b241b37ea4859f14d35aa46d46e457862db3a660dc"
+          },
+          {
+            "path": "security/selinux/ss/avtab.h",
+            "reference_sha256": "1aa697528c2d10a8272c2c2e503c9f9805d0be392a0a90ccc554c5d59437fe89",
+            "staged_sha256": "f43803ad7360e4bcc8780d6289f8af3c7170dd111a847016f6ca34e88f497d85"
+          },
+          {
+            "path": "security/selinux/ss/policydb.c",
+            "reference_sha256": "663b48f177d85fd58366f1c167ea30c161aeabfcab4b445148b360fc109b0125",
+            "staged_sha256": "bfb0aa8718b86868ad043c83b6e1c0ea6c81954741723e3ef130ea26e76ffb90"
+          }
+        ],
+        "selected_file_git_replay_passed": true
+      }
+    ]
+  },
+  "source_audit": {
+    "passed": true,
+    "checked_at_utc": "2026-10-23T16:36:09.059657+00:00",
+    "project_count": 1168,
+    "reviewed_patch_count": 13
+  },
+  "cli_safety": {
+    "vendor_checker_tests": 11,
+    "kernel_reader_tests": 8,
+    "mac_and_linux_pass": true,
+    "fixtures_not_actual_validation": true
+  },
+  "tooling_failures_preserved": [
+    "Mac fixture expected /var path instead of resolved /private/var: fixed fixture canonicalization, no disabled checks",
+    "GNU host ld rejected modern compressed .debug_abbrev in source-built libsepol.a; actual pinned Clang/LLD host link succeeded",
+    "Ubuntu old SETools cannot interpret NLMSG kind 3; one capability query segfaulted on modern data. Not used as approval oracle; source-locked Android libsepol inspector used instead",
+    "Mac GitHub ls-remote timeout for Linux reference; pinned public googlesource individual-file reads used, no active source resync"
+  ],
+  "pinned_read_only_reference_revisions": {
+    "android16_6_12": "e64d278d669fa423e1337ad06c6672336c13bea9",
+    "linux_6_16": "038d61fd642278bab63ee8ef722c50d10ab01e8f"
+  },
+  "confirmed_namespace_review_example": {
+    "type": "uwb_service",
+    "vendor_declaration_line": 3337,
+    "vendor_neverallow_line": 11914,
+    "actual_strict_conflict_remaining": true,
+    "automatic_type_renaming_or_vendor_changes_performed": false
+  },
+  "other_unproven_areas": [
+    "Whole-policy loader/other capability behavior",
+    "Actual kernel/SELinux/driver execution, concurrency and hardware",
+    "281 strict production-policy conflicts (existing complete userdebug images still 367)",
+    "Complete live Netd/12-chain packet owner/enforcement/permissions/budgets/LNA/VPN/interfaces/quotas/CLAT/Java/loader",
+    "HAL/APEX/runtime/FBE/recovery/OTA/release signing and owner-approved backup/rollback tests"
+  ],
+  "full_network_backend_ready": false,
+  "strict_security_approved": false,
+  "flash_ready_rom": false,
+  "tool_sha256": {
+    "check-vendor-policy.py": "e14eb6a50ec1810a7879b2f3ffa34c089e3e18c4d1368698e21f67c927f00999",
+    "test-vendor-validation.py": "4439ecfc9dd01e40eb7cdba2cc496579b52fce310141cd942613212a53adb51d",
+    "inspect-policy-xperms.c": "c64c712410e8717b444fb10ae5d0c644964cade585d355fb3a4ea1fd6fd6a13d",
+    "check-kernel-policy-xperms.py": "b4a1334237b29cd928697168ac48b06bc81e016fe90e732a139d01152a1e69c2",
+    "test-policy-xperm-cap.py": "d5ff78908106f1f68975503647609fd01e6e94cc5bcd815e1c0160e40b32477b",
+    "test-policy-reader-cli.py": "9718985e6fd4e8be2b4fdddf720d6c2bb35d2ced8397bda7d046949aeb7e2caf",
+    "capture-network-experiment.py": "08eaa1d36866f8ac9fba3b0677015bdc8786b8f3f7a28d8ae19cbee1e995cdc4"
+  }
+}

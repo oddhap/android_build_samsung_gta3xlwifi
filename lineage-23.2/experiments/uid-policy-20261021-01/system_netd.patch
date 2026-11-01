@@ -1,0 +1,200 @@
+diff --git a/server/Gta3xlwifiUidPolicy.cpp b/server/Gta3xlwifiUidPolicy.cpp
+new file mode 100644
+--- /dev/null
++++ b/server/Gta3xlwifiUidPolicy.cpp
+@@ -0,0 +1,134 @@
++// SPDX-License-Identifier: Apache-2.0
++#include "Gta3xlwifiUidPolicy.h"
++
++#include <cerrno>
++#include <utility>
++
++namespace android::net::gta3xlwifi {
++
++const std::array<UidPolicy::Chain, 12>& UidPolicy::chains() {
++    // IDs: ConnectivityManager; matches: BpfNetMapsConstants/netd.h;
++    // blocked reasons: ConnectivityManager/BpfNetMapsUtils. Host validation
++    // binds these to the actual pinned Android 16 source constants.
++    static constexpr std::array<Chain, 12> table = {{
++        {1, 1u << 2, 1u << 1, true, false},   // dozable
++        {2, 1u << 3, 1u << 2, false, false},  // standby
++        {3, 1u << 4, 1u << 0, true, false},   // powersave
++        {4, 1u << 5, 1u << 3, true, false},   // restricted
++        {5, 1u << 6, 1u << 5, true, false},   // low power standby
++        {6, 1u << 12, 1u << 6, true, false},  // background
++        {7, 1u << 9, 1u << 7, false, false},  // OEM deny 1
++        {8, 1u << 10, 1u << 7, false, false}, // OEM deny 2
++        {9, 1u << 11, 1u << 7, false, false}, // OEM deny 3
++        {10, 1u << 0, DataSaverReason, true, true},
++        {11, 1u << 1, 1u << 17, false, true}, // metered deny user
++        {12, 1u << 13, 1u << 18, false, true}, // metered deny admin
++    }};
++    return table;
++}
++
++const UidPolicy::Chain* UidPolicy::findChain(int32_t id) {
++    for (const auto& chain : chains()) {
++        if (chain.id == id) return &chain;
++    }
++    return nullptr;
++}
++
++int UidPolicy::setChainEnabled(int32_t id, bool enabled) {
++    const Chain* chain = findChain(id);
++    if (!chain) return -EINVAL;
++    if (enabled) mEnabled |= chain->match;
++    else mEnabled &= ~chain->match;
++    return 0;
++}
++
++int UidPolicy::getChainEnabled(int32_t id, bool* enabled) const {
++    const Chain* chain = findChain(id);
++    if (!chain || !enabled) return -EINVAL;
++    *enabled = (mEnabled & chain->match) != 0;
++    return 0;
++}
++
++uint32_t UidPolicy::uidMatches(int32_t uid) const {
++    auto it = mUidMatches.find(uid);
++    return it == mUidMatches.end() ? 0 : it->second;
++}
++
++void UidPolicy::setMatch(int32_t uid, uint32_t match, bool present) {
++    const uint32_t previous = uidMatches(uid);
++    const uint32_t next = present ? (previous | match) : (previous & ~match);
++    if (next) mUidMatches[uid] = next;
++    else mUidMatches.erase(uid);
++}
++
++int UidPolicy::setUidRule(int32_t id, int32_t uid, int32_t rule) {
++    const Chain* chain = findChain(id);
++    if (!chain || uid < 0 || (rule != Default && rule != Allow && rule != Deny)) return -EINVAL;
++    const bool match = (rule == Allow && chain->allowlist) || (rule == Deny && !chain->allowlist);
++    setMatch(uid, chain->match, match);
++    return 0;
++}
++
++int UidPolicy::getUidRule(int32_t id, int32_t uid, int32_t* rule) const {
++    const Chain* chain = findChain(id);
++    if (!chain || uid < 0 || !rule) return -EINVAL;
++    const bool match = (uidMatches(uid) & chain->match) != 0;
++    *rule = match == chain->allowlist ? Allow : Deny;
++    return 0;
++}
++
++int UidPolicy::replaceUidChain(int32_t id, const std::vector<int32_t>& uids) {
++    const Chain* chain = findChain(id);
++    if (!chain) return -EINVAL;
++    for (int32_t uid : uids) {
++        if (uid < 0) return -EINVAL;
++    }
++    // Work on a candidate so validation/cross-chain preservation is explicit.
++    auto next = mUidMatches;
++    for (auto it = next.begin(); it != next.end();) {
++        it->second &= ~chain->match;
++        if (!it->second) it = next.erase(it);
++        else ++it;
++    }
++    for (int32_t uid : uids) next[uid] |= chain->match;
++    mUidMatches = std::move(next);
++    return 0;
++}
++
++int UidPolicy::removeUid(int32_t uid) {
++    if (uid < 0) return -EINVAL;
++    mUidMatches.erase(uid);
++    return 0;
++}
++
++int UidPolicy::blockedReasons(int32_t uid, uint32_t* reasons) const {
++    if (uid < 0 || !reasons) return -EINVAL;
++    uint32_t blocked = 0;
++    // Per-user appId, NOT uid < 10000: secondary-user core UIDs are exempt too.
++    if (uid % 100000 >= 10000) {
++        const uint32_t matches = uidMatches(uid);
++        for (const auto& chain : chains()) {
++            const bool matched = (matches & chain.match) != 0;
++            if (chain.metered) {
++                // These three chains currently ignore configuration-map enable
++                // bits. HAPPY_BOX removes only Data Saver, never user/admin deny.
++                if (chain.allowlist ? (mDataSaver && !matched) : matched) {
++                    blocked |= chain.blockedReason;
++                }
++            } else if ((mEnabled & chain.match) && matched != chain.allowlist) {
++                blocked |= chain.blockedReason;
++            }
++        }
++    }
++    *reasons = blocked;
++    return 0;
++}
++
++int UidPolicy::isNetworkingBlocked(int32_t uid, bool metered) const {
++    uint32_t reasons;
++    const int status = blockedReasons(uid, &reasons);
++    if (status) return status;
++    return (reasons & (metered ? UINT32_MAX : ~MeteredReasonMask)) != 0 ? 1 : 0;
++}
++
++}  // namespace android::net::gta3xlwifi
+diff --git a/server/Gta3xlwifiUidPolicy.h b/server/Gta3xlwifiUidPolicy.h
+new file mode 100644
+--- /dev/null
++++ b/server/Gta3xlwifiUidPolicy.h
+@@ -0,0 +1,56 @@
++// SPDX-License-Identifier: Apache-2.0
++#pragma once
++
++#include <array>
++#include <cstdint>
++#include <map>
++#include <vector>
++
++namespace android::net::gta3xlwifi {
++
++// Candidate UID-policy value, NOT a kernel backend or a readiness indicator.
++// Mutators change this value only. A future netd owner must apply the complete
++// kernel transaction before publishing it to DNS/Java readers. In particular,
++// do not register a DNS callback or skip NetBpfLoad merely because this exists.
++// Mirrors A16 BpfNetMapsUtils firewall queries, not INTERNET permission, VPN,
++// interface, local-network packet policy, quotas, or socket-tag permissions.
++class UidPolicy {
++public:
++    enum Rule : int32_t { Default = 0, Allow = 1, Deny = 2 };
++    struct Chain {
++        int32_t id;
++        uint32_t match;
++        uint32_t blockedReason;
++        bool allowlist;
++        bool metered;
++    };
++    static const std::array<Chain, 12>& chains();
++    static constexpr uint32_t MeteredReasonMask = 0xffff0000u;
++    static constexpr uint32_t DataSaverReason = 1u << 16;
++
++    int setChainEnabled(int32_t chain, bool enabled);
++    int getChainEnabled(int32_t chain, bool* enabled) const;
++    int setUidRule(int32_t chain, int32_t uid, int32_t rule);
++    int getUidRule(int32_t chain, int32_t uid, int32_t* rule) const;
++    // This list contains matching UIDs, not ALLOW rules for every chain. Thus
++    // for a denylist it specifies denied UIDs, exactly as replaceUidChain().
++    // Validates the entire input before changing state; duplicates are harmless.
++    int replaceUidChain(int32_t chain, const std::vector<int32_t>& uids);
++    int removeUid(int32_t uid);
++    void setDataSaver(bool enabled) { mDataSaver = enabled; }
++    bool dataSaver() const { return mDataSaver; }
++    int blockedReasons(int32_t uid, uint32_t* reasons) const;
++    // Same private V2 result convention: 0 allow, 1 block, negative errno.
++    // This is evaluation of a value, NOT a publishable callback owner.
++    int isNetworkingBlocked(int32_t uid, bool metered) const;
++
++private:
++    static const Chain* findChain(int32_t id);
++    void setMatch(int32_t uid, uint32_t match, bool present);
++    uint32_t uidMatches(int32_t uid) const;
++    uint32_t mEnabled = 0;
++    std::map<int32_t, uint32_t> mUidMatches;
++    bool mDataSaver = false;
++};
++
++}  // namespace android::net::gta3xlwifi

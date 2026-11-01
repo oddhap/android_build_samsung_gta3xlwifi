@@ -1,0 +1,92 @@
+diff --git a/Android.bp b/Android.bp
+index 898a64c..bce8fbe 100644
+--- a/Android.bp
++++ b/Android.bp
+@@ -38,3 +38,32 @@ prebuilt_etc {
+     filename: "gta3xlwifi-legacy-sdk.xml",
+     sub_dir: "vintf/manifest",
+ }
++
++// Make's PRODUCT_FORCE_PRODUCT_MODULES_TO_SYSTEM_PARTITION does not change
++// Soong install paths or apkcerts metadata. Keep all three selected APKs on
++// system for this fixed-partition product, without changing their certificates.
++// Other products retain the original product partition placement.
++soong_config_module_type {
++    name: "gta3xlwifi_partition_java_defaults",
++    module_type: "java_defaults",
++    config_namespace: "gta3xlwifi",
++    bool_variables: ["system_apps"],
++    properties: ["product_specific"],
++}
++
++gta3xlwifi_partition_java_defaults {
++    name: "gta3xlwifi_partition_app_defaults",
++    defaults_visibility: [
++        "//external/chromium-webview:__pkg__",
++        "//packages/apps/Backgrounds:__pkg__",
++        "//packages/screensavers/PhotoTable:__pkg__",
++    ],
++    soong_config_variables: {
++        system_apps: {
++            product_specific: false,
++            conditions_default: {
++                product_specific: true,
++            },
++        },
++    },
++}
+diff --git a/AndroidProducts.mk b/AndroidProducts.mk
+index 17e4583..e5dafea 100644
+--- a/AndroidProducts.mk
++++ b/AndroidProducts.mk
+@@ -1,3 +1,4 @@
+ # SPDX-License-Identifier: Apache-2.0
+ PRODUCT_MAKEFILES := $(LOCAL_DIR)/lineage_gta3xlwifi.mk
+-COMMON_LUNCH_CHOICES := lineage_gta3xlwifi-userdebug
++# Android 16's aosp_current release alias resolves to bp4a in this source lock.
++COMMON_LUNCH_CHOICES := lineage_gta3xlwifi-bp4a-userdebug
+diff --git a/BoardConfig.mk b/BoardConfig.mk
+index b5a7529..549f479 100644
+--- a/BoardConfig.mk
++++ b/BoardConfig.mk
+@@ -28,6 +28,10 @@ TARGET_KERNEL_ARCH := arm64
+ TARGET_KERNEL_CONFIG := exynos7885-gta3xlwifi_defconfig
+ BOARD_KERNEL_IMAGE_NAME := Image
+ TARGET_PREBUILT_KERNEL := $(DEVICE_PATH)/prebuilt/Image
++# Keep the separately source-built, checksum-pinned bring-up kernel. Merely
++# setting TARGET_PREBUILT_KERNEL does not prevent Lineage from rebuilding it
++# when kernel sources are present. A 23.2 kernel rebuild is a separate task.
++TARGET_FORCE_PREBUILT_KERNEL := true
+ BOARD_KERNEL_BASE := 0x10000000
+ BOARD_KERNEL_PAGESIZE := 2048
+ BOARD_BOOT_HEADER_VERSION := 1
+@@ -80,6 +84,10 @@ SOONG_CONFIG_NAMESPACES += gta3xlwifi
+ SOONG_CONFIG_gta3xlwifi += legacy_networking
+ SOONG_CONFIG_gta3xlwifi_legacy_networking := true
+ 
++# Match the retained Make app overrides in Soong install/certificate metadata.
++SOONG_CONFIG_gta3xlwifi += system_apps
++SOONG_CONFIG_gta3xlwifi_system_apps := true
++
+ # Native PowerManager backend complements the unmodified stock Power HAL.
+ SOONG_CONFIG_gta3xlwifi += native_power
+ SOONG_CONFIG_gta3xlwifi_native_power := true
+diff --git a/configs/cgroups.gta3xlwifi.json b/configs/cgroups.gta3xlwifi.json
+index be320d2..365dc6b 100644
+--- a/configs/cgroups.gta3xlwifi.json
++++ b/configs/cgroups.gta3xlwifi.json
+@@ -6,6 +6,14 @@
+       "Mode": "0775",
+       "UID": "system",
+       "GID": "system"
++    },
++    {
++      "Controller": "memory",
++      "Path": "/dev/memcg",
++      "Mode": "0700",
++      "UID": "root",
++      "GID": "system",
++      "Optional": true
+     }
+   ]
+ }

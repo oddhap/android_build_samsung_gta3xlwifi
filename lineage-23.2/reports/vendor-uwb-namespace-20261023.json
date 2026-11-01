@@ -1,0 +1,446 @@
+{
+  "date_utc": "2026-10-23",
+  "status": "STAGED_PRIVATE_TYPE_SPLIT_NOT_A_VENDOR_IMAGE_OR_FLASH_READY_ROM",
+  "active_snapshot": "bringup-20261021-06",
+  "experiment": "experiments/vendor-uwb-namespace-20261023-01",
+  "applied_to_android_top_or_images": false,
+  "metadata_lock": {
+    "checked_at_utc": "2026-10-23T17:12:26.942727+00:00",
+    "status": "STAGED_METADATA_ONLY_NOT_A_VENDOR_IMAGE_NOT_SECURITY_APPROVED",
+    "renames": {
+      "uwb_service": "vendor_samsung_legacy_uwb_service",
+      "hal_uwb_service": "vendor_samsung_legacy_hal_uwb_service"
+    },
+    "source_vendor": "/srv/android/artifacts/lineage-23.2-arm64/vendor-validation-20261020/vendor",
+    "changed_files": [
+      "vendor_sepolicy.cil",
+      "vendor_service_contexts"
+    ],
+    "symbol_occurrences": {
+      "hal_uwb_service": 4,
+      "uwb_service": 9
+    },
+    "rule_counts_before": {
+      "allow": 12528,
+      "allowx": 127,
+      "neverallow": 131,
+      "neverallowx": 2
+    },
+    "rule_counts_after": {
+      "allow": 12528,
+      "allowx": 127,
+      "neverallow": 131,
+      "neverallowx": 2
+    },
+    "byte_exact_inverse_verified": true,
+    "endpoint": "vendor.samsung.hardware.uwb@1.0::ISehUwb/default",
+    "full_vendor_tree_or_precompiled_policy_copied": false,
+    "vendor_image_validation_performed_by_this_tool": false,
+    "original_sources_images_or_device_modified": false,
+    "hardware_tested": false,
+    "security_approved": false,
+    "flash_ready": false,
+    "inputs": [
+      {
+        "name": "vendor_sepolicy.cil",
+        "sha256": "8df663eb65a807e6ee99f8b2384cb52d34c994a25087410486b1f88e278e2e53",
+        "staged_sha256": "70f41166fa82b7871f3d644335cdd09d555172a37f213d4e8718aae475902a4a"
+      },
+      {
+        "name": "plat_pub_versioned.cil",
+        "sha256": "4dd55346c46e6d374c5fee79e1caeb1f971a4dc048cd96bedadfb676e0ec11c4",
+        "staged_sha256": "4dd55346c46e6d374c5fee79e1caeb1f971a4dc048cd96bedadfb676e0ec11c4"
+      },
+      {
+        "name": "plat_sepolicy_vers.txt",
+        "sha256": "166983be04e2ab397fc7a70bb60a516b1cfd42a5ec6dd356df01ae63a8500ec0",
+        "staged_sha256": "166983be04e2ab397fc7a70bb60a516b1cfd42a5ec6dd356df01ae63a8500ec0"
+      },
+      {
+        "name": "vendor_service_contexts",
+        "sha256": "4d9b9bb9b8fa2534a45c3ad006117b4db9be2c8704e34fe2090ce447ccc5699c",
+        "staged_sha256": "5dc71762ea75986ef6bd2ce282f6920ec6cddc509b511bc940e6bc280c3ff3ec"
+      },
+      {
+        "name": "vendor_hwservice_contexts",
+        "sha256": "49c313c04575e51a76e6e0e8e2b32e39010033f3ab7e836ed5fc8d053defdf9c",
+        "staged_sha256": "49c313c04575e51a76e6e0e8e2b32e39010033f3ab7e836ed5fc8d053defdf9c"
+      },
+      {
+        "name": "vendor_file_contexts",
+        "sha256": "0dcf14fc0299035adbffd2a6cba5221843ca7c47c84748ac42f5d245fd2f2065",
+        "staged_sha256": "0dcf14fc0299035adbffd2a6cba5221843ca7c47c84748ac42f5d245fd2f2065"
+      },
+      {
+        "name": "vendor_property_contexts",
+        "sha256": "8379234e5ee1ffb7548eed1b49fb2545a20b055240ef3308729c9e57d3d1b17d",
+        "staged_sha256": "8379234e5ee1ffb7548eed1b49fb2545a20b055240ef3308729c9e57d3d1b17d"
+      },
+      {
+        "name": "vendor_seapp_contexts",
+        "sha256": "09723917f8fd99101e876158075cdee7592406f22e8ef5f946d161e73f7e375b",
+        "staged_sha256": "09723917f8fd99101e876158075cdee7592406f22e8ef5f946d161e73f7e375b"
+      },
+      {
+        "name": "vndservice_contexts",
+        "sha256": "94b336be8f83c49349fea3f22bc5b99f73ce726de79ded31bbeee04d9690708f",
+        "staged_sha256": "94b336be8f83c49349fea3f22bc5b99f73ce726de79ded31bbeee04d9690708f"
+      }
+    ],
+    "metadata_patch_sha256": "12788dde11a2941d76c5e2ab463f87800ec016d2e7f3f3c26418265b0012238e"
+  },
+  "staged_policy_compilation": {
+    "checked_at_utc": "2026-10-23T17:01:49.827496+00:00",
+    "passed_strict": false,
+    "build_output_root": "/srv/android/src/lineage-23.2-arm64/out-policy-user-20261023-01",
+    "compiler_sha256": "20d15f823bb0d25016a8e18b07597c522a05c9930f2953fbb9df7ab016cbaee4",
+    "policy_binary_version": 30,
+    "vendor_policy_version": "30.0",
+    "vendor_genfs_version": 202404,
+    "genfs_fragment_present": false,
+    "inputs": [
+      {
+        "path": "/srv/android/src/lineage-23.2-arm64/out-policy-user-20261023-01/target/product/gta3xlwifi/system/etc/selinux/plat_sepolicy.cil",
+        "sha256": "54ac75bae2d37760242983ff3a739ed070027309ef89ce4fdde90ab13626492b"
+      },
+      {
+        "path": "/srv/android/src/lineage-23.2-arm64/out-policy-user-20261023-01/target/product/gta3xlwifi/system/etc/selinux/mapping/30.0.cil",
+        "sha256": "a6c77f838dbbccd7c4310add36c7231c5f71771545cd65efa5bdb7b2bff685f9"
+      },
+      {
+        "path": "/srv/android/src/lineage-23.2-arm64/out-policy-user-20261023-01/target/product/gta3xlwifi/system/etc/selinux/mapping/30.0.compat.cil",
+        "sha256": "2b40198379e1bb65ca2af156b25562381273144d94c5ae223b5ed9905d7437cc"
+      },
+      {
+        "path": "/srv/android/src/lineage-23.2-arm64/out-policy-user-20261023-01/target/product/gta3xlwifi/system/system_ext/etc/selinux/system_ext_sepolicy.cil",
+        "sha256": "8e058f844cb7209673d5838c27e975dd6fc7e90c624c9671932eddd4621be05d"
+      },
+      {
+        "path": "/srv/android/src/lineage-23.2-arm64/out-policy-user-20261023-01/target/product/gta3xlwifi/system/system_ext/etc/selinux/mapping/30.0.cil",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "/srv/android/src/lineage-23.2-arm64/out-policy-user-20261023-01/target/product/gta3xlwifi/system/system_ext/etc/selinux/mapping/30.0.compat.cil",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "/srv/android/src/lineage-23.2-arm64/out-policy-user-20261023-01/target/product/gta3xlwifi/product/etc/selinux/product_sepolicy.cil",
+        "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+      },
+      {
+        "path": "/srv/android/src/lineage-23.2-arm64/out-policy-user-20261023-01/target/product/gta3xlwifi/product/etc/selinux/mapping/30.0.cil",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "/srv/android/artifacts/lineage-23.2-arm64/vendor-uwb-namespace-20261023-01/vendor/etc/selinux/plat_pub_versioned.cil",
+        "sha256": "4dd55346c46e6d374c5fee79e1caeb1f971a4dc048cd96bedadfb676e0ec11c4"
+      },
+      {
+        "path": "/srv/android/artifacts/lineage-23.2-arm64/vendor-uwb-namespace-20261023-01/vendor/etc/selinux/vendor_sepolicy.cil",
+        "sha256": "70f41166fa82b7871f3d644335cdd09d555172a37f213d4e8718aae475902a4a"
+      }
+    ],
+    "results": [
+      {
+        "mode": "strict",
+        "exit_code": 255,
+        "neverallow_checks_enabled": true,
+        "command": [
+          "/srv/android/src/lineage-23.2-arm64/out-policy-user-20261023-01/host/linux-x86/bin/secilc",
+          "-m",
+          "-M",
+          "true",
+          "-G",
+          "-c",
+          "30",
+          "-o",
+          "/srv/android/artifacts/lineage-23.2-arm64/vendor-uwb-policy-20261023-01/strict.policy",
+          "-f",
+          "/dev/null",
+          "/srv/android/src/lineage-23.2-arm64/out-policy-user-20261023-01/target/product/gta3xlwifi/system/etc/selinux/plat_sepolicy.cil",
+          "/srv/android/src/lineage-23.2-arm64/out-policy-user-20261023-01/target/product/gta3xlwifi/system/etc/selinux/mapping/30.0.cil",
+          "/srv/android/src/lineage-23.2-arm64/out-policy-user-20261023-01/target/product/gta3xlwifi/system/etc/selinux/mapping/30.0.compat.cil",
+          "/srv/android/src/lineage-23.2-arm64/out-policy-user-20261023-01/target/product/gta3xlwifi/system/system_ext/etc/selinux/system_ext_sepolicy.cil",
+          "/srv/android/src/lineage-23.2-arm64/out-policy-user-20261023-01/target/product/gta3xlwifi/system/system_ext/etc/selinux/mapping/30.0.cil",
+          "/srv/android/src/lineage-23.2-arm64/out-policy-user-20261023-01/target/product/gta3xlwifi/system/system_ext/etc/selinux/mapping/30.0.compat.cil",
+          "/srv/android/src/lineage-23.2-arm64/out-policy-user-20261023-01/target/product/gta3xlwifi/product/etc/selinux/product_sepolicy.cil",
+          "/srv/android/src/lineage-23.2-arm64/out-policy-user-20261023-01/target/product/gta3xlwifi/product/etc/selinux/mapping/30.0.cil",
+          "/srv/android/artifacts/lineage-23.2-arm64/vendor-uwb-namespace-20261023-01/vendor/etc/selinux/plat_pub_versioned.cil",
+          "/srv/android/artifacts/lineage-23.2-arm64/vendor-uwb-namespace-20261023-01/vendor/etc/selinux/vendor_sepolicy.cil"
+        ]
+      },
+      {
+        "mode": "init-runtime-diagnostic",
+        "exit_code": 0,
+        "neverallow_checks_enabled": false,
+        "command": [
+          "/srv/android/src/lineage-23.2-arm64/out-policy-user-20261023-01/host/linux-x86/bin/secilc",
+          "-m",
+          "-M",
+          "true",
+          "-G",
+          "-c",
+          "30",
+          "-o",
+          "/srv/android/artifacts/lineage-23.2-arm64/vendor-uwb-policy-20261023-01/init-runtime-diagnostic.policy",
+          "-f",
+          "/dev/null",
+          "-N",
+          "/srv/android/src/lineage-23.2-arm64/out-policy-user-20261023-01/target/product/gta3xlwifi/system/etc/selinux/plat_sepolicy.cil",
+          "/srv/android/src/lineage-23.2-arm64/out-policy-user-20261023-01/target/product/gta3xlwifi/system/etc/selinux/mapping/30.0.cil",
+          "/srv/android/src/lineage-23.2-arm64/out-policy-user-20261023-01/target/product/gta3xlwifi/system/etc/selinux/mapping/30.0.compat.cil",
+          "/srv/android/src/lineage-23.2-arm64/out-policy-user-20261023-01/target/product/gta3xlwifi/system/system_ext/etc/selinux/system_ext_sepolicy.cil",
+          "/srv/android/src/lineage-23.2-arm64/out-policy-user-20261023-01/target/product/gta3xlwifi/system/system_ext/etc/selinux/mapping/30.0.cil",
+          "/srv/android/src/lineage-23.2-arm64/out-policy-user-20261023-01/target/product/gta3xlwifi/system/system_ext/etc/selinux/mapping/30.0.compat.cil",
+          "/srv/android/src/lineage-23.2-arm64/out-policy-user-20261023-01/target/product/gta3xlwifi/product/etc/selinux/product_sepolicy.cil",
+          "/srv/android/src/lineage-23.2-arm64/out-policy-user-20261023-01/target/product/gta3xlwifi/product/etc/selinux/mapping/30.0.cil",
+          "/srv/android/artifacts/lineage-23.2-arm64/vendor-uwb-namespace-20261023-01/vendor/etc/selinux/plat_pub_versioned.cil",
+          "/srv/android/artifacts/lineage-23.2-arm64/vendor-uwb-namespace-20261023-01/vendor/etc/selinux/vendor_sepolicy.cil"
+        ],
+        "compiled_policy_sha256": "514cb03077f200f0f549db841f2caa0724c20075ada9d50ef91f112e8bda183a"
+      }
+    ],
+    "hardware_tested": false,
+    "source_or_device_modified": false,
+    "runtime_diagnostic_does_not_override_strict_result": true
+  },
+  "strict_diagnostic_comparison": {
+    "original_count": 281,
+    "staged_count": 279,
+    "removed": {
+      "vendor_sepolicy.cil:11914": 1,
+      "system/sepolicy/private/system_server.te:1043": 1
+    },
+    "introduced": {},
+    "current_tool_output_byte_equal_to_compiled_input": true
+  },
+  "other_ordered_platform_public_optional_input_hashes_unchanged": true,
+  "final_tool_output_byte_equals_compiled_metadata": true,
+  "git_forward_reverse_replay_all_files_passed": true,
+  "safety_tests": {
+    "count": 18,
+    "passed_mac_and_linux": true,
+    "synthetic_metadata_not_actual_policy_validation": true
+  },
+  "actual_binary_te_inspection": {
+    "differential": {
+      "domain_count": 505,
+      "queries_per_policy": 2020,
+      "comparisons": 4040,
+      "scope": "unconditional service_manager add/find TE, NOT constraints/conditional/kernel/runtime",
+      "changes": {
+        "uwb_service -> uwb_service": {
+          "added": [],
+          "removed": [
+            [
+              "platform_app",
+              "add"
+            ]
+          ]
+        },
+        "hal_uwb_service -> hal_uwb_service": {
+          "added": [],
+          "removed": []
+        },
+        "uwb_service -> vendor_samsung_legacy_uwb_service": {
+          "added": [],
+          "removed": [
+            [
+              "bluetooth",
+              "find"
+            ],
+            [
+              "incidentd",
+              "find"
+            ],
+            [
+              "mediaprovider",
+              "find"
+            ],
+            [
+              "network_stack",
+              "find"
+            ],
+            [
+              "nfc",
+              "find"
+            ],
+            [
+              "radio",
+              "find"
+            ],
+            [
+              "rkpdapp",
+              "find"
+            ],
+            [
+              "secure_element",
+              "find"
+            ],
+            [
+              "statsd",
+              "find"
+            ],
+            [
+              "system_server",
+              "add"
+            ],
+            [
+              "adservices",
+              "find"
+            ],
+            [
+              "device_as_webcam",
+              "find"
+            ],
+            [
+              "mediaprovider_app",
+              "find"
+            ],
+            [
+              "permissioncontroller_app",
+              "find"
+            ],
+            [
+              "vmlauncher_app",
+              "find"
+            ],
+            [
+              "mediashell_app",
+              "find"
+            ],
+            [
+              "updater_app",
+              "find"
+            ],
+            [
+              "policyloader_app",
+              "find"
+            ],
+            [
+              "aasa_service_app",
+              "find"
+            ],
+            [
+              "irisd",
+              "find"
+            ],
+            [
+              "felica_app",
+              "find"
+            ],
+            [
+              "trustonicpartner_app",
+              "find"
+            ],
+            [
+              "spu_app",
+              "find"
+            ],
+            [
+              "vzwfiltered_untrusted_app",
+              "find"
+            ],
+            [
+              "filtered_untrusted_app",
+              "find"
+            ],
+            [
+              "sec_untrusted_app",
+              "find"
+            ],
+            [
+              "attiqi_app",
+              "find"
+            ],
+            [
+              "vendor_rcs_app",
+              "find"
+            ]
+          ]
+        },
+        "hal_uwb_service -> vendor_samsung_legacy_hal_uwb_service": {
+          "added": [],
+          "removed": [
+            [
+              "platform_app",
+              "find"
+            ],
+            [
+              "system_server",
+              "find"
+            ],
+            [
+              "hal_uwb_default",
+              "add"
+            ],
+            [
+              "hal_uwb_default",
+              "find"
+            ]
+          ]
+        }
+      }
+    },
+    "input_hashes": {
+      "source_libsepol_archive": {
+        "path": "/srv/android/src/lineage-23.2-arm64/out/soong/.intermediates/external/selinux/libsepol/libsepol/linux_glibc_x86_64_static/libsepol.a",
+        "sha256": "525e9c1409c1575f5a5e2825427f1d52e533cdd99a2abc82307fb2c25c8f56e5"
+      },
+      "inspector": {
+        "path": "/srv/android/artifacts/lineage-23.2-arm64/vendor-uwb-analysis-20261023-02/inspect-uwb-policy-te",
+        "sha256": "357ef70566c319c7794caa8b191d31a29c313ab74031d17f67174cbb64d3fece"
+      },
+      "source": {
+        "path": "/srv/android/ports/lineage-23.2-arm64/lineage-23.2/tools/inspect-uwb-policy-te.c",
+        "sha256": "cf68c0149cc4db2a5b1a69c61a5e881907b7733c8d0f0e2a84c4c2d394099642"
+      },
+      "before_json": {
+        "path": "/srv/android/artifacts/lineage-23.2-arm64/vendor-uwb-analysis-20261023-02/before.json",
+        "sha256": "7c69fd4275c54b90f50bc9f1a76d743cc399aea0f1ab9e7e36f7bce74cb14c50"
+      },
+      "after_json": {
+        "path": "/srv/android/artifacts/lineage-23.2-arm64/vendor-uwb-analysis-20261023-02/after.json",
+        "sha256": "7df61df21c43eae0d937432e82224e0e689febe794397bb33381d67a682c8c79"
+      }
+    },
+    "source_locked_android_libsepol": true,
+    "linked_with_actual_clang_lld": true,
+    "queries_are_unconditional_te_add_find_only": true,
+    "whole_effective_access_or_runtime_proven": false
+  },
+  "specific_framework_registration_fix": {
+    "platform_app_add_uwb_service_before": true,
+    "platform_app_add_uwb_service_after": false,
+    "platform_app_add_separate_legacy_type_after": true,
+    "system_server_add_framework_uwb_service_after": true
+  },
+  "functional_review_required": {
+    "legacy_uwb_pairs_removed": 28,
+    "legacy_hal_uwb_pairs_removed": 4,
+    "note": "Vendor rule graph alpha-rename preserves internal rules, NOT all accidentally merged framework permissions; real caller/hardcoded-label/HAL review required"
+  },
+  "source_audit": {
+    "passed": true,
+    "checked_at_utc": "2026-10-23T17:07:15.247442+00:00",
+    "project_count": 1168,
+    "reviewed_patch_count": 13
+  },
+  "source_audit_evidence": "snapshots/bringup-20261021-06/port-audit-after-vendor-uwb.json",
+  "remaining_limits": [
+    "Proposed metadata-only policy still fails 279 strict diagnostics",
+    "Original production input still fails 281; archived full userdebug images still 367",
+    "No new vendor image, xattr/owner/label preservation or precompiled-cache invalidation implemented",
+    "No live SELinux/kernel/constraints/conditional-state/endpoint behavior approved",
+    "Complete networking/backend/permissions/budgets/packet owner, kernel capability, HAL/APEX/runtime/FBE/recovery/OTA/signing/hardware backup/rollback tests remain"
+  ],
+  "security_approved": false,
+  "flash_ready_rom": false,
+  "original_kernel_dtbo_vendor_lineage21_twrp_keys_userdata_modified": false,
+  "tool_sha256": {
+    "stage-vendor-uwb-namespace.py": "20466829644ffc21cd1362d8a541041fe5c9f5945dc8ab0ed2cc6396a9d38686",
+    "test-vendor-uwb-namespace.py": "c238789ffbe45eb0f08aa13b52e4b5ad7f19020597a0513793fcf62336558d10",
+    "inspect-uwb-policy-te.c": "cf68c0149cc4db2a5b1a69c61a5e881907b7733c8d0f0e2a84c4c2d394099642",
+    "check-vendor-policy.py": "e14eb6a50ec1810a7879b2f3ffa34c089e3e18c4d1368698e21f67c927f00999"
+  }
+}

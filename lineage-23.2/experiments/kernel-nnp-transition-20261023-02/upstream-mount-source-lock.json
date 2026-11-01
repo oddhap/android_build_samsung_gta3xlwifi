@@ -1,0 +1,16 @@
+{
+  "revision": "e64d278d669fa423e1337ad06c6672336c13bea9",
+  "read_only_reference_not_resync": true,
+  "files": [
+    {
+      "path": "fs/namespace.c",
+      "url": "https://android.googlesource.com/kernel/common/+/e64d278d669fa423e1337ad06c6672336c13bea9/fs/namespace.c?format=TEXT",
+      "sha256": "ca1f76aa81143b8671322c9b7587a314c366fd7486b9708fb8740142b0bbaf64"
+    },
+    {
+      "path": "include/linux/user_namespace.h",
+      "url": "https://android.googlesource.com/kernel/common/+/e64d278d669fa423e1337ad06c6672336c13bea9/include/linux/user_namespace.h?format=TEXT",
+      "sha256": "4aa7d8fd93f3ee93da17b384820deaf27e7b77cd00796ed9d60bebdbc87aab72"
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+diff --git a/Android.bp b/Android.bp
+index 7fadc05..0a85863 100644
+--- a/Android.bp
++++ b/Android.bp
+@@ -4,8 +4,8 @@ package {
+ 
+ android_app {
+     name: "PhotoTable",
++    defaults: ["gta3xlwifi_partition_app_defaults"],
+     // Only compile source java files in this apk.
+     srcs: ["src/**/*.java"],
+-    product_specific: true,
+     sdk_version: "current",
+ }

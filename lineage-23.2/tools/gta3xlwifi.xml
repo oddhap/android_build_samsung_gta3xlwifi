@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest>
+  <!-- Known Android 14 baselines; Android 16 porting remains to be done. -->
+  <remote name="gta3xlwifi-baseline" fetch="https://github.com/oddhap/" />
+  <project name="android_device_samsung_gta3xlwifi" path="device/samsung/gta3xlwifi" remote="gta3xlwifi-baseline" revision="9103cae139f954cccb5d9b01808787571db3189e" upstream="refs/heads/lineage-21.0-arm64" />
+  <project name="android_kernel_samsung_gta3xlwifi" path="kernel/samsung/gta3xlwifi" remote="gta3xlwifi-baseline" revision="669b9584e678ce5865ed38e04c24639082d78de1" upstream="refs/heads/lineage-21.0" />
+  <project name="android_vendor_samsung_gta3xlwifi" path="vendor/samsung/gta3xlwifi" remote="gta3xlwifi-baseline" revision="29e8615b2f4af1da936bd791af45cd9632c286f7" upstream="refs/heads/lineage-21.0" />
+</manifest>

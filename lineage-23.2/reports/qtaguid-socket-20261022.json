@@ -1,0 +1,134 @@
+{
+  "date_utc": "2026-10-22",
+  "status": "ISOLATED_QTAGUID_TRANSPORT_NOT_LIVE_BACKEND",
+  "later_opt_in_kernel_persistence_evidence": "reports/qtaguid-persistent-20261022.json",
+  "active_snapshot": "bringup-20261021-06",
+  "included_in_rom": false,
+  "experiment": "experiments/qtaguid-socket-20261022-01",
+  "projects": [
+    {
+      "path": "system/netd",
+      "revision": "796eaca5ab9dfdd87751c51bb71fa3f26c87d034",
+      "patch": "system_netd.patch",
+      "sha256": "7a9e442e1f99b5e190e4f6d31f1d6f0c944ac0b83473487d151753597ced85de",
+      "files": [
+        {
+          "path": "server/Gta3xlwifiQtaguidTransport.cpp",
+          "reference_sha256": null,
+          "staged_sha256": "401b7218af06f3a4657204773b74039cc8a04729549ff8a2484fa26e8fab010e"
+        },
+        {
+          "path": "server/Gta3xlwifiQtaguidTransport.h",
+          "reference_sha256": null,
+          "staged_sha256": "28b6d669d2d10ca78c5ca5222930fac993119ec0da5ecbb6cdfbda60e150a418"
+        }
+      ],
+      "selected_file_git_replay_passed": true
+    }
+  ],
+  "kernel_lifetime_offline_evidence": {
+    "started_at_utc": "2026-10-22T20:18:59.667191+00:00",
+    "passed": true,
+    "scope": "offline source/linked-binary/Image identity; not kernel execution",
+    "preserved_kernel_modified": false,
+    "physical_socket_lifecycle_tested": false,
+    "source_revision": "efbdbfa3e216b0c300d381c340b0a22b24e15c13",
+    "source_sha256": {
+      "net/ipv4/af_inet.c": "1df3ec4f2c790c1ece676f4309b3139fe2f9f2282b8c159b9752bd11618dea27",
+      "net/ipv6/af_inet6.c": "22f57a8b477e422aa5006fbcea4e549781336c6baec197a4718733476c3960cf",
+      "net/netfilter/xt_qtaguid.c": "820c02d16ab777502ac784ae3e800a171c70db8cf665d13dfab1b41d3874f776",
+      "include/linux/netfilter/xt_qtaguid.h": "50225159317facb5b0a8b5a4cf09f6ed0921ea41f20a61638d62d8836464775e"
+    },
+    "kernel_config_sha256": "fac42e3bbf996bb9502bb1031c91b1950986ad3586d0f33cad869a6fd0b3acea",
+    "vmlinux_sha256": "152415c4c542b4d2c742ffca306e2ac0763dfef584a4caba0e7dc0db47067e6d",
+    "image_sha256": "33c1a0d1b9e2696decd53fbedfc2231385b74464f4058a54b93ff06ff7c72553",
+    "image_reconstruction_argv": [
+      "/srv/android/toolchains/aarch64-linux-android-4.9/bin/aarch64-linux-android-objcopy",
+      "-O",
+      "binary",
+      "-R",
+      ".note",
+      "-R",
+      ".note.gnu.build-id",
+      "-R",
+      ".comment",
+      "-S",
+      "/srv/android/out/kernel-dt2w/vmlinux",
+      "/srv/android/artifacts/lineage-23.2-arm64/qtaguid-lifetime-20261022-01/Image"
+    ],
+    "reconstructed_image_sha256": "33c1a0d1b9e2696decd53fbedfc2231385b74464f4058a54b93ff06ff7c72553",
+    "disassembly_sha256": "0915a45fc0ccb259e00c01b8e909d5810d820cea252115afd78ece04dd045481",
+    "ipv4_final_close_hook_linked": true,
+    "ipv6_reaches_same_hook": true,
+    "hook_uses_stored_tagging_owner": true,
+    "image_matches_exact_linked_vmlinux": true,
+    "new_kernel_patch_required_for_this_hook": false,
+    "finished_at_utc": "2026-10-22T20:19:03.607577+00:00"
+  },
+  "locked_port_and_actual_preserved_four_release_tagging_sources_byte_identical": true,
+  "kernel_evidence_vm_directory": "/srv/android/artifacts/lineage-23.2-arm64/qtaguid-lifetime-20261022-01",
+  "transport_scope": "Real raw qtaguid session/proc command transport, not a public authorization endpoint or backend readiness",
+  "implemented": [
+    "real sysfs/passive/device identity/procfs validation, no fallback success",
+    "one owning CLOEXEC process device session; EBUSY propagated",
+    "stable duplicated socket FD during IPv4/IPv6 TCP/UDP validation and write",
+    "full high32 tag encoding, bounded single commands, EINTR/error propagation, short-write session abort",
+    "serialized operations and strict malformed-input rejection"
+  ],
+  "host_tests": {
+    "passed": true,
+    "assertions": 1607,
+    "platform": "Linux VM",
+    "sanitizers": [
+      "AddressSanitizer",
+      "UndefinedBehaviorSanitizer"
+    ],
+    "real_sockets_and_descriptor_operations": true,
+    "actual_qtaguid_driver_io": false,
+    "driver_sysfs_proc_fixture": true,
+    "concurrent_serialized_tag_requests": 16,
+    "vm_log": "/srv/android/logs/lineage-23.2-arm64/qtaguid-transport-host-20261022-05.log",
+    "initial_fixture_failures_preserved": [
+      "host-01: misleading indentation warning fixed, no warning disabled",
+      "host-02/03: fortified __read_chk initially bypassed fixture; wrapper now preserves bounds contract, fortification not disabled"
+    ]
+  },
+  "android_compile": {
+    "passed": true,
+    "variant": "android_arm64_armv8-a_static_cfi",
+    "actual_soong_netd_flags": true,
+    "objects": 1,
+    "linked_netd": false,
+    "first_failure_preserved": "Bionic statfs f_type unsigned versus host signed; fixed uint64 conversion, unchanged Werror",
+    "vm_directory": "/srv/android/artifacts/lineage-23.2-arm64/qtaguid-socket-preflight-20261022-02"
+  },
+  "patch_replay_and_actual_read_only_apply_check_passed": true,
+  "kernel_checker_cli_safety_fixtures_passed": 7,
+  "kernel_checker_cli_test": "tools/test-qtaguid-lifetime.py",
+  "netd_restart_tag_persistence_solved": false,
+  "post_source_audit": {
+    "passed": true,
+    "checked_at_utc": "2026-10-22T20:21:28.220590+00:00",
+    "project_count": 1168,
+    "reviewed_patch_count": 13
+  },
+  "source_audit_evidence": "snapshots/bringup-20261021-06/port-audit-after-qtaguid-transport.json",
+  "remaining_boundaries": [
+    "No UPDATE_DEVICE_STATS/CLAT authorization or tag-budget integration; trusted primitive must not be exposed directly",
+    "Final-close hook exists but process device-session destruction clears tags of still-live app sockets; Netd restart persistence NOT solved",
+    "No actual driver/device lifecycle or SELinux access tests; exact new sysfs accesses unproven, no broad allows added",
+    "Full firewall/packet owner, family consistency/readback/rollback/restart, LNA/VPN, quotas/CLAT, Java/API and actual loader integration remain incomplete"
+  ],
+  "complete_network_backend_ready": false,
+  "physical_socket_lifecycle_tested": false,
+  "strict_vendor_policy_known_diagnostics": 367,
+  "test_ready_rom": false,
+  "kernel_source_or_preserved_outputs_modified": false,
+  "tablet_lineage21_twrp_keys_userdata_modified": false,
+  "tool_sha256": {
+    "check-qtaguid-lifetime.py": "75dd5316323068fe6b36adfb94e0f872a48e841dd5d21133e062d04bd5fdbce5",
+    "test-qtaguid-transport.py": "c72cd823234c60bc0f2544c3a967c88d9173572ffa61d8d28d818d890c74a9d8",
+    "compile-network-staging.py": "24002bc86d46013003a015e2a32544a8a7942e858cb6fa5e9c93335367528fb5",
+    "capture-network-experiment.py": "b2fb366d4ce0c1f48860aca630fe018af1aa7092fd12ea3778f0f678e17fe2e8"
+  }
+}

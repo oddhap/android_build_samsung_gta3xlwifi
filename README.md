@@ -1,3 +1,6 @@
+> Current development target: [LineageOS 24.0 / Android 17](lineage-24.0/README.md).
+> The LineageOS 21 release below remains the existing supported rollback reference.
+
 # LineageOS 21 for SM-T510 — ARM64
 
 Native **ARM64 Android 14** with **ARM32 app support**, for Galaxy Tab A 10.1

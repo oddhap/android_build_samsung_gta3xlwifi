@@ -1,0 +1,207 @@
+{
+  "observed_date_utc": "2026-10-21",
+  "status": "EXPERIMENTAL_NOT_APPLIED_NOT_TEST_ROM",
+  "later_uid_policy_and_complete_dns_helper_link_evidence": "reports/network-policy-20261021.json",
+  "active_build_snapshot": "bringup-20261021-06",
+  "included_in_active_build": false,
+  "experiment": "experiments/networking-20261021-01",
+  "source_files": 13,
+  "host_tests": {
+    "qtaguid_actual_parser_counter_cases": 36,
+    "dns_actual_gate_resolver_cases": 35,
+    "platforms_passed": [
+      "macOS",
+      "Linux"
+    ],
+    "android_runtime_tests_executed": false
+  },
+  "java_regressions": {
+    "added": 4,
+    "source_compiled": false,
+    "executed": false
+  },
+  "java_production_source_preflight": {
+    "compiled": true,
+    "source": "NetworkStatsFactory.java",
+    "exit_code": 0,
+    "scope": "One isolated production source with real Soong SDK/compiler flags; not a complete module or Android test build",
+    "evidence": "reports/network-java-preflight-20261021.json"
+  },
+  "patch_replay": {
+    "temporary_selected_file_forward_and_reverse_passed": true,
+    "actual_locked_vm_forward_check_passed": true,
+    "active_sources_modified": false
+  },
+  "native_preflight": [
+    {
+      "component": "stats",
+      "passed": true,
+      "scope": "Objects only with real Soong flags; no linked module or runtime proof",
+      "vm_evidence": "/srv/android/artifacts/lineage-23.2-arm64/network-preflight-20261021-02/report.json",
+      "source_sha256": {
+        "BpfNetworkStatsTest.cpp": "ef297b8b09ec5b81a1dbfa8e13bcd88e557b57494d7d6934b2cd27e8c8d1ef31",
+        "QtaguidStats.cpp": "ea88ad02d5b2e46f5aa7b154451c7c209d9c1658815815ac6ecb88698e4a0729",
+        "NetworkTraceHandler.cpp": "9fa6426865de0b60ccb45504bbc115cef5d95c956d6eb74448b1da5014ab2e92",
+        "Gta3xlwifiLegacyStats.cpp": "5ceb7d30cd2a0bd9b8cebf9b667fab8ffaa441c2a85320492808d18ae1197c46",
+        "BpfNetworkStats.cpp": "883341dd5a8178ecce09105eb25ea7a15fc16cb89f130712eab1606c408fcd5a",
+        "NetworkTracePoller.cpp": "1deee17793614e736c5be25a53d16ddc4e6695d9fbe6fc94b8ccb2b2a29afb00",
+        "NetworkTraceHandlerTest.cpp": "0278c1d795c19eab5c31463ba14902d0dd09d24ec7668224656a5082d839a252",
+        "QtaguidStats.h": "890551ab93bb209dd4824fda96c91fc92f61eb5dd4682bce993c14feefbf8861",
+        "NetworkTracePollerTest.cpp": "db57b5518d432299388689d614620dcc3495af0ee5bb774e77394bc4977a5dda",
+        "Gta3xlwifiLegacyStats.h": "963cf334287b205fa258a8a1e9e43279b2f6fd057085b6c626349a173ed4106d"
+      },
+      "compiles": [
+        {
+          "variant": "android_arm64_armv8-a_static",
+          "source": "QtaguidStats.cpp",
+          "exit_code": 0,
+          "argv_sha256": "37752e1541a606c6333d4d57521063f324bf3e498ce16f735be771899997584f"
+        },
+        {
+          "variant": "android_arm64_armv8-a_static",
+          "source": "Gta3xlwifiLegacyStats.cpp",
+          "exit_code": 0,
+          "argv_sha256": "3c0285847b01fc02bdc80d5f468525e2fd80aee23415982e7b9394edd29b5223"
+        },
+        {
+          "variant": "android_arm64_armv8-a_static",
+          "source": "BpfNetworkStats.cpp",
+          "exit_code": 0,
+          "argv_sha256": "e62ab360d8f1eeb64fdcf0dd2b3371acb25245b55bfed7b8338ac4055f012f1a"
+        },
+        {
+          "variant": "android_arm_armv8-a_static",
+          "source": "QtaguidStats.cpp",
+          "exit_code": 0,
+          "argv_sha256": "27e8d46a78885a6eb8c290954b3eae2d4e680abf82034b53b0085c22b134a996"
+        },
+        {
+          "variant": "android_arm_armv8-a_static",
+          "source": "Gta3xlwifiLegacyStats.cpp",
+          "exit_code": 0,
+          "argv_sha256": "c2344dab36a8b76066d0f1c5a50782dbccc1efc89a9c9dd8b48c640a1fd5ab13"
+        },
+        {
+          "variant": "android_arm_armv8-a_static",
+          "source": "BpfNetworkStats.cpp",
+          "exit_code": 0,
+          "argv_sha256": "1b474b5d6249c03b1def1a01655c407713b007efc56755326807654a3a582d68"
+        },
+        {
+          "variant": "android_arm64_armv8-a_static_cfi_apex31",
+          "source": "QtaguidStats.cpp",
+          "exit_code": 0,
+          "argv_sha256": "a35bd6874bdd0e4090ee17f71c6f02f6e732fa8b345757a433106ce1b82d589a"
+        },
+        {
+          "variant": "android_arm64_armv8-a_static_cfi_apex31",
+          "source": "Gta3xlwifiLegacyStats.cpp",
+          "exit_code": 0,
+          "argv_sha256": "c97560f2f69bb7fa1be70ce98818599ba9f1fca3baa9fb0609e979b41c39886a"
+        },
+        {
+          "variant": "android_arm64_armv8-a_static_cfi_apex31",
+          "source": "BpfNetworkStats.cpp",
+          "exit_code": 0,
+          "argv_sha256": "72ae84146e02cafd321c05b6eead0a47c1580bdf5ef166536da55c89cb22942b"
+        },
+        {
+          "variant": "android_arm_armv8-a_static_cfi",
+          "source": "QtaguidStats.cpp",
+          "exit_code": 0,
+          "argv_sha256": "ee20a06f6229c3db6045d8789e258d545581a69f4aa1d064e2557a68a0ca9f17"
+        },
+        {
+          "variant": "android_arm_armv8-a_static_cfi",
+          "source": "Gta3xlwifiLegacyStats.cpp",
+          "exit_code": 0,
+          "argv_sha256": "097b5ea55f241e460734e098a3248597a192505d2efacb90f21fffc41bf99b84"
+        },
+        {
+          "variant": "android_arm_armv8-a_static_cfi",
+          "source": "BpfNetworkStats.cpp",
+          "exit_code": 0,
+          "argv_sha256": "84d085594b5ca47192f7df3419c3746791e4c589a81ed613796094b4a0b9f66b"
+        }
+      ]
+    },
+    {
+      "component": "dns",
+      "passed": true,
+      "scope": "Objects only with real Soong flags; no linked module or runtime proof",
+      "vm_evidence": "/srv/android/artifacts/lineage-23.2-arm64/dns-preflight-20261021-01/report.json",
+      "source_sha256": {
+        "DnsHelper.cpp": "f2bbc4bde4c77d587c3bf9c176fa4ea8900190e93905ce55c52e0d3bdecde546",
+        "DnsBpfHelperTest.cpp": "0067e861038273fb875894d896d18ed253f67b840da54ac274945e175d774777",
+        "LegacyDnsPolicy.h": "7744663f4dc97f17bcc870b3e217ff2e6c1294c9160225407ddd4cdb303f8e4a",
+        "DnsBpfHelper.h": "afb552cc74c9a097d45172ab6b585b1aae4f03584b5d993bf51836ee68698a61",
+        "DnsBpfHelper.cpp": "5e917a1ef978d594d8a6fc8c48d78dccae406ce8c1f99cbf7ae2973d606a0871",
+        "include/Gta3xlwifiDnsPolicy.h": "c92496264f5f3cc74d8b3fcbb32386d67966f096327c74eaccec08585277fcb4",
+        "include/DnsHelperPublic.h": "31a468d63ce6d4d6e9031af21e45a61f46e3c98d16814dd37dd22bd521249e15"
+      },
+      "compiles": [
+        {
+          "variant": "android_arm64_armv8-a_static",
+          "source": "DnsBpfHelper.cpp",
+          "exit_code": 0,
+          "argv_sha256": "597c2ff2b7402b23d951a6ac70d78d3cc0f82ff6aff78a80d94e0172a91dcfa7"
+        },
+        {
+          "variant": "android_arm64_armv8-a_static",
+          "source": "DnsHelper.cpp",
+          "exit_code": 0,
+          "argv_sha256": "8d4b210f4d7adcf2b9097195525f8cc8af811a8d0fd6d4da4b4ffc5b329db862"
+        },
+        {
+          "variant": "android_arm_armv8-a_static",
+          "source": "DnsBpfHelper.cpp",
+          "exit_code": 0,
+          "argv_sha256": "30990ef388cd09b367b4d635a5f2f9e8b6364662498eca57b424879298081dfe"
+        },
+        {
+          "variant": "android_arm_armv8-a_static",
+          "source": "DnsHelper.cpp",
+          "exit_code": 0,
+          "argv_sha256": "742a343d304d2c94e3f0cd9d2485df549419071bae0c43fbeea3a4e22a2e0c6c"
+        },
+        {
+          "variant": "android_arm64_armv8-a_static_cfi_apex31",
+          "source": "DnsBpfHelper.cpp",
+          "exit_code": 0,
+          "argv_sha256": "79a7b6921389d991ddb6a9b035389de853c33dcd43397eb01f4146ce8c2b9b66"
+        },
+        {
+          "variant": "android_arm64_armv8-a_static_cfi_apex31",
+          "source": "DnsHelper.cpp",
+          "exit_code": 0,
+          "argv_sha256": "567a744f65a074f2bf209b42238c3871db5f2a5f2a8bf02f80c7dfc2a82738d5"
+        },
+        {
+          "variant": "android_arm_armv8-a_static_cfi",
+          "source": "DnsBpfHelper.cpp",
+          "exit_code": 0,
+          "argv_sha256": "66bc1b64acdd9d2e1de6a9b69684a1fc2fdb0194fea65ead0a82590c1322cd39"
+        },
+        {
+          "variant": "android_arm_armv8-a_static_cfi",
+          "source": "DnsHelper.cpp",
+          "exit_code": 0,
+          "argv_sha256": "ef5414835296160affd3d762c0e99c91c43e86d7f1584eb2177ca56042100bc9"
+        }
+      ]
+    }
+  ],
+  "full_module_linking_and_abi_validation_performed": false,
+  "complete_firewall_socket_loader_api_backend_implemented": false,
+  "strict_vendor_policy_passed": false,
+  "tablet_modified": false,
+  "known_open_work": [
+    "Authoritative Android 16 iptables policy backend with all 12 chain semantics",
+    "Per-user core UID exemptions and separate metered allow/admin/user rules",
+    "Local-network LPM/protocol/port, interface/VPN and packet-direction semantics",
+    "Socket tagging, permission checks, qtaguid lifetime/quota integration and CLAT",
+    "Real callback registration, loader readiness and Java reader/API integration",
+    "Complete module links, ABI validation and Java/native Android tests",
+    "Effective SELinux security review, complete activated-APEX VINTF, HAL/FBE/recovery/OTA"
+  ]
+}

@@ -1,0 +1,57 @@
+diff --git a/media/libaudiohal/FactoryHal.cpp b/media/libaudiohal/FactoryHal.cpp
+index 2c30693..266a35d 100644
+--- a/media/libaudiohal/FactoryHal.cpp
++++ b/media/libaudiohal/FactoryHal.cpp
+@@ -50,11 +50,13 @@ using InterfaceName = std::pair<std::string, std::string>;
+  * This list need to keep sync with AudioHalVersionInfo.VERSIONS in
+  * media/java/android/media/AudioHalVersionInfo.java.
+  */
+-static const std::array<AudioHalVersionInfo, 4> sAudioHALVersions = {
++static const std::array<AudioHalVersionInfo, 5> sAudioHALVersions = {
+     AudioHalVersionInfo(AudioHalVersionInfo::Type::AIDL, 1, 0),
+     AudioHalVersionInfo(AudioHalVersionInfo::Type::HIDL, 7, 1),
+     AudioHalVersionInfo(AudioHalVersionInfo::Type::HIDL, 7, 0),
+     AudioHalVersionInfo(AudioHalVersionInfo::Type::HIDL, 6, 0),
++    // SM-T510 retains Samsung's Android 11 Audio HIDL service.
++    AudioHalVersionInfo(AudioHalVersionInfo::Type::HIDL, 4, 0),
+ };
+ 
+ static const std::map<AudioHalVersionInfo::Type, InterfaceName> sDevicesHALInterfaces = {
+diff --git a/media/libaudiohal/impl/Android.bp b/media/libaudiohal/impl/Android.bp
+index 00f3929..9569ff5 100644
+--- a/media/libaudiohal/impl/Android.bp
++++ b/media/libaudiohal/impl/Android.bp
+@@ -82,6 +82,33 @@ cc_defaults {
+     ],
+ }
+ 
++// Real HIDL 4.0 client for the retained Samsung Audio HAL, not a stub.
++cc_library_shared {
++    name: "libaudiohal@4.0",
++    defaults: [
++        "libaudiohal_default",
++        "libaudiohal_hidl_default",
++    ],
++    srcs: [
++        ":audio_core_hal_client_sources",
++        ":audio_effect_hidl_hal_client_sources",
++        "EffectsFactoryHalEntry.cpp",
++    ],
++    shared_libs: [
++        "android.hardware.audio.common@4.0",
++        "android.hardware.audio.common@4.0-util",
++        "android.hardware.audio.effect@4.0",
++        "android.hardware.audio.effect@4.0-util",
++        "android.hardware.audio@4.0",
++        "android.hardware.audio@4.0-util",
++    ],
++    cflags: [
++        "-DMAJOR_VERSION=4",
++        "-DMINOR_VERSION=0",
++        "-include common/all-versions/VersionMacro.h",
++    ],
++}
++
+ cc_library_shared {
+     name: "libaudiohal@6.0",
+     defaults: [
