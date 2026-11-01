@@ -1,0 +1,19 @@
+{
+  "baseline_sparse_sha256": "276777b5bde1dac2f31dbe9299c79e02c07486df6ff7b2ecad03cc722edee939",
+  "sparse_sha256": "a847a527931d61e5702b8a025210c84eb88a37ef1e60df93b6393a16dae9183a",
+  "raw_sha256": "cb1426764a26cd17b921339d2ce75618ad9c800eb89849f7dc07f2664ca192fb",
+  "physical_bytes": 343932928,
+  "changed_files": [
+    "etc/init/init.exynos7904.usb.rc"
+  ],
+  "rc_sha256": "500d6fccbb990aad93a7de7fb4cf7e96d00702702bd021d18c9152d74e59ef1d",
+  "file_metadata_preserved": true,
+  "other_files_and_directories_unchanged": true,
+  "hardware_tested": false,
+  "release_ota_hash_not_promoted": true,
+  "owner_selected_for_lineage24": true,
+  "device_commit": "49cd30b6db3dfe6830dcb56062aa298f1e215c48",
+  "android17_usb_tested": false,
+  "android14_runtime_report": "reports/mtp-20261101/validation-summary.json in the LineageOS 21 work",
+  "source_image": "/srv/android/src/lineage-21.0-arm64/device/samsung/gta3xlwifi/prebuilt/vendor.img"
+}

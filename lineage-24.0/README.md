@@ -14,9 +14,11 @@ The active 23.2 snapshot's 13 patches were rebased to 14 project changes:
 `fs_mgr` now lives in `system/fs/fs_mgr`, libmeminfo includes changed, cgroup v2
 app/system isolation is unconditional, and task-profile load ordering changed.
 Device changes are committed separately on `lineage-24.0-arm64`; the remaining
-13 patches are revision/hash locked in `snapshots/port-20261101/source-lock.json`.
-The snapshot records partial-file preflight provenance, not a complete source
-or build audit. The server produces full audits after sync and patch application.
+13 patches are revision/hash locked in `snapshots/port-20261101-02/source-lock.json`.
+Snapshot 01 records the initial partial-file preflight. Active snapshot 02 now
+has a complete source audit: 1,243 locked projects, 13 exact platform patches,
+no external alternates. Product configuration passes for Android 17, LineageOS
+24.0, ARM64/ARM32 and build ID CP2A.260605.016. This is not a full ROM build.
 
 The cgroup port retains cpuacct v1 process groups, mounts real supported v1
 controllers, skips v2 subtrees only for this product, loads product profiles last,
@@ -63,3 +65,22 @@ recovery/OTA and physical partition sizing remain gates. Existing Android 14
 GApps and recovery encryption results are not Android 17 validation. No neverallow
 or enforcement bypass is authorized. Hardware installation requires a concrete
 candidate, verified private backup/rollback plan and separate owner approval.
+
+## November 1: selected MTP vendor input
+
+The owner explicitly selected the updated LineageOS 21 vendor image containing
+the FunctionFS MTP USB init fix. Sparse SHA-256:
+`a847a527931d61e5702b8a025210c84eb88a37ef1e60df93b6393a16dae9183a`.
+The device OTA input guard and setup now pin that same digest; the Android 14
+installer restriction remains. The observed initial failure was an input hash
+mismatch after successful sync and clean audit of all 1,243 projects. The failed
+exit files are archived in the server logs before recovery. Only the reviewed
+device commit is updated, followed by a fresh full clean audit, input staging
+and the normal patched-tree validation. Android 14 MTP transfer evidence is
+recorded separately and does not certify Android 17 USB functionality.
+
+The active snapshot is now `port-20261101-02`: full Git object IDs make exact
+diff hashing independent of repository size and `core.abbrev`. All 13 patch
+hunks are unchanged from snapshot 01. Eight replay-safety tests pass, including
+changed abbreviation settings; checksum, revision, untracked-file, local-edit
+and path/duplicate rejection checks remain. Historical snapshot 01 is retained.

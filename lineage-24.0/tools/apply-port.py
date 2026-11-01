@@ -38,7 +38,7 @@ def apply(top, snapshot):
             raise ValueError(f'Unexpected source revision: {project}')
         if git(path, 'ls-files', '--others', '--exclude-standard'):
             raise ValueError(f'Untracked source files: {project}')
-        current = git(path, 'diff', '--binary', '--no-ext-diff', 'HEAD')
+        current = git(path, 'diff', '--binary', '--no-ext-diff', '--full-index', 'HEAD')
         if current == data:
             print(f'Already applied: {project}')
         elif current:

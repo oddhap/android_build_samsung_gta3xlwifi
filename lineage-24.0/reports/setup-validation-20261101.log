@@ -1,0 +1,41 @@
+Sources already prepared; validating the pinned port. See /srv/android/artifacts/lineage-24.0-arm64/setup-report.json
+Already applied: bionic
+Already applied: device/lineage/sepolicy
+Already applied: external/boringssl
+Already applied: external/chromium-webview/patches
+Already applied: frameworks/av
+Already applied: frameworks/base
+Already applied: frameworks/native
+Already applied: packages/apps/Backgrounds
+Already applied: packages/modules/vndk
+Already applied: packages/screensavers/PhotoTable
+Already applied: system/core
+Already applied: system/fs/fs_mgr
+Already applied: system/memory/libmeminfo
+PASS: 1243 locked projects, 13 exact reviewed patches; no external alternates
+PASS: 10 v1 cleanup scenarios and 4 v1/v2 path assertions
+PASS: 42 extracted Bionic fd-hygiene cases (fork/vfork, exec, errors).
+Looking for dependencies in device/samsung/gta3xlwifi
+device/samsung/gta3xlwifi has no additional dependencies.
+
+============================================
+PLATFORM_VERSION_CODENAME=REL
+PLATFORM_VERSION=17
+LINEAGE_VERSION=24.0-20261101-UNOFFICIAL-gta3xlwifi
+PRODUCT_SOURCE_ROOT_DIRS=-kernel/platform -prebuilts/misc/protobuf_vendorcompat
+TARGET_PRODUCT=lineage_gta3xlwifi
+TARGET_BUILD_VARIANT=userdebug
+TARGET_ARCH=arm64
+TARGET_ARCH_VARIANT=armv8-a
+TARGET_CPU_VARIANT=generic
+TARGET_2ND_ARCH=arm
+TARGET_2ND_ARCH_VARIANT=armv8-a
+TARGET_2ND_CPU_VARIANT=generic
+HOST_OS=linux
+HOST_OS_EXTRA=Linux-5.15.0-202-generic-x86_64-Ubuntu-22.04.5-LTS
+HOST_CROSS_OS=windows
+BUILD_ID=CP2A.260605.016
+OUT_DIR=out
+SOONG_ONLY=false
+SOONG_INCREMENTAL_ANALYSIS=false
+============================================

@@ -32,6 +32,19 @@ if [[ -f $artifacts/SOURCE_SYNC_COMPLETE ]]; then
     bash "$port/lineage-24.0/tools/validate-port.sh"
     exit 0
 fi
+if [[ ${1:-} == --resume-inputs ]]; then
+    # Explicit recovery from a completed clean audit, without another repo sync.
+    manifest_head=$(cat "$port/manifest-head.txt")
+    [[ $(git -C "$top/.repo/manifests" rev-parse HEAD) == "$manifest_head" ]] || fail 'Manifest HEAD changed.'
+    python3 - "$artifacts" <<'CHECK'
+import hashlib, json, sys
+from pathlib import Path
+root = Path(sys.argv[1])
+audit = json.loads((root/'source-audit.json').read_text())
+if not audit.get('passed') or hashlib.sha256((root/'platform-manifest.xml').read_bytes()).hexdigest() != audit['manifest_sha256']:
+    raise SystemExit('Missing or mismatched successful clean-source audit')
+CHECK
+else
 if [[ ! -d $top/.repo ]]; then
     free_bytes=$(df --output=avail -B1 /srv/android | tail -1)
     (( free_bytes >= 450 * 1024 * 1024 * 1024 )) || fail 'Need at least 450 GiB free for initial independent checkout and build headroom.'
@@ -105,6 +118,8 @@ repo manifest -r -o "$artifacts/platform-manifest.xml.tmp"
 python3 "$script_dir/audit.py" "$top" "$artifacts/platform-manifest.xml.tmp" "$artifacts/source-audit.json"
 mv "$artifacts/platform-manifest.xml.tmp" "$artifacts/platform-manifest.xml"
 
+fi
+
 # Reuse only hash-bound binary inputs from the working Android 14 baseline.
 # These are experimental inputs for 24.0, not proof of Android 17 compatibility.
 python3 - "$baseline" "$top/device/samsung/gta3xlwifi" "$artifacts" <<'PY'
@@ -114,7 +129,7 @@ src, dst, out = map(Path, sys.argv[1:])
 expected = {
     'Image': '33c1a0d1b9e2696decd53fbedfc2231385b74464f4058a54b93ff06ff7c72553',
     'dtbo.img': 'b9041c37713a745290d9a0203423436b6caa7a1307ced79b6963b4f1f0271c4b',
-    'vendor.img': '276777b5bde1dac2f31dbe9299c79e02c07486df6ff7b2ecad03cc722edee939',
+    'vendor.img': 'a847a527931d61e5702b8a025210c84eb88a37ef1e60df93b6393a16dae9183a',
 }
 def digest(path):
     h = hashlib.sha256()
@@ -142,6 +157,7 @@ if not stock_hashes or stock_hashes != tree_hashes(stock):
 (out/'baseline-inputs.json').write_text(json.dumps({
     'baseline_android': '14', 'target_android': '17', 'files': expected,
     'stock_metadata': stock_hashes, 'android17_compatibility_tested': False,
+    'vendor_change': 'LineageOS 21 FunctionFS MTP fix, explicitly selected by owner 2026-11-01',
 }, indent=2) + '\n')
 PY
 # Product configuration bind-mounts CCACHE_DIR through nsjail. The bind source

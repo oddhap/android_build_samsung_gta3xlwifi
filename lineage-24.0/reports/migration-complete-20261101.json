@@ -1,0 +1,19 @@
+{
+  "checked_at_utc": "2026-11-01T19:01:02.198380+00:00",
+  "phase": "source-port-validated",
+  "exit_codes": {
+    "migration": 0,
+    "setup": 0,
+    "port-validation": 0,
+    "host-preflight": 0
+  },
+  "source_sync_complete": true,
+  "port_source_validated": true,
+  "project_count": 1243,
+  "platform_patches": 13,
+  "vendor_sha256": "a847a527931d61e5702b8a025210c84eb88a37ef1e60df93b6393a16dae9183a",
+  "old_23_2_roots_removed": true,
+  "rom_built": false,
+  "hardware_tested_android17": false,
+  "flash_ready": false
+}

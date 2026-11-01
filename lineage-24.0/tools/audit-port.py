@@ -52,7 +52,7 @@ def audit(top, snapshot):
             if git(path, 'ls-files', '--others', '--exclude-standard'):
                 raise ValueError(f'Unreviewed untracked sources: {project}')
             patch = (snapshot / 'patches' / filename).read_bytes()
-            actual = git(path, 'diff', '--binary', '--no-ext-diff', 'HEAD')
+            actual = git(path, 'diff', '--binary', '--no-ext-diff', '--full-index', 'HEAD')
             if (hashlib.sha256(patch).hexdigest() != item['sha256'] or actual != patch):
                 raise ValueError(f'Source differs from captured patch: {project}')
         elif status:

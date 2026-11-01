@@ -40,7 +40,7 @@ def capture(top, out, projects):
         if git(path, 'ls-files', '--others', '--exclude-standard'):
             raise ValueError(f'Unreviewed untracked source files: {project}')
         subprocess.run(['git', '-C', str(path), 'diff', '--check', 'HEAD'], check=True)
-        diff = git(path, 'diff', '--binary', '--no-ext-diff', 'HEAD')
+        diff = git(path, 'diff', '--binary', '--no-ext-diff', '--full-index', 'HEAD')
         if not diff:
             continue
         filename = project.replace('/', '_') + '.patch'
