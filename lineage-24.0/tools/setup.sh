@@ -20,8 +20,13 @@ for path in "$port" "$top" "$artifacts" "$logs"; do
 done
 mkdir -p "$port" "$artifacts" "$logs"
 exec 9>"$logs/setup.lock"
-flock -n 9 || fail 'Another 24.0 setup is active.'
+# Serialize all launchers, including the cleanup runner's final setup call.
+flock 9
 trap 'rc=$?; printf "%s\n" "$rc" > "$logs/setup.exit"; exit "$rc"' EXIT
+if [[ -f $artifacts/PORT_SOURCE_VALIDATED ]]; then
+    echo "Pinned source port already validated; inspect existing reports before new work."
+    exit 0
+fi
 if [[ -f $artifacts/SOURCE_SYNC_COMPLETE ]]; then
     printf 'Sources already prepared; validating the pinned port. See %s\n' "$artifacts/setup-report.json"
     bash "$port/lineage-24.0/tools/validate-port.sh"
