@@ -1,0 +1,23 @@
+diff --git a/services/gpuservice/gpuwork/GpuWork.cpp b/services/gpuservice/gpuwork/GpuWork.cpp
+index b176e1518f9e9f6fa0752dd0bb8ca9236c6c1b50..a870798cb14f7af3744d9b5a92930fe99acb7dec 100644
+--- a/services/gpuservice/gpuwork/GpuWork.cpp
++++ b/services/gpuservice/gpuwork/GpuWork.cpp
+@@ -20,6 +20,7 @@
+ 
+ #include "gpuwork/GpuWork.h"
+ 
++#include <android-base/properties.h>
+ #include <android-base/stringprintf.h>
+ #include <binder/PermissionCache.h>
+ #include <bpf/WaitForProgsLoaded.h>
+@@ -121,6 +122,10 @@ GpuWork::~GpuWork() {
+ }
+ 
+ void GpuWork::initialize() {
++    if (!base::GetBoolProperty("ro.kernel.ebpf.supported", true)) {
++        ALOGI("GPU BPF accounting unavailable on this kernel");
++        return;
++    }
+     // Workaround b/347947040 by allowing time for statsd / bpf setup.
+     std::this_thread::sleep_for(std::chrono::seconds(30));
+ 

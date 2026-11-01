@@ -14,11 +14,11 @@ The initial 23.2 port patches compiled successfully on Android 17 in
 `native-policy-20261101-01` (exit 0, followed by full source audit). Selected
 ARM/ARM64 ELF outputs are recorded in the reports; this is build/link evidence.
 
-Active snapshot **port-20261101-04** locks 1,243 projects and **15 exact patches**.
+Active snapshot **port-20261101-05** locks 1,243 projects and **15 exact patches**.
 It adds a source backport of policy 30.0 compatibility data and generator modules,
 with the frozen API30 source copied verbatim from the pinned prior platform.
 The framework advertises 30.0 only for gta3xlwifi. Device inputs are separately
-pinned by commit. Dedicated compatibility compilation is currently pending;
+pinned by commit. Dedicated compatibility compilation and structural tests passed;
 strict actual-vendor policy is not approved and this is not a full ROM build.
 
 The cgroup port retains cpuacct v1 process groups, mounts real supported v1
@@ -120,3 +120,35 @@ The upstream structural compatibility test is distinct from the strict actual-
 vendor neverallow probe; success there cannot approve Samsung policy or boot.
 Legacy HAL metadata restoration, strict conflict resolution, full networking,
 kernel policycaps and Android execution remain outstanding.
+
+## Verified compatibility compilation and remaining strict failure
+
+`compatibility-build-20261101-03` completed exit 0, followed by a successful
+full audit of 1,243 projects and 15 exact patches. Snapshot05 adds the actual
+Treble30 test modules; the earlier unknown-target failure is retained. Device
+commit `9c13bd07a68ec7857d8cbd5e4df075fdd966e433` restores the pinned legacy
+FCM5/6 contracts and their retired kernel modules without dropping requirements.
+
+The actual MTP vendor metadata check now reports COMPATIBLE / exit 0. Activated
+APEX inventory is still absent; this covers currently built metadata only. The
+strict actual-vendor policy check still fails with 407 neverallow diagnostics.
+No allow/neverallow, enforcement setting or original vendor image was changed.
+Evidence is in [reports/compatibility-20261101](reports/compatibility-20261101/).
+
+`tools/build-user-policy.sh policy-user-20261101-01` is running against snapshot05
+in a fresh `out-policy-user-20261101-01`, using the same build lock and source
+audits. This is a production-policy comparison, not a ROM or a security fix.
+Inspect its exit file before interpreting results or starting another build.
+
+A serialized `continue-diagnostic-build.sh` continuation waits for that policy
+runner's successful exit and after-audit, records the strict actual-vendor result
+from its isolated output, checks build lock/free space, then runs
+`full-targetfiles-20261101-01` (`target-files-package otatools`) against snapshot05.
+It stops on prerequisite/tool errors and labels the package diagnostic. A strict
+policy failure remains a failure even if full compilation succeeds. It generates
+no OTA and performs no release signing or tablet access. Inspect both continuation
+and full-build logs/exit files; a queued continuation is not a started full build.
+
+The [guarded netlink candidate](experiments/kernel-netlink-20261101-01/) has exact
+partial-tree provenance and sanitized host helper/AVC fixture checks. It remains
+isolated, with capability9 rejected by the policy loader, and no new kernel Image.

@@ -1,0 +1,188 @@
+{
+  "checked_at_utc": "2026-11-01T20:46:11.330392+00:00",
+  "exit_code": 0,
+  "passed": true,
+  "command": [
+    "/srv/android/src/lineage-24.0-arm64/out/host/linux-x86/bin/checkvintf",
+    "--check-compat",
+    "--dirmap",
+    "/system:/srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/system",
+    "--dirmap",
+    "/system_ext:/srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/system/system_ext",
+    "--dirmap",
+    "/product:/srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/product",
+    "--dirmap",
+    "/vendor:/srv/android/artifacts/lineage-24.0-arm64/vendor-check-20261101-01/vendor",
+    "--dirmap",
+    "/odm:/srv/android/artifacts/lineage-24.0-arm64/vendor-vintf-20261101-03/empty-odm",
+    "--dirmap",
+    "/apex:/srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/apex",
+    "--property",
+    "ro.product.first_api_level=28",
+    "--property",
+    "ro.boot.product.hardware.sku=",
+    "--property",
+    "ro.boot.product.vendor.sku=",
+    "--kernel",
+    "4.4.302:/srv/android/artifacts/kernel-dt2w/kernel.config"
+  ],
+  "kernel_version": "4.4.302",
+  "inputs": [
+    {
+      "path": "/srv/android/artifacts/kernel-dt2w/kernel.config",
+      "sha256": "fac42e3bbf996bb9502bb1031c91b1950986ad3586d0f33cad869a6fd0b3acea"
+    },
+    {
+      "path": "/srv/android/artifacts/lineage-24.0-arm64/vendor-check-20261101-01/vendor/etc/vintf/compatibility_matrix.xml",
+      "sha256": "4a22ea99cc597fcdb4fa55df1bb9390195c2cb642dde14129fe0b09faf5cf374"
+    },
+    {
+      "path": "/srv/android/artifacts/lineage-24.0-arm64/vendor-check-20261101-01/vendor/etc/vintf/manifest/android.hardware.cas@1.2-service.xml",
+      "sha256": "9357fb5a7b17fe81638ec82f79d06007bb35c19016e676104fa55449b5f0f0d2"
+    },
+    {
+      "path": "/srv/android/artifacts/lineage-24.0-arm64/vendor-check-20261101-01/vendor/etc/vintf/manifest/android.hardware.dumpstate@1.1-service-lazy.xml",
+      "sha256": "388b9e7b24adf678fccf59dacc79b948093688bc34c40124c2563c2c3809747d"
+    },
+    {
+      "path": "/srv/android/artifacts/lineage-24.0-arm64/vendor-check-20261101-01/vendor/etc/vintf/manifest/android.hardware.health@2.1-samsung.xml",
+      "sha256": "2ad8126c3afd2d52ac9d7e022e3d7716d17e03178bc11d1f7ad7a0aa585b5c28"
+    },
+    {
+      "path": "/srv/android/artifacts/lineage-24.0-arm64/vendor-check-20261101-01/vendor/etc/vintf/manifest/android.hardware.wifi.hostapd.xml",
+      "sha256": "d42266c7638aacf0918164dff0ed50df0a8d50d3085a6d03dc2127718fc86f17"
+    },
+    {
+      "path": "/srv/android/artifacts/lineage-24.0-arm64/vendor-check-20261101-01/vendor/etc/vintf/manifest/android.hardware.wifi@1.0-service.xml",
+      "sha256": "5b785b5e6f63baab071ca757ec3e5bf0ee7a877186c17e2b36ce5bc63112756e"
+    },
+    {
+      "path": "/srv/android/artifacts/lineage-24.0-arm64/vendor-check-20261101-01/vendor/etc/vintf/manifest/engmode_manifest.xml",
+      "sha256": "29fd4d47a7e04224b708d95eb046118001e407aaa700978add8eb460d897b3e5"
+    },
+    {
+      "path": "/srv/android/artifacts/lineage-24.0-arm64/vendor-check-20261101-01/vendor/etc/vintf/manifest/hyper-default-sec.xml",
+      "sha256": "bc7ab5cdae05b9a81b1d6e5466ec216e388cefe86822e4deec83e2d0de53ccb3"
+    },
+    {
+      "path": "/srv/android/artifacts/lineage-24.0-arm64/vendor-check-20261101-01/vendor/etc/vintf/manifest/lights-default-sec.xml",
+      "sha256": "570ac710477a2e70c8c983e4eea18ddd398907af0502ac95557f4293e9f85cc9"
+    },
+    {
+      "path": "/srv/android/artifacts/lineage-24.0-arm64/vendor-check-20261101-01/vendor/etc/vintf/manifest/manifest.xml",
+      "sha256": "e39163b460c1cc9eb4a245cf1083d62ecc777d8ae58daaff51ddaaea5c211a7e"
+    },
+    {
+      "path": "/srv/android/artifacts/lineage-24.0-arm64/vendor-check-20261101-01/vendor/etc/vintf/manifest/manifest_android.hardware.drm@1.3-service.clearkey.xml",
+      "sha256": "4b9a9214df27df7f546dcd7b27efac3803f8d172548671c8d94903ef1d804aef"
+    },
+    {
+      "path": "/srv/android/artifacts/lineage-24.0-arm64/vendor-check-20261101-01/vendor/etc/vintf/manifest/manifest_android.hardware.drm@1.3-service.widevine.xml",
+      "sha256": "61cee1f6a061cf5348ca82f5326bd09cedda6bf2eea016c9ad3374f2cd03df7a"
+    },
+    {
+      "path": "/srv/android/artifacts/lineage-24.0-arm64/vendor-check-20261101-01/vendor/etc/vintf/manifest/power-samsung.xml",
+      "sha256": "faef8be2fdef7c56908853ee8256e5052d8e2f617351f0c306a5bfc365ab5892"
+    },
+    {
+      "path": "/srv/android/artifacts/lineage-24.0-arm64/vendor-check-20261101-01/vendor/etc/vintf/manifest/sec_c2_manifest_default.xml",
+      "sha256": "81fc4e0018250141678c6f9c4ffd159c16cd80873f2bf066bc734bc1515a3b1b"
+    },
+    {
+      "path": "/srv/android/artifacts/lineage-24.0-arm64/vendor-check-20261101-01/vendor/etc/vintf/manifest/vaultkeeper_manifest.xml",
+      "sha256": "a1afd66714d0dc4c5083a2a4f33d2ae7f1dde9d56adbd4c4c8b563143f709a52"
+    },
+    {
+      "path": "/srv/android/artifacts/lineage-24.0-arm64/vendor-check-20261101-01/vendor/etc/vintf/manifest/vendor.samsung.hardware.hqm@1.0-manifest.xml",
+      "sha256": "963dd41e15b0c5b3ec8cac45abe2a9c845dff83eda529a2b77e8594c1d3008c2"
+    },
+    {
+      "path": "/srv/android/artifacts/lineage-24.0-arm64/vendor-check-20261101-01/vendor/etc/vintf/manifest/vendor.samsung.hardware.thermal@1.0-manifest.xml",
+      "sha256": "3f5b1c78f8a06eb25ae5b4e873a010802ec8bd6546091095c5fdee22b45e1566"
+    },
+    {
+      "path": "/srv/android/artifacts/lineage-24.0-arm64/vendor-check-20261101-01/vendor/etc/vintf/manifest/vendor.samsung.hardware.tlc.atn@1.0-manifest.xml",
+      "sha256": "30aa3eaf547c78707509cedc6fbe487dafc8d39435868db91356e6e8e5f290ea"
+    },
+    {
+      "path": "/srv/android/artifacts/lineage-24.0-arm64/vendor-check-20261101-01/vendor/etc/vintf/manifest/vendor.samsung.hardware.tlc.iccc@1.0-manifest.xml",
+      "sha256": "36ff251646f672e18f55d740f669c88394f466c1c457ea4052047112f361c0cb"
+    },
+    {
+      "path": "/srv/android/artifacts/lineage-24.0-arm64/vendor-check-20261101-01/vendor/etc/vintf/manifest/vendor.samsung.hardware.tlc.tima@1.0-manifest.xml",
+      "sha256": "1266ba34c026d2edc88e62d454eea3ca9f44cde796164174ddebbbd16b1da570"
+    },
+    {
+      "path": "/srv/android/artifacts/lineage-24.0-arm64/vendor-check-20261101-01/vendor/etc/vintf/manifest/vendor.samsung.hardware.wifi.hostapd.xml",
+      "sha256": "39a43b18dc72af926510af3ef013d57ea7dbad4557a0476a6c06250cba274c72"
+    },
+    {
+      "path": "/srv/android/artifacts/lineage-24.0-arm64/vendor-check-20261101-01/vendor/etc/vintf/manifest/vendor.samsung.hardware.wifi@2.0-service.xml",
+      "sha256": "7eeb437e701556615cc228784f3c2e101983ed9abacf0a19255418f659643c63"
+    },
+    {
+      "path": "/srv/android/artifacts/lineage-24.0-arm64/vendor-check-20261101-01/vendor/etc/vintf/manifest.xml",
+      "sha256": "8c5ceef0b5b03b7a3d6a9b0bad0ff1f2b3880cf58a925253ec77d84e21765ff2"
+    },
+    {
+      "path": "/srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/product/etc/vintf/compatibility_matrix.lineage.xml",
+      "sha256": "6f574ccb0f53d0ced955ef7c8f151a199ed3928c39ddfd945af43e6b4f8a26df"
+    },
+    {
+      "path": "/srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/system/etc/vintf/compatibility_matrix.202404.xml",
+      "sha256": "cff153e45015e57e115c0f8fa48a777d360db356a4cca5f79c9956dd1dc265d8"
+    },
+    {
+      "path": "/srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/system/etc/vintf/compatibility_matrix.202504.xml",
+      "sha256": "a21eba5d7ccf35458f3ca2e8205ea0be5105c4206537b4c95eb32ec4ca10d3c8"
+    },
+    {
+      "path": "/srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/system/etc/vintf/compatibility_matrix.202604.xml",
+      "sha256": "2ce785af96e3a04b7b06f74c5a8461618a01dae15588d84db47119fccd67fb13"
+    },
+    {
+      "path": "/srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/system/etc/vintf/compatibility_matrix.3.xml",
+      "sha256": "dd2047b37e5c3c1e6448863612d6dc8046d88bcc550d88176d442e9261749207"
+    },
+    {
+      "path": "/srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/system/etc/vintf/compatibility_matrix.5.xml",
+      "sha256": "ef0867ea99131571a887325d918c537c9ae240646be8a08ad663642f2f27cff9"
+    },
+    {
+      "path": "/srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/system/etc/vintf/compatibility_matrix.6.xml",
+      "sha256": "94aa8512f163c92e9a3050b3c2cd81672d448695602ad6818d6b18389fe42f2c"
+    },
+    {
+      "path": "/srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/system/etc/vintf/compatibility_matrix.7.xml",
+      "sha256": "34036c05c5b15165641d8a1b76ee2f1143fd102b315c204611cb73a8b05a92dd"
+    },
+    {
+      "path": "/srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/system/etc/vintf/compatibility_matrix.8.xml",
+      "sha256": "81effff226fab476871a04623d3286351c9f055e0ace004f13d3bc30fd68aba0"
+    },
+    {
+      "path": "/srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/system/etc/vintf/compatibility_matrix.device.xml",
+      "sha256": "4fc1d0d14373671e800b3f86e0961642002f616dd7134e9e7c652a5a72742e22"
+    },
+    {
+      "path": "/srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/system/etc/vintf/manifest/gta3xlwifi-legacy-sdk.xml",
+      "sha256": "c581d7bef66890db645a6c0b337b092e5a92c92f3cfb53ddeca0d7229d9b715a"
+    },
+    {
+      "path": "/srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/system/etc/vintf/manifest.xml",
+      "sha256": "ce58a5b7357660a7b4e168c8f2d8c0871e4b5108601315c45860d73d2986249d"
+    },
+    {
+      "path": "/srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/system/system_ext/etc/vintf/manifest.xml",
+      "sha256": "f69614c67fa6ece6165ac97dffa5166337f23be45a9e1dc7ae2df3dff1115319"
+    }
+  ],
+  "odm": "No separate ODM partition on this product; empty mapping",
+  "scope": "Currently built framework metadata only; not a complete ROM or runtime test",
+  "activated_apex_inventory_present": false,
+  "complete_post_apex_validation_proven": false,
+  "framework_kernel_profile": "Device-carried legacy FCM 3, inherited from the working 21 port",
+  "unmodified_android17_runtime_kernel_requirements_proven": false,
+  "kernel_requirements_ignored_or_edited_by_this_tool": false,
+  "hardware_tested": false
+}

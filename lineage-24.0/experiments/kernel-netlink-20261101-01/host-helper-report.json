@@ -1,0 +1,36 @@
+{
+  "passed": true,
+  "scope": "Extracted helpers with a sequential list fixture; not whole kernel or live enforcement",
+  "hardware_tested": false,
+  "policy_load_guard_removed": false,
+  "results": [
+    {
+      "config": [],
+      "stdout": "PASS: 4784128 helper and 807936 AVC fixture scenarios, references/cache isolation/enforcement/audit errors"
+    },
+    {
+      "config": [
+        "-DCONFIG_ALWAYS_ENFORCE"
+      ],
+      "stdout": "PASS: 4784128 helper and 807936 AVC fixture scenarios, references/cache isolation/enforcement/audit errors"
+    }
+  ],
+  "sanitizers": [
+    "address",
+    "undefined"
+  ],
+  "inputs": {
+    "work/kernel-netlink24/security/selinux/ss/services.c": "30fc06328592ead5484a574c12b9ad1fd592bb0e38b594e76855788d0ef18280",
+    "work/kernel-netlink24/security/selinux/avc.c": "54a300cec16e66c47a4a29598c61971b4b675be55a33b72c6077c60124b95798",
+    "work/kernel-netlink24/security/selinux/include/security.h": "5886825b351a7c964c8af029d6bddf0ac3ac0ce5a368739a88785fcd6c4ad593",
+    "work/kernel-netlink24/security/selinux/ss/avtab.h": "f43803ad7360e4bcc8780d6289f8af3c7170dd111a847016f6ca34e88f497d85",
+    "reference/kernel-android17-selinux/security/selinux/ss/services.c": "c2074b2778efcbc3aef977e1589baa295a81674270a3bcfeb420928c9421513e",
+    "reference/kernel-android17-selinux/security/selinux/avc.c": "e705db5bcad417c863a30306f94a3f6aeee1687a909ed24838d5573650dc27f4",
+    "reference/kernel-android17-selinux/security/selinux/include/security.h": "089fa1bdb82a6a384979146f6babca343aeeab1d868f36b51f21b63d5cad6ded",
+    "reference/kernel-android17-selinux/security/selinux/ss/avtab.h": "392ab58ba779bb8f502b5fa5f2837aeaa3e9b8fbbe85c1e2174a300606d19847",
+    "reference/kernel-netlink24-before/security/selinux/ss/services.c": "5800310a5d9e0a1c484c1d19992c72d0227a9977ae2b8558250a84495176a2d8",
+    "reference/kernel-netlink24-before/security/selinux/avc.c": "6c52f5784bd6826b2bf27b35a365350fff8c056e4caf43562a52e15f3c02235f",
+    "reference/kernel-netlink24-before/security/selinux/include/security.h": "6934011c67cbcdf4759aa2b780b70b883b930f03fed9ef7de0e4015682dc8e10",
+    "reference/kernel-netlink24-before/security/selinux/ss/avtab.h": "f43803ad7360e4bcc8780d6289f8af3c7170dd111a847016f6ca34e88f497d85"
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "scope": "Isolated netlink candidate on partial synthetic three-patch base; NOT Android apply-port snapshot",
+  "original_kernel_revision": "669b9584e678ce5865ed38e04c24639082d78de1",
+  "synthetic_partial_tree_head": "ea345110458ca112b0fc68af968cc0bfb457f9a8",
+  "prerequisites": [
+    "qtaguid-persistent-20261022-02",
+    "kernel-policy-reader-20261023-01",
+    "kernel-functionfs-20261023-01"
+  ],
+  "patch_sha256": "5b2a9a039728ee0537f89de8ac17407fb00e51b3b73a67c3a9af3ceebb54b266",
+  "policycap9_load_rejection_retained": true,
+  "active_Android_sources_changed": false,
+  "kernel_image_built": false,
+  "hardware_tested": false,
+  "files": [
+    {
+      "path": "include/linux/lsm_audit.h",
+      "before_sha256": "d30fd3f8a4353770b8cce8ee5d621cfb43b7fa629b9b4ada010a310fc90c9488",
+      "candidate_sha256": "80df8e41ae60ecc3fd2196f3564773a366889fc3136039698898566e6acca399"
+    },
+    {
+      "path": "security/lsm_audit.c",
+      "before_sha256": "c5bb2ade9a08b089a1f391e3d2f2a7f80816a28c051e49dae8fc2dfa8f0e2296",
+      "candidate_sha256": "eac5a902bc5ae80de8ee837780ef093b67eeb5e1586897656cfedffb21edae72"
+    },
+    {
+      "path": "security/selinux/avc.c",
+      "before_sha256": "6c52f5784bd6826b2bf27b35a365350fff8c056e4caf43562a52e15f3c02235f",
+      "candidate_sha256": "54a300cec16e66c47a4a29598c61971b4b675be55a33b72c6077c60124b95798"
+    },
+    {
+      "path": "security/selinux/hooks.c",
+      "before_sha256": "d9055e98168e564cd6ff9eac804ad3976fb21bb6229fc7ecf11af98ddd9a92ef",
+      "candidate_sha256": "ced3e25507abc79779e9aa06abf8032bb5f7c002dbf2817a6fddfe104cf8ccac"
+    },
+    {
+      "path": "security/selinux/include/avc.h",
+      "before_sha256": "bd680564933a5792c77be605535381cbfe313ac89eae8d889c718724af440766",
+      "candidate_sha256": "1ca7cce670f29cc0a2c450341f8772970da8f2718169be278686edd8d8674501"
+    },
+    {
+      "path": "security/selinux/include/classmap.h",
+      "before_sha256": "ed7f864e3ba30aa0136e1b8ca11e4919c1ef02b125ac32977ef161aa90aa451d",
+      "candidate_sha256": "fdc46ee74b5912594d5a7b6ab06ef488c9783199d178dd0e04dee90f0b4d1b3d"
+    },
+    {
+      "path": "security/selinux/include/security.h",
+      "before_sha256": "6934011c67cbcdf4759aa2b780b70b883b930f03fed9ef7de0e4015682dc8e10",
+      "candidate_sha256": "5886825b351a7c964c8af029d6bddf0ac3ac0ce5a368739a88785fcd6c4ad593"
+    },
+    {
+      "path": "security/selinux/nlmsgtab.c",
+      "before_sha256": "180010cd29407868c3593ec63868356f8e4e71e189f3dd677e45d82436e863a5",
+      "candidate_sha256": "41a31d8a5a6f88a7cacbcfcf0e4432612026bf5ece9c72f4ea094fb139b6656e"
+    },
+    {
+      "path": "security/selinux/ss/services.c",
+      "before_sha256": "5800310a5d9e0a1c484c1d19992c72d0227a9977ae2b8558250a84495176a2d8",
+      "candidate_sha256": "30fc06328592ead5484a574c12b9ad1fd592bb0e38b594e76855788d0ef18280"
+    }
+  ]
+}
