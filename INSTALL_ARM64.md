@@ -1,6 +1,6 @@
 # LineageOS 21 ARM64 for SM-T510
 
-Android 14, build `gta3xlwifi.arm64.20261015.191854`, framework security patch
+Android 14, build `gta3xlwifi.arm64.20261101.092053`, framework security patch
 2026-10-01. **SM-T510 / gta3xlwifi only**, not SM-T515. Native ARM64 Android
 with ARM32 app support, SELinux Enforcing and file-based encryption.
 
@@ -10,7 +10,7 @@ separately. Only ARM64 releases will be maintained going forward.
 
 ## Downloads
 
-- `lineage-21.0-20261015-UNOFFICIAL-gta3xlwifi-arm64.zip`: signed ROM.
+- `lineage-21.0-20261101-UNOFFICIAL-gta3xlwifi-arm64.zip`: signed ROM.
 - `twrp-3.7.1_12-gta3xlwifi-arm64-20261015.img`: native ARM64 TWRP 3.7.1_12,
   with working PIN and automatic PIN-free decryption.
 - `twrp-3.7.1_12-gta3xlwifi-arm64-20261015-ap.tar`: Odin AP archive containing
@@ -25,9 +25,10 @@ bootloader unlocked with this ROM; leave **Re-Partition disabled**.
 
 ## Update an existing signed ARM64 installation
 
-1. Install the new recovery image using **TWRP → Install → Install Image → Recovery**,
-   then **Reboot → Recovery**. This does not require Format Data. Existing ARM32
-   TWRP must be replaced to install ARM64 GApps.
+1. Boot the included ARM64 TWRP. If you already use the 15 October ARM64 TWRP,
+   keep it. Otherwise install its image using **TWRP → Install → Install Image →
+   Recovery**, then **Reboot → Recovery**. This does not require Format Data.
+   ARM32 TWRP must be replaced to install ARM64 GApps.
 2. Enter your PIN on the tablet if prompted. Without a PIN, storage decrypts
    automatically. Confirm internal storage is accessible.
 3. Keep **Vendor unmounted**. If recovery crypto services hold it mounted,
@@ -41,10 +42,11 @@ bootloader unlocked with this ROM; leave **Re-Partition disabled**.
 
    Wait a few seconds, then unmount Vendor. The installer refuses to write
    images while Vendor is mounted; do not bypass that check.
-4. Install the ROM ZIP, or use `adb sideload lineage-21.0-20261015-UNOFFICIAL-gta3xlwifi-arm64.zip`.
-5. Existing MindTheGapps installation is preserved by addon.d during the tested
-   signed ARM64 update. Keep the same Android 14 ARM64 package available in case
-   recovery reports a restore failure. See the Google apps section before boot.
+4. Install the ROM ZIP, or use `adb sideload lineage-21.0-20261101-UNOFFICIAL-gta3xlwifi-arm64.zip`.
+5. The ROM retains addon.d support for preserving an existing MindTheGapps
+   installation. This was physically verified on the 15 October update; the
+   complete new ROM has not been test-installed. Keep the same Android 14 ARM64
+   package available in case recovery reports a restore failure. See the Google apps section before boot.
    **Do not Format Data for a routine update.**
 
 ## First installation from stock or another ROM

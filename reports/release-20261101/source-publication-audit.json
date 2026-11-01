@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "platform_projects": 1430,
+  "patched_projects": 25,
+  "device_code_files_identical": 62,
+  "device_doc_files_excluded": [
+    ".gitignore",
+    "README.md"
+  ],
+  "private_inputs_included": false
+}

@@ -1,3 +1,14 @@
+# November 2026 ARM64 build update
+
+The pinned source snapshot now contains 281 freshly fetched official Lineage
+refs (12 advanced), WebView156 and the reviewed FunctionFS MTP vendor image.
+The framework SPL remains2026-10-01. The final validator requires eleven checks,
+including extraction and init validation of the exact USB rc from signed vendor.
+Use the existing signing identity. A new ROM build requires a unique build ID.
+Full-ROM physical validation remains separate from offline packaging checks.
+
+The existing workflow follows; dated October validation is historical.
+
 # ARM64-bygg for SM-T510
 
 Arbeidstreet er isolert på Linux-byggemaskinen i
@@ -52,7 +63,7 @@ annet signaturer, fysiske partisjonsgrenser, signerte filsystemer, begge ABI-er,
 donor-avhengigheter, statisk ARM64 OTA-updater og statisk ARM32 header-helper.
 Ladevisningens native ARM64-program, initservice og animasjons-/prosentressurser
 kontrolleres også. `release/offline-validation.json` opprettes først når alle
-ti stegene passerer.
+elleve stegene passerer.
 
 Kjør også VINTF- og policy-kontrollene mot det faktiske hybrid-vendor-imaget.
 Kryssversjons-neverallow-begrensningen er beskrevet i `BUILD_STATUS.md`.

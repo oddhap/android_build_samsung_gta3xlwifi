@@ -1,0 +1,84 @@
+{
+  "passed": true,
+  "checked_at_utc": "2026-11-01T13:10:54.748346+00:00",
+  "rom_zip_sha256": "2d2b10a1dcb7a045f28292cdd05ef0c912ff95cc52b9896dfed071b7e06eadf3",
+  "build_incremental": "gta3xlwifi.arm64.20261101.092053",
+  "architecture": "arm64 with ARM32 app compatibility",
+  "android_version": "14",
+  "framework_security_patch": "2026-10-01",
+  "latest_sources_fetched_at_utc": "2026-11-01T09:17:56.076258+00:00",
+  "lineage_refs_fetched": 281,
+  "updated_projects": 12,
+  "pinned_platform_projects": 1430,
+  "port_patches": 25,
+  "offline_checks": [
+    "signatures",
+    "physical_image_bounds",
+    "signed_system_layout",
+    "packaged_platform_fixes",
+    "usage_compatibility",
+    "signed_multilib",
+    "signed_donor_dependencies",
+    "signed_double_tap_wake_controls",
+    "signed_charger_ui_startup",
+    "signed_mtp_usb_configuration",
+    "unchanged_keys"
+  ],
+  "gapps_capacity_passed": true,
+  "signed_mtp_configuration_verified": true,
+  "kernel_dtbo_unchanged": true,
+  "persistent_signing_keys_unchanged": true,
+  "complete_new_rom_hardware_tested": false,
+  "mtp_configuration_physical_test": {
+    "report": "../mtp-20261101/validation-summary.json",
+    "tested_base_build": "gta3xlwifi.arm64.20261015.191854",
+    "usb_rc_sha256": "500d6fccbb990aad93a7de7fb4cf7e96d00702702bd021d18c9152d74e59ef1d",
+    "same_bytes_in_new_signed_vendor": true
+  },
+  "included_twrp_rebuilt": false,
+  "included_recovery_date": "2026-10-15",
+  "arm32_rom_built": false,
+  "lineage23_modified": false,
+  "assets": [
+    {
+      "name": "INSTALL.md",
+      "bytes": 6339,
+      "sha256": "8d8731be31e56a6f35ecf1105c2fa1f57ec98f52fcb3a8b849de82bb7bc03d78"
+    },
+    {
+      "name": "RESTORE_STOCK_VENDOR.sh",
+      "bytes": 2080,
+      "sha256": "a09eb3f7658eef215a52ccd8b8f9022991229f55ad63aad492cbbe2b1c396ef9"
+    },
+    {
+      "name": "SHA256SUMS",
+      "bytes": 696,
+      "sha256": "83a73398918ca6e9a067c414ff56ca502b27d7add64ba90886a7bdf3c0836fad"
+    },
+    {
+      "name": "lineage-21.0-20261101-UNOFFICIAL-gta3xlwifi-arm64.zip",
+      "bytes": 908593322,
+      "sha256": "2d2b10a1dcb7a045f28292cdd05ef0c912ff95cc52b9896dfed071b7e06eadf3"
+    },
+    {
+      "name": "twrp-3.7.1_12-gta3xlwifi-arm64-20261015-ap.tar",
+      "bytes": 40284160,
+      "sha256": "05232acf2e1386a9ef61833cfc6c3a2653abf6d61cd7f7522cf7fb902effa9a0"
+    },
+    {
+      "name": "twrp-3.7.1_12-gta3xlwifi-arm64-20261015.img",
+      "bytes": 40275984,
+      "sha256": "10c2c2ee77ee593ace840a12fb90145809e4521942b681bcee6e9c3b364370ed"
+    },
+    {
+      "name": "vbmeta-disabled.img",
+      "bytes": 4096,
+      "sha256": "3e679bb0b8b2e6fb5d94d8316846b7459eead2209cee8f038cbbdda8c6483750"
+    },
+    {
+      "name": "vendor-stock-T510XXU5CWA1.raw.img",
+      "bytes": 343932928,
+      "sha256": "9c2c323343118f8a75d31c69c367e77144b6c74c660ca9930076ecc513b8d97c"
+    }
+  ]
+}

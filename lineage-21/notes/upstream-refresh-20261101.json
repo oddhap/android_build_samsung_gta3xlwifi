@@ -1,0 +1,2820 @@
+{
+  "fetched_at_utc": "2026-11-01T09:17:56.076258+00:00",
+  "manifest_commit": "121f4ec5f11dc98ff2c427bc9d23165e914c54bb",
+  "lineage_projects_fetched": 281,
+  "changed_projects": 12,
+  "projects": [
+    {
+      "path": "android",
+      "name": "LineageOS/android",
+      "old_name": "LineageOS/android",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "f9d26150827c099d4c391d72bc674bb02eac7e2b",
+      "latest_commit": "121f4ec5f11dc98ff2c427bc9d23165e914c54bb",
+      "fetched_at_utc": "2026-11-01T09:17:33.963795+00:00",
+      "changed": true
+    },
+    {
+      "path": "art",
+      "name": "LineageOS/android_art",
+      "old_name": "LineageOS/android_art",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "0f65cd03a4178c592ee06fbe344b7f9a67160c49",
+      "latest_commit": "0f65cd03a4178c592ee06fbe344b7f9a67160c49",
+      "fetched_at_utc": "2026-11-01T09:17:34.046804+00:00",
+      "changed": false
+    },
+    {
+      "path": "bionic",
+      "name": "LineageOS/android_bionic",
+      "old_name": "LineageOS/android_bionic",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "442faf6e7583037dfffdd49425f8659f6a3e3694",
+      "latest_commit": "442faf6e7583037dfffdd49425f8659f6a3e3694",
+      "fetched_at_utc": "2026-11-01T09:17:34.033447+00:00",
+      "changed": false
+    },
+    {
+      "path": "bootable/recovery",
+      "name": "LineageOS/android_bootable_recovery",
+      "old_name": "LineageOS/android_bootable_recovery",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "8d9befac75660d6c62817dc16389c876f73e8f48",
+      "latest_commit": "8d9befac75660d6c62817dc16389c876f73e8f48",
+      "fetched_at_utc": "2026-11-01T09:17:34.102190+00:00",
+      "changed": false
+    },
+    {
+      "path": "build/make",
+      "name": "LineageOS/android_build",
+      "old_name": "LineageOS/android_build",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "bc95152efc6a43f3b103b1848c946e9bf8d4e493",
+      "latest_commit": "bc95152efc6a43f3b103b1848c946e9bf8d4e493",
+      "fetched_at_utc": "2026-11-01T09:17:34.052000+00:00",
+      "changed": false
+    },
+    {
+      "path": "build/release",
+      "name": "LineageOS/android_build_release",
+      "old_name": "LineageOS/android_build_release",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "41065872a750ec8eaac99c122a2b39a5992f8e29",
+      "latest_commit": "41065872a750ec8eaac99c122a2b39a5992f8e29",
+      "fetched_at_utc": "2026-11-01T09:17:34.018399+00:00",
+      "changed": false
+    },
+    {
+      "path": "build/soong",
+      "name": "LineageOS/android_build_soong",
+      "old_name": "LineageOS/android_build_soong",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "7e2be266cfde19c5e0cbc8e4ed016d5572abd4fb",
+      "latest_commit": "7e2be266cfde19c5e0cbc8e4ed016d5572abd4fb",
+      "fetched_at_utc": "2026-11-01T09:17:34.063306+00:00",
+      "changed": false
+    },
+    {
+      "path": "development",
+      "name": "LineageOS/android_development",
+      "old_name": "LineageOS/android_development",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "9d69adf53ba508213bb2b4932b422d954dde4adb",
+      "latest_commit": "9d69adf53ba508213bb2b4932b422d954dde4adb",
+      "fetched_at_utc": "2026-11-01T09:17:34.101032+00:00",
+      "changed": false
+    },
+    {
+      "path": "device/generic/common",
+      "name": "LineageOS/android_device_generic_common",
+      "old_name": "LineageOS/android_device_generic_common",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "987a6110ff8356a385e0393b6dc56fa48cd5ec15",
+      "latest_commit": "987a6110ff8356a385e0393b6dc56fa48cd5ec15",
+      "fetched_at_utc": "2026-11-01T09:17:34.674583+00:00",
+      "changed": false
+    },
+    {
+      "path": "device/google/atv",
+      "name": "LineageOS/android_device_google_atv",
+      "old_name": "LineageOS/android_device_google_atv",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "754e5418af6b7df47df34681b3ec01c1d917de76",
+      "latest_commit": "754e5418af6b7df47df34681b3ec01c1d917de76",
+      "fetched_at_utc": "2026-11-01T09:17:34.723780+00:00",
+      "changed": false
+    },
+    {
+      "path": "device/google/contexthub",
+      "name": "LineageOS/android_device_google_contexthub",
+      "old_name": "LineageOS/android_device_google_contexthub",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "846d8316f3da79ce27dcdf92c98de50d9a900ec8",
+      "latest_commit": "846d8316f3da79ce27dcdf92c98de50d9a900ec8",
+      "fetched_at_utc": "2026-11-01T09:17:34.645925+00:00",
+      "changed": false
+    },
+    {
+      "path": "device/lineage/atv",
+      "name": "LineageOS/android_device_lineage_atv",
+      "old_name": "LineageOS/android_device_lineage_atv",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "a85571a4aa9135577912444a4274310466a111ad",
+      "latest_commit": "a85571a4aa9135577912444a4274310466a111ad",
+      "fetched_at_utc": "2026-11-01T09:17:34.827285+00:00",
+      "changed": false
+    },
+    {
+      "path": "device/lineage/car",
+      "name": "LineageOS/android_device_lineage_car",
+      "old_name": "LineageOS/android_device_lineage_car",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "57aaa54bd41e2e0db3348a9b9792cc007ec496e4",
+      "latest_commit": "57aaa54bd41e2e0db3348a9b9792cc007ec496e4",
+      "fetched_at_utc": "2026-11-01T09:17:34.750896+00:00",
+      "changed": false
+    },
+    {
+      "path": "device/lineage/sepolicy",
+      "name": "LineageOS/android_device_lineage_sepolicy",
+      "old_name": "LineageOS/android_device_lineage_sepolicy",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "126b2bdd0f6fdc815999e44b9e134c7ae6c39d8c",
+      "latest_commit": "126b2bdd0f6fdc815999e44b9e134c7ae6c39d8c",
+      "fetched_at_utc": "2026-11-01T09:17:34.878978+00:00",
+      "changed": false
+    },
+    {
+      "path": "device/qcom/sepolicy",
+      "name": "LineageOS/android_device_qcom_sepolicy",
+      "old_name": "LineageOS/android_device_qcom_sepolicy",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "f1f31749313106bdc735fa700fb2248cc261c2c2",
+      "latest_commit": "f1f31749313106bdc735fa700fb2248cc261c2c2",
+      "fetched_at_utc": "2026-11-01T09:17:34.849515+00:00",
+      "changed": false
+    },
+    {
+      "path": "device/qcom/sepolicy-legacy-um",
+      "name": "LineageOS/android_device_qcom_sepolicy",
+      "old_name": "LineageOS/android_device_qcom_sepolicy",
+      "ref": "lineage-21.0-legacy-um",
+      "old_commit": "a0cc2d5fd85457281130c635a6d4af1b753a2662",
+      "latest_commit": "a0cc2d5fd85457281130c635a6d4af1b753a2662",
+      "fetched_at_utc": "2026-11-01T09:17:34.848610+00:00",
+      "changed": false
+    },
+    {
+      "path": "device/qcom/sepolicy_vndr/legacy-um",
+      "name": "LineageOS/android_device_qcom_sepolicy_vndr",
+      "old_name": "LineageOS/android_device_qcom_sepolicy_vndr",
+      "ref": "lineage-21.0-legacy-um",
+      "old_commit": "338029e10a2647da5742503e6584f6a270942fc9",
+      "latest_commit": "338029e10a2647da5742503e6584f6a270942fc9",
+      "fetched_at_utc": "2026-11-01T09:17:35.349113+00:00",
+      "changed": false
+    },
+    {
+      "path": "device/qcom/sepolicy_vndr/sm8450",
+      "name": "LineageOS/android_device_qcom_sepolicy_vndr",
+      "old_name": "LineageOS/android_device_qcom_sepolicy_vndr",
+      "ref": "lineage-21.0-caf-sm8450",
+      "old_commit": "18d273ed9db3fc5904090f78348c3c2e86330d07",
+      "latest_commit": "18d273ed9db3fc5904090f78348c3c2e86330d07",
+      "fetched_at_utc": "2026-11-01T09:17:35.350639+00:00",
+      "changed": false
+    },
+    {
+      "path": "device/qcom/sepolicy_vndr/sm8550",
+      "name": "LineageOS/android_device_qcom_sepolicy_vndr",
+      "old_name": "LineageOS/android_device_qcom_sepolicy_vndr",
+      "ref": "lineage-21.0-caf-sm8550",
+      "old_commit": "8dee77ce55d8633a2d0ebb3c6f31c46b249d40f5",
+      "latest_commit": "8dee77ce55d8633a2d0ebb3c6f31c46b249d40f5",
+      "fetched_at_utc": "2026-11-01T09:17:35.349873+00:00",
+      "changed": false
+    },
+    {
+      "path": "external/ant-wireless/ant_client",
+      "name": "LineageOS/android_external_ant-wireless_ant_client",
+      "old_name": "LineageOS/android_external_ant-wireless_ant_client",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "846dbb2d61e119b9fd8faa0dfafe5a4f33bbd785",
+      "latest_commit": "846dbb2d61e119b9fd8faa0dfafe5a4f33bbd785",
+      "fetched_at_utc": "2026-11-01T09:17:35.297707+00:00",
+      "changed": false
+    },
+    {
+      "path": "external/ant-wireless/ant_native",
+      "name": "LineageOS/android_external_ant-wireless_ant_native",
+      "old_name": "LineageOS/android_external_ant-wireless_ant_native",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "6e176b725fbae9db85a4ef5d04598264c637d47e",
+      "latest_commit": "6e176b725fbae9db85a4ef5d04598264c637d47e",
+      "fetched_at_utc": "2026-11-01T09:17:35.381096+00:00",
+      "changed": false
+    },
+    {
+      "path": "external/ant-wireless/ant_service",
+      "name": "LineageOS/android_external_ant-wireless_ant_service",
+      "old_name": "LineageOS/android_external_ant-wireless_ant_service",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "fa22f5cec501b961afbfa0a15a64d52fa2d57e8c",
+      "latest_commit": "fa22f5cec501b961afbfa0a15a64d52fa2d57e8c",
+      "fetched_at_utc": "2026-11-01T09:17:35.382080+00:00",
+      "changed": false
+    },
+    {
+      "path": "external/ant-wireless/hidl",
+      "name": "LineageOS/android_external_ant-wireless_hidl",
+      "old_name": "LineageOS/android_external_ant-wireless_hidl",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "ce589dc08e4215b063bfac73eb7b9b52cf46d944",
+      "latest_commit": "ce589dc08e4215b063bfac73eb7b9b52cf46d944",
+      "fetched_at_utc": "2026-11-01T09:17:35.415106+00:00",
+      "changed": false
+    },
+    {
+      "path": "external/arm-trusted-firmware",
+      "name": "LineageOS/android_external_arm-trusted-firmware",
+      "old_name": "LineageOS/android_external_arm-trusted-firmware",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "c97bac52920e0a1b3995b3bf7d8f5abb4ed1e11a",
+      "latest_commit": "c97bac52920e0a1b3995b3bf7d8f5abb4ed1e11a",
+      "fetched_at_utc": "2026-11-01T09:17:35.519689+00:00",
+      "changed": false
+    },
+    {
+      "path": "external/avb",
+      "name": "LineageOS/android_external_avb",
+      "old_name": "LineageOS/android_external_avb",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "d2c46084c67688a46dac2fd37e3cad0d65850387",
+      "latest_commit": "d2c46084c67688a46dac2fd37e3cad0d65850387",
+      "fetched_at_utc": "2026-11-01T09:17:35.998707+00:00",
+      "changed": false
+    },
+    {
+      "path": "external/bash",
+      "name": "LineageOS/android_external_bash",
+      "old_name": "LineageOS/android_external_bash",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "e394fc5f5f254fd9b7a16306a84c19d9d9ae886f",
+      "latest_commit": "e394fc5f5f254fd9b7a16306a84c19d9d9ae886f",
+      "fetched_at_utc": "2026-11-01T09:17:36.089407+00:00",
+      "changed": false
+    },
+    {
+      "path": "external/chromium-webview/patches",
+      "name": "LineageOS/android_external_chromium-webview_patches",
+      "old_name": "LineageOS/android_external_chromium-webview_patches",
+      "ref": "main",
+      "old_commit": "3847f83c25fa2e400f95298e012a7f026caf7c46",
+      "latest_commit": "ef69054c74f7d8306446969136c806738169f1e1",
+      "fetched_at_utc": "2026-11-01T09:17:36.473812+00:00",
+      "changed": true
+    },
+    {
+      "path": "external/chromium-webview/prebuilt/arm",
+      "name": "LineageOS/android_external_chromium-webview_prebuilt_arm",
+      "old_name": "LineageOS/android_external_chromium-webview_prebuilt_arm",
+      "ref": "main",
+      "old_commit": "170e8996e41ef542769b5479297ab91072b487e2",
+      "latest_commit": "472d0ac3cf8e78982807bedd20279a537d6cdf68",
+      "fetched_at_utc": "2026-11-01T09:17:36.388367+00:00",
+      "changed": true
+    },
+    {
+      "path": "external/chromium-webview/prebuilt/arm64",
+      "name": "LineageOS/android_external_chromium-webview_prebuilt_arm64",
+      "old_name": "LineageOS/android_external_chromium-webview_prebuilt_arm64",
+      "ref": "main",
+      "old_commit": "604ad4cbc41d3b894065ee6e83189c76e1ec06a1",
+      "latest_commit": "5de662a4d42b57a2efe4114e499d38fa3ce41f9d",
+      "fetched_at_utc": "2026-11-01T09:17:36.205514+00:00",
+      "changed": true
+    },
+    {
+      "path": "external/chromium-webview/prebuilt/x86",
+      "name": "LineageOS/android_external_chromium-webview_prebuilt_x86",
+      "old_name": "LineageOS/android_external_chromium-webview_prebuilt_x86",
+      "ref": "main",
+      "old_commit": "2ca10d72f62377581fcc98cf5f8c35df6e0308b5",
+      "latest_commit": "63a11af88b3c3ef7daa95f5d059740b354df9f2b",
+      "fetched_at_utc": "2026-11-01T09:17:36.419114+00:00",
+      "changed": true
+    },
+    {
+      "path": "external/chromium-webview/prebuilt/x86_64",
+      "name": "LineageOS/android_external_chromium-webview_prebuilt_x86_64",
+      "old_name": "LineageOS/android_external_chromium-webview_prebuilt_x86_64",
+      "ref": "main",
+      "old_commit": "de57895442140a9c3c46c8e82a14e0b5a7ec6813",
+      "latest_commit": "a71893ba05acc77405e46262d458b47ab2b11e54",
+      "fetched_at_utc": "2026-11-01T09:17:36.372615+00:00",
+      "changed": true
+    },
+    {
+      "path": "external/cldr",
+      "name": "LineageOS/android_external_cldr",
+      "old_name": "LineageOS/android_external_cldr",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "781c9b69ee237d0f966750c629f5a292c2880851",
+      "latest_commit": "781c9b69ee237d0f966750c629f5a292c2880851",
+      "fetched_at_utc": "2026-11-01T09:17:36.126233+00:00",
+      "changed": false
+    },
+    {
+      "path": "external/conscrypt",
+      "name": "LineageOS/android_external_conscrypt",
+      "old_name": "LineageOS/android_external_conscrypt",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "f5941499ae8b1aefc5f89627f522b166fecf4bde",
+      "latest_commit": "f5941499ae8b1aefc5f89627f522b166fecf4bde",
+      "fetched_at_utc": "2026-11-01T09:17:36.544989+00:00",
+      "changed": false
+    },
+    {
+      "path": "external/cronet",
+      "name": "LineageOS/android_external_cronet",
+      "old_name": "LineageOS/android_external_cronet",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "6ec34305bbf8e282d71c695ea226c78642617030",
+      "latest_commit": "6ec34305bbf8e282d71c695ea226c78642617030",
+      "fetched_at_utc": "2026-11-01T09:17:36.736888+00:00",
+      "changed": false
+    },
+    {
+      "path": "external/dng_sdk",
+      "name": "LineageOS/android_external_dng_sdk",
+      "old_name": "LineageOS/android_external_dng_sdk",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "7267ecc2bc120ad9ef9c4cb0da3ce8016a97d547",
+      "latest_commit": "7267ecc2bc120ad9ef9c4cb0da3ce8016a97d547",
+      "fetched_at_utc": "2026-11-01T09:17:36.677320+00:00",
+      "changed": false
+    },
+    {
+      "path": "external/dtc",
+      "name": "LineageOS/android_external_dtc",
+      "old_name": "LineageOS/android_external_dtc",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "fd8c8a25dac5f2cc083348f6a3916424b688a508",
+      "latest_commit": "fd8c8a25dac5f2cc083348f6a3916424b688a508",
+      "fetched_at_utc": "2026-11-01T09:17:36.756146+00:00",
+      "changed": false
+    },
+    {
+      "path": "external/e2fsprogs",
+      "name": "LineageOS/android_external_e2fsprogs",
+      "old_name": "LineageOS/android_external_e2fsprogs",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "d37e9f0ddce5c220aed237c0d97d732c773861cc",
+      "latest_commit": "d37e9f0ddce5c220aed237c0d97d732c773861cc",
+      "fetched_at_utc": "2026-11-01T09:17:36.950141+00:00",
+      "changed": false
+    },
+    {
+      "path": "external/exfatprogs",
+      "name": "LineageOS/android_external_exfatprogs",
+      "old_name": "LineageOS/android_external_exfatprogs",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "2cfc96f871bd23ead454edb289f99f1f0d94e229",
+      "latest_commit": "2cfc96f871bd23ead454edb289f99f1f0d94e229",
+      "fetched_at_utc": "2026-11-01T09:17:36.958655+00:00",
+      "changed": false
+    },
+    {
+      "path": "external/expat",
+      "name": "LineageOS/android_external_expat",
+      "old_name": "LineageOS/android_external_expat",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "3fd468cae49b7d993ddb8bbf900030b9d957b89f",
+      "latest_commit": "3fd468cae49b7d993ddb8bbf900030b9d957b89f",
+      "fetched_at_utc": "2026-11-01T09:17:36.934314+00:00",
+      "changed": false
+    },
+    {
+      "path": "external/freetype",
+      "name": "LineageOS/android_external_freetype",
+      "old_name": "LineageOS/android_external_freetype",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "a284fbd7d8e6e5790baae0b3b1c56ca107a623a5",
+      "latest_commit": "a284fbd7d8e6e5790baae0b3b1c56ca107a623a5",
+      "fetched_at_utc": "2026-11-01T09:17:37.035972+00:00",
+      "changed": false
+    },
+    {
+      "path": "external/giflib",
+      "name": "LineageOS/android_external_giflib",
+      "old_name": "LineageOS/android_external_giflib",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "f821d305c55fde890503535210173bc6df2937d3",
+      "latest_commit": "f821d305c55fde890503535210173bc6df2937d3",
+      "fetched_at_utc": "2026-11-01T09:17:37.041364+00:00",
+      "changed": false
+    },
+    {
+      "path": "external/gptfdisk",
+      "name": "LineageOS/android_external_gptfdisk",
+      "old_name": "LineageOS/android_external_gptfdisk",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "6727e78ba400a8db61266f5ae769827e3bbf509b",
+      "latest_commit": "6727e78ba400a8db61266f5ae769827e3bbf509b",
+      "fetched_at_utc": "2026-11-01T09:17:37.209069+00:00",
+      "changed": false
+    },
+    {
+      "path": "external/htop",
+      "name": "LineageOS/android_external_htop",
+      "old_name": "LineageOS/android_external_htop",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "44900884f72c71ec315660b6e42575eac35a2362",
+      "latest_commit": "44900884f72c71ec315660b6e42575eac35a2362",
+      "fetched_at_utc": "2026-11-01T09:17:37.323902+00:00",
+      "changed": false
+    },
+    {
+      "path": "external/icu",
+      "name": "LineageOS/android_external_icu",
+      "old_name": "LineageOS/android_external_icu",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "79e5c35064ffc577402790a39a30f32d452672be",
+      "latest_commit": "79e5c35064ffc577402790a39a30f32d452672be",
+      "fetched_at_utc": "2026-11-01T09:17:37.363668+00:00",
+      "changed": false
+    },
+    {
+      "path": "external/json-c",
+      "name": "LineageOS/android_external_json-c",
+      "old_name": "LineageOS/android_external_json-c",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "4ca1c6405ca44253ba029946520b81158a68594b",
+      "latest_commit": "4ca1c6405ca44253ba029946520b81158a68594b",
+      "fetched_at_utc": "2026-11-01T09:17:37.487518+00:00",
+      "changed": false
+    },
+    {
+      "path": "external/libcxx",
+      "name": "LineageOS/android_external_libcxx",
+      "old_name": "LineageOS/android_external_libcxx",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "106fdb332fcd4cab59bf694cf8272e71a67e7845",
+      "latest_commit": "106fdb332fcd4cab59bf694cf8272e71a67e7845",
+      "fetched_at_utc": "2026-11-01T09:17:37.599725+00:00",
+      "changed": false
+    },
+    {
+      "path": "external/libhevc",
+      "name": "LineageOS/android_external_libhevc",
+      "old_name": "LineageOS/android_external_libhevc",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "20dcbbbca9cb7daf8bf00eea38bc1b6908b0db77",
+      "latest_commit": "20dcbbbca9cb7daf8bf00eea38bc1b6908b0db77",
+      "fetched_at_utc": "2026-11-01T09:17:37.553651+00:00",
+      "changed": false
+    },
+    {
+      "path": "external/libncurses",
+      "name": "LineageOS/android_external_libncurses",
+      "old_name": "LineageOS/android_external_libncurses",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "0ad6497d4121ab2dc2fa8bf61f74cdfc897d58b5",
+      "latest_commit": "0ad6497d4121ab2dc2fa8bf61f74cdfc897d58b5",
+      "fetched_at_utc": "2026-11-01T09:17:37.600896+00:00",
+      "changed": false
+    },
+    {
+      "path": "external/libnl",
+      "name": "LineageOS/android_external_libnl",
+      "old_name": "LineageOS/android_external_libnl",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "a1fa263e3588b3a57fc3a04013d7091a3c3b7e42",
+      "latest_commit": "a1fa263e3588b3a57fc3a04013d7091a3c3b7e42",
+      "fetched_at_utc": "2026-11-01T09:17:37.669149+00:00",
+      "changed": false
+    },
+    {
+      "path": "external/libpng",
+      "name": "LineageOS/android_external_libpng",
+      "old_name": "LineageOS/android_external_libpng",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "e9c84033d5320df7692257a0084197e87ec7d81d",
+      "latest_commit": "e9c84033d5320df7692257a0084197e87ec7d81d",
+      "fetched_at_utc": "2026-11-01T09:17:37.733225+00:00",
+      "changed": false
+    },
+    {
+      "path": "external/libvpx",
+      "name": "LineageOS/android_external_libvpx",
+      "old_name": "LineageOS/android_external_libvpx",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "455be0bcfa068ff0c651330d76cfd2f38bf17f32",
+      "latest_commit": "455be0bcfa068ff0c651330d76cfd2f38bf17f32",
+      "fetched_at_utc": "2026-11-01T09:17:37.819953+00:00",
+      "changed": false
+    },
+    {
+      "path": "external/mksh",
+      "name": "LineageOS/android_external_mksh",
+      "old_name": "LineageOS/android_external_mksh",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "05734d24dab15a7c4f07179cc29effeb7d4e8e2f",
+      "latest_commit": "05734d24dab15a7c4f07179cc29effeb7d4e8e2f",
+      "fetched_at_utc": "2026-11-01T09:17:37.897686+00:00",
+      "changed": false
+    },
+    {
+      "path": "external/nano",
+      "name": "LineageOS/android_external_nano",
+      "old_name": "LineageOS/android_external_nano",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "30d82ca6c13e675e9dea93bccd931daf1c8e9509",
+      "latest_commit": "30d82ca6c13e675e9dea93bccd931daf1c8e9509",
+      "fetched_at_utc": "2026-11-01T09:17:38.025026+00:00",
+      "changed": false
+    },
+    {
+      "path": "external/ntfs-3g",
+      "name": "LineageOS/android_external_ntfs-3g",
+      "old_name": "LineageOS/android_external_ntfs-3g",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "7471d6403640f1cd0878cc2c87279571a497bcb7",
+      "latest_commit": "7471d6403640f1cd0878cc2c87279571a497bcb7",
+      "fetched_at_utc": "2026-11-01T09:17:38.068890+00:00",
+      "changed": false
+    },
+    {
+      "path": "external/openssh",
+      "name": "LineageOS/android_external_openssh",
+      "old_name": "LineageOS/android_external_openssh",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "60ca88651d39f699932f63d41409facc18c5ad19",
+      "latest_commit": "60ca88651d39f699932f63d41409facc18c5ad19",
+      "fetched_at_utc": "2026-11-01T09:17:38.204052+00:00",
+      "changed": false
+    },
+    {
+      "path": "external/robolectric",
+      "name": "LineageOS/android_external_robolectric",
+      "old_name": "LineageOS/android_external_robolectric",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "4bd8e133b6c1e55b2a718756fc07d086f3cbbeba",
+      "latest_commit": "4bd8e133b6c1e55b2a718756fc07d086f3cbbeba",
+      "fetched_at_utc": "2026-11-01T09:17:38.195113+00:00",
+      "changed": false
+    },
+    {
+      "path": "external/rsync",
+      "name": "LineageOS/android_external_rsync",
+      "old_name": "LineageOS/android_external_rsync",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "cdb7e988d31d769ecfc20633467952528e0e5707",
+      "latest_commit": "cdb7e988d31d769ecfc20633467952528e0e5707",
+      "fetched_at_utc": "2026-11-01T09:17:38.336980+00:00",
+      "changed": false
+    },
+    {
+      "path": "external/setupcompat",
+      "name": "LineageOS/android_external_setupcompat",
+      "old_name": "LineageOS/android_external_setupcompat",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "f4d805793a0bfb820fed5f794c0cfe9ed2a48b1b",
+      "latest_commit": "f4d805793a0bfb820fed5f794c0cfe9ed2a48b1b",
+      "fetched_at_utc": "2026-11-01T09:17:38.313817+00:00",
+      "changed": false
+    },
+    {
+      "path": "external/skia",
+      "name": "LineageOS/android_external_skia",
+      "old_name": "LineageOS/android_external_skia",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "c2f649bd259cd3d24b88ae198980ceacbfb4124c",
+      "latest_commit": "c2f649bd259cd3d24b88ae198980ceacbfb4124c",
+      "fetched_at_utc": "2026-11-01T09:17:38.433980+00:00",
+      "changed": false
+    },
+    {
+      "path": "external/sqlite",
+      "name": "LineageOS/android_external_sqlite",
+      "old_name": "LineageOS/android_external_sqlite",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "d9bbb87d7f7675a5e478f936c3ba39b39a513b68",
+      "latest_commit": "d9bbb87d7f7675a5e478f936c3ba39b39a513b68",
+      "fetched_at_utc": "2026-11-01T09:17:38.377521+00:00",
+      "changed": false
+    },
+    {
+      "path": "external/tinycompress",
+      "name": "LineageOS/android_external_tinycompress",
+      "old_name": "LineageOS/android_external_tinycompress",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "0bec8c286308abffb7f67d323e36d3021ed06ea5",
+      "latest_commit": "0bec8c286308abffb7f67d323e36d3021ed06ea5",
+      "fetched_at_utc": "2026-11-01T09:17:38.591164+00:00",
+      "changed": false
+    },
+    {
+      "path": "external/unrar",
+      "name": "LineageOS/android_external_unrar",
+      "old_name": "LineageOS/android_external_unrar",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "33790f0663cc9e3323f0cd21cd8873301ed1cd79",
+      "latest_commit": "33790f0663cc9e3323f0cd21cd8873301ed1cd79",
+      "fetched_at_utc": "2026-11-01T09:17:38.621036+00:00",
+      "changed": false
+    },
+    {
+      "path": "external/vim",
+      "name": "LineageOS/android_external_vim",
+      "old_name": "LineageOS/android_external_vim",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "6c12c26695420fb41434b180de0c47d5e15ddecc",
+      "latest_commit": "6c12c26695420fb41434b180de0c47d5e15ddecc",
+      "fetched_at_utc": "2026-11-01T09:17:38.767793+00:00",
+      "changed": false
+    },
+    {
+      "path": "external/webp",
+      "name": "LineageOS/android_external_webp",
+      "old_name": "LineageOS/android_external_webp",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "78ea6dfb2ded45ff23bd85bae8ab1f6ddb68b24b",
+      "latest_commit": "78ea6dfb2ded45ff23bd85bae8ab1f6ddb68b24b",
+      "fetched_at_utc": "2026-11-01T09:17:39.258041+00:00",
+      "changed": false
+    },
+    {
+      "path": "external/wpa_supplicant_8",
+      "name": "LineageOS/android_external_wpa_supplicant_8",
+      "old_name": "LineageOS/android_external_wpa_supplicant_8",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "d1a75635cee75d047e01c66b37568bdbed17e444",
+      "latest_commit": "d1a75635cee75d047e01c66b37568bdbed17e444",
+      "fetched_at_utc": "2026-11-01T09:17:38.801788+00:00",
+      "changed": false
+    },
+    {
+      "path": "external/zstd",
+      "name": "LineageOS/android_external_zstd",
+      "old_name": "LineageOS/android_external_zstd",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "fc80ff3c3d0ef8123ebcd901d89ce352d0c191cd",
+      "latest_commit": "fc80ff3c3d0ef8123ebcd901d89ce352d0c191cd",
+      "fetched_at_utc": "2026-11-01T09:17:38.918458+00:00",
+      "changed": false
+    },
+    {
+      "path": "frameworks/av",
+      "name": "LineageOS/android_frameworks_av",
+      "old_name": "LineageOS/android_frameworks_av",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "43a832b45a7129f3db1357c18157dcfcfa53b82e",
+      "latest_commit": "43a832b45a7129f3db1357c18157dcfcfa53b82e",
+      "fetched_at_utc": "2026-11-01T09:17:38.963133+00:00",
+      "changed": false
+    },
+    {
+      "path": "frameworks/base",
+      "name": "LineageOS/android_frameworks_base",
+      "old_name": "LineageOS/android_frameworks_base",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "993528cf0efb452d8d948ddbe17237f085454682",
+      "latest_commit": "993528cf0efb452d8d948ddbe17237f085454682",
+      "fetched_at_utc": "2026-11-01T09:17:39.439756+00:00",
+      "changed": false
+    },
+    {
+      "path": "frameworks/libs/systemui",
+      "name": "LineageOS/android_frameworks_libs_systemui",
+      "old_name": "LineageOS/android_frameworks_libs_systemui",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "d55bdacfa07fabb89c22d51b6a9d55105ed67d03",
+      "latest_commit": "d55bdacfa07fabb89c22d51b6a9d55105ed67d03",
+      "fetched_at_utc": "2026-11-01T09:17:39.163277+00:00",
+      "changed": false
+    },
+    {
+      "path": "frameworks/native",
+      "name": "LineageOS/android_frameworks_native",
+      "old_name": "LineageOS/android_frameworks_native",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "bb156c091b21aab6e5752bc7368832065c2fa0c8",
+      "latest_commit": "bb156c091b21aab6e5752bc7368832065c2fa0c8",
+      "fetched_at_utc": "2026-11-01T09:17:39.154302+00:00",
+      "changed": false
+    },
+    {
+      "path": "frameworks/opt/calendar",
+      "name": "LineageOS/android_frameworks_opt_calendar",
+      "old_name": "LineageOS/android_frameworks_opt_calendar",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "4427cc948f59be3d629113db0ba9b947a8637ad8",
+      "latest_commit": "4427cc948f59be3d629113db0ba9b947a8637ad8",
+      "fetched_at_utc": "2026-11-01T09:17:39.313617+00:00",
+      "changed": false
+    },
+    {
+      "path": "frameworks/opt/colorpicker",
+      "name": "LineageOS/android_frameworks_opt_colorpicker",
+      "old_name": "LineageOS/android_frameworks_opt_colorpicker",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "ced14328f287484eba5f113c9177505fee306127",
+      "latest_commit": "ced14328f287484eba5f113c9177505fee306127",
+      "fetched_at_utc": "2026-11-01T09:17:39.375585+00:00",
+      "changed": false
+    },
+    {
+      "path": "frameworks/opt/telephony",
+      "name": "LineageOS/android_frameworks_opt_telephony",
+      "old_name": "LineageOS/android_frameworks_opt_telephony",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "f60cc7abae94887fde0175caa408cb858b03981f",
+      "latest_commit": "f60cc7abae94887fde0175caa408cb858b03981f",
+      "fetched_at_utc": "2026-11-01T09:17:39.554550+00:00",
+      "changed": false
+    },
+    {
+      "path": "frameworks/opt/timezonepicker",
+      "name": "LineageOS/android_frameworks_opt_timezonepicker",
+      "old_name": "LineageOS/android_frameworks_opt_timezonepicker",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "152fb56a98e8541d9a9d3c895bf2c26317f878fa",
+      "latest_commit": "152fb56a98e8541d9a9d3c895bf2c26317f878fa",
+      "fetched_at_utc": "2026-11-01T09:17:39.558266+00:00",
+      "changed": false
+    },
+    {
+      "path": "hardware/broadcom/libbt",
+      "name": "LineageOS/android_hardware_broadcom_libbt",
+      "old_name": "LineageOS/android_hardware_broadcom_libbt",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "2926bf88918c0461ba682e6fa37e24833fa907ea",
+      "latest_commit": "2926bf88918c0461ba682e6fa37e24833fa907ea",
+      "fetched_at_utc": "2026-11-01T09:17:39.673286+00:00",
+      "changed": false
+    },
+    {
+      "path": "hardware/google/camera",
+      "name": "LineageOS/android_hardware_google_camera",
+      "old_name": "LineageOS/android_hardware_google_camera",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "df3f282c37ccdeeabce5e4944084e7e16aa88d93",
+      "latest_commit": "df3f282c37ccdeeabce5e4944084e7e16aa88d93",
+      "fetched_at_utc": "2026-11-01T09:17:39.681561+00:00",
+      "changed": false
+    },
+    {
+      "path": "hardware/google/gchips",
+      "name": "LineageOS/android_hardware_google_gchips",
+      "old_name": "LineageOS/android_hardware_google_gchips",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "730f7c77e7fdb66d47e73bf1c70935f56be87255",
+      "latest_commit": "730f7c77e7fdb66d47e73bf1c70935f56be87255",
+      "fetched_at_utc": "2026-11-01T09:17:39.923137+00:00",
+      "changed": false
+    },
+    {
+      "path": "hardware/google/graphics/common",
+      "name": "LineageOS/android_hardware_google_graphics_common",
+      "old_name": "LineageOS/android_hardware_google_graphics_common",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "a4c7d42feb38fb18553813d482ce36919da3c8a7",
+      "latest_commit": "a4c7d42feb38fb18553813d482ce36919da3c8a7",
+      "fetched_at_utc": "2026-11-01T09:17:39.831120+00:00",
+      "changed": false
+    },
+    {
+      "path": "hardware/google/pixel",
+      "name": "LineageOS/android_hardware_google_pixel",
+      "old_name": "LineageOS/android_hardware_google_pixel",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "ba5e7ac66d73c3ed62ff1d514a15168dc145b014",
+      "latest_commit": "ba5e7ac66d73c3ed62ff1d514a15168dc145b014",
+      "fetched_at_utc": "2026-11-01T09:17:39.992084+00:00",
+      "changed": false
+    },
+    {
+      "path": "hardware/google/pixel-sepolicy",
+      "name": "LineageOS/android_hardware_google_pixel-sepolicy",
+      "old_name": "LineageOS/android_hardware_google_pixel-sepolicy",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "334ddc84cdb7b16cd14072082ba1e028efd6f666",
+      "latest_commit": "334ddc84cdb7b16cd14072082ba1e028efd6f666",
+      "fetched_at_utc": "2026-11-01T09:17:40.019602+00:00",
+      "changed": false
+    },
+    {
+      "path": "hardware/interfaces",
+      "name": "LineageOS/android_hardware_interfaces",
+      "old_name": "LineageOS/android_hardware_interfaces",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "86bf68eef83301a7f0be2a6bc460c14f36e522ac",
+      "latest_commit": "86bf68eef83301a7f0be2a6bc460c14f36e522ac",
+      "fetched_at_utc": "2026-11-01T09:17:40.379833+00:00",
+      "changed": false
+    },
+    {
+      "path": "hardware/libhardware",
+      "name": "LineageOS/android_hardware_libhardware",
+      "old_name": "LineageOS/android_hardware_libhardware",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "b923f817e9a095748f7ee86600586c9ff1c56c01",
+      "latest_commit": "b923f817e9a095748f7ee86600586c9ff1c56c01",
+      "fetched_at_utc": "2026-11-01T09:17:40.023498+00:00",
+      "changed": false
+    },
+    {
+      "path": "hardware/lineage/compat",
+      "name": "LineageOS/android_hardware_lineage_compat",
+      "old_name": "LineageOS/android_hardware_lineage_compat",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "ebbf14dbeb2a68b3be424e4877be369f9c05f41b",
+      "latest_commit": "ebbf14dbeb2a68b3be424e4877be369f9c05f41b",
+      "fetched_at_utc": "2026-11-01T09:17:40.340877+00:00",
+      "changed": false
+    },
+    {
+      "path": "hardware/lineage/interfaces",
+      "name": "LineageOS/android_hardware_lineage_interfaces",
+      "old_name": "LineageOS/android_hardware_lineage_interfaces",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "239c3734f1842d0876217449323bebab74e2e515",
+      "latest_commit": "239c3734f1842d0876217449323bebab74e2e515",
+      "fetched_at_utc": "2026-11-01T09:17:40.363565+00:00",
+      "changed": false
+    },
+    {
+      "path": "hardware/lineage/livedisplay",
+      "name": "LineageOS/android_hardware_lineage_livedisplay",
+      "old_name": "LineageOS/android_hardware_lineage_livedisplay",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "05bbbfd180bf8c02b6fb81a7e4b8057868f6e4ba",
+      "latest_commit": "05bbbfd180bf8c02b6fb81a7e4b8057868f6e4ba",
+      "fetched_at_utc": "2026-11-01T09:17:40.362809+00:00",
+      "changed": false
+    },
+    {
+      "path": "hardware/qcom-caf/common",
+      "name": "LineageOS/android_hardware_qcom-caf_common",
+      "old_name": "LineageOS/android_hardware_qcom-caf_common",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "dd56f9a82ff2c3fdfe6257ed266cee3c373b8290",
+      "latest_commit": "dd56f9a82ff2c3fdfe6257ed266cee3c373b8290",
+      "fetched_at_utc": "2026-11-01T09:17:40.567517+00:00",
+      "changed": false
+    },
+    {
+      "path": "hardware/qcom/audio",
+      "name": "LineageOS/android_hardware_qcom_audio",
+      "old_name": "LineageOS/android_hardware_qcom_audio",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "32419c39dc69120585c6badb44d391f0cff5125b",
+      "latest_commit": "32419c39dc69120585c6badb44d391f0cff5125b",
+      "fetched_at_utc": "2026-11-01T09:17:40.761943+00:00",
+      "changed": false
+    },
+    {
+      "path": "hardware/qcom-caf/msm8953/audio",
+      "name": "LineageOS/android_hardware_qcom_audio",
+      "old_name": "LineageOS/android_hardware_qcom_audio",
+      "ref": "lineage-21.0-caf-msm8953",
+      "old_commit": "84e1ed4fe251ff258caa202b31243486df3e9d65",
+      "latest_commit": "84e1ed4fe251ff258caa202b31243486df3e9d65",
+      "fetched_at_utc": "2026-11-01T09:17:40.760435+00:00",
+      "changed": false
+    },
+    {
+      "path": "hardware/qcom-caf/msm8996/audio",
+      "name": "LineageOS/android_hardware_qcom_audio",
+      "old_name": "LineageOS/android_hardware_qcom_audio",
+      "ref": "lineage-21.0-caf-msm8996",
+      "old_commit": "23afd435520190134a0bbf87fcd5b9415be92c1a",
+      "latest_commit": "23afd435520190134a0bbf87fcd5b9415be92c1a",
+      "fetched_at_utc": "2026-11-01T09:17:40.761189+00:00",
+      "changed": false
+    },
+    {
+      "path": "hardware/qcom-caf/msm8998/audio",
+      "name": "LineageOS/android_hardware_qcom_audio",
+      "old_name": "LineageOS/android_hardware_qcom_audio",
+      "ref": "lineage-21.0-caf-msm8998",
+      "old_commit": "58edf81311018fe0165e9709b08cb5a19dc6f35e",
+      "latest_commit": "58edf81311018fe0165e9709b08cb5a19dc6f35e",
+      "fetched_at_utc": "2026-11-01T09:17:40.823778+00:00",
+      "changed": false
+    },
+    {
+      "path": "hardware/qcom-caf/sdm660/audio",
+      "name": "LineageOS/android_hardware_qcom_audio",
+      "old_name": "LineageOS/android_hardware_qcom_audio",
+      "ref": "lineage-21.0-caf-sdm660",
+      "old_commit": "ff3ae1e54538a93a1457d00d9b691e2f8b5a2ca0",
+      "latest_commit": "ff3ae1e54538a93a1457d00d9b691e2f8b5a2ca0",
+      "fetched_at_utc": "2026-11-01T09:17:40.839492+00:00",
+      "changed": false
+    },
+    {
+      "path": "hardware/qcom-caf/sdm845/audio",
+      "name": "LineageOS/android_hardware_qcom_audio",
+      "old_name": "LineageOS/android_hardware_qcom_audio",
+      "ref": "lineage-21.0-caf-sdm845",
+      "old_commit": "106fb71b11c026f35efa80765cecc63e3bc3ef8f",
+      "latest_commit": "106fb71b11c026f35efa80765cecc63e3bc3ef8f",
+      "fetched_at_utc": "2026-11-01T09:17:40.850546+00:00",
+      "changed": false
+    },
+    {
+      "path": "hardware/qcom-caf/sm8150/audio",
+      "name": "LineageOS/android_hardware_qcom_audio",
+      "old_name": "LineageOS/android_hardware_qcom_audio",
+      "ref": "lineage-21.0-caf-sm8150",
+      "old_commit": "7f013e0c1a6f0f1da421f9e8f5162ecd3bf195fd",
+      "latest_commit": "7f013e0c1a6f0f1da421f9e8f5162ecd3bf195fd",
+      "fetched_at_utc": "2026-11-01T09:17:40.864561+00:00",
+      "changed": false
+    },
+    {
+      "path": "hardware/qcom-caf/sm8250/audio",
+      "name": "LineageOS/android_hardware_qcom_audio",
+      "old_name": "LineageOS/android_hardware_qcom_audio",
+      "ref": "lineage-21.0-caf-sm8250",
+      "old_commit": "d71b84a15173cfc8db1cd09a95d7f936347c0cbc",
+      "latest_commit": "d71b84a15173cfc8db1cd09a95d7f936347c0cbc",
+      "fetched_at_utc": "2026-11-01T09:17:41.062852+00:00",
+      "changed": false
+    },
+    {
+      "path": "hardware/qcom-caf/sm8350/audio",
+      "name": "LineageOS/android_hardware_qcom_audio",
+      "old_name": "LineageOS/android_hardware_qcom_audio",
+      "ref": "lineage-21.0-caf-sm8350",
+      "old_commit": "b8006e81521e6654c6774907f1d863971036bd26",
+      "latest_commit": "b8006e81521e6654c6774907f1d863971036bd26",
+      "fetched_at_utc": "2026-11-01T09:17:41.272048+00:00",
+      "changed": false
+    },
+    {
+      "path": "hardware/qcom-caf/sm8450/audio/primary-hal",
+      "name": "LineageOS/android_hardware_qcom_audio-ar",
+      "old_name": "LineageOS/android_hardware_qcom_audio-ar",
+      "ref": "lineage-21.0-caf-sm8450",
+      "old_commit": "187fc27a56482f691e3f5c98d0e69924237a7fa8",
+      "latest_commit": "187fc27a56482f691e3f5c98d0e69924237a7fa8",
+      "fetched_at_utc": "2026-11-01T09:17:41.660912+00:00",
+      "changed": false
+    },
+    {
+      "path": "hardware/qcom-caf/sm8550/audio/primary-hal",
+      "name": "LineageOS/android_hardware_qcom_audio-ar",
+      "old_name": "LineageOS/android_hardware_qcom_audio-ar",
+      "ref": "lineage-21.0-caf-sm8550",
+      "old_commit": "21f0fb1953282ce955bda73565ff05bf8a54eb5a",
+      "latest_commit": "21f0fb1953282ce955bda73565ff05bf8a54eb5a",
+      "fetched_at_utc": "2026-11-01T09:17:41.663928+00:00",
+      "changed": false
+    },
+    {
+      "path": "hardware/qcom-caf/bootctrl",
+      "name": "LineageOS/android_hardware_qcom_bootctrl",
+      "old_name": "LineageOS/android_hardware_qcom_bootctrl",
+      "ref": "lineage-21.0-caf",
+      "old_commit": "581fb573e1e26168f7fd56f5ad84ce75d92fe623",
+      "latest_commit": "581fb573e1e26168f7fd56f5ad84ce75d92fe623",
+      "fetched_at_utc": "2026-11-01T09:17:41.663047+00:00",
+      "changed": false
+    },
+    {
+      "path": "hardware/qcom-caf/bt",
+      "name": "LineageOS/android_hardware_qcom_bt",
+      "old_name": "LineageOS/android_hardware_qcom_bt",
+      "ref": "lineage-21.0-caf",
+      "old_commit": "b7218e4c89817079546f035f3cfe5f99b4730d43",
+      "latest_commit": "b7218e4c89817079546f035f3cfe5f99b4730d43",
+      "fetched_at_utc": "2026-11-01T09:17:41.661630+00:00",
+      "changed": false
+    },
+    {
+      "path": "hardware/qcom/camera",
+      "name": "LineageOS/android_hardware_qcom_camera",
+      "old_name": "LineageOS/android_hardware_qcom_camera",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "bd810caf015f0cbccadef519b1f2b933d196ff33",
+      "latest_commit": "bd810caf015f0cbccadef519b1f2b933d196ff33",
+      "fetched_at_utc": "2026-11-01T09:17:41.664049+00:00",
+      "changed": false
+    },
+    {
+      "path": "hardware/qcom/data/ipacfg-mgr",
+      "name": "LineageOS/android_hardware_qcom_data_ipacfg-mgr",
+      "old_name": "LineageOS/android_hardware_qcom_data_ipacfg-mgr",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "a3138c71bf6adeae2b7e6b42ddc679e842b80a06",
+      "latest_commit": "a3138c71bf6adeae2b7e6b42ddc679e842b80a06",
+      "fetched_at_utc": "2026-11-01T09:17:41.545605+00:00",
+      "changed": false
+    },
+    {
+      "path": "hardware/qcom/display",
+      "name": "LineageOS/android_hardware_qcom_display",
+      "old_name": "LineageOS/android_hardware_qcom_display",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "d9ca15b9db92f96fc6dc8b69d81282450b9e8856",
+      "latest_commit": "d9ca15b9db92f96fc6dc8b69d81282450b9e8856",
+      "fetched_at_utc": "2026-11-01T09:17:42.118414+00:00",
+      "changed": false
+    },
+    {
+      "path": "hardware/qcom-caf/msm8953/display",
+      "name": "LineageOS/android_hardware_qcom_display",
+      "old_name": "LineageOS/android_hardware_qcom_display",
+      "ref": "lineage-21.0-caf-msm8953",
+      "old_commit": "d0107598e13d1b7df25e97214c195a501b3ec348",
+      "latest_commit": "d0107598e13d1b7df25e97214c195a501b3ec348",
+      "fetched_at_utc": "2026-11-01T09:17:42.119318+00:00",
+      "changed": false
+    },
+    {
+      "path": "hardware/qcom-caf/msm8996/display",
+      "name": "LineageOS/android_hardware_qcom_display",
+      "old_name": "LineageOS/android_hardware_qcom_display",
+      "ref": "lineage-21.0-caf-msm8996",
+      "old_commit": "c188c9031a944c7c9b4ee0d6656cc8df9d2a56f1",
+      "latest_commit": "c188c9031a944c7c9b4ee0d6656cc8df9d2a56f1",
+      "fetched_at_utc": "2026-11-01T09:17:42.172422+00:00",
+      "changed": false
+    },
+    {
+      "path": "hardware/qcom-caf/msm8998/display",
+      "name": "LineageOS/android_hardware_qcom_display",
+      "old_name": "LineageOS/android_hardware_qcom_display",
+      "ref": "lineage-21.0-caf-msm8998",
+      "old_commit": "d60aec40a4aaa4a6d5367c22750341bffa882bcf",
+      "latest_commit": "d60aec40a4aaa4a6d5367c22750341bffa882bcf",
+      "fetched_at_utc": "2026-11-01T09:17:42.231465+00:00",
+      "changed": false
+    },
+    {
+      "path": "hardware/qcom-caf/sdm660/display",
+      "name": "LineageOS/android_hardware_qcom_display",
+      "old_name": "LineageOS/android_hardware_qcom_display",
+      "ref": "lineage-21.0-caf-sdm660",
+      "old_commit": "2b63444088349701914fc052328ff9895c299c31",
+      "latest_commit": "2b63444088349701914fc052328ff9895c299c31",
+      "fetched_at_utc": "2026-11-01T09:17:42.230689+00:00",
+      "changed": false
+    },
+    {
+      "path": "hardware/qcom-caf/sdm845/display",
+      "name": "LineageOS/android_hardware_qcom_display",
+      "old_name": "LineageOS/android_hardware_qcom_display",
+      "ref": "lineage-21.0-caf-sdm845",
+      "old_commit": "80aa9e092a062f25a5519a9488fc475213a22eab",
+      "latest_commit": "80aa9e092a062f25a5519a9488fc475213a22eab",
+      "fetched_at_utc": "2026-11-01T09:17:42.228865+00:00",
+      "changed": false
+    },
+    {
+      "path": "hardware/qcom-caf/sm8150/display",
+      "name": "LineageOS/android_hardware_qcom_display",
+      "old_name": "LineageOS/android_hardware_qcom_display",
+      "ref": "lineage-21.0-caf-sm8150",
+      "old_commit": "2f17473761d0fe42ad053de64958b584364a58e9",
+      "latest_commit": "2f17473761d0fe42ad053de64958b584364a58e9",
+      "fetched_at_utc": "2026-11-01T09:17:42.185137+00:00",
+      "changed": false
+    },
+    {
+      "path": "hardware/qcom-caf/sm8250/display",
+      "name": "LineageOS/android_hardware_qcom_display",
+      "old_name": "LineageOS/android_hardware_qcom_display",
+      "ref": "lineage-21.0-caf-sm8250",
+      "old_commit": "58c486b7a36f8af940248d1317ad348e04478d51",
+      "latest_commit": "58c486b7a36f8af940248d1317ad348e04478d51",
+      "fetched_at_utc": "2026-11-01T09:17:42.186146+00:00",
+      "changed": false
+    },
+    {
+      "path": "hardware/qcom-caf/sm8350/display",
+      "name": "LineageOS/android_hardware_qcom_display",
+      "old_name": "LineageOS/android_hardware_qcom_display",
+      "ref": "lineage-21.0-caf-sm8350",
+      "old_commit": "77a62221bf4ba24f820a1263ae57d97c026b6df1",
+      "latest_commit": "77a62221bf4ba24f820a1263ae57d97c026b6df1",
+      "fetched_at_utc": "2026-11-01T09:17:42.630144+00:00",
+      "changed": false
+    },
+    {
+      "path": "hardware/qcom-caf/sm8450/display",
+      "name": "LineageOS/android_hardware_qcom_display",
+      "old_name": "LineageOS/android_hardware_qcom_display",
+      "ref": "lineage-21.0-caf-sm8450",
+      "old_commit": "f3207cf9f96c6e2f160c2bf1c5a085a8e05749f6",
+      "latest_commit": "f3207cf9f96c6e2f160c2bf1c5a085a8e05749f6",
+      "fetched_at_utc": "2026-11-01T09:17:42.611943+00:00",
+      "changed": false
+    },
+    {
+      "path": "hardware/qcom-caf/sm8550/display",
+      "name": "LineageOS/android_hardware_qcom_display",
+      "old_name": "LineageOS/android_hardware_qcom_display",
+      "ref": "lineage-21.0-caf-sm8550",
+      "old_commit": "f88fee79170e224fd229691aaffc2ccc0fa78199",
+      "latest_commit": "f88fee79170e224fd229691aaffc2ccc0fa78199",
+      "fetched_at_utc": "2026-11-01T09:17:42.719226+00:00",
+      "changed": false
+    },
+    {
+      "path": "hardware/qcom/gps",
+      "name": "LineageOS/android_hardware_qcom_gps",
+      "old_name": "LineageOS/android_hardware_qcom_gps",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "727a0053559ed8e8a2e8156a40dfca4520236f14",
+      "latest_commit": "727a0053559ed8e8a2e8156a40dfca4520236f14",
+      "fetched_at_utc": "2026-11-01T09:17:42.799251+00:00",
+      "changed": false
+    },
+    {
+      "path": "hardware/qcom/media",
+      "name": "LineageOS/android_hardware_qcom_media",
+      "old_name": "LineageOS/android_hardware_qcom_media",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "8a040cf05bfce08fc15139c3e4862ed657e40a61",
+      "latest_commit": "8a040cf05bfce08fc15139c3e4862ed657e40a61",
+      "fetched_at_utc": "2026-11-01T09:17:42.823027+00:00",
+      "changed": false
+    },
+    {
+      "path": "hardware/qcom-caf/msm8953/media",
+      "name": "LineageOS/android_hardware_qcom_media",
+      "old_name": "LineageOS/android_hardware_qcom_media",
+      "ref": "lineage-21.0-caf-msm8953",
+      "old_commit": "90a808309f461f139161f504e44e341f4f6f2fb6",
+      "latest_commit": "90a808309f461f139161f504e44e341f4f6f2fb6",
+      "fetched_at_utc": "2026-11-01T09:17:42.824038+00:00",
+      "changed": false
+    },
+    {
+      "path": "hardware/qcom-caf/msm8996/media",
+      "name": "LineageOS/android_hardware_qcom_media",
+      "old_name": "LineageOS/android_hardware_qcom_media",
+      "ref": "lineage-21.0-caf-msm8996",
+      "old_commit": "201a5e8f4f170830925ac9417a7969783c36c46d",
+      "latest_commit": "201a5e8f4f170830925ac9417a7969783c36c46d",
+      "fetched_at_utc": "2026-11-01T09:17:42.824862+00:00",
+      "changed": false
+    },
+    {
+      "path": "hardware/qcom-caf/msm8998/media",
+      "name": "LineageOS/android_hardware_qcom_media",
+      "old_name": "LineageOS/android_hardware_qcom_media",
+      "ref": "lineage-21.0-caf-msm8998",
+      "old_commit": "4f25bfc904a3e0f8b45094f9a248d3923a4fd382",
+      "latest_commit": "4f25bfc904a3e0f8b45094f9a248d3923a4fd382",
+      "fetched_at_utc": "2026-11-01T09:17:42.821735+00:00",
+      "changed": false
+    },
+    {
+      "path": "hardware/qcom-caf/sdm660/media",
+      "name": "LineageOS/android_hardware_qcom_media",
+      "old_name": "LineageOS/android_hardware_qcom_media",
+      "ref": "lineage-21.0-caf-sdm660",
+      "old_commit": "82b8867099d28dcb7c5ed66fa1fac08efdc8cd9e",
+      "latest_commit": "82b8867099d28dcb7c5ed66fa1fac08efdc8cd9e",
+      "fetched_at_utc": "2026-11-01T09:17:43.043952+00:00",
+      "changed": false
+    },
+    {
+      "path": "hardware/qcom-caf/sdm845/media",
+      "name": "LineageOS/android_hardware_qcom_media",
+      "old_name": "LineageOS/android_hardware_qcom_media",
+      "ref": "lineage-21.0-caf-sdm845",
+      "old_commit": "3d4652c674e5b6c4bb5f1842147cf03c263919eb",
+      "latest_commit": "3d4652c674e5b6c4bb5f1842147cf03c263919eb",
+      "fetched_at_utc": "2026-11-01T09:17:43.065684+00:00",
+      "changed": false
+    },
+    {
+      "path": "hardware/qcom-caf/sm8150/media",
+      "name": "LineageOS/android_hardware_qcom_media",
+      "old_name": "LineageOS/android_hardware_qcom_media",
+      "ref": "lineage-21.0-caf-sm8150",
+      "old_commit": "2befa216deefed5beb5029808a1c94f578cc89d9",
+      "latest_commit": "2befa216deefed5beb5029808a1c94f578cc89d9",
+      "fetched_at_utc": "2026-11-01T09:17:43.186742+00:00",
+      "changed": false
+    },
+    {
+      "path": "hardware/qcom-caf/sm8250/media",
+      "name": "LineageOS/android_hardware_qcom_media",
+      "old_name": "LineageOS/android_hardware_qcom_media",
+      "ref": "lineage-21.0-caf-sm8250",
+      "old_commit": "20ac75533c462a9da770afb0abcf1b571de96ba2",
+      "latest_commit": "20ac75533c462a9da770afb0abcf1b571de96ba2",
+      "fetched_at_utc": "2026-11-01T09:17:43.245085+00:00",
+      "changed": false
+    },
+    {
+      "path": "hardware/qcom-caf/sm8350/media",
+      "name": "LineageOS/android_hardware_qcom_media",
+      "old_name": "LineageOS/android_hardware_qcom_media",
+      "ref": "lineage-21.0-caf-sm8350",
+      "old_commit": "42352c72d713e01e1e01231f83aecc199820bf36",
+      "latest_commit": "42352c72d713e01e1e01231f83aecc199820bf36",
+      "fetched_at_utc": "2026-11-01T09:17:43.303073+00:00",
+      "changed": false
+    },
+    {
+      "path": "hardware/qcom-caf/sm8450/media",
+      "name": "LineageOS/android_hardware_qcom_media",
+      "old_name": "LineageOS/android_hardware_qcom_media",
+      "ref": "lineage-21.0-caf-sm8450",
+      "old_commit": "157a3a89f392a2cdd07045eb2dae9c181a57dc10",
+      "latest_commit": "157a3a89f392a2cdd07045eb2dae9c181a57dc10",
+      "fetched_at_utc": "2026-11-01T09:17:43.283057+00:00",
+      "changed": false
+    },
+    {
+      "path": "hardware/qcom-caf/sm8550/media",
+      "name": "LineageOS/android_hardware_qcom_media",
+      "old_name": "LineageOS/android_hardware_qcom_media",
+      "ref": "lineage-21.0-caf-sm8550",
+      "old_commit": "85b8ba1d8964b7b273a8cd526837e908ef7502cf",
+      "latest_commit": "85b8ba1d8964b7b273a8cd526837e908ef7502cf",
+      "fetched_at_utc": "2026-11-01T09:17:43.296847+00:00",
+      "changed": false
+    },
+    {
+      "path": "hardware/qcom/sdm845/data/ipacfg-mgr",
+      "name": "LineageOS/android_hardware_qcom_sdm845_data_ipacfg-mgr",
+      "old_name": "LineageOS/android_hardware_qcom_sdm845_data_ipacfg-mgr",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "418a28e3c77ded69dd8cdf406347f87d88fe7299",
+      "latest_commit": "418a28e3c77ded69dd8cdf406347f87d88fe7299",
+      "fetched_at_utc": "2026-11-01T09:17:43.387605+00:00",
+      "changed": false
+    },
+    {
+      "path": "hardware/qcom/sdm845/display",
+      "name": "LineageOS/android_hardware_qcom_sdm845_display",
+      "old_name": "LineageOS/android_hardware_qcom_sdm845_display",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "49dfea67eba7c7b4e7831971e244ea9ca529e387",
+      "latest_commit": "49dfea67eba7c7b4e7831971e244ea9ca529e387",
+      "fetched_at_utc": "2026-11-01T09:17:43.657744+00:00",
+      "changed": false
+    },
+    {
+      "path": "hardware/qcom/sdm845/gps",
+      "name": "LineageOS/android_hardware_qcom_sdm845_gps",
+      "old_name": "LineageOS/android_hardware_qcom_sdm845_gps",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "cad27c54084f7a27170a5d507ea2a1063f7bd73f",
+      "latest_commit": "cad27c54084f7a27170a5d507ea2a1063f7bd73f",
+      "fetched_at_utc": "2026-11-01T09:17:43.703683+00:00",
+      "changed": false
+    },
+    {
+      "path": "hardware/qcom/sdm845/media",
+      "name": "LineageOS/android_hardware_qcom_sdm845_media",
+      "old_name": "LineageOS/android_hardware_qcom_sdm845_media",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "92d1e5daa17780566eae10ee2c9a9afed74efa2c",
+      "latest_commit": "92d1e5daa17780566eae10ee2c9a9afed74efa2c",
+      "fetched_at_utc": "2026-11-01T09:17:43.806253+00:00",
+      "changed": false
+    },
+    {
+      "path": "hardware/qcom/sm7250/display",
+      "name": "LineageOS/android_hardware_qcom_sm7250_display",
+      "old_name": "LineageOS/android_hardware_qcom_sm7250_display",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "e816646bfe6bb54542b4222a42d79308e8cd7abb",
+      "latest_commit": "e816646bfe6bb54542b4222a42d79308e8cd7abb",
+      "fetched_at_utc": "2026-11-01T09:17:43.763766+00:00",
+      "changed": false
+    },
+    {
+      "path": "hardware/qcom/sm7250/gps",
+      "name": "LineageOS/android_hardware_qcom_sm7250_gps",
+      "old_name": "LineageOS/android_hardware_qcom_sm7250_gps",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "15e156a081fa929577693f451c80f05bd1bda498",
+      "latest_commit": "15e156a081fa929577693f451c80f05bd1bda498",
+      "fetched_at_utc": "2026-11-01T09:17:43.899610+00:00",
+      "changed": false
+    },
+    {
+      "path": "hardware/qcom/sm7250/media",
+      "name": "LineageOS/android_hardware_qcom_sm7250_media",
+      "old_name": "LineageOS/android_hardware_qcom_sm7250_media",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "24be416cda7e9aae0820d9c58b3e22e5dfe689a5",
+      "latest_commit": "24be416cda7e9aae0820d9c58b3e22e5dfe689a5",
+      "fetched_at_utc": "2026-11-01T09:17:43.876044+00:00",
+      "changed": false
+    },
+    {
+      "path": "hardware/qcom/sm8150/data/ipacfg-mgr",
+      "name": "LineageOS/android_hardware_qcom_sm8150_data_ipacfg-mgr",
+      "old_name": "LineageOS/android_hardware_qcom_sm8150_data_ipacfg-mgr",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "8c9ade3d52888ba122511ee68778594b1a190aa1",
+      "latest_commit": "8c9ade3d52888ba122511ee68778594b1a190aa1",
+      "fetched_at_utc": "2026-11-01T09:17:43.937270+00:00",
+      "changed": false
+    },
+    {
+      "path": "hardware/qcom/sm8150/display",
+      "name": "LineageOS/android_hardware_qcom_sm8150_display",
+      "old_name": "LineageOS/android_hardware_qcom_sm8150_display",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "4d9f01f114df8068aec7af4e1c05f1802491a80a",
+      "latest_commit": "4d9f01f114df8068aec7af4e1c05f1802491a80a",
+      "fetched_at_utc": "2026-11-01T09:17:43.973175+00:00",
+      "changed": false
+    },
+    {
+      "path": "hardware/qcom/sm8150/gps",
+      "name": "LineageOS/android_hardware_qcom_sm8150_gps",
+      "old_name": "LineageOS/android_hardware_qcom_sm8150_gps",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "4e7e01c20aa9b08eb0acd63d809503ecf637f8bb",
+      "latest_commit": "4e7e01c20aa9b08eb0acd63d809503ecf637f8bb",
+      "fetched_at_utc": "2026-11-01T09:17:44.214286+00:00",
+      "changed": false
+    },
+    {
+      "path": "hardware/qcom/sm8150/media",
+      "name": "LineageOS/android_hardware_qcom_sm8150_media",
+      "old_name": "LineageOS/android_hardware_qcom_sm8150_media",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "80ca8bcdc83ddef54eef65d867e4524540c5c223",
+      "latest_commit": "80ca8bcdc83ddef54eef65d867e4524540c5c223",
+      "fetched_at_utc": "2026-11-01T09:17:44.499105+00:00",
+      "changed": false
+    },
+    {
+      "path": "hardware/qcom-caf/thermal",
+      "name": "LineageOS/android_hardware_qcom_thermal",
+      "old_name": "LineageOS/android_hardware_qcom_thermal",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "9395823fba90d9b57a6f7bbdb9ce542e2d7d69e7",
+      "latest_commit": "9395823fba90d9b57a6f7bbdb9ce542e2d7d69e7",
+      "fetched_at_utc": "2026-11-01T09:17:44.571395+00:00",
+      "changed": false
+    },
+    {
+      "path": "hardware/qcom-caf/vr",
+      "name": "LineageOS/android_hardware_qcom_vr",
+      "old_name": "LineageOS/android_hardware_qcom_vr",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "d7c051add89a45090250c8f6c16c5c86f82be6b8",
+      "latest_commit": "d7c051add89a45090250c8f6c16c5c86f82be6b8",
+      "fetched_at_utc": "2026-11-01T09:17:44.419546+00:00",
+      "changed": false
+    },
+    {
+      "path": "hardware/qcom/wlan",
+      "name": "LineageOS/android_hardware_qcom_wlan",
+      "old_name": "LineageOS/android_hardware_qcom_wlan",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "930f96a82b9fa6b571197df6643dda263df7bd9b",
+      "latest_commit": "930f96a82b9fa6b571197df6643dda263df7bd9b",
+      "fetched_at_utc": "2026-11-01T09:17:44.551054+00:00",
+      "changed": false
+    },
+    {
+      "path": "hardware/qcom-caf/wlan",
+      "name": "LineageOS/android_hardware_qcom_wlan",
+      "old_name": "LineageOS/android_hardware_qcom_wlan",
+      "ref": "lineage-21.0-caf",
+      "old_commit": "e5d5b06280de3d3414b4b911a7e1fc00796c434c",
+      "latest_commit": "e5d5b06280de3d3414b4b911a7e1fc00796c434c",
+      "fetched_at_utc": "2026-11-01T09:17:44.531700+00:00",
+      "changed": false
+    },
+    {
+      "path": "hardware/ril",
+      "name": "LineageOS/android_hardware_ril",
+      "old_name": "LineageOS/android_hardware_ril",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "e1d539d38fecd4f1c0baf7478726352b1cea634f",
+      "latest_commit": "e1d539d38fecd4f1c0baf7478726352b1cea634f",
+      "fetched_at_utc": "2026-11-01T09:17:44.595485+00:00",
+      "changed": false
+    },
+    {
+      "path": "hardware/samsung/nfc",
+      "name": "LineageOS/android_hardware_samsung_nfc",
+      "old_name": "LineageOS/android_hardware_samsung_nfc",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "51321dd6bc591f9195fa17e00131a16c444fbdf8",
+      "latest_commit": "51321dd6bc591f9195fa17e00131a16c444fbdf8",
+      "fetched_at_utc": "2026-11-01T09:17:44.596563+00:00",
+      "changed": false
+    },
+    {
+      "path": "hardware/st/nfc",
+      "name": "LineageOS/android_hardware_st_nfc",
+      "old_name": "LineageOS/android_hardware_st_nfc",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "24056cf527f6cbd165de48f99f90134fd8a4d52e",
+      "latest_commit": "24056cf527f6cbd165de48f99f90134fd8a4d52e",
+      "fetched_at_utc": "2026-11-01T09:17:44.807621+00:00",
+      "changed": false
+    },
+    {
+      "path": "kernel/configs",
+      "name": "LineageOS/android_kernel_configs",
+      "old_name": "LineageOS/android_kernel_configs",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "847bbc49ae44b9161bfafb766202b6dc4d435c17",
+      "latest_commit": "847bbc49ae44b9161bfafb766202b6dc4d435c17",
+      "fetched_at_utc": "2026-11-01T09:17:44.988949+00:00",
+      "changed": false
+    },
+    {
+      "path": "libcore",
+      "name": "LineageOS/android_libcore",
+      "old_name": "LineageOS/android_libcore",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "fd478b8cfa76665d7683522a9fc7a0c962e9ff43",
+      "latest_commit": "fd478b8cfa76665d7683522a9fc7a0c962e9ff43",
+      "fetched_at_utc": "2026-11-01T09:17:45.150331+00:00",
+      "changed": false
+    },
+    {
+      "path": "lineage-sdk",
+      "name": "LineageOS/android_lineage-sdk",
+      "old_name": "LineageOS/android_lineage-sdk",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "b480ace9a68b87a420966e8e56a77c038a7a5f6a",
+      "latest_commit": "b480ace9a68b87a420966e8e56a77c038a7a5f6a",
+      "fetched_at_utc": "2026-11-01T09:17:45.343701+00:00",
+      "changed": false
+    },
+    {
+      "path": "packages/apps/Aperture",
+      "name": "LineageOS/android_packages_apps_Aperture",
+      "old_name": "LineageOS/android_packages_apps_Aperture",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "ea0f2b48cb98bb75c1414cbc180ec4a248d583d1",
+      "latest_commit": "ea0f2b48cb98bb75c1414cbc180ec4a248d583d1",
+      "fetched_at_utc": "2026-11-01T09:17:45.563479+00:00",
+      "changed": false
+    },
+    {
+      "path": "packages/apps/AudioFX",
+      "name": "LineageOS/android_packages_apps_AudioFX",
+      "old_name": "LineageOS/android_packages_apps_AudioFX",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "22a2f277d5f20d5f3a3e03d4546d0c52f04282d5",
+      "latest_commit": "22a2f277d5f20d5f3a3e03d4546d0c52f04282d5",
+      "fetched_at_utc": "2026-11-01T09:17:45.564273+00:00",
+      "changed": false
+    },
+    {
+      "path": "packages/apps/Backgrounds",
+      "name": "LineageOS/android_packages_apps_Backgrounds",
+      "old_name": "LineageOS/android_packages_apps_Backgrounds",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "7a4c15c1cc7fbf579c8f48718c4579d5130b778f",
+      "latest_commit": "7a4c15c1cc7fbf579c8f48718c4579d5130b778f",
+      "fetched_at_utc": "2026-11-01T09:17:45.549267+00:00",
+      "changed": false
+    },
+    {
+      "path": "packages/apps/Camera2",
+      "name": "LineageOS/android_packages_apps_Camera2",
+      "old_name": "LineageOS/android_packages_apps_Camera2",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "d8b5759d205400bb2d4e36c05482ceae0afbc033",
+      "latest_commit": "d8b5759d205400bb2d4e36c05482ceae0afbc033",
+      "fetched_at_utc": "2026-11-01T09:17:45.558273+00:00",
+      "changed": false
+    },
+    {
+      "path": "packages/apps/Car/Settings",
+      "name": "LineageOS/android_packages_apps_Car_Settings",
+      "old_name": "LineageOS/android_packages_apps_Car_Settings",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "c868117e47483d484af0a0fc3ce745b425dd52e7",
+      "latest_commit": "c868117e47483d484af0a0fc3ce745b425dd52e7",
+      "fetched_at_utc": "2026-11-01T09:17:45.556270+00:00",
+      "changed": false
+    },
+    {
+      "path": "packages/apps/CellBroadcastReceiver",
+      "name": "LineageOS/android_packages_apps_CellBroadcastReceiver",
+      "old_name": "LineageOS/android_packages_apps_CellBroadcastReceiver",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "cfbf20d2aab7ee61d0a6fc8ff4d2cef0a68defc7",
+      "latest_commit": "cfbf20d2aab7ee61d0a6fc8ff4d2cef0a68defc7",
+      "fetched_at_utc": "2026-11-01T09:17:45.677168+00:00",
+      "changed": false
+    },
+    {
+      "path": "packages/apps/CertInstaller",
+      "name": "LineageOS/android_packages_apps_CertInstaller",
+      "old_name": "LineageOS/android_packages_apps_CertInstaller",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "26b721f2bee1097c6a28e3c6a8fa4d2b8730a218",
+      "latest_commit": "26b721f2bee1097c6a28e3c6a8fa4d2b8730a218",
+      "fetched_at_utc": "2026-11-01T09:17:45.708307+00:00",
+      "changed": false
+    },
+    {
+      "path": "packages/apps/Contacts",
+      "name": "LineageOS/android_packages_apps_Contacts",
+      "old_name": "LineageOS/android_packages_apps_Contacts",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "68c892780d4b6d4d283be71ebf37574cf60c0d36",
+      "latest_commit": "68c892780d4b6d4d283be71ebf37574cf60c0d36",
+      "fetched_at_utc": "2026-11-01T09:17:45.895082+00:00",
+      "changed": false
+    },
+    {
+      "path": "packages/apps/DeskClock",
+      "name": "LineageOS/android_packages_apps_DeskClock",
+      "old_name": "LineageOS/android_packages_apps_DeskClock",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "f430a0efa7ae17fed95f5b744507a11f0386aee5",
+      "latest_commit": "f430a0efa7ae17fed95f5b744507a11f0386aee5",
+      "fetched_at_utc": "2026-11-01T09:17:46.043673+00:00",
+      "changed": false
+    },
+    {
+      "path": "packages/apps/Dialer",
+      "name": "LineageOS/android_packages_apps_Dialer",
+      "old_name": "LineageOS/android_packages_apps_Dialer",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "668600c5fb438ec122277912d56a174579f16a1d",
+      "latest_commit": "668600c5fb438ec122277912d56a174579f16a1d",
+      "fetched_at_utc": "2026-11-01T09:17:46.222252+00:00",
+      "changed": false
+    },
+    {
+      "path": "packages/apps/DocumentsUI",
+      "name": "LineageOS/android_packages_apps_DocumentsUI",
+      "old_name": "LineageOS/android_packages_apps_DocumentsUI",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "afe80c8f00b177b391a169824feb58d278332534",
+      "latest_commit": "afe80c8f00b177b391a169824feb58d278332534",
+      "fetched_at_utc": "2026-11-01T09:17:46.126964+00:00",
+      "changed": false
+    },
+    {
+      "path": "packages/apps/Eleven",
+      "name": "LineageOS/android_packages_apps_Eleven",
+      "old_name": "LineageOS/android_packages_apps_Eleven",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "971ca68122a31057ad416f2843b60bad7bf15cc4",
+      "latest_commit": "971ca68122a31057ad416f2843b60bad7bf15cc4",
+      "fetched_at_utc": "2026-11-01T09:17:46.073111+00:00",
+      "changed": false
+    },
+    {
+      "path": "packages/apps/EmergencyInfo",
+      "name": "LineageOS/android_packages_apps_EmergencyInfo",
+      "old_name": "LineageOS/android_packages_apps_EmergencyInfo",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "c3f0da3e1b055755647c7728b30e723f4fd0fa41",
+      "latest_commit": "c3f0da3e1b055755647c7728b30e723f4fd0fa41",
+      "fetched_at_utc": "2026-11-01T09:17:46.211123+00:00",
+      "changed": false
+    },
+    {
+      "path": "packages/apps/Etar",
+      "name": "LineageOS/android_packages_apps_Etar",
+      "old_name": "LineageOS/android_packages_apps_Etar",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "bd3ff03ac53a9e1919a67aa8e990ff222674fc57",
+      "latest_commit": "bd3ff03ac53a9e1919a67aa8e990ff222674fc57",
+      "fetched_at_utc": "2026-11-01T09:17:46.205897+00:00",
+      "changed": false
+    },
+    {
+      "path": "packages/apps/ExactCalculator",
+      "name": "LineageOS/android_packages_apps_ExactCalculator",
+      "old_name": "LineageOS/android_packages_apps_ExactCalculator",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "b48c081ec462c5fdac7f09dfea91dac8f62a2ec3",
+      "latest_commit": "b48c081ec462c5fdac7f09dfea91dac8f62a2ec3",
+      "fetched_at_utc": "2026-11-01T09:17:46.178301+00:00",
+      "changed": false
+    },
+    {
+      "path": "packages/apps/FMRadio",
+      "name": "LineageOS/android_packages_apps_FMRadio",
+      "old_name": "LineageOS/android_packages_apps_FMRadio",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "fe25d204ea7dd56695f886306a261780637f7bc9",
+      "latest_commit": "fe25d204ea7dd56695f886306a261780637f7bc9",
+      "fetched_at_utc": "2026-11-01T09:17:46.380652+00:00",
+      "changed": false
+    },
+    {
+      "path": "packages/apps/FlipFlap",
+      "name": "LineageOS/android_packages_apps_FlipFlap",
+      "old_name": "LineageOS/android_packages_apps_FlipFlap",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "9640bcc4d42f7e90c8bf8db0cd7ae56c68764e1c",
+      "latest_commit": "9640bcc4d42f7e90c8bf8db0cd7ae56c68764e1c",
+      "fetched_at_utc": "2026-11-01T09:17:46.561970+00:00",
+      "changed": false
+    },
+    {
+      "path": "packages/apps/Gallery2",
+      "name": "LineageOS/android_packages_apps_Gallery2",
+      "old_name": "LineageOS/android_packages_apps_Gallery2",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "9c5801d456a616be0a7091e5b3be0f1ff965aeff",
+      "latest_commit": "9c5801d456a616be0a7091e5b3be0f1ff965aeff",
+      "fetched_at_utc": "2026-11-01T09:17:46.725157+00:00",
+      "changed": false
+    },
+    {
+      "path": "packages/apps/Glimpse",
+      "name": "LineageOS/android_packages_apps_Glimpse",
+      "old_name": "LineageOS/android_packages_apps_Glimpse",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "a1ec5c8763a2ce850ad03f69d6865d9a68341975",
+      "latest_commit": "a1ec5c8763a2ce850ad03f69d6865d9a68341975",
+      "fetched_at_utc": "2026-11-01T09:17:46.790946+00:00",
+      "changed": false
+    },
+    {
+      "path": "packages/apps/Jelly",
+      "name": "LineageOS/android_packages_apps_Jelly",
+      "old_name": "LineageOS/android_packages_apps_Jelly",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "c228ac888cf6d8731f1ccc83460271d837978b4e",
+      "latest_commit": "c228ac888cf6d8731f1ccc83460271d837978b4e",
+      "fetched_at_utc": "2026-11-01T09:17:46.830090+00:00",
+      "changed": false
+    },
+    {
+      "path": "packages/apps/KeyChain",
+      "name": "LineageOS/android_packages_apps_KeyChain",
+      "old_name": "LineageOS/android_packages_apps_KeyChain",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "1d999f5669f813f22686463e58bc1a35148a05e1",
+      "latest_commit": "1d999f5669f813f22686463e58bc1a35148a05e1",
+      "fetched_at_utc": "2026-11-01T09:17:46.804139+00:00",
+      "changed": false
+    },
+    {
+      "path": "packages/apps/LineageCustomizer",
+      "name": "LineageOS/android_packages_apps_LineageCustomizer",
+      "old_name": "LineageOS/android_packages_apps_LineageCustomizer",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "6d78f750ddfe8b7b5821a9ce83860755491b8bd8",
+      "latest_commit": "6d78f750ddfe8b7b5821a9ce83860755491b8bd8",
+      "fetched_at_utc": "2026-11-01T09:17:46.781343+00:00",
+      "changed": false
+    },
+    {
+      "path": "packages/apps/LineageParts",
+      "name": "LineageOS/android_packages_apps_LineageParts",
+      "old_name": "LineageOS/android_packages_apps_LineageParts",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "13b1182a9299de8c431233f1487623807f9e197e",
+      "latest_commit": "13b1182a9299de8c431233f1487623807f9e197e",
+      "fetched_at_utc": "2026-11-01T09:17:46.872762+00:00",
+      "changed": false
+    },
+    {
+      "path": "packages/apps/ManagedProvisioning",
+      "name": "LineageOS/android_packages_apps_ManagedProvisioning",
+      "old_name": "LineageOS/android_packages_apps_ManagedProvisioning",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "60217ba47f770bd423f8db6471e2e96eb7e0675f",
+      "latest_commit": "60217ba47f770bd423f8db6471e2e96eb7e0675f",
+      "fetched_at_utc": "2026-11-01T09:17:46.887386+00:00",
+      "changed": false
+    },
+    {
+      "path": "packages/apps/Messaging",
+      "name": "LineageOS/android_packages_apps_Messaging",
+      "old_name": "LineageOS/android_packages_apps_Messaging",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "35b95c8650da0b114f7cbc7349981f982d6cd7ef",
+      "latest_commit": "35b95c8650da0b114f7cbc7349981f982d6cd7ef",
+      "fetched_at_utc": "2026-11-01T09:17:47.056860+00:00",
+      "changed": false
+    },
+    {
+      "path": "packages/apps/Nfc",
+      "name": "LineageOS/android_packages_apps_Nfc",
+      "old_name": "LineageOS/android_packages_apps_Nfc",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "89f6c4c912ab8248e89a4d30b4974ef1988fc30d",
+      "latest_commit": "89f6c4c912ab8248e89a4d30b4974ef1988fc30d",
+      "fetched_at_utc": "2026-11-01T09:17:47.254849+00:00",
+      "changed": false
+    },
+    {
+      "path": "packages/apps/Profiles",
+      "name": "LineageOS/android_packages_apps_Profiles",
+      "old_name": "LineageOS/android_packages_apps_Profiles",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "74c87c381beef23d6abd2e66b35839f3aea5b63a",
+      "latest_commit": "74c87c381beef23d6abd2e66b35839f3aea5b63a",
+      "fetched_at_utc": "2026-11-01T09:17:47.291041+00:00",
+      "changed": false
+    },
+    {
+      "path": "packages/apps/Recorder",
+      "name": "LineageOS/android_packages_apps_Recorder",
+      "old_name": "LineageOS/android_packages_apps_Recorder",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "b444149585692e5d20053ab2eecaeed1828a4cce",
+      "latest_commit": "b444149585692e5d20053ab2eecaeed1828a4cce",
+      "fetched_at_utc": "2026-11-01T09:17:47.351821+00:00",
+      "changed": false
+    },
+    {
+      "path": "packages/apps/Seedvault",
+      "name": "LineageOS/android_packages_apps_Seedvault",
+      "old_name": "LineageOS/android_packages_apps_Seedvault",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "7da1a5a7d04ff30a348806efca5f0b902fd12cc7",
+      "latest_commit": "7da1a5a7d04ff30a348806efca5f0b902fd12cc7",
+      "fetched_at_utc": "2026-11-01T09:17:47.358218+00:00",
+      "changed": false
+    },
+    {
+      "path": "packages/apps/Settings",
+      "name": "LineageOS/android_packages_apps_Settings",
+      "old_name": "LineageOS/android_packages_apps_Settings",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "300ffdbc1c868dc64d60938ecb36e19a0077c8f7",
+      "latest_commit": "300ffdbc1c868dc64d60938ecb36e19a0077c8f7",
+      "fetched_at_utc": "2026-11-01T09:17:47.446756+00:00",
+      "changed": false
+    },
+    {
+      "path": "packages/apps/SettingsIntelligence",
+      "name": "LineageOS/android_packages_apps_SettingsIntelligence",
+      "old_name": "LineageOS/android_packages_apps_SettingsIntelligence",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "2f2caa0a6524248bfefb63167c4bfcec9c83630b",
+      "latest_commit": "2f2caa0a6524248bfefb63167c4bfcec9c83630b",
+      "fetched_at_utc": "2026-11-01T09:17:47.424783+00:00",
+      "changed": false
+    },
+    {
+      "path": "packages/apps/SetupWizard",
+      "name": "LineageOS/android_packages_apps_SetupWizard",
+      "old_name": "LineageOS/android_packages_apps_SetupWizard",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "333883d44baa9a649b70f1832312bd0457d5b97d",
+      "latest_commit": "333883d44baa9a649b70f1832312bd0457d5b97d",
+      "fetched_at_utc": "2026-11-01T09:17:47.418132+00:00",
+      "changed": false
+    },
+    {
+      "path": "packages/apps/SimpleDeviceConfig",
+      "name": "LineageOS/android_packages_apps_SimpleDeviceConfig",
+      "old_name": "LineageOS/android_packages_apps_SimpleDeviceConfig",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "82d31b18dd2550e05f89248f128cb571eecc863a",
+      "latest_commit": "82d31b18dd2550e05f89248f128cb571eecc863a",
+      "fetched_at_utc": "2026-11-01T09:17:47.553628+00:00",
+      "changed": false
+    },
+    {
+      "path": "packages/apps/SimpleSettingsConfig",
+      "name": "LineageOS/android_packages_apps_SimpleSettingsConfig",
+      "old_name": "LineageOS/android_packages_apps_SimpleSettingsConfig",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "f5620aa22a44ac3a9794d0fda5c146efd7e0a11e",
+      "latest_commit": "f5620aa22a44ac3a9794d0fda5c146efd7e0a11e",
+      "fetched_at_utc": "2026-11-01T09:17:47.775184+00:00",
+      "changed": false
+    },
+    {
+      "path": "packages/apps/Stk",
+      "name": "LineageOS/android_packages_apps_Stk",
+      "old_name": "LineageOS/android_packages_apps_Stk",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "12c0bb30b9b54820792f6245e048de42bdf4fc45",
+      "latest_commit": "12c0bb30b9b54820792f6245e048de42bdf4fc45",
+      "fetched_at_utc": "2026-11-01T09:17:47.854302+00:00",
+      "changed": false
+    },
+    {
+      "path": "packages/apps/TV",
+      "name": "LineageOS/android_packages_apps_TV",
+      "old_name": "LineageOS/android_packages_apps_TV",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "a914183bac1bd02e4a6425a48bffe3b7ba0016e7",
+      "latest_commit": "a914183bac1bd02e4a6425a48bffe3b7ba0016e7",
+      "fetched_at_utc": "2026-11-01T09:17:47.962244+00:00",
+      "changed": false
+    },
+    {
+      "path": "packages/apps/Tag",
+      "name": "LineageOS/android_packages_apps_Tag",
+      "old_name": "LineageOS/android_packages_apps_Tag",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "2844783b03f9a500ba58b64188ce44092e77c5df",
+      "latest_commit": "2844783b03f9a500ba58b64188ce44092e77c5df",
+      "fetched_at_utc": "2026-11-01T09:17:47.884452+00:00",
+      "changed": false
+    },
+    {
+      "path": "packages/apps/ThemePicker",
+      "name": "LineageOS/android_packages_apps_ThemePicker",
+      "old_name": "LineageOS/android_packages_apps_ThemePicker",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "81383a14999c64f609e12204118d57c4582ad88f",
+      "latest_commit": "81383a14999c64f609e12204118d57c4582ad88f",
+      "fetched_at_utc": "2026-11-01T09:17:47.902954+00:00",
+      "changed": false
+    },
+    {
+      "path": "packages/apps/Trebuchet",
+      "name": "LineageOS/android_packages_apps_Trebuchet",
+      "old_name": "LineageOS/android_packages_apps_Trebuchet",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "fd2e5694d077d32bf9b092589a8ed335bc83bf92",
+      "latest_commit": "fd2e5694d077d32bf9b092589a8ed335bc83bf92",
+      "fetched_at_utc": "2026-11-01T09:17:47.927428+00:00",
+      "changed": false
+    },
+    {
+      "path": "packages/apps/TvSettings",
+      "name": "LineageOS/android_packages_apps_TvSettings",
+      "old_name": "LineageOS/android_packages_apps_TvSettings",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "40f5dd715011d699229336befb0622258c56a4a4",
+      "latest_commit": "40f5dd715011d699229336befb0622258c56a4a4",
+      "fetched_at_utc": "2026-11-01T09:17:48.000424+00:00",
+      "changed": false
+    },
+    {
+      "path": "packages/apps/TvSystemUI",
+      "name": "LineageOS/android_packages_apps_TvSystemUI",
+      "old_name": "LineageOS/android_packages_apps_TvSystemUI",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "adddf3323e91d794360bcdb8b5c8bc15bfe7c042",
+      "latest_commit": "adddf3323e91d794360bcdb8b5c8bc15bfe7c042",
+      "fetched_at_utc": "2026-11-01T09:17:48.083910+00:00",
+      "changed": false
+    },
+    {
+      "path": "packages/apps/Updater",
+      "name": "LineageOS/android_packages_apps_Updater",
+      "old_name": "LineageOS/android_packages_apps_Updater",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "583e315d3cb22f885b6be393e431c08a3a82b099",
+      "latest_commit": "583e315d3cb22f885b6be393e431c08a3a82b099",
+      "fetched_at_utc": "2026-11-01T09:17:48.333547+00:00",
+      "changed": false
+    },
+    {
+      "path": "packages/apps/WallpaperPicker2",
+      "name": "LineageOS/android_packages_apps_WallpaperPicker2",
+      "old_name": "LineageOS/android_packages_apps_WallpaperPicker2",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "6f89ba3cd7867ccdb629ce53764b79fe69f5a1a1",
+      "latest_commit": "6f89ba3cd7867ccdb629ce53764b79fe69f5a1a1",
+      "fetched_at_utc": "2026-11-01T09:17:48.386968+00:00",
+      "changed": false
+    },
+    {
+      "path": "packages/inputmethods/LatinIME",
+      "name": "LineageOS/android_packages_inputmethods_LatinIME",
+      "old_name": "LineageOS/android_packages_inputmethods_LatinIME",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "2709738921980f4e28fd9b46dc62af07ea25cd82",
+      "latest_commit": "2709738921980f4e28fd9b46dc62af07ea25cd82",
+      "fetched_at_utc": "2026-11-01T09:17:48.422215+00:00",
+      "changed": false
+    },
+    {
+      "path": "packages/inputmethods/LeanbackIME",
+      "name": "LineageOS/android_packages_inputmethods_LeanbackIME",
+      "old_name": "LineageOS/android_packages_inputmethods_LeanbackIME",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "e149bd75e80000e8ce5e1ffe045174c32825924e",
+      "latest_commit": "e149bd75e80000e8ce5e1ffe045174c32825924e",
+      "fetched_at_utc": "2026-11-01T09:17:48.455682+00:00",
+      "changed": false
+    },
+    {
+      "path": "packages/modules/Bluetooth",
+      "name": "LineageOS/android_packages_modules_Bluetooth",
+      "old_name": "LineageOS/android_packages_modules_Bluetooth",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "d5e3fad887c711169821ac269940ce94afe35bdd",
+      "latest_commit": "d5e3fad887c711169821ac269940ce94afe35bdd",
+      "fetched_at_utc": "2026-11-01T09:17:48.538603+00:00",
+      "changed": false
+    },
+    {
+      "path": "packages/modules/CellBroadcastService",
+      "name": "LineageOS/android_packages_modules_CellBroadcastService",
+      "old_name": "LineageOS/android_packages_modules_CellBroadcastService",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "4a2371bc646214e4c40ba4d0181ea27dc0c8d3c6",
+      "latest_commit": "4a2371bc646214e4c40ba4d0181ea27dc0c8d3c6",
+      "fetched_at_utc": "2026-11-01T09:17:48.517615+00:00",
+      "changed": false
+    },
+    {
+      "path": "packages/modules/Connectivity",
+      "name": "LineageOS/android_packages_modules_Connectivity",
+      "old_name": "LineageOS/android_packages_modules_Connectivity",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "965d387f90f22d20c3cba4dc90fd900f2e1b7ed0",
+      "latest_commit": "965d387f90f22d20c3cba4dc90fd900f2e1b7ed0",
+      "fetched_at_utc": "2026-11-01T09:17:48.710442+00:00",
+      "changed": false
+    },
+    {
+      "path": "packages/modules/IntentResolver",
+      "name": "LineageOS/android_packages_modules_IntentResolver",
+      "old_name": "LineageOS/android_packages_modules_IntentResolver",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "dddee4f69af488d667fc138553e74cb5088a0c3c",
+      "latest_commit": "dddee4f69af488d667fc138553e74cb5088a0c3c",
+      "fetched_at_utc": "2026-11-01T09:17:48.674403+00:00",
+      "changed": false
+    },
+    {
+      "path": "packages/modules/Permission",
+      "name": "LineageOS/android_packages_modules_Permission",
+      "old_name": "LineageOS/android_packages_modules_Permission",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "43125d22cbbc10a86fe6b57880230be5bb4c642d",
+      "latest_commit": "43125d22cbbc10a86fe6b57880230be5bb4c642d",
+      "fetched_at_utc": "2026-11-01T09:17:48.937018+00:00",
+      "changed": false
+    },
+    {
+      "path": "packages/modules/Virtualization",
+      "name": "LineageOS/android_packages_modules_Virtualization",
+      "old_name": "LineageOS/android_packages_modules_Virtualization",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "c03c348aefcbbe95f47b4875c0e3cd5f882b9789",
+      "latest_commit": "c03c348aefcbbe95f47b4875c0e3cd5f882b9789",
+      "fetched_at_utc": "2026-11-01T09:17:48.895563+00:00",
+      "changed": false
+    },
+    {
+      "path": "packages/modules/Wifi",
+      "name": "LineageOS/android_packages_modules_Wifi",
+      "old_name": "LineageOS/android_packages_modules_Wifi",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "6f6ab02c57799b4c3f7d7217a3d2291f2ebebd70",
+      "latest_commit": "6f6ab02c57799b4c3f7d7217a3d2291f2ebebd70",
+      "fetched_at_utc": "2026-11-01T09:17:48.943482+00:00",
+      "changed": false
+    },
+    {
+      "path": "packages/modules/adb",
+      "name": "LineageOS/android_packages_modules_adb",
+      "old_name": "LineageOS/android_packages_modules_adb",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "8f1f33d623ca6cffd6c415b43b317fd274660601",
+      "latest_commit": "8f1f33d623ca6cffd6c415b43b317fd274660601",
+      "fetched_at_utc": "2026-11-01T09:17:48.966901+00:00",
+      "changed": false
+    },
+    {
+      "path": "packages/modules/common",
+      "name": "LineageOS/android_packages_modules_common",
+      "old_name": "LineageOS/android_packages_modules_common",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "722642177b706716fa79a26938d363d438f2c90a",
+      "latest_commit": "722642177b706716fa79a26938d363d438f2c90a",
+      "fetched_at_utc": "2026-11-01T09:17:49.051679+00:00",
+      "changed": false
+    },
+    {
+      "path": "packages/overlays/Lineage",
+      "name": "LineageOS/android_packages_overlays_Lineage",
+      "old_name": "LineageOS/android_packages_overlays_Lineage",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "364c55dc593187a8308419275214c7146b3d81a0",
+      "latest_commit": "364c55dc593187a8308419275214c7146b3d81a0",
+      "fetched_at_utc": "2026-11-01T09:17:49.122013+00:00",
+      "changed": false
+    },
+    {
+      "path": "packages/providers/BlockedNumberProvider",
+      "name": "LineageOS/android_packages_providers_BlockedNumberProvider",
+      "old_name": "LineageOS/android_packages_providers_BlockedNumberProvider",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "3601ca213ee14636c63f3406fd5595168b8be0ef",
+      "latest_commit": "3601ca213ee14636c63f3406fd5595168b8be0ef",
+      "fetched_at_utc": "2026-11-01T09:17:49.219634+00:00",
+      "changed": false
+    },
+    {
+      "path": "packages/providers/BookmarkProvider",
+      "name": "LineageOS/android_packages_providers_BookmarkProvider",
+      "old_name": "LineageOS/android_packages_providers_BookmarkProvider",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "dd3906226b83e8aada6646069b33ea8a296ce0b5",
+      "latest_commit": "dd3906226b83e8aada6646069b33ea8a296ce0b5",
+      "fetched_at_utc": "2026-11-01T09:17:49.237694+00:00",
+      "changed": false
+    },
+    {
+      "path": "packages/providers/CalendarProvider",
+      "name": "LineageOS/android_packages_providers_CalendarProvider",
+      "old_name": "LineageOS/android_packages_providers_CalendarProvider",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "1b7832da5de6cf1a604b4c68b66cf9ac96e201ae",
+      "latest_commit": "1b7832da5de6cf1a604b4c68b66cf9ac96e201ae",
+      "fetched_at_utc": "2026-11-01T09:17:49.393133+00:00",
+      "changed": false
+    },
+    {
+      "path": "packages/providers/CallLogProvider",
+      "name": "LineageOS/android_packages_providers_CallLogProvider",
+      "old_name": "LineageOS/android_packages_providers_CallLogProvider",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "e4d5033efd357b034145724eaf29d7a0e75b7fa4",
+      "latest_commit": "e4d5033efd357b034145724eaf29d7a0e75b7fa4",
+      "fetched_at_utc": "2026-11-01T09:17:49.483078+00:00",
+      "changed": false
+    },
+    {
+      "path": "packages/providers/ContactsProvider",
+      "name": "LineageOS/android_packages_providers_ContactsProvider",
+      "old_name": "LineageOS/android_packages_providers_ContactsProvider",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "77d09b468d60f3565ebd4553c40f949d3689c1fb",
+      "latest_commit": "77d09b468d60f3565ebd4553c40f949d3689c1fb",
+      "fetched_at_utc": "2026-11-01T09:17:49.456677+00:00",
+      "changed": false
+    },
+    {
+      "path": "packages/providers/DownloadProvider",
+      "name": "LineageOS/android_packages_providers_DownloadProvider",
+      "old_name": "LineageOS/android_packages_providers_DownloadProvider",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "9c0f9751b101a2f72e529a43401a5cafbf37d20e",
+      "latest_commit": "9c0f9751b101a2f72e529a43401a5cafbf37d20e",
+      "fetched_at_utc": "2026-11-01T09:17:49.546408+00:00",
+      "changed": false
+    },
+    {
+      "path": "packages/providers/MediaProvider",
+      "name": "LineageOS/android_packages_providers_MediaProvider",
+      "old_name": "LineageOS/android_packages_providers_MediaProvider",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "2275a25b99b0dabc998ab9420ebd8f721be1a22b",
+      "latest_commit": "2275a25b99b0dabc998ab9420ebd8f721be1a22b",
+      "fetched_at_utc": "2026-11-01T09:17:49.565715+00:00",
+      "changed": false
+    },
+    {
+      "path": "packages/providers/TelephonyProvider",
+      "name": "LineageOS/android_packages_providers_TelephonyProvider",
+      "old_name": "LineageOS/android_packages_providers_TelephonyProvider",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "b932ba3ed6dcf5adc4c26b32718d266bc4737fe6",
+      "latest_commit": "b932ba3ed6dcf5adc4c26b32718d266bc4737fe6",
+      "fetched_at_utc": "2026-11-01T09:17:49.581331+00:00",
+      "changed": false
+    },
+    {
+      "path": "packages/resources/devicesettings",
+      "name": "LineageOS/android_packages_resources_devicesettings",
+      "old_name": "LineageOS/android_packages_resources_devicesettings",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "2086e039de3a614ae5d8110461e396cc23d86e02",
+      "latest_commit": "2086e039de3a614ae5d8110461e396cc23d86e02",
+      "fetched_at_utc": "2026-11-01T09:17:49.743576+00:00",
+      "changed": false
+    },
+    {
+      "path": "packages/screensavers/PhotoTable",
+      "name": "LineageOS/android_packages_screensavers_PhotoTable",
+      "old_name": "LineageOS/android_packages_screensavers_PhotoTable",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "c3bb60a519f9a27e62349e64ef8ed85ac84e61d2",
+      "latest_commit": "c3bb60a519f9a27e62349e64ef8ed85ac84e61d2",
+      "fetched_at_utc": "2026-11-01T09:17:49.733514+00:00",
+      "changed": false
+    },
+    {
+      "path": "packages/services/BuiltInPrintService",
+      "name": "LineageOS/android_packages_services_BuiltInPrintService",
+      "old_name": "LineageOS/android_packages_services_BuiltInPrintService",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "0f90ab226094a6169e4b60a405dfa4d2fae68c25",
+      "latest_commit": "0f90ab226094a6169e4b60a405dfa4d2fae68c25",
+      "fetched_at_utc": "2026-11-01T09:17:49.854308+00:00",
+      "changed": false
+    },
+    {
+      "path": "packages/services/Car",
+      "name": "LineageOS/android_packages_services_Car",
+      "old_name": "LineageOS/android_packages_services_Car",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "45c0f0a7a76db7d9d933154204567b3931cc72e8",
+      "latest_commit": "45c0f0a7a76db7d9d933154204567b3931cc72e8",
+      "fetched_at_utc": "2026-11-01T09:17:49.996458+00:00",
+      "changed": false
+    },
+    {
+      "path": "packages/services/Mms",
+      "name": "LineageOS/android_packages_services_Mms",
+      "old_name": "LineageOS/android_packages_services_Mms",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "ab9989936d5aa8f848cbacfa4827a3324480d436",
+      "latest_commit": "ab9989936d5aa8f848cbacfa4827a3324480d436",
+      "fetched_at_utc": "2026-11-01T09:17:49.974090+00:00",
+      "changed": false
+    },
+    {
+      "path": "packages/services/Telecomm",
+      "name": "LineageOS/android_packages_services_Telecomm",
+      "old_name": "LineageOS/android_packages_services_Telecomm",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "03343679659d84a98e83c90782718d9217183928",
+      "latest_commit": "03343679659d84a98e83c90782718d9217183928",
+      "fetched_at_utc": "2026-11-01T09:17:50.062682+00:00",
+      "changed": false
+    },
+    {
+      "path": "packages/services/Telephony",
+      "name": "LineageOS/android_packages_services_Telephony",
+      "old_name": "LineageOS/android_packages_services_Telephony",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "b17668b134791341fd8d564f9f2943b6a5c585c7",
+      "latest_commit": "b17668b134791341fd8d564f9f2943b6a5c585c7",
+      "fetched_at_utc": "2026-11-01T09:17:50.053954+00:00",
+      "changed": false
+    },
+    {
+      "path": "packages/wallpapers/LivePicker",
+      "name": "LineageOS/android_packages_wallpapers_LivePicker",
+      "old_name": "LineageOS/android_packages_wallpapers_LivePicker",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "fa5cc92c8e5dc02a556b1ff9b63f98005f158d19",
+      "latest_commit": "fa5cc92c8e5dc02a556b1ff9b63f98005f158d19",
+      "fetched_at_utc": "2026-11-01T09:17:50.054695+00:00",
+      "changed": false
+    },
+    {
+      "path": "prebuilts/clang/kernel/linux-x86/clang-r416183b",
+      "name": "LineageOS/android_prebuilts_clang_kernel_linux-x86_clang-r416183b",
+      "old_name": "LineageOS/android_prebuilts_clang_kernel_linux-x86_clang-r416183b",
+      "ref": "lineage-20.0",
+      "old_commit": "54220fd601050b350b2af7adc913089ebf0e7aed",
+      "latest_commit": "54220fd601050b350b2af7adc913089ebf0e7aed",
+      "fetched_at_utc": "2026-11-01T09:17:50.515333+00:00",
+      "changed": false
+    },
+    {
+      "path": "prebuilts/extract-tools",
+      "name": "LineageOS/android_prebuilts_extract-tools",
+      "old_name": "LineageOS/android_prebuilts_extract-tools",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "c23dcd287e58d0149814827c4422dc0a89e7edb8",
+      "latest_commit": "c23dcd287e58d0149814827c4422dc0a89e7edb8",
+      "fetched_at_utc": "2026-11-01T09:17:50.237404+00:00",
+      "changed": false
+    },
+    {
+      "path": "prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9",
+      "name": "LineageOS/android_prebuilts_gcc_linux-x86_aarch64_aarch64-linux-android-4.9",
+      "old_name": "LineageOS/android_prebuilts_gcc_linux-x86_aarch64_aarch64-linux-android-4.9",
+      "ref": "lineage-19.1",
+      "old_commit": "5e030eafe024784a73cdf47e6936ac0dbfc763dc",
+      "latest_commit": "5e030eafe024784a73cdf47e6936ac0dbfc763dc",
+      "fetched_at_utc": "2026-11-01T09:17:50.765186+00:00",
+      "changed": false
+    },
+    {
+      "path": "prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9",
+      "name": "LineageOS/android_prebuilts_gcc_linux-x86_arm_arm-linux-androideabi-4.9",
+      "old_name": "LineageOS/android_prebuilts_gcc_linux-x86_arm_arm-linux-androideabi-4.9",
+      "ref": "lineage-19.1",
+      "old_commit": "111258a10e017f067b27e6cfcea7619d753f3309",
+      "latest_commit": "111258a10e017f067b27e6cfcea7619d753f3309",
+      "fetched_at_utc": "2026-11-01T09:17:50.699739+00:00",
+      "changed": false
+    },
+    {
+      "path": "prebuilts/gcc/linux-x86/x86/x86_64-linux-android-4.9",
+      "name": "LineageOS/android_prebuilts_gcc_linux-x86_x86_x86_64-linux-android-4.9",
+      "old_name": "LineageOS/android_prebuilts_gcc_linux-x86_x86_x86_64-linux-android-4.9",
+      "ref": "lineage-19.1",
+      "old_commit": "5c8aca3781d423cc450c1c05b6ff0813812d65bc",
+      "latest_commit": "5c8aca3781d423cc450c1c05b6ff0813812d65bc",
+      "fetched_at_utc": "2026-11-01T09:17:50.799221+00:00",
+      "changed": false
+    },
+    {
+      "path": "prebuilts/tools-lineage",
+      "name": "LineageOS/android_prebuilts_tools-lineage",
+      "old_name": "LineageOS/android_prebuilts_tools-lineage",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "10b65c9a4181390c2258a8c4f947e31f649b6756",
+      "latest_commit": "10b65c9a4181390c2258a8c4f947e31f649b6756",
+      "fetched_at_utc": "2026-11-01T09:17:50.792268+00:00",
+      "changed": false
+    },
+    {
+      "path": "system/bpf",
+      "name": "LineageOS/android_system_bpf",
+      "old_name": "LineageOS/android_system_bpf",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "d5e515c0085b354fb8f00ef3feb09ec0f0b1f60b",
+      "latest_commit": "d5e515c0085b354fb8f00ef3feb09ec0f0b1f60b",
+      "fetched_at_utc": "2026-11-01T09:17:50.753749+00:00",
+      "changed": false
+    },
+    {
+      "path": "system/core",
+      "name": "LineageOS/android_system_core",
+      "old_name": "LineageOS/android_system_core",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "ec299bf6da55702b7b9675d60a0faf2815f0dc6d",
+      "latest_commit": "ec299bf6da55702b7b9675d60a0faf2815f0dc6d",
+      "fetched_at_utc": "2026-11-01T09:17:50.708390+00:00",
+      "changed": false
+    },
+    {
+      "path": "system/extras",
+      "name": "LineageOS/android_system_extras",
+      "old_name": "LineageOS/android_system_extras",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "994315964c73b871ae882fcbc3f1d0ae57084647",
+      "latest_commit": "994315964c73b871ae882fcbc3f1d0ae57084647",
+      "fetched_at_utc": "2026-11-01T09:17:50.836698+00:00",
+      "changed": false
+    },
+    {
+      "path": "system/incremental_delivery",
+      "name": "LineageOS/android_system_incremental_delivery",
+      "old_name": "LineageOS/android_system_incremental_delivery",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "6f0153c164c97d50da86499f79304cd4e89a3777",
+      "latest_commit": "6f0153c164c97d50da86499f79304cd4e89a3777",
+      "fetched_at_utc": "2026-11-01T09:17:51.201007+00:00",
+      "changed": false
+    },
+    {
+      "path": "system/keymaster",
+      "name": "LineageOS/android_system_keymaster",
+      "old_name": "LineageOS/android_system_keymaster",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "672040076536f47f41ccfc4c139238f14b09f49d",
+      "latest_commit": "672040076536f47f41ccfc4c139238f14b09f49d",
+      "fetched_at_utc": "2026-11-01T09:17:51.228017+00:00",
+      "changed": false
+    },
+    {
+      "path": "system/keymint",
+      "name": "LineageOS/android_system_keymint",
+      "old_name": "LineageOS/android_system_keymint",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "2f7924b59c3bf5172cbbca72d4ddef764b60504a",
+      "latest_commit": "2f7924b59c3bf5172cbbca72d4ddef764b60504a",
+      "fetched_at_utc": "2026-11-01T09:17:51.279352+00:00",
+      "changed": false
+    },
+    {
+      "path": "system/libfmq",
+      "name": "LineageOS/android_system_libfmq",
+      "old_name": "LineageOS/android_system_libfmq",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "fc9fa2767900dbb5f0c30e4ca85e76bf86213ca2",
+      "latest_commit": "fc9fa2767900dbb5f0c30e4ca85e76bf86213ca2",
+      "fetched_at_utc": "2026-11-01T09:17:51.262138+00:00",
+      "changed": false
+    },
+    {
+      "path": "system/libhidl",
+      "name": "LineageOS/android_system_libhidl",
+      "old_name": "LineageOS/android_system_libhidl",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "0ca22f22769ecc8ddf4ef34d8e0b5fff3d0429e5",
+      "latest_commit": "0ca22f22769ecc8ddf4ef34d8e0b5fff3d0429e5",
+      "fetched_at_utc": "2026-11-01T09:17:51.267814+00:00",
+      "changed": false
+    },
+    {
+      "path": "system/libufdt",
+      "name": "LineageOS/android_system_libufdt",
+      "old_name": "LineageOS/android_system_libufdt",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "7939f8d3355e78531083e1f39a34a227e98d8a15",
+      "latest_commit": "7939f8d3355e78531083e1f39a34a227e98d8a15",
+      "fetched_at_utc": "2026-11-01T09:17:51.343298+00:00",
+      "changed": false
+    },
+    {
+      "path": "system/libziparchive",
+      "name": "LineageOS/android_system_libziparchive",
+      "old_name": "LineageOS/android_system_libziparchive",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "b4252b3cbb4d06a84dc2acb4032aef73d369869e",
+      "latest_commit": "b4252b3cbb4d06a84dc2acb4032aef73d369869e",
+      "fetched_at_utc": "2026-11-01T09:17:51.305850+00:00",
+      "changed": false
+    },
+    {
+      "path": "system/logging",
+      "name": "LineageOS/android_system_logging",
+      "old_name": "LineageOS/android_system_logging",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "6ee74f7fc9b399fae4acf0dd394a7cfed2811a5d",
+      "latest_commit": "6ee74f7fc9b399fae4acf0dd394a7cfed2811a5d",
+      "fetched_at_utc": "2026-11-01T09:17:51.452642+00:00",
+      "changed": false
+    },
+    {
+      "path": "system/media",
+      "name": "LineageOS/android_system_media",
+      "old_name": "LineageOS/android_system_media",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "66339dd9962690859af23d56bb01eda0cb1f9ac9",
+      "latest_commit": "66339dd9962690859af23d56bb01eda0cb1f9ac9",
+      "fetched_at_utc": "2026-11-01T09:17:51.715282+00:00",
+      "changed": false
+    },
+    {
+      "path": "system/netd",
+      "name": "LineageOS/android_system_netd",
+      "old_name": "LineageOS/android_system_netd",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "dbc81b7c46cc59f761c0ac5e390f3fc71dfa7b40",
+      "latest_commit": "dbc81b7c46cc59f761c0ac5e390f3fc71dfa7b40",
+      "fetched_at_utc": "2026-11-01T09:17:51.953959+00:00",
+      "changed": false
+    },
+    {
+      "path": "system/nfc",
+      "name": "LineageOS/android_system_nfc",
+      "old_name": "LineageOS/android_system_nfc",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "48868513c4fd4e870a912e605473510d5089e0bb",
+      "latest_commit": "48868513c4fd4e870a912e605473510d5089e0bb",
+      "fetched_at_utc": "2026-11-01T09:17:51.896231+00:00",
+      "changed": false
+    },
+    {
+      "path": "system/security",
+      "name": "LineageOS/android_system_security",
+      "old_name": "LineageOS/android_system_security",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "12112e1d80e6c4b31bf1aac46fa5fab940706884",
+      "latest_commit": "12112e1d80e6c4b31bf1aac46fa5fab940706884",
+      "fetched_at_utc": "2026-11-01T09:17:51.862461+00:00",
+      "changed": false
+    },
+    {
+      "path": "system/sepolicy",
+      "name": "LineageOS/android_system_sepolicy",
+      "old_name": "LineageOS/android_system_sepolicy",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "83bf38d56eac5d44b59bad9b497521274734ee34",
+      "latest_commit": "83bf38d56eac5d44b59bad9b497521274734ee34",
+      "fetched_at_utc": "2026-11-01T09:17:51.924060+00:00",
+      "changed": false
+    },
+    {
+      "path": "system/timezone",
+      "name": "LineageOS/android_system_timezone",
+      "old_name": "LineageOS/android_system_timezone",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "3384629108b58b78ba3e3f10790980854c25901c",
+      "latest_commit": "3384629108b58b78ba3e3f10790980854c25901c",
+      "fetched_at_utc": "2026-11-01T09:17:52.007332+00:00",
+      "changed": false
+    },
+    {
+      "path": "system/tools/mkbootimg",
+      "name": "LineageOS/android_system_tools_mkbootimg",
+      "old_name": "LineageOS/android_system_tools_mkbootimg",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "90054adc0017398ae868e990e85fd8dc58020c75",
+      "latest_commit": "90054adc0017398ae868e990e85fd8dc58020c75",
+      "fetched_at_utc": "2026-11-01T09:17:52.081266+00:00",
+      "changed": false
+    },
+    {
+      "path": "system/update_engine",
+      "name": "LineageOS/android_system_update_engine",
+      "old_name": "LineageOS/android_system_update_engine",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "e2094a19397a14d378c0404e72dad74d98a45632",
+      "latest_commit": "e2094a19397a14d378c0404e72dad74d98a45632",
+      "fetched_at_utc": "2026-11-01T09:17:51.989232+00:00",
+      "changed": false
+    },
+    {
+      "path": "system/vold",
+      "name": "LineageOS/android_system_vold",
+      "old_name": "LineageOS/android_system_vold",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "f81d91f911a2833251026bb9943c422dea190bd7",
+      "latest_commit": "f81d91f911a2833251026bb9943c422dea190bd7",
+      "fetched_at_utc": "2026-11-01T09:17:52.329827+00:00",
+      "changed": false
+    },
+    {
+      "path": "tools/extract-utils",
+      "name": "LineageOS/android_tools_extract-utils",
+      "old_name": "LineageOS/android_tools_extract-utils",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "50beec1b4689fe670f27721f4e427e8458224651",
+      "latest_commit": "50beec1b4689fe670f27721f4e427e8458224651",
+      "fetched_at_utc": "2026-11-01T09:17:52.344220+00:00",
+      "changed": false
+    },
+    {
+      "path": "vendor/apn",
+      "name": "LineageOS/android_vendor_apn",
+      "old_name": "LineageOS/android_vendor_apn",
+      "ref": "main",
+      "old_commit": "35d822d750556e09dafaa2950ea87e912b49eab1",
+      "latest_commit": "7693bb941534e2844165357dac68e6146d0b065b",
+      "fetched_at_utc": "2026-11-01T09:17:52.792961+00:00",
+      "changed": true
+    },
+    {
+      "path": "vendor/codeaurora/telephony",
+      "name": "LineageOS/android_vendor_codeaurora_telephony",
+      "old_name": "LineageOS/android_vendor_codeaurora_telephony",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "6cfafa7df042506e0c48f19e18b5972985177745",
+      "latest_commit": "6cfafa7df042506e0c48f19e18b5972985177745",
+      "fetched_at_utc": "2026-11-01T09:17:52.528316+00:00",
+      "changed": false
+    },
+    {
+      "path": "vendor/crowdin",
+      "name": "LineageOS/android_vendor_crowdin",
+      "old_name": "LineageOS/android_vendor_crowdin",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "26d35f52e1faf8193f5939db6791e575ec743189",
+      "latest_commit": "26d35f52e1faf8193f5939db6791e575ec743189",
+      "fetched_at_utc": "2026-11-01T09:17:52.549315+00:00",
+      "changed": false
+    },
+    {
+      "path": "vendor/lineage",
+      "name": "LineageOS/android_vendor_lineage",
+      "old_name": "LineageOS/android_vendor_lineage",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "85fbbf9a6601ca7af759aa0aa06d32f7a9800b36",
+      "latest_commit": "85fbbf9a6601ca7af759aa0aa06d32f7a9800b36",
+      "fetched_at_utc": "2026-11-01T09:17:52.651835+00:00",
+      "changed": false
+    },
+    {
+      "path": "hardware/qcom-caf/sm8450/audio/agm",
+      "name": "LineageOS/android_vendor_qcom_opensource_agm",
+      "old_name": "LineageOS/android_vendor_qcom_opensource_agm",
+      "ref": "lineage-21.0-caf-sm8450",
+      "old_commit": "5655ea46b94413671cf3b9af14651191c4449dc1",
+      "latest_commit": "5655ea46b94413671cf3b9af14651191c4449dc1",
+      "fetched_at_utc": "2026-11-01T09:17:52.798335+00:00",
+      "changed": false
+    },
+    {
+      "path": "hardware/qcom-caf/sm8550/audio/agm",
+      "name": "LineageOS/android_vendor_qcom_opensource_agm",
+      "old_name": "LineageOS/android_vendor_qcom_opensource_agm",
+      "ref": "lineage-21.0-caf-sm8550",
+      "old_commit": "80a4b32861149ba800b2d72597e7b193b6945ba5",
+      "latest_commit": "80a4b32861149ba800b2d72597e7b193b6945ba5",
+      "fetched_at_utc": "2026-11-01T09:17:52.797630+00:00",
+      "changed": false
+    },
+    {
+      "path": "hardware/qcom-caf/sm8450/audio/pal",
+      "name": "LineageOS/android_vendor_qcom_opensource_arpal-lx",
+      "old_name": "LineageOS/android_vendor_qcom_opensource_arpal-lx",
+      "ref": "lineage-21.0-caf-sm8450",
+      "old_commit": "f9669f69314c5d929028ac2e95611c9e4c59ad78",
+      "latest_commit": "f9669f69314c5d929028ac2e95611c9e4c59ad78",
+      "fetched_at_utc": "2026-11-01T09:17:52.893550+00:00",
+      "changed": false
+    },
+    {
+      "path": "hardware/qcom-caf/sm8550/audio/pal",
+      "name": "LineageOS/android_vendor_qcom_opensource_arpal-lx",
+      "old_name": "LineageOS/android_vendor_qcom_opensource_arpal-lx",
+      "ref": "lineage-21.0-caf-sm8550",
+      "old_commit": "91d24b6445cdd0b33928e4bbfc5a316d8b1f01e9",
+      "latest_commit": "91d24b6445cdd0b33928e4bbfc5a316d8b1f01e9",
+      "fetched_at_utc": "2026-11-01T09:17:52.894647+00:00",
+      "changed": false
+    },
+    {
+      "path": "vendor/qcom/opensource/audio-hal/st-hal",
+      "name": "LineageOS/android_vendor_qcom_opensource_audio-hal_st-hal",
+      "old_name": "LineageOS/android_vendor_qcom_opensource_audio-hal_st-hal",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "b2a0060bb4fa63280419616eb6e17cf3c10a4d42",
+      "latest_commit": "b2a0060bb4fa63280419616eb6e17cf3c10a4d42",
+      "fetched_at_utc": "2026-11-01T09:17:53.067363+00:00",
+      "changed": false
+    },
+    {
+      "path": "vendor/qcom/opensource/audio-hal/st-hal-ar",
+      "name": "LineageOS/android_vendor_qcom_opensource_audio-hal_st-hal-ar",
+      "old_name": "LineageOS/android_vendor_qcom_opensource_audio-hal_st-hal-ar",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "9a1ad498496ba28f7ed7d7146ec24ffaf899ed99",
+      "latest_commit": "9a1ad498496ba28f7ed7d7146ec24ffaf899ed99",
+      "fetched_at_utc": "2026-11-01T09:17:53.072249+00:00",
+      "changed": false
+    },
+    {
+      "path": "vendor/qcom/opensource/core-utils-sys",
+      "name": "LineageOS/android_vendor_qcom_opensource_core-utils-sys",
+      "old_name": "LineageOS/android_vendor_qcom_opensource_core-utils-sys",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "a985d0c00d9c6177805c9f062724d3f7bb7607f0",
+      "latest_commit": "a985d0c00d9c6177805c9f062724d3f7bb7607f0",
+      "fetched_at_utc": "2026-11-01T09:17:53.145506+00:00",
+      "changed": false
+    },
+    {
+      "path": "vendor/qcom/opensource/core-utils-vendor",
+      "name": "LineageOS/android_vendor_qcom_opensource_core-utils-vendor",
+      "old_name": "LineageOS/android_vendor_qcom_opensource_core-utils-vendor",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "fc0e576e10122ab7b314931f7e34018a7009188a",
+      "latest_commit": "fc0e576e10122ab7b314931f7e34018a7009188a",
+      "fetched_at_utc": "2026-11-01T09:17:53.271374+00:00",
+      "changed": false
+    },
+    {
+      "path": "hardware/qcom-caf/sm8450/data-ipa-cfg-mgr",
+      "name": "LineageOS/android_vendor_qcom_opensource_data-ipa-cfg-mgr",
+      "old_name": "LineageOS/android_vendor_qcom_opensource_data-ipa-cfg-mgr",
+      "ref": "lineage-21.0-caf-sm8450",
+      "old_commit": "c873e9983ed3c5c2525172273865193f6a892181",
+      "latest_commit": "c873e9983ed3c5c2525172273865193f6a892181",
+      "fetched_at_utc": "2026-11-01T09:17:53.357001+00:00",
+      "changed": false
+    },
+    {
+      "path": "hardware/qcom-caf/sm8550/data-ipa-cfg-mgr",
+      "name": "LineageOS/android_vendor_qcom_opensource_data-ipa-cfg-mgr",
+      "old_name": "LineageOS/android_vendor_qcom_opensource_data-ipa-cfg-mgr",
+      "ref": "lineage-21.0-caf-sm8550",
+      "old_commit": "f2d86f75a87d22a4cde8d1755b26285e77a0cc27",
+      "latest_commit": "f2d86f75a87d22a4cde8d1755b26285e77a0cc27",
+      "fetched_at_utc": "2026-11-01T09:17:53.356219+00:00",
+      "changed": false
+    },
+    {
+      "path": "vendor/qcom/opensource/data-ipa-cfg-mgr-legacy-um",
+      "name": "LineageOS/android_vendor_qcom_opensource_data-ipa-cfg-mgr",
+      "old_name": "LineageOS/android_vendor_qcom_opensource_data-ipa-cfg-mgr",
+      "ref": "lineage-21.0-legacy-um",
+      "old_commit": "cf276cc4d17bc2a57c3600dc739f496aae6a3dea",
+      "latest_commit": "cf276cc4d17bc2a57c3600dc739f496aae6a3dea",
+      "fetched_at_utc": "2026-11-01T09:17:53.398225+00:00",
+      "changed": false
+    },
+    {
+      "path": "hardware/qcom-caf/sm8550/dataipa",
+      "name": "LineageOS/android_vendor_qcom_opensource_dataipa",
+      "old_name": "LineageOS/android_vendor_qcom_opensource_dataipa",
+      "ref": "lineage-21.0-caf-sm8550",
+      "old_commit": "96e0b702b27417c2220c449462aa2a63c7d4fbcc",
+      "latest_commit": "96e0b702b27417c2220c449462aa2a63c7d4fbcc",
+      "fetched_at_utc": "2026-11-01T09:17:53.524486+00:00",
+      "changed": false
+    },
+    {
+      "path": "vendor/qcom/opensource/dataservices",
+      "name": "LineageOS/android_vendor_qcom_opensource_dataservices",
+      "old_name": "LineageOS/android_vendor_qcom_opensource_dataservices",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "dfc2ec0112353afdb6db99db8bae7328b42e44f6",
+      "latest_commit": "dfc2ec0112353afdb6db99db8bae7328b42e44f6",
+      "fetched_at_utc": "2026-11-01T09:17:53.677648+00:00",
+      "changed": false
+    },
+    {
+      "path": "vendor/qcom/opensource/display",
+      "name": "LineageOS/android_vendor_qcom_opensource_display",
+      "old_name": "LineageOS/android_vendor_qcom_opensource_display",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "74a5c56b6229dbe518b43cf781e4c52e1a5ecb71",
+      "latest_commit": "74a5c56b6229dbe518b43cf781e4c52e1a5ecb71",
+      "fetched_at_utc": "2026-11-01T09:17:53.686534+00:00",
+      "changed": false
+    },
+    {
+      "path": "vendor/qcom/opensource/commonsys/display",
+      "name": "LineageOS/android_vendor_qcom_opensource_display-commonsys",
+      "old_name": "LineageOS/android_vendor_qcom_opensource_display-commonsys",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "c23798d2bb75ca8b23c7a5ee12cbbe1d0fbe2973",
+      "latest_commit": "c23798d2bb75ca8b23c7a5ee12cbbe1d0fbe2973",
+      "fetched_at_utc": "2026-11-01T09:17:53.676498+00:00",
+      "changed": false
+    },
+    {
+      "path": "vendor/qcom/opensource/commonsys-intf/display",
+      "name": "LineageOS/android_vendor_qcom_opensource_display-commonsys-intf",
+      "old_name": "LineageOS/android_vendor_qcom_opensource_display-commonsys-intf",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "bfd8bbc7536d4a06cb4f541a70e029060a0c7e90",
+      "latest_commit": "bfd8bbc7536d4a06cb4f541a70e029060a0c7e90",
+      "fetched_at_utc": "2026-11-01T09:17:53.817904+00:00",
+      "changed": false
+    },
+    {
+      "path": "vendor/qcom/opensource/commonsys/fm",
+      "name": "LineageOS/android_vendor_qcom_opensource_fm-commonsys",
+      "old_name": "LineageOS/android_vendor_qcom_opensource_fm-commonsys",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "9db1453601de196be441b2beaa1a52235a8f73bf",
+      "latest_commit": "9db1453601de196be441b2beaa1a52235a8f73bf",
+      "fetched_at_utc": "2026-11-01T09:17:53.934479+00:00",
+      "changed": false
+    },
+    {
+      "path": "vendor/qcom/opensource/healthd-ext",
+      "name": "LineageOS/android_vendor_qcom_opensource_healthd-ext",
+      "old_name": "LineageOS/android_vendor_qcom_opensource_healthd-ext",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "a52cb0139171e1459aeff117d9311ec3c8f99790",
+      "latest_commit": "a52cb0139171e1459aeff117d9311ec3c8f99790",
+      "fetched_at_utc": "2026-11-01T09:17:53.877192+00:00",
+      "changed": false
+    },
+    {
+      "path": "vendor/qcom/opensource/interfaces",
+      "name": "LineageOS/android_vendor_qcom_opensource_interfaces",
+      "old_name": "LineageOS/android_vendor_qcom_opensource_interfaces",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "4ec046ad5f7402b07f673df1afe941e8466a9bb1",
+      "latest_commit": "4ec046ad5f7402b07f673df1afe941e8466a9bb1",
+      "fetched_at_utc": "2026-11-01T09:17:53.945455+00:00",
+      "changed": false
+    },
+    {
+      "path": "vendor/qcom/opensource/libfmjni",
+      "name": "LineageOS/android_vendor_qcom_opensource_libfmjni",
+      "old_name": "LineageOS/android_vendor_qcom_opensource_libfmjni",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "055b0bed7a5f8822fc7c4658fff44c886177cb9b",
+      "latest_commit": "055b0bed7a5f8822fc7c4658fff44c886177cb9b",
+      "fetched_at_utc": "2026-11-01T09:17:54.043089+00:00",
+      "changed": false
+    },
+    {
+      "path": "vendor/qcom/opensource/power",
+      "name": "LineageOS/android_vendor_qcom_opensource_power",
+      "old_name": "LineageOS/android_vendor_qcom_opensource_power",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "6dce78ab54b4d715077a89bd249f47fed2957f3a",
+      "latest_commit": "6dce78ab54b4d715077a89bd249f47fed2957f3a",
+      "fetched_at_utc": "2026-11-01T09:17:54.179366+00:00",
+      "changed": false
+    },
+    {
+      "path": "vendor/qcom/opensource/thermal-engine",
+      "name": "LineageOS/android_vendor_qcom_opensource_thermal-engine",
+      "old_name": "LineageOS/android_vendor_qcom_opensource_thermal-engine",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "0815f34094ebc952c8e1dd3619e384c7f9d1195b",
+      "latest_commit": "0815f34094ebc952c8e1dd3619e384c7f9d1195b",
+      "fetched_at_utc": "2026-11-01T09:17:54.194159+00:00",
+      "changed": false
+    },
+    {
+      "path": "vendor/qcom/opensource/usb",
+      "name": "LineageOS/android_vendor_qcom_opensource_usb",
+      "old_name": "LineageOS/android_vendor_qcom_opensource_usb",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "7bdeada792ba7275cdaad26fdf4bce2d968ca725",
+      "latest_commit": "7bdeada792ba7275cdaad26fdf4bce2d968ca725",
+      "fetched_at_utc": "2026-11-01T09:17:54.145324+00:00",
+      "changed": false
+    },
+    {
+      "path": "vendor/qcom/opensource/vibrator",
+      "name": "LineageOS/android_vendor_qcom_opensource_vibrator",
+      "old_name": "LineageOS/android_vendor_qcom_opensource_vibrator",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "b8de11976adfc335a2c2981605a40a5e1062ea4a",
+      "latest_commit": "b8de11976adfc335a2c2981605a40a5e1062ea4a",
+      "fetched_at_utc": "2026-11-01T09:17:54.297153+00:00",
+      "changed": false
+    },
+    {
+      "path": "vendor/qcom/opensource/commonsys/wfd",
+      "name": "LineageOS/android_vendor_qcom_opensource_wfd-commonsys",
+      "old_name": "LineageOS/android_vendor_qcom_opensource_wfd-commonsys",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "d769796c81927806feb5efdd1a11a8ae0029da0e",
+      "latest_commit": "d769796c81927806feb5efdd1a11a8ae0029da0e",
+      "fetched_at_utc": "2026-11-01T09:17:54.361840+00:00",
+      "changed": false
+    },
+    {
+      "path": "lineage/charter",
+      "name": "LineageOS/charter",
+      "old_name": "LineageOS/charter",
+      "ref": "main",
+      "old_commit": "29a6394fe5d27a8b65f8409a47d74d865c5c9049",
+      "latest_commit": "29a6394fe5d27a8b65f8409a47d74d865c5c9049",
+      "fetched_at_utc": "2026-11-01T09:17:54.538503+00:00",
+      "changed": false
+    },
+    {
+      "path": "lineage/crowdin",
+      "name": "LineageOS/cm_crowdin",
+      "old_name": "LineageOS/cm_crowdin",
+      "ref": "main",
+      "old_commit": "ab74e67614e8e9381ea275b20d2b1c81b1c8c094",
+      "latest_commit": "ab74e67614e8e9381ea275b20d2b1c81b1c8c094",
+      "fetched_at_utc": "2026-11-01T09:17:54.636447+00:00",
+      "changed": false
+    },
+    {
+      "path": "lineage/contributors-cloud-generator",
+      "name": "LineageOS/contributors-cloud-generator",
+      "old_name": "LineageOS/contributors-cloud-generator",
+      "ref": "main",
+      "old_commit": "68b3aa8a899337047ef18b22baa91dea54d9bb18",
+      "latest_commit": "68b3aa8a899337047ef18b22baa91dea54d9bb18",
+      "fetched_at_utc": "2026-11-01T09:17:54.570497+00:00",
+      "changed": false
+    },
+    {
+      "path": "lineage/hudson",
+      "name": "LineageOS/hudson",
+      "old_name": "LineageOS/hudson",
+      "ref": "main",
+      "old_commit": "29cc89d93384b453bb74fa58b03a2ecce7948f57",
+      "latest_commit": "ae04feb4bb3bb481e4eeb57caf86f1a1f95fb6b7",
+      "fetched_at_utc": "2026-11-01T09:17:55.026499+00:00",
+      "changed": true
+    },
+    {
+      "path": "lineage/wiki",
+      "name": "LineageOS/lineage_wiki",
+      "old_name": "LineageOS/lineage_wiki",
+      "ref": "main",
+      "old_commit": "55880f7966ae7e7108c1a3dadfeb4c051426b139",
+      "latest_commit": "aa06ba20f9afdb979b035d1a0063e0bcb17cb020",
+      "fetched_at_utc": "2026-11-01T09:17:56.075282+00:00",
+      "changed": true
+    },
+    {
+      "path": "lineage/mirror",
+      "name": "LineageOS/mirror",
+      "old_name": "LineageOS/mirror",
+      "ref": "main",
+      "old_commit": "12559bd7ce42242ec78dcbde9a173145c0ac98ba",
+      "latest_commit": "7dd67c4c05f4f6cc14597cd0c4f8e6643cb2ee64",
+      "fetched_at_utc": "2026-11-01T09:17:55.016542+00:00",
+      "changed": true
+    },
+    {
+      "path": "lineage/scripts",
+      "name": "LineageOS/scripts",
+      "old_name": "LineageOS/scripts",
+      "ref": "main",
+      "old_commit": "c00c7f2435ffa2f3ec8147f0719ea97ea11d5c1b",
+      "latest_commit": "abe932a7a4848f2783d9385d816fc14221287944",
+      "fetched_at_utc": "2026-11-01T09:17:55.735791+00:00",
+      "changed": true
+    },
+    {
+      "path": "lineage/website",
+      "name": "LineageOS/www",
+      "old_name": "LineageOS/www",
+      "ref": "main",
+      "old_commit": "ca73ca067d4277d1b2cf36f4af387bb7d795b70c",
+      "latest_commit": "ca73ca067d4277d1b2cf36f4af387bb7d795b70c",
+      "fetched_at_utc": "2026-11-01T09:17:54.888537+00:00",
+      "changed": false
+    },
+    {
+      "path": "system/ca-certificates",
+      "name": "LineageOS/android_system_ca-certificates",
+      "old_name": "platform/system/ca-certificates",
+      "ref": "refs/heads/lineage-21.0",
+      "old_commit": "9f7645c732dcb980036ab9633c9c4cd7a8a04cad",
+      "latest_commit": "6859e934b3dc13568a7a1950a4d38264c415fd2f",
+      "fetched_at_utc": "2026-11-01T09:17:55.215936+00:00",
+      "changed": true
+    }
+  ],
+  "activated": true,
+  "activated_at_utc": "2026-11-01T09:18:42.949166+00:00"
+}

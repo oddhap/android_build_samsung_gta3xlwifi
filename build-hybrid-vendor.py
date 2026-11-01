@@ -80,9 +80,17 @@ try:
         if text.count(before) != 1: raise SystemExit(f'Unexpected stock property: {key}')
         text = text.replace(before, key + '=' + new + '\n')
     buildprop.write_text(text)
+    # Replace the stock Samsung USB state machine. It races Android's generic
+    # configfs actions and exposes a Samsung-only MTP character-device ABI.
+    usb = MOUNT/'etc/init/init.exynos7904.usb.rc'
+    expected_usb = '63f9119a81270ee2a6ce319d6d58e91fe9eccdfd4f1bbe2c2f7cdb2dde7922cf'
+    if sha(usb) != expected_usb:
+        raise SystemExit('Unexpected stock USB init script')
+    usb.write_text((Path(__file__).resolve().parent /
+                    'lineage-21/configs/init.exynos7904.usb.rc').read_text())
     current = contents(MOUNT)
     changed = {name: {'before': item, 'after': current.get(name)} for name,item in baseline.items() if current.get(name) != item}
-    if set(changed) != {'etc/public.libraries.txt', 'default.prop', 'build.prop'}: raise SystemExit(f'Unexpected stock mutations: {list(changed)}')
+    if set(changed) != {'etc/public.libraries.txt', 'default.prop', 'build.prop', 'etc/init/init.exynos7904.usb.rc'}: raise SystemExit(f'Unexpected stock mutations: {list(changed)}')
     added = {name: item for name,item in current.items() if name not in baseline}
     if set(added) != set(selected): raise SystemExit('Added files differ from audited selection')
     usage = shutil.disk_usage(MOUNT)

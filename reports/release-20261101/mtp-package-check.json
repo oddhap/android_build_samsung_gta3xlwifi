@@ -1,0 +1,8 @@
+{
+  "passed": true,
+  "signed_target_files_vendor_sha256": "a847a527931d61e5702b8a025210c84eb88a37ef1e60df93b6393a16dae9183a",
+  "usb_rc_sha256": "500d6fccbb990aad93a7de7fb4cf7e96d00702702bd021d18c9152d74e59ef1d",
+  "usb_source_matches_packaged_filesystem": true,
+  "init_verifier_passed": true,
+  "hardware_tested": false
+}

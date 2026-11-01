@@ -1,0 +1,16 @@
+{
+  "hardware_tested": false,
+  "original_kernel_preserved": true,
+  "vendor.img_input_verified": true,
+  "dtbo.img_input_verified": true,
+  "etc/init/init.gta3xlwifi.compat.rc_sha256": "2fcb0c10bb71a3b565f120208e4bbf2cc3d8ef2e96b8cf7de59528e224e08951",
+  "etc/permissions/permissions.gta3xlwifi.xml_sha256": "fafd80c63256fea19d93df4b6685f2f489c9a6b33b939486fcbcda611fc625df",
+  "unsupported_blkio_profiles_explicitly_skipped": true,
+  "exact_health_type_and_otg_online_labels_packaged": true,
+  "signed_settings_apk_sha256": "672590a1f30cde322af19ae5ded83f04edbe138eeed13bfadb66f74c6dfaa749",
+  "signed_teleservice_apk_sha256": "24ef43796d456ff152de2bc0c8b4892a50d76ff1e85d2d4f5f8d5ea8ec354a0a",
+  "telephony_application_disabled_and_nonpersistent_in_signed_apk": true,
+  "framework_jar_sha256": "cccc930b10e34f286813e7f8b80b8636761a289947315573c6e646ecd3eb38e5",
+  "framework_cpu_capability_guard_compiled": true,
+  "passed": true
+}

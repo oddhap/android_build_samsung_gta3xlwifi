@@ -11,6 +11,8 @@ DEVICE = ROOT/'src/lineage-21.0-arm64/device/samsung/gta3xlwifi'
 OUT = ROOT/'artifacts/lineage-21-arm64'
 parser = argparse.ArgumentParser()
 parser.add_argument('--kernel-image', type=Path, help='Override the artifact path; the locked SHA-256 still applies')
+parser.add_argument('--vendor-image', type=Path, help='Reviewed candidate sparse vendor image')
+parser.add_argument('--vendor-report', type=Path, help='Audit report for the selected vendor image')
 args = parser.parse_args()
 inputs = json.loads((Path(__file__).resolve().parent/'lineage-21/notes/source-inputs.lock.json').read_text())['inputs']
 def change(path, old, new):
@@ -74,8 +76,8 @@ for name, source, key in (('Image', kernel, 'kernel_sha256'),
     if hashlib.sha256(source.read_bytes()).hexdigest() != inputs[key]:
         raise SystemExit('Reviewed input checksum mismatch: '+str(source))
     shutil.copy2(source, prebuilt/name)
-report = json.loads((OUT/'vendor-image-report.json').read_text())
-vendor = OUT/'vendor-hybrid-arm64.img'
+report = json.loads((args.vendor_report or OUT/'vendor-image-report.json').read_text())
+vendor = args.vendor_image or OUT/'vendor-hybrid-arm64.img'
 if hashlib.sha256(vendor.read_bytes()).hexdigest() != report['sparse_sha256']:
     raise SystemExit('Hybrid vendor checksum differs from the inspected image')
 shutil.copy2(vendor, prebuilt/'vendor.img')

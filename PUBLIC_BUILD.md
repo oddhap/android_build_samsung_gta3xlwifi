@@ -35,7 +35,7 @@ e2fsprogs and Android sparse-image tools.
    `lineage-21/notes/arm64-donor-summary.json`. Put the resulting donor audit
    reports in `/srv/android/artifacts/lineage-21-arm64`, then run
    `sudo python3 build-hybrid-vendor.py`. It guards against existing output,
-   checks hashes/labels and preserves all but the three reviewed stock text files.
+   checks hashes/labels and preserves all but the four reviewed stock text files, including the USB init script.
 6. Prepare stock VINTF/metadata with the existing native-device staging tool;
    `stage-arm64-device.py` stages the exact reviewed Image, DTBO and hybrid vendor
    and retains the stock metadata. Its original-workstation recipe uses the

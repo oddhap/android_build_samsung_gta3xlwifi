@@ -1,0 +1,86 @@
+{
+  "date": "2026-11-01",
+  "device": "SM-T510 / gta3xlwifi",
+  "tested_base_build": "gta3xlwifi.arm64.20261015.191854",
+  "change": "vendor/etc/init/init.exynos7904.usb.rc replaced in place",
+  "rc_sha256": "500d6fccbb990aad93a7de7fb4cf7e96d00702702bd021d18c9152d74e59ef1d",
+  "host": "macOS, libmtp 1.1.23",
+  "android_usb_selection": "svc usb setFunctions mtp",
+  "storage_enumeration": true,
+  "mtp_with_adb": {
+    "upload_download_pass": true,
+    "bytes": 16777339,
+    "sha256": "ef466805b449d83a45eaf17fcd1353d8ec15f7e7d2ae9406df2d62c4171513d9",
+    "test_object_deleted": true
+  },
+  "mtp_without_adb": {
+    "upload_download_pass": true,
+    "bytes": 16777339,
+    "sha256": "ef466805b449d83a45eaf17fcd1353d8ec15f7e7d2ae9406df2d62c4171513d9",
+    "test_object_deleted": true
+  },
+  "adb_mtp_switch_cycles": [
+    {
+      "cycle": 1,
+      "requested": "charging/adb",
+      "properties": [
+        "adb",
+        "adb",
+        "Enforcing"
+      ]
+    },
+    {
+      "cycle": 1,
+      "requested": "mtp",
+      "properties": [
+        "mtp,adb",
+        "mtp,adb",
+        "Enforcing"
+      ]
+    },
+    {
+      "cycle": 2,
+      "requested": "charging/adb",
+      "properties": [
+        "adb",
+        "adb",
+        "Enforcing"
+      ]
+    },
+    {
+      "cycle": 2,
+      "requested": "mtp",
+      "properties": [
+        "mtp,adb",
+        "mtp,adb",
+        "Enforcing"
+      ]
+    }
+  ],
+  "reboot_persistence_verified": true,
+  "selinux": "Enforcing",
+  "encryption": "file-based, encrypted",
+  "kernel_changed": false,
+  "recovery_changed": false,
+  "system_product_changed": false,
+  "final_adb_debugging_enabled": true,
+  "final_adb_root": false,
+  "final_usb_config": "mtp,adb",
+  "full_rom_rebuilt_or_published": false,
+  "full_candidate_vendor_image_flashed": false,
+  "offline_checks": [
+    "Android14 host_init_verifier",
+    "isolated vendor file/owner/mode/xattr audit",
+    "e2fsck read-only",
+    "configurator hash refresh/idempotence/tamper rejection regression"
+  ],
+  "limitations": [
+    "Xubuntu/Thunar UI not tested directly; actual libmtp protocol upload/download tested on macOS.",
+    "Other USB functions including PTP, RNDIS, MIDI and accessory modes not physically regression tested."
+  ],
+  "test_harness_notes": [
+    "Initial upload attempt used an unenumerated root handle and was rejected; final tests enumerate storage and use the Download directory.",
+    "macOS USB access approval was needed during the first test.",
+    "Disabling ADB stopped the helper before automatic restoration; owner restored USB debugging and final state was verified."
+  ]
+}

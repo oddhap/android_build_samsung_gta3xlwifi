@@ -1,12 +1,17 @@
 #!/usr/bin/env python3
 """Retarget isolated verifiers to declared ARM64 inputs, preserving checks."""
+import argparse
 import json
 from pathlib import Path
 
 ROOT = Path('/srv/android')
 PORT = ROOT/'ports/lineage-21-arm64/lineage-21'
 OUT = ROOT/'artifacts/lineage-21-arm64'
-vendor_sha = json.loads((OUT/'vendor-image-report.json').read_text())['sparse_sha256']
+parser = argparse.ArgumentParser(description=__doc__)
+parser.add_argument('--vendor-report', type=Path, default=OUT/'vendor-image-report.json')
+args = parser.parse_args()
+vendor_sha = json.loads(args.vendor_report.read_text())['sparse_sha256']
+previous_vendor_sha = json.loads((PORT/'notes/source-inputs.lock.json').read_text())['inputs']['vendor_sha256']
 names = ('verify-port-package.py', 'verify-native-images.py', 'verify-native-layout.py',
          'verify-release.py', 'verify-usage-compat.py', 'check-native-vintf.py', 'check-stock-vendor-policy.py')
 for name in names:
@@ -23,6 +28,7 @@ for name in names:
     if name == 'verify-native-images.py':
         text = text.replace("'logs/lineage21-rom-build-final.exit'", "'logs/lineage-21-arm64/full-build.exit'")
         text = text.replace('4cc684231b4a1c355169cea61b4ea5196401bc5f68c7f74a32c1ec290abc0006', vendor_sha)
+        text = text.replace(previous_vendor_sha, vendor_sha)
         text = text.replace('verified stock image', 'reviewed hybrid vendor image')
     if name in ('verify-port-package.py', 'verify-native-layout.py'):
         text = text.replace("b'\\x7fELF\\x01'", "b'\\x7fELF\\x02'")
@@ -79,7 +85,7 @@ inputs = data['inputs']
 inputs['baseline_arm32_vendor_sha256'] = '4cc684231b4a1c355169cea61b4ea5196401bc5f68c7f74a32c1ec290abc0006'
 inputs['vendor_sha256'] = vendor_sha
 inputs['vendor_unchanged_from_stock'] = False
-inputs['hybrid_vendor_report'] = str(OUT/'vendor-image-report.json')
+inputs['hybrid_vendor_report'] = str(args.vendor_report)
 inputs['android14_hardware_tested'] = False
 if 'android14_tested_rom_sha256' in inputs:
     inputs['baseline_arm32_tested_rom_sha256'] = inputs.pop('android14_tested_rom_sha256')

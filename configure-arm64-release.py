@@ -1,12 +1,17 @@
 #!/usr/bin/env python3
 """Adapt isolated signing and OTA hooks; never generate or modify private keys."""
 import hashlib
+import json
 from pathlib import Path
 
 ROOT = Path('/srv/android')
 TOP = ROOT/'src/lineage-21.0-arm64'
 DEVICE = TOP/'device/samsung/gta3xlwifi'
 PORT = ROOT/'ports/lineage-21-arm64/lineage-21'
+previous_vendor_sha = json.loads((PORT/'notes/source-inputs.lock.json').read_text())['inputs']['vendor_sha256']
+reviewed_vendor_sha = json.loads((DEVICE/'prebuilt/provenance.json').read_text())['vendor_sha256']
+if hashlib.sha256((DEVICE/'prebuilt/vendor.img').read_bytes()).hexdigest() != reviewed_vendor_sha:
+    raise SystemExit('Staged vendor differs from its audited provenance')
 signer = PORT/'tools/sign-release.py'
 text = signer.read_text()
 text = text.replace("default=Path('/srv/android/src/lineage-21.0')", "default=Path('/srv/android/src/lineage-21.0-arm64')")
@@ -46,6 +51,14 @@ with zipfile.ZipFile(signed, 'a') as archive:
     if 'IMAGES/vendor.img' not in archive.namelist():
         archive.writestr(vendor_info, vendor_before)
 with zipfile.ZipFile(signed)''')
+# Retarget an already configured signer too; never leave the previous release's
+# literal checksum after staging a newly audited vendor image.
+if previous_vendor_sha != reviewed_vendor_sha:
+    old_guard = f"hashlib.sha256(vendor_before).hexdigest() != '{previous_vendor_sha}'"
+    new_guard = f"hashlib.sha256(vendor_before).hexdigest() != '{reviewed_vendor_sha}'"
+    if old_guard not in text and new_guard not in text:
+        raise SystemExit('Unexpected signer vendor guard')
+    text = text.replace(old_guard, new_guard)
 signer.write_text(text)
 
 hooks = DEVICE/'releasetools.py'
@@ -118,5 +131,11 @@ exit 0
     if text.count(old) != 1:
         raise SystemExit('Unexpected vendor preflight source')
     text = text.replace(old, new)
+if previous_vendor_sha != reviewed_vendor_sha:
+    old_guard = f'_VENDOR_SHA256 = "{previous_vendor_sha}"'
+    new_guard = f'_VENDOR_SHA256 = "{reviewed_vendor_sha}"'
+    if old_guard not in text and new_guard not in text:
+        raise SystemExit('Unexpected OTA vendor guard')
+    text = text.replace(old_guard, new_guard)
 hooks.write_text(text)
 print('Isolated signer requires existing keys; full/incremental OTA explicitly include vendor.')

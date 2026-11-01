@@ -42,7 +42,7 @@ with zipfile.ZipFile(args.target_files) as archive:
     old_boot = archive.read('BOOTABLE_IMAGES/boot.img')
     vendor_before = archive.read('IMAGES/vendor.img')
     vendor_info = archive.getinfo('IMAGES/vendor.img')
-    if hashlib.sha256(vendor_before).hexdigest() != '276777b5bde1dac2f31dbe9299c79e02c07486df6ff7b2ecad03cc722edee939':
+    if hashlib.sha256(vendor_before).hexdigest() != 'a847a527931d61e5702b8a025210c84eb88a37ef1e60df93b6393a16dae9183a':
         raise SystemExit('Unsigned vendor differs from the reviewed image')
     properties = dict(line.split('=', 1) for line in archive.read('SYSTEM/build.prop').decode().splitlines()
                       if '=' in line and not line.startswith('#'))

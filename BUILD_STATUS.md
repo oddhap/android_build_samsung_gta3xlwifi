@@ -1,6 +1,25 @@
+# Current ARM64 release — 1 November 2026
+
+Build `gta3xlwifi.arm64.20261101.092053`, Android14, framework SPL `2026-10-01`.
+ROM SHA-256: `2d2b10a1dcb7a045f28292cdd05ef0c912ff95cc52b9896dfed071b7e06eadf3`.
+
+All eleven offline checks, GApps capacity, real-vendor VINTF/runtime-policy
+linking and unchanged signing-key checks pass. MTP uses the exact USB rc
+physically tested on the October15 base. The complete new ROM has not been
+installed or hardware-regression tested. The runtime-mode policy link is not
+a claim that strict cross-version neverallow validation passes.
+
+[Validation](reports/release-20261101/validation-summary.json).
+[Release](https://github.com/oddhap/android_build_samsung_gta3xlwifi/releases/tag/lineage-21.0-arm64-20261101).
+
+The historical results below apply to the dated older builds, not to new-ROM
+hardware validation.
+
+---
+
 # SM-T510: LineageOS 21 ARM64 med ARM64 TWRP og GApps-støtte
 
-Gjeldende build er `gta3xlwifi.arm64.20261015.191854`, SPL `2026-10-01`.
+Historical October build: `gta3xlwifi.arm64.20261015.191854`, SPL `2026-10-01`.
 ROM SHA256: `f4505aef35f10de09c629dfb6cdfffd219e5a01bf7b67c5b5bf7a6a0ad093781`.
 Native ARM64 TWRP SHA256:
 `10c2c2ee77ee593ace840a12fb90145809e4521942b681bcee6e9c3b364370ed`.
