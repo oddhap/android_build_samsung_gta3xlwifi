@@ -1,0 +1,85 @@
+{
+  "module_build_exit": 0,
+  "source_audit_passed": true,
+  "selected_linked_elfs": [
+    {
+      "path": "system/lib/libaudiohal@4.0.so",
+      "sha256": "228e92e67960cd7e31a5efa0b80cd671ec96ded3cc43ed3de5b206e1b95065aa",
+      "bytes": 163220,
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "system/lib64/libaudiohal@4.0.so",
+      "sha256": "1b41b6fee0ea6cee28b458dd8efb6bc1c7bfb634362ebf4b16267c9cd0fd824c",
+      "bytes": 229880,
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "system/lib/libprocessgroup.so",
+      "sha256": "3c14ed16129789dc159abe78c34144c752c11ac61a037e94d146eaaafb47c3ab",
+      "bytes": 258496,
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "system/lib64/libprocessgroup.so",
+      "sha256": "9ee5b315009c6916a933fe592cab79697055535f8740a83314a9c69dca77e982",
+      "bytes": 367320,
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "system/lib/libmeminfo.so",
+      "sha256": "3cb96495181e9f65a20480911f7de15326216642328a0e69e006c711f3479a3f",
+      "bytes": 122988,
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "system/lib64/libmeminfo.so",
+      "sha256": "537e44b054119ad3282b63493b019144e3ec5078f480636ed2d5a77655e12bde",
+      "bytes": 161880,
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "system/lib/libfs_mgr.so",
+      "sha256": "4b9975354358744569b531d49ad9e72d97a4120ac69eea227219b9114ef840e3",
+      "bytes": 472844,
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "system/lib64/libfs_mgr.so",
+      "sha256": "0e13aec42c707dfe6feddec2a1e8e761e7e2fb7711561f242e30879d9b7cad14",
+      "bytes": 614904,
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "system/bin/gpuservice",
+      "sha256": "6bd87c3202e84b099cad63531d6e51c044549db4e1c2a9f859ec8c50c7bd18cc",
+      "bytes": 2141792,
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "apex/com.android.runtime/lib/bionic/libc.so",
+      "sha256": "750a2a60736cff7b8b3b2e7c700046bf3323841039f4190ad27ff5070577f916",
+      "bytes": 1034892,
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "apex/com.android.runtime/lib64/bionic/libc.so",
+      "sha256": "d2f33ac9ede4fc850945bb0509e3afeeeae875bcce3be7140f5d54ee064c5f6f",
+      "bytes": 1279240,
+      "elf_class": 2,
+      "machine": 183
+    }
+  ],
+  "scope": "Build/link evidence only, not Android execution, complete ABI or HAL functionality",
+  "hardware_tested": false
+}

@@ -5,7 +5,7 @@ set -eo pipefail
 port=/srv/android/ports/lineage-24.0-arm64
 logs=/srv/android/logs/lineage-24.0-arm64
 artifacts=/srv/android/artifacts/lineage-24.0-arm64
-snapshot="$port/lineage-24.0/snapshots/port-20261101-02"
+snapshot="$port/lineage-24.0/snapshots/port-20261101-04"
 label=${1:?Usage: build-bringup.sh NEW_LABEL [MODULE ...]}
 shift
 [[ $label =~ ^[a-zA-Z0-9_-]+$ ]] || exit 2

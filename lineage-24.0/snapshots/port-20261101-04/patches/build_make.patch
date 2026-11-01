@@ -1,0 +1,12 @@
+diff --git a/core/config.mk b/core/config.mk
+index b7f07af034b39d1b7a22510038526ac5057a0919..59dc01b5e26c4978236b6cf214382f5ca84c638c 100644
+--- a/core/config.mk
++++ b/core/config.mk
+@@ -915,6 +915,7 @@ BOARD_SEPOLICY_VERS := $(PLATFORM_SEPOLICY_VERSION)
+ 
+ # A list of SEPolicy versions, besides PLATFORM_SEPOLICY_VERSION, that the framework supports.
+ PLATFORM_SEPOLICY_COMPAT_VERSIONS := \
++    $(if $(filter gta3xlwifi,$(TARGET_DEVICE)),30.0) \
+     31.0 \
+     32.0 \
+     33.0 \

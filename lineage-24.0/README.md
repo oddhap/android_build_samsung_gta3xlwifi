@@ -10,15 +10,16 @@ The official `aosp_current` release alias resolves to `cp2a` in the inspected
 build/release revision `c85f4aebe46714235599a9bd6430a0fe30c6e8d5`.
 Use the alias in a fresh build shell rather than the old `bp4a` target.
 
-The active 23.2 snapshot's 13 patches were rebased to 14 project changes:
-`fs_mgr` now lives in `system/fs/fs_mgr`, libmeminfo includes changed, cgroup v2
-app/system isolation is unconditional, and task-profile load ordering changed.
-Device changes are committed separately on `lineage-24.0-arm64`; the remaining
-13 patches are revision/hash locked in `snapshots/port-20261101-02/source-lock.json`.
-Snapshot 01 records the initial partial-file preflight. Active snapshot 02 now
-has a complete source audit: 1,243 locked projects, 13 exact platform patches,
-no external alternates. Product configuration passes for Android 17, LineageOS
-24.0, ARM64/ARM32 and build ID CP2A.260605.016. This is not a full ROM build.
+The initial 23.2 port patches compiled successfully on Android 17 in
+`native-policy-20261101-01` (exit 0, followed by full source audit). Selected
+ARM/ARM64 ELF outputs are recorded in the reports; this is build/link evidence.
+
+Active snapshot **port-20261101-04** locks 1,243 projects and **15 exact patches**.
+It adds a source backport of policy 30.0 compatibility data and generator modules,
+with the frozen API30 source copied verbatim from the pinned prior platform.
+The framework advertises 30.0 only for gta3xlwifi. Device inputs are separately
+pinned by commit. Dedicated compatibility compilation is currently pending;
+strict actual-vendor policy is not approved and this is not a full ROM build.
 
 The cgroup port retains cpuacct v1 process groups, mounts real supported v1
 controllers, skips v2 subtrees only for this product, loads product profiles last,
@@ -96,3 +97,26 @@ It does not package or sign a ROM or contact the tablet. The first attempt is
 `native-policy-20261101-01`; inspect its log/exit and report before further work.
 Do not modify sources until the build has stopped. Platform-policy compilation
 alone does not establish strict compatibility with actual Samsung vendor policy.
+
+## Actual-vendor checks and policy30 source backport
+
+`vendor-metadata-20261101-01` built checkvintf, manifests and matrices successfully.
+The extracted MTP vendor image is hash-verified in sparse and raw form. The
+initial actual-vendor VINTF check fails: policy30 was dropped from the platform,
+and five legacy HAL instances no longer appear in current framework matrices.
+No requirements were removed and no artificial activated-APEX inventory was made.
+
+An isolated 30.0 mapping composition reaches strict policy checking but fails
+with 407 neverallow diagnostics. See experiments/policy30-20261101 for exact
+inputs, repro tool and limits. The ensuing source backport restores 413 exact
+reference files, adapts existing 31.0 generator modules for 30.0 and selects the
+real map modules in the device product. No current allow/neverallow rule is
+edited. Snapshot03 was an incomplete capture stopped by frozen-file EOF style;
+snapshot04 preserves the original bytes and complete hash audit. Security checks
+and exact source comparisons are unchanged.
+
+`policy30-build-20261101-01` compiles the maps and upstream compatibility tests.
+The upstream structural compatibility test is distinct from the strict actual-
+vendor neverallow probe; success there cannot approve Samsung policy or boot.
+Legacy HAL metadata restoration, strict conflict resolution, full networking,
+kernel policycaps and Android execution remain outstanding.

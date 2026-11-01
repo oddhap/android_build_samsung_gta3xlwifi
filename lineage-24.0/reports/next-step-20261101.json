@@ -1,0 +1,45 @@
+{
+  "native_build": {
+    "label": "native-policy-20261101-01",
+    "exit": 0,
+    "frontend_duration": "36:06",
+    "ninja_steps_completed": 24516,
+    "post_source_audit": "PASS 1243/13",
+    "linked_selected_elfs": 11,
+    "android_execution_tested": false
+  },
+  "metadata_build": {
+    "label": "vendor-metadata-20261101-01",
+    "exit": 0,
+    "ninja_steps_completed": 2167,
+    "post_source_audit": "PASS 1243/13"
+  },
+  "initial_actual_vendor_vintf": {
+    "exit": 65,
+    "sepolicy30_missing": true,
+    "legacy_hal_instances_missing": [
+      "android.hardware.dumpstate@1.1::IDumpstateDevice/default",
+      "android.hardware.health@2.1::IHealth/default",
+      "android.hardware.power.IPower/default (@1)",
+      "android.hardware.wifi.hostapd@1.2::IHostapd/default",
+      "android.hardware.wifi.supplicant@1.3::ISupplicant/default"
+    ],
+    "full_post_apex_inventory_validated": false
+  },
+  "isolated_policy30_probe": {
+    "strict_exit": 255,
+    "neverallow_diagnostics": 407,
+    "installed_by_probe": false
+  },
+  "source_backport": {
+    "snapshot": "port-20261101-04",
+    "source_audit": "PASS 1243/15",
+    "reference_files_byte_exact": 413,
+    "device_commit": "236957f",
+    "current_platform_allow_neverallow_modified": false,
+    "compatibility_build_label": "policy30-build-20261101-01",
+    "compatibility_build_exit": null
+  },
+  "validator_cli_fixture_tests": 13,
+  "flash_ready": false
+}

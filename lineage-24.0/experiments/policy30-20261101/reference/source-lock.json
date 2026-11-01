@@ -1,0 +1,14 @@
+{
+  "repository": "https://github.com/LineageOS/android_system_sepolicy",
+  "revision": "885cc500f6078a766d1f6def5ce4c06c55841773",
+  "files": {
+    "30.0.compat.cil": {
+      "upstream_path": "private/compat/30.0/30.0.compat.cil",
+      "sha256": "2b40198379e1bb65ca2af156b25562381273144d94c5ae223b5ed9905d7437cc"
+    },
+    "30.0.cil": {
+      "upstream_path": "private/compat/30.0/30.0.cil",
+      "sha256": "37483953b960c5b4cfe7e432a50c18c5afdce6ab6c5d1490c76ed251930e43db"
+    }
+  }
+}
