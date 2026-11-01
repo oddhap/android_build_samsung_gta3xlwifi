@@ -3,6 +3,7 @@
 # Launch from the Mac project checkout. Uploads setup code only, not keys.
 set -euo pipefail
 payload=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
+integration=$(cd -- "$payload/.." && pwd)
 key="/Users/oddi/Documents/Samsung-ARM64/.private/build_ed25519"
 remote=builder@192.168.0.124
 port=/srv/android/ports/lineage-24.0-arm64
@@ -11,7 +12,7 @@ ssh_opts=(-i "$key" -o BatchMode=yes -o ConnectTimeout=10)
 [[ -r $key ]] || { printf 'SSH key is unavailable.\n' >&2; exit 1; }
 ssh "${ssh_opts[@]}" "$remote" "mkdir -p $remote_payload /srv/android/logs/lineage-24.0-arm64"
 scp "${ssh_opts[@]}" "$payload/setup.sh" "$payload/audit.py" "$payload/gta3xlwifi.xml" "$payload/legacy-vndk.xml" "$payload/port-revisions.xml" "$remote:$remote_payload/"
-scp -r "${ssh_opts[@]}" "$payload/.." "$remote:$port/"
+scp -r "${ssh_opts[@]}" "$integration" "$remote:$port/"
 ssh "${ssh_opts[@]}" "$remote" "bash -s -- $remote_payload" <<'REMOTE'
 set -euo pipefail
 payload=$1
