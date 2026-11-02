@@ -55,3 +55,16 @@ python3 tools/test-netlink-xperm24.py --kernel CANDIDATE \
 Strict actual-vendor policy still fails independently. Complete networking,
 HAL/APEX/zygote/FBE/recovery/OTA and rollback validation remain outstanding.
 No original image, LineageOS 21, TWRP, signing material or tablet data is changed.
+
+## Corrected Samsung enforcement fixture — November 2
+
+The first host report used a fixture constant `AVD_FLAGS_PERMISSIVE=1` even in
+the ALWAYS_ENFORCE configuration. The actual Samsung header defines it as zero
+under that configuration. This was a test-fidelity error, not a kernel change.
+The original report is retained as historical evidence and superseded by
+`host-helper-report-corrected.json`. The test now compiles the actual conditional
+header definition and binds the runner's own digest. Both configurations pass
+again with the same scenario counts. In ALWAYS_ENFORCE, per-domain permissive
+flags do not bypass denial. The candidate source hashes and load guard are
+unchanged; no Image, Android source or prebuilt was altered. Other host-fixture
+and missing runtime/reload/full-kernel limits above still apply.

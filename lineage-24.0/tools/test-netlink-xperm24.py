@@ -43,6 +43,10 @@ def main():
     definitions += sec[sec.index('struct extended_perms {'):sec.index('struct extended_perms {') +
                        sec[sec.index('struct extended_perms {'):].index('\n};') + 3]
     definitions += '\n' + avtab[avtab.index('struct avtab_key {'):avtab.index('struct avtab {')]
+    # Samsung intentionally makes per-domain permissive flags ineffective in
+    # ALWAYS_ENFORCE builds. Compile the actual conditional header definition.
+    definitions += '\n' + sec[sec.index('/* definitions of av_decision.flags */'):
+                               sec.index('void security_compute_av(')]
     parts = [r'''
 #include <assert.h>
 #include <stdint.h>
@@ -94,7 +98,6 @@ struct avc_xperms_node { struct extended_perms xp; struct list_head xpd_head; };
 #define AVC_EXTENDED_PERMS 2
 #define AVC_CALLBACK_GRANT 1
 #define AVC_CALLBACK_ADD_XPERMS 2
-#define AVD_FLAGS_PERMISSIVE 1
 struct av_decision { u32 allowed,auditallow,auditdeny,seqno,flags; };
 struct common_audit_data { int fixture; };
 struct avc_node { struct { struct av_decision avd; struct avc_xperms_node *xp_node; } ae; };
@@ -277,7 +280,8 @@ int main(void) {
                 selinux_enforcing=enforcing;
                 fixture_node.ae.avd.flags=permissive ? AVD_FLAGS_PERMISSIVE:0;
                 rc=avc_has_extended_perms(10,20,42,1,fixture_driver,base,fixture_perm,NULL);
-                int deny=!allow && !permissive;
+                int domain_permissive=(fixture_node.ae.avd.flags & AVD_FLAGS_PERMISSIVE)!=0;
+                int deny=!allow && !domain_permissive;
 #ifndef CONFIG_ALWAYS_ENFORCE
                 deny=deny && enforcing;
 #endif
@@ -317,6 +321,8 @@ int main(void) {
             results.append({'config':config, 'stdout':result.stdout.strip()})
         report = {'passed': True, 'scope': 'Extracted helpers with a sequential list fixture; not whole kernel or live enforcement',
                   'hardware_tested': False, 'policy_load_guard_removed': False,
+                  'test_runner_sha256': hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
+                  'AVD_FLAGS_PERMISSIVE_from_actual_conditional_header': True,
                   'results': results, 'sanitizers': ['address', 'undefined'],
                   'inputs': {str(t/f):hashlib.sha256((t/f).read_bytes()).hexdigest()
                              for t in trees for f in FILES if (t/f).exists()}}
