@@ -1,0 +1,12 @@
+{
+  "diagnostics": 322,
+  "sources": {
+    "legacy-vendor": 1,
+    "legacy-public": 91,
+    "current-platform": 230
+  },
+  "compared_userdebug_diagnostics": 407,
+  "variant_delta_is_not_a_security_fix": true,
+  "strict_passed": false,
+  "note": "Legacy public assertions can conflict with intentional new framework behavior; all assertions remain enabled and preserved. Current-platform and vendor conflicts also require review."
+}

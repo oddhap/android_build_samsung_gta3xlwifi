@@ -29,6 +29,30 @@ checks are separate from Android execution. Optional GPU BPF accounting still
 reports unavailable, rather than invented counters. Existing safety/installer
 and strict SELinux checks remain enforced.
 
+## Current build status — November 2
+
+`policy-user-maps-20261102-01` completed exit 0 with a full 1,243-project /
+15-patch after-audit. The actual production/vendor strict check fails with 322
+diagnostic blocks: 91 legacy-public, one legacy-vendor and 230 current-platform
+assertions. All assertions remain present and enabled. The userdebug/user delta
+is not a security fix. See [production evidence](reports/production-policy-20261102/).
+
+`full-targetfiles-20261102-01` actually started at **19:06:12 UTC** and is running
+`target-files-package otatools`. Source audit and binary input checks passed
+before compilation. This is a diagnostic full build using the preserved kernel;
+no kernel/network experiment is promoted and no installation is approved.
+Inspect its current process, log and exit file before starting another build or
+editing TOP. The earlier November1 full-build label was never started.
+
+`tools/check-target-files.py` is prepared for the completed archive and its
+source after-audit. It checks selected ZIP entries, source-manifest binding,
+physical image geometry through the source-bound AOSP sparse parser, reviewed
+vendor/DTBO/kernel digests, Samsung headers/trailers and selected multilib ELFs.
+It has passed syntax/CLI smoke checks only; actual Android17 artifact execution
+is pending full-build completion. It reports neither whole-archive CRC nor
+filesystem/security/installer/runtime/flash approval. Installer Android14 guards
+remain unchanged pending a separately verified Android17 recovery/FBE design.
+
 ## Workspace and server
 
 Local workspace: `/Users/oddi/Documents/Samsung-Lineage24`.
