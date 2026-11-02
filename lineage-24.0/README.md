@@ -152,3 +152,23 @@ and full-build logs/exit files; a queued continuation is not a started full buil
 The [guarded netlink candidate](experiments/kernel-netlink-20261101-01/) has exact
 partial-tree provenance and sanitized host helper/AVC fixture checks. It remains
 isolated, with capability9 rejected by the policy loader, and no new kernel Image.
+
+## November 2: production-policy result and corrected continuation
+
+The original production-policy build completed exit 0 (18m11s) with the full
+1,243-project/15-patch after-audit. Its continuation stopped before starting any
+full build: `selinux_policy` did not install the selected policy30 map modules in
+the isolated output, and the actual-vendor checker correctly rejected the missing
+input. `full-targetfiles-20261101-01` was never started.
+
+`build-user-policy-maps.sh policy-user-maps-20261102-01` explicitly builds the
+five map modules plus policy in that unchanged, audited production output. A new
+`continue-diagnostic-build-20261102-01.sh` waits for its success, checks the actual
+production/vendor combination, then starts `full-targetfiles-20261102-01`. The
+continuation now also records its own exit. All original results are retained.
+
+The [UWB namespace experiment](experiments/vendor-uwb-namespace-20261101-01/) was
+rechecked against the actual Android 17 userdebug policy: 407 to 405 strict
+diagnostic blocks, exactly two removed and none added. Only vendor CIL changes
+among the ordered policy inputs. This remains an isolated metadata candidate,
+with no runtime/effective-permission or image integration approval.

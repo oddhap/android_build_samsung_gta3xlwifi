@@ -1,0 +1,1267 @@
+{
+  "diagnostic_blocks": 407,
+  "neverallow_sources": {
+    "actual-vendor": 178,
+    "current-platform": 229
+  },
+  "allow_locations": [
+    {
+      "location": "system/sepolicy/private/overlay_remounter.te:10",
+      "diagnostic_occurrences": 74
+    },
+    {
+      "location": "actual-vendor:5759",
+      "diagnostic_occurrences": 33
+    },
+    {
+      "location": "actual-vendor:7543",
+      "diagnostic_occurrences": 21
+    },
+    {
+      "location": "actual-vendor:9789",
+      "diagnostic_occurrences": 21
+    },
+    {
+      "location": "actual-vendor:4909",
+      "diagnostic_occurrences": 20
+    },
+    {
+      "location": "system/sepolicy/private/llkd.te:22",
+      "diagnostic_occurrences": 14
+    },
+    {
+      "location": "actual-vendor:9322",
+      "diagnostic_occurrences": 10
+    },
+    {
+      "location": "actual-vendor:5595",
+      "diagnostic_occurrences": 10
+    },
+    {
+      "location": "system/sepolicy/private/domain.te:35",
+      "diagnostic_occurrences": 8
+    },
+    {
+      "location": "system/sepolicy/private/domain.te:503",
+      "diagnostic_occurrences": 8
+    },
+    {
+      "location": "system/sepolicy/private/su.te:1",
+      "diagnostic_occurrences": 7
+    },
+    {
+      "location": "actual-vendor:7544",
+      "diagnostic_occurrences": 7
+    },
+    {
+      "location": "actual-vendor:9790",
+      "diagnostic_occurrences": 7
+    },
+    {
+      "location": "system/sepolicy/private/domain.te:607",
+      "diagnostic_occurrences": 6
+    },
+    {
+      "location": "system/sepolicy/private/app.te:123",
+      "diagnostic_occurrences": 6
+    },
+    {
+      "location": "system/sepolicy/private/dexopt_chroot_setup.te:82",
+      "diagnostic_occurrences": 5
+    },
+    {
+      "location": "actual-vendor:4218",
+      "diagnostic_occurrences": 5
+    },
+    {
+      "location": "actual-vendor:4216",
+      "diagnostic_occurrences": 5
+    },
+    {
+      "location": "actual-vendor:4217",
+      "diagnostic_occurrences": 5
+    },
+    {
+      "location": "actual-vendor:6736",
+      "diagnostic_occurrences": 5
+    },
+    {
+      "location": "actual-vendor:7898",
+      "diagnostic_occurrences": 4
+    },
+    {
+      "location": "actual-vendor:7962",
+      "diagnostic_occurrences": 4
+    },
+    {
+      "location": "actual-vendor:9775",
+      "diagnostic_occurrences": 4
+    },
+    {
+      "location": "actual-vendor:4219",
+      "diagnostic_occurrences": 4
+    },
+    {
+      "location": "actual-vendor:4133",
+      "diagnostic_occurrences": 4
+    },
+    {
+      "location": "actual-vendor:4134",
+      "diagnostic_occurrences": 4
+    },
+    {
+      "location": "actual-vendor:4131",
+      "diagnostic_occurrences": 4
+    },
+    {
+      "location": "actual-vendor:4132",
+      "diagnostic_occurrences": 4
+    },
+    {
+      "location": "actual-vendor:4904",
+      "diagnostic_occurrences": 4
+    },
+    {
+      "location": "system/sepolicy/private/hal_codec2.te:10",
+      "diagnostic_occurrences": 3
+    },
+    {
+      "location": "system/sepolicy/private/domain.te:576",
+      "diagnostic_occurrences": 3
+    },
+    {
+      "location": "system/sepolicy/private/init_dev_config.te:6",
+      "diagnostic_occurrences": 3
+    },
+    {
+      "location": "actual-vendor:4804",
+      "diagnostic_occurrences": 3
+    },
+    {
+      "location": "actual-vendor:6311",
+      "diagnostic_occurrences": 3
+    },
+    {
+      "location": "actual-vendor:7196",
+      "diagnostic_occurrences": 3
+    },
+    {
+      "location": "actual-vendor:16097",
+      "diagnostic_occurrences": 3
+    },
+    {
+      "location": "actual-vendor:14770",
+      "diagnostic_occurrences": 3
+    },
+    {
+      "location": "system/sepolicy/public/property.te:134",
+      "diagnostic_occurrences": 3
+    },
+    {
+      "location": "system/sepolicy/public/property.te:138",
+      "diagnostic_occurrences": 3
+    },
+    {
+      "location": "system/sepolicy/public/property.te:182",
+      "diagnostic_occurrences": 3
+    },
+    {
+      "location": "system/sepolicy/private/uncrypt.te:10",
+      "diagnostic_occurrences": 3
+    },
+    {
+      "location": "system/sepolicy/private/artd.te:99",
+      "diagnostic_occurrences": 3
+    },
+    {
+      "location": "actual-vendor:8010",
+      "diagnostic_occurrences": 3
+    },
+    {
+      "location": "actual-vendor:7506",
+      "diagnostic_occurrences": 3
+    },
+    {
+      "location": "actual-vendor:4711",
+      "diagnostic_occurrences": 3
+    },
+    {
+      "location": "actual-vendor:7362",
+      "diagnostic_occurrences": 3
+    },
+    {
+      "location": "actual-vendor:4707",
+      "diagnostic_occurrences": 3
+    },
+    {
+      "location": "actual-vendor:7358",
+      "diagnostic_occurrences": 3
+    },
+    {
+      "location": "actual-vendor:7910",
+      "diagnostic_occurrences": 3
+    },
+    {
+      "location": "actual-vendor:7967",
+      "diagnostic_occurrences": 3
+    },
+    {
+      "location": "actual-vendor:7961",
+      "diagnostic_occurrences": 3
+    },
+    {
+      "location": "actual-vendor:7560",
+      "diagnostic_occurrences": 3
+    },
+    {
+      "location": "actual-vendor:6735",
+      "diagnostic_occurrences": 3
+    },
+    {
+      "location": "system/sepolicy/private/apexd.te:145",
+      "diagnostic_occurrences": 2
+    },
+    {
+      "location": "system/sepolicy/private/shell.te:172",
+      "diagnostic_occurrences": 2
+    },
+    {
+      "location": "system/sepolicy/private/hal_audio.te:43",
+      "diagnostic_occurrences": 2
+    },
+    {
+      "location": "system/sepolicy/private/crash_dump.te:21",
+      "diagnostic_occurrences": 2
+    },
+    {
+      "location": "system/sepolicy/private/init.te:417",
+      "diagnostic_occurrences": 2
+    },
+    {
+      "location": "system/sepolicy/private/init.te:49",
+      "diagnostic_occurrences": 2
+    },
+    {
+      "location": "system/sepolicy/private/hal_audio.te:6",
+      "diagnostic_occurrences": 2
+    },
+    {
+      "location": "system/sepolicy/private/hal_audiocontrol.te:6",
+      "diagnostic_occurrences": 2
+    },
+    {
+      "location": "system/sepolicy/private/hal_authsecret.te:5",
+      "diagnostic_occurrences": 2
+    },
+    {
+      "location": "system/sepolicy/private/hal_bluetooth.te:7",
+      "diagnostic_occurrences": 2
+    },
+    {
+      "location": "system/sepolicy/private/fsck.te:26",
+      "diagnostic_occurrences": 2
+    },
+    {
+      "location": "system/sepolicy/private/file.te:234",
+      "diagnostic_occurrences": 2
+    },
+    {
+      "location": "actual-vendor:6018",
+      "diagnostic_occurrences": 2
+    },
+    {
+      "location": "system/sepolicy/private/artd.te:100",
+      "diagnostic_occurrences": 2
+    },
+    {
+      "location": "system/sepolicy/private/crosvm.te:88",
+      "diagnostic_occurrences": 2
+    },
+    {
+      "location": "system/sepolicy/private/virtualizationmanager.te:136",
+      "diagnostic_occurrences": 2
+    },
+    {
+      "location": "system/sepolicy/private/init_dev_config.te:2",
+      "diagnostic_occurrences": 2
+    },
+    {
+      "location": "system/sepolicy/private/crosvm.te:54",
+      "diagnostic_occurrences": 2
+    },
+    {
+      "location": "actual-vendor:7930",
+      "diagnostic_occurrences": 2
+    },
+    {
+      "location": "actual-vendor:7971",
+      "diagnostic_occurrences": 2
+    },
+    {
+      "location": "actual-vendor:7892",
+      "diagnostic_occurrences": 2
+    },
+    {
+      "location": "actual-vendor:7896",
+      "diagnostic_occurrences": 2
+    },
+    {
+      "location": "actual-vendor:7932",
+      "diagnostic_occurrences": 2
+    },
+    {
+      "location": "actual-vendor:7973",
+      "diagnostic_occurrences": 2
+    },
+    {
+      "location": "actual-vendor:7960",
+      "diagnostic_occurrences": 2
+    },
+    {
+      "location": "actual-vendor:7964",
+      "diagnostic_occurrences": 2
+    },
+    {
+      "location": "actual-vendor:6626",
+      "diagnostic_occurrences": 2
+    },
+    {
+      "location": "actual-vendor:6640",
+      "diagnostic_occurrences": 2
+    },
+    {
+      "location": "actual-vendor:6625",
+      "diagnostic_occurrences": 2
+    },
+    {
+      "location": "actual-vendor:6639",
+      "diagnostic_occurrences": 2
+    },
+    {
+      "location": "actual-vendor:10328",
+      "diagnostic_occurrences": 2
+    },
+    {
+      "location": "system/sepolicy/private/app.te:190",
+      "diagnostic_occurrences": 2
+    },
+    {
+      "location": "system/sepolicy/private/shell.te:262",
+      "diagnostic_occurrences": 2
+    },
+    {
+      "location": "actual-vendor:7414",
+      "diagnostic_occurrences": 2
+    },
+    {
+      "location": "actual-vendor:12484",
+      "diagnostic_occurrences": 2
+    },
+    {
+      "location": "system/sepolicy/private/kernel.te:177",
+      "diagnostic_occurrences": 2
+    },
+    {
+      "location": "system/sepolicy/private/system_server.te:153",
+      "diagnostic_occurrences": 2
+    },
+    {
+      "location": "system/sepolicy/private/apexd.te:222",
+      "diagnostic_occurrences": 2
+    },
+    {
+      "location": "system/sepolicy/private/incidentd.te:192",
+      "diagnostic_occurrences": 2
+    },
+    {
+      "location": "system/sepolicy/private/network_stack.te:60",
+      "diagnostic_occurrences": 2
+    },
+    {
+      "location": "system/sepolicy/private/priv_app_all.te:87",
+      "diagnostic_occurrences": 2
+    },
+    {
+      "location": "system/sepolicy/private/isolated_app_all.te:37",
+      "diagnostic_occurrences": 2
+    },
+    {
+      "location": "system/sepolicy/private/pcc_component.te:278",
+      "diagnostic_occurrences": 2
+    },
+    {
+      "location": "system/sepolicy/private/priv_app_all.te:88",
+      "diagnostic_occurrences": 2
+    },
+    {
+      "location": "system/sepolicy/private/simpleperf.te:51",
+      "diagnostic_occurrences": 2
+    },
+    {
+      "location": "system/sepolicy/private/nfc.te:41",
+      "diagnostic_occurrences": 2
+    },
+    {
+      "location": "actual-vendor:8516",
+      "diagnostic_occurrences": 2
+    },
+    {
+      "location": "actual-vendor:4186",
+      "diagnostic_occurrences": 2
+    },
+    {
+      "location": "actual-vendor:8408",
+      "diagnostic_occurrences": 2
+    },
+    {
+      "location": "actual-vendor:9069",
+      "diagnostic_occurrences": 2
+    },
+    {
+      "location": "actual-vendor:4220",
+      "diagnostic_occurrences": 2
+    },
+    {
+      "location": "actual-vendor:4221",
+      "diagnostic_occurrences": 2
+    },
+    {
+      "location": "actual-vendor:7968",
+      "diagnostic_occurrences": 2
+    },
+    {
+      "location": "actual-vendor:8876",
+      "diagnostic_occurrences": 2
+    },
+    {
+      "location": "actual-vendor:9896",
+      "diagnostic_occurrences": 2
+    },
+    {
+      "location": "actual-vendor:7507",
+      "diagnostic_occurrences": 2
+    },
+    {
+      "location": "actual-vendor:4813",
+      "diagnostic_occurrences": 2
+    },
+    {
+      "location": "actual-vendor:4906",
+      "diagnostic_occurrences": 2
+    },
+    {
+      "location": "actual-vendor:4918",
+      "diagnostic_occurrences": 2
+    },
+    {
+      "location": "actual-vendor:4896",
+      "diagnostic_occurrences": 2
+    },
+    {
+      "location": "actual-vendor:8414",
+      "diagnostic_occurrences": 2
+    },
+    {
+      "location": "system/sepolicy/private/hal_health.te:33",
+      "diagnostic_occurrences": 2
+    },
+    {
+      "location": "actual-vendor:5596",
+      "diagnostic_occurrences": 2
+    },
+    {
+      "location": "actual-vendor:7722",
+      "diagnostic_occurrences": 2
+    },
+    {
+      "location": "actual-vendor:7723",
+      "diagnostic_occurrences": 2
+    },
+    {
+      "location": "actual-vendor:9769",
+      "diagnostic_occurrences": 2
+    },
+    {
+      "location": "system/sepolicy/private/system_server.te:1076",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "system/sepolicy/private/vold.te:56",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "system/sepolicy/private/vold.te:63",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "system/sepolicy/private/gsid.te:14",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "system/sepolicy/private/apexd.te:144",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "system/sepolicy/private/adbd_common.te:20",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "system/sepolicy/private/charger_type.te:4",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "system/sepolicy/private/charger_type.te:7",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "system/sepolicy/private/domain.te:538",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "system/sepolicy/private/charger_type.te:3",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "system/sepolicy/private/hal_power.te:12",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "system/sepolicy/private/init_dev_config.te:5",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "actual-vendor:8856",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "system/sepolicy/private/bpfdomain.te:29",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "system/sepolicy/private/domain.te:493",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "system/sepolicy/private/domain.te:492",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "system/sepolicy/private/domain.te:393",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "system/sepolicy/private/mediatranscoding.te:16",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "system/sepolicy/private/mediametrics.te:14",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "system/sepolicy/private/mediaextractor.te:23",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "system/sepolicy/private/crash_dump.te:40",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "system/sepolicy/private/atrace.te:41",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "system/sepolicy/private/shell.te:403",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "system/sepolicy/private/system_app.te:125",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "system/sepolicy/private/traceur_app.te:44",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "system/sepolicy/private/init.te:443",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "system/sepolicy/private/init.te:386",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "system/sepolicy/private/init.te:358",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "system/sepolicy/private/casefolding_remover.te:17",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "system/sepolicy/private/userdata_alias_remove.te:27",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "system/sepolicy/private/domain.te:453",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "system/sepolicy/private/evsmanagerd.te:38",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "system/sepolicy/private/hal_camera.te:9",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "system/sepolicy/private/apexd.te:117",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "system/sepolicy/private/profcollectd.te:5",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "system/sepolicy/private/simpleperf_boot.te:9",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "system/sepolicy/private/update_engine.te:120",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "system/sepolicy/private/kcmdlinemodprobe.te:13",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "system/sepolicy/private/modprobe.te:9",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "system/sepolicy/private/artd.te:140",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "system/sepolicy/private/artd.te:105",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "system/sepolicy/private/adbd.te:18",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "system/sepolicy/private/init.te:28",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "system/sepolicy/private/native_app_zygote.te:12",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "system/sepolicy/private/domain.te:465",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "system/sepolicy/private/aconfigd.te:24",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "system/sepolicy/private/aflags.te:23",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "system/sepolicy/private/app.te:140",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "actual-vendor:7900",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "actual-vendor:7966",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "system/sepolicy/private/domain.te:429",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "system/sepolicy/private/domain.te:443",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "system/sepolicy/private/app.te:188",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "system/sepolicy/private/app.te:194",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "system/sepolicy/private/kcmdlinectrl.te:14",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "system/sepolicy/private/misctrl.te:7",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "system/sepolicy/private/mtectrl.te:13",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "system/sepolicy/private/init.te:530",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "system/sepolicy/private/adbd_common.te:24",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "system/sepolicy/private/incidentd.te:186",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "device/lineage/sepolicy/common/private/vold.te:10",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "system/sepolicy/private/zygote.te:84",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "system/sepolicy/private/shell.te:350",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "system/sepolicy/private/kernel.te:117",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "system/sepolicy/private/system_server_startup.te:13",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "system/sepolicy/private/webview_zygote.te:35",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "system/sepolicy/private/zygote.te:63",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "system/sepolicy/private/crosvm.te:170",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "system/sepolicy/private/prng_seeder.te:16",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "system/sepolicy/private/cameraserver.te:24",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "system/sepolicy/private/cameraserver.te:25",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "system/sepolicy/private/platform_app_all.te:123",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "actual-vendor:6291",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "actual-vendor:6566",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "system/sepolicy/private/platform_app_all.te:135",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "system/sepolicy/private/priv_app_all.te:213",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "system/sepolicy/private/shell.te:285",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "system/sepolicy/private/network_stack.te:29",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "system/sepolicy/private/device_as_webcam.te:21",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "system/sepolicy/private/priv_app_all.te:187",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "system/sepolicy/private/system_app.te:32",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "system/sepolicy/private/keystore.te:72",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "system/sepolicy/private/update_engine.te:37",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "system/sepolicy/private/keystore.te:71",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "system/sepolicy/private/update_engine.te:36",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "actual-vendor:10246",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "actual-vendor:7790",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "actual-vendor:8061",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "actual-vendor:5208",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "actual-vendor:5218",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "actual-vendor:9208",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "actual-vendor:7787",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "actual-vendor:9520",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "actual-vendor:5643",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "actual-vendor:10935",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "actual-vendor:6925",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "actual-vendor:11913",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "actual-vendor:11827",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "actual-vendor:4119",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "actual-vendor:4210",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "actual-vendor:4803",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "actual-vendor:9872",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "actual-vendor:6726",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "actual-vendor:14181",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "actual-vendor:15251",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "system/sepolicy/private/app.te:107",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "system/sepolicy/private/dumpstate.te:515",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "system/sepolicy/private/init.te:137",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "actual-vendor:5782",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "actual-vendor:7406",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "actual-vendor:14771",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "actual-vendor:8510",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "actual-vendor:4165",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "actual-vendor:4164",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "actual-vendor:4204",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "actual-vendor:8501",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "actual-vendor:8500",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "actual-vendor:8499",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "actual-vendor:8502",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "actual-vendor:8498",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "actual-vendor:4129",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "actual-vendor:4178",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "actual-vendor:9535",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "actual-vendor:6831",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "actual-vendor:11897",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "actual-vendor:11893",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "actual-vendor:5930",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "actual-vendor:6876",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "actual-vendor:4213",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "actual-vendor:4215",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "actual-vendor:4212",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "actual-vendor:4214",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "actual-vendor:5690",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "actual-vendor:4392",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "actual-vendor:10279",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "actual-vendor:4930",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "actual-vendor:15665",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "actual-vendor:5811",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "actual-vendor:5810",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "actual-vendor:7493",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "actual-vendor:5812",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "actual-vendor:7928",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "actual-vendor:10632",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "actual-vendor:4983",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "actual-vendor:14072",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "system/sepolicy/private/domain.te:22",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "actual-vendor:4985",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "actual-vendor:5202",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "actual-vendor:7891",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "actual-vendor:7957",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "actual-vendor:7925",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "actual-vendor:7924",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "actual-vendor:7337",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "actual-vendor:7923",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "actual-vendor:7944",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "actual-vendor:7958",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "actual-vendor:8720",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "actual-vendor:8990",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "actual-vendor:9768",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "actual-vendor:7550",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "actual-vendor:7674",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "actual-vendor:9791",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "actual-vendor:6557",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "actual-vendor:7340",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "actual-vendor:6556",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "actual-vendor:6645",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "actual-vendor:4855",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "actual-vendor:7355",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "actual-vendor:4739",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "actual-vendor:4822",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "actual-vendor:7354",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "actual-vendor:4738",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "actual-vendor:4821",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "actual-vendor:6268",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "system/sepolicy/private/dhcp.te:25",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "system/sepolicy/private/init.te:568",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "system/sepolicy/private/netd.te:89",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "system/sepolicy/private/hal_health.te:32",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "system/sepolicy/private/hal_health.te:31",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "actual-vendor:8515",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "actual-vendor:4857",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "actual-vendor:4184",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "actual-vendor:11919",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "actual-vendor:4227",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "actual-vendor:9252",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "actual-vendor:4226",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "actual-vendor:9251",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "actual-vendor:13511",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "actual-vendor:5597",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "actual-vendor:10627",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "actual-vendor:9780",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "actual-vendor:10183",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "actual-vendor:8871",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "actual-vendor:9856",
+      "diagnostic_occurrences": 1
+    },
+    {
+      "location": "actual-vendor:14786",
+      "diagnostic_occurrences": 1
+    }
+  ],
+  "scope": "Strict combined userdebug policy; diagnostic counts are not unique security defects or fixes",
+  "passed": false
+}

@@ -1,0 +1,24 @@
+{
+  "before_diagnostics": 407,
+  "candidate_diagnostics": 405,
+  "removed": [
+    [
+      "vendor_sepolicy.cil",
+      "11914",
+      [
+        "/srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/system/etc/selinux/plat_sepolicy.cil:73436 from system/sepolicy/private/system_server.te:1076"
+      ]
+    ],
+    [
+      "/srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/system/etc/selinux/plat_sepolicy.cil:73441 from system/sepolicy/private/system_server.te",
+      "1076",
+      [
+        "/srv/android/artifacts/lineage-24.0-arm64/vendor-check-20261101-01/vendor/etc/selinux/vendor_sepolicy.cil:11913"
+      ]
+    ]
+  ],
+  "added": [],
+  "passed_strict": false,
+  "runtime_or_image_validated": false,
+  "only_changed_ordered_policy_input": "vendor_sepolicy.cil"
+}
