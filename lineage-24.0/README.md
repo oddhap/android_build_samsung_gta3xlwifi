@@ -272,3 +272,15 @@ constants to host fixtures. This is not live reload, boot or hardware validation
 capability9 rejection remains and no Image is promoted to Android prebuilts.
 Active extended socket classes and other enabled enforcement gaps are next
 kernel work, alongside the unchanged strict vendor-policy/network/installer gates.
+
+
+The [extended socket candidate](experiments/kernel-extsock-20261103-01/) now ports
+the actual classifier and create/label/bind integration for this legacy UAPI,
+including ICMP and enabled Phonet. It appends 26 classes without moving existing
+class/permission IDs, loads real cap2 and corrects its sysfs name. Exact cap-off
+selection and supported-UAPI modern selection pass host comparisons. SCTP stays
+disabled and enabling it stops compilation until its extra hooks exist.
+The whole kernel and Linux fixtures pass with preserved config/export CRCs and
+complete tracked-source audits; Mac/Linux source hashes/results match. This is
+not live protocol or boot validation. Inotify, prlimit and perf mediation still
+need work; no experimental Image or weakened policy enters the ROM.

@@ -1,0 +1,44 @@
+{
+  "scope": "Isolated supported-legacy-UAPI extended socket selector with real create/label/bind hooks; SCTP must remain disabled",
+  "original_kernel_revision": "669b9584e678ce5865ed38e04c24639082d78de1",
+  "prerequisites": [
+    "qtaguid-persistent-20261022-02",
+    "kernel-policy-reader-20261023-01",
+    "kernel-functionfs-20261023-01",
+    "kernel-netlink-20261101-01",
+    "kernel-mmap-20261103-01",
+    "kernel-xperm-generation-20261103-01",
+    "kernel-netlink-snapshot-20261103-01"
+  ],
+  "patch_sha256": "8f3ff7d53fbf94cf4a14039fb681037d683db9ae5a2546e0bbb645edb2dd348b",
+  "policycap9_load_rejection_retained": true,
+  "files": [
+    {
+      "path": "security/selinux/hooks.c",
+      "before_sha256": "7b3529be0f134f4c2a739bf7de9420f196211a9d269ff46d104f4dc278177388",
+      "candidate_sha256": "04c9c572d504fb834a32197d23eb4825f68de17608ec5f97782b7cc2a19e862e"
+    },
+    {
+      "path": "security/selinux/include/classmap.h",
+      "before_sha256": "7c626d3300cdd093f918e59d6d582f59bae0e7f5b4d759ab37e0101ab8f83f65",
+      "candidate_sha256": "82bdb18c54a820f5ab628d98084d347e61a19a753f4dd8bc5e72d7767f9ab4d6"
+    },
+    {
+      "path": "security/selinux/include/security.h",
+      "before_sha256": "4435d1b1f5a5f9d4c30396d844704c6a3e46980b82571428b1cd818dc53cc90f",
+      "candidate_sha256": "42da5568f8de054658490246bcc33909a7dc901c93894bcf1293546df1a8cf32"
+    },
+    {
+      "path": "security/selinux/selinuxfs.c",
+      "before_sha256": "b6b0d169ca7c1be311ce4522d6b09231052f2f0b042e450fd8d5edadf537689d",
+      "candidate_sha256": "d47ccad982609b1a368798e8bc588cd1395d93faff136326354ea17851f557ac"
+    },
+    {
+      "path": "security/selinux/ss/services.c",
+      "before_sha256": "ec62091d8c0c2d94562d277b0f467a53b01243027a6bf759dd7a13a64fb1ab27",
+      "candidate_sha256": "dcf86993e6cab088037540066868346c5a4814714d91013def9e80bb9a130b47"
+    }
+  ],
+  "Image_promoted": false,
+  "hardware_tested": false
+}

@@ -1,0 +1,221 @@
+diff --git a/security/selinux/hooks.c b/security/selinux/hooks.c
+index 710e4390ef0a81835bfbd6291dafd5d6920d48eb..85d6413e0f2f3364c6b0c5066e804d2b9e596658 100644
+--- a/security/selinux/hooks.c
++++ b/security/selinux/hooks.c
+@@ -1300,6 +1300,14 @@ static inline int default_protocol_dgram(int protocol)
+ 
+ static inline u16 socket_type_to_security_class(int family, int type, int protocol)
+ {
++	int extsockclass = selinux_policycap_extsockclass;
++
++#if PF_MAX > 41
++#error Review extended socket mapping for new legacy-kernel address families.
++#endif
++#if defined(CONFIG_IP_SCTP) || defined(CONFIG_IP_SCTP_MODULE)
++#error SCTP association and bind/connect LSM hooks are not backported.
++#endif
+ 	switch (family) {
+ 	case PF_UNIX:
+ 		switch (type) {
+@@ -1308,6 +1316,10 @@ static inline u16 socket_type_to_security_class(int family, int type, int protoc
+ 			return SECCLASS_UNIX_STREAM_SOCKET;
+ 		case SOCK_DGRAM:
+ 			return SECCLASS_UNIX_DGRAM_SOCKET;
++		case SOCK_RAW:
++			if (extsockclass)
++				return SECCLASS_UNIX_DGRAM_SOCKET;
++			break;
+ 		}
+ 		break;
+ 	case PF_INET:
+@@ -1316,11 +1328,22 @@ static inline u16 socket_type_to_security_class(int family, int type, int protoc
+ 		case SOCK_STREAM:
+ 			if (default_protocol_stream(protocol))
+ 				return SECCLASS_TCP_SOCKET;
++			else if (extsockclass && protocol == IPPROTO_SCTP)
++				return SECCLASS_SCTP_SOCKET;
+ 			else
+ 				return SECCLASS_RAWIP_SOCKET;
++		case SOCK_SEQPACKET:
++			if (extsockclass && default_protocol_stream(protocol))
++				return SECCLASS_TCP_SOCKET;
++			if (extsockclass && protocol == IPPROTO_SCTP)
++				return SECCLASS_SCTP_SOCKET;
++			return SECCLASS_RAWIP_SOCKET;
+ 		case SOCK_DGRAM:
+ 			if (default_protocol_dgram(protocol))
+ 				return SECCLASS_UDP_SOCKET;
++			else if (extsockclass && (protocol == IPPROTO_ICMP ||
++						  protocol == IPPROTO_ICMPV6))
++				return SECCLASS_ICMP_SOCKET;
+ 			else
+ 				return SECCLASS_RAWIP_SOCKET;
+ 		case SOCK_DCCP:
+@@ -1374,6 +1397,59 @@ static inline u16 socket_type_to_security_class(int family, int type, int protoc
+ 		return SECCLASS_APPLETALK_SOCKET;
+ 	}
+ 
++	if (extsockclass) {
++		switch (family) {
++		case PF_AX25:
++			return SECCLASS_AX25_SOCKET;
++		case PF_IPX:
++			return SECCLASS_IPX_SOCKET;
++		case PF_NETROM:
++			return SECCLASS_NETROM_SOCKET;
++		case PF_ATMPVC:
++			return SECCLASS_ATMPVC_SOCKET;
++		case PF_X25:
++			return SECCLASS_X25_SOCKET;
++		case PF_ROSE:
++			return SECCLASS_ROSE_SOCKET;
++		case PF_DECnet:
++			return SECCLASS_DECNET_SOCKET;
++		case PF_ATMSVC:
++			return SECCLASS_ATMSVC_SOCKET;
++		case PF_RDS:
++			return SECCLASS_RDS_SOCKET;
++		case PF_IRDA:
++			return SECCLASS_IRDA_SOCKET;
++		case PF_PPPOX:
++			return SECCLASS_PPPOX_SOCKET;
++		case PF_LLC:
++			return SECCLASS_LLC_SOCKET;
++		case PF_CAN:
++			return SECCLASS_CAN_SOCKET;
++		case PF_TIPC:
++			return SECCLASS_TIPC_SOCKET;
++		case PF_BLUETOOTH:
++			return SECCLASS_BLUETOOTH_SOCKET;
++		case PF_IUCV:
++			return SECCLASS_IUCV_SOCKET;
++		case PF_RXRPC:
++			return SECCLASS_RXRPC_SOCKET;
++		case PF_ISDN:
++			return SECCLASS_ISDN_SOCKET;
++		case PF_PHONET:
++			return SECCLASS_PHONET_SOCKET;
++		case PF_IEEE802154:
++			return SECCLASS_IEEE802154_SOCKET;
++		case PF_CAIF:
++			return SECCLASS_CAIF_SOCKET;
++		case PF_ALG:
++			return SECCLASS_ALG_SOCKET;
++		case PF_NFC:
++			return SECCLASS_NFC_SOCKET;
++		case PF_VSOCK:
++			return SECCLASS_VSOCK_SOCKET;
++		}
++	}
++
+ 	return SECCLASS_SOCKET;
+ }
+ 
+@@ -4460,6 +4536,14 @@ static int selinux_socket_bind(struct socket *sock, struct sockaddr *address, in
+ 			node_perm = UDP_SOCKET__NODE_BIND;
+ 			break;
+ 
++		case SECCLASS_ICMP_SOCKET:
++			node_perm = ICMP_SOCKET__NODE_BIND;
++			break;
++
++		case SECCLASS_SCTP_SOCKET:
++			node_perm = SCTP_SOCKET__NODE_BIND;
++			break;
++
+ 		case SECCLASS_DCCP_SOCKET:
+ 			node_perm = DCCP_SOCKET__NODE_BIND;
+ 			break;
+diff --git a/security/selinux/include/classmap.h b/security/selinux/include/classmap.h
+index 104c1a580d1f12f7edbcde0e1ce3ecba1fb17422..4c8cfeef83c5a1289255ca2eeca85abb4eca714a 100644
+--- a/security/selinux/include/classmap.h
++++ b/security/selinux/include/classmap.h
+@@ -159,5 +159,33 @@ struct security_class_mapping secclass_map[] = {
+ 		      NULL } },
+ 	/* Append: preserve every pre-existing kernel class/permission ID. */
+ 	{ "process2", { "nnp_transition", "nosuid_transition", NULL } },
++	{ "sctp_socket",
++	  { COMMON_SOCK_PERMS, "node_bind", "name_connect", "association",
++	    NULL } },
++	{ "icmp_socket", { COMMON_SOCK_PERMS, "node_bind", NULL } },
++	{ "ax25_socket", { COMMON_SOCK_PERMS, NULL } },
++	{ "ipx_socket", { COMMON_SOCK_PERMS, NULL } },
++	{ "netrom_socket", { COMMON_SOCK_PERMS, NULL } },
++	{ "atmpvc_socket", { COMMON_SOCK_PERMS, NULL } },
++	{ "x25_socket", { COMMON_SOCK_PERMS, NULL } },
++	{ "rose_socket", { COMMON_SOCK_PERMS, NULL } },
++	{ "decnet_socket", { COMMON_SOCK_PERMS, NULL } },
++	{ "atmsvc_socket", { COMMON_SOCK_PERMS, NULL } },
++	{ "rds_socket", { COMMON_SOCK_PERMS, NULL } },
++	{ "irda_socket", { COMMON_SOCK_PERMS, NULL } },
++	{ "pppox_socket", { COMMON_SOCK_PERMS, NULL } },
++	{ "llc_socket", { COMMON_SOCK_PERMS, NULL } },
++	{ "can_socket", { COMMON_SOCK_PERMS, NULL } },
++	{ "tipc_socket", { COMMON_SOCK_PERMS, NULL } },
++	{ "bluetooth_socket", { COMMON_SOCK_PERMS, NULL } },
++	{ "iucv_socket", { COMMON_SOCK_PERMS, NULL } },
++	{ "rxrpc_socket", { COMMON_SOCK_PERMS, NULL } },
++	{ "isdn_socket", { COMMON_SOCK_PERMS, NULL } },
++	{ "phonet_socket", { COMMON_SOCK_PERMS, NULL } },
++	{ "ieee802154_socket", { COMMON_SOCK_PERMS, NULL } },
++	{ "caif_socket", { COMMON_SOCK_PERMS, NULL } },
++	{ "alg_socket", { COMMON_SOCK_PERMS, NULL } },
++	{ "nfc_socket", { COMMON_SOCK_PERMS, NULL } },
++	{ "vsock_socket", { COMMON_SOCK_PERMS, NULL } },
+ 	{ NULL }
+   };
+diff --git a/security/selinux/include/security.h b/security/selinux/include/security.h
+index a66a38a42eec981250e17a566186e3f6ae176570..01ff90a10ba96b16ae6ac0a94749c51352d7e6b2 100644
+--- a/security/selinux/include/security.h
++++ b/security/selinux/include/security.h
+@@ -73,7 +73,7 @@ extern int selinux_enabled;
+ enum {
+ 	POLICYDB_CAPABILITY_NETPEER,
+ 	POLICYDB_CAPABILITY_OPENPERM,
+-	POLICYDB_CAPABILITY_REDHAT1,
++	POLICYDB_CAPABILITY_EXTSOCKCLASS,
+ 	POLICYDB_CAPABILITY_ALWAYSNETWORK,
+ 	/* Bit 4 (cgroup_seclabel) is not implemented on this legacy kernel. */
+ 	POLICYDB_CAPABILITY_NNP_NOSUID_TRANSITION = 5,
+@@ -87,6 +87,7 @@ enum {
+ extern int selinux_android_netlink_route;
+ extern int selinux_policycap_netpeer;
+ extern int selinux_policycap_openperm;
++extern int selinux_policycap_extsockclass;
+ extern int selinux_policycap_alwaysnetwork;
+ extern int selinux_policycap_nnp_nosuid_transition;
+ extern int selinux_policycap_functionfs_seclabel;
+diff --git a/security/selinux/selinuxfs.c b/security/selinux/selinuxfs.c
+index 88e123b69600e51b43bbb9f1715868b62f8cf792..f3683066a1d0814dccaee6f4a96ea7203206b3f3 100644
+--- a/security/selinux/selinuxfs.c
++++ b/security/selinux/selinuxfs.c
+@@ -45,7 +45,7 @@
+ static char *policycap_names[] = {
+ 	"network_peer_controls",
+ 	"open_perms",
+-	"redhat1",
++	"extended_socket_class",
+ 	"always_check_network",
+ 	/* Unimplemented bit 4 remains unnamed; no cgroup_seclabel claim. */
+ 	[POLICYDB_CAPABILITY_NNP_NOSUID_TRANSITION] = "nnp_nosuid_transition",
+diff --git a/security/selinux/ss/services.c b/security/selinux/ss/services.c
+index 63ab3101bfef976a9b626a25dd4a08689779a340..1750f9dd7f0156bfdb053b6df387f8abb13b8f5b 100644
+--- a/security/selinux/ss/services.c
++++ b/security/selinux/ss/services.c
+@@ -73,6 +73,7 @@
+ int selinux_android_netlink_route;
+ int selinux_policycap_netpeer;
+ int selinux_policycap_openperm;
++int selinux_policycap_extsockclass;
+ int selinux_policycap_alwaysnetwork;
+ int selinux_policycap_nnp_nosuid_transition;
+ int selinux_policycap_functionfs_seclabel;
+@@ -2052,6 +2053,8 @@ static void security_load_policycaps(void)
+ 						  POLICYDB_CAPABILITY_NETPEER);
+ 	selinux_policycap_openperm = ebitmap_get_bit(&policydb.policycaps,
+ 						  POLICYDB_CAPABILITY_OPENPERM);
++	selinux_policycap_extsockclass = ebitmap_get_bit(&policydb.policycaps,
++						  POLICYDB_CAPABILITY_EXTSOCKCLASS);
+ 	selinux_policycap_alwaysnetwork = ebitmap_get_bit(&policydb.policycaps,
+ 						  POLICYDB_CAPABILITY_ALWAYSNETWORK);
+ 

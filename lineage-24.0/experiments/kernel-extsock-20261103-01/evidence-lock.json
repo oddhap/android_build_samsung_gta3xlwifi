@@ -1,0 +1,18 @@
+{
+  "server_artifact_directory": "/srv/android/artifacts/lineage-24.0-arm64/kernel-extsock-build-20261103-01",
+  "sha256": {
+    "source-before.json": "869a847c2817ddfefb4e239af27b8dda449a235274249464b05beebeb7f5f214",
+    "source-after.json": "d65d9b7af7eb89c660f9c9c0b44311c7ce87065c5f3bd4180d716791b3c70f97",
+    "protected-before.json": "1d5603527bcdf025023a8392b72926259862f45f768b6f698e6dcfc347ecbf61",
+    "protected-after.json": "1d5603527bcdf025023a8392b72926259862f45f768b6f698e6dcfc347ecbf61",
+    "patch-provenance.json": "04a95ef069300fcaa16412caa94d9d3275fe11057ce6c8e71fca31cb6ad63e20",
+    "additional-patch-provenance.json": "312faf165ec145a0929d37640b76bb5f307c85398235755dd3fceae26bbb5b90",
+    "tracked-source.patch": "da6c52f0ff6f0e6cfbb4749057aed86c36cfa0143cb06002357d8fb7f4ef3523",
+    "baseline-touch-complete.patch": "b36123955b7fc457c8df713dddcc371e68de92aa7709519c8778a6579d64a06c",
+    "host-extsock-linux.json": "c2add983e556f78169efe91a582d909062eb67adb14db63858f448cacfb80e46",
+    "build-review.json": "7c7ca2950416d222680da648225fd0f17a40207f3ec715cb7175cfbd5ccb788e",
+    "Image": "23e3ad6d7b322788378ed9fe1bbc8f1c7288e69c6f858f2724f5ffb0ffaaa790",
+    "kernel.config": "fac42e3bbf996bb9502bb1031c91b1950986ad3586d0f33cad869a6fd0b3acea"
+  },
+  "flash_ready": false
+}
