@@ -1,0 +1,21 @@
+{
+  "passed": true,
+  "scope": "Actual netlink lookup, skb hook and snapshot bodies with sequential fixtures.\n\nPacket/AVC/lock backends are fixtures. Separate actual AVC generation tests and\nwhole-kernel builds are required; this is not live reload or hardware evidence.\n",
+  "result": "PASS: 2621440 lookup/stability, 38400 packet/error/reload-injection, 32 snapshot-state scenarios",
+  "inputs_sha256": {
+    "/srv/android/ports/lineage-24.0-arm64/kernel-netlink-snapshot-20261103-01/src/security/selinux/hooks.c": "7b3529be0f134f4c2a739bf7de9420f196211a9d269ff46d104f4dc278177388",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-netlink-snapshot-20261103-01/src/security/selinux/nlmsgtab.c": "f357e1c4a15a975dc5d7315f18fa1b303b6ece5746137a09823a167b5d8f2c04",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-netlink-snapshot-20261103-01/src/security/selinux/ss/services.c": "ec62091d8c0c2d94562d277b0f467a53b01243027a6bf759dd7a13a64fb1ab27",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-netlink-snapshot-20261103-01/src/security/selinux/include/security.h": "4435d1b1f5a5f9d4c30396d844704c6a3e46980b82571428b1cd818dc53cc90f",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-xperm-generation-20261103-01/src/security/selinux/nlmsgtab.c": "41a31d8a5a6f88a7cacbcfcf0e4432612026bf5ece9c72f4ea094fb139b6656e",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-netlink-constants-20261103-02/constants.json": "04a5b76cc2ab7860ed74074a58c9784086e4fce6f21fa96c166417caccd10176"
+  },
+  "runner_sha256": "62bcf8c8b228180d713d2b1663464acd3c11b122e86dc123236b1da6c832866f",
+  "sanitizers": [
+    "address",
+    "undefined"
+  ],
+  "hardware_tested": false,
+  "live_reload_validated": false,
+  "policycap9_guard_removed": false
+}

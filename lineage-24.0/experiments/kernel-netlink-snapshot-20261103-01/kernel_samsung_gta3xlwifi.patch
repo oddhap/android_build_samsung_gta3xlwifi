@@ -1,0 +1,397 @@
+diff --git a/security/selinux/avc.c b/security/selinux/avc.c
+index c6aef65761a5bb8cb99e56c93953fac88f4ee99c..1a7ef39d84078400824522cbeec2bb7da71dd304 100644
+--- a/security/selinux/avc.c
++++ b/security/selinux/avc.c
+@@ -1073,8 +1073,9 @@ static noinline int avc_denied(u32 ssid, u32 tsid,
+  * as-is the case with ioctls, then multiple may be chained together and the
+  * driver field is used to specify which set contains the permission.
+  */
+-int avc_has_extended_perms(u32 ssid, u32 tsid, u16 tclass, u32 requested,
+-			u8 driver, u8 base_perm, u8 xperm, struct common_audit_data *ad)
++static int avc_has_extended_perms_gen(u32 ssid, u32 tsid, u16 tclass, u32 requested,
++			u8 driver, u8 base_perm, u8 xperm, struct common_audit_data *ad,
++			const u32 *seqno)
+ {
+ 	struct avc_node *node;
+ 	struct av_decision avd;
+@@ -1101,6 +1102,10 @@ int avc_has_extended_perms(u32 ssid, u32 tsid, u16 tclass, u32 requested,
+ 		memcpy(&avd, &node->ae.avd, sizeof(avd));
+ 		xp_node = node->ae.xp_node;
+ 	}
++	if (seqno && avd.seqno != *seqno) {
++		rcu_read_unlock();
++		return -EAGAIN;
++	}
+ 	/* if extended permissions are not defined, only consider av_decision */
+ 	if (!xp_node || !xp_node->xp.len)
+ 		goto decision;
+@@ -1152,6 +1157,21 @@ decision:
+ 	return rc;
+ }
+ 
++int avc_has_extended_perms(u32 ssid, u32 tsid, u16 tclass, u32 requested,
++			u8 driver, u8 base_perm, u8 xperm, struct common_audit_data *ad)
++{
++	return avc_has_extended_perms_gen(ssid, tsid, tclass, requested,
++					driver, base_perm, xperm, ad, NULL);
++}
++
++int avc_has_extended_perms_seqno(u32 ssid, u32 tsid, u16 tclass, u32 requested,
++			u8 driver, u8 base_perm, u8 xperm,
++			struct common_audit_data *ad, u32 seqno)
++{
++	return avc_has_extended_perms_gen(ssid, tsid, tclass, requested,
++					driver, base_perm, xperm, ad, &seqno);
++}
++
+ /**
+  * avc_has_perm_noaudit - Check permissions but perform no auditing.
+  * @ssid: source security identifier
+@@ -1172,10 +1192,10 @@ decision:
+  * auditing, e.g. in cases where a lock must be held for the check but
+  * should be released for the auditing.
+  */
+-inline int avc_has_perm_noaudit(u32 ssid, u32 tsid,
++static inline int avc_has_perm_noaudit_gen(u32 ssid, u32 tsid,
+ 			 u16 tclass, u32 requested,
+ 			 unsigned flags,
+-			 struct av_decision *avd)
++			 struct av_decision *avd, const u32 *seqno)
+ {
+ 	struct avc_node *node;
+ 	struct avc_xperms_node xp_node;
+@@ -1192,6 +1212,11 @@ inline int avc_has_perm_noaudit(u32 ssid, u32 tsid,
+ 	else
+ 		memcpy(avd, &node->ae.avd, sizeof(*avd));
+ 
++	if (seqno && avd->seqno != *seqno) {
++		rcu_read_unlock();
++		return -EAGAIN;
++	}
++
+ 	denied = requested & ~(avd->allowed);
+ 	if (unlikely(denied))
+ 		rc = avc_denied(ssid, tsid, tclass, requested, 0, 0, 0, flags, avd);
+@@ -1200,6 +1225,26 @@ inline int avc_has_perm_noaudit(u32 ssid, u32 tsid,
+ 	return rc;
+ }
+ 
++inline int avc_has_perm_noaudit(u32 ssid, u32 tsid, u16 tclass, u32 requested,
++			      unsigned flags, struct av_decision *avd)
++{
++	return avc_has_perm_noaudit_gen(ssid, tsid, tclass, requested,
++				       flags, avd, NULL);
++}
++
++int avc_has_perm_seqno(u32 ssid, u32 tsid, u16 tclass, u32 requested,
++		     struct common_audit_data *ad, u32 seqno)
++{
++	struct av_decision avd;
++	int rc, rc2;
++
++	rc = avc_has_perm_noaudit_gen(ssid, tsid, tclass, requested, 0, &avd, &seqno);
++	if (rc == -EAGAIN)
++		return rc;
++	rc2 = avc_audit(ssid, tsid, tclass, requested, &avd, rc, ad, 0);
++	return rc2 ? rc2 : rc;
++}
++
+ /**
+  * avc_has_perm - Check permissions and perform any appropriate auditing.
+  * @ssid: source security identifier
+diff --git a/security/selinux/hooks.c b/security/selinux/hooks.c
+index 00905b12167e0e353604ae5b73f3ce1605b4e396..710e4390ef0a81835bfbd6291dafd5d6920d48eb 100644
+--- a/security/selinux/hooks.c
++++ b/security/selinux/hooks.c
+@@ -5067,20 +5067,43 @@ static int selinux_tun_dev_open(void *security)
+ 	return 0;
+ }
+ 
+-static int nlmsg_sock_has_extended_perms(struct sock *sk, u32 perms, u16 nlmsg_type)
++static int nlmsg_sock_has_perm(struct task_struct *task, struct sock *sk, u32 perms,
++			       const struct selinux_netlink_state *state)
++{
++	struct sk_security_struct *sksec = sk->sk_security;
++	struct common_audit_data ad;
++	struct lsm_network_audit net = {0,};
++	u32 tsid = task_sid(task);
++
++	if (!sksec)
++		return -EFAULT;
++	if (sksec->sid == SECINITSID_KERNEL)
++		return 0;
++
++	ad.type = LSM_AUDIT_DATA_NET;
++	ad.u.net = &net;
++	ad.u.net->sk = sk;
++
++	return avc_has_perm_seqno(tsid, sksec->sid, sksec->sclass, perms, &ad,
++				  state->seqno);
++}
++
++
++static int nlmsg_sock_has_extended_perms(struct sock *sk, u32 perms, u16 nlmsg_type,
++			const struct selinux_netlink_state *state)
+ {
+ 	struct sk_security_struct *sksec = sk->sk_security;
+ 	struct common_audit_data ad;
+ 
+ 	if (!sksec)
+ 		return -EFAULT;
+-	if (sksec->sid == SECINITSID_KERNEL && !selinux_policycap_alwaysnetwork)
++	if (sksec->sid == SECINITSID_KERNEL && !state->alwaysnetwork)
+ 		return 0;
+ 	ad.type = LSM_AUDIT_DATA_NLMSGTYPE;
+ 	ad.u.nlmsg_type = nlmsg_type;
+-	return avc_has_extended_perms(current_sid(), sksec->sid, sksec->sclass,
++	return avc_has_extended_perms_seqno(current_sid(), sksec->sid, sksec->sclass,
+ 				      perms, nlmsg_type >> 8, AVC_EXT_NLMSG,
+-				      nlmsg_type & 0xff, &ad);
++				      nlmsg_type & 0xff, &ad, state->seqno);
+ }
+ 
+ static int selinux_nlmsg_perm(struct sock *sk, struct sk_buff *skb)
+@@ -5091,9 +5114,15 @@ static int selinux_nlmsg_perm(struct sock *sk, struct sk_buff *skb)
+ 	unsigned char *data = skb->data;
+ 	struct nlmsghdr *nlh;
+ 	struct sk_security_struct *sksec = sk->sk_security;
+-	u16 sclass = sksec->sclass;
++	struct selinux_netlink_state state;
++	u16 sclass;
+ 	u32 perm;
+ 
++	if (!sksec)
++		return -EFAULT;
++	sclass = sksec->sclass;
++	security_netlink_state(&state);
++
+ 	while (data_len >= nlmsg_total_size(0)) {
+ 		nlh = (struct nlmsghdr *)data;
+ 
+@@ -5104,14 +5133,14 @@ static int selinux_nlmsg_perm(struct sock *sk, struct sk_buff *skb)
+ 		 *       messages with length fields that are clearly junk
+ 		 */
+ 		if (nlh->nlmsg_len < NLMSG_HDRLEN || nlh->nlmsg_len > data_len)
+-			return 0;
++			goto out;
+ 
+-		rc = selinux_nlmsg_lookup(sclass, nlh->nlmsg_type, &perm);
++		rc = selinux_nlmsg_lookup(sclass, nlh->nlmsg_type, &perm, &state);
+ 		if (rc == 0) {
+-			if (selinux_policycap_netlink_xperm)
+-				rc = nlmsg_sock_has_extended_perms(sk, perm, nlh->nlmsg_type);
++			if (state.xperm)
++				rc = nlmsg_sock_has_extended_perms(sk, perm, nlh->nlmsg_type, &state);
+ 			else
+-				rc = sock_has_perm(current, sk, perm);
++				rc = nlmsg_sock_has_perm(current, sk, perm, &state);
+ 			if (rc)
+ 				return rc;
+ 		} else if (rc == -EINVAL) {
+@@ -5122,7 +5151,7 @@ static int selinux_nlmsg_perm(struct sock *sk, struct sk_buff *skb)
+ 				sk->sk_protocol, nlh->nlmsg_type,
+ 				secclass_map[sclass - 1].name,
+ 				task_pid_nr(current), current->comm);
+-			if (selinux_enforcing && !security_get_allow_unknown())
++			if (selinux_enforcing && !state.allow_unknown)
+ 				return rc;
+ 			rc = 0;
+ 		} else if (rc == -ENOENT) {
+@@ -5135,12 +5164,14 @@ static int selinux_nlmsg_perm(struct sock *sk, struct sk_buff *skb)
+ 		/* move to the next message after applying netlink padding */
+ 		msg_len = NLMSG_ALIGN(nlh->nlmsg_len);
+ 		if (msg_len >= data_len)
+-			return 0;
++			goto out;
+ 		data_len -= msg_len;
+ 		data += msg_len;
+ 	}
+ 
+-	return rc;
++out:
++	/* A reload invalidates all successful paths, including ignored tails. */
++	return security_netlink_state_valid(&state) ? rc : -EAGAIN;
+ }
+ 
+ #ifdef CONFIG_NETFILTER
+diff --git a/security/selinux/include/avc.h b/security/selinux/include/avc.h
+index 11baa05b11f3564c0cfafcd61ef187f3ed7996c4..220fb504e5c5b717f052a11f42b77e8b04cf9124 100644
+--- a/security/selinux/include/avc.h
++++ b/security/selinux/include/avc.h
+@@ -164,6 +164,12 @@ int avc_has_extended_perms(u32 ssid, u32 tsid, u16 tclass, u32 requested,
+ 		u8 driver, u8 base_perm, u8 perm, struct common_audit_data *ad);
+ 
+ 
++int avc_has_perm_seqno(u32 ssid, u32 tsid, u16 tclass, u32 requested,
++		     struct common_audit_data *ad, u32 seqno);
++int avc_has_extended_perms_seqno(u32 ssid, u32 tsid, u16 tclass, u32 requested,
++			u8 driver, u8 base_perm, u8 perm,
++			struct common_audit_data *ad, u32 seqno);
++
+ u32 avc_policy_seqno(void);
+ 
+ #define AVC_CALLBACK_GRANT		1
+diff --git a/security/selinux/include/security.h b/security/selinux/include/security.h
+index e63652159a70d8ff8fcd0962496076f34d19cc06..a66a38a42eec981250e17a566186e3f6ae176570 100644
+--- a/security/selinux/include/security.h
++++ b/security/selinux/include/security.h
+@@ -281,8 +281,19 @@ extern struct path selinux_null;
+ extern struct vfsmount *selinuxfs_mount;
+ extern void selnl_notify_setenforce(int val);
+ extern void selnl_notify_policyload(u32 seqno);
+-extern int selinux_nlmsg_lookup(u16 sclass, u16 nlmsg_type, u32 *perm);
+-extern void selinux_nlmsg_init(void);
++/* One policy generation and lookup mode for a complete netlink skb. */
++struct selinux_netlink_state {
++	u32 seqno;
++	int initialized;
++	int xperm;
++	int route;
++	int alwaysnetwork;
++	int allow_unknown;
++};
++void security_netlink_state(struct selinux_netlink_state *state);
++int security_netlink_state_valid(const struct selinux_netlink_state *state);
++extern int selinux_nlmsg_lookup(u16 sclass, u16 nlmsg_type, u32 *perm,
++			      const struct selinux_netlink_state *state);
+ 
+ #endif /* _SELINUX_SECURITY_H_ */
+ 
+diff --git a/security/selinux/nlmsgtab.c b/security/selinux/nlmsgtab.c
+index ddee64f5a81e02552b4ef9c8f2c9293c2635c063..77434cbe40d6648121605e769933fe401c7f4dcd 100644
+--- a/security/selinux/nlmsgtab.c
++++ b/security/selinux/nlmsgtab.c
+@@ -28,7 +28,7 @@ struct nlmsg_perm {
+ 	u32	perm;
+ };
+ 
+-static struct nlmsg_perm nlmsg_route_perms[] =
++static const struct nlmsg_perm nlmsg_route_perms[] =
+ {
+ 	{ RTM_NEWLINK,		NETLINK_ROUTE_SOCKET__NLMSG_WRITE },
+ 	{ RTM_DELLINK,		NETLINK_ROUTE_SOCKET__NLMSG_WRITE },
+@@ -78,7 +78,7 @@ static struct nlmsg_perm nlmsg_route_perms[] =
+ 	{ RTM_GETNSID,		NETLINK_ROUTE_SOCKET__NLMSG_READ  },
+ };
+ 
+-static struct nlmsg_perm nlmsg_tcpdiag_perms[] =
++static const struct nlmsg_perm nlmsg_tcpdiag_perms[] =
+ {
+ 	{ TCPDIAG_GETSOCK,	NETLINK_TCPDIAG_SOCKET__NLMSG_READ },
+ 	{ DCCPDIAG_GETSOCK,	NETLINK_TCPDIAG_SOCKET__NLMSG_READ },
+@@ -86,7 +86,7 @@ static struct nlmsg_perm nlmsg_tcpdiag_perms[] =
+ 	{ SOCK_DESTROY_BACKPORT, NETLINK_TCPDIAG_SOCKET__NLMSG_WRITE },
+ };
+ 
+-static struct nlmsg_perm nlmsg_xfrm_perms[] =
++static const struct nlmsg_perm nlmsg_xfrm_perms[] =
+ {
+ 	{ XFRM_MSG_NEWSA,	NETLINK_XFRM_SOCKET__NLMSG_WRITE },
+ 	{ XFRM_MSG_DELSA,	NETLINK_XFRM_SOCKET__NLMSG_WRITE },
+@@ -113,7 +113,7 @@ static struct nlmsg_perm nlmsg_xfrm_perms[] =
+ 	{ XFRM_MSG_MAPPING,	NETLINK_XFRM_SOCKET__NLMSG_READ  },
+ };
+ 
+-static struct nlmsg_perm nlmsg_audit_perms[] =
++static const struct nlmsg_perm nlmsg_audit_perms[] =
+ {
+ 	{ AUDIT_GET,		NETLINK_AUDIT_SOCKET__NLMSG_READ     },
+ 	{ AUDIT_SET,		NETLINK_AUDIT_SOCKET__NLMSG_WRITE    },
+@@ -134,7 +134,7 @@ static struct nlmsg_perm nlmsg_audit_perms[] =
+ };
+ 
+ 
+-static int nlmsg_perm(u16 nlmsg_type, u32 *perm, struct nlmsg_perm *tab, size_t tabsize)
++static int nlmsg_perm(u16 nlmsg_type, u32 *perm, const struct nlmsg_perm *tab, size_t tabsize)
+ {
+ 	int i, err = -EINVAL;
+ 
+@@ -148,11 +148,12 @@ static int nlmsg_perm(u16 nlmsg_type, u32 *perm, struct nlmsg_perm *tab, size_t
+ 	return err;
+ }
+ 
+-int selinux_nlmsg_lookup(u16 sclass, u16 nlmsg_type, u32 *perm)
++int selinux_nlmsg_lookup(u16 sclass, u16 nlmsg_type, u32 *perm,
++			 const struct selinux_netlink_state *state)
+ {
+ 	int err = 0;
+ 
+-	if (selinux_policycap_netlink_xperm) {
++	if (state->xperm) {
+ 		switch (sclass) {
+ 		case SECCLASS_NETLINK_ROUTE_SOCKET:
+ 			*perm = NETLINK_ROUTE_SOCKET__NLMSG;
+@@ -174,6 +175,10 @@ int selinux_nlmsg_lookup(u16 sclass, u16 nlmsg_type, u32 *perm)
+ 	case SECCLASS_NETLINK_ROUTE_SOCKET:
+ 		/* RTM_MAX always point to RTM_SETxxxx, ie RTM_NEWxxx + 3 */
+ 		BUILD_BUG_ON(RTM_MAX != (RTM_NEWNSID + 3));
++		if (nlmsg_type == RTM_GETLINK && state->route) {
++			*perm = NETLINK_ROUTE_SOCKET__NLMSG_READPRIV;
++			return 0;
++		}
+ 		err = nlmsg_perm(nlmsg_type, perm, nlmsg_route_perms,
+ 				 sizeof(nlmsg_route_perms));
+ 		break;
+@@ -209,27 +214,3 @@ int selinux_nlmsg_lookup(u16 sclass, u16 nlmsg_type, u32 *perm)
+ 
+ 	return err;
+ }
+-
+-static void nlmsg_set_getlink_perm(u32 perm)
+-{
+-	int i;
+-
+-	for (i = 0; i < ARRAY_SIZE(nlmsg_route_perms); i++) {
+-		if (nlmsg_route_perms[i].nlmsg_type == RTM_GETLINK) {
+-			nlmsg_route_perms[i].perm = perm;
+-			break;
+-		}
+-	}
+-}
+-
+-/**
+- * Use nlmsg_readpriv as the permission for RTM_GETLINK messages if the
+- * netlink_route_getlink policy capability is set. Otherwise use nlmsg_read.
+- */
+-void selinux_nlmsg_init(void)
+-{
+-	if (selinux_android_netlink_route)
+-		nlmsg_set_getlink_perm(NETLINK_ROUTE_SOCKET__NLMSG_READPRIV);
+-	else
+-		nlmsg_set_getlink_perm(NETLINK_ROUTE_SOCKET__NLMSG_READ);
+-}
+diff --git a/security/selinux/ss/services.c b/security/selinux/ss/services.c
+index 39ab37edaf377ba10418977e379316b6161ca358..63ab3101bfef976a9b626a25dd4a08689779a340 100644
+--- a/security/selinux/ss/services.c
++++ b/security/selinux/ss/services.c
+@@ -2064,7 +2064,29 @@ static void security_load_policycaps(void)
+ 						  POLICYDB_CAPABILITY_FUNCTIONFS_SECLABEL);
+ 
+ 	selinux_android_netlink_route = policydb.android_netlink_route;
+-	selinux_nlmsg_init();
++}
++
++void security_netlink_state(struct selinux_netlink_state *state)
++{
++	read_lock(&policy_rwlock);
++	state->seqno = latest_granting;
++	state->initialized = ss_initialized;
++	state->xperm = ss_initialized ? selinux_policycap_netlink_xperm : 0;
++	state->route = ss_initialized ? selinux_android_netlink_route : 0;
++	state->alwaysnetwork = ss_initialized ? selinux_policycap_alwaysnetwork : 0;
++	state->allow_unknown = ss_initialized ? policydb.allow_unknown : 0;
++	read_unlock(&policy_rwlock);
++}
++
++int security_netlink_state_valid(const struct selinux_netlink_state *state)
++{
++	int valid;
++
++	read_lock(&policy_rwlock);
++	valid = state->seqno == latest_granting &&
++		state->initialized == ss_initialized;
++	read_unlock(&policy_rwlock);
++	return valid;
+ }
+ 
+ static int security_preserve_bools(struct policydb *p);

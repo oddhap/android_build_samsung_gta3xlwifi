@@ -1,0 +1,48 @@
+{
+  "scope": "Isolated complete-skb netlink mode/generation snapshot candidate; not Android apply-port snapshot",
+  "original_kernel_revision": "669b9584e678ce5865ed38e04c24639082d78de1",
+  "prerequisites": [
+    "qtaguid-persistent-20261022-02",
+    "kernel-policy-reader-20261023-01",
+    "kernel-functionfs-20261023-01",
+    "kernel-netlink-20261101-01",
+    "kernel-mmap-20261103-01",
+    "kernel-xperm-generation-20261103-01"
+  ],
+  "patch_sha256": "fa6e43a5f02bb508c8dbd63711e0c699ae30b468363e891dca12f8643d3fc1f9",
+  "policycap9_load_rejection_retained": true,
+  "files": [
+    {
+      "path": "security/selinux/avc.c",
+      "before_sha256": "7aa439d34fc918a9b6a396cc795d1faa8d4751b00b5dcc412df13cbcac2ba860",
+      "candidate_sha256": "c7c0d80d3e4a4e57e07e8c76b070a99078a028626f3af29e129abc7f2abbf31b"
+    },
+    {
+      "path": "security/selinux/hooks.c",
+      "before_sha256": "59707478879f992cf80c4aee77df5cc4494633a2110a2d0fe526931a0376a219",
+      "candidate_sha256": "7b3529be0f134f4c2a739bf7de9420f196211a9d269ff46d104f4dc278177388"
+    },
+    {
+      "path": "security/selinux/include/avc.h",
+      "before_sha256": "1ca7cce670f29cc0a2c450341f8772970da8f2718169be278686edd8d8674501",
+      "candidate_sha256": "db5be3f3837b703c25ec7802cf77fb45364ce493a3760595ad88ac25ad51e1fe"
+    },
+    {
+      "path": "security/selinux/include/security.h",
+      "before_sha256": "84ce78230a3f7db49f847369eb675ab9d3b9674e044c56f34499d5429c8b8db0",
+      "candidate_sha256": "4435d1b1f5a5f9d4c30396d844704c6a3e46980b82571428b1cd818dc53cc90f"
+    },
+    {
+      "path": "security/selinux/nlmsgtab.c",
+      "before_sha256": "41a31d8a5a6f88a7cacbcfcf0e4432612026bf5ece9c72f4ea094fb139b6656e",
+      "candidate_sha256": "f357e1c4a15a975dc5d7315f18fa1b303b6ece5746137a09823a167b5d8f2c04"
+    },
+    {
+      "path": "security/selinux/ss/services.c",
+      "before_sha256": "964606e60ca52a06c4e093c877c303d6238bb991f4b9ca6eb440f2ac7b9bf447",
+      "candidate_sha256": "ec62091d8c0c2d94562d277b0f467a53b01243027a6bf759dd7a13a64fb1ab27"
+    }
+  ],
+  "Image_promoted": false,
+  "hardware_tested": false
+}

@@ -255,3 +255,20 @@ Mac/Linux sanitized fixtures and a second complete standalone kernel build pass,
 including full tracked-source/protected-input audits and identical config/export
 CRCs. This does not yet bind the complete netlink skb to one policy mode and
 generation. Capability9 remains rejected, and Android prebuilts are unchanged.
+
+
+## November 3: whole-skb netlink snapshot candidate
+
+The [netlink snapshot candidate](experiments/kernel-netlink-snapshot-20261103-01/)
+captures one policy generation/mode per skb, uses immutable message tables and
+checks both cached and freshly computed base/extended AVC decisions against that
+generation. Successful paths revalidate before returning; reloads return EAGAIN.
+The legacy kernel-SID exemption is preserved. No policy lock spans AVC or audit.
+
+The complete standalone kernel build and Linux fixtures pass with full tracked-
+source/protected-input audits and unchanged config/export CRCs. Mac/Linux test
+inputs and results match. Data-only target compilation supplies actual UAPI
+constants to host fixtures. This is not live reload, boot or hardware validation;
+capability9 rejection remains and no Image is promoted to Android prebuilts.
+Active extended socket classes and other enabled enforcement gaps are next
+kernel work, alongside the unchanged strict vendor-policy/network/installer gates.

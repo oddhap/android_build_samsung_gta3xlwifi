@@ -29,7 +29,7 @@ def function(s, name):
     return s[m.start():i]
 
 
-def generation_harness(source):
+def generation_harness(source, snapshot=False):
     """Inject reload generations into the existing sequential AVC fixture."""
     changes = [
         ('static int fixture_cache_hit,',
@@ -65,6 +65,38 @@ def generation_harness(source):
     for old, new in changes:
         assert source.count(old) == 1, old
         source = source.replace(old, new, 1)
+    if snapshot:
+        marker = '        if((command&255)==0) {'
+        checks = r'''
+        if(command==0 || command==255 || command==256 || command==32768 || command==65535) {
+            const u32 expected_generations[]={0,8,10,0xffffffffU};
+            for(unsigned g=0;g<ARRAY_SIZE(expected_generations);g++)
+            for(unsigned enforcing=0;enforcing<2;enforcing++)
+            for(unsigned permissive=0;permissive<2;permissive++) {
+                selinux_enforcing=enforcing;
+                fixture_node.ae.avd.flags=permissive ? AVD_FLAGS_PERMISSIVE:0;
+                fixture_adds=fixture_audits=fixture_grants=fixture_computes=0;
+                rc=avc_has_extended_perms_seqno(10,20,42,1,fixture_driver,base,
+                                               fixture_perm,NULL,expected_generations[g]);
+                assert(rc==-EAGAIN && rcu_depth==0);
+                assert(fixture_adds==0 && fixture_audits==0 && fixture_grants==0 && fixture_computes==0);
+                rc=avc_has_perm_seqno(10,20,42,1,NULL,expected_generations[g]);
+                assert(rc==-EAGAIN && rcu_depth==0);
+                assert(fixture_adds==0 && fixture_audits==0 && fixture_grants==0);
+                generation_cases+=2;
+            }
+            selinux_enforcing=1;fixture_node.ae.avd.flags=0;
+            rc=avc_has_extended_perms_seqno(10,20,42,1,fixture_driver,base,fixture_perm,NULL,9);
+            assert(rc==(allow ? 0:-EACCES) && rcu_depth==0);
+            fixture_node.ae.avd.allowed=allow ? 1:0;
+            rc=avc_has_perm_seqno(10,20,42,1,NULL,9);
+            assert(rc==(allow ? 0:-EACCES) && rcu_depth==0);
+            fixture_node.ae.avd.allowed=1;
+            generation_cases+=2;
+        }
+'''
+        assert source.count(marker) == 1
+        source = source.replace(marker, checks + marker, 1)
     return source
 
 
@@ -76,7 +108,11 @@ def main():
     parser.add_argument('--report', type=Path, required=True)
     parser.add_argument('--generation-bound', action='store_true',
                         help='Check the isolated xperm/AV generation-binding API and fail-closed mismatch path')
+    parser.add_argument('--snapshot-bound', action='store_true',
+                        help='Also check expected-generation base/extended AVC APIs, including existing cache hits')
     args = parser.parse_args()
+    if args.snapshot_bound and not args.generation_bound:
+        parser.error('--snapshot-bound requires --generation-bound')
     if args.report.exists():
         raise FileExistsError('Use a fresh report path')
     trees = [args.kernel, args.reference, args.legacy]
@@ -206,6 +242,18 @@ static int avc_xperms_audit(u32 s,u32 t,u16 c,u32 requested,struct av_decision *
 }
 ''')
     parts.append(function(avc, 'avc_denied'))
+    if args.snapshot_bound:
+        parts.append(function(avc, 'avc_has_extended_perms_gen'))
+        parts.append(function(avc, 'avc_has_extended_perms_seqno'))
+        parts.append(function(avc, 'avc_has_perm_noaudit_gen'))
+        parts.append(r'''
+static int avc_audit(u32 s,u32 t,u16 c,u32 requested,struct av_decision *d,
+                     int rc,struct common_audit_data *ad,int flags) {
+ assert(flags==0);
+ return avc_xperms_audit(s,t,c,requested,d,NULL,fixture_perm,rc,ad);
+}
+''')
+        parts.append(function(avc, 'avc_has_perm_seqno'))
     parts.append(function(avc, 'avc_has_extended_perms'))
     parts.append(r'''
 static void setup(struct extended_perms_decision *d, struct extended_perms_data *p,
@@ -367,7 +415,7 @@ int main(void) {
         p = Path(scratch)
         harness = '\n'.join(parts)
         if args.generation_bound:
-            harness = generation_harness(harness)
+            harness = generation_harness(harness, args.snapshot_bound)
         (p / 'test.c').write_text(harness)
         results = []
         for config in [[], ['-DCONFIG_ALWAYS_ENFORCE']]:
@@ -381,6 +429,7 @@ int main(void) {
                   'test_runner_sha256': hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
                   'AVD_FLAGS_PERMISSIVE_from_actual_conditional_header': True,
                   'generation_binding_fixture': args.generation_bound,
+                  'expected_generation_AVC_fixture': args.snapshot_bound,
                   'whole_skb_and_reload_concurrency_validated': False,
                   'results': results, 'sanitizers': ['address', 'undefined'],
                   'inputs': {str(t/f):hashlib.sha256((t/f).read_bytes()).hexdigest()

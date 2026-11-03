@@ -1,0 +1,41 @@
+{
+  "passed": true,
+  "scope": "Extracted helpers with a sequential list fixture; not whole kernel or live enforcement",
+  "hardware_tested": false,
+  "policy_load_guard_removed": false,
+  "test_runner_sha256": "96e6e6006c171a470d1d4de3681139c10181f910a8133f32502ebdd3755fa1b2",
+  "AVD_FLAGS_PERMISSIVE_from_actual_conditional_header": true,
+  "generation_binding_fixture": true,
+  "expected_generation_AVC_fixture": true,
+  "whole_skb_and_reload_concurrency_validated": false,
+  "results": [
+    {
+      "config": [],
+      "stdout": "PASS: 2680 generation mismatch scenarios; PASS: 4784128 helper and 807936 AVC fixture scenarios, references/cache isolation/enforcement/audit errors"
+    },
+    {
+      "config": [
+        "-DCONFIG_ALWAYS_ENFORCE"
+      ],
+      "stdout": "PASS: 2680 generation mismatch scenarios; PASS: 4784128 helper and 807936 AVC fixture scenarios, references/cache isolation/enforcement/audit errors"
+    }
+  ],
+  "sanitizers": [
+    "address",
+    "undefined"
+  ],
+  "inputs": {
+    "/srv/android/ports/lineage-24.0-arm64/kernel-netlink-snapshot-20261103-01/src/security/selinux/ss/services.c": "ec62091d8c0c2d94562d277b0f467a53b01243027a6bf759dd7a13a64fb1ab27",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-netlink-snapshot-20261103-01/src/security/selinux/avc.c": "c7c0d80d3e4a4e57e07e8c76b070a99078a028626f3af29e129abc7f2abbf31b",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-netlink-snapshot-20261103-01/src/security/selinux/include/security.h": "4435d1b1f5a5f9d4c30396d844704c6a3e46980b82571428b1cd818dc53cc90f",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-netlink-snapshot-20261103-01/src/security/selinux/ss/avtab.h": "f43803ad7360e4bcc8780d6289f8af3c7170dd111a847016f6ca34e88f497d85",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-xperm-generation-host-20261103-01/modern/security/selinux/ss/services.c": "c2074b2778efcbc3aef977e1589baa295a81674270a3bcfeb420928c9421513e",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-xperm-generation-host-20261103-01/modern/security/selinux/avc.c": "e705db5bcad417c863a30306f94a3f6aeee1687a909ed24838d5573650dc27f4",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-xperm-generation-host-20261103-01/modern/security/selinux/include/security.h": "089fa1bdb82a6a384979146f6babca343aeeab1d868f36b51f21b63d5cad6ded",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-xperm-generation-host-20261103-01/modern/security/selinux/ss/avtab.h": "392ab58ba779bb8f502b5fa5f2837aeaa3e9b8fbbe85c1e2174a300606d19847",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-xperm-generation-host-20261103-01/legacy/security/selinux/ss/services.c": "5800310a5d9e0a1c484c1d19992c72d0227a9977ae2b8558250a84495176a2d8",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-xperm-generation-host-20261103-01/legacy/security/selinux/avc.c": "6c52f5784bd6826b2bf27b35a365350fff8c056e4caf43562a52e15f3c02235f",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-xperm-generation-host-20261103-01/legacy/security/selinux/include/security.h": "6934011c67cbcdf4759aa2b780b70b883b930f03fed9ef7de0e4015682dc8e10",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-xperm-generation-host-20261103-01/legacy/security/selinux/ss/avtab.h": "f43803ad7360e4bcc8780d6289f8af3c7170dd111a847016f6ca34e88f497d85"
+  }
+}
