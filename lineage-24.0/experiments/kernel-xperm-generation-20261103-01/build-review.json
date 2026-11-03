@@ -1,0 +1,20 @@
+{
+  "scope": "Whole isolated kernel build and exact preserved config/export/source checks; no live enforcement, reload concurrency, whole-skb or module load approval",
+  "build_exit": 0,
+  "completed_utc": "2026-11-03 18:12:12 UTC",
+  "Image_sha256": "d9d1c8efbb10de2a54b5be3ea0a18e1e5b1bc85dfb68539bc60200f143d5956e",
+  "config_sha256": "fac42e3bbf996bb9502bb1031c91b1950986ad3586d0f33cad869a6fd0b3acea",
+  "Module_symvers_identical_to_original": true,
+  "Module_symvers_sha256": "f980d564cb5960789a1cd6dfe52d873a288526d7eb902697366061df50d941c3",
+  "source_files_audited": 60331,
+  "qtaguid_header_before_after_sha256": "9096f41f971a71018f49f155d3577204678e7298a0e44728e644361332f98387",
+  "preserved_firmware_still_matches_build_inputs": true,
+  "compile_macro_flags": [
+    "-DANDROID_VERSION=110000"
+  ],
+  "build_script_sha256": "d9095c2bee5a080c0b571273bda1d2d0f0e309c10c7c4a658033830d64037244",
+  "audit_script_sha256": "7667bbea1ceb9e93f5ea8306f53a2511e2e2e195bede38e2825eb780b824ce72",
+  "policycap9_rejection_retained": true,
+  "Image_promoted": false,
+  "flash_ready": false
+}

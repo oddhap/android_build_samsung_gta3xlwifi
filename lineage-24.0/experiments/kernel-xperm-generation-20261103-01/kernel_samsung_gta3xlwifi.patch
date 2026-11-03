@@ -1,0 +1,74 @@
+diff --git a/security/selinux/avc.c b/security/selinux/avc.c
+index 0132bc2c24b60ad94aa6cf3caf37ba987ddf6790..c6aef65761a5bb8cb99e56c93953fac88f4ee99c 100644
+--- a/security/selinux/avc.c
++++ b/security/selinux/avc.c
+@@ -1080,6 +1080,7 @@ int avc_has_extended_perms(u32 ssid, u32 tsid, u16 tclass, u32 requested,
+ 	struct av_decision avd;
+ 	u32 denied;
+ 	struct extended_perms_decision local_xpd;
++	u32 xpd_seqno;
+ 	struct extended_perms_decision *xpd = NULL;
+ 	struct extended_perms_data allowed;
+ 	struct extended_perms_data auditallow;
+@@ -1121,7 +1122,10 @@ int avc_has_extended_perms(u32 ssid, u32 tsid, u16 tclass, u32 requested,
+ 		}
+ 		rcu_read_unlock();
+ 		security_compute_xperms_decision(ssid, tsid, tclass, driver,
+-						base_perm, &local_xpd);
++						base_perm, &local_xpd, &xpd_seqno);
++		/* Never combine an old AV with extended permissions from a reload. */
++		if (xpd_seqno != avd.seqno)
++			return -EAGAIN;
+ 		rcu_read_lock();
+ 		avc_update_node(AVC_CALLBACK_ADD_XPERMS, requested, driver, base_perm, xperm,
+ 				ssid, tsid, tclass, avd.seqno, &local_xpd, 0);
+diff --git a/security/selinux/include/security.h b/security/selinux/include/security.h
+index 39a9421af3d4e84ff3d4cbb7a6b68b3599b04929..e63652159a70d8ff8fcd0962496076f34d19cc06 100644
+--- a/security/selinux/include/security.h
++++ b/security/selinux/include/security.h
+@@ -158,7 +158,8 @@ void security_compute_av(u32 ssid, u32 tsid,
+ 			 struct extended_perms *xperms);
+ 
+ void security_compute_xperms_decision(u32 ssid, u32 tsid, u16 tclass,
+-			 u8 driver, u8 base_perm, struct extended_perms_decision *xpermd);
++			 u8 driver, u8 base_perm, struct extended_perms_decision *xpermd,
++			 u32 *seqno);
+ 
+ void security_compute_av_user(u32 ssid, u32 tsid,
+ 			     u16 tclass, struct av_decision *avd);
+diff --git a/security/selinux/ss/services.c b/security/selinux/ss/services.c
+index 333c9fca16ab3d9dad29d23c73e3ffe59f944a99..39ab37edaf377ba10418977e379316b6161ca358 100644
+--- a/security/selinux/ss/services.c
++++ b/security/selinux/ss/services.c
+@@ -1036,7 +1036,8 @@ void security_compute_xperms_decision(u32 ssid,
+ 				u16 orig_tclass,
+ 				u8 driver,
+ 				u8 base_perm,
+-				struct extended_perms_decision *xpermd)
++				struct extended_perms_decision *xpermd,
++				u32 *seqno)
+ {
+ 	u16 tclass;
+ 	struct context *scontext, *tcontext;
+@@ -1054,6 +1055,8 @@ void security_compute_xperms_decision(u32 ssid,
+ 	memset(xpermd->dontaudit->p, 0, sizeof(xpermd->dontaudit->p));
+ 
+ 	read_lock(&policy_rwlock);
++	/* Bind these extended permissions to the same generation as the AV. */
++	*seqno = latest_granting;
+ 	if (!ss_initialized)
+ 		goto allow;
+ 
+@@ -2119,9 +2122,12 @@ int security_load_policy(void *data, size_t len)
+ 			goto out;
+ 		}
+ 
++		/* Publish initial capabilities, initialization and generation together. */
++		write_lock_irq(&policy_rwlock);
+ 		security_load_policycaps();
+ 		ss_initialized = 1;
+ 		seqno = ++latest_granting;
++		write_unlock_irq(&policy_rwlock);
+ 		selinux_complete_init();
+ 		avc_ss_reset(seqno);
+ 		selnl_notify_policyload(seqno);

@@ -29,13 +29,56 @@ def function(s, name):
     return s[m.start():i]
 
 
+def generation_harness(source):
+    """Inject reload generations into the existing sequential AVC fixture."""
+    changes = [
+        ('static int fixture_cache_hit,',
+         'static u32 fixture_generation=9;\nstatic unsigned fixture_adds,fixture_audits;\nstatic int fixture_cache_hit,'),
+        ('struct extended_perms_decision *d) {\n assert(s==10',
+         'struct extended_perms_decision *d,u32 *seqno) {\n *seqno=fixture_generation;\n assert(s==10'),
+        ('else { assert(event==AVC_CALLBACK_ADD_XPERMS && d!=NULL && flags==0); }',
+         'else { assert(event==AVC_CALLBACK_ADD_XPERMS && d!=NULL && flags==0); fixture_adds++; }'),
+        ('(void)xp; (void)rc;', '(void)xp; (void)rc; fixture_audits++;'),
+        ('unsigned long avc_cases=0;', 'unsigned long avc_cases=0,generation_cases=0;'),
+        ('        if((command&255)==0) {', r'''
+        if(cached!=2 && (command==0 || command==255 || command==256 ||
+                         command==32768 || command==65535)) {
+            const u32 generations[]={0,8,10,0xffffffffU};
+            for(unsigned g=0;g<ARRAY_SIZE(generations);g++)
+            for(unsigned enforcing=0;enforcing<2;enforcing++)
+            for(unsigned permissive=0;permissive<2;permissive++) {
+                fixture_generation=generations[g];
+                selinux_enforcing=enforcing;
+                fixture_node.ae.avd.flags=permissive ? AVD_FLAGS_PERMISSIVE:0;
+                fixture_adds=fixture_audits=fixture_grants=0;
+                rc=avc_has_extended_perms(10,20,42,1,fixture_driver,base,fixture_perm,NULL);
+                assert(rc==-EAGAIN && rcu_depth==0);
+                assert(fixture_adds==0 && fixture_audits==0 && fixture_grants==0);
+                generation_cases++;
+            }
+            fixture_generation=9;selinux_enforcing=1;fixture_node.ae.avd.flags=0;
+        }
+        if((command&255)==0) {'''),
+        ('    printf("PASS: %lu helper',
+         '    printf("PASS: %lu generation mismatch scenarios; ",generation_cases);\n    printf("PASS: %lu helper'),
+    ]
+    for old, new in changes:
+        assert source.count(old) == 1, old
+        source = source.replace(old, new, 1)
+    return source
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--kernel', type=Path, required=True)
     parser.add_argument('--reference', type=Path, required=True)
     parser.add_argument('--legacy', type=Path, required=True)
     parser.add_argument('--report', type=Path, required=True)
+    parser.add_argument('--generation-bound', action='store_true',
+                        help='Check the isolated xperm/AV generation-binding API and fail-closed mismatch path')
     args = parser.parse_args()
+    if args.report.exists():
+        raise FileExistsError('Use a fresh report path')
     trees = [args.kernel, args.reference, args.legacy]
     sec = (trees[0] / FILES[2]).read_text()
     avtab = (trees[0] / FILES[3]).read_text()
@@ -85,6 +128,17 @@ struct avc_xperms_decision_node {
 struct avc_xperms_node { struct extended_perms xp; struct list_head xpd_head; };
 ''')
     avc = (trees[0] / FILES[1]).read_text()
+    if args.generation_bound:
+        service = (trees[0] / FILES[0]).read_text()
+        compute = function(service, 'security_compute_xperms_decision')
+        assert compute.index('read_lock(&policy_rwlock)') < compute.index('*seqno = latest_granting;') < compute.index('if (!ss_initialized)')
+        assert compute.index('*seqno = latest_granting;') < compute.index('read_unlock(&policy_rwlock)')
+        load = function(service, 'security_load_policy')
+        publish = load[load.index('/* Publish initial capabilities'):load.index('selinux_complete_init();')]
+        ordered = ['write_lock_irq(&policy_rwlock)', 'security_load_policycaps()',
+                   'ss_initialized = 1', 'seqno = ++latest_granting', 'write_unlock_irq(&policy_rwlock)']
+        assert [publish.index(x) for x in ordered] == sorted(publish.index(x) for x in ordered)
+        assert 'u32 *seqno' in compute
     for name in ['avc_xperms_has_perm', 'avc_copy_xperms_decision',
                  'avc_quick_copy_xperms_decision', 'avc_xperms_decision_lookup',
                  'avc_xperms_allow_perm']:
@@ -311,7 +365,10 @@ int main(void) {
 ''')
     with tempfile.TemporaryDirectory(prefix='netlink-xperm24-') as scratch:
         p = Path(scratch)
-        (p / 'test.c').write_text('\n'.join(parts))
+        harness = '\n'.join(parts)
+        if args.generation_bound:
+            harness = generation_harness(harness)
+        (p / 'test.c').write_text(harness)
         results = []
         for config in [[], ['-DCONFIG_ALWAYS_ENFORCE']]:
             subprocess.run(['clang', '-std=gnu11', '-O1', '-g', '-Wall', '-Wextra', '-Werror',
@@ -323,6 +380,8 @@ int main(void) {
                   'hardware_tested': False, 'policy_load_guard_removed': False,
                   'test_runner_sha256': hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
                   'AVD_FLAGS_PERMISSIVE_from_actual_conditional_header': True,
+                  'generation_binding_fixture': args.generation_bound,
+                  'whole_skb_and_reload_concurrency_validated': False,
                   'results': results, 'sanitizers': ['address', 'undefined'],
                   'inputs': {str(t/f):hashlib.sha256((t/f).read_bytes()).hexdigest()
                              for t in trees for f in FILES if (t/f).exists()}}

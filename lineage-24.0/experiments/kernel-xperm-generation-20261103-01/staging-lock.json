@@ -1,0 +1,32 @@
+{
+  "scope": "Isolated xperm/AV generation binding, not whole-skb netlink consistency",
+  "original_kernel_revision": "669b9584e678ce5865ed38e04c24639082d78de1",
+  "prerequisites": [
+    "qtaguid-persistent-20261022-02",
+    "kernel-policy-reader-20261023-01",
+    "kernel-functionfs-20261023-01",
+    "kernel-netlink-20261101-01",
+    "kernel-mmap-20261103-01"
+  ],
+  "patch_sha256": "2049cda6df58058d6b769106dfe1445a641a3227935ceb232490f032ccd0c08d",
+  "policycap9_load_rejection_retained": true,
+  "files": [
+    {
+      "path": "security/selinux/avc.c",
+      "before_sha256": "54a300cec16e66c47a4a29598c61971b4b675be55a33b72c6077c60124b95798",
+      "candidate_sha256": "7aa439d34fc918a9b6a396cc795d1faa8d4751b00b5dcc412df13cbcac2ba860"
+    },
+    {
+      "path": "security/selinux/include/security.h",
+      "before_sha256": "5886825b351a7c964c8af029d6bddf0ac3ac0ce5a368739a88785fcd6c4ad593",
+      "candidate_sha256": "84ce78230a3f7db49f847369eb675ab9d3b9674e044c56f34499d5429c8b8db0"
+    },
+    {
+      "path": "security/selinux/ss/services.c",
+      "before_sha256": "30fc06328592ead5484a574c12b9ad1fd592bb0e38b594e76855788d0ef18280",
+      "candidate_sha256": "964606e60ca52a06c4e093c877c303d6238bb991f4b9ca6eb440f2ac7b9bf447"
+    }
+  ],
+  "Image_promoted": false,
+  "hardware_tested": false
+}

@@ -245,3 +245,13 @@ hooks are still required. Actual compile commands do not define Samsung
 CONFIG_ALWAYS_ENFORCE in either the preserved AVC or this standalone build.
 Strict vendor policy, complete networking and Android17 installer/FBE/rollback
 remain open. The built ROM and kernel remain diagnostic, with no installable OTA.
+
+
+A subsequent [generation-binding candidate](experiments/kernel-xperm-generation-20261103-01/)
+returns EAGAIN when an access vector and freshly computed extended permissions
+belong to different policy generations, before cache insertion or permissive
+handling. Initial policy publication is protected by the policy write lock.
+Mac/Linux sanitized fixtures and a second complete standalone kernel build pass,
+including full tracked-source/protected-input audits and identical config/export
+CRCs. This does not yet bind the complete netlink skb to one policy mode and
+generation. Capability9 remains rejected, and Android prebuilts are unchanged.
