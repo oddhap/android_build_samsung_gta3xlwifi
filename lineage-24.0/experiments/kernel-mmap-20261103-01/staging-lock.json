@@ -1,0 +1,29 @@
+{
+  "scope": "Isolated mmap enforcement on guarded partial netlink candidate; not Android apply-port snapshot",
+  "original_kernel_revision": "669b9584e678ce5865ed38e04c24639082d78de1",
+  "prerequisites": [
+    "qtaguid-persistent-20261022-02",
+    "kernel-policy-reader-20261023-01",
+    "kernel-functionfs-20261023-01",
+    "kernel-netlink-20261101-01"
+  ],
+  "patch_sha256": "29e12c3b06127fc5c72eb869ea9842ba0048b5c76178231ee975fab06799c7c3",
+  "policycap9_load_rejection_retained": true,
+  "class_ids_unchanged": true,
+  "permission_bit_positions_change": true,
+  "full_kernel_compile_passed": false,
+  "kernel_image_promoted": false,
+  "hardware_tested": false,
+  "files": [
+    {
+      "path": "security/selinux/hooks.c",
+      "before_sha256": "ced3e25507abc79779e9aa06abf8032bb5f7c002dbf2817a6fddfe104cf8ccac",
+      "candidate_sha256": "59707478879f992cf80c4aee77df5cc4494633a2110a2d0fe526931a0376a219"
+    },
+    {
+      "path": "security/selinux/include/classmap.h",
+      "before_sha256": "fdc46ee74b5912594d5a7b6ab06ef488c9783199d178dd0e04dee90f0b4d1b3d",
+      "candidate_sha256": "7c626d3300cdd093f918e59d6d582f59bae0e7f5b4d759ab37e0101ab8f83f65"
+    }
+  ]
+}

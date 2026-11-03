@@ -1,0 +1,69 @@
+{
+  "scope": "Actual mmap/credential/inode/file permission bodies with fixture AVC/audit objects; not whole kernel or live enforcement",
+  "passed": true,
+  "runs": [
+    {
+      "mode": "legacy",
+      "result": "PASS: 2211840 mmap fixture scenarios; mode=0"
+    },
+    {
+      "mode": "candidate",
+      "result": "PASS: 2211840 mmap fixture scenarios; mode=1"
+    },
+    {
+      "mode": "modern-control-oracle",
+      "result": "PASS: 1105920 mmap fixture scenarios; mode=2"
+    }
+  ],
+  "inputs_sha256": {
+    "work/kernel-netlink24/security/selinux/hooks.c": "ced3e25507abc79779e9aa06abf8032bb5f7c002dbf2817a6fddfe104cf8ccac",
+    "work/kernel-netlink24/security/selinux/include/classmap.h": "fdc46ee74b5912594d5a7b6ab06ef488c9783199d178dd0e04dee90f0b4d1b3d",
+    "work/kernel-mmap24/security/selinux/hooks.c": "59707478879f992cf80c4aee77df5cc4494633a2110a2d0fe526931a0376a219",
+    "work/kernel-mmap24/security/selinux/include/classmap.h": "7c626d3300cdd093f918e59d6d582f59bae0e7f5b4d759ab37e0101ab8f83f65",
+    "reference/kernel-android17-selinux/security/selinux/hooks.c": "f8353944bb3c2a6dedff5e8966dfbaf248933d0c95bd05d182b82c1a0638aed7",
+    "reference/kernel-android17-selinux/security/selinux/include/classmap.h": "05f4bb4b1f8b69c2141945234a69bb9c2b4338131479d735a17cf1f40d676ff3"
+  },
+  "runner_sha256": "6edc08ee6c47905b40ee7980a1e28a1240c22b2dcc299fe23b17caa9d3f772ca",
+  "class_ids_unchanged": true,
+  "original_named_permission_order_preserved": true,
+  "permission_bit_positions_change": true,
+  "classes_with_inserted_common_map": [
+    "file",
+    "dir",
+    "lnk_file",
+    "chr_file",
+    "blk_file",
+    "sock_file",
+    "fifo_file",
+    "socket",
+    "tcp_socket",
+    "udp_socket",
+    "rawip_socket",
+    "netlink_socket",
+    "packet_socket",
+    "key_socket",
+    "unix_stream_socket",
+    "unix_dgram_socket",
+    "netlink_route_socket",
+    "netlink_tcpdiag_socket",
+    "netlink_nflog_socket",
+    "netlink_xfrm_socket",
+    "netlink_selinux_socket",
+    "netlink_iscsi_socket",
+    "netlink_audit_socket",
+    "netlink_fib_lookup_socket",
+    "netlink_connector_socket",
+    "netlink_netfilter_socket",
+    "netlink_dnrt_socket",
+    "netlink_kobject_uevent_socket",
+    "netlink_generic_socket",
+    "netlink_scsitransport_socket",
+    "netlink_rdma_socket",
+    "netlink_crypto_socket",
+    "appletalk_socket",
+    "dccp_socket",
+    "tun_socket"
+  ],
+  "whole_kernel_and_module_abi_validated": false,
+  "hardware_tested": false
+}

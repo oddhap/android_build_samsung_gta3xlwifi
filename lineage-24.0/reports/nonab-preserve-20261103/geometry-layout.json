@@ -1,0 +1,105 @@
+{
+  "scope": "Diagnostic package geometry, input identity and selected ELF checks only",
+  "archive": "/srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files.zip",
+  "archive_sha256": "5d6d30884abdf5c9cd2ea1680961005f681598a508bcb0937d6ebb27bebc3b45",
+  "source_after_audit_sha256": "aef8dd4290ff129835ef6abcec711c25b8525600b6b13997f405f7f3dc017273",
+  "images": {
+    "boot.img": {
+      "bytes": 25380880,
+      "expanded_bytes": 25380880,
+      "sha256": "dea0c12a8fb5e748a26538b55a7a5d93594b799232cef616778f7867bea0a533",
+      "sparse": false,
+      "kernel_sha256": "33c1a0d1b9e2696decd53fbedfc2231385b74464f4058a54b93ff06ff7c72553",
+      "os_version_word": 570425770
+    },
+    "recovery.img": {
+      "bytes": 39675920,
+      "expanded_bytes": 39675920,
+      "sha256": "46b1cf5ecc505c9076e6ec4d74920d0361a5ceebbfd8b328b0f50a792d6f35c4",
+      "sparse": false,
+      "kernel_sha256": "33c1a0d1b9e2696decd53fbedfc2231385b74464f4058a54b93ff06ff7c72553",
+      "os_version_word": 570425770
+    },
+    "system.img": {
+      "bytes": 1868530268,
+      "expanded_bytes": 3196059648,
+      "sha256": "67c3f215f280ef124f0947452b9b202d76fd015a57654459425d0aff992d5444",
+      "sparse": true
+    },
+    "vendor.img": {
+      "bytes": 265657140,
+      "expanded_bytes": 343932928,
+      "sha256": "a847a527931d61e5702b8a025210c84eb88a37ef1e60df93b6393a16dae9183a",
+      "sparse": true
+    },
+    "product.img": {
+      "bytes": 184467592,
+      "expanded_bytes": 327155712,
+      "sha256": "810a9ffae40be1aa4fea2e98cd556b8d82e820f890c1e541453e782abf2a8ab8",
+      "sparse": true
+    },
+    "cache.img": {
+      "bytes": 57444,
+      "expanded_bytes": 159383552,
+      "sha256": "706b1d26bc8150fdbe17c3c6305823a6baef0eb66bcd1cc31a2171bc0fc152a6",
+      "sparse": true
+    },
+    "dtbo.img": {
+      "bytes": 163252,
+      "expanded_bytes": 163252,
+      "sha256": "b9041c37713a745290d9a0203423436b6caa7a1307ced79b6963b4f1f0271c4b",
+      "sparse": false
+    }
+  },
+  "elfs": {
+    "SYSTEM/lib/libaudiohal@4.0.so": {
+      "bits": 32,
+      "sha256": "228e92e67960cd7e31a5efa0b80cd671ec96ded3cc43ed3de5b206e1b95065aa"
+    },
+    "SYSTEM/lib/libprocessgroup.so": {
+      "bits": 32,
+      "sha256": "3c14ed16129789dc159abe78c34144c752c11ac61a037e94d146eaaafb47c3ab"
+    },
+    "SYSTEM/lib/libmeminfo.so": {
+      "bits": 32,
+      "sha256": "3cb96495181e9f65a20480911f7de15326216642328a0e69e006c711f3479a3f"
+    },
+    "SYSTEM/lib/libfs_mgr.so": {
+      "bits": 32,
+      "sha256": "4b9975354358744569b531d49ad9e72d97a4120ac69eea227219b9114ef840e3"
+    },
+    "SYSTEM/lib64/libaudiohal@4.0.so": {
+      "bits": 64,
+      "sha256": "1b41b6fee0ea6cee28b458dd8efb6bc1c7bfb634362ebf4b16267c9cd0fd824c"
+    },
+    "SYSTEM/lib64/libprocessgroup.so": {
+      "bits": 64,
+      "sha256": "9ee5b315009c6916a933fe592cab79697055535f8740a83314a9c69dca77e982"
+    },
+    "SYSTEM/lib64/libmeminfo.so": {
+      "bits": 64,
+      "sha256": "537e44b054119ad3282b63493b019144e3ec5078f480636ed2d5a77655e12bde"
+    },
+    "SYSTEM/lib64/libfs_mgr.so": {
+      "bits": 64,
+      "sha256": "0e13aec42c707dfe6feddec2a1e8e761e7e2fb7711561f242e30879d9b7cad14"
+    }
+  },
+  "build_exit_file_sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+  "hardware_tested": false,
+  "flash_ready": false,
+  "installer_or_security_approved": false,
+  "observed_at_utc": "2026-11-03T17:30:24.653977+00:00",
+  "ota_layout": {
+    "physical_non_ab": true,
+    "allow_non_ab": true,
+    "dynamic_partitions": false,
+    "recovery_replacement_resources_absent": true,
+    "recovery_preservation_declared": true
+  },
+  "android_release": "17",
+  "security_patch": "2026-10-01",
+  "selected_zip_entries_crc_checked": true,
+  "whole_archive_crc_checked": false,
+  "artifact_checks_passed": true
+}

@@ -1,0 +1,34 @@
+diff --git a/security/selinux/hooks.c b/security/selinux/hooks.c
+index cc7442f738e55e52c808318da2572f8cc128ee86..00905b12167e0e353604ae5b73f3ce1605b4e396 100644
+--- a/security/selinux/hooks.c
++++ b/security/selinux/hooks.c
+@@ -3606,6 +3606,18 @@ static int selinux_mmap_addr(unsigned long addr)
+ static int selinux_mmap_file(struct file *file, unsigned long reqprot,
+ 			     unsigned long prot, unsigned long flags)
+ {
++	struct common_audit_data ad;
++	int rc;
++
++	if (file) {
++		ad.type = LSM_AUDIT_DATA_PATH;
++		ad.u.path = file->f_path;
++		rc = inode_has_perm(current_cred(), file_inode(file),
++				    FILE__MAP, &ad);
++		if (rc)
++			return rc;
++	}
++
+ 	if (selinux_checkreqprot)
+ 		prot = reqprot;
+ 
+diff --git a/security/selinux/include/classmap.h b/security/selinux/include/classmap.h
+index 47a669dc6c9fcf23d00dcfcfbd8267435fd5f11a..104c1a580d1f12f7edbcde0e1ce3ecba1fb17422 100644
+--- a/security/selinux/include/classmap.h
++++ b/security/selinux/include/classmap.h
+@@ -1,5 +1,5 @@
+ #define COMMON_FILE_SOCK_PERMS "ioctl", "read", "write", "create", \
+-    "getattr", "setattr", "lock", "relabelfrom", "relabelto", "append"
++    "getattr", "setattr", "lock", "relabelfrom", "relabelto", "append", "map"
+ 
+ #define COMMON_FILE_PERMS COMMON_FILE_SOCK_PERMS, "unlink", "link", \
+     "rename", "execute", "quotaon", "mounton", "audit_access", \

@@ -1,0 +1,33 @@
+{
+  "original_kernel_revision": "669b9584e678ce5865ed38e04c24639082d78de1",
+  "parent_experiment_lock_sha256": "ff7bb5223a3b13e5975166276fa2df7ddb5a564135524d74dac2eec2a3e63e9e",
+  "partial_tree": true,
+  "before_files": {
+    "include/linux/lsm_audit.h": "80df8e41ae60ecc3fd2196f3564773a366889fc3136039698898566e6acca399",
+    "include/uapi/linux/netfilter/xt_qtaguid_sock.h": "9096f41f971a71018f49f155d3577204678e7298a0e44728e644361332f98387",
+    "net/netfilter/xt_qtaguid.c": "212e2e4c3d459293a3427d2f715fb1843fac521787a7817c1f2d455598b254f3",
+    "net/netfilter/xt_qtaguid_internal.h": "68ba021c7f67fa8578df3e7199944bb15cb0317c5a43ecc16b88becf11debde5",
+    "net/netlink/af_netlink.c": "8460a9119244571d1f753b8a5146e1d44acace9ea382e37ce76edcb7d8040a92",
+    "security/lsm_audit.c": "eac5a902bc5ae80de8ee837780ef093b67eeb5e1586897656cfedffb21edae72",
+    "security/selinux/avc.c": "54a300cec16e66c47a4a29598c61971b4b675be55a33b72c6077c60124b95798",
+    "security/selinux/hooks.c": "ced3e25507abc79779e9aa06abf8032bb5f7c002dbf2817a6fddfe104cf8ccac",
+    "security/selinux/include/avc.h": "1ca7cce670f29cc0a2c450341f8772970da8f2718169be278686edd8d8674501",
+    "security/selinux/include/classmap.h": "fdc46ee74b5912594d5a7b6ab06ef488c9783199d178dd0e04dee90f0b4d1b3d",
+    "security/selinux/include/security.h": "5886825b351a7c964c8af029d6bddf0ac3ac0ce5a368739a88785fcd6c4ad593",
+    "security/selinux/nlmsgtab.c": "41a31d8a5a6f88a7cacbcfcf0e4432612026bf5ece9c72f4ea094fb139b6656e",
+    "security/selinux/selinuxfs.c": "b6b0d169ca7c1be311ce4522d6b09231052f2f0b042e450fd8d5edadf537689d",
+    "security/selinux/ss/avtab.c": "0e7cfb7d017944012bd7c1b241b37ea4859f14d35aa46d46e457862db3a660dc",
+    "security/selinux/ss/avtab.h": "f43803ad7360e4bcc8780d6289f8af3c7170dd111a847016f6ca34e88f497d85",
+    "security/selinux/ss/policydb.c": "bfb0aa8718b86868ad043c83b6e1c0ea6c81954741723e3ef130ea26e76ffb90",
+    "security/selinux/ss/policydb.h": "0d0be849e68a831f1dd54eb65038df301b0e430016e730a72094228d9391efe7",
+    "security/selinux/ss/services.c": "30fc06328592ead5484a574c12b9ad1fd592bb0e38b594e76855788d0ef18280"
+  },
+  "excluded_untracked": [
+    "security/selinux/netlink.c"
+  ],
+  "kernel_permission_bit_positions_change": true,
+  "class_ids_unchanged": true,
+  "policycap9_rejection_retained": true,
+  "full_kernel_or_module_abi_validated": false,
+  "Image_or_Android_prebuilt_modified": false
+}

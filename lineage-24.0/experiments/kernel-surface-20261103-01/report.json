@@ -1,0 +1,486 @@
+{
+  "scope": "Static declaration comparison and config review inputs only; NOT hook/enforcement validation",
+  "original": {
+    "missing_kernel_class_declarations": [
+      "alg_socket",
+      "anon_inode",
+      "atmpvc_socket",
+      "atmsvc_socket",
+      "ax25_socket",
+      "bluetooth_socket",
+      "bpf",
+      "caif_socket",
+      "can_socket",
+      "cap2_userns",
+      "cap_userns",
+      "decnet_socket",
+      "icmp_socket",
+      "ieee802154_socket",
+      "infiniband_endport",
+      "infiniband_pkey",
+      "io_uring",
+      "ipx_socket",
+      "irda_socket",
+      "isdn_socket",
+      "iucv_socket",
+      "kcm_socket",
+      "llc_socket",
+      "mctp_socket",
+      "memfd_file",
+      "netrom_socket",
+      "nfc_socket",
+      "perf_event",
+      "phonet_socket",
+      "pppox_socket",
+      "process2",
+      "qipcrtr_socket",
+      "rds_socket",
+      "rose_socket",
+      "rxrpc_socket",
+      "sctp_socket",
+      "smc_socket",
+      "tipc_socket",
+      "user_namespace",
+      "vsock_socket",
+      "x25_socket",
+      "xdp_socket"
+    ],
+    "missing_kernel_permission_declarations": {
+      "appletalk_socket": [
+        "map"
+      ],
+      "blk_file": [
+        "map",
+        "watch",
+        "watch_mount",
+        "watch_reads",
+        "watch_sb",
+        "watch_with_perm"
+      ],
+      "capability2": [
+        "bpf",
+        "checkpoint_restore",
+        "perfmon"
+      ],
+      "chr_file": [
+        "entrypoint",
+        "execute_no_trans",
+        "map",
+        "watch",
+        "watch_mount",
+        "watch_reads",
+        "watch_sb",
+        "watch_with_perm"
+      ],
+      "dir": [
+        "map",
+        "watch",
+        "watch_mount",
+        "watch_reads",
+        "watch_sb",
+        "watch_with_perm"
+      ],
+      "fifo_file": [
+        "map",
+        "watch",
+        "watch_mount",
+        "watch_reads",
+        "watch_sb",
+        "watch_with_perm"
+      ],
+      "file": [
+        "map",
+        "watch",
+        "watch_mount",
+        "watch_reads",
+        "watch_sb",
+        "watch_with_perm"
+      ],
+      "filesystem": [
+        "watch"
+      ],
+      "key_socket": [
+        "map"
+      ],
+      "lnk_file": [
+        "map",
+        "watch",
+        "watch_mount",
+        "watch_reads",
+        "watch_sb",
+        "watch_with_perm"
+      ],
+      "netlink_audit_socket": [
+        "map",
+        "nlmsg"
+      ],
+      "netlink_connector_socket": [
+        "map"
+      ],
+      "netlink_crypto_socket": [
+        "map"
+      ],
+      "netlink_dnrt_socket": [
+        "map"
+      ],
+      "netlink_fib_lookup_socket": [
+        "map"
+      ],
+      "netlink_generic_socket": [
+        "map"
+      ],
+      "netlink_iscsi_socket": [
+        "map"
+      ],
+      "netlink_kobject_uevent_socket": [
+        "map"
+      ],
+      "netlink_netfilter_socket": [
+        "map"
+      ],
+      "netlink_nflog_socket": [
+        "map"
+      ],
+      "netlink_rdma_socket": [
+        "map"
+      ],
+      "netlink_route_socket": [
+        "map",
+        "nlmsg",
+        "nlmsg_getneigh"
+      ],
+      "netlink_scsitransport_socket": [
+        "map"
+      ],
+      "netlink_selinux_socket": [
+        "map"
+      ],
+      "netlink_socket": [
+        "map"
+      ],
+      "netlink_tcpdiag_socket": [
+        "map",
+        "nlmsg"
+      ],
+      "netlink_xfrm_socket": [
+        "map",
+        "nlmsg"
+      ],
+      "packet_socket": [
+        "map"
+      ],
+      "process": [
+        "getrlimit"
+      ],
+      "rawip_socket": [
+        "map"
+      ],
+      "security": [
+        "validate_trans"
+      ],
+      "sock_file": [
+        "map",
+        "watch",
+        "watch_mount",
+        "watch_reads",
+        "watch_sb",
+        "watch_with_perm"
+      ],
+      "socket": [
+        "map"
+      ],
+      "system": [
+        "firmware_load",
+        "kexec_image_load",
+        "kexec_initramfs_load",
+        "policy_load",
+        "x509_certificate_load"
+      ],
+      "tcp_socket": [
+        "map"
+      ],
+      "tun_socket": [
+        "map"
+      ],
+      "udp_socket": [
+        "map"
+      ],
+      "unix_dgram_socket": [
+        "map"
+      ],
+      "unix_stream_socket": [
+        "map"
+      ]
+    },
+    "policy_classes_not_in_reference_kernel_table": [
+      "dccp_socket",
+      "diced",
+      "drmservice",
+      "hwservice_manager",
+      "keystore2",
+      "keystore2_key",
+      "keystore_key",
+      "lockdown",
+      "property_service",
+      "service_manager",
+      "tee_service"
+    ],
+    "kernel_class_count": 56
+  },
+  "active_policycaps": [
+    "network_peer_controls",
+    "open_perms",
+    "extended_socket_class",
+    "nnp_nosuid_transition",
+    "netlink_xperm",
+    "functionfs_seclabel"
+  ],
+  "kernel_config": {
+    "PERF_EVENTS": "y",
+    "USERFAULTFD": "n",
+    "FANOTIFY": "n",
+    "FANOTIFY_ACCESS_PERMISSIONS": "not listed",
+    "BPF_SYSCALL": "n",
+    "USER_NS": "n",
+    "IP_SCTP": "n",
+    "IP_DCCP": "n",
+    "COMPAT": "y",
+    "ANDROID_BINDER_DEVICES": "\"binder,hwbinder,vndbinder\"",
+    "ANDROID_BINDER_IPC_32BIT": "not listed",
+    "ALWAYS_ENFORCE": "not listed",
+    "SECURITY_SELINUX_DEVELOP": "y"
+  },
+  "policy_cil_sha256": "63b746f5bc0d141483e5e356b6a5e1d2889976001838ff9039d32008d0e3b764",
+  "inputs_sha256": {
+    "reference/kernel-surface17/classmap-original.h": "ffe30eef4378308e33219b59e22f05b3238595d3d0b73c14e1f9ec18f181f1b1",
+    "reference/kernel-android17-selinux/security/selinux/include/classmap.h": "05f4bb4b1f8b69c2141945234a69bb9c2b4338131479d735a17cf1f40d676ff3",
+    "reference/kernel-surface17/policy-classes.json": "b1ce1ca1d858806e89ed1b4fdbc7857cf888cb016f0ee2fc6c1cd6ed634818b4",
+    "reference/kernel-surface17/kernel.config": "fac42e3bbf996bb9502bb1031c91b1950986ad3586d0f33cad869a6fd0b3acea",
+    "work/kernel-netlink24/security/selinux/include/classmap.h": "fdc46ee74b5912594d5a7b6ab06ef488c9783199d178dd0e04dee90f0b4d1b3d"
+  },
+  "source_or_device_modified": false,
+  "hardware_tested": false,
+  "kernel_boot_or_security_approved": false,
+  "isolated_candidate": {
+    "missing_kernel_class_declarations": [
+      "alg_socket",
+      "anon_inode",
+      "atmpvc_socket",
+      "atmsvc_socket",
+      "ax25_socket",
+      "bluetooth_socket",
+      "bpf",
+      "caif_socket",
+      "can_socket",
+      "cap2_userns",
+      "cap_userns",
+      "decnet_socket",
+      "icmp_socket",
+      "ieee802154_socket",
+      "infiniband_endport",
+      "infiniband_pkey",
+      "io_uring",
+      "ipx_socket",
+      "irda_socket",
+      "isdn_socket",
+      "iucv_socket",
+      "kcm_socket",
+      "llc_socket",
+      "mctp_socket",
+      "memfd_file",
+      "netrom_socket",
+      "nfc_socket",
+      "perf_event",
+      "phonet_socket",
+      "pppox_socket",
+      "qipcrtr_socket",
+      "rds_socket",
+      "rose_socket",
+      "rxrpc_socket",
+      "sctp_socket",
+      "smc_socket",
+      "tipc_socket",
+      "user_namespace",
+      "vsock_socket",
+      "x25_socket",
+      "xdp_socket"
+    ],
+    "missing_kernel_permission_declarations": {
+      "appletalk_socket": [
+        "map"
+      ],
+      "blk_file": [
+        "map",
+        "watch",
+        "watch_mount",
+        "watch_reads",
+        "watch_sb",
+        "watch_with_perm"
+      ],
+      "capability2": [
+        "bpf",
+        "checkpoint_restore",
+        "perfmon"
+      ],
+      "chr_file": [
+        "entrypoint",
+        "execute_no_trans",
+        "map",
+        "watch",
+        "watch_mount",
+        "watch_reads",
+        "watch_sb",
+        "watch_with_perm"
+      ],
+      "dir": [
+        "map",
+        "watch",
+        "watch_mount",
+        "watch_reads",
+        "watch_sb",
+        "watch_with_perm"
+      ],
+      "fifo_file": [
+        "map",
+        "watch",
+        "watch_mount",
+        "watch_reads",
+        "watch_sb",
+        "watch_with_perm"
+      ],
+      "file": [
+        "map",
+        "watch",
+        "watch_mount",
+        "watch_reads",
+        "watch_sb",
+        "watch_with_perm"
+      ],
+      "filesystem": [
+        "watch"
+      ],
+      "key_socket": [
+        "map"
+      ],
+      "lnk_file": [
+        "map",
+        "watch",
+        "watch_mount",
+        "watch_reads",
+        "watch_sb",
+        "watch_with_perm"
+      ],
+      "netlink_audit_socket": [
+        "map"
+      ],
+      "netlink_connector_socket": [
+        "map"
+      ],
+      "netlink_crypto_socket": [
+        "map"
+      ],
+      "netlink_dnrt_socket": [
+        "map"
+      ],
+      "netlink_fib_lookup_socket": [
+        "map"
+      ],
+      "netlink_generic_socket": [
+        "map"
+      ],
+      "netlink_iscsi_socket": [
+        "map"
+      ],
+      "netlink_kobject_uevent_socket": [
+        "map"
+      ],
+      "netlink_netfilter_socket": [
+        "map"
+      ],
+      "netlink_nflog_socket": [
+        "map"
+      ],
+      "netlink_rdma_socket": [
+        "map"
+      ],
+      "netlink_route_socket": [
+        "map",
+        "nlmsg_getneigh"
+      ],
+      "netlink_scsitransport_socket": [
+        "map"
+      ],
+      "netlink_selinux_socket": [
+        "map"
+      ],
+      "netlink_socket": [
+        "map"
+      ],
+      "netlink_tcpdiag_socket": [
+        "map"
+      ],
+      "netlink_xfrm_socket": [
+        "map"
+      ],
+      "packet_socket": [
+        "map"
+      ],
+      "process": [
+        "getrlimit"
+      ],
+      "rawip_socket": [
+        "map"
+      ],
+      "security": [
+        "validate_trans"
+      ],
+      "sock_file": [
+        "map",
+        "watch",
+        "watch_mount",
+        "watch_reads",
+        "watch_sb",
+        "watch_with_perm"
+      ],
+      "socket": [
+        "map"
+      ],
+      "system": [
+        "firmware_load",
+        "kexec_image_load",
+        "kexec_initramfs_load",
+        "policy_load",
+        "x509_certificate_load"
+      ],
+      "tcp_socket": [
+        "map"
+      ],
+      "tun_socket": [
+        "map"
+      ],
+      "udp_socket": [
+        "map"
+      ],
+      "unix_dgram_socket": [
+        "map"
+      ],
+      "unix_stream_socket": [
+        "map"
+      ]
+    },
+    "policy_classes_not_in_reference_kernel_table": [
+      "dccp_socket",
+      "diced",
+      "drmservice",
+      "hwservice_manager",
+      "keystore2",
+      "keystore2_key",
+      "keystore_key",
+      "lockdown",
+      "property_service",
+      "service_manager",
+      "tee_service"
+    ],
+    "kernel_class_count": 57
+  }
+}

@@ -1,0 +1,684 @@
+{
+  "observed_at_utc": "2026-11-03T17:31:40.922372+00:00",
+  "scope": "Offline factory APEX simulation and actual-vendor VINTF metadata only",
+  "archive": "/srv/android/artifacts/lineage-24.0-arm64/diagnostic-full-targetfiles-preserve-20261103-02/lineage_gta3xlwifi-target_files.zip",
+  "archive_sha256": "5d6d30884abdf5c9cd2ea1680961005f681598a508bcb0937d6ebb27bebc3b45",
+  "factory_inputs": [
+    {
+      "archive_member": "PRODUCT/etc/vintf/compatibility_matrix.lineage.xml",
+      "sha256": "6f574ccb0f53d0ced955ef7c8f151a199ed3928c39ddfd945af43e6b4f8a26df",
+      "partition": "product",
+      "staged": "/srv/android/artifacts/lineage-24.0-arm64/post-preserve-20261103-02/offline-vintf/factory/product/etc/vintf/compatibility_matrix.lineage.xml"
+    },
+    {
+      "archive_member": "SYSTEM/apex/com.android.adbd.capex",
+      "sha256": "f46c3b5d045cd573320fe7c00cbf31102e996110f9848dcf832e7edf7f338ea0",
+      "partition": "system",
+      "staged": "/srv/android/artifacts/lineage-24.0-arm64/post-preserve-20261103-02/offline-vintf/factory/system/apex/com.android.adbd.capex"
+    },
+    {
+      "archive_member": "SYSTEM/apex/com.android.adservices.capex",
+      "sha256": "73a9db8b51011e8310ab05d79fd3e2e98b7352942911a2d62ec6bcce76d32f06",
+      "partition": "system",
+      "staged": "/srv/android/artifacts/lineage-24.0-arm64/post-preserve-20261103-02/offline-vintf/factory/system/apex/com.android.adservices.capex"
+    },
+    {
+      "archive_member": "SYSTEM/apex/com.android.apex.cts.shim.apex",
+      "sha256": "18451d0ac06a9532a0c75f2f89544a096ebb8b2a1b4ee7357b5747d972e60a42",
+      "partition": "system",
+      "staged": "/srv/android/artifacts/lineage-24.0-arm64/post-preserve-20261103-02/offline-vintf/factory/system/apex/com.android.apex.cts.shim.apex"
+    },
+    {
+      "archive_member": "SYSTEM/apex/com.android.appsearch.capex",
+      "sha256": "bff0588bae721a0a2d948619d8600ef530f01b4fca2039c8d21b1f34d85ab783",
+      "partition": "system",
+      "staged": "/srv/android/artifacts/lineage-24.0-arm64/post-preserve-20261103-02/offline-vintf/factory/system/apex/com.android.appsearch.capex"
+    },
+    {
+      "archive_member": "SYSTEM/apex/com.android.art.capex",
+      "sha256": "2b09bf80baf57c2c655c721a442b3e82e57aa59a369adb8e119bdd36061028be",
+      "partition": "system",
+      "staged": "/srv/android/artifacts/lineage-24.0-arm64/post-preserve-20261103-02/offline-vintf/factory/system/apex/com.android.art.capex"
+    },
+    {
+      "archive_member": "SYSTEM/apex/com.android.bt.capex",
+      "sha256": "7737bb16e2bc8ba996d3980e941b32238f94a9adaa467f9925b4565e2c5bd3cf",
+      "partition": "system",
+      "staged": "/srv/android/artifacts/lineage-24.0-arm64/post-preserve-20261103-02/offline-vintf/factory/system/apex/com.android.bt.capex"
+    },
+    {
+      "archive_member": "SYSTEM/apex/com.android.configinfrastructure.capex",
+      "sha256": "1b3b95b1057897e0a8a2641e124c25290669fa3f9408054672d41132bb2df371",
+      "partition": "system",
+      "staged": "/srv/android/artifacts/lineage-24.0-arm64/post-preserve-20261103-02/offline-vintf/factory/system/apex/com.android.configinfrastructure.capex"
+    },
+    {
+      "archive_member": "SYSTEM/apex/com.android.conscrypt.capex",
+      "sha256": "fbdae6565451cbd6b2d15fe1db01dc8205dac09115a42574d042829eb297dc6d",
+      "partition": "system",
+      "staged": "/srv/android/artifacts/lineage-24.0-arm64/post-preserve-20261103-02/offline-vintf/factory/system/apex/com.android.conscrypt.capex"
+    },
+    {
+      "archive_member": "SYSTEM/apex/com.android.crashrecovery.capex",
+      "sha256": "1c4fa1a8417b233765db1621f3911b66de230049c39b248f116c3d18a8920ca6",
+      "partition": "system",
+      "staged": "/srv/android/artifacts/lineage-24.0-arm64/post-preserve-20261103-02/offline-vintf/factory/system/apex/com.android.crashrecovery.capex"
+    },
+    {
+      "archive_member": "SYSTEM/apex/com.android.devicelock.apex",
+      "sha256": "224faced9b539292db6bd5e54d416472bf7b0f0a7ce727fbd600edcabe14134e",
+      "partition": "system",
+      "staged": "/srv/android/artifacts/lineage-24.0-arm64/post-preserve-20261103-02/offline-vintf/factory/system/apex/com.android.devicelock.apex"
+    },
+    {
+      "archive_member": "SYSTEM/apex/com.android.extservices.capex",
+      "sha256": "76702284eeee191d33608b850ce84d00439ff03be862ddc864256c082b187841",
+      "partition": "system",
+      "staged": "/srv/android/artifacts/lineage-24.0-arm64/post-preserve-20261103-02/offline-vintf/factory/system/apex/com.android.extservices.capex"
+    },
+    {
+      "archive_member": "SYSTEM/apex/com.android.healthfitness.apex",
+      "sha256": "e1ca19769b6fac136824744a936acab3092f9ce2bfe0b65e2767c05599d5bfe3",
+      "partition": "system",
+      "staged": "/srv/android/artifacts/lineage-24.0-arm64/post-preserve-20261103-02/offline-vintf/factory/system/apex/com.android.healthfitness.apex"
+    },
+    {
+      "archive_member": "SYSTEM/apex/com.android.i18n.apex",
+      "sha256": "ff13115727e416b11a904bf54f124a141dcb54586cc6aea6808f13ac1581a5d9",
+      "partition": "system",
+      "staged": "/srv/android/artifacts/lineage-24.0-arm64/post-preserve-20261103-02/offline-vintf/factory/system/apex/com.android.i18n.apex"
+    },
+    {
+      "archive_member": "SYSTEM/apex/com.android.ipsec.capex",
+      "sha256": "9053058926be5c82c327c08e414c2c43823d8763db8d793b6527a6ca013e3769",
+      "partition": "system",
+      "staged": "/srv/android/artifacts/lineage-24.0-arm64/post-preserve-20261103-02/offline-vintf/factory/system/apex/com.android.ipsec.capex"
+    },
+    {
+      "archive_member": "SYSTEM/apex/com.android.media.capex",
+      "sha256": "b5558f1d8676f4ecf7ca9f5976cc46f7b5bef68ccb8fbe2ae56814f33bd9085a",
+      "partition": "system",
+      "staged": "/srv/android/artifacts/lineage-24.0-arm64/post-preserve-20261103-02/offline-vintf/factory/system/apex/com.android.media.capex"
+    },
+    {
+      "archive_member": "SYSTEM/apex/com.android.media.swcodec.capex",
+      "sha256": "0e8078f08e6f12a4f3acf989162c5254e2b98d3d111f65ad48e83fe12cf1a286",
+      "partition": "system",
+      "staged": "/srv/android/artifacts/lineage-24.0-arm64/post-preserve-20261103-02/offline-vintf/factory/system/apex/com.android.media.swcodec.capex"
+    },
+    {
+      "archive_member": "SYSTEM/apex/com.android.mediaprovider.capex",
+      "sha256": "9cfca789a7cede63b85a7fcdc4362667c850067ee889da595589ac74985302bd",
+      "partition": "system",
+      "staged": "/srv/android/artifacts/lineage-24.0-arm64/post-preserve-20261103-02/offline-vintf/factory/system/apex/com.android.mediaprovider.capex"
+    },
+    {
+      "archive_member": "SYSTEM/apex/com.android.neuralnetworks.capex",
+      "sha256": "e11bc32b8b5480ebf15c2a8a7f7eaca9c0e2d9c0a540e500369b07c936f4ccc3",
+      "partition": "system",
+      "staged": "/srv/android/artifacts/lineage-24.0-arm64/post-preserve-20261103-02/offline-vintf/factory/system/apex/com.android.neuralnetworks.capex"
+    },
+    {
+      "archive_member": "SYSTEM/apex/com.android.nfcservices.capex",
+      "sha256": "b72b603e72aa511d60e3743951aff23dc10174d688a45fb219b171b2880f3a61",
+      "partition": "system",
+      "staged": "/srv/android/artifacts/lineage-24.0-arm64/post-preserve-20261103-02/offline-vintf/factory/system/apex/com.android.nfcservices.capex"
+    },
+    {
+      "archive_member": "SYSTEM/apex/com.android.npumanager.capex",
+      "sha256": "69eba0fa124eb97e9073c8ec3a3111b59a81f63452d95738daa117a3a184ab42",
+      "partition": "system",
+      "staged": "/srv/android/artifacts/lineage-24.0-arm64/post-preserve-20261103-02/offline-vintf/factory/system/apex/com.android.npumanager.capex"
+    },
+    {
+      "archive_member": "SYSTEM/apex/com.android.ondevicepersonalization.capex",
+      "sha256": "3670517a997dfe1186ba156f4a6a0fa405eaabd6702fe7a6e7a7039cfadddbc4",
+      "partition": "system",
+      "staged": "/srv/android/artifacts/lineage-24.0-arm64/post-preserve-20261103-02/offline-vintf/factory/system/apex/com.android.ondevicepersonalization.capex"
+    },
+    {
+      "archive_member": "SYSTEM/apex/com.android.os.statsd.apex",
+      "sha256": "12e0d3af92a12dcc150c00d0e913d3f9984d11a5fffd09adccb77285d1a59224",
+      "partition": "system",
+      "staged": "/srv/android/artifacts/lineage-24.0-arm64/post-preserve-20261103-02/offline-vintf/factory/system/apex/com.android.os.statsd.apex"
+    },
+    {
+      "archive_member": "SYSTEM/apex/com.android.permission.capex",
+      "sha256": "8f54df15f2f3aa79331eabc38ae0ccd1975a8c97431d91ce6f3f41e4fa6eda33",
+      "partition": "system",
+      "staged": "/srv/android/artifacts/lineage-24.0-arm64/post-preserve-20261103-02/offline-vintf/factory/system/apex/com.android.permission.capex"
+    },
+    {
+      "archive_member": "SYSTEM/apex/com.android.profiling.capex",
+      "sha256": "55ce89fb8eb725d03bc90e2f8f1b8e712be36476404216cc82a30b32443e3493",
+      "partition": "system",
+      "staged": "/srv/android/artifacts/lineage-24.0-arm64/post-preserve-20261103-02/offline-vintf/factory/system/apex/com.android.profiling.capex"
+    },
+    {
+      "archive_member": "SYSTEM/apex/com.android.resolv.capex",
+      "sha256": "4bedbae0e0d9e55518a737bc621dc0f1761538394d134fa7b8cdb78d65e28007",
+      "partition": "system",
+      "staged": "/srv/android/artifacts/lineage-24.0-arm64/post-preserve-20261103-02/offline-vintf/factory/system/apex/com.android.resolv.capex"
+    },
+    {
+      "archive_member": "SYSTEM/apex/com.android.rkpd.apex",
+      "sha256": "227269d694f1d6f5073df695b974f81f05e71e360c07e7c731a4da0d26c4ed9c",
+      "partition": "system",
+      "staged": "/srv/android/artifacts/lineage-24.0-arm64/post-preserve-20261103-02/offline-vintf/factory/system/apex/com.android.rkpd.apex"
+    },
+    {
+      "archive_member": "SYSTEM/apex/com.android.runtime.apex",
+      "sha256": "4ef6bf992d468514dbb24578bbad1c0c0630be8dd5c5ec0ca0a9dc04ea5be7e7",
+      "partition": "system",
+      "staged": "/srv/android/artifacts/lineage-24.0-arm64/post-preserve-20261103-02/offline-vintf/factory/system/apex/com.android.runtime.apex"
+    },
+    {
+      "archive_member": "SYSTEM/apex/com.android.scheduling.capex",
+      "sha256": "6d7f24fc7966474d4588259feba8dc89a0c2138940a1c7a49d1fef0bb7bf6f7d",
+      "partition": "system",
+      "staged": "/srv/android/artifacts/lineage-24.0-arm64/post-preserve-20261103-02/offline-vintf/factory/system/apex/com.android.scheduling.capex"
+    },
+    {
+      "archive_member": "SYSTEM/apex/com.android.sdkext.apex",
+      "sha256": "ced88353a0012682c4e5b678acb9adea08e1e776a28dc97400add7dd2c7a94e2",
+      "partition": "system",
+      "staged": "/srv/android/artifacts/lineage-24.0-arm64/post-preserve-20261103-02/offline-vintf/factory/system/apex/com.android.sdkext.apex"
+    },
+    {
+      "archive_member": "SYSTEM/apex/com.android.telephonycore.capex",
+      "sha256": "266fb0b3fa683cdaa462700670d255f7bcacda0970666a45ca6f2ea79af6f9b9",
+      "partition": "system",
+      "staged": "/srv/android/artifacts/lineage-24.0-arm64/post-preserve-20261103-02/offline-vintf/factory/system/apex/com.android.telephonycore.capex"
+    },
+    {
+      "archive_member": "SYSTEM/apex/com.android.tethering.capex",
+      "sha256": "76a30bb997bb99c30eb420bc1e7dcd67c8f0f73976929a529c4f85f4aeed47fb",
+      "partition": "system",
+      "staged": "/srv/android/artifacts/lineage-24.0-arm64/post-preserve-20261103-02/offline-vintf/factory/system/apex/com.android.tethering.capex"
+    },
+    {
+      "archive_member": "SYSTEM/apex/com.android.tzdata.apex",
+      "sha256": "b4c30c2a40ddc2ca2ce495969002bab38c90b0e6b2c30b1d9b3dc85f29080442",
+      "partition": "system",
+      "staged": "/srv/android/artifacts/lineage-24.0-arm64/post-preserve-20261103-02/offline-vintf/factory/system/apex/com.android.tzdata.apex"
+    },
+    {
+      "archive_member": "SYSTEM/apex/com.android.uprobestats.capex",
+      "sha256": "81fc235ec1ceb6310e3e63326023ffe14a3eaba8438b56f11633e741c318eb42",
+      "partition": "system",
+      "staged": "/srv/android/artifacts/lineage-24.0-arm64/post-preserve-20261103-02/offline-vintf/factory/system/apex/com.android.uprobestats.capex"
+    },
+    {
+      "archive_member": "SYSTEM/apex/com.android.uwb.capex",
+      "sha256": "b6aa7db96e81bf594636f63befebaca9ffbd023f632a1cfa431c07f9a4e122c0",
+      "partition": "system",
+      "staged": "/srv/android/artifacts/lineage-24.0-arm64/post-preserve-20261103-02/offline-vintf/factory/system/apex/com.android.uwb.capex"
+    },
+    {
+      "archive_member": "SYSTEM/apex/com.android.virt.apex",
+      "sha256": "edf6c0aa6464bdb2fd3f30103fb03c546851c74a06d23cbad3cc76917d03e9c1",
+      "partition": "system",
+      "staged": "/srv/android/artifacts/lineage-24.0-arm64/post-preserve-20261103-02/offline-vintf/factory/system/apex/com.android.virt.apex"
+    },
+    {
+      "archive_member": "SYSTEM/apex/com.android.webapp.capex",
+      "sha256": "e4af074d28fa5e25179f90b417922931df795f30f166ce425ca7aea263c5bcfa",
+      "partition": "system",
+      "staged": "/srv/android/artifacts/lineage-24.0-arm64/post-preserve-20261103-02/offline-vintf/factory/system/apex/com.android.webapp.capex"
+    },
+    {
+      "archive_member": "SYSTEM/apex/com.android.wifi.capex",
+      "sha256": "24d4459ac94392107a3bd292503a5e34ea556c175b54959b37a942c088a78c58",
+      "partition": "system",
+      "staged": "/srv/android/artifacts/lineage-24.0-arm64/post-preserve-20261103-02/offline-vintf/factory/system/apex/com.android.wifi.capex"
+    },
+    {
+      "archive_member": "SYSTEM/etc/vintf/compatibility_matrix.202404.xml",
+      "sha256": "cff153e45015e57e115c0f8fa48a777d360db356a4cca5f79c9956dd1dc265d8",
+      "partition": "system",
+      "staged": "/srv/android/artifacts/lineage-24.0-arm64/post-preserve-20261103-02/offline-vintf/factory/system/etc/vintf/compatibility_matrix.202404.xml"
+    },
+    {
+      "archive_member": "SYSTEM/etc/vintf/compatibility_matrix.202504.xml",
+      "sha256": "a21eba5d7ccf35458f3ca2e8205ea0be5105c4206537b4c95eb32ec4ca10d3c8",
+      "partition": "system",
+      "staged": "/srv/android/artifacts/lineage-24.0-arm64/post-preserve-20261103-02/offline-vintf/factory/system/etc/vintf/compatibility_matrix.202504.xml"
+    },
+    {
+      "archive_member": "SYSTEM/etc/vintf/compatibility_matrix.202604.xml",
+      "sha256": "2ce785af96e3a04b7b06f74c5a8461618a01dae15588d84db47119fccd67fb13",
+      "partition": "system",
+      "staged": "/srv/android/artifacts/lineage-24.0-arm64/post-preserve-20261103-02/offline-vintf/factory/system/etc/vintf/compatibility_matrix.202604.xml"
+    },
+    {
+      "archive_member": "SYSTEM/etc/vintf/compatibility_matrix.3.xml",
+      "sha256": "dd2047b37e5c3c1e6448863612d6dc8046d88bcc550d88176d442e9261749207",
+      "partition": "system",
+      "staged": "/srv/android/artifacts/lineage-24.0-arm64/post-preserve-20261103-02/offline-vintf/factory/system/etc/vintf/compatibility_matrix.3.xml"
+    },
+    {
+      "archive_member": "SYSTEM/etc/vintf/compatibility_matrix.5.xml",
+      "sha256": "ef0867ea99131571a887325d918c537c9ae240646be8a08ad663642f2f27cff9",
+      "partition": "system",
+      "staged": "/srv/android/artifacts/lineage-24.0-arm64/post-preserve-20261103-02/offline-vintf/factory/system/etc/vintf/compatibility_matrix.5.xml"
+    },
+    {
+      "archive_member": "SYSTEM/etc/vintf/compatibility_matrix.6.xml",
+      "sha256": "94aa8512f163c92e9a3050b3c2cd81672d448695602ad6818d6b18389fe42f2c",
+      "partition": "system",
+      "staged": "/srv/android/artifacts/lineage-24.0-arm64/post-preserve-20261103-02/offline-vintf/factory/system/etc/vintf/compatibility_matrix.6.xml"
+    },
+    {
+      "archive_member": "SYSTEM/etc/vintf/compatibility_matrix.7.xml",
+      "sha256": "34036c05c5b15165641d8a1b76ee2f1143fd102b315c204611cb73a8b05a92dd",
+      "partition": "system",
+      "staged": "/srv/android/artifacts/lineage-24.0-arm64/post-preserve-20261103-02/offline-vintf/factory/system/etc/vintf/compatibility_matrix.7.xml"
+    },
+    {
+      "archive_member": "SYSTEM/etc/vintf/compatibility_matrix.8.xml",
+      "sha256": "81effff226fab476871a04623d3286351c9f055e0ace004f13d3bc30fd68aba0",
+      "partition": "system",
+      "staged": "/srv/android/artifacts/lineage-24.0-arm64/post-preserve-20261103-02/offline-vintf/factory/system/etc/vintf/compatibility_matrix.8.xml"
+    },
+    {
+      "archive_member": "SYSTEM/etc/vintf/compatibility_matrix.device.xml",
+      "sha256": "4fc1d0d14373671e800b3f86e0961642002f616dd7134e9e7c652a5a72742e22",
+      "partition": "system",
+      "staged": "/srv/android/artifacts/lineage-24.0-arm64/post-preserve-20261103-02/offline-vintf/factory/system/etc/vintf/compatibility_matrix.device.xml"
+    },
+    {
+      "archive_member": "SYSTEM/etc/vintf/manifest.xml",
+      "sha256": "ce58a5b7357660a7b4e168c8f2d8c0871e4b5108601315c45860d73d2986249d",
+      "partition": "system",
+      "staged": "/srv/android/artifacts/lineage-24.0-arm64/post-preserve-20261103-02/offline-vintf/factory/system/etc/vintf/manifest.xml"
+    },
+    {
+      "archive_member": "SYSTEM/etc/vintf/manifest/android.frameworks.stats-service.xml",
+      "sha256": "0a8c3597585cf9af2c7bdbb63307fe8b166eb353a1f61e29441d4a44c83ebacc",
+      "partition": "system",
+      "staged": "/srv/android/artifacts/lineage-24.0-arm64/post-preserve-20261103-02/offline-vintf/factory/system/etc/vintf/manifest/android.frameworks.stats-service.xml"
+    },
+    {
+      "archive_member": "SYSTEM/etc/vintf/manifest/android.system.keystore2-service.xml",
+      "sha256": "297270541e7c2d576df080fca26b0208fcc5be095a971cda7a2c15ccc52b3430",
+      "partition": "system",
+      "staged": "/srv/android/artifacts/lineage-24.0-arm64/post-preserve-20261103-02/offline-vintf/factory/system/etc/vintf/manifest/android.system.keystore2-service.xml"
+    },
+    {
+      "archive_member": "SYSTEM/etc/vintf/manifest/android.system.net.netd-service.xml",
+      "sha256": "341b514fec4eba4685925ac4e6734bae6061f2a4f9d0254b88ae39ee004f218f",
+      "partition": "system",
+      "staged": "/srv/android/artifacts/lineage-24.0-arm64/post-preserve-20261103-02/offline-vintf/factory/system/etc/vintf/manifest/android.system.net.netd-service.xml"
+    },
+    {
+      "archive_member": "SYSTEM/etc/vintf/manifest/android.system.suspend-service.xml",
+      "sha256": "7eff4e114e33d1275dd99b0c1a5c91a04ef6f2ba84a7d1af32ad3635735371cb",
+      "partition": "system",
+      "staged": "/srv/android/artifacts/lineage-24.0-arm64/post-preserve-20261103-02/offline-vintf/factory/system/etc/vintf/manifest/android.system.suspend-service.xml"
+    },
+    {
+      "archive_member": "SYSTEM/etc/vintf/manifest/android.system.vold-service.xml",
+      "sha256": "a211b21a679093c11afde045b54113268af6135edfa0d70ecb806a93e5fddd93",
+      "partition": "system",
+      "staged": "/srv/android/artifacts/lineage-24.0-arm64/post-preserve-20261103-02/offline-vintf/factory/system/etc/vintf/manifest/android.system.vold-service.xml"
+    },
+    {
+      "archive_member": "SYSTEM/etc/vintf/manifest/gta3xlwifi-legacy-sdk.xml",
+      "sha256": "c581d7bef66890db645a6c0b337b092e5a92c92f3cfb53ddeca0d7229d9b715a",
+      "partition": "system",
+      "staged": "/srv/android/artifacts/lineage-24.0-arm64/post-preserve-20261103-02/offline-vintf/factory/system/etc/vintf/manifest/gta3xlwifi-legacy-sdk.xml"
+    },
+    {
+      "archive_member": "SYSTEM/etc/vintf/manifest/manifest_android.frameworks.cameraservice.service.xml",
+      "sha256": "997a729b5836499a0d4e6387a6019916070264fcf85645035e3b426b7a344d56",
+      "partition": "system",
+      "staged": "/srv/android/artifacts/lineage-24.0-arm64/post-preserve-20261103-02/offline-vintf/factory/system/etc/vintf/manifest/manifest_android.frameworks.cameraservice.service.xml"
+    },
+    {
+      "archive_member": "SYSTEM/etc/vintf/manifest/manifest_media_c2_software.xml",
+      "sha256": "efef93595686a610c379538578a5f42b70e27717d8d2ae3a9a4c47fb408a6cec",
+      "partition": "system",
+      "staged": "/srv/android/artifacts/lineage-24.0-arm64/post-preserve-20261103-02/offline-vintf/factory/system/etc/vintf/manifest/manifest_media_c2_software.xml"
+    },
+    {
+      "archive_member": "SYSTEM/etc/vintf/manifest/manifest_services_android.frameworks.devicestate.xml",
+      "sha256": "cc09de50d211dfc2e707ffc9148c85bb854f350c212b94ab8fb0972d254ad898",
+      "partition": "system",
+      "staged": "/srv/android/artifacts/lineage-24.0-arm64/post-preserve-20261103-02/offline-vintf/factory/system/etc/vintf/manifest/manifest_services_android.frameworks.devicestate.xml"
+    },
+    {
+      "archive_member": "SYSTEM/etc/vintf/manifest/manifest_services_android.frameworks.location.xml",
+      "sha256": "fd47c69a3f5298243fcfc21ff33dbf6cc24a68cd28eb219ddf75c3123323ece9",
+      "partition": "system",
+      "staged": "/srv/android/artifacts/lineage-24.0-arm64/post-preserve-20261103-02/offline-vintf/factory/system/etc/vintf/manifest/manifest_services_android.frameworks.location.xml"
+    },
+    {
+      "archive_member": "SYSTEM/etc/vintf/manifest/manifest_services_android.frameworks.vibrator.xml",
+      "sha256": "7cb3d23f37270e284f3979bb8c39316e4b3d58518cfd337d3fe5dd4718fdae85",
+      "partition": "system",
+      "staged": "/srv/android/artifacts/lineage-24.0-arm64/post-preserve-20261103-02/offline-vintf/factory/system/etc/vintf/manifest/manifest_services_android.frameworks.vibrator.xml"
+    },
+    {
+      "archive_member": "SYSTEM/system_ext/apex/com.android.hardware.biometrics.fingerprint.virtual.apex",
+      "sha256": "500294c537c15447f6646bf7d4319f31c1bda30295139fb82ba6b696e85c0a5d",
+      "partition": "system_ext",
+      "staged": "/srv/android/artifacts/lineage-24.0-arm64/post-preserve-20261103-02/offline-vintf/factory/system_ext/apex/com.android.hardware.biometrics.fingerprint.virtual.apex"
+    },
+    {
+      "archive_member": "SYSTEM/system_ext/apex/com.android.vndk.v30.apex",
+      "sha256": "d40ec5d935c633025f5ab4fc141e9d2a14f1f8e78eaf2dff5a78b17fb6abef58",
+      "partition": "system_ext",
+      "staged": "/srv/android/artifacts/lineage-24.0-arm64/post-preserve-20261103-02/offline-vintf/factory/system_ext/apex/com.android.vndk.v30.apex"
+    },
+    {
+      "archive_member": "SYSTEM/system_ext/etc/vintf/manifest.xml",
+      "sha256": "f69614c67fa6ece6165ac97dffa5166337f23be45a9e1dc7ae2df3dff1115319",
+      "partition": "system_ext",
+      "staged": "/srv/android/artifacts/lineage-24.0-arm64/post-preserve-20261103-02/offline-vintf/factory/system_ext/etc/vintf/manifest.xml"
+    },
+    {
+      "archive_member": "SYSTEM/system_ext/etc/vintf/manifest/android.hidl.allocator@1.0-service.xml",
+      "sha256": "b0444198fcfedc428719034c6fcb926a66fa00e866ce5b857c1e2a0de47751f4",
+      "partition": "system_ext",
+      "staged": "/srv/android/artifacts/lineage-24.0-arm64/post-preserve-20261103-02/offline-vintf/factory/system_ext/etc/vintf/manifest/android.hidl.allocator@1.0-service.xml"
+    }
+  ],
+  "vendor_apex_inputs": [],
+  "host_tools_sha256": {
+    "apexd_host": "ad64abe2b8ec7a782526ad8662f15def8b7099d73223b4e19c752b302a46ab13",
+    "deapexer": "3f316f2969918dc24391e8f40512d3549505e903d04a617cc1d028458837b927",
+    "debugfs_static": "ea9e9df077bb1e7ff0f0711f74cab863aa4cf9cbbec9a233a54286b570255f54",
+    "fsck.erofs": "ed1580a680ca735b901aa0a6520ec61d99cebeff7aa577729760cb9eadb94639",
+    "checkvintf": "420bc27778dd2adf8d3c5296b51ccc916ccd5319a8fad59124a16e1bcd49d911"
+  },
+  "apexd_host_command": [
+    "/srv/android/src/lineage-24.0-arm64/out/host/linux-x86/bin/apexd_host",
+    "--tool_path",
+    "/srv/android/src/lineage-24.0-arm64/out/host/linux-x86",
+    "--apex_path",
+    "/srv/android/artifacts/lineage-24.0-arm64/post-preserve-20261103-02/offline-vintf/apex",
+    "--system_path",
+    "/srv/android/artifacts/lineage-24.0-arm64/post-preserve-20261103-02/offline-vintf/factory/system",
+    "--system_ext_path",
+    "/srv/android/artifacts/lineage-24.0-arm64/post-preserve-20261103-02/offline-vintf/factory/system_ext",
+    "--product_path",
+    "/srv/android/artifacts/lineage-24.0-arm64/post-preserve-20261103-02/offline-vintf/factory/product",
+    "--vendor_path",
+    "/srv/android/artifacts/lineage-24.0-arm64/vendor-check-20261101-01/vendor",
+    "--odm_path",
+    "/srv/android/artifacts/lineage-24.0-arm64/post-preserve-20261103-02/offline-vintf/factory/odm"
+  ],
+  "checkvintf_command": [
+    "/srv/android/src/lineage-24.0-arm64/out/host/linux-x86/bin/checkvintf",
+    "--check-compat",
+    "--dirmap",
+    "/system:/srv/android/artifacts/lineage-24.0-arm64/post-preserve-20261103-02/offline-vintf/factory/system",
+    "--dirmap",
+    "/system_ext:/srv/android/artifacts/lineage-24.0-arm64/post-preserve-20261103-02/offline-vintf/factory/system_ext",
+    "--dirmap",
+    "/product:/srv/android/artifacts/lineage-24.0-arm64/post-preserve-20261103-02/offline-vintf/factory/product",
+    "--dirmap",
+    "/vendor:/srv/android/artifacts/lineage-24.0-arm64/vendor-check-20261101-01/vendor",
+    "--dirmap",
+    "/odm:/srv/android/artifacts/lineage-24.0-arm64/post-preserve-20261103-02/offline-vintf/factory/odm",
+    "--dirmap",
+    "/apex:/srv/android/artifacts/lineage-24.0-arm64/post-preserve-20261103-02/offline-vintf/apex",
+    "--property",
+    "ro.product.first_api_level=28",
+    "--property",
+    "ro.boot.product.hardware.sku=",
+    "--property",
+    "ro.boot.product.vendor.sku=",
+    "--kernel",
+    "4.4.302:/srv/android/artifacts/kernel-dt2w/kernel.config"
+  ],
+  "exit_code": 0,
+  "offline_metadata_passed": true,
+  "factory_apex_count": 39,
+  "modules": [
+    "com.android.adbd",
+    "com.android.adservices",
+    "com.android.apex.cts.shim",
+    "com.android.appsearch",
+    "com.android.art",
+    "com.android.bt",
+    "com.android.configinfrastructure",
+    "com.android.conscrypt",
+    "com.android.crashrecovery",
+    "com.android.devicelock",
+    "com.android.extservices",
+    "com.android.healthfitness",
+    "com.android.i18n",
+    "com.android.ipsec",
+    "com.android.media",
+    "com.android.media.swcodec",
+    "com.android.mediaprovider",
+    "com.android.neuralnetworks",
+    "com.android.nfcservices",
+    "com.android.npumanager",
+    "com.android.ondevicepersonalization",
+    "com.android.os.statsd",
+    "com.android.permission",
+    "com.android.profiling",
+    "com.android.resolv",
+    "com.android.rkpd",
+    "com.android.runtime",
+    "com.android.scheduling",
+    "com.android.sdkext",
+    "com.android.telephonycore",
+    "com.android.tethering",
+    "com.android.tzdata",
+    "com.android.uprobestats",
+    "com.android.uwb",
+    "com.android.virt",
+    "com.android.webapp",
+    "com.android.wifi",
+    "com.android.hardware.biometrics.fingerprint.virtual",
+    "com.android.vndk.v30"
+  ],
+  "metadata_inputs": [
+    {
+      "path": "/srv/android/artifacts/kernel-dt2w/kernel.config",
+      "sha256": "fac42e3bbf996bb9502bb1031c91b1950986ad3586d0f33cad869a6fd0b3acea"
+    },
+    {
+      "path": "/srv/android/artifacts/lineage-24.0-arm64/post-preserve-20261103-02/offline-vintf/apex/apex-info-list.xml",
+      "sha256": "e449afad362abd3898a4cbd7f07651bea4a538658d8208af3e322bb10a1b9b54"
+    },
+    {
+      "path": "/srv/android/artifacts/lineage-24.0-arm64/post-preserve-20261103-02/offline-vintf/factory/product/etc/vintf/compatibility_matrix.lineage.xml",
+      "sha256": "6f574ccb0f53d0ced955ef7c8f151a199ed3928c39ddfd945af43e6b4f8a26df"
+    },
+    {
+      "path": "/srv/android/artifacts/lineage-24.0-arm64/post-preserve-20261103-02/offline-vintf/factory/system/etc/vintf/compatibility_matrix.202404.xml",
+      "sha256": "cff153e45015e57e115c0f8fa48a777d360db356a4cca5f79c9956dd1dc265d8"
+    },
+    {
+      "path": "/srv/android/artifacts/lineage-24.0-arm64/post-preserve-20261103-02/offline-vintf/factory/system/etc/vintf/compatibility_matrix.202504.xml",
+      "sha256": "a21eba5d7ccf35458f3ca2e8205ea0be5105c4206537b4c95eb32ec4ca10d3c8"
+    },
+    {
+      "path": "/srv/android/artifacts/lineage-24.0-arm64/post-preserve-20261103-02/offline-vintf/factory/system/etc/vintf/compatibility_matrix.202604.xml",
+      "sha256": "2ce785af96e3a04b7b06f74c5a8461618a01dae15588d84db47119fccd67fb13"
+    },
+    {
+      "path": "/srv/android/artifacts/lineage-24.0-arm64/post-preserve-20261103-02/offline-vintf/factory/system/etc/vintf/compatibility_matrix.3.xml",
+      "sha256": "dd2047b37e5c3c1e6448863612d6dc8046d88bcc550d88176d442e9261749207"
+    },
+    {
+      "path": "/srv/android/artifacts/lineage-24.0-arm64/post-preserve-20261103-02/offline-vintf/factory/system/etc/vintf/compatibility_matrix.5.xml",
+      "sha256": "ef0867ea99131571a887325d918c537c9ae240646be8a08ad663642f2f27cff9"
+    },
+    {
+      "path": "/srv/android/artifacts/lineage-24.0-arm64/post-preserve-20261103-02/offline-vintf/factory/system/etc/vintf/compatibility_matrix.6.xml",
+      "sha256": "94aa8512f163c92e9a3050b3c2cd81672d448695602ad6818d6b18389fe42f2c"
+    },
+    {
+      "path": "/srv/android/artifacts/lineage-24.0-arm64/post-preserve-20261103-02/offline-vintf/factory/system/etc/vintf/compatibility_matrix.7.xml",
+      "sha256": "34036c05c5b15165641d8a1b76ee2f1143fd102b315c204611cb73a8b05a92dd"
+    },
+    {
+      "path": "/srv/android/artifacts/lineage-24.0-arm64/post-preserve-20261103-02/offline-vintf/factory/system/etc/vintf/compatibility_matrix.8.xml",
+      "sha256": "81effff226fab476871a04623d3286351c9f055e0ace004f13d3bc30fd68aba0"
+    },
+    {
+      "path": "/srv/android/artifacts/lineage-24.0-arm64/post-preserve-20261103-02/offline-vintf/factory/system/etc/vintf/compatibility_matrix.device.xml",
+      "sha256": "4fc1d0d14373671e800b3f86e0961642002f616dd7134e9e7c652a5a72742e22"
+    },
+    {
+      "path": "/srv/android/artifacts/lineage-24.0-arm64/post-preserve-20261103-02/offline-vintf/factory/system/etc/vintf/manifest/android.frameworks.stats-service.xml",
+      "sha256": "0a8c3597585cf9af2c7bdbb63307fe8b166eb353a1f61e29441d4a44c83ebacc"
+    },
+    {
+      "path": "/srv/android/artifacts/lineage-24.0-arm64/post-preserve-20261103-02/offline-vintf/factory/system/etc/vintf/manifest/android.system.keystore2-service.xml",
+      "sha256": "297270541e7c2d576df080fca26b0208fcc5be095a971cda7a2c15ccc52b3430"
+    },
+    {
+      "path": "/srv/android/artifacts/lineage-24.0-arm64/post-preserve-20261103-02/offline-vintf/factory/system/etc/vintf/manifest/android.system.net.netd-service.xml",
+      "sha256": "341b514fec4eba4685925ac4e6734bae6061f2a4f9d0254b88ae39ee004f218f"
+    },
+    {
+      "path": "/srv/android/artifacts/lineage-24.0-arm64/post-preserve-20261103-02/offline-vintf/factory/system/etc/vintf/manifest/android.system.suspend-service.xml",
+      "sha256": "7eff4e114e33d1275dd99b0c1a5c91a04ef6f2ba84a7d1af32ad3635735371cb"
+    },
+    {
+      "path": "/srv/android/artifacts/lineage-24.0-arm64/post-preserve-20261103-02/offline-vintf/factory/system/etc/vintf/manifest/android.system.vold-service.xml",
+      "sha256": "a211b21a679093c11afde045b54113268af6135edfa0d70ecb806a93e5fddd93"
+    },
+    {
+      "path": "/srv/android/artifacts/lineage-24.0-arm64/post-preserve-20261103-02/offline-vintf/factory/system/etc/vintf/manifest/gta3xlwifi-legacy-sdk.xml",
+      "sha256": "c581d7bef66890db645a6c0b337b092e5a92c92f3cfb53ddeca0d7229d9b715a"
+    },
+    {
+      "path": "/srv/android/artifacts/lineage-24.0-arm64/post-preserve-20261103-02/offline-vintf/factory/system/etc/vintf/manifest/manifest_android.frameworks.cameraservice.service.xml",
+      "sha256": "997a729b5836499a0d4e6387a6019916070264fcf85645035e3b426b7a344d56"
+    },
+    {
+      "path": "/srv/android/artifacts/lineage-24.0-arm64/post-preserve-20261103-02/offline-vintf/factory/system/etc/vintf/manifest/manifest_media_c2_software.xml",
+      "sha256": "efef93595686a610c379538578a5f42b70e27717d8d2ae3a9a4c47fb408a6cec"
+    },
+    {
+      "path": "/srv/android/artifacts/lineage-24.0-arm64/post-preserve-20261103-02/offline-vintf/factory/system/etc/vintf/manifest/manifest_services_android.frameworks.devicestate.xml",
+      "sha256": "cc09de50d211dfc2e707ffc9148c85bb854f350c212b94ab8fb0972d254ad898"
+    },
+    {
+      "path": "/srv/android/artifacts/lineage-24.0-arm64/post-preserve-20261103-02/offline-vintf/factory/system/etc/vintf/manifest/manifest_services_android.frameworks.location.xml",
+      "sha256": "fd47c69a3f5298243fcfc21ff33dbf6cc24a68cd28eb219ddf75c3123323ece9"
+    },
+    {
+      "path": "/srv/android/artifacts/lineage-24.0-arm64/post-preserve-20261103-02/offline-vintf/factory/system/etc/vintf/manifest/manifest_services_android.frameworks.vibrator.xml",
+      "sha256": "7cb3d23f37270e284f3979bb8c39316e4b3d58518cfd337d3fe5dd4718fdae85"
+    },
+    {
+      "path": "/srv/android/artifacts/lineage-24.0-arm64/post-preserve-20261103-02/offline-vintf/factory/system/etc/vintf/manifest.xml",
+      "sha256": "ce58a5b7357660a7b4e168c8f2d8c0871e4b5108601315c45860d73d2986249d"
+    },
+    {
+      "path": "/srv/android/artifacts/lineage-24.0-arm64/post-preserve-20261103-02/offline-vintf/factory/system_ext/etc/vintf/manifest/android.hidl.allocator@1.0-service.xml",
+      "sha256": "b0444198fcfedc428719034c6fcb926a66fa00e866ce5b857c1e2a0de47751f4"
+    },
+    {
+      "path": "/srv/android/artifacts/lineage-24.0-arm64/post-preserve-20261103-02/offline-vintf/factory/system_ext/etc/vintf/manifest.xml",
+      "sha256": "f69614c67fa6ece6165ac97dffa5166337f23be45a9e1dc7ae2df3dff1115319"
+    },
+    {
+      "path": "/srv/android/artifacts/lineage-24.0-arm64/vendor-check-20261101-01/vendor/etc/vintf/compatibility_matrix.xml",
+      "sha256": "4a22ea99cc597fcdb4fa55df1bb9390195c2cb642dde14129fe0b09faf5cf374"
+    },
+    {
+      "path": "/srv/android/artifacts/lineage-24.0-arm64/vendor-check-20261101-01/vendor/etc/vintf/manifest/android.hardware.cas@1.2-service.xml",
+      "sha256": "9357fb5a7b17fe81638ec82f79d06007bb35c19016e676104fa55449b5f0f0d2"
+    },
+    {
+      "path": "/srv/android/artifacts/lineage-24.0-arm64/vendor-check-20261101-01/vendor/etc/vintf/manifest/android.hardware.dumpstate@1.1-service-lazy.xml",
+      "sha256": "388b9e7b24adf678fccf59dacc79b948093688bc34c40124c2563c2c3809747d"
+    },
+    {
+      "path": "/srv/android/artifacts/lineage-24.0-arm64/vendor-check-20261101-01/vendor/etc/vintf/manifest/android.hardware.health@2.1-samsung.xml",
+      "sha256": "2ad8126c3afd2d52ac9d7e022e3d7716d17e03178bc11d1f7ad7a0aa585b5c28"
+    },
+    {
+      "path": "/srv/android/artifacts/lineage-24.0-arm64/vendor-check-20261101-01/vendor/etc/vintf/manifest/android.hardware.wifi.hostapd.xml",
+      "sha256": "d42266c7638aacf0918164dff0ed50df0a8d50d3085a6d03dc2127718fc86f17"
+    },
+    {
+      "path": "/srv/android/artifacts/lineage-24.0-arm64/vendor-check-20261101-01/vendor/etc/vintf/manifest/android.hardware.wifi@1.0-service.xml",
+      "sha256": "5b785b5e6f63baab071ca757ec3e5bf0ee7a877186c17e2b36ce5bc63112756e"
+    },
+    {
+      "path": "/srv/android/artifacts/lineage-24.0-arm64/vendor-check-20261101-01/vendor/etc/vintf/manifest/engmode_manifest.xml",
+      "sha256": "29fd4d47a7e04224b708d95eb046118001e407aaa700978add8eb460d897b3e5"
+    },
+    {
+      "path": "/srv/android/artifacts/lineage-24.0-arm64/vendor-check-20261101-01/vendor/etc/vintf/manifest/hyper-default-sec.xml",
+      "sha256": "bc7ab5cdae05b9a81b1d6e5466ec216e388cefe86822e4deec83e2d0de53ccb3"
+    },
+    {
+      "path": "/srv/android/artifacts/lineage-24.0-arm64/vendor-check-20261101-01/vendor/etc/vintf/manifest/lights-default-sec.xml",
+      "sha256": "570ac710477a2e70c8c983e4eea18ddd398907af0502ac95557f4293e9f85cc9"
+    },
+    {
+      "path": "/srv/android/artifacts/lineage-24.0-arm64/vendor-check-20261101-01/vendor/etc/vintf/manifest/manifest.xml",
+      "sha256": "e39163b460c1cc9eb4a245cf1083d62ecc777d8ae58daaff51ddaaea5c211a7e"
+    },
+    {
+      "path": "/srv/android/artifacts/lineage-24.0-arm64/vendor-check-20261101-01/vendor/etc/vintf/manifest/manifest_android.hardware.drm@1.3-service.clearkey.xml",
+      "sha256": "4b9a9214df27df7f546dcd7b27efac3803f8d172548671c8d94903ef1d804aef"
+    },
+    {
+      "path": "/srv/android/artifacts/lineage-24.0-arm64/vendor-check-20261101-01/vendor/etc/vintf/manifest/manifest_android.hardware.drm@1.3-service.widevine.xml",
+      "sha256": "61cee1f6a061cf5348ca82f5326bd09cedda6bf2eea016c9ad3374f2cd03df7a"
+    },
+    {
+      "path": "/srv/android/artifacts/lineage-24.0-arm64/vendor-check-20261101-01/vendor/etc/vintf/manifest/power-samsung.xml",
+      "sha256": "faef8be2fdef7c56908853ee8256e5052d8e2f617351f0c306a5bfc365ab5892"
+    },
+    {
+      "path": "/srv/android/artifacts/lineage-24.0-arm64/vendor-check-20261101-01/vendor/etc/vintf/manifest/sec_c2_manifest_default.xml",
+      "sha256": "81fc4e0018250141678c6f9c4ffd159c16cd80873f2bf066bc734bc1515a3b1b"
+    },
+    {
+      "path": "/srv/android/artifacts/lineage-24.0-arm64/vendor-check-20261101-01/vendor/etc/vintf/manifest/vaultkeeper_manifest.xml",
+      "sha256": "a1afd66714d0dc4c5083a2a4f33d2ae7f1dde9d56adbd4c4c8b563143f709a52"
+    },
+    {
+      "path": "/srv/android/artifacts/lineage-24.0-arm64/vendor-check-20261101-01/vendor/etc/vintf/manifest/vendor.samsung.hardware.hqm@1.0-manifest.xml",
+      "sha256": "963dd41e15b0c5b3ec8cac45abe2a9c845dff83eda529a2b77e8594c1d3008c2"
+    },
+    {
+      "path": "/srv/android/artifacts/lineage-24.0-arm64/vendor-check-20261101-01/vendor/etc/vintf/manifest/vendor.samsung.hardware.thermal@1.0-manifest.xml",
+      "sha256": "3f5b1c78f8a06eb25ae5b4e873a010802ec8bd6546091095c5fdee22b45e1566"
+    },
+    {
+      "path": "/srv/android/artifacts/lineage-24.0-arm64/vendor-check-20261101-01/vendor/etc/vintf/manifest/vendor.samsung.hardware.tlc.atn@1.0-manifest.xml",
+      "sha256": "30aa3eaf547c78707509cedc6fbe487dafc8d39435868db91356e6e8e5f290ea"
+    },
+    {
+      "path": "/srv/android/artifacts/lineage-24.0-arm64/vendor-check-20261101-01/vendor/etc/vintf/manifest/vendor.samsung.hardware.tlc.iccc@1.0-manifest.xml",
+      "sha256": "36ff251646f672e18f55d740f669c88394f466c1c457ea4052047112f361c0cb"
+    },
+    {
+      "path": "/srv/android/artifacts/lineage-24.0-arm64/vendor-check-20261101-01/vendor/etc/vintf/manifest/vendor.samsung.hardware.tlc.tima@1.0-manifest.xml",
+      "sha256": "1266ba34c026d2edc88e62d454eea3ca9f44cde796164174ddebbbd16b1da570"
+    },
+    {
+      "path": "/srv/android/artifacts/lineage-24.0-arm64/vendor-check-20261101-01/vendor/etc/vintf/manifest/vendor.samsung.hardware.wifi.hostapd.xml",
+      "sha256": "39a43b18dc72af926510af3ef013d57ea7dbad4557a0476a6c06250cba274c72"
+    },
+    {
+      "path": "/srv/android/artifacts/lineage-24.0-arm64/vendor-check-20261101-01/vendor/etc/vintf/manifest/vendor.samsung.hardware.wifi@2.0-service.xml",
+      "sha256": "7eeb437e701556615cc228784f3c2e101983ed9abacf0a19255418f659643c63"
+    },
+    {
+      "path": "/srv/android/artifacts/lineage-24.0-arm64/vendor-check-20261101-01/vendor/etc/vintf/manifest.xml",
+      "sha256": "8c5ceef0b5b03b7a3d6a9b0bad0ff1f2b3880cf58a925253ec77d84e21765ff2"
+    }
+  ],
+  "inventory_origin": "AOSP apexd_host simulation of real factory packages",
+  "live_apex_activation_proven": false,
+  "kernel_mounts_or_policy_proven": false,
+  "runtime_or_HALS_validated": false,
+  "hardware_tested": false,
+  "flash_ready": false,
+  "original_sources_images_or_device_modified": false
+}

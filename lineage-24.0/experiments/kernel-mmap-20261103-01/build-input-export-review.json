@@ -1,0 +1,82 @@
+{
+  "scope": "Complete isolated Image compilation and static build-input/export checks; not policy load, boot, module load or live enforcement",
+  "build_exit": 0,
+  "Image_sha256": "c7238c595b155083973aa073e1ed010a8f34ead6f278d7d54d051367f9a61cb8",
+  "kernel_config_sha256": "fac42e3bbf996bb9502bb1031c91b1950986ad3586d0f33cad869a6fd0b3acea",
+  "complete_tracked_kernel_files": 60331,
+  "new_untracked_source_header_before_after_sha256": "9096f41f971a71018f49f155d3577204678e7298a0e44728e644361332f98387",
+  "generated_MAP_permissions": {
+    "FILE__MAP": 1024,
+    "DIR__MAP": 1024,
+    "LNK_FILE__MAP": 1024,
+    "CHR_FILE__MAP": 1024,
+    "BLK_FILE__MAP": 1024,
+    "SOCK_FILE__MAP": 1024,
+    "FIFO_FILE__MAP": 1024,
+    "SOCKET__MAP": 1024,
+    "TCP_SOCKET__MAP": 1024,
+    "UDP_SOCKET__MAP": 1024,
+    "RAWIP_SOCKET__MAP": 1024,
+    "NETLINK_SOCKET__MAP": 1024,
+    "PACKET_SOCKET__MAP": 1024,
+    "KEY_SOCKET__MAP": 1024,
+    "UNIX_STREAM_SOCKET__MAP": 1024,
+    "UNIX_DGRAM_SOCKET__MAP": 1024,
+    "NETLINK_ROUTE_SOCKET__MAP": 1024,
+    "NETLINK_TCPDIAG_SOCKET__MAP": 1024,
+    "NETLINK_NFLOG_SOCKET__MAP": 1024,
+    "NETLINK_XFRM_SOCKET__MAP": 1024,
+    "NETLINK_SELINUX_SOCKET__MAP": 1024,
+    "NETLINK_ISCSI_SOCKET__MAP": 1024,
+    "NETLINK_AUDIT_SOCKET__MAP": 1024,
+    "NETLINK_FIB_LOOKUP_SOCKET__MAP": 1024,
+    "NETLINK_CONNECTOR_SOCKET__MAP": 1024,
+    "NETLINK_NETFILTER_SOCKET__MAP": 1024,
+    "NETLINK_DNRT_SOCKET__MAP": 1024,
+    "NETLINK_KOBJECT_UEVENT_SOCKET__MAP": 1024,
+    "NETLINK_GENERIC_SOCKET__MAP": 1024,
+    "NETLINK_SCSITRANSPORT_SOCKET__MAP": 1024,
+    "NETLINK_RDMA_SOCKET__MAP": 1024,
+    "NETLINK_CRYPTO_SOCKET__MAP": 1024,
+    "APPLETALK_SOCKET__MAP": 1024,
+    "DCCP_SOCKET__MAP": 1024,
+    "TUN_SOCKET__MAP": 1024
+  },
+  "generated_permission_header_sha256": "b3a810058518caf7fcf53c615caf87168016adedc4275a85f0da39a5d38044f0",
+  "compile_macro_flags": {
+    "candidate-avc": [
+      "-DANDROID_VERSION=110000"
+    ],
+    "candidate-hooks": [
+      "-DANDROID_VERSION=110000"
+    ],
+    "candidate-services": [
+      "-DANDROID_VERSION=110000"
+    ],
+    "preserved-avc": [
+      "-DANDROID_VERSION=110000"
+    ]
+  },
+  "compile_command_files_sha256": {
+    "candidate-avc": "7d8c9ce07fef192da1c33100d93d0c902613a3b2455538085a0e159f4b3dcf04",
+    "candidate-hooks": "2e3308194dc4c992993367118f213fc5b3210ad19686d880101b47273e64e69b",
+    "candidate-services": "ad379b1d3118cfd29911658a28d332a8579981db49e783ee2d510be1aaf035b2",
+    "preserved-avc": "175940f1b987429fef2a5e558db7a6e88a63608ba74680aae90d30dc59b6466a"
+  },
+  "ALWAYS_ENFORCE_macro_present": false,
+  "module_exports": {
+    "original_count": 8408,
+    "candidate_count": 8408,
+    "removed": [],
+    "added": [],
+    "changed_crc": {},
+    "original_sha256": "f980d564cb5960789a1cd6dfe52d873a288526d7eb902697366061df50d941c3",
+    "candidate_sha256": "f980d564cb5960789a1cd6dfe52d873a288526d7eb902697366061df50d941c3"
+  },
+  "build_script_sha256": "9f55534f97dfc245aedbdec8df37480679624c603689026acba192c7218ec6a1",
+  "audit_script_sha256": "7667bbea1ceb9e93f5ea8306f53a2511e2e2e195bede38e2825eb780b824ce72",
+  "policycap9_rejection_retained": true,
+  "Image_promoted": false,
+  "hardware_tested": false,
+  "flash_ready": false
+}

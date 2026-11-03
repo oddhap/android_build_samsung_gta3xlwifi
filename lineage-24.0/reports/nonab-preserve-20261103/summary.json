@@ -1,0 +1,22 @@
+{
+  "build_label": "full-targetfiles-preserve-20261103-02",
+  "build_exit": 0,
+  "duration": "08:01",
+  "post_label": "post-preserve-20261103-02",
+  "post_exit": 0,
+  "archive_sha256": "5d6d30884abdf5c9cd2ea1680961005f681598a508bcb0937d6ebb27bebc3b45",
+  "preserved_archive": "/srv/android/artifacts/lineage-24.0-arm64/diagnostic-full-targetfiles-preserve-20261103-02/lineage_gta3xlwifi-target_files.zip",
+  "active_snapshot": "port-20261103-07",
+  "source_after_audit_passed": true,
+  "source_projects": 1243,
+  "source_patches": 15,
+  "physical_non_ab_metadata_checked": true,
+  "recovery_replacement_resources_absent": true,
+  "offline_factory_apex_count": 39,
+  "offline_actual_vendor_vintf_passed": true,
+  "live_activation_proven": false,
+  "installable_ota_created": false,
+  "release_signing_performed": false,
+  "hardware_modified": false,
+  "flash_ready": false
+}

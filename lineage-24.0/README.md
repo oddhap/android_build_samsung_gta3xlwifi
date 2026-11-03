@@ -49,9 +49,9 @@ Mac/Linux. The generic non-A/B OTA recovery-patch assertion and Android14-only
 device installer guard remain in place: no installable OTA is created.
 
 Snapshot07 audits 1,243 projects and 15 exact patches; only build/make changed
-since snapshot06, and all project revisions are identical. The new build is
-`full-targetfiles-preserve-20261103-02` (PID2632743), followed automatically by
-`post-preserve-20261103-02` (PID2632745). Inspect logs/exit files and build.lock
+since snapshot06, and all project revisions are identical. The ensuing build was
+`full-targetfiles-preserve-20261103-02`, followed by `post-preserve-20261103-02`;
+both are complete as recorded below. Inspect logs/exit files and build.lock
 before editing TOP. The post job validates layout/geometry, archives the result
 and runs static packaged-APEX/actual-vendor VINTF checks after successful build.
 
@@ -66,6 +66,22 @@ Strict production/vendor policy still fails with 322 diagnostic blocks. Kernel
 policycap enforcement, complete legacy networking and Android17 FBE/recovery/
 installer/rollback checks remain gates. No experimental kernel/network code is
 in the active prebuilts. No signing keys or tablet partitions are touched.
+
+## Completed non-A/B package checkpoint
+
+`full-targetfiles-preserve-20261103-02` completed exit 0 in 8m01s with the full
+1,243-project/15-patch after-audit. `post-preserve-20261103-02` also completed
+exit 0: physical non-A/B metadata, image geometry and input identities, absence
+of automatic recovery replacement resources, selected multilib ELF checks and
+39-package offline factory APEX/actual-vendor VINTF all passed. The preserved
+archive digest is `5d6d30884abdf5c9cd2ea1680961005f681598a508bcb0937d6ebb27bebc3b45`.
+See reports/nonab-preserve-20261103. No installable OTA, runtime or flash approval.
+
+A read-only declaration audit is saved in experiments/kernel-surface-20261103-01.
+It identifies additional kernel review areas; table entries do not prove hooks.
+No kernel source, configuration, Image or device was changed by that audit.
+The owner renewed the flashable-test-candidate goal on November 3. The isolated
+kernel work below resumes that effort; the Android build inputs remain pinned.
 
 ## Workspace and server
 
@@ -210,3 +226,22 @@ rechecked against the actual Android 17 userdebug policy: 407 to 405 strict
 diagnostic blocks, exactly two removed and none added. Only vendor CIL changes
 among the ordered policy inputs. This remains an isolated metadata candidate,
 with no runtime/effective-permission or image integration approval.
+
+
+## November 3: isolated mmap enforcement and complete kernel compilation
+
+The renewed test-candidate work adds an actual `FILE__MAP` hook check in an
+[isolated candidate](experiments/kernel-mmap-20261103-01/). Sanitized host checks
+of actual helper bodies pass on Mac and Linux. The complete independent kernel
+build also passes, with exact preserved config, 60,331-file tracked-source
+before/after audits and unchanged protected inputs. All 8,408 exported symbol
+CRCs match the original. These static checks do not establish live enforcement
+or module ABI compatibility. No experimental Image enters Android prebuilts.
+
+The common-prefix insertion moves permission bit positions and needs the full
+header/kernel rebuild recorded here. Netlink capability9 rejection remains;
+coherent policy generation across netlink/AVC reloads and other active policycap
+hooks are still required. Actual compile commands do not define Samsung
+CONFIG_ALWAYS_ENFORCE in either the preserved AVC or this standalone build.
+Strict vendor policy, complete networking and Android17 installer/FBE/rollback
+remain open. The built ROM and kernel remain diagnostic, with no installable OTA.

@@ -1,0 +1,18 @@
+{
+  "server_artifact_directory": "/srv/android/artifacts/lineage-24.0-arm64/kernel-mmap-build-20261103-01",
+  "sha256": {
+    "source-before.json": "39cb88c0159cfede784fcd46fd62115619b60f0c81106c8f4e93357a12d7a3e8",
+    "source-after.json": "458fe1bbf0c61746debc8977fca1bfe5c2225b61a614c67e5e6025f0bd1efc25",
+    "protected-before.json": "1d5603527bcdf025023a8392b72926259862f45f768b6f698e6dcfc347ecbf61",
+    "protected-after.json": "1d5603527bcdf025023a8392b72926259862f45f768b6f698e6dcfc347ecbf61",
+    "patch-provenance.json": "04a95ef069300fcaa16412caa94d9d3275fe11057ce6c8e71fca31cb6ad63e20",
+    "additional-patch-provenance.json": "5e4e32ee49c2f3d16f78d8379823bb15460a629012e6e29d3930c4a13c3bc02b",
+    "tracked-source.patch": "753bb74e7b63307964e521674f1b2d315eafb574517125c69829417bb209e07c",
+    "baseline-touch-complete.patch": "b36123955b7fc457c8df713dddcc371e68de92aa7709519c8778a6579d64a06c",
+    "host-mmap-linux.json": "70ed3305e5925ce9ffd43d41f1f4eac53f9611a6d6718ef1b746a64eb24b3562",
+    "build-input-export-review.json": "4028dccdda42c0d413b44af5bf6d05ca14a6fa187f41156049c825c7230fefbe",
+    "Image": "c7238c595b155083973aa073e1ed010a8f34ead6f278d7d54d051367f9a61cb8",
+    "kernel.config": "fac42e3bbf996bb9502bb1031c91b1950986ad3586d0f33cad869a6fd0b3acea"
+  },
+  "flash_ready": false
+}
