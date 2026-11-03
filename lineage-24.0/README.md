@@ -14,12 +14,13 @@ The initial 23.2 port patches compiled successfully on Android 17 in
 `native-policy-20261101-01` (exit 0, followed by full source audit). Selected
 ARM/ARM64 ELF outputs are recorded in the reports; this is build/link evidence.
 
-Active snapshot **port-20261101-05** locks 1,243 projects and **15 exact patches**.
+Active snapshot **port-20261103-07** locks 1,243 projects and **15 exact patches**.
 It adds a source backport of policy 30.0 compatibility data and generator modules,
 with the frozen API30 source copied verbatim from the pinned prior platform.
 The framework advertises 30.0 only for gta3xlwifi. Device inputs are separately
 pinned by commit. Dedicated compatibility compilation and structural tests passed;
-strict actual-vendor policy is not approved and this is not a full ROM build.
+strict actual-vendor policy is not approved. A diagnostic full build has succeeded;
+installation remains blocked.
 
 The cgroup port retains cpuacct v1 process groups, mounts real supported v1
 controllers, skips v2 subtrees only for this product, loads product profiles last,
@@ -29,29 +30,42 @@ checks are separate from Android execution. Optional GPU BPF accounting still
 reports unavailable, rather than invented counters. Existing safety/installer
 and strict SELinux checks remain enforced.
 
-## Current build status — November 2
+## Current build status — November 3
 
-`policy-user-maps-20261102-01` completed exit 0 with a full 1,243-project /
-15-patch after-audit. The actual production/vendor strict check fails with 322
-diagnostic blocks: 91 legacy-public, one legacy-vendor and 230 current-platform
-assertions. All assertions remain present and enabled. The userdebug/user delta
-is not a security fix. See [production evidence](reports/production-policy-20261102/).
+The first full `target-files-package otatools` build completed exit 0 in 4h46m51s
+(183,167 Ninja actions), followed by the complete source after-audit. Its 2.31GB
+archive is preserved by digest. Samsung image/header/kernel/vendor/DTBO geometry
+and selected ARM32/ARM64 ELF checks passed, but OTA metadata incorrectly selected
+A/B. Device `2f649d06fec3318926c61aaf7a5fa3f40aa9f266` explicitly sets non-A/B.
 
-`full-targetfiles-20261102-01` actually started at **19:06:12 UTC** and is running
-`target-files-package otatools`. Source audit and binary input checks passed
-before compilation. This is a diagnostic full build using the preserved kernel;
-no kernel/network experiment is promoted and no installation is approved.
-Inspect its current process, log and exit file before starting another build or
-editing TOP. The earlier November1 full-build label was never started.
+That non-A/B attempt reached packaging but failed when stock recovery-patch
+creation tried writing a replacement recovery into an absent generated VENDOR
+filesystem. The hybrid device preserves its actual vendor image and installed
+TWRP. Snapshot07 adds product-scoped preservation metadata, omits multistage
+support, skips generated recovery-replacement resources and rejects two-step OTA
+options for this product. Other products retain their exact generator outputs
+in host fixtures. Eight layout tests and five preservation test groups pass on
+Mac/Linux. The generic non-A/B OTA recovery-patch assertion and Android14-only
+device installer guard remain in place: no installable OTA is created.
 
-`tools/check-target-files.py` is prepared for the completed archive and its
-source after-audit. It checks selected ZIP entries, source-manifest binding,
-physical image geometry through the source-bound AOSP sparse parser, reviewed
-vendor/DTBO/kernel digests, Samsung headers/trailers and selected multilib ELFs.
-It has passed syntax/CLI smoke checks only; actual Android17 artifact execution
-is pending full-build completion. It reports neither whole-archive CRC nor
-filesystem/security/installer/runtime/flash approval. Installer Android14 guards
-remain unchanged pending a separately verified Android17 recovery/FBE design.
+Snapshot07 audits 1,243 projects and 15 exact patches; only build/make changed
+since snapshot06, and all project revisions are identical. The new build is
+`full-targetfiles-preserve-20261103-02` (PID2632743), followed automatically by
+`post-preserve-20261103-02` (PID2632745). Inspect logs/exit files and build.lock
+before editing TOP. The post job validates layout/geometry, archives the result
+and runs static packaged-APEX/actual-vendor VINTF checks after successful build.
+
+The first archive passes the AOSP `apexd_host` offline simulation with **39** real
+factory packages and the actual MTP vendor. All 39 payloads are ext4. The actual
+VNDK30 package contains 287 ARM32 and 287 ARM64 ELF libraries with matching
+class/machine IDs. This is neither full ABI nor device activation/mount proof.
+The carried legacy FCM3 kernel profile is not unmodified Android17 kernel
+compliance. See [full-build evidence](reports/full-build-20261103/).
+
+Strict production/vendor policy still fails with 322 diagnostic blocks. Kernel
+policycap enforcement, complete legacy networking and Android17 FBE/recovery/
+installer/rollback checks remain gates. No experimental kernel/network code is
+in the active prebuilts. No signing keys or tablet partitions are touched.
 
 ## Workspace and server
 

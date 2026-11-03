@@ -1,0 +1,3452 @@
+{
+  "scope": "Packaged VNDK30 ELF class/machine and content hashes only; not symbol/ABI/runtime approval",
+  "source_apex_sha256": "d40ec5d935c633025f5ab4fc141e9d2a14f1f8e78eaf2dff5a78b17fb6abef58",
+  "files": [
+    {
+      "path": "lib/android.frameworks.automotive.display@1.0.so",
+      "sha256": "f3afc51034be522674abfaff23d03a25af8e74ee80d816e3b9486fc742cdde45",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.frameworks.cameraservice.common@2.0.so",
+      "sha256": "886fd2884359c1877976f97e2f754e13227e14a77c7cbc84955bc33ace5c32dc",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.frameworks.cameraservice.device@2.0.so",
+      "sha256": "fbc86aaf7fafb7dcbdfc0a03cba4412d12897518f29b0cc3ccb633df72a266f7",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.frameworks.cameraservice.service@2.0.so",
+      "sha256": "73124570c0f2c39000655125922b5fb10a440db9381a3006899454f401b025e4",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.frameworks.cameraservice.service@2.1.so",
+      "sha256": "d61103e7c2016c572af83176a982fb7f5e68210c72784c331bfb91abae8650ae",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.frameworks.displayservice@1.0.so",
+      "sha256": "83ddc79765224bcbe3823f6025cfc4ffbe7344bccd4ae706c2f99dc50ebd3fa5",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.frameworks.schedulerservice@1.0.so",
+      "sha256": "9fed5e3d57720d1a5a4b50bcd3e13def0e5f47af27b50992d3144445af186c20",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.frameworks.sensorservice@1.0.so",
+      "sha256": "3388c48631b4f7787a600e1f2710b6bd894761bbf103b3815a3e6b8d91451ef0",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.frameworks.stats@1.0.so",
+      "sha256": "9f512ced745ea2ce651c5c437b95632704a024a7971a24b3e9a2cdb9329582f3",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.atrace@1.0.so",
+      "sha256": "e9e6248fdfa69020d7b50639149a0d8a1106ddbf39d85bc0713f5aa7e66e37d0",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.audio.common@2.0.so",
+      "sha256": "2eec0ab75c188931b80b269f5f89b88791f3c4f8ff6e09dad21aabccc7aeb59b",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.audio.common@4.0.so",
+      "sha256": "e14dc7baad0236fc65d120aabc6712f610160e6c2ed8f227cf8f00ea33c8b0cd",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.audio.common@5.0.so",
+      "sha256": "a9b923ad312df2d689927843036cebcf46dfd649ffef7ddc826f98b9242cd629",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.audio.common@6.0.so",
+      "sha256": "f072eeea344449c8f2809496f930f028872c7d79d5b3ac08de5340770d6bee1c",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.audio.effect@2.0.so",
+      "sha256": "d60e64c2397ae3d786d46a606369033d1c020e0f5126b3302ca73c3abeb9eba9",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.audio.effect@4.0.so",
+      "sha256": "04fc547a084b67998cb3fd2d56e609c2cbfe8c472135a33d8aeaf1008f09e6cc",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.audio.effect@5.0.so",
+      "sha256": "4dd092c69937d336e02ee1fa9d88c8a67225a98150d4e88b01c0ed0c757ce7a9",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.audio.effect@6.0.so",
+      "sha256": "a4ebd623be3a733dd342d9b2ca4c86b353ffefcee8e8d90f85dec46c81aa65b5",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.audio@2.0.so",
+      "sha256": "92c88709896e8991ab56780e1107675e050a299babae7a10e0078c5817953c65",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.audio@4.0.so",
+      "sha256": "d2dee598030f7cfc8d7f9335da3f92c47c5854d0c95915ddc59e14a56cf22197",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.audio@5.0.so",
+      "sha256": "25a460d4ce821abc0b2e11514a21dec32b5c6555fbc24c582e5152c13536e941",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.audio@6.0.so",
+      "sha256": "7bdf902d180ec147800a78b4826803a0ffa3c73d566265b05c0f2c04d7d8ae0a",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.authsecret@1.0.so",
+      "sha256": "5a07a900cafa8669c37cbcd6100359cdad8b1aa0cab65217894dae659ef3412d",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.automotive.audiocontrol@1.0.so",
+      "sha256": "61e1ebe55b0ac1de559e57f4b2e84efff38768c2cd4421846e301cac6e7214e7",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.automotive.audiocontrol@2.0.so",
+      "sha256": "17d28d05f44270cf7f6b4abb455e07d808d7e533e2d4336083eb4a91d8401d32",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.automotive.can@1.0.so",
+      "sha256": "8eeee0a07502f865a007c5f6b02036c2d1a761d3da605e3b331eb4efb8fd9851",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.automotive.evs@1.0.so",
+      "sha256": "92bd4b5a4076f4fbc28ce618b0c7be5e096daac787cac29e0d3440b0d8c122e4",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.automotive.evs@1.1.so",
+      "sha256": "d7ed4735d9f4104218db42e9953762acc355ea97f741d1bdfc2b0b40cb86f92c",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.automotive.occupant_awareness-V1-ndk_platform.so",
+      "sha256": "36fd3f7d08571960eb16f83b08fcdb765fa5e75e54daa0245998acd2042dfcab",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.automotive.sv@1.0.so",
+      "sha256": "28e13b3cfe454ff01471f9e18814720153396b0fb2c95ba475cea3cdc339d95c",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.automotive.vehicle@2.0.so",
+      "sha256": "494102ef9d7f9e585aea01058f614ecc78d338b73df4d78f2a7bb9d3d720e408",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.biometrics.face@1.0.so",
+      "sha256": "56a835aa729515fdf84b97078574424c5b3a582ade1e1380b09c8b1c8deec3cd",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.biometrics.fingerprint@2.1.so",
+      "sha256": "905977d3f69508491b769ac28bde96ab3f7f698575c1ecf7f899409e9bb75d63",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.biometrics.fingerprint@2.2.so",
+      "sha256": "c6a4628d563b607909fcf41244eed82b7bdbc5d0fb4d0d3fcddfbaed422f0157",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.bluetooth.a2dp@1.0.so",
+      "sha256": "822e7fbaefa4db43c44335cf4dff778276872c474db5dd0e7ac61e239ff0de9e",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.bluetooth.audio@2.0.so",
+      "sha256": "5f97c2b8a091ca3bbfcefcde5244b867a54f9fcf0770f4b0eb6ca37a1f025140",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.bluetooth@1.0.so",
+      "sha256": "0f0e7fb578cc7ea9c2dbbf3fc59087f1151443e58afdf4c7a9dc20636ef60af7",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.bluetooth@1.1.so",
+      "sha256": "d5a1a0d62e4472c382a1b62878171cdd09196e5b4618c544bb412d7452211061",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.boot@1.0.so",
+      "sha256": "f8743d340472aaf3c045eedd3a30a7f53775e1b3936dc4a9fa5bbed0b71c868e",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.boot@1.1.so",
+      "sha256": "de365ad34ba95bee6c7a1f56199505d578d0e2aebd8a0f5778f81b360e5eab92",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.broadcastradio@1.0.so",
+      "sha256": "fbfc25a7f01cd481e2bc078002b300c9560b9285f62386692b2ba5e7103dcecc",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.broadcastradio@1.1.so",
+      "sha256": "b9ebaf06e9c1d529c8a90cd5cf27211de5c00feba75ec630853aa00db43142e1",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.broadcastradio@2.0.so",
+      "sha256": "8aaa7d51492eadd2a54f31f2f3ad49fe3f6be54688081791247ef6e198185178",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.camera.common@1.0.so",
+      "sha256": "023f5190559e699942e7913a891039b1702469d759133a17ca3e0730533625ec",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.camera.device@1.0.so",
+      "sha256": "2411c92789e037153048839ae0a411af127ffb0aba6ab3747d4054a9a5742159",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.camera.device@3.2.so",
+      "sha256": "0506b520ccf051c798908ef3da50c5ab0b6d10f46d97020fc58fbf5263257be9",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.camera.device@3.3.so",
+      "sha256": "c7241b87591f4df8abd89f03046c321d8327f176050ec292454f20c86b2b3ab6",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.camera.device@3.4.so",
+      "sha256": "b444d72388cbf25d9dc68234b83b5460b292affde6cd42c485af3b0e7b574115",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.camera.device@3.5.so",
+      "sha256": "9db2ddccd9ec3f442eea1eb0d92fd64358696664e6baec75f8c5aba6fc40ef05",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.camera.device@3.6.so",
+      "sha256": "20607a6124b858cd558623f10ab0497b5c5db46851840dda0a48bc9c19a00d76",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.camera.metadata@3.2.so",
+      "sha256": "7ac381f33662967d52cb7c46442654e90d00fb203f13e676df53214defe5ea3e",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.camera.metadata@3.3.so",
+      "sha256": "cb5642333e3cd766a9f2b9889d297732ff34e2c5e0e559add38b5fb2f9fc5dc5",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.camera.metadata@3.4.so",
+      "sha256": "9e31cf09c11965cc6703c5fb7ad5ef856496c8070593961034d3d3eb8915d249",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.camera.metadata@3.5.so",
+      "sha256": "505d8c9df3c244123e38d18e583d62a3e0d3fac6f34ae53414ddfc41f17bf77d",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.camera.provider@2.4.so",
+      "sha256": "d7d744882a8b24c5cd8af0422982d0a414b11700b89c4cdc4950146cc1bb74d2",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.camera.provider@2.5.so",
+      "sha256": "65b240bd52dac287a7a4785286addd03794cb787e10aadde61801fb185c744fd",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.camera.provider@2.6.so",
+      "sha256": "6f78f141350c22317cfb317b7d441d964c3f95a8304bd79888673b728884efbf",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.cas.native@1.0.so",
+      "sha256": "90cd7068bf24bf6adca9ea05f981e03fc73927c6bf708646822e19b7c17a9329",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.cas@1.0.so",
+      "sha256": "5c7e9a3b6594960bc6287a417ac316f8a14b182aa7e1cf12bb544a00258a05dd",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.cas@1.1.so",
+      "sha256": "52b811eb21c028d2e563950bc6701ccfc92fdb3683a9f69a205a69b7c228652e",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.cas@1.2.so",
+      "sha256": "7c8ed8eebf0d64763e05a2c4829a66a2b32ef1f45a3fc884d40e19cffaba9269",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.common-V1-ndk_platform.so",
+      "sha256": "e08503e094de951bc122b64916de80759b3a975be21fd234f62b8e933f82bad8",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.configstore-utils.so",
+      "sha256": "ed7fe2ddf995c1df9fdbbc15c10d206da6b7dc21d2cf721be6dfca2c3bd0e0ca",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.configstore@1.0.so",
+      "sha256": "286b1b1dd6b1542fb04e222b6788f7bb9693cefaa708e753cf887584fca87c54",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.configstore@1.1.so",
+      "sha256": "fbc63838fa43a11bcd6d9b745b156f355cc7d0a69585501ddf5d27225f29364e",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.confirmationui-support-lib.so",
+      "sha256": "71afa7f3fb164e06b82d3fd50adb9522037af1a2517d00bcba30d2e5709896df",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.confirmationui@1.0.so",
+      "sha256": "3ab32669fc740812f0141fdce8411b8b8b924f72635fa5ec4ea46508a4a5ecf8",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.contexthub@1.0.so",
+      "sha256": "5bb247c699c7a57a1433c02d6f08015fdf06c58482f5bacd81aa86d5e9995232",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.contexthub@1.1.so",
+      "sha256": "feef5c66e8865d4e9714090ac606913978c7c445328111ee65a9db85edc02a77",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.drm@1.0.so",
+      "sha256": "a11b0b31f5fa6a3da902a5139f55f99fdd10dd2723af690bb3c85194abb49761",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.drm@1.1.so",
+      "sha256": "ea3357c12060fa8ba973fa7295d69585bb6fd1de9e9a1f3c8b1454a682b6de04",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.drm@1.2.so",
+      "sha256": "9b5c0c58fa17ef432ddfa4b34657c5c3842db47aeeca0ee20671d6d5e4e9645b",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.drm@1.3.so",
+      "sha256": "8d959ff2e77e6d7933ff3f3e42fd3ab4c960e2a5eb70fc0f3265c33a2c157418",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.dumpstate@1.0.so",
+      "sha256": "59b485b20e9d3ce7cecadeffa711fabc7933da1cdb31ba77a9aadb62a1a4705e",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.dumpstate@1.1.so",
+      "sha256": "3e64b18a1138925f29f27a79a555bca5ba117228dd2c328658300f3654e52931",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.fastboot@1.0.so",
+      "sha256": "e03c145f2dea4272b969d7b270b8b5115091ed73b5d4c6b9917bd8e78be55db9",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.gatekeeper@1.0.so",
+      "sha256": "1922b8f18f44f93f17d3cc2a9c201c854ea89a47b5e17451e6f95ba357925fe5",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.gnss.measurement_corrections@1.0.so",
+      "sha256": "be139cb57e127c76ea7fdd56e8c6ce661838760eadba1911160e588ff8bd9a22",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.gnss.measurement_corrections@1.1.so",
+      "sha256": "0b5dd220aefd3848cb84799bab6df0ef0ef76db56bfdf2e4d63386384df17fdf",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.gnss.visibility_control@1.0.so",
+      "sha256": "c6118defac01ac1ae8e35928bb0467aaff96dc6c5b1ef75f425629e365f60f10",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.gnss@1.0.so",
+      "sha256": "3337122fe61aa8b6607039efc70afc8ce291ce235569fd2e5c717fb899ddeba1",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.gnss@1.1.so",
+      "sha256": "5b593c25a9a898bcd5ec8fac8f21239552e230d39398459d913550c9c96e097e",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.gnss@2.0.so",
+      "sha256": "0aca60b1f8e03dc38981539d3c7163589715e5703e327f4f81398ef1ea6f13c7",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.gnss@2.1.so",
+      "sha256": "1c6caf63a9b795fdd7828b641d590d8864ab9551614901e960d86086e6b92d8a",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.graphics.allocator@2.0.so",
+      "sha256": "c4a61cfb2e78ec8ddc4e1e001fe51454b91eac28a7c47d24d940290829eab558",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.graphics.allocator@3.0.so",
+      "sha256": "6be00e8c18a9cff31d6ccb4c40f9a6080964d446d5269bbe2c2d26a35a0ae6bf",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.graphics.allocator@4.0.so",
+      "sha256": "7ece5a60a59e4af01823fe6d7bf5e0fe738c7dac87b76f2a92827fe4900efbb2",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.graphics.bufferqueue@1.0.so",
+      "sha256": "88db893185cdedbf75de04af488033e2ffe7fcc358dd89ba04bbfea954fba398",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.graphics.bufferqueue@2.0.so",
+      "sha256": "700a4fb8bcbcdb090c9dccb2627ed2f2aafed8363e914e26c722447b07e2aa7f",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.graphics.common-V1-ndk_platform.so",
+      "sha256": "67c44441ac0cb35411b6c97bb67823b12bbec819fd44d894d15d40c86a95f8f0",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.graphics.common@1.0.so",
+      "sha256": "042c361fe3dfb9ca38938e49e2514802afb07659a5b304aad850dd5aa4ff85ba",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.graphics.common@1.1.so",
+      "sha256": "e6d7958a5043e1a5aeeb43d8f7b8bbd2fbf4f6c05424d742f6d95b6bdf5e8e04",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.graphics.common@1.2.so",
+      "sha256": "7aac67209a603e5673157ded4728bf66cc06036928aa66243b0f2d1e61b67b20",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.graphics.composer@2.1.so",
+      "sha256": "aead3cc3e2687099b0e667d0eedd256944b267fe8eddfd5dbd469972d156d107",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.graphics.composer@2.2.so",
+      "sha256": "4b5ccbfa64e0ea98772ce58af64d172d828f006a91cd4a14a26388bc7e59dd74",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.graphics.composer@2.3.so",
+      "sha256": "58b73b60792dcc0857d9263e7612067b2150b4bc60c0234dd52a730779646402",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.graphics.composer@2.4.so",
+      "sha256": "825f0f82f58887d2eaecf80fc83e8acae3918972dd120b776719bdbf62993c38",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.graphics.mapper@2.0.so",
+      "sha256": "5954a70b182b9f67d6f309ce860f2637d3199fa14bea44752eeaf08e5c74aa16",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.graphics.mapper@2.1.so",
+      "sha256": "1fc7e03f23be29afe06b77f2ca426d9d70a90992a485ecf0bac9f76bce995226",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.graphics.mapper@3.0.so",
+      "sha256": "4cf8b7cabf9245d13c5c18876809679f3cfdc73e8a9d9e441ac15294b7f91730",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.graphics.mapper@4.0.so",
+      "sha256": "16c098665e456097f7d2e4ee0340b96e5941d5306819ce0172ac301e8af66bb8",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.health.storage@1.0.so",
+      "sha256": "4110e3b109b52f260c110625a40863267043227a1531dc406ebd86ff4c7d98c8",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.health@1.0.so",
+      "sha256": "542532fb6b1c84a7e6a97ce913f46c0318e59d4b63dd5a75d5185c2b7f08b38a",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.health@2.0.so",
+      "sha256": "52c594177fe1123944d0833b7fe055f9236b89a62e533964ac3d6a757ba9296a",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.health@2.1.so",
+      "sha256": "4e03273f6ab8a85b2b3571026469c4006a7a0bdd838aceaf8577a14f0d19af5b",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.identity-V2-ndk_platform.so",
+      "sha256": "b48c796003eda4720b483c8aab6b64a6c58747fe3cb58c8b3b8d63bd952ed38e",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.input.classifier@1.0.so",
+      "sha256": "164c6ada0cf5b0afa058c77b25f60448b6db8a01aa249893e009383f2971f758",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.input.common@1.0.so",
+      "sha256": "34a094423aad1aba119e99b4521a758908823f0f5453c55d7f59eb56349480ff",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.ir@1.0.so",
+      "sha256": "9a093e244217984dde1c0e97d69001a7aad066b39aa63cf04cc1b7117c83dcaf",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.keymaster-V2-ndk_platform.so",
+      "sha256": "4a44dc9e64b230a93d36bdc17aee5d918ed7ee4c9bbcb4155c9fd497cbfa5c13",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.keymaster@3.0.so",
+      "sha256": "01855739bf59cd27cc9d637f1eaca37e1e182635932d02dd9e105dd6bbd069b8",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.keymaster@4.0.so",
+      "sha256": "b5f5380a80ad2c910a6733fd5088aaad20f8775e268832df3d66eb4e69b9426f",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.keymaster@4.1.so",
+      "sha256": "b843666fe6ed68ba687eff6a159a20552ff8710458b3414729c937b5399c4d13",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.light-V1-ndk_platform.so",
+      "sha256": "af1f71b75d1479e8e66b51e85e2132573ae40752404be7c2f43322f31c2d834b",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.light@2.0.so",
+      "sha256": "db7fa20ec5dd80837b7afe7a349170daaa86f84bda7c84094daf8a7752e46c00",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.media.bufferpool@1.0.so",
+      "sha256": "456635d06a07a72a8ca26c8d35fdc88590634ab0fe4c08471e8a7a16cf4e7073",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.media.bufferpool@2.0.so",
+      "sha256": "5ca50befedc48ecc1de60250be46f56f4503517bc9ee1f25c2460d4e8ae6e8ea",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.media.c2@1.0.so",
+      "sha256": "4530a6058e1d1037726bf34420fdb7f0b95c65551256f0bc65923f4b3259172c",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.media.c2@1.1.so",
+      "sha256": "a876f3bae3b88a3d7939e1a95594538d8ade29646da8b679707d4d08e2e6e6ed",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.media.omx@1.0.so",
+      "sha256": "8dfa686c93e74aa5786e30eaf5df8aacc150e0904e9fd35c3eebc03126a5670c",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.media@1.0.so",
+      "sha256": "a0d1819b351ec6908f8325db45e2774d6a15a23c5d036a8a5c9658aaff5fcae1",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.memtrack@1.0.so",
+      "sha256": "66ae4841c1551838761efbd60905dd429b5c63eaa6f86c21a162245ce8505ae3",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.neuralnetworks@1.0.so",
+      "sha256": "357a05a8f09b0c111bc820d89951b9cf75c208f369a53977c1d828b77dc45f7d",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.neuralnetworks@1.1.so",
+      "sha256": "383d2e46fb3b5c7af244bb7bf0894f47362c53277c1214b8831a8d922e99ffea",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.neuralnetworks@1.2.so",
+      "sha256": "41bef993f96f0a3f2797eaae2eb0dcd067c706c2836651cc067b7372ab02dc62",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.neuralnetworks@1.3.so",
+      "sha256": "17cb2ac2e93323dd6de2a3c1aebbae3935c2ec169610c931024898a495474935",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.nfc@1.0.so",
+      "sha256": "f5b29ce5cc4bfc8928129373df3be84242d9c9ec687c18103fca1683be135fbe",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.nfc@1.1.so",
+      "sha256": "1cbf04dc17f336258c229e0e4057267060d581782a9bc09d6b60dad7009792c4",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.nfc@1.2.so",
+      "sha256": "b6d7b9f5e17019360708a659c38fef69f8477be985fc6dfcaaeb122b305d6ad6",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.oemlock@1.0.so",
+      "sha256": "042bb17d804d7ec87da78166cc8dbfe073d8e427676bd33b74a537a213494d8d",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.power-V1-ndk_platform.so",
+      "sha256": "819a3346c98ba4f9c05cd2d5f0c84456b3d0e4330037adf4dd2b2ec41cc5d255",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.power.stats@1.0.so",
+      "sha256": "99135cae22de744215eb5e5c1c240f62f2b847708db373f7df4c47dd5886805f",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.power@1.0.so",
+      "sha256": "68591cebd6aaa12118a94677fc8d108928d8ccaa2438231eede5198893b33bde",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.power@1.1.so",
+      "sha256": "c9eb0581751f6814331dd0c10831f6b3da3bc7d94e65c387163abde0d942969f",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.power@1.2.so",
+      "sha256": "d955d7a5ed661bae58e8b6624f89955fde52ac4bc532049f564f39b18fa1f766",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.power@1.3.so",
+      "sha256": "fcd8f5a5516d55119470de69d2ede51c204dee8b6572f452c10209f6611ca602",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.radio.config@1.0.so",
+      "sha256": "1052f836532b1a1f2dbd01b25724f5d5d09d3725ef1aca7ab4695af81e2d963a",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.radio.config@1.1.so",
+      "sha256": "8710878fb43e62105d076642319f88fa3a68d377b5c86592b123e17500f5638b",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.radio.config@1.2.so",
+      "sha256": "911c350492f209db57480c8bc92fa0b165c10a66b9519776284b8910d1c474df",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.radio.deprecated@1.0.so",
+      "sha256": "cdda8e102bd965cc3b26bc1cf79040c5882f9a937ab9da979e38ce3195c0aba4",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.radio@1.0.so",
+      "sha256": "837e79c75ce273d606fafbeea3ad35a2c71a8d943a29135489e05840e97c3f38",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.radio@1.1.so",
+      "sha256": "0dd97336ec2beffbfa7a1413a0caf842265b1d2e34ef8cbd3c711b315a7d13e1",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.radio@1.2.so",
+      "sha256": "96d584211809624a413c0ecf798bf251c25186c01c3f699414dbb41aa252db65",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.radio@1.3.so",
+      "sha256": "9be3efd75f6d988fcade0e69c95cf03e43e4d0db239689ae2725bdefa085f42a",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.radio@1.4.so",
+      "sha256": "9dc42194724b4ff55011586e149ddd8acbac4b9163e36a25cb699359afbacd03",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.radio@1.5.so",
+      "sha256": "e0414a9f7801d10591b77610059ab87c011c20d0c11065c44ef0a2e595de8a31",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.rebootescrow-V1-ndk_platform.so",
+      "sha256": "22ff519568267a0c925f8306601ac87d90f714594b73882ae7cb5cf5cfc37bf3",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.renderscript@1.0.so",
+      "sha256": "79150ca630ffb0de3de3cac88ec29913c6f6a46d224bcb06c06aa74d67e4bd58",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.secure_element@1.0.so",
+      "sha256": "b47d079974d98bdeceeef077c78a93c9fa003a148f88097e164d235ad24e63a3",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.secure_element@1.1.so",
+      "sha256": "778273d953fd9041d28e53be28305fabe34c7ba1b976d58e7e9cdb775042263b",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.secure_element@1.2.so",
+      "sha256": "ee00095b1439bf35ab0805996ddebd77ed7c59e7114673352ddb335abeb1fb82",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.sensors@1.0.so",
+      "sha256": "133200f4fe965865c862a870e9c5fc199b6cdf0595d19ca6ae61facd9e45daf1",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.sensors@2.0.so",
+      "sha256": "1c007b949c9c518c07bda93cfb76f2441686ef6fbc6c52d09f10e7f1dde15ec6",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.sensors@2.1.so",
+      "sha256": "36ea1f745538853c2be47d664fbeb8123274ab095095bec79c9b3b2cb7c20dd7",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.soundtrigger@2.0-core.so",
+      "sha256": "9b888059804d3ee002c9046116076b9d887f893e6bf0687646f94d1fb9ef47c9",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.soundtrigger@2.0.so",
+      "sha256": "df9f634e9cf3210b13ee0e73cf62cbc25aa82df39d497574c163d7e7580b3043",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.soundtrigger@2.1.so",
+      "sha256": "2f491e12a0ea91239d10f0f58b1b89787e588f7dce069cdfad5ea392b7416ec5",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.soundtrigger@2.2.so",
+      "sha256": "e6a1606e90f827a98d14aef82af73b6bcf6af97838c4302e826fedc96229835d",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.soundtrigger@2.3.so",
+      "sha256": "c7955a5beac033222f0893f3b13aa7c66f09ca403c156c752898c8a929d33948",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.tetheroffload.config@1.0.so",
+      "sha256": "a73c47845e193c076f26fad7615f09daa013b6a7d258bf6029a2d3116e723fd7",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.tetheroffload.control@1.0.so",
+      "sha256": "d639ee91751415bc33e5fde89a220ff63c6b3aa1a963662a1438edc2e02f0e50",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.thermal@1.0.so",
+      "sha256": "56d252d9d3d3dccdfe1b52e6169a082fb6c61508c23ceeaa53f529e68d832b23",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.thermal@1.1.so",
+      "sha256": "880cd8087a9474b91004c3e5b93b69b84d40470236dba78787d5e7b747e53e97",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.thermal@2.0.so",
+      "sha256": "8fdfdf10ef1a2b0b32a0498b49d8a93bc1c2625c1c7fd80c0fdffe18cb6c0fbc",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.tv.cec@1.0.so",
+      "sha256": "7cc926d25074967b6363b5e9495bdbc2954c7f0423dd65151ba2550951b7a2e0",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.tv.cec@2.0.so",
+      "sha256": "377aee476bb8643543294d469f1917ef9cd21756259bcbbee510da007620aa43",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.tv.input@1.0.so",
+      "sha256": "4ed59e123e9ac3d89540878554b3a1422cf2a37be3302fb7c2ad9811f31616cf",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.tv.tuner@1.0.so",
+      "sha256": "1635a6da9aa73f33ab3c9b90fb961226b6d5eca1c0a343b085fa12d77da0df11",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.usb.gadget@1.0.so",
+      "sha256": "56b873dbc4cb4b7f90054a9e331cfcd499c95bff2a31c4bcfd0f8e6b7b67f6c7",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.usb.gadget@1.1.so",
+      "sha256": "5ffaecab690e6e303ca287da9b1290ca13e7f7f6a7bebef91e0a9ee8bdd9e69c",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.usb@1.0.so",
+      "sha256": "c1cdc972c26c044557aab027c3068ece83a747636217edc3cbb8acfbaeb4149d",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.usb@1.1.so",
+      "sha256": "3bf97f3dfdaa70ddf75b7017293e413c92574627f7633e94edb182433cbecab4",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.usb@1.2.so",
+      "sha256": "00d0c10f9064428b142f1cccbdce3f54e087039ebbfa96a791aaf1cc4fd53fb9",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.vibrator-V1-ndk_platform.so",
+      "sha256": "beb27dc02b82de79d03d5c40fd322cb37de0f1f3cf7a51e3147af8be56baef52",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.vibrator@1.0.so",
+      "sha256": "ce6dda41e7cf74beea3fe1572a23423a86b37e96e23bb97c84be3242e6286430",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.vibrator@1.1.so",
+      "sha256": "cd3411131c01a9d69a06cc5985f1b0b086fd6cc7630c6966bc11e2eb37024182",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.vibrator@1.2.so",
+      "sha256": "217d130d3d3e86caf8bb2ca723b98a7d3aefebe940971d50e129cb7906df6557",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.vibrator@1.3.so",
+      "sha256": "31826300d674520938b16048172a60a32795b6b4b33fe27314421b2e29f19da4",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.vr@1.0.so",
+      "sha256": "81844719b285a67bcf209d8af28ae74dd6ef8fb92d5733792ca8396c05466acd",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.weaver@1.0.so",
+      "sha256": "0535dfa5c6b3cf688716709237d3926242d55c4c874497a77e7fbb94c3ef57b2",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.wifi.hostapd@1.0.so",
+      "sha256": "9d9f500ce18ded2fad3ba28c87cbb161702f263aa4a9328e9752fd0567a1b18e",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.wifi.hostapd@1.1.so",
+      "sha256": "5f6af28a793d0e6eb51250b4e3c8dc099dfe852d40f503ad268eaad0462e0cf2",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.wifi.hostapd@1.2.so",
+      "sha256": "8b11257157aa579fec329abc92a09cee2d6ff257baecbba9c166b18fdcbd40aa",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.wifi.offload@1.0.so",
+      "sha256": "18ac21c8be286e60caaf4364dcc7ebc08dcf485d85fd4e82730dfb42462f3c62",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.wifi.supplicant@1.0.so",
+      "sha256": "8efe9f5010eed7fab28f10ec4dc3031f5e0a506b0f207c138e96207d7b203489",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.wifi.supplicant@1.1.so",
+      "sha256": "8db25f4374e78a6f3299ab053a2346e0338c625806a6a50c7a6ff721e4389ba5",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.wifi.supplicant@1.2.so",
+      "sha256": "6f9bb6eab4133dd9ecc2507c38746ed4e36e2f3a042fa963527863384dba2299",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.wifi.supplicant@1.3.so",
+      "sha256": "cfd1a6a7a54d3cce677f40ff686ec8e38243394e7572095cd12392dcfec2f3b5",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.wifi@1.0.so",
+      "sha256": "ca8191b83579b40f36ca4bece3d47e17e6e453a956606a63ae89900d7e433e80",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.wifi@1.1.so",
+      "sha256": "747b956822ba02f7678aea4ee9e3232d82ca65f62cf3b3e6568ab553a2f1cc6a",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.wifi@1.2.so",
+      "sha256": "946108794d865e38ac5a75d81ba9ab8735219dcad67547333701b63b95102abf",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.wifi@1.3.so",
+      "sha256": "b41d04554bee736bf19864dbdb738e7acf8336a9690e2e0d23a742b498f9d3b1",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hardware.wifi@1.4.so",
+      "sha256": "282df567ed7508ff96171a76dddbf191cfcaa3ea80d1d035ddecdbcbee1164a9",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hidl.allocator@1.0.so",
+      "sha256": "745b72b03ea618420d503c4c62601bc07c31d91d386d306770894f3f21efe39f",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hidl.memory.block@1.0.so",
+      "sha256": "f155ebc47d5d072cdcd221b9b4f150bb5414191c23e0f6dc10a10844401b0c69",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hidl.memory.token@1.0.so",
+      "sha256": "2d16b5c42a490d5d9b92e741fa54c8dbd19e01afe596c70b5880ea3eb0493978",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hidl.memory@1.0.so",
+      "sha256": "02240a740b9a25476f90f20933de08fe4722f51e1b9375cb73b325d7c14da0e9",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hidl.safe_union@1.0.so",
+      "sha256": "3b0839b2b2c25565cc53ef126be65870269de10b92679093679eb8c3aac7dfc6",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hidl.token@1.0-utils.so",
+      "sha256": "df838c2184a8f5bc956b1205a2d067f47f45f4b1778c653cf78e2cf4c03cfdb0",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.hidl.token@1.0.so",
+      "sha256": "878a2f73c5aec3e30e08d2aa3293770e13056ae0e9188a5e202c382fadec865f",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.system.net.netd@1.0.so",
+      "sha256": "2c90405f7a27b411bfb06876fcdc0b414359ade6a24b49e85b8b756a09c9cc97",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.system.net.netd@1.1.so",
+      "sha256": "36f079a0781502cf3bf31ec92e8f775fd2145a2fe2ae3086c015c190bb3b4c19",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.system.suspend@1.0.so",
+      "sha256": "ad008f6402971717b73eeb6228b1e119718e71af1bf192847a539e16b94eab2b",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/android.system.wifi.keystore@1.0.so",
+      "sha256": "29abceff567c0308ba8fdd102157f360bb1205c4d0092d7e4f1d91f9b07fede0",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/hw/android.hidl.memory@1.0-impl.so",
+      "sha256": "3012f5e4ba12761b8d03b49e51af62d89fa5a8457f5f048102ae3d9cb03fd28b",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/libRSCpuRef.so",
+      "sha256": "5821c6e126a767e6aace01dadfddd3bc320ac1ad774a50c7046fd31a0ce1a8b3",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/libRSDriver.so",
+      "sha256": "5981452b147fcb05b55b1332c36c6d9e6efefa96d88942203ea1dff69f9b4ca0",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/libRS_internal.so",
+      "sha256": "a61ff2fc8d4326b8c4e973f10fffc81edf020daa8532d6869ee2a238b99de5ae",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/libadf.so",
+      "sha256": "8f6b57b0b2a8dba9139aafac8d8d3c7bd93de6f4794e9821c2a1651dd8858542",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/libaudioroute.so",
+      "sha256": "d986f84d3a3c0b5257e7c919c6ab35d246cdff42ce8f372b210a884a9bcfe840",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/libaudioutils.so",
+      "sha256": "62a292e7b4a99386949608f6c2dae8c37c12b4fd9ec0e9a45e0dae27938e7d2f",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/libbacktrace.so",
+      "sha256": "3851f8c417efc3c8caf0e8ff041c5f962437d3660ce09877d0f429009e47f053",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/libbase.so",
+      "sha256": "89bd7471473e85343ec877cab6787e4a1d76567039bc7bc0fcec447613fc99ab",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/libbcinfo.so",
+      "sha256": "8f6ea29f39c35d26c4f8b2fbfa2ec4c5e94c099310d5ae4befe4857c0d992657",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/libbinder.so",
+      "sha256": "ee5694245d6b7ef7b388edbdceaf352747b1f14a3295460ba551a841e45aa0ab",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/libblas.so",
+      "sha256": "6ff4541d0197fdf41f3ec3018c93831536caa98b01eb22af82c74ddce9b99ba6",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/libbufferqueueconverter.so",
+      "sha256": "7d9fca483ea0f7ea25cadee265ee7d15990fa72983dd7c8c4ef2fa8f6128d77f",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/libc++.so",
+      "sha256": "9771877705582df31d61d3a4fefa76cf60eff1b93461f13b7296ab17aac8f3a1",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/libcamera_metadata.so",
+      "sha256": "8a874b554a9439bec39600523eb501b26147088be2ae9494a8b8ea5a8dc4c49e",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/libcap.so",
+      "sha256": "35a01f17f0763e915e39110b785d16a3f25ef993d78f03b5753f48d16370cb18",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/libclang_rt.scudo-arm-android.so",
+      "sha256": "19626fb97b772ff5489bd2861c0ca471e8fc29997448c3c2e962a61f88450f90",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/libclang_rt.scudo_minimal-arm-android.so",
+      "sha256": "250296144f8bf0f255f6bea38339ea077b4b8bcfa17f9ada70da159fffb37cc3",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/libclang_rt.ubsan_standalone-arm-android.so",
+      "sha256": "24f917f9785d8ab8103a15094c78484d09694f645cb1337483caaa8c6915a89b",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/libcn-cbor.so",
+      "sha256": "8eef86a0dab7b6808f1f71ff110c6c0a4ae6b3d4415088d5344a8061da26ecab",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/libcodec2.so",
+      "sha256": "9ffa48d7da7e520048c946220a64ae475524d4d672c0331bd8e36ba3465465f3",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/libcompiler_rt.so",
+      "sha256": "da2325801aca993f37adf0933eb25af93162e7073342c6d6267b72643310040b",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/libcrypto.so",
+      "sha256": "ee08446c675c4b5b19464abcffe0e0ae9687a9f4b335882b171af796854d5bca",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/libcrypto_utils.so",
+      "sha256": "3af357c3421bd173f7f5184bae29f1275c6f4e8bbd8c391b7e03e7ce3bb677b9",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/libcurl.so",
+      "sha256": "c79d148efae0a079b2444a00e1b7223af1a77a67f93809a07fcd872d37229d24",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/libcutils.so",
+      "sha256": "75b9867b688f585e87b9ad1969aec562ad30456e427620f21591e367edb037aa",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/libdiskconfig.so",
+      "sha256": "d86158b5f47960568d67c5acb58a7054745e9648a26b04b2a2b474bb9a9dbff6",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/libdumpstateutil.so",
+      "sha256": "fda251aefb1a29f944b28f81f78afa2152c54639079bb1eeff8ec45ee1274a17",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/libevent.so",
+      "sha256": "6c1315a6ddda2b6778ea4fbeaaf29e471c0c0b2251184418271c67fe4f45c7c4",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/libexif.so",
+      "sha256": "defb6c16495f4f964231e34acc622336d0df8e76e7f00b9a87aceedb66d4dd1f",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/libexpat.so",
+      "sha256": "ece3eb056911a8d8beb6c175e4a50c89bce8f65a79482a7acc32de7805cff51a",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/libfmq.so",
+      "sha256": "b5d592f017ec6cc232119c05c1003088ca4a4a33f5a40cf91cbe042549b325ff",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/libgatekeeper.so",
+      "sha256": "41cfc82c09f750be75ac515d2209657974b1327396db93b61624d5495110dd6a",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/libgralloctypes.so",
+      "sha256": "2ac3558899f0a794bfe45ae504ae47926ce3e6c28bbc3ed789fb6767f7d4cdb6",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/libgui.so",
+      "sha256": "044618be74acce69e2314563b24683044b191b4fd09c6666e6559b0ebd8b7a93",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/libhardware.so",
+      "sha256": "c60b771240bad1dacd675fe575975ffaec23bc9a6ae2e3ae7ccb024854cc34db",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/libhardware_legacy.so",
+      "sha256": "4903b3c622bbf37c18e7c9611a6fac6a283dd004d9651fb621e7f7c293b5fef8",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/libhidlallocatorutils.so",
+      "sha256": "220fb3d2da6a37dc8ab780bfb781fc005a76198c7f228cb16f45edab9ec58c2c",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/libhidlbase.so",
+      "sha256": "902bf57682dc9ecbe799524ec9a7ffe566898175912014d019f46cfd338dfe61",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/libhidlmemory.so",
+      "sha256": "9a790466b9b0d02cb8a98adea7329893c5b44184e7415289d19f3f3ebcbb88d2",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/libion.so",
+      "sha256": "85f3f6849a083a4717655a1666b0ef3d420a3bd798971ae7f2c748c4c703bbe0",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/libjpeg.so",
+      "sha256": "64a29e3599ddc6a2cf5c08e0c8188f18de4de7f35a757672a38e1c13135fec42",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/libjsoncpp.so",
+      "sha256": "89b6aba1541d0c89c548a099d485334d2f968d0c4add132c32d6fd37b51037ba",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/libldacBT_abr.so",
+      "sha256": "8c9f63545db644ed23e39fd564b294507a1bc409433e19c3525cc5a5567ff2a1",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/libldacBT_enc.so",
+      "sha256": "9281f1dfe442d57e2e9079cdbbdc85d4f3c815869ef92e4606175ebee5011901",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/liblz4.so",
+      "sha256": "1a71206c2dbd81ce677d6a10873a51bde81a86a5a99db0cab0ca3406078f4ec9",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/liblzma.so",
+      "sha256": "443a01a4a608fb047a9a79fb16fc589818b5d9cf77c78c8ec5c2210a08a6842e",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/libmedia_helper.so",
+      "sha256": "0151907e4413e972e1e2e5985cebcc97cfa921cda05c5ed270a9febcc1341a8b",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/libmedia_omx.so",
+      "sha256": "06770e7168f6cbf9f51ef6a1f89d3c746976e9d737946a1da0ec2ce916a7735b",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/libmemtrack.so",
+      "sha256": "bf60d2d65a0824a62fb19ef358cc3f8cc139c9d8436c73d3255cc7100cc46b1f",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/libminijail.so",
+      "sha256": "e09f7fa4ed7d474f399a101760013d1272dc4064e38f92bb997074f38746372e",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/libmkbootimg_abi_check.so",
+      "sha256": "c8a3e16b0ea168d61a3949e187ce32120c57925b35701942676635eb76179d07",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/libnetutils.so",
+      "sha256": "97aac2a277e5da82ba11e283e5d9a452b4edc19dd7e130014f9d7b03ec5ec67e",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/libnl.so",
+      "sha256": "477b556791f4977441ef6a015f91c1d08e3e4c3fe472885ff2eb04317637051f",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/libpcre2.so",
+      "sha256": "6bb0e8c50eba19668af4b682cab5506162404dfe530ddbe4ed47f91db0a63f62",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/libpiex.so",
+      "sha256": "960825ac8270ea1a7bcd861eeee70771efbaf6077732419789466da57225ffa7",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/libpng.so",
+      "sha256": "5f6a107b88adcc4c355d9049ce4a18889010947ace4f847d0056fc2b6f2e0ba6",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/libpower.so",
+      "sha256": "f23a30074bb51d7dadd75a2fbf7a292580451a966b31ea1040ffd568e58b2f17",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/libprocessgroup.so",
+      "sha256": "316105cd5d116e5666a2e13e3b731ff495020af227ac8ebebe926dd61aca3a86",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/libprocinfo.so",
+      "sha256": "4a2d04714aa742533b66bbd91f9658d6366066f8af24737ba287743555591d03",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/libradio_metadata.so",
+      "sha256": "604a7ffc4663ffc115a0e689cf733bbcfd049af0f57f8e21b0b9381622cf5a92",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/libspeexresampler.so",
+      "sha256": "86d70f0720699cfe48acbde0a246b5c38931060e59fa2cbe87193f4fe4c629fe",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/libsqlite.so",
+      "sha256": "8a38c75456e28f1d46e601b73717dc8a63f74d9179ce38048842917a52c0b828",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/libssl.so",
+      "sha256": "ce809d72b1217f276c91eaac7d8d0c04fbbf5e770a2b081837e7263d85b7a142",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/libstagefright_bufferpool@2.0.so",
+      "sha256": "aa10fa8c15aa919fcb2d7bfdef7de8ac9fb653e6908af7290156fa94cd172a71",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/libstagefright_bufferqueue_helper.so",
+      "sha256": "42c7c48158acf9c8c5b099702c0d2a6c3d9cc08c99ea818851d713868420cb9c",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/libstagefright_foundation.so",
+      "sha256": "652f2f2060b68a90813c40d8d20b1803d2dad90c4c2b5ef4c2b7f49aa9f99eb6",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/libstagefright_omx.so",
+      "sha256": "4f6b2d655bee85347cab4d91513e45cf6ae379dbc3a7a631eeac501ba2e3d711",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/libstagefright_omx_utils.so",
+      "sha256": "de764c641ef4ce5d2ff13b4ee2ded223ff6da0ce2216f2d8904ea4d9703e9db2",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/libstagefright_xmlparser.so",
+      "sha256": "a6ea9d783a97b2e54948884b2544f78380f99f3993a4afcfcd63f657bf829525",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/libsysutils.so",
+      "sha256": "64eecd1e704418bc696a793b2e51a136743b0f4b8facce25164f29c4a0056a3e",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/libtinyalsa.so",
+      "sha256": "e660bb7dc3563b2c5c3ec6bb227962305407a942e1aa30b69f5ff5e27f83a558",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/libtinyxml2.so",
+      "sha256": "7c7e3814102e47f4469abc0dfae9a7962706db1e1077bec713801c1e36cdeb14",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/libui.so",
+      "sha256": "0f7a311815a578530e6e6d7d6b52d110a49a05424916285ae421e5fe3e00037b",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/libunwindstack.so",
+      "sha256": "30b611e886e4c0d3ad0643ee7f211e3c08483c0a94a41bbcd4a4512962c4a29d",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/libusbhost.so",
+      "sha256": "c609b4da9a05b0d50dd68e2e0ea240811665de10011bed7ac8a965dcbb0af3eb",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/libutils.so",
+      "sha256": "f8970f791afcbcabf1bd127f51bd16f63bc909cf678a363a7c33986475453bf1",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/libutilscallstack.so",
+      "sha256": "d175da172804253f3bcc7026b571cbd4569a6134311e1e5947ed82d09daaf5d2",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/libwifi-system-iface.so",
+      "sha256": "1a652295b237e410c004f05836c98a3201d66770ff8fae8db01426b4d63680ad",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/libxml2.so",
+      "sha256": "9e0cd78afb28e283ede8122992f5dafad3031733d119513f6d686585533b4b7c",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/libyuv.so",
+      "sha256": "30d32799b02d6d42900bb35ad2937bdf57896a129223e543930527a9a566ce52",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/libz.so",
+      "sha256": "1f3788e684207f7f11caa293b2a07e7418c3786eb12016d39f6025462c7f58b1",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/libziparchive.so",
+      "sha256": "80d2e49dee8a24cf97e66ff4207cf405034740d125b9de0668d4e4f95c08d0df",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib64/android.frameworks.automotive.display@1.0.so",
+      "sha256": "d48e756c44500d54c556e3a783f4061bda88a7eadb894929442e479ca494ae54",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.frameworks.cameraservice.common@2.0.so",
+      "sha256": "b219f57e3c43116d447e11cd9fa01cc812f0797ad7f679d075420d3e2f42d2b2",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.frameworks.cameraservice.device@2.0.so",
+      "sha256": "cddf1a1e8c2a19591ae566ca1be7b26364213450a7d165a0d6838efc37de4e25",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.frameworks.cameraservice.service@2.0.so",
+      "sha256": "4e62c9e2ec15bc9788d6929998640867118a40938bb28e45ac3398e1e03fb1e5",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.frameworks.cameraservice.service@2.1.so",
+      "sha256": "2d10958f2654bd7c3caa02611159c6feb901b71aa4a6da5b4b46504a27f2e7f1",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.frameworks.displayservice@1.0.so",
+      "sha256": "0fe6cf491d468ac042236095fbe4ec2335b68e63e16eb768b15117e2637641a0",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.frameworks.schedulerservice@1.0.so",
+      "sha256": "dbd83171d22ed10b63733635e422ee6033d87691d2d09403a92913263016e241",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.frameworks.sensorservice@1.0.so",
+      "sha256": "bf1eb2c24d7893a5dc85c91d3ee1018ba4f8fde484e767c19008b14262b484b2",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.frameworks.stats@1.0.so",
+      "sha256": "15b8a3580c9ba0eedefe16ae9b62c23b338b6adec0edccda80f41fca536b6028",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.atrace@1.0.so",
+      "sha256": "7e362cc3e4ce1507f1901ed2d511686f07fb4d3ed3b9f645e2f8263372d4f28c",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.audio.common@2.0.so",
+      "sha256": "00f0b9f189892d1c23ceae686e0f100b4c1053f49c17099792aa692ded8d728b",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.audio.common@4.0.so",
+      "sha256": "dd1a8e26abd87e4de1880d36cae03d3cbe29f2b488413f56fe6c90f615b66fca",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.audio.common@5.0.so",
+      "sha256": "c4015f0487c9aa899fc1a43fc86c1ae22ca871701e70a0801f00f23938517081",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.audio.common@6.0.so",
+      "sha256": "bb47b3c6f554b19aa3f1a384ab2f609307ec92c95fdc49c2b1cbf97237a0b89c",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.audio.effect@2.0.so",
+      "sha256": "d8920e82b0917368d1c15a76f731dd89e95057faf93cb82702b4945ea89831d7",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.audio.effect@4.0.so",
+      "sha256": "036a79772ea4fe162f4e27e0fb099651d558cb5daf353c6457ce4c5419c1a2f8",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.audio.effect@5.0.so",
+      "sha256": "016bcf8776aec770c1813ed7020a6d7ed70da6257ae1d57bc4d56096a9687765",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.audio.effect@6.0.so",
+      "sha256": "fda9479d1462450a6045ad73346b1f0ceea4b19d171230a42a1c14a84244b0ed",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.audio@2.0.so",
+      "sha256": "f97b5ab9e5b74d81e125a8d25c1a6978ce3cabd77cf017b43fe28634efdd12e6",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.audio@4.0.so",
+      "sha256": "b12beb1aa467b1ed1cca40ab2ca97d9e42e6b709454d83258af96fde6c243057",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.audio@5.0.so",
+      "sha256": "bd407d04e03f64d50d6b98b8c72449fe83f501e3800f026846a5364e476c9a74",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.audio@6.0.so",
+      "sha256": "f7e56304cf75e53771926f37f4d457601f98a1579383f9d03bc65fee4f26f444",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.authsecret@1.0.so",
+      "sha256": "2ccabc32a38fdda3bfc4215a10e0d9e4658e1d0b65a76cb63154489719332108",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.automotive.audiocontrol@1.0.so",
+      "sha256": "46c78df8084f139699e5c6fdc3ef66d4e368aaec97643a5e2797827bd286191b",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.automotive.audiocontrol@2.0.so",
+      "sha256": "2d326a9593b0af9b2da89af27ba4b2403e82099f3232383a39ec0dfbb6cf3276",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.automotive.can@1.0.so",
+      "sha256": "a7ce7e8e2172d2d49876d8d56460b4d66e943edddef57b58e5072d8b2f15dbfe",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.automotive.evs@1.0.so",
+      "sha256": "a9a40c731774e05da2592e25093191da219e31296712b87ec7712773711e8756",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.automotive.evs@1.1.so",
+      "sha256": "cbe467e1449d9d8733196c5736a8a2fb2fbb6b5eb947b513b327bbd600f61940",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.automotive.occupant_awareness-V1-ndk_platform.so",
+      "sha256": "84cd1f00f8f2fc98bb8ae64c6e95ab6b494b897dc55ec83128e82eb39d234c3b",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.automotive.sv@1.0.so",
+      "sha256": "3a2c2489bb42ba108902116979abf971451101527c474120f19dc41e2f485d13",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.automotive.vehicle@2.0.so",
+      "sha256": "d64840b492ca60394f80f7e3a8678048b24946b7158be4675f149957cded598b",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.biometrics.face@1.0.so",
+      "sha256": "3c3b760c4e10b17f7de9fd47774fd1ae2a1c2f7acfc824df1cd17a44ddb4ec5a",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.biometrics.fingerprint@2.1.so",
+      "sha256": "bd118c0d6d46b68ea13a37ea61cdb81ea5125c822cd7f5841daeb1d3387e6735",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.biometrics.fingerprint@2.2.so",
+      "sha256": "e8ea083378ceed371603ac870e082165e6cca48f306674ead4c48033865d03ab",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.bluetooth.a2dp@1.0.so",
+      "sha256": "c8f7f18b9e26493ad34e687d8561a3541c05a6809afb9f4b0bfc66f00f5677b8",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.bluetooth.audio@2.0.so",
+      "sha256": "93708a05b9a73d7105367371c048097eebc1618f5906d5f81fb9272ef08cf4fb",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.bluetooth@1.0.so",
+      "sha256": "cb6439046af49d084d4d89a3736f6a56e592fe2bd59459c14c56038c2b851df4",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.bluetooth@1.1.so",
+      "sha256": "fb9a34b27a73249cb6207e6280545ff63f70baad69d5c2a933f2058bd0878027",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.boot@1.0.so",
+      "sha256": "ac42edab420df7fb3c3883ade45274021395470f0a9c288c333f026d0431fdee",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.boot@1.1.so",
+      "sha256": "02336934dbf300eb2667bc5d387429e3c71676f762be8a8139dbe2c5a414f8a3",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.broadcastradio@1.0.so",
+      "sha256": "6f3a757d493a81c707e8001dfff700a65c79494ba77981eede976df164c3e723",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.broadcastradio@1.1.so",
+      "sha256": "e670476039a9d8a452754ee6927c40737abc5af5e17c4d03ae98724d86e8ec93",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.broadcastradio@2.0.so",
+      "sha256": "a3e73abd0352eba73765b120c0cb0150f0022fa108c20073bc9d105d61b0b81a",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.camera.common@1.0.so",
+      "sha256": "25d3decc2e753284a7da08c2d6b84071cb1d0bca37f0fa23177700b100c458ca",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.camera.device@1.0.so",
+      "sha256": "48d2f92e4bc1f2cc6b8114909617602a1825117ffa8e7318ff23d99118ca95c1",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.camera.device@3.2.so",
+      "sha256": "bd478d4bb46bc4f66074e7169939b510209944375611b094d53024f0d3f9b2cb",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.camera.device@3.3.so",
+      "sha256": "1179d926136b35993e4b33c52723d2cd8c7f18ea9767777920f81af909ff8e7e",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.camera.device@3.4.so",
+      "sha256": "0babbe776bd13856619b76546e22fa299dad7689b9c0f263aeebdbe1438b348b",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.camera.device@3.5.so",
+      "sha256": "a8fdb56c2ec4aa519760d477fd12d6cfdc64fd9b5658260bb98d38ca84682101",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.camera.device@3.6.so",
+      "sha256": "5c090bbfbba208c4bd099ee50d74a69b17904f777fcfeec0d48c78294fbb122c",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.camera.metadata@3.2.so",
+      "sha256": "4ea0f755e9cf23094e4d857265e4a07210c2f6abd794d6ff01c45ee24cee45f6",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.camera.metadata@3.3.so",
+      "sha256": "c24f69e81b575eddee3ade92ae5b4c6db38f6913b45098e9c86de1007a9d0f10",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.camera.metadata@3.4.so",
+      "sha256": "c215447064e2d3ae761805ad36cdefdf3944aa3f17fdfa00afdd5a48fd79e28d",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.camera.metadata@3.5.so",
+      "sha256": "35fc660ec8e7d57e26a90ec7a810478e3308be87b4252c7c0e4eb79822ac7cef",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.camera.provider@2.4.so",
+      "sha256": "6f41e5ae5258903656520120eecc821dc6769732a32b4587eeb4d91d75a24b25",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.camera.provider@2.5.so",
+      "sha256": "ad4acedc4d078846cd87357c3f8c6f23caca17562c29780ccc42220b997679d4",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.camera.provider@2.6.so",
+      "sha256": "1d335dfe1349b385c04f7cac08f792a47ec745a24bab9cfc6dd41d96eeeac178",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.cas.native@1.0.so",
+      "sha256": "b47771b11dedb973b142befeef452533ac479ac1574187958833453ac5aeecdd",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.cas@1.0.so",
+      "sha256": "08295433255a0c9129010337d454b76a34524dc35a45fc9918d53ea1ab77affa",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.cas@1.1.so",
+      "sha256": "79a45797aa5c39ab87f62d7e167b4e4c6dcf33a12f110a309a330c362c4b342e",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.cas@1.2.so",
+      "sha256": "c513fc52ff558615d0ad01bcf6c254e0c0f98a5f5b268dff633257f05bf9005a",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.common-V1-ndk_platform.so",
+      "sha256": "9bb8bc443e4c3da92cd3012fcc74706d84c7b25410e944da56d1f708f7c35c7b",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.configstore-utils.so",
+      "sha256": "0d780eac2db51056e3fdaab16323d65bbd35a511fd9b2ae1a1d0c603ff75029e",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.configstore@1.0.so",
+      "sha256": "8408516b118c2f73772d9127d10c0ec0898f0762866b869cc41361718442dec9",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.configstore@1.1.so",
+      "sha256": "57b35b3c3882ddf0625803a1be0056024de5839411b3209366bf18e2fb948106",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.confirmationui-support-lib.so",
+      "sha256": "c5bd5f788596ffd7747fbb5a5d9e4c5846cdebb43e81d1afa58fb566de4c6274",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.confirmationui@1.0.so",
+      "sha256": "9804b4809d8b9070dd1f280bf23d9e61d344cd50deb684a1bff8b0c8d4fdbbf2",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.contexthub@1.0.so",
+      "sha256": "99936dd5bf2686a32959ffec6c0d44c4e8e7d780ff0f42213d2fea20368c43e4",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.contexthub@1.1.so",
+      "sha256": "856d0146f3df2c90d807650f924cc4f3f935b588cff2335003a3374aead3e95a",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.drm@1.0.so",
+      "sha256": "38a4b610b39b26c29642d139173c4f36e31f4064ac99aa7c17c084ee1a6c7fd2",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.drm@1.1.so",
+      "sha256": "d83323ba59e4e5cd8cb8ae935f63cc281561e402ce78159aaed199abf9a19b17",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.drm@1.2.so",
+      "sha256": "0cb076b4d58a720bda8b04122c4c5fd820f658a77627554493d59d1aa224bdfe",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.drm@1.3.so",
+      "sha256": "3e0d96140c16829992854558181b8829693546ce95232b1a71ecd5fa61324843",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.dumpstate@1.0.so",
+      "sha256": "84af89ba193deba82e00445282cd105d8409956a338ad90e556b500c40ae492f",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.dumpstate@1.1.so",
+      "sha256": "d474e78837cdfa0d7d4a86073fd7783304cee6e4f0fb3f15897fb21198621d3f",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.fastboot@1.0.so",
+      "sha256": "23bb2d7da356773d0d40e81181902600299ef4a9a8b098403ce6c12310ae5044",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.gatekeeper@1.0.so",
+      "sha256": "3e98ca4e46580cdde6d07f170522ad857664621008407a22f8b903ed1c73962a",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.gnss.measurement_corrections@1.0.so",
+      "sha256": "bf53e6a89deae9c7376f46f11a459cd5d289b855c61a93d4667964ea96c61f9e",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.gnss.measurement_corrections@1.1.so",
+      "sha256": "5d0c352d67aa71333a283d23897af06a54dd0d96a0d5d624082b7309f04db2ab",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.gnss.visibility_control@1.0.so",
+      "sha256": "bf35d29dbe7eaab97612eb80cd3eab7c6b7e6ddac24885e6ea35d0d7af661ad8",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.gnss@1.0.so",
+      "sha256": "6d2fe5854f5f62f028f7778e525913d26bed907c835a552f3c13ff4109a0e4ea",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.gnss@1.1.so",
+      "sha256": "6042172fffeeaad04e4160f2dd7837791e8b97f68f008247f2034ef22ecc46d9",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.gnss@2.0.so",
+      "sha256": "4d93c2ac050c35170770f2862e5bc73c854ba6107eaa5396e719dccb1ba803ab",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.gnss@2.1.so",
+      "sha256": "db7a18f068d1170739612d7158df44464ec4a94e2bd519488294e4bcc10b3565",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.graphics.allocator@2.0.so",
+      "sha256": "216a195b344ebb95443d3e6f05bba2ef731c10da63d6f29b37b5196f2d691d5a",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.graphics.allocator@3.0.so",
+      "sha256": "7111c6aceedf4ee053a29e3fc66f5767f1a9e56569e1847d7ec0aab7bd92a704",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.graphics.allocator@4.0.so",
+      "sha256": "e2770a8e70c1afd42763ec771dfaedaba3682cf00889a68c53ae52a567c42f75",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.graphics.bufferqueue@1.0.so",
+      "sha256": "020acb46dcf8b5807d47c1e6f67be817ff586357979bb40d49ca2b517fe5955a",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.graphics.bufferqueue@2.0.so",
+      "sha256": "639c5cb6ba25a3c45dc5575535b164b6532120556a58d964b341188fe2e28e1e",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.graphics.common-V1-ndk_platform.so",
+      "sha256": "26ad2473f97fafdff3e7dc809324ab4106a58c772d6d68cab40c01e6a21241e5",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.graphics.common@1.0.so",
+      "sha256": "1662118d7b3d56b85cf71d60b1b9832d6047bb5fa1e5c95433bb04a6d5384ce9",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.graphics.common@1.1.so",
+      "sha256": "523615b3e5e232a5ae5876885e0ec8bafeacdedc3f8c46e1b6aa00cfb294cf53",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.graphics.common@1.2.so",
+      "sha256": "3a95b0080668cd70b2544a2d0717d0323e47c13e31940b47c4c4ea43c0cfbfcc",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.graphics.composer@2.1.so",
+      "sha256": "5b728b6f7e0a1eea2e5f688c55552d2859b055cad7b316d083f7924a42a84fcc",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.graphics.composer@2.2.so",
+      "sha256": "8f6b2f27a3c1ed954887674e001618eb3acedc996b0ec39feb473eb282f41daf",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.graphics.composer@2.3.so",
+      "sha256": "dd795253738601ae898a1cb102bf8d8ac5e6d66f022c5486917c25a0b6ef4835",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.graphics.composer@2.4.so",
+      "sha256": "9f88a2405837d292d71f4b512768fee8f2a298be433a4482a5987de1d860d512",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.graphics.mapper@2.0.so",
+      "sha256": "a16ad2e5f06bda90b2bb2705ac59554c3a45c5158204ad1625e672770bb59bac",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.graphics.mapper@2.1.so",
+      "sha256": "cc5048f019ada85e432416079b77489c39a61ea0076b1cf380e636aae28769c6",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.graphics.mapper@3.0.so",
+      "sha256": "cce40c27750bac8e33540488a91d527939e43b4a22f552b013ed2285097658f3",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.graphics.mapper@4.0.so",
+      "sha256": "8d51c6483fc338f1e680ef66bcf4b93a08ce353e6653b59491811c53bfb70a2f",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.health.storage@1.0.so",
+      "sha256": "dc43a0a4f67eacbe6f5bb2a7ebeeca807285da3bcc78e2a5a9a1c1345a821cea",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.health@1.0.so",
+      "sha256": "a7fbf05c7e7af2b3e8804e383d928479bb0c655360e300035619572b351688a9",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.health@2.0.so",
+      "sha256": "9832394c46705e2db16b5b15dd6fdf1a7ff150974c85951b3bd8453ebe6ba0ee",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.health@2.1.so",
+      "sha256": "91f8a0e3ef2e970d7afeedb1ba73f0ab2bf630b97607c1c353376c6d3987ce00",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.identity-V2-ndk_platform.so",
+      "sha256": "c0c3bb5e45c9c2b158d90b205d9e4aeed019106f6fe254a895f5a5c8f43439f1",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.input.classifier@1.0.so",
+      "sha256": "4b8851248ebb3238ba563c56abc47a7a9cac5c42c820efceb864884776c7d037",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.input.common@1.0.so",
+      "sha256": "ab933adf2126a5fd947fb2c9c4fc2b6917f8de651e9d3ab802151988bb4c7989",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.ir@1.0.so",
+      "sha256": "4b43b54b6a584c52aeb487fd98f5e6a58eaefde9b8b2b3c040c2b9a5cbdfafa9",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.keymaster-V2-ndk_platform.so",
+      "sha256": "838701dc5b2a556232317eb03865fb1401cfdddaf801d6e84412c75fec8da1b9",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.keymaster@3.0.so",
+      "sha256": "d3cb2d7b22fab94369a47bd977cad32f532866d238eb1acf06bcdaae2eaaa98a",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.keymaster@4.0.so",
+      "sha256": "d059609161006ad62414363a3e4e8a4ff3d9b1887db3e416b3814afe4bdfb353",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.keymaster@4.1.so",
+      "sha256": "67ac580fe3b1c7516dd9e4e4a58b2668bde94415ffac40245b673352d5f17a08",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.light-V1-ndk_platform.so",
+      "sha256": "b68aff3bf7d722f563843360898c68e2595fe0935493bdc802335d35b18a3043",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.light@2.0.so",
+      "sha256": "b3c4bb229aee022803ab10ba644124a973089f352b51f3a984da1bce0edc3e3f",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.media.bufferpool@1.0.so",
+      "sha256": "b8a147c31635bd991d9aed99d38becbc31613490044d13d2250a71281b2c3b3e",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.media.bufferpool@2.0.so",
+      "sha256": "809dfd8ba977945da33706b9b9370c6b5c148e04bda6a9eb508dafb84dda3023",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.media.c2@1.0.so",
+      "sha256": "9627bbb300e79a79fd19ba44aeab2d04779da578153fddb337da95a2fd8c8a4a",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.media.c2@1.1.so",
+      "sha256": "5e9237113e209262c09b41d5d5f792565fced5ee5b0c9665c79399e409d532af",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.media.omx@1.0.so",
+      "sha256": "d00a33df3263b267239307cb6fe70bf9d7398b75a7d706cd6af249d102b96380",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.media@1.0.so",
+      "sha256": "5db1c55ae03d71418b26cad3ab3a08bcdc4e69926f1589611556e6b766029dc3",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.memtrack@1.0.so",
+      "sha256": "fb92d1cabce83ba3bbf760a1969539698f6b8ff5eb0b40d0114bc85880b317a0",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.neuralnetworks@1.0.so",
+      "sha256": "b1efea7dca4f7cc2bea7ac814518dd63faec2bc899536af0f558e40e5a182325",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.neuralnetworks@1.1.so",
+      "sha256": "7dc760c2a15fad74b16adee5dbfede6da750afb34109d9bae078b1d30ff75e90",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.neuralnetworks@1.2.so",
+      "sha256": "babd2f47cdf31879855b294a5a932e6278048e6bd05f70a4bcf1f716379ef276",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.neuralnetworks@1.3.so",
+      "sha256": "0eeb1d3d57489816b9582bcc23e85e605272a048e2c6d023cb1900e775fad1e2",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.nfc@1.0.so",
+      "sha256": "253a040725d2d2a74a7160782076af68ae089294666ae27228cbdf2ce5d5737d",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.nfc@1.1.so",
+      "sha256": "0d2662866faf94c0d75604d33a17f2cb06640e823e683e45b5df90bdf1d56106",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.nfc@1.2.so",
+      "sha256": "96d4bc1ba1577d1019cff25dd5e9ca9dfe69ee72dea740c6c0cb1f0027513cf0",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.oemlock@1.0.so",
+      "sha256": "58d7d5234378137c7ff4c7e07fdb872370c235f2b23aba84d15081fd3bfc867a",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.power-V1-ndk_platform.so",
+      "sha256": "560f0ac5416ebf0bae5603dd0e3f5830044d32ff4cd8dcff8093ecd9a075b4bf",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.power.stats@1.0.so",
+      "sha256": "cd4300397945ae0b478f2c6a9aec60ff972009c655277e63e36928e1a66e5972",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.power@1.0.so",
+      "sha256": "318477ad0127e0a33029b9b4c5fc551172112d6aadf8c73c31fc295aef42c328",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.power@1.1.so",
+      "sha256": "13892e03c9ecaa429184b2049233f67c934025fe394dc9707379e4d2ad113902",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.power@1.2.so",
+      "sha256": "294b46de150844f3cc32a4d257aede2f3f963e4a7b466848b3175b60475a6c65",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.power@1.3.so",
+      "sha256": "4bbdda2aa23d7afccfcc49922735dc6c6c245150369ff4839b98f6a8b89ed8e8",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.radio.config@1.0.so",
+      "sha256": "ad4a46aba9ae32627481fbd83c52fd1e7ee7d56b93b00d2ac9e8e3238a631326",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.radio.config@1.1.so",
+      "sha256": "67dcd5f113d21e1ff9976c9a849740e3337d45ad6d551fde47497d432d3842fb",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.radio.config@1.2.so",
+      "sha256": "f0a8639cd6d0107c92efe7aa8cf66dbeb7dd8cdd22e1fe730867a3eebfb7fded",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.radio.deprecated@1.0.so",
+      "sha256": "5c20f554b3dc56110816f5febe21490ab38c90d826d80227c1c6a5d3133588b4",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.radio@1.0.so",
+      "sha256": "6edfc77306ca9842cb7449898822793f06084b47f388bd0ad1ba2e1dead0e3ad",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.radio@1.1.so",
+      "sha256": "a61c89cf6201ce4bff2bfe79579c0ce168ed7712ab99e0c79a96c41b4b8aef95",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.radio@1.2.so",
+      "sha256": "f8e127a9f19061559155bc7b45763d7d271b2222dd558b23456e2b88ede0d414",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.radio@1.3.so",
+      "sha256": "0cfdf10c277bc5a75b25e4cd5a95aa7b50a8b5fb8585d1228d78a6fab99365fd",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.radio@1.4.so",
+      "sha256": "5d2e1d3110a996dd6db33fa10a1e8171894aa434e249a5676460f94d4cf7084a",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.radio@1.5.so",
+      "sha256": "f53b1587b061cd8f7ab981e7c7fc1a69a1d0d680fc9f7daa25c4d81b24308c19",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.rebootescrow-V1-ndk_platform.so",
+      "sha256": "30396272187069cc5d2060e45fd9fc7bea1fa03992fd340d16389c9fa0498013",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.renderscript@1.0.so",
+      "sha256": "a3c288fbbf1a56cfafd5e9017826d780a2fe582b2dec8d1069befae74b75b96e",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.secure_element@1.0.so",
+      "sha256": "66698055a27fed2c5948cc9e83868774355ec0366b671536a19a66bf2805aaaa",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.secure_element@1.1.so",
+      "sha256": "4505c9dc8446260ec5da5e68743a9a1e87f8db77dd078f800ac55fef8caaa28d",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.secure_element@1.2.so",
+      "sha256": "0e75db3abc2d5891e7811c435598c89e4875bc986e5387a925abe882f65c57d7",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.sensors@1.0.so",
+      "sha256": "d3fb46367e6e97f58c92a5dc2e05cbf2acddf4b793540ccc68a5e7180ca7f7c9",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.sensors@2.0.so",
+      "sha256": "9d2ee55186d3c330a9764e7a40807d10fb3cd202d4155cbe940159b57668170e",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.sensors@2.1.so",
+      "sha256": "2d56c378ac2900a5dce32d704043627dae96749bfde36f111dbd3d281d1bef53",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.soundtrigger@2.0-core.so",
+      "sha256": "47cc4cef2fdcd90d2c1467898333236409c7e332fbf977d65117e7c6127964c2",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.soundtrigger@2.0.so",
+      "sha256": "3b9ee1a13699b02eb9a7b7d49f5ea4699c142b55672283a91129b23fec2b8e2b",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.soundtrigger@2.1.so",
+      "sha256": "8b47a8e92a9f09856acdb5beba3b73aee53714643f1c58fc0fc1e94bbebb494b",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.soundtrigger@2.2.so",
+      "sha256": "04505bfcf1ec01e5e1245da63797283c80fbb9a81ffa3120b7a2ae00b3c48626",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.soundtrigger@2.3.so",
+      "sha256": "4b78c314c7124b483830ecf0eeea35b166b05661f88f55e2a381471a0cfc27af",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.tetheroffload.config@1.0.so",
+      "sha256": "45618f4aca56ea91ba33d0e8706e2993d4522390425e28a6245221317a4bedba",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.tetheroffload.control@1.0.so",
+      "sha256": "87216b3eec51e0d02ac336e98b542db48cd8bf473f40327944bbe1d8ea100f8d",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.thermal@1.0.so",
+      "sha256": "604d8cd2d61ef423bcba646988911bc108293d69f0176b84e2e9f733376f0dbc",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.thermal@1.1.so",
+      "sha256": "baee14283f56630bc5a4ba97ddf42e8568c9e1c9accf879f01b019a9dd118574",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.thermal@2.0.so",
+      "sha256": "b80ecbc3ef0615d1d5f800971a13252d84ee13e359e19d542124ee12e766936d",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.tv.cec@1.0.so",
+      "sha256": "e1d515ed18e7fea9fa499c1d846372b820e4168a98d51095dcc5f28175afb50c",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.tv.cec@2.0.so",
+      "sha256": "bb98bea1445036cc4b16bfba2529182c31c49ffa9fe397b508538b4ea30a4568",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.tv.input@1.0.so",
+      "sha256": "c488054a0206c90f5580c4d7d36d26b1fb7b6bb03449e5a1182f0e9dcd455850",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.tv.tuner@1.0.so",
+      "sha256": "ba5ae9b5034c5446e1f39f896a2d1628942bde907fa5e977c6b15f56770700a5",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.usb.gadget@1.0.so",
+      "sha256": "8a67cf03b2a3c6409bebfe3566358ef356add64947d8c4a9a75db79fb3a779b4",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.usb.gadget@1.1.so",
+      "sha256": "a0afcf27616846bb6986125aa314cfdc512d418dea264d1359f2f4043dd11a87",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.usb@1.0.so",
+      "sha256": "5c7f063497a5f443dd280f13d9a6f1db63f5e885ac78edfed3aafceccf6ca699",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.usb@1.1.so",
+      "sha256": "58166130733a2ea46a59cb71324a6a291d300514570cb9270b0bff1da1b64c78",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.usb@1.2.so",
+      "sha256": "e81be391291fe3880b4f5c509cb6de3f5ebafb159f68054c8af11ac7f067cc6a",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.vibrator-V1-ndk_platform.so",
+      "sha256": "bb622e5261d0d60f3180e58d3e02553374edd7021292253d5f1b3643172c1e6e",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.vibrator@1.0.so",
+      "sha256": "aa5be235dfe4ecf10722b99a639b3f0dbc94f702b4bae08616b71d1b81975aae",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.vibrator@1.1.so",
+      "sha256": "99dd9e738097a7f7ab60f9cc6fa0fe3668a63d967e49fb7d8564a1d6794d6b9d",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.vibrator@1.2.so",
+      "sha256": "b56a846d38e20239d1e944bc8bd8287a0d00ba9ba2e5cdc0548703c2c9ff168c",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.vibrator@1.3.so",
+      "sha256": "af129fe0f60d3fe9a4422d925e0e8ec5084f2a659979a027d1a5fe4a9c3fef0c",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.vr@1.0.so",
+      "sha256": "302e157ab6105aa97d4cca13fcbe85b45d8d814420af22a609aeb5e9b5182fef",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.weaver@1.0.so",
+      "sha256": "43443545fc7f51c006332140b6af69a796a9266253fad4dd60847244b8b0f118",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.wifi.hostapd@1.0.so",
+      "sha256": "ed21ed9b84281a37dd21ade9b44b92423c409b235aaa4e1e9fde3e3328a28c51",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.wifi.hostapd@1.1.so",
+      "sha256": "28e4f18240c3539e420735c73cbcc45b119e633b383d3926b07a27b4b68c934d",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.wifi.hostapd@1.2.so",
+      "sha256": "5d4832dd5af6259ef0605cca2e6c0c059ea4f90d2c8850a23fcf3edf6c5e94da",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.wifi.offload@1.0.so",
+      "sha256": "fcb822118d43bb31bcfe1f5d799c875abb729587bc40f7dcb348295477763618",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.wifi.supplicant@1.0.so",
+      "sha256": "15b29def338a6ea89934034f3f7af4c7b3c497b9f9ed0698911c80461769c8f6",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.wifi.supplicant@1.1.so",
+      "sha256": "816ac33f5e4d3b2c7e2ee37e9036710011193a7b3ba90cfaac2c1401c407ffdd",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.wifi.supplicant@1.2.so",
+      "sha256": "562d90f7a03ac019a8a37da4d7aeccbeb46ae8e825b650fc65bdf5c0c1d7bbc3",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.wifi.supplicant@1.3.so",
+      "sha256": "5fbd5c1b1bb6851e4d3cd6255ad06a413f41bfa9d4f310f3390dbdaeea01a67c",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.wifi@1.0.so",
+      "sha256": "664ceb7fbce365d3a62716b32d9efc718f5087b7215c7d45020fb945519a70f2",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.wifi@1.1.so",
+      "sha256": "fffe767b9ece697aed80e89bdab43f9d3c31ec7a2e6db9efa70629ebfacc0531",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.wifi@1.2.so",
+      "sha256": "6d158d5874da772516088d7d9ed1cddda9174887d453fbf00715a5701ff2970f",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.wifi@1.3.so",
+      "sha256": "517b419644db1673de4c6cb0fed0686e777338679203db993bd7fe5603016944",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hardware.wifi@1.4.so",
+      "sha256": "625f2aafdc94824b8be26278e1ea75b9eb75c31878429c0065620448aacb552a",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hidl.allocator@1.0.so",
+      "sha256": "72b81393175b81b7cd686658b862207e714663660723e4a0ff6b6dbed22fee55",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hidl.memory.block@1.0.so",
+      "sha256": "4889c7de146fd7d84ae8f10a02962952331d339879bad72550e0bc8393781b9b",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hidl.memory.token@1.0.so",
+      "sha256": "fe5b94dc46d5b59228d717fa24bdb739e8c38c1d4dcbeefdae3f9b2362bb5f39",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hidl.memory@1.0.so",
+      "sha256": "5957e660587090948e9d48d08e17d3f9f4d8d633440859bc8b6ca1fd9a033c3b",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hidl.safe_union@1.0.so",
+      "sha256": "4791df92dc2abff9953de6c3c04184b7e5062923bbef326f81baaf75ced1bcd3",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hidl.token@1.0-utils.so",
+      "sha256": "f7ace477c2b996705d2cc77cd4bfaf93a8fd089b304a9605f17b6a54780ac97c",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.hidl.token@1.0.so",
+      "sha256": "ee70f93c0b9949092a7c9882b94cba8f7a613c47aa5a8b58d976d51336b65b28",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.system.net.netd@1.0.so",
+      "sha256": "b0d6923153faf86fbcf31594c5b18e9547bffba43971960f0b8b22e7473137a0",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.system.net.netd@1.1.so",
+      "sha256": "12c39002faceab6d5e1ebb67a86843c78eeb9019ac8a0363bcd3b757f0f714dc",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.system.suspend@1.0.so",
+      "sha256": "f4861c7fa6f225cec00c0f532b879041ab49fc10263cfef97e934d542b38f775",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/android.system.wifi.keystore@1.0.so",
+      "sha256": "b269a0fe73c5a8d0927ab0c01b16b8ab0c81e0d881f00726a9739f703c3cb7f0",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/hw/android.hidl.memory@1.0-impl.so",
+      "sha256": "bbe191e371581fb8ba720376a2d2c97492a6595b3a7eb395613a24a5b61a46d4",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/libRSCpuRef.so",
+      "sha256": "aa3ab8b81fc4756430e79929f7cbb98f44a0a2b9a126d8f3850def5ddfd83f5d",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/libRSDriver.so",
+      "sha256": "e71cee3647b9852c46e1cd6212e6ed710ad2f7483f01ceb537cb1c228776b821",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/libRS_internal.so",
+      "sha256": "5714ee747fc1b49bf5421b8fa8924636497261eb2ec6dba66ac5c2a500ce2538",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/libadf.so",
+      "sha256": "4295813d7749da4a261959c81d1849bc443c18cb9bd17ec3f6a80cb9666fce1d",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/libaudioroute.so",
+      "sha256": "966263d5b42d12abc7d6f5caab2fd3ff6206a281752e9d3ee11111a4bf87f8e8",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/libaudioutils.so",
+      "sha256": "21dfa82c1eb70a5b5b4e45700ea5eb3cb2654fc99e43ddbbf7e1da99271b2f5d",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/libbacktrace.so",
+      "sha256": "4afa646698b4298e305121f26b64e13a37a2487780aac90bd8b6d5775ea3f868",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/libbase.so",
+      "sha256": "70f3f1b58a36aba2420882c8b86a58be4b90c50f2e0829ca7c44a998967d76bf",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/libbcinfo.so",
+      "sha256": "c3964c357b8af70da954d4e88764a27550248d102293b64c89c901d878dcfe47",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/libbinder.so",
+      "sha256": "12e02b7499206e7467ff5fc381dabaae68a34271b059258c30efb883591aaad7",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/libblas.so",
+      "sha256": "2baea0a467ba1b8ba7ab85bc5afe463f008339b77a656aca8794697ccce360b2",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/libbufferqueueconverter.so",
+      "sha256": "17b0d7d10330342e79320f177ffc545c256fae4bb29a0eb234e166060289328b",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/libc++.so",
+      "sha256": "c11b1dde676a67cfbc27c8f3c47a5132959e477a12b96f23bb1fb09d66f40dd9",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/libcamera_metadata.so",
+      "sha256": "a043021272d055f4dcec960177b7f80c890248419bf3f5bb4c64f3eb1f6ae804",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/libcap.so",
+      "sha256": "37887f2c318c30e2532cd14811b23b477481c309e0f749875ea46789295dd847",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/libclang_rt.scudo-aarch64-android.so",
+      "sha256": "f3d31212e59e57573850e45f4a5bba786a6eb933b4c6ddc9ecdeb4ec2c508fbb",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/libclang_rt.scudo_minimal-aarch64-android.so",
+      "sha256": "627d3b94c9268b2dda20ab4fb38a26932e584b4acd22412d6fb38bb3556968ae",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/libclang_rt.ubsan_standalone-aarch64-android.so",
+      "sha256": "4f213b52f2ad1f021d6694532e79357636a89611c892a77803ace395a18f3af7",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/libcn-cbor.so",
+      "sha256": "5bd154aac4952c98e2e97a317d7553ea00b82d0714efe4069ac9c06ce70876d4",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/libcodec2.so",
+      "sha256": "75db7eff9e353c890246c2838f86ea893cc65e10200e9dce049ac31c22e6ed35",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/libcompiler_rt.so",
+      "sha256": "6454e7c66f38207bbfe54b98bd0491294ae37409251504613d8a91b3fc8c9797",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/libcrypto.so",
+      "sha256": "f96761f274f2af0dfa73aa68111a19949d341ac0d877f81e5009577470bfdee6",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/libcrypto_utils.so",
+      "sha256": "ad4db3cb173f6e332af4cebdba89b1a3f7a0758e44f8dfe96b67c61f3a807762",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/libcurl.so",
+      "sha256": "c4bab24d0aacfb919f872bdbd5fbd5198c191139f733a14ea96bf359bc9de093",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/libcutils.so",
+      "sha256": "0031d87c283735ac3ab2241f5d214d6c460ac9881a02660588b6b912d5537295",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/libdiskconfig.so",
+      "sha256": "208f6e7759779197ca29e20ae9b3338daa5a1bee65c00af77dd1127b8fb9f605",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/libdumpstateutil.so",
+      "sha256": "7ff7c90542d20352186d086dcdb433a79f5d38e087fac5e7916762578fa7e122",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/libevent.so",
+      "sha256": "9764c454b11ddaff6a83d0dfeeefcb6178c10d82fa4c23087d91746616c94380",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/libexif.so",
+      "sha256": "16ff775acce6bca9e1cfac45b48d943c640b9d50b06acf7e964866d17e5acd9c",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/libexpat.so",
+      "sha256": "1c2e745e48b7a33885dbf81617407309b349b48e2b33471d779a3b64e9dd1ab2",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/libfmq.so",
+      "sha256": "f7bc6a9d534af5e915eca1bb5fc3f5eddea33af2bf929209d965dce53e9cd2e1",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/libgatekeeper.so",
+      "sha256": "47ec6a671cd2c4574890e0e0b2ee32136acc5ff394f82ee9563b88084fa7de4d",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/libgralloctypes.so",
+      "sha256": "9fc9163ee9ebf444906738036f0c89d3d7855b6acbb73cb7e5b4eb410ca5068c",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/libgui.so",
+      "sha256": "8e517b48524c5dc9c197a78c5c0422bb22d5ae499ca4df2934a52710e7bf5e2c",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/libhardware.so",
+      "sha256": "345726d1520f2855844c12872b913f09538e923b34a12f3023004fcde1f470e6",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/libhardware_legacy.so",
+      "sha256": "2cfec112cc35cbc6ce40717ed0034e819aa166edca0b82ff9eef1e7e0c73ef7d",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/libhidlallocatorutils.so",
+      "sha256": "3fcf1516ec08afd235252ae180870e492e9ea2c036990d5f3725989011b9fb56",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/libhidlbase.so",
+      "sha256": "7bfbd57ee8afbde1c1be2ff7a710a56afad1e7f4e6501660d8074c8e8493aba5",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/libhidlmemory.so",
+      "sha256": "4decb6a8c7eda3a15b2036875813a9b931630449c582b96c3f06d79d641461f0",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/libion.so",
+      "sha256": "d7552b6425080e814dac185d4c149d0be7773fb9e23b30d5ce27c189fda59b36",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/libjpeg.so",
+      "sha256": "f13881bb1ab6011305fb0e875fde1ef96c59c5f464f6c3264de7f501b17fac88",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/libjsoncpp.so",
+      "sha256": "21b38f26209726248ed998028e619b90001f76fbcc05927379399be28abfdcde",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/libldacBT_abr.so",
+      "sha256": "56c32d4dfbdcb481df72470f5de346e647cf3e7dc51288f53b87daaa74d8646c",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/libldacBT_enc.so",
+      "sha256": "dc611504f869ebb4ebe48d3547a3f80e9a388c531463292b64c83b2c6bc784b7",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/liblz4.so",
+      "sha256": "a8c26c7f2ecbfe6150869158f251eaa839cbdf4244b5af6839db4aefc1866619",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/liblzma.so",
+      "sha256": "044c454d3cadcc9f32ef29adc453ee76037a18486ad6eba1ed5c0ecd41165b17",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/libmedia_helper.so",
+      "sha256": "1bf409dcb6a0ec8d2a99153de11404ffd421bc2c5ac5fedff30482901f4de8fb",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/libmedia_omx.so",
+      "sha256": "cb0894eeea1b7343b023eac6c4b6eda788321505280669c81df80477a79ac232",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/libmemtrack.so",
+      "sha256": "a019ffedb8fb0614ba042c935a33fad64f20c6be19596836e786cc155758473b",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/libminijail.so",
+      "sha256": "f93556e622a672f9a0380da8023a74ea26a31e065df3caf40719e8ba3b2c9c2d",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/libmkbootimg_abi_check.so",
+      "sha256": "a84fe98528f762b90185bca19ef5ebb503ffbfdcafc3e222ab4cf1c54edff6f0",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/libnetutils.so",
+      "sha256": "cf46dded8da50425865a49bc3d09b41df1727bfb8677eb3e6b3d3a4fad3e3bb0",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/libnl.so",
+      "sha256": "6281ce86c0db7e95477ded1c5947fee60fd61a0e1e7d2d882c896ed16e9e621b",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/libpcre2.so",
+      "sha256": "0efe0011cfa73cf4a4d3416788c97313b1c89d8df93b59f131cf55112f2c7192",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/libpiex.so",
+      "sha256": "ffb80e70afc51b462cde1a0e14235eec3e6d486c177d9ed3474abbee436dc212",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/libpng.so",
+      "sha256": "37276e75bf0e8c9c2dae6c7167b33053d7c54c7c20e1cc20e9542cbcff3f9d32",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/libpower.so",
+      "sha256": "faf9394d211544f650621178618768d6ae6ccfe9e7d3f86134ddf1084bc58015",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/libprocessgroup.so",
+      "sha256": "4671c51375ad5a421af35a7dc3eb22f464f1fda8246632e4403df19276c6eb46",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/libprocinfo.so",
+      "sha256": "fd7b1de8eedee7e5ff0da966661e4277c97bfb3cc2ad9f6c84d04691af93c25e",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/libradio_metadata.so",
+      "sha256": "a007afe378bd94ca22238d61eac73fc641e62e8fdb55f9f3c9a2e0adb5079e0a",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/libspeexresampler.so",
+      "sha256": "5ac1ed50d32a69e3f501018dc79f2df71efba406672aa472330e1115b323bbbb",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/libsqlite.so",
+      "sha256": "682ce80c171d38281bef8daadd76e13ae15d4f23d12e8b3a4ee05ce3c40ba9d8",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/libssl.so",
+      "sha256": "4e51c9e41925af909d3d66539afddbfe9a8486d4c4581914f050363e9152b2cb",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/libstagefright_bufferpool@2.0.so",
+      "sha256": "c4bc991a70f4ea833a45d4a970d7e73a5b494ec12228e9e1fb62f25cb541c7af",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/libstagefright_bufferqueue_helper.so",
+      "sha256": "056956d2cc3d312f52de4670b7af70d885971c96c60f6be8df49469f794414e9",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/libstagefright_foundation.so",
+      "sha256": "060ec055a6d4cb5b893d4606953769297c6f6dfcee16490e9410f46b39c4ac29",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/libstagefright_omx.so",
+      "sha256": "01e74df6085ff663d1d4c0e9e9628c6865ade4db59b7cc02d275ba1593af2455",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/libstagefright_omx_utils.so",
+      "sha256": "6d2c88855d0ef91679f2d2f99d460d27ab310b42232b194312416e3ebff216f8",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/libstagefright_xmlparser.so",
+      "sha256": "996c62416739199b0254524210d07b3a785436fe920a9907b66a6d815705e361",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/libsysutils.so",
+      "sha256": "4254a3512b0dad7f6b611e276959552c06024d893963dc146c1ef4e6dae03d78",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/libtinyalsa.so",
+      "sha256": "5ff40b44a6695d7dfd43ec9e106dff0e92cbe9c08dbaf19cdb899d3b041f6d18",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/libtinyxml2.so",
+      "sha256": "8b80031fa52023e9db23f07e5a60c37e998d22323d39f0019225de6ac9cefe04",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/libui.so",
+      "sha256": "9719f113aef8ad8415023590685ee4a322a0e610666738864fbef9a166c89fa3",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/libunwindstack.so",
+      "sha256": "62dbbf2e1fa5e6ee3d56d141dc0422bfb9819b4b9b749c0c8345cdec41e63855",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/libusbhost.so",
+      "sha256": "505ce5a0050a1badf48deea888f22a3401d0bc8506ebbd3122deb570895001e6",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/libutils.so",
+      "sha256": "8a214952c74211d24913257f9f30dac04609d0a42c047c0f2970975a7d54df56",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/libutilscallstack.so",
+      "sha256": "129c389564cce34c64c4884e88c7744f341424ab04ac84e3dfa5f33d90312264",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/libwifi-system-iface.so",
+      "sha256": "6bbe8fd0de310ca3b30624c0af9ba7d7da1bf7705a6628035b06b444a13b304a",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/libxml2.so",
+      "sha256": "0b9f8b7afc35fb57551927b645042a073dc86a360cc95cf8a13af6c34ab1b336",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/libyuv.so",
+      "sha256": "4448678d7d0ab2ad432375ca419607551da8a8b67c026a9dcb6b53cefd4d0a4a",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/libz.so",
+      "sha256": "3f82352eb5081c2fc2772c7978a34d48a9fb8a2a43714ca862a273905733e001",
+      "elf_class": 2,
+      "machine": 183
+    },
+    {
+      "path": "lib64/libziparchive.so",
+      "sha256": "35dc715b1bc4048890330f005a49546b207dd37853a818761f5bfde0fee62b33",
+      "elf_class": 2,
+      "machine": 183
+    }
+  ],
+  "count": 574,
+  "hardware_tested": false
+}

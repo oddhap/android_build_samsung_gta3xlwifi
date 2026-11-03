@@ -1,0 +1,60 @@
+{
+  "observed_at_utc": "2026-11-03T17:23:46.438474+00:00",
+  "first_full_build": {
+    "label": "full-targetfiles-20261102-01",
+    "exit_code": 0,
+    "build_duration": "04:46:51",
+    "ninja_actions": 183167,
+    "source_audit_passed": true,
+    "archive_sha256": "6a9087bb8073bc9243f287d4a3b677e67ed620018e2ceaa22d773f8cc822fccf",
+    "archive_bytes": 2309125755,
+    "geometry_and_selected_ELF_checks_passed": true,
+    "wrong_ab_metadata_observed": true,
+    "archive_path": "/srv/android/artifacts/lineage-24.0-arm64/diagnostic-full-targetfiles-20261102-01/lineage_gta3xlwifi-target_files.zip"
+  },
+  "non_ab_attempt": {
+    "label": "full-targetfiles-nonab-20261103-01",
+    "exit_code": 1,
+    "reason": "make_recovery_patch attempted VENDOR/etc/recovery.img in a hybrid prebuilt-vendor target",
+    "source_after_failure_audit_passed": true,
+    "post_checks_exit_code": 1
+  },
+  "new_snapshot": "port-20261103-07",
+  "project_count": 1243,
+  "patch_count": 15,
+  "device_revision": "2f649d06fec3318926c61aaf7a5fa3f40aa9f266",
+  "changed_platform_project_since_snapshot06": "build/make",
+  "host_regressions": {
+    "layout_tests": 8,
+    "recovery_preservation_test_groups": 5,
+    "platforms": [
+      "macOS",
+      "Ubuntu"
+    ],
+    "runner_sha256": {
+      "test-target-files-layout.py": "9095227290dc99fbc6ba484acbaf58fc5e3b69ad452ae8fea6b81c1457238c2a",
+      "test-preserve-recovery.py": "9b9cc18e0e9a25b83a538219ccbef5f698d0805141d1dad85f5219a7613d7359"
+    }
+  },
+  "offline_apex_vintf": {
+    "factory_package_count": 39,
+    "actual_vendor_metadata_compatible": true,
+    "all_payloads_ext4": true,
+    "VNDK30_ARM32_ELFs": 287,
+    "VNDK30_ARM64_ELFs": 287,
+    "scope": "Host factory simulation and selected ELF class/machine checks only",
+    "live_activation_proven": false,
+    "unmodified_Android17_kernel_requirements_proven": false
+  },
+  "retry_started": {
+    "label": "full-targetfiles-preserve-20261103-02",
+    "pid": 2632743,
+    "status_at_checkpoint": "running",
+    "post_label": "post-preserve-20261103-02",
+    "post_pid": 2632745
+  },
+  "installable_ota_created": false,
+  "release_signing_performed": false,
+  "hardware_modified": false,
+  "flash_ready": false
+}

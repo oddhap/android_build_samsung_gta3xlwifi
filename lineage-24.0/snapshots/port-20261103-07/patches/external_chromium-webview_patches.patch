@@ -1,0 +1,13 @@
+diff --git a/os_pickup.bp b/os_pickup.bp
+index 39ffd45ea262aa5b226d4a591cf58e14ab5df5fd..191c705616e72175d35bcd439a1038af0f8a0b53 100644
+--- a/os_pickup.bp
++++ b/os_pickup.bp
+@@ -32,7 +32,7 @@ license {
+ 
+ android_app_import {
+     name: "webview",
+-    product_specific: true,
++    defaults: ["gta3xlwifi_partition_app_defaults"],
+     default_dev_cert: true,
+     required: [
+         "libwebviewchromium_loader",

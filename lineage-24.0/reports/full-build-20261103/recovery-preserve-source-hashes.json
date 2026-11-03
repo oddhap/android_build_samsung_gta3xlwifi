@@ -1,0 +1,17 @@
+{
+  "scope": "Device-scoped recovery preservation source change; no device/partition writes",
+  "files": {
+    "core/Makefile": {
+      "before_sha256": "9eb413b3ac0eea5f111698495c8ea8d9631f76f5e6f5a8fe99647ee17d071be2",
+      "after_sha256": "1799872252a8094bb133a5346840792fda91cdd7c62d3ee5fd8d02e6ad913d1f"
+    },
+    "tools/releasetools/common.py": {
+      "before_sha256": "2cb50839510a0f2a2d26dfc679593234cf4086e301acd6ab9b0107bd6b0e2632",
+      "after_sha256": "65a8b47e7545fdf0f5c5b770b5b1424421f12b61d2ff35cc76fbebcd8f81a73a"
+    },
+    "tools/releasetools/non_ab_ota.py": {
+      "before_sha256": "3e2688cd79c84f73b4ac1edad1c0c82e23cb5df0e76893bf986f6edf4feb8de3",
+      "after_sha256": "f4c3e0ed7b6fe329d2cbe212a37a8111b3011f11b89de85c44253beea9ff3560"
+    }
+  }
+}

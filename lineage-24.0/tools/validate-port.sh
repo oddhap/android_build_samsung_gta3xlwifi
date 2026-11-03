@@ -5,18 +5,18 @@ export PATH="$HOME/bin:$PATH"
 port=/srv/android/ports/lineage-24.0-arm64
 logs=/srv/android/logs/lineage-24.0-arm64
 artifacts=/srv/android/artifacts/lineage-24.0-arm64
-snapshot="$port/lineage-24.0/snapshots/port-20261101-05"
+snapshot="$port/lineage-24.0/snapshots/port-20261103-07"
 exec 8>"$logs/build.lock"
 flock -n 8 || exit 1
 trap 'rc=$?; echo "$rc" > "$logs/port-validation.exit"' EXIT
 source "$port/env.sh"
 python3 "$port/lineage-24.0/tools/apply-port.py" "$PWD" "$snapshot"
 # audit-port requires a manifest corresponding to the complete synced checkout.
-mkdir -p "$artifacts/port-20261101-05"
-cp "$snapshot/source-lock.json" "$artifacts/port-20261101-05/"
-cp -R "$snapshot/patches" "$artifacts/port-20261101-05/"
-cp "$snapshot/port-manifest.xml" "$artifacts/port-20261101-05/port-manifest.xml"
-python3 "$port/lineage-24.0/tools/audit-port.py" "$PWD" "$artifacts/port-20261101-05" "$artifacts/port-audit.json"
+mkdir -p "$artifacts/port-20261103-07"
+cp "$snapshot/source-lock.json" "$artifacts/port-20261103-07/"
+cp -R "$snapshot/patches" "$artifacts/port-20261103-07/"
+cp "$snapshot/port-manifest.xml" "$artifacts/port-20261103-07/port-manifest.xml"
+python3 "$port/lineage-24.0/tools/audit-port.py" "$PWD" "$artifacts/port-20261103-07" "$artifacts/port-audit.json"
 python3 "$port/lineage-24.0/tools/test-legacy-processgroups.py" "$PWD"
 python3 "$port/lineage-24.0/tools/test-spawn-cloexec.py" "$PWD/bionic/libc/bionic/spawn.cpp"
 source build/envsetup.sh

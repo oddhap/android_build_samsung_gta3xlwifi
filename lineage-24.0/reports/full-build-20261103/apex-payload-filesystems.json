@@ -1,0 +1,241 @@
+{
+  "scope": "Offline AOSP decompression and payload filesystem inspection only",
+  "entries": [
+    {
+      "package": "/srv/android/artifacts/lineage-24.0-arm64/packaged-vendor-vintf-20261103-01/factory/system/apex/com.android.apex.cts.shim.apex",
+      "inspected": "/srv/android/artifacts/lineage-24.0-arm64/packaged-vendor-vintf-20261103-01/factory/system/apex/com.android.apex.cts.shim.apex",
+      "payload_type": "ext4",
+      "sha256": "18451d0ac06a9532a0c75f2f89544a096ebb8b2a1b4ee7357b5747d972e60a42"
+    },
+    {
+      "package": "/srv/android/artifacts/lineage-24.0-arm64/packaged-vendor-vintf-20261103-01/factory/system/apex/com.android.devicelock.apex",
+      "inspected": "/srv/android/artifacts/lineage-24.0-arm64/packaged-vendor-vintf-20261103-01/factory/system/apex/com.android.devicelock.apex",
+      "payload_type": "ext4",
+      "sha256": "224faced9b539292db6bd5e54d416472bf7b0f0a7ce727fbd600edcabe14134e"
+    },
+    {
+      "package": "/srv/android/artifacts/lineage-24.0-arm64/packaged-vendor-vintf-20261103-01/factory/system/apex/com.android.healthfitness.apex",
+      "inspected": "/srv/android/artifacts/lineage-24.0-arm64/packaged-vendor-vintf-20261103-01/factory/system/apex/com.android.healthfitness.apex",
+      "payload_type": "ext4",
+      "sha256": "e1ca19769b6fac136824744a936acab3092f9ce2bfe0b65e2767c05599d5bfe3"
+    },
+    {
+      "package": "/srv/android/artifacts/lineage-24.0-arm64/packaged-vendor-vintf-20261103-01/factory/system/apex/com.android.i18n.apex",
+      "inspected": "/srv/android/artifacts/lineage-24.0-arm64/packaged-vendor-vintf-20261103-01/factory/system/apex/com.android.i18n.apex",
+      "payload_type": "ext4",
+      "sha256": "ff13115727e416b11a904bf54f124a141dcb54586cc6aea6808f13ac1581a5d9"
+    },
+    {
+      "package": "/srv/android/artifacts/lineage-24.0-arm64/packaged-vendor-vintf-20261103-01/factory/system/apex/com.android.os.statsd.apex",
+      "inspected": "/srv/android/artifacts/lineage-24.0-arm64/packaged-vendor-vintf-20261103-01/factory/system/apex/com.android.os.statsd.apex",
+      "payload_type": "ext4",
+      "sha256": "12e0d3af92a12dcc150c00d0e913d3f9984d11a5fffd09adccb77285d1a59224"
+    },
+    {
+      "package": "/srv/android/artifacts/lineage-24.0-arm64/packaged-vendor-vintf-20261103-01/factory/system/apex/com.android.rkpd.apex",
+      "inspected": "/srv/android/artifacts/lineage-24.0-arm64/packaged-vendor-vintf-20261103-01/factory/system/apex/com.android.rkpd.apex",
+      "payload_type": "ext4",
+      "sha256": "227269d694f1d6f5073df695b974f81f05e71e360c07e7c731a4da0d26c4ed9c"
+    },
+    {
+      "package": "/srv/android/artifacts/lineage-24.0-arm64/packaged-vendor-vintf-20261103-01/factory/system/apex/com.android.runtime.apex",
+      "inspected": "/srv/android/artifacts/lineage-24.0-arm64/packaged-vendor-vintf-20261103-01/factory/system/apex/com.android.runtime.apex",
+      "payload_type": "ext4",
+      "sha256": "4ef6bf992d468514dbb24578bbad1c0c0630be8dd5c5ec0ca0a9dc04ea5be7e7"
+    },
+    {
+      "package": "/srv/android/artifacts/lineage-24.0-arm64/packaged-vendor-vintf-20261103-01/factory/system/apex/com.android.sdkext.apex",
+      "inspected": "/srv/android/artifacts/lineage-24.0-arm64/packaged-vendor-vintf-20261103-01/factory/system/apex/com.android.sdkext.apex",
+      "payload_type": "ext4",
+      "sha256": "ced88353a0012682c4e5b678acb9adea08e1e776a28dc97400add7dd2c7a94e2"
+    },
+    {
+      "package": "/srv/android/artifacts/lineage-24.0-arm64/packaged-vendor-vintf-20261103-01/factory/system/apex/com.android.tzdata.apex",
+      "inspected": "/srv/android/artifacts/lineage-24.0-arm64/packaged-vendor-vintf-20261103-01/factory/system/apex/com.android.tzdata.apex",
+      "payload_type": "ext4",
+      "sha256": "b4c30c2a40ddc2ca2ce495969002bab38c90b0e6b2c30b1d9b3dc85f29080442"
+    },
+    {
+      "package": "/srv/android/artifacts/lineage-24.0-arm64/packaged-vendor-vintf-20261103-01/factory/system/apex/com.android.virt.apex",
+      "inspected": "/srv/android/artifacts/lineage-24.0-arm64/packaged-vendor-vintf-20261103-01/factory/system/apex/com.android.virt.apex",
+      "payload_type": "ext4",
+      "sha256": "edf6c0aa6464bdb2fd3f30103fb03c546851c74a06d23cbad3cc76917d03e9c1"
+    },
+    {
+      "package": "/srv/android/artifacts/lineage-24.0-arm64/packaged-vendor-vintf-20261103-01/factory/system_ext/apex/com.android.hardware.biometrics.fingerprint.virtual.apex",
+      "inspected": "/srv/android/artifacts/lineage-24.0-arm64/packaged-vendor-vintf-20261103-01/factory/system_ext/apex/com.android.hardware.biometrics.fingerprint.virtual.apex",
+      "payload_type": "ext4",
+      "sha256": "500294c537c15447f6646bf7d4319f31c1bda30295139fb82ba6b696e85c0a5d"
+    },
+    {
+      "package": "/srv/android/artifacts/lineage-24.0-arm64/packaged-vendor-vintf-20261103-01/factory/system_ext/apex/com.android.vndk.v30.apex",
+      "inspected": "/srv/android/artifacts/lineage-24.0-arm64/packaged-vendor-vintf-20261103-01/factory/system_ext/apex/com.android.vndk.v30.apex",
+      "payload_type": "ext4",
+      "sha256": "d40ec5d935c633025f5ab4fc141e9d2a14f1f8e78eaf2dff5a78b17fb6abef58"
+    },
+    {
+      "package": "/srv/android/artifacts/lineage-24.0-arm64/packaged-vendor-vintf-20261103-01/factory/system/apex/com.android.adbd.capex",
+      "inspected": "/srv/android/artifacts/lineage-24.0-arm64/packaged-vendor-vintf-20261103-01/payload-type-inspection/com.android.adbd.apex",
+      "payload_type": "ext4",
+      "sha256": "f3817d5ffa6352bbe5230edd93c72db4bcaf9ecbc390e64c207341ee5b5940fd"
+    },
+    {
+      "package": "/srv/android/artifacts/lineage-24.0-arm64/packaged-vendor-vintf-20261103-01/factory/system/apex/com.android.adservices.capex",
+      "inspected": "/srv/android/artifacts/lineage-24.0-arm64/packaged-vendor-vintf-20261103-01/payload-type-inspection/com.android.adservices.apex",
+      "payload_type": "ext4",
+      "sha256": "0f2376d7ae1cfbb810264214df4d2d4f15e49418a8cd954434d3e4737a7d4ed3"
+    },
+    {
+      "package": "/srv/android/artifacts/lineage-24.0-arm64/packaged-vendor-vintf-20261103-01/factory/system/apex/com.android.appsearch.capex",
+      "inspected": "/srv/android/artifacts/lineage-24.0-arm64/packaged-vendor-vintf-20261103-01/payload-type-inspection/com.android.appsearch.apex",
+      "payload_type": "ext4",
+      "sha256": "362e109b3922aba4b6a3d97437653a069f7a2680d4a264aa3090ef2bb7fb09ff"
+    },
+    {
+      "package": "/srv/android/artifacts/lineage-24.0-arm64/packaged-vendor-vintf-20261103-01/factory/system/apex/com.android.art.capex",
+      "inspected": "/srv/android/artifacts/lineage-24.0-arm64/packaged-vendor-vintf-20261103-01/payload-type-inspection/com.android.art.apex",
+      "payload_type": "ext4",
+      "sha256": "8de703bb3e5aa05b239029e235ba5633daffd97b39cd817a077d8f1c118bf67e"
+    },
+    {
+      "package": "/srv/android/artifacts/lineage-24.0-arm64/packaged-vendor-vintf-20261103-01/factory/system/apex/com.android.bt.capex",
+      "inspected": "/srv/android/artifacts/lineage-24.0-arm64/packaged-vendor-vintf-20261103-01/payload-type-inspection/com.android.bt.apex",
+      "payload_type": "ext4",
+      "sha256": "1ec87b1827f4641d20bd102e1be2f07e7fa0715f57f1387fbc9aa8ea65dc3bc8"
+    },
+    {
+      "package": "/srv/android/artifacts/lineage-24.0-arm64/packaged-vendor-vintf-20261103-01/factory/system/apex/com.android.configinfrastructure.capex",
+      "inspected": "/srv/android/artifacts/lineage-24.0-arm64/packaged-vendor-vintf-20261103-01/payload-type-inspection/com.android.configinfrastructure.apex",
+      "payload_type": "ext4",
+      "sha256": "7dbbb239bb4039d9fdb9901db7c46e55a8cf4f7dcc50e2b7d7cffbc227864d0a"
+    },
+    {
+      "package": "/srv/android/artifacts/lineage-24.0-arm64/packaged-vendor-vintf-20261103-01/factory/system/apex/com.android.conscrypt.capex",
+      "inspected": "/srv/android/artifacts/lineage-24.0-arm64/packaged-vendor-vintf-20261103-01/payload-type-inspection/com.android.conscrypt.apex",
+      "payload_type": "ext4",
+      "sha256": "80f81d79492c629607d114e282f97743441ed4806312a7830a9a7133eecb00cc"
+    },
+    {
+      "package": "/srv/android/artifacts/lineage-24.0-arm64/packaged-vendor-vintf-20261103-01/factory/system/apex/com.android.crashrecovery.capex",
+      "inspected": "/srv/android/artifacts/lineage-24.0-arm64/packaged-vendor-vintf-20261103-01/payload-type-inspection/com.android.crashrecovery.apex",
+      "payload_type": "ext4",
+      "sha256": "77437c33d65b41303e90c79b33be68796b34d7873257323d8517e09d9d11492e"
+    },
+    {
+      "package": "/srv/android/artifacts/lineage-24.0-arm64/packaged-vendor-vintf-20261103-01/factory/system/apex/com.android.extservices.capex",
+      "inspected": "/srv/android/artifacts/lineage-24.0-arm64/packaged-vendor-vintf-20261103-01/payload-type-inspection/com.android.extservices.apex",
+      "payload_type": "ext4",
+      "sha256": "01eebcf2a6d19488e57868f75c86c6eb17e5bb429d80268cd60c05ee8eefd18c"
+    },
+    {
+      "package": "/srv/android/artifacts/lineage-24.0-arm64/packaged-vendor-vintf-20261103-01/factory/system/apex/com.android.ipsec.capex",
+      "inspected": "/srv/android/artifacts/lineage-24.0-arm64/packaged-vendor-vintf-20261103-01/payload-type-inspection/com.android.ipsec.apex",
+      "payload_type": "ext4",
+      "sha256": "78b398b694f90cb60ee3999506b055d6535d03ef4dfc1662ba03750fcad74a63"
+    },
+    {
+      "package": "/srv/android/artifacts/lineage-24.0-arm64/packaged-vendor-vintf-20261103-01/factory/system/apex/com.android.media.capex",
+      "inspected": "/srv/android/artifacts/lineage-24.0-arm64/packaged-vendor-vintf-20261103-01/payload-type-inspection/com.android.media.apex",
+      "payload_type": "ext4",
+      "sha256": "5f9d2d80166737d8c6e94285c0b3c6d9a8a5a927983937703d70dafd9a41389d"
+    },
+    {
+      "package": "/srv/android/artifacts/lineage-24.0-arm64/packaged-vendor-vintf-20261103-01/factory/system/apex/com.android.media.swcodec.capex",
+      "inspected": "/srv/android/artifacts/lineage-24.0-arm64/packaged-vendor-vintf-20261103-01/payload-type-inspection/com.android.media.swcodec.apex",
+      "payload_type": "ext4",
+      "sha256": "986bbe78703fe217586ae1c680b0156ac10157ce3bfe1244f9df60a67baedab6"
+    },
+    {
+      "package": "/srv/android/artifacts/lineage-24.0-arm64/packaged-vendor-vintf-20261103-01/factory/system/apex/com.android.mediaprovider.capex",
+      "inspected": "/srv/android/artifacts/lineage-24.0-arm64/packaged-vendor-vintf-20261103-01/payload-type-inspection/com.android.mediaprovider.apex",
+      "payload_type": "ext4",
+      "sha256": "eb689e595c290f05525a9372f1dd20fe5e49429fdd3a18751993f1fa4f97f5b3"
+    },
+    {
+      "package": "/srv/android/artifacts/lineage-24.0-arm64/packaged-vendor-vintf-20261103-01/factory/system/apex/com.android.neuralnetworks.capex",
+      "inspected": "/srv/android/artifacts/lineage-24.0-arm64/packaged-vendor-vintf-20261103-01/payload-type-inspection/com.android.neuralnetworks.apex",
+      "payload_type": "ext4",
+      "sha256": "8ff3846ef211eaa6320e70ef9ec59f9506b1496cda018cb9c2df22133fb85987"
+    },
+    {
+      "package": "/srv/android/artifacts/lineage-24.0-arm64/packaged-vendor-vintf-20261103-01/factory/system/apex/com.android.nfcservices.capex",
+      "inspected": "/srv/android/artifacts/lineage-24.0-arm64/packaged-vendor-vintf-20261103-01/payload-type-inspection/com.android.nfcservices.apex",
+      "payload_type": "ext4",
+      "sha256": "d9ad53211234987cb167ccbd4f65b792f27ebb762d50e486bb2e530b72096ad8"
+    },
+    {
+      "package": "/srv/android/artifacts/lineage-24.0-arm64/packaged-vendor-vintf-20261103-01/factory/system/apex/com.android.npumanager.capex",
+      "inspected": "/srv/android/artifacts/lineage-24.0-arm64/packaged-vendor-vintf-20261103-01/payload-type-inspection/com.android.npumanager.apex",
+      "payload_type": "ext4",
+      "sha256": "20c0d54af77c80dc208b3be5d47fee39a02f0f0c35b03d061d7398cf1b6f21ec"
+    },
+    {
+      "package": "/srv/android/artifacts/lineage-24.0-arm64/packaged-vendor-vintf-20261103-01/factory/system/apex/com.android.ondevicepersonalization.capex",
+      "inspected": "/srv/android/artifacts/lineage-24.0-arm64/packaged-vendor-vintf-20261103-01/payload-type-inspection/com.android.ondevicepersonalization.apex",
+      "payload_type": "ext4",
+      "sha256": "ee434cdbb1b264493f84f336fe6e34a8dce3bcc813da43b009f3bb3f86f0e833"
+    },
+    {
+      "package": "/srv/android/artifacts/lineage-24.0-arm64/packaged-vendor-vintf-20261103-01/factory/system/apex/com.android.permission.capex",
+      "inspected": "/srv/android/artifacts/lineage-24.0-arm64/packaged-vendor-vintf-20261103-01/payload-type-inspection/com.android.permission.apex",
+      "payload_type": "ext4",
+      "sha256": "bdf7049b7018edeff6b0ec4e993745cab9a69208e6dde4fb6c13ac4ba766510f"
+    },
+    {
+      "package": "/srv/android/artifacts/lineage-24.0-arm64/packaged-vendor-vintf-20261103-01/factory/system/apex/com.android.profiling.capex",
+      "inspected": "/srv/android/artifacts/lineage-24.0-arm64/packaged-vendor-vintf-20261103-01/payload-type-inspection/com.android.profiling.apex",
+      "payload_type": "ext4",
+      "sha256": "346ea8174bcc046168bb0f4316ab249eb2944264eb721edebada44c083a82cdb"
+    },
+    {
+      "package": "/srv/android/artifacts/lineage-24.0-arm64/packaged-vendor-vintf-20261103-01/factory/system/apex/com.android.resolv.capex",
+      "inspected": "/srv/android/artifacts/lineage-24.0-arm64/packaged-vendor-vintf-20261103-01/payload-type-inspection/com.android.resolv.apex",
+      "payload_type": "ext4",
+      "sha256": "58505a76b57bc34afb73945810361c385d002e08885886da0d184249d2ace5d7"
+    },
+    {
+      "package": "/srv/android/artifacts/lineage-24.0-arm64/packaged-vendor-vintf-20261103-01/factory/system/apex/com.android.scheduling.capex",
+      "inspected": "/srv/android/artifacts/lineage-24.0-arm64/packaged-vendor-vintf-20261103-01/payload-type-inspection/com.android.scheduling.apex",
+      "payload_type": "ext4",
+      "sha256": "7f829a8f30353b1fba039f80cb7739bb829b71bbf9b7f93f26770b1740de7868"
+    },
+    {
+      "package": "/srv/android/artifacts/lineage-24.0-arm64/packaged-vendor-vintf-20261103-01/factory/system/apex/com.android.telephonycore.capex",
+      "inspected": "/srv/android/artifacts/lineage-24.0-arm64/packaged-vendor-vintf-20261103-01/payload-type-inspection/com.android.telephonycore.apex",
+      "payload_type": "ext4",
+      "sha256": "12d6b7b7d39e0826b3bab0d2b5d15726bb83f622a69dabc5b33886bfc839dfd4"
+    },
+    {
+      "package": "/srv/android/artifacts/lineage-24.0-arm64/packaged-vendor-vintf-20261103-01/factory/system/apex/com.android.tethering.capex",
+      "inspected": "/srv/android/artifacts/lineage-24.0-arm64/packaged-vendor-vintf-20261103-01/payload-type-inspection/com.android.tethering.apex",
+      "payload_type": "ext4",
+      "sha256": "8068526efa859e14f9ec633865641ba2f6f99d3ed582100e0331d111c9f37292"
+    },
+    {
+      "package": "/srv/android/artifacts/lineage-24.0-arm64/packaged-vendor-vintf-20261103-01/factory/system/apex/com.android.uprobestats.capex",
+      "inspected": "/srv/android/artifacts/lineage-24.0-arm64/packaged-vendor-vintf-20261103-01/payload-type-inspection/com.android.uprobestats.apex",
+      "payload_type": "ext4",
+      "sha256": "5da7b873f0145bb6881aae8a60d64cdd173d6104e41b1fcad1ee695782b46b78"
+    },
+    {
+      "package": "/srv/android/artifacts/lineage-24.0-arm64/packaged-vendor-vintf-20261103-01/factory/system/apex/com.android.uwb.capex",
+      "inspected": "/srv/android/artifacts/lineage-24.0-arm64/packaged-vendor-vintf-20261103-01/payload-type-inspection/com.android.uwb.apex",
+      "payload_type": "ext4",
+      "sha256": "04422613c41ce951917a80c1ff6be2879704d97f13dad2ffb9420f965340efdb"
+    },
+    {
+      "package": "/srv/android/artifacts/lineage-24.0-arm64/packaged-vendor-vintf-20261103-01/factory/system/apex/com.android.webapp.capex",
+      "inspected": "/srv/android/artifacts/lineage-24.0-arm64/packaged-vendor-vintf-20261103-01/payload-type-inspection/com.android.webapp.apex",
+      "payload_type": "ext4",
+      "sha256": "0dda8ef93c928c1cc344c8fefa8a2424aa2e138277cf8c693e3e4ef4bd9bf437"
+    },
+    {
+      "package": "/srv/android/artifacts/lineage-24.0-arm64/packaged-vendor-vintf-20261103-01/factory/system/apex/com.android.wifi.capex",
+      "inspected": "/srv/android/artifacts/lineage-24.0-arm64/packaged-vendor-vintf-20261103-01/payload-type-inspection/com.android.wifi.apex",
+      "payload_type": "ext4",
+      "sha256": "b93fec6dfd61d824c4eae3f7b29836ae898a4f5a840d214a7e78e19e2003f33b"
+    }
+  ],
+  "hardware_tested": false,
+  "all_payloads_ext4": true
+}

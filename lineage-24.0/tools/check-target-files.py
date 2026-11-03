@@ -38,6 +38,30 @@ def digest(path):
     return h.hexdigest()
 
 
+def check_ota_layout(archive, props):
+    """Physical non-A/B contract; default COW version alone is not enablement."""
+    info = dict(line.split('=', 1) for line in archive.read('META/misc_info.txt').decode().splitlines()
+                if '=' in line and not line.startswith('#'))
+    require(info.get('ab_update') != 'true', 'A/B OTA metadata on physical non-A/B device')
+    require(info.get('allow_non_ab') == 'true', 'Non-A/B OTA support is not enabled')
+    require(info.get('gta3xlwifi_preserve_recovery') == 'true', 'Recovery preservation is not declared')
+    require(not info.get('multistage_support'), 'Recovery-replacing multistage OTA is enabled')
+    for key in ['use_dynamic_partitions', 'virtual_ab', 'virtual_ab_retrofit']:
+        require(info.get(key) != 'true', 'Unsupported partition scheme: '+key)
+    for key in ['ro.build.ab_update', 'ro.virtual_ab.enabled', 'ro.boot.dynamic_partitions']:
+        require(props.get(key) != 'true', 'Unsupported partition property: '+key)
+    require('META/ab_partitions.txt' not in archive.namelist(), 'Unexpected A/B partition list')
+    require('META/dynamic_partitions_info.txt' not in archive.namelist(), 'Unexpected dynamic partition metadata')
+    for name in archive.namelist():
+        require(not name.endswith(('/install-recovery.sh', '/recovery-from-boot.p',
+                                   '/recovery-resource.dat', '/vendor_flash_recovery.rc')),
+                'Automatic recovery replacement resource: '+name)
+        require(name not in ('VENDOR/etc/recovery.img', 'SYSTEM/vendor/etc/recovery.img'),
+                'Automatic recovery replacement image: '+name)
+    return {'physical_non_ab': True, 'allow_non_ab': True, 'dynamic_partitions': False,
+            'recovery_replacement_resources_absent': True, 'recovery_preservation_declared': True}
+
+
 def main():
     p = argparse.ArgumentParser(description=__doc__)
     for name in ['top', 'archive', 'snapshot', 'source-audit', 'build-exit', 'report']:
@@ -55,6 +79,7 @@ def main():
     # Import the actual source-bound AOSP sparse image parser, rather than
     # trusting only the claimed expansion count in an unparsed sparse header.
     sys.path.insert(0, str(top/'build/make/tools/releasetools'))
+    sys.dont_write_bytecode = True
     import sparse_img
     result = {'scope': 'Diagnostic package geometry, input identity and selected ELF checks only',
               'archive': str(archive), 'archive_sha256': digest(archive),
@@ -78,6 +103,7 @@ def main():
         props = dict(line.split('=', 1) for line in z.read('SYSTEM/build.prop').decode().splitlines()
                      if '=' in line and not line.startswith('#'))
         require(props['ro.build.version.release'] in ('17', '17.0', '17.0.0'), 'Not Android17')
+        result['ota_layout'] = check_ota_layout(z, props)
         patch = datetime.date.fromisoformat(props['ro.build.version.security_patch'])
         require(2020 <= patch.year <= 2127, 'Unrepresentable boot security patch year')
         expected_word = (17 << 25) | ((patch.year-2000) << 4) | patch.month

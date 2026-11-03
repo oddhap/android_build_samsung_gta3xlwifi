@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <manifest>
   <remote name="gta3xlwifi-baseline" fetch="https://github.com/oddhap/" />
-  <project name="android_device_samsung_gta3xlwifi" path="device/samsung/gta3xlwifi" remote="gta3xlwifi-baseline" revision="9c13bd07a68ec7857d8cbd5e4df075fdd966e433" upstream="refs/heads/lineage-24.0-arm64" />
+  <project name="android_device_samsung_gta3xlwifi" path="device/samsung/gta3xlwifi" remote="gta3xlwifi-baseline" revision="2f649d06fec3318926c61aaf7a5fa3f40aa9f266" upstream="refs/heads/lineage-24.0-arm64" />
   <project name="android_kernel_samsung_gta3xlwifi" path="kernel/samsung/gta3xlwifi" remote="gta3xlwifi-baseline" revision="669b9584e678ce5865ed38e04c24639082d78de1" upstream="refs/heads/lineage-24.0" />
   <project name="android_vendor_samsung_gta3xlwifi" path="vendor/samsung/gta3xlwifi" remote="gta3xlwifi-baseline" revision="29e8615b2f4af1da936bd791af45cd9632c286f7" upstream="refs/heads/lineage-24.0" />
 </manifest>
