@@ -1,0 +1,21 @@
+{
+  "revision": "d9a614feddce2e8e68767df1d3421305d26a965b",
+  "files": {
+    "kernel/sys.c": {
+      "url": "https://android.googlesource.com/kernel/common/+/d9a614feddce2e8e68767df1d3421305d26a965b/kernel/sys.c?format=TEXT",
+      "sha256": "10ec0c8a32d2e0bef63c682e2c99e0955049007fc7b014a218a81d60ee161cce"
+    },
+    "include/linux/lsm_hook_defs.h": {
+      "url": "https://android.googlesource.com/kernel/common/+/d9a614feddce2e8e68767df1d3421305d26a965b/include/linux/lsm_hook_defs.h?format=TEXT",
+      "sha256": "d3600e4af1f45c98f2bc1a77906d66298c8a60ae1ede811410f0f84d438abae3"
+    },
+    "include/linux/security.h": {
+      "url": "https://android.googlesource.com/kernel/common/+/d9a614feddce2e8e68767df1d3421305d26a965b/include/linux/security.h?format=TEXT",
+      "sha256": "36299c2a09086b99dbc1450857a7720399be81f7ba61c21c35b37d4601786f92"
+    },
+    "security/security.c": {
+      "url": "https://android.googlesource.com/kernel/common/+/d9a614feddce2e8e68767df1d3421305d26a965b/security/security.c?format=TEXT",
+      "sha256": "c3fa4e402edd1eace57b4285c9b26f65590b68f4cd2fa08934e24c911ebfdade"
+    }
+  }
+}

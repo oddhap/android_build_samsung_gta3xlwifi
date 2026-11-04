@@ -284,3 +284,13 @@ The whole kernel and Linux fixtures pass with preserved config/export CRCs and
 complete tracked-source audits; Mac/Linux source hashes/results match. This is
 not live protocol or boot validation. Inotify, prlimit and perf mediation still
 need work; no experimental Image or weakened policy enters the ROM.
+
+
+The [prlimit candidate](experiments/kernel-prlimit-20261103-01/) completes the
+source path from syscall read/write flags through preserved DAC, a real initialized
+and registered LSM chain, and SELinux getrlimit/setrlimit mediation. The original
+hard-limit body is unchanged; native and compat syscall tables share the updated
+body. Whole-kernel compilation and Mac/Linux actual-body fixtures pass with full
+source audits, preserved config and identical original exports/CRCs. This remains
+an isolated diagnostic candidate. Enabled inotify and perf mediation, strict
+vendor policy, complete networking and Android17 installer/FBE remain gates.

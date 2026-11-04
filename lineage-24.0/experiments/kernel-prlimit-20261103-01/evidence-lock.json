@@ -1,0 +1,18 @@
+{
+  "server_artifact_directory": "/srv/android/artifacts/lineage-24.0-arm64/kernel-prlimit-build-20261103-01",
+  "sha256": {
+    "source-before.json": "1f1851d43dfac036c0b8ef8a87a3ece3086407b45b132ca8a95110463e888a8d",
+    "source-after.json": "3075d80f00aad5e031f5609bdc55a00b51f07e490e26922e63ce4cce2eed6a54",
+    "protected-before.json": "1d5603527bcdf025023a8392b72926259862f45f768b6f698e6dcfc347ecbf61",
+    "protected-after.json": "1d5603527bcdf025023a8392b72926259862f45f768b6f698e6dcfc347ecbf61",
+    "patch-provenance.json": "04a95ef069300fcaa16412caa94d9d3275fe11057ce6c8e71fca31cb6ad63e20",
+    "additional-patch-provenance.json": "653d0823a351944f9271f8713ee5d74a80835368f425c2cad30d7cfd24c3edd4",
+    "tracked-source.patch": "54daa6c8d772cfe78c2778dfb5ea9999516c9781110834744858780031bd3ec3",
+    "baseline-touch-complete.patch": "b36123955b7fc457c8df713dddcc371e68de92aa7709519c8778a6579d64a06c",
+    "host-prlimit-linux.json": "cdf1ec64be84e59c06ecd064fed15477ce7650ac6270f23ffece9033e7f993b8",
+    "build-review.json": "6a5d43e3651906a38ee3923fe1427d408132265ac5888303d9c7ceef5015e26b",
+    "Image": "d4fe970004cdef2c959259351c9e6adc66b0e56a570c92cb8760d1885bfb6409",
+    "kernel.config": "fac42e3bbf996bb9502bb1031c91b1950986ad3586d0f33cad869a6fd0b3acea"
+  },
+  "flash_ready": false
+}

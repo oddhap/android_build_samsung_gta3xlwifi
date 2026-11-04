@@ -1,0 +1,214 @@
+diff --git a/include/linux/lsm_hooks.h b/include/linux/lsm_hooks.h
+index 169f4be3ce565f043ae9a8b1151f653e9d33fc92..3841cd2b27ff6b92780d02158e1e8d06eb669ef2 100644
+--- a/include/linux/lsm_hooks.h
++++ b/include/linux/lsm_hooks.h
+@@ -605,6 +605,10 @@
+  *	Check permission before getting the ioprio value of @p.
+  *	@p contains the task_struct of process.
+  *	Return 0 if permission is granted.
++ * @task_prlimit:
++ *	Check get/set resource-limit access using stable caller/target credentials.
++ *	@flags contains LSM_PRLIMIT_READ and/or LSM_PRLIMIT_WRITE.
++ *	Return 0 if permitted, or a negative error. Caller holds RCU.
+  * @task_setrlimit:
+  *	Check permission before setting the resource limits of the current
+  *	process for @resource to @new_rlim.  The old resource limit values can
+@@ -1462,6 +1466,8 @@ union security_list_options {
+ 	int (*task_setnice)(struct task_struct *p, int nice);
+ 	int (*task_setioprio)(struct task_struct *p, int ioprio);
+ 	int (*task_getioprio)(struct task_struct *p);
++	int (*task_prlimit)(const struct cred *cred, const struct cred *tcred,
++			    unsigned int flags);
+ 	int (*task_setrlimit)(struct task_struct *p, unsigned int resource,
+ 				struct rlimit *new_rlim);
+ 	int (*task_setscheduler)(struct task_struct *p);
+@@ -1721,6 +1727,7 @@ struct security_hook_heads {
+ 	struct list_head task_setnice;
+ 	struct list_head task_setioprio;
+ 	struct list_head task_getioprio;
++	struct list_head task_prlimit;
+ 	struct list_head task_setrlimit;
+ 	struct list_head task_setscheduler;
+ 	struct list_head task_getscheduler;
+diff --git a/include/linux/security.h b/include/linux/security.h
+index 734b4cfc945e39c70494404739864a5c0b374420..1c3a04b37e5ead22c1fb67ba68397fd9c72868c9 100644
+--- a/include/linux/security.h
++++ b/include/linux/security.h
+@@ -32,6 +32,10 @@
+ struct linux_binprm;
+ struct cred;
+ struct rlimit;
++
++/* Flags for security_task_prlimit(), matching the modern kernel ABI. */
++#define LSM_PRLIMIT_READ 1
++#define LSM_PRLIMIT_WRITE 2
+ struct siginfo;
+ struct sem_array;
+ struct sembuf;
+@@ -338,6 +342,8 @@ void security_task_getsecid(struct task_struct *p, u32 *secid);
+ int security_task_setnice(struct task_struct *p, int nice);
+ int security_task_setioprio(struct task_struct *p, int ioprio);
+ int security_task_getioprio(struct task_struct *p);
++int security_task_prlimit(const struct cred *cred, const struct cred *tcred,
++			  unsigned int flags);
+ int security_task_setrlimit(struct task_struct *p, unsigned int resource,
+ 		struct rlimit *new_rlim);
+ int security_task_setscheduler(struct task_struct *p);
+@@ -935,6 +941,14 @@ static inline int security_task_getioprio(struct task_struct *p)
+ 	return 0;
+ }
+ 
++
++static inline int security_task_prlimit(const struct cred *cred,
++					const struct cred *tcred,
++					unsigned int flags)
++{
++	return 0;
++}
++
+ static inline int security_task_setrlimit(struct task_struct *p,
+ 					  unsigned int resource,
+ 					  struct rlimit *new_rlim)
+diff --git a/kernel/sys.c b/kernel/sys.c
+index d017476c070476ce4c1c1d8634fdfb8c0c75652c..3694bfeab30a129cef0bb076f5bf66d89ce2d4cc 100644
+--- a/kernel/sys.c
++++ b/kernel/sys.c
+@@ -1548,25 +1548,26 @@ out:
+ }
+ 
+ /* rcu lock must be held */
+-static int check_prlimit_permission(struct task_struct *task)
++static int check_prlimit_permission(struct task_struct *task,
++				    unsigned int flags)
+ {
+ 	const struct cred *cred = current_cred(), *tcred;
++	bool id_match;
+ 
+ 	if (current == task)
+ 		return 0;
+ 
+ 	tcred = __task_cred(task);
+-	if (uid_eq(cred->uid, tcred->euid) &&
+-	    uid_eq(cred->uid, tcred->suid) &&
+-	    uid_eq(cred->uid, tcred->uid)  &&
+-	    gid_eq(cred->gid, tcred->egid) &&
+-	    gid_eq(cred->gid, tcred->sgid) &&
+-	    gid_eq(cred->gid, tcred->gid))
+-		return 0;
+-	if (ns_capable(tcred->user_ns, CAP_SYS_RESOURCE))
+-		return 0;
++	id_match = (uid_eq(cred->uid, tcred->euid) &&
++		    uid_eq(cred->uid, tcred->suid) &&
++		    uid_eq(cred->uid, tcred->uid)  &&
++		    gid_eq(cred->gid, tcred->egid) &&
++		    gid_eq(cred->gid, tcred->sgid) &&
++		    gid_eq(cred->gid, tcred->gid));
++	if (!id_match && !ns_capable(tcred->user_ns, CAP_SYS_RESOURCE))
++		return -EPERM;
+ 
+-	return -EPERM;
++	return security_task_prlimit(cred, tcred, flags);
+ }
+ 
+ SYSCALL_DEFINE4(prlimit64, pid_t, pid, unsigned int, resource,
+@@ -1576,12 +1577,17 @@ SYSCALL_DEFINE4(prlimit64, pid_t, pid, unsigned int, resource,
+ 	struct rlimit64 old64, new64;
+ 	struct rlimit old, new;
+ 	struct task_struct *tsk;
++	unsigned int checkflags = 0;
+ 	int ret;
+ 
++	if (old_rlim)
++		checkflags |= LSM_PRLIMIT_READ;
++
+ 	if (new_rlim) {
+ 		if (copy_from_user(&new64, new_rlim, sizeof(new64)))
+ 			return -EFAULT;
+ 		rlim64_to_rlim(&new64, &new);
++		checkflags |= LSM_PRLIMIT_WRITE;
+ 	}
+ 
+ 	rcu_read_lock();
+@@ -1590,7 +1596,7 @@ SYSCALL_DEFINE4(prlimit64, pid_t, pid, unsigned int, resource,
+ 		rcu_read_unlock();
+ 		return -ESRCH;
+ 	}
+-	ret = check_prlimit_permission(tsk);
++	ret = check_prlimit_permission(tsk, checkflags);
+ 	if (ret) {
+ 		rcu_read_unlock();
+ 		return ret;
+diff --git a/security/security.c b/security/security.c
+index 1a46e7905a69756244685bcfd494a8234ce4ec64..6527ac375814f23a96c71813ec6b01805d375e59 100644
+--- a/security/security.c
++++ b/security/security.c
+@@ -983,6 +983,12 @@ int security_task_getioprio(struct task_struct *p)
+ 	return call_int_hook(task_getioprio, 0, p);
+ }
+ 
++int security_task_prlimit(const struct cred *cred, const struct cred *tcred,
++			  unsigned int flags)
++{
++	return call_int_hook(task_prlimit, 0, cred, tcred, flags);
++}
++
+ int security_task_setrlimit(struct task_struct *p, unsigned int resource,
+ 		struct rlimit *new_rlim)
+ {
+@@ -1733,6 +1739,8 @@ struct security_hook_heads security_hook_heads = {
+ 		LIST_HEAD_INIT(security_hook_heads.task_setioprio),
+ 	.task_getioprio =
+ 		LIST_HEAD_INIT(security_hook_heads.task_getioprio),
++	.task_prlimit =
++		LIST_HEAD_INIT(security_hook_heads.task_prlimit),
+ 	.task_setrlimit =
+ 		LIST_HEAD_INIT(security_hook_heads.task_setrlimit),
+ 	.task_setscheduler =
+diff --git a/security/selinux/hooks.c b/security/selinux/hooks.c
+index 85d6413e0f2f3364c6b0c5066e804d2b9e596658..12e6e527bffd6ab2fd9074066621017a8ea17c59 100644
+--- a/security/selinux/hooks.c
++++ b/security/selinux/hooks.c
+@@ -4052,6 +4052,22 @@ static int selinux_task_getioprio(struct task_struct *p)
+ 	return current_has_perm(p, PROCESS__GETSCHED);
+ }
+ 
++
++static int selinux_task_prlimit(const struct cred *cred, const struct cred *tcred,
++				unsigned int flags)
++{
++	u32 av = 0;
++
++	if (!flags)
++		return 0;
++	if (flags & LSM_PRLIMIT_WRITE)
++		av |= PROCESS__SETRLIMIT;
++	if (flags & LSM_PRLIMIT_READ)
++		av |= PROCESS__GETRLIMIT;
++	return avc_has_perm(cred_sid(cred), cred_sid(tcred),
++			    SECCLASS_PROCESS, av, NULL);
++}
++
+ static int selinux_task_setrlimit(struct task_struct *p, unsigned int resource,
+ 		struct rlimit *new_rlim)
+ {
+@@ -6405,6 +6421,7 @@ static struct security_hook_list selinux_hooks[] __kdp_ro = {
+ 	LSM_HOOK_INIT(task_setnice, selinux_task_setnice),
+ 	LSM_HOOK_INIT(task_setioprio, selinux_task_setioprio),
+ 	LSM_HOOK_INIT(task_getioprio, selinux_task_getioprio),
++	LSM_HOOK_INIT(task_prlimit, selinux_task_prlimit),
+ 	LSM_HOOK_INIT(task_setrlimit, selinux_task_setrlimit),
+ 	LSM_HOOK_INIT(task_setscheduler, selinux_task_setscheduler),
+ 	LSM_HOOK_INIT(task_getscheduler, selinux_task_getscheduler),
+diff --git a/security/selinux/include/classmap.h b/security/selinux/include/classmap.h
+index 4c8cfeef83c5a1289255ca2eeca85abb4eca714a..94fa371cabf6b85cd0068eb7b6987cccf413a7dd 100644
+--- a/security/selinux/include/classmap.h
++++ b/security/selinux/include/classmap.h
+@@ -29,7 +29,7 @@ struct security_class_mapping secclass_map[] = {
+ 	    "getattr", "setexec", "setfscreate", "noatsecure", "siginh",
+ 	    "setrlimit", "rlimitinh", "dyntransition", "setcurrent",
+ 	    "execmem", "execstack", "execheap", "setkeycreate",
+-	    "setsockcreate", NULL } },
++	    "setsockcreate", "getrlimit", NULL } },
+ 	{ "system",
+ 	  { "ipc_info", "syslog_read", "syslog_mod",
+ 	    "syslog_console", "module_request", "module_load", NULL } },

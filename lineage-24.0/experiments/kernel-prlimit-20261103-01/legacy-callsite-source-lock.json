@@ -1,0 +1,14 @@
+{
+  "source": "Exact standalone extsock source after-audit; unchanged original 4.4 files",
+  "server_source": "/srv/android/ports/lineage-24.0-arm64/kernel-extsock-20261103-01/src",
+  "sha256": {
+    "include/linux/lsm_hooks.h": "19f21fad756a34d5483b70ead525cbf987107f4227f5fcd3cace0a14bca672c2",
+    "include/linux/security.h": "cabefb36df481ff4c83df8ee78d2a61f3b3c67be0588b3d76830978fb1fa762b",
+    "security/security.c": "1c8d0b5c5bae98158772a9f8fa378f5948a9526adae42dbcb6dbb5aa3f8343c4",
+    "kernel/sys.c": "d7523a10596a7e9053ec3e1c6351301eb793ea0cdb287aa427a60153550f223e",
+    "kernel/compat.c": "5b3e5a94d6ec60c8c93381fdc1a807deda317875e4ed8845df916df2031b8bda",
+    "arch/arm64/include/asm/unistd32.h": "12f276e4dff909aa7a3a6f540ae7afb0af2fedaaeb234028c52626b9aca65cf6",
+    "include/uapi/asm-generic/unistd.h": "411dea334d87424cfeb6e4b5b0af7d6b97624b1bab87621e58f793a2115ea518"
+  },
+  "parent_selinux_classmap_sha256": "82bdb18c54a820f5ab628d98084d347e61a19a753f4dd8bc5e72d7767f9ab4d6"
+}

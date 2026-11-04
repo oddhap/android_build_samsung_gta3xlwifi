@@ -1,0 +1,25 @@
+{
+  "passed": true,
+  "scope": "Actual prlimit DAC, LSM dispatch, SELinux and syscall bodies with fixtures.\n\nCredential/RCU/list/AVC/task/user-memory backends are sequential fixtures. ABI\ncallsite assertions show native/compat share the syscall; no ARM userspace,\nreal concurrency, actual resource updates or hardware execution is performed.\n",
+  "result": "PASS: 16384 DAC/LSM/SELinux and 256 actual syscall fixture scenarios; initialized/registered real dispatch chain",
+  "existing_class_permission_ids_preserved": true,
+  "original_do_prlimit_body_unchanged": true,
+  "native_compat_share_sys_prlimit64": true,
+  "initialized_and_registered_hook_chain_fixture": true,
+  "runner_sha256": "e5e6fd57795c2e95cfbb4873816493f0829987ce1dd59c15e85a635253d30a30",
+  "inputs_sha256": {
+    "work/kernel-prlimit24/kernel/sys.c": "e757f77a4c954405ec8e04b49f8ad7d3b1af4c78eb63a0e869b04645b182bbcf",
+    "work/kernel-prlimit24/include/linux/security.h": "fc0a158a19dd243af9bebea40a8a7b3883cc2a40cdaab2c1c3cd4817cc8647a9",
+    "work/kernel-prlimit24/include/linux/lsm_hooks.h": "18cb0003fee0b25505e6b5b895a9b867290d41b10e5f61520e87c77005121612",
+    "work/kernel-prlimit24/security/security.c": "21cafb0b1862d46d60773c04495ab8ad40ddc94342cae55d304fc12d1136e174",
+    "work/kernel-prlimit24/security/selinux/hooks.c": "c5bd19bbb342ab0f4cc6c23a3c0d96761546b940a7aab19da4bf812cdb39a8d5",
+    "work/kernel-prlimit24/security/selinux/include/classmap.h": "63fd2ba6c725cab3c66fde77593ef80f84a6aa371be4f4562889248623f69990",
+    "work/kernel-prlimit24/arch/arm64/include/asm/unistd32.h": "12f276e4dff909aa7a3a6f540ae7afb0af2fedaaeb234028c52626b9aca65cf6",
+    "work/kernel-prlimit24/include/uapi/asm-generic/unistd.h": "411dea334d87424cfeb6e4b5b0af7d6b97624b1bab87621e58f793a2115ea518",
+    "reference/kernel-prlimit24-base/kernel/sys.c": "d7523a10596a7e9053ec3e1c6351301eb793ea0cdb287aa427a60153550f223e",
+    "reference/kernel-prlimit24-base/security/selinux/include/classmap.h": "82bdb18c54a820f5ab628d98084d347e61a19a753f4dd8bc5e72d7767f9ab4d6",
+    "reference/kernel-android17-prlimit/kernel/sys.c": "10ec0c8a32d2e0bef63c682e2c99e0955049007fc7b014a218a81d60ee161cce"
+  },
+  "hardware_tested": false,
+  "actual_resource_updates_or_live_concurrency_tested": false
+}

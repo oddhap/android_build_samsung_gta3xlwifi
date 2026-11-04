@@ -1,0 +1,50 @@
+{
+  "scope": "Isolated real prlimit LSM dispatch and syscall read/write mediation; not Android apply-port snapshot",
+  "original_kernel_revision": "669b9584e678ce5865ed38e04c24639082d78de1",
+  "prerequisites": [
+    "qtaguid-persistent-20261022-02",
+    "kernel-policy-reader-20261023-01",
+    "kernel-functionfs-20261023-01",
+    "kernel-netlink-20261101-01",
+    "kernel-mmap-20261103-01",
+    "kernel-xperm-generation-20261103-01",
+    "kernel-netlink-snapshot-20261103-01",
+    "kernel-extsock-20261103-01"
+  ],
+  "patch_sha256": "7a062abffcf757c84ef5e6aed297a4ec7e2ab39d7197ab995ab7471299c11f25",
+  "policycap9_load_rejection_retained": true,
+  "files": [
+    {
+      "path": "include/linux/lsm_hooks.h",
+      "before_sha256": "19f21fad756a34d5483b70ead525cbf987107f4227f5fcd3cace0a14bca672c2",
+      "candidate_sha256": "18cb0003fee0b25505e6b5b895a9b867290d41b10e5f61520e87c77005121612"
+    },
+    {
+      "path": "include/linux/security.h",
+      "before_sha256": "cabefb36df481ff4c83df8ee78d2a61f3b3c67be0588b3d76830978fb1fa762b",
+      "candidate_sha256": "fc0a158a19dd243af9bebea40a8a7b3883cc2a40cdaab2c1c3cd4817cc8647a9"
+    },
+    {
+      "path": "kernel/sys.c",
+      "before_sha256": "d7523a10596a7e9053ec3e1c6351301eb793ea0cdb287aa427a60153550f223e",
+      "candidate_sha256": "e757f77a4c954405ec8e04b49f8ad7d3b1af4c78eb63a0e869b04645b182bbcf"
+    },
+    {
+      "path": "security/security.c",
+      "before_sha256": "1c8d0b5c5bae98158772a9f8fa378f5948a9526adae42dbcb6dbb5aa3f8343c4",
+      "candidate_sha256": "21cafb0b1862d46d60773c04495ab8ad40ddc94342cae55d304fc12d1136e174"
+    },
+    {
+      "path": "security/selinux/hooks.c",
+      "before_sha256": "04c9c572d504fb834a32197d23eb4825f68de17608ec5f97782b7cc2a19e862e",
+      "candidate_sha256": "c5bd19bbb342ab0f4cc6c23a3c0d96761546b940a7aab19da4bf812cdb39a8d5"
+    },
+    {
+      "path": "security/selinux/include/classmap.h",
+      "before_sha256": "82bdb18c54a820f5ab628d98084d347e61a19a753f4dd8bc5e72d7767f9ab4d6",
+      "candidate_sha256": "63fd2ba6c725cab3c66fde77593ef80f84a6aa371be4f4562889248623f69990"
+    }
+  ],
+  "Image_promoted": false,
+  "hardware_tested": false
+}

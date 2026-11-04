@@ -1,0 +1,34 @@
+{
+  "scope": "Whole isolated kernel build and static source/config/export checks; no live prlimit, concurrency or whole-policy approval",
+  "build_exit": 0,
+  "host_checks_exit": 0,
+  "completed_utc": "2026-11-03 18:54:51 UTC",
+  "Image_sha256": "d4fe970004cdef2c959259351c9e6adc66b0e56a570c92cb8760d1885bfb6409",
+  "config_sha256": "fac42e3bbf996bb9502bb1031c91b1950986ad3586d0f33cad869a6fd0b3acea",
+  "module_exports": {
+    "original_count": 8408,
+    "candidate_count": 8408,
+    "added": [],
+    "removed": [],
+    "changed_crc": {},
+    "original_sha256": "f980d564cb5960789a1cd6dfe52d873a288526d7eb902697366061df50d941c3",
+    "candidate_sha256": "f980d564cb5960789a1cd6dfe52d873a288526d7eb902697366061df50d941c3"
+  },
+  "source_files_audited": 60331,
+  "untracked_source_sha256": {
+    "include/uapi/linux/netfilter/xt_qtaguid_sock.h": "9096f41f971a71018f49f155d3577204678e7298a0e44728e644361332f98387",
+    "security/samsung/defex_lsm/defex_packed_rules.bin": "7db83fdfc7103b0e89e1bb5b660a3e98400881cfe4fee472c9ecd417da2c555f",
+    "security/samsung/defex_lsm/defex_packed_rules.inc": "07e55d3895fb36da59e56538ff50803e8f6b22279450580384fe769544bcdafb"
+  },
+  "qtaguid_header_before_after_matches": true,
+  "preserved_firmware_still_matches_build_inputs": true,
+  "compile_macro_flags": [
+    "-DANDROID_VERSION=110000"
+  ],
+  "build_script_sha256": "f1a5dd937a1b81b9543694429835b0fd770fa31f29e0ee0dcea67f473c2de719",
+  "post_host_script_sha256": "0b5f57c3ae5b5c7324f7b6737952b396458cb96f9e4acad07f9e92582129d93b",
+  "audit_script_sha256": "7667bbea1ceb9e93f5ea8306f53a2511e2e2e195bede38e2825eb780b824ce72",
+  "policycap9_rejection_retained": true,
+  "Image_promoted": false,
+  "flash_ready": false
+}
