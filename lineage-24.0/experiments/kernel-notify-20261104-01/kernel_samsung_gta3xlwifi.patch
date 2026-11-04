@@ -1,0 +1,214 @@
+diff --git a/fs/notify/dnotify/dnotify.c b/fs/notify/dnotify/dnotify.c
+index 6faaf710e563ee184e20204f80c63c2157cbb186..308d10f455931c07e3c59dc5190bf6b2261846f9 100644
+--- a/fs/notify/dnotify/dnotify.c
++++ b/fs/notify/dnotify/dnotify.c
+@@ -25,6 +25,7 @@
+ #include <linux/slab.h>
+ #include <linux/fdtable.h>
+ #include <linux/fsnotify_backend.h>
++#include <linux/security.h>
+ 
+ int dir_notify_enable __read_mostly = 1;
+ 
+@@ -289,6 +290,11 @@ int fcntl_dirnotify(int fd, struct file *filp, unsigned long arg)
+ 		goto out_err;
+ 	}
+ 
++	mask = convert_arg(arg);
++	error = security_path_notify(&filp->f_path, mask, FSNOTIFY_OBJ_TYPE_INODE);
++	if (error)
++		goto out_err;
++
+ 	/* expect most fcntl to add new rather than augment old */
+ 	dn = kmem_cache_alloc(dnotify_struct_cache, GFP_KERNEL);
+ 	if (!dn) {
+@@ -303,9 +309,6 @@ int fcntl_dirnotify(int fd, struct file *filp, unsigned long arg)
+ 		goto out_err;
+ 	}
+ 
+-	/* convert the userspace DN_* "arg" to the internal FS_* defines in fsnotify */
+-	mask = convert_arg(arg);
+-
+ 	/* set up the new_fsn_mark and new_dn_mark */
+ 	new_fsn_mark = &new_dn_mark->fsn_mark;
+ 	fsnotify_init_mark(new_fsn_mark, dnotify_free_mark);
+diff --git a/fs/notify/inotify/inotify_user.c b/fs/notify/inotify/inotify_user.c
+index 4c5b43d15e6e06d8ef9137f138809ee16280cc43..3762c622f567ebc40b9ac612da89121e18bc87e4 100644
+--- a/fs/notify/inotify/inotify_user.c
++++ b/fs/notify/inotify/inotify_user.c
+@@ -25,6 +25,7 @@
+ #include <linux/file.h>
+ #include <linux/fs.h> /* struct inode */
+ #include <linux/fsnotify_backend.h>
++#include <linux/security.h>
+ #include <linux/idr.h>
+ #include <linux/init.h> /* fs_initcall */
+ #include <linux/inotify.h>
+@@ -757,7 +758,11 @@ SYSCALL_DEFINE3(inotify_add_watch, int, fd, const char __user *, pathname,
+ 	group = f.file->private_data;
+ 
+ 	/* create/update an inode mark */
+-	ret = inotify_update_watch(group, inode, mask);
++	/* Authorize the actual mark target after stacked-path canonicalization. */
++	ret = security_path_notify(canonical_path, inotify_arg_to_mask(mask),
++				   FSNOTIFY_OBJ_TYPE_INODE);
++	if (!ret)
++		ret = inotify_update_watch(group, inode, mask);
+ 	path_put(canonical_path);
+ fput_and_out:
+ 	fdput(f);
+diff --git a/include/linux/fsnotify_backend.h b/include/linux/fsnotify_backend.h
+index 850d8822e8ff8be3fb53b57801c87c90f73b4589..3d3ec5263d696e7083510d3f13d6755675cdfaf0 100644
+--- a/include/linux/fsnotify_backend.h
++++ b/include/linux/fsnotify_backend.h
+@@ -17,6 +17,12 @@
+ #include <linux/types.h>
+ #include <linux/atomic.h>
+ 
++/* Only inode marks are mediated by this legacy profile. */
++enum fsnotify_obj_type {
++	FSNOTIFY_OBJ_TYPE_ANY = -1,
++	FSNOTIFY_OBJ_TYPE_INODE,
++};
++
+ /*
+  * IN_* from inotfy.h lines up EXACTLY with FS_*, this is so we can easily
+  * convert between them.  dnotify only needs conversion at watch creation
+diff --git a/include/linux/lsm_hooks.h b/include/linux/lsm_hooks.h
+index 3841cd2b27ff6b92780d02158e1e8d06eb669ef2..0c12ed7d31dc349821b7bb5ac8892185b8cc760f 100644
+--- a/include/linux/lsm_hooks.h
++++ b/include/linux/lsm_hooks.h
+@@ -155,6 +155,9 @@
+  *
+  * Security hooks for inode operations.
+  *
++ * @path_notify:
++ *	Mediate inode notification marks using the event mask and target path.
++ *	This hook is independent of CONFIG_SECURITY_PATH.
+  * @inode_alloc_security:
+  *	Allocate and attach a security structure to @inode->i_security.  The
+  *	i_security field is initialized to NULL when the inode structure is
+@@ -1380,6 +1383,7 @@ union security_list_options {
+ 	int (*path_chroot)(struct path *path);
+ #endif
+ 
++	int (*path_notify)(const struct path *path, u64 mask, unsigned int obj_type);
+ 	int (*inode_alloc_security)(struct inode *inode);
+ 	void (*inode_free_security)(struct inode *inode);
+ 	int (*inode_init_security)(struct inode *inode, struct inode *dir,
+@@ -1668,6 +1672,7 @@ struct security_hook_heads {
+ 	struct list_head path_chown;
+ 	struct list_head path_chroot;
+ #endif
++	struct list_head path_notify;
+ 	struct list_head inode_alloc_security;
+ 	struct list_head inode_free_security;
+ 	struct list_head inode_init_security;
+diff --git a/include/linux/security.h b/include/linux/security.h
+index 1c3a04b37e5ead22c1fb67ba68397fd9c72868c9..11f73b3d1d57aa5a996cb701e386d9ca1b9ad5a8 100644
+--- a/include/linux/security.h
++++ b/include/linux/security.h
+@@ -267,6 +267,7 @@ int security_dentry_init_security(struct dentry *dentry, int mode,
+ 					struct qstr *name, void **ctx,
+ 					u32 *ctxlen);
+ 
++int security_path_notify(const struct path *path, u64 mask, unsigned int obj_type);
+ int security_inode_alloc(struct inode *inode);
+ void security_inode_free(struct inode *inode);
+ int security_inode_init_security(struct inode *inode, struct inode *dir,
+@@ -596,6 +597,13 @@ static inline int security_sb_parse_opts_str(char *options, struct security_mnt_
+ 	return 0;
+ }
+ 
++
++static inline int security_path_notify(const struct path *path, u64 mask,
++				unsigned int obj_type)
++{
++	return 0;
++}
++
+ static inline int security_inode_alloc(struct inode *inode)
+ {
+ 	return 0;
+diff --git a/security/security.c b/security/security.c
+index 6527ac375814f23a96c71813ec6b01805d375e59..21ecc54e997cd61edcf4bf36cba71a55435dfeee 100644
+--- a/security/security.c
++++ b/security/security.c
+@@ -350,6 +350,11 @@ int security_sb_parse_opts_str(char *options, struct security_mnt_opts *opts)
+ }
+ EXPORT_SYMBOL(security_sb_parse_opts_str);
+ 
++int security_path_notify(const struct path *path, u64 mask, unsigned int obj_type)
++{
++	return call_int_hook(path_notify, 0, path, mask, obj_type);
++}
++
+ int security_inode_alloc(struct inode *inode)
+ {
+ 	inode->i_security = NULL;
+@@ -1643,6 +1648,8 @@ struct security_hook_heads security_hook_heads = {
+ 	.path_chown =	LIST_HEAD_INIT(security_hook_heads.path_chown),
+ 	.path_chroot =	LIST_HEAD_INIT(security_hook_heads.path_chroot),
+ #endif
++	.path_notify =
++		LIST_HEAD_INIT(security_hook_heads.path_notify),
+ 	.inode_alloc_security =
+ 		LIST_HEAD_INIT(security_hook_heads.inode_alloc_security),
+ 	.inode_free_security =
+diff --git a/security/selinux/hooks.c b/security/selinux/hooks.c
+index 12e6e527bffd6ab2fd9074066621017a8ea17c59..0416b2aac1e310736aad333631957d4f4b226414 100644
+--- a/security/selinux/hooks.c
++++ b/security/selinux/hooks.c
+@@ -43,6 +43,7 @@
+ #include <linux/syscalls.h>
+ #include <linux/dcache.h>
+ #include <linux/file.h>
++#include <linux/fsnotify_backend.h>
+ #include <linux/fdtable.h>
+ #include <linux/namei.h>
+ #include <linux/mount.h>
+@@ -3236,6 +3237,23 @@ static int selinux_inode_setattr(struct dentry *dentry, struct iattr *iattr)
+ 	return dentry_has_perm(cred, dentry, av);
+ }
+ 
++static int selinux_path_notify(const struct path *path, u64 mask,
++			       unsigned int obj_type)
++{
++	u32 perm = FILE__WATCH;
++
++#if defined(CONFIG_FANOTIFY) || defined(CONFIG_FANOTIFY_MODULE)
++#error Fanotify mount/superblock/permission mediation is not backported.
++#endif
++	/* Do not pretend unsupported mark kinds or permission events work. */
++	if (obj_type != FSNOTIFY_OBJ_TYPE_INODE ||
++	    (mask & ALL_FSNOTIFY_PERM_EVENTS))
++		return -EOPNOTSUPP;
++	if (mask & (FS_ACCESS | FS_CLOSE_NOWRITE))
++		perm |= FILE__WATCH_READS;
++	return path_has_perm(current_cred(), path, perm);
++}
++
+ static int selinux_inode_getattr(const struct path *path)
+ {
+ 	return path_has_perm(current_cred(), path, FILE__GETATTR);
+@@ -6379,6 +6397,7 @@ static struct security_hook_list selinux_hooks[] __kdp_ro = {
+ 	LSM_HOOK_INIT(inode_follow_link, selinux_inode_follow_link),
+ 	LSM_HOOK_INIT(inode_permission, selinux_inode_permission),
+ 	LSM_HOOK_INIT(inode_setattr, selinux_inode_setattr),
++	LSM_HOOK_INIT(path_notify, selinux_path_notify),
+ 	LSM_HOOK_INIT(inode_getattr, selinux_inode_getattr),
+ 	LSM_HOOK_INIT(inode_setxattr, selinux_inode_setxattr),
+ 	LSM_HOOK_INIT(inode_post_setxattr, selinux_inode_post_setxattr),
+diff --git a/security/selinux/include/classmap.h b/security/selinux/include/classmap.h
+index 94fa371cabf6b85cd0068eb7b6987cccf413a7dd..abdaa2bb02ca794e8447b7cd37a334a26e7e5a71 100644
+--- a/security/selinux/include/classmap.h
++++ b/security/selinux/include/classmap.h
+@@ -3,7 +3,7 @@
+ 
+ #define COMMON_FILE_PERMS COMMON_FILE_SOCK_PERMS, "unlink", "link", \
+     "rename", "execute", "quotaon", "mounton", "audit_access", \
+-    "open", "execmod"
++    "open", "execmod", "watch", "watch_reads"
+ 
+ #define COMMON_SOCK_PERMS COMMON_FILE_SOCK_PERMS, "bind", "connect", \
+     "listen", "accept", "getopt", "setopt", "shutdown", "recvfrom",  \

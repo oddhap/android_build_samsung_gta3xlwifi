@@ -1,0 +1,17 @@
+{
+  "revision": "d9a614feddce2e8e68767df1d3421305d26a965b",
+  "files": {
+    "fs/notify/inotify/inotify_user.c": {
+      "url": "https://android.googlesource.com/kernel/common/+/d9a614feddce2e8e68767df1d3421305d26a965b/fs/notify/inotify/inotify_user.c?format=TEXT",
+      "sha256": "f2a91deef433b1e7d3bcb1ee40f87722fd651f2a00078d043af9f65c181ddc82"
+    },
+    "fs/notify/dnotify/dnotify.c": {
+      "url": "https://android.googlesource.com/kernel/common/+/d9a614feddce2e8e68767df1d3421305d26a965b/fs/notify/dnotify/dnotify.c?format=TEXT",
+      "sha256": "62f7ffadef650d118f2368d099af16ab31dcf22af87c1348a98d9ec40b551ef6"
+    },
+    "include/linux/fsnotify_backend.h": {
+      "url": "https://android.googlesource.com/kernel/common/+/d9a614feddce2e8e68767df1d3421305d26a965b/include/linux/fsnotify_backend.h?format=TEXT",
+      "sha256": "2145e02a34582e1597fb3920eb94c478df84ce4010efa5ec6bc72b7760aa5810"
+    }
+  }
+}

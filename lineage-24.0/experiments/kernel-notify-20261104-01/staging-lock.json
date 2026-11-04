@@ -1,0 +1,63 @@
+{
+  "scope": "Isolated inode-watch mediation for enabled inotify and dnotify; FANOTIFY remains disabled",
+  "original_kernel_revision": "669b9584e678ce5865ed38e04c24639082d78de1",
+  "prerequisites": [
+    "qtaguid-persistent-20261022-02",
+    "kernel-policy-reader-20261023-01",
+    "kernel-functionfs-20261023-01",
+    "kernel-netlink-20261101-01",
+    "kernel-mmap-20261103-01",
+    "kernel-xperm-generation-20261103-01",
+    "kernel-netlink-snapshot-20261103-01",
+    "kernel-extsock-20261103-01",
+    "kernel-prlimit-20261103-01"
+  ],
+  "patch_sha256": "0f2840c15f468e8b8bfbb4c218c06b1497e553e797903e9a43d94418cefccf6f",
+  "policycap9_load_rejection_retained": true,
+  "class_ids_unchanged": true,
+  "permission_bit_positions_change": true,
+  "files": [
+    {
+      "path": "fs/notify/dnotify/dnotify.c",
+      "before_sha256": "3828c98fc0f54f0fa33220a2b53de8dbbe70777a71497885e5dd10b033f5e411",
+      "candidate_sha256": "6f5955a2577d8a1b6f8c8153b1d9dbbd00956a5924225c44655277008211f7b4"
+    },
+    {
+      "path": "fs/notify/inotify/inotify_user.c",
+      "before_sha256": "4665488f576f8b62ee45ed80b5e0bd01a81998cab8d11f6b7d6a81182b82e387",
+      "candidate_sha256": "ade737a2ff06de8e638ec8d11dd5b260e9817e4f8488f82d450ff57fbdb37349"
+    },
+    {
+      "path": "include/linux/fsnotify_backend.h",
+      "before_sha256": "9299abf5184b889435193927b5335a2894f717e7c1a9d0d1afdb4c77dea25f2f",
+      "candidate_sha256": "46679e58417f0114fd1fb86b1bc5977627f3ff99892ff7a865245db0f51c372a"
+    },
+    {
+      "path": "include/linux/lsm_hooks.h",
+      "before_sha256": "18cb0003fee0b25505e6b5b895a9b867290d41b10e5f61520e87c77005121612",
+      "candidate_sha256": "4d6c3068b3f50c089b1ae680d8c5898f128eb2df249a5e6aadd8be3347b48216"
+    },
+    {
+      "path": "include/linux/security.h",
+      "before_sha256": "fc0a158a19dd243af9bebea40a8a7b3883cc2a40cdaab2c1c3cd4817cc8647a9",
+      "candidate_sha256": "8368d4d2782c991ab07fc8f1a3dbf0c512dd7881839a88379ac61ebc4707a309"
+    },
+    {
+      "path": "security/security.c",
+      "before_sha256": "21cafb0b1862d46d60773c04495ab8ad40ddc94342cae55d304fc12d1136e174",
+      "candidate_sha256": "e9242f3fde07e09f7244d81c68c1a1168faaa27a4b233d0ff9249ccc67ae5d3b"
+    },
+    {
+      "path": "security/selinux/hooks.c",
+      "before_sha256": "c5bd19bbb342ab0f4cc6c23a3c0d96761546b940a7aab19da4bf812cdb39a8d5",
+      "candidate_sha256": "ae8a23db13fbcccf2987040a9adf5cfca7f9d32f053ad96eee6030c80fc1cb72"
+    },
+    {
+      "path": "security/selinux/include/classmap.h",
+      "before_sha256": "63fd2ba6c725cab3c66fde77593ef80f84a6aa371be4f4562889248623f69990",
+      "candidate_sha256": "2ec98cc1701dc10025046838cef75e6c14caa203649be8b92a42c79b8d3eb2b4"
+    }
+  ],
+  "Image_promoted": false,
+  "hardware_tested": false
+}

@@ -294,3 +294,20 @@ body. Whole-kernel compilation and Mac/Linux actual-body fixtures pass with full
 source audits, preserved config and identical original exports/CRCs. This remains
 an isolated diagnostic candidate. Enabled inotify and perf mediation, strict
 vendor policy, complete networking and Android17 installer/FBE remain gates.
+
+
+## November 4: enabled inode-watch mediation
+
+The [notify candidate](experiments/kernel-notify-20261104-01/) mediates both enabled
+inotify and dnotify paths through a real LSM/SELinux watch/watch_reads check.
+Inotify authorizes its canonical mark target and preserves path/fd release on
+errors; dnotify authorizes before allocation and preserves watch removal. The
+inode-only profile rejects unsupported mark/permission modes, and enabling
+FANOTIFY stops compilation until those paths are implemented. Common file bits
+move; the complete kernel/header rebuild and export checks are recorded.
+
+The whole kernel and Linux fixtures pass with full source audits and preserved
+config/export CRCs. Mac/Linux fixture sources, runner and results match. The
+complete inotify syscall and dnotify authorization prefix use fixture backends;
+no live watch/boot or full mark-lifecycle validation is claimed. Perf, strict
+vendor policy, complete networking and Android17 FBE/installer remain gates.

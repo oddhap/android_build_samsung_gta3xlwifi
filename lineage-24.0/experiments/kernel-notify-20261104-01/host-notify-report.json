@@ -1,0 +1,38 @@
+{
+  "passed": true,
+  "scope": "Actual notify SELinux/LSM bodies, full inotify syscall and dnotify prefix.\n\nCredential, list/dispatch mechanics, inode/path, user lookup, fd/reference and\nmark backends are sequential fixtures. Dnotify stops at its first allocation;\nmark lifecycle, real watches, concurrency and hardware are not executed.\n",
+  "result": "PASS: 2359296 inode-watch permission, 2304 full inotify syscall/canonical-path/refcount, 3072 dnotify authorization-prefix scenarios",
+  "class_ids_unchanged": true,
+  "permission_bit_positions_change": true,
+  "original_permission_name_order_preserved": true,
+  "changed_permission_tables": [
+    "file",
+    "dir",
+    "lnk_file",
+    "chr_file",
+    "blk_file",
+    "sock_file",
+    "fifo_file"
+  ],
+  "original_inode_DAC_and_mask_conversion_bodies_preserved": true,
+  "FANOTIFY_enabled_build_rejected": true,
+  "runner_sha256": "dfbcbe9e8b8c6712336cace3bfac56c4e0ebc5d5572a1735f23a156bccf8c726",
+  "inputs_sha256": {
+    "work/kernel-notify24/fs/notify/inotify/inotify_user.c": "ade737a2ff06de8e638ec8d11dd5b260e9817e4f8488f82d450ff57fbdb37349",
+    "work/kernel-notify24/fs/notify/dnotify/dnotify.c": "6f5955a2577d8a1b6f8c8153b1d9dbbd00956a5924225c44655277008211f7b4",
+    "work/kernel-notify24/include/linux/fsnotify_backend.h": "46679e58417f0114fd1fb86b1bc5977627f3ff99892ff7a865245db0f51c372a",
+    "work/kernel-notify24/include/linux/security.h": "8368d4d2782c991ab07fc8f1a3dbf0c512dd7881839a88379ac61ebc4707a309",
+    "work/kernel-notify24/include/linux/lsm_hooks.h": "4d6c3068b3f50c089b1ae680d8c5898f128eb2df249a5e6aadd8be3347b48216",
+    "work/kernel-notify24/security/security.c": "e9242f3fde07e09f7244d81c68c1a1168faaa27a4b233d0ff9249ccc67ae5d3b",
+    "work/kernel-notify24/security/selinux/hooks.c": "ae8a23db13fbcccf2987040a9adf5cfca7f9d32f053ad96eee6030c80fc1cb72",
+    "work/kernel-notify24/security/selinux/include/classmap.h": "2ec98cc1701dc10025046838cef75e6c14caa203649be8b92a42c79b8d3eb2b4",
+    "work/kernel-notify24/include/uapi/linux/inotify.h": "053189435321341f37cc8260dbbbab622a66e1f50c8c9b3917c3347728f9fef7",
+    "work/kernel-notify24/include/uapi/linux/fcntl.h": "4d4115dd42c2b43640f19c875bfbcc14f7c5fdee6fbd8b231f0ca424c04d2eb1",
+    "reference/kernel-notify24-base/fs/notify/inotify/inotify_user.c": "4665488f576f8b62ee45ed80b5e0bd01a81998cab8d11f6b7d6a81182b82e387",
+    "reference/kernel-notify24-base/fs/notify/dnotify/dnotify.c": "3828c98fc0f54f0fa33220a2b53de8dbbe70777a71497885e5dd10b033f5e411",
+    "reference/kernel-notify24-base/security/selinux/include/classmap.h": "63fd2ba6c725cab3c66fde77593ef80f84a6aa371be4f4562889248623f69990",
+    "reference/kernel-notify24-inotify.h": "b64fd74af0d00bbb51a2b33b83053fab9221dc862bd01408392acaecdce8fa6b"
+  },
+  "hardware_tested": false,
+  "live_watch_or_mark_lifecycle_validated": false
+}

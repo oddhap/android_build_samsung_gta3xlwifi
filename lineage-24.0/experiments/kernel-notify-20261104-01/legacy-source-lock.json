@@ -1,0 +1,13 @@
+{
+  "server_source": "/srv/android/ports/lineage-24.0-arm64/kernel-prlimit-20261103-01/src",
+  "audit_sha256": "3075d80f00aad5e031f5609bdc55a00b51f07e490e26922e63ce4cce2eed6a54",
+  "sha256": {
+    "fs/notify/inotify/inotify_user.c": "4665488f576f8b62ee45ed80b5e0bd01a81998cab8d11f6b7d6a81182b82e387",
+    "fs/notify/dnotify/dnotify.c": "3828c98fc0f54f0fa33220a2b53de8dbbe70777a71497885e5dd10b033f5e411",
+    "include/linux/fsnotify_backend.h": "9299abf5184b889435193927b5335a2894f717e7c1a9d0d1afdb4c77dea25f2f",
+    "include/uapi/linux/inotify.h": "053189435321341f37cc8260dbbbab622a66e1f50c8c9b3917c3347728f9fef7",
+    "include/uapi/linux/fcntl.h": "4d4115dd42c2b43640f19c875bfbcc14f7c5fdee6fbd8b231f0ca424c04d2eb1"
+  },
+  "parent_selinux_classmap_sha256": "63fd2ba6c725cab3c66fde77593ef80f84a6aa371be4f4562889248623f69990",
+  "inotify_constant_header_sha256": "b64fd74af0d00bbb51a2b33b83053fab9221dc862bd01408392acaecdce8fa6b"
+}
