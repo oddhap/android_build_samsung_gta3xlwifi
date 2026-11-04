@@ -1,0 +1,503 @@
+{
+  "passed": false,
+  "actual_kernel_execution": false,
+  "whole_policy_load_proven": false,
+  "selinux_enforcement_proven": false,
+  "checked_at_utc": "2026-11-04T19:40:20.485378+00:00",
+  "modern_xperm_record_compatible": false,
+  "controls_passed": true,
+  "cases": [
+    {
+      "name": "control-normal-ioctl",
+      "return": 0,
+      "consumed": 42,
+      "record_bytes": 42,
+      "parsed_kind": 1,
+      "parsed_driver": 112,
+      "compat_mode": 0,
+      "inserted": 1
+    },
+    {
+      "name": "control-native-ioctl-driver",
+      "return": 0,
+      "consumed": 42,
+      "record_bytes": 42,
+      "parsed_kind": 2,
+      "parsed_driver": 0,
+      "compat_mode": 0,
+      "inserted": 1
+    },
+    {
+      "name": "control-android-m-ioctl",
+      "return": 0,
+      "consumed": 41,
+      "record_bytes": 41,
+      "parsed_kind": 1,
+      "parsed_driver": 137,
+      "compat_mode": 1,
+      "inserted": 1
+    },
+    {
+      "name": "actual-nlmsg-0",
+      "return": 0,
+      "consumed": 41,
+      "record_bytes": 42,
+      "parsed_kind": 1,
+      "parsed_driver": 3,
+      "compat_mode": 1,
+      "inserted": 1,
+      "modern_format_correct": false,
+      "real_binary_sample": {
+        "table": "unconditional",
+        "source_type": 898,
+        "target_type": 898,
+        "target_class": 32,
+        "key_specified": 256,
+        "xperm_specified": 3,
+        "driver": 0,
+        "source_name": "mediaprovider",
+        "target_name": "mediaprovider",
+        "class_name": "netlink_route_socket",
+        "perms": [
+          71303168,
+          1141130308,
+          1413760000,
+          71566401,
+          0,
+          0,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "name": "actual-nlmsg-followed-by-ioctl-0",
+      "return": -22,
+      "consumed": 49,
+      "record_bytes": 84,
+      "parsed_kind": 1,
+      "parsed_driver": 3,
+      "compat_mode": 1,
+      "inserted": 1,
+      "modern_sequence_correct": false
+    },
+    {
+      "name": "truncated-native-0",
+      "return": -22,
+      "consumed": 0,
+      "record_bytes": 0,
+      "parsed_kind": 0,
+      "parsed_driver": 0,
+      "compat_mode": 0,
+      "inserted": 0
+    },
+    {
+      "name": "truncated-native-7",
+      "return": -22,
+      "consumed": 0,
+      "record_bytes": 7,
+      "parsed_kind": 0,
+      "parsed_driver": 0,
+      "compat_mode": 0,
+      "inserted": 0
+    },
+    {
+      "name": "truncated-native-8",
+      "return": -22,
+      "consumed": 8,
+      "record_bytes": 8,
+      "parsed_kind": 0,
+      "parsed_driver": 0,
+      "compat_mode": 0,
+      "inserted": 0
+    },
+    {
+      "name": "truncated-native-9",
+      "return": -22,
+      "consumed": 9,
+      "record_bytes": 9,
+      "parsed_kind": 0,
+      "parsed_driver": 0,
+      "compat_mode": 1,
+      "inserted": 0
+    },
+    {
+      "name": "truncated-native-10",
+      "return": -22,
+      "consumed": 9,
+      "record_bytes": 10,
+      "parsed_kind": 0,
+      "parsed_driver": 0,
+      "compat_mode": 1,
+      "inserted": 0
+    },
+    {
+      "name": "truncated-native-41",
+      "return": 0,
+      "consumed": 41,
+      "record_bytes": 41,
+      "parsed_kind": 1,
+      "parsed_driver": 3,
+      "compat_mode": 1,
+      "inserted": 1,
+      "truncated_native_was_wrongly_accepted": true
+    },
+    {
+      "name": "actual-nlmsg-1",
+      "return": 0,
+      "consumed": 41,
+      "record_bytes": 42,
+      "parsed_kind": 1,
+      "parsed_driver": 3,
+      "compat_mode": 1,
+      "inserted": 1,
+      "modern_format_correct": false,
+      "real_binary_sample": {
+        "table": "unconditional",
+        "source_type": 321,
+        "target_type": 321,
+        "target_class": 32,
+        "key_specified": 256,
+        "xperm_specified": 3,
+        "driver": 0,
+        "source_name": "dnsmasq",
+        "target_name": "dnsmasq",
+        "class_name": "netlink_route_socket",
+        "perms": [
+          71303168,
+          1141130308,
+          1413760000,
+          71566401,
+          0,
+          0,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "name": "actual-nlmsg-followed-by-ioctl-1",
+      "return": -22,
+      "consumed": 49,
+      "record_bytes": 84,
+      "parsed_kind": 1,
+      "parsed_driver": 3,
+      "compat_mode": 1,
+      "inserted": 1,
+      "modern_sequence_correct": false
+    },
+    {
+      "name": "actual-nlmsg-2",
+      "return": 0,
+      "consumed": 41,
+      "record_bytes": 42,
+      "parsed_kind": 1,
+      "parsed_driver": 3,
+      "compat_mode": 1,
+      "inserted": 1,
+      "modern_format_correct": false,
+      "real_binary_sample": {
+        "table": "unconditional",
+        "source_type": 319,
+        "target_type": 319,
+        "target_class": 32,
+        "key_specified": 256,
+        "xperm_specified": 3,
+        "driver": 0,
+        "source_name": "dhcp",
+        "target_name": "dhcp",
+        "class_name": "netlink_route_socket",
+        "perms": [
+          4294901760,
+          4294967295,
+          4294967295,
+          134217727,
+          0,
+          0,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "name": "actual-nlmsg-followed-by-ioctl-2",
+      "return": -22,
+      "consumed": 49,
+      "record_bytes": 84,
+      "parsed_kind": 1,
+      "parsed_driver": 3,
+      "compat_mode": 1,
+      "inserted": 1,
+      "modern_sequence_correct": false
+    },
+    {
+      "name": "actual-nlmsg-3",
+      "return": 0,
+      "consumed": 41,
+      "record_bytes": 42,
+      "parsed_kind": 1,
+      "parsed_driver": 3,
+      "compat_mode": 1,
+      "inserted": 1,
+      "modern_format_correct": false,
+      "real_binary_sample": {
+        "table": "unconditional",
+        "source_type": 3321,
+        "target_type": 3321,
+        "target_class": 32,
+        "key_specified": 256,
+        "xperm_specified": 3,
+        "driver": 0,
+        "source_name": "mobicore_app",
+        "target_name": "mobicore_app",
+        "class_name": "netlink_route_socket",
+        "perms": [
+          71303168,
+          1141130308,
+          1413760000,
+          71566401,
+          0,
+          0,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "name": "actual-nlmsg-followed-by-ioctl-3",
+      "return": -22,
+      "consumed": 49,
+      "record_bytes": 84,
+      "parsed_kind": 1,
+      "parsed_driver": 3,
+      "compat_mode": 1,
+      "inserted": 1,
+      "modern_sequence_correct": false
+    },
+    {
+      "name": "actual-nlmsg-4",
+      "return": 0,
+      "consumed": 41,
+      "record_bytes": 42,
+      "parsed_kind": 1,
+      "parsed_driver": 3,
+      "compat_mode": 1,
+      "inserted": 1,
+      "modern_format_correct": false,
+      "real_binary_sample": {
+        "table": "unconditional",
+        "source_type": 2706,
+        "target_type": 2706,
+        "target_class": 32,
+        "key_specified": 256,
+        "xperm_specified": 3,
+        "driver": 0,
+        "source_name": "charon",
+        "target_name": "charon",
+        "class_name": "netlink_route_socket",
+        "perms": [
+          71303168,
+          1141130308,
+          1413760000,
+          71566401,
+          0,
+          0,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "name": "actual-nlmsg-followed-by-ioctl-4",
+      "return": -22,
+      "consumed": 49,
+      "record_bytes": 84,
+      "parsed_kind": 1,
+      "parsed_driver": 3,
+      "compat_mode": 1,
+      "inserted": 1,
+      "modern_sequence_correct": false
+    },
+    {
+      "name": "actual-nlmsg-5",
+      "return": 0,
+      "consumed": 41,
+      "record_bytes": 42,
+      "parsed_kind": 1,
+      "parsed_driver": 3,
+      "compat_mode": 1,
+      "inserted": 1,
+      "modern_format_correct": false,
+      "real_binary_sample": {
+        "table": "unconditional",
+        "source_type": 3303,
+        "target_type": 3303,
+        "target_class": 32,
+        "key_specified": 256,
+        "xperm_specified": 3,
+        "driver": 0,
+        "source_name": "kfa_app",
+        "target_name": "kfa_app",
+        "class_name": "netlink_route_socket",
+        "perms": [
+          71303168,
+          1141130308,
+          1413760000,
+          71566401,
+          0,
+          0,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "name": "actual-nlmsg-followed-by-ioctl-5",
+      "return": -22,
+      "consumed": 49,
+      "record_bytes": 84,
+      "parsed_kind": 1,
+      "parsed_driver": 3,
+      "compat_mode": 1,
+      "inserted": 1,
+      "modern_sequence_correct": false
+    },
+    {
+      "name": "actual-nlmsg-6",
+      "return": 0,
+      "consumed": 41,
+      "record_bytes": 42,
+      "parsed_kind": 1,
+      "parsed_driver": 3,
+      "compat_mode": 1,
+      "inserted": 1,
+      "modern_format_correct": false,
+      "real_binary_sample": {
+        "table": "unconditional",
+        "source_type": 3470,
+        "target_type": 3470,
+        "target_class": 32,
+        "key_specified": 256,
+        "xperm_specified": 3,
+        "driver": 0,
+        "source_name": "trustonicpartner_app",
+        "target_name": "trustonicpartner_app",
+        "class_name": "netlink_route_socket",
+        "perms": [
+          71303168,
+          1141130308,
+          1413760000,
+          71566401,
+          0,
+          0,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "name": "actual-nlmsg-followed-by-ioctl-6",
+      "return": -22,
+      "consumed": 49,
+      "record_bytes": 84,
+      "parsed_kind": 1,
+      "parsed_driver": 3,
+      "compat_mode": 1,
+      "inserted": 1,
+      "modern_sequence_correct": false
+    },
+    {
+      "name": "actual-nlmsg-7",
+      "return": 0,
+      "consumed": 41,
+      "record_bytes": 42,
+      "parsed_kind": 1,
+      "parsed_driver": 3,
+      "compat_mode": 1,
+      "inserted": 1,
+      "modern_format_correct": false,
+      "real_binary_sample": {
+        "table": "unconditional",
+        "source_type": 326,
+        "target_type": 326,
+        "target_class": 32,
+        "key_specified": 256,
+        "xperm_specified": 3,
+        "driver": 0,
+        "source_name": "dumpstate",
+        "target_name": "dumpstate",
+        "class_name": "netlink_route_socket",
+        "perms": [
+          1145307136,
+          1141130308,
+          1413760000,
+          71566401,
+          0,
+          0,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "name": "actual-nlmsg-followed-by-ioctl-7",
+      "return": -22,
+      "consumed": 49,
+      "record_bytes": 84,
+      "parsed_kind": 1,
+      "parsed_driver": 3,
+      "compat_mode": 1,
+      "inserted": 1,
+      "modern_sequence_correct": false
+    }
+  ],
+  "policy_sha256": "6350fb25e23157827cfc009eb3d9e27356b8f9a449ed23315dc70b50823803c9",
+  "inspector_sha256": "6cbb0085245ab9602613e47dc6df1ded595d80b3e6ebf1d49e7a9909da4a5c95",
+  "kernel_reader_sha256": "45f716fa189a7d209a5a27d78df691aa1025e66fa6ac0c74d9b6b5a5c7678df1",
+  "kernel_header_sha256": "1aa697528c2d10a8272c2c2e503c9f9805d0be392a0a90ccc554c5d59437fe89",
+  "extracted_function_sha256": "34e8ce74e37f87e15ce6b967128a9f989c0a20288d0a266a410ba91760738730",
+  "compile_command": [
+    "clang",
+    "-std=gnu11",
+    "-Wall",
+    "-Werror",
+    "-g",
+    "-fsanitize=address,undefined",
+    "-fno-omit-frame-pointer",
+    "/srv/android/artifacts/lineage-24.0-arm64/policy-reader-20261104-01/original/reader.c",
+    "-o",
+    "/srv/android/artifacts/lineage-24.0-arm64/policy-reader-20261104-01/original/reader"
+  ],
+  "xperm_kind_counts": {
+    "1": 1342,
+    "3": 95
+  },
+  "netlink_xperm_enabled_in_input": true,
+  "enabled_policy_capabilities": [
+    {
+      "bit": 0,
+      "name": "network_peer_controls"
+    },
+    {
+      "bit": 1,
+      "name": "open_perms"
+    },
+    {
+      "bit": 2,
+      "name": "extended_socket_class"
+    },
+    {
+      "bit": 5,
+      "name": "nnp_nosuid_transition"
+    },
+    {
+      "bit": 9,
+      "name": "netlink_xperm"
+    },
+    {
+      "bit": 12,
+      "name": "functionfs_seclabel"
+    }
+  ],
+  "type_class_table_checks_and_io_are_fixtures": true
+}

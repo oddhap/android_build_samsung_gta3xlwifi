@@ -333,3 +333,12 @@ compilation and Mac/Linux actual-body loader fixtures pass with complete source
 audits and preserved config/firmware. All vmlinux CRCs match the perf parent;
 its ABI changes remain. This is isolated compilation/static evidence, with no
 Image promotion, boot or hardware validation and no installation approval.
+
+
+The [actual Android17 binary inspection](experiments/policy-binary-20261104-01/)
+confirms active netlink_xperm (bit9), 1,342 ioctl and 95 netlink extended records.
+The original extracted reader fails on these records; the candidate passes 25
+record cases. Its capability9 load rejection remains, so this is not whole-policy
+load approval. Strict actual-vendor policy still fails with 322 diagnostic blocks.
+All 1,243 project/15 patch audits remain exact; historical Android16 capability-
+off results are explicitly separate from this new evidence.

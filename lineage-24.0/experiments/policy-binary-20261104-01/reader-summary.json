@@ -1,0 +1,25 @@
+{
+  "scope": "Actual Android17 diagnostic binary records through extracted old/candidate reader bodies with fixture type tables and IO; NOT whole-policy kernel load or enforcement.",
+  "original_reader_record_compatible": false,
+  "candidate_reader_record_compatible": true,
+  "candidate_cases": 25,
+  "actual_binary_xperm_counts": {
+    "1": 1342,
+    "3": 95
+  },
+  "actual_binary_cap9_enabled": true,
+  "candidate_whole_policy_load_ready": false,
+  "actual_guard_rejects_cap9": true,
+  "strict_policy_passed": false,
+  "flash_ready": false,
+  "sha256": {
+    "/srv/android/artifacts/lineage-24.0-arm64/policy-reader-20261104-01/original/report.json": "95892dc40c9e4fdc6a99613ed2ff1845dfae29d6a83638809b2dcc9852448a2a",
+    "/srv/android/artifacts/lineage-24.0-arm64/policy-reader-20261104-01/candidate/report.json": "622411c57f433f1ac76f87ad745d82d74199c3521ef906b79eddb8cc5e839a66",
+    "/srv/android/artifacts/lineage-24.0-arm64/policy-reader-20261104-01/guard.log": "c80017f75b832b0e98278a0211a3e5315f1e3d6a0d1973ab7aed5b1f45ba6b29",
+    "/srv/android/artifacts/lineage-24.0-arm64/policy-binary-20261104-01/binary-inspection.json": "5d45d9745aadd599a96ea967a8bb8617f3c151d76dcd4f5f027ba0a3f2d9fac9",
+    "/srv/android/artifacts/lineage-24.0-arm64/policy-binary-20261104-01/evidence-lock.json": "2e9d8105fe5f32b2268cebd8f5629a0f909f64fb344b32c680539eb8aebe60ef",
+    "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/check-kernel-policy-xperms.py": "72e7a06eb7cf28aaafe80aca3db05c3f3d8b65714ce066faf258cb64b226608e",
+    "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/test-policy-xperm-cap.py": "d5ff78908106f1f68975503647609fd01e6e94cc5bcd815e1c0160e40b32477b",
+    "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/test-netlink-xperm24.py": "1c2790b8fa82de4aa0c73202f34a2d36d752b23af3585591a80ab67c5fd19d3d"
+  }
+}
