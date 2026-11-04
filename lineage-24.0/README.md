@@ -342,3 +342,12 @@ record cases. Its capability9 load rejection remains, so this is not whole-polic
 load approval. Strict actual-vendor policy still fails with 322 diagnostic blocks.
 All 1,243 project/15 patch audits remain exact; historical Android16 capability-
 off results are explicitly separate from this new evidence.
+
+
+A [complete policydb reader host probe](experiments/policydb-host-20261104-01/)
+now executes the actual Samsung parser and data structures. The unmodified active
+Android17 diagnostic reaches cap9 rejection and Samsung's subsequent panic path.
+Only a separate one-bit-off, non-installable data control parses completely with
+counts matching independent Android17 libsepol; five truncations also stop. No
+production guard/macro or policy is modified. This narrows format compatibility
+without approving active policy loading, AVC enforcement, boot or installation.
