@@ -1,0 +1,64 @@
+diff --git a/security/selinux/hooks.c b/security/selinux/hooks.c
+index b9d7596..1cbefd4 100644
+--- a/security/selinux/hooks.c
++++ b/security/selinux/hooks.c
+@@ -4036,6 +4036,38 @@ static int selinux_kernel_module_from_file(struct file *file)
+ 				SYSTEM__MODULE_LOAD, &ad);
+ }
+ 
++static int selinux_kernel_fw_from_file(struct file *file, char *buf, size_t size)
++{
++	struct common_audit_data ad;
++	struct inode_security_struct *isec;
++	struct file_security_struct *fsec;
++	struct inode *inode;
++	u32 sid = current_sid();
++	int rc;
++
++	/* User-helper firmware completion has no backing file. */
++	if (file == NULL)
++		return avc_has_perm(sid, sid, SECCLASS_SYSTEM,
++					SYSTEM__FIRMWARE_LOAD, NULL);
++
++	/* Direct loading retains the legacy PATH audit and FD-use checks. */
++	ad.type = LSM_AUDIT_DATA_PATH;
++	ad.u.path = file->f_path;
++
++	inode = file_inode(file);
++	isec = inode->i_security;
++	fsec = file->f_security;
++
++	if (sid != fsec->sid) {
++		rc = avc_has_perm(sid, fsec->sid, SECCLASS_FD, FD__USE, &ad);
++		if (rc)
++			return rc;
++	}
++
++	return avc_has_perm(sid, isec->sid, SECCLASS_SYSTEM,
++				SYSTEM__FIRMWARE_LOAD, &ad);
++}
++
+ static int selinux_task_setpgid(struct task_struct *p, pid_t pgid)
+ {
+ 	return current_has_perm(p, PROCESS__SETPGID);
+@@ -6491,6 +6523,7 @@ static struct security_hook_list selinux_hooks[] __kdp_ro = {
+ 	LSM_HOOK_INIT(kernel_create_files_as, selinux_kernel_create_files_as),
+ 	LSM_HOOK_INIT(kernel_module_request, selinux_kernel_module_request),
+ 	LSM_HOOK_INIT(kernel_module_from_file, selinux_kernel_module_from_file),
++	LSM_HOOK_INIT(kernel_fw_from_file, selinux_kernel_fw_from_file),
+ 	LSM_HOOK_INIT(task_setpgid, selinux_task_setpgid),
+ 	LSM_HOOK_INIT(task_getpgid, selinux_task_getpgid),
+ 	LSM_HOOK_INIT(task_getsid, selinux_task_getsid),
+diff --git a/security/selinux/include/classmap.h b/security/selinux/include/classmap.h
+index 21f5b28..895b138 100644
+--- a/security/selinux/include/classmap.h
++++ b/security/selinux/include/classmap.h
+@@ -32,7 +32,7 @@ struct security_class_mapping secclass_map[] = {
+ 	    "setsockcreate", "getrlimit", NULL } },
+ 	{ "system",
+ 	  { "ipc_info", "syslog_read", "syslog_mod",
+-	    "syslog_console", "module_request", "module_load", NULL } },
++	    "syslog_console", "module_request", "module_load", "firmware_load", NULL } },
+ 	{ "capability",
+ 	  { "chown", "dac_override", "dac_read_search",
+ 	    "fowner", "fsetid", "kill", "setgid", "setuid", "setpcap",

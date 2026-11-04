@@ -324,3 +324,12 @@ import CRC checks; optional Gator fails MODPOST on an unexported walk_stackframe
 also absent from original exports. No module check is bypassed. These limited
 results do not establish runtime ABI or boot compatibility. The candidate stays
 isolated; strict policy, networking, capability9 and installer/FBE remain gates.
+
+
+The [firmware candidate](experiments/kernel-firmware-20261104-01/) registers real
+SELinux firmware_load mediation at the enabled legacy file/user-helper hook,
+retaining FD-use checks, loader cleanup and common IMA dispatch. Whole-kernel
+compilation and Mac/Linux actual-body loader fixtures pass with complete source
+audits and preserved config/firmware. All vmlinux CRCs match the perf parent;
+its ABI changes remain. This is isolated compilation/static evidence, with no
+Image promotion, boot or hardware validation and no installation approval.

@@ -1,0 +1,32 @@
+{
+  "scope": "Isolated real firmware loading mediation via existing old-API hook; direct file and user-helper completion, legacy module and IMA preserved",
+  "original_kernel_revision": "669b9584e678ce5865ed38e04c24639082d78de1",
+  "prerequisites": [
+    "qtaguid-persistent-20261022-02",
+    "kernel-policy-reader-20261023-01",
+    "kernel-functionfs-20261023-01",
+    "kernel-netlink-20261101-01",
+    "kernel-mmap-20261103-01",
+    "kernel-xperm-generation-20261103-01",
+    "kernel-netlink-snapshot-20261103-01",
+    "kernel-extsock-20261103-01",
+    "kernel-prlimit-20261103-01",
+    "kernel-notify-20261104-01",
+    "kernel-perf-20261104-01"
+  ],
+  "patch_sha256": "866ff11dbfacc1744c745c386572f24ddebdb3547e7f00154c58fa2c91d4adcc",
+  "policycap9_load_rejection_retained": true,
+  "existing_class_permission_ids_unchanged": true,
+  "files": [
+    {
+      "path": "security/selinux/hooks.c",
+      "before_sha256": "e5b75757451174ff0ee95ee89783469b4926d00da264846a7bea0d30b721f08d",
+      "candidate_sha256": "2c934952f7c32eff6927e8c595248e47aa02afc32ca071e127cb134b1a719fd4"
+    },
+    {
+      "path": "security/selinux/include/classmap.h",
+      "before_sha256": "9548ed90e9e41665fd33b0efda16e0755a5e6b3927e5e832786ce368e6e9b5d9",
+      "candidate_sha256": "b7c9377a9cc74b2f0d21fdf9b06835e4d5ee6867ea6ca33b1326a8fc32d32743"
+    }
+  ]
+}

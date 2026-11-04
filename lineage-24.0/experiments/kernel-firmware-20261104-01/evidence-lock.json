@@ -1,0 +1,18 @@
+{
+  "server_artifact_directory": "/srv/android/artifacts/lineage-24.0-arm64/kernel-firmware-build-20261104-01",
+  "sha256": {
+    "source-before.json": "39a6748aa895de7100e170e871908e8049fbbfeff35539c49618b7279738cc66",
+    "source-after.json": "cf37de2d2d04c08fd7128e06fab7944f78ca6f69b2ccc5a5d805e7a57d4ee8ea",
+    "protected-before.json": "1d5603527bcdf025023a8392b72926259862f45f768b6f698e6dcfc347ecbf61",
+    "protected-after.json": "1d5603527bcdf025023a8392b72926259862f45f768b6f698e6dcfc347ecbf61",
+    "patch-provenance.json": "04a95ef069300fcaa16412caa94d9d3275fe11057ce6c8e71fca31cb6ad63e20",
+    "additional-patch-provenance.json": "119f9041a576228e62328c46b6b3589ff5b1ccd1f7e05ae5933ca31c0db83960",
+    "tracked-source.patch": "968fe139234fb1946a568c314ec5086e4a849c81580e1fae3d596b6c9b26dbf2",
+    "baseline-touch-complete.patch": "b36123955b7fc457c8df713dddcc371e68de92aa7709519c8778a6579d64a06c",
+    "host-firmware-linux.json": "3be7d6a5cba12609d2f4cff2d5b1f3884caf658286325895be3dd9cf15498d99",
+    "build-review.json": "e07e69ca526d2c72d452a5bb6a00d517cead92c954eeba4755e24ba03aded6bc",
+    "Image": "ad5a7b3ebede6b8b15ccf885e9fc5479f96905511227de85a468534bce17744d",
+    "kernel.config": "fac42e3bbf996bb9502bb1031c91b1950986ad3586d0f33cad869a6fd0b3acea"
+  },
+  "flash_ready": false
+}

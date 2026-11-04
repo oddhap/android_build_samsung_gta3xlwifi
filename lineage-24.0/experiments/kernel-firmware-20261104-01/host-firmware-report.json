@@ -1,0 +1,17 @@
+{
+  "passed": true,
+  "scope": "Actual firmware hook/LSM and loader bodies with sequential fixture backends.\n\nNo real filesystem, firmware device, IMA, concurrency or hardware is executed.\n",
+  "result": "PASS: 1024 firmware LSM/FD/IMA, 6144 full direct-loader, 1024 full user-helper completion scenarios",
+  "old_class_and_permission_ids_unchanged": true,
+  "module_hook_and_common_IMA_wrapper_unchanged": true,
+  "runner_sha256": "d901ffe2e41fa519e159cfa7ba322d291bfa2f6043f3ae01687d93660c8bb1fd",
+  "extractor_sha256": "1c2790b8fa82de4aa0c73202f34a2d36d752b23af3585591a80ab67c5fd19d3d",
+  "inputs_sha256": {
+    "work/kernel-firmware24/drivers/base/firmware_class.c": "e4e97dc1348e5fd02638b3e7a0656865ac758a0f0dd8270203f633762a1ca621",
+    "work/kernel-firmware24/security/security.c": "197c88e3ab12aa0d3c52ca00fe5dd2f5bdca406bee0c542058f9198143b5f51a",
+    "work/kernel-firmware24/include/linux/lsm_hooks.h": "7dd8c8004e135b657377542ba3eaad9ceda0c9632fd2c9e96895ab8c422afe73",
+    "work/kernel-firmware24/security/selinux/hooks.c": "2c934952f7c32eff6927e8c595248e47aa02afc32ca071e127cb134b1a719fd4",
+    "work/kernel-firmware24/security/selinux/include/classmap.h": "b7c9377a9cc74b2f0d21fdf9b06835e4d5ee6867ea6ca33b1326a8fc32d32743"
+  },
+  "hardware_tested": false
+}

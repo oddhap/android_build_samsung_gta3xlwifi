@@ -1,0 +1,20 @@
+{
+  "repository": "https://android.googlesource.com/kernel/common",
+  "branch": "android17-6.18",
+  "revision": "d9a614feddce2e8e68767df1d3421305d26a965b",
+  "files": {
+    "security/selinux/hooks.c": "f8353944bb3c2a6dedff5e8966dfbaf248933d0c95bd05d182b82c1a0638aed7",
+    "security/selinux/avc.c": "e705db5bcad417c863a30306f94a3f6aeee1687a909ed24838d5573650dc27f4",
+    "security/selinux/nlmsgtab.c": "d07e5547327d7e927aac79d5108784fdd2eae463eb272a85e3e2a63fdbf0152e",
+    "security/selinux/include/avc.h": "b121686e4a4359a2951970c304adacb653c05dc7137c0ceddad2fc0fd092cd22",
+    "security/selinux/include/security.h": "089fa1bdb82a6a384979146f6babca343aeeab1d868f36b51f21b63d5cad6ded",
+    "security/selinux/include/classmap.h": "05f4bb4b1f8b69c2141945234a69bb9c2b4338131479d735a17cf1f40d676ff3",
+    "security/selinux/include/policycap.h": "17e2de30643bfa56180ee25c734a2cfe5a11203236ad816901c6dfd931e014b0",
+    "security/selinux/include/policycap_names.h": "4077ae3a29cfa993cd401685df6451e69cc5d4f0a058d578255f0d5a0b3b227e",
+    "security/selinux/ss/services.c": "c2074b2778efcbc3aef977e1589baa295a81674270a3bcfeb420928c9421513e",
+    "security/selinux/ss/avtab.c": "2febe8f71c9c10e46122aa9c97653a3b52ef2e999557fc9eb9fe4c2f6915e49d",
+    "security/selinux/ss/avtab.h": "392ab58ba779bb8f502b5fa5f2837aeaa3e9b8fbbe85c1e2174a300606d19847",
+    "security/selinux/ss/policydb.c": "c7bccd55f16ff7d5468f08620c193fe3ad6e569202f51f06febe4c4e72c80798",
+    "security/selinux/ss/policydb.h": "66a298deeda8ab560be552aa9198d269796034608bee8bd9862f5c31043cd586"
+  }
+}
