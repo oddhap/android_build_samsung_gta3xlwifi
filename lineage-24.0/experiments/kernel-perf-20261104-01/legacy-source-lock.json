@@ -1,0 +1,12 @@
+{
+  "server_source": "/srv/android/ports/lineage-24.0-arm64/kernel-notify-20261104-01/src",
+  "audit_sha256": "2c5f6a04e9e208c1686c3238eff305f9a33e0cc1831e4e526a81a865babdc946",
+  "sha256": {
+    "kernel/events/core.c": "f556e348a40ec685e25b6f7309b882fd00a2442a15d5e82af87e8bfaf27d4dd0",
+    "include/linux/perf_event.h": "686b48d2ff4736f7ac08253a5ff761df70f0dda3352020cefdf9cc0e1d0aecb0",
+    "security/selinux/include/objsec.h": "dcaae84a08c27e76905e27e0d4ae63083ece667d1899fc9a6bc19ee0e554f8c0",
+    "kernel/trace/trace_event_perf.c": "3736da490ef9be606a45d4650608b891c26cd7b0ef8e77165b2094552812b97a",
+    "include/uapi/linux/perf_event.h": "7e42b5529d1ab2e0504a11e5bc6f95e8acd74bfc1aa2f9e618d7e0a76ba0ae0a"
+  },
+  "parent_selinux_classmap_sha256": "2ec98cc1701dc10025046838cef75e6c14caa203649be8b92a42c79b8d3eb2b4"
+}

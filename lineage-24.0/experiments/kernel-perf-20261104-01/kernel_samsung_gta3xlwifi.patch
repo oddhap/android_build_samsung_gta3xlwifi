@@ -1,0 +1,460 @@
+diff --git a/include/linux/lsm_hooks.h b/include/linux/lsm_hooks.h
+index 0c12ed7d31dc349821b7bb5ac8892185b8cc760f..2bd1dbe91be3769aeafd9eea5b67f85e68972e9b 100644
+--- a/include/linux/lsm_hooks.h
++++ b/include/linux/lsm_hooks.h
+@@ -608,6 +608,14 @@
+  *	Check permission before getting the ioprio value of @p.
+  *	@p contains the task_struct of process.
+  *	Return 0 if permission is granted.
++ * @perf_event_open:
++ *	Mediate the perf open/CPU/kernel/tracepoint operation category.
++ * @perf_event_alloc:
++ *	Allocate and label the single-owner legacy event security blob.
++ * @perf_event_read:
++ *	Mediate reads/mappings using the event creator's security label.
++ * @perf_event_write:
++ *	Mediate mutating event ioctls using that label.
+  * @task_prlimit:
+  *	Check get/set resource-limit access using stable caller/target credentials.
+  *	@flags contains LSM_PRLIMIT_READ and/or LSM_PRLIMIT_WRITE.
+@@ -1470,6 +1478,12 @@ union security_list_options {
+ 	int (*task_setnice)(struct task_struct *p, int nice);
+ 	int (*task_setioprio)(struct task_struct *p, int ioprio);
+ 	int (*task_getioprio)(struct task_struct *p);
++#ifdef CONFIG_PERF_EVENTS
++	int (*perf_event_open)(int type);
++	int (*perf_event_alloc)(struct perf_event *event);
++	int (*perf_event_read)(struct perf_event *event);
++	int (*perf_event_write)(struct perf_event *event);
++#endif
+ 	int (*task_prlimit)(const struct cred *cred, const struct cred *tcred,
+ 			    unsigned int flags);
+ 	int (*task_setrlimit)(struct task_struct *p, unsigned int resource,
+@@ -1732,6 +1746,12 @@ struct security_hook_heads {
+ 	struct list_head task_setnice;
+ 	struct list_head task_setioprio;
+ 	struct list_head task_getioprio;
++#ifdef CONFIG_PERF_EVENTS
++	struct list_head perf_event_open;
++	struct list_head perf_event_alloc;
++	struct list_head perf_event_read;
++	struct list_head perf_event_write;
++#endif
+ 	struct list_head task_prlimit;
+ 	struct list_head task_setrlimit;
+ 	struct list_head task_setscheduler;
+diff --git a/include/linux/perf_event.h b/include/linux/perf_event.h
+index 748c1797d40828e8635a85a0cab36e36ae9dabfb..7593d997673c899008121882dc6c244e30f3d038 100644
+--- a/include/linux/perf_event.h
++++ b/include/linux/perf_event.h
+@@ -435,6 +435,12 @@ struct ring_buffer;
+ /**
+  * struct perf_event - performance event kernel representation:
+  */
++/* Internal LSM operation categories, matching modern perf security. */
++#define PERF_SECURITY_OPEN 0
++#define PERF_SECURITY_CPU 1
++#define PERF_SECURITY_KERNEL 2
++#define PERF_SECURITY_TRACEPOINT 3
++
+ struct perf_event {
+ #ifdef CONFIG_PERF_EVENTS
+ 	/*
+@@ -586,6 +592,8 @@ struct perf_event {
+ #ifdef CONFIG_SEC_KWATCHER
+ 	int used_in_kwatcher;
+ #endif
++	/* Single-owner legacy LSM blob, allocated before event publication. */
++	void *security;
+ #endif /* CONFIG_PERF_EVENTS */
+ };
+ 
+diff --git a/include/linux/security.h b/include/linux/security.h
+index 11f73b3d1d57aa5a996cb701e386d9ca1b9ad5a8..91347c16ede1e602cc4b40c26576870ee2e0a080 100644
+--- a/include/linux/security.h
++++ b/include/linux/security.h
+@@ -31,6 +31,7 @@
+ 
+ struct linux_binprm;
+ struct cred;
++struct perf_event;
+ struct rlimit;
+ 
+ /* Flags for security_task_prlimit(), matching the modern kernel ABI. */
+@@ -343,6 +344,14 @@ void security_task_getsecid(struct task_struct *p, u32 *secid);
+ int security_task_setnice(struct task_struct *p, int nice);
+ int security_task_setioprio(struct task_struct *p, int ioprio);
+ int security_task_getioprio(struct task_struct *p);
++#ifdef CONFIG_PERF_EVENTS
++int security_perf_event_open(int type);
++int security_perf_event_alloc(struct perf_event *event);
++void security_perf_event_free(struct perf_event *event);
++int security_perf_event_read(struct perf_event *event);
++int security_perf_event_write(struct perf_event *event);
++#endif
++
+ int security_task_prlimit(const struct cred *cred, const struct cred *tcred,
+ 			  unsigned int flags);
+ int security_task_setrlimit(struct task_struct *p, unsigned int resource,
+@@ -950,6 +959,14 @@ static inline int security_task_getioprio(struct task_struct *p)
+ }
+ 
+ 
++#ifdef CONFIG_PERF_EVENTS
++static inline int security_perf_event_open(int type) { return 0; }
++static inline int security_perf_event_alloc(struct perf_event *event) { return 0; }
++static inline void security_perf_event_free(struct perf_event *event) { }
++static inline int security_perf_event_read(struct perf_event *event) { return 0; }
++static inline int security_perf_event_write(struct perf_event *event) { return 0; }
++#endif
++
+ static inline int security_task_prlimit(const struct cred *cred,
+ 					const struct cred *tcred,
+ 					unsigned int flags)
+diff --git a/kernel/events/core.c b/kernel/events/core.c
+index 0625ebef767d38b5d4a108debe1228b4953bf625..c7de588f563db49f0221c2d2dc8c679bd9893179 100644
+--- a/kernel/events/core.c
++++ b/kernel/events/core.c
+@@ -10,6 +10,7 @@
+  */
+ 
+ #include <linux/fs.h>
++#include <linux/security.h>
+ #include <linux/mm.h>
+ #include <linux/cpu.h>
+ #include <linux/smp.h>
+@@ -3497,6 +3498,9 @@ find_get_context(struct pmu *pmu, struct task_struct *task,
+ 		/* Must be root to operate on a CPU event: */
+ 		if (perf_paranoid_cpu() && !capable(CAP_SYS_ADMIN))
+ 			return ERR_PTR(-EACCES);
++		err = security_perf_event_open(PERF_SECURITY_CPU);
++		if (err)
++			return ERR_PTR(err);
+ 
+ 		/*
+ 		 * We could be clever and allow to attach a event to an
+@@ -3752,6 +3756,7 @@ static void _free_event(struct perf_event *event)
+ 	irq_work_sync(&event->pending);
+ 
+ 	unaccount_event(event);
++	security_perf_event_free(event);
+ 
+ 	if (event->rb) {
+ 		/*
+@@ -4107,6 +4112,10 @@ perf_read(struct file *file, char __user *buf, size_t count, loff_t *ppos)
+ 	struct perf_event_context *ctx;
+ 	int ret;
+ 
++	ret = security_perf_event_read(event);
++	if (ret)
++		return ret;
++
+ 	ctx = perf_event_ctx_lock(event);
+ 	ret = __perf_read(event, buf, count);
+ 	perf_event_ctx_unlock(event, ctx);
+@@ -4362,6 +4371,10 @@ static long perf_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
+ 	struct perf_event_context *ctx;
+ 	long ret;
+ 
++	ret = security_perf_event_write(event);
++	if (ret)
++		return ret;
++
+ 	ctx = perf_event_ctx_lock(event);
+ 	ret = _perf_ioctl(event, cmd, arg);
+ 	perf_event_ctx_unlock(event, ctx);
+@@ -4795,6 +4808,10 @@ static int perf_mmap(struct file *file, struct vm_area_struct *vma)
+ 	if (!(vma->vm_flags & VM_SHARED))
+ 		return -EINVAL;
+ 
++	ret = security_perf_event_read(event);
++	if (ret)
++		return ret;
++
+ 	vma_size = vma->vm_end - vma->vm_start;
+ 
+ 	if (vma->vm_pgoff == 0) {
+@@ -8023,11 +8040,19 @@ perf_event_alloc(struct perf_event_attr *attr, int cpu,
+ 		}
+ 	}
+ 
++	err = security_perf_event_alloc(event);
++	if (err)
++		goto err_callchain;
++
+ 	/* symmetric to unaccount_event() in _free_event() */
+ 	account_event(event);
+ 
+ 	return event;
+ 
++err_callchain:
++	if (!event->parent &&
++	    (event->attr.sample_type & PERF_SAMPLE_CALLCHAIN))
++		put_callchain_buffers();
+ err_per_task:
+ 	exclusive_event_destroy(event);
+ 
+@@ -8138,9 +8163,13 @@ static int perf_copy_attr(struct perf_event_attr __user *uattr,
+ 			attr->branch_sample_type = mask;
+ 		}
+ 		/* privileged levels capture (kernel, hv): check permissions */
+-		if ((mask & PERF_SAMPLE_BRANCH_PERM_PLM)
+-		    && perf_paranoid_kernel() && !capable(CAP_SYS_ADMIN))
+-			return -EACCES;
++		if (mask & PERF_SAMPLE_BRANCH_PERM_PLM) {
++			if (perf_paranoid_kernel() && !capable(CAP_SYS_ADMIN))
++				return -EACCES;
++			ret = security_perf_event_open(PERF_SECURITY_KERNEL);
++			if (ret)
++				return ret;
++		}
+ 	}
+ 
+ 	if (attr->sample_type & PERF_SAMPLE_REGS_USER) {
+@@ -8350,9 +8379,16 @@ SYSCALL_DEFINE5(perf_event_open,
+ 	if (err)
+ 		return err;
+ 
++	err = security_perf_event_open(PERF_SECURITY_OPEN);
++	if (err)
++		return err;
++
+ 	if (!attr.exclude_kernel) {
+ 		if (perf_paranoid_kernel() && !capable(CAP_SYS_ADMIN))
+ 			return -EACCES;
++		err = security_perf_event_open(PERF_SECURITY_KERNEL);
++		if (err)
++			return err;
+ 	}
+ 
+ 	if (attr.freq) {
+diff --git a/kernel/trace/trace_event_perf.c b/kernel/trace/trace_event_perf.c
+index cc9f7a9319bea63104ef05c97634c43286a5268c..1df6d1926bf37af0b4e100d7706718860202ed95 100644
+--- a/kernel/trace/trace_event_perf.c
++++ b/kernel/trace/trace_event_perf.c
+@@ -6,6 +6,7 @@
+  */
+ 
+ #include <linux/module.h>
++#include <linux/security.h>
+ #include <linux/kprobes.h>
+ #include "trace.h"
+ 
+@@ -24,8 +25,10 @@ static int	total_ref_count;
+ static int perf_trace_event_perm(struct trace_event_call *tp_event,
+ 				 struct perf_event *p_event)
+ {
++	int ret;
++
+ 	if (tp_event->perf_perm) {
+-		int ret = tp_event->perf_perm(tp_event, p_event);
++		ret = tp_event->perf_perm(tp_event, p_event);
+ 		if (ret)
+ 			return ret;
+ 	}
+@@ -46,6 +49,9 @@ static int perf_trace_event_perm(struct trace_event_call *tp_event,
+ 	if (ftrace_event_is_function(tp_event)) {
+ 		if (perf_paranoid_tracepoint_raw() && !capable(CAP_SYS_ADMIN))
+ 			return -EPERM;
++		ret = security_perf_event_open(PERF_SECURITY_TRACEPOINT);
++		if (ret)
++			return ret;
+ 
+ 		/*
+ 		 * We don't allow user space callchains for  function trace
+@@ -79,6 +85,9 @@ static int perf_trace_event_perm(struct trace_event_call *tp_event,
+ 	 */
+ 	if (perf_paranoid_tracepoint_raw() && !capable(CAP_SYS_ADMIN))
+ 		return -EPERM;
++	ret = security_perf_event_open(PERF_SECURITY_TRACEPOINT);
++	if (ret)
++		return ret;
+ 
+ 	return 0;
+ }
+diff --git a/security/security.c b/security/security.c
+index 21ecc54e997cd61edcf4bf36cba71a55435dfeee..098f98a140b8acc076d18b411d39adfd0921e89a 100644
+--- a/security/security.c
++++ b/security/security.c
+@@ -17,6 +17,7 @@
+ #include <linux/init.h>
+ #include <linux/kernel.h>
+ #include <linux/lsm_hooks.h>
++#include <linux/perf_event.h>
+ #include <linux/integrity.h>
+ #include <linux/ima.h>
+ #include <linux/evm.h>
+@@ -1579,6 +1580,41 @@ int security_audit_rule_match(u32 secid, u32 field, u32 op, void *lsmrule,
+ }
+ #endif /* CONFIG_AUDIT */
+ 
++#ifdef CONFIG_PERF_EVENTS
++int security_perf_event_open(int type)
++{
++	return call_int_hook(perf_event_open, 0, type);
++}
++
++int security_perf_event_alloc(struct perf_event *event)
++{
++	int rc = call_int_hook(perf_event_alloc, 0, event);
++
++	if (rc) {
++		kfree(event->security);
++		event->security = NULL;
++	}
++	return rc;
++}
++
++void security_perf_event_free(struct perf_event *event)
++{
++	/* Cleanup is unconditional, as in the modern common blob free path. */
++	kfree(event->security);
++	event->security = NULL;
++}
++
++int security_perf_event_read(struct perf_event *event)
++{
++	return call_int_hook(perf_event_read, 0, event);
++}
++
++int security_perf_event_write(struct perf_event *event)
++{
++	return call_int_hook(perf_event_write, 0, event);
++}
++#endif
++
+ struct security_hook_heads security_hook_heads = {
+ 	.binder_set_context_mgr =
+ 		LIST_HEAD_INIT(security_hook_heads.binder_set_context_mgr),
+@@ -1746,6 +1782,16 @@ struct security_hook_heads security_hook_heads = {
+ 		LIST_HEAD_INIT(security_hook_heads.task_setioprio),
+ 	.task_getioprio =
+ 		LIST_HEAD_INIT(security_hook_heads.task_getioprio),
++#ifdef CONFIG_PERF_EVENTS
++	.perf_event_open =
++		LIST_HEAD_INIT(security_hook_heads.perf_event_open),
++	.perf_event_alloc =
++		LIST_HEAD_INIT(security_hook_heads.perf_event_alloc),
++	.perf_event_read =
++		LIST_HEAD_INIT(security_hook_heads.perf_event_read),
++	.perf_event_write =
++		LIST_HEAD_INIT(security_hook_heads.perf_event_write),
++#endif
+ 	.task_prlimit =
+ 		LIST_HEAD_INIT(security_hook_heads.task_prlimit),
+ 	.task_setrlimit =
+diff --git a/security/selinux/hooks.c b/security/selinux/hooks.c
+index 0416b2aac1e310736aad333631957d4f4b226414..b9d7596e62095d95025004f09cb0a837012305c2 100644
+--- a/security/selinux/hooks.c
++++ b/security/selinux/hooks.c
+@@ -44,6 +44,7 @@
+ #include <linux/dcache.h>
+ #include <linux/file.h>
+ #include <linux/fsnotify_backend.h>
++#include <linux/perf_event.h>
+ #include <linux/fdtable.h>
+ #include <linux/namei.h>
+ #include <linux/mount.h>
+@@ -6344,6 +6345,63 @@ static int selinux_key_getsecurity(struct key *key, char **_buffer)
+ #endif
+ 
+ //CONFIG_RKP_KDP
++#ifdef CONFIG_PERF_EVENTS
++static int selinux_perf_event_open(int type)
++{
++	u32 requested, sid = current_sid();
++
++	if (type == PERF_SECURITY_OPEN)
++		requested = PERF_EVENT__OPEN;
++	else if (type == PERF_SECURITY_CPU)
++		requested = PERF_EVENT__CPU;
++	else if (type == PERF_SECURITY_KERNEL)
++		requested = PERF_EVENT__KERNEL;
++	else if (type == PERF_SECURITY_TRACEPOINT)
++		requested = PERF_EVENT__TRACEPOINT;
++	else
++		return -EINVAL;
++
++	return avc_has_perm(sid, sid, SECCLASS_PERF_EVENT,
++			    requested, NULL);
++}
++
++static int selinux_perf_event_alloc(struct perf_event *event)
++{
++	struct perf_event_security_struct *perfsec;
++
++	perfsec = kmalloc(sizeof(*perfsec), GFP_KERNEL);
++	if (!perfsec)
++		return -ENOMEM;
++	perfsec->sid = current_sid();
++	event->security = perfsec;
++	return 0;
++}
++
++static int selinux_perf_event_read(struct perf_event *event)
++{
++	struct perf_event_security_struct *perfsec = event->security;
++	u32 sid = current_sid();
++
++	if (!perfsec)
++		return -EACCES;
++
++	return avc_has_perm(sid, perfsec->sid,
++			    SECCLASS_PERF_EVENT, PERF_EVENT__READ, NULL);
++}
++
++static int selinux_perf_event_write(struct perf_event *event)
++{
++	struct perf_event_security_struct *perfsec = event->security;
++	u32 sid = current_sid();
++
++	if (!perfsec)
++		return -EACCES;
++
++	return avc_has_perm(sid, perfsec->sid,
++			    SECCLASS_PERF_EVENT, PERF_EVENT__WRITE, NULL);
++}
++#endif
++
+ static struct security_hook_list selinux_hooks[] __kdp_ro = {
+ 	LSM_HOOK_INIT(binder_set_context_mgr, selinux_binder_set_context_mgr),
+ 	LSM_HOOK_INIT(binder_transaction, selinux_binder_transaction),
+@@ -6440,6 +6498,12 @@ static struct security_hook_list selinux_hooks[] __kdp_ro = {
+ 	LSM_HOOK_INIT(task_setnice, selinux_task_setnice),
+ 	LSM_HOOK_INIT(task_setioprio, selinux_task_setioprio),
+ 	LSM_HOOK_INIT(task_getioprio, selinux_task_getioprio),
++#ifdef CONFIG_PERF_EVENTS
++	LSM_HOOK_INIT(perf_event_open, selinux_perf_event_open),
++	LSM_HOOK_INIT(perf_event_alloc, selinux_perf_event_alloc),
++	LSM_HOOK_INIT(perf_event_read, selinux_perf_event_read),
++	LSM_HOOK_INIT(perf_event_write, selinux_perf_event_write),
++#endif
+ 	LSM_HOOK_INIT(task_prlimit, selinux_task_prlimit),
+ 	LSM_HOOK_INIT(task_setrlimit, selinux_task_setrlimit),
+ 	LSM_HOOK_INIT(task_setscheduler, selinux_task_setscheduler),
+diff --git a/security/selinux/include/classmap.h b/security/selinux/include/classmap.h
+index abdaa2bb02ca794e8447b7cd37a334a26e7e5a71..21f5b28ccdb31e46c172fe06631efbddcd4715fd 100644
+--- a/security/selinux/include/classmap.h
++++ b/security/selinux/include/classmap.h
+@@ -187,5 +187,6 @@ struct security_class_mapping secclass_map[] = {
+ 	{ "alg_socket", { COMMON_SOCK_PERMS, NULL } },
+ 	{ "nfc_socket", { COMMON_SOCK_PERMS, NULL } },
+ 	{ "vsock_socket", { COMMON_SOCK_PERMS, NULL } },
++	{ "perf_event", { "open", "cpu", "kernel", "tracepoint", "read", "write", NULL } },
+ 	{ NULL }
+   };
+diff --git a/security/selinux/include/objsec.h b/security/selinux/include/objsec.h
+index 91a1cb822dd9465a67e6886ed0af8094049627f9..0ac39ba18a66984a0837c00f9ecbab2f0bcf2357 100644
+--- a/security/selinux/include/objsec.h
++++ b/security/selinux/include/objsec.h
+@@ -128,4 +128,10 @@ struct key_security_struct {
+ 
+ extern unsigned int selinux_checkreqprot;
+ 
++#ifdef CONFIG_PERF_EVENTS
++struct perf_event_security_struct {
++	u32 sid;
++};
++#endif
++
+ #endif /* _SELINUX_OBJSEC_H_ */

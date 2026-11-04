@@ -1,0 +1,21 @@
+{
+  "revision": "d9a614feddce2e8e68767df1d3421305d26a965b",
+  "files": {
+    "kernel/events/core.c": {
+      "url": "https://android.googlesource.com/kernel/common/+/d9a614feddce2e8e68767df1d3421305d26a965b/kernel/events/core.c?format=TEXT",
+      "sha256": "95b7f9c8337586c3724f4c30a5ea807190b87fd875e644547f1ba4b044135deb"
+    },
+    "include/linux/perf_event.h": {
+      "url": "https://android.googlesource.com/kernel/common/+/d9a614feddce2e8e68767df1d3421305d26a965b/include/linux/perf_event.h?format=TEXT",
+      "sha256": "02c403f783d342a2e45d91c4e577097e799734bd5b0e2caf737e43ccd09ddef3"
+    },
+    "security/selinux/include/objsec.h": {
+      "url": "https://android.googlesource.com/kernel/common/+/d9a614feddce2e8e68767df1d3421305d26a965b/security/selinux/include/objsec.h?format=TEXT",
+      "sha256": "e99ab17eb18661b54ae2813dbd22fa4eff3098b609d6759f9a9ed88ce25c1893"
+    },
+    "kernel/trace/trace_event_perf.c": {
+      "url": "https://android.googlesource.com/kernel/common/+/d9a614feddce2e8e68767df1d3421305d26a965b/kernel/trace/trace_event_perf.c?format=TEXT",
+      "sha256": "ab3f68bdcfd4a565fcff8f9ede8706f4257e180298794aab0c266671537a5b88"
+    }
+  }
+}

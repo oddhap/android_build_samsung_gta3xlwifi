@@ -311,3 +311,16 @@ config/export CRCs. Mac/Linux fixture sources, runner and results match. The
 complete inotify syscall and dnotify authorization prefix use fixture backends;
 no live watch/boot or full mark-lifecycle validation is claimed. Perf, strict
 vendor policy, complete networking and Android17 FBE/installer remain gates.
+
+
+## November 4: perf event mediation and module ABI review
+
+The [perf candidate](experiments/kernel-perf-20261104-01/) adds actual operation
+and event-owner LSM/SELinux checks, including failure-unwind and unconditional
+label cleanup. Whole-kernel compilation and Mac/Linux actual-body fixtures pass
+with complete source audits and unchanged config. Adding the owner-label pointer
+changes 1,104 of 8,408 export CRCs. The rebuilt KUTF module passes 43 static
+import CRC checks; optional Gator fails MODPOST on an unexported walk_stackframe,
+also absent from original exports. No module check is bypassed. These limited
+results do not establish runtime ABI or boot compatibility. The candidate stays
+isolated; strict policy, networking, capability9 and installer/FBE remain gates.

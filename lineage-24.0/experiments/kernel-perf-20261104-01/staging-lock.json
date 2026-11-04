@@ -1,0 +1,69 @@
+{
+  "scope": "Isolated real perf open/CPU/kernel/trace/read/ioctl/mmap mediation and per-event owner-label lifecycle",
+  "original_kernel_revision": "669b9584e678ce5865ed38e04c24639082d78de1",
+  "prerequisites": [
+    "qtaguid-persistent-20261022-02",
+    "kernel-policy-reader-20261023-01",
+    "kernel-functionfs-20261023-01",
+    "kernel-netlink-20261101-01",
+    "kernel-mmap-20261103-01",
+    "kernel-xperm-generation-20261103-01",
+    "kernel-netlink-snapshot-20261103-01",
+    "kernel-extsock-20261103-01",
+    "kernel-prlimit-20261103-01",
+    "kernel-notify-20261104-01"
+  ],
+  "patch_sha256": "058b578b43fdc1869105017f5d835969d3032f3f5f11e4bf4e94323fc10803c9",
+  "policycap9_load_rejection_retained": true,
+  "existing_class_permission_ids_unchanged": true,
+  "event_layout_and_export_review_required": true,
+  "files": [
+    {
+      "path": "include/linux/lsm_hooks.h",
+      "before_sha256": "4d6c3068b3f50c089b1ae680d8c5898f128eb2df249a5e6aadd8be3347b48216",
+      "candidate_sha256": "7dd8c8004e135b657377542ba3eaad9ceda0c9632fd2c9e96895ab8c422afe73"
+    },
+    {
+      "path": "include/linux/perf_event.h",
+      "before_sha256": "686b48d2ff4736f7ac08253a5ff761df70f0dda3352020cefdf9cc0e1d0aecb0",
+      "candidate_sha256": "bcfafa5f8afb2db06daacc626bf30834d1233ff8d611cec276521cf3546befb7"
+    },
+    {
+      "path": "include/linux/security.h",
+      "before_sha256": "8368d4d2782c991ab07fc8f1a3dbf0c512dd7881839a88379ac61ebc4707a309",
+      "candidate_sha256": "b0b1de67e018010e0cc8718fa21f025a2f6b0bc44f554bb2390442f4e4d6d532"
+    },
+    {
+      "path": "kernel/events/core.c",
+      "before_sha256": "f556e348a40ec685e25b6f7309b882fd00a2442a15d5e82af87e8bfaf27d4dd0",
+      "candidate_sha256": "00b45604af5eaa57f079253f7a600b2c9dd22884dfab0276017a460023372095"
+    },
+    {
+      "path": "kernel/trace/trace_event_perf.c",
+      "before_sha256": "3736da490ef9be606a45d4650608b891c26cd7b0ef8e77165b2094552812b97a",
+      "candidate_sha256": "c36f861ded30f38151525cbb93b3ebe0d76c199bea1278c777793fe5b1a61c67"
+    },
+    {
+      "path": "security/security.c",
+      "before_sha256": "e9242f3fde07e09f7244d81c68c1a1168faaa27a4b233d0ff9249ccc67ae5d3b",
+      "candidate_sha256": "197c88e3ab12aa0d3c52ca00fe5dd2f5bdca406bee0c542058f9198143b5f51a"
+    },
+    {
+      "path": "security/selinux/hooks.c",
+      "before_sha256": "ae8a23db13fbcccf2987040a9adf5cfca7f9d32f053ad96eee6030c80fc1cb72",
+      "candidate_sha256": "e5b75757451174ff0ee95ee89783469b4926d00da264846a7bea0d30b721f08d"
+    },
+    {
+      "path": "security/selinux/include/classmap.h",
+      "before_sha256": "2ec98cc1701dc10025046838cef75e6c14caa203649be8b92a42c79b8d3eb2b4",
+      "candidate_sha256": "9548ed90e9e41665fd33b0efda16e0755a5e6b3927e5e832786ce368e6e9b5d9"
+    },
+    {
+      "path": "security/selinux/include/objsec.h",
+      "before_sha256": "dcaae84a08c27e76905e27e0d4ae63083ece667d1899fc9a6bc19ee0e554f8c0",
+      "candidate_sha256": "7c83b2ceb8f7f01af24a9ff86bcdda7e4a2031b1a68cfa30fdd0e0210c54f824"
+    }
+  ],
+  "Image_promoted": false,
+  "hardware_tested": false
+}

@@ -1,0 +1,39 @@
+{
+  "sha256": {
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-perf-modules-20261104-01/Image-before.sha256": "804fb95a1eb15709836b5b318ff89b6f189a175f6ad7e795d6481b3d7eda4753",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-perf-modules-20261104-01/Module.symvers-after": "b15caf06e8e44e4b18975eecd18b07c4165dc8e2c4f11cf430d7152f93bd0783",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-perf-modules-20261104-01/NOT_READY_FOR_FLASHING.txt": "d90d13719a9497e96b14645698db48c1077cb28b8b69a019ad36a101e2195f2e",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-perf-modules-20261104-01/kernel.config-before": "fac42e3bbf996bb9502bb1031c91b1950986ad3586d0f33cad869a6fd0b3acea",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-perf-modules-20261104-01/source-after.json": "bf3a234ff99bb9e4aa5200f747356cdc632b71b9b33184b72cdd4d473cc79abf",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-perf-modules-20261104-01/source-before.json": "bf3a234ff99bb9e4aa5200f747356cdc632b71b9b33184b72cdd4d473cc79abf",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-perf-modules-20261104-01/vmlinux-Module.symvers-before": "bcbba1761066971f8375767aeb4e5a63fd0ffc076fdf55322f0093e240bdf51f",
+    "/srv/android/logs/lineage-24.0-arm64/kernel-perf-modules-20261104-01.exit": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "/srv/android/logs/lineage-24.0-arm64/kernel-perf-modules-20261104-01.log": "7d019da04d99275af17b9d966c9d77adaf3b4728d14aedd4ec339073cd30db7f",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-perf-modules-20261104-02/Image-before.sha256": "804fb95a1eb15709836b5b318ff89b6f189a175f6ad7e795d6481b3d7eda4753",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-perf-modules-20261104-02/NOT_READY_FOR_FLASHING.txt": "d90d13719a9497e96b14645698db48c1077cb28b8b69a019ad36a101e2195f2e",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-perf-modules-20261104-02/kernel.config-before": "fac42e3bbf996bb9502bb1031c91b1950986ad3586d0f33cad869a6fd0b3acea",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-perf-modules-20261104-02/source-before.json": "bf3a234ff99bb9e4aa5200f747356cdc632b71b9b33184b72cdd4d473cc79abf",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-perf-modules-20261104-02/vmlinux-Module.symvers-before": "b15caf06e8e44e4b18975eecd18b07c4165dc8e2c4f11cf430d7152f93bd0783",
+    "/srv/android/logs/lineage-24.0-arm64/kernel-perf-modules-20261104-02.exit": "53c234e5e8472b6ac51c1ae1cab3fe06fad053beb8ebfd8977b010655bfdd3c3",
+    "/srv/android/logs/lineage-24.0-arm64/kernel-perf-modules-20261104-02.log": "9a4c09e831c6e7d05b7d24cf9120b0afcc31937b7b7dbae5343d018954d8015a",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-perf-modules-20261104-03/Image-before.sha256": "804fb95a1eb15709836b5b318ff89b6f189a175f6ad7e795d6481b3d7eda4753",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-perf-modules-20261104-03/Module.symvers-after-failed-gator": "0feaabd85d0f5e53ab019edcfae34adc14d16f2139758ae48db763db892b53b8",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-perf-modules-20261104-03/NOT_READY_FOR_FLASHING.txt": "d90d13719a9497e96b14645698db48c1077cb28b8b69a019ad36a101e2195f2e",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-perf-modules-20261104-03/kernel.config-before": "fac42e3bbf996bb9502bb1031c91b1950986ad3586d0f33cad869a6fd0b3acea",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-perf-modules-20261104-03/kutf-module-static-check.json": "345e6e5fa1052fd97388ff17be39ed6d7714e9bd85ab847979d8c440efdd40a3",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-perf-modules-20261104-03/source-after-failed-gator.json": "bf3a234ff99bb9e4aa5200f747356cdc632b71b9b33184b72cdd4d473cc79abf",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-perf-modules-20261104-03/source-before.json": "bf3a234ff99bb9e4aa5200f747356cdc632b71b9b33184b72cdd4d473cc79abf",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-perf-modules-20261104-03/vmlinux-Module.symvers-before": "b15caf06e8e44e4b18975eecd18b07c4165dc8e2c4f11cf430d7152f93bd0783",
+    "/srv/android/logs/lineage-24.0-arm64/kernel-perf-modules-20261104-03.exit": "53c234e5e8472b6ac51c1ae1cab3fe06fad053beb8ebfd8977b010655bfdd3c3",
+    "/srv/android/logs/lineage-24.0-arm64/kernel-perf-modules-20261104-03.log": "6b557dabb39e3bbd494688756d55d235bb340683988b8e28df03b3e7be4b3773"
+  },
+  "module_build_exit_codes": [
+    0,
+    2,
+    2
+  ],
+  "kutf_static_import_check_passed": true,
+  "gator_build_passed": false,
+  "no_module_install_or_load": true,
+  "flash_ready": false
+}

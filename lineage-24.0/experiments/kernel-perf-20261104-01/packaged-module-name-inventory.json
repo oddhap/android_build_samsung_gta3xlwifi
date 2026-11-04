@@ -1,0 +1,17 @@
+{
+  "scope": "Filename/module-directory inventory of immutable target-files and actual extracted vendor; not proof of absent external modules or live module ABI compatibility",
+  "archive": "/srv/android/artifacts/lineage-24.0-arm64/diagnostic-full-targetfiles-preserve-20261103-02/lineage_gta3xlwifi-target_files.zip",
+  "archive_sha256_from_prior_full_check": "5d6d30884abdf5c9cd2ea1680961005f681598a508bcb0937d6ebb27bebc3b45",
+  "archive_module_name_markers": [],
+  "actual_vendor_module_name_markers": [],
+  "optional_module_config": [
+    "CONFIG_MALI_KUTF=m",
+    "CONFIG_GATOR=m"
+  ],
+  "hardware_tested": false,
+  "similar_non_module_names": [
+    "SYSTEM/system_ext/etc/terminfo/s/screen-bce.konsole",
+    "SYSTEM/system_ext/etc/terminfo/s/screen.konsole",
+    "SYSTEM/system_ext/etc/terminfo/s/screen.konsole-256color"
+  ]
+}

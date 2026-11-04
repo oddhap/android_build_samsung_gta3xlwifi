@@ -17,10 +17,14 @@ FILES = ['security/selinux/ss/services.c', 'security/selinux/avc.c',
 
 
 def function(s, name):
-    m = re.search(r'^(?:static )?(?:inline )?(?:noinline )?[\w\s*]+\b' +
-                  re.escape(name) + r'\([^;]*?\)\s*\{', s, re.M)
+    # Search code, not prose that mentions a function before a different body.
+    # Blank strings/chars too, so diagnostic braces cannot end extraction early.
+    tokens = r'/\*.*?\*/|//[^\n]*|"(?:\\.|[^"\\])*"|\'(?:\\.|[^\'\\])*\''
+    clean = re.sub(tokens, lambda match: re.sub(r'[^\n]', ' ', match[0]), s,
+                   flags=re.S)
+    m = re.search(r'^[ \t]*[A-Za-z_][\w\s*]*\b' + re.escape(name) +
+                  r'\([^;]*?\)\s*\{', clean, re.M)
     assert m, name
-    clean = re.sub(r'/\*.*?\*/|//[^\n]*', lambda m: ' ' * len(m[0]), s, flags=re.S)
     i = clean.index('{', m.start()) + 1
     depth = 1
     while depth:

@@ -1,0 +1,28 @@
+{
+  "passed": true,
+  "scope": "Actual perf LSM/label, trace permission, IO wrappers and allocation/free tails.\n\nMemory, credentials, policy, PMU, RCU/IRQ/context, filter/BPF and ring-buffer\nbackends are fixtures. Full syscall/context/hardware scheduling is not executed;\nmmap and allocation run explicitly delimited production fragments.\n",
+  "result": "PASS: 9984 LSM/owner-label, 128 allocation/free-unwind, 6144 read/ioctl/mmap-fragment, 6144 old-vs-new trace, 24 CPU-gate scenarios",
+  "existing_class_and_permission_ids_unchanged": true,
+  "old_paranoia_helpers_and_compat_ioctl_unchanged": true,
+  "extractor_sha256": "1c2790b8fa82de4aa0c73202f34a2d36d752b23af3585591a80ab67c5fd19d3d",
+  "classmap_reader_sha256": "5e905ac2334fbb5daaac6ac9162157e09a1d936e34e7543596319d5b444d0faf",
+  "runner_sha256": "c4b91edbcca9e66fecb9f6bd27d6e9cdcc52b656b993842a23443ccf1a19594c",
+  "inputs_sha256": {
+    "/srv/android/ports/lineage-24.0-arm64/kernel-perf-20261104-01/src/kernel/events/core.c": "00b45604af5eaa57f079253f7a600b2c9dd22884dfab0276017a460023372095",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-perf-20261104-01/src/kernel/trace/trace_event_perf.c": "c36f861ded30f38151525cbb93b3ebe0d76c199bea1278c777793fe5b1a61c67",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-perf-20261104-01/src/include/linux/perf_event.h": "bcfafa5f8afb2db06daacc626bf30834d1233ff8d611cec276521cf3546befb7",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-perf-20261104-01/src/include/linux/security.h": "b0b1de67e018010e0cc8718fa21f025a2f6b0bc44f554bb2390442f4e4d6d532",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-perf-20261104-01/src/include/linux/lsm_hooks.h": "7dd8c8004e135b657377542ba3eaad9ceda0c9632fd2c9e96895ab8c422afe73",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-perf-20261104-01/src/security/security.c": "197c88e3ab12aa0d3c52ca00fe5dd2f5bdca406bee0c542058f9198143b5f51a",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-perf-20261104-01/src/security/selinux/hooks.c": "e5b75757451174ff0ee95ee89783469b4926d00da264846a7bea0d30b721f08d",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-perf-20261104-01/src/security/selinux/include/objsec.h": "7c83b2ceb8f7f01af24a9ff86bcdda7e4a2031b1a68cfa30fdd0e0210c54f824",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-perf-20261104-01/src/security/selinux/include/classmap.h": "9548ed90e9e41665fd33b0efda16e0755a5e6b3927e5e832786ce368e6e9b5d9",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-perf-20261104-01/src/include/uapi/linux/perf_event.h": "7e42b5529d1ab2e0504a11e5bc6f95e8acd74bfc1aa2f9e618d7e0a76ba0ae0a",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-notify-20261104-01/src/kernel/events/core.c": "f556e348a40ec685e25b6f7309b882fd00a2442a15d5e82af87e8bfaf27d4dd0",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-notify-20261104-01/src/kernel/trace/trace_event_perf.c": "3736da490ef9be606a45d4650608b891c26cd7b0ef8e77165b2094552812b97a",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-notify-20261104-01/src/include/linux/perf_event.h": "686b48d2ff4736f7ac08253a5ff761df70f0dda3352020cefdf9cc0e1d0aecb0",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-notify-20261104-01/src/security/selinux/include/classmap.h": "2ec98cc1701dc10025046838cef75e6c14caa203649be8b92a42c79b8d3eb2b4"
+  },
+  "hardware_tested": false,
+  "real_perf_scheduling_or_full_open_context_executed": false
+}
