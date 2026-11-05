@@ -33,31 +33,79 @@ checks = {'neverallow','neverallowx','neverallowxperm','mlsconstrain','constrain
 def inventory(report_path):
     report = json.loads(report_path.read_text())
     assert report['results'][0]['mode'] == 'strict' and '-N' not in report['results'][0]['command']
-    assertions, av, permissive = Counter(), Counter(), Counter()
+    assertions, av, permissive, other, symbols = Counter(), Counter(), Counter(), Counter(), set()
     for item in report['inputs']:
         path = Path(item['path'])
         assert sha(path) == item['sha256']
         text = path.read_text()
+        symbols.update(t[1] for t in cil.tokens(text) if t[0] == 'symbol')
         for kind, start, stop in forms.statements(text, cil.tokens):
+            key = ' '.join(t[1] for t in cil.tokens(text[start:stop]))
             if kind in checks | {'allow','allowx','allowxperm','typepermissive'}:
-                key = ' '.join(t[1] for t in cil.tokens(text[start:stop]))
                 (assertions if kind in checks else permissive if kind=='typepermissive' else av)[key] += 1
+            else:
+                other[key] += 1
     diagnostics = Counter()
     for block in report_path.with_name('strict.log').read_text().split('neverallow check failed at ')[1:]:
         assertion = next(x.strip() for x in block.splitlines()[1:] if x.strip().startswith('(neverallow'))
         diagnostics[' '.join(t[1] for t in cil.tokens(assertion))] += 1
-    return assertions, av, permissive, diagnostics
+    return assertions, av, permissive, diagnostics, other, symbols
+
+
+def allow_parts(statement):
+    ts = [t[1] for t in cil.tokens(statement)]
+    if (len(ts) < 11 or ts[:2] != ['(', 'allow'] or ts[4] != '(' or
+            ts[6] != '(' or ts[-3:] != [')', ')', ')']):
+        return None
+    permissions = ts[7:-3]
+    if not permissions or any(x in {'(', ')', 'not', 'and', 'or'} for x in permissions):
+        return None
+    return (ts[2], ts[3], ts[5]), frozenset(permissions)
 
 
 old, new = inventory(a.baseline), inventory(a.candidate)
 assert not (old[0]-new[0]), 'An assertion/constraint was removed'
-assert not (new[1]-old[1]), 'An AV grant statement was added'
+permission_subsets, source_subsets = [], []
+added_other = new[4]-old[4]
+for statement, count in (new[1]-old[1]).items():
+    parsed = allow_parts(statement)
+    assert parsed, 'An extended/noncanonical AV grant was added'
+    triple, permissions = parsed
+    candidates = [(s, allow_parts(s)) for s in old[1] if allow_parts(s)]
+    match = next((s for s, (key, perms) in candidates if key == triple and permissions <= perms), None)
+    if match:
+        permission_subsets.append({'before': match, 'after': statement, 'occurrences': count})
+        continue
+    # A fresh source attribute is a subset only when its sole definition is a
+    # direct intersection with the old source. Existing type/attribute/role
+    # statements must remain unchanged; no new concrete types may be added.
+    assert not (old[4]-new[4]), 'Source narrowing changed old declarations/expressions'
+    fresh, definitions = set(), {}
+    for extra in added_other:
+        ts = [t[1] for t in cil.tokens(extra)]
+        assert ts[1] in {'typeattribute','typeattributeset'}, 'Source narrowing added another statement kind'
+        assert ts[2] not in old[5], 'Source narrowing writes an existing symbol'
+        if ts[1] == 'typeattribute':
+            fresh.add(ts[2])
+        else:
+            assert ts[2] not in definitions and added_other[extra] == 1
+            definitions[ts[2]] = ts
+    assert triple[0] in fresh and triple[0] in definitions
+    definition = definitions[triple[0]]
+    assert len(definition) == 9 and definition[3:5] == ['(', 'and'] and definition[-2:] == [')', ')']
+    match = next((s for s, (key, perms) in candidates
+                  if key[1:] == triple[1:] and permissions == perms and key[0] in definition[5:7]), None)
+    assert match, 'No proved source/permission subset for added AV text'
+    source_subsets.append({'before':match,'after':statement,'occurrences':count,
+                           'intersection_definition':' '.join(definition)})
 assert not (new[2]-old[2]), 'A permissive declaration was added'
 report = {'scope': __doc__, 'baseline_assertion_constraint_records': sum(old[0].values()),
           'candidate_assertion_constraint_records': sum(new[0].values()),
           'removed_assertions_or_constraints': [],
           'added_assertions_or_constraints': dict(new[0]-old[0]),
           'added_av_grant_statements': [], 'removed_av_grant_statement_count':sum((old[1]-new[1]).values()),
+          'permission_narrowed_allow_replacements': permission_subsets,
+          'source_intersection_allow_replacements': source_subsets,
           'baseline_diagnostic_blocks':sum(old[3].values()), 'candidate_diagnostic_blocks':sum(new[3].values()),
           'resolved_diagnostic_records':dict(old[3]-new[3]), 'new_diagnostic_records':dict(new[3]-old[3]),
           'effective_permission_or_attribute_equivalence_proved': False,

@@ -464,3 +464,44 @@ active snapshot, images, signing material, recovery and tablet remain unchanged.
 No flashable ROM, kernel promotion, security approval or hardware validation is
 produced. Property ownership, scoped legacy app/network rules, HAL/BPF behavior,
 network backend, module ABI and Android17 FBE/installer/rollback remain open.
+
+
+## November 5: sandbox boundaries and complete property ownership
+
+The [sandbox file proposal](experiments/sandbox-file-access-20261105-01/) removes
+only forbidden open/tombstone/APK mutation permissions: strict **65 -> 62**. An
+[official frozen-policy build](experiments/frozen-policy-oracle-20261105-01/)
+provides Android11 classification evidence only, not Android17 validation. The
+[ASEC client proposal](experiments/asec-clients-20261105-01/) intersects the old
+source with 43 ABI-visible legacy/vendor app clients: **62 -> 60**. It preserves
+the old source attribute and all targets/permissions; three unmapped frozen
+private clients are explicitly recorded. It does not establish runtime coverage.
+
+A complete positive property-attribute closure finds 66 remaining unowned types,
+all exclusively vendor-declared. The [restricted owner proposal](experiments/vendor-private-property-owners-20261105-01/)
+assigns them vendor-restricted ownership by private declaration origin, expanding
+the existing restricted group from 32 to 98. No public scope or new allow is
+added. All 524 property types now have an owner in this graph. An independent
+real Android17 compiler oracle validates the exact positive graph both
+[before](experiments/property-closure-oracle-20261105-01/) and
+[after](experiments/property-closure-oracle-20261105-02/), with 66 and zero unowned
+properties respectively and no membership differences. This is not AV/MLS runtime
+or whole-policy security validation. Product ownership is the actual M4 alias
+of system ownership; type aliases are resolved, not silently ignored.
+
+The restricted owner boundary exposes old core-writer conflicts: **60 -> 61**.
+The [reviewed writer proposal](experiments/property-writer-tightening-20261105-02/)
+removes 25 forbidden set grants, proving every concrete source is non-init core,
+including the two-member platform_app API30 alias: **61 -> 58**. Non-core writer,
+init and read grants remain. Private sources policyloader_app/vramdiskd are core
+in this policy and included; hardware behavior remains untested. All **5,918
+assertion/constraint records** remain, with no added AV permission or permissive
+declaration. Source/permission replacements have explicit subset witnesses.
+
+Final verbose strict diagnostics contain **58 conflicts / 204 matching grant
+records**, untruncated. Secilc255 remains failure; runner0 is experiment completion.
+Every proposal has matching full 1,243-project/15-patch before/after source audits
+and unchanged compiler/other input hashes. All candidates remain outside active
+sources/snapshots/prebuilts/images/cache hashes. No -N real-policy compile, signing,
+flashing or device operation occurs. Remaining SELinux, actual network/BPF backend,
+HAL/ABI and Android17 FBE/installer/rollback still block a flashable test ROM.

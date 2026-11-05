@@ -1,0 +1,42 @@
+{
+  "scope": "Narrow old direct file access to Android17 sandbox and app-data boundaries.\n\nRetains read/FD permissions where allowed, removes isolated direct open, limits\ntombstone access to read/getattr, and retires direct APK directory mutation.\nNo attribute, label, assertion or MLS constraint changes. Offline proposal only.\n",
+  "changes": [
+    {
+      "before": "(allow isolated_app_30_0 shell_data_file_30_0 (file (ioctl read getattr lock map open watch watch_reads)))",
+      "after": "(allow isolated_app_30_0 shell_data_file_30_0 (file (ioctl read getattr lock map watch watch_reads)))",
+      "reason": "Android17 isolated_app_all.te:59 prohibits direct app-data open; retain FD operations."
+    },
+    {
+      "before": "(allow platform_app_30_0 tombstone_data_file_30_0 (file (ioctl read getattr lock map open watch watch_reads)))",
+      "after": "(allow platform_app_30_0 tombstone_data_file_30_0 (file (read getattr)))",
+      "reason": "Android17 app.te:883 permits only read/getattr for these tombstone clients."
+    },
+    {
+      "before": "(allow system_app_30_0 apk_data_file_30_0 (dir (write add_name remove_name)))",
+      "after": "",
+      "reason": "Android17 app.te:695 prohibits direct APK writes; installation requires framework mediation."
+    }
+  ],
+  "unchanged_retained_statements_byte_exact": true,
+  "source_target_class_unchanged_for_permission_replacements": true,
+  "allow_permissions_added": false,
+  "attributes_labels_or_constraints_modified": false,
+  "vendor_rules_before": {
+    "allow": 12517,
+    "allowx": 127,
+    "neverallow": 132,
+    "neverallowx": 2
+  },
+  "vendor_rules_after": {
+    "allow": 12516,
+    "allowx": 127,
+    "neverallow": 132,
+    "neverallowx": 2
+  },
+  "runner_sha256": "519640625e9d794ea7c312295366aa86cacbb6d28a7a1633ddad23b9eb500d33",
+  "input_vendor_sha256": "51cb70c0926631d98894360aa8314ff4e2d5f395de1cd9964125036e6a781b18",
+  "staged_vendor_sha256": "648a6273d5cefb3491e5df7113d4216a7fd345859d2c9110c5cf2053058a9494",
+  "runtime_validated": false,
+  "security_approved": false,
+  "flash_ready": false
+}

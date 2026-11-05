@@ -1,0 +1,18 @@
+{
+  "purpose": "Frozen Android11 app classification reference only; not Android17 ROM/security validation",
+  "build_exit": 0,
+  "full_source_audits_match": true,
+  "projects": 1243,
+  "exact_patches": 15,
+  "source_and_output_sha256": {
+    "/srv/android/src/lineage-24.0-arm64/out/soong/.intermediates/system/sepolicy/prebuilts/api/30.0/30.0_plat_policy.cil/android_common/30.0_plat_policy.cil": "94007d1d20ce24a4f2a74920d82f0fabc2a0718cb61bb5996b7fa7dad64d67e9",
+    "/srv/android/src/lineage-24.0-arm64/out/soong/.intermediates/system/sepolicy/prebuilts/api/30.0/30.0_plat_policy/android_common/30.0_plat_policy": "549d8d4306fede627d02e27e07d336488c1c6c7378fe0defeb4773087a31e8a9",
+    "/srv/android/src/lineage-24.0-arm64/system/sepolicy/prebuilts/api/30.0/Android.bp": "ff94242e915474d57dc66ad787620906aac44db034efa87cbc5efde1dc933b19",
+    "/srv/android/artifacts/lineage-24.0-arm64/frozen-policy-oracle-20261105-01/source-audit-before.json": "fc309c08f0db753b5374914f55bc1f896407c25530a2e13ffabfb0be413d6dd4",
+    "/srv/android/artifacts/lineage-24.0-arm64/frozen-policy-oracle-20261105-01/source-audit-after.json": "c3f835f77ac04f0156b716667b185167cc51718db1eb1c223e2d721106f3eabb",
+    "/srv/android/artifacts/lineage-24.0-arm64/frozen-policy-oracle-20261105-01/binary-inputs.json": "a77697cf9a784dc28f37e9dd88341161bf690fe96cbbc97050f34add631388a8",
+    "/srv/android/artifacts/lineage-24.0-arm64/frozen-policy-oracle-20261105-01/targets.txt": "781301d9e47f8d36a4d31af6c2f40b751e33915bacc000aec78736a62b0d2478"
+  },
+  "installed_or_promoted": false,
+  "flash_ready": false
+}

@@ -1,0 +1,131 @@
+{
+  "scope": "Retire reviewed all-core-writer grants to vendor-restricted properties.\n\nEvery concrete source is a non-init core type and each rule is identified by the actual\nAndroid17 compiler as violating the unchanged non-init core writer assertion.\nNo source classification, init exception, vendor writer or read grant changes.\n",
+  "removed_grants": [
+    "(allow bluetooth_30_0 vendor_bluetooth_prop (property_service (set)))",
+    "(allow cameraserver_30_0 sec_camera_prop (property_service (set)))",
+    "(allow lmkd_30_0 lmk_prop (property_service (set)))",
+    "(allow mediadrmserver_30_0 vendor_mediadrm_prop (property_service (set)))",
+    "(allow mediaserver_30_0 sec_camera_prop (property_service (set)))",
+    "(allow platform_app_30_0 ccm_prop (property_service (set)))",
+    "(allow policyloader_app security_prop (property_service (set)))",
+    "(allow radio_30_0 rild_prop (property_service (set)))",
+    "(allow system_app_30_0 apm_prop (property_service (set)))",
+    "(allow system_app_30_0 cp_reserved_mem_prop (property_service (set)))",
+    "(allow system_app_30_0 facm_prop (property_service (set)))",
+    "(allow system_app_30_0 ina_status_prop (property_service (set)))",
+    "(allow system_app_30_0 sec_camera_prop (property_service (set)))",
+    "(allow system_app_30_0 sec_factory_facm_prop (property_service (set)))",
+    "(allow system_app_30_0 sec_ims_prop (property_service (set)))",
+    "(allow system_app_30_0 vendor_omadm_prop (property_service (set)))",
+    "(allow system_app_30_0 vzw_os_prop (property_service (set)))",
+    "(allow system_server_30_0 apm_prop (property_service (set)))",
+    "(allow system_server_30_0 ccm_prop (property_service (set)))",
+    "(allow system_server_30_0 sec_camera_prop (property_service (set)))",
+    "(allow system_server_30_0 security_prop (property_service (set)))",
+    "(allow system_server_30_0 vendor_camera_motor_prop (property_service (set)))",
+    "(allow system_server_30_0 vendor_model_suffix_prop (property_service (set)))",
+    "(allow vramdiskd vramdiskd_prop (property_service (set)))",
+    "(allow zygote_30_0 vendor_zygoteinit_prop (property_service (set)))"
+  ],
+  "concrete_core_sources": {
+    "bluetooth_30_0": [
+      "bluetooth"
+    ],
+    "cameraserver_30_0": [
+      "cameraserver"
+    ],
+    "lmkd_30_0": [
+      "lmkd"
+    ],
+    "platform_app_30_0": [
+      "platform_app",
+      "platform_app_36"
+    ],
+    "radio_30_0": [
+      "radio"
+    ],
+    "system_app_30_0": [
+      "system_app"
+    ],
+    "system_server_30_0": [
+      "system_server"
+    ],
+    "zygote_30_0": [
+      "zygote"
+    ],
+    "policyloader_app": [
+      "policyloader_app"
+    ],
+    "mediadrmserver_30_0": [
+      "mediadrmserver"
+    ],
+    "mediaserver_30_0": [
+      "mediaserver"
+    ],
+    "vramdiskd": [
+      "vramdiskd"
+    ]
+  },
+  "positive_membership_witness": {
+    "coredomain": [
+      "( typeattributeset coredomain ( adbd apexd app_zygote artd atrace audioserver blkid blkid_untrusted bluetooth bootanim bootstat bpfloader bufferhubd cameraserver charger crash_dump credstore crosvm_vendor dhcp dnsmasq drmserver dumpstate e2fs early_virtmgr_vendor ephemeral_app evsmanagerd extra_free_kbytes fastbootd fingerprintd flags_health_check fsck fsck_untrusted gatekeeperd gmscore_app gpuservice healthd heapprofd hwservicemanager idmap incident incident_helper incidentd init inputflinger installd isolated_app isolated_compute_app kernel keystore llkd lmkd logd logpersist mdnsd mediadrmserver mediaextractor mediametrics mediaprovider mediaserver mediaswcodec mediatranscoding mmd_setup modprobe netd netutils_wrapper network_stack nfc omapi perfetto performanced platform_app platform_app_36 postinstall prefetch priv_app priv_app_36 prng_seeder profman radio recovery recovery_persist recovery_refresh rkpdapp rs rss_hwm_reset runas runas_app sdcardd secure_element serialservice servicemanager sgdisk shared_relro shell simpleperf simpleperf_app_runner slideshow statsd surfaceflinger system_app system_server tombstoned toolbox traced traced_perf traced_probes traceur_app ueventd uncrypt untrusted_app untrusted_app_34 untrusted_app_32 untrusted_app_30 untrusted_app_29 untrusted_app_27 untrusted_app_25 update_engine update_verifier usbd vdc virtual_camera virtual_touchpad virtualizationmanager_vendor vold vold_prepare_subdirs watchdogd webview_zygote wificond zygote aconfigd aconfigd_mainline adbd_tradeinmode adservices aflags aisealhostservice aisealhostservice_virtualizationmanager aisealhostservice_virtmgr_crosvm aoad apex_test_prepostinstall apexd_derive_classpath art_boot art_exec auditctl automotive_display_service bert_collector blank_screen boringssl_self_test canhalconfigurator casefolding_remover clatd compos_fd_server compos_verify compos_verify_virtualizationmanager compos_verify_virtmgr_crosvm composd composd_virtualizationmanager composd_virtmgr_crosvm cppreopts crosvm_vu_fs crosvm_vu_snd derive_classpath derive_sdk device_as_webcam dex2oat dexopt_chroot_setup dmesgd fuseblkd fuseblkd_untrusted fwk_bufferhub gki_apex_prepostinstall gsid hal_allocator_default hal_keymint_system hal_widevine_system hidservice iw kcmdlinectrl kcmdlinemodprobe linkerconfig linux_vm_setup lpdumpd mediacodeclist_generator mediaprovider_app mediatuner memcgv2_activation_depth migrate_legacy_obb_data misctrl mm_events mmd mtectrl native_app_zygote odrefresh odsign ot_ctl ot_daemon overlay_remounter pcc_component permissioncontroller_app platform_app_all_virtualizationmanager platform_app_all_virtmgr_crosvm pmgd preloads_copy preopt2cachename priv_app_all_virtualizationmanager priv_app_all_virtmgr_crosvm profcollectd remount rkp_cert_processor rkpd sdk_sandbox_34 sdk_sandbox_audit sdk_sandbox_next shell_virtualizationmanager shell_virtmgr_crosvm simpleperf_boot snapshotctl snapuserd stats storaged system_server_startup system_suspend trace_redactor tradeinmode untrusted_app_all_virtualizationmanager untrusted_app_all_virtmgr_crosvm uprobestats usbauthservice userdata_alias_remove vehicle_binding_util vfio_handler virtual_face virtual_fingerprint virtualizationservice virtualizationservice_virtualizationmanager virtualizationservice_virtmgr_crosvm vmlauncher_app vmnic wait_for_keymaster wifi_mainline_supplicant zygote_next ) )",
+      "( typeattributeset coredomain ( adbd apexd app_zygote artd atrace audioserver blkid blkid_untrusted bluetooth bootanim bootstat bpfloader bufferhubd cameraserver charger crash_dump credstore crosvm_vendor dhcp dnsmasq drmserver dumpstate e2fs early_virtmgr_vendor ephemeral_app evsmanagerd extra_free_kbytes fastbootd fingerprintd flags_health_check fsck fsck_untrusted gatekeeperd gmscore_app gpuservice healthd heapprofd hwservicemanager idmap incident incident_helper incidentd init inputflinger installd isolated_app isolated_compute_app kernel keystore llkd lmkd logd logpersist mdnsd mediadrmserver mediaextractor mediametrics mediaprovider mediaserver mediaswcodec mediatranscoding mmd_setup modprobe netd netutils_wrapper network_stack nfc omapi perfetto performanced platform_app platform_app_36 postinstall prefetch priv_app priv_app_36 prng_seeder profman radio recovery recovery_persist recovery_refresh rkpdapp rs rss_hwm_reset runas runas_app sdcardd secure_element serialservice servicemanager sgdisk shared_relro shell simpleperf simpleperf_app_runner slideshow statsd surfaceflinger system_app system_server tombstoned toolbox traced traced_perf traced_probes traceur_app ueventd uncrypt untrusted_app untrusted_app_34 untrusted_app_32 untrusted_app_30 untrusted_app_29 untrusted_app_27 untrusted_app_25 update_engine update_verifier usbd vdc virtual_camera virtual_touchpad virtualizationmanager_vendor vold vold_prepare_subdirs watchdogd webview_zygote wificond zygote aconfigd aconfigd_mainline adbd_tradeinmode adservices aflags aisealhostservice aisealhostservice_virtualizationmanager aisealhostservice_virtmgr_crosvm aoad apex_test_prepostinstall apexd_derive_classpath art_boot art_exec auditctl automotive_display_service bert_collector blank_screen boringssl_self_test canhalconfigurator casefolding_remover clatd compos_fd_server compos_verify compos_verify_virtualizationmanager compos_verify_virtmgr_crosvm composd composd_virtualizationmanager composd_virtmgr_crosvm cppreopts crosvm_vu_fs crosvm_vu_snd derive_classpath derive_sdk device_as_webcam dex2oat dexopt_chroot_setup dmesgd fuseblkd fuseblkd_untrusted fwk_bufferhub gki_apex_prepostinstall gsid hal_allocator_default hal_keymint_system hal_widevine_system hidservice iw kcmdlinectrl kcmdlinemodprobe linkerconfig linux_vm_setup lpdumpd mediacodeclist_generator mediaprovider_app mediatuner memcgv2_activation_depth migrate_legacy_obb_data misctrl mm_events mmd mtectrl native_app_zygote odrefresh odsign ot_ctl ot_daemon overlay_remounter pcc_component permissioncontroller_app platform_app_all_virtualizationmanager platform_app_all_virtmgr_crosvm pmgd preloads_copy preopt2cachename priv_app_all_virtualizationmanager priv_app_all_virtmgr_crosvm profcollectd remount rkp_cert_processor rkpd sdk_sandbox_34 sdk_sandbox_audit sdk_sandbox_next shell_virtualizationmanager shell_virtmgr_crosvm simpleperf_boot snapshotctl snapuserd stats storaged system_server_startup system_suspend trace_redactor tradeinmode untrusted_app_all_virtualizationmanager untrusted_app_all_virtmgr_crosvm uprobestats usbauthservice userdata_alias_remove vehicle_binding_util vfio_handler virtual_face virtual_fingerprint virtualizationservice virtualizationservice_virtualizationmanager virtualizationservice_virtmgr_crosvm vmlauncher_app vmnic wait_for_keymaster wifi_mainline_supplicant zygote_next adbroot backuptool mediashell_app mkfs updater_app ) )",
+      "( typeattributeset coredomain ( vendor_uce_app_30_0 dsms_app_30_0 perfmond_30_0 sdunion_storagevold DMM-daemon FlexibleLog IPSecService policyloader_app aasa_service_app apexserver apk_signer at_distributor auditd bootchecker bsd cdpredictor charon connfwexe corehelper ddexe dhkprov dmb dsms dsms_hidl dualdar_app edmaudit epmlogd eris ewlogd faced flash_recovery_sec freecessmonitor fsdbg heimdall icdaemon idledefrag ikev2_client imsd insthk iofdaemon irisd kapd kfa_app lpm mafpc_write move_widevine_data multiclientd oneseg_mw otp_server pa_daemon pageboostd perfsdkserver prepare_param preparefbe python rdxd redsocks remotedisplay resetreason rsudaemon samsungpowersoundplay scs sdp_cryptod sec-ril sec-sh sec_standard_app felica_app trustonicpartner_app spu_app oneseg_apk aasa_platform_app vzwfiltered_untrusted_app filtered_untrusted_app sec_untrusted_app sec_system_init_shell sechcserver secure_storage sem sensorhubservice smdac smdexe softsimd spqr spqr_service_daemon spud ss_conn_daemon ssud sswap sysmon teed_app teeregistryd_app tlc_server tsdaemon umount_service visiond vpnclientd vramdiskd vzsysprop wland wlandutservice wsmd attiqi_app dtvserver fsslcmnd mfdp mfsc mmb_mw diagexe rsudrkproxyd tee_service_daemon ) )"
+    ],
+    "bluetooth_30_0": [
+      "( typeattributeset bluetooth_30_0 ( bluetooth ) )"
+    ],
+    "cameraserver_30_0": [
+      "( typeattributeset cameraserver_30_0 ( cameraserver ) )"
+    ],
+    "lmkd_30_0": [
+      "( typeattributeset lmkd_30_0 ( lmkd ) )"
+    ],
+    "platform_app_30_0": [
+      "( typeattributeset platform_app_30_0 ( platform_app platform_app_36 ) )"
+    ],
+    "radio_30_0": [
+      "( typeattributeset radio_30_0 ( radio ) )"
+    ],
+    "system_app_30_0": [
+      "( typeattributeset system_app_30_0 ( system_app ) )"
+    ],
+    "system_server_30_0": [
+      "( typeattributeset system_server_30_0 ( system_server ) )"
+    ],
+    "zygote_30_0": [
+      "( typeattributeset zygote_30_0 ( zygote ) )"
+    ],
+    "mediadrmserver_30_0": [
+      "( typeattributeset mediadrmserver_30_0 ( mediadrmserver ) )"
+    ],
+    "mediaserver_30_0": [
+      "( typeattributeset mediaserver_30_0 ( mediaserver ) )"
+    ]
+  },
+  "actual_compiler_assertion": "(neverallow vendor_samsung_port_noninit_core vendor_samsung_port_restricted_properties (property_service (set)))",
+  "assertions_and_attribute_definitions_changed": false,
+  "allow_permissions_added": false,
+  "vendor_rules_before": {
+    "allow": 12516,
+    "allowx": 127,
+    "neverallow": 132,
+    "neverallowx": 2
+  },
+  "vendor_rules_after": {
+    "allow": 12491,
+    "allowx": 127,
+    "neverallow": 132,
+    "neverallowx": 2
+  },
+  "inputs_sha256": {
+    "/srv/android/artifacts/lineage-24.0-arm64/vendor-private-property-owners-20261105-01/strict/report.json": "ebddc59ecef12f67fcaf8b04b6cdb2fe5872eac019a8af6ed8980462ffaff2c5",
+    "/srv/android/artifacts/lineage-24.0-arm64/vendor-private-property-owners-20261105-01/verbose/report.json": "6b5aef50febe8a4f7e672371e8bbe9072b0179065523905cbbeb68796d8c1450",
+    "/srv/android/artifacts/lineage-24.0-arm64/vendor-private-property-owners-20261105-01/metadata/vendor_sepolicy.cil": "83640e55ad0baf189c0c499eccf5cedd6251bba8b578ff7f64fa4b63ec1fa50a"
+  },
+  "runner_sha256": "fa228b7ebd6305890047ce5e2f1d540025a1e0f1ace89bd17e90748fe7aac357",
+  "staged_vendor_sha256": "ac2b8b342bfcee84727ddcfee1049fe66a96971af31ed2b643065a3ae84845ce",
+  "runtime_feature_compatibility_proved": false,
+  "security_approved": false,
+  "flash_ready": false
+}

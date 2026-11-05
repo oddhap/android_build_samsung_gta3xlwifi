@@ -1,0 +1,398 @@
+neverallow check failed at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:669
+  (neverallow fixture_domain wpa_supplicant_prop (file (read)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:603
+      (allow fixture_domain fixture_actual_unowned (file (read)))
+
+neverallow check failed at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:668
+  (neverallow fixture_domain vzw_os_prop (file (read)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:603
+      (allow fixture_domain fixture_actual_unowned (file (read)))
+
+neverallow check failed at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:667
+  (neverallow fixture_domain vramdiskd_prop (file (read)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:603
+      (allow fixture_domain fixture_actual_unowned (file (read)))
+
+neverallow check failed at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:666
+  (neverallow fixture_domain vendor_zygoteinit_prop (file (read)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:603
+      (allow fixture_domain fixture_actual_unowned (file (read)))
+
+neverallow check failed at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:665
+  (neverallow fixture_domain vendor_zram_prop (file (read)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:603
+      (allow fixture_domain fixture_actual_unowned (file (read)))
+
+neverallow check failed at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:664
+  (neverallow fixture_domain vendor_wvkprov_prop (file (read)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:603
+      (allow fixture_domain fixture_actual_unowned (file (read)))
+
+neverallow check failed at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:663
+  (neverallow fixture_domain vendor_wda_prop (file (read)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:603
+      (allow fixture_domain fixture_actual_unowned (file (read)))
+
+neverallow check failed at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:662
+  (neverallow fixture_domain vendor_tmfd_prop (file (read)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:603
+      (allow fixture_domain fixture_actual_unowned (file (read)))
+
+neverallow check failed at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:661
+  (neverallow fixture_domain vendor_slog_prop (file (read)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:603
+      (allow fixture_domain fixture_actual_unowned (file (read)))
+
+neverallow check failed at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:660
+  (neverallow fixture_domain vendor_sensor_prop (file (read)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:603
+      (allow fixture_domain fixture_actual_unowned (file (read)))
+
+neverallow check failed at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:659
+  (neverallow fixture_domain vendor_rmnet_prop (file (read)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:603
+      (allow fixture_domain fixture_actual_unowned (file (read)))
+
+neverallow check failed at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:658
+  (neverallow fixture_domain vendor_prop (file (read)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:603
+      (allow fixture_domain fixture_actual_unowned (file (read)))
+
+neverallow check failed at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:657
+  (neverallow fixture_domain vendor_omadm_prop (file (read)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:603
+      (allow fixture_domain fixture_actual_unowned (file (read)))
+
+neverallow check failed at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:656
+  (neverallow fixture_domain vendor_ofi_prop (file (read)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:603
+      (allow fixture_domain fixture_actual_unowned (file (read)))
+
+neverallow check failed at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:655
+  (neverallow fixture_domain vendor_model_suffix_prop (file (read)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:603
+      (allow fixture_domain fixture_actual_unowned (file (read)))
+
+neverallow check failed at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:654
+  (neverallow fixture_domain vendor_mobicore_prop (file (read)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:603
+      (allow fixture_domain fixture_actual_unowned (file (read)))
+
+neverallow check failed at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:653
+  (neverallow fixture_domain vendor_mediadrm_prop (file (read)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:603
+      (allow fixture_domain fixture_actual_unowned (file (read)))
+
+neverallow check failed at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:652
+  (neverallow fixture_domain vendor_mbim_prop (file (read)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:603
+      (allow fixture_domain fixture_actual_unowned (file (read)))
+
+neverallow check failed at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:651
+  (neverallow fixture_domain vendor_ims_prop (file (read)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:603
+      (allow fixture_domain fixture_actual_unowned (file (read)))
+
+neverallow check failed at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:650
+  (neverallow fixture_domain vendor_hwc_prop (file (read)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:603
+      (allow fixture_domain fixture_actual_unowned (file (read)))
+
+neverallow check failed at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:649
+  (neverallow fixture_domain vendor_hostapd_prop (file (read)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:603
+      (allow fixture_domain fixture_actual_unowned (file (read)))
+
+neverallow check failed at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:648
+  (neverallow fixture_domain vendor_fr_wkrmgr_prop (file (read)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:603
+      (allow fixture_domain fixture_actual_unowned (file (read)))
+
+neverallow check failed at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:647
+  (neverallow fixture_domain vendor_fr_dlymgr_prop (file (read)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:603
+      (allow fixture_domain fixture_actual_unowned (file (read)))
+
+neverallow check failed at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:646
+  (neverallow fixture_domain vendor_fastrpc_prop (file (read)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:603
+      (allow fixture_domain fixture_actual_unowned (file (read)))
+
+neverallow check failed at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:645
+  (neverallow fixture_domain vendor_factory_prop (file (read)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:603
+      (allow fixture_domain fixture_actual_unowned (file (read)))
+
+neverallow check failed at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:644
+  (neverallow fixture_domain vendor_df_prop (file (read)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:603
+      (allow fixture_domain fixture_actual_unowned (file (read)))
+
+neverallow check failed at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:643
+  (neverallow fixture_domain vendor_camera_motor_prop (file (read)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:603
+      (allow fixture_domain fixture_actual_unowned (file (read)))
+
+neverallow check failed at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:642
+  (neverallow fixture_domain vendor_bluetooth_prop (file (read)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:603
+      (allow fixture_domain fixture_actual_unowned (file (read)))
+
+neverallow check failed at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:641
+  (neverallow fixture_domain tztsdaemon_prop (file (read)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:603
+      (allow fixture_domain fixture_actual_unowned (file (read)))
+
+neverallow check failed at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:640
+  (neverallow fixture_domain tzdaemon_prop (file (read)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:603
+      (allow fixture_domain fixture_actual_unowned (file (read)))
+
+neverallow check failed at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:639
+  (neverallow fixture_domain system_product_prop (file (read)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:603
+      (allow fixture_domain fixture_actual_unowned (file (read)))
+
+neverallow check failed at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:638
+  (neverallow fixture_domain smartamp_prop (file (read)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:603
+      (allow fixture_domain fixture_actual_unowned (file (read)))
+
+neverallow check failed at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:637
+  (neverallow fixture_domain security_sepolicy_prop (file (read)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:603
+      (allow fixture_domain fixture_actual_unowned (file (read)))
+
+neverallow check failed at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:636
+  (neverallow fixture_domain security_prop (file (read)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:603
+      (allow fixture_domain fixture_actual_unowned (file (read)))
+
+neverallow check failed at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:635
+  (neverallow fixture_domain sec_timed_prop (file (read)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:603
+      (allow fixture_domain fixture_actual_unowned (file (read)))
+
+neverallow check failed at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:634
+  (neverallow fixture_domain sec_ims_prop (file (read)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:603
+      (allow fixture_domain fixture_actual_unowned (file (read)))
+
+neverallow check failed at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:633
+  (neverallow fixture_domain sec_factory_facm_prop (file (read)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:603
+      (allow fixture_domain fixture_actual_unowned (file (read)))
+
+neverallow check failed at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:632
+  (neverallow fixture_domain sec_camera_prop (file (read)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:603
+      (allow fixture_domain fixture_actual_unowned (file (read)))
+
+neverallow check failed at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:631
+  (neverallow fixture_domain sec_bluetooth_prop (file (read)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:603
+      (allow fixture_domain fixture_actual_unowned (file (read)))
+
+neverallow check failed at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:630
+  (neverallow fixture_domain sec_audio_usb_prop (file (read)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:603
+      (allow fixture_domain fixture_actual_unowned (file (read)))
+
+neverallow check failed at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:629
+  (neverallow fixture_domain sec_audio_prop (file (read)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:603
+      (allow fixture_domain fixture_actual_unowned (file (read)))
+
+neverallow check failed at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:628
+  (neverallow fixture_domain score_prop (file (read)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:603
+      (allow fixture_domain fixture_actual_unowned (file (read)))
+
+neverallow check failed at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:627
+  (neverallow fixture_domain rild_prop (file (read)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:603
+      (allow fixture_domain fixture_actual_unowned (file (read)))
+
+neverallow check failed at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:626
+  (neverallow fixture_domain rfkilldisabled_prop (file (read)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:603
+      (allow fixture_domain fixture_actual_unowned (file (read)))
+
+neverallow check failed at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:625
+  (neverallow fixture_domain recovery_prop (file (read)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:603
+      (allow fixture_domain fixture_actual_unowned (file (read)))
+
+neverallow check failed at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:624
+  (neverallow fixture_domain receiver_error_prop (file (read)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:603
+      (allow fixture_domain fixture_actual_unowned (file (read)))
+
+neverallow check failed at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:623
+  (neverallow fixture_domain product_ship_prop (file (read)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:603
+      (allow fixture_domain fixture_actual_unowned (file (read)))
+
+neverallow check failed at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:622
+  (neverallow fixture_domain nfc_ese_prop (file (read)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:603
+      (allow fixture_domain fixture_actual_unowned (file (read)))
+
+neverallow check failed at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:621
+  (neverallow fixture_domain multisim_prop (file (read)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:603
+      (allow fixture_domain fixture_actual_unowned (file (read)))
+
+neverallow check failed at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:620
+  (neverallow fixture_domain mobicore_prop (file (read)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:603
+      (allow fixture_domain fixture_actual_unowned (file (read)))
+
+neverallow check failed at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:619
+  (neverallow fixture_domain lmk_prop (file (read)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:603
+      (allow fixture_domain fixture_actual_unowned (file (read)))
+
+neverallow check failed at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:618
+  (neverallow fixture_domain ina_status_prop (file (read)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:603
+      (allow fixture_domain fixture_actual_unowned (file (read)))
+
+neverallow check failed at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:617
+  (neverallow fixture_domain facm_prop (file (read)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:603
+      (allow fixture_domain fixture_actual_unowned (file (read)))
+
+neverallow check failed at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:616
+  (neverallow fixture_domain em_version_prop (file (read)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:603
+      (allow fixture_domain fixture_actual_unowned (file (read)))
+
+neverallow check failed at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:615
+  (neverallow fixture_domain domain_read_prop (file (read)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:603
+      (allow fixture_domain fixture_actual_unowned (file (read)))
+
+neverallow check failed at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:614
+  (neverallow fixture_domain dolby_prop (file (read)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:603
+      (allow fixture_domain fixture_actual_unowned (file (read)))
+
+neverallow check failed at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:613
+  (neverallow fixture_domain debug_level_prop (file (read)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:603
+      (allow fixture_domain fixture_actual_unowned (file (read)))
+
+neverallow check failed at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:612
+  (neverallow fixture_domain ctl_factory_ssc_prop (file (read)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:603
+      (allow fixture_domain fixture_actual_unowned (file (read)))
+
+neverallow check failed at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:611
+  (neverallow fixture_domain cp_reserved_mem_prop (file (read)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:603
+      (allow fixture_domain fixture_actual_unowned (file (read)))
+
+neverallow check failed at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:610
+  (neverallow fixture_domain compact_dump_prop (file (read)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:603
+      (allow fixture_domain fixture_actual_unowned (file (read)))
+
+neverallow check failed at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:609
+  (neverallow fixture_domain ccm_prop (file (read)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:603
+      (allow fixture_domain fixture_actual_unowned (file (read)))
+
+neverallow check failed at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:608
+  (neverallow fixture_domain cache_status_prop (file (read)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:603
+      (allow fixture_domain fixture_actual_unowned (file (read)))
+
+neverallow check failed at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:607
+  (neverallow fixture_domain boot_force_upload_prop (file (read)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:603
+      (allow fixture_domain fixture_actual_unowned (file (read)))
+
+neverallow check failed at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:606
+  (neverallow fixture_domain boot_dram_info_prop (file (read)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:603
+      (allow fixture_domain fixture_actual_unowned (file (read)))
+
+neverallow check failed at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:605
+  (neverallow fixture_domain armnn_prop (file (read)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:603
+      (allow fixture_domain fixture_actual_unowned (file (read)))
+
+neverallow check failed at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:604
+  (neverallow fixture_domain apm_prop (file (read)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-01/unowned-witness.cil:603
+      (allow fixture_domain fixture_actual_unowned (file (read)))
+
+Failed to generate binary
+Failed to build policydb

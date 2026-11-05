@@ -1,0 +1,620 @@
+[
+  {
+    "type": "apm_prop",
+    "owners": [],
+    "vendor_scopes": [],
+    "declaration_inputs": [
+      "/srv/android/artifacts/lineage-24.0-arm64/asec-clients-20261105-01/metadata/vendor_sepolicy.cil"
+    ],
+    "vendor_context_names": []
+  },
+  {
+    "type": "armnn_prop",
+    "owners": [],
+    "vendor_scopes": [],
+    "declaration_inputs": [
+      "/srv/android/artifacts/lineage-24.0-arm64/asec-clients-20261105-01/metadata/vendor_sepolicy.cil"
+    ],
+    "vendor_context_names": []
+  },
+  {
+    "type": "boot_dram_info_prop",
+    "owners": [],
+    "vendor_scopes": [],
+    "declaration_inputs": [
+      "/srv/android/artifacts/lineage-24.0-arm64/asec-clients-20261105-01/metadata/vendor_sepolicy.cil"
+    ],
+    "vendor_context_names": []
+  },
+  {
+    "type": "boot_force_upload_prop",
+    "owners": [],
+    "vendor_scopes": [],
+    "declaration_inputs": [
+      "/srv/android/artifacts/lineage-24.0-arm64/asec-clients-20261105-01/metadata/vendor_sepolicy.cil"
+    ],
+    "vendor_context_names": []
+  },
+  {
+    "type": "cache_status_prop",
+    "owners": [],
+    "vendor_scopes": [],
+    "declaration_inputs": [
+      "/srv/android/artifacts/lineage-24.0-arm64/asec-clients-20261105-01/metadata/vendor_sepolicy.cil"
+    ],
+    "vendor_context_names": []
+  },
+  {
+    "type": "ccm_prop",
+    "owners": [],
+    "vendor_scopes": [],
+    "declaration_inputs": [
+      "/srv/android/artifacts/lineage-24.0-arm64/asec-clients-20261105-01/metadata/vendor_sepolicy.cil"
+    ],
+    "vendor_context_names": []
+  },
+  {
+    "type": "compact_dump_prop",
+    "owners": [],
+    "vendor_scopes": [],
+    "declaration_inputs": [
+      "/srv/android/artifacts/lineage-24.0-arm64/asec-clients-20261105-01/metadata/vendor_sepolicy.cil"
+    ],
+    "vendor_context_names": []
+  },
+  {
+    "type": "cp_reserved_mem_prop",
+    "owners": [],
+    "vendor_scopes": [],
+    "declaration_inputs": [
+      "/srv/android/artifacts/lineage-24.0-arm64/asec-clients-20261105-01/metadata/vendor_sepolicy.cil"
+    ],
+    "vendor_context_names": []
+  },
+  {
+    "type": "ctl_factory_ssc_prop",
+    "owners": [],
+    "vendor_scopes": [],
+    "declaration_inputs": [
+      "/srv/android/artifacts/lineage-24.0-arm64/asec-clients-20261105-01/metadata/vendor_sepolicy.cil"
+    ],
+    "vendor_context_names": []
+  },
+  {
+    "type": "debug_level_prop",
+    "owners": [],
+    "vendor_scopes": [],
+    "declaration_inputs": [
+      "/srv/android/artifacts/lineage-24.0-arm64/asec-clients-20261105-01/metadata/vendor_sepolicy.cil"
+    ],
+    "vendor_context_names": []
+  },
+  {
+    "type": "dolby_prop",
+    "owners": [],
+    "vendor_scopes": [],
+    "declaration_inputs": [
+      "/srv/android/artifacts/lineage-24.0-arm64/asec-clients-20261105-01/metadata/vendor_sepolicy.cil"
+    ],
+    "vendor_context_names": []
+  },
+  {
+    "type": "domain_read_prop",
+    "owners": [],
+    "vendor_scopes": [],
+    "declaration_inputs": [
+      "/srv/android/artifacts/lineage-24.0-arm64/asec-clients-20261105-01/metadata/vendor_sepolicy.cil"
+    ],
+    "vendor_context_names": []
+  },
+  {
+    "type": "em_version_prop",
+    "owners": [],
+    "vendor_scopes": [],
+    "declaration_inputs": [
+      "/srv/android/artifacts/lineage-24.0-arm64/asec-clients-20261105-01/metadata/vendor_sepolicy.cil"
+    ],
+    "vendor_context_names": []
+  },
+  {
+    "type": "facm_prop",
+    "owners": [],
+    "vendor_scopes": [],
+    "declaration_inputs": [
+      "/srv/android/artifacts/lineage-24.0-arm64/asec-clients-20261105-01/metadata/vendor_sepolicy.cil"
+    ],
+    "vendor_context_names": []
+  },
+  {
+    "type": "ina_status_prop",
+    "owners": [],
+    "vendor_scopes": [],
+    "declaration_inputs": [
+      "/srv/android/artifacts/lineage-24.0-arm64/asec-clients-20261105-01/metadata/vendor_sepolicy.cil"
+    ],
+    "vendor_context_names": []
+  },
+  {
+    "type": "lmk_prop",
+    "owners": [],
+    "vendor_scopes": [],
+    "declaration_inputs": [
+      "/srv/android/artifacts/lineage-24.0-arm64/asec-clients-20261105-01/metadata/vendor_sepolicy.cil"
+    ],
+    "vendor_context_names": []
+  },
+  {
+    "type": "mobicore_prop",
+    "owners": [],
+    "vendor_scopes": [],
+    "declaration_inputs": [
+      "/srv/android/artifacts/lineage-24.0-arm64/asec-clients-20261105-01/metadata/vendor_sepolicy.cil"
+    ],
+    "vendor_context_names": []
+  },
+  {
+    "type": "multisim_prop",
+    "owners": [],
+    "vendor_scopes": [],
+    "declaration_inputs": [
+      "/srv/android/artifacts/lineage-24.0-arm64/asec-clients-20261105-01/metadata/vendor_sepolicy.cil"
+    ],
+    "vendor_context_names": []
+  },
+  {
+    "type": "nfc_ese_prop",
+    "owners": [],
+    "vendor_scopes": [],
+    "declaration_inputs": [
+      "/srv/android/artifacts/lineage-24.0-arm64/asec-clients-20261105-01/metadata/vendor_sepolicy.cil"
+    ],
+    "vendor_context_names": []
+  },
+  {
+    "type": "product_ship_prop",
+    "owners": [],
+    "vendor_scopes": [],
+    "declaration_inputs": [
+      "/srv/android/artifacts/lineage-24.0-arm64/asec-clients-20261105-01/metadata/vendor_sepolicy.cil"
+    ],
+    "vendor_context_names": []
+  },
+  {
+    "type": "receiver_error_prop",
+    "owners": [],
+    "vendor_scopes": [],
+    "declaration_inputs": [
+      "/srv/android/artifacts/lineage-24.0-arm64/asec-clients-20261105-01/metadata/vendor_sepolicy.cil"
+    ],
+    "vendor_context_names": []
+  },
+  {
+    "type": "recovery_prop",
+    "owners": [],
+    "vendor_scopes": [],
+    "declaration_inputs": [
+      "/srv/android/artifacts/lineage-24.0-arm64/asec-clients-20261105-01/metadata/vendor_sepolicy.cil"
+    ],
+    "vendor_context_names": []
+  },
+  {
+    "type": "rfkilldisabled_prop",
+    "owners": [],
+    "vendor_scopes": [],
+    "declaration_inputs": [
+      "/srv/android/artifacts/lineage-24.0-arm64/asec-clients-20261105-01/metadata/vendor_sepolicy.cil"
+    ],
+    "vendor_context_names": []
+  },
+  {
+    "type": "rild_prop",
+    "owners": [],
+    "vendor_scopes": [],
+    "declaration_inputs": [
+      "/srv/android/artifacts/lineage-24.0-arm64/asec-clients-20261105-01/metadata/vendor_sepolicy.cil"
+    ],
+    "vendor_context_names": []
+  },
+  {
+    "type": "score_prop",
+    "owners": [],
+    "vendor_scopes": [],
+    "declaration_inputs": [
+      "/srv/android/artifacts/lineage-24.0-arm64/asec-clients-20261105-01/metadata/vendor_sepolicy.cil"
+    ],
+    "vendor_context_names": []
+  },
+  {
+    "type": "sec_audio_prop",
+    "owners": [],
+    "vendor_scopes": [],
+    "declaration_inputs": [
+      "/srv/android/artifacts/lineage-24.0-arm64/asec-clients-20261105-01/metadata/vendor_sepolicy.cil"
+    ],
+    "vendor_context_names": []
+  },
+  {
+    "type": "sec_audio_usb_prop",
+    "owners": [],
+    "vendor_scopes": [],
+    "declaration_inputs": [
+      "/srv/android/artifacts/lineage-24.0-arm64/asec-clients-20261105-01/metadata/vendor_sepolicy.cil"
+    ],
+    "vendor_context_names": []
+  },
+  {
+    "type": "sec_bluetooth_prop",
+    "owners": [],
+    "vendor_scopes": [],
+    "declaration_inputs": [
+      "/srv/android/artifacts/lineage-24.0-arm64/asec-clients-20261105-01/metadata/vendor_sepolicy.cil"
+    ],
+    "vendor_context_names": []
+  },
+  {
+    "type": "sec_camera_prop",
+    "owners": [],
+    "vendor_scopes": [],
+    "declaration_inputs": [
+      "/srv/android/artifacts/lineage-24.0-arm64/asec-clients-20261105-01/metadata/vendor_sepolicy.cil"
+    ],
+    "vendor_context_names": []
+  },
+  {
+    "type": "sec_factory_facm_prop",
+    "owners": [],
+    "vendor_scopes": [],
+    "declaration_inputs": [
+      "/srv/android/artifacts/lineage-24.0-arm64/asec-clients-20261105-01/metadata/vendor_sepolicy.cil"
+    ],
+    "vendor_context_names": []
+  },
+  {
+    "type": "sec_ims_prop",
+    "owners": [],
+    "vendor_scopes": [],
+    "declaration_inputs": [
+      "/srv/android/artifacts/lineage-24.0-arm64/asec-clients-20261105-01/metadata/vendor_sepolicy.cil"
+    ],
+    "vendor_context_names": []
+  },
+  {
+    "type": "sec_timed_prop",
+    "owners": [],
+    "vendor_scopes": [],
+    "declaration_inputs": [
+      "/srv/android/artifacts/lineage-24.0-arm64/asec-clients-20261105-01/metadata/vendor_sepolicy.cil"
+    ],
+    "vendor_context_names": []
+  },
+  {
+    "type": "security_prop",
+    "owners": [],
+    "vendor_scopes": [],
+    "declaration_inputs": [
+      "/srv/android/artifacts/lineage-24.0-arm64/asec-clients-20261105-01/metadata/vendor_sepolicy.cil"
+    ],
+    "vendor_context_names": []
+  },
+  {
+    "type": "security_sepolicy_prop",
+    "owners": [],
+    "vendor_scopes": [],
+    "declaration_inputs": [
+      "/srv/android/artifacts/lineage-24.0-arm64/asec-clients-20261105-01/metadata/vendor_sepolicy.cil"
+    ],
+    "vendor_context_names": []
+  },
+  {
+    "type": "smartamp_prop",
+    "owners": [],
+    "vendor_scopes": [],
+    "declaration_inputs": [
+      "/srv/android/artifacts/lineage-24.0-arm64/asec-clients-20261105-01/metadata/vendor_sepolicy.cil"
+    ],
+    "vendor_context_names": []
+  },
+  {
+    "type": "system_product_prop",
+    "owners": [],
+    "vendor_scopes": [],
+    "declaration_inputs": [
+      "/srv/android/artifacts/lineage-24.0-arm64/asec-clients-20261105-01/metadata/vendor_sepolicy.cil"
+    ],
+    "vendor_context_names": []
+  },
+  {
+    "type": "tzdaemon_prop",
+    "owners": [],
+    "vendor_scopes": [],
+    "declaration_inputs": [
+      "/srv/android/artifacts/lineage-24.0-arm64/asec-clients-20261105-01/metadata/vendor_sepolicy.cil"
+    ],
+    "vendor_context_names": []
+  },
+  {
+    "type": "tztsdaemon_prop",
+    "owners": [],
+    "vendor_scopes": [],
+    "declaration_inputs": [
+      "/srv/android/artifacts/lineage-24.0-arm64/asec-clients-20261105-01/metadata/vendor_sepolicy.cil"
+    ],
+    "vendor_context_names": []
+  },
+  {
+    "type": "vendor_bluetooth_prop",
+    "owners": [],
+    "vendor_scopes": [],
+    "declaration_inputs": [
+      "/srv/android/artifacts/lineage-24.0-arm64/asec-clients-20261105-01/metadata/vendor_sepolicy.cil"
+    ],
+    "vendor_context_names": []
+  },
+  {
+    "type": "vendor_camera_motor_prop",
+    "owners": [],
+    "vendor_scopes": [],
+    "declaration_inputs": [
+      "/srv/android/artifacts/lineage-24.0-arm64/asec-clients-20261105-01/metadata/vendor_sepolicy.cil"
+    ],
+    "vendor_context_names": [
+      {
+        "name": "vendor.camera.motor.service",
+        "line": 72
+      }
+    ]
+  },
+  {
+    "type": "vendor_df_prop",
+    "owners": [],
+    "vendor_scopes": [],
+    "declaration_inputs": [
+      "/srv/android/artifacts/lineage-24.0-arm64/asec-clients-20261105-01/metadata/vendor_sepolicy.cil"
+    ],
+    "vendor_context_names": []
+  },
+  {
+    "type": "vendor_factory_prop",
+    "owners": [],
+    "vendor_scopes": [],
+    "declaration_inputs": [
+      "/srv/android/artifacts/lineage-24.0-arm64/asec-clients-20261105-01/metadata/vendor_sepolicy.cil"
+    ],
+    "vendor_context_names": []
+  },
+  {
+    "type": "vendor_fastrpc_prop",
+    "owners": [],
+    "vendor_scopes": [],
+    "declaration_inputs": [
+      "/srv/android/artifacts/lineage-24.0-arm64/asec-clients-20261105-01/metadata/vendor_sepolicy.cil"
+    ],
+    "vendor_context_names": []
+  },
+  {
+    "type": "vendor_fr_dlymgr_prop",
+    "owners": [],
+    "vendor_scopes": [],
+    "declaration_inputs": [
+      "/srv/android/artifacts/lineage-24.0-arm64/asec-clients-20261105-01/metadata/vendor_sepolicy.cil"
+    ],
+    "vendor_context_names": []
+  },
+  {
+    "type": "vendor_fr_wkrmgr_prop",
+    "owners": [],
+    "vendor_scopes": [],
+    "declaration_inputs": [
+      "/srv/android/artifacts/lineage-24.0-arm64/asec-clients-20261105-01/metadata/vendor_sepolicy.cil"
+    ],
+    "vendor_context_names": []
+  },
+  {
+    "type": "vendor_hostapd_prop",
+    "owners": [],
+    "vendor_scopes": [],
+    "declaration_inputs": [
+      "/srv/android/artifacts/lineage-24.0-arm64/asec-clients-20261105-01/metadata/vendor_sepolicy.cil"
+    ],
+    "vendor_context_names": []
+  },
+  {
+    "type": "vendor_hwc_prop",
+    "owners": [],
+    "vendor_scopes": [],
+    "declaration_inputs": [
+      "/srv/android/artifacts/lineage-24.0-arm64/asec-clients-20261105-01/metadata/vendor_sepolicy.cil"
+    ],
+    "vendor_context_names": []
+  },
+  {
+    "type": "vendor_ims_prop",
+    "owners": [],
+    "vendor_scopes": [],
+    "declaration_inputs": [
+      "/srv/android/artifacts/lineage-24.0-arm64/asec-clients-20261105-01/metadata/vendor_sepolicy.cil"
+    ],
+    "vendor_context_names": []
+  },
+  {
+    "type": "vendor_mbim_prop",
+    "owners": [],
+    "vendor_scopes": [],
+    "declaration_inputs": [
+      "/srv/android/artifacts/lineage-24.0-arm64/asec-clients-20261105-01/metadata/vendor_sepolicy.cil"
+    ],
+    "vendor_context_names": []
+  },
+  {
+    "type": "vendor_mediadrm_prop",
+    "owners": [],
+    "vendor_scopes": [],
+    "declaration_inputs": [
+      "/srv/android/artifacts/lineage-24.0-arm64/asec-clients-20261105-01/metadata/vendor_sepolicy.cil"
+    ],
+    "vendor_context_names": []
+  },
+  {
+    "type": "vendor_mobicore_prop",
+    "owners": [],
+    "vendor_scopes": [],
+    "declaration_inputs": [
+      "/srv/android/artifacts/lineage-24.0-arm64/asec-clients-20261105-01/metadata/vendor_sepolicy.cil"
+    ],
+    "vendor_context_names": []
+  },
+  {
+    "type": "vendor_model_suffix_prop",
+    "owners": [],
+    "vendor_scopes": [],
+    "declaration_inputs": [
+      "/srv/android/artifacts/lineage-24.0-arm64/asec-clients-20261105-01/metadata/vendor_sepolicy.cil"
+    ],
+    "vendor_context_names": [
+      {
+        "name": "ro.vendor.model_suffix",
+        "line": 59
+      }
+    ]
+  },
+  {
+    "type": "vendor_ofi_prop",
+    "owners": [],
+    "vendor_scopes": [],
+    "declaration_inputs": [
+      "/srv/android/artifacts/lineage-24.0-arm64/asec-clients-20261105-01/metadata/vendor_sepolicy.cil"
+    ],
+    "vendor_context_names": []
+  },
+  {
+    "type": "vendor_omadm_prop",
+    "owners": [],
+    "vendor_scopes": [],
+    "declaration_inputs": [
+      "/srv/android/artifacts/lineage-24.0-arm64/asec-clients-20261105-01/metadata/vendor_sepolicy.cil"
+    ],
+    "vendor_context_names": [
+      {
+        "name": "persist.vendor.sys.spr_hfa_completed",
+        "line": 38
+      },
+      {
+        "name": "persist.vendor.sys.omadm_hfa_prl",
+        "line": 39
+      }
+    ]
+  },
+  {
+    "type": "vendor_prop",
+    "owners": [],
+    "vendor_scopes": [],
+    "declaration_inputs": [
+      "/srv/android/artifacts/lineage-24.0-arm64/asec-clients-20261105-01/metadata/vendor_sepolicy.cil"
+    ],
+    "vendor_context_names": []
+  },
+  {
+    "type": "vendor_rmnet_prop",
+    "owners": [],
+    "vendor_scopes": [],
+    "declaration_inputs": [
+      "/srv/android/artifacts/lineage-24.0-arm64/asec-clients-20261105-01/metadata/vendor_sepolicy.cil"
+    ],
+    "vendor_context_names": []
+  },
+  {
+    "type": "vendor_sensor_prop",
+    "owners": [],
+    "vendor_scopes": [],
+    "declaration_inputs": [
+      "/srv/android/artifacts/lineage-24.0-arm64/asec-clients-20261105-01/metadata/vendor_sepolicy.cil"
+    ],
+    "vendor_context_names": []
+  },
+  {
+    "type": "vendor_slog_prop",
+    "owners": [],
+    "vendor_scopes": [],
+    "declaration_inputs": [
+      "/srv/android/artifacts/lineage-24.0-arm64/asec-clients-20261105-01/metadata/vendor_sepolicy.cil"
+    ],
+    "vendor_context_names": []
+  },
+  {
+    "type": "vendor_tmfd_prop",
+    "owners": [],
+    "vendor_scopes": [],
+    "declaration_inputs": [
+      "/srv/android/artifacts/lineage-24.0-arm64/asec-clients-20261105-01/metadata/vendor_sepolicy.cil"
+    ],
+    "vendor_context_names": []
+  },
+  {
+    "type": "vendor_wda_prop",
+    "owners": [],
+    "vendor_scopes": [],
+    "declaration_inputs": [
+      "/srv/android/artifacts/lineage-24.0-arm64/asec-clients-20261105-01/metadata/vendor_sepolicy.cil"
+    ],
+    "vendor_context_names": []
+  },
+  {
+    "type": "vendor_wvkprov_prop",
+    "owners": [],
+    "vendor_scopes": [],
+    "declaration_inputs": [
+      "/srv/android/artifacts/lineage-24.0-arm64/asec-clients-20261105-01/metadata/vendor_sepolicy.cil"
+    ],
+    "vendor_context_names": []
+  },
+  {
+    "type": "vendor_zram_prop",
+    "owners": [],
+    "vendor_scopes": [],
+    "declaration_inputs": [
+      "/srv/android/artifacts/lineage-24.0-arm64/asec-clients-20261105-01/metadata/vendor_sepolicy.cil"
+    ],
+    "vendor_context_names": []
+  },
+  {
+    "type": "vendor_zygoteinit_prop",
+    "owners": [],
+    "vendor_scopes": [],
+    "declaration_inputs": [
+      "/srv/android/artifacts/lineage-24.0-arm64/asec-clients-20261105-01/metadata/vendor_sepolicy.cil"
+    ],
+    "vendor_context_names": [
+      {
+        "name": "persist.vendor.zit.",
+        "line": 69
+      }
+    ]
+  },
+  {
+    "type": "vramdiskd_prop",
+    "owners": [],
+    "vendor_scopes": [],
+    "declaration_inputs": [
+      "/srv/android/artifacts/lineage-24.0-arm64/asec-clients-20261105-01/metadata/vendor_sepolicy.cil"
+    ],
+    "vendor_context_names": []
+  },
+  {
+    "type": "vzw_os_prop",
+    "owners": [],
+    "vendor_scopes": [],
+    "declaration_inputs": [
+      "/srv/android/artifacts/lineage-24.0-arm64/asec-clients-20261105-01/metadata/vendor_sepolicy.cil"
+    ],
+    "vendor_context_names": []
+  },
+  {
+    "type": "wpa_supplicant_prop",
+    "owners": [],
+    "vendor_scopes": [],
+    "declaration_inputs": [
+      "/srv/android/artifacts/lineage-24.0-arm64/asec-clients-20261105-01/metadata/vendor_sepolicy.cil"
+    ],
+    "vendor_context_names": []
+  }
+]

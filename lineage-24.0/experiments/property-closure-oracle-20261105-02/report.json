@@ -1,0 +1,53 @@
+{
+  "scope": "Cross-check positive property-owner closure against the real Android17 secilc.\n\nReplays the exact positive dependency graph in a small noninstallable policy.\nStrict fixtures independently detect both missing and falsely assigned owners.\nThis is compiler membership validation, not AV/MLS runtime or boot validation.\n",
+  "concrete_properties_tested": 524,
+  "expected_unowned": [],
+  "zero_ownership_membership_differences": true,
+  "results": [
+    {
+      "fixture": "owned-guard",
+      "exit": 0,
+      "strict_neverallow_checks": true,
+      "diagnostic_blocks": 0,
+      "command": [
+        "/srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/host/linux-x86/bin/secilc",
+        "-m",
+        "-M",
+        "false",
+        "-c",
+        "30",
+        "-o",
+        "/srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-02/owned-guard.policy",
+        "-f",
+        "/dev/null",
+        "/srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-02/owned-guard.cil"
+      ],
+      "source_sha256": "324df4e95f63400c6b3627982401f67b8e61440e25a04a15f84b71ab84108f1d"
+    },
+    {
+      "fixture": "unowned-witness",
+      "exit": 0,
+      "strict_neverallow_checks": true,
+      "diagnostic_blocks": 0,
+      "command": [
+        "/srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/host/linux-x86/bin/secilc",
+        "-m",
+        "-M",
+        "false",
+        "-c",
+        "30",
+        "-o",
+        "/srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-02/unowned-witness.policy",
+        "-f",
+        "/dev/null",
+        "/srv/android/artifacts/lineage-24.0-arm64/property-closure-oracle-20261105-02/unowned-witness.cil"
+      ],
+      "source_sha256": "c5f4444bd34f98a7393b14579953c65d8436a9e75a8e7f2ba9e360d18e898dc2"
+    }
+  ],
+  "compiler_sha256": "a82e8b28c6088d7b9a58255d32055eb7c7f44ffb9ec95f568a877e543344ff53",
+  "proof_sha256": "da406bd8013e319a8fccfdae1e10fdf88704a6fc45cd2ecd9e13e6edfe2fec42",
+  "runner_sha256": "0f5b5f389278d428537e7c11b5254e920ac7bb27667dac8f8a1a57362b5da44f",
+  "runtime_or_boot_tested": false,
+  "security_approved": false
+}

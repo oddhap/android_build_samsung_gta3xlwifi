@@ -1,0 +1,36 @@
+{
+  "scope": "Compare complete CIL assertion inventories and strict diagnostic identities.\n\nText/token preservation is not effective attribute-membership or runtime proof.\nResolved diagnostic records do not mean assertions were removed.\n",
+  "baseline_assertion_constraint_records": 5918,
+  "candidate_assertion_constraint_records": 5918,
+  "removed_assertions_or_constraints": [],
+  "added_assertions_or_constraints": {},
+  "added_av_grant_statements": [],
+  "removed_av_grant_statement_count": 3,
+  "permission_narrowed_allow_replacements": [
+    {
+      "before": "( allow isolated_app_30_0 shell_data_file_30_0 ( file ( ioctl read getattr lock map open watch watch_reads ) ) )",
+      "after": "( allow isolated_app_30_0 shell_data_file_30_0 ( file ( ioctl read getattr lock map watch watch_reads ) ) )",
+      "occurrences": 1
+    },
+    {
+      "before": "( allow platform_app_30_0 tombstone_data_file_30_0 ( file ( ioctl read getattr lock map open watch watch_reads ) ) )",
+      "after": "( allow platform_app_30_0 tombstone_data_file_30_0 ( file ( read getattr ) ) )",
+      "occurrences": 1
+    }
+  ],
+  "source_intersection_allow_replacements": [],
+  "baseline_diagnostic_blocks": 65,
+  "candidate_diagnostic_blocks": 62,
+  "resolved_diagnostic_records": {
+    "( neverallow isolated_app_all app_data_file_type ( file ( open ) ) )": 1,
+    "( neverallow base_typeattr_291 tombstone_data_file ( file ( ioctl write create setattr lock relabelfrom relabelto append map unlink link rename execute quotaon mounton audit_access open execmod watch watch_mount watch_sb watch_with_perm watch_reads execute_no_trans entrypoint ) ) )": 1,
+    "( neverallow base_typeattr_293 apk_data_file ( dir ( write create setattr relabelfrom relabelto append unlink link rename ) ) )": 1
+  },
+  "new_diagnostic_records": {},
+  "effective_permission_or_attribute_equivalence_proved": false,
+  "input_sha256": {
+    "/srv/android/artifacts/lineage-24.0-arm64/app-data-tightening-20261105-01/strict/report.json": "2b58a6c33a9c8773c1eaf2d487ae5c49a890d866d300ab87e21b81fdf9f73c4b",
+    "/srv/android/artifacts/lineage-24.0-arm64/sandbox-file-access-20261105-01/strict/report.json": "3d82931ffa3984ec2030a097e51f6a2e1429bb7b856ebd94fd3d11c1c9726bc6",
+    "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/compare-policy-assertions.py": "40f03db0fb3ea44ea4d8eb8e145ea79846fed928e7a6d240b8080a15394d3173"
+  }
+}
