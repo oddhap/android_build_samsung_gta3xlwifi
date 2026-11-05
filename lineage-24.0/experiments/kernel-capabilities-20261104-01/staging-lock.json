@@ -1,0 +1,43 @@
+{
+  "scope": "Real implemented capability profile, actual enforcement prerequisites, reject every other active bit",
+  "original_kernel_revision": "669b9584e678ce5865ed38e04c24639082d78de1",
+  "prerequisites": [
+    "qtaguid-persistent-20261022-02",
+    "kernel-policy-reader-20261023-01",
+    "kernel-functionfs-20261023-01",
+    "kernel-netlink-20261101-01",
+    "kernel-mmap-20261103-01",
+    "kernel-xperm-generation-20261103-01",
+    "kernel-netlink-snapshot-20261103-01",
+    "kernel-extsock-20261103-01",
+    "kernel-prlimit-20261103-01",
+    "kernel-notify-20261104-01",
+    "kernel-perf-20261104-01",
+    "kernel-firmware-20261104-01"
+  ],
+  "patch_sha256": "eb7a252df503cd6de93cd52d4df0cf564162aca51abdceab329c1941c5f267a9",
+  "policycap9_load_rejection_retained": false,
+  "supported_runtime_capability_bits": [
+    0,
+    1,
+    2,
+    3,
+    5,
+    9,
+    12
+  ],
+  "unknown_active_capabilities_rejected": true,
+  "strict_vendor_policy_unchanged": true,
+  "files": [
+    {
+      "path": "security/selinux/include/security.h",
+      "before_sha256": "42da5568f8de054658490246bcc33909a7dc901c93894bcf1293546df1a8cf32",
+      "candidate_sha256": "4546a84346848a32e15809161d3be0b7cb0fc15463ceabcf2f3f9f632cd8d14f"
+    },
+    {
+      "path": "security/selinux/ss/policydb.c",
+      "before_sha256": "bfb0aa8718b86868ad043c83b6e1c0ea6c81954741723e3ef130ea26e76ffb90",
+      "candidate_sha256": "0b85260ae6ab93aedf199a7390d3745c61350bf720a5dd242ad87fd7f298e0a3"
+    }
+  ]
+}

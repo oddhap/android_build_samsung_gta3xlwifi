@@ -351,3 +351,22 @@ Only a separate one-bit-off, non-installable data control parses completely with
 counts matching independent Android17 libsepol; five truncations also stop. No
 production guard/macro or policy is modified. This narrows format compatibility
 without approving active policy loading, AVC enforcement, boot or installation.
+
+
+## November 5 checkpoint: implemented active-capability profile
+
+The [new isolated capability candidate](experiments/kernel-capabilities-20261104-01/)
+replaces the old blanket cap9 rejection with a supported-bit profile and rejects
+every unimplemented/unknown active bit. This follows actual parsed-policy,
+SID/mapping/services/AVC/netlink comparisons against Android17 libsepol. Whole-
+kernel compilation passes, as do definitive tests using the unmodified diagnostic
+binary and real capability decoding: 6,291,456 AVC and 3,145,728 single-packet
+checks plus compound/error/generation cases, with zero oracle differences.
+
+The old candidate's cap9 panic reports remain valid historical observations;
+this new candidate has passed that parser gate. Native cache/concurrency, full
+security_load_policy publication and hardware/boot remain unproven. All 60,331
+source/protected audits pass, config/firmware stay exact and exports match the
+firmware parent (the perf ABI changes remain). No experimental Image enters
+Android prebuilts. Strict vendor policy still fails with 322 diagnostic blocks;
+networking/BPF, module ABI and Android17 FBE/installer/rollback remain gates.

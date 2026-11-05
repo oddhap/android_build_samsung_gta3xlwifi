@@ -1,0 +1,20 @@
+{
+  "server_artifact_directory": "/srv/android/artifacts/lineage-24.0-arm64/kernel-capabilities-build-20261104-01",
+  "sha256": {
+    "source-before.json": "c31a3007f3586ec73b1f0eb453b293e5be03cf42bab4e4a0c43922ec0b6f3109",
+    "source-after.json": "5ffb13b7cb9eae52556b3553ff85d5f2db5545fbaf16e0755433641c893703b8",
+    "source-after-host.json": "5ffb13b7cb9eae52556b3553ff85d5f2db5545fbaf16e0755433641c893703b8",
+    "protected-before.json": "1d5603527bcdf025023a8392b72926259862f45f768b6f698e6dcfc347ecbf61",
+    "protected-after.json": "1d5603527bcdf025023a8392b72926259862f45f768b6f698e6dcfc347ecbf61",
+    "patch-provenance.json": "04a95ef069300fcaa16412caa94d9d3275fe11057ce6c8e71fca31cb6ad63e20",
+    "additional-patch-provenance.json": "303d1d6e165f3bc74b96004815c6309489c29175652e2acde46309e49a3e740e",
+    "tracked-source.patch": "9656444b1701a7e86e747c4a210951e588647579974f690b6a5ebec1be0606c5",
+    "baseline-touch-complete.patch": "b36123955b7fc457c8df713dddcc371e68de92aa7709519c8778a6579d64a06c",
+    "Image": "5d3b21c1a9abb1e7c5175670606f9486c8a5da8f8ad536c132c5bd9c6c350fb2",
+    "kernel.config": "fac42e3bbf996bb9502bb1031c91b1950986ad3586d0f33cad869a6fd0b3acea",
+    "build-review.json": "bfec8f425ac139af94ac8a9b2f04ce76b0620d09434f0f0bbead933bb08fb21b",
+    "constants/constants.json": "b269c29396b0f930343257973a1669efe7c01a7fe93091aa4e62c27ad20afac1",
+    "netlink-policy/report.json": "ceedb917c1991bacf4e429ac55a0a67577b3a698bf28fcbec40f7389772095a4"
+  },
+  "flash_ready": false
+}

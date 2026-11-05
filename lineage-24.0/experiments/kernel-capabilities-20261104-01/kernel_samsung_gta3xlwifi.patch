@@ -1,0 +1,65 @@
+diff --git a/security/selinux/include/security.h b/security/selinux/include/security.h
+index 01ff90a..b115823 100644
+--- a/security/selinux/include/security.h
++++ b/security/selinux/include/security.h
+@@ -77,7 +77,7 @@ enum {
+ 	POLICYDB_CAPABILITY_ALWAYSNETWORK,
+ 	/* Bit 4 (cgroup_seclabel) is not implemented on this legacy kernel. */
+ 	POLICYDB_CAPABILITY_NNP_NOSUID_TRANSITION = 5,
+-	/* Netlink candidate remains policy-load guarded until validation. */
++	/* Requires the real netlink/AVC backports in the legacy capability profile. */
+ 	POLICYDB_CAPABILITY_NETLINK_XPERM = 9,
+ 	POLICYDB_CAPABILITY_FUNCTIONFS_SECLABEL = 12,
+ 	__POLICYDB_CAPABILITY_MAX
+diff --git a/security/selinux/ss/policydb.c b/security/selinux/ss/policydb.c
+index 0d994ed..bd87331 100644
+--- a/security/selinux/ss/policydb.c
++++ b/security/selinux/ss/policydb.c
+@@ -2233,16 +2233,29 @@ out:
+ 	return rc;
+ }
+ 
+-/* netlink_xperm is public policy-capability bit 9. Do not advertise support
+- * or accept an active feature whose AVC/netlink enforcement is absent here.
+- * Android 16 currently emits native kind-3 records with this capability off;
+- * those must be parsed without misidentifying them as Android-M ioctls.
++/* Accept only capabilities whose enforcement exists in this device profile.
++ * The netlink/AVC/snapshot and extended-socket backports are prerequisites.
++ * Unknown or not-yet-ported capabilities must not be silently ignored.
+  */
+-static int policydb_check_legacy_xperms(struct policydb *p)
+-{
+-	if (ebitmap_get_bit(&p->policycaps, 9)) {
+-		printk(KERN_ERR "SELinux: active netlink_xperm is unsupported by this legacy kernel\n");
+-		return -EOPNOTSUPP;
++static int policydb_check_legacy_caps(struct policydb *p)
++{
++	struct ebitmap_node *node;
++	unsigned int bit;
++
++	ebitmap_for_each_positive_bit(&p->policycaps, node, bit) {
++		switch (bit) {
++		case POLICYDB_CAPABILITY_NETPEER:
++		case POLICYDB_CAPABILITY_OPENPERM:
++		case POLICYDB_CAPABILITY_EXTSOCKCLASS:
++		case POLICYDB_CAPABILITY_ALWAYSNETWORK:
++		case POLICYDB_CAPABILITY_NNP_NOSUID_TRANSITION:
++		case POLICYDB_CAPABILITY_NETLINK_XPERM:
++		case POLICYDB_CAPABILITY_FUNCTIONFS_SECLABEL:
++			break;
++		default:
++			printk(KERN_ERR "SELinux: unsupported active policy capability %u in legacy profile\n", bit);
++			return -EOPNOTSUPP;
++		}
+ 	}
+ 	return 0;
+ }
+@@ -2354,7 +2367,7 @@ int policydb_read(struct policydb *p, void *fp)
+ 			goto bad;
+ 	}
+ 
+-	rc = policydb_check_legacy_xperms(p);
++	rc = policydb_check_legacy_caps(p);
+ 	if (rc)
+ 		goto bad;
+ 
