@@ -112,7 +112,7 @@ cp "$out/.config" "$art/kernel.config-before"
 sha256sum "$out/arch/arm64/boot/Image" >"$art/Image-before.sha256"
 rg -q '^# CONFIG_MODULE_SIG is not set$' "$out/.config"
 make -C "$src" O="$out" -j12 modules
-make -C "$src" O="$out" -j12 M=drivers/gator modules
+make -C "$src" O="$out" -j12 drivers/gator/gator.ko
 cmp "$art/kernel.config-before" "$out/.config"
 sha256sum -c "$art/Image-before.sha256"
 python3 "$integration/experiments/kernel-gator-20261105-01/check-module-versions.py" "$base" "$art" "$art/module-versions.json"

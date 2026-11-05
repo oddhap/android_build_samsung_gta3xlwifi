@@ -1,0 +1,1 @@
+DIAGNOSTIC ONLY. Supported capability profile plus real netlink/mmap/xperm and perf/notify/prlimit/sockets candidate. NOT FLASHABLE. No TOP/prebuilt/device changes; whole policy, networking, module ABI and runtime remain unvalidated.

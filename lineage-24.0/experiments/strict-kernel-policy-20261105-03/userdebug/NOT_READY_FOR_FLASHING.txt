@@ -1,0 +1,1 @@
+Host regression only; strict compiler status is recorded separately. No boot validation or prebuilt promotion.
