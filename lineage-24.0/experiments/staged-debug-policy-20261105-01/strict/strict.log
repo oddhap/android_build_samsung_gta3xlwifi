@@ -1,0 +1,80 @@
+neverallow check failed at /srv/android/artifacts/lineage-24.0-arm64/staged-debug-policy-20261105-01/metadata/vendor/etc/selinux/vendor_sepolicy.cil:16634
+  (neverallow base_typeattr_666_30_0 vendor_test_app (process (ptrace)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/staged-debug-policy-20261105-01/metadata/plat_sepolicy.cil:48380 from system/sepolicy/private/llkd.te:22
+      (allow llkd base_typeattr_851 (process (ptrace)))
+
+neverallow check failed at /srv/android/artifacts/lineage-24.0-arm64/staged-debug-policy-20261105-01/metadata/vendor/etc/selinux/vendor_sepolicy.cil:16598
+  (neverallow base_typeattr_662_30_0 vendor_rcs_app (process (ptrace)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/staged-debug-policy-20261105-01/metadata/plat_sepolicy.cil:48380 from system/sepolicy/private/llkd.te:22
+      (allow llkd base_typeattr_851 (process (ptrace)))
+
+neverallow check failed at /srv/android/artifacts/lineage-24.0-arm64/staged-debug-policy-20261105-01/metadata/vendor/etc/selinux/vendor_sepolicy.cil:16501
+  (neverallow base_typeattr_658_30_0 vendor_ims_app (process (ptrace)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/staged-debug-policy-20261105-01/metadata/plat_sepolicy.cil:48380 from system/sepolicy/private/llkd.te:22
+      (allow llkd base_typeattr_851 (process (ptrace)))
+
+neverallow check failed at /srv/android/artifacts/lineage-24.0-arm64/staged-debug-policy-20261105-01/metadata/vendor/etc/selinux/vendor_sepolicy.cil:15328
+  (neverallow base_typeattr_649_30_0 attiqi_app (process (ptrace)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/staged-debug-policy-20261105-01/metadata/plat_sepolicy.cil:48380 from system/sepolicy/private/llkd.te:22
+      (allow llkd base_typeattr_851 (process (ptrace)))
+
+neverallow check failed at /srv/android/artifacts/lineage-24.0-arm64/staged-debug-policy-20261105-01/metadata/vendor/etc/selinux/vendor_sepolicy.cil:14388
+  (neverallow base_typeattr_643_30_0 teeregistryd_app (process (ptrace)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/staged-debug-policy-20261105-01/metadata/plat_sepolicy.cil:48380 from system/sepolicy/private/llkd.te:22
+      (allow llkd base_typeattr_851 (process (ptrace)))
+
+neverallow check failed at /srv/android/artifacts/lineage-24.0-arm64/staged-debug-policy-20261105-01/metadata/vendor/etc/selinux/vendor_sepolicy.cil:14340
+  (neverallow base_typeattr_639_30_0 teed_app (process (ptrace)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/staged-debug-policy-20261105-01/metadata/plat_sepolicy.cil:48380 from system/sepolicy/private/llkd.te:22
+      (allow llkd base_typeattr_851 (process (ptrace)))
+
+neverallow check failed at /srv/android/artifacts/lineage-24.0-arm64/staged-debug-policy-20261105-01/metadata/vendor/etc/selinux/vendor_sepolicy.cil:12684
+  (neverallow base_typeattr_633_30_0 sec_standard_app (process (ptrace)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/staged-debug-policy-20261105-01/metadata/plat_sepolicy.cil:48380 from system/sepolicy/private/llkd.te:22
+      (allow llkd base_typeattr_851 (process (ptrace)))
+
+neverallow check failed at /srv/android/artifacts/lineage-24.0-arm64/staged-debug-policy-20261105-01/metadata/vendor/etc/selinux/vendor_sepolicy.cil:11465
+  (neverallow base_typeattr_625_30_0 mobicore_app (process (ptrace)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/staged-debug-policy-20261105-01/metadata/plat_sepolicy.cil:48380 from system/sepolicy/private/llkd.te:22
+      (allow llkd base_typeattr_851 (process (ptrace)))
+
+neverallow check failed at /srv/android/artifacts/lineage-24.0-arm64/staged-debug-policy-20261105-01/metadata/vendor/etc/selinux/vendor_sepolicy.cil:11075
+  (neverallow base_typeattr_621_30_0 kfa_app (process (ptrace)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/staged-debug-policy-20261105-01/metadata/plat_sepolicy.cil:48380 from system/sepolicy/private/llkd.te:22
+      (allow llkd base_typeattr_851 (process (ptrace)))
+
+neverallow check failed at /srv/android/artifacts/lineage-24.0-arm64/staged-debug-policy-20261105-01/metadata/vendor/etc/selinux/vendor_sepolicy.cil:8565
+  (neverallow base_typeattr_574_30_0 dualdar_app (process (ptrace)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/staged-debug-policy-20261105-01/metadata/plat_sepolicy.cil:48380 from system/sepolicy/private/llkd.te:22
+      (allow llkd base_typeattr_851 (process (ptrace)))
+
+neverallow check failed at /srv/android/artifacts/lineage-24.0-arm64/staged-debug-policy-20261105-01/metadata/vendor/etc/selinux/vendor_sepolicy.cil:7561
+  (neverallow base_typeattr_560_30_0 aasa_service_app (process (ptrace)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/staged-debug-policy-20261105-01/metadata/plat_sepolicy.cil:48380 from system/sepolicy/private/llkd.te:22
+      (allow llkd base_typeattr_851 (process (ptrace)))
+
+neverallow check failed at /srv/android/artifacts/lineage-24.0-arm64/staged-debug-policy-20261105-01/metadata/vendor/etc/selinux/vendor_sepolicy.cil:7473
+  (neverallow base_typeattr_556_30_0 policyloader_app (process (ptrace)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/staged-debug-policy-20261105-01/metadata/plat_sepolicy.cil:48380 from system/sepolicy/private/llkd.te:22
+      (allow llkd base_typeattr_851 (process (ptrace)))
+
+neverallow check failed at /srv/android/artifacts/lineage-24.0-arm64/staged-debug-policy-20261105-01/metadata/vendor/etc/selinux/vendor_sepolicy.cil:4471
+  (neverallow mediacodec domain (tcp_socket (ioctl read write create getattr setattr lock relabelfrom relabelto append map bind connect listen accept getopt setopt shutdown recvfrom sendto name_bind node_bind name_connect)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/staged-debug-policy-20261105-01/metadata/plat_sepolicy.cil:35462 from system/sepolicy/private/hal_codec2.te:10
+      (allow hal_codec2_server su (tcp_socket (read write accept getopt)))
+
+Failed to generate binary
+Failed to build policydb

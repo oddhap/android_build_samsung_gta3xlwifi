@@ -1,0 +1,301 @@
+{
+  "scope": "Compare complete CIL assertion inventories and strict diagnostic identities.\n\nText/token preservation is not effective attribute-membership or runtime proof.\nResolved diagnostic records do not mean assertions were removed.\n",
+  "baseline_assertion_constraint_records": 5918,
+  "candidate_assertion_constraint_records": 5918,
+  "removed_assertions_or_constraints": [],
+  "added_assertions_or_constraints": {},
+  "added_av_grant_statements": [],
+  "removed_av_grant_statement_count": 47,
+  "permission_narrowed_allow_replacements": [],
+  "source_intersection_allow_replacements": [],
+  "target_intersection_allow_replacements": [
+    {
+      "before": "( allow dumpstate_30_0 base_typeattr_545_30_0 ( file ( getattr ) ) )",
+      "after": "( allow dumpstate_30_0 vendor_samsung_port_nonbpf_fs545 ( file ( getattr ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_nonbpf_fs545 ( and base_typeattr_545_30_0 vendor_samsung_port_nonbpffs ) )"
+    },
+    {
+      "before": "( allow dumpstate_30_0 proc_net_30_0 ( file ( write ) ) )",
+      "after": "( allow dumpstate_30_0 vendor_samsung_port_nonbpf_procnet ( file ( write ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_nonbpf_procnet ( and proc_net_30_0 vendor_samsung_port_nonbpfproc ) )"
+    },
+    {
+      "before": "( allow hal_wifi_default proc_net_30_0 ( file ( write ) ) )",
+      "after": "( allow hal_wifi_default vendor_samsung_port_nonbpf_procnet ( file ( write ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_nonbpf_procnet ( and proc_net_30_0 vendor_samsung_port_nonbpfproc ) )"
+    },
+    {
+      "before": "( allow hal_wifi_supplicant_default proc_net_30_0 ( file ( ioctl read write getattr lock append map open watch watch_reads ) ) )",
+      "after": "( allow hal_wifi_supplicant_default vendor_samsung_port_nonbpf_procnet ( file ( ioctl read write getattr lock append map open watch watch_reads ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_nonbpf_procnet ( and proc_net_30_0 vendor_samsung_port_nonbpfproc ) )"
+    },
+    {
+      "before": "( allow init_30_0 base_typeattr_551_30_0 ( file ( setattr ) ) )",
+      "after": "( allow init_30_0 vendor_samsung_port_nonbpf_fs551 ( file ( setattr ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_nonbpf_fs551 ( and base_typeattr_551_30_0 vendor_samsung_port_nonbpffs ) )"
+    },
+    {
+      "before": "( allow init_30_0 base_typeattr_551_30_0 ( lnk_file ( setattr ) ) )",
+      "after": "( allow init_30_0 vendor_samsung_port_nonbpf_fs551 ( lnk_file ( setattr ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_nonbpf_fs551 ( and base_typeattr_551_30_0 vendor_samsung_port_nonbpffs ) )"
+    },
+    {
+      "before": "( allow netd_30_0 proc_30_0 ( filesystem ( associate ) ) )",
+      "after": "( allow netd_30_0 vendor_samsung_port_nonbpf_proc ( filesystem ( associate ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_nonbpf_proc ( and proc_30_0 vendor_samsung_port_nonbpfproc ) )"
+    },
+    {
+      "before": "( allow rild proc_net_30_0 ( file ( ioctl read write getattr lock append map open watch watch_reads ) ) )",
+      "after": "( allow rild vendor_samsung_port_nonbpf_procnet ( file ( ioctl read write getattr lock append map open watch watch_reads ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_nonbpf_procnet ( and proc_net_30_0 vendor_samsung_port_nonbpfproc ) )"
+    },
+    {
+      "before": "( allow shell_30_0 proc_net_30_0 ( file ( write ) ) )",
+      "after": "( allow shell_30_0 vendor_samsung_port_nonbpf_procnet ( file ( write ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_nonbpf_procnet ( and proc_net_30_0 vendor_samsung_port_nonbpfproc ) )"
+    },
+    {
+      "before": "( allow system_app_30_0 proc_net_30_0 ( file ( ioctl read write getattr lock append map open watch watch_reads ) ) )",
+      "after": "( allow system_app_30_0 vendor_samsung_port_nonbpf_procnet ( file ( ioctl read write getattr lock append map open watch watch_reads ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_nonbpf_procnet ( and proc_net_30_0 vendor_samsung_port_nonbpfproc ) )"
+    },
+    {
+      "before": "( allow tee_30_0 proc_30_0 ( file ( read open ) ) )",
+      "after": "( allow tee_30_0 vendor_samsung_port_nonbpf_proc ( file ( read open ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_nonbpf_proc ( and proc_30_0 vendor_samsung_port_nonbpfproc ) )"
+    },
+    {
+      "before": "( allow vold_30_0 proc_30_0 ( file ( write ) ) )",
+      "after": "( allow vold_30_0 vendor_samsung_port_nonbpf_proc ( file ( write ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_nonbpf_proc ( and proc_30_0 vendor_samsung_port_nonbpfproc ) )"
+    },
+    {
+      "before": "( allow argosd proc_30_0 ( file ( read open ) ) )",
+      "after": "( allow argosd vendor_samsung_port_nonbpf_proc ( file ( read open ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_nonbpf_proc ( and proc_30_0 vendor_samsung_port_nonbpfproc ) )"
+    },
+    {
+      "before": "( allow argosd proc_net_30_0 ( file ( read getattr open ) ) )",
+      "after": "( allow argosd vendor_samsung_port_nonbpf_procnet ( file ( read getattr open ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_nonbpf_procnet ( and proc_net_30_0 vendor_samsung_port_nonbpfproc ) )"
+    },
+    {
+      "before": "( allow argosd proc_30_0 ( dir ( ioctl read getattr lock open watch watch_reads search ) ) )",
+      "after": "( allow argosd vendor_samsung_port_nonbpf_proc ( dir ( ioctl read getattr lock open watch watch_reads search ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_nonbpf_proc ( and proc_30_0 vendor_samsung_port_nonbpfproc ) )"
+    },
+    {
+      "before": "( allow argosd proc_30_0 ( file ( ioctl read getattr lock map open watch watch_reads ) ) )",
+      "after": "( allow argosd vendor_samsung_port_nonbpf_proc ( file ( ioctl read getattr lock map open watch watch_reads ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_nonbpf_proc ( and proc_30_0 vendor_samsung_port_nonbpfproc ) )"
+    },
+    {
+      "before": "( allow charon proc_30_0 ( dir ( ioctl read getattr lock open watch watch_reads search ) ) )",
+      "after": "( allow charon vendor_samsung_port_nonbpf_proc ( dir ( ioctl read getattr lock open watch watch_reads search ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_nonbpf_proc ( and proc_30_0 vendor_samsung_port_nonbpfproc ) )"
+    },
+    {
+      "before": "( allow charon proc_net_30_0 ( dir ( ioctl read getattr lock open watch watch_reads search ) ) )",
+      "after": "( allow charon vendor_samsung_port_nonbpf_procnet ( dir ( ioctl read getattr lock open watch watch_reads search ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_nonbpf_procnet ( and proc_net_30_0 vendor_samsung_port_nonbpfproc ) )"
+    },
+    {
+      "before": "( allow charon proc_net_30_0 ( file ( ioctl read write getattr lock append map open watch watch_reads ) ) )",
+      "after": "( allow charon vendor_samsung_port_nonbpf_procnet ( file ( ioctl read write getattr lock append map open watch watch_reads ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_nonbpf_procnet ( and proc_net_30_0 vendor_samsung_port_nonbpfproc ) )"
+    },
+    {
+      "before": "( allow epmlogd proc_net_30_0 ( file ( read open ) ) )",
+      "after": "( allow epmlogd vendor_samsung_port_nonbpf_procnet ( file ( read open ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_nonbpf_procnet ( and proc_net_30_0 vendor_samsung_port_nonbpfproc ) )"
+    },
+    {
+      "before": "( allow eris proc_net_30_0 ( file ( ioctl read write getattr lock append map open watch watch_reads ) ) )",
+      "after": "( allow eris vendor_samsung_port_nonbpf_procnet ( file ( ioctl read write getattr lock append map open watch watch_reads ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_nonbpf_procnet ( and proc_net_30_0 vendor_samsung_port_nonbpfproc ) )"
+    },
+    {
+      "before": "( allow proc_net_30_0 proc_30_0 ( filesystem ( associate ) ) )",
+      "after": "( allow proc_net_30_0 vendor_samsung_port_nonbpf_proc ( filesystem ( associate ) ) )",
+      "occurrences": 2,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_nonbpf_proc ( and proc_30_0 vendor_samsung_port_nonbpfproc ) )"
+    },
+    {
+      "before": "( allow imsd proc_net_30_0 ( file ( ioctl read getattr lock map open watch watch_reads ) ) )",
+      "after": "( allow imsd vendor_samsung_port_nonbpf_procnet ( file ( ioctl read getattr lock map open watch watch_reads ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_nonbpf_procnet ( and proc_net_30_0 vendor_samsung_port_nonbpfproc ) )"
+    },
+    {
+      "before": "( allow mobicore proc_30_0 ( file ( read open ) ) )",
+      "after": "( allow mobicore vendor_samsung_port_nonbpf_proc ( file ( read open ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_nonbpf_proc ( and proc_30_0 vendor_samsung_port_nonbpfproc ) )"
+    },
+    {
+      "before": "( allow redsocks proc_net_30_0 ( file ( ioctl read getattr lock map open watch watch_reads ) ) )",
+      "after": "( allow redsocks vendor_samsung_port_nonbpf_procnet ( file ( ioctl read getattr lock map open watch watch_reads ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_nonbpf_procnet ( and proc_net_30_0 vendor_samsung_port_nonbpfproc ) )"
+    },
+    {
+      "before": "( allow sdp_cryptod proc_net_30_0 ( dir ( ioctl read getattr lock open watch watch_reads search ) ) )",
+      "after": "( allow sdp_cryptod vendor_samsung_port_nonbpf_procnet ( dir ( ioctl read getattr lock open watch watch_reads search ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_nonbpf_procnet ( and proc_net_30_0 vendor_samsung_port_nonbpfproc ) )"
+    },
+    {
+      "before": "( allow sdp_cryptod proc_net_30_0 ( file ( ioctl read getattr lock map open watch watch_reads ) ) )",
+      "after": "( allow sdp_cryptod vendor_samsung_port_nonbpf_procnet ( file ( ioctl read getattr lock map open watch watch_reads ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_nonbpf_procnet ( and proc_net_30_0 vendor_samsung_port_nonbpfproc ) )"
+    },
+    {
+      "before": "( allow sdp_cryptod proc_net_30_0 ( lnk_file ( ioctl read getattr lock map open watch watch_reads ) ) )",
+      "after": "( allow sdp_cryptod vendor_samsung_port_nonbpf_procnet ( lnk_file ( ioctl read getattr lock map open watch watch_reads ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_nonbpf_procnet ( and proc_net_30_0 vendor_samsung_port_nonbpfproc ) )"
+    },
+    {
+      "before": "( allow wlandutservice proc_net_30_0 ( file ( ioctl read getattr lock map open watch watch_reads ) ) )",
+      "after": "( allow wlandutservice vendor_samsung_port_nonbpf_procnet ( file ( ioctl read getattr lock map open watch watch_reads ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_nonbpf_procnet ( and proc_net_30_0 vendor_samsung_port_nonbpfproc ) )"
+    },
+    {
+      "before": "( allow attiqi_app proc_net_30_0 ( dir ( ioctl read getattr lock open watch watch_reads search ) ) )",
+      "after": "( allow attiqi_app vendor_samsung_port_nonbpf_procnet ( dir ( ioctl read getattr lock open watch watch_reads search ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_nonbpf_procnet ( and proc_net_30_0 vendor_samsung_port_nonbpfproc ) )"
+    },
+    {
+      "before": "( allow attiqi_app proc_net_30_0 ( file ( ioctl read getattr lock map open watch watch_reads ) ) )",
+      "after": "( allow attiqi_app vendor_samsung_port_nonbpf_procnet ( file ( ioctl read getattr lock map open watch watch_reads ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_nonbpf_procnet ( and proc_net_30_0 vendor_samsung_port_nonbpfproc ) )"
+    },
+    {
+      "before": "( allow attiqi_app proc_net_30_0 ( lnk_file ( ioctl read getattr lock map open watch watch_reads ) ) )",
+      "after": "( allow attiqi_app vendor_samsung_port_nonbpf_procnet ( lnk_file ( ioctl read getattr lock map open watch watch_reads ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_nonbpf_procnet ( and proc_net_30_0 vendor_samsung_port_nonbpfproc ) )"
+    },
+    {
+      "before": "( allow cbd proc_30_0 ( file ( ioctl read getattr lock map open watch watch_reads ) ) )",
+      "after": "( allow cbd vendor_samsung_port_nonbpf_proc ( file ( ioctl read getattr lock map open watch watch_reads ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_nonbpf_proc ( and proc_30_0 vendor_samsung_port_nonbpfproc ) )"
+    },
+    {
+      "before": "( allow dumpstate_30_0 proc_30_0 ( file ( getattr ) ) )",
+      "after": "( allow dumpstate_30_0 vendor_samsung_port_nonbpf_proc ( file ( getattr ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_nonbpf_proc ( and proc_30_0 vendor_samsung_port_nonbpfproc ) )"
+    },
+    {
+      "before": "( allow hal_vendor_audio_dump_default proc_30_0 ( file ( read open ) ) )",
+      "after": "( allow hal_vendor_audio_dump_default vendor_samsung_port_nonbpf_proc ( file ( read open ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_nonbpf_proc ( and proc_30_0 vendor_samsung_port_nonbpfproc ) )"
+    },
+    {
+      "before": "( allow hal_wifi_supplicant_default proc_net_30_0 ( file ( ioctl read write getattr lock append map open watch watch_reads ) ) )",
+      "after": "( allow hal_wifi_supplicant_default vendor_samsung_port_nonbpf_procnet ( file ( write ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_nonbpf_procnet ( and proc_net_30_0 vendor_samsung_port_nonbpfproc ) )"
+    },
+    {
+      "before": "( allow netd_30_0 proc_net_30_0 ( file ( create ) ) )",
+      "after": "( allow netd_30_0 vendor_samsung_port_nonbpf_procnet ( file ( create ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_nonbpf_procnet ( and proc_net_30_0 vendor_samsung_port_nonbpfproc ) )"
+    },
+    {
+      "before": "( allow wlbtd proc_30_0 ( file ( read getattr open ) ) )",
+      "after": "( allow wlbtd vendor_samsung_port_nonbpf_proc ( file ( read getattr open ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_nonbpf_proc ( and proc_30_0 vendor_samsung_port_nonbpfproc ) )"
+    },
+    {
+      "before": "( allow cbd proc_net_30_0 ( file ( read write open ) ) )",
+      "after": "( allow cbd vendor_samsung_port_nonbpf_procnet ( file ( read write open ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_nonbpf_procnet ( and proc_net_30_0 vendor_samsung_port_nonbpfproc ) )"
+    },
+    {
+      "before": "( allow qti_init_shell proc_30_0 ( file ( read getattr open ) ) )",
+      "after": "( allow qti_init_shell vendor_samsung_port_nonbpf_proc ( file ( read getattr open ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_nonbpf_proc ( and proc_30_0 vendor_samsung_port_nonbpfproc ) )"
+    },
+    {
+      "before": "( allow rild proc_net_30_0 ( file ( ioctl read write getattr lock append map open watch watch_reads ) ) )",
+      "after": "( allow rild vendor_samsung_port_nonbpf_procnet ( file ( write ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_nonbpf_procnet ( and proc_net_30_0 vendor_samsung_port_nonbpfproc ) )"
+    }
+  ],
+  "baseline_diagnostic_blocks": 59,
+  "candidate_diagnostic_blocks": 29,
+  "resolved_diagnostic_records": {
+    "( neverallow base_typeattr_347 fs_bpf_tethering ( file ( ioctl read write create getattr setattr lock relabelfrom relabelto append map unlink link rename execute quotaon mounton audit_access open execmod watch watch_mount watch_sb watch_with_perm watch_reads execute_no_trans entrypoint ) ) )": 1,
+    "( neverallow base_typeattr_350 fs_bpf_netd_shared ( file ( ioctl read write create getattr setattr lock relabelfrom relabelto append map unlink link rename execute quotaon mounton audit_access open execmod watch watch_mount watch_sb watch_with_perm watch_reads execute_no_trans entrypoint ) ) )": 1,
+    "( neverallow base_typeattr_349 fs_bpf_netd_readonly ( file ( ioctl read write create getattr setattr lock relabelfrom relabelto append map unlink link rename execute quotaon mounton audit_access open execmod watch watch_mount watch_sb watch_with_perm watch_reads execute_no_trans entrypoint ) ) )": 1,
+    "( neverallow base_typeattr_348 fs_bpf_net_shared ( file ( ioctl read write create getattr setattr lock relabelfrom relabelto append map unlink link rename execute quotaon mounton audit_access open execmod watch watch_mount watch_sb watch_with_perm watch_reads execute_no_trans entrypoint ) ) )": 1,
+    "( neverallow base_typeattr_347 fs_bpf_net_private ( file ( ioctl read write create getattr setattr lock relabelfrom relabelto append map unlink link rename execute quotaon mounton audit_access open execmod watch watch_mount watch_sb watch_with_perm watch_reads execute_no_trans entrypoint ) ) )": 1,
+    "( neverallow base_typeattr_341 proc_bpf ( file ( write ) ) )": 1,
+    "( neverallow base_typeattr_355 fs_bpf_vendor ( file ( ioctl read write create getattr setattr lock relabelfrom relabelto append map unlink link rename execute quotaon mounton audit_access open execmod watch watch_mount watch_sb watch_with_perm watch_reads execute_no_trans entrypoint ) ) )": 1,
+    "( neverallow base_typeattr_341 fs_bpf_loader ( file ( ioctl read write create getattr setattr lock relabelfrom relabelto append map unlink link rename execute quotaon mounton audit_access open execmod watch watch_mount watch_sb watch_with_perm watch_reads execute_no_trans entrypoint ) ) )": 1,
+    "( neverallow base_typeattr_339 base_typeattr_248 ( bpf ( map_create map_read map_write prog_run ) ) )": 1,
+    "( neverallow base_typeattr_341 bpffs_type ( lnk_file ( ioctl write create getattr setattr lock relabelfrom relabelto append map unlink link rename execute quotaon mounton audit_access open execmod watch watch_mount watch_sb watch_with_perm watch_reads ) ) )": 1,
+    "( neverallow base_typeattr_351 fs_bpf_uprobestats ( file ( read getattr ) ) )": 1,
+    "( neverallow base_typeattr_347 fs_bpf_tethering ( file ( read getattr ) ) )": 1,
+    "( neverallow base_typeattr_350 fs_bpf_netd_shared ( file ( read getattr ) ) )": 1,
+    "( neverallow base_typeattr_349 fs_bpf_netd_readonly ( file ( read getattr ) ) )": 1,
+    "( neverallow base_typeattr_348 fs_bpf_net_shared ( file ( read getattr ) ) )": 1,
+    "( neverallow base_typeattr_347 fs_bpf_net_private ( file ( read getattr ) ) )": 1,
+    "( neverallow base_typeattr_341 fs_bpf_loader ( file ( read getattr ) ) )": 1,
+    "( neverallow base_typeattr_346 fs_bpf_kernelwakelockduration ( file ( read write getattr ) ) )": 1,
+    "( neverallow base_typeattr_345 fs_bpf_cputimeinstate ( file ( read write getattr ) ) )": 1,
+    "( neverallow base_typeattr_344 fs_bpf ( file ( read getattr ) ) )": 1,
+    "( neverallow base_typeattr_343 bpffs_type ( file ( open ) ) )": 1,
+    "( neverallow base_typeattr_341 base_typeattr_342 ( file ( open ) ) )": 1,
+    "( neverallow base_typeattr_341 bpffs_type ( file ( create setattr map rename ) ) )": 1,
+    "( neverallow domain bpffs_type ( file ( ioctl lock relabelfrom relabelto append unlink link execute quotaon mounton audit_access execmod watch watch_mount watch_sb watch_with_perm watch_reads execute_no_trans entrypoint ) ) )": 1,
+    "( neverallow base_typeattr_341 bpffs_type ( dir ( read write create setattr open add_name remove_name ) ) )": 1,
+    "( neverallow domain bpffs_type ( dir ( ioctl lock relabelfrom relabelto append map unlink link rename execute quotaon audit_access execmod watch watch_mount watch_sb watch_with_perm watch_reads reparent rmdir ) ) )": 1,
+    "( neverallow base_typeattr_339 bpffs_type ( file ( ioctl read write create getattr setattr lock relabelfrom relabelto append map unlink link rename execute quotaon mounton audit_access open execmod watch watch_mount watch_sb watch_with_perm watch_reads execute_no_trans entrypoint ) ) )": 1,
+    "( neverallow base_typeattr_339 bpffs_type ( lnk_file ( ioctl read write create getattr setattr lock relabelfrom relabelto append map unlink link rename execute quotaon mounton audit_access open execmod watch watch_mount watch_sb watch_with_perm watch_reads ) ) )": 1,
+    "( neverallow base_typeattr_339 bpffs_type ( dir ( ioctl read write create setattr lock relabelfrom relabelto append map unlink link rename execute quotaon audit_access open execmod watch watch_mount watch_sb watch_with_perm watch_reads add_name remove_name reparent search rmdir ) ) )": 1,
+    "( neverallow base_typeattr_339 base_typeattr_248 ( bpf ( map_create map_read map_write prog_load prog_run ) ) )": 1
+  },
+  "new_diagnostic_records": {},
+  "effective_permission_or_attribute_equivalence_proved": false,
+  "input_sha256": {
+    "/srv/android/artifacts/lineage-24.0-arm64/property-writer-tightening-20261105-02/strict/report.json": "45ba6845e44edee2c6f1b3ebedbd512148954f903e96a56a517123bef31909d2",
+    "/srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/strict/report.json": "12781a4664762a945bd142e47786e28a0a110b09cc464d87397f537a9de6b398",
+    "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/compare-policy-assertions.py": "16661656fcb196bfdd7dff39fb1d2795ed18965bc82c580ca4a1823834960f49",
+    "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/policy-diagnostics.py": "03f508f363c0ab43ff8df1ae7098011824c119cb61aa50732f7a5c651a02f437"
+  }
+}

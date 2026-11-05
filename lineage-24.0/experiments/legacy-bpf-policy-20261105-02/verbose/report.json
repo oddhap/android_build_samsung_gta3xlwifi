@@ -1,0 +1,823 @@
+{
+  "command": [
+    "/srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/host/linux-x86/bin/secilc",
+    "-v",
+    "-m",
+    "-M",
+    "true",
+    "-G",
+    "-c",
+    "30",
+    "-o",
+    "/srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/verbose/strict.policy",
+    "-f",
+    "/dev/null",
+    "/srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/plat_sepolicy.cil",
+    "/srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/etc/selinux/mapping/30.0.cil",
+    "/srv/android/artifacts/lineage-24.0-arm64/legacy-policy-access-20261105-03/metadata/30.0.compat.cil",
+    "/srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/system_ext/etc/selinux/system_ext_sepolicy.cil",
+    "/srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/system_ext/etc/selinux/mapping/30.0.cil",
+    "/srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/system_ext/etc/selinux/mapping/30.0.compat.cil",
+    "/srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/product/etc/selinux/product_sepolicy.cil",
+    "/srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/product/etc/selinux/mapping/30.0.cil",
+    "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/plat_pub_versioned.cil",
+    "/srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil"
+  ],
+  "compiler_exit": 255,
+  "neverallow_checks_enabled": true,
+  "no_input_modified": true,
+  "conflict_count": 28,
+  "matching_grant_records": 151,
+  "conflicts": [
+    {
+      "assertion_location": "/srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/plat_sepolicy.cil:81275 from system/sepolicy/private/vold.te:416",
+      "assertion": "(neverallow base_typeattr_1152 media_userdir_file (dir (write add_name remove_name)))",
+      "matching_grants": [
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:4620",
+          "statement": "(allow audioserver_30_0 media_rw_data_file_30_0 (dir (ioctl read write create getattr setattr lock rename open watch watch_reads add_name remove_name reparent search rmdir)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:4770",
+          "statement": "(allow cameraserver_30_0 media_rw_data_file_30_0 (dir (ioctl read write create getattr setattr lock rename open watch watch_reads add_name remove_name reparent search rmdir)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:4779",
+          "statement": "(allow cameraserver_30_0 media_rw_data_file_30_0 (dir (ioctl read write create getattr setattr lock rename open watch watch_reads add_name remove_name reparent search rmdir)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:5818",
+          "statement": "(allow netd_30_0 media_rw_data_file_30_0 (dir (ioctl read write create getattr setattr lock rename open watch watch_reads add_name remove_name reparent search rmdir)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:6088",
+          "statement": "(allow radio_30_0 media_rw_data_file_30_0 (dir (ioctl read write create getattr setattr lock rename open watch watch_reads add_name remove_name reparent search rmdir)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:6109",
+          "statement": "(allow radio_30_0 media_rw_data_file_30_0 (dir (ioctl read write getattr lock open watch watch_reads add_name remove_name search)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:6877",
+          "statement": "(allow system_server_30_0 media_rw_data_file_30_0 (dir (ioctl read write create getattr setattr lock rename open watch watch_reads add_name remove_name reparent search rmdir)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:7394",
+          "statement": "(allow zygote_30_0 media_rw_data_file_30_0 (dir (ioctl read write create getattr setattr lock rename mounton open watch watch_reads add_name remove_name reparent search rmdir)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:7440",
+          "statement": "(allow DMM-daemon media_rw_data_file_30_0 (dir (ioctl read write create getattr setattr lock rename open watch watch_reads add_name remove_name reparent search rmdir)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:7616",
+          "statement": "(allow apexserver media_rw_data_file_30_0 (dir (ioctl read write create getattr setattr lock rename open watch watch_reads add_name remove_name reparent search rmdir)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:7637",
+          "statement": "(allow apexserver media_rw_data_file_30_0 (dir (ioctl read write create getattr setattr lock rename open watch watch_reads add_name remove_name reparent search rmdir)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:8341",
+          "statement": "(allow dmb media_rw_data_file_30_0 (dir (ioctl read write create getattr setattr lock rename open watch watch_reads add_name remove_name reparent search rmdir)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:10588",
+          "statement": "(allow imsd media_rw_data_file_30_0 (dir (ioctl read write create getattr setattr lock rename open watch watch_reads add_name remove_name reparent search rmdir)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:11480",
+          "statement": "(allow multiclientd media_rw_data_file_30_0 (dir (ioctl read write create getattr setattr lock rename open watch watch_reads add_name remove_name reparent search rmdir)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:11593",
+          "statement": "(allow oneseg_mw media_rw_data_file_30_0 (dir (ioctl read write create getattr setattr lock rename open watch watch_reads add_name remove_name reparent search rmdir)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:11636",
+          "statement": "(allow oneseg_mw media_rw_data_file_30_0 (dir (ioctl read write create getattr setattr lock rename open watch watch_reads add_name remove_name reparent search rmdir)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:11998",
+          "statement": "(allow preparefbe media_rw_data_file_30_0 (dir (ioctl read write create getattr setattr lock rename open watch watch_reads add_name remove_name reparent search rmdir)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:12286",
+          "statement": "(allow remotedisplay media_rw_data_file_30_0 (dir (ioctl read write getattr lock open watch watch_reads add_name remove_name search)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:12938",
+          "statement": "(allow secure_storage media_rw_data_file_30_0 (dir (ioctl read write create getattr setattr lock rename open watch watch_reads add_name remove_name reparent search rmdir)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:14512",
+          "statement": "(allow trustonicpartner_app media_rw_data_file_30_0 (dir (ioctl read write create getattr setattr lock rename open watch watch_reads add_name remove_name reparent search rmdir)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:14974",
+          "statement": "(allow visiond media_rw_data_file_30_0 (dir (ioctl read write create getattr setattr lock rename open watch watch_reads add_name remove_name reparent search rmdir)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:15403",
+          "statement": "(allow dtvserver media_rw_data_file_30_0 (dir (ioctl read write create getattr setattr lock rename open watch watch_reads add_name remove_name reparent search rmdir)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:16843",
+          "statement": "(allow diagexe media_rw_data_file_30_0 (dir (ioctl read write create getattr setattr lock rename open watch watch_reads add_name remove_name reparent search rmdir)))"
+        }
+      ]
+    },
+    {
+      "assertion_location": "/srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/plat_sepolicy.cil:81274 from system/sepolicy/private/vold.te:416",
+      "assertion": "(neverallow base_typeattr_1152 vendor_userdir_file (dir (write add_name remove_name)))",
+      "matching_grants": [
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:5208",
+          "statement": "(allow hal_fingerprint_default vendor_data_file_30_0 (dir (ioctl read write getattr lock open watch watch_reads add_name remove_name search)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:5218",
+          "statement": "(allow hal_fingerprint_default vendor_data_file_30_0 (dir (ioctl read write create getattr setattr lock rename open watch watch_reads add_name remove_name reparent search rmdir)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:9207",
+          "statement": "(allow hal_base_default vendor_data_file_30_0 (dir (ioctl read write getattr lock open watch watch_reads add_name remove_name search)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:9974",
+          "statement": "(allow hal_secure_storage_daemon vendor_data_file_30_0 (dir (ioctl read write getattr lock open watch watch_reads add_name remove_name search)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:9976",
+          "statement": "(allow hal_secure_storage_daemon vendor_data_file_30_0 (dir (ioctl read write getattr lock open watch watch_reads add_name remove_name search)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:10211",
+          "statement": "(allow hal_teeregistry_default vendor_data_file_30_0 (dir (ioctl read write create getattr setattr lock rename open watch watch_reads add_name remove_name reparent search rmdir)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:10729",
+          "statement": "(allow qti_init_shell vendor_data_file_30_0 (dir (ioctl read write getattr lock open watch watch_reads add_name remove_name search)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:11259",
+          "statement": "(allow mediacodec vendor_data_file_30_0 (dir (ioctl read write getattr lock open watch watch_reads add_name remove_name search)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:11434",
+          "statement": "(allow mobicore vendor_data_file_30_0 (dir (write create add_name)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:16371",
+          "statement": "(allow mobicore vendor_data_file_30_0 (dir (ioctl read write create getattr setattr lock rename open watch watch_reads add_name remove_name reparent search rmdir)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:17360",
+          "statement": "(allow wcnss_service vendor_data_file_30_0 (dir (ioctl read write getattr lock open watch watch_reads add_name remove_name search)))"
+        }
+      ]
+    },
+    {
+      "assertion_location": "/srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/plat_sepolicy.cil:81273 from system/sepolicy/private/vold.te:416",
+      "assertion": "(neverallow base_typeattr_1152 system_userdir_file (dir (write add_name remove_name)))",
+      "matching_grants": [
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:5643",
+          "statement": "(allow installd_30_0 system_data_file_30_0 (dir (ioctl read write getattr lock relabelfrom open watch watch_reads add_name remove_name search rmdir)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:7804",
+          "statement": "(allow at_distributor system_data_file_30_0 (dir (ioctl read write getattr lock open watch watch_reads add_name remove_name search)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:8140",
+          "statement": "(allow connfwexe system_data_file_30_0 (dir (ioctl read write getattr lock open watch watch_reads add_name remove_name search)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:8179",
+          "statement": "(allow connfwexe system_data_file_30_0 (dir (ioctl read write getattr lock open watch watch_reads add_name remove_name search)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:8254",
+          "statement": "(allow ddexe system_data_file_30_0 (dir (ioctl read write getattr lock open watch watch_reads add_name remove_name search)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:11749",
+          "statement": "(allow pageboostd system_data_file_30_0 (dir (write lock open add_name remove_name search)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:12002",
+          "statement": "(allow preparefbe system_data_file_30_0 (dir (ioctl read write getattr lock open watch watch_reads add_name remove_name search)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:12282",
+          "statement": "(allow remotedisplay system_data_file_30_0 (dir (ioctl read write getattr lock open watch watch_reads add_name remove_name search)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:12949",
+          "statement": "(allow secure_storage system_data_file_30_0 (dir (ioctl read write getattr lock open watch watch_reads add_name remove_name search)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:12995",
+          "statement": "(allow sem system_data_file_30_0 (dir (ioctl read write getattr lock open watch watch_reads add_name remove_name search)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:13015",
+          "statement": "(allow sem system_data_file_30_0 (dir (ioctl read write getattr lock open watch watch_reads add_name remove_name search)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:13017",
+          "statement": "(allow sem system_data_file_30_0 (dir (ioctl read write getattr lock open watch watch_reads add_name remove_name search)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:13019",
+          "statement": "(allow sem system_data_file_30_0 (dir (ioctl read write getattr lock open watch watch_reads add_name remove_name search)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:13359",
+          "statement": "(allow ss_conn_daemon system_data_file_30_0 (dir (ioctl read write getattr lock open watch watch_reads add_name remove_name search)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:13361",
+          "statement": "(allow ss_conn_daemon system_data_file_30_0 (dir (ioctl read write getattr lock open watch watch_reads add_name remove_name search)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:13953",
+          "statement": "(allow system_server_30_0 system_data_file_30_0 (dir (ioctl read write getattr lock open watch watch_reads add_name remove_name search)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:13956",
+          "statement": "(allow system_server_30_0 system_data_file_30_0 (dir (ioctl read write getattr lock open watch watch_reads add_name remove_name search)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:14413",
+          "statement": "(allow tlc_server system_data_file_30_0 (dir (ioctl read write getattr lock open watch watch_reads add_name remove_name search)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:16273",
+          "statement": "(allow kernel_30_0 system_data_file_30_0 (dir (read write create open add_name remove_name)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:16848",
+          "statement": "(allow diagexe system_data_file_30_0 (dir (ioctl read write getattr lock open watch watch_reads add_name remove_name search)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:16850",
+          "statement": "(allow diagexe system_data_file_30_0 (dir (ioctl read write getattr lock open watch watch_reads add_name remove_name search)))"
+        }
+      ]
+    },
+    {
+      "assertion_location": "/srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/plat_sepolicy.cil:73032 from system/sepolicy/private/traced.te:137",
+      "assertion": "(neverallow base_typeattr_1073 tracingproxy_service (service_manager (find)))",
+      "matching_grants": [
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:10934",
+          "statement": "(allow irisd system_server_service (service_manager (find)))"
+        }
+      ]
+    },
+    {
+      "assertion_location": "/srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/plat_sepolicy.cil:57824 from system/sepolicy/private/property.te:789",
+      "assertion": "(neverallow base_typeattr_422 build_config_prop (file (ioctl read write create setattr lock relabelfrom append unlink link rename open watch watch_mount watch_sb watch_with_perm watch_reads)))",
+      "matching_grants": [
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:4803",
+          "statement": "(allow cameraserver_30_0 default_prop_30_0 (file (read getattr map open)))"
+        }
+      ]
+    },
+    {
+      "assertion_location": "/srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/plat_sepolicy.cil:57592 from system/sepolicy/private/property.te:299",
+      "assertion": "(neverallow base_typeattr_944 wifi_hal_prop (property_service (set)))",
+      "matching_grants": [
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:6726",
+          "statement": "(allow system_app_30_0 exported_wifi_prop_30_0 (property_service (set)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:14180",
+          "statement": "(allow system_server_30_0 exported_wifi_prop_30_0 (property_service (set)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:15250",
+          "statement": "(allow wlandutservice exported_wifi_prop_30_0 (property_service (set)))"
+        }
+      ]
+    },
+    {
+      "assertion_location": "/srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/plat_sepolicy.cil:57494 from system/sepolicy/private/property.te:172",
+      "assertion": "(neverallow base_typeattr_243 base_typeattr_928 (file (ioctl read write create setattr lock relabelfrom append unlink link rename open watch watch_mount watch_sb watch_with_perm watch_reads)))",
+      "matching_grants": [
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:4804",
+          "statement": "(allow cameraserver_30_0 vendor_default_prop_30_0 (file (read getattr map open)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:6311",
+          "statement": "(allow shell_30_0 vendor_default_prop_30_0 (file (read getattr map open)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:7195",
+          "statement": "(allow vzwfiltered_untrusted_app vendor_default_prop_30_0 (file (read getattr map open)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:16096",
+          "statement": "(allow appdomain vendor_default_prop_30_0 (file (read getattr map open)))"
+        }
+      ]
+    },
+    {
+      "assertion_location": "/srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/plat_sepolicy.cil:57489 from system/sepolicy/private/property.te:172",
+      "assertion": "(neverallow base_typeattr_241 base_typeattr_927 (property_service (set)))",
+      "matching_grants": [
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:14785",
+          "statement": "(allow vendor_init_30_0 exported_system_prop_30_0 (property_service (set)))"
+        }
+      ]
+    },
+    {
+      "assertion_location": "/srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/plat_sepolicy.cil:57484 from system/sepolicy/private/property.te:172",
+      "assertion": "(neverallow base_typeattr_241 base_typeattr_926 (file (ioctl read write create setattr lock relabelfrom append unlink link rename open watch watch_mount watch_sb watch_with_perm watch_reads)))",
+      "matching_grants": [
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:8407",
+          "statement": "(allow domain setupwizard_prop (file (read getattr map open)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:9068",
+          "statement": "(allow gpsd setupwizard_prop (file (read getattr map open)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:14770",
+          "statement": "(allow vendor_init_30_0 setupwizard_prop (file (read getattr map open)))"
+        }
+      ]
+    },
+    {
+      "assertion_location": "/srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/plat_sepolicy.cil:56959 from system/sepolicy/private/property.te:64",
+      "assertion": "(neverallow base_typeattr_241 setupwizard_prop (file (ioctl read write create setattr lock relabelfrom append unlink link rename open watch watch_mount watch_sb watch_with_perm watch_reads)))",
+      "matching_grants": [
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:8407",
+          "statement": "(allow domain setupwizard_prop (file (read getattr map open)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:9068",
+          "statement": "(allow gpsd setupwizard_prop (file (read getattr map open)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:14770",
+          "statement": "(allow vendor_init_30_0 setupwizard_prop (file (read getattr map open)))"
+        }
+      ]
+    },
+    {
+      "assertion_location": "/srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/plat_sepolicy.cil:34531 from system/sepolicy/private/hal_can.te:9",
+      "assertion": "(neverallow base_typeattr_608 hal_can_bus_hwservice (hwservice_manager (find)))",
+      "matching_grants": [
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:4392",
+          "statement": "(allow hal_vehicle_default hal_can_bus_hwservice_30_0 (hwservice_manager (find)))"
+        }
+      ]
+    },
+    {
+      "assertion_location": "/srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/plat_sepolicy.cil:26960 from system/sepolicy/private/domain.te:2422",
+      "assertion": "(neverallow domain domain (file (create)))",
+      "matching_grants": [
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:5811",
+          "statement": "(allow netd_30_0 netd_30_0 (file (ioctl read write create getattr setattr lock append map unlink rename open watch watch_reads)))"
+        }
+      ]
+    },
+    {
+      "assertion_location": "/srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/plat_sepolicy.cil:26955 from system/sepolicy/private/domain.te:2421",
+      "assertion": "(neverallow domain domain (dir (write add_name remove_name)))",
+      "matching_grants": [
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:5810",
+          "statement": "(allow netd_30_0 netd_30_0 (dir (write lock open add_name remove_name search)))"
+        }
+      ]
+    },
+    {
+      "assertion_location": "/srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/plat_sepolicy.cil:26950 from system/sepolicy/private/domain.te:2420",
+      "assertion": "(neverallow domain proc (filesystem (associate)))",
+      "matching_grants": [
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:5812",
+          "statement": "(allow netd_30_0 vendor_samsung_port_nonbpf_proc (filesystem (associate)))"
+        }
+      ]
+    },
+    {
+      "assertion_location": "/srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/plat_sepolicy.cil:26835 from system/sepolicy/private/domain.te:2340",
+      "assertion": "(neverallow base_typeattr_528 sysfs_devices_cs_etm (file (write create setattr relabelfrom append unlink link rename)))",
+      "matching_grants": [
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:5595",
+          "statement": "(allow init_30_0 vendor_samsung_port_nonbpf_fs551 (file (setattr)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:10631",
+          "statement": "(allow init_30_0 sysfs_type (file (relabelfrom)))"
+        }
+      ]
+    },
+    {
+      "assertion_location": "/srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/plat_sepolicy.cil:26830 from system/sepolicy/private/domain.te:2316",
+      "assertion": "(neverallow base_typeattr_527 proc_kallsyms (file (ioctl read write create getattr setattr lock relabelfrom relabelto append map unlink link rename execute quotaon mounton audit_access open execmod watch watch_mount watch_sb watch_with_perm watch_reads execute_no_trans entrypoint)))",
+      "matching_grants": [
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:4909",
+          "statement": "(allow dumpstate_30_0 vendor_samsung_port_nonbpf_fs545 (file (getattr)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:4983",
+          "statement": "(allow dumpstate_30_0 base_typeattr_547_30_0 (file (read getattr lock map open)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:14071",
+          "statement": "(allow system_server_30_0 proc_type (file (getattr)))"
+        }
+      ]
+    },
+    {
+      "assertion_location": "/srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/plat_sepolicy.cil:26711 from system/sepolicy/private/domain.te:2160",
+      "assertion": "(neverallow base_typeattr_361 debugfs_kprobes (file (ioctl read write create getattr setattr lock relabelfrom relabelto append map unlink link rename execute quotaon mounton audit_access open execmod watch watch_mount watch_sb watch_with_perm watch_reads execute_no_trans entrypoint)))",
+      "matching_grants": [
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:4909",
+          "statement": "(allow dumpstate_30_0 vendor_samsung_port_nonbpf_fs545 (file (getattr)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:4985",
+          "statement": "(allow dumpstate_30_0 base_typeattr_548_30_0 (file (ioctl read getattr lock map open watch watch_reads)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:5202",
+          "statement": "(allow hal_dumpstate_default base_typeattr_549_30_0 (file (ioctl read getattr lock map open watch watch_reads)))"
+        }
+      ]
+    },
+    {
+      "assertion_location": "/srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/plat_sepolicy.cil:26460 from system/sepolicy/private/domain.te:1698",
+      "assertion": "(neverallow base_typeattr_494 debugfs_tracing_printk_formats (file (ioctl read write create getattr setattr lock relabelfrom relabelto append map unlink link rename execute quotaon mounton audit_access open execmod watch watch_mount watch_sb watch_with_perm watch_reads execute_no_trans entrypoint)))",
+      "matching_grants": [
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:4909",
+          "statement": "(allow dumpstate_30_0 vendor_samsung_port_nonbpf_fs545 (file (getattr)))"
+        }
+      ]
+    },
+    {
+      "assertion_location": "/srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/plat_sepolicy.cil:26191 from system/sepolicy/private/domain.te:1303",
+      "assertion": "(neverallow base_typeattr_460 base_typeattr_468 (file (ioctl read write create getattr setattr lock relabelfrom relabelto append map unlink link rename execute quotaon mounton audit_access open execmod watch watch_mount watch_sb watch_with_perm watch_reads execute_no_trans entrypoint)))",
+      "matching_grants": [
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:9888",
+          "statement": "(allow hal_proca_default oemfs_30_0 (file (ioctl read getattr lock map open watch watch_reads)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:10885",
+          "statement": "(allow iorap_inode2filename_30_0 flags_health_check_exec_30_0 (file (getattr)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:10886",
+          "statement": "(allow iorap_inode2filename_30_0 cameraserver_exec_30_0 (file (getattr)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:10887",
+          "statement": "(allow iorap_inode2filename_30_0 bootanim_exec_30_0 (file (getattr)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:10888",
+          "statement": "(allow iorap_inode2filename_30_0 bootchecker_exec (file (getattr)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:10889",
+          "statement": "(allow iorap_inode2filename_30_0 fsck_exec_30_0 (file (getattr)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:10903",
+          "statement": "(allow iorap_inode2filename_30_0 dsms_exec (file (read getattr open)))"
+        }
+      ]
+    },
+    {
+      "assertion_location": "/srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/plat_sepolicy.cil:26126 from system/sepolicy/private/domain.te:1149",
+      "assertion": "(neverallow base_typeattr_451 base_typeattr_454 (dir (ioctl read write create getattr setattr lock relabelfrom relabelto append map unlink link rename execute quotaon mounton audit_access open execmod watch watch_mount watch_sb watch_with_perm watch_reads add_name remove_name reparent search rmdir)))",
+      "matching_grants": [
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:6188",
+          "statement": "(allow rild system_data_file_30_0 (dir (getattr search)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:9975",
+          "statement": "(allow hal_secure_storage_daemon system_data_file_30_0 (dir (getattr)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:10890",
+          "statement": "(allow iorap_inode2filename_30_0 shell_data_file_30_0 (dir (read)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:10891",
+          "statement": "(allow iorap_inode2filename_30_0 profman_dump_data_file_30_0 (dir (read)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:10892",
+          "statement": "(allow iorap_inode2filename_30_0 install_data_file_30_0 (dir (read)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:10893",
+          "statement": "(allow iorap_inode2filename_30_0 pdp_data_file (dir (read getattr open search)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:10895",
+          "statement": "(allow iorap_inode2filename_30_0 dumplog_data_file (dir (read getattr open search)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:10897",
+          "statement": "(allow iorap_inode2filename_30_0 apk_private_data_file_30_0 (dir (read getattr open search)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:10899",
+          "statement": "(allow iorap_inode2filename_30_0 nfc_data_file_30_0 (dir (read getattr open search)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:10901",
+          "statement": "(allow iorap_inode2filename_30_0 asec_image_file_30_0 (dir (read getattr open search)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:10904",
+          "statement": "(allow iorap_inode2filename_30_0 cache_file_30_0 (dir (read open)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:10905",
+          "statement": "(allow iorap_inode2filename_30_0 media_rw_data_file_30_0 (dir (read open)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:10912",
+          "statement": "(allow iorap_prefetcherd_30_0 system_app_data_file_30_0 (dir (search)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:14571",
+          "statement": "(allow tzdaemon system_data_file_30_0 (dir (getattr)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:16679",
+          "statement": "(allow wlbtd system_data_file_30_0 (dir (getattr)))"
+        }
+      ]
+    },
+    {
+      "assertion_location": "/srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/plat_sepolicy.cil:26101 from system/sepolicy/private/domain.te:1125",
+      "assertion": "(neverallow base_typeattr_451 core_data_file_type (file (create setattr lock relabelfrom relabelto unlink link rename execute quotaon mounton audit_access open execmod watch watch_mount watch_sb watch_with_perm watch_reads execute_no_trans entrypoint)))",
+      "matching_grants": [
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:5219",
+          "statement": "(allow hal_fingerprint_default vendor_data_file_30_0 (file (ioctl read write create getattr setattr lock append map unlink rename open watch watch_reads)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:9208",
+          "statement": "(allow hal_base_default vendor_data_file_30_0 (file (ioctl read write create getattr setattr lock append map unlink rename open watch watch_reads)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:9832",
+          "statement": "(allow hal_nfc_default vendor_data_file_30_0 (file (ioctl read write getattr lock append map open watch watch_reads)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:10212",
+          "statement": "(allow hal_teeregistry_default vendor_data_file_30_0 (file (ioctl read write create getattr setattr lock append map unlink rename open watch watch_reads)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:10730",
+          "statement": "(allow qti_init_shell vendor_data_file_30_0 (file (ioctl read write create getattr setattr lock append map unlink rename open watch watch_reads)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:11260",
+          "statement": "(allow mediacodec vendor_data_file_30_0 (file (ioctl read write create getattr setattr lock append map unlink rename open watch watch_reads)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:11435",
+          "statement": "(allow mobicore vendor_data_file_30_0 (file (read write create getattr open)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:15821",
+          "statement": "(allow hal_drm_default vendor_data_file_30_0 (file (ioctl read getattr lock map open watch watch_reads)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:16370",
+          "statement": "(allow mobicore vendor_data_file_30_0 (file (ioctl read write create getattr setattr lock append map unlink rename open watch watch_reads)))"
+        }
+      ]
+    },
+    {
+      "assertion_location": "/srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/plat_sepolicy.cil:22915 from system/sepolicy/private/crosvm_vu_fs.te:68",
+      "assertion": "(neverallow crosvm_vu_fs base_typeattr_392 (file (ioctl read write create getattr setattr lock relabelfrom relabelto append map unlink link rename execute quotaon mounton audit_access open execmod watch watch_mount watch_sb watch_with_perm watch_reads execute_no_trans entrypoint)))",
+      "matching_grants": [
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:8413",
+          "statement": "(allow domain vendor_configs_file_30_0 (file (map)))"
+        }
+      ]
+    },
+    {
+      "assertion_location": "/srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/plat_sepolicy.cil:22777 from system/sepolicy/private/crosvm.te:209",
+      "assertion": "(neverallow crosvm_domain base_typeattr_389 (file (ioctl read write create getattr setattr lock relabelfrom relabelto append map unlink link rename execute quotaon mounton audit_access open execmod watch watch_mount watch_sb watch_with_perm watch_reads execute_no_trans entrypoint)))",
+      "matching_grants": [
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:8413",
+          "statement": "(allow domain vendor_configs_file_30_0 (file (map)))"
+        }
+      ]
+    },
+    {
+      "assertion_location": "/srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/plat_sepolicy.cil:21168 from system/sepolicy/private/charger_type.te:76",
+      "assertion": "(neverallow base_typeattr_363 charger_status_prop (file (ioctl read write create setattr lock relabelfrom append unlink link rename open watch watch_mount watch_sb watch_with_perm watch_reads)))",
+      "matching_grants": [
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:4739",
+          "statement": "(allow bootanim_30_0 exported_system_prop_30_0 (file (read getattr map open)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:4822",
+          "statement": "(allow cameraserver_30_0 exported_system_prop_30_0 (file (read getattr map open)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:6269",
+          "statement": "(allow servicemanager_30_0 exported_system_prop_30_0 (file (read getattr map open)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:7354",
+          "statement": "(allow vold_30_0 exported_system_prop_30_0 (file (read getattr map open)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:7429",
+          "statement": "(allow zygote_30_0 exported_system_prop_30_0 (file (read getattr map open)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:8097",
+          "statement": "(allow charon exported_system_prop_30_0 (file (read getattr map open)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:11361",
+          "statement": "(allow mediaserver_30_0 exported_system_prop_30_0 (file (read getattr map open)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:11905",
+          "statement": "(allow platform_app_30_0 exported_system_prop_30_0 (file (read getattr map open)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:12491",
+          "statement": "(allow scs exported_system_prop_30_0 (file (read getattr map open)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:12923",
+          "statement": "(allow secure_element_30_0 exported_system_prop_30_0 (file (read getattr map open)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:13028",
+          "statement": "(allow sem exported_system_prop_30_0 (file (read getattr map open)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:13382",
+          "statement": "(allow ssud exported_system_prop_30_0 (file (read getattr map open)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:14696",
+          "statement": "(allow vaultkeeperd exported_system_prop_30_0 (file (read getattr map open)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:15150",
+          "statement": "(allow vzsysprop exported_system_prop_30_0 (file (read getattr map open)))"
+        }
+      ]
+    },
+    {
+      "assertion_location": "/srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/plat_sepolicy.cil:21162 from system/sepolicy/private/charger_type.te:64",
+      "assertion": "(neverallow base_typeattr_362 charger_status_prop (property_service (set)))",
+      "matching_grants": [
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:4738",
+          "statement": "(allow bootanim_30_0 exported_system_prop_30_0 (property_service (set)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:4821",
+          "statement": "(allow cameraserver_30_0 exported_system_prop_30_0 (property_service (set)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:6268",
+          "statement": "(allow servicemanager_30_0 exported_system_prop_30_0 (property_service (set)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:7353",
+          "statement": "(allow vold_30_0 exported_system_prop_30_0 (property_service (set)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:7428",
+          "statement": "(allow zygote_30_0 exported_system_prop_30_0 (property_service (set)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:8096",
+          "statement": "(allow charon exported_system_prop_30_0 (property_service (set)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:11360",
+          "statement": "(allow mediaserver_30_0 exported_system_prop_30_0 (property_service (set)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:11904",
+          "statement": "(allow platform_app_30_0 exported_system_prop_30_0 (property_service (set)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:12490",
+          "statement": "(allow scs exported_system_prop_30_0 (property_service (set)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:12922",
+          "statement": "(allow secure_element_30_0 exported_system_prop_30_0 (property_service (set)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:13027",
+          "statement": "(allow sem exported_system_prop_30_0 (property_service (set)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:13381",
+          "statement": "(allow ssud exported_system_prop_30_0 (property_service (set)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:15149",
+          "statement": "(allow vzsysprop exported_system_prop_30_0 (property_service (set)))"
+        }
+      ]
+    },
+    {
+      "assertion_location": "/srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/plat_sepolicy.cil:13014 from system/sepolicy/private/apexd.te:265",
+      "assertion": "(neverallow base_typeattr_269 apex_dm_device (blk_file (write create setattr relabelfrom append unlink link rename)))",
+      "matching_grants": [
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:5597",
+          "statement": "(allow init_30_0 dev_type (blk_file (setattr)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:10626",
+          "statement": "(allow init_30_0 dev_type (blk_file (relabelfrom)))"
+        }
+      ]
+    },
+    {
+      "assertion_location": "/srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/plat_sepolicy.cil:10583 from system/sepolicy/public/property.te:353",
+      "assertion": "(neverallow base_typeattr_243 vendor_default_prop (file (ioctl read write create setattr lock relabelfrom append unlink link rename open watch watch_mount watch_sb watch_with_perm watch_reads)))",
+      "matching_grants": [
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:4804",
+          "statement": "(allow cameraserver_30_0 vendor_default_prop_30_0 (file (read getattr map open)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:6311",
+          "statement": "(allow shell_30_0 vendor_default_prop_30_0 (file (read getattr map open)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:7195",
+          "statement": "(allow vzwfiltered_untrusted_app vendor_default_prop_30_0 (file (read getattr map open)))"
+        },
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:16096",
+          "statement": "(allow appdomain vendor_default_prop_30_0 (file (read getattr map open)))"
+        }
+      ]
+    },
+    {
+      "assertion_location": "/srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/plat_sepolicy.cil:8338 from system/sepolicy/public/property.te:61",
+      "assertion": "(neverallow base_typeattr_241 bootanim_system_prop (property_service (set)))",
+      "matching_grants": [
+        {
+          "location": "allow at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil:14785",
+          "statement": "(allow vendor_init_30_0 exported_system_prop_30_0 (property_service (set)))"
+        }
+      ]
+    }
+  ],
+  "input_sha256": {
+    "/srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/plat_sepolicy.cil": "4121191ce3f4feebb52441265c7a8c9387dfe891739514cb0e8d277344b3df9b",
+    "/srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/etc/selinux/mapping/30.0.cil": "61f3a8e8be06ce66629cc6f27083c9a45ad8c65877069fe176ca12f51d447c6e",
+    "/srv/android/artifacts/lineage-24.0-arm64/legacy-policy-access-20261105-03/metadata/30.0.compat.cil": "0a463f047c1ab686e30c7c2f95308edb2ecce121d7fe0e06743177f7422061a2",
+    "/srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/system_ext/etc/selinux/system_ext_sepolicy.cil": "6582112f219f8224764fce4ca8572a0182bcf78f292645c6ad4a8c4ea4377b0b",
+    "/srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/system_ext/etc/selinux/mapping/30.0.cil": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/system_ext/etc/selinux/mapping/30.0.compat.cil": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/product/etc/selinux/product_sepolicy.cil": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+    "/srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/product/etc/selinux/mapping/30.0.cil": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/plat_pub_versioned.cil": "5478939b47a7980cd4abe373a0825d812c8f103f65d9d2dd8883781f39b20a6f",
+    "/srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil": "3ab68a7694ef6f993f7c087160d539cfb79fffddbab926c291cdd560f3bb1a23",
+    "/srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/host/linux-x86/bin/secilc": "a82e8b28c6088d7b9a58255d32055eb7c7f44ffb9ec95f568a877e543344ff53"
+  },
+  "runner_sha256": "a5986c7501c9217f51acbcf1e122566db331c52ec184c584c14d7ef9fe640be7",
+  "baseline_report_sha256": "12781a4664762a945bd142e47786e28a0a110b09cc464d87397f537a9de6b398",
+  "strict_passed": false,
+  "security_approved": false,
+  "flash_ready": false
+}

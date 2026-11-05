@@ -31,6 +31,11 @@ def main():
                         help='Relative isolated build output beneath TOP (default: out)')
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--runtime-diagnostic', action='store_true')
+    parser.add_argument('--platform-cil', type=Path,
+                        help='Explicit isolated platform CIL proposal; strict assertions remain enabled')
+    parser.add_argument('--system-compat-cil', type=Path,
+                        help='Explicit isolated system compatibility CIL proposal')
+    parser.add_argument('--system-ext-cil', type=Path, help='Explicit isolated system_ext CIL proposal')
     args = parser.parse_args()
     top, vendor, output = args.top.resolve(), args.vendor.resolve(), args.output.resolve()
     relative_out = Path(args.out_dir)
@@ -77,10 +82,24 @@ def main():
         inputs.append(genfs)
     elif genfs_version >= 202504:
         raise FileNotFoundError(f'Missing required genfs fragment: {genfs}')
+    overrides = []
+    for original, replacement in [(system/'plat_sepolicy.cil', args.platform_cil),
+                                  (system/f'mapping/{version}.compat.cil', args.system_compat_cil),
+                                  (ext/'system_ext_sepolicy.cil', args.system_ext_cil)]:
+        if replacement:
+            replacement = replacement.resolve()
+            if replacement.is_relative_to(top) or replacement.is_relative_to(vendor):
+                raise ValueError('Explicit policy proposal must stay outside TOP/vendor inputs')
+            if original not in inputs:
+                raise ValueError('Original override input is absent: '+str(original))
+            overrides.append({'original': str(original), 'original_sha256': sha256(original),
+                              'replacement': str(replacement), 'replacement_sha256': sha256(replacement)})
+            inputs[inputs.index(original)] = replacement
     for path in inputs:
         if not path.is_file():
             raise FileNotFoundError(f'Missing policy input: {path}')
     compiler = build_out / 'host/linux-x86/bin/secilc'
+    input_hashes = {path: sha256(path) for path in inputs}
     output.mkdir(parents=True, exist_ok=False)
     results = []
     for mode in ['strict'] + (['init-runtime-diagnostic'] if args.runtime_diagnostic else []):
@@ -108,9 +127,16 @@ def main():
               'genfs_default_source_sha256': sha256(genfs_source),
               'vendor_genfs_version': genfs_version, 'genfs_fragment_present': genfs.exists(),
               'inputs': [{'path': str(path), 'sha256': sha256(path)} for path in inputs],
+              'explicit_input_overrides': overrides,
               'results': results, 'hardware_tested': False, 'source_or_device_modified': False,
               'runtime_diagnostic_does_not_override_strict_result': True}
     (output / 'report.json').write_text(json.dumps(report, indent=2) + '\n')
+    for path, expected in input_hashes.items():
+        if sha256(path) != expected:
+            raise ValueError('Policy input changed during compilation: '+str(path))
+    for entry in overrides:
+        if sha256(Path(entry['original'])) != entry['original_sha256']:
+            raise ValueError('Original override input changed during compilation')
     return 0 if report['passed_strict'] else 1
 
 

@@ -1,0 +1,56 @@
+{
+  "scope": "Prepare reviewed userdebug inputs from the strict production vendor proposal.\n\nThe unavailable-kernel Health BPF/debug-codec TCP grants and su permissive\ndeclaration are removed; LLKD tracing excludes app domains to retain vendor\nprivacy assertions. Reuses the reviewed MLS\ncompatibility retirement after proving its raw input is identical. No source,\nimage, cache hash or device modification; all current assertions stay intact.\n",
+  "production_policy_passed_strict": true,
+  "production_report_sha256": "235724d1f1467f8ef5f8af1b3a3d281ce7225040da70947751f1c0c6661a20b6",
+  "removed_userdebug_statements": [
+    "(allow hal_health_server fs_bpf_vendor (dir (search)))",
+    "(allow hal_health_server fs_bpf_vendor (file (read)))",
+    "(allow hal_health_server bpfloader (bpf (prog_run)))",
+    "(typepermissive su)",
+    "(allow hal_codec2_server su (tcp_socket (read write accept getopt)))"
+  ],
+  "all_retained_userdebug_statements_byte_exact": true,
+  "llkd_app_ptrace_subset": {
+    "before": "(allow llkd base_typeattr_851 (process (ptrace)))",
+    "after": "(allow llkd gta3xlwifi_debug_traceable (process (ptrace)))",
+    "added_definitions": "\n(typeattribute gta3xlwifi_debug_nonapp)\n(typeattributeset gta3xlwifi_debug_nonapp (not appdomain))\n(typeattribute gta3xlwifi_debug_traceable)\n(typeattributeset gta3xlwifi_debug_traceable (and base_typeattr_851 gta3xlwifi_debug_nonapp))\n"
+  },
+  "codec2_su_debug_tcp_removed_without_changing_normal_codec_ipc": true,
+  "removed_compat_statements": [
+    "(typeattributeset mlsvendorcompat (and appdomain vendordomain))",
+    "(allow mlsvendorcompat app_data_file (dir (ioctl read write create getattr setattr lock rename open watch watch_reads add_name remove_name reparent search rmdir)))",
+    "(allow mlsvendorcompat app_data_file (file (ioctl read write create getattr setattr lock append map unlink rename open watch watch_reads)))",
+    "(allow mlsvendorcompat privapp_data_file (dir (ioctl read write create getattr setattr lock rename open watch watch_reads add_name remove_name reparent search rmdir)))",
+    "(allow mlsvendorcompat privapp_data_file (file (ioctl read write create getattr setattr lock append map unlink rename open watch watch_reads)))"
+  ],
+  "all_retained_compat_statements_byte_exact": true,
+  "permissive_domains_added": false,
+  "removed_default_permissive_domains": [
+    "su",
+    "backuptool"
+  ],
+  "original_input_sha256": {
+    "/srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/system/system_ext/etc/selinux/system_ext_sepolicy.cil": "9107d599429afbb56a28031217e6b81097bc61d67d7086f00302b0dafba219fd",
+    "/srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/system/etc/selinux/plat_sepolicy.cil": "63b746f5bc0d141483e5e356b6a5e1d2889976001838ff9039d32008d0e3b764",
+    "/srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/system/etc/selinux/mapping/30.0.compat.cil": "2b40198379e1bb65ca2af156b25562381273144d94c5ae223b5ed9905d7437cc",
+    "/srv/android/artifacts/lineage-24.0-arm64/legacy-policy-access-20261105-03/metadata/30.0.compat.cil": "0a463f047c1ab686e30c7c2f95308edb2ecce121d7fe0e06743177f7422061a2"
+  },
+  "staged_text_sha256": {
+    "system_ext_sepolicy.cil": "f2790a162a9f22c78590b33ce30a2fd6012f87babe3afcaf874de6ab746ff0fb",
+    "plat_sepolicy.cil": "9751f494360d69733ad2667fe7bf5326233ff17057d442ba95555292195f776e",
+    "30.0.compat.cil": "0a463f047c1ab686e30c7c2f95308edb2ecce121d7fe0e06743177f7422061a2",
+    "vendor/etc/selinux/plat_sepolicy_vers.txt": "166983be04e2ab397fc7a70bb60a516b1cfd42a5ec6dd356df01ae63a8500ec0",
+    "vendor/etc/selinux/vendor_file_contexts": "0dcf14fc0299035adbffd2a6cba5221843ca7c47c84748ac42f5d245fd2f2065",
+    "vendor/etc/selinux/plat_pub_versioned.cil": "5478939b47a7980cd4abe373a0825d812c8f103f65d9d2dd8883781f39b20a6f",
+    "vendor/etc/selinux/vendor_hwservice_contexts": "49c313c04575e51a76e6e0e8e2b32e39010033f3ab7e836ed5fc8d053defdf9c",
+    "vendor/etc/selinux/vendor_sepolicy.cil": "9fb1e0eff6809add4ddf0312c38a7772987b16479bfa0c39b2bbece2bf15d712",
+    "vendor/etc/selinux/vendor_property_contexts": "8379234e5ee1ffb7548eed1b49fb2545a20b055240ef3308729c9e57d3d1b17d",
+    "vendor/etc/selinux/vendor_seapp_contexts": "09723917f8fd99101e876158075cdee7592406f22e8ef5f946d161e73f7e375b",
+    "vendor/etc/selinux/vndservice_contexts": "94b336be8f83c49349fea3f22bc5b99f73ce726de79ded31bbeee04d9690708f",
+    "vendor/etc/selinux/vendor_service_contexts": "5dc71762ea75986ef6bd2ce282f6920ec6cddc509b511bc940e6bc280c3ff3ec"
+  },
+  "runner_sha256": "5d903efe10ed6292800b9f372565cef54caba379113dff5bb284c3a6490afeae",
+  "runtime_validated": false,
+  "security_approved": false,
+  "flash_ready": false
+}

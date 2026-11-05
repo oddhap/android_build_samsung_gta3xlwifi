@@ -1,0 +1,3 @@
+Error: type "test_pkvm_tee_service" is not of set: "service_manager_type"
+/srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/etc/selinux/plat_tee_service_contexts:  line 18 has invalid context u:object_r:test_pkvm_tee_service:s0
+Error: could not load context file from /srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/etc/selinux/plat_tee_service_contexts

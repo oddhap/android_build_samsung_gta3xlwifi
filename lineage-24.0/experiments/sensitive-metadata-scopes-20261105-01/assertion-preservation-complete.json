@@ -1,0 +1,97 @@
+{
+  "scope": "Compare complete CIL assertion inventories and strict diagnostic identities.\n\nText/token preservation is not effective attribute-membership or runtime proof.\nResolved diagnostic records do not mean assertions were removed.\n",
+  "baseline_assertion_constraint_records": 5918,
+  "candidate_assertion_constraint_records": 5918,
+  "removed_assertions_or_constraints": [],
+  "added_assertions_or_constraints": {},
+  "added_av_grant_statements": [],
+  "removed_av_grant_statement_count": 11,
+  "permission_narrowed_allow_replacements": [],
+  "source_intersection_allow_replacements": [],
+  "target_intersection_allow_replacements": [
+    {
+      "before": "( allow dumpstate_30_0 vendor_samsung_port_nonbpf_fs545 ( file ( getattr ) ) )",
+      "after": "( allow dumpstate_30_0 vendor_samsung_port_meta_fs545_safe ( file ( getattr ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_meta_fs545_safe ( and vendor_samsung_port_nonbpf_fs545 vendor_samsung_port_meta_non_sensitive ) )"
+    },
+    {
+      "before": "( allow dumpstate_30_0 base_typeattr_547_30_0 ( file ( read getattr lock map open ) ) )",
+      "after": "( allow dumpstate_30_0 vendor_samsung_port_meta_proc547_safe ( file ( read getattr lock map open ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_meta_proc547_safe ( and base_typeattr_547_30_0 vendor_samsung_port_meta_non_sensitive ) )"
+    },
+    {
+      "before": "( allow dumpstate_30_0 base_typeattr_548_30_0 ( file ( ioctl read getattr lock map open watch watch_reads ) ) )",
+      "after": "( allow dumpstate_30_0 vendor_samsung_port_meta_debug548_safe ( file ( ioctl read getattr lock map open watch watch_reads ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_meta_debug548_safe ( and base_typeattr_548_30_0 vendor_samsung_port_meta_non_sensitive ) )"
+    },
+    {
+      "before": "( allow hal_dumpstate_default base_typeattr_549_30_0 ( file ( ioctl read getattr lock map open watch watch_reads ) ) )",
+      "after": "( allow hal_dumpstate_default vendor_samsung_port_meta_debug549_safe ( file ( ioctl read getattr lock map open watch watch_reads ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_meta_debug549_safe ( and base_typeattr_549_30_0 vendor_samsung_port_meta_non_sensitive ) )"
+    },
+    {
+      "before": "( allow init_30_0 vendor_samsung_port_nonbpf_fs551 ( file ( setattr ) ) )",
+      "after": "( allow init_30_0 vendor_samsung_port_meta_fs551_no_etm ( file ( setattr ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_meta_fs551_no_etm ( and vendor_samsung_port_nonbpf_fs551 vendor_samsung_port_meta_no_etm ) )"
+    },
+    {
+      "before": "( allow init_30_0 dev_type ( blk_file ( setattr ) ) )",
+      "after": "( allow init_30_0 vendor_samsung_port_meta_legacy_devices ( blk_file ( setattr ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_meta_legacy_devices ( and dev_type vendor_samsung_port_meta_device_names ) )"
+    },
+    {
+      "before": "( allow hal_proca_default oemfs_30_0 ( file ( ioctl read getattr lock map open watch watch_reads ) ) )",
+      "after": "( allow hal_proca_default vendor_samsung_port_meta_oem_only ( file ( ioctl read getattr lock map open watch watch_reads ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_meta_oem_only ( and oemfs_30_0 oemfs ) )"
+    },
+    {
+      "before": "( allow init_30_0 dev_type ( blk_file ( relabelfrom ) ) )",
+      "after": "( allow init_30_0 vendor_samsung_port_meta_legacy_devices ( blk_file ( relabelfrom ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_meta_legacy_devices ( and dev_type vendor_samsung_port_meta_device_names ) )"
+    },
+    {
+      "before": "( allow init_30_0 dev_type ( blk_file ( relabelto ) ) )",
+      "after": "( allow init_30_0 vendor_samsung_port_meta_legacy_devices ( blk_file ( relabelto ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_meta_legacy_devices ( and dev_type vendor_samsung_port_meta_device_names ) )"
+    },
+    {
+      "before": "( allow init_30_0 sysfs_type ( file ( relabelfrom ) ) )",
+      "after": "( allow init_30_0 vendor_samsung_port_meta_sysfs_no_etm ( file ( relabelfrom ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_meta_sysfs_no_etm ( and sysfs_type vendor_samsung_port_meta_no_etm ) )"
+    },
+    {
+      "before": "( allow system_server_30_0 proc_type ( file ( getattr ) ) )",
+      "after": "( allow system_server_30_0 vendor_samsung_port_meta_proc_safe ( file ( getattr ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_meta_proc_safe ( and proc_type vendor_samsung_port_meta_non_sensitive ) )"
+    }
+  ],
+  "baseline_diagnostic_blocks": 18,
+  "candidate_diagnostic_blocks": 12,
+  "resolved_diagnostic_records": {
+    "( neverallow base_typeattr_528 sysfs_devices_cs_etm ( file ( write create setattr relabelfrom append unlink link rename ) ) )": 1,
+    "( neverallow base_typeattr_527 proc_kallsyms ( file ( ioctl read write create getattr setattr lock relabelfrom relabelto append map unlink link rename execute quotaon mounton audit_access open execmod watch watch_mount watch_sb watch_with_perm watch_reads execute_no_trans entrypoint ) ) )": 1,
+    "( neverallow base_typeattr_361 debugfs_kprobes ( file ( ioctl read write create getattr setattr lock relabelfrom relabelto append map unlink link rename execute quotaon mounton audit_access open execmod watch watch_mount watch_sb watch_with_perm watch_reads execute_no_trans entrypoint ) ) )": 1,
+    "( neverallow base_typeattr_494 debugfs_tracing_printk_formats ( file ( ioctl read write create getattr setattr lock relabelfrom relabelto append map unlink link rename execute quotaon mounton audit_access open execmod watch watch_mount watch_sb watch_with_perm watch_reads execute_no_trans entrypoint ) ) )": 1,
+    "( neverallow base_typeattr_460 base_typeattr_468 ( file ( ioctl read write create getattr setattr lock relabelfrom relabelto append map unlink link rename execute quotaon mounton audit_access open execmod watch watch_mount watch_sb watch_with_perm watch_reads execute_no_trans entrypoint ) ) )": 1,
+    "( neverallow base_typeattr_269 apex_dm_device ( blk_file ( write create setattr relabelfrom append unlink link rename ) ) )": 1
+  },
+  "new_diagnostic_records": {},
+  "effective_permission_or_attribute_equivalence_proved": false,
+  "input_sha256": {
+    "/srv/android/artifacts/lineage-24.0-arm64/vendor-data-boundaries-20261105-01/strict/report.json": "2ed990828129c0476d568be53fca5a84fe6d9a466773afbd49b06c94dc1b479e",
+    "/srv/android/artifacts/lineage-24.0-arm64/sensitive-metadata-scopes-20261105-01/strict/report.json": "fa22917fa76332bdd714534053a830c8491a71a7cadfb37e63e4fe9e3adcbaee",
+    "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/compare-policy-assertions.py": "16661656fcb196bfdd7dff39fb1d2795ed18965bc82c580ca4a1823834960f49",
+    "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/policy-diagnostics.py": "03f508f363c0ab43ff8df1ae7098011824c119cb61aa50732f7a5c651a02f437"
+  }
+}

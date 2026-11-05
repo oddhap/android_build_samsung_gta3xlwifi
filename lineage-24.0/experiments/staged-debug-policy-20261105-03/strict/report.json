@@ -1,0 +1,107 @@
+{
+  "checked_at_utc": "2026-11-05T21:07:51.140263+00:00",
+  "passed_strict": true,
+  "build_output_root": "/srv/android/src/lineage-24.0-arm64/out",
+  "compiler_sha256": "0261effb664c2fe66f0d0ac3d10a9049aa98302f86c95efba69bf91646f13f48",
+  "policy_binary_version": 30,
+  "vendor_policy_version": "30.0",
+  "genfs_default_source_sha256": "aad466a38abfa8a37a5d99c4af8a76202c06e90035792f0d4335c1b270ff25dd",
+  "vendor_genfs_version": 202404,
+  "genfs_fragment_present": false,
+  "inputs": [
+    {
+      "path": "/srv/android/artifacts/lineage-24.0-arm64/staged-debug-policy-20261105-03/metadata/plat_sepolicy.cil",
+      "sha256": "9751f494360d69733ad2667fe7bf5326233ff17057d442ba95555292195f776e"
+    },
+    {
+      "path": "/srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/system/etc/selinux/mapping/30.0.cil",
+      "sha256": "61f3a8e8be06ce66629cc6f27083c9a45ad8c65877069fe176ca12f51d447c6e"
+    },
+    {
+      "path": "/srv/android/artifacts/lineage-24.0-arm64/staged-debug-policy-20261105-03/metadata/30.0.compat.cil",
+      "sha256": "0a463f047c1ab686e30c7c2f95308edb2ecce121d7fe0e06743177f7422061a2"
+    },
+    {
+      "path": "/srv/android/artifacts/lineage-24.0-arm64/staged-debug-policy-20261105-03/metadata/system_ext_sepolicy.cil",
+      "sha256": "f2790a162a9f22c78590b33ce30a2fd6012f87babe3afcaf874de6ab746ff0fb"
+    },
+    {
+      "path": "/srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/system/system_ext/etc/selinux/mapping/30.0.cil",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/system/system_ext/etc/selinux/mapping/30.0.compat.cil",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/product/etc/selinux/product_sepolicy.cil",
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+    },
+    {
+      "path": "/srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/product/etc/selinux/mapping/30.0.cil",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/srv/android/artifacts/lineage-24.0-arm64/staged-debug-policy-20261105-03/metadata/vendor/etc/selinux/plat_pub_versioned.cil",
+      "sha256": "5478939b47a7980cd4abe373a0825d812c8f103f65d9d2dd8883781f39b20a6f"
+    },
+    {
+      "path": "/srv/android/artifacts/lineage-24.0-arm64/staged-debug-policy-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil",
+      "sha256": "9fb1e0eff6809add4ddf0312c38a7772987b16479bfa0c39b2bbece2bf15d712"
+    }
+  ],
+  "explicit_input_overrides": [
+    {
+      "original": "/srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/system/etc/selinux/plat_sepolicy.cil",
+      "original_sha256": "63b746f5bc0d141483e5e356b6a5e1d2889976001838ff9039d32008d0e3b764",
+      "replacement": "/srv/android/artifacts/lineage-24.0-arm64/staged-debug-policy-20261105-03/metadata/plat_sepolicy.cil",
+      "replacement_sha256": "9751f494360d69733ad2667fe7bf5326233ff17057d442ba95555292195f776e"
+    },
+    {
+      "original": "/srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/system/etc/selinux/mapping/30.0.compat.cil",
+      "original_sha256": "2b40198379e1bb65ca2af156b25562381273144d94c5ae223b5ed9905d7437cc",
+      "replacement": "/srv/android/artifacts/lineage-24.0-arm64/staged-debug-policy-20261105-03/metadata/30.0.compat.cil",
+      "replacement_sha256": "0a463f047c1ab686e30c7c2f95308edb2ecce121d7fe0e06743177f7422061a2"
+    },
+    {
+      "original": "/srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/system/system_ext/etc/selinux/system_ext_sepolicy.cil",
+      "original_sha256": "9107d599429afbb56a28031217e6b81097bc61d67d7086f00302b0dafba219fd",
+      "replacement": "/srv/android/artifacts/lineage-24.0-arm64/staged-debug-policy-20261105-03/metadata/system_ext_sepolicy.cil",
+      "replacement_sha256": "f2790a162a9f22c78590b33ce30a2fd6012f87babe3afcaf874de6ab746ff0fb"
+    }
+  ],
+  "results": [
+    {
+      "mode": "strict",
+      "exit_code": 0,
+      "neverallow_checks_enabled": true,
+      "command": [
+        "/srv/android/src/lineage-24.0-arm64/out/host/linux-x86/bin/secilc",
+        "-m",
+        "-M",
+        "true",
+        "-G",
+        "-c",
+        "30",
+        "-o",
+        "/srv/android/artifacts/lineage-24.0-arm64/staged-debug-policy-20261105-03/strict/strict.policy",
+        "-f",
+        "/dev/null",
+        "/srv/android/artifacts/lineage-24.0-arm64/staged-debug-policy-20261105-03/metadata/plat_sepolicy.cil",
+        "/srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/system/etc/selinux/mapping/30.0.cil",
+        "/srv/android/artifacts/lineage-24.0-arm64/staged-debug-policy-20261105-03/metadata/30.0.compat.cil",
+        "/srv/android/artifacts/lineage-24.0-arm64/staged-debug-policy-20261105-03/metadata/system_ext_sepolicy.cil",
+        "/srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/system/system_ext/etc/selinux/mapping/30.0.cil",
+        "/srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/system/system_ext/etc/selinux/mapping/30.0.compat.cil",
+        "/srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/product/etc/selinux/product_sepolicy.cil",
+        "/srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/product/etc/selinux/mapping/30.0.cil",
+        "/srv/android/artifacts/lineage-24.0-arm64/staged-debug-policy-20261105-03/metadata/vendor/etc/selinux/plat_pub_versioned.cil",
+        "/srv/android/artifacts/lineage-24.0-arm64/staged-debug-policy-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil"
+      ],
+      "compiled_policy_sha256": "c796e1fd1b8445353d8d6f26e16a10bac082c7539acd9bc9fbe33014f79bce8f"
+    }
+  ],
+  "hardware_tested": false,
+  "source_or_device_modified": false,
+  "runtime_diagnostic_does_not_override_strict_result": true
+}

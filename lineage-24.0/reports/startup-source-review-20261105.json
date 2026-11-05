@@ -1,0 +1,210 @@
+{
+  "scope": "Read-only source review; not boot, syscall, sysfs access or task lifecycle validation.",
+  "files": {
+    "java_zygote": {
+      "path": "/srv/android/src/lineage-24.0-arm64/frameworks/base/core/jni/com_android_internal_os_Zygote.cpp",
+      "sha256": "006e4c3a51fd32eef1d41b3c2553a907e9b7b33b2bf605706921852ba8854a9a",
+      "evidence": [
+        {
+          "needle": "createProcessGroup(uid, getpid())",
+          "line": 1986,
+          "excerpt": "    // since the directory is owned by root.\n    if (getuid() == 0) {\n        const int rc = createProcessGroup(uid, getpid());\n        if (rc != 0) {\n            fail_fn(rc == -EROFS ? CREATE_ERROR(\"createProcessGroup failed, kernel missing \"\n                                                \"CONFIG_CGROUP_CPUACCT?\")\n                                 : CREATE_ERROR(\"createProcessGroup(%d, %d) failed: %s\", uid,"
+        }
+      ]
+    },
+    "rust_fork": {
+      "path": "/srv/android/src/lineage-24.0-arm64/system/zygote/zygote/src/server.rs",
+      "sha256": "d08ef52d9b91c90ed87c71687a18faceb321d17a60f5c517347bbc99475ba24d",
+      "evidence": [
+        {
+          "needle": "match unsafe { sys::fork() }",
+          "line": 910,
+          "excerpt": "        //\n        // TODO: Revert to using `clone3` after b/439747272 is resolved\n        match unsafe { sys::fork() } {\n            Ok(0) => {\n                // Child process\n\n                if let Some(priority) = spawn_params.priority_initial"
+        }
+      ]
+    },
+    "rust_child_cgroup": {
+      "path": "/srv/android/src/lineage-24.0-arm64/system/zygote/zygote/src/species/android_native.rs",
+      "sha256": "575b78d69693bc69d8b4df19ca5e8aea961bc4989925a390e8f668cf92c4c87d",
+      "evidence": [
+        {
+          "needle": "cgroup::create(",
+          "line": 301,
+          "excerpt": "        // Create a cgroup for the process\n        if sys::getuid() == 0 {\n            cgroup::create(\n                spawn_params.uid.expect(\"No UID specified\").try_into().expect(\"Invalid UID\"),\n                sys::getpid(),\n            )\n            .expect(\"Unable to create cgroup for process\");"
+        }
+      ]
+    },
+    "rust_zygote_init": {
+      "path": "/srv/android/src/lineage-24.0-arm64/system/zygote/zygote/zygote_next.rc",
+      "sha256": "8dc957f041e9c35afebd352ee0106a8d0be508dfb09ac24d9c9341c58448e649",
+      "evidence": [
+        {
+          "needle": "disabled",
+          "line": 6,
+          "excerpt": "    priority -20\n    socket zygote_next seqpacket 660 root system\n    disabled\n    onrestart setprop zygote.zygote_next.server_ready false\n\non boot && property:persist.zygote.zygote_next.start_on_boot=true\n    start zygote_next"
+        },
+        {
+          "needle": "on boot && property:",
+          "line": 9,
+          "excerpt": "    onrestart setprop zygote.zygote_next.server_ready false\n\non boot && property:persist.zygote.zygote_next.start_on_boot=true\n    start zygote_next"
+        }
+      ]
+    },
+    "processgroups": {
+      "path": "/srv/android/src/lineage-24.0-arm64/system/core/libprocessgroup/processgroup.cpp",
+      "sha256": "5d477e82080ec6932c005a6c52e8a58acc689874cd072d46700551ba57905d6b",
+      "evidence": [
+        {
+          "needle": "LegacyGta3xlwifiProcessGroups()) return -EOPNOTSUPP",
+          "line": 823,
+          "excerpt": "    // CLONE_INTO_CGROUP requires cgroup v2 and clone3, absent on Samsung 4.4.\n    // Keep the error explicit; the Android 17 zygote caller needs separate review.\n    if (LegacyGta3xlwifiProcessGroups()) return -EOPNOTSUPP;\n    if (uid < 0) {\n        LOG(ERROR) << __func__ << \": invalid UID \" << uid;\n        return -EINVAL;\n    }"
+        },
+        {
+          "needle": "GetProcessGroupHierarchyPath(&cgroup)",
+          "line": 815,
+          "excerpt": "\n    std::string cgroup;\n    if (!GetProcessGroupHierarchyPath(&cgroup)) return -ENODEV;\n    return createProcessGroupInternal(uid, initialPid, cgroup,\n                                      !LegacyGta3xlwifiProcessGroups());\n}\n"
+        }
+      ]
+    },
+    "init": {
+      "path": "/srv/android/src/lineage-24.0-arm64/system/core/rootdir/init.rc",
+      "sha256": "fbb9c80c87f31fd728c0657f30b38c68a5c02d5e066d2003dc7a1eaecfe49b3d",
+      "evidence": [
+        {
+          "needle": "trigger load-bpf-programs",
+          "line": 589,
+          "excerpt": "\n    # Should be before netd, but after apex, properties and logging is available.\n    trigger load-bpf-programs\n\n    # Now we can start zygote.\n    trigger zygote-start\n"
+        },
+        {
+          "needle": "trigger zygote-start",
+          "line": 592,
+          "excerpt": "\n    # Now we can start zygote.\n    trigger zygote-start\n\n    # Remove a file to wake up anything waiting for firmware.\n    trigger firmware_mounts_complete\n"
+        },
+        {
+          "needle": "on zygote-start",
+          "line": 1135,
+          "excerpt": "# It is recommended to put unnecessary data/ initialization from post-fs-data\n# to start-zygote in device's init.rc to unblock zygote start.\non zygote-start\n    wait_for_prop odsign.verification.done 1\n    start statsd\n    start zygote\n    start zygote_secondary"
+        }
+      ]
+    },
+    "lmkd": {
+      "path": "/srv/android/src/lineage-24.0-arm64/system/memory/lmkd/lmkd.cpp",
+      "sha256": "63b6821d591e11536148ab71fd905665575c7679bfbde61b0bacb674cfa20678",
+      "evidence": [
+        {
+          "needle": "has_inkernel_module = !access",
+          "line": 3801,
+          "excerpt": "    maxevents++;\n\n    has_inkernel_module = !access(INKERNEL_MINFREE_PATH, W_OK);\n    use_inkernel_interface = has_inkernel_module;\n\n    if (use_inkernel_interface) {\n        ALOGI(\"Using in-kernel low memory killer interface\");"
+        },
+        {
+          "needle": "if (use_inkernel_interface)",
+          "line": 1289,
+          "excerpt": "        }\n\n        if (use_inkernel_interface) {\n            stats_store_taskname(params.pid, proc_get_name(params.pid, path, sizeof(path)));\n            return;\n        }\n    }"
+        },
+        {
+          "needle": "if (use_inkernel_interface)",
+          "line": 1311,
+          "excerpt": "    lmkd_pack_get_procremove(packet, &params);\n\n    if (use_inkernel_interface) {\n        /*\n         * Perform an extra check before the pid is removed, after which it\n         * will be impossible for poll_kernel to get the taskname. poll_kernel()\n         * is potentially a long-running blocking function; however this method"
+        },
+        {
+          "needle": "if (use_inkernel_interface)",
+          "line": 1350,
+          "excerpt": "    struct proc *next;\n\n    if (use_inkernel_interface) {\n        stats_purge_tasknames();\n        return;\n    }\n"
+        },
+        {
+          "needle": "if (use_inkernel_interface)",
+          "line": 1426,
+          "excerpt": "    struct lmk_getkillcnt params;\n\n    if (use_inkernel_interface) {\n        /* kernel driver does not expose this information */\n        return 0;\n    }\n"
+        },
+        {
+          "needle": "if (use_inkernel_interface)",
+          "line": 3804,
+          "excerpt": "    use_inkernel_interface = has_inkernel_module;\n\n    if (use_inkernel_interface) {\n        ALOGI(\"Using in-kernel low memory killer interface\");\n        if (init_poll_kernel()) {\n            epev.events = EPOLLIN;\n            epev.data.ptr = (void*)&kernel_poll_hinfo;"
+        },
+        {
+          "needle": "writefilestring(INKERNEL_MINFREE_PATH",
+          "line": 1507,
+          "excerpt": "        }\n\n        writefilestring(INKERNEL_MINFREE_PATH, minfreestr, true);\n        writefilestring(INKERNEL_ADJ_PATH, killpriostr, true);\n    }\n}\n"
+        },
+        {
+          "needle": "writefilestring(INKERNEL_ADJ_PATH",
+          "line": 1508,
+          "excerpt": "\n        writefilestring(INKERNEL_MINFREE_PATH, minfreestr, true);\n        writefilestring(INKERNEL_ADJ_PATH, killpriostr, true);\n    }\n}\n\nstatic void cmd_procs_prio(LMKD_CTRL_PACKET packet, const int field_count, struct ucred* cred) {"
+        }
+      ]
+    },
+    "lmk_init": {
+      "path": "/srv/android/src/lineage-24.0-arm64/system/memory/lmkd/lmkd.rc",
+      "sha256": "85aa14d9d568e14025c38d7dbd905aaa247b186b56ce7bbbc54d34aad4c3af8b",
+      "evidence": [
+        {
+          "needle": "user lmkd",
+          "line": 3,
+          "excerpt": "service lmkd /system/bin/lmkd\n    class core\n    user lmkd\n    group lmkd system readproc\n    capabilities DAC_OVERRIDE KILL IPC_LOCK SYS_NICE SYS_RESOURCE\n    critical\n    socket lmkd seqpacket+passcred 0660 system system"
+        },
+        {
+          "needle": "group lmkd system readproc",
+          "line": 4,
+          "excerpt": "    class core\n    user lmkd\n    group lmkd system readproc\n    capabilities DAC_OVERRIDE KILL IPC_LOCK SYS_NICE SYS_RESOURCE\n    critical\n    socket lmkd seqpacket+passcred 0660 system system\n    task_profiles ServiceCapacityLow"
+        }
+      ]
+    },
+    "lmk_policy": {
+      "path": "/srv/android/src/lineage-24.0-arm64/system/sepolicy/private/lmkd.te",
+      "sha256": "74b8889f65cf1ab54cada04503ba7d4ec70fd21bef0c1a13f635944b93565510",
+      "evidence": [
+        {
+          "needle": "sysfs_lowmemorykiller",
+          "line": 40,
+          "excerpt": "\n## Writes to /sys/module/lowmemorykiller/parameters/minfree\nr_dir_file(lmkd, sysfs_lowmemorykiller)\nallow lmkd sysfs_lowmemorykiller:file w_file_perms;\n\n# setsched and send kill signals to any registered process\nallow lmkd domain:process { setsched sigkill };"
+        },
+        {
+          "needle": "sysfs_lowmemorykiller",
+          "line": 41,
+          "excerpt": "## Writes to /sys/module/lowmemorykiller/parameters/minfree\nr_dir_file(lmkd, sysfs_lowmemorykiller)\nallow lmkd sysfs_lowmemorykiller:file w_file_perms;\n\n# setsched and send kill signals to any registered process\nallow lmkd domain:process { setsched sigkill };\n# TODO: delete this line b/131761776"
+        }
+      ]
+    },
+    "kernel_lmk": {
+      "path": "/srv/android/ports/lineage-24.0-arm64/kernel-capabilities-20261104-01/src/drivers/staging/android/lowmemorykiller.c",
+      "sha256": "c7b30cee995d3dcad0b90759fe2bf3a3cec607712a32c80248041f3dc5ac32ae",
+      "evidence": [
+        {
+          "needle": "module_param_array_named(minfree",
+          "line": 459,
+          "excerpt": "\t\t\t S_IRUGO | S_IWUSR);\n#endif\nmodule_param_array_named(minfree, lowmem_minfree, uint, &lowmem_minfree_size,\n\t\t\t S_IRUGO | S_IWUSR);\nmodule_param_named(debug_level, lowmem_debug_level, uint, S_IRUGO | S_IWUSR);\nmodule_param_named(lmkcount, lowmem_lmkcount, uint, S_IRUGO);\nmodule_param_named(lmkd_count, lmkd_count, int, 0644);"
+        },
+        {
+          "needle": "module_param_array_named(adj",
+          "line": 456,
+          "excerpt": "__MODULE_PARM_TYPE(adj, \"array of short\");\n#else\nmodule_param_array_named(adj, lowmem_adj, short, &lowmem_adj_size,\n\t\t\t S_IRUGO | S_IWUSR);\n#endif\nmodule_param_array_named(minfree, lowmem_minfree, uint, &lowmem_minfree_size,\n\t\t\t S_IRUGO | S_IWUSR);"
+        }
+      ]
+    },
+    "kernel_config": {
+      "path": "/srv/android/ports/lineage-24.0-arm64/kernel-capabilities-20261104-01/out/.config",
+      "sha256": "fac42e3bbf996bb9502bb1031c91b1950986ad3586d0f33cad869a6fd0b3acea",
+      "evidence": [
+        {
+          "needle": "CONFIG_ANDROID_LOW_MEMORY_KILLER=",
+          "line": 3835,
+          "excerpt": "CONFIG_ANDROID_TIMED_OUTPUT=y\nCONFIG_ANDROID_TIMED_GPIO=y\nCONFIG_ANDROID_LOW_MEMORY_KILLER=y\nCONFIG_ANDROID_LOW_MEMORY_KILLER_AUTODETECT_OOM_ADJ_VALUES=y\nCONFIG_SYNC=y\nCONFIG_SW_SYNC=y\nCONFIG_SW_SYNC_USER=y"
+        },
+        {
+          "needle": "CONFIG_CGROUP_CPUACCT=",
+          "line": 128,
+          "excerpt": "CONFIG_CPUSETS=y\nCONFIG_PROC_PID_CPUSET=y\nCONFIG_CGROUP_CPUACCT=y\nCONFIG_PAGE_COUNTER=y\nCONFIG_MEMCG=y\nCONFIG_MEMCG_SWAP=y\nCONFIG_MEMCG_SWAP_ENABLED=y"
+        }
+      ]
+    }
+  },
+  "revisions": {
+    "frameworks/base": "03e13d72d00d80eeba4465893dfad669e3ad3ce6",
+    "system/zygote": "c24023080df0bdb5988c1e0c641d494574a97c40",
+    "system/core": "65d661b1a536701e8b118be4e9728d7b5ca727c9",
+    "system/memory/lmkd": "c3601e823bd07c9c190f67e2f9bc7486e4978328",
+    "system/sepolicy": "d61fd80832f558d52de026097d30d695634e8b0f",
+    "device/samsung/gta3xlwifi": "2f649d06fec3318926c61aaf7a5fa3f40aa9f266"
+  },
+  "flash_ready": false
+}

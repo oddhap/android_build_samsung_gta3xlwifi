@@ -1,0 +1,8 @@
+neverallow check failed at /srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/plat_sepolicy.cil:71242 from system/sepolicy/private/system_server.te:1476
+  (neverallow system_server base_typeattr_1056 (file (create unlink link open)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/vendor-app-data-types-20261105-01/metadata/vendor_sepolicy.cil:15370
+      (allow system_server_30_0 attiqi_app_data_file (file (ioctl read write create getattr setattr lock append map unlink rename open watch watch_reads)))
+
+Failed to generate binary
+Failed to build policydb

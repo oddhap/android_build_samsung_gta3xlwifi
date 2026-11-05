@@ -1,0 +1,162 @@
+isSystemServer=true domain=system_server_startup
+user=_app seinfo=platform name=com.android.traceur domain=traceur_app type=app_data_file levelFrom=all
+user=system seinfo=platform domain=system_app type=system_app_data_file
+user=system seinfo=platform isPrivApp=true name=com.android.DeviceAsWebcam domain=device_as_webcam type=system_app_data_file levelFrom=all
+user=bluetooth seinfo=bluetooth domain=bluetooth type=bluetooth_data_file
+user=network_stack seinfo=network_stack domain=network_stack type=radio_data_file
+user=nfc seinfo=platform domain=nfc type=nfc_data_file
+user=nfc seinfo=nfc domain=nfc type=nfc_data_file
+user=secure_element seinfo=platform domain=secure_element levelFrom=all
+user=radio seinfo=platform domain=radio type=radio_data_file
+user=shared_relro domain=shared_relro levelFrom=all
+user=shell seinfo=platform domain=shell name=com.android.shell type=shell_data_file
+user=webview_zygote seinfo=webview_zygote domain=webview_zygote
+user=_isolated domain=isolated_app levelFrom=user
+user=_isolated isIsolatedComputeApp=true domain=isolated_compute_app levelFrom=user
+user=_sdksandbox domain=sdk_sandbox_34 type=sdk_sandbox_data_file levelFrom=all
+user=_sdksandbox isSdkSandboxNext=true domain=sdk_sandbox_next type=sdk_sandbox_data_file levelFrom=all
+user=_sdksandbox isSdkSandboxAudit=true domain=sdk_sandbox_audit type=sdk_sandbox_data_file levelFrom=all
+user=_app seinfo=app_zygote domain=app_zygote levelFrom=user
+user=_app seinfo=media domain=mediaprovider type=app_data_file levelFrom=user
+user=_app seinfo=native_app_zygote domain=native_app_zygote levelFrom=user
+user=_app minTargetSdkVersion=37 seinfo=platform domain=platform_app type=app_data_file levelFrom=user
+user=_app seinfo=platform domain=platform_app_36 type=app_data_file levelFrom=user
+user=_app isEphemeralApp=true domain=ephemeral_app type=app_data_file levelFrom=all
+user=_app minTargetSdkVersion=37 isPrivApp=true domain=priv_app type=privapp_data_file levelFrom=user
+user=_app isPrivApp=true domain=priv_app_36 type=privapp_data_file levelFrom=user
+user=_app isPrivApp=true name=com.google.android.permissioncontroller domain=permissioncontroller_app type=privapp_data_file levelFrom=all
+user=_app seinfo=media isPrivApp=true name=com.android.providers.media.module domain=mediaprovider_app type=privapp_data_file levelFrom=all
+user=_app seinfo=media isPrivApp=true name=com.android.providers.media.module:* domain=mediaprovider_app type=privapp_data_file levelFrom=all
+user=_app isPrivApp=true name=com.google.android.providers.media.module domain=mediaprovider_app type=privapp_data_file levelFrom=all
+user=_app isPrivApp=true name=com.google.android.providers.media.module:* domain=mediaprovider_app type=privapp_data_file levelFrom=all
+user=_app seinfo=platform isPrivApp=true name=com.android.permissioncontroller domain=permissioncontroller_app type=privapp_data_file levelFrom=all
+user=_app isPrivApp=true name=com.android.vzwomatrigger domain=vzwomatrigger_app type=privapp_data_file levelFrom=all
+user=_app isPrivApp=true name=com.android.rkpdapp domain=rkpdapp type=privapp_data_file levelFrom=all
+user=_app isPrivApp=true name=com.google.android.rkpdapp domain=rkpdapp type=privapp_data_file levelFrom=all
+user=_app isPrivApp=true name=com.google.android.gms domain=gmscore_app type=privapp_data_file levelFrom=user
+user=_app isPrivApp=true name=com.google.android.gms.* domain=gmscore_app type=privapp_data_file levelFrom=user
+user=_app isPrivApp=true name=com.google.android.gms:* domain=gmscore_app type=privapp_data_file levelFrom=user
+user=_app isPrivApp=true name=com.google.android.gsf domain=gmscore_app type=privapp_data_file levelFrom=user
+user=_app minTargetSdkVersion=37 domain=untrusted_app type=app_data_file levelFrom=all
+user=_app minTargetSdkVersion=34 domain=untrusted_app_34 type=app_data_file levelFrom=all
+user=_app minTargetSdkVersion=32 domain=untrusted_app_32 type=app_data_file levelFrom=all
+user=_app minTargetSdkVersion=30 domain=untrusted_app_30 type=app_data_file levelFrom=all
+user=_app minTargetSdkVersion=29 domain=untrusted_app_29 type=app_data_file levelFrom=all
+user=_app minTargetSdkVersion=28 domain=untrusted_app_27 type=app_data_file levelFrom=all
+user=_app minTargetSdkVersion=26 domain=untrusted_app_27 type=app_data_file levelFrom=user
+user=_app domain=untrusted_app_25 type=app_data_file levelFrom=user
+user=_app minTargetSdkVersion=28 fromRunAs=true domain=runas_app levelFrom=all
+user=_app fromRunAs=true domain=runas_app levelFrom=user
+user=_app isPrivApp=true name=com.android.virtualization.terminal domain=vmlauncher_app type=privapp_data_file levelFrom=all
+user=_app isPrivApp=true name=com.android.virtualization.terminal:* domain=vmlauncher_app type=privapp_data_file levelFrom=all
+user=_app isPrivApp=true name=com.google.android.adservices.api domain=adservices type=privapp_data_file levelFrom=all
+user=_pcc_component domain=pcc_component type=pcc_data_file levelFrom=all
+
+user=_app isPrivApp=true seinfo=mediashell domain=mediashell_app name=com.google.android.apps.mediashell type=privapp_data_file levelFrom=all
+user=_app isPrivApp=true seinfo=mediashell domain=mediashell_app name=com.google.android.apps.mediashell:* type=privapp_data_file levelFrom=all
+user=_app isPrivApp=true seinfo=platform name=org.lineageos.updater domain=updater_app type=app_data_file levelFrom=user
+
+
+user=system seinfo=platform name=com.samsung.aasaservice domain=aasa_service_app type=aasa_service_app_data_file
+user=_app seinfo=platform name=com.samsung.ucm.baiplugin domain=sec_untrusted_app type=app_data_file levelFrom=user
+user=_app seinfo=platform name=com.sec.smartcard.manager domain=sec_untrusted_app type=app_data_file levelFrom=user
+user=_app seinfo=sec_untrusted name=com.sec.android.service.singlesignon domain=sec_untrusted_app type=app_data_file levelFrom=user
+user=_app seinfo=sec_untrusted name=com.sds.stsm.esetest domain=sec_untrusted_app type=app_data_file levelFrom=user
+user=_app seinfo=trusted_dmb name=com.omnitel* domain=filtered_untrusted_app type=app_data_file levelFrom=user
+user=_app seinfo=platform name=com.samsung.android.oneconnect* domain=sec_untrusted_app type=app_data_file levelFrom=user
+user=_app seinfo=aasa_platform domain=aasa_platform_app type=app_data_file levelFrom=user
+user=_app seinfo=aasa_blocked domain=blocked_app type=app_data_file levelFrom=user
+user=system seinfo=aasa_blocked domain=blocked_app type=app_data_file
+user=_app seinfo=filtered_untrusted name=com.expway.embmsserver* domain=filtered_untrusted_app type=app_data_file levelFrom=user
+user=_app seinfo=filtered_untrusted name=com.jio.emiddleware domain=filtered_untrusted_app type=app_data_file levelFrom=user
+user=_app seinfo=Reliance_Jio domain=filtered_untrusted_app type=app_data_file levelFrom=user
+user=_app seinfo=rjio domain=filtered_untrusted_app type=app_data_file levelFrom=user
+user=_app seinfo=trustonicpartner domain=trustonicpartner_app type=app_data_file levelFrom=user
+user=_app minTargetSdkVersion=28 seinfo=trustonicpartner domain=trustonicpartner_app type=app_data_file levelFrom=all
+user=_app minTargetSdkVersion=29 seinfo=trustonicpartner domain=trustonicpartner_app type=app_data_file levelFrom=all
+user=_app minTargetSdkVersion=30 seinfo=trustonicpartner domain=trustonicpartner_app type=app_data_file levelFrom=all
+user=_app seinfo=good_trustonicpartner domain=trustonicpartner_app type=app_data_file levelFrom=user
+user=oneseg domain=oneseg_apk type=app_data_file levelFrom=user
+user=system seinfo=platform name=com.samsung.android.spdclient domain=policyloader_app type=policyloader_app_data_file
+user=_app seinfo=platform name=com.gd.mobicore.pa domain=mobicore_app type=app_data_file levelFrom=user
+user=_app seinfo=platform name=com.trustonic.tuiservice domain=mobicore_app type=app_data_file levelFrom=user
+user=_app seinfo=vzw_untrusted domain=vzwfiltered_untrusted_app type=app_data_file levelFrom=user
+user=_app seinfo=xcal_untrusted domain=vzwfiltered_untrusted_app type=app_data_file levelFrom=user
+user=_app seinfo=platform name=com.samsung.sdm.sdmviewer domain=platform_app type=app_data_file
+user=system seinfo=platform name=com.gd.mobicore.pa domain=teeregistryd_app
+user=system seinfo=platform name=com.trustonic.teeservice domain=teed_app
+user=vendor_asf_fileshare seinfo=platform domain=platform_app type=app_data_file levelFrom=user
+user=vendor_asf_mediashare seinfo=platform domain=platform_app type=app_data_file levelFrom=user
+user=vendor_asf_awareshare seinfo=platform domain=platform_app type=app_data_file levelFrom=user
+user=vendor_bcmgr seinfo=platform domain=platform_app type=app_data_file levelFrom=user
+user=vendor_cmhservice seinfo=platform domain=platform_app type=app_data_file levelFrom=user
+user=vendor_visionservice seinfo=platform domain=platform_app type=app_data_file levelFrom=user
+user=vendor_advmodem seinfo=platform domain=platform_app type=app_data_file levelFrom=user
+user=vendor_samsungcloud seinfo=platform domain=platform_app type=app_data_file levelFrom=user
+user=vendor_smds seinfo=platform domain=platform_app type=app_data_file levelFrom=user
+user=vendor_intelligenceservice seinfo=platform domain=platform_app type=app_data_file levelFrom=user
+user=vendor_send_help_msg seinfo=platform domain=platform_app type=app_data_file levelFrom=user
+user=vendor_knoxcore seinfo=platform domain=platform_app type=app_data_file levelFrom=user
+user=vendor_spass seinfo=platform domain=platform_app type=app_data_file levelFrom=user
+user=vendor_spay seinfo=platform domain=platform_app type=app_data_file
+user=spay seinfo=platform domain=platform_app type=app_data_file
+user=oem_5013 seinfo=platform domain=platform_app type=app_data_file levelFrom=user
+user=dsms seinfo=platform name=com.samsung.android.dsms domain=dsms_app type=app_data_file levelFrom=user
+user=adaptive_brightness seinfo=platform name=com.samsung.adaptivebrightnessgo domain=platform_app type=app_data_file levelFrom=user
+user=spass seinfo=platform domain=platform_app type=app_data_file levelFrom=user
+user=_app seinfo=release name=com.sec.android.app.shealth* domain=sec_untrusted_app type=app_data_file levelFrom=user
+user=_app seinfo=shealth name=com.sec.android.app.shealth* domain=sec_untrusted_app type=app_data_file levelFrom=user
+user=knoxcore seinfo=platform domain=platform_app type=app_data_file levelFrom=user
+user=_app seinfo=samsung name=com.samsung.android.voicewakeup domain=sec_untrusted_app type=app_data_file levelFrom=user
+user=system seinfo=default domain=untrusted_app type=app_data_file levelFrom=user
+user=system seinfo=platform name=com.android.power domain=blocked_app type=system_app_data_file
+user=system seinfo=platform name=com.android.sms domain=blocked_app type=system_app_data_file
+user=_app seinfo=platform name=com.android.power domain=blocked_app type=app_data_file
+user=_app seinfo=platform name=com.android.sms domain=blocked_app type=app_data_file
+user=system seinfo=platform name=com.android.data.backup domain=blocked_app type=system_app_data_file
+user=system seinfo=platform name=com.android.sec.backup.svc domain=blocked_app type=system_app_data_file
+user=_app seinfo=platform name=com.android.data.backup domain=blocked_app type=app_data_file
+user=_app seinfo=platform name=com.android.sec.backup.svc domain=blocked_app type=app_data_file
+user=oem_5018 seinfo=platform domain=platform_app type=app_data_file levelFrom=user
+user=vendor_networkdiagnostic seinfo=platform domain=platform_app type=app_data_file levelFrom=user
+user=vendor_ipsgeofence seinfo=platform domain=platform_app type=app_data_file levelFrom=user
+user=oem_5014 seinfo=platform domain=platform_app type=app_data_file levelFrom=user
+user=system seinfo=platform name=com.sec.android.systemupdate domain=spu_app type=app_data_file
+user=vendor_mdxkit seinfo=platform domain=platform_app type=app_data_file levelFrom=user
+user=vendor_sharelive seinfo=platform domain=platform_app type=app_data_file levelFrom=user
+user=oem_5011 seinfo=platform domain=platform_app type=app_data_file levelFrom=user
+user=oem_5016 seinfo=platform domain=platform_app type=app_data_file levelFrom=user
+user=uwb seinfo=platform domain=platform_app type=app_data_file levelFrom=user
+user=_app seinfo=platform name=com.samsung.android.app.kfa domain=kfa_app type=app_data_file
+user=_app seinfo=attiqi name=com.att.iqi domain=attiqi_app type=attiqi_app_data_file
+user=oem_5500 domain=felica_app type=app_data_file levelFrom=user
+user=oem_5501 domain=felica_app type=app_data_file levelFrom=user
+user=oem_5502 domain=felica_app type=app_data_file levelFrom=user
+user=oem_5503 domain=felica_app type=app_data_file levelFrom=user
+user=oem_5504 domain=felica_app type=app_data_file
+user=vendor_felicalock domain=felica_app type=app_data_file levelFrom=user
+user=radio seinfo=platform name=.uce domain=vendor_uce_app
+user=radio seinfo=platform name=com.shannon.imsservice domain=vendor_ims_app
+user=radio seinfo=platform name=com.shannon.imsservice:remote domain=vendor_ims_app
+user=radio seinfo=platform name=com.shannon.rcsservice domain=vendor_rcs_app
+user=radio seinfo=platform name=com.shannon.rcsservice:remote domain=vendor_rcs_app
+
+neverallow isSystemServer=false domain=system_server
+neverallow isSystemServer=false domain=system_server_startup
+neverallow isSystemServer="" domain=system_server
+neverallow isSystemServer="" domain=system_server_startup
+neverallow user=((?!system).)* domain=system_app
+neverallow user=((?!system).)* type=system_app_data_file
+neverallow user=_app isPrivApp=false name=.* seinfo=""
+neverallow user=_app isPrivApp=false name=.* seinfo=default
+neverallow user=shared_relro domain=((?!shared_relro).)*
+neverallow user=((?!shared_relro).)* domain=shared_relro
+neverallow user=_isolated isIsolatedComputeApp=false domain=((?!isolated_app).)*
+neverallow user=((?!_isolated).)* domain=isolated_app
+neverallow user=_isolated isIsolatedComputeApp=true domain=((?!isolated_compute_app).)*
+neverallow user=shell domain=((?!shell).)*
+neverallow domain=shell name=((?!com\.android\.shell).)*
+neverallow user=shell name=((?!com\.android\.shell).)*
+neverallow isEphemeralApp=true domain=((?!ephemeral_app).)*
+neverallow user=_sdksandbox domain=((?!sdk_sandbox).)*
+

@@ -2,3 +2,6 @@
 lineage-21/patches/*.patch -whitespace
 patches/twrp-12.1/*.patch -whitespace
 patches/twrp-header-test/*.patch -whitespace
+# Exact experiment diffs and generated context evidence retain original bytes.
+lineage-24.0/experiments/**/*.patch -whitespace
+lineage-24.0/experiments/**/combined_seapp_contexts -whitespace

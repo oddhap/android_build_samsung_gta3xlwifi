@@ -1,0 +1,841 @@
+{
+  "scope": "Compare complete CIL assertion inventories and strict diagnostic identities.\n\nText/token preservation is not effective attribute-membership or runtime proof.\nResolved diagnostic records do not mean assertions were removed.\n",
+  "baseline_assertion_constraint_records": 5918,
+  "candidate_assertion_constraint_records": 5918,
+  "removed_assertions_or_constraints": [],
+  "added_assertions_or_constraints": {},
+  "added_av_grant_statements": [],
+  "removed_av_grant_statement_count": 126,
+  "permission_narrowed_allow_replacements": [
+    {
+      "before": "( allow audioserver_30_0 media_rw_data_file_30_0 ( dir ( ioctl read write create getattr setattr lock rename open watch watch_reads add_name remove_name reparent search rmdir ) ) )",
+      "after": "( allow audioserver_30_0 media_rw_data_file_30_0 ( dir ( ioctl read create getattr setattr lock rename open watch watch_reads reparent search rmdir ) ) )",
+      "occurrences": 1
+    },
+    {
+      "before": "( allow cameraserver_30_0 media_rw_data_file_30_0 ( dir ( ioctl read write create getattr setattr lock rename open watch watch_reads add_name remove_name reparent search rmdir ) ) )",
+      "after": "( allow cameraserver_30_0 media_rw_data_file_30_0 ( dir ( ioctl read create getattr setattr lock rename open watch watch_reads reparent search rmdir ) ) )",
+      "occurrences": 2
+    },
+    {
+      "before": "( allow hal_fingerprint_default vendor_data_file_30_0 ( dir ( ioctl read write getattr lock open watch watch_reads add_name remove_name search ) ) )",
+      "after": "( allow hal_fingerprint_default vendor_data_file_30_0 ( dir ( ioctl read getattr lock open watch watch_reads search ) ) )",
+      "occurrences": 1
+    },
+    {
+      "before": "( allow hal_fingerprint_default vendor_data_file_30_0 ( dir ( ioctl read write create getattr setattr lock rename open watch watch_reads add_name remove_name reparent search rmdir ) ) )",
+      "after": "( allow hal_fingerprint_default vendor_data_file_30_0 ( dir ( ioctl read create getattr setattr lock rename open watch watch_reads reparent search rmdir ) ) )",
+      "occurrences": 1
+    },
+    {
+      "before": "( allow netd_30_0 media_rw_data_file_30_0 ( dir ( ioctl read write create getattr setattr lock rename open watch watch_reads add_name remove_name reparent search rmdir ) ) )",
+      "after": "( allow netd_30_0 media_rw_data_file_30_0 ( dir ( ioctl read create getattr setattr lock rename open watch watch_reads reparent search rmdir ) ) )",
+      "occurrences": 1
+    },
+    {
+      "before": "( allow radio_30_0 media_rw_data_file_30_0 ( dir ( ioctl read write create getattr setattr lock rename open watch watch_reads add_name remove_name reparent search rmdir ) ) )",
+      "after": "( allow radio_30_0 media_rw_data_file_30_0 ( dir ( ioctl read create getattr setattr lock rename open watch watch_reads reparent search rmdir ) ) )",
+      "occurrences": 1
+    },
+    {
+      "before": "( allow radio_30_0 media_rw_data_file_30_0 ( dir ( ioctl read write create getattr setattr lock rename open watch watch_reads add_name remove_name reparent search rmdir ) ) )",
+      "after": "( allow radio_30_0 media_rw_data_file_30_0 ( dir ( ioctl read getattr lock open watch watch_reads search ) ) )",
+      "occurrences": 1
+    },
+    {
+      "before": "( allow system_server_30_0 media_rw_data_file_30_0 ( dir ( ioctl read write create getattr setattr lock rename open watch watch_reads add_name remove_name reparent search rmdir ) ) )",
+      "after": "( allow system_server_30_0 media_rw_data_file_30_0 ( dir ( ioctl read create getattr setattr lock rename open watch watch_reads reparent search rmdir ) ) )",
+      "occurrences": 1
+    },
+    {
+      "before": "( allow zygote_30_0 media_rw_data_file_30_0 ( dir ( ioctl read write create getattr setattr lock rename mounton open watch watch_reads add_name remove_name reparent search rmdir ) ) )",
+      "after": "( allow zygote_30_0 media_rw_data_file_30_0 ( dir ( ioctl read create getattr setattr lock rename mounton open watch watch_reads reparent search rmdir ) ) )",
+      "occurrences": 1
+    },
+    {
+      "before": "( allow DMM-daemon media_rw_data_file_30_0 ( dir ( ioctl read write create getattr setattr lock rename open watch watch_reads add_name remove_name reparent search rmdir ) ) )",
+      "after": "( allow DMM-daemon media_rw_data_file_30_0 ( dir ( ioctl read create getattr setattr lock rename open watch watch_reads reparent search rmdir ) ) )",
+      "occurrences": 1
+    },
+    {
+      "before": "( allow apexserver media_rw_data_file_30_0 ( dir ( ioctl read write create getattr setattr lock rename open watch watch_reads add_name remove_name reparent search rmdir ) ) )",
+      "after": "( allow apexserver media_rw_data_file_30_0 ( dir ( ioctl read create getattr setattr lock rename open watch watch_reads reparent search rmdir ) ) )",
+      "occurrences": 2
+    },
+    {
+      "before": "( allow dmb media_rw_data_file_30_0 ( dir ( ioctl read write create getattr setattr lock rename open watch watch_reads add_name remove_name reparent search rmdir ) ) )",
+      "after": "( allow dmb media_rw_data_file_30_0 ( dir ( ioctl read create getattr setattr lock rename open watch watch_reads reparent search rmdir ) ) )",
+      "occurrences": 1
+    },
+    {
+      "before": "( allow hal_base_default vendor_data_file_30_0 ( dir ( ioctl read write getattr lock open watch watch_reads add_name remove_name search ) ) )",
+      "after": "( allow hal_base_default vendor_data_file_30_0 ( dir ( ioctl read getattr lock open watch watch_reads search ) ) )",
+      "occurrences": 1
+    },
+    {
+      "before": "( allow hal_secure_storage_daemon vendor_data_file_30_0 ( dir ( ioctl read write getattr lock open watch watch_reads add_name remove_name search ) ) )",
+      "after": "( allow hal_secure_storage_daemon vendor_data_file_30_0 ( dir ( ioctl read getattr lock open watch watch_reads search ) ) )",
+      "occurrences": 2
+    },
+    {
+      "before": "( allow hal_teeregistry_default vendor_data_file_30_0 ( dir ( ioctl read write create getattr setattr lock rename open watch watch_reads add_name remove_name reparent search rmdir ) ) )",
+      "after": "( allow hal_teeregistry_default vendor_data_file_30_0 ( dir ( ioctl read create getattr setattr lock rename open watch watch_reads reparent search rmdir ) ) )",
+      "occurrences": 1
+    },
+    {
+      "before": "( allow imsd media_rw_data_file_30_0 ( dir ( ioctl read write create getattr setattr lock rename open watch watch_reads add_name remove_name reparent search rmdir ) ) )",
+      "after": "( allow imsd media_rw_data_file_30_0 ( dir ( ioctl read create getattr setattr lock rename open watch watch_reads reparent search rmdir ) ) )",
+      "occurrences": 1
+    },
+    {
+      "before": "( allow qti_init_shell vendor_data_file_30_0 ( dir ( ioctl read write getattr lock open watch watch_reads add_name remove_name search ) ) )",
+      "after": "( allow qti_init_shell vendor_data_file_30_0 ( dir ( ioctl read getattr lock open watch watch_reads search ) ) )",
+      "occurrences": 1
+    },
+    {
+      "before": "( allow mediacodec vendor_data_file_30_0 ( dir ( ioctl read write getattr lock open watch watch_reads add_name remove_name search ) ) )",
+      "after": "( allow mediacodec vendor_data_file_30_0 ( dir ( ioctl read getattr lock open watch watch_reads search ) ) )",
+      "occurrences": 1
+    },
+    {
+      "before": "( allow mobicore vendor_data_file_30_0 ( dir ( write create add_name ) ) )",
+      "after": "( allow mobicore vendor_data_file_30_0 ( dir ( create ) ) )",
+      "occurrences": 1
+    },
+    {
+      "before": "( allow multiclientd media_rw_data_file_30_0 ( dir ( ioctl read write create getattr setattr lock rename open watch watch_reads add_name remove_name reparent search rmdir ) ) )",
+      "after": "( allow multiclientd media_rw_data_file_30_0 ( dir ( ioctl read create getattr setattr lock rename open watch watch_reads reparent search rmdir ) ) )",
+      "occurrences": 1
+    },
+    {
+      "before": "( allow oneseg_mw media_rw_data_file_30_0 ( dir ( ioctl read write create getattr setattr lock rename open watch watch_reads add_name remove_name reparent search rmdir ) ) )",
+      "after": "( allow oneseg_mw media_rw_data_file_30_0 ( dir ( ioctl read create getattr setattr lock rename open watch watch_reads reparent search rmdir ) ) )",
+      "occurrences": 2
+    },
+    {
+      "before": "( allow preparefbe media_rw_data_file_30_0 ( dir ( ioctl read write create getattr setattr lock rename open watch watch_reads add_name remove_name reparent search rmdir ) ) )",
+      "after": "( allow preparefbe media_rw_data_file_30_0 ( dir ( ioctl read create getattr setattr lock rename open watch watch_reads reparent search rmdir ) ) )",
+      "occurrences": 1
+    },
+    {
+      "before": "( allow remotedisplay media_rw_data_file_30_0 ( dir ( ioctl read write getattr lock open watch watch_reads add_name remove_name search ) ) )",
+      "after": "( allow remotedisplay media_rw_data_file_30_0 ( dir ( ioctl read getattr lock open watch watch_reads search ) ) )",
+      "occurrences": 1
+    },
+    {
+      "before": "( allow secure_storage media_rw_data_file_30_0 ( dir ( ioctl read write create getattr setattr lock rename open watch watch_reads add_name remove_name reparent search rmdir ) ) )",
+      "after": "( allow secure_storage media_rw_data_file_30_0 ( dir ( ioctl read create getattr setattr lock rename open watch watch_reads reparent search rmdir ) ) )",
+      "occurrences": 1
+    },
+    {
+      "before": "( allow trustonicpartner_app media_rw_data_file_30_0 ( dir ( ioctl read write create getattr setattr lock rename open watch watch_reads add_name remove_name reparent search rmdir ) ) )",
+      "after": "( allow trustonicpartner_app media_rw_data_file_30_0 ( dir ( ioctl read create getattr setattr lock rename open watch watch_reads reparent search rmdir ) ) )",
+      "occurrences": 1
+    },
+    {
+      "before": "( allow visiond media_rw_data_file_30_0 ( dir ( ioctl read write create getattr setattr lock rename open watch watch_reads add_name remove_name reparent search rmdir ) ) )",
+      "after": "( allow visiond media_rw_data_file_30_0 ( dir ( ioctl read create getattr setattr lock rename open watch watch_reads reparent search rmdir ) ) )",
+      "occurrences": 1
+    },
+    {
+      "before": "( allow dtvserver media_rw_data_file_30_0 ( dir ( ioctl read write create getattr setattr lock rename open watch watch_reads add_name remove_name reparent search rmdir ) ) )",
+      "after": "( allow dtvserver media_rw_data_file_30_0 ( dir ( ioctl read create getattr setattr lock rename open watch watch_reads reparent search rmdir ) ) )",
+      "occurrences": 1
+    },
+    {
+      "before": "( allow mobicore vendor_data_file_30_0 ( dir ( ioctl read write create getattr setattr lock rename open watch watch_reads add_name remove_name reparent search rmdir ) ) )",
+      "after": "( allow mobicore vendor_data_file_30_0 ( dir ( ioctl read create getattr setattr lock rename open watch watch_reads reparent search rmdir ) ) )",
+      "occurrences": 1
+    },
+    {
+      "before": "( allow diagexe media_rw_data_file_30_0 ( dir ( ioctl read write create getattr setattr lock rename open watch watch_reads add_name remove_name reparent search rmdir ) ) )",
+      "after": "( allow diagexe media_rw_data_file_30_0 ( dir ( ioctl read create getattr setattr lock rename open watch watch_reads reparent search rmdir ) ) )",
+      "occurrences": 1
+    },
+    {
+      "before": "( allow wcnss_service vendor_data_file_30_0 ( dir ( ioctl read write getattr lock open watch watch_reads add_name remove_name search ) ) )",
+      "after": "( allow wcnss_service vendor_data_file_30_0 ( dir ( ioctl read getattr lock open watch watch_reads search ) ) )",
+      "occurrences": 1
+    }
+  ],
+  "source_intersection_allow_replacements": [],
+  "target_intersection_allow_replacements": [
+    {
+      "before": "( allow tee_30_0 system_data_file_30_0 ( file ( read getattr ) ) )",
+      "after": "( allow tee_30_0 vendor_samsung_port_child_system_data_file ( file ( read getattr ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_child_system_data_file ( and system_data_file_30_0 system_data_file ) )"
+    },
+    {
+      "before": "( allow tee_30_0 system_data_file_30_0 ( lnk_file ( read getattr ) ) )",
+      "after": "( allow tee_30_0 vendor_samsung_port_child_system_data_file ( lnk_file ( read getattr ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_child_system_data_file ( and system_data_file_30_0 system_data_file ) )"
+    },
+    {
+      "before": "( allow appdomain system_data_file_30_0 ( file ( open ) ) )",
+      "after": "( allow appdomain vendor_samsung_port_child_system_data_file ( file ( open ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_child_system_data_file ( and system_data_file_30_0 system_data_file ) )"
+    },
+    {
+      "before": "( allow appdomain system_data_file_30_0 ( dir ( read open ) ) )",
+      "after": "( allow appdomain vendor_samsung_port_child_system_data_file ( dir ( read open ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_child_system_data_file ( and system_data_file_30_0 system_data_file ) )"
+    },
+    {
+      "before": "( allow audioserver_30_0 media_rw_data_file_30_0 ( dir ( ioctl read write create getattr setattr lock rename open watch watch_reads add_name remove_name reparent search rmdir ) ) )",
+      "after": "( allow audioserver_30_0 vendor_samsung_port_child_media_rw_data_file ( dir ( write add_name remove_name ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_child_media_rw_data_file ( and media_rw_data_file_30_0 media_rw_data_file ) )"
+    },
+    {
+      "before": "( allow bootanim_30_0 system_data_file_30_0 ( file ( ioctl read getattr lock map open watch watch_reads ) ) )",
+      "after": "( allow bootanim_30_0 vendor_samsung_port_child_system_data_file ( file ( ioctl read getattr lock map open watch watch_reads ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_child_system_data_file ( and system_data_file_30_0 system_data_file ) )"
+    },
+    {
+      "before": "( allow cameraserver_30_0 system_data_file_30_0 ( file ( ioctl read getattr lock map open watch watch_reads ) ) )",
+      "after": "( allow cameraserver_30_0 vendor_samsung_port_child_system_data_file ( file ( ioctl read getattr lock map open watch watch_reads ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_child_system_data_file ( and system_data_file_30_0 system_data_file ) )"
+    },
+    {
+      "before": "( allow cameraserver_30_0 media_rw_data_file_30_0 ( dir ( ioctl read write create getattr setattr lock rename open watch watch_reads add_name remove_name reparent search rmdir ) ) )",
+      "after": "( allow cameraserver_30_0 vendor_samsung_port_child_media_rw_data_file ( dir ( write add_name remove_name ) ) )",
+      "occurrences": 2,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_child_media_rw_data_file ( and media_rw_data_file_30_0 media_rw_data_file ) )"
+    },
+    {
+      "before": "( allow hal_fingerprint_default vendor_data_file_30_0 ( dir ( ioctl read write getattr lock open watch watch_reads add_name remove_name search ) ) )",
+      "after": "( allow hal_fingerprint_default vendor_samsung_port_child_vendor_data_file ( dir ( write add_name remove_name ) ) )",
+      "occurrences": 2,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_child_vendor_data_file ( and vendor_data_file_30_0 vendor_data_file ) )"
+    },
+    {
+      "before": "( allow hal_fingerprint_default vendor_data_file_30_0 ( file ( ioctl read write create getattr setattr lock append map unlink rename open watch watch_reads ) ) )",
+      "after": "( allow hal_fingerprint_default vendor_samsung_port_child_vendor_data_file ( file ( ioctl read write create getattr setattr lock append map unlink rename open watch watch_reads ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_child_vendor_data_file ( and vendor_data_file_30_0 vendor_data_file ) )"
+    },
+    {
+      "before": "( allow installd_30_0 system_data_file_30_0 ( lnk_file ( relabelto ) ) )",
+      "after": "( allow installd_30_0 vendor_samsung_port_child_system_data_file ( lnk_file ( relabelto ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_child_system_data_file ( and system_data_file_30_0 system_data_file ) )"
+    },
+    {
+      "before": "( allow installd_30_0 system_data_file_30_0 ( dir ( ioctl read write getattr lock relabelfrom open watch watch_reads add_name remove_name search rmdir ) ) )",
+      "after": "( allow installd_30_0 vendor_samsung_port_child_system_data_file ( dir ( ioctl read write getattr lock relabelfrom open watch watch_reads add_name remove_name search rmdir ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_child_system_data_file ( and system_data_file_30_0 system_data_file ) )"
+    },
+    {
+      "before": "( allow installd_30_0 system_data_file_30_0 ( file ( ioctl read getattr lock relabelfrom map unlink open watch watch_reads ) ) )",
+      "after": "( allow installd_30_0 vendor_samsung_port_child_system_data_file ( file ( ioctl read getattr lock relabelfrom map unlink open watch watch_reads ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_child_system_data_file ( and system_data_file_30_0 system_data_file ) )"
+    },
+    {
+      "before": "( allow installd_30_0 system_data_file_30_0 ( lnk_file ( ioctl read getattr lock relabelfrom map unlink open watch watch_reads ) ) )",
+      "after": "( allow installd_30_0 vendor_samsung_port_child_system_data_file ( lnk_file ( ioctl read getattr lock relabelfrom map unlink open watch watch_reads ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_child_system_data_file ( and system_data_file_30_0 system_data_file ) )"
+    },
+    {
+      "before": "( allow installd_30_0 system_data_file_30_0 ( sock_file ( ioctl read getattr lock relabelfrom map unlink open watch watch_reads ) ) )",
+      "after": "( allow installd_30_0 vendor_samsung_port_child_system_data_file ( sock_file ( ioctl read getattr lock relabelfrom map unlink open watch watch_reads ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_child_system_data_file ( and system_data_file_30_0 system_data_file ) )"
+    },
+    {
+      "before": "( allow installd_30_0 system_data_file_30_0 ( fifo_file ( ioctl read getattr lock relabelfrom map unlink open watch watch_reads ) ) )",
+      "after": "( allow installd_30_0 vendor_samsung_port_child_system_data_file ( fifo_file ( ioctl read getattr lock relabelfrom map unlink open watch watch_reads ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_child_system_data_file ( and system_data_file_30_0 system_data_file ) )"
+    },
+    {
+      "before": "( allow kernel_30_0 system_data_file_30_0 ( file ( open ) ) )",
+      "after": "( allow kernel_30_0 vendor_samsung_port_child_system_data_file ( file ( open ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_child_system_data_file ( and system_data_file_30_0 system_data_file ) )"
+    },
+    {
+      "before": "( allow netd_30_0 media_rw_data_file_30_0 ( dir ( ioctl read write create getattr setattr lock rename open watch watch_reads add_name remove_name reparent search rmdir ) ) )",
+      "after": "( allow netd_30_0 vendor_samsung_port_child_media_rw_data_file ( dir ( write add_name remove_name ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_child_media_rw_data_file ( and media_rw_data_file_30_0 media_rw_data_file ) )"
+    },
+    {
+      "before": "( allow nfc_30_0 system_data_file_30_0 ( dir ( ioctl read getattr lock open watch watch_reads search ) ) )",
+      "after": "( allow nfc_30_0 vendor_samsung_port_child_system_data_file ( dir ( ioctl read getattr lock open watch watch_reads search ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_child_system_data_file ( and system_data_file_30_0 system_data_file ) )"
+    },
+    {
+      "before": "( allow radio_30_0 media_rw_data_file_30_0 ( dir ( ioctl read write create getattr setattr lock rename open watch watch_reads add_name remove_name reparent search rmdir ) ) )",
+      "after": "( allow radio_30_0 vendor_samsung_port_child_media_rw_data_file ( dir ( write add_name remove_name ) ) )",
+      "occurrences": 2,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_child_media_rw_data_file ( and media_rw_data_file_30_0 media_rw_data_file ) )"
+    },
+    {
+      "before": "( allow rild system_data_file_30_0 ( dir ( getattr search ) ) )",
+      "after": "( allow rild vendor_samsung_port_child_system_data_file ( dir ( getattr search ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_child_system_data_file ( and system_data_file_30_0 system_data_file ) )"
+    },
+    {
+      "before": "( allow surfaceflinger_30_0 system_data_file_30_0 ( dir ( ioctl read getattr lock open watch watch_reads search ) ) )",
+      "after": "( allow surfaceflinger_30_0 vendor_samsung_port_child_system_data_file ( dir ( ioctl read getattr lock open watch watch_reads search ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_child_system_data_file ( and system_data_file_30_0 system_data_file ) )"
+    },
+    {
+      "before": "( allow surfaceflinger_30_0 system_data_file_30_0 ( file ( ioctl read getattr lock map open watch watch_reads ) ) )",
+      "after": "( allow surfaceflinger_30_0 vendor_samsung_port_child_system_data_file ( file ( ioctl read getattr lock map open watch watch_reads ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_child_system_data_file ( and system_data_file_30_0 system_data_file ) )"
+    },
+    {
+      "before": "( allow system_app_30_0 system_data_file_30_0 ( dir ( ioctl read getattr lock open watch watch_reads search ) ) )",
+      "after": "( allow system_app_30_0 vendor_samsung_port_child_system_data_file ( dir ( ioctl read getattr lock open watch watch_reads search ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_child_system_data_file ( and system_data_file_30_0 system_data_file ) )"
+    },
+    {
+      "before": "( allow system_server_30_0 media_rw_data_file_30_0 ( dir ( ioctl read write create getattr setattr lock rename open watch watch_reads add_name remove_name reparent search rmdir ) ) )",
+      "after": "( allow system_server_30_0 vendor_samsung_port_child_media_rw_data_file ( dir ( write add_name remove_name ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_child_media_rw_data_file ( and media_rw_data_file_30_0 media_rw_data_file ) )"
+    },
+    {
+      "before": "( allow sec_untrusted_app system_data_file_30_0 ( file ( ioctl read getattr lock map open watch watch_reads ) ) )",
+      "after": "( allow sec_untrusted_app vendor_samsung_port_child_system_data_file ( file ( ioctl read getattr lock map open watch watch_reads ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_child_system_data_file ( and system_data_file_30_0 system_data_file ) )"
+    },
+    {
+      "before": "( allow vold_30_0 system_data_file_30_0 ( file ( ioctl read getattr lock map open watch watch_reads ) ) )",
+      "after": "( allow vold_30_0 vendor_samsung_port_child_system_data_file ( file ( ioctl read getattr lock map open watch watch_reads ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_child_system_data_file ( and system_data_file_30_0 system_data_file ) )"
+    },
+    {
+      "before": "( allow vold_30_0 system_data_file_30_0 ( lnk_file ( ioctl read getattr lock map open watch watch_reads ) ) )",
+      "after": "( allow vold_30_0 vendor_samsung_port_child_system_data_file ( lnk_file ( ioctl read getattr lock map open watch watch_reads ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_child_system_data_file ( and system_data_file_30_0 system_data_file ) )"
+    },
+    {
+      "before": "( allow vold_30_0 system_data_file_30_0 ( dir ( ioctl read write create getattr setattr lock rename open watch watch_reads add_name remove_name reparent search rmdir ) ) )",
+      "after": "( allow vold_30_0 vendor_samsung_port_child_system_data_file ( dir ( ioctl read write create getattr setattr lock rename open watch watch_reads add_name remove_name reparent search rmdir ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_child_system_data_file ( and system_data_file_30_0 system_data_file ) )"
+    },
+    {
+      "before": "( allow vold_30_0 system_data_file_30_0 ( dir ( relabelfrom relabelto ) ) )",
+      "after": "( allow vold_30_0 vendor_samsung_port_child_system_data_file ( dir ( relabelfrom relabelto ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_child_system_data_file ( and system_data_file_30_0 system_data_file ) )"
+    },
+    {
+      "before": "( allow vold_30_0 system_data_file_30_0 ( lnk_file ( unlink link rename ) ) )",
+      "after": "( allow vold_30_0 vendor_samsung_port_child_system_data_file ( lnk_file ( unlink link rename ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_child_system_data_file ( and system_data_file_30_0 system_data_file ) )"
+    },
+    {
+      "before": "( allow zygote_30_0 system_data_file_30_0 ( dir ( mounton ) ) )",
+      "after": "( allow zygote_30_0 vendor_samsung_port_child_system_data_file ( dir ( mounton ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_child_system_data_file ( and system_data_file_30_0 system_data_file ) )"
+    },
+    {
+      "before": "( allow zygote_30_0 media_rw_data_file_30_0 ( dir ( ioctl read write create getattr setattr lock rename mounton open watch watch_reads add_name remove_name reparent search rmdir ) ) )",
+      "after": "( allow zygote_30_0 vendor_samsung_port_child_media_rw_data_file ( dir ( write add_name remove_name ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_child_media_rw_data_file ( and media_rw_data_file_30_0 media_rw_data_file ) )"
+    },
+    {
+      "before": "( allow DMM-daemon media_rw_data_file_30_0 ( dir ( ioctl read write create getattr setattr lock rename open watch watch_reads add_name remove_name reparent search rmdir ) ) )",
+      "after": "( allow DMM-daemon vendor_samsung_port_child_media_rw_data_file ( dir ( write add_name remove_name ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_child_media_rw_data_file ( and media_rw_data_file_30_0 media_rw_data_file ) )"
+    },
+    {
+      "before": "( allow apexserver media_rw_data_file_30_0 ( dir ( ioctl read write create getattr setattr lock rename open watch watch_reads add_name remove_name reparent search rmdir ) ) )",
+      "after": "( allow apexserver vendor_samsung_port_child_media_rw_data_file ( dir ( write add_name remove_name ) ) )",
+      "occurrences": 2,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_child_media_rw_data_file ( and media_rw_data_file_30_0 media_rw_data_file ) )"
+    },
+    {
+      "before": "( allow at_distributor system_data_file_30_0 ( dir ( ioctl read write getattr lock open watch watch_reads add_name remove_name search ) ) )",
+      "after": "( allow at_distributor vendor_samsung_port_child_system_data_file ( dir ( ioctl read write getattr lock open watch watch_reads add_name remove_name search ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_child_system_data_file ( and system_data_file_30_0 system_data_file ) )"
+    },
+    {
+      "before": "( allow at_distributor system_data_file_30_0 ( file ( ioctl read getattr lock map open watch watch_reads ) ) )",
+      "after": "( allow at_distributor vendor_samsung_port_child_system_data_file ( file ( ioctl read getattr lock map open watch watch_reads ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_child_system_data_file ( and system_data_file_30_0 system_data_file ) )"
+    },
+    {
+      "before": "( allow connfwexe system_data_file_30_0 ( dir ( ioctl read write getattr lock open watch watch_reads add_name remove_name search ) ) )",
+      "after": "( allow connfwexe vendor_samsung_port_child_system_data_file ( dir ( ioctl read write getattr lock open watch watch_reads add_name remove_name search ) ) )",
+      "occurrences": 2,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_child_system_data_file ( and system_data_file_30_0 system_data_file ) )"
+    },
+    {
+      "before": "( allow connfwexe system_data_file_30_0 ( dir ( ioctl read write getattr lock open watch watch_reads add_name remove_name search ) ) )",
+      "after": "( allow connfwexe vendor_samsung_port_child_system_data_file ( dir ( ioctl read getattr lock open watch watch_reads search ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_child_system_data_file ( and system_data_file_30_0 system_data_file ) )"
+    },
+    {
+      "before": "( allow connfwexe system_data_file_30_0 ( file ( ioctl read getattr lock map open watch watch_reads ) ) )",
+      "after": "( allow connfwexe vendor_samsung_port_child_system_data_file ( file ( ioctl read getattr lock map open watch watch_reads ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_child_system_data_file ( and system_data_file_30_0 system_data_file ) )"
+    },
+    {
+      "before": "( allow ddexe system_data_file_30_0 ( dir ( ioctl read write getattr lock open watch watch_reads add_name remove_name search ) ) )",
+      "after": "( allow ddexe vendor_samsung_port_child_system_data_file ( dir ( ioctl read write getattr lock open watch watch_reads add_name remove_name search ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_child_system_data_file ( and system_data_file_30_0 system_data_file ) )"
+    },
+    {
+      "before": "( allow dmb media_rw_data_file_30_0 ( dir ( ioctl read write create getattr setattr lock rename open watch watch_reads add_name remove_name reparent search rmdir ) ) )",
+      "after": "( allow dmb vendor_samsung_port_child_media_rw_data_file ( dir ( write add_name remove_name ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_child_media_rw_data_file ( and media_rw_data_file_30_0 media_rw_data_file ) )"
+    },
+    {
+      "before": "( allow drmserver_30_0 system_data_file_30_0 ( dir ( ioctl read getattr lock open watch watch_reads search ) ) )",
+      "after": "( allow drmserver_30_0 vendor_samsung_port_child_system_data_file ( dir ( ioctl read getattr lock open watch watch_reads search ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_child_system_data_file ( and system_data_file_30_0 system_data_file ) )"
+    },
+    {
+      "before": "( allow drmserver_30_0 system_data_file_30_0 ( file ( ioctl read getattr lock map open watch watch_reads ) ) )",
+      "after": "( allow drmserver_30_0 vendor_samsung_port_child_system_data_file ( file ( ioctl read getattr lock map open watch watch_reads ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_child_system_data_file ( and system_data_file_30_0 system_data_file ) )"
+    },
+    {
+      "before": "( allow faced system_data_file_30_0 ( dir ( ioctl read getattr lock open watch watch_reads search ) ) )",
+      "after": "( allow faced vendor_samsung_port_child_system_data_file ( dir ( ioctl read getattr lock open watch watch_reads search ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_child_system_data_file ( and system_data_file_30_0 system_data_file ) )"
+    },
+    {
+      "before": "( allow hal_base_default vendor_data_file_30_0 ( dir ( ioctl read write getattr lock open watch watch_reads add_name remove_name search ) ) )",
+      "after": "( allow hal_base_default vendor_samsung_port_child_vendor_data_file ( dir ( write add_name remove_name ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_child_vendor_data_file ( and vendor_data_file_30_0 vendor_data_file ) )"
+    },
+    {
+      "before": "( allow hal_base_default vendor_data_file_30_0 ( file ( ioctl read write create getattr setattr lock append map unlink rename open watch watch_reads ) ) )",
+      "after": "( allow hal_base_default vendor_samsung_port_child_vendor_data_file ( file ( ioctl read write create getattr setattr lock append map unlink rename open watch watch_reads ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_child_vendor_data_file ( and vendor_data_file_30_0 vendor_data_file ) )"
+    },
+    {
+      "before": "( allow hal_nfc_default vendor_data_file_30_0 ( file ( ioctl read write getattr lock append map open watch watch_reads ) ) )",
+      "after": "( allow hal_nfc_default vendor_samsung_port_child_vendor_data_file ( file ( ioctl read write getattr lock append map open watch watch_reads ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_child_vendor_data_file ( and vendor_data_file_30_0 vendor_data_file ) )"
+    },
+    {
+      "before": "( allow hal_secure_storage_daemon vendor_data_file_30_0 ( dir ( ioctl read write getattr lock open watch watch_reads add_name remove_name search ) ) )",
+      "after": "( allow hal_secure_storage_daemon vendor_samsung_port_child_vendor_data_file ( dir ( write add_name remove_name ) ) )",
+      "occurrences": 2,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_child_vendor_data_file ( and vendor_data_file_30_0 vendor_data_file ) )"
+    },
+    {
+      "before": "( allow hal_secure_storage_daemon system_data_file_30_0 ( dir ( getattr ) ) )",
+      "after": "( allow hal_secure_storage_daemon vendor_samsung_port_child_system_data_file ( dir ( getattr ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_child_system_data_file ( and system_data_file_30_0 system_data_file ) )"
+    },
+    {
+      "before": "( allow hal_teeregistry_default vendor_data_file_30_0 ( dir ( ioctl read write create getattr setattr lock rename open watch watch_reads add_name remove_name reparent search rmdir ) ) )",
+      "after": "( allow hal_teeregistry_default vendor_samsung_port_child_vendor_data_file ( dir ( write add_name remove_name ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_child_vendor_data_file ( and vendor_data_file_30_0 vendor_data_file ) )"
+    },
+    {
+      "before": "( allow hal_teeregistry_default vendor_data_file_30_0 ( file ( ioctl read write create getattr setattr lock append map unlink rename open watch watch_reads ) ) )",
+      "after": "( allow hal_teeregistry_default vendor_samsung_port_child_vendor_data_file ( file ( ioctl read write create getattr setattr lock append map unlink rename open watch watch_reads ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_child_vendor_data_file ( and vendor_data_file_30_0 vendor_data_file ) )"
+    },
+    {
+      "before": "( allow heimdall system_data_file_30_0 ( dir ( ioctl read getattr lock open watch watch_reads search ) ) )",
+      "after": "( allow heimdall vendor_samsung_port_child_system_data_file ( dir ( ioctl read getattr lock open watch watch_reads search ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_child_system_data_file ( and system_data_file_30_0 system_data_file ) )"
+    },
+    {
+      "before": "( allow heimdall system_data_file_30_0 ( file ( ioctl read getattr lock map open watch watch_reads ) ) )",
+      "after": "( allow heimdall vendor_samsung_port_child_system_data_file ( file ( ioctl read getattr lock map open watch watch_reads ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_child_system_data_file ( and system_data_file_30_0 system_data_file ) )"
+    },
+    {
+      "before": "( allow heimdall system_data_file_30_0 ( lnk_file ( ioctl read getattr lock map open watch watch_reads ) ) )",
+      "after": "( allow heimdall vendor_samsung_port_child_system_data_file ( lnk_file ( ioctl read getattr lock map open watch watch_reads ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_child_system_data_file ( and system_data_file_30_0 system_data_file ) )"
+    },
+    {
+      "before": "( allow imsd media_rw_data_file_30_0 ( dir ( ioctl read write create getattr setattr lock rename open watch watch_reads add_name remove_name reparent search rmdir ) ) )",
+      "after": "( allow imsd vendor_samsung_port_child_media_rw_data_file ( dir ( write add_name remove_name ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_child_media_rw_data_file ( and media_rw_data_file_30_0 media_rw_data_file ) )"
+    },
+    {
+      "before": "( allow qti_init_shell vendor_data_file_30_0 ( dir ( ioctl read write getattr lock open watch watch_reads add_name remove_name search ) ) )",
+      "after": "( allow qti_init_shell vendor_samsung_port_child_vendor_data_file ( dir ( write add_name remove_name ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_child_vendor_data_file ( and vendor_data_file_30_0 vendor_data_file ) )"
+    },
+    {
+      "before": "( allow qti_init_shell vendor_data_file_30_0 ( file ( ioctl read write create getattr setattr lock append map unlink rename open watch watch_reads ) ) )",
+      "after": "( allow qti_init_shell vendor_samsung_port_child_vendor_data_file ( file ( ioctl read write create getattr setattr lock append map unlink rename open watch watch_reads ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_child_vendor_data_file ( and vendor_data_file_30_0 vendor_data_file ) )"
+    },
+    {
+      "before": "( allow mediacodec vendor_data_file_30_0 ( dir ( ioctl read write getattr lock open watch watch_reads add_name remove_name search ) ) )",
+      "after": "( allow mediacodec vendor_samsung_port_child_vendor_data_file ( dir ( write add_name remove_name ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_child_vendor_data_file ( and vendor_data_file_30_0 vendor_data_file ) )"
+    },
+    {
+      "before": "( allow mediacodec vendor_data_file_30_0 ( file ( ioctl read write create getattr setattr lock append map unlink rename open watch watch_reads ) ) )",
+      "after": "( allow mediacodec vendor_samsung_port_child_vendor_data_file ( file ( ioctl read write create getattr setattr lock append map unlink rename open watch watch_reads ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_child_vendor_data_file ( and vendor_data_file_30_0 vendor_data_file ) )"
+    },
+    {
+      "before": "( allow mediaserver_30_0 system_data_file_30_0 ( dir ( ioctl read getattr lock open watch watch_reads search ) ) )",
+      "after": "( allow mediaserver_30_0 vendor_samsung_port_child_system_data_file ( dir ( ioctl read getattr lock open watch watch_reads search ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_child_system_data_file ( and system_data_file_30_0 system_data_file ) )"
+    },
+    {
+      "before": "( allow mediaserver_30_0 system_data_file_30_0 ( file ( ioctl read getattr lock map open watch watch_reads ) ) )",
+      "after": "( allow mediaserver_30_0 vendor_samsung_port_child_system_data_file ( file ( ioctl read getattr lock map open watch watch_reads ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_child_system_data_file ( and system_data_file_30_0 system_data_file ) )"
+    },
+    {
+      "before": "( allow mobicore vendor_data_file_30_0 ( dir ( write create add_name ) ) )",
+      "after": "( allow mobicore vendor_samsung_port_child_vendor_data_file ( dir ( write add_name ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_child_vendor_data_file ( and vendor_data_file_30_0 vendor_data_file ) )"
+    },
+    {
+      "before": "( allow mobicore vendor_data_file_30_0 ( file ( read write create getattr open ) ) )",
+      "after": "( allow mobicore vendor_samsung_port_child_vendor_data_file ( file ( read write create getattr open ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_child_vendor_data_file ( and vendor_data_file_30_0 vendor_data_file ) )"
+    },
+    {
+      "before": "( allow multiclientd media_rw_data_file_30_0 ( dir ( ioctl read write create getattr setattr lock rename open watch watch_reads add_name remove_name reparent search rmdir ) ) )",
+      "after": "( allow multiclientd vendor_samsung_port_child_media_rw_data_file ( dir ( write add_name remove_name ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_child_media_rw_data_file ( and media_rw_data_file_30_0 media_rw_data_file ) )"
+    },
+    {
+      "before": "( allow oneseg_mw media_rw_data_file_30_0 ( dir ( ioctl read write create getattr setattr lock rename open watch watch_reads add_name remove_name reparent search rmdir ) ) )",
+      "after": "( allow oneseg_mw vendor_samsung_port_child_media_rw_data_file ( dir ( write add_name remove_name ) ) )",
+      "occurrences": 2,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_child_media_rw_data_file ( and media_rw_data_file_30_0 media_rw_data_file ) )"
+    },
+    {
+      "before": "( allow pageboostd system_data_file_30_0 ( dir ( write lock open add_name remove_name search ) ) )",
+      "after": "( allow pageboostd vendor_samsung_port_child_system_data_file ( dir ( write lock open add_name remove_name search ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_child_system_data_file ( and system_data_file_30_0 system_data_file ) )"
+    },
+    {
+      "before": "( allow preparefbe media_rw_data_file_30_0 ( dir ( ioctl read write create getattr setattr lock rename open watch watch_reads add_name remove_name reparent search rmdir ) ) )",
+      "after": "( allow preparefbe vendor_samsung_port_child_media_rw_data_file ( dir ( write add_name remove_name ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_child_media_rw_data_file ( and media_rw_data_file_30_0 media_rw_data_file ) )"
+    },
+    {
+      "before": "( allow preparefbe system_data_file_30_0 ( dir ( ioctl read write getattr lock open watch watch_reads add_name remove_name search ) ) )",
+      "after": "( allow preparefbe vendor_samsung_port_child_system_data_file ( dir ( ioctl read write getattr lock open watch watch_reads add_name remove_name search ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_child_system_data_file ( and system_data_file_30_0 system_data_file ) )"
+    },
+    {
+      "before": "( allow preparefbe system_data_file_30_0 ( file ( ioctl read getattr lock map open watch watch_reads ) ) )",
+      "after": "( allow preparefbe vendor_samsung_port_child_system_data_file ( file ( ioctl read getattr lock map open watch watch_reads ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_child_system_data_file ( and system_data_file_30_0 system_data_file ) )"
+    },
+    {
+      "before": "( allow redsocks system_data_file_30_0 ( file ( ioctl read getattr lock map open watch watch_reads ) ) )",
+      "after": "( allow redsocks vendor_samsung_port_child_system_data_file ( file ( ioctl read getattr lock map open watch watch_reads ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_child_system_data_file ( and system_data_file_30_0 system_data_file ) )"
+    },
+    {
+      "before": "( allow remotedisplay system_data_file_30_0 ( dir ( ioctl read write getattr lock open watch watch_reads add_name remove_name search ) ) )",
+      "after": "( allow remotedisplay vendor_samsung_port_child_system_data_file ( dir ( ioctl read write getattr lock open watch watch_reads add_name remove_name search ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_child_system_data_file ( and system_data_file_30_0 system_data_file ) )"
+    },
+    {
+      "before": "( allow remotedisplay media_rw_data_file_30_0 ( dir ( ioctl read write getattr lock open watch watch_reads add_name remove_name search ) ) )",
+      "after": "( allow remotedisplay vendor_samsung_port_child_media_rw_data_file ( dir ( write add_name remove_name ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_child_media_rw_data_file ( and media_rw_data_file_30_0 media_rw_data_file ) )"
+    },
+    {
+      "before": "( allow samsungpowersoundplay system_data_file_30_0 ( dir ( ioctl read getattr lock open watch watch_reads search ) ) )",
+      "after": "( allow samsungpowersoundplay vendor_samsung_port_child_system_data_file ( dir ( ioctl read getattr lock open watch watch_reads search ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_child_system_data_file ( and system_data_file_30_0 system_data_file ) )"
+    },
+    {
+      "before": "( allow samsungpowersoundplay system_data_file_30_0 ( file ( ioctl read getattr lock map open watch watch_reads ) ) )",
+      "after": "( allow samsungpowersoundplay vendor_samsung_port_child_system_data_file ( file ( ioctl read getattr lock map open watch watch_reads ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_child_system_data_file ( and system_data_file_30_0 system_data_file ) )"
+    },
+    {
+      "before": "( allow scs system_data_file_30_0 ( dir ( ioctl read getattr lock open watch watch_reads search ) ) )",
+      "after": "( allow scs vendor_samsung_port_child_system_data_file ( dir ( ioctl read getattr lock open watch watch_reads search ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_child_system_data_file ( and system_data_file_30_0 system_data_file ) )"
+    },
+    {
+      "before": "( allow scs system_data_file_30_0 ( file ( ioctl read getattr lock map open watch watch_reads ) ) )",
+      "after": "( allow scs vendor_samsung_port_child_system_data_file ( file ( ioctl read getattr lock map open watch watch_reads ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_child_system_data_file ( and system_data_file_30_0 system_data_file ) )"
+    },
+    {
+      "before": "( allow sdcardd_30_0 system_data_file_30_0 ( dir ( ioctl read getattr lock open watch watch_reads search ) ) )",
+      "after": "( allow sdcardd_30_0 vendor_samsung_port_child_system_data_file ( dir ( ioctl read getattr lock open watch watch_reads search ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_child_system_data_file ( and system_data_file_30_0 system_data_file ) )"
+    },
+    {
+      "before": "( allow secure_storage media_rw_data_file_30_0 ( dir ( ioctl read write create getattr setattr lock rename open watch watch_reads add_name remove_name reparent search rmdir ) ) )",
+      "after": "( allow secure_storage vendor_samsung_port_child_media_rw_data_file ( dir ( write add_name remove_name ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_child_media_rw_data_file ( and media_rw_data_file_30_0 media_rw_data_file ) )"
+    },
+    {
+      "before": "( allow secure_storage system_data_file_30_0 ( dir ( ioctl read write getattr lock open watch watch_reads add_name remove_name search ) ) )",
+      "after": "( allow secure_storage vendor_samsung_port_child_system_data_file ( dir ( ioctl read write getattr lock open watch watch_reads add_name remove_name search ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_child_system_data_file ( and system_data_file_30_0 system_data_file ) )"
+    },
+    {
+      "before": "( allow sem system_data_file_30_0 ( dir ( ioctl read write getattr lock open watch watch_reads add_name remove_name search ) ) )",
+      "after": "( allow sem vendor_samsung_port_child_system_data_file ( dir ( ioctl read write getattr lock open watch watch_reads add_name remove_name search ) ) )",
+      "occurrences": 4,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_child_system_data_file ( and system_data_file_30_0 system_data_file ) )"
+    },
+    {
+      "before": "( allow sem system_data_file_30_0 ( dir ( ioctl read write getattr lock open watch watch_reads add_name remove_name search ) ) )",
+      "after": "( allow sem vendor_samsung_port_child_system_data_file ( dir ( ioctl read getattr lock open watch watch_reads search ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_child_system_data_file ( and system_data_file_30_0 system_data_file ) )"
+    },
+    {
+      "before": "( allow sem system_data_file_30_0 ( file ( ioctl read getattr lock map open watch watch_reads ) ) )",
+      "after": "( allow sem vendor_samsung_port_child_system_data_file ( file ( ioctl read getattr lock map open watch watch_reads ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_child_system_data_file ( and system_data_file_30_0 system_data_file ) )"
+    },
+    {
+      "before": "( allow ss_conn_daemon system_data_file_30_0 ( dir ( ioctl read write getattr lock open watch watch_reads add_name remove_name search ) ) )",
+      "after": "( allow ss_conn_daemon vendor_samsung_port_child_system_data_file ( dir ( ioctl read write getattr lock open watch watch_reads add_name remove_name search ) ) )",
+      "occurrences": 2,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_child_system_data_file ( and system_data_file_30_0 system_data_file ) )"
+    },
+    {
+      "before": "( allow system_server_30_0 system_data_file_30_0 ( dir ( ioctl read write getattr lock open watch watch_reads add_name remove_name search ) ) )",
+      "after": "( allow system_server_30_0 vendor_samsung_port_child_system_data_file ( dir ( ioctl read write getattr lock open watch watch_reads add_name remove_name search ) ) )",
+      "occurrences": 2,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_child_system_data_file ( and system_data_file_30_0 system_data_file ) )"
+    },
+    {
+      "before": "( allow system_server_30_0 system_data_file_30_0 ( file ( ioctl read getattr lock map open watch watch_reads ) ) )",
+      "after": "( allow system_server_30_0 vendor_samsung_port_child_system_data_file ( file ( ioctl read getattr lock map open watch watch_reads ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_child_system_data_file ( and system_data_file_30_0 system_data_file ) )"
+    },
+    {
+      "before": "( allow system_server_30_0 system_data_file_30_0 ( dir ( relabelto ) ) )",
+      "after": "( allow system_server_30_0 vendor_samsung_port_child_system_data_file ( dir ( relabelto ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_child_system_data_file ( and system_data_file_30_0 system_data_file ) )"
+    },
+    {
+      "before": "( allow system_server_30_0 system_data_file_30_0 ( file ( relabelto ) ) )",
+      "after": "( allow system_server_30_0 vendor_samsung_port_child_system_data_file ( file ( relabelto ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_child_system_data_file ( and system_data_file_30_0 system_data_file ) )"
+    },
+    {
+      "before": "( allow tlc_server system_data_file_30_0 ( dir ( ioctl read write getattr lock open watch watch_reads add_name remove_name search ) ) )",
+      "after": "( allow tlc_server vendor_samsung_port_child_system_data_file ( dir ( ioctl read write getattr lock open watch watch_reads add_name remove_name search ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_child_system_data_file ( and system_data_file_30_0 system_data_file ) )"
+    },
+    {
+      "before": "( allow trustonicpartner_app system_data_file_30_0 ( file ( ioctl read getattr lock map open watch watch_reads ) ) )",
+      "after": "( allow trustonicpartner_app vendor_samsung_port_child_system_data_file ( file ( ioctl read getattr lock map open watch watch_reads ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_child_system_data_file ( and system_data_file_30_0 system_data_file ) )"
+    },
+    {
+      "before": "( allow trustonicpartner_app media_rw_data_file_30_0 ( dir ( ioctl read write create getattr setattr lock rename open watch watch_reads add_name remove_name reparent search rmdir ) ) )",
+      "after": "( allow trustonicpartner_app vendor_samsung_port_child_media_rw_data_file ( dir ( write add_name remove_name ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_child_media_rw_data_file ( and media_rw_data_file_30_0 media_rw_data_file ) )"
+    },
+    {
+      "before": "( allow tzdaemon system_data_file_30_0 ( dir ( getattr ) ) )",
+      "after": "( allow tzdaemon vendor_samsung_port_child_system_data_file ( dir ( getattr ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_child_system_data_file ( and system_data_file_30_0 system_data_file ) )"
+    },
+    {
+      "before": "( allow vdc_30_0 system_data_file_30_0 ( dir ( ioctl read getattr lock open watch watch_reads search ) ) )",
+      "after": "( allow vdc_30_0 vendor_samsung_port_child_system_data_file ( dir ( ioctl read getattr lock open watch watch_reads search ) ) )",
+      "occurrences": 2,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_child_system_data_file ( and system_data_file_30_0 system_data_file ) )"
+    },
+    {
+      "before": "( allow vdc_30_0 system_data_file_30_0 ( file ( ioctl read getattr lock map open watch watch_reads ) ) )",
+      "after": "( allow vdc_30_0 vendor_samsung_port_child_system_data_file ( file ( ioctl read getattr lock map open watch watch_reads ) ) )",
+      "occurrences": 2,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_child_system_data_file ( and system_data_file_30_0 system_data_file ) )"
+    },
+    {
+      "before": "( allow vdc_30_0 system_data_file_30_0 ( file ( ioctl read getattr lock map open watch watch_reads ) ) )",
+      "after": "( allow vdc_30_0 vendor_samsung_port_child_system_data_file ( file ( open ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_child_system_data_file ( and system_data_file_30_0 system_data_file ) )"
+    },
+    {
+      "before": "( allow visiond media_rw_data_file_30_0 ( dir ( ioctl read write create getattr setattr lock rename open watch watch_reads add_name remove_name reparent search rmdir ) ) )",
+      "after": "( allow visiond vendor_samsung_port_child_media_rw_data_file ( dir ( write add_name remove_name ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_child_media_rw_data_file ( and media_rw_data_file_30_0 media_rw_data_file ) )"
+    },
+    {
+      "before": "( allow vold_30_0 system_data_file_30_0 ( dir ( ioctl read write create getattr setattr lock rename open watch watch_reads add_name remove_name reparent search rmdir ) ) )",
+      "after": "( allow vold_30_0 vendor_samsung_port_child_system_data_file ( dir ( ioctl read write getattr lock open watch watch_reads add_name remove_name search ) ) )",
+      "occurrences": 2,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_child_system_data_file ( and system_data_file_30_0 system_data_file ) )"
+    },
+    {
+      "before": "( allow vold_30_0 vendor_data_file_30_0 ( file ( getattr ) ) )",
+      "after": "( allow vold_30_0 vendor_samsung_port_child_vendor_data_file ( file ( getattr ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_child_vendor_data_file ( and vendor_data_file_30_0 vendor_data_file ) )"
+    },
+    {
+      "before": "( allow vold_prepare_subdirs_30_0 system_data_file_30_0 ( dir ( setattr ) ) )",
+      "after": "( allow vold_prepare_subdirs_30_0 vendor_samsung_port_child_system_data_file ( dir ( setattr ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_child_system_data_file ( and system_data_file_30_0 system_data_file ) )"
+    },
+    {
+      "before": "( allow dtvserver media_rw_data_file_30_0 ( dir ( ioctl read write create getattr setattr lock rename open watch watch_reads add_name remove_name reparent search rmdir ) ) )",
+      "after": "( allow dtvserver vendor_samsung_port_child_media_rw_data_file ( dir ( write add_name remove_name ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_child_media_rw_data_file ( and media_rw_data_file_30_0 media_rw_data_file ) )"
+    },
+    {
+      "before": "( allow dtvserver system_data_file_30_0 ( dir ( setattr ) ) )",
+      "after": "( allow dtvserver vendor_samsung_port_child_system_data_file ( dir ( setattr ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_child_system_data_file ( and system_data_file_30_0 system_data_file ) )"
+    },
+    {
+      "before": "( allow hal_drm_default vendor_data_file_30_0 ( file ( ioctl read getattr lock map open watch watch_reads ) ) )",
+      "after": "( allow hal_drm_default vendor_samsung_port_child_vendor_data_file ( file ( ioctl read getattr lock map open watch watch_reads ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_child_vendor_data_file ( and vendor_data_file_30_0 vendor_data_file ) )"
+    },
+    {
+      "before": "( allow kernel_30_0 system_data_file_30_0 ( dir ( read write create open add_name remove_name ) ) )",
+      "after": "( allow kernel_30_0 vendor_samsung_port_child_system_data_file ( dir ( read write create open add_name remove_name ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_child_system_data_file ( and system_data_file_30_0 system_data_file ) )"
+    },
+    {
+      "before": "( allow mobicore vendor_data_file_30_0 ( file ( ioctl read write create getattr setattr lock append map unlink rename open watch watch_reads ) ) )",
+      "after": "( allow mobicore vendor_samsung_port_child_vendor_data_file ( file ( ioctl read write create getattr setattr lock append map unlink rename open watch watch_reads ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_child_vendor_data_file ( and vendor_data_file_30_0 vendor_data_file ) )"
+    },
+    {
+      "before": "( allow mobicore vendor_data_file_30_0 ( dir ( ioctl read write create getattr setattr lock rename open watch watch_reads add_name remove_name reparent search rmdir ) ) )",
+      "after": "( allow mobicore vendor_samsung_port_child_vendor_data_file ( dir ( write add_name remove_name ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_child_vendor_data_file ( and vendor_data_file_30_0 vendor_data_file ) )"
+    },
+    {
+      "before": "( allow vold_30_0 system_data_file_30_0 ( file ( ioctl read getattr lock map open watch watch_reads ) ) )",
+      "after": "( allow vold_30_0 vendor_samsung_port_child_system_data_file ( file ( ioctl open ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_child_system_data_file ( and system_data_file_30_0 system_data_file ) )"
+    },
+    {
+      "before": "( allow wlbtd system_data_file_30_0 ( dir ( getattr ) ) )",
+      "after": "( allow wlbtd vendor_samsung_port_child_system_data_file ( dir ( getattr ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_child_system_data_file ( and system_data_file_30_0 system_data_file ) )"
+    },
+    {
+      "before": "( allow diagexe media_rw_data_file_30_0 ( dir ( ioctl read write create getattr setattr lock rename open watch watch_reads add_name remove_name reparent search rmdir ) ) )",
+      "after": "( allow diagexe vendor_samsung_port_child_media_rw_data_file ( dir ( write add_name remove_name ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_child_media_rw_data_file ( and media_rw_data_file_30_0 media_rw_data_file ) )"
+    },
+    {
+      "before": "( allow diagexe system_data_file_30_0 ( dir ( ioctl read write getattr lock open watch watch_reads add_name remove_name search ) ) )",
+      "after": "( allow diagexe vendor_samsung_port_child_system_data_file ( dir ( ioctl read write getattr lock open watch watch_reads add_name remove_name search ) ) )",
+      "occurrences": 2,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_child_system_data_file ( and system_data_file_30_0 system_data_file ) )"
+    },
+    {
+      "before": "( allow wcnss_service vendor_data_file_30_0 ( dir ( ioctl read write getattr lock open watch watch_reads add_name remove_name search ) ) )",
+      "after": "( allow wcnss_service vendor_samsung_port_child_vendor_data_file ( dir ( write add_name remove_name ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_child_vendor_data_file ( and vendor_data_file_30_0 vendor_data_file ) )"
+    }
+  ],
+  "baseline_diagnostic_blocks": 23,
+  "candidate_diagnostic_blocks": 18,
+  "resolved_diagnostic_records": {
+    "( neverallow base_typeattr_1152 media_userdir_file ( dir ( write add_name remove_name ) ) )": 1,
+    "( neverallow base_typeattr_1152 vendor_userdir_file ( dir ( write add_name remove_name ) ) )": 1,
+    "( neverallow base_typeattr_1152 system_userdir_file ( dir ( write add_name remove_name ) ) )": 1,
+    "( neverallow base_typeattr_451 base_typeattr_454 ( dir ( ioctl read write create getattr setattr lock relabelfrom relabelto append map unlink link rename execute quotaon mounton audit_access open execmod watch watch_mount watch_sb watch_with_perm watch_reads add_name remove_name reparent search rmdir ) ) )": 1,
+    "( neverallow base_typeattr_451 core_data_file_type ( file ( create setattr lock relabelfrom relabelto unlink link rename execute quotaon mounton audit_access open execmod watch watch_mount watch_sb watch_with_perm watch_reads execute_no_trans entrypoint ) ) )": 1
+  },
+  "new_diagnostic_records": {},
+  "effective_permission_or_attribute_equivalence_proved": false,
+  "input_sha256": {
+    "/srv/android/artifacts/lineage-24.0-arm64/legacy-domain-access-20261105-01/strict/report.json": "ab54777ef3071013b71f58790092bbdeedcecd262a8336abe779c135910c6f6a",
+    "/srv/android/artifacts/lineage-24.0-arm64/vendor-data-boundaries-20261105-01/strict/report.json": "2ed990828129c0476d568be53fca5a84fe6d9a466773afbd49b06c94dc1b479e",
+    "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/compare-policy-assertions.py": "16661656fcb196bfdd7dff39fb1d2795ed18965bc82c580ca4a1823834960f49",
+    "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/policy-diagnostics.py": "03f508f363c0ab43ff8df1ae7098011824c119cb61aa50732f7a5c651a02f437"
+  }
+}

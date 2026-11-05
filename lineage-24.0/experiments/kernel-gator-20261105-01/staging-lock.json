@@ -1,0 +1,33 @@
+{
+  "scope": "Stage bounded ARM64 interrupted-register stack tracing for the Gator module.",
+  "prerequisites": [
+    "kernel-capabilities-20261104-01"
+  ],
+  "patch_sha256": "90a6238ff7e68d33cd62ae327a1289dece259ddd313ce1984dbdf49da18edc85",
+  "files": [
+    {
+      "path": "arch/arm64/kernel/stacktrace.c",
+      "before_sha256": "e86a30841e4c44876f64d0d058594d166bdab95fe27b014da0012953f29756a9",
+      "candidate_sha256": "49658e2967aa86cd91c30da1a9a4dfbf318d71120565961198808396a38d676d"
+    },
+    {
+      "path": "drivers/gator/gator_backtrace.c",
+      "before_sha256": "5c1a0cd822cd82bd83f1ae5d5a931317f715dea17e88b68d950d287915a933ac",
+      "candidate_sha256": "b488619f04c536cbb43aec9d04ee337d59d9c3038f7337eaf36b87f57eaba923"
+    }
+  ],
+  "policycap9_load_rejection_retained": false,
+  "supported_runtime_capability_bits": [
+    0,
+    1,
+    2,
+    3,
+    5,
+    9,
+    12
+  ],
+  "unknown_active_capabilities_rejected": true,
+  "android_prebuilt_promoted": false,
+  "hardware_tested": false,
+  "flash_ready": false
+}

@@ -1,0 +1,29 @@
+{
+  "scope": "Classify actual Samsung seapp private data labels as Android17 app data.\n\nOnly the required three existing private types gain app_data_file_type. All\nexisting labels/assertions remain byte-exact; forbidden system_server create,\nunlink and open permissions on attiqi private data are removed.\nStrict compiler and context checks remain mandatory; this is not boot proof.\n",
+  "baseline_report_sha256": "235724d1f1467f8ef5f8af1b3a3d281ce7225040da70947751f1c0c6661a20b6",
+  "original_vendor_cil_sha256": "9fb1e0eff6809add4ddf0312c38a7772987b16479bfa0c39b2bbece2bf15d712",
+  "seapp_context_sha256": "09723917f8fd99101e876158075cdee7592406f22e8ef5f946d161e73f7e375b",
+  "required_private_app_data_types": [
+    "aasa_service_app_data_file",
+    "attiqi_app_data_file",
+    "policyloader_app_data_file"
+  ],
+  "added_statements": [
+    "(typeattributeset app_data_file_type (aasa_service_app_data_file attiqi_app_data_file policyloader_app_data_file))"
+  ],
+  "all_other_original_statements_byte_exact": true,
+  "narrowed_grant": {
+    "before": "(allow system_server_30_0 attiqi_app_data_file (file (ioctl read write create getattr setattr lock append map unlink rename open watch watch_reads)))",
+    "after": "(allow system_server_30_0 attiqi_app_data_file (file (ioctl read write getattr setattr lock append map rename watch watch_reads)))",
+    "removed_permissions": [
+      "create",
+      "unlink",
+      "open"
+    ]
+  },
+  "staged_vendor_cil_sha256": "7455615956ed1d316bae5b609fa24e759036478117915f497674ab74e170e161",
+  "new_allow_statements": 0,
+  "removed_assertions": 0,
+  "hardware_tested": false,
+  "flash_ready": false
+}

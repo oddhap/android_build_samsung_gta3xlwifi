@@ -1,0 +1,31 @@
+{
+  "scope": "Remove the old privileged-app SIOCGIWESSID allowx forbidden by Android17.\n\nThe ioctl reads wireless ESSID directly. Android17 requires the framework's\npermission-controlled Wi-Fi API instead. No other ioctl grant or assertion,\nkernel helper, source/target classification or readiness behavior changes.\n",
+  "removed_allowx": "(allowx priv_app_30_0 self (ioctl udp_socket (0x8b1b)))",
+  "ioctl": "SIOCGIWESSID",
+  "ioctl_value": "0x8b1b",
+  "triggering_assertion": "(neverallowx priv_app_all domain (ioctl udp_socket (0x8b00 0x8b02 0x8b04 0x8b06 0x8b08 0x8b0a 0x8b0c 0x8b0e 0x8b10 (range 0x8b14 0x8b1d) 0x8b20 0x8b22 0x8b24 0x8b26 0x8b28 (range 0x8b2a 0x8b2c) (range 0x8b30 0x8b36) (range 0x8be0 0x8bff))))",
+  "vendor_rule_counts_before": {
+    "allow": 12489,
+    "allowx": 127,
+    "neverallow": 132,
+    "neverallowx": 2
+  },
+  "vendor_rule_counts_after": {
+    "allow": 12489,
+    "allowx": 126,
+    "neverallow": 132,
+    "neverallowx": 2
+  },
+  "all_other_text_byte_exact": true,
+  "assertion_or_kernel_changes": false,
+  "inputs_sha256": {
+    "/srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/metadata/vendor_sepolicy.cil": "3ab68a7694ef6f993f7c087160d539cfb79fffddbab926c291cdd560f3bb1a23",
+    "/srv/android/artifacts/lineage-24.0-arm64/legacy-bpf-policy-20261105-02/strict/report.json": "12781a4664762a945bd142e47786e28a0a110b09cc464d87397f537a9de6b398",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-capabilities-20261104-01/src/include/uapi/linux/wireless.h": "ed1487de06baa781babf1f5c2c0d8b6c0f6d63d4d7ec7927c201b573004710d6"
+  },
+  "runner_sha256": "e10e679e24ba5a23298d5f0349fc23662046316861031ce34f74197abd8e311f",
+  "staged_vendor_sha256": "4ef64e673d523a7993bdcf8b4078a324357b473908657ae1f5d96a56f5178ac1",
+  "runtime_wifi_app_behavior_tested": false,
+  "security_approved": false,
+  "flash_ready": false
+}

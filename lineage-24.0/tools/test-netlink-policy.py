@@ -3,19 +3,29 @@
 """Actual parsed-policy/SID/mapping/services/AVC/netlink bodies vs Android17 libsepol.
 
 Memory, locks, task/socket/skb metadata, single-entry cache and audit backends are
-sequential host fixtures. Original diagnostic policy stays unmodified; strict
-neverallow failure remains. Not kernel boot, live reload, native cache or ABI proof.
+sequential host fixtures. Input policy and strict compiler provenance are hashed
+separately. Not kernel boot, live reload, native cache or ABI proof.
 """
 import argparse,hashlib,importlib.util,itertools,json,os,re,subprocess,time
 from pathlib import Path
 p=argparse.ArgumentParser(description=__doc__)
 for n in ['kernel','kernel-out','android-top','policy','constants','output']:p.add_argument('--'+n,type=Path,required=True)
+p.add_argument('--strict-report',type=Path,help='Successful strict compiler report bound to this exact policy')
 a=p.parse_args()
+strict_provenance=None
+if a.strict_report:
+ a.strict_report=a.strict_report.resolve();strict_provenance=json.loads(a.strict_report.read_text())
+ assert strict_provenance['passed_strict']
+ entries=[x for x in strict_provenance['results'] if x['mode']=='strict'];assert len(entries)==1
+ entry=entries[0];assert entry['exit_code']==0 and entry['neverallow_checks_enabled'] and '-N' not in entry['command']
+ assert hashlib.sha256(a.policy.read_bytes()).hexdigest()==entry['compiled_policy_sha256']
+ assert str(a.policy.resolve())==str(Path(entry['command'][entry['command'].index('-o')+1]).resolve())
+ for item in strict_provenance['inputs']:assert hashlib.sha256(Path(item['path']).read_bytes()).hexdigest()==item['sha256']
 for n in ['kernel','kernel_out','android_top','policy','constants','output']:setattr(a,n,getattr(a,n).resolve())
 for protected in [a.kernel,a.kernel_out,a.android_top,a.policy.parent]:assert not a.output.is_relative_to(protected)
 assert not a.output.exists();a.output.mkdir()
 out=a.output;root=Path(__file__).resolve().parent;fixture=root/'fixtures/netlink-policy24';compat=root/'fixtures/policydb-host24/compat'
-(out/'NOT_READY_FOR_FLASHING.txt').write_text('Host regression only. Diagnostic -N policy is NOT an installation policy or strict pass. No prebuilt promotion.\n')
+(out/'NOT_READY_FOR_FLASHING.txt').write_text('Host regression only; strict compiler status is recorded separately. No boot validation or prebuilt promotion.\n')
 sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
 spec=importlib.util.spec_from_file_location('extract',root/'test-netlink-xperm24.py');m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m)
 ss=a.kernel/'security/selinux/ss';sv=(ss/'services.c').read_text();mls=(ss/'mls.c').read_text()
@@ -91,5 +101,6 @@ counts=re.search(r'COUNTS: avc=(\d+) packet=(\d+) compound=(\d+) malformed=(\d+)
 counts=dict(zip(['avc','packet','compound','malformed','null_security','reload','allow','deny'],map(int,counts.groups())))
 assert counts['avc']==len(rows)*256*3 and counts['packet']==len(rows)//2*256*3
 inputs=[*source,*sorted(ss.glob('*.h')),ss/'services.c',ss/'mls.c',a.kernel/'security/selinux/avc.c',a.kernel/'security/selinux/nlmsgtab.c',a.kernel/'security/selinux/hooks.c',*[a.kernel/'security/selinux/include'/n for n in ['security.h','conditional.h','classmap.h','avc.h','avc_ss.h','objsec.h']],*[a.kernel_out/'security/selinux'/n for n in ['flask.h','av_permissions.h']],a.kernel_out/'.config',cmdfile,a.policy,a.constants,lib,cc,root/'test-netlink-xperm24.py',Path(__file__),*sorted(x for x in fixture.rglob('*') if x.is_file()),*sorted(x for x in compat.rglob('*') if x.is_file())]
-report={'passed':True,'scope':__doc__,'unmodified_input_policydb_read_passed':True,'actual_capability_loader_used':True,'guard_combinations':16384,'guard_accepted':int(caps[1]),'guard_rejected':int(caps[2]),'sparse_unknown_bits_rejected':int(caps[3]),'query_count':len(rows),'counts':counts,'independent_oracle_differences':len(diff),'policy_sha256':sha(a.policy),'inputs_sha256':{str(x):sha(x) for x in inputs},'outputs_sha256':{x.name:sha(x) for x in out.iterdir() if x.is_file()},'kernel_compile_command':command,'oracle_compile_command':oracle_command,'whole_kernel_policy_load_proven':False,'native_cache_or_live_reload_validated':False,'strict_policy_passed':False,'hardware_tested':False,'flash_ready':False}
+if a.strict_report:inputs.append(a.strict_report)
+report={'passed':True,'scope':__doc__,'unmodified_input_policydb_read_passed':True,'actual_capability_loader_used':True,'guard_combinations':16384,'guard_accepted':int(caps[1]),'guard_rejected':int(caps[2]),'sparse_unknown_bits_rejected':int(caps[3]),'query_count':len(rows),'counts':counts,'independent_oracle_differences':len(diff),'policy_sha256':sha(a.policy),'inputs_sha256':{str(x):sha(x) for x in inputs},'outputs_sha256':{x.name:sha(x) for x in out.iterdir() if x.is_file()},'kernel_compile_command':command,'oracle_compile_command':oracle_command,'whole_kernel_policy_load_proven':False,'native_cache_or_live_reload_validated':False,'strict_policy_passed':strict_provenance is not None,'strict_report':str(a.strict_report) if a.strict_report else None,'hardware_tested':False,'flash_ready':False}
 (out/'report.json').write_text(json.dumps(report,indent=2)+'\n');print('PASS: real decoded policy and capabilities, SID/mapping/services/AVC/skb bodies match independent Android17 libsepol; not boot/enforcement approval')

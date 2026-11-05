@@ -4,6 +4,7 @@
 import argparse
 from collections import Counter
 import hashlib
+import importlib.util
 import json
 from pathlib import Path
 import re
@@ -13,6 +14,8 @@ p = argparse.ArgumentParser(description=__doc__)
 p.add_argument('--report', type=Path, required=True)
 p.add_argument('--output', type=Path, required=True)
 a = p.parse_args()
+spec=importlib.util.spec_from_file_location('diagnostics',Path(__file__).with_name('policy-diagnostics.py'))
+diagnostics=importlib.util.module_from_spec(spec);spec.loader.exec_module(diagnostics)
 base = json.loads(a.report.read_text())
 command = list(base['results'][0]['command'])
 assert base['results'][0]['mode'] == 'strict'
@@ -33,28 +36,30 @@ command.insert(1, '-v')
 result = subprocess.run(command, capture_output=True, text=True)
 log = result.stdout+result.stderr
 (output/'strict-verbose.log').write_text(log)
-blocks = log.split('neverallow check failed at ')[1:]
+blocks = diagnostics.blocks(log)
 conflicts = []
 for block in blocks:
-    lines = block.splitlines()
-    assertion = next((x.strip() for x in lines[1:] if x.strip().startswith('(neverallow')), None)
+    lines = block['body'].splitlines()
+    assertion = block['assertion']
     grants = []
     for i, line in enumerate(lines):
-        if 'allow at ' in line:
+        if any(marker in line for marker in ['allow at ', 'allowx at ', 'allowxperm at ']):
             grants.append({'location': line.strip(), 'statement': lines[i+1].strip()})
     assert assertion and grants
     assert not any('Only first' in x for x in lines), 'Verbose output still truncated'
-    conflicts.append({'assertion_location': lines[0], 'assertion': assertion, 'matching_grants': grants})
+    conflicts.append({'assertion_kind':block['kind'],'assertion_location':block['location'], 'assertion': assertion, 'matching_grants': grants})
 assert result.returncode == base['results'][0]['exit_code'] == 255
-assert len(conflicts) == (a.report.with_name('strict.log').read_text().count('neverallow check failed at '))
+assert len(conflicts) == len(diagnostics.blocks(a.report.with_name('strict.log').read_text()))
 for path, expected in inputs.items():
     assert sha(path) == expected, path
 report = {'command': command, 'compiler_exit': result.returncode,
           'neverallow_checks_enabled': True, 'no_input_modified': True,
           'conflict_count': len(conflicts),
+          'normal_conflict_count':sum(x['assertion_kind']=='neverallow' for x in conflicts),
+          'extended_conflict_count':sum(x['assertion_kind']!='neverallow' for x in conflicts),
           'matching_grant_records': sum(len(x['matching_grants']) for x in conflicts),
           'conflicts': conflicts, 'input_sha256': {str(k): v for k, v in inputs.items()},
-          'runner_sha256': sha(Path(__file__)), 'baseline_report_sha256': sha(a.report),
+          'runner_sha256': sha(Path(__file__)), 'diagnostic_parser_sha256':sha(Path(__file__).with_name('policy-diagnostics.py')), 'baseline_report_sha256': sha(a.report),
           'strict_passed': False, 'security_approved': False, 'flash_ready': False}
 (output/'report.json').write_text(json.dumps(report, indent=2)+'\n')
 print('Complete strict conflict diagnostics:', len(conflicts), '; matching grant records:', report['matching_grant_records'])

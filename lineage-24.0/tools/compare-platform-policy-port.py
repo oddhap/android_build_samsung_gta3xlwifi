@@ -4,6 +4,7 @@
 import argparse
 from collections import Counter
 import hashlib
+import importlib.util
 import json
 from pathlib import Path
 
@@ -11,6 +12,8 @@ p = argparse.ArgumentParser(description=__doc__)
 for n in ['baseline', 'candidate', 'output']:
     p.add_argument('--'+n, type=Path, required=True)
 a = p.parse_args()
+spec=importlib.util.spec_from_file_location('diagnostics',Path(__file__).with_name('policy-diagnostics.py'))
+diagnostic_parser=importlib.util.module_from_spec(spec);spec.loader.exec_module(diagnostic_parser)
 if a.output.exists():
     raise FileExistsError(a.output)
 baseline = json.loads(a.baseline.read_text())
@@ -22,7 +25,7 @@ for old, new in zip(baseline['inputs'], current['inputs']):
     assert Path(old['path']).name == Path(new['path']).name
     if old['sha256'] != new['sha256']:
         name = Path(old['path']).name
-        assert name in {'plat_pub_versioned.cil', 'vendor_sepolicy.cil', '30.0.compat.cil'}
+        assert name in {'plat_pub_versioned.cil', 'vendor_sepolicy.cil', '30.0.compat.cil', 'plat_sepolicy.cil'}
         changes.append(name)
     else:
         assert Path(new['path']).read_bytes() == Path(old['path']).read_bytes()
@@ -33,9 +36,9 @@ for audit in [before, after]:
     audit.pop('checked_at_utc')
 assert before == after
 def diagnostics(log):
-    blocks = log.read_text().split('neverallow check failed at ')[1:]
-    return Counter('current_platform' if ' from system/sepolicy/' in b.splitlines()[0]
-                   else Path(b.splitlines()[0].split(':')[0]).name for b in blocks)
+    blocks = diagnostic_parser.blocks(log.read_text())
+    return Counter('current_platform' if ' from system/sepolicy/' in b['location']
+                   else Path(b['location'].split(':')[0]).name for b in blocks)
 report = {'owner_decision_2026_11_05': 'Retain Android17 and Samsung vendor assertions; port the old platform component.',
           'changed_ordered_policy_inputs': changes,
           'all_other_inputs_and_compiler_byte_identical': True,

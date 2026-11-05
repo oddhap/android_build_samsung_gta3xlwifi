@@ -26,6 +26,7 @@ for name in ['baseline', 'candidate', 'output']:
 a = p.parse_args()
 assert not a.output.exists()
 cil, forms = load('stage-vendor-uwb-namespace'), load('stage-platform-policy-port')
+diagnostic_parser = load('policy-diagnostics')
 sha = lambda p: hashlib.sha256(p.read_bytes()).hexdigest()
 checks = {'neverallow','neverallowx','neverallowxperm','mlsconstrain','constrain','mlsvalidatetrans','validatetrans'}
 
@@ -46,8 +47,8 @@ def inventory(report_path):
             else:
                 other[key] += 1
     diagnostics = Counter()
-    for block in report_path.with_name('strict.log').read_text().split('neverallow check failed at ')[1:]:
-        assertion = next(x.strip() for x in block.splitlines()[1:] if x.strip().startswith('(neverallow'))
+    for block in diagnostic_parser.blocks(report_path.with_name('strict.log').read_text()):
+        assertion = block['assertion']
         diagnostics[' '.join(t[1] for t in cil.tokens(assertion))] += 1
     return assertions, av, permissive, diagnostics, other, symbols
 
@@ -65,21 +66,27 @@ def allow_parts(statement):
 
 old, new = inventory(a.baseline), inventory(a.candidate)
 assert not (old[0]-new[0]), 'An assertion/constraint was removed'
-permission_subsets, source_subsets = [], []
+permission_subsets, source_subsets, target_subsets = [], [], []
 added_other = new[4]-old[4]
+removed_other = old[4]-new[4]
+old_allow = {}
+for statement in old[1]:
+    parsed = allow_parts(statement)
+    if parsed:
+        key, perms = parsed
+        old_allow.setdefault(key, []).append((statement, perms))
 for statement, count in (new[1]-old[1]).items():
     parsed = allow_parts(statement)
     assert parsed, 'An extended/noncanonical AV grant was added'
     triple, permissions = parsed
-    candidates = [(s, allow_parts(s)) for s in old[1] if allow_parts(s)]
-    match = next((s for s, (key, perms) in candidates if key == triple and permissions <= perms), None)
+    match = next((s for s, perms in old_allow.get(triple, []) if permissions <= perms), None)
     if match:
         permission_subsets.append({'before': match, 'after': statement, 'occurrences': count})
         continue
     # A fresh source attribute is a subset only when its sole definition is a
     # direct intersection with the old source. Existing type/attribute/role
     # statements must remain unchanged; no new concrete types may be added.
-    assert not (old[4]-new[4]), 'Source narrowing changed old declarations/expressions'
+    assert not removed_other, 'Intersection narrowing changed old declarations/expressions'
     fresh, definitions = set(), {}
     for extra in added_other:
         ts = [t[1] for t in cil.tokens(extra)]
@@ -90,13 +97,19 @@ for statement, count in (new[1]-old[1]).items():
         else:
             assert ts[2] not in definitions and added_other[extra] == 1
             definitions[ts[2]] = ts
-    assert triple[0] in fresh and triple[0] in definitions
-    definition = definitions[triple[0]]
+    axis = 0 if triple[0] in fresh else 1
+    assert triple[axis] in fresh and triple[axis] in definitions
+    definition = definitions[triple[axis]]
     assert len(definition) == 9 and definition[3:5] == ['(', 'and'] and definition[-2:] == [')', ')']
-    match = next((s for s, (key, perms) in candidates
-                  if key[1:] == triple[1:] and permissions == perms and key[0] in definition[5:7]), None)
+    match = None
+    for operand in definition[5:7]:
+        key = list(triple)
+        key[axis] = operand
+        match = next((s for s, perms in old_allow.get(tuple(key), []) if permissions <= perms), None)
+        if match:
+            break
     assert match, 'No proved source/permission subset for added AV text'
-    source_subsets.append({'before':match,'after':statement,'occurrences':count,
+    (source_subsets if axis == 0 else target_subsets).append({'before':match,'after':statement,'occurrences':count,
                            'intersection_definition':' '.join(definition)})
 assert not (new[2]-old[2]), 'A permissive declaration was added'
 report = {'scope': __doc__, 'baseline_assertion_constraint_records': sum(old[0].values()),
@@ -106,9 +119,10 @@ report = {'scope': __doc__, 'baseline_assertion_constraint_records': sum(old[0].
           'added_av_grant_statements': [], 'removed_av_grant_statement_count':sum((old[1]-new[1]).values()),
           'permission_narrowed_allow_replacements': permission_subsets,
           'source_intersection_allow_replacements': source_subsets,
+          'target_intersection_allow_replacements': target_subsets,
           'baseline_diagnostic_blocks':sum(old[3].values()), 'candidate_diagnostic_blocks':sum(new[3].values()),
           'resolved_diagnostic_records':dict(old[3]-new[3]), 'new_diagnostic_records':dict(new[3]-old[3]),
           'effective_permission_or_attribute_equivalence_proved': False,
-          'input_sha256':{str(f):sha(f) for f in [a.baseline,a.candidate,Path(__file__)]}}
+          'input_sha256':{str(f):sha(f) for f in [a.baseline,a.candidate,Path(__file__),Path(__file__).with_name('policy-diagnostics.py')]}}
 a.output.write_text(json.dumps(report,indent=2)+'\n')
 print('Assertions retained:',sum(old[0].values()),'; added:',sum((new[0]-old[0]).values()),'; diagnostic blocks:',sum(old[3].values()),'->',sum(new[3].values()))

@@ -505,3 +505,55 @@ and unchanged compiler/other input hashes. All candidates remain outside active
 sources/snapshots/prebuilts/images/cache hashes. No -N real-policy compile, signing,
 flashing or device operation occurs. Remaining SELinux, actual network/BPF backend,
 HAL/ABI and Android17 FBE/installer/rollback still block a flashable test ROM.
+
+## November 5: strict policy compiler passes in isolated staging
+
+The production `legacy-property-views-20261105-01` proposal now compiles with
+strict neverallow checks enabled (exit 0, zero normal or extended assertion
+failures). The userdebug proposal `staged-debug-policy-20261105-03` also compiles
+strictly and has no permissive domains. Debug LLKD tracing excludes app domains;
+codec2 debug TCP access to su is removed; su and backuptool are enforcing.
+Current Android17 and Samsung vendor assertions remain enabled. All changes
+remain isolated metadata proposals, with full 1,243-project/15-patch audits;
+they are not yet integrated images or a boot-approved installation candidate.
+
+Historical diagnostic counts before the new shared parser counted ordinary
+neverallows only and omitted one neverallowx conflict. Compiler exit255 always
+remained failure. That extended ioctl grant (SIOCGIWESSID) has since been removed;
+new reports count ordinary, extended and total assertions explicitly. Historical
+reports are preserved rather than overwritten.
+
+The actual strict policy binaries are now being exercised by the kernel host
+regression and installed-context validation tools. Real networking/BPF startup,
+kernel modules, zygote/cgroups, FBE/TEE, installer/recovery preservation and full
+candidate packaging remain gates. No signing, flashing or device changes occur.
+
+The complete assertion-preservation comparison now confirms all **5,918**
+assertion/constraint records through every production stage: 59→29→28→23→18→12→0
+strict diagnostic blocks. No assertion is removed, no permissive domain added,
+and every replacement AV permission has an explicit source/target intersection
+or permission-subset witness. Reports and exact tools are archived under each
+proposal directory. This is compiler/static evidence, not runtime approval.
+
+The subsequent actual-context validation exposed three Samsung private app-data
+labels missing Android17's required app_data_file_type classification. The
+`vendor-app-data-types-20261105-02` proposal restores that classification and
+removes the newly exposed forbidden system_server create/unlink/open access to
+attiqi private data. Production and regenerated userdebug policies compile
+strictly again; `staged-debug-policy-20261105-04` has no permissive domains.
+
+`strict-policy-contexts-20261105-02` completes exit0 with full before/after source
+audits. Each profile passes **20** actual installed/staged context checks,
+including property_info_checker, combined app contexts with processed Android17
+seapp neverallows, binary context validation for Keystore2/TEE, and exact positive
+key/TEE type membership in hash-bound strict compiler inputs. Those classification
+attributes can be optimized away in the binary; their absence is not patched
+around in production policy. Earlier checker failures are archived. Identical
+legacy duplicate property/GNSS specifications produce warnings but pass the real
+tools. This does not validate on-device label selection or access behavior.
+
+Before that final app-data classification change, both strict policy binaries
+passed the actual kernel-reader/services/AVC/netlink host regression with zero
+Android17 libsepol differences. The final binaries need fresh regression after
+the isolated Gator kernel/module build. See [startup source review](reports/startup-source-review-20261105.md)
+for the actual fork/cpuacct and in-kernel LMK paths; it does not claim runtime proof.

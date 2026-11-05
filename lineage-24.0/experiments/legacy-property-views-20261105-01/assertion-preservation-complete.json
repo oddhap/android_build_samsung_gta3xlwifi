@@ -1,0 +1,290 @@
+{
+  "scope": "Compare complete CIL assertion inventories and strict diagnostic identities.\n\nText/token preservation is not effective attribute-membership or runtime proof.\nResolved diagnostic records do not mean assertions were removed.\n",
+  "baseline_assertion_constraint_records": 5918,
+  "candidate_assertion_constraint_records": 5918,
+  "removed_assertions_or_constraints": [],
+  "added_assertions_or_constraints": {},
+  "added_av_grant_statements": [],
+  "removed_av_grant_statement_count": 44,
+  "permission_narrowed_allow_replacements": [],
+  "source_intersection_allow_replacements": [
+    {
+      "before": "( allow cameraserver_30_0 vendor_default_prop_30_0 ( file ( read getattr map open ) ) )",
+      "after": "( allow vendor_samsung_port_prop_api_noncore_cameraserver_30_0 vendor_default_prop_30_0 ( file ( read getattr map open ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_prop_api_noncore_cameraserver_30_0 ( and cameraserver_30_0 vendor_samsung_port_prop_api_noncore ) )"
+    },
+    {
+      "before": "( allow shell_30_0 vendor_default_prop_30_0 ( file ( read getattr map open ) ) )",
+      "after": "( allow vendor_samsung_port_prop_api_noncore_shell_30_0 vendor_default_prop_30_0 ( file ( read getattr map open ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_prop_api_noncore_shell_30_0 ( and shell_30_0 vendor_samsung_port_prop_api_noncore ) )"
+    },
+    {
+      "before": "( allow vzwfiltered_untrusted_app vendor_default_prop_30_0 ( file ( read getattr map open ) ) )",
+      "after": "( allow vendor_samsung_port_prop_api_noncore_vzwfiltered_untrusted_app vendor_default_prop_30_0 ( file ( read getattr map open ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_prop_api_noncore_vzwfiltered_untrusted_app ( and vzwfiltered_untrusted_app vendor_samsung_port_prop_api_noncore ) )"
+    },
+    {
+      "before": "( allow domain setupwizard_prop ( file ( read getattr map open ) ) )",
+      "after": "( allow vendor_samsung_port_prop_api_core_readers setupwizard_prop ( file ( read getattr map open ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_prop_api_core_readers ( and domain coredomain ) )"
+    },
+    {
+      "before": "( allow domain vendor_configs_file_30_0 ( file ( map ) ) )",
+      "after": "( allow vendor_samsung_port_prop_api_legacy_domains vendor_configs_file_30_0 ( file ( map ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_prop_api_legacy_domains ( and domain vendor_samsung_port_prop_api_legacy_domain_names ) )"
+    },
+    {
+      "before": "( allow init_30_0 vendor_default_prop_30_0 ( property_service ( set ) ) )",
+      "after": "( allow vendor_samsung_port_prop_api_noncore_init_30_0 vendor_default_prop_30_0 ( property_service ( set ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_prop_api_noncore_init_30_0 ( and init_30_0 vendor_samsung_port_prop_api_noncore ) )"
+    },
+    {
+      "before": "( allow init_30_0 vendor_default_prop_30_0 ( file ( read getattr map open ) ) )",
+      "after": "( allow vendor_samsung_port_prop_api_noncore_init_30_0 vendor_default_prop_30_0 ( file ( read getattr map open ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_prop_api_noncore_init_30_0 ( and init_30_0 vendor_samsung_port_prop_api_noncore ) )"
+    },
+    {
+      "before": "( allow appdomain vendor_default_prop_30_0 ( file ( read getattr map open ) ) )",
+      "after": "( allow vendor_samsung_port_prop_api_noncore_appdomain vendor_default_prop_30_0 ( file ( read getattr map open ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_prop_api_noncore_appdomain ( and appdomain vendor_samsung_port_prop_api_noncore ) )"
+    },
+    {
+      "before": "( allow vendor_ims_app vendor_default_prop_30_0 ( file ( read ) ) )",
+      "after": "( allow vendor_samsung_port_prop_api_noncore_vendor_ims_app vendor_default_prop_30_0 ( file ( read ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_prop_api_noncore_vendor_ims_app ( and vendor_ims_app vendor_samsung_port_prop_api_noncore ) )"
+    }
+  ],
+  "target_intersection_allow_replacements": [
+    {
+      "before": "( allow bootanim_30_0 exported_system_prop_30_0 ( property_service ( set ) ) )",
+      "after": "( allow bootanim_30_0 vendor_samsung_port_prop_api_exported_system_safe ( property_service ( set ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_prop_api_exported_system_safe ( and exported_system_prop_30_0 vendor_samsung_port_prop_api_no_charger ) )"
+    },
+    {
+      "before": "( allow bootanim_30_0 exported_system_prop_30_0 ( file ( read getattr map open ) ) )",
+      "after": "( allow bootanim_30_0 vendor_samsung_port_prop_api_exported_system_safe ( file ( read getattr map open ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_prop_api_exported_system_safe ( and exported_system_prop_30_0 vendor_samsung_port_prop_api_no_charger ) )"
+    },
+    {
+      "before": "( allow cameraserver_30_0 default_prop_30_0 ( file ( read getattr map open ) ) )",
+      "after": "( allow cameraserver_30_0 vendor_samsung_port_prop_api_default_safe ( file ( read getattr map open ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_prop_api_default_safe ( and default_prop_30_0 vendor_samsung_port_prop_api_no_build_config ) )"
+    },
+    {
+      "before": "( allow cameraserver_30_0 exported_system_prop_30_0 ( property_service ( set ) ) )",
+      "after": "( allow cameraserver_30_0 vendor_samsung_port_prop_api_exported_system_safe ( property_service ( set ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_prop_api_exported_system_safe ( and exported_system_prop_30_0 vendor_samsung_port_prop_api_no_charger ) )"
+    },
+    {
+      "before": "( allow cameraserver_30_0 exported_system_prop_30_0 ( file ( read getattr map open ) ) )",
+      "after": "( allow cameraserver_30_0 vendor_samsung_port_prop_api_exported_system_safe ( file ( read getattr map open ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_prop_api_exported_system_safe ( and exported_system_prop_30_0 vendor_samsung_port_prop_api_no_charger ) )"
+    },
+    {
+      "before": "( allow servicemanager_30_0 exported_system_prop_30_0 ( property_service ( set ) ) )",
+      "after": "( allow servicemanager_30_0 vendor_samsung_port_prop_api_exported_system_safe ( property_service ( set ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_prop_api_exported_system_safe ( and exported_system_prop_30_0 vendor_samsung_port_prop_api_no_charger ) )"
+    },
+    {
+      "before": "( allow servicemanager_30_0 exported_system_prop_30_0 ( file ( read getattr map open ) ) )",
+      "after": "( allow servicemanager_30_0 vendor_samsung_port_prop_api_exported_system_safe ( file ( read getattr map open ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_prop_api_exported_system_safe ( and exported_system_prop_30_0 vendor_samsung_port_prop_api_no_charger ) )"
+    },
+    {
+      "before": "( allow system_app_30_0 exported_wifi_prop_30_0 ( property_service ( set ) ) )",
+      "after": "( allow system_app_30_0 vendor_samsung_port_prop_api_wifi_framework ( property_service ( set ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_prop_api_wifi_framework ( and exported_wifi_prop_30_0 exported_wifi_prop ) )"
+    },
+    {
+      "before": "( allow vold_30_0 exported_system_prop_30_0 ( property_service ( set ) ) )",
+      "after": "( allow vold_30_0 vendor_samsung_port_prop_api_exported_system_safe ( property_service ( set ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_prop_api_exported_system_safe ( and exported_system_prop_30_0 vendor_samsung_port_prop_api_no_charger ) )"
+    },
+    {
+      "before": "( allow vold_30_0 exported_system_prop_30_0 ( file ( read getattr map open ) ) )",
+      "after": "( allow vold_30_0 vendor_samsung_port_prop_api_exported_system_safe ( file ( read getattr map open ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_prop_api_exported_system_safe ( and exported_system_prop_30_0 vendor_samsung_port_prop_api_no_charger ) )"
+    },
+    {
+      "before": "( allow zygote_30_0 exported_system_prop_30_0 ( property_service ( set ) ) )",
+      "after": "( allow zygote_30_0 vendor_samsung_port_prop_api_exported_system_safe ( property_service ( set ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_prop_api_exported_system_safe ( and exported_system_prop_30_0 vendor_samsung_port_prop_api_no_charger ) )"
+    },
+    {
+      "before": "( allow zygote_30_0 exported_system_prop_30_0 ( file ( read getattr map open ) ) )",
+      "after": "( allow zygote_30_0 vendor_samsung_port_prop_api_exported_system_safe ( file ( read getattr map open ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_prop_api_exported_system_safe ( and exported_system_prop_30_0 vendor_samsung_port_prop_api_no_charger ) )"
+    },
+    {
+      "before": "( allow charon exported_system_prop_30_0 ( property_service ( set ) ) )",
+      "after": "( allow charon vendor_samsung_port_prop_api_exported_system_safe ( property_service ( set ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_prop_api_exported_system_safe ( and exported_system_prop_30_0 vendor_samsung_port_prop_api_no_charger ) )"
+    },
+    {
+      "before": "( allow charon exported_system_prop_30_0 ( file ( read getattr map open ) ) )",
+      "after": "( allow charon vendor_samsung_port_prop_api_exported_system_safe ( file ( read getattr map open ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_prop_api_exported_system_safe ( and exported_system_prop_30_0 vendor_samsung_port_prop_api_no_charger ) )"
+    },
+    {
+      "before": "( allow mediaserver_30_0 exported_system_prop_30_0 ( property_service ( set ) ) )",
+      "after": "( allow mediaserver_30_0 vendor_samsung_port_prop_api_exported_system_safe ( property_service ( set ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_prop_api_exported_system_safe ( and exported_system_prop_30_0 vendor_samsung_port_prop_api_no_charger ) )"
+    },
+    {
+      "before": "( allow mediaserver_30_0 exported_system_prop_30_0 ( file ( read getattr map open ) ) )",
+      "after": "( allow mediaserver_30_0 vendor_samsung_port_prop_api_exported_system_safe ( file ( read getattr map open ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_prop_api_exported_system_safe ( and exported_system_prop_30_0 vendor_samsung_port_prop_api_no_charger ) )"
+    },
+    {
+      "before": "( allow platform_app_30_0 exported_system_prop_30_0 ( property_service ( set ) ) )",
+      "after": "( allow platform_app_30_0 vendor_samsung_port_prop_api_exported_system_safe ( property_service ( set ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_prop_api_exported_system_safe ( and exported_system_prop_30_0 vendor_samsung_port_prop_api_no_charger ) )"
+    },
+    {
+      "before": "( allow platform_app_30_0 exported_system_prop_30_0 ( file ( read getattr map open ) ) )",
+      "after": "( allow platform_app_30_0 vendor_samsung_port_prop_api_exported_system_safe ( file ( read getattr map open ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_prop_api_exported_system_safe ( and exported_system_prop_30_0 vendor_samsung_port_prop_api_no_charger ) )"
+    },
+    {
+      "before": "( allow scs exported_system_prop_30_0 ( property_service ( set ) ) )",
+      "after": "( allow scs vendor_samsung_port_prop_api_exported_system_safe ( property_service ( set ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_prop_api_exported_system_safe ( and exported_system_prop_30_0 vendor_samsung_port_prop_api_no_charger ) )"
+    },
+    {
+      "before": "( allow scs exported_system_prop_30_0 ( file ( read getattr map open ) ) )",
+      "after": "( allow scs vendor_samsung_port_prop_api_exported_system_safe ( file ( read getattr map open ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_prop_api_exported_system_safe ( and exported_system_prop_30_0 vendor_samsung_port_prop_api_no_charger ) )"
+    },
+    {
+      "before": "( allow secure_element_30_0 exported_system_prop_30_0 ( property_service ( set ) ) )",
+      "after": "( allow secure_element_30_0 vendor_samsung_port_prop_api_exported_system_safe ( property_service ( set ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_prop_api_exported_system_safe ( and exported_system_prop_30_0 vendor_samsung_port_prop_api_no_charger ) )"
+    },
+    {
+      "before": "( allow secure_element_30_0 exported_system_prop_30_0 ( file ( read getattr map open ) ) )",
+      "after": "( allow secure_element_30_0 vendor_samsung_port_prop_api_exported_system_safe ( file ( read getattr map open ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_prop_api_exported_system_safe ( and exported_system_prop_30_0 vendor_samsung_port_prop_api_no_charger ) )"
+    },
+    {
+      "before": "( allow sem exported_system_prop_30_0 ( property_service ( set ) ) )",
+      "after": "( allow sem vendor_samsung_port_prop_api_exported_system_safe ( property_service ( set ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_prop_api_exported_system_safe ( and exported_system_prop_30_0 vendor_samsung_port_prop_api_no_charger ) )"
+    },
+    {
+      "before": "( allow sem exported_system_prop_30_0 ( file ( read getattr map open ) ) )",
+      "after": "( allow sem vendor_samsung_port_prop_api_exported_system_safe ( file ( read getattr map open ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_prop_api_exported_system_safe ( and exported_system_prop_30_0 vendor_samsung_port_prop_api_no_charger ) )"
+    },
+    {
+      "before": "( allow ssud exported_system_prop_30_0 ( property_service ( set ) ) )",
+      "after": "( allow ssud vendor_samsung_port_prop_api_exported_system_safe ( property_service ( set ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_prop_api_exported_system_safe ( and exported_system_prop_30_0 vendor_samsung_port_prop_api_no_charger ) )"
+    },
+    {
+      "before": "( allow ssud exported_system_prop_30_0 ( file ( read getattr map open ) ) )",
+      "after": "( allow ssud vendor_samsung_port_prop_api_exported_system_safe ( file ( read getattr map open ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_prop_api_exported_system_safe ( and exported_system_prop_30_0 vendor_samsung_port_prop_api_no_charger ) )"
+    },
+    {
+      "before": "( allow system_server_30_0 exported_wifi_prop_30_0 ( property_service ( set ) ) )",
+      "after": "( allow system_server_30_0 vendor_samsung_port_prop_api_wifi_framework ( property_service ( set ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_prop_api_wifi_framework ( and exported_wifi_prop_30_0 exported_wifi_prop ) )"
+    },
+    {
+      "before": "( allow vaultkeeperd exported_system_prop_30_0 ( file ( read getattr map open ) ) )",
+      "after": "( allow vaultkeeperd vendor_samsung_port_prop_api_exported_system_safe ( file ( read getattr map open ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_prop_api_exported_system_safe ( and exported_system_prop_30_0 vendor_samsung_port_prop_api_no_charger ) )"
+    },
+    {
+      "before": "( allow vendor_init_30_0 exported_system_prop_30_0 ( property_service ( set ) ) )",
+      "after": "( allow vendor_init_30_0 vendor_samsung_port_prop_api_vendor_system_set ( property_service ( set ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_prop_api_vendor_system_set ( and exported_system_prop_30_0 vendor_samsung_port_prop_api_vendor_settable ) )"
+    },
+    {
+      "before": "( allow vendor_init_30_0 exported_system_prop_30_0 ( file ( read getattr map open ) ) )",
+      "after": "( allow vendor_init_30_0 vendor_samsung_port_prop_api_exported_system_safe ( file ( read getattr map open ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_prop_api_exported_system_safe ( and exported_system_prop_30_0 vendor_samsung_port_prop_api_no_charger ) )"
+    },
+    {
+      "before": "( allow vzsysprop exported_system_prop_30_0 ( property_service ( set ) ) )",
+      "after": "( allow vzsysprop vendor_samsung_port_prop_api_exported_system_safe ( property_service ( set ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_prop_api_exported_system_safe ( and exported_system_prop_30_0 vendor_samsung_port_prop_api_no_charger ) )"
+    },
+    {
+      "before": "( allow vzsysprop exported_system_prop_30_0 ( file ( read getattr map open ) ) )",
+      "after": "( allow vzsysprop vendor_samsung_port_prop_api_exported_system_safe ( file ( read getattr map open ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_prop_api_exported_system_safe ( and exported_system_prop_30_0 vendor_samsung_port_prop_api_no_charger ) )"
+    },
+    {
+      "before": "( allow wlandutservice exported_wifi_prop_30_0 ( property_service ( set ) ) )",
+      "after": "( allow wlandutservice vendor_samsung_port_prop_api_wifi_framework ( property_service ( set ) ) )",
+      "occurrences": 1,
+      "intersection_definition": "( typeattributeset vendor_samsung_port_prop_api_wifi_framework ( and exported_wifi_prop_30_0 exported_wifi_prop ) )"
+    }
+  ],
+  "baseline_diagnostic_blocks": 12,
+  "candidate_diagnostic_blocks": 0,
+  "resolved_diagnostic_records": {
+    "( neverallow base_typeattr_422 build_config_prop ( file ( ioctl read write create setattr lock relabelfrom append unlink link rename open watch watch_mount watch_sb watch_with_perm watch_reads ) ) )": 1,
+    "( neverallow base_typeattr_944 wifi_hal_prop ( property_service ( set ) ) )": 1,
+    "( neverallow base_typeattr_243 base_typeattr_928 ( file ( ioctl read write create setattr lock relabelfrom append unlink link rename open watch watch_mount watch_sb watch_with_perm watch_reads ) ) )": 1,
+    "( neverallow base_typeattr_241 base_typeattr_927 ( property_service ( set ) ) )": 1,
+    "( neverallow base_typeattr_241 base_typeattr_926 ( file ( ioctl read write create setattr lock relabelfrom append unlink link rename open watch watch_mount watch_sb watch_with_perm watch_reads ) ) )": 1,
+    "( neverallow base_typeattr_241 setupwizard_prop ( file ( ioctl read write create setattr lock relabelfrom append unlink link rename open watch watch_mount watch_sb watch_with_perm watch_reads ) ) )": 1,
+    "( neverallow crosvm_vu_fs base_typeattr_392 ( file ( ioctl read write create getattr setattr lock relabelfrom relabelto append map unlink link rename execute quotaon mounton audit_access open execmod watch watch_mount watch_sb watch_with_perm watch_reads execute_no_trans entrypoint ) ) )": 1,
+    "( neverallow crosvm_domain base_typeattr_389 ( file ( ioctl read write create getattr setattr lock relabelfrom relabelto append map unlink link rename execute quotaon mounton audit_access open execmod watch watch_mount watch_sb watch_with_perm watch_reads execute_no_trans entrypoint ) ) )": 1,
+    "( neverallow base_typeattr_363 charger_status_prop ( file ( ioctl read write create setattr lock relabelfrom append unlink link rename open watch watch_mount watch_sb watch_with_perm watch_reads ) ) )": 1,
+    "( neverallow base_typeattr_362 charger_status_prop ( property_service ( set ) ) )": 1,
+    "( neverallow base_typeattr_243 vendor_default_prop ( file ( ioctl read write create setattr lock relabelfrom append unlink link rename open watch watch_mount watch_sb watch_with_perm watch_reads ) ) )": 1,
+    "( neverallow base_typeattr_241 bootanim_system_prop ( property_service ( set ) ) )": 1
+  },
+  "new_diagnostic_records": {},
+  "effective_permission_or_attribute_equivalence_proved": false,
+  "input_sha256": {
+    "/srv/android/artifacts/lineage-24.0-arm64/sensitive-metadata-scopes-20261105-01/strict/report.json": "fa22917fa76332bdd714534053a830c8491a71a7cadfb37e63e4fe9e3adcbaee",
+    "/srv/android/artifacts/lineage-24.0-arm64/legacy-property-views-20261105-01/strict/report.json": "235724d1f1467f8ef5f8af1b3a3d281ce7225040da70947751f1c0c6661a20b6",
+    "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/compare-policy-assertions.py": "16661656fcb196bfdd7dff39fb1d2795ed18965bc82c580ca4a1823834960f49",
+    "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/policy-diagnostics.py": "03f508f363c0ab43ff8df1ae7098011824c119cb61aa50732f7a5c651a02f437"
+  }
+}

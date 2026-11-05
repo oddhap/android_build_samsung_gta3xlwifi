@@ -10,7 +10,7 @@ label=${1:?Usage: check-isolated-vendor-proposal.sh NEW_LABEL STAGER BASELINE_RE
 stager=${2:?Missing stager}
 baseline=${3:?Missing baseline}
 [[ $label =~ ^[a-zA-Z0-9_-]+$ ]] || exit 2
-case "$stager" in stage-sandbox-file-access.py|stage-asec-clients.py|stage-vendor-private-property-owners.py|stage-property-writer-tightening.py) ;; *) exit 2 ;; esac
+case "$stager" in stage-vendor-app-data-types.py|stage-sandbox-file-access.py|stage-asec-clients.py|stage-vendor-private-property-owners.py|stage-property-writer-tightening.py|stage-legacy-bpf-policy.py|stage-legacy-wireless-ioctl.py|stage-legacy-domain-access.py|stage-vendor-data-boundaries.py|stage-sensitive-metadata-scopes.py|stage-legacy-property-views.py) ;; *) exit 2 ;; esac
 [[ $baseline == "$artifacts/"*/strict/report.json && -f $baseline ]] || exit 2
 exec 9>"$logs/build.lock"
 flock -n 9 || exit 1
@@ -19,11 +19,15 @@ out="$artifacts/$label"
 mkdir "$out"
 trap 'rc=$?; printf "%s\n" "$rc" > "$logs/$label.exit"; exit "$rc"' EXIT
 mkdir "$out/tools"
-for tool in audit-port.py "$stager" replay-strict-vendor-cil.py stage-vendor-uwb-namespace.py stage-platform-policy-port.py check-isolated-vendor-proposal.sh; do
+for tool in audit-port.py "$stager" replay-strict-vendor-cil.py policy-diagnostics.py stage-vendor-uwb-namespace.py stage-platform-policy-port.py check-isolated-vendor-proposal.sh; do
   cp "$port/tools/$tool" "$out/tools/"
 done
 python3 "$port/tools/audit-port.py" "$top" "$port/snapshots/port-20261103-07" "$out/source-before.json"
 python3 "$port/tools/$stager" --baseline "$baseline" --output "$out/metadata"
-python3 "$port/tools/replay-strict-vendor-cil.py" --baseline "$baseline" --vendor-cil "$out/metadata/vendor_sepolicy.cil" --output "$out/strict"
+extra=()
+if [[ -f $out/metadata/plat_sepolicy.cil ]]; then
+  extra=(--platform-cil "$out/metadata/plat_sepolicy.cil")
+fi
+python3 "$port/tools/replay-strict-vendor-cil.py" --baseline "$baseline" --vendor-cil "$out/metadata/vendor_sepolicy.cil" --output "$out/strict" "${extra[@]}"
 python3 "$port/tools/audit-port.py" "$top" "$port/snapshots/port-20261103-07" "$out/source-after.json"
 echo 'Experiment complete. Strict compiler result remains authoritative; runner0 is not security approval.'

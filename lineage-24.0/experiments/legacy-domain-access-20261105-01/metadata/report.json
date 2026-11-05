@@ -1,0 +1,474 @@
+{
+  "scope": "Narrow invalid netd process-label writes and retire absent legacy components.\n\nInstalled-name inventories cover the immutable diagnostic system archive and\nextracted selected vendor. This is not a runtime service/provider validation.\nAll domain declarations, labels, assertions and normal proc read/FD access stay.\n",
+  "changes": [
+    {
+      "kind": "allow",
+      "before": "(allow hal_vehicle_default hal_can_bus_hwservice_30_0 (hwservice_manager (find)))",
+      "after": "",
+      "reason": "Android17 process-label/proc association or unavailable automotive client boundary"
+    },
+    {
+      "kind": "allow",
+      "before": "(allow netd_30_0 netd_30_0 (dir (write lock open add_name remove_name search)))",
+      "after": "(allow netd_30_0 netd_30_0 (dir (lock open search)))",
+      "reason": "Android17 process-label/proc association or unavailable automotive client boundary"
+    },
+    {
+      "kind": "allow",
+      "before": "(allow netd_30_0 netd_30_0 (file (ioctl read write create getattr setattr lock append map unlink rename open watch watch_reads)))",
+      "after": "(allow netd_30_0 netd_30_0 (file (ioctl read write getattr setattr lock append map unlink rename open watch watch_reads)))",
+      "reason": "Android17 process-label/proc association or unavailable automotive client boundary"
+    },
+    {
+      "kind": "allow",
+      "before": "(allow netd_30_0 vendor_samsung_port_nonbpf_proc (filesystem (associate)))",
+      "after": "",
+      "reason": "Android17 process-label/proc association or unavailable automotive client boundary"
+    },
+    {
+      "kind": "allow",
+      "before": "(allow iorap_inode2filename_30_0 flags_health_check_exec_30_0 (file (getattr)))",
+      "after": "",
+      "reason": "No legacy provider executable in current diagnostic system or selected vendor inventory"
+    },
+    {
+      "kind": "allow",
+      "before": "(allow iorap_inode2filename_30_0 cameraserver_exec_30_0 (file (getattr)))",
+      "after": "",
+      "reason": "No legacy provider executable in current diagnostic system or selected vendor inventory"
+    },
+    {
+      "kind": "allow",
+      "before": "(allow iorap_inode2filename_30_0 bootanim_exec_30_0 (file (getattr)))",
+      "after": "",
+      "reason": "No legacy provider executable in current diagnostic system or selected vendor inventory"
+    },
+    {
+      "kind": "allow",
+      "before": "(allow iorap_inode2filename_30_0 bootchecker_exec (file (getattr)))",
+      "after": "",
+      "reason": "No legacy provider executable in current diagnostic system or selected vendor inventory"
+    },
+    {
+      "kind": "allow",
+      "before": "(allow iorap_inode2filename_30_0 fsck_exec_30_0 (file (getattr)))",
+      "after": "",
+      "reason": "No legacy provider executable in current diagnostic system or selected vendor inventory"
+    },
+    {
+      "kind": "allow",
+      "before": "(allow iorap_inode2filename_30_0 shell_data_file_30_0 (dir (read)))",
+      "after": "",
+      "reason": "No legacy provider executable in current diagnostic system or selected vendor inventory"
+    },
+    {
+      "kind": "allow",
+      "before": "(allow iorap_inode2filename_30_0 profman_dump_data_file_30_0 (dir (read)))",
+      "after": "",
+      "reason": "No legacy provider executable in current diagnostic system or selected vendor inventory"
+    },
+    {
+      "kind": "allow",
+      "before": "(allow iorap_inode2filename_30_0 install_data_file_30_0 (dir (read)))",
+      "after": "",
+      "reason": "No legacy provider executable in current diagnostic system or selected vendor inventory"
+    },
+    {
+      "kind": "allow",
+      "before": "(allow iorap_inode2filename_30_0 pdp_data_file (dir (read getattr open search)))",
+      "after": "",
+      "reason": "No legacy provider executable in current diagnostic system or selected vendor inventory"
+    },
+    {
+      "kind": "allow",
+      "before": "(allow iorap_inode2filename_30_0 pdp_data_file (file (getattr)))",
+      "after": "",
+      "reason": "No legacy provider executable in current diagnostic system or selected vendor inventory"
+    },
+    {
+      "kind": "allow",
+      "before": "(allow iorap_inode2filename_30_0 dumplog_data_file (dir (read getattr open search)))",
+      "after": "",
+      "reason": "No legacy provider executable in current diagnostic system or selected vendor inventory"
+    },
+    {
+      "kind": "allow",
+      "before": "(allow iorap_inode2filename_30_0 dumplog_data_file (file (getattr)))",
+      "after": "",
+      "reason": "No legacy provider executable in current diagnostic system or selected vendor inventory"
+    },
+    {
+      "kind": "allow",
+      "before": "(allow iorap_inode2filename_30_0 apk_private_data_file_30_0 (dir (read getattr open search)))",
+      "after": "",
+      "reason": "No legacy provider executable in current diagnostic system or selected vendor inventory"
+    },
+    {
+      "kind": "allow",
+      "before": "(allow iorap_inode2filename_30_0 apk_private_data_file_30_0 (file (getattr)))",
+      "after": "",
+      "reason": "No legacy provider executable in current diagnostic system or selected vendor inventory"
+    },
+    {
+      "kind": "allow",
+      "before": "(allow iorap_inode2filename_30_0 nfc_data_file_30_0 (dir (read getattr open search)))",
+      "after": "",
+      "reason": "No legacy provider executable in current diagnostic system or selected vendor inventory"
+    },
+    {
+      "kind": "allow",
+      "before": "(allow iorap_inode2filename_30_0 nfc_data_file_30_0 (file (getattr)))",
+      "after": "",
+      "reason": "No legacy provider executable in current diagnostic system or selected vendor inventory"
+    },
+    {
+      "kind": "allow",
+      "before": "(allow iorap_inode2filename_30_0 asec_image_file_30_0 (dir (read getattr open search)))",
+      "after": "",
+      "reason": "No legacy provider executable in current diagnostic system or selected vendor inventory"
+    },
+    {
+      "kind": "allow",
+      "before": "(allow iorap_inode2filename_30_0 asec_image_file_30_0 (file (getattr)))",
+      "after": "",
+      "reason": "No legacy provider executable in current diagnostic system or selected vendor inventory"
+    },
+    {
+      "kind": "allow",
+      "before": "(allow iorap_inode2filename_30_0 dsms_exec (file (read getattr open)))",
+      "after": "",
+      "reason": "No legacy provider executable in current diagnostic system or selected vendor inventory"
+    },
+    {
+      "kind": "allow",
+      "before": "(allow iorap_inode2filename_30_0 cache_file_30_0 (dir (read open)))",
+      "after": "",
+      "reason": "No legacy provider executable in current diagnostic system or selected vendor inventory"
+    },
+    {
+      "kind": "allow",
+      "before": "(allow iorap_inode2filename_30_0 media_rw_data_file_30_0 (dir (read open)))",
+      "after": "",
+      "reason": "No legacy provider executable in current diagnostic system or selected vendor inventory"
+    },
+    {
+      "kind": "allow",
+      "before": "(allow iorap_prefetcherd_30_0 dalvikcache_data_file_30_0 (file (getattr)))",
+      "after": "",
+      "reason": "No legacy provider executable in current diagnostic system or selected vendor inventory"
+    },
+    {
+      "kind": "allow",
+      "before": "(allow iorap_prefetcherd_30_0 apk_data_file_30_0 (file (getattr)))",
+      "after": "",
+      "reason": "No legacy provider executable in current diagnostic system or selected vendor inventory"
+    },
+    {
+      "kind": "allow",
+      "before": "(allow iorap_prefetcherd_30_0 user_profile_data_file_30_0 (file (getattr)))",
+      "after": "",
+      "reason": "No legacy provider executable in current diagnostic system or selected vendor inventory"
+    },
+    {
+      "kind": "allow",
+      "before": "(allow iorap_prefetcherd_30_0 system_data_file_30_0 (file (getattr)))",
+      "after": "",
+      "reason": "No legacy provider executable in current diagnostic system or selected vendor inventory"
+    },
+    {
+      "kind": "allow",
+      "before": "(allow iorap_prefetcherd_30_0 app_data_file_30_0 (file (getattr)))",
+      "after": "",
+      "reason": "No legacy provider executable in current diagnostic system or selected vendor inventory"
+    },
+    {
+      "kind": "allow",
+      "before": "(allow iorap_prefetcherd_30_0 privapp_data_file_30_0 (file (getattr)))",
+      "after": "",
+      "reason": "No legacy provider executable in current diagnostic system or selected vendor inventory"
+    },
+    {
+      "kind": "allow",
+      "before": "(allow iorap_prefetcherd_30_0 system_app_data_file_30_0 (dir (search)))",
+      "after": "",
+      "reason": "No legacy provider executable in current diagnostic system or selected vendor inventory"
+    },
+    {
+      "kind": "allow",
+      "before": "(allow iorap_prefetcherd_30_0 system_app_data_file_30_0 (file (read)))",
+      "after": "",
+      "reason": "No legacy provider executable in current diagnostic system or selected vendor inventory"
+    },
+    {
+      "kind": "allow",
+      "before": "(allow iorap_prefetcherd_30_0 same_process_hal_file_30_0 (file (getattr)))",
+      "after": "",
+      "reason": "No legacy provider executable in current diagnostic system or selected vendor inventory"
+    },
+    {
+      "kind": "allow",
+      "before": "(allow irisd irisd_exec (file (read getattr map execute open entrypoint)))",
+      "after": "",
+      "reason": "No legacy provider executable in current diagnostic system or selected vendor inventory"
+    },
+    {
+      "kind": "allow",
+      "before": "(allow irisd system_server_30_0 (binder (call transfer)))",
+      "after": "",
+      "reason": "No legacy provider executable in current diagnostic system or selected vendor inventory"
+    },
+    {
+      "kind": "allow",
+      "before": "(allow irisd system_server_30_0 (fd (use)))",
+      "after": "",
+      "reason": "No legacy provider executable in current diagnostic system or selected vendor inventory"
+    },
+    {
+      "kind": "allow",
+      "before": "(allow irisd system_app_30_0 (binder (call transfer)))",
+      "after": "",
+      "reason": "No legacy provider executable in current diagnostic system or selected vendor inventory"
+    },
+    {
+      "kind": "allow",
+      "before": "(allow irisd system_app_30_0 (fd (use)))",
+      "after": "",
+      "reason": "No legacy provider executable in current diagnostic system or selected vendor inventory"
+    },
+    {
+      "kind": "allow",
+      "before": "(allow irisd cameraserver_30_0 (fd (use)))",
+      "after": "",
+      "reason": "No legacy provider executable in current diagnostic system or selected vendor inventory"
+    },
+    {
+      "kind": "allow",
+      "before": "(allow irisd mediaserver_30_0 (fd (use)))",
+      "after": "",
+      "reason": "No legacy provider executable in current diagnostic system or selected vendor inventory"
+    },
+    {
+      "kind": "allow",
+      "before": "(allow irisd surfaceflinger_30_0 (fd (use)))",
+      "after": "",
+      "reason": "No legacy provider executable in current diagnostic system or selected vendor inventory"
+    },
+    {
+      "kind": "allow",
+      "before": "(allow irisd system_server_30_0 (unix_stream_socket (read write)))",
+      "after": "",
+      "reason": "No legacy provider executable in current diagnostic system or selected vendor inventory"
+    },
+    {
+      "kind": "allow",
+      "before": "(allow irisd users_system_data_file (dir (ioctl read write create getattr setattr lock rename open watch watch_reads add_name remove_name reparent search rmdir)))",
+      "after": "",
+      "reason": "No legacy provider executable in current diagnostic system or selected vendor inventory"
+    },
+    {
+      "kind": "allow",
+      "before": "(allow irisd users_system_data_file (file (ioctl read write create getattr setattr lock append map unlink rename open watch watch_reads)))",
+      "after": "",
+      "reason": "No legacy provider executable in current diagnostic system or selected vendor inventory"
+    },
+    {
+      "kind": "allow",
+      "before": "(allow irisd activity_service_30_0 (service_manager (find)))",
+      "after": "",
+      "reason": "No legacy provider executable in current diagnostic system or selected vendor inventory"
+    },
+    {
+      "kind": "allow",
+      "before": "(allow irisd system_server_service (service_manager (find)))",
+      "after": "",
+      "reason": "No legacy provider executable in current diagnostic system or selected vendor inventory"
+    },
+    {
+      "kind": "allow",
+      "before": "(allow irisd servicemanager_30_0 (binder (call transfer)))",
+      "after": "",
+      "reason": "No legacy provider executable in current diagnostic system or selected vendor inventory"
+    },
+    {
+      "kind": "allow",
+      "before": "(allow irisd irisd_service (service_manager (add find)))",
+      "after": "",
+      "reason": "No legacy provider executable in current diagnostic system or selected vendor inventory"
+    },
+    {
+      "kind": "allow",
+      "before": "(allow irisd permission_service_30_0 (service_manager (find)))",
+      "after": "",
+      "reason": "No legacy provider executable in current diagnostic system or selected vendor inventory"
+    },
+    {
+      "kind": "allow",
+      "before": "(allow irisd system_data_file_30_0 (dir (search)))",
+      "after": "",
+      "reason": "No legacy provider executable in current diagnostic system or selected vendor inventory"
+    },
+    {
+      "kind": "allow",
+      "before": "(allow irisd iris_data_file (dir (ioctl read write create getattr setattr lock rename open watch watch_reads add_name remove_name reparent search rmdir)))",
+      "after": "",
+      "reason": "No legacy provider executable in current diagnostic system or selected vendor inventory"
+    },
+    {
+      "kind": "allow",
+      "before": "(allow irisd iris_data_file (file (ioctl read write create getattr setattr lock append map unlink rename open watch watch_reads)))",
+      "after": "",
+      "reason": "No legacy provider executable in current diagnostic system or selected vendor inventory"
+    },
+    {
+      "kind": "allow",
+      "before": "(allow irisd keystore_service_30_0 (service_manager (find)))",
+      "after": "",
+      "reason": "No legacy provider executable in current diagnostic system or selected vendor inventory"
+    },
+    {
+      "kind": "allow",
+      "before": "(allow irisd keystore_30_0 (binder (call transfer)))",
+      "after": "",
+      "reason": "No legacy provider executable in current diagnostic system or selected vendor inventory"
+    },
+    {
+      "kind": "allow",
+      "before": "(allow irisd keystore_30_0 (fd (use)))",
+      "after": "",
+      "reason": "No legacy provider executable in current diagnostic system or selected vendor inventory"
+    },
+    {
+      "kind": "allow",
+      "before": "(allow irisd keystore_30_0 (binder (transfer)))",
+      "after": "",
+      "reason": "No legacy provider executable in current diagnostic system or selected vendor inventory"
+    },
+    {
+      "kind": "allow",
+      "before": "(allow irisd keystore_30_0 (keystore_key (add_auth)))",
+      "after": "",
+      "reason": "No legacy provider executable in current diagnostic system or selected vendor inventory"
+    },
+    {
+      "kind": "allow",
+      "before": "(allow irisd devpts_30_0 (chr_file (read write)))",
+      "after": "",
+      "reason": "No legacy provider executable in current diagnostic system or selected vendor inventory"
+    },
+    {
+      "kind": "allow",
+      "before": "(allow irisd ion_device_30_0 (chr_file (ioctl read getattr open)))",
+      "after": "",
+      "reason": "No legacy provider executable in current diagnostic system or selected vendor inventory"
+    },
+    {
+      "kind": "allow",
+      "before": "(allow irisd hwservicemanager_30_0 (binder (call transfer)))",
+      "after": "",
+      "reason": "No legacy provider executable in current diagnostic system or selected vendor inventory"
+    },
+    {
+      "kind": "allow",
+      "before": "(allow irisd hwservicemanager_prop_30_0 (file (read getattr map open)))",
+      "after": "",
+      "reason": "No legacy provider executable in current diagnostic system or selected vendor inventory"
+    },
+    {
+      "kind": "allow",
+      "before": "(allow irisd hal_graphics_mapper_hwservice_30_0 (hwservice_manager (find)))",
+      "after": "",
+      "reason": "No legacy provider executable in current diagnostic system or selected vendor inventory"
+    },
+    {
+      "kind": "allow",
+      "before": "(allow irisd surfaceflinger_30_0 (binder (call transfer)))",
+      "after": "",
+      "reason": "No legacy provider executable in current diagnostic system or selected vendor inventory"
+    },
+    {
+      "kind": "allow",
+      "before": "(allow irisd surfaceflinger_30_0 (fd (use)))",
+      "after": "",
+      "reason": "No legacy provider executable in current diagnostic system or selected vendor inventory"
+    },
+    {
+      "kind": "allow",
+      "before": "(allow irisd hal_graphics_composer_default (fd (use)))",
+      "after": "",
+      "reason": "No legacy provider executable in current diagnostic system or selected vendor inventory"
+    },
+    {
+      "kind": "allow",
+      "before": "(allow irisd hal_camera_default (fd (use)))",
+      "after": "",
+      "reason": "No legacy provider executable in current diagnostic system or selected vendor inventory"
+    },
+    {
+      "kind": "allow",
+      "before": "(allow irisd mobicore_user_device (chr_file (ioctl read write getattr lock append map open watch watch_reads)))",
+      "after": "",
+      "reason": "No legacy provider executable in current diagnostic system or selected vendor inventory"
+    },
+    {
+      "kind": "allow",
+      "before": "(allow irisd sec_debugfs (dir (ioctl read getattr lock open watch watch_reads search)))",
+      "after": "",
+      "reason": "No legacy provider executable in current diagnostic system or selected vendor inventory"
+    },
+    {
+      "kind": "allow",
+      "before": "(allow irisd sec_debugfs (file (ioctl read getattr lock map open watch watch_reads)))",
+      "after": "",
+      "reason": "No legacy provider executable in current diagnostic system or selected vendor inventory"
+    },
+    {
+      "kind": "allow",
+      "before": "(allow irisd vendor_secmem_device (chr_file (ioctl read getattr lock map open watch watch_reads)))",
+      "after": "",
+      "reason": "No legacy provider executable in current diagnostic system or selected vendor inventory"
+    }
+  ],
+  "retired_program_names": [
+    "iorap_inode2filename",
+    "iorap_prefetcherd",
+    "iorapd",
+    "irisd"
+  ],
+  "system_archive_inventory_sha256": "8da81437e04b93d65bd6ef6e24dee2557614e38deb8181e583c6eacb544e9d24",
+  "system_archive_path": "/srv/android/artifacts/lineage-24.0-arm64/diagnostic-full-targetfiles-preserve-20261103-02/lineage_gta3xlwifi-target_files.zip",
+  "archive_hash_reference_from_prior_full_check": "5d6d30884abdf5c9cd2ea1680961005f681598a508bcb0937d6ebb27bebc3b45",
+  "whole_archive_rehashed_by_this_tool": false,
+  "vendor_file_inventory_sha256": "7f9f9939e06af988953f90077e7c6a6a4dc7ec46c91a1b9f1023cdcfbc9e2087",
+  "manifest_sha256": {
+    "/srv/android/artifacts/lineage-24.0-arm64/vendor-check-20261101-01/vendor/etc/vintf/manifest.xml": "8c5ceef0b5b03b7a3d6a9b0bad0ff1f2b3880cf58a925253ec77d84e21765ff2",
+    "/srv/android/artifacts/lineage-24.0-arm64/vendor-check-20261101-01/vendor/etc/vintf/compatibility_matrix.xml": "4a22ea99cc597fcdb4fa55df1bb9390195c2cb642dde14129fe0b09faf5cf374",
+    "/srv/android/artifacts/lineage-24.0-arm64/vendor-check-20261101-01/vendor/etc/vintf/manifest/vendor.samsung.hardware.tlc.atn@1.0-manifest.xml": "30aa3eaf547c78707509cedc6fbe487dafc8d39435868db91356e6e8e5f290ea",
+    "/srv/android/artifacts/lineage-24.0-arm64/vendor-check-20261101-01/vendor/etc/vintf/manifest/power-samsung.xml": "faef8be2fdef7c56908853ee8256e5052d8e2f617351f0c306a5bfc365ab5892",
+    "/srv/android/artifacts/lineage-24.0-arm64/vendor-check-20261101-01/vendor/etc/vintf/manifest/vaultkeeper_manifest.xml": "a1afd66714d0dc4c5083a2a4f33d2ae7f1dde9d56adbd4c4c8b563143f709a52",
+    "/srv/android/artifacts/lineage-24.0-arm64/vendor-check-20261101-01/vendor/etc/vintf/manifest/manifest.xml": "e39163b460c1cc9eb4a245cf1083d62ecc777d8ae58daaff51ddaaea5c211a7e",
+    "/srv/android/artifacts/lineage-24.0-arm64/vendor-check-20261101-01/vendor/etc/vintf/manifest/vendor.samsung.hardware.hqm@1.0-manifest.xml": "963dd41e15b0c5b3ec8cac45abe2a9c845dff83eda529a2b77e8594c1d3008c2",
+    "/srv/android/artifacts/lineage-24.0-arm64/vendor-check-20261101-01/vendor/etc/vintf/manifest/android.hardware.dumpstate@1.1-service-lazy.xml": "388b9e7b24adf678fccf59dacc79b948093688bc34c40124c2563c2c3809747d",
+    "/srv/android/artifacts/lineage-24.0-arm64/vendor-check-20261101-01/vendor/etc/vintf/manifest/vendor.samsung.hardware.thermal@1.0-manifest.xml": "3f5b1c78f8a06eb25ae5b4e873a010802ec8bd6546091095c5fdee22b45e1566",
+    "/srv/android/artifacts/lineage-24.0-arm64/vendor-check-20261101-01/vendor/etc/vintf/manifest/manifest_android.hardware.drm@1.3-service.clearkey.xml": "4b9a9214df27df7f546dcd7b27efac3803f8d172548671c8d94903ef1d804aef",
+    "/srv/android/artifacts/lineage-24.0-arm64/vendor-check-20261101-01/vendor/etc/vintf/manifest/sec_c2_manifest_default.xml": "81fc4e0018250141678c6f9c4ffd159c16cd80873f2bf066bc734bc1515a3b1b",
+    "/srv/android/artifacts/lineage-24.0-arm64/vendor-check-20261101-01/vendor/etc/vintf/manifest/vendor.samsung.hardware.tlc.tima@1.0-manifest.xml": "1266ba34c026d2edc88e62d454eea3ca9f44cde796164174ddebbbd16b1da570",
+    "/srv/android/artifacts/lineage-24.0-arm64/vendor-check-20261101-01/vendor/etc/vintf/manifest/android.hardware.wifi@1.0-service.xml": "5b785b5e6f63baab071ca757ec3e5bf0ee7a877186c17e2b36ce5bc63112756e",
+    "/srv/android/artifacts/lineage-24.0-arm64/vendor-check-20261101-01/vendor/etc/vintf/manifest/android.hardware.health@2.1-samsung.xml": "2ad8126c3afd2d52ac9d7e022e3d7716d17e03178bc11d1f7ad7a0aa585b5c28",
+    "/srv/android/artifacts/lineage-24.0-arm64/vendor-check-20261101-01/vendor/etc/vintf/manifest/android.hardware.wifi.hostapd.xml": "d42266c7638aacf0918164dff0ed50df0a8d50d3085a6d03dc2127718fc86f17",
+    "/srv/android/artifacts/lineage-24.0-arm64/vendor-check-20261101-01/vendor/etc/vintf/manifest/vendor.samsung.hardware.wifi@2.0-service.xml": "7eeb437e701556615cc228784f3c2e101983ed9abacf0a19255418f659643c63",
+    "/srv/android/artifacts/lineage-24.0-arm64/vendor-check-20261101-01/vendor/etc/vintf/manifest/lights-default-sec.xml": "570ac710477a2e70c8c983e4eea18ddd398907af0502ac95557f4293e9f85cc9",
+    "/srv/android/artifacts/lineage-24.0-arm64/vendor-check-20261101-01/vendor/etc/vintf/manifest/manifest_android.hardware.drm@1.3-service.widevine.xml": "61cee1f6a061cf5348ca82f5326bd09cedda6bf2eea016c9ad3374f2cd03df7a",
+    "/srv/android/artifacts/lineage-24.0-arm64/vendor-check-20261101-01/vendor/etc/vintf/manifest/engmode_manifest.xml": "29fd4d47a7e04224b708d95eb046118001e407aaa700978add8eb460d897b3e5",
+    "/srv/android/artifacts/lineage-24.0-arm64/vendor-check-20261101-01/vendor/etc/vintf/manifest/vendor.samsung.hardware.tlc.iccc@1.0-manifest.xml": "36ff251646f672e18f55d740f669c88394f466c1c457ea4052047112f361c0cb",
+    "/srv/android/artifacts/lineage-24.0-arm64/vendor-check-20261101-01/vendor/etc/vintf/manifest/hyper-default-sec.xml": "bc7ab5cdae05b9a81b1d6e5466ec216e388cefe86822e4deec83e2d0de53ccb3",
+    "/srv/android/artifacts/lineage-24.0-arm64/vendor-check-20261101-01/vendor/etc/vintf/manifest/vendor.samsung.hardware.wifi.hostapd.xml": "39a43b18dc72af926510af3ef013d57ea7dbad4557a0476a6c06250cba274c72",
+    "/srv/android/artifacts/lineage-24.0-arm64/vendor-check-20261101-01/vendor/etc/vintf/manifest/android.hardware.cas@1.2-service.xml": "9357fb5a7b17fe81638ec82f79d06007bb35c19016e676104fa55449b5f0f0d2"
+  },
+  "runner_sha256": "1c3e7299a2cd5db4418ac433a65ec2992bbd793e27b75fa9b18f337d706900bd",
+  "source_sha256": "4ef64e673d523a7993bdcf8b4078a324357b473908657ae1f5d96a56f5178ac1",
+  "staged_vendor_sha256": "da51d1b2c84bef9fb5f6ccc0aee568f65cd594237d8083271ac820be721bae43",
+  "allow_permissions_added": false,
+  "runtime_provider_or_feature_coverage_proved": false,
+  "security_approved": false,
+  "flash_ready": false
+}

@@ -1,0 +1,1 @@
+check-key-context: /srv/android/artifacts/lineage-24.0-arm64/strict-policy-contexts-20261105-01/production/check-key-context.c:12: int main(int, char **): Assertion `a && a->flavor==TYPE_ATTRIB' failed.
