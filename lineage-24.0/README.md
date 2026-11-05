@@ -389,3 +389,38 @@ passes the ramdisk check. All original header/padding bytes except kernel size
 and digest match. This image remains outside Android prebuilts and target-files,
 explicitly marked NOT_FLASHABLE. Packaging is not boot, FBE/TEE, ABI, network,
 strict-policy or installation approval. No installable test ROM exists yet.
+
+
+## November 5: clarified platform-policy migration and strict results
+
+The owner clarified that Android17 platform and Samsung vendor assertions remain
+required, while the obsolete Android11 platform component is ported. This decision
+is also recorded in the workspace AGENTS.md and handoff. It does not authorize
+an assertion-disabling compiler flag or a policy-security approval based on counts.
+
+A [current public-contract audit](experiments/public-policy-contract-20261105-01/)
+blocks blind replacement: 92 required legacy symbols are missing, and six shared
+compiler-generated attribute names have different expression definitions. The
+[isolated platform port](experiments/platform-policy-port-20261105-03/) therefore
+retains legacy symbol identities, explicitly replaces obsolete platform behavior
+with unchanged Android17 CIL, and ports old platform classifications out of shared
+attribute assignments. The old Android11 public assertions are explicitly retired
+with their platform component; this is not an all-historical-assertions-retained
+claim. All 131 Samsung vendor neverallow and two neverallowx statements, plus
+all current Android17 platform assertions, remain textually unchanged and checked.
+
+Strict results: **319 -> 79 -> 77 -> 72 diagnostic blocks**, still secilc255 /
+checker1. Runner0 means the experiment completed. Full before/after source audits
+match: 1,243 projects / 15 exact patches. All other compiler inputs and the compiler
+hash stay identical. The final verbose strict run records all **638 matching grant
+records** for the 72 conflicts; its success is diagnostic collection, not policy
+approval. Current-platform grants also appear in some conflicts, which require
+semantic classification/compatibility work rather than just deleting vendor allows.
+
+The historical report field `permissions_added: false` in the first stagers means
+no allow statement was added. Attribute changes can affect complements; it is not
+an effective-permission monotonicity proof. The current tool uses the precise
+field `allow_statements_added`; archived tool sources/reports remain unchanged.
+No candidate metadata enters active sources, snapshots, cache hashes or the MTP
+vendor image. Networking/BPF, module ABI, FBE/installer/rollback and hardware gates
+remain. No installable ROM, security approval or device operation is produced.

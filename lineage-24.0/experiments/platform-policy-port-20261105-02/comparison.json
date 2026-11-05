@@ -1,0 +1,59 @@
+{
+  "owner_decision_2026_11_05": "Retain Android17 and Samsung vendor assertions; port the old platform component.",
+  "changed_ordered_policy_inputs": [
+    "plat_pub_versioned.cil"
+  ],
+  "all_other_inputs_and_compiler_byte_identical": true,
+  "full_source_before_after_audits_match": true,
+  "projects": 1243,
+  "exact_patches": 15,
+  "baseline_diagnostic_origins": {
+    "plat_pub_versioned.cil": 91,
+    "system_ext_sepolicy.cil": 4,
+    "current_platform": 224
+  },
+  "candidate_diagnostic_origins": {
+    "current_platform": 77
+  },
+  "strict_result": {
+    "mode": "strict",
+    "exit_code": 255,
+    "neverallow_checks_enabled": true,
+    "command": [
+      "/srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/host/linux-x86/bin/secilc",
+      "-m",
+      "-M",
+      "true",
+      "-G",
+      "-c",
+      "30",
+      "-o",
+      "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/strict/strict.policy",
+      "-f",
+      "/dev/null",
+      "/srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/etc/selinux/plat_sepolicy.cil",
+      "/srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/etc/selinux/mapping/30.0.cil",
+      "/srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/etc/selinux/mapping/30.0.compat.cil",
+      "/srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/system_ext/etc/selinux/system_ext_sepolicy.cil",
+      "/srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/system_ext/etc/selinux/mapping/30.0.cil",
+      "/srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/system_ext/etc/selinux/mapping/30.0.compat.cil",
+      "/srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/product/etc/selinux/product_sepolicy.cil",
+      "/srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/product/etc/selinux/mapping/30.0.cil",
+      "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/plat_pub_versioned.cil",
+      "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil"
+    ]
+  },
+  "strict_passed": false,
+  "effective_permissions_compared": false,
+  "runtime_validated": false,
+  "security_approved": false,
+  "flash_ready": false,
+  "evidence_sha256": {
+    "/srv/android/artifacts/lineage-24.0-arm64/vendor-policy-tightening-20261105-01/strict/report.json": "d73b41e5f719321255b8f2f9ca36bb6de0a060e06a3792cdaa2837227d2c41a8",
+    "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/strict/report.json": "80c8f3609956f8ce0f4e5698c9b2ffdf12c8eae12bce54eab23000eaa9243f36",
+    "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/report.json": "a7285907b3a60f238aa23bdeaaae106537a6e0361b76d99f78240463a9f4a797",
+    "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/source-before.json": "44a7c6552e4c3a8bc287488a4df8170c0604b1a319ab485d4688d1d22401be5f",
+    "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/source-after.json": "07190f132005ca06422d7bdd2dd99a6fead77c7cebe0f0c29ce1f1fd777f4832",
+    "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/compare-platform-policy-port.py": "059a5625a49ba0b0d88e36760989ef6f2775063d14c6d706c040c3cba5617096"
+  }
+}

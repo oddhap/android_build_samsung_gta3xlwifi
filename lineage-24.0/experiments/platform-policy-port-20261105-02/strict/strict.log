@@ -1,0 +1,690 @@
+neverallow check failed at /srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/etc/selinux/plat_sepolicy.cil:81275 from system/sepolicy/private/vold.te:416
+  (neverallow base_typeattr_1152 media_userdir_file (dir (write add_name remove_name)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:4620
+      (allow audioserver_30_0 media_rw_data_file_30_0 (dir (ioctl read write create getattr setattr lock rename open watch watch_reads add_name remove_name reparent search rmdir)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:4770
+      (allow cameraserver_30_0 media_rw_data_file_30_0 (dir (ioctl read write create getattr setattr lock rename open watch watch_reads add_name remove_name reparent search rmdir)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:4779
+      (allow cameraserver_30_0 media_rw_data_file_30_0 (dir (ioctl read write create getattr setattr lock rename open watch watch_reads add_name remove_name reparent search rmdir)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:5818
+      (allow netd_30_0 media_rw_data_file_30_0 (dir (ioctl read write create getattr setattr lock rename open watch watch_reads add_name remove_name reparent search rmdir)))
+    Only first 4 of 23 matching rules shown (use "-v" to show all)
+
+neverallow check failed at /srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/etc/selinux/plat_sepolicy.cil:81274 from system/sepolicy/private/vold.te:416
+  (neverallow base_typeattr_1152 vendor_userdir_file (dir (write add_name remove_name)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:5208
+      (allow hal_fingerprint_default vendor_data_file_30_0 (dir (ioctl read write getattr lock open watch watch_reads add_name remove_name search)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:5218
+      (allow hal_fingerprint_default vendor_data_file_30_0 (dir (ioctl read write create getattr setattr lock rename open watch watch_reads add_name remove_name reparent search rmdir)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:9207
+      (allow hal_base_default vendor_data_file_30_0 (dir (ioctl read write getattr lock open watch watch_reads add_name remove_name search)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:9974
+      (allow hal_secure_storage_daemon vendor_data_file_30_0 (dir (ioctl read write getattr lock open watch watch_reads add_name remove_name search)))
+    Only first 4 of 11 matching rules shown (use "-v" to show all)
+
+neverallow check failed at /srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/etc/selinux/plat_sepolicy.cil:81273 from system/sepolicy/private/vold.te:416
+  (neverallow base_typeattr_1152 system_userdir_file (dir (write add_name remove_name)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:5643
+      (allow installd_30_0 system_data_file_30_0 (dir (ioctl read write getattr lock relabelfrom open watch watch_reads add_name remove_name search rmdir)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:7804
+      (allow at_distributor system_data_file_30_0 (dir (ioctl read write getattr lock open watch watch_reads add_name remove_name search)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:8140
+      (allow connfwexe system_data_file_30_0 (dir (ioctl read write getattr lock open watch watch_reads add_name remove_name search)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:8179
+      (allow connfwexe system_data_file_30_0 (dir (ioctl read write getattr lock open watch watch_reads add_name remove_name search)))
+    Only first 4 of 21 matching rules shown (use "-v" to show all)
+
+neverallow check failed at /srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/etc/selinux/plat_sepolicy.cil:73032 from system/sepolicy/private/traced.te:137
+  (neverallow base_typeattr_1073 tracingproxy_service (service_manager (find)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:10934
+      (allow irisd system_server_service (service_manager (find)))
+
+neverallow check failed at /srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/etc/selinux/plat_sepolicy.cil:62313 from system/sepolicy/private/shell.te:675
+  (neverallow base_typeattr_1025 shell_data_file (file (execute execute_no_trans)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:11826
+      (allow platform_app_30_0 shell_data_file_30_0 (file (execute execute_no_trans)))
+
+neverallow check failed at /srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/etc/selinux/plat_sepolicy.cil:57824 from system/sepolicy/private/property.te:789
+  (neverallow base_typeattr_422 build_config_prop (file (ioctl read write create setattr lock relabelfrom append unlink link rename open watch watch_mount watch_sb watch_with_perm watch_reads)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:4803
+      (allow cameraserver_30_0 default_prop_30_0 (file (read getattr map open)))
+
+neverallow check failed at /srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/etc/selinux/plat_sepolicy.cil:57819 from system/sepolicy/private/property.te:780
+  (neverallow base_typeattr_247 setupwizard_prop (property_service (set)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:7413
+      (allow zygote_30_0 setupwizard_prop (property_service (set)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:12483
+      (allow scs setupwizard_prop (property_service (set)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:14769
+      (allow vendor_init_30_0 setupwizard_prop (property_service (set)))
+
+neverallow check failed at /srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/etc/selinux/plat_sepolicy.cil:57592 from system/sepolicy/private/property.te:299
+  (neverallow base_typeattr_944 wifi_hal_prop (property_service (set)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:6726
+      (allow system_app_30_0 exported_wifi_prop_30_0 (property_service (set)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:14180
+      (allow system_server_30_0 exported_wifi_prop_30_0 (property_service (set)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:15250
+      (allow wlandutservice exported_wifi_prop_30_0 (property_service (set)))
+
+neverallow check failed at /srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/etc/selinux/plat_sepolicy.cil:57494 from system/sepolicy/private/property.te:172
+  (neverallow base_typeattr_243 base_typeattr_928 (file (ioctl read write create setattr lock relabelfrom append unlink link rename open watch watch_mount watch_sb watch_with_perm watch_reads)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:4804
+      (allow cameraserver_30_0 vendor_default_prop_30_0 (file (read getattr map open)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:6311
+      (allow shell_30_0 vendor_default_prop_30_0 (file (read getattr map open)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:7195
+      (allow vzwfiltered_untrusted_app vendor_default_prop_30_0 (file (read getattr map open)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:16096
+      (allow appdomain vendor_default_prop_30_0 (file (read getattr map open)))
+
+neverallow check failed at /srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/etc/selinux/plat_sepolicy.cil:57489 from system/sepolicy/private/property.te:172
+  (neverallow base_typeattr_241 base_typeattr_927 (property_service (set)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:14769
+      (allow vendor_init_30_0 setupwizard_prop (property_service (set)))
+
+neverallow check failed at /srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/etc/selinux/plat_sepolicy.cil:57484 from system/sepolicy/private/property.te:172
+  (neverallow base_typeattr_241 base_typeattr_926 (file (ioctl read write create setattr lock relabelfrom append unlink link rename open watch watch_mount watch_sb watch_with_perm watch_reads)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:8407
+      (allow domain setupwizard_prop (file (read getattr map open)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:9068
+      (allow gpsd setupwizard_prop (file (read getattr map open)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:14770
+      (allow vendor_init_30_0 setupwizard_prop (file (read getattr map open)))
+
+neverallow check failed at /srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/etc/selinux/plat_sepolicy.cil:57479 from system/sepolicy/private/property.te:172
+  (neverallow domain base_typeattr_925 (file (ioctl read write create setattr lock relabelfrom append unlink link rename open watch watch_mount watch_sb watch_with_perm watch_reads)))
+    <root>
+    allow at /srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/etc/selinux/plat_sepolicy.cil:29227 from system/sepolicy/private/dumpstate.te:515
+      (allow dumpstate property_type (file (read getattr map open)))
+    <root>
+    allow at /srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/etc/selinux/plat_sepolicy.cil:43285 from system/sepolicy/private/init.te:137
+      (allow init property_type (file (read write create getattr setattr relabelto append map unlink rename open)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:4574
+      (allow appdomain apm_prop (file (read getattr map open)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:4619
+      (allow audioserver_30_0 apm_prop (file (read getattr map open)))
+    Only first 4 of 392 matching rules shown (use "-v" to show all)
+
+neverallow check failed at /srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/etc/selinux/plat_sepolicy.cil:56959 from system/sepolicy/private/property.te:64
+  (neverallow base_typeattr_241 setupwizard_prop (file (ioctl read write create setattr lock relabelfrom append unlink link rename open watch watch_mount watch_sb watch_with_perm watch_reads)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:8407
+      (allow domain setupwizard_prop (file (read getattr map open)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:9068
+      (allow gpsd setupwizard_prop (file (read getattr map open)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:14770
+      (allow vendor_init_30_0 setupwizard_prop (file (read getattr map open)))
+
+neverallowx check failed at /srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/etc/selinux/plat_sepolicy.cil:56433 from system/sepolicy/private/priv_app_all.te:288
+  (neverallowx priv_app_all domain (ioctl udp_socket (0x8b00 0x8b02 0x8b04 0x8b06 0x8b08 0x8b0a 0x8b0c 0x8b0e 0x8b10 (range 0x8b14 0x8b1d) 0x8b20 0x8b22 0x8b24 0x8b26 0x8b28 (range 0x8b2a 0x8b2c) (range 0x8b30 0x8b36) (range 0x8be0 0x8bff))))
+    <root>
+    allowx at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:6000
+      (allowx priv_app_30_0 self (ioctl udp_socket (0x8b1b)))
+
+neverallow check failed at /srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/etc/selinux/plat_sepolicy.cil:52620 from system/sepolicy/private/network_stack.te:131
+  (neverallow base_typeattr_347 fs_bpf_tethering (file (ioctl read write create getattr setattr lock relabelfrom relabelto append map unlink link rename execute quotaon mounton audit_access open execmod watch watch_mount watch_sb watch_with_perm watch_reads execute_no_trans entrypoint)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:4909
+      (allow dumpstate_30_0 base_typeattr_545_30_0 (file (getattr)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:5595
+      (allow init_30_0 base_typeattr_551_30_0 (file (setattr)))
+
+neverallow check failed at /srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/etc/selinux/plat_sepolicy.cil:52605 from system/sepolicy/private/network_stack.te:126
+  (neverallow base_typeattr_350 fs_bpf_netd_shared (file (ioctl read write create getattr setattr lock relabelfrom relabelto append map unlink link rename execute quotaon mounton audit_access open execmod watch watch_mount watch_sb watch_with_perm watch_reads execute_no_trans entrypoint)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:4909
+      (allow dumpstate_30_0 base_typeattr_545_30_0 (file (getattr)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:5595
+      (allow init_30_0 base_typeattr_551_30_0 (file (setattr)))
+
+neverallow check failed at /srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/etc/selinux/plat_sepolicy.cil:52590 from system/sepolicy/private/network_stack.te:120
+  (neverallow base_typeattr_349 fs_bpf_netd_readonly (file (ioctl read write create getattr setattr lock relabelfrom relabelto append map unlink link rename execute quotaon mounton audit_access open execmod watch watch_mount watch_sb watch_with_perm watch_reads execute_no_trans entrypoint)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:4909
+      (allow dumpstate_30_0 base_typeattr_545_30_0 (file (getattr)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:5595
+      (allow init_30_0 base_typeattr_551_30_0 (file (setattr)))
+
+neverallow check failed at /srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/etc/selinux/plat_sepolicy.cil:52580 from system/sepolicy/private/network_stack.te:115
+  (neverallow base_typeattr_348 fs_bpf_net_shared (file (ioctl read write create getattr setattr lock relabelfrom relabelto append map unlink link rename execute quotaon mounton audit_access open execmod watch watch_mount watch_sb watch_with_perm watch_reads execute_no_trans entrypoint)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:4909
+      (allow dumpstate_30_0 base_typeattr_545_30_0 (file (getattr)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:5595
+      (allow init_30_0 base_typeattr_551_30_0 (file (setattr)))
+
+neverallow check failed at /srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/etc/selinux/plat_sepolicy.cil:52570 from system/sepolicy/private/network_stack.te:111
+  (neverallow base_typeattr_347 fs_bpf_net_private (file (ioctl read write create getattr setattr lock relabelfrom relabelto append map unlink link rename execute quotaon mounton audit_access open execmod watch watch_mount watch_sb watch_with_perm watch_reads execute_no_trans entrypoint)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:4909
+      (allow dumpstate_30_0 base_typeattr_545_30_0 (file (getattr)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:5595
+      (allow init_30_0 base_typeattr_551_30_0 (file (setattr)))
+
+neverallow check failed at /srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/etc/selinux/plat_sepolicy.cil:50518 from system/sepolicy/private/mlstrustedsubject.te:52
+  (neverallow base_typeattr_858 privapp_data_file (dir (read getattr search)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:6831
+      (allow system_app_30_0 privapp_data_file_30_0 (dir (search)))
+
+neverallow check failed at /srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/etc/selinux/plat_sepolicy.cil:50511 from system/sepolicy/private/mlstrustedsubject.te:27
+  (neverallow base_typeattr_857 app_data_file (dir (ioctl write create setattr lock relabelfrom relabelto append map unlink link rename execute quotaon mounton audit_access open execmod watch watch_mount watch_sb watch_with_perm watch_reads add_name remove_name reparent rmdir)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:11896
+      (allow platform_app_30_0 app_data_file_30_0 (dir (map)))
+
+neverallow check failed at /srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/etc/selinux/plat_sepolicy.cil:50506 from system/sepolicy/private/mlstrustedsubject.te:16
+  (neverallow base_typeattr_857 privapp_data_file (file (create setattr relabelfrom relabelto unlink link rename execute quotaon mounton audit_access open execmod watch watch_mount watch_sb watch_with_perm watch_reads execute_no_trans entrypoint)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:11892
+      (allow platform_app_30_0 privapp_data_file_30_0 (file (execute)))
+
+neverallow check failed at /srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/etc/selinux/plat_sepolicy.cil:50505 from system/sepolicy/private/mlstrustedsubject.te:16
+  (neverallow base_typeattr_857 app_data_file (file (create setattr relabelfrom relabelto unlink link rename execute quotaon mounton audit_access open execmod watch watch_mount watch_sb watch_with_perm watch_reads execute_no_trans entrypoint)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:5930
+      (allow platform_app_30_0 app_data_file_30_0 (file (execute)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:6876
+      (allow system_server_30_0 app_data_file_30_0 (file (rename)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:15329
+      (allow attiqi_app app_data_file_30_0 (file (execute)))
+
+neverallow check failed at /srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/etc/selinux/plat_sepolicy.cil:45588 from system/sepolicy/private/isolated_app_all.te:59
+  (neverallow isolated_app_all app_data_file_type (file (open)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:5690
+      (allow isolated_app_30_0 shell_data_file_30_0 (file (ioctl read getattr lock map open watch watch_reads)))
+
+neverallow check failed at /srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/etc/selinux/plat_sepolicy.cil:34531 from system/sepolicy/private/hal_can.te:9
+  (neverallow base_typeattr_608 hal_can_bus_hwservice (hwservice_manager (find)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:4392
+      (allow hal_vehicle_default hal_can_bus_hwservice_30_0 (hwservice_manager (find)))
+
+neverallow check failed at /srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/etc/selinux/plat_sepolicy.cil:30473 from system/sepolicy/private/file.te:255
+  (neverallow fs_type file_type (filesystem (associate)))
+    <root>
+    allow at /srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/etc/selinux/plat_sepolicy.cil:30406 from system/sepolicy/private/file.te:234
+      (allow fs_type self (filesystem (associate)))
+
+neverallow check failed at /srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/etc/selinux/plat_sepolicy.cil:29198 from system/sepolicy/private/dumpstate.te:490
+  (neverallow dumpstate vold (binder (call)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:4930
+      (allow dumpstate_30_0 vold_30_0 (binder (call)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:15664
+      (allow dumpstate_30_0 vold_30_0 (binder (call)))
+
+neverallow check failed at /srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/etc/selinux/plat_sepolicy.cil:26960 from system/sepolicy/private/domain.te:2422
+  (neverallow domain domain (file (create)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:5811
+      (allow netd_30_0 netd_30_0 (file (ioctl read write create getattr setattr lock append map unlink rename open watch watch_reads)))
+
+neverallow check failed at /srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/etc/selinux/plat_sepolicy.cil:26955 from system/sepolicy/private/domain.te:2421
+  (neverallow domain domain (dir (write add_name remove_name)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:5810
+      (allow netd_30_0 netd_30_0 (dir (write lock open add_name remove_name search)))
+
+neverallow check failed at /srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/etc/selinux/plat_sepolicy.cil:26950 from system/sepolicy/private/domain.te:2420
+  (neverallow domain proc (filesystem (associate)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:5812
+      (allow netd_30_0 proc_30_0 (filesystem (associate)))
+
+neverallow check failed at /srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/etc/selinux/plat_sepolicy.cil:26835 from system/sepolicy/private/domain.te:2340
+  (neverallow base_typeattr_528 sysfs_devices_cs_etm (file (write create setattr relabelfrom append unlink link rename)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:5595
+      (allow init_30_0 base_typeattr_551_30_0 (file (setattr)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:10631
+      (allow init_30_0 sysfs_type (file (relabelfrom)))
+
+neverallow check failed at /srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/etc/selinux/plat_sepolicy.cil:26830 from system/sepolicy/private/domain.te:2316
+  (neverallow base_typeattr_527 proc_kallsyms (file (ioctl read write create getattr setattr lock relabelfrom relabelto append map unlink link rename execute quotaon mounton audit_access open execmod watch watch_mount watch_sb watch_with_perm watch_reads execute_no_trans entrypoint)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:4909
+      (allow dumpstate_30_0 base_typeattr_545_30_0 (file (getattr)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:4983
+      (allow dumpstate_30_0 base_typeattr_547_30_0 (file (read getattr lock map open)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:14071
+      (allow system_server_30_0 proc_type (file (getattr)))
+
+neverallow check failed at /srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/etc/selinux/plat_sepolicy.cil:26792 from system/sepolicy/private/domain.te:2257
+  (neverallow domain mlsvendorcompat (process (fork)))
+    <root>
+    allow at /srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/etc/selinux/plat_sepolicy.cil:24125 from system/sepolicy/private/domain.te:22
+      (allow domain self (process (fork sigchld sigkill sigstop signull signal getsched setsched getsession getpgid getcap setcap getattr setrlimit)))
+
+neverallow check failed at /srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/etc/selinux/plat_sepolicy.cil:26711 from system/sepolicy/private/domain.te:2160
+  (neverallow base_typeattr_361 debugfs_kprobes (file (ioctl read write create getattr setattr lock relabelfrom relabelto append map unlink link rename execute quotaon mounton audit_access open execmod watch watch_mount watch_sb watch_with_perm watch_reads execute_no_trans entrypoint)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:4909
+      (allow dumpstate_30_0 base_typeattr_545_30_0 (file (getattr)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:4985
+      (allow dumpstate_30_0 base_typeattr_548_30_0 (file (ioctl read getattr lock map open watch watch_reads)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:5202
+      (allow hal_dumpstate_default base_typeattr_549_30_0 (file (ioctl read getattr lock map open watch watch_reads)))
+
+neverallow check failed at /srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/etc/selinux/plat_sepolicy.cil:26460 from system/sepolicy/private/domain.te:1698
+  (neverallow base_typeattr_494 debugfs_tracing_printk_formats (file (ioctl read write create getattr setattr lock relabelfrom relabelto append map unlink link rename execute quotaon mounton audit_access open execmod watch watch_mount watch_sb watch_with_perm watch_reads execute_no_trans entrypoint)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:4909
+      (allow dumpstate_30_0 base_typeattr_545_30_0 (file (getattr)))
+
+neverallow check failed at /srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/etc/selinux/plat_sepolicy.cil:26191 from system/sepolicy/private/domain.te:1303
+  (neverallow base_typeattr_460 base_typeattr_468 (file (ioctl read write create getattr setattr lock relabelfrom relabelto append map unlink link rename execute quotaon mounton audit_access open execmod watch watch_mount watch_sb watch_with_perm watch_reads execute_no_trans entrypoint)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:9888
+      (allow hal_proca_default oemfs_30_0 (file (ioctl read getattr lock map open watch watch_reads)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:10885
+      (allow iorap_inode2filename_30_0 flags_health_check_exec_30_0 (file (getattr)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:10886
+      (allow iorap_inode2filename_30_0 cameraserver_exec_30_0 (file (getattr)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:10887
+      (allow iorap_inode2filename_30_0 bootanim_exec_30_0 (file (getattr)))
+    Only first 4 of 7 matching rules shown (use "-v" to show all)
+
+neverallow check failed at /srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/etc/selinux/plat_sepolicy.cil:26126 from system/sepolicy/private/domain.te:1149
+  (neverallow base_typeattr_451 base_typeattr_454 (dir (ioctl read write create getattr setattr lock relabelfrom relabelto append map unlink link rename execute quotaon mounton audit_access open execmod watch watch_mount watch_sb watch_with_perm watch_reads add_name remove_name reparent search rmdir)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:6188
+      (allow rild system_data_file_30_0 (dir (getattr search)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:9975
+      (allow hal_secure_storage_daemon system_data_file_30_0 (dir (getattr)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:10890
+      (allow iorap_inode2filename_30_0 shell_data_file_30_0 (dir (read)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:10891
+      (allow iorap_inode2filename_30_0 profman_dump_data_file_30_0 (dir (read)))
+    Only first 4 of 15 matching rules shown (use "-v" to show all)
+
+neverallow check failed at /srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/etc/selinux/plat_sepolicy.cil:26101 from system/sepolicy/private/domain.te:1125
+  (neverallow base_typeattr_451 core_data_file_type (file (create setattr lock relabelfrom relabelto unlink link rename execute quotaon mounton audit_access open execmod watch watch_mount watch_sb watch_with_perm watch_reads execute_no_trans entrypoint)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:5219
+      (allow hal_fingerprint_default vendor_data_file_30_0 (file (ioctl read write create getattr setattr lock append map unlink rename open watch watch_reads)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:9208
+      (allow hal_base_default vendor_data_file_30_0 (file (ioctl read write create getattr setattr lock append map unlink rename open watch watch_reads)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:9832
+      (allow hal_nfc_default vendor_data_file_30_0 (file (ioctl read write getattr lock append map open watch watch_reads)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:10212
+      (allow hal_teeregistry_default vendor_data_file_30_0 (file (ioctl read write create getattr setattr lock append map unlink rename open watch watch_reads)))
+    Only first 4 of 9 matching rules shown (use "-v" to show all)
+
+neverallow check failed at /srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/etc/selinux/plat_sepolicy.cil:25727 from system/sepolicy/private/domain.te:803
+  (neverallow domain system_file_type (lnk_file (write create setattr relabelfrom append unlink link rename)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:5596
+      (allow init_30_0 base_typeattr_551_30_0 (lnk_file (setattr)))
+
+neverallow check failed at /srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/etc/selinux/plat_sepolicy.cil:25726 from system/sepolicy/private/domain.te:803
+  (neverallow domain system_file_type (dir (write create setattr relabelfrom append unlink link rename)))
+    <root>
+    allow at /srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/etc/selinux/plat_sepolicy.cil:43784 from system/sepolicy/private/init.te:498
+      (allow init base_typeattr_806 (dir (read setattr open search)))
+    <root>
+    allow at /srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/etc/selinux/plat_sepolicy.cil:77083 from system/sepolicy/private/vendor_init.te:220
+      (allow vendor_init base_typeattr_1126 (dir (read setattr open search)))
+
+neverallow check failed at /srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/etc/selinux/plat_sepolicy.cil:25725 from system/sepolicy/private/domain.te:803
+  (neverallow domain system_file_type (file (write create setattr relabelfrom append unlink link rename)))
+    <root>
+    allow at /srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/etc/selinux/plat_sepolicy.cil:43779 from system/sepolicy/private/init.te:490
+      (allow init base_typeattr_805 (file (read setattr open)))
+    <root>
+    allow at /srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/etc/selinux/plat_sepolicy.cil:77073 from system/sepolicy/private/vendor_init.te:206
+      (allow vendor_init base_typeattr_1125 (file (read setattr map open)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:5595
+      (allow init_30_0 base_typeattr_551_30_0 (file (setattr)))
+
+neverallow check failed at /srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/etc/selinux/plat_sepolicy.cil:22915 from system/sepolicy/private/crosvm_vu_fs.te:68
+  (neverallow crosvm_vu_fs base_typeattr_392 (file (ioctl read write create getattr setattr lock relabelfrom relabelto append map unlink link rename execute quotaon mounton audit_access open execmod watch watch_mount watch_sb watch_with_perm watch_reads execute_no_trans entrypoint)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:8413
+      (allow domain vendor_configs_file_30_0 (file (map)))
+
+neverallow check failed at /srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/etc/selinux/plat_sepolicy.cil:22777 from system/sepolicy/private/crosvm.te:209
+  (neverallow crosvm_domain base_typeattr_389 (file (ioctl read write create getattr setattr lock relabelfrom relabelto append map unlink link rename execute quotaon mounton audit_access open execmod watch watch_mount watch_sb watch_with_perm watch_reads execute_no_trans entrypoint)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:8413
+      (allow domain vendor_configs_file_30_0 (file (map)))
+
+neverallow check failed at /srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/etc/selinux/plat_sepolicy.cil:22302 from system/sepolicy/private/crash_dump.te:143
+  (neverallow crash_dump vold (process (sigkill sigstop signal ptrace)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:4861
+      (allow crash_dump_30_0 vold_30_0 (process (ptrace)))
+
+neverallow check failed at /srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/etc/selinux/plat_sepolicy.cil:21168 from system/sepolicy/private/charger_type.te:76
+  (neverallow base_typeattr_363 charger_status_prop (file (ioctl read write create setattr lock relabelfrom append unlink link rename open watch watch_mount watch_sb watch_with_perm watch_reads)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:4739
+      (allow bootanim_30_0 exported_system_prop_30_0 (file (read getattr map open)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:4822
+      (allow cameraserver_30_0 exported_system_prop_30_0 (file (read getattr map open)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:6269
+      (allow servicemanager_30_0 exported_system_prop_30_0 (file (read getattr map open)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:7354
+      (allow vold_30_0 exported_system_prop_30_0 (file (read getattr map open)))
+    Only first 4 of 14 matching rules shown (use "-v" to show all)
+
+neverallow check failed at /srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/etc/selinux/plat_sepolicy.cil:21162 from system/sepolicy/private/charger_type.te:64
+  (neverallow base_typeattr_362 charger_status_prop (property_service (set)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:4738
+      (allow bootanim_30_0 exported_system_prop_30_0 (property_service (set)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:4821
+      (allow cameraserver_30_0 exported_system_prop_30_0 (property_service (set)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:6268
+      (allow servicemanager_30_0 exported_system_prop_30_0 (property_service (set)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:7353
+      (allow vold_30_0 exported_system_prop_30_0 (property_service (set)))
+    Only first 4 of 13 matching rules shown (use "-v" to show all)
+
+neverallow check failed at /srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/etc/selinux/plat_sepolicy.cil:20278 from system/sepolicy/private/bpfloader.te:89
+  (neverallow base_typeattr_341 proc_bpf (file (write)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:4926
+      (allow dumpstate_30_0 proc_net_30_0 (file (write)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:5470
+      (allow hal_wifi_default proc_net_30_0 (file (write)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:5478
+      (allow hal_wifi_supplicant_default proc_net_30_0 (file (ioctl read write getattr lock append map open watch watch_reads)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:6138
+      (allow rild proc_net_30_0 (file (ioctl read write getattr lock append map open watch watch_reads)))
+    Only first 4 of 12 matching rules shown (use "-v" to show all)
+
+neverallow check failed at /srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/etc/selinux/plat_sepolicy.cil:20261 from system/sepolicy/private/bpfloader.te:82
+  (neverallow base_typeattr_355 fs_bpf_vendor (file (ioctl read write create getattr setattr lock relabelfrom relabelto append map unlink link rename execute quotaon mounton audit_access open execmod watch watch_mount watch_sb watch_with_perm watch_reads execute_no_trans entrypoint)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:4909
+      (allow dumpstate_30_0 base_typeattr_545_30_0 (file (getattr)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:5595
+      (allow init_30_0 base_typeattr_551_30_0 (file (setattr)))
+
+neverallow check failed at /srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/etc/selinux/plat_sepolicy.cil:20246 from system/sepolicy/private/bpfloader.te:77
+  (neverallow base_typeattr_341 fs_bpf_loader (file (ioctl read write create getattr setattr lock relabelfrom relabelto append map unlink link rename execute quotaon mounton audit_access open execmod watch watch_mount watch_sb watch_with_perm watch_reads execute_no_trans entrypoint)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:4909
+      (allow dumpstate_30_0 base_typeattr_545_30_0 (file (getattr)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:5595
+      (allow init_30_0 base_typeattr_551_30_0 (file (setattr)))
+
+neverallow check failed at /srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/etc/selinux/plat_sepolicy.cil:20236 from system/sepolicy/private/bpfloader.te:73
+  (neverallow base_typeattr_339 base_typeattr_248 (bpf (map_create map_read map_write prog_run)))
+    <root>
+    allow at /srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/etc/selinux/plat_sepolicy.cil:36652 from system/sepolicy/private/hal_health.te:33
+      (allow hal_health_server bpfloader (bpf (prog_run)))
+
+neverallow check failed at /srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/etc/selinux/plat_sepolicy.cil:20221 from system/sepolicy/private/bpfloader.te:69
+  (neverallow base_typeattr_341 bpffs_type (lnk_file (ioctl write create getattr setattr lock relabelfrom relabelto append map unlink link rename execute quotaon mounton audit_access open execmod watch watch_mount watch_sb watch_with_perm watch_reads)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:5596
+      (allow init_30_0 base_typeattr_551_30_0 (lnk_file (setattr)))
+
+neverallow check failed at /srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/etc/selinux/plat_sepolicy.cil:20211 from system/sepolicy/private/bpfloader.te:66
+  (neverallow base_typeattr_351 fs_bpf_uprobestats (file (read getattr)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:4909
+      (allow dumpstate_30_0 base_typeattr_545_30_0 (file (getattr)))
+
+neverallow check failed at /srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/etc/selinux/plat_sepolicy.cil:20206 from system/sepolicy/private/bpfloader.te:65
+  (neverallow base_typeattr_347 fs_bpf_tethering (file (read getattr)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:4909
+      (allow dumpstate_30_0 base_typeattr_545_30_0 (file (getattr)))
+
+neverallow check failed at /srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/etc/selinux/plat_sepolicy.cil:20201 from system/sepolicy/private/bpfloader.te:64
+  (neverallow base_typeattr_350 fs_bpf_netd_shared (file (read getattr)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:4909
+      (allow dumpstate_30_0 base_typeattr_545_30_0 (file (getattr)))
+
+neverallow check failed at /srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/etc/selinux/plat_sepolicy.cil:20196 from system/sepolicy/private/bpfloader.te:63
+  (neverallow base_typeattr_349 fs_bpf_netd_readonly (file (read getattr)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:4909
+      (allow dumpstate_30_0 base_typeattr_545_30_0 (file (getattr)))
+
+neverallow check failed at /srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/etc/selinux/plat_sepolicy.cil:20191 from system/sepolicy/private/bpfloader.te:62
+  (neverallow base_typeattr_348 fs_bpf_net_shared (file (read getattr)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:4909
+      (allow dumpstate_30_0 base_typeattr_545_30_0 (file (getattr)))
+
+neverallow check failed at /srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/etc/selinux/plat_sepolicy.cil:20186 from system/sepolicy/private/bpfloader.te:61
+  (neverallow base_typeattr_347 fs_bpf_net_private (file (read getattr)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:4909
+      (allow dumpstate_30_0 base_typeattr_545_30_0 (file (getattr)))
+
+neverallow check failed at /srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/etc/selinux/plat_sepolicy.cil:20181 from system/sepolicy/private/bpfloader.te:60
+  (neverallow base_typeattr_341 fs_bpf_loader (file (read getattr)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:4909
+      (allow dumpstate_30_0 base_typeattr_545_30_0 (file (getattr)))
+
+neverallow check failed at /srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/etc/selinux/plat_sepolicy.cil:20176 from system/sepolicy/private/bpfloader.te:59
+  (neverallow base_typeattr_346 fs_bpf_kernelwakelockduration (file (read write getattr)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:4909
+      (allow dumpstate_30_0 base_typeattr_545_30_0 (file (getattr)))
+
+neverallow check failed at /srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/etc/selinux/plat_sepolicy.cil:20171 from system/sepolicy/private/bpfloader.te:58
+  (neverallow base_typeattr_345 fs_bpf_cputimeinstate (file (read write getattr)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:4909
+      (allow dumpstate_30_0 base_typeattr_545_30_0 (file (getattr)))
+
+neverallow check failed at /srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/etc/selinux/plat_sepolicy.cil:20166 from system/sepolicy/private/bpfloader.te:57
+  (neverallow base_typeattr_344 fs_bpf (file (read getattr)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:4909
+      (allow dumpstate_30_0 base_typeattr_545_30_0 (file (getattr)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:6736
+      (allow system_app_30_0 fs_bpf_30_0 (file (ioctl read getattr lock map open watch watch_reads)))
+
+neverallow check failed at /srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/etc/selinux/plat_sepolicy.cil:20161 from system/sepolicy/private/bpfloader.te:56
+  (neverallow base_typeattr_343 bpffs_type (file (open)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:6736
+      (allow system_app_30_0 fs_bpf_30_0 (file (ioctl read getattr lock map open watch watch_reads)))
+
+neverallow check failed at /srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/etc/selinux/plat_sepolicy.cil:20156 from system/sepolicy/private/bpfloader.te:55
+  (neverallow base_typeattr_341 base_typeattr_342 (file (open)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:6736
+      (allow system_app_30_0 fs_bpf_30_0 (file (ioctl read getattr lock map open watch watch_reads)))
+
+neverallow check failed at /srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/etc/selinux/plat_sepolicy.cil:20151 from system/sepolicy/private/bpfloader.te:54
+  (neverallow base_typeattr_341 bpffs_type (file (create setattr map rename)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:5595
+      (allow init_30_0 base_typeattr_551_30_0 (file (setattr)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:6736
+      (allow system_app_30_0 fs_bpf_30_0 (file (ioctl read getattr lock map open watch watch_reads)))
+
+neverallow check failed at /srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/etc/selinux/plat_sepolicy.cil:20146 from system/sepolicy/private/bpfloader.te:53
+  (neverallow domain bpffs_type (file (ioctl lock relabelfrom relabelto append unlink link execute quotaon mounton audit_access execmod watch watch_mount watch_sb watch_with_perm watch_reads execute_no_trans entrypoint)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:6736
+      (allow system_app_30_0 fs_bpf_30_0 (file (ioctl read getattr lock map open watch watch_reads)))
+
+neverallow check failed at /srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/etc/selinux/plat_sepolicy.cil:20141 from system/sepolicy/private/bpfloader.te:51
+  (neverallow base_typeattr_341 bpffs_type (dir (read write create setattr open add_name remove_name)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:6735
+      (allow system_app_30_0 fs_bpf_30_0 (dir (ioctl read getattr lock open watch watch_reads search)))
+
+neverallow check failed at /srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/etc/selinux/plat_sepolicy.cil:20136 from system/sepolicy/private/bpfloader.te:50
+  (neverallow domain bpffs_type (dir (ioctl lock relabelfrom relabelto append map unlink link rename execute quotaon audit_access execmod watch watch_mount watch_sb watch_with_perm watch_reads reparent rmdir)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:6735
+      (allow system_app_30_0 fs_bpf_30_0 (dir (ioctl read getattr lock open watch watch_reads search)))
+
+neverallow check failed at /srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/etc/selinux/plat_sepolicy.cil:20005 from system/sepolicy/private/bpfdomain.te:16
+  (neverallow base_typeattr_339 bpffs_type (file (ioctl read write create getattr setattr lock relabelfrom relabelto append map unlink link rename execute quotaon mounton audit_access open execmod watch watch_mount watch_sb watch_with_perm watch_reads execute_no_trans entrypoint)))
+    <root>
+    allow at /srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/etc/selinux/plat_sepolicy.cil:36647 from system/sepolicy/private/hal_health.te:32
+      (allow hal_health_server fs_bpf_vendor (file (read)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:5595
+      (allow init_30_0 base_typeattr_551_30_0 (file (setattr)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:6736
+      (allow system_app_30_0 fs_bpf_30_0 (file (ioctl read getattr lock map open watch watch_reads)))
+
+neverallow check failed at /srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/etc/selinux/plat_sepolicy.cil:20000 from system/sepolicy/private/bpfdomain.te:15
+  (neverallow base_typeattr_339 bpffs_type (lnk_file (ioctl read write create getattr setattr lock relabelfrom relabelto append map unlink link rename execute quotaon mounton audit_access open execmod watch watch_mount watch_sb watch_with_perm watch_reads)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:5596
+      (allow init_30_0 base_typeattr_551_30_0 (lnk_file (setattr)))
+
+neverallow check failed at /srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/etc/selinux/plat_sepolicy.cil:19995 from system/sepolicy/private/bpfdomain.te:14
+  (neverallow base_typeattr_339 bpffs_type (dir (ioctl read write create setattr lock relabelfrom relabelto append map unlink link rename execute quotaon audit_access open execmod watch watch_mount watch_sb watch_with_perm watch_reads add_name remove_name reparent search rmdir)))
+    <root>
+    allow at /srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/etc/selinux/plat_sepolicy.cil:36642 from system/sepolicy/private/hal_health.te:31
+      (allow hal_health_server fs_bpf_vendor (dir (search)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:6735
+      (allow system_app_30_0 fs_bpf_30_0 (dir (ioctl read getattr lock open watch watch_reads search)))
+
+neverallow check failed at /srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/etc/selinux/plat_sepolicy.cil:19990 from system/sepolicy/private/bpfdomain.te:13
+  (neverallow base_typeattr_339 base_typeattr_248 (bpf (map_create map_read map_write prog_load prog_run)))
+    <root>
+    allow at /srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/etc/selinux/plat_sepolicy.cil:36652 from system/sepolicy/private/hal_health.te:33
+      (allow hal_health_server bpfloader (bpf (prog_run)))
+
+neverallow check failed at /srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/etc/selinux/plat_sepolicy.cil:14922 from system/sepolicy/private/app.te:883
+  (neverallow base_typeattr_291 tombstone_data_file (file (ioctl write create setattr lock relabelfrom relabelto append map unlink link rename execute quotaon mounton audit_access open execmod watch watch_mount watch_sb watch_with_perm watch_reads execute_no_trans entrypoint)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:11918
+      (allow platform_app_30_0 tombstone_data_file_30_0 (file (ioctl read getattr lock map open watch watch_reads)))
+
+neverallow check failed at /srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/etc/selinux/plat_sepolicy.cil:14867 from system/sepolicy/private/app.te:823
+  (neverallow sdk_sandbox_all base_typeattr_297 (file (execute execute_no_trans)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:7721
+      (allow base_typeattr_561_30_0 asec_apk_file_30_0 (file (getattr map execute execute_no_trans)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:7722
+      (allow base_typeattr_561_30_0 asec_public_file_30_0 (file (getattr map execute execute_no_trans)))
+
+neverallow check failed at /srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/etc/selinux/plat_sepolicy.cil:14861 from system/sepolicy/private/app.te:823
+  (neverallow isolated_app_all base_typeattr_297 (file (execute execute_no_trans)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:7721
+      (allow base_typeattr_561_30_0 asec_apk_file_30_0 (file (getattr map execute execute_no_trans)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:7722
+      (allow base_typeattr_561_30_0 asec_public_file_30_0 (file (getattr map execute execute_no_trans)))
+
+neverallow check failed at /srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/etc/selinux/plat_sepolicy.cil:14578 from system/sepolicy/private/app.te:695
+  (neverallow base_typeattr_293 apk_data_file (dir (write create setattr relabelfrom relabelto append unlink link rename)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:13510
+      (allow system_app_30_0 apk_data_file_30_0 (dir (write add_name remove_name)))
+
+neverallow check failed at /srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/etc/selinux/plat_sepolicy.cil:13014 from system/sepolicy/private/apexd.te:265
+  (neverallow base_typeattr_269 apex_dm_device (blk_file (write create setattr relabelfrom append unlink link rename)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:5597
+      (allow init_30_0 dev_type (blk_file (setattr)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:10626
+      (allow init_30_0 dev_type (blk_file (relabelfrom)))
+
+neverallow check failed at /srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/etc/selinux/plat_sepolicy.cil:10583 from system/sepolicy/public/property.te:353
+  (neverallow base_typeattr_243 vendor_default_prop (file (ioctl read write create setattr lock relabelfrom append unlink link rename open watch watch_mount watch_sb watch_with_perm watch_reads)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:4804
+      (allow cameraserver_30_0 vendor_default_prop_30_0 (file (read getattr map open)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:6311
+      (allow shell_30_0 vendor_default_prop_30_0 (file (read getattr map open)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:7195
+      (allow vzwfiltered_untrusted_app vendor_default_prop_30_0 (file (read getattr map open)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:16096
+      (allow appdomain vendor_default_prop_30_0 (file (read getattr map open)))
+
+neverallow check failed at /srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/etc/selinux/plat_sepolicy.cil:8338 from system/sepolicy/public/property.te:61
+  (neverallow base_typeattr_241 bootanim_system_prop (property_service (set)))
+    <root>
+    allow at /srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-02/metadata/vendor/etc/selinux/vendor_sepolicy.cil:14785
+      (allow vendor_init_30_0 exported_system_prop_30_0 (property_service (set)))
+
+Failed to generate binary
+Failed to build policydb

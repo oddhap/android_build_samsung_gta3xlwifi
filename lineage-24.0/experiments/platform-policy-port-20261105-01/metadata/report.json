@@ -1,0 +1,92 @@
+{
+  "scope": "Isolate the legacy public symbol ABI from superseded platform behavior.\n\nOwner decision 2026-11-05: retain Android17 and Samsung vendor assertions;\nport the old platform component. This stages only an offline metadata proposal.\nCurrent platform CIL supplies platform behavior and assertions unchanged. Legacy\ndeclarations and attribute expressions stay byte-exact, including compiler-private\nidentities referenced by Samsung. No permission is added. No -N compilation.\n",
+  "legacy_statement_counts": {
+    "allow": 4461,
+    "typeattribute": 1933,
+    "neverallow": 1657,
+    "roletype": 1111,
+    "type": 1110,
+    "typeattributeset": 641,
+    "expandtypeattribute": 195,
+    "neverallowx": 168,
+    "allowx": 137,
+    "dontaudit": 67,
+    "auditallow": 1
+  },
+  "retained_statement_counts": {
+    "roletype": 1111,
+    "typeattribute": 1933,
+    "typeattributeset": 641,
+    "expandtypeattribute": 195,
+    "type": 1110
+  },
+  "superseded_platform_statement_counts": {
+    "neverallow": 1657,
+    "allow": 4461,
+    "allowx": 137,
+    "dontaudit": 67,
+    "neverallowx": 168,
+    "auditallow": 1
+  },
+  "vendor_policy_byte_identical_to_reviewed_parent": true,
+  "vendor_assertions_retained": {
+    "allow": 12527,
+    "allowx": 127,
+    "neverallow": 131,
+    "neverallowx": 2
+  },
+  "legacy_declarations_and_attribute_expressions_byte_exact": true,
+  "permissions_added": false,
+  "current_platform_inputs_modified": false,
+  "original_images_modified": false,
+  "security_approved": false,
+  "flash_ready": false,
+  "runner_sha256": "eaeabd43a2f4f6635e8904ce27b51c113a066980d0fc279ce8e8b91f283fcd24",
+  "inputs": [
+    {
+      "name": "vendor_sepolicy.cil",
+      "sha256": "18d979058fcffc42b06ccea8fd60b81dd506e8b06adb17804c72d277aa52b227",
+      "staged_sha256": "18d979058fcffc42b06ccea8fd60b81dd506e8b06adb17804c72d277aa52b227"
+    },
+    {
+      "name": "plat_pub_versioned.cil",
+      "sha256": "4dd55346c46e6d374c5fee79e1caeb1f971a4dc048cd96bedadfb676e0ec11c4",
+      "staged_sha256": "7bb0c35a0aa415c5b19daf9bf41dc5939d47ddb30a79791ae4414ca288ad57dc"
+    },
+    {
+      "name": "plat_sepolicy_vers.txt",
+      "sha256": "166983be04e2ab397fc7a70bb60a516b1cfd42a5ec6dd356df01ae63a8500ec0",
+      "staged_sha256": "166983be04e2ab397fc7a70bb60a516b1cfd42a5ec6dd356df01ae63a8500ec0"
+    },
+    {
+      "name": "vendor_service_contexts",
+      "sha256": "5dc71762ea75986ef6bd2ce282f6920ec6cddc509b511bc940e6bc280c3ff3ec",
+      "staged_sha256": "5dc71762ea75986ef6bd2ce282f6920ec6cddc509b511bc940e6bc280c3ff3ec"
+    },
+    {
+      "name": "vendor_hwservice_contexts",
+      "sha256": "49c313c04575e51a76e6e0e8e2b32e39010033f3ab7e836ed5fc8d053defdf9c",
+      "staged_sha256": "49c313c04575e51a76e6e0e8e2b32e39010033f3ab7e836ed5fc8d053defdf9c"
+    },
+    {
+      "name": "vendor_file_contexts",
+      "sha256": "0dcf14fc0299035adbffd2a6cba5221843ca7c47c84748ac42f5d245fd2f2065",
+      "staged_sha256": "0dcf14fc0299035adbffd2a6cba5221843ca7c47c84748ac42f5d245fd2f2065"
+    },
+    {
+      "name": "vendor_property_contexts",
+      "sha256": "8379234e5ee1ffb7548eed1b49fb2545a20b055240ef3308729c9e57d3d1b17d",
+      "staged_sha256": "8379234e5ee1ffb7548eed1b49fb2545a20b055240ef3308729c9e57d3d1b17d"
+    },
+    {
+      "name": "vendor_seapp_contexts",
+      "sha256": "09723917f8fd99101e876158075cdee7592406f22e8ef5f946d161e73f7e375b",
+      "staged_sha256": "09723917f8fd99101e876158075cdee7592406f22e8ef5f946d161e73f7e375b"
+    },
+    {
+      "name": "vndservice_contexts",
+      "sha256": "94b336be8f83c49349fea3f22bc5b99f73ce726de79ded31bbeee04d9690708f",
+      "staged_sha256": "94b336be8f83c49349fea3f22bc5b99f73ce726de79ded31bbeee04d9690708f"
+    }
+  ]
+}

@@ -1,0 +1,84 @@
+{
+  "scope": "Port old platform classifications embedded in Samsung's versioned vendor CIL.\n\nOnly positive flat membership lists of current shared attributes are supported.\nAndroid17 owns its concrete platform types; vendor-private and legacy-only type\nmemberships remain. All vendor assertions and AV rules stay byte-exact. Offline\nproposal only: this does not establish effective-policy or runtime correctness.\n",
+  "current_inputs": [
+    {
+      "path": "/srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/etc/selinux/plat_sepolicy.cil",
+      "sha256": "3dc2711ff5e307db50636ac31a4dbf6a79e971220cb7adba2ba6d1351bc9885b"
+    },
+    {
+      "path": "/srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/system_ext/etc/selinux/system_ext_sepolicy.cil",
+      "sha256": "6582112f219f8224764fce4ca8572a0182bcf78f292645c6ad4a8c4ea4377b0b"
+    },
+    {
+      "path": "/srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/product/etc/selinux/product_sepolicy.cil",
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+    }
+  ],
+  "changed_shared_attribute_assignments": 54,
+  "removed_platform_symbol_occurrences": 2371,
+  "vendor_rules_before": {
+    "allow": 12527,
+    "allowx": 127,
+    "neverallow": 131,
+    "neverallowx": 2
+  },
+  "vendor_rules_after": {
+    "allow": 12527,
+    "allowx": 127,
+    "neverallow": 131,
+    "neverallowx": 2
+  },
+  "all_non_membership_statements_byte_exact": true,
+  "all_vendor_private_and_legacy_only_members_preserved": true,
+  "runtime_validated": false,
+  "security_approved": false,
+  "flash_ready": false,
+  "runner_sha256": "69fc2d14e775af6716eba3509f7ed21d8e37e872bff5806ad514e6d27b0526d2",
+  "inputs": [
+    {
+      "name": "vendor_sepolicy.cil",
+      "sha256": "18d979058fcffc42b06ccea8fd60b81dd506e8b06adb17804c72d277aa52b227",
+      "staged_sha256": "1b962ef17897b4decab0293ca9161c26be35194904f198908fdac369da0b39f5"
+    },
+    {
+      "name": "plat_pub_versioned.cil",
+      "sha256": "5478939b47a7980cd4abe373a0825d812c8f103f65d9d2dd8883781f39b20a6f",
+      "staged_sha256": "5478939b47a7980cd4abe373a0825d812c8f103f65d9d2dd8883781f39b20a6f"
+    },
+    {
+      "name": "plat_sepolicy_vers.txt",
+      "sha256": "166983be04e2ab397fc7a70bb60a516b1cfd42a5ec6dd356df01ae63a8500ec0",
+      "staged_sha256": "166983be04e2ab397fc7a70bb60a516b1cfd42a5ec6dd356df01ae63a8500ec0"
+    },
+    {
+      "name": "vendor_service_contexts",
+      "sha256": "5dc71762ea75986ef6bd2ce282f6920ec6cddc509b511bc940e6bc280c3ff3ec",
+      "staged_sha256": "5dc71762ea75986ef6bd2ce282f6920ec6cddc509b511bc940e6bc280c3ff3ec"
+    },
+    {
+      "name": "vendor_hwservice_contexts",
+      "sha256": "49c313c04575e51a76e6e0e8e2b32e39010033f3ab7e836ed5fc8d053defdf9c",
+      "staged_sha256": "49c313c04575e51a76e6e0e8e2b32e39010033f3ab7e836ed5fc8d053defdf9c"
+    },
+    {
+      "name": "vendor_file_contexts",
+      "sha256": "0dcf14fc0299035adbffd2a6cba5221843ca7c47c84748ac42f5d245fd2f2065",
+      "staged_sha256": "0dcf14fc0299035adbffd2a6cba5221843ca7c47c84748ac42f5d245fd2f2065"
+    },
+    {
+      "name": "vendor_property_contexts",
+      "sha256": "8379234e5ee1ffb7548eed1b49fb2545a20b055240ef3308729c9e57d3d1b17d",
+      "staged_sha256": "8379234e5ee1ffb7548eed1b49fb2545a20b055240ef3308729c9e57d3d1b17d"
+    },
+    {
+      "name": "vendor_seapp_contexts",
+      "sha256": "09723917f8fd99101e876158075cdee7592406f22e8ef5f946d161e73f7e375b",
+      "staged_sha256": "09723917f8fd99101e876158075cdee7592406f22e8ef5f946d161e73f7e375b"
+    },
+    {
+      "name": "vndservice_contexts",
+      "sha256": "94b336be8f83c49349fea3f22bc5b99f73ce726de79ded31bbeee04d9690708f",
+      "staged_sha256": "94b336be8f83c49349fea3f22bc5b99f73ce726de79ded31bbeee04d9690708f"
+    }
+  ]
+}
