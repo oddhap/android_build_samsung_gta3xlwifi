@@ -1,0 +1,17 @@
+{
+  "all_header_bytes_except_kernel_length_and_digest_equal": true,
+  "masked_ranges": [
+    [
+      8,
+      12
+    ],
+    [
+      576,
+      608
+    ]
+  ],
+  "boot_header_and_padding_bytes_checked": 2048,
+  "source_top_audit_sha256": "fcf4ba2d85cfa05f9a68c3ca3ecf927486e9e749ec49548c3ca4c3714e407330",
+  "no_flashing_or_source_prebuilt_mutation": true,
+  "flash_ready": false
+}

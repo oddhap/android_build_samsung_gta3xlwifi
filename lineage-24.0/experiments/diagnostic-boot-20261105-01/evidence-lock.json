@@ -1,0 +1,13 @@
+{
+  "artifact_directory": "/srv/android/artifacts/lineage-24.0-arm64/diagnostic-boot-20261105-01",
+  "sha256": {
+    "/srv/android/artifacts/lineage-24.0-arm64/diagnostic-boot-20261105-01/control-raw.img": "fe02f7742c166b2f8cc5ff41262d568afa7fbd98296a36c3d9ae6cb4bd1459fa",
+    "/srv/android/artifacts/lineage-24.0-arm64/diagnostic-boot-20261105-01/NOT_FLASHABLE_boot.img": "9d7675e06ea750dc4b5785f708f079a88de3c18fa140d47b77cf6f9d395bd5c9",
+    "/srv/android/artifacts/lineage-24.0-arm64/diagnostic-boot-20261105-01/candidate-raw.img": "a69f744ec6c1a5b5fa4ab51e17b933d91a4692404c62f58658714e5320f4d393",
+    "/srv/android/artifacts/lineage-24.0-arm64/diagnostic-boot-20261105-01/report.json": "175a2703a56636dfd1e14c5801734aa9fb707855580ad6d799cfb1a16db230a7",
+    "/srv/android/artifacts/lineage-24.0-arm64/diagnostic-boot-20261105-01/preserved-archive-boot.img": "dea0c12a8fb5e748a26538b55a7a5d93594b799232cef616778f7867bea0a533",
+    "/srv/android/artifacts/lineage-24.0-arm64/diagnostic-boot-20261105-01/NOT_READY_FOR_FLASHING.txt": "69e5f35787a8b502793ef8c63a7e0b4c300f4a83e78397e9ee57ed7ff5cc04cb",
+    "/srv/android/artifacts/lineage-24.0-arm64/diagnostic-boot-20261105-01/header-comparison.json": "fb5ff4ec25620f5fe80f0df1c914db8bc837a27cbdc695ec3cb808360918c285"
+  },
+  "flash_ready": false
+}

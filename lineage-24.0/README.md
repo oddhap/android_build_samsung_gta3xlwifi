@@ -379,3 +379,13 @@ strict diagnostics decrease from 322 to 319, with exactly three resolved and no
 new diagnostic assertion identities. All other ordered policy/ compiler inputs
 are identical and full source audits match. This is isolated text metadata, not
 a rebuilt vendor image or strict-policy approval. Original vendor stays pinned.
+
+
+An [isolated diagnostic boot packaging check](experiments/diagnostic-boot-20261105-01/)
+uses official Android17 tools, reproduces the original image byte-for-byte, and
+then replaces only the kernel. The resulting 25,454,608-byte image fits the
+33,554,432-byte boot partition, retains SAR/header/trailer/enforcing metadata and
+passes the ramdisk check. All original header/padding bytes except kernel size
+and digest match. This image remains outside Android prebuilts and target-files,
+explicitly marked NOT_FLASHABLE. Packaging is not boot, FBE/TEE, ABI, network,
+strict-policy or installation approval. No installable test ROM exists yet.
