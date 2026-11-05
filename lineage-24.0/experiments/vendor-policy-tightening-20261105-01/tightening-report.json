@@ -1,0 +1,28 @@
+{
+  "scope": "Isolated namespace separation plus removal of one forbidden capability grant.\n\nNo neverallow assertion or preserved vendor/image/signing material is changed.\nOnly explicitly enumerated text metadata is read/copied by the parent stager.\n",
+  "removed_exact_allow": "(allow system_server_30_0 system_server_30_0 (capability (sys_module)))",
+  "base_namespace_report_sha256": "8d41d7ada329abdab2a1ad1630c721742b0a3f6af95cf480265aec8e2f61d9c9",
+  "rule_counts_before": {
+    "allow": 12528,
+    "allowx": 127,
+    "neverallow": 131,
+    "neverallowx": 2
+  },
+  "rule_counts_after": {
+    "allow": 12527,
+    "allowx": 127,
+    "neverallow": 131,
+    "neverallowx": 2
+  },
+  "no_neverallow_or_xperm_assertion_removed": true,
+  "inverse_except_removed_grant_is_byte_exact": true,
+  "endpoint_name_preserved": "vendor.samsung.hardware.uwb@1.0::ISehUwb/default",
+  "source_policy_sha256": "8df663eb65a807e6ee99f8b2384cb52d34c994a25087410486b1f88e278e2e53",
+  "staged_policy_sha256": "18d979058fcffc42b06ccea8fd60b81dd506e8b06adb17804c72d277aa52b227",
+  "parent_stager_sha256": "20466829644ffc21cd1362d8a541041fe5c9f5945dc8ab0ed2cc6396a9d38686",
+  "runner_sha256": "ddf902fd044c671397e096df8e5ae553347793645c6c66ff1af963603574e3da",
+  "metadata_patch_sha256": "8c1616a97d890324e9bb64bf19993c5009d1c61677a81cbc201cd153dc4c55ac",
+  "source_unchanged": true,
+  "security_approved": false,
+  "flash_ready": false
+}

@@ -1,0 +1,17 @@
+{
+  "vendor_endpoint": "vendor.samsung.hardware.uwb@1.0::ISehUwb/default",
+  "platform_endpoints": [
+    "uwb",
+    "android.hardware.uwb.IUwb/default"
+  ],
+  "distinct_endpoint_names": true,
+  "source_sha256": {
+    "/srv/android/src/lineage-24.0-arm64/system/sepolicy/private/service_contexts": "bb373ef5e9e6e8af6a43531eb49e0a0a3de7614b32326b0f325f693b99a0c06a",
+    "/srv/android/artifacts/lineage-24.0-arm64/vendor-policy-tightening-20261105-01/metadata/vendor/etc/selinux/vendor_service_contexts": "5dc71762ea75986ef6bd2ce282f6920ec6cddc509b511bc940e6bc280c3ff3ec"
+  },
+  "runtime_provider_or_client_behavior_validated": false,
+  "references": [
+    "https://source.android.com/docs/security/features/selinux/compatibility",
+    "https://source.android.com/docs/security/features/selinux/build"
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "artifact_directory": "/srv/android/artifacts/lineage-24.0-arm64/vendor-policy-tightening-20261105-01",
+  "sha256": {
+    "/srv/android/artifacts/lineage-24.0-arm64/vendor-policy-tightening-20261105-01/source-before.json": "f80ed7197ee0733ed96dceb70c8b948b01cf7cc36fc29e613153edc560251164",
+    "/srv/android/artifacts/lineage-24.0-arm64/vendor-policy-tightening-20261105-01/source-after.json": "fcf4ba2d85cfa05f9a68c3ca3ecf927486e9e749ec49548c3ca4c3714e407330",
+    "/srv/android/artifacts/lineage-24.0-arm64/vendor-policy-tightening-20261105-01/metadata/tightening-report.json": "3f27019da51283f3815b38b750715757c545b01821a131716ddefd97737f2824",
+    "/srv/android/artifacts/lineage-24.0-arm64/vendor-policy-tightening-20261105-01/metadata/report.json": "8d41d7ada329abdab2a1ad1630c721742b0a3f6af95cf480265aec8e2f61d9c9",
+    "/srv/android/artifacts/lineage-24.0-arm64/vendor-policy-tightening-20261105-01/metadata/metadata.patch": "8c1616a97d890324e9bb64bf19993c5009d1c61677a81cbc201cd153dc4c55ac",
+    "/srv/android/artifacts/lineage-24.0-arm64/vendor-policy-tightening-20261105-01/strict/report.json": "d73b41e5f719321255b8f2f9ca36bb6de0a060e06a3792cdaa2837227d2c41a8",
+    "/srv/android/artifacts/lineage-24.0-arm64/vendor-policy-tightening-20261105-01/strict/strict.log": "0486fc3923f1e12637ebc4257579aaed6a60283427b506b7f0334e6d34323015",
+    "/srv/android/artifacts/lineage-24.0-arm64/vendor-policy-tightening-20261105-01/strict-checker.exit": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865",
+    "/srv/android/artifacts/lineage-24.0-arm64/vendor-policy-tightening-20261105-01/diagnostic-comparison.json": "ac5007965bd5b9d82d007ad1638547bae9320d2cb54d8df2535741202f54a85c",
+    "/srv/android/artifacts/lineage-24.0-arm64/vendor-policy-user-20261102-01/report.json": "79c32359beea2efcc32decc7e15497381a1c8f2848449663cb6229d1d0db83bc",
+    "/srv/android/artifacts/lineage-24.0-arm64/vendor-policy-user-20261102-01/strict.log": "7d092807ba0c4d075cd6746429efcb6602b32f1b37849a7e0b8b9d19c931aab5",
+    "/srv/android/src/lineage-24.0-arm64/system/sepolicy/private/service_contexts": "bb373ef5e9e6e8af6a43531eb49e0a0a3de7614b32326b0f325f693b99a0c06a",
+    "/srv/android/artifacts/lineage-24.0-arm64/vendor-policy-tightening-20261105-01/metadata/vendor/etc/selinux/vendor_service_contexts": "5dc71762ea75986ef6bd2ce282f6920ec6cddc509b511bc940e6bc280c3ff3ec",
+    "/srv/android/artifacts/lineage-24.0-arm64/vendor-policy-tightening-20261105-01/endpoint-ownership.json": "914eb3be50bfe774f37f692c656925af52e249e1d6851bf62438ff3ca5873859"
+  },
+  "strict_passed": false,
+  "flash_ready": false
+}

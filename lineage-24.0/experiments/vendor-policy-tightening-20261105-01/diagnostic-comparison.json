@@ -1,0 +1,29 @@
+{
+  "before_diagnostics": 322,
+  "candidate_diagnostics": 319,
+  "removed_constraints": [
+    {
+      "origin": "vendor_sepolicy.cil",
+      "assertion": "(neverallow base_typeattr_628_30_0 uwb_service (service_manager (add)))",
+      "count": 1
+    },
+    {
+      "origin": "plat_sepolicy.cil",
+      "assertion": "(neverallow system_server self (capability (sys_module)))",
+      "count": 1
+    },
+    {
+      "origin": "plat_sepolicy.cil",
+      "assertion": "(neverallow base_typeattr_416 system_server_service (service_manager (add)))",
+      "count": 1
+    }
+  ],
+  "added_constraints": [],
+  "only_changed_ordered_policy_input": "vendor_sepolicy.cil",
+  "all_other_policy_input_and_compiler_hashes_identical": true,
+  "complete_source_audits_match": true,
+  "strict_passed": false,
+  "no_assertion_disabled": true,
+  "images_or_device_modified": false,
+  "flash_ready": false
+}

@@ -370,3 +370,12 @@ source/protected audits pass, config/firmware stay exact and exports match the
 firmware parent (the perf ABI changes remain). No experimental Image enters
 Android prebuilts. Strict vendor policy still fails with 322 diagnostic blocks;
 networking/BPF, module ABI and Android17 FBE/installer/rollback remain gates.
+
+
+The [vendor metadata narrowing candidate](experiments/vendor-policy-tightening-20261105-01/)
+keeps all assertions, separates two private Samsung UWB type names, and removes
+one legacy system_server sys_module allow forbidden by Android17. Production
+strict diagnostics decrease from 322 to 319, with exactly three resolved and no
+new diagnostic assertion identities. All other ordered policy/ compiler inputs
+are identical and full source audits match. This is isolated text metadata, not
+a rebuilt vendor image or strict-policy approval. Original vendor stays pinned.
