@@ -1,0 +1,29 @@
+{
+  "scope": "Remove reviewed obsolete grants and retire the Android11 MLS compatibility escape.\n\nOffline proposal based on platform-policy-port-20261105-03. No new allow or\nattribute membership is introduced. Current Android17 and Samsung vendor\nassertions remain unchanged. Strict compilation only; no image or TOP edits.\n",
+  "removed_vendor_allow_statements": 7,
+  "vendor_rules_before": {
+    "allow": 12527,
+    "allowx": 127,
+    "neverallow": 131,
+    "neverallowx": 2
+  },
+  "vendor_rules_after": {
+    "allow": 12520,
+    "allowx": 127,
+    "neverallow": 131,
+    "neverallowx": 2
+  },
+  "retired_compat_allow_statements": 4,
+  "retired_mls_membership_assignments": 1,
+  "all_retained_statements_byte_exact": true,
+  "no_new_rule_or_attribute_membership": true,
+  "strict_passed": false,
+  "compiler_exit": 255,
+  "diagnostic_blocks": 67,
+  "baseline_report_sha256": "0780720030fca22ada235da32ad156724196e40878940b9dd7170e44cf45cc17",
+  "runner_sha256": "2fa5cdf2e93817c9d223853f1927cd874621beb97431291e15f57fb7650f5c39",
+  "original_inputs_and_compiler_unchanged": true,
+  "runtime_and_app_mls_labels_validated": false,
+  "security_approved": false,
+  "flash_ready": false
+}

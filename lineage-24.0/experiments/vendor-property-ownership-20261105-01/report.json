@@ -1,0 +1,2229 @@
+{
+  "scope": "Inventory direct private-property classifications, contexts and writer grants.\n\nRead-only analysis, not a transitive attribute/effective-permission evaluator.\nSuggestions require review; unreferenced or mixed-prefix labels are not assigned\nan owner automatically. No policy, source, image or enforcement changes.\n",
+  "exclusive_vendor_private_property_types": 118,
+  "missing_direct_owner_memberships": 98,
+  "context_namespace_counts": {
+    "unreferenced_label": 77,
+    "vendor_prefixes_only": 41
+  },
+  "rows": [
+    {
+      "type": "ap_serial_prop",
+      "direct_owner_memberships": [
+        "system_property_type"
+      ],
+      "direct_scope_memberships": [],
+      "context_namespace": "unreferenced_label",
+      "contexts": [],
+      "direct_writer_grants": [],
+      "direct_known_core_or_broad_writer_symbols": []
+    },
+    {
+      "type": "apm_prop",
+      "direct_owner_memberships": [],
+      "direct_scope_memberships": [],
+      "context_namespace": "unreferenced_label",
+      "contexts": [],
+      "direct_writer_grants": [
+        {
+          "source": "system_app_30_0",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:6762",
+          "statement": "(allow system_app_30_0 apm_prop (property_service (set)))"
+        },
+        {
+          "source": "system_server_30_0",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:6944",
+          "statement": "(allow system_server_30_0 apm_prop (property_service (set)))"
+        }
+      ],
+      "direct_known_core_or_broad_writer_symbols": [
+        "system_app_30_0",
+        "system_server_30_0"
+      ]
+    },
+    {
+      "type": "armnn_prop",
+      "direct_owner_memberships": [],
+      "direct_scope_memberships": [],
+      "context_namespace": "unreferenced_label",
+      "contexts": [],
+      "direct_writer_grants": [],
+      "direct_known_core_or_broad_writer_symbols": []
+    },
+    {
+      "type": "boot_dram_info_prop",
+      "direct_owner_memberships": [],
+      "direct_scope_memberships": [],
+      "context_namespace": "unreferenced_label",
+      "contexts": [],
+      "direct_writer_grants": [],
+      "direct_known_core_or_broad_writer_symbols": []
+    },
+    {
+      "type": "boot_em_did_prop",
+      "direct_owner_memberships": [
+        "system_property_type"
+      ],
+      "direct_scope_memberships": [],
+      "context_namespace": "unreferenced_label",
+      "contexts": [],
+      "direct_writer_grants": [],
+      "direct_known_core_or_broad_writer_symbols": []
+    },
+    {
+      "type": "boot_force_upload_prop",
+      "direct_owner_memberships": [],
+      "direct_scope_memberships": [],
+      "context_namespace": "unreferenced_label",
+      "contexts": [],
+      "direct_writer_grants": [],
+      "direct_known_core_or_broad_writer_symbols": []
+    },
+    {
+      "type": "cache_status_prop",
+      "direct_owner_memberships": [],
+      "direct_scope_memberships": [],
+      "context_namespace": "unreferenced_label",
+      "contexts": [],
+      "direct_writer_grants": [
+        {
+          "source": "snap_hidl",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:13164",
+          "statement": "(allow snap_hidl cache_status_prop (property_service (set)))"
+        },
+        {
+          "source": "snap_utility",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:13210",
+          "statement": "(allow snap_utility cache_status_prop (property_service (set)))"
+        }
+      ],
+      "direct_known_core_or_broad_writer_symbols": []
+    },
+    {
+      "type": "ccm_prop",
+      "direct_owner_memberships": [],
+      "direct_scope_memberships": [],
+      "context_namespace": "unreferenced_label",
+      "contexts": [],
+      "direct_writer_grants": [
+        {
+          "source": "platform_app_30_0",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:5964",
+          "statement": "(allow platform_app_30_0 ccm_prop (property_service (set)))"
+        },
+        {
+          "source": "system_server_30_0",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:6940",
+          "statement": "(allow system_server_30_0 ccm_prop (property_service (set)))"
+        }
+      ],
+      "direct_known_core_or_broad_writer_symbols": [
+        "platform_app_30_0",
+        "system_server_30_0"
+      ]
+    },
+    {
+      "type": "compact_dump_prop",
+      "direct_owner_memberships": [],
+      "direct_scope_memberships": [],
+      "context_namespace": "unreferenced_label",
+      "contexts": [],
+      "direct_writer_grants": [],
+      "direct_known_core_or_broad_writer_symbols": []
+    },
+    {
+      "type": "cp_reserved_mem_prop",
+      "direct_owner_memberships": [],
+      "direct_scope_memberships": [],
+      "context_namespace": "unreferenced_label",
+      "contexts": [],
+      "direct_writer_grants": [
+        {
+          "source": "system_app_30_0",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:6770",
+          "statement": "(allow system_app_30_0 cp_reserved_mem_prop (property_service (set)))"
+        }
+      ],
+      "direct_known_core_or_broad_writer_symbols": [
+        "system_app_30_0"
+      ]
+    },
+    {
+      "type": "ctl_factory_ssc_prop",
+      "direct_owner_memberships": [],
+      "direct_scope_memberships": [],
+      "context_namespace": "unreferenced_label",
+      "contexts": [],
+      "direct_writer_grants": [],
+      "direct_known_core_or_broad_writer_symbols": []
+    },
+    {
+      "type": "debug_level_prop",
+      "direct_owner_memberships": [],
+      "direct_scope_memberships": [],
+      "context_namespace": "unreferenced_label",
+      "contexts": [],
+      "direct_writer_grants": [],
+      "direct_known_core_or_broad_writer_symbols": []
+    },
+    {
+      "type": "dolby_prop",
+      "direct_owner_memberships": [],
+      "direct_scope_memberships": [],
+      "context_namespace": "unreferenced_label",
+      "contexts": [],
+      "direct_writer_grants": [],
+      "direct_known_core_or_broad_writer_symbols": []
+    },
+    {
+      "type": "domain_read_prop",
+      "direct_owner_memberships": [],
+      "direct_scope_memberships": [],
+      "context_namespace": "unreferenced_label",
+      "contexts": [],
+      "direct_writer_grants": [],
+      "direct_known_core_or_broad_writer_symbols": []
+    },
+    {
+      "type": "dsmsd_prop",
+      "direct_owner_memberships": [
+        "system_property_type"
+      ],
+      "direct_scope_memberships": [],
+      "context_namespace": "unreferenced_label",
+      "contexts": [],
+      "direct_writer_grants": [
+        {
+          "source": "dsms",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:8483",
+          "statement": "(allow dsms dsmsd_prop (property_service (set)))"
+        }
+      ],
+      "direct_known_core_or_broad_writer_symbols": [
+        "dsms"
+      ]
+    },
+    {
+      "type": "em_version_prop",
+      "direct_owner_memberships": [],
+      "direct_scope_memberships": [],
+      "context_namespace": "unreferenced_label",
+      "contexts": [],
+      "direct_writer_grants": [
+        {
+          "source": "emservice",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:8733",
+          "statement": "(allow emservice em_version_prop (property_service (set)))"
+        },
+        {
+          "source": "vendor_init_30_0",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:14771",
+          "statement": "(allow vendor_init_30_0 em_version_prop (property_service (set)))"
+        }
+      ],
+      "direct_known_core_or_broad_writer_symbols": []
+    },
+    {
+      "type": "facm_prop",
+      "direct_owner_memberships": [],
+      "direct_scope_memberships": [],
+      "context_namespace": "unreferenced_label",
+      "contexts": [],
+      "direct_writer_grants": [
+        {
+          "source": "system_app_30_0",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:6766",
+          "statement": "(allow system_app_30_0 facm_prop (property_service (set)))"
+        }
+      ],
+      "direct_known_core_or_broad_writer_symbols": [
+        "system_app_30_0"
+      ]
+    },
+    {
+      "type": "ina_status_prop",
+      "direct_owner_memberships": [],
+      "direct_scope_memberships": [],
+      "context_namespace": "unreferenced_label",
+      "contexts": [],
+      "direct_writer_grants": [
+        {
+          "source": "system_app_30_0",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:6790",
+          "statement": "(allow system_app_30_0 ina_status_prop (property_service (set)))"
+        },
+        {
+          "source": "init_30_0",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:10690",
+          "statement": "(allow init_30_0 ina_status_prop (property_service (set)))"
+        },
+        {
+          "source": "vendor_init_30_0",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:14787",
+          "statement": "(allow vendor_init_30_0 ina_status_prop (property_service (set)))"
+        }
+      ],
+      "direct_known_core_or_broad_writer_symbols": [
+        "init_30_0",
+        "system_app_30_0"
+      ]
+    },
+    {
+      "type": "lmk_prop",
+      "direct_owner_memberships": [],
+      "direct_scope_memberships": [],
+      "context_namespace": "unreferenced_label",
+      "contexts": [],
+      "direct_writer_grants": [
+        {
+          "source": "lmkd_30_0",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:5762",
+          "statement": "(allow lmkd_30_0 lmk_prop (property_service (set)))"
+        }
+      ],
+      "direct_known_core_or_broad_writer_symbols": [
+        "lmkd_30_0"
+      ]
+    },
+    {
+      "type": "mobicore_prop",
+      "direct_owner_memberships": [],
+      "direct_scope_memberships": [],
+      "context_namespace": "unreferenced_label",
+      "contexts": [],
+      "direct_writer_grants": [
+        {
+          "source": "tee_30_0",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:6995",
+          "statement": "(allow tee_30_0 mobicore_prop (property_service (set)))"
+        },
+        {
+          "source": "mobicore",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:11423",
+          "statement": "(allow mobicore mobicore_prop (property_service (set)))"
+        }
+      ],
+      "direct_known_core_or_broad_writer_symbols": []
+    },
+    {
+      "type": "multisim_prop",
+      "direct_owner_memberships": [],
+      "direct_scope_memberships": [],
+      "context_namespace": "unreferenced_label",
+      "contexts": [],
+      "direct_writer_grants": [
+        {
+          "source": "init_30_0",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:5614",
+          "statement": "(allow init_30_0 multisim_prop (property_service (set)))"
+        },
+        {
+          "source": "qti_init_shell",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:10733",
+          "statement": "(allow qti_init_shell multisim_prop (property_service (set)))"
+        },
+        {
+          "source": "vendor_secril_config_svc",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:14889",
+          "statement": "(allow vendor_secril_config_svc multisim_prop (property_service (set)))"
+        }
+      ],
+      "direct_known_core_or_broad_writer_symbols": [
+        "init_30_0"
+      ]
+    },
+    {
+      "type": "nfc_ese_prop",
+      "direct_owner_memberships": [],
+      "direct_scope_memberships": [],
+      "context_namespace": "unreferenced_label",
+      "contexts": [],
+      "direct_writer_grants": [
+        {
+          "source": "vendor_init_30_0",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:14821",
+          "statement": "(allow vendor_init_30_0 nfc_ese_prop (property_service (set)))"
+        }
+      ],
+      "direct_known_core_or_broad_writer_symbols": []
+    },
+    {
+      "type": "oneseg_prop",
+      "direct_owner_memberships": [
+        "system_property_type"
+      ],
+      "direct_scope_memberships": [],
+      "context_namespace": "unreferenced_label",
+      "contexts": [],
+      "direct_writer_grants": [
+        {
+          "source": "oneseg_mw",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:11669",
+          "statement": "(allow oneseg_mw oneseg_prop (property_service (set)))"
+        }
+      ],
+      "direct_known_core_or_broad_writer_symbols": [
+        "oneseg_mw"
+      ]
+    },
+    {
+      "type": "product_ship_prop",
+      "direct_owner_memberships": [],
+      "direct_scope_memberships": [],
+      "context_namespace": "unreferenced_label",
+      "contexts": [],
+      "direct_writer_grants": [],
+      "direct_known_core_or_broad_writer_symbols": []
+    },
+    {
+      "type": "receiver_error_prop",
+      "direct_owner_memberships": [],
+      "direct_scope_memberships": [],
+      "context_namespace": "unreferenced_label",
+      "contexts": [],
+      "direct_writer_grants": [
+        {
+          "source": "vendor_init_30_0",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:14782",
+          "statement": "(allow vendor_init_30_0 receiver_error_prop (property_service (set)))"
+        }
+      ],
+      "direct_known_core_or_broad_writer_symbols": []
+    },
+    {
+      "type": "recovery_prop",
+      "direct_owner_memberships": [],
+      "direct_scope_memberships": [],
+      "context_namespace": "unreferenced_label",
+      "contexts": [],
+      "direct_writer_grants": [],
+      "direct_known_core_or_broad_writer_symbols": []
+    },
+    {
+      "type": "rfkilldisabled_prop",
+      "direct_owner_memberships": [],
+      "direct_scope_memberships": [],
+      "context_namespace": "unreferenced_label",
+      "contexts": [],
+      "direct_writer_grants": [],
+      "direct_known_core_or_broad_writer_symbols": []
+    },
+    {
+      "type": "ril_daemon_prop",
+      "direct_owner_memberships": [
+        "vendor_property_type"
+      ],
+      "direct_scope_memberships": [
+        "vendor_public_property_type"
+      ],
+      "context_namespace": "unreferenced_label",
+      "contexts": [],
+      "direct_writer_grants": [],
+      "direct_known_core_or_broad_writer_symbols": []
+    },
+    {
+      "type": "rild_prop",
+      "direct_owner_memberships": [],
+      "direct_scope_memberships": [],
+      "context_namespace": "unreferenced_label",
+      "contexts": [],
+      "direct_writer_grants": [
+        {
+          "source": "radio_30_0",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:6119",
+          "statement": "(allow radio_30_0 rild_prop (property_service (set)))"
+        },
+        {
+          "source": "cbd",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:16757",
+          "statement": "(allow cbd rild_prop (property_service (set)))"
+        },
+        {
+          "source": "rild",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:17193",
+          "statement": "(allow rild rild_prop (property_service (set)))"
+        }
+      ],
+      "direct_known_core_or_broad_writer_symbols": [
+        "radio_30_0"
+      ]
+    },
+    {
+      "type": "score_prop",
+      "direct_owner_memberships": [],
+      "direct_scope_memberships": [],
+      "context_namespace": "unreferenced_label",
+      "contexts": [],
+      "direct_writer_grants": [],
+      "direct_known_core_or_broad_writer_symbols": []
+    },
+    {
+      "type": "sec_audio_prop",
+      "direct_owner_memberships": [],
+      "direct_scope_memberships": [],
+      "context_namespace": "unreferenced_label",
+      "contexts": [],
+      "direct_writer_grants": [
+        {
+          "source": "mediacodec",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:11268",
+          "statement": "(allow mediacodec sec_audio_prop (property_service (set)))"
+        },
+        {
+          "source": "vendor_init_30_0",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:14796",
+          "statement": "(allow vendor_init_30_0 sec_audio_prop (property_service (set)))"
+        }
+      ],
+      "direct_known_core_or_broad_writer_symbols": []
+    },
+    {
+      "type": "sec_audio_usb_prop",
+      "direct_owner_memberships": [],
+      "direct_scope_memberships": [],
+      "context_namespace": "unreferenced_label",
+      "contexts": [],
+      "direct_writer_grants": [],
+      "direct_known_core_or_broad_writer_symbols": []
+    },
+    {
+      "type": "sec_bluetooth_prop",
+      "direct_owner_memberships": [],
+      "direct_scope_memberships": [],
+      "context_namespace": "unreferenced_label",
+      "contexts": [],
+      "direct_writer_grants": [
+        {
+          "source": "hal_bluetooth_default",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:9251",
+          "statement": "(allow hal_bluetooth_default sec_bluetooth_prop (property_service (set)))"
+        }
+      ],
+      "direct_known_core_or_broad_writer_symbols": []
+    },
+    {
+      "type": "sec_camera_prop",
+      "direct_owner_memberships": [],
+      "direct_scope_memberships": [],
+      "context_namespace": "unreferenced_label",
+      "contexts": [],
+      "direct_writer_grants": [
+        {
+          "source": "cameraserver_30_0",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:4796",
+          "statement": "(allow cameraserver_30_0 sec_camera_prop (property_service (set)))"
+        },
+        {
+          "source": "hal_camera_default",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:5065",
+          "statement": "(allow hal_camera_default sec_camera_prop (property_service (set)))"
+        },
+        {
+          "source": "system_app_30_0",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:6794",
+          "statement": "(allow system_app_30_0 sec_camera_prop (property_service (set)))"
+        },
+        {
+          "source": "system_server_30_0",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:6948",
+          "statement": "(allow system_server_30_0 sec_camera_prop (property_service (set)))"
+        },
+        {
+          "source": "mediaserver_30_0",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:11353",
+          "statement": "(allow mediaserver_30_0 sec_camera_prop (property_service (set)))"
+        }
+      ],
+      "direct_known_core_or_broad_writer_symbols": [
+        "cameraserver_30_0",
+        "mediaserver_30_0",
+        "system_app_30_0",
+        "system_server_30_0"
+      ]
+    },
+    {
+      "type": "sec_factory_facm_prop",
+      "direct_owner_memberships": [],
+      "direct_scope_memberships": [],
+      "context_namespace": "unreferenced_label",
+      "contexts": [],
+      "direct_writer_grants": [
+        {
+          "source": "system_app_30_0",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:6774",
+          "statement": "(allow system_app_30_0 sec_factory_facm_prop (property_service (set)))"
+        }
+      ],
+      "direct_known_core_or_broad_writer_symbols": [
+        "system_app_30_0"
+      ]
+    },
+    {
+      "type": "sec_ims_prop",
+      "direct_owner_memberships": [],
+      "direct_scope_memberships": [],
+      "context_namespace": "unreferenced_label",
+      "contexts": [],
+      "direct_writer_grants": [
+        {
+          "source": "system_app_30_0",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:6782",
+          "statement": "(allow system_app_30_0 sec_ims_prop (property_service (set)))"
+        }
+      ],
+      "direct_known_core_or_broad_writer_symbols": [
+        "system_app_30_0"
+      ]
+    },
+    {
+      "type": "sec_timed_prop",
+      "direct_owner_memberships": [],
+      "direct_scope_memberships": [],
+      "context_namespace": "unreferenced_label",
+      "contexts": [],
+      "direct_writer_grants": [],
+      "direct_known_core_or_broad_writer_symbols": []
+    },
+    {
+      "type": "security_prop",
+      "direct_owner_memberships": [],
+      "direct_scope_memberships": [],
+      "context_namespace": "unreferenced_label",
+      "contexts": [],
+      "direct_writer_grants": [
+        {
+          "source": "system_server_30_0",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:6936",
+          "statement": "(allow system_server_30_0 security_prop (property_service (set)))"
+        },
+        {
+          "source": "policyloader_app",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:7523",
+          "statement": "(allow policyloader_app security_prop (property_service (set)))"
+        }
+      ],
+      "direct_known_core_or_broad_writer_symbols": [
+        "policyloader_app",
+        "system_server_30_0"
+      ]
+    },
+    {
+      "type": "security_sepolicy_prop",
+      "direct_owner_memberships": [],
+      "direct_scope_memberships": [],
+      "context_namespace": "unreferenced_label",
+      "contexts": [],
+      "direct_writer_grants": [],
+      "direct_known_core_or_broad_writer_symbols": []
+    },
+    {
+      "type": "smartamp_prop",
+      "direct_owner_memberships": [],
+      "direct_scope_memberships": [],
+      "context_namespace": "unreferenced_label",
+      "contexts": [],
+      "direct_writer_grants": [],
+      "direct_known_core_or_broad_writer_symbols": []
+    },
+    {
+      "type": "sns_camera_light_prop",
+      "direct_owner_memberships": [
+        "system_property_type"
+      ],
+      "direct_scope_memberships": [],
+      "context_namespace": "unreferenced_label",
+      "contexts": [],
+      "direct_writer_grants": [
+        {
+          "source": "hal_sensors_default",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:5432",
+          "statement": "(allow hal_sensors_default sns_camera_light_prop (property_service (set)))"
+        },
+        {
+          "source": "system_server_30_0",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:14275",
+          "statement": "(allow system_server_30_0 sns_camera_light_prop (property_service (set)))"
+        }
+      ],
+      "direct_known_core_or_broad_writer_symbols": [
+        "system_server_30_0"
+      ]
+    },
+    {
+      "type": "spud_prop",
+      "direct_owner_memberships": [
+        "system_property_type"
+      ],
+      "direct_scope_memberships": [],
+      "context_namespace": "unreferenced_label",
+      "contexts": [],
+      "direct_writer_grants": [
+        {
+          "source": "spu_app",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:13336",
+          "statement": "(allow spu_app spud_prop (property_service (set)))"
+        },
+        {
+          "source": "spud",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:13346",
+          "statement": "(allow spud spud_prop (property_service (set)))"
+        }
+      ],
+      "direct_known_core_or_broad_writer_symbols": [
+        "spu_app",
+        "spud"
+      ]
+    },
+    {
+      "type": "system_fota_prop",
+      "direct_owner_memberships": [
+        "system_property_type"
+      ],
+      "direct_scope_memberships": [],
+      "context_namespace": "unreferenced_label",
+      "contexts": [],
+      "direct_writer_grants": [
+        {
+          "source": "flash_recovery_sec",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:8970",
+          "statement": "(allow flash_recovery_sec system_fota_prop (property_service (set)))"
+        }
+      ],
+      "direct_known_core_or_broad_writer_symbols": [
+        "flash_recovery_sec"
+      ]
+    },
+    {
+      "type": "system_product_prop",
+      "direct_owner_memberships": [],
+      "direct_scope_memberships": [],
+      "context_namespace": "unreferenced_label",
+      "contexts": [],
+      "direct_writer_grants": [],
+      "direct_known_core_or_broad_writer_symbols": []
+    },
+    {
+      "type": "system_sensor_prop",
+      "direct_owner_memberships": [
+        "system_property_type"
+      ],
+      "direct_scope_memberships": [],
+      "context_namespace": "unreferenced_label",
+      "contexts": [],
+      "direct_writer_grants": [
+        {
+          "source": "platform_app_30_0",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:11967",
+          "statement": "(allow platform_app_30_0 system_sensor_prop (property_service (set)))"
+        }
+      ],
+      "direct_known_core_or_broad_writer_symbols": [
+        "platform_app_30_0"
+      ]
+    },
+    {
+      "type": "system_sensordebug_prop",
+      "direct_owner_memberships": [
+        "system_property_type"
+      ],
+      "direct_scope_memberships": [],
+      "context_namespace": "unreferenced_label",
+      "contexts": [],
+      "direct_writer_grants": [
+        {
+          "source": "system_app_30_0",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:13828",
+          "statement": "(allow system_app_30_0 system_sensordebug_prop (property_service (set)))"
+        }
+      ],
+      "direct_known_core_or_broad_writer_symbols": [
+        "system_app_30_0"
+      ]
+    },
+    {
+      "type": "tzdaemon_prop",
+      "direct_owner_memberships": [],
+      "direct_scope_memberships": [],
+      "context_namespace": "unreferenced_label",
+      "contexts": [],
+      "direct_writer_grants": [],
+      "direct_known_core_or_broad_writer_symbols": []
+    },
+    {
+      "type": "tztsdaemon_prop",
+      "direct_owner_memberships": [],
+      "direct_scope_memberships": [],
+      "context_namespace": "unreferenced_label",
+      "contexts": [],
+      "direct_writer_grants": [],
+      "direct_known_core_or_broad_writer_symbols": []
+    },
+    {
+      "type": "vendor_bluetooth_prop",
+      "direct_owner_memberships": [],
+      "direct_scope_memberships": [],
+      "context_namespace": "unreferenced_label",
+      "contexts": [],
+      "direct_writer_grants": [
+        {
+          "source": "bluetooth_30_0",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:4675",
+          "statement": "(allow bluetooth_30_0 vendor_bluetooth_prop (property_service (set)))"
+        },
+        {
+          "source": "hal_bluetooth_default",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:9242",
+          "statement": "(allow hal_bluetooth_default vendor_bluetooth_prop (property_service (set)))"
+        },
+        {
+          "source": "hal_bluetooth_qti",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:16925",
+          "statement": "(allow hal_bluetooth_qti vendor_bluetooth_prop (property_service (set)))"
+        }
+      ],
+      "direct_known_core_or_broad_writer_symbols": [
+        "bluetooth_30_0"
+      ]
+    },
+    {
+      "type": "vendor_bssl_post_prop",
+      "direct_owner_memberships": [],
+      "direct_scope_memberships": [],
+      "context_namespace": "vendor_prefixes_only",
+      "contexts": [
+        {
+          "name": "vendor.fips.bssl.post",
+          "line": 53
+        }
+      ],
+      "direct_writer_grants": [
+        {
+          "source": "vndservicemanager_30_0",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:14994",
+          "statement": "(allow vndservicemanager_30_0 vendor_bssl_post_prop (property_service (set)))"
+        }
+      ],
+      "direct_known_core_or_broad_writer_symbols": []
+    },
+    {
+      "type": "vendor_camera_motor_prop",
+      "direct_owner_memberships": [],
+      "direct_scope_memberships": [],
+      "context_namespace": "vendor_prefixes_only",
+      "contexts": [
+        {
+          "name": "vendor.camera.motor.service",
+          "line": 72
+        }
+      ],
+      "direct_writer_grants": [
+        {
+          "source": "system_server_30_0",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:6952",
+          "statement": "(allow system_server_30_0 vendor_camera_motor_prop (property_service (set)))"
+        }
+      ],
+      "direct_known_core_or_broad_writer_symbols": [
+        "system_server_30_0"
+      ]
+    },
+    {
+      "type": "vendor_camera_prop",
+      "direct_owner_memberships": [],
+      "direct_scope_memberships": [],
+      "context_namespace": "vendor_prefixes_only",
+      "contexts": [
+        {
+          "name": "persist.vendor.sys.camera.",
+          "line": 142
+        },
+        {
+          "name": "persist.vendor.hifills.",
+          "line": 143
+        },
+        {
+          "name": "persist.vendor.dualCam.",
+          "line": 144
+        },
+        {
+          "name": "persist.vendor.camera.",
+          "line": 145
+        },
+        {
+          "name": "vendor.hal.camera.",
+          "line": 146
+        }
+      ],
+      "direct_writer_grants": [
+        {
+          "source": "hal_camera_default",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:9285",
+          "statement": "(allow hal_camera_default vendor_camera_prop (property_service (set)))"
+        },
+        {
+          "source": "vendor_init_30_0",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:14798",
+          "statement": "(allow vendor_init_30_0 vendor_camera_prop (property_service (set)))"
+        },
+        {
+          "source": "hal_camera_default",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:15810",
+          "statement": "(allow hal_camera_default vendor_camera_prop (property_service (set)))"
+        }
+      ],
+      "direct_known_core_or_broad_writer_symbols": []
+    },
+    {
+      "type": "vendor_config_default_prop",
+      "direct_owner_memberships": [],
+      "direct_scope_memberships": [],
+      "context_namespace": "vendor_prefixes_only",
+      "contexts": [
+        {
+          "name": "vendor.config.",
+          "line": 161
+        }
+      ],
+      "direct_writer_grants": [
+        {
+          "source": "cbd",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:15569",
+          "statement": "(allow cbd vendor_config_default_prop (property_service (set)))"
+        },
+        {
+          "source": "hal_audio_default",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:15747",
+          "statement": "(allow hal_audio_default vendor_config_default_prop (property_service (set)))"
+        },
+        {
+          "source": "memlogd",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:16320",
+          "statement": "(allow memlogd vendor_config_default_prop (property_service (set)))"
+        },
+        {
+          "source": "vendor_init_30_0",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:16531",
+          "statement": "(allow vendor_init_30_0 vendor_config_default_prop (property_service (set)))"
+        }
+      ],
+      "direct_known_core_or_broad_writer_symbols": []
+    },
+    {
+      "type": "vendor_debug_egl_prop",
+      "direct_owner_memberships": [],
+      "direct_scope_memberships": [],
+      "context_namespace": "vendor_prefixes_only",
+      "contexts": [
+        {
+          "name": "vendor.debug.egl.",
+          "line": 23
+        }
+      ],
+      "direct_writer_grants": [],
+      "direct_known_core_or_broad_writer_symbols": []
+    },
+    {
+      "type": "vendor_debug_snap_prop",
+      "direct_owner_memberships": [
+        "vendor_property_type"
+      ],
+      "direct_scope_memberships": [
+        "vendor_restricted_property_type"
+      ],
+      "context_namespace": "unreferenced_label",
+      "contexts": [],
+      "direct_writer_grants": [
+        {
+          "source": "hal_securesnap_default",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:10015",
+          "statement": "(allow hal_securesnap_default vendor_debug_snap_prop (property_service (set)))"
+        },
+        {
+          "source": "snap_hidl",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:13168",
+          "statement": "(allow snap_hidl vendor_debug_snap_prop (property_service (set)))"
+        }
+      ],
+      "direct_known_core_or_broad_writer_symbols": []
+    },
+    {
+      "type": "vendor_device_prop",
+      "direct_owner_memberships": [],
+      "direct_scope_memberships": [],
+      "context_namespace": "vendor_prefixes_only",
+      "contexts": [
+        {
+          "name": "vendor.device.modules.ready",
+          "line": 191
+        }
+      ],
+      "direct_writer_grants": [],
+      "direct_known_core_or_broad_writer_symbols": []
+    },
+    {
+      "type": "vendor_df_prop",
+      "direct_owner_memberships": [],
+      "direct_scope_memberships": [],
+      "context_namespace": "unreferenced_label",
+      "contexts": [],
+      "direct_writer_grants": [
+        {
+          "source": "vendor_init_30_0",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:14793",
+          "statement": "(allow vendor_init_30_0 vendor_df_prop (property_service (set)))"
+        }
+      ],
+      "direct_known_core_or_broad_writer_symbols": []
+    },
+    {
+      "type": "vendor_display_sf_prop",
+      "direct_owner_memberships": [],
+      "direct_scope_memberships": [],
+      "context_namespace": "vendor_prefixes_only",
+      "contexts": [
+        {
+          "name": "vendor.display.sf.",
+          "line": 96
+        }
+      ],
+      "direct_writer_grants": [
+        {
+          "source": "hal_graphics_composer_default",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:5306",
+          "statement": "(allow hal_graphics_composer_default vendor_display_sf_prop (property_service (set)))"
+        }
+      ],
+      "direct_known_core_or_broad_writer_symbols": []
+    },
+    {
+      "type": "vendor_dolby_prop",
+      "direct_owner_memberships": [],
+      "direct_scope_memberships": [],
+      "context_namespace": "vendor_prefixes_only",
+      "contexts": [
+        {
+          "name": "vendor.dolby.",
+          "line": 77
+        }
+      ],
+      "direct_writer_grants": [],
+      "direct_known_core_or_broad_writer_symbols": []
+    },
+    {
+      "type": "vendor_dumpstate_config_prop",
+      "direct_owner_memberships": [],
+      "direct_scope_memberships": [],
+      "context_namespace": "vendor_prefixes_only",
+      "contexts": [
+        {
+          "name": "persist.vendor.dumpstate.verbose_logging.enabled",
+          "line": 107
+        }
+      ],
+      "direct_writer_grants": [
+        {
+          "source": "hal_dumpstate_default",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:5158",
+          "statement": "(allow hal_dumpstate_default vendor_dumpstate_config_prop (property_service (set)))"
+        }
+      ],
+      "direct_known_core_or_broad_writer_symbols": []
+    },
+    {
+      "type": "vendor_eden_prop",
+      "direct_owner_memberships": [],
+      "direct_scope_memberships": [],
+      "context_namespace": "vendor_prefixes_only",
+      "contexts": [
+        {
+          "name": "ro.vendor.eden.devices",
+          "line": 158
+        },
+        {
+          "name": "ro.vendor.eden.npu.version.path",
+          "line": 159
+        }
+      ],
+      "direct_writer_grants": [
+        {
+          "source": "vendor_init_30_0",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:16536",
+          "statement": "(allow vendor_init_30_0 vendor_eden_prop (property_service (set)))"
+        }
+      ],
+      "direct_known_core_or_broad_writer_symbols": []
+    },
+    {
+      "type": "vendor_em_tstate_prop",
+      "direct_owner_memberships": [
+        "vendor_property_type"
+      ],
+      "direct_scope_memberships": [
+        "vendor_restricted_property_type"
+      ],
+      "context_namespace": "unreferenced_label",
+      "contexts": [],
+      "direct_writer_grants": [
+        {
+          "source": "emservice",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:8711",
+          "statement": "(allow emservice vendor_em_tstate_prop (property_service (set)))"
+        }
+      ],
+      "direct_known_core_or_broad_writer_symbols": []
+    },
+    {
+      "type": "vendor_factory_prop",
+      "direct_owner_memberships": [],
+      "direct_scope_memberships": [],
+      "context_namespace": "unreferenced_label",
+      "contexts": [],
+      "direct_writer_grants": [],
+      "direct_known_core_or_broad_writer_symbols": []
+    },
+    {
+      "type": "vendor_fastrpc_prop",
+      "direct_owner_memberships": [],
+      "direct_scope_memberships": [],
+      "context_namespace": "unreferenced_label",
+      "contexts": [],
+      "direct_writer_grants": [],
+      "direct_known_core_or_broad_writer_symbols": []
+    },
+    {
+      "type": "vendor_fota_prop",
+      "direct_owner_memberships": [
+        "vendor_property_type"
+      ],
+      "direct_scope_memberships": [
+        "vendor_public_property_type"
+      ],
+      "context_namespace": "vendor_prefixes_only",
+      "contexts": [
+        {
+          "name": "vendor.ota.recovery.status",
+          "line": 116
+        }
+      ],
+      "direct_writer_grants": [
+        {
+          "source": "vendor_install_recovery",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:14839",
+          "statement": "(allow vendor_install_recovery vendor_fota_prop (property_service (set)))"
+        }
+      ],
+      "direct_known_core_or_broad_writer_symbols": []
+    },
+    {
+      "type": "vendor_fr_dlymgr_prop",
+      "direct_owner_memberships": [],
+      "direct_scope_memberships": [],
+      "context_namespace": "unreferenced_label",
+      "contexts": [],
+      "direct_writer_grants": [],
+      "direct_known_core_or_broad_writer_symbols": []
+    },
+    {
+      "type": "vendor_fr_wkrmgr_prop",
+      "direct_owner_memberships": [],
+      "direct_scope_memberships": [],
+      "context_namespace": "unreferenced_label",
+      "contexts": [],
+      "direct_writer_grants": [],
+      "direct_known_core_or_broad_writer_symbols": []
+    },
+    {
+      "type": "vendor_heimdalld_prop",
+      "direct_owner_memberships": [],
+      "direct_scope_memberships": [],
+      "context_namespace": "vendor_prefixes_only",
+      "contexts": [
+        {
+          "name": "ro.vendor.heimdalld.",
+          "line": 113
+        }
+      ],
+      "direct_writer_grants": [
+        {
+          "source": "vendor_init_30_0",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:14823",
+          "statement": "(allow vendor_init_30_0 vendor_heimdalld_prop (property_service (set)))"
+        }
+      ],
+      "direct_known_core_or_broad_writer_symbols": []
+    },
+    {
+      "type": "vendor_hostapd_prop",
+      "direct_owner_memberships": [],
+      "direct_scope_memberships": [],
+      "context_namespace": "unreferenced_label",
+      "contexts": [],
+      "direct_writer_grants": [],
+      "direct_known_core_or_broad_writer_symbols": []
+    },
+    {
+      "type": "vendor_hwc_prop",
+      "direct_owner_memberships": [],
+      "direct_scope_memberships": [],
+      "context_namespace": "unreferenced_label",
+      "contexts": [],
+      "direct_writer_grants": [
+        {
+          "source": "hal_graphics_composer_default",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:15886",
+          "statement": "(allow hal_graphics_composer_default vendor_hwc_prop (property_service (set)))"
+        },
+        {
+          "source": "vendor_init_30_0",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:17346",
+          "statement": "(allow vendor_init_30_0 vendor_hwc_prop (property_service (set)))"
+        }
+      ],
+      "direct_known_core_or_broad_writer_symbols": []
+    },
+    {
+      "type": "vendor_ims_prop",
+      "direct_owner_memberships": [],
+      "direct_scope_memberships": [],
+      "context_namespace": "unreferenced_label",
+      "contexts": [],
+      "direct_writer_grants": [
+        {
+          "source": "vendor_ims_app",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:16482",
+          "statement": "(allow vendor_ims_app vendor_ims_prop (property_service (set)))"
+        },
+        {
+          "source": "vendor_rcs_app",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:16570",
+          "statement": "(allow vendor_rcs_app vendor_ims_prop (property_service (set)))"
+        }
+      ],
+      "direct_known_core_or_broad_writer_symbols": []
+    },
+    {
+      "type": "vendor_mbim_prop",
+      "direct_owner_memberships": [],
+      "direct_scope_memberships": [],
+      "context_namespace": "unreferenced_label",
+      "contexts": [],
+      "direct_writer_grants": [],
+      "direct_known_core_or_broad_writer_symbols": []
+    },
+    {
+      "type": "vendor_mediadrm_prop",
+      "direct_owner_memberships": [],
+      "direct_scope_memberships": [],
+      "context_namespace": "unreferenced_label",
+      "contexts": [],
+      "direct_writer_grants": [
+        {
+          "source": "mediadrmserver_30_0",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:11297",
+          "statement": "(allow mediadrmserver_30_0 vendor_mediadrm_prop (property_service (set)))"
+        }
+      ],
+      "direct_known_core_or_broad_writer_symbols": [
+        "mediadrmserver_30_0"
+      ]
+    },
+    {
+      "type": "vendor_members_prop",
+      "direct_owner_memberships": [],
+      "direct_scope_memberships": [],
+      "context_namespace": "vendor_prefixes_only",
+      "contexts": [
+        {
+          "name": "persist.vendor.members.",
+          "line": 50
+        }
+      ],
+      "direct_writer_grants": [
+        {
+          "source": "rild",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:6203",
+          "statement": "(allow rild vendor_members_prop (property_service (set)))"
+        },
+        {
+          "source": "vendor_init_30_0",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:14774",
+          "statement": "(allow vendor_init_30_0 vendor_members_prop (property_service (set)))"
+        }
+      ],
+      "direct_known_core_or_broad_writer_symbols": []
+    },
+    {
+      "type": "vendor_mobicore_prop",
+      "direct_owner_memberships": [],
+      "direct_scope_memberships": [],
+      "context_namespace": "unreferenced_label",
+      "contexts": [],
+      "direct_writer_grants": [
+        {
+          "source": "hal_keymaster_default",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:5329",
+          "statement": "(allow hal_keymaster_default vendor_mobicore_prop (property_service (set)))"
+        },
+        {
+          "source": "mobicore",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:11427",
+          "statement": "(allow mobicore vendor_mobicore_prop (property_service (set)))"
+        },
+        {
+          "source": "vendor_init_30_0",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:14825",
+          "statement": "(allow vendor_init_30_0 vendor_mobicore_prop (property_service (set)))"
+        }
+      ],
+      "direct_known_core_or_broad_writer_symbols": []
+    },
+    {
+      "type": "vendor_mobicoredaemon_prop",
+      "direct_owner_memberships": [],
+      "direct_scope_memberships": [],
+      "context_namespace": "vendor_prefixes_only",
+      "contexts": [
+        {
+          "name": "vendor.sys.mobicoredaemon.enable",
+          "line": 152
+        }
+      ],
+      "direct_writer_grants": [
+        {
+          "source": "hal_keymaster_default",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:15901",
+          "statement": "(allow hal_keymaster_default vendor_mobicoredaemon_prop (property_service (set)))"
+        },
+        {
+          "source": "mobicore",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:16375",
+          "statement": "(allow mobicore vendor_mobicoredaemon_prop (property_service (set)))"
+        },
+        {
+          "source": "vendor_init_30_0",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:16525",
+          "statement": "(allow vendor_init_30_0 vendor_mobicoredaemon_prop (property_service (set)))"
+        },
+        {
+          "source": "hal_snapsec_default",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:17060",
+          "statement": "(allow hal_snapsec_default vendor_mobicoredaemon_prop (property_service (set)))"
+        },
+        {
+          "source": "mobicore",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:17149",
+          "statement": "(allow mobicore vendor_mobicoredaemon_prop (property_service (set)))"
+        }
+      ],
+      "direct_known_core_or_broad_writer_symbols": []
+    },
+    {
+      "type": "vendor_model_suffix_prop",
+      "direct_owner_memberships": [],
+      "direct_scope_memberships": [],
+      "context_namespace": "vendor_prefixes_only",
+      "contexts": [
+        {
+          "name": "ro.vendor.model_suffix",
+          "line": 59
+        }
+      ],
+      "direct_writer_grants": [
+        {
+          "source": "system_server_30_0",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:6932",
+          "statement": "(allow system_server_30_0 vendor_model_suffix_prop (property_service (set)))"
+        },
+        {
+          "source": "init_30_0",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:8232",
+          "statement": "(allow init_30_0 vendor_model_suffix_prop (property_service (set)))"
+        },
+        {
+          "source": "cp_vername",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:8236",
+          "statement": "(allow cp_vername vendor_model_suffix_prop (property_service (set)))"
+        }
+      ],
+      "direct_known_core_or_broad_writer_symbols": [
+        "init_30_0",
+        "system_server_30_0"
+      ]
+    },
+    {
+      "type": "vendor_nfc_prop",
+      "direct_owner_memberships": [],
+      "direct_scope_memberships": [],
+      "context_namespace": "vendor_prefixes_only",
+      "contexts": [
+        {
+          "name": "persist.vendor.nfc.log.index",
+          "line": 20
+        },
+        {
+          "name": "vendor.nfc.fw.",
+          "line": 46
+        }
+      ],
+      "direct_writer_grants": [
+        {
+          "source": "hal_nfc_default",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:9830",
+          "statement": "(allow hal_nfc_default vendor_nfc_prop (property_service (set)))"
+        }
+      ],
+      "direct_known_core_or_broad_writer_symbols": []
+    },
+    {
+      "type": "vendor_ofi_prop",
+      "direct_owner_memberships": [],
+      "direct_scope_memberships": [],
+      "context_namespace": "unreferenced_label",
+      "contexts": [],
+      "direct_writer_grants": [],
+      "direct_known_core_or_broad_writer_symbols": []
+    },
+    {
+      "type": "vendor_omadm_prop",
+      "direct_owner_memberships": [],
+      "direct_scope_memberships": [],
+      "context_namespace": "vendor_prefixes_only",
+      "contexts": [
+        {
+          "name": "persist.vendor.sys.spr_hfa_completed",
+          "line": 38
+        },
+        {
+          "name": "persist.vendor.sys.omadm_hfa_prl",
+          "line": 39
+        }
+      ],
+      "direct_writer_grants": [
+        {
+          "source": "system_app_30_0",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:6778",
+          "statement": "(allow system_app_30_0 vendor_omadm_prop (property_service (set)))"
+        }
+      ],
+      "direct_known_core_or_broad_writer_symbols": [
+        "system_app_30_0"
+      ]
+    },
+    {
+      "type": "vendor_persist_config_default_prop",
+      "direct_owner_memberships": [],
+      "direct_scope_memberships": [],
+      "context_namespace": "vendor_prefixes_only",
+      "contexts": [
+        {
+          "name": "persist.vendor.config.",
+          "line": 163
+        }
+      ],
+      "direct_writer_grants": [
+        {
+          "source": "memlogd",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:16330",
+          "statement": "(allow memlogd vendor_persist_config_default_prop (property_service (set)))"
+        }
+      ],
+      "direct_known_core_or_broad_writer_symbols": []
+    },
+    {
+      "type": "vendor_persist_sys_default_prop",
+      "direct_owner_memberships": [],
+      "direct_scope_memberships": [],
+      "context_namespace": "vendor_prefixes_only",
+      "contexts": [
+        {
+          "name": "persist.vendor.sys.",
+          "line": 166
+        }
+      ],
+      "direct_writer_grants": [
+        {
+          "source": "memlogd",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:16325",
+          "statement": "(allow memlogd vendor_persist_sys_default_prop (property_service (set)))"
+        }
+      ],
+      "direct_known_core_or_broad_writer_symbols": []
+    },
+    {
+      "type": "vendor_prop",
+      "direct_owner_memberships": [],
+      "direct_scope_memberships": [],
+      "context_namespace": "unreferenced_label",
+      "contexts": [],
+      "direct_writer_grants": [],
+      "direct_known_core_or_broad_writer_symbols": []
+    },
+    {
+      "type": "vendor_proxydaemon_prop",
+      "direct_owner_memberships": [],
+      "direct_scope_memberships": [],
+      "context_namespace": "vendor_prefixes_only",
+      "contexts": [
+        {
+          "name": "vendor.proxy_daemon",
+          "line": 31
+        }
+      ],
+      "direct_writer_grants": [
+        {
+          "source": "tz_proxy_service",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:17329",
+          "statement": "(allow tz_proxy_service vendor_proxydaemon_prop (property_service (set)))"
+        }
+      ],
+      "direct_known_core_or_broad_writer_symbols": []
+    },
+    {
+      "type": "vendor_radio_prop",
+      "direct_owner_memberships": [],
+      "direct_scope_memberships": [],
+      "context_namespace": "vendor_prefixes_only",
+      "contexts": [
+        {
+          "name": "ro.vendor.radio.",
+          "line": 80
+        },
+        {
+          "name": "ro.vendor.multisim.",
+          "line": 90
+        }
+      ],
+      "direct_writer_grants": [
+        {
+          "source": "qti_init_shell",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:10741",
+          "statement": "(allow qti_init_shell vendor_radio_prop (property_service (set)))"
+        },
+        {
+          "source": "vendor_init_30_0",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:14801",
+          "statement": "(allow vendor_init_30_0 vendor_radio_prop (property_service (set)))"
+        },
+        {
+          "source": "vendor_secril_config_svc",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:14881",
+          "statement": "(allow vendor_secril_config_svc vendor_radio_prop (property_service (set)))"
+        }
+      ],
+      "direct_known_core_or_broad_writer_symbols": []
+    },
+    {
+      "type": "vendor_rild_prop",
+      "direct_owner_memberships": [],
+      "direct_scope_memberships": [],
+      "context_namespace": "vendor_prefixes_only",
+      "contexts": [
+        {
+          "name": "persist.vendor.cbd.",
+          "line": 135
+        },
+        {
+          "name": "vendor.cbd.",
+          "line": 136
+        },
+        {
+          "name": "vendor.cbd.rfs_check_done",
+          "line": 173
+        }
+      ],
+      "direct_writer_grants": [
+        {
+          "source": "cbd",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:15559",
+          "statement": "(allow cbd vendor_rild_prop (property_service (set)))"
+        },
+        {
+          "source": "vendor_ims_app",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:16477",
+          "statement": "(allow vendor_ims_app vendor_rild_prop (property_service (set)))"
+        },
+        {
+          "source": "vendor_init_30_0",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:16538",
+          "statement": "(allow vendor_init_30_0 vendor_rild_prop (property_service (set)))"
+        },
+        {
+          "source": "rild",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:17197",
+          "statement": "(allow rild vendor_rild_prop (property_service (set)))"
+        }
+      ],
+      "direct_known_core_or_broad_writer_symbols": []
+    },
+    {
+      "type": "vendor_rmnet_prop",
+      "direct_owner_memberships": [],
+      "direct_scope_memberships": [],
+      "context_namespace": "unreferenced_label",
+      "contexts": [],
+      "direct_writer_grants": [
+        {
+          "source": "vendor_init_30_0",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:14789",
+          "statement": "(allow vendor_init_30_0 vendor_rmnet_prop (property_service (set)))"
+        }
+      ],
+      "direct_known_core_or_broad_writer_symbols": []
+    },
+    {
+      "type": "vendor_ro_config_default_prop",
+      "direct_owner_memberships": [],
+      "direct_scope_memberships": [],
+      "context_namespace": "vendor_prefixes_only",
+      "contexts": [
+        {
+          "name": "ro.vendor.config.",
+          "line": 162
+        }
+      ],
+      "direct_writer_grants": [
+        {
+          "source": "cbd",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:15574",
+          "statement": "(allow cbd vendor_ro_config_default_prop (property_service (set)))"
+        },
+        {
+          "source": "hal_audio_default",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:15752",
+          "statement": "(allow hal_audio_default vendor_ro_config_default_prop (property_service (set)))"
+        },
+        {
+          "source": "vendor_init_30_0",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:16534",
+          "statement": "(allow vendor_init_30_0 vendor_ro_config_default_prop (property_service (set)))"
+        }
+      ],
+      "direct_known_core_or_broad_writer_symbols": []
+    },
+    {
+      "type": "vendor_ro_sys_default_prop",
+      "direct_owner_memberships": [],
+      "direct_scope_memberships": [],
+      "context_namespace": "vendor_prefixes_only",
+      "contexts": [
+        {
+          "name": "ro.vendor.sys.",
+          "line": 165
+        }
+      ],
+      "direct_writer_grants": [],
+      "direct_known_core_or_broad_writer_symbols": []
+    },
+    {
+      "type": "vendor_sec_camera_prop",
+      "direct_owner_memberships": [],
+      "direct_scope_memberships": [],
+      "context_namespace": "vendor_prefixes_only",
+      "contexts": [
+        {
+          "name": "vendor.npu.usr_drv.log_mask",
+          "line": 66
+        }
+      ],
+      "direct_writer_grants": [],
+      "direct_known_core_or_broad_writer_symbols": []
+    },
+    {
+      "type": "vendor_sec_cass_prop",
+      "direct_owner_memberships": [],
+      "direct_scope_memberships": [],
+      "context_namespace": "vendor_prefixes_only",
+      "contexts": [
+        {
+          "name": "vendor.security.cass.",
+          "line": 87
+        }
+      ],
+      "direct_writer_grants": [
+        {
+          "source": "cassd",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:8029",
+          "statement": "(allow cassd vendor_sec_cass_prop (property_service (set)))"
+        }
+      ],
+      "direct_known_core_or_broad_writer_symbols": []
+    },
+    {
+      "type": "vendor_sec_nfc_prop",
+      "direct_owner_memberships": [
+        "vendor_property_type"
+      ],
+      "direct_scope_memberships": [
+        "vendor_public_property_type"
+      ],
+      "context_namespace": "vendor_prefixes_only",
+      "contexts": [
+        {
+          "name": "ro.vendor.nfc.",
+          "line": 119
+        }
+      ],
+      "direct_writer_grants": [
+        {
+          "source": "vendor_init_30_0",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:14828",
+          "statement": "(allow vendor_init_30_0 vendor_sec_nfc_prop (property_service (set)))"
+        }
+      ],
+      "direct_known_core_or_broad_writer_symbols": []
+    },
+    {
+      "type": "vendor_sec_vaultkeeper_prop",
+      "direct_owner_memberships": [],
+      "direct_scope_memberships": [],
+      "context_namespace": "vendor_prefixes_only",
+      "contexts": [
+        {
+          "name": "vendor.security.vaultkeeper.",
+          "line": 85
+        },
+        {
+          "name": "ro.vendor.security.vaultkeeper.",
+          "line": 86
+        }
+      ],
+      "direct_writer_grants": [
+        {
+          "source": "vaultkeeperd",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:14700",
+          "statement": "(allow vaultkeeperd vendor_sec_vaultkeeper_prop (property_service (set)))"
+        }
+      ],
+      "direct_known_core_or_broad_writer_symbols": []
+    },
+    {
+      "type": "vendor_securehw_prop",
+      "direct_owner_memberships": [
+        "vendor_property_type"
+      ],
+      "direct_scope_memberships": [
+        "vendor_restricted_property_type"
+      ],
+      "context_namespace": "unreferenced_label",
+      "contexts": [],
+      "direct_writer_grants": [
+        {
+          "source": "hal_drk_default",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:9441",
+          "statement": "(allow hal_drk_default vendor_securehw_prop (property_service (set)))"
+        },
+        {
+          "source": "hermesd",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:10491",
+          "statement": "(allow hermesd vendor_securehw_prop (property_service (set)))"
+        },
+        {
+          "source": "vendor_init_30_0",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:14810",
+          "statement": "(allow vendor_init_30_0 vendor_securehw_prop (property_service (set)))"
+        }
+      ],
+      "direct_known_core_or_broad_writer_symbols": []
+    },
+    {
+      "type": "vendor_securenvm_prop",
+      "direct_owner_memberships": [
+        "vendor_property_type"
+      ],
+      "direct_scope_memberships": [
+        "vendor_restricted_property_type"
+      ],
+      "context_namespace": "unreferenced_label",
+      "contexts": [],
+      "direct_writer_grants": [
+        {
+          "source": "hermesd",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:10487",
+          "statement": "(allow hermesd vendor_securenvm_prop (property_service (set)))"
+        },
+        {
+          "source": "vendor_init_30_0",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:14808",
+          "statement": "(allow vendor_init_30_0 vendor_securenvm_prop (property_service (set)))"
+        }
+      ],
+      "direct_known_core_or_broad_writer_symbols": []
+    },
+    {
+      "type": "vendor_secureos_prop",
+      "direct_owner_memberships": [],
+      "direct_scope_memberships": [],
+      "context_namespace": "vendor_prefixes_only",
+      "contexts": [
+        {
+          "name": "vendor.secureos.",
+          "line": 27
+        }
+      ],
+      "direct_writer_grants": [
+        {
+          "source": "tzdaemon",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:14558",
+          "statement": "(allow tzdaemon vendor_secureos_prop (property_service (set)))"
+        }
+      ],
+      "direct_known_core_or_broad_writer_symbols": []
+    },
+    {
+      "type": "vendor_sehal_init_prop",
+      "direct_owner_memberships": [],
+      "direct_scope_memberships": [],
+      "context_namespace": "vendor_prefixes_only",
+      "contexts": [
+        {
+          "name": "vendor.seHal.init",
+          "line": 93
+        }
+      ],
+      "direct_writer_grants": [
+        {
+          "source": "hal_secure_element_default",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:5387",
+          "statement": "(allow hal_secure_element_default vendor_sehal_init_prop (property_service (set)))"
+        }
+      ],
+      "direct_known_core_or_broad_writer_symbols": []
+    },
+    {
+      "type": "vendor_sensor_prop",
+      "direct_owner_memberships": [],
+      "direct_scope_memberships": [],
+      "context_namespace": "unreferenced_label",
+      "contexts": [],
+      "direct_writer_grants": [
+        {
+          "source": "factory_ssc",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:8931",
+          "statement": "(allow factory_ssc vendor_sensor_prop (property_service (set)))"
+        },
+        {
+          "source": "vendor_init_30_0",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:14780",
+          "statement": "(allow vendor_init_30_0 vendor_sensor_prop (property_service (set)))"
+        }
+      ],
+      "direct_known_core_or_broad_writer_symbols": []
+    },
+    {
+      "type": "vendor_slog_prop",
+      "direct_owner_memberships": [],
+      "direct_scope_memberships": [],
+      "context_namespace": "unreferenced_label",
+      "contexts": [],
+      "direct_writer_grants": [],
+      "direct_known_core_or_broad_writer_symbols": []
+    },
+    {
+      "type": "vendor_softdog_prop",
+      "direct_owner_memberships": [
+        "vendor_property_type"
+      ],
+      "direct_scope_memberships": [
+        "vendor_public_property_type"
+      ],
+      "context_namespace": "vendor_prefixes_only",
+      "contexts": [
+        {
+          "name": "persist.vendor.softdog",
+          "line": 104
+        }
+      ],
+      "direct_writer_grants": [],
+      "direct_known_core_or_broad_writer_symbols": []
+    },
+    {
+      "type": "vendor_sys_default_prop",
+      "direct_owner_memberships": [],
+      "direct_scope_memberships": [],
+      "context_namespace": "vendor_prefixes_only",
+      "contexts": [
+        {
+          "name": "vendor.sys.",
+          "line": 164
+        }
+      ],
+      "direct_writer_grants": [
+        {
+          "source": "cbd",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:15564",
+          "statement": "(allow cbd vendor_sys_default_prop (property_service (set)))"
+        },
+        {
+          "source": "memlogd",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:16315",
+          "statement": "(allow memlogd vendor_sys_default_prop (property_service (set)))"
+        },
+        {
+          "source": "vendor_init_30_0",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:16528",
+          "statement": "(allow vendor_init_30_0 vendor_sys_default_prop (property_service (set)))"
+        }
+      ],
+      "direct_known_core_or_broad_writer_symbols": []
+    },
+    {
+      "type": "vendor_teegris_prop",
+      "direct_owner_memberships": [],
+      "direct_scope_memberships": [],
+      "context_namespace": "vendor_prefixes_only",
+      "contexts": [
+        {
+          "name": "vendor.TEEGRIS.",
+          "line": 179
+        },
+        {
+          "name": "vendor.teegris.",
+          "line": 186
+        }
+      ],
+      "direct_writer_grants": [
+        {
+          "source": "vendor_init_30_0",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:17344",
+          "statement": "(allow vendor_init_30_0 vendor_teegris_prop (property_service (set)))"
+        }
+      ],
+      "direct_known_core_or_broad_writer_symbols": []
+    },
+    {
+      "type": "vendor_tmfd_prop",
+      "direct_owner_memberships": [],
+      "direct_scope_memberships": [],
+      "context_namespace": "unreferenced_label",
+      "contexts": [],
+      "direct_writer_grants": [
+        {
+          "source": "tmf_daemon",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:14444",
+          "statement": "(allow tmf_daemon vendor_tmfd_prop (property_service (set)))"
+        }
+      ],
+      "direct_known_core_or_broad_writer_symbols": []
+    },
+    {
+      "type": "vendor_tzdaemon_prop",
+      "direct_owner_memberships": [],
+      "direct_scope_memberships": [],
+      "context_namespace": "vendor_prefixes_only",
+      "contexts": [
+        {
+          "name": "vendor.tzdaemon",
+          "line": 26
+        }
+      ],
+      "direct_writer_grants": [
+        {
+          "source": "tzdaemon",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:14554",
+          "statement": "(allow tzdaemon vendor_tzdaemon_prop (property_service (set)))"
+        }
+      ],
+      "direct_known_core_or_broad_writer_symbols": []
+    },
+    {
+      "type": "vendor_tztsdaemon_prop",
+      "direct_owner_memberships": [],
+      "direct_scope_memberships": [],
+      "context_namespace": "vendor_prefixes_only",
+      "contexts": [
+        {
+          "name": "vendor.tzts_daemon",
+          "line": 28
+        }
+      ],
+      "direct_writer_grants": [
+        {
+          "source": "tzdaemon",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:14567",
+          "statement": "(allow tzdaemon vendor_tztsdaemon_prop (property_service (set)))"
+        },
+        {
+          "source": "tztsd",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:14590",
+          "statement": "(allow tztsd vendor_tztsdaemon_prop (property_service (set)))"
+        }
+      ],
+      "direct_known_core_or_broad_writer_symbols": []
+    },
+    {
+      "type": "vendor_uwb_prop",
+      "direct_owner_memberships": [
+        "vendor_property_type"
+      ],
+      "direct_scope_memberships": [
+        "vendor_public_property_type"
+      ],
+      "context_namespace": "vendor_prefixes_only",
+      "contexts": [
+        {
+          "name": "persist.vendor.uwb.log.index",
+          "line": 110
+        }
+      ],
+      "direct_writer_grants": [
+        {
+          "source": "hal_uwb_default",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:10348",
+          "statement": "(allow hal_uwb_default vendor_uwb_prop (property_service (set)))"
+        }
+      ],
+      "direct_known_core_or_broad_writer_symbols": []
+    },
+    {
+      "type": "vendor_wda_prop",
+      "direct_owner_memberships": [],
+      "direct_scope_memberships": [],
+      "context_namespace": "unreferenced_label",
+      "contexts": [],
+      "direct_writer_grants": [
+        {
+          "source": "vendor_init_30_0",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:14791",
+          "statement": "(allow vendor_init_30_0 vendor_wda_prop (property_service (set)))"
+        }
+      ],
+      "direct_known_core_or_broad_writer_symbols": []
+    },
+    {
+      "type": "vendor_wifi_ramdump_prop",
+      "direct_owner_memberships": [],
+      "direct_scope_memberships": [],
+      "context_namespace": "vendor_prefixes_only",
+      "contexts": [
+        {
+          "name": "vendor.wlan.ramdump_mode",
+          "line": 194
+        }
+      ],
+      "direct_writer_grants": [
+        {
+          "source": "hal_wifi_default",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:17093",
+          "statement": "(allow hal_wifi_default vendor_wifi_ramdump_prop (property_service (set)))"
+        },
+        {
+          "source": "macloader",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:17138",
+          "statement": "(allow macloader vendor_wifi_ramdump_prop (property_service (set)))"
+        }
+      ],
+      "direct_known_core_or_broad_writer_symbols": []
+    },
+    {
+      "type": "vendor_wifi_version",
+      "direct_owner_memberships": [],
+      "direct_scope_memberships": [],
+      "context_namespace": "vendor_prefixes_only",
+      "contexts": [
+        {
+          "name": "vendor.wlan.driver.version",
+          "line": 182
+        },
+        {
+          "name": "vendor.wlan.firmware.version",
+          "line": 183
+        }
+      ],
+      "direct_writer_grants": [
+        {
+          "source": "hal_wifi_default",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:17086",
+          "statement": "(allow hal_wifi_default vendor_wifi_version (property_service (set)))"
+        }
+      ],
+      "direct_known_core_or_broad_writer_symbols": []
+    },
+    {
+      "type": "vendor_wlandriver_prop",
+      "direct_owner_memberships": [
+        "vendor_property_type"
+      ],
+      "direct_scope_memberships": [
+        "vendor_public_property_type"
+      ],
+      "context_namespace": "vendor_prefixes_only",
+      "contexts": [
+        {
+          "name": "vendor.wlandriver.",
+          "line": 34
+        }
+      ],
+      "direct_writer_grants": [
+        {
+          "source": "hal_wifi_default",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:5462",
+          "statement": "(allow hal_wifi_default vendor_wlandriver_prop (property_service (set)))"
+        },
+        {
+          "source": "mfgloader",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:11400",
+          "statement": "(allow mfgloader vendor_wlandriver_prop (property_service (set)))"
+        }
+      ],
+      "direct_known_core_or_broad_writer_symbols": []
+    },
+    {
+      "type": "vendor_wlbtd_prop",
+      "direct_owner_memberships": [],
+      "direct_scope_memberships": [],
+      "context_namespace": "vendor_prefixes_only",
+      "contexts": [
+        {
+          "name": "vendor.wlbtd.",
+          "line": 62
+        },
+        {
+          "name": "vendor.wlbtd.tar_files_per_trigger",
+          "line": 153
+        },
+        {
+          "name": "vendor.wlbtd.version",
+          "line": 154
+        },
+        {
+          "name": "vendor.wlbtd.board_id",
+          "line": 155
+        }
+      ],
+      "direct_writer_grants": [
+        {
+          "source": "wlbtd",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:16655",
+          "statement": "(allow wlbtd vendor_wlbtd_prop (property_service (set)))"
+        }
+      ],
+      "direct_known_core_or_broad_writer_symbols": []
+    },
+    {
+      "type": "vendor_wvkprov_prop",
+      "direct_owner_memberships": [],
+      "direct_scope_memberships": [],
+      "context_namespace": "unreferenced_label",
+      "contexts": [],
+      "direct_writer_grants": [],
+      "direct_known_core_or_broad_writer_symbols": []
+    },
+    {
+      "type": "vendor_zram_prop",
+      "direct_owner_memberships": [],
+      "direct_scope_memberships": [],
+      "context_namespace": "unreferenced_label",
+      "contexts": [],
+      "direct_writer_grants": [
+        {
+          "source": "vendor_init_30_0",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:14803",
+          "statement": "(allow vendor_init_30_0 vendor_zram_prop (property_service (set)))"
+        }
+      ],
+      "direct_known_core_or_broad_writer_symbols": []
+    },
+    {
+      "type": "vendor_zygoteinit_prop",
+      "direct_owner_memberships": [],
+      "direct_scope_memberships": [],
+      "context_namespace": "vendor_prefixes_only",
+      "contexts": [
+        {
+          "name": "persist.vendor.zit.",
+          "line": 69
+        }
+      ],
+      "direct_writer_grants": [
+        {
+          "source": "zygote_30_0",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:7416",
+          "statement": "(allow zygote_30_0 vendor_zygoteinit_prop (property_service (set)))"
+        }
+      ],
+      "direct_known_core_or_broad_writer_symbols": [
+        "zygote_30_0"
+      ]
+    },
+    {
+      "type": "vramdiskd_prop",
+      "direct_owner_memberships": [],
+      "direct_scope_memberships": [],
+      "context_namespace": "unreferenced_label",
+      "contexts": [],
+      "direct_writer_grants": [
+        {
+          "source": "vramdiskd",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:15115",
+          "statement": "(allow vramdiskd vramdiskd_prop (property_service (set)))"
+        }
+      ],
+      "direct_known_core_or_broad_writer_symbols": [
+        "vramdiskd"
+      ]
+    },
+    {
+      "type": "vzw_os_prop",
+      "direct_owner_memberships": [],
+      "direct_scope_memberships": [],
+      "context_namespace": "unreferenced_label",
+      "contexts": [],
+      "direct_writer_grants": [
+        {
+          "source": "system_app_30_0",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:6786",
+          "statement": "(allow system_app_30_0 vzw_os_prop (property_service (set)))"
+        }
+      ],
+      "direct_known_core_or_broad_writer_symbols": [
+        "system_app_30_0"
+      ]
+    },
+    {
+      "type": "wlbtlog_prop",
+      "direct_owner_memberships": [
+        "system_property_type"
+      ],
+      "direct_scope_memberships": [],
+      "context_namespace": "unreferenced_label",
+      "contexts": [],
+      "direct_writer_grants": [
+        {
+          "source": "wland",
+          "location": "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil:15189",
+          "statement": "(allow wland wlbtlog_prop (property_service (set)))"
+        }
+      ],
+      "direct_known_core_or_broad_writer_symbols": [
+        "wland"
+      ]
+    },
+    {
+      "type": "wpa_supplicant_prop",
+      "direct_owner_memberships": [],
+      "direct_scope_memberships": [],
+      "context_namespace": "unreferenced_label",
+      "contexts": [],
+      "direct_writer_grants": [],
+      "direct_known_core_or_broad_writer_symbols": []
+    }
+  ],
+  "input_sha256": {
+    "/srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/etc/selinux/plat_sepolicy.cil": "3dc2711ff5e307db50636ac31a4dbf6a79e971220cb7adba2ba6d1351bc9885b",
+    "/srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/etc/selinux/mapping/30.0.cil": "61f3a8e8be06ce66629cc6f27083c9a45ad8c65877069fe176ca12f51d447c6e",
+    "/srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/etc/selinux/mapping/30.0.compat.cil": "2b40198379e1bb65ca2af156b25562381273144d94c5ae223b5ed9905d7437cc",
+    "/srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/system_ext/etc/selinux/system_ext_sepolicy.cil": "6582112f219f8224764fce4ca8572a0182bcf78f292645c6ad4a8c4ea4377b0b",
+    "/srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/system_ext/etc/selinux/mapping/30.0.cil": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/system_ext/etc/selinux/mapping/30.0.compat.cil": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/product/etc/selinux/product_sepolicy.cil": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+    "/srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/product/etc/selinux/mapping/30.0.cil": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/plat_pub_versioned.cil": "5478939b47a7980cd4abe373a0825d812c8f103f65d9d2dd8883781f39b20a6f",
+    "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_sepolicy.cil": "1b962ef17897b4decab0293ca9161c26be35194904f198908fdac369da0b39f5",
+    "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/vendor_property_contexts": "8379234e5ee1ffb7548eed1b49fb2545a20b055240ef3308729c9e57d3d1b17d",
+    "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/strict/report.json": "0780720030fca22ada235da32ad156724196e40878940b9dd7170e44cf45cc17",
+    "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/audit-vendor-property-owners.py": "7f921d3fc873c8d6345d7d865dc3d0845cd9b770944d0d6c9ae2649809d78cac"
+  },
+  "effective_attribute_closure_or_permissions_proved": false,
+  "automatic_classification_or_policy_edits": false,
+  "security_approved": false
+}

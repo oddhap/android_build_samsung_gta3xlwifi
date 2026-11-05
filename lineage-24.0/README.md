@@ -424,3 +424,43 @@ field `allow_statements_added`; archived tool sources/reports remain unchanged.
 No candidate metadata enters active sources, snapshots, cache hashes or the MTP
 vendor image. Networking/BPF, module ABI, FBE/installer/rollback and hardware gates
 remain. No installable ROM, security approval or device operation is produced.
+
+
+## November 5: obsolete MLS access retired and restricted property owners added
+
+The [legacy access proposal](experiments/legacy-policy-access-20261105-03/) retires
+an old platform mlsvendorcompat assignment and four related app-data grants, as
+required by Android17's unchanged prohibition on this MLS escape. Seven exact
+old vendor allows for vold debugging/Binder, shell execution and setupwizard
+writers are also removed. Strict diagnostics decrease **72 -> 67**, with no new
+diagnostic assertion identities. All 5,917 current assertion/constraint records
+are retained; eleven allow statements are removed across the two compiler inputs.
+
+A [property inventory](experiments/vendor-property-ownership-20261105-01/) records
+118 exclusive vendor-private property types, including 98 without direct owner
+membership. Missing/mixed context evidence is not assigned a public owner. The
+[reviewed 32-type proposal](experiments/vendor-property-owners-20261105-01/) adds
+vendor-restricted ownership for actual vendor-namespaced context labels with no
+direct known core/broad writers, plus one explicit non-init core writer assertion.
+No allow or public property scope is added. Strict diagnostics remain 67 because
+other unowned types still trigger the shared assertion. Attribute/effective writer
+closure and runtime behavior are not proved by this direct inventory.
+
+The [app-private-data narrowing proposal](experiments/app-data-tightening-20261105-01/)
+removes three old forbidden operations without changing labels or MLS domain
+classification. Strict diagnostics decrease **67 -> 65**, again with no new
+diagnostic assertion identities. All **5,918 assertion/constraint records** remain,
+including the new property writer restriction. Final verbose strict diagnostics
+record **494 matching grant records** for the remaining 65 conflicts, untruncated.
+No -N compile is performed in these proposals. Secilc255 remains failure;
+runner0 is experiment completion only.
+
+Each completed proposal has matching full before/after audits of 1,243 projects
+and 15 exact patches. Unchanged compiler inputs and hashes are verified. Exact
+tools, selected statements, property context evidence, patches and inventories
+are archived. Two early legacy-access attempts stopped safely before staging on
+same-basename input guards; full system-path selection fixes the issue. The
+active snapshot, images, signing material, recovery and tablet remain unchanged.
+No flashable ROM, kernel promotion, security approval or hardware validation is
+produced. Property ownership, scoped legacy app/network rules, HAL/BPF behavior,
+network backend, module ABI and Android17 FBE/installer/rollback remain open.

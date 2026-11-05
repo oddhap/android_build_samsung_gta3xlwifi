@@ -22,7 +22,7 @@ for old, new in zip(baseline['inputs'], current['inputs']):
     assert Path(old['path']).name == Path(new['path']).name
     if old['sha256'] != new['sha256']:
         name = Path(old['path']).name
-        assert name in {'plat_pub_versioned.cil', 'vendor_sepolicy.cil'}
+        assert name in {'plat_pub_versioned.cil', 'vendor_sepolicy.cil', '30.0.compat.cil'}
         changes.append(name)
     else:
         assert Path(new['path']).read_bytes() == Path(old['path']).read_bytes()

@@ -1,0 +1,57 @@
+{
+  "owner_decision_2026_11_05": "Retain Android17 and Samsung vendor assertions; port the old platform component.",
+  "changed_ordered_policy_inputs": [
+    "vendor_sepolicy.cil"
+  ],
+  "all_other_inputs_and_compiler_byte_identical": true,
+  "full_source_before_after_audits_match": true,
+  "projects": 1243,
+  "exact_patches": 15,
+  "baseline_diagnostic_origins": {
+    "current_platform": 67
+  },
+  "candidate_diagnostic_origins": {
+    "current_platform": 65
+  },
+  "strict_result": {
+    "mode": "strict",
+    "exit_code": 255,
+    "neverallow_checks_enabled": true,
+    "command": [
+      "/srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/host/linux-x86/bin/secilc",
+      "-m",
+      "-M",
+      "true",
+      "-G",
+      "-c",
+      "30",
+      "-o",
+      "/srv/android/artifacts/lineage-24.0-arm64/app-data-tightening-20261105-01/strict/strict.policy",
+      "-f",
+      "/dev/null",
+      "/srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/etc/selinux/plat_sepolicy.cil",
+      "/srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/etc/selinux/mapping/30.0.cil",
+      "/srv/android/artifacts/lineage-24.0-arm64/legacy-policy-access-20261105-03/metadata/30.0.compat.cil",
+      "/srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/system_ext/etc/selinux/system_ext_sepolicy.cil",
+      "/srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/system_ext/etc/selinux/mapping/30.0.cil",
+      "/srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/system_ext/etc/selinux/mapping/30.0.compat.cil",
+      "/srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/product/etc/selinux/product_sepolicy.cil",
+      "/srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/product/etc/selinux/mapping/30.0.cil",
+      "/srv/android/artifacts/lineage-24.0-arm64/platform-policy-port-20261105-03/metadata/vendor/etc/selinux/plat_pub_versioned.cil",
+      "/srv/android/artifacts/lineage-24.0-arm64/app-data-tightening-20261105-01/metadata/vendor_sepolicy.cil"
+    ]
+  },
+  "strict_passed": false,
+  "effective_permissions_compared": false,
+  "runtime_validated": false,
+  "security_approved": false,
+  "flash_ready": false,
+  "evidence_sha256": {
+    "/srv/android/artifacts/lineage-24.0-arm64/vendor-property-owners-20261105-01/strict/report.json": "24d64c219f232aac073ae7d78f5962bc22790f28601ed6cb5381866a951e69a7",
+    "/srv/android/artifacts/lineage-24.0-arm64/app-data-tightening-20261105-01/strict/report.json": "2b58a6c33a9c8773c1eaf2d487ae5c49a890d866d300ab87e21b81fdf9f73c4b",
+    "/srv/android/artifacts/lineage-24.0-arm64/app-data-tightening-20261105-01/metadata/report.json": "bac84ad8c38029b3f99e93260cecc4961e86749372ca4f6f3120ee526298ea55",
+    "/srv/android/artifacts/lineage-24.0-arm64/app-data-tightening-20261105-01/source-before.json": "a43cb5edee62c52237cbd35cad68ac54a09ad9b1f1d318454b9d8b2700021ce9",
+    "/srv/android/artifacts/lineage-24.0-arm64/app-data-tightening-20261105-01/source-after.json": "a2c1381753b4bcb17ac740d249a66109347272eda367a4dd09b44d959a002e3b",
+    "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/compare-platform-policy-port.py": "2b54cc9e66d1cc8bcddc0dd648982ac3ba7f61d020be91d610b21fd87218635b"
+  }
+}

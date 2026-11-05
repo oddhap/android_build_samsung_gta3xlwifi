@@ -1,0 +1,19 @@
+--- /srv/android/src/lineage-24.0-arm64/out-policy-user-20261101-01/target/product/gta3xlwifi/system/etc/selinux/mapping/30.0.compat.cil
++++ /srv/android/artifacts/lineage-24.0-arm64/legacy-policy-access-20261105-03/metadata/30.0.compat.cil
+@@ -7,11 +7,11 @@
+ 
+ ;; TODO: Once 30.0 is no longer supported for vendor images,
+ ;; mlsvendorcompat can be completely from the system policy.
+-(typeattributeset mlsvendorcompat (and appdomain vendordomain))
+-(allow mlsvendorcompat app_data_file (dir (ioctl read write create getattr setattr lock rename open watch watch_reads add_name remove_name reparent search rmdir)))
+-(allow mlsvendorcompat app_data_file (file (ioctl read write create getattr setattr lock append map unlink rename open watch watch_reads)))
+-(allow mlsvendorcompat privapp_data_file (dir (ioctl read write create getattr setattr lock rename open watch watch_reads add_name remove_name reparent search rmdir)))
+-(allow mlsvendorcompat privapp_data_file (file (ioctl read write create getattr setattr lock append map unlink rename open watch watch_reads)))
++
++
++
++
++
+ 
+ ;; permission for devices (older than S) where debugfs restriction doesn't apply.
+ (typeattribute debugfs_file_type)
