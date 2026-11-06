@@ -824,3 +824,15 @@ struct sock layout changes require matching modules and a complete vendor-module
 inventory before promotion. No original module/prebuilt is replaced. Mandatory
 loopback/LNA enforcement and complete framework/startup/provider integration
 remain unfinished; no flash-ready ROM is produced.
+
+## Referenced creator reader prerequisite — November 6
+
+The [kernel-only reader](experiments/kernel-socket-creator-read-20261106-01/README.md)
+returns an immutable UID only for a marked full inet socket, preserving output
+on unknown/null/request/timewait inputs. It never invents root or substitutes
+mutable ownership.41 actual-helper/state cases and960 identity regressions pass
+with fixtures/fatal UBSan. Full kernel/modules build exits0, original config,
+matching rebuilt Gator118/KUTF43 and all60338/60331+1243/17 source audits pass.
+Image dfd8e7fed78628a6254d61bf619b6afa8c76f8edf296214979a5340c386d4188.
+Receiver lookup still must resolve request/listener lifetime correctly; this
+reader supplies no socket search, permission decision, callback or readiness.

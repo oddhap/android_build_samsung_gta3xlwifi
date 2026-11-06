@@ -1,0 +1,32 @@
+{
+  "scope": "Kernel-only referenced full inet socket creator getter; no root/nobody fallback or permission decision",
+  "prerequisites": [
+    "kernel-socket-creator-20261106-01"
+  ],
+  "patch_sha256": "6baf2994c2f5318cc254f840241fc89fc82efe96836836b7824c08e5a3dc66a6",
+  "files": [
+    {
+      "path": "include/net/sock.h",
+      "before_sha256": "ce34223463a568ab9ce94912cd41e6cc1e24daec40bbd16dba3d513ab5a9bc5f",
+      "candidate_sha256": "ff6e9934fde08a827c73d0dbac8c2a798b5923ac1944dc3b35bb74b51a56f729"
+    },
+    {
+      "path": "net/core/sock.c",
+      "before_sha256": "8ea4a91d66c8c28968cac22be1b2dbb54874b9cc310e3f16eca9f758b1df1848",
+      "candidate_sha256": "51890194fac13bd6b6bc0a7c3822d956d42515cb2ce78bebc60140acf13f335a"
+    }
+  ],
+  "supported_runtime_capability_bits": [
+    0,
+    1,
+    2,
+    3,
+    5,
+    9,
+    12
+  ],
+  "unknown_active_capabilities_rejected": true,
+  "android_prebuilt_promoted": false,
+  "hardware_tested": false,
+  "flash_ready": false
+}
