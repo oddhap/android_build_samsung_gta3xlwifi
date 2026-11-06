@@ -667,3 +667,11 @@ A read-only [old diagnostic filesystem inspection](reports/gapps-space-diagnosti
 finds1220MiB free in system and116.7MiB in product. The preserved archive digest
 matches. This does not establish final-ROM space or Android17 GApps support.
 No GApps package is selected and no A/B conversion/repartitioning is performed.
+
+[Explicit missing-hook setup](experiments/dualstack-uid-setup-20261106-01/)
+extends the isolated transaction with opt-in installation and exact preservation
+of existing root rules. 90 host fixture cases and combined actual netd CFI object
+verification pass, including full source audits. Default mode only verifies.
+Real Controllers startup/restart integration must preserve guards atomically when
+exclusive root chains are rebuilt; installing them after an unguarded flush is
+insufficient. No service or readiness integration is selected yet.

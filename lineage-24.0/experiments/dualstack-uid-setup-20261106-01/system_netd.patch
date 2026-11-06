@@ -1,0 +1,94 @@
+diff --git a/server/Gta3xlwifiDualStackUidChains.cpp b/server/Gta3xlwifiDualStackUidChains.cpp
+--- a/server/Gta3xlwifiDualStackUidChains.cpp
++++ b/server/Gta3xlwifiDualStackUidChains.cpp
+@@ -27,6 +27,52 @@
+     return true;
+ }
+ }  // namespace
++int DualStackUidChains::prepareHooks(HookMode mode) {
++    if (mode == HookMode::VerifyOnly) return verifyHooks();
++    if (mode != HookMode::InstallMissing) return -EINVAL;
++    struct Hook { IptablesTarget family; std::string chain, expected; bool missing; };
++    std::vector<Hook> hooks;
++    // Capture and validate every root before touching either family. Never
++    // submit existing/foreign rule text back to the command interpreter.
++    for (const auto family : {V4, V6}) {
++        for (const auto chain : {"INPUT", "FORWARD", "OUTPUT"}) {
++            const std::string name(chain);
++            std::string text;
++            if (mKernel.execute(family, "*filter\n-S " + name + "\nCOMMIT\n", &text))
++                return -EREMOTEIO;
++            if (guarded(name, text)) { hooks.push_back({family, name, text, false}); continue; }
++            if (text.empty() || text.size() > 1024 * 1024 || text.back() != '\n' ||
++                text.find("gta3xlwifi_guard") != std::string::npos) return -EPROTO;
++            for (unsigned char c : text) if ((c < 32 && c != '\n') || c == 127) return -EPROTO;
++            std::istringstream input(text);
++            std::string policy, line;
++            if (!std::getline(input, policy) || (policy != "-P " + name + " ACCEPT" &&
++                                                policy != "-P " + name + " DROP")) return -EPROTO;
++            while (std::getline(input, line)) {
++                if (line.size() > 65536 || line.rfind("-A " + name + " ", 0) != 0) return -EPROTO;
++            }
++            const std::string expected = policy + "\n-A " + name +
++                " -m gta3xlwifi_guard -j DROP\n" + text.substr(policy.size() + 1);
++            hooks.push_back({family, name, expected, true});
++        }
++    }
++    for (const auto family : {V4, V6}) {
++        std::string command = "*filter\n";
++        for (const auto& hook : hooks) {
++            if (hook.family == family && hook.missing)
++                command += "-I " + hook.chain + " 1 -m gta3xlwifi_guard -j DROP\n";
++        }
++        if (command != "*filter\n" && mKernel.execute(family, command + "COMMIT\n", nullptr))
++            return -EREMOTEIO;  // May have committed: retain guards and the held kernel state.
++    }
++    for (const auto& hook : hooks) {
++        std::string actual;
++        if (mKernel.execute(hook.family, "*filter\n-S " + hook.chain + "\nCOMMIT\n", &actual))
++            return -EREMOTEIO;
++        if (actual != hook.expected || !guarded(hook.chain, actual)) return -EPROTO;
++    }
++    return 0;  // All six actual images verified, but the barrier remains held.
++}
+ int DualStackUidChains::verifyHooks() {
+     for (const auto family : {V4, V6}) {
+         for (const auto chain : {"INPUT", "FORWARD", "OUTPUT"}) {
+@@ -43,12 +89,12 @@
+     mSession = mCommitted = false;
+     return error;
+ }
+-int DualStackUidChains::start() {
++int DualStackUidChains::start(HookMode mode) {
+     std::lock_guard<std::mutex> lock(mMutex);
+     if (mSession) return -EALREADY;
+     int result = mLease.start();
+     if (result) return result;
+-    result = verifyHooks();
++    result = prepareHooks(mode);
+     if (result) return quarantine(result);
+     mSession = true;
+     mCommitted = false;
+diff --git a/server/Gta3xlwifiDualStackUidChains.h b/server/Gta3xlwifiDualStackUidChains.h
+--- a/server/Gta3xlwifiDualStackUidChains.h
++++ b/server/Gta3xlwifiDualStackUidChains.h
+@@ -12,13 +12,18 @@
+     using Image = std::vector<CheckedUidChains::Chain>;
+     explicit DualStackUidChains(IptablesRestoreInterface& kernel)
+         : mKernel(kernel), mChains(kernel) {}
+-    int start();  // Acquire a HELD lease; verify first guard/DROP at all six hooks.
++    enum class HookMode { VerifyOnly, InstallMissing };
++    // Explicit InstallMissing inserts only absent unconditional first guards,
++    // preserving existing root rules/policies. Failure retains added guards and
++    // the held state; a subsequent explicit start can finish the partial setup.
++    int start(HookMode mode = HookMode::VerifyOnly);
+     void stop();
+     // A success permits publication of this UID-chain update only. On error,
+     // publish nothing. EUCLEAN means quarantined: unknown/failed recovery, held
+     // gate and invalid session. A new start never automatically releases it.
+     int replace(const Image& ipv4, const Image& ipv6);
+ private:
++    int prepareHooks(HookMode mode);
+     int verifyHooks();
+     int verifyImage(IptablesTarget family, const Image& expected);
+     int quarantine(int error);

@@ -1,0 +1,17 @@
+/srv/android/artifacts/lineage-24.0-arm64/dualstack-uid-setup-host-20261106-01/test.cpp:140:170: error: macro "C" passed 2 arguments, but takes just 1
+  140 |  reset();{Kernel k;k.missing();D d(k);C(d.start(Mode::InstallMissing)==0&&held&&k.writes==2);for(auto f:{V4,V6})for(auto c:{"INPUT","FORWARD","OUTPUT"})C(k.guards[{f,c}]);C(d.replace(image(110001),image(110001))==0&&!held);}
+      |                                                                                                                                                                          ^
+/srv/android/artifacts/lineage-24.0-arm64/dualstack-uid-setup-host-20261106-01/test.cpp:20: note: macro "C" defined here
+   20 | #define C(x) do {++cases;assert(x);}while(0)
+      | 
+/srv/android/artifacts/lineage-24.0-arm64/dualstack-uid-setup-host-20261106-01/test.cpp: In function ‘int main()’:
+/srv/android/artifacts/lineage-24.0-arm64/dualstack-uid-setup-host-20261106-01/test.cpp:140:153: error: ‘C’ was not declared in this scope
+  140 |  reset();{Kernel k;k.missing();D d(k);C(d.start(Mode::InstallMissing)==0&&held&&k.writes==2);for(auto f:{V4,V6})for(auto c:{"INPUT","FORWARD","OUTPUT"})C(k.guards[{f,c}]);C(d.replace(image(110001),image(110001))==0&&!held);}
+      |                                                                                                                                                         ^
+/srv/android/artifacts/lineage-24.0-arm64/dualstack-uid-setup-host-20261106-01/test.cpp:140:122: error: unused variable ‘c’ [-Werror=unused-variable]
+  140 |  reset();{Kernel k;k.missing();D d(k);C(d.start(Mode::InstallMissing)==0&&held&&k.writes==2);for(auto f:{V4,V6})for(auto c:{"INPUT","FORWARD","OUTPUT"})C(k.guards[{f,c}]);C(d.replace(image(110001),image(110001))==0&&!held);}
+      |                                                                                                                          ^
+/srv/android/artifacts/lineage-24.0-arm64/dualstack-uid-setup-host-20261106-01/test.cpp:140:103: error: unused variable ‘f’ [-Werror=unused-variable]
+  140 |  reset();{Kernel k;k.missing();D d(k);C(d.start(Mode::InstallMissing)==0&&held&&k.writes==2);for(auto f:{V4,V6})for(auto c:{"INPUT","FORWARD","OUTPUT"})C(k.guards[{f,c}]);C(d.replace(image(110001),image(110001))==0&&!held);}
+      |                                                                                                       ^
+cc1plus: all warnings being treated as errors
