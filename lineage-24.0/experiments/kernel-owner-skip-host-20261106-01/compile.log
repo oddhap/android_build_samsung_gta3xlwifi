@@ -1,0 +1,8 @@
+/srv/android/artifacts/lineage-24.0-arm64/kernel-owner-skip-host-20261106-01/test.c:134:9: error: expected ‘;’ before ‘_Bool’
+  134 | function bool parse_skb(SkbIpPacketData *const packet,
+      |         ^
+      |         ;
+/srv/android/artifacts/lineage-24.0-arm64/kernel-owner-skip-host-20261106-01/test.c:216:9: error: expected ‘;’ before ‘_Bool’
+  216 | function bool skip_owner_match(const SkbIpPacketData* const packet,
+      |         ^
+      |         ;

@@ -759,3 +759,22 @@ to bpf_owner_match; the prior Owner-selector proposal is superseded. The separat
 lookup-appId primitive must not replace raw packet identity. Raw ordinary testing
 passes38 cases and1048576 actual A17 predicate comparisons. Packet dispatch,
 mandatory security, startup and real framework provider integration remain open.
+
+## Ordinary owner packet-exemption primitive — November 6
+
+The [private kernel match](experiments/kernel-owner-skip-20261106-01/README.md)
+implements A17's exact ESP/TCP RST/ingress FIN ordinary-owner exemptions, including
+its IPv6 option parsing and zero-on-read-failure behavior. No blanket loopback or
+independent metered/LNA/VPN exemption is introduced. Host tests pass11 cases plus
+5774610 comparisons with the actual A17 parser and skip function. The complete
+isolated Image/modules build exits0, original config and Gator118/KUTF43 CRCs
+preserved, complete60338/60331 and Android1243/17 before/after audits pass. Image:
+b3b10669196c8864c6d6be0759b545db8e109f4f7e10ce0fb9604decc9665986.
+
+The [fifth xtables extension](experiments/xtables-owner-skip-20261106-01/README.md)
+links with the previous four into whole real ARM64 iptables. All70 old plus five
+private registrations, including actual final machine-code registration paths,
+are checked; complete Android source audits pass. No rules or packets are run.
+The combined network-final-20261106-01 sequence finishes exit0. These inactive
+primitives still require the authoritative packet dispatcher, independent
+mandatory protections, framework/provider/startup wiring and device validation.

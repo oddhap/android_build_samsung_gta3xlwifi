@@ -1,0 +1,37 @@
+{
+  "scope": "Separate packet exemption predicate for actual A17 ordinary owner policy; no blanket loopback/UID/metered exemption",
+  "prerequisites": [
+    "kernel-raw-uid-20261106-01"
+  ],
+  "patch_sha256": "8cb96b816d2934e506d553c03c3c28c68ddefcda13c8db48ffcec991a187200d",
+  "files": [
+    {
+      "path": "net/netfilter/Makefile",
+      "before_sha256": "31519760551a96cfe5c9b54694db87b2ca970a65e16250b3ae14db29b72f0d10",
+      "candidate_sha256": "e9a9a24ee59296cbcc59e77c2159f3347249544f27c0677aabce397ee7a1cff1"
+    },
+    {
+      "path": "net/netfilter/gta3xlwifi_owner_skip.c",
+      "before_sha256": null,
+      "candidate_sha256": "c94b3cc176348b2c46394ad54e39ff3e88d019370598f305151350c9176d9f7d"
+    },
+    {
+      "path": "include/uapi/linux/netfilter/gta3xlwifi_owner_skip.h",
+      "before_sha256": null,
+      "candidate_sha256": "4cf28d48946c4235c230fef85022836ea01a7611efcf9737c51b0c738888a49d"
+    }
+  ],
+  "supported_runtime_capability_bits": [
+    0,
+    1,
+    2,
+    3,
+    5,
+    9,
+    12
+  ],
+  "unknown_active_capabilities_rejected": true,
+  "android_prebuilt_promoted": false,
+  "hardware_tested": false,
+  "flash_ready": false
+}

@@ -1,0 +1,122 @@
+diff --git a/net/netfilter/Makefile b/net/netfilter/Makefile
+--- a/net/netfilter/Makefile
++++ b/net/netfilter/Makefile
+@@ -185,3 +185,6 @@
+ obj-$(CONFIG_MODEM_IF_QOS) += xt_PRIO.o
+ 
+ obj-$(CONFIG_NF_HISTORY) += nf_history.o
++
++# Private A17 packet-exemption predicate; QTAGUID is a builtin y/n dependency.
++obj-$(CONFIG_NETFILTER_XT_MATCH_QTAGUID) += gta3xlwifi_owner_skip.o
+diff --git a/net/netfilter/gta3xlwifi_owner_skip.c b/net/netfilter/gta3xlwifi_owner_skip.c
+new file mode 100644
+--- /dev/null
++++ b/net/netfilter/gta3xlwifi_owner_skip.c
+@@ -0,0 +1,93 @@
++// SPDX-License-Identifier: GPL-2.0
++/* Private Android17 ordinary owner-rule packet exemption, not a firewall owner.
++ * Only parsed ESP, TCP RST, and ingress TCP FIN skip ordinary owner policy.
++ * No blanket loopback exemption, UID exemption or metered/LNA/VPN decision.
++ */
++#include <linux/cred.h>
++#include <linux/if_ether.h>
++#include <linux/ip.h>
++#include <linux/ipv6.h>
++#include <linux/module.h>
++#include <linux/netfilter/x_tables.h>
++#include <linux/skbuff.h>
++#include <linux/string.h>
++#include <linux/user_namespace.h>
++#include <uapi/linux/netfilter/gta3xlwifi_owner_skip.h>
++
++static bool gta3xlwifi_owner_read(const struct sk_buff *skb, unsigned int offset,
++                                  void *output, unsigned int length)
++{
++    if (skb_copy_bits(skb, skb_network_offset(skb) + offset, output, length)) {
++        /* Android's load helper zeroes the entire destination on any error. */
++        memset(output, 0, length);
++        return false;
++    }
++    return true;
++}
++
++static bool gta3xlwifi_owner_skip_mt(const struct sk_buff *skb,
++                                     struct xt_action_param *par)
++{
++    u8 protocol = 0, l4_offset = 0, flags = 0;
++    struct { u8 protocol, length; } extension;
++
++    if (!skb || (par->hooknum != NF_INET_LOCAL_IN &&
++                 par->hooknum != NF_INET_LOCAL_OUT))
++        return false;
++    if (skb->protocol == htons(ETH_P_IP)) {
++        gta3xlwifi_owner_read(skb, offsetof(struct iphdr, protocol), &protocol, 1);
++        gta3xlwifi_owner_read(skb, 0, &l4_offset, 1);
++        if (l4_offset < 0x45 || l4_offset > 0x4f)
++            return false;
++        l4_offset = (l4_offset & 0x0f) * 4;
++    } else if (skb->protocol == htons(ETH_P_IPV6)) {
++        gta3xlwifi_owner_read(skb, offsetof(struct ipv6hdr, nexthdr), &protocol, 1);
++        l4_offset = sizeof(struct ipv6hdr);
++        /* Match A17's exact parser: skip only ONE hop/destination option header.
++         * Its offset is u8, including wrapping for long extension headers.
++         */
++        if (protocol == IPPROTO_HOPOPTS || protocol == IPPROTO_DSTOPTS) {
++            if (gta3xlwifi_owner_read(skb, l4_offset, &extension, sizeof(extension))) {
++                protocol = extension.protocol;
++                l4_offset += (extension.length + 1) * 8;
++            }
++        }
++    } else {
++        return false;
++    }
++    if (protocol == IPPROTO_ESP)
++        return true;
++    if (protocol != IPPROTO_TCP)
++        return false;
++    /* Offset13 is the second TCP flags byte, as in A17 TCP_FLAG8_OFF. */
++    gta3xlwifi_owner_read(skb, l4_offset + 13, &flags, 1);
++    return (flags & 0x04) || (par->hooknum == NF_INET_LOCAL_IN && (flags & 0x01));
++}
++
++static int gta3xlwifi_owner_skip_check(const struct xt_mtchk_param *par)
++{
++    const struct gta3xlwifi_owner_skip_match *info = par->matchinfo;
++    if (current_user_ns() != &init_user_ns || info->reserved ||
++        (par->family != NFPROTO_IPV4 && par->family != NFPROTO_IPV6))
++        return -EINVAL;
++    return 0;
++}
++
++static struct xt_match gta3xlwifi_owner_skip_reg __read_mostly = {
++    .name = GTA3XLWIFI_OWNER_SKIP_MATCH,
++    .revision = 0,
++    .family = NFPROTO_UNSPEC,
++    .hooks = (1 << NF_INET_LOCAL_IN) | (1 << NF_INET_LOCAL_OUT),
++    .match = gta3xlwifi_owner_skip_mt,
++    .checkentry = gta3xlwifi_owner_skip_check,
++    .matchsize = sizeof(struct gta3xlwifi_owner_skip_match),
++    .me = THIS_MODULE,
++};
++static int __init gta3xlwifi_owner_skip_init(void)
++{
++    return xt_register_match(&gta3xlwifi_owner_skip_reg);
++}
++module_init(gta3xlwifi_owner_skip_init);
++MODULE_LICENSE("GPL");
++MODULE_ALIAS("ipt_gta3xlwifi_owner_skip");
++MODULE_ALIAS("ip6t_gta3xlwifi_owner_skip");
+diff --git a/include/uapi/linux/netfilter/gta3xlwifi_owner_skip.h b/include/uapi/linux/netfilter/gta3xlwifi_owner_skip.h
+new file mode 100644
+--- /dev/null
++++ b/include/uapi/linux/netfilter/gta3xlwifi_owner_skip.h
+@@ -0,0 +1,9 @@
++/* SPDX-License-Identifier: GPL-2.0 WITH Linux-syscall-note */
++#ifndef _UAPI_GTA3XLWIFI_OWNER_SKIP_H
++#define _UAPI_GTA3XLWIFI_OWNER_SKIP_H
++#include <linux/types.h>
++#define GTA3XLWIFI_OWNER_SKIP_MATCH "gta3xlwifi_owner_skip"
++struct gta3xlwifi_owner_skip_match {
++    __u32 reserved;
++};
++#endif

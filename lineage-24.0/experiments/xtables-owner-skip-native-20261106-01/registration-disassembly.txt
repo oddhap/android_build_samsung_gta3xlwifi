@@ -1,0 +1,263 @@
+
+/srv/android/artifacts/lineage-24.0-arm64/xtables-owner-skip-native-20261106-01/iptables:	file format elf64-littleaarch64
+
+Disassembly of section .text:
+
+000000000002f5ec <init_extensions>:
+   2f5ec: a9bf7bfd     	stp	x29, x30, [sp, #-0x10]!
+   2f5f0: 910003fd     	mov	x29, sp
+   2f5f4: d503201f     	nop
+   2f5f8: 101ea240     	adr	x0, 0x6ca40 <audit_tg_reg.llvm.14238391995875451279>
+   2f5fc: 9400808d     	bl	0x4f830 <xtables_register_target>
+   2f600: d503201f     	nop
+   2f604: 101ea820     	adr	x0, 0x6cb08 <checksum_tg_reg.llvm.17752749649677204580>
+   2f608: 9400808a     	bl	0x4f830 <xtables_register_target>
+   2f60c: d503201f     	nop
+   2f610: 101eae00     	adr	x0, 0x6cbd0 <classify_tg_reg.llvm.15155055547685108085>
+   2f614: 52800041     	mov	w1, #0x2                // =2
+   2f618: 94008146     	bl	0x4fb30 <xtables_register_targets>
+   2f61c: d503201f     	nop
+   2f620: 101eba00     	adr	x0, 0x6cd60 <connmark_tg_reg.llvm.7560024757959961916>
+   2f624: 52800061     	mov	w1, #0x3                // =3
+   2f628: 94008142     	bl	0x4fb30 <xtables_register_targets>
+   2f62c: d503201f     	nop
+   2f630: 101ecc40     	adr	x0, 0x6cfb8 <connsecmark_target.llvm.3230959036993080244>
+   2f634: 9400807f     	bl	0x4f830 <xtables_register_target>
+   2f638: d503201f     	nop
+   2f63c: 101ed220     	adr	x0, 0x6d080 <ct_target_reg.llvm.5193858076415022425>
+   2f640: 528000e1     	mov	w1, #0x7                // =7
+   2f644: 9400813b     	bl	0x4fb30 <xtables_register_targets>
+   2f648: d503201f     	nop
+   2f64c: 101efd60     	adr	x0, 0x6d5f8 <dscp_target.llvm.2652806525337209567>
+   2f650: 52800041     	mov	w1, #0x2                // =2
+   2f654: 94008137     	bl	0x4fb30 <xtables_register_targets>
+   2f658: d503201f     	nop
+   2f65c: 101f0960     	adr	x0, 0x6d788 <mark_tg_reg.llvm.10482937491442816582>
+   2f660: 52800041     	mov	w1, #0x2                // =2
+   2f664: 94008133     	bl	0x4fb30 <xtables_register_targets>
+   2f668: d503201f     	nop
+   2f66c: 101f1560     	adr	x0, 0x6d918 <idletimer_tg_reg.llvm.9973049415679469750>
+   2f670: 52800041     	mov	w1, #0x2                // =2
+   2f674: 9400812f     	bl	0x4fb30 <xtables_register_targets>
+   2f678: d503201f     	nop
+   2f67c: 101f2160     	adr	x0, 0x6daa8 <led_tg_reg.llvm.2628272700498161712>
+   2f680: 9400806c     	bl	0x4f830 <xtables_register_target>
+   2f684: d503201f     	nop
+   2f688: 101f2740     	adr	x0, 0x6db70 <log_tg_reg.llvm.5788949669697432712>
+   2f68c: 94008069     	bl	0x4f830 <xtables_register_target>
+   2f690: d503201f     	nop
+   2f694: 101f2d20     	adr	x0, 0x6dc38 <mark_tg_reg.llvm.4718055682614150783>
+   2f698: 52800081     	mov	w1, #0x4                // =4
+   2f69c: 94008125     	bl	0x4fb30 <xtables_register_targets>
+   2f6a0: d503201f     	nop
+   2f6a4: 101f45a0     	adr	x0, 0x6df58 <nat_tg_reg.llvm.6953519704511529955>
+   2f6a8: 52800141     	mov	w1, #0xa                // =10
+   2f6ac: 94008121     	bl	0x4fb30 <xtables_register_targets>
+   2f6b0: d503201f     	nop
+   2f6b4: 101f83a0     	adr	x0, 0x6e728 <nflog_target.llvm.1399697478460598531>
+   2f6b8: 9400805e     	bl	0x4f830 <xtables_register_target>
+   2f6bc: d503201f     	nop
+   2f6c0: 101f8980     	adr	x0, 0x6e7f0 <nfqueue_targets.llvm.2157902890715989472>
+   2f6c4: 52800081     	mov	w1, #0x4                // =4
+   2f6c8: 9400811a     	bl	0x4fb30 <xtables_register_targets>
+   2f6cc: d503201f     	nop
+   2f6d0: 101fa200     	adr	x0, 0x6eb10 <rateest_tg_reg.llvm.1424472318575576363>
+   2f6d4: 94008057     	bl	0x4f830 <xtables_register_target>
+   2f6d8: d503201f     	nop
+   2f6dc: 101fa7e0     	adr	x0, 0x6ebd8 <secmark_tg_reg.llvm.13727329986677566791>
+   2f6e0: 52800041     	mov	w1, #0x2                // =2
+   2f6e4: 94008113     	bl	0x4fb30 <xtables_register_targets>
+   2f6e8: d503201f     	nop
+   2f6ec: 101fb3e0     	adr	x0, 0x6ed68 <set_tg_reg.llvm.16158539930090104453>
+   2f6f0: 52800081     	mov	w1, #0x4                // =4
+   2f6f4: 9400810f     	bl	0x4fb30 <xtables_register_targets>
+   2f6f8: d503201f     	nop
+   2f6fc: 101fcc60     	adr	x0, 0x6f088 <synproxy_tg_reg.llvm.12505320331119128369>
+   2f700: 9400804c     	bl	0x4f830 <xtables_register_target>
+   2f704: d503201f     	nop
+   2f708: 101fd240     	adr	x0, 0x6f150 <tcpmss_tg_reg.llvm.8631495607468918069>
+   2f70c: 52800041     	mov	w1, #0x2                // =2
+   2f710: 94008108     	bl	0x4fb30 <xtables_register_targets>
+   2f714: d503201f     	nop
+   2f718: 101fde40     	adr	x0, 0x6f2e0 <tee_tg_reg.llvm.4702755003694712902>
+   2f71c: 52800041     	mov	w1, #0x2                // =2
+   2f720: 94008104     	bl	0x4fb30 <xtables_register_targets>
+   2f724: d503201f     	nop
+   2f728: 101fea40     	adr	x0, 0x6f470 <tos_tg_reg.llvm.17492629173380948919>
+   2f72c: 52800041     	mov	w1, #0x2                // =2
+   2f730: 94008100     	bl	0x4fb30 <xtables_register_targets>
+   2f734: d503201f     	nop
+   2f738: 101ff640     	adr	x0, 0x6f600 <tproxy_tg_reg.llvm.10988094590869699634>
+   2f73c: 52800061     	mov	w1, #0x3                // =3
+   2f740: 940080fc     	bl	0x4fb30 <xtables_register_targets>
+   2f744: d503201f     	nop
+   2f748: 10200880     	adr	x0, 0x6f858 <trace_target.llvm.17034279029294884270>
+   2f74c: 94008039     	bl	0x4f830 <xtables_register_target>
+   2f750: d503201f     	nop
+   2f754: 10200e60     	adr	x0, 0x6f920 <addrtype_mt_reg.llvm.400177702029498195>
+   2f758: 52800041     	mov	w1, #0x2                // =2
+   2f75c: 94008027     	bl	0x4f7f8 <xtables_register_matches>
+   2f760: d503201f     	nop
+   2f764: 102019e0     	adr	x0, 0x6faa0 <bpf_matches.llvm.10990763391825410541>
+   2f768: 52800041     	mov	w1, #0x2                // =2
+   2f76c: 94008023     	bl	0x4f7f8 <xtables_register_matches>
+   2f770: d503201f     	nop
+   2f774: 10202560     	adr	x0, 0x6fc20 <cluster_mt_reg.llvm.11561075046473660613>
+   2f778: 94007f6c     	bl	0x4f528 <xtables_register_match>
+   2f77c: d503201f     	nop
+   2f780: 10202b00     	adr	x0, 0x6fce0 <comment_match.llvm.15758852448862505743>
+   2f784: 94007f69     	bl	0x4f528 <xtables_register_match>
+   2f788: d503201f     	nop
+   2f78c: 102030a0     	adr	x0, 0x6fda0 <connbytes_match.llvm.14178057187997253311>
+   2f790: 94007f66     	bl	0x4f528 <xtables_register_match>
+   2f794: d503201f     	nop
+   2f798: 10203640     	adr	x0, 0x6fe60 <connlimit_mt_reg.llvm.13946002984731148146>
+   2f79c: 52800081     	mov	w1, #0x4                // =4
+   2f7a0: 94008016     	bl	0x4f7f8 <xtables_register_matches>
+   2f7a4: d503201f     	nop
+   2f7a8: 10204dc0     	adr	x0, 0x70160 <connmark_mt_reg.llvm.4392895777529584542>
+   2f7ac: 52800041     	mov	w1, #0x2                // =2
+   2f7b0: 94008012     	bl	0x4f7f8 <xtables_register_matches>
+   2f7b4: d503201f     	nop
+   2f7b8: 10205940     	adr	x0, 0x702e0 <conntrack_mt_reg.llvm.15682943975827505224>
+   2f7bc: 52800161     	mov	w1, #0xb                // =11
+   2f7c0: 9400800e     	bl	0x4f7f8 <xtables_register_matches>
+   2f7c4: d503201f     	nop
+   2f7c8: 10209ac0     	adr	x0, 0x70b20 <cpu_match.llvm.2523438687710570717>
+   2f7cc: 94007f57     	bl	0x4f528 <xtables_register_match>
+   2f7d0: 940035bf     	bl	0x3cecc <libxt_devgroup_init>
+   2f7d4: d503201f     	nop
+   2f7d8: 1020a640     	adr	x0, 0x70ca0 <dscp_mt_reg.llvm.8801002966054149408>
+   2f7dc: 52800041     	mov	w1, #0x2                // =2
+   2f7e0: 94008006     	bl	0x4f7f8 <xtables_register_matches>
+   2f7e4: d503201f     	nop
+   2f7e8: 1020b1c0     	adr	x0, 0x70e20 <ecn_mt_reg.llvm.12746462828007160710>
+   2f7ec: 94007f4f     	bl	0x4f528 <xtables_register_match>
+   2f7f0: d503201f     	nop
+   2f7f4: 1020b760     	adr	x0, 0x70ee0 <esp_match.llvm.3090314813880823784>
+   2f7f8: 94007f4c     	bl	0x4f528 <xtables_register_match>
+   2f7fc: d503201f     	nop
+   2f800: 1020bd00     	adr	x0, 0x70fa0 <hashlimit_mt_reg.llvm.6332194343227847486>
+   2f804: 528000e1     	mov	w1, #0x7                // =7
+   2f808: 94007ffc     	bl	0x4f7f8 <xtables_register_matches>
+   2f80c: d503201f     	nop
+   2f810: 1020e680     	adr	x0, 0x714e0 <helper_match.llvm.11070182147641435496>
+   2f814: 94007f45     	bl	0x4f528 <xtables_register_match>
+   2f818: d503201f     	nop
+   2f81c: 1020ec20     	adr	x0, 0x715a0 <comp_mt_reg.llvm.14967968348809538279>
+   2f820: 94007f42     	bl	0x4f528 <xtables_register_match>
+   2f824: d503201f     	nop
+   2f828: 1020f1c0     	adr	x0, 0x71660 <iprange_mt_reg.llvm.16925619867494656862>
+   2f82c: 52800061     	mov	w1, #0x3                // =3
+   2f830: 94007ff2     	bl	0x4f7f8 <xtables_register_matches>
+   2f834: d503201f     	nop
+   2f838: 10210340     	adr	x0, 0x718a0 <length_match.llvm.18133052661629649082>
+   2f83c: 94007f3b     	bl	0x4f528 <xtables_register_match>
+   2f840: d503201f     	nop
+   2f844: 102108e0     	adr	x0, 0x71960 <limit_match.llvm.6852289670141105976>
+   2f848: 52800041     	mov	w1, #0x2                // =2
+   2f84c: 94007feb     	bl	0x4f7f8 <xtables_register_matches>
+   2f850: d503201f     	nop
+   2f854: 10211460     	adr	x0, 0x71ae0 <mac_match.llvm.6493096194267402815>
+   2f858: 94007f34     	bl	0x4f528 <xtables_register_match>
+   2f85c: d503201f     	nop
+   2f860: 10211a00     	adr	x0, 0x71ba0 <mark_mt_reg.llvm.14272041121234531728>
+   2f864: 52800041     	mov	w1, #0x2                // =2
+   2f868: 94007fe4     	bl	0x4f7f8 <xtables_register_matches>
+   2f86c: d503201f     	nop
+   2f870: 10212580     	adr	x0, 0x71d20 <multiport_mt_reg.llvm.5245533912154561005>
+   2f874: 52800081     	mov	w1, #0x4                // =4
+   2f878: 94007fe0     	bl	0x4f7f8 <xtables_register_matches>
+   2f87c: d503201f     	nop
+   2f880: 10213d00     	adr	x0, 0x72020 <nfacct_matches.llvm.2191802245631463052>
+   2f884: 52800041     	mov	w1, #0x2                // =2
+   2f888: 94007fdc     	bl	0x4f7f8 <xtables_register_matches>
+   2f88c: d503201f     	nop
+   2f890: 10214880     	adr	x0, 0x721a0 <osf_match.llvm.10198025030162025689>
+   2f894: 94007f25     	bl	0x4f528 <xtables_register_match>
+   2f898: d503201f     	nop
+   2f89c: 10214e20     	adr	x0, 0x72260 <owner_mt_reg.llvm.8935125868405555298>
+   2f8a0: 52800061     	mov	w1, #0x3                // =3
+   2f8a4: 94007fd5     	bl	0x4f7f8 <xtables_register_matches>
+   2f8a8: d503201f     	nop
+   2f8ac: 10215fa0     	adr	x0, 0x724a0 <physdev_match.llvm.387592821853035714>
+   2f8b0: 94007f1e     	bl	0x4f528 <xtables_register_match>
+   2f8b4: d503201f     	nop
+   2f8b8: 10216540     	adr	x0, 0x72560 <pkttype_match.llvm.9836940960861864023>
+   2f8bc: 94007f1b     	bl	0x4f528 <xtables_register_match>
+   2f8c0: d503201f     	nop
+   2f8c4: 10216ae0     	adr	x0, 0x72620 <policy_mt_reg.llvm.17804098082404266990>
+   2f8c8: 52800041     	mov	w1, #0x2                // =2
+   2f8cc: 94007fcb     	bl	0x4f7f8 <xtables_register_matches>
+   2f8d0: d503201f     	nop
+   2f8d4: 10217660     	adr	x0, 0x727a0 <quota_match.llvm.6823443478306896677>
+   2f8d8: 94007f14     	bl	0x4f528 <xtables_register_match>
+   2f8dc: d503201f     	nop
+   2f8e0: 10217c00     	adr	x0, 0x72860 <quota_mt2_reg.llvm.16514354385910384192>
+   2f8e4: 94007f11     	bl	0x4f528 <xtables_register_match>
+   2f8e8: d503201f     	nop
+   2f8ec: 102181a0     	adr	x0, 0x72920 <rateest_mt_reg.llvm.9047208115436969626>
+   2f8f0: 94007f0e     	bl	0x4f528 <xtables_register_match>
+   2f8f4: d503201f     	nop
+   2f8f8: 10218740     	adr	x0, 0x729e0 <recent_mt_reg.llvm.16221379722078556819>
+   2f8fc: 52800061     	mov	w1, #0x3                // =3
+   2f900: 94007fbe     	bl	0x4f7f8 <xtables_register_matches>
+   2f904: d503201f     	nop
+   2f908: 102198c0     	adr	x0, 0x72c20 <rpfilter_match.llvm.11312939367592476897>
+   2f90c: 94007f07     	bl	0x4f528 <xtables_register_match>
+   2f910: d503201f     	nop
+   2f914: 10219e60     	adr	x0, 0x72ce0 <sctp_match.llvm.1614113805106145710>
+   2f918: 94007f04     	bl	0x4f528 <xtables_register_match>
+   2f91c: d503201f     	nop
+   2f920: 1021a400     	adr	x0, 0x72da0 <set_mt_reg.llvm.8124499655172506997>
+   2f924: 528000a1     	mov	w1, #0x5                // =5
+   2f928: 94007fb4     	bl	0x4f7f8 <xtables_register_matches>
+   2f92c: d503201f     	nop
+   2f930: 1021c180     	adr	x0, 0x73160 <socket_mt_reg.llvm.17673195821934682890>
+   2f934: 52800081     	mov	w1, #0x4                // =4
+   2f938: 94007fb0     	bl	0x4f7f8 <xtables_register_matches>
+   2f93c: d503201f     	nop
+   2f940: 1021d900     	adr	x0, 0x73460 <standard_target.llvm.5157752274826039172>
+   2f944: 94007fbb     	bl	0x4f830 <xtables_register_target>
+   2f948: d503201f     	nop
+   2f94c: 1021dee0     	adr	x0, 0x73528 <statistic_match.llvm.1945119235380281490>
+   2f950: 94007ef6     	bl	0x4f528 <xtables_register_match>
+   2f954: d503201f     	nop
+   2f958: 1021e480     	adr	x0, 0x735e8 <string_mt_reg.llvm.12136142942310668174>
+   2f95c: 52800041     	mov	w1, #0x2                // =2
+   2f960: 94007fa6     	bl	0x4f7f8 <xtables_register_matches>
+   2f964: d503201f     	nop
+   2f968: 1021f000     	adr	x0, 0x73768 <tcp_match.llvm.6605958258930548325>
+   2f96c: 94007eef     	bl	0x4f528 <xtables_register_match>
+   2f970: d503201f     	nop
+   2f974: 1021f5a0     	adr	x0, 0x73828 <tcpmss_match.llvm.18111787771546701130>
+   2f978: 94007eec     	bl	0x4f528 <xtables_register_match>
+   2f97c: d503201f     	nop
+   2f980: 1021fb40     	adr	x0, 0x738e8 <time_match.llvm.12949934885019373057>
+   2f984: 94007ee9     	bl	0x4f528 <xtables_register_match>
+   2f988: d503201f     	nop
+   2f98c: 102200e0     	adr	x0, 0x739a8 <tos_mt_reg.llvm.18366639074726458722>
+   2f990: 52800041     	mov	w1, #0x2                // =2
+   2f994: 94007f99     	bl	0x4f7f8 <xtables_register_matches>
+   2f998: d503201f     	nop
+   2f99c: 10220c60     	adr	x0, 0x73b28 <u32_match.llvm.8748120373516133999>
+   2f9a0: 94007ee2     	bl	0x4f528 <xtables_register_match>
+   2f9a4: d503201f     	nop
+   2f9a8: 10221200     	adr	x0, 0x73be8 <udp_match.llvm.5859981692095460768>
+   2f9ac: 94007edf     	bl	0x4f528 <xtables_register_match>
+   2f9b0: d503201f     	nop
+   2f9b4: 102217a0     	adr	x0, 0x73ca8 <guard_match.llvm.15923818583484060252>
+   2f9b8: 94007edc     	bl	0x4f528 <xtables_register_match>
+   2f9bc: d503201f     	nop
+   2f9c0: 10221d40     	adr	x0, 0x73d68 <appid_match.llvm.14119441060092197475>
+   2f9c4: 94007ed9     	bl	0x4f528 <xtables_register_match>
+   2f9c8: d503201f     	nop
+   2f9cc: 102222e0     	adr	x0, 0x73e28 <raw_uid_match.llvm.7570300016531072668>
+   2f9d0: 94007ed6     	bl	0x4f528 <xtables_register_match>
+   2f9d4: d503201f     	nop
+   2f9d8: 10222880     	adr	x0, 0x73ee8 <raw_appid_match.llvm.5655685241814343512>
+   2f9dc: 94007ed3     	bl	0x4f528 <xtables_register_match>
+   2f9e0: d503201f     	nop
+   2f9e4: 10222e20     	adr	x0, 0x73fa8 <owner_skip_match.llvm.14224184201171039618>
+   2f9e8: a8c17bfd     	ldp	x29, x30, [sp], #0x10
+   2f9ec: 14007ecf     	b	0x4f528 <xtables_register_match>
