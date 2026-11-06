@@ -1,0 +1,31 @@
+{
+  "passed": true,
+  "scope": "Test real packet-barrier lease code with synthetic file/PID/net-grace effects.\n\nUses actual C bodies, real pthread mutex/contended close, and atomic memory order.\nPID refs, credentials, registration, grace periods and packets remain fixtures;\nno host/device kernel, rule, network, credential or descriptor is changed.\n",
+  "passed_cases": 44,
+  "stderr": "",
+  "command": [
+    "cc",
+    "-std=gnu11",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-Wno-unused-parameter",
+    "-fsanitize=undefined",
+    "-fno-sanitize-recover=all",
+    "-pthread",
+    "-I/srv/android/artifacts/lineage-24.0-arm64/kernel-non-loopback-route-build-20261106-01/netpolicy-host/include",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-non-loopback-route-build-20261106-01/netpolicy-host/test.c",
+    "-o",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-non-loopback-route-build-20261106-01/netpolicy-host/test"
+  ],
+  "inputs_sha256": {
+    "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/test-kernel-netpolicy-lease24.py": "e8ccd87eb654abd585797d648d4e15f2249b063ff031d5674e298d323201a4a4",
+    "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/test-kernel-qtaguid-socket-owned.py": "59516300b405af46c972b264353c3766b5c18cf882b04ac8ba9db6f70f436459",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-non-loopback-route-build-20261106-01/netpolicy-host/test.c": "64c01208a3af745e338de138392febf6f83c6518112aedecb8a5f06a1d7a259f",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-non-loopback-route-20261106-01/src/net/netfilter/gta3xlwifi_netpolicy.c": "850f5f35d65bc6f4db7211a4fa15e5b2859ae90f6139edf0107fcb104db7d751",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-non-loopback-route-20261106-01/src/include/uapi/linux/netfilter/gta3xlwifi_netpolicy.h": "fd53c8c287840054ac9234efdabd88302140d95fc1488c57080de499a835d54c",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-non-loopback-route-build-20261106-01/netpolicy-host/include/linux/netfilter/gta3xlwifi_netpolicy.h": "fd53c8c287840054ac9234efdabd88302140d95fc1488c57080de499a835d54c"
+  },
+  "packet_or_kernel_runtime_tested": false,
+  "flash_ready": false
+}

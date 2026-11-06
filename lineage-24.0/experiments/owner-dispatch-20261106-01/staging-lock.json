@@ -1,0 +1,40 @@
+{
+  "scope": "Ordinary core/packet/9-child dispatcher; BACKGROUND skip only for interface index1; not complete independent mandatory security",
+  "project": "system/netd",
+  "prerequisites": [
+    "uid-policy-transaction-20261106-01",
+    "kernel-non-loopback-20261106-01",
+    "xtables-non-loopback-20261106-01"
+  ],
+  "patch_sha256": "9e5fcca5110202d1742be0a3406fa81078f9be476f74adc58ff67a320adbba9a",
+  "files": [
+    {
+      "path": "server/Gta3xlwifiCheckedUidChains.cpp",
+      "before_sha256": "0cd389c6f54b984e587ad6b2d8839333308d9ff78c010962126070a51d743c1e",
+      "candidate_sha256": "073b7988bd4f83200bf3b0d954de9f9bbd53b71775cb082194a56f769d3b454d"
+    },
+    {
+      "path": "server/Gta3xlwifiCheckedUidChains.h",
+      "before_sha256": "98550883fbd1bfd2dba4d0c1b22dd9e3a50205558f071c98fe4e981781ec47a0",
+      "candidate_sha256": "b2ec612fb6165050240c1c9413e6c4bbd01ff511827c278e2ff62d5e91f49806"
+    },
+    {
+      "path": "server/Gta3xlwifiUidPolicyTransaction.cpp",
+      "before_sha256": "45e87f0cbf003ef75583eef9fc29fb7fe0125fd2985052cc7375ff974b8054f9",
+      "candidate_sha256": "bd7623520cfe025fac131f58d5521afa0a8842c55a56a2f8ddf25a91dc6b9a5a"
+    },
+    {
+      "path": "server/Gta3xlwifiOrdinaryDispatch.cpp",
+      "before_sha256": null,
+      "candidate_sha256": "917927b0e66b78a3087e50c04e963b04813a7a4041e40dce6d9094119f9459c3"
+    },
+    {
+      "path": "server/Gta3xlwifiOrdinaryDispatch.h",
+      "before_sha256": null,
+      "candidate_sha256": "6e71c153ab368713437b4b4c2ea3ee246b7f35490f94cc87d23e18f7515547c5"
+    }
+  ],
+  "active_source_changed": false,
+  "hardware_tested": false,
+  "flash_ready": false
+}

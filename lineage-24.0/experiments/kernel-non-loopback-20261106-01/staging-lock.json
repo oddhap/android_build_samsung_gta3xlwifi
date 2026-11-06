@@ -1,0 +1,34 @@
+{
+  "scope": "Separate actual input/output ifindex !=1 predicate; preserve A17 owner-skip match",
+  "project": "kernel/samsung/gta3xlwifi",
+  "prerequisites": [
+    "kernel-owner-skip-20261106-01"
+  ],
+  "patch_sha256": "a284b1d8d5e3c311c4bb3a4e01e99194929c682ffac138de7f4a366b81241caf",
+  "files": [
+    {
+      "path": "net/netfilter/gta3xlwifi_owner_skip.c",
+      "before_sha256": "c94b3cc176348b2c46394ad54e39ff3e88d019370598f305151350c9176d9f7d",
+      "candidate_sha256": "8f974607dd475f73a59cb37127b04a27ffb530af8f37945c64d301f3ca1af50b"
+    },
+    {
+      "path": "include/uapi/linux/netfilter/gta3xlwifi_owner_skip.h",
+      "before_sha256": "4cf28d48946c4235c230fef85022836ea01a7611efcf9737c51b0c738888a49d",
+      "candidate_sha256": "966dc6938d9c2e7bf172083f10b6f380a6f8795432901ff456a2822b5cf30796"
+    }
+  ],
+  "active_source_changed": false,
+  "hardware_tested": false,
+  "flash_ready": false,
+  "supported_runtime_capability_bits": [
+    0,
+    1,
+    2,
+    3,
+    5,
+    9,
+    12
+  ],
+  "unknown_active_capabilities_rejected": true,
+  "android_prebuilt_promoted": false
+}

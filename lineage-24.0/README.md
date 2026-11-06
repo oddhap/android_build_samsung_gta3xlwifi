@@ -778,3 +778,30 @@ are checked; complete Android source audits pass. No rules or packets are run.
 The combined network-final-20261106-01 sequence finishes exit0. These inactive
 primitives still require the authoritative packet dispatcher, independent
 mandatory protections, framework/provider/startup wiring and device validation.
+
+## Ordinary UID dispatch and current-route predicate — November 6
+
+The [ordinary dispatch portion](experiments/owner-dispatch-20261106-01/README.md)
+adds raw appId core and exact packet exemptions followed by nine bounded child
+calls. Only BACKGROUND is skipped on interface1. Typed I/O rejects foreign target
+aliases and requires included children. The full UID transaction now contains14
+chains. Ordinary comparisons pass13 cases plus12582912 actual A17 owner-expression
+comparisons; all eight transaction components pass164 lifecycle/error/concurrency
+cases. Existing checked84 and metered51/1248 regressions pass. All eight actual
+C++ sources compile/combine with Android17 ARM64 netd CFI flags and complete source
+audits. No parent hooks or framework callbacks are activated.
+
+The [non-loopback primitive](experiments/kernel-non-loopback-20261106-01/README.md)
+is superseded for OUTPUT selection by the [current-route correction](experiments/kernel-non-loopback-route-20261106-01/README.md).
+The correction uses skb's current destination device after mangle rerouting,
+not a stale original hook output pointer.24 cases plus5774610 actual parser/skip
+comparisons pass. Full Image/modules build exits0, original config and Gator118/
+KUTF43 CRCs retained, full60338/60331 and Android1243/17 audits pass before/after.
+Final isolated Image b131fcd4195b3781cea2fe6c84fe45c55acb688517dc2418832971b9f757773e.
+
+All six private extensions link into whole ARM64 iptables with70 original plus
+six private actual registrations. All native inputs remain hash-identical and
+all four UAPI headers match the corrected full kernel; binary/archive hashes are
+recorded in the reuse report. No rules or packets execute. Complete mandatory
+LNA/loopback permission, VPN/IIF, DNS/CLAT, attachment/startup/provider/Java wiring,
+installation and final-ROM checks remain. This is not a flash-ready ROM.

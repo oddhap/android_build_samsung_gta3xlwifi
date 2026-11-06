@@ -1,0 +1,27 @@
+{
+  "scope": "OUTPUT non-loopback predicate uses current skb destination after LOCAL_OUT rerouting; input unchanged; no UAPI or owner-skip behavior changes",
+  "prerequisites": [
+    "kernel-non-loopback-20261106-01"
+  ],
+  "patch_sha256": "4d19958a9b252ce85c83c986be840b151d68c4d1dc790d59f24ba2624fadd438",
+  "files": [
+    {
+      "path": "net/netfilter/gta3xlwifi_owner_skip.c",
+      "before_sha256": "8f974607dd475f73a59cb37127b04a27ffb530af8f37945c64d301f3ca1af50b",
+      "candidate_sha256": "8ee4cdcbef75a97001da4633ff607cac3232be57361349fb18343fb01051fec7"
+    }
+  ],
+  "supported_runtime_capability_bits": [
+    0,
+    1,
+    2,
+    3,
+    5,
+    9,
+    12
+  ],
+  "unknown_active_capabilities_rejected": true,
+  "android_prebuilt_promoted": false,
+  "hardware_tested": false,
+  "flash_ready": false
+}

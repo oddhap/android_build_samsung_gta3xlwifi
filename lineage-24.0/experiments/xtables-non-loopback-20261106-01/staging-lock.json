@@ -1,0 +1,24 @@
+{
+  "scope": "Private netfilter input/output device index !=1 match, not an interface-name test or full backend",
+  "project": "external/iptables",
+  "revision": "df1a07fd3d0c157a71a4c157cc728062a01032b2",
+  "prerequisites": [
+    "xtables-owner-skip-20261106-01"
+  ],
+  "kernel_prerequisite": "kernel-non-loopback-20261106-01",
+  "patch_sha256": "df1fa8fa32cd3c531a2d27689906c4302ae1a1d904ff16dd4cca99a2572461ad",
+  "files": [
+    {
+      "path": "extensions/libxt_gta3xlwifi_non_loopback.c",
+      "before_sha256": null,
+      "candidate_sha256": "838319e160e31d3efb877831620f7a512eaf2000099e65feacf71bbf07599d4d"
+    },
+    {
+      "path": "include/linux/netfilter/gta3xlwifi_owner_skip.h",
+      "before_sha256": "4cf28d48946c4235c230fef85022836ea01a7611efcf9737c51b0c738888a49d",
+      "candidate_sha256": "966dc6938d9c2e7bf172083f10b6f380a6f8795432901ff456a2822b5cf30796"
+    }
+  ],
+  "active_source_changed": false,
+  "flash_ready": false
+}

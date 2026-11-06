@@ -1,0 +1,7 @@
+PASS: 1243 locked projects, 17 exact reviewed patches; no external alternates
+PASS: 1243 locked projects, 17 exact reviewed patches; no external alternates
+PASS: actual Android17 netd CFI flags compiled; native ARM64 object validated, production files unchanged
+UID_TRANSACTION_NATIVE_COMPLETED
+OWNER_SKIP_KERNEL_COMPLETED
+PASS: all five actual Android17 builtin registrations, complete archive and ARM64 iptables link; original inputs unchanged
+XTABLES_OWNER_SKIP_COMPLETED

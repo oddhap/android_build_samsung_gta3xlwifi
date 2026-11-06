@@ -1,0 +1,9 @@
+PASS: 84 real checked-chain parser/transaction cases; fatal UBSan, no real rules changed
+passed_cases=51 comparisons=1248; actual typed metered programs vs A17 xtbpf, fatal UBSan
+PASS: 1243 locked projects, 17 exact reviewed patches; no external alternates
+PASS: 1243 locked projects, 17 exact reviewed patches; no external alternates
+PASS: actual Android17 netd CFI flags compiled; native ARM64 object validated, production files unchanged
+OWNER_DISPATCH_NATIVE_COMPLETED
+NON_LOOPBACK_KERNEL_COMPLETED
+PASS: all six actual Android17 builtin registrations, complete archive and ARM64 iptables link; original inputs unchanged
+XTABLES_NON_LOOPBACK_COMPLETED

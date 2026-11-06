@@ -1,0 +1,27 @@
+diff --git a/net/netfilter/gta3xlwifi_owner_skip.c b/net/netfilter/gta3xlwifi_owner_skip.c
+--- a/net/netfilter/gta3xlwifi_owner_skip.c
++++ b/net/netfilter/gta3xlwifi_owner_skip.c
+@@ -10,6 +10,7 @@
+ #include <linux/module.h>
+ #include <linux/netfilter/x_tables.h>
+ #include <linux/netdevice.h>
++#include <net/dst.h>
+ #include <linux/skbuff.h>
+ #include <linux/string.h>
+ #include <linux/user_namespace.h>
+@@ -76,8 +77,13 @@
+         return false;
+     if (par->hooknum == NF_INET_LOCAL_IN)
+         device = par->in;
+-    else if (par->hooknum == NF_INET_LOCAL_OUT)
+-        device = par->out;
++    else if (par->hooknum == NF_INET_LOCAL_OUT) {
++        const struct dst_entry *route = skb_dst(skb);
++        /* LOCAL_OUT mangle can reroute the skb without updating hook-state
++         * out. Use the current route, never the stale original output device.
++         */
++        device = route ? route->dev : NULL;
++    }
+     else
+         return false;
+     return !device || device->ifindex != 1;

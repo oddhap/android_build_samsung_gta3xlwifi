@@ -1,0 +1,93 @@
+diff --git a/net/netfilter/gta3xlwifi_owner_skip.c b/net/netfilter/gta3xlwifi_owner_skip.c
+--- a/net/netfilter/gta3xlwifi_owner_skip.c
++++ b/net/netfilter/gta3xlwifi_owner_skip.c
+@@ -9,6 +9,7 @@
+ #include <linux/ipv6.h>
+ #include <linux/module.h>
+ #include <linux/netfilter/x_tables.h>
++#include <linux/netdevice.h>
+ #include <linux/skbuff.h>
+ #include <linux/string.h>
+ #include <linux/user_namespace.h>
+@@ -64,6 +65,24 @@
+     return (flags & 0x04) || (par->hooknum == NF_INET_LOCAL_IN && (flags & 0x01));
+ }
+ 
++/* Android17 skips BACKGROUND only for skb interface index1, not a name or
++ * an IFF_LOOPBACK flag. Missing devices correspond to index0: not exempt.
++ */
++static bool gta3xlwifi_non_loopback_mt(const struct sk_buff *skb,
++                                       struct xt_action_param *par)
++{
++    const struct net_device *device;
++    if (!skb)
++        return false;
++    if (par->hooknum == NF_INET_LOCAL_IN)
++        device = par->in;
++    else if (par->hooknum == NF_INET_LOCAL_OUT)
++        device = par->out;
++    else
++        return false;
++    return !device || device->ifindex != 1;
++}
++
+ static int gta3xlwifi_owner_skip_check(const struct xt_mtchk_param *par)
+ {
+     const struct gta3xlwifi_owner_skip_match *info = par->matchinfo;
+@@ -73,21 +92,35 @@
+     return 0;
+ }
+ 
+-static struct xt_match gta3xlwifi_owner_skip_reg __read_mostly = {
+-    .name = GTA3XLWIFI_OWNER_SKIP_MATCH,
+-    .revision = 0,
+-    .family = NFPROTO_UNSPEC,
+-    .hooks = (1 << NF_INET_LOCAL_IN) | (1 << NF_INET_LOCAL_OUT),
+-    .match = gta3xlwifi_owner_skip_mt,
+-    .checkentry = gta3xlwifi_owner_skip_check,
+-    .matchsize = sizeof(struct gta3xlwifi_owner_skip_match),
+-    .me = THIS_MODULE,
++static struct xt_match gta3xlwifi_owner_skip_reg[] __read_mostly = {
++    {
++        .name = GTA3XLWIFI_OWNER_SKIP_MATCH,
++        .revision = 0,
++        .family = NFPROTO_UNSPEC,
++        .hooks = (1 << NF_INET_LOCAL_IN) | (1 << NF_INET_LOCAL_OUT),
++        .match = gta3xlwifi_owner_skip_mt,
++        .checkentry = gta3xlwifi_owner_skip_check,
++        .matchsize = sizeof(struct gta3xlwifi_owner_skip_match),
++        .me = THIS_MODULE,
++    }, {
++        .name = GTA3XLWIFI_NON_LOOPBACK_MATCH,
++        .revision = 0,
++        .family = NFPROTO_UNSPEC,
++        .hooks = (1 << NF_INET_LOCAL_IN) | (1 << NF_INET_LOCAL_OUT),
++        .match = gta3xlwifi_non_loopback_mt,
++        .checkentry = gta3xlwifi_owner_skip_check,
++        .matchsize = sizeof(struct gta3xlwifi_owner_skip_match),
++        .me = THIS_MODULE,
++    },
+ };
+ static int __init gta3xlwifi_owner_skip_init(void)
+ {
+-    return xt_register_match(&gta3xlwifi_owner_skip_reg);
++    return xt_register_matches(gta3xlwifi_owner_skip_reg,
++                               ARRAY_SIZE(gta3xlwifi_owner_skip_reg));
+ }
+ module_init(gta3xlwifi_owner_skip_init);
+ MODULE_LICENSE("GPL");
+ MODULE_ALIAS("ipt_gta3xlwifi_owner_skip");
+ MODULE_ALIAS("ip6t_gta3xlwifi_owner_skip");
++MODULE_ALIAS("ipt_gta3xlwifi_non_loopback");
++MODULE_ALIAS("ip6t_gta3xlwifi_non_loopback");
+diff --git a/include/uapi/linux/netfilter/gta3xlwifi_owner_skip.h b/include/uapi/linux/netfilter/gta3xlwifi_owner_skip.h
+--- a/include/uapi/linux/netfilter/gta3xlwifi_owner_skip.h
++++ b/include/uapi/linux/netfilter/gta3xlwifi_owner_skip.h
+@@ -3,6 +3,7 @@
+ #define _UAPI_GTA3XLWIFI_OWNER_SKIP_H
+ #include <linux/types.h>
+ #define GTA3XLWIFI_OWNER_SKIP_MATCH "gta3xlwifi_owner_skip"
++#define GTA3XLWIFI_NON_LOOPBACK_MATCH "gta3xlwifi_non_loopback"
+ struct gta3xlwifi_owner_skip_match {
+     __u32 reserved;
+ };

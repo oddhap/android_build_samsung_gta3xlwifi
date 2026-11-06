@@ -1,0 +1,201 @@
+diff --git a/server/Gta3xlwifiCheckedUidChains.cpp b/server/Gta3xlwifiCheckedUidChains.cpp
+--- a/server/Gta3xlwifiCheckedUidChains.cpp
++++ b/server/Gta3xlwifiCheckedUidChains.cpp
+@@ -1,6 +1,7 @@
+ // SPDX-License-Identifier: Apache-2.0
+ #include "Gta3xlwifiCheckedUidChains.h"
+ 
++#include <algorithm>
+ #include <cerrno>
+ #include <charconv>
+ #include <climits>
+@@ -60,6 +61,7 @@
+     size_t rules = 0;
+     bool needsDataSaver = false;
+     const Chain* dataSaver = nullptr;
++    std::set<unsigned> called;
+     for (const auto& chain : image) {
+         names.push_back(chain.name);
+         if (chain.name == "g24_data_saver") dataSaver = &chain;
+@@ -68,21 +70,36 @@
+         if (rules > 65536) return false;
+         for (const auto& rule : chain.rules) {
+             if (rule.verdict != Verdict::Return && rule.verdict != Verdict::Drop &&
+-                rule.verdict != Verdict::Reject && rule.verdict != Verdict::DataSaverGoto)
++                rule.verdict != Verdict::Reject && rule.verdict != Verdict::DataSaverGoto &&
++                rule.verdict != Verdict::UidCall)
+                 return false;
++            if (rule.verdict == Verdict::UidCall) {
++                if (rule.targetUidChain < 1 || rule.targetUidChain > 9 ||
++                    (chain.name != "g24_owner_in" && chain.name != "g24_owner_out")) return false;
++                called.insert(rule.targetUidChain);
++            } else if (rule.targetUidChain) return false;
+             if (rule.verdict == Verdict::DataSaverGoto) needsDataSaver = true;
+             uint32_t maximum;
+             switch (rule.selector) {
++                case Selector::OwnerSkip:
++                case Selector::NonLoopback: maximum = 0; break;
+                 case Selector::Owner: maximum = INT_MAX; break;
+                 case Selector::RawUid: maximum = UINT32_MAX; break;
+                 case Selector::LookupAppId:
+                 case Selector::RawAppId: maximum = 99999; break;
+                 default: return false;
+             }
+-            if (!rule.uid && rule.selector != Selector::Owner) return false;
++            const bool packetSelector = rule.selector == Selector::OwnerSkip ||
++                                        rule.selector == Selector::NonLoopback;
++            if (packetSelector && rule.uid) return false;
++            if (!packetSelector && !rule.uid && rule.selector != Selector::Owner) return false;
+             if (rule.uid && (rule.uid->first > rule.uid->last || rule.uid->last > maximum))
+                 return false;
+         }
++    }
++    for (unsigned id : called) {
++        if (std::find(names.begin(), names.end(), "g24_uid_" + std::to_string(id)) == names.end())
++            return false;
+     }
+     if (needsDataSaver && (!dataSaver || dataSaver->rules.size() != 1 ||
+         dataSaver->rules[0].uid || dataSaver->rules[0].selector != Selector::Owner ||
+@@ -127,19 +144,31 @@
+             tokens.resize(tokens.size() - 2);
+             rejectSuffix = true;
+         }
+-        if (next.empty() || (tokens.size() != 4 && tokens.size() != 8) ||
++        if (next.empty() || (tokens.size() != 4 && tokens.size() != 6 && tokens.size() != 8) ||
+             tokens[0] != "-A" || tokens[1] != next.back().name) return -EPROTO;
+         const size_t jump = tokens.size() - 2;
+         Verdict verdict;
++        uint32_t targetUidChain = 0;
+         if (tokens[jump] == "-j" && tokens[jump + 1] == "RETURN") verdict = Verdict::Return;
+         else if (tokens[jump] == "-j" && tokens[jump + 1] == "DROP") verdict = Verdict::Drop;
+         else if (tokens[jump] == "-j" && tokens[jump + 1] == "REJECT" && rejectSuffix)
+             verdict = Verdict::Reject;
+         else if (tokens[jump] == "-g" && tokens[jump + 1] == "g24_data_saver")
+             verdict = Verdict::DataSaverGoto;
++        else if (tokens[jump] == "-j" && tokens[jump + 1].rfind("g24_uid_", 0) == 0 &&
++                 tokens[jump + 1].size() == 9 &&
++                 number(std::string_view(tokens[jump + 1]).substr(8), &targetUidChain, 9) &&
++                 targetUidChain > 0) verdict = Verdict::UidCall;
+         else return -EPROTO;
+         if (rejectSuffix && verdict != Verdict::Reject) return -EPROTO;
+         Rule rule{std::nullopt, verdict};
++        rule.targetUidChain = targetUidChain;
++        if (tokens.size() == 6) {
++            if (tokens[2] != "-m") return -EPROTO;
++            if (tokens[3] == "gta3xlwifi_owner_skip") rule.selector = Selector::OwnerSkip;
++            else if (tokens[3] == "gta3xlwifi_non_loopback") rule.selector = Selector::NonLoopback;
++            else return -EPROTO;
++        }
+         if (tokens.size() == 8) {
+             if (tokens[2] != "-m") return -EPROTO;
+             char separator = ':';
+@@ -172,8 +201,12 @@
+         commands += ":" + chain.name + " -\n";
+         for (const auto& rule : chain.rules) {
+             commands += "-A " + chain.name;
++            if (rule.selector == Selector::OwnerSkip) commands += " -m gta3xlwifi_owner_skip";
++            if (rule.selector == Selector::NonLoopback) commands += " -m gta3xlwifi_non_loopback";
+             if (rule.uid) {
+                 switch (rule.selector) {
++                    case Selector::OwnerSkip:
++                    case Selector::NonLoopback: return -EINVAL;
+                     case Selector::Owner: commands += " -m owner --uid-owner "; break;
+                     case Selector::LookupAppId: commands += " -m gta3xlwifi_appid --appid "; break;
+                     case Selector::RawUid: commands += " -m gta3xlwifi_raw_uid --raw_uid "; break;
+@@ -189,6 +222,8 @@
+                 case Verdict::Return: commands += " -j RETURN\n"; break;
+                 case Verdict::Drop: commands += " -j DROP\n"; break;
+                 case Verdict::Reject: commands += " -j REJECT\n"; break;
++                case Verdict::UidCall:
++                    commands += " -j g24_uid_" + std::to_string(rule.targetUidChain) + "\n"; break;
+                 case Verdict::DataSaverGoto: commands += " -g g24_data_saver\n"; break;
+             }
+             if (commands.size() > kMaximumImageBytes) return -E2BIG;
+diff --git a/server/Gta3xlwifiCheckedUidChains.h b/server/Gta3xlwifiCheckedUidChains.h
+--- a/server/Gta3xlwifiCheckedUidChains.h
++++ b/server/Gta3xlwifiCheckedUidChains.h
+@@ -22,14 +22,15 @@
+         uint32_t last;
+         bool operator==(const UidRange& b) const { return first == b.first && last == b.last; }
+     };
+-    enum class Verdict { Return, Drop, Reject, DataSaverGoto };
+-    enum class Selector { Owner, LookupAppId, RawUid, RawAppId };
++    enum class Verdict { Return, Drop, Reject, DataSaverGoto, UidCall };
++    enum class Selector { Owner, LookupAppId, RawUid, RawAppId, OwnerSkip, NonLoopback };
+     struct Rule {
+         std::optional<UidRange> uid;
+         Verdict verdict;
+         Selector selector = Selector::Owner;
++        uint8_t targetUidChain = 0;
+         bool operator==(const Rule& b) const {
+-            return uid == b.uid && verdict == b.verdict && selector == b.selector;
++            return uid == b.uid && verdict == b.verdict && selector == b.selector && targetUidChain == b.targetUidChain;
+         }
+     };
+     struct Chain {
+diff --git a/server/Gta3xlwifiUidPolicyTransaction.cpp b/server/Gta3xlwifiUidPolicyTransaction.cpp
+--- a/server/Gta3xlwifiUidPolicyTransaction.cpp
++++ b/server/Gta3xlwifiUidPolicyTransaction.cpp
+@@ -1,5 +1,6 @@
+ // SPDX-License-Identifier: Apache-2.0
+ #include "Gta3xlwifiUidPolicyTransaction.h"
++#include "Gta3xlwifiOrdinaryDispatch.h"
+ #include <cerrno>
+ #include <iterator>
+ #include <utility>
+@@ -13,7 +14,7 @@
+     if (result) return result;
+     next.insert(next.end(), std::make_move_iterator(metered.begin()),
+                 std::make_move_iterator(metered.end()));
+-    result = CheckedUidChains::validateImage(next);  // Aggregate limits, not each part alone.
++    result = OrdinaryDispatch::append(&next);  // Includes complete aggregate validation.
+     if (result) return result;
+     *output = std::move(next);
+     return 0;
+diff --git a/server/Gta3xlwifiOrdinaryDispatch.cpp b/server/Gta3xlwifiOrdinaryDispatch.cpp
+new file mode 100644
+--- /dev/null
++++ b/server/Gta3xlwifiOrdinaryDispatch.cpp
+@@ -0,0 +1,25 @@
++// SPDX-License-Identifier: Apache-2.0
++#include "Gta3xlwifiOrdinaryDispatch.h"
++#include <cerrno>
++#include <utility>
++namespace android::net::gta3xlwifi {
++int OrdinaryDispatch::append(UidChainProgram::Image* image) {
++    if (!image) return -EINVAL;
++    using C = CheckedUidChains;
++    auto next = *image;
++    for (const auto name : {"g24_owner_in", "g24_owner_out"}) {
++        C::Chain root{name, {{C::UidRange{0, 9999}, C::Verdict::Return, C::Selector::RawAppId},
++                            {std::nullopt, C::Verdict::Return, C::Selector::OwnerSkip}}};
++        for (uint8_t id = 1; id <= 9; ++id) {
++            root.rules.push_back({std::nullopt, C::Verdict::UidCall,
++                id == 6 ? C::Selector::NonLoopback : C::Selector::Owner, id});
++        }
++        root.rules.push_back({std::nullopt, C::Verdict::Return});
++        next.push_back(std::move(root));
++    }
++    int result = C::validateImage(next);
++    if (result) return result;
++    *image = std::move(next);
++    return 0;
++}
++}  // namespace android::net::gta3xlwifi
+diff --git a/server/Gta3xlwifiOrdinaryDispatch.h b/server/Gta3xlwifiOrdinaryDispatch.h
+new file mode 100644
+--- /dev/null
++++ b/server/Gta3xlwifiOrdinaryDispatch.h
+@@ -0,0 +1,12 @@
++// SPDX-License-Identifier: Apache-2.0
++#pragma once
++#include "Gta3xlwifiUidChainProgram.h"
++namespace android::net::gta3xlwifi {
++// Append ONLY the ordinary UID dispatch portion. Requires all nine owned child
++// chains already in the image. No attachments or independent LNA/loopback/VPN,
++// DNS/CLAT exemptions, complete owner lifecycle or network readiness are supplied.
++class OrdinaryDispatch {
++public:
++    static int append(UidChainProgram::Image* image);
++};
++}  // namespace android::net::gta3xlwifi

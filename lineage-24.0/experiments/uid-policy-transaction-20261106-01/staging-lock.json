@@ -4,7 +4,7 @@
   "prerequisites": [
     "metered-chain-program-20261106-01",
     "dualstack-uid-setup-20261106-01",
-    "netpolicy-lease-20261106-01"
+    "netpolicy-lease-transport-20261106-01"
   ],
   "patch_sha256": "e49906b66739ed692998fddf715f07f7915061596951f50d1bcb40a25ca8b33c",
   "files": [
