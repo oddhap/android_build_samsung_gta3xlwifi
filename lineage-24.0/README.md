@@ -699,3 +699,11 @@ in real generated framework code. Existing IPv4/IPv6 kernel INTERNET-group check
 and Android17's group assignment also remain. This does not implement the missing
 provider or validate native device execution. Real BPF map/startup gates remain
 unchanged, and the public Netd AIDL version18 must not be repurposed.
+
+[Ordinary UID-chain program compilation](experiments/uid-chain-program-20261106-01/)
+passes35 boundary/structure cases and1,048,576 comparisons against the actual
+Android17 BPF ordinary UID expression. It generates bounded typed nine-chain
+images with exact membership/range compression, preserving output on failure.
+Actual three-source netd CFI object compilation/linking and complete source audits
+pass. Packet dispatch/core exemptions, metered and remaining backend features
+are separate requirements; no kernel rule is installed by this compiler.

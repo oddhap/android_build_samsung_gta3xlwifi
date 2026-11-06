@@ -1,0 +1,43 @@
+{
+  "scope": "Compile only nine ordinary enabled/membership UID chains into bounded typed images; not a full packet dispatcher",
+  "project": "system/netd",
+  "prerequisites": [
+    "Android17 replay of uid-policy-20261021-01 in port-20261101",
+    "checked-uid-chains-20261106-01"
+  ],
+  "patch_sha256": "fd9a87aabe01d415ce9485c21ef50a1f23a4b3279aa20abc0753690a1e7cb5fc",
+  "files": [
+    {
+      "path": "server/Gta3xlwifiUidPolicy.cpp",
+      "before_sha256": "aeccc6204de667838b4043e12a118c852b492f9de63acec0e79698d394b90afb",
+      "candidate_sha256": "9f98afdf5ea0750b6a1215d1ecb46250aa7c62a6fb9a84e23300f112bfd2d239"
+    },
+    {
+      "path": "server/Gta3xlwifiUidPolicy.h",
+      "before_sha256": "c2afd36af3d5fbd2af170f238a7d4c98c1e62754313ecb297baa134a5139a8ef",
+      "candidate_sha256": "254fae0c2fa1fd65e18e340149ef740b8a89fc7f4620e58ae22e0296815febb2"
+    },
+    {
+      "path": "server/Gta3xlwifiCheckedUidChains.cpp",
+      "before_sha256": "c4e584f6ac238791af691b5f13b5d1fe2dfe66163020bf773b409cf6da6cd350",
+      "candidate_sha256": "f2eb05a551469dc11b6106c807a94093f5e79ede9a4047af53bcfdb520a1dd48"
+    },
+    {
+      "path": "server/Gta3xlwifiCheckedUidChains.h",
+      "before_sha256": "23395984a5d78b0b72943cd77f710a43d083a12ff18ca2285b47c1ae157695cd",
+      "candidate_sha256": "65b08bf9014fe6dd32e818cd8910e499a94503ab3797ee73ff4914c2731b304d"
+    },
+    {
+      "path": "server/Gta3xlwifiUidChainProgram.cpp",
+      "before_sha256": null,
+      "candidate_sha256": "dca6cdb0740181ce3b9964becbac9359de2e8286138046b8e434c403ecad80b6"
+    },
+    {
+      "path": "server/Gta3xlwifiUidChainProgram.h",
+      "before_sha256": null,
+      "candidate_sha256": "e6bd4a71fbd289f8bdc2a917649f03fea323d136584f0dccb3acba00e49b33a8"
+    }
+  ],
+  "active_source_changed": false,
+  "flash_ready": false
+}

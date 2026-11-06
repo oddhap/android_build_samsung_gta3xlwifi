@@ -1,0 +1,148 @@
+diff --git a/server/Gta3xlwifiUidPolicy.cpp b/server/Gta3xlwifiUidPolicy.cpp
+--- a/server/Gta3xlwifiUidPolicy.cpp
++++ b/server/Gta3xlwifiUidPolicy.cpp
+@@ -9,7 +9,7 @@
+ const std::array<UidPolicy::Chain, 12>& UidPolicy::chains() {
+     // IDs: ConnectivityManager; matches: BpfNetMapsConstants/netd.h;
+     // blocked reasons: ConnectivityManager/BpfNetMapsUtils. Host validation
+-    // binds these to the actual pinned Android 16 source constants.
++    // binds these to the actual pinned Android17 source constants.
+     static constexpr std::array<Chain, 12> table = {{
+         {1, 1u << 2, 1u << 1, true, false},   // dozable
+         {2, 1u << 3, 1u << 2, false, false},  // standby
+@@ -131,4 +131,15 @@
+     return (reasons & (metered ? UINT32_MAX : ~MeteredReasonMask)) != 0 ? 1 : 0;
+ }
+ 
++int UidPolicy::matchingUids(int32_t id, std::vector<int32_t>* output) const {
++    const auto* chain = findChain(id);
++    if (!chain || !output) return -EINVAL;
++    std::vector<int32_t> next;
++    for (const auto& entry : mUidMatches) {
++        if (entry.second & chain->match) next.push_back(entry.first);
++    }
++    *output = std::move(next);
++    return 0;
++}
++
+ }  // namespace android::net::gta3xlwifi
+diff --git a/server/Gta3xlwifiUidPolicy.h b/server/Gta3xlwifiUidPolicy.h
+--- a/server/Gta3xlwifiUidPolicy.h
++++ b/server/Gta3xlwifiUidPolicy.h
+@@ -12,7 +12,7 @@
+ // Mutators change this value only. A future netd owner must apply the complete
+ // kernel transaction before publishing it to DNS/Java readers. In particular,
+ // do not register a DNS callback or skip NetBpfLoad merely because this exists.
+-// Mirrors A16 BpfNetMapsUtils firewall queries, not INTERNET permission, VPN,
++// Mirrors pinned Android17 BpfNetMapsUtils firewall queries, not INTERNET permission, VPN,
+ // interface, local-network packet policy, quotas, or socket-tag permissions.
+ class UidPolicy {
+ public:
+@@ -37,6 +37,8 @@
+     // Validates the entire input before changing state; duplicates are harmless.
+     int replaceUidChain(int32_t chain, const std::vector<int32_t>& uids);
+     int removeUid(int32_t uid);
++    // Read-only sorted membership snapshot. Output is preserved on invalid input.
++    int matchingUids(int32_t chain, std::vector<int32_t>* output) const;
+     void setDataSaver(bool enabled) { mDataSaver = enabled; }
+     bool dataSaver() const { return mDataSaver; }
+     int blockedReasons(int32_t uid, uint32_t* reasons) const;
+diff --git a/server/Gta3xlwifiCheckedUidChains.cpp b/server/Gta3xlwifiCheckedUidChains.cpp
+--- a/server/Gta3xlwifiCheckedUidChains.cpp
++++ b/server/Gta3xlwifiCheckedUidChains.cpp
+@@ -141,6 +141,11 @@
+     return 0;
+ }
+ 
++int CheckedUidChains::validateImage(const std::vector<Chain>& image) {
++    std::string validated;
++    return encode(image, &validated);
++}
++
+ int CheckedUidChains::writeLocked(IptablesTarget family, const std::vector<Chain>& image) {
+     std::string commands;
+     int result = encode(image, &commands);
+diff --git a/server/Gta3xlwifiCheckedUidChains.h b/server/Gta3xlwifiCheckedUidChains.h
+--- a/server/Gta3xlwifiCheckedUidChains.h
++++ b/server/Gta3xlwifiCheckedUidChains.h
+@@ -33,6 +33,8 @@
+         std::vector<Rule> rules;
+         bool operator==(const Chain& b) const { return name == b.name && rules == b.rules; }
+     };
++    // Use the exact encoder/limits without any kernel I/O.
++    static int validateImage(const std::vector<Chain>& image);
+     explicit CheckedUidChains(IptablesRestoreInterface& kernel) : mKernel(kernel) {}
+     int read(IptablesTarget family, const std::vector<std::string>& names,
+              std::vector<Chain>* output);
+diff --git a/server/Gta3xlwifiUidChainProgram.cpp b/server/Gta3xlwifiUidChainProgram.cpp
+new file mode 100644
+--- /dev/null
++++ b/server/Gta3xlwifiUidChainProgram.cpp
+@@ -0,0 +1,48 @@
++// SPDX-License-Identifier: Apache-2.0
++#include "Gta3xlwifiUidChainProgram.h"
++#include <cerrno>
++#include <climits>
++#include <utility>
++namespace android::net::gta3xlwifi {
++int UidChainProgram::ordinary(const UidPolicy& policy, Image* output) {
++    if (!output) return -EINVAL;
++    using C = CheckedUidChains;
++    Image next;
++    for (const auto& type : UidPolicy::chains()) {
++        if (type.metered) continue;
++        if (type.id < 1 || type.id > 9) return -EOPNOTSUPP;
++        bool enabled;
++        int result = policy.getChainEnabled(type.id, &enabled);
++        if (result) return result;
++        C::Chain chain{"g24_uid_" + std::to_string(type.id), {}};
++        if (enabled) {
++            std::vector<int32_t> members;
++            result = policy.matchingUids(type.id, &members);
++            if (result) return result;
++            const auto verdict = type.allowlist ? C::Verdict::Return : C::Verdict::Drop;
++            for (int32_t member : members) {
++                if (member < 0) return -EINVAL;
++                const auto uid = static_cast<uint32_t>(member);
++                // Merge only contiguous matching UIDs; never bridge a gap or
++                // overflow INT_MAX. This keeps exact membership semantics.
++                if (!chain.rules.empty() && chain.rules.back().uid->last < INT_MAX &&
++                    chain.rules.back().uid->last + 1 == uid) {
++                    chain.rules.back().uid->last = uid;
++                } else {
++                    chain.rules.push_back({C::UidRange{uid, uid}, verdict});
++                }
++            }
++            chain.rules.push_back({std::nullopt,
++                type.allowlist ? C::Verdict::Drop : C::Verdict::Return});
++        } else {
++            chain.rules.push_back({std::nullopt, C::Verdict::Return});
++        }
++        next.push_back(std::move(chain));
++    }
++    if (next.size() != 9) return -EOPNOTSUPP;
++    const int result = C::validateImage(next);
++    if (result) return result;
++    *output = std::move(next);
++    return 0;
++}
++}  // namespace android::net::gta3xlwifi
+diff --git a/server/Gta3xlwifiUidChainProgram.h b/server/Gta3xlwifiUidChainProgram.h
+new file mode 100644
+--- /dev/null
++++ b/server/Gta3xlwifiUidChainProgram.h
+@@ -0,0 +1,14 @@
++// SPDX-License-Identifier: Apache-2.0
++#pragma once
++#include "Gta3xlwifiUidPolicy.h"
++#include "Gta3xlwifiCheckedUidChains.h"
++namespace android::net::gta3xlwifi {
++// Compile ONLY the nine ordinary enabled/membership chains into typed rules.
++// The real owner must supply the separately verified core-appId/packet/hook
++// dispatcher. This does not implement metered, VPN, LNA, quota or readiness.
++class UidChainProgram {
++public:
++    using Image = std::vector<CheckedUidChains::Chain>;
++    static int ordinary(const UidPolicy& policy, Image* output);
++};
++}  // namespace android::net::gta3xlwifi
