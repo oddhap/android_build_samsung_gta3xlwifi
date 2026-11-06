@@ -1,0 +1,67 @@
+{
+  "passed_source_contract_checks": true,
+  "scope": "Record actual Android17 networking contracts and existing kernel enforcement.\n\nRead-only source/generated-code evidence, not hardware probes or backend readiness.\nNo flags, maps, permissions, properties, processes or policy inputs are replaced.\n",
+  "inputs_sha256": {
+    "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/audit-port.py": "ebdd07fdf6ea6ef5c259d712002afeddb9e452e3ec53718d69c15f98ca98d348",
+    "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/audit-network-contract24.py": "d2944a731989427f27560fa0139649b16a05c1463cf97c8c7901f38db2cabcdd",
+    "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/snapshots/port-20261106-04/port-manifest.xml": "31f142b6c2e5f04f14ed9cdecb3cd6b13716508b428ad8c86d3d3332d6a24594",
+    "/srv/android/src/lineage-24.0-arm64/out/soong/.intermediates/frameworks/base/android.permission.flags-aconfig-java/android_common/gen/android.permission.flags-aconfig-java.srcjar": "42355c3549f84eeabc1f96d28e2da1d55483eb0b6ee5608f954564c34476b0ec",
+    "/srv/android/src/lineage-24.0-arm64/build/release/aconfig/cp2a/android.permission.flags/access_local_network_permission_enabled_flag_values.textproto": "e100c3f4a27cce465503c89b7f7eacd1a14f48d93c732716ce89dc05ca291161",
+    "/srv/android/src/lineage-24.0-arm64/build/release/aconfig/cp2a/android.permission.flags/use_loopback_interface_permission_enabled_flag_values.textproto": "ac8c87327166da6f807fae41391eb0f39549e7f0b5d55cf06a2e5946138ea4d3",
+    "/srv/android/src/lineage-24.0-arm64/packages/modules/Connectivity/service/src/com/android/server/BpfNetMaps.java": "c78a90ae6352cdee00fc65a7dbd899e9f041456e8388dd5e72cab6064be47dfd",
+    "/srv/android/src/lineage-24.0-arm64/packages/modules/Connectivity/bpf/netd/NetdUpdatable.cpp": "f3f79b5e10b848539b4e00fb01056a049fa62a3552e7de0be75e9465f9af5d28",
+    "/srv/android/src/lineage-24.0-arm64/packages/modules/Connectivity/staticlibs/netd/Android.bp": "a2930e32d56a8047b73d9ad9a768fdc3c86baedd1208ca5213599f2186467c1b",
+    "/srv/android/src/lineage-24.0-arm64/frameworks/base/data/etc/platform.xml": "4609a9a312597011778f5c69d62c633cf921913da0e3434beb2bd92bd1ea1fe3",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-appid-20261106-01/out/.config": "fac42e3bbf996bb9502bb1031c91b1950986ad3586d0f33cad869a6fd0b3acea",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-appid-20261106-01/src/net/ipv4/af_inet.c": "1df3ec4f2c790c1ece676f4309b3139fe2f9f2282b8c159b9752bd11618dea27",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-appid-20261106-01/src/net/ipv6/af_inet6.c": "22f57a8b477e422aa5006fbcea4e549781336c6baec197a4718733476c3960cf",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-appid-20261106-01/src/include/linux/android_aid.h": "7780e87f97421ceca6871457d1e0d1d41fd48dcbaad203d874982c5fe128feb9",
+    "/srv/android/src/lineage-24.0-arm64/system/core/libcutils/include/private/android_filesystem_config.h": "faad70383216abcf935ec76678bb5b40ca65b6396a0028a8fa6ffe9b9087eb37"
+  },
+  "project_revisions": {
+    "build/release": "c85f4aebe46714235599a9bd6430a0fe30c6e8d5",
+    "frameworks/base": "03e13d72d00d80eeba4465893dfad669e3ad3ce6",
+    "packages/modules/Connectivity": "7c04d866538e6f689823b769fb5c1e614ca0e295",
+    "system/core": "65d661b1a536701e8b118be4e9728d7b5ca727c9"
+  },
+  "selected_cp2a_security_flags": [
+    {
+      "name": "access_local_network_permission_enabled",
+      "package": "android.permission.flags",
+      "selected_release_value": "ENABLED",
+      "permission": "READ_ONLY",
+      "actual_generated_getter_returns": true,
+      "getter": "public static boolean accessLocalNetworkPermissionEnabled() {\n        return true;\n    }"
+    },
+    {
+      "name": "use_loopback_interface_permission_enabled",
+      "package": "android.permission.flags",
+      "selected_release_value": "ENABLED",
+      "permission": "READ_ONLY",
+      "actual_generated_getter_returns": true,
+      "getter": "public static boolean useLoopbackInterfacePermissionEnabled() {\n        return true;\n    }"
+    }
+  ],
+  "existing_internet_permission_mechanism": {
+    "kernel_config_enabled": true,
+    "ipv4_ipv6_create_paths": [
+      "net/ipv4/af_inet.c",
+      "net/ipv6/af_inet6.c"
+    ],
+    "permission_linux_group": 3003,
+    "privileged_exception": "CAP_NET_RAW",
+    "denial_errno": "EACCES",
+    "android17_platform_permission_maps_inet_group": true,
+    "device_execution_tested": false
+  },
+  "current_backend_gates": {
+    "java_initialization_opens_real_bpf_maps_on_T_plus": true,
+    "native_updatable_initialization_aborts_on_real_bpf_handler_failure": true,
+    "stable_netd_aidl_version": 18,
+    "complete_legacy_provider_still_required": true
+  },
+  "flags_changed": false,
+  "bpf_or_network_ready_claimed": false,
+  "hardware_tested": false,
+  "flash_ready": false
+}

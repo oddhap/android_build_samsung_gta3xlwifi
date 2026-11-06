@@ -692,3 +692,10 @@ config and Gator/KUTF CRCs, full kernel/protected and Android reference audits.
 together into the whole ARM64 iptables binary, with actual registration machine
 code and full source audits. No packet execution, owner/backend readiness or
 Android prebuilt promotion is inferred from these build results.
+
+[Actual networking source contracts](experiments/network-contract-20261106-02/)
+confirm that both selected local-network and loopback permission flags are enabled
+in real generated framework code. Existing IPv4/IPv6 kernel INTERNET-group checks
+and Android17's group assignment also remain. This does not implement the missing
+provider or validate native device execution. Real BPF map/startup gates remain
+unchanged, and the public Netd AIDL version18 must not be repurposed.
