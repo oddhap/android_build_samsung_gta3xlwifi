@@ -1,0 +1,169 @@
+diff --git a/server/Gta3xlwifiUidChainProgram.cpp b/server/Gta3xlwifiUidChainProgram.cpp
+--- a/server/Gta3xlwifiUidChainProgram.cpp
++++ b/server/Gta3xlwifiUidChainProgram.cpp
+@@ -29,7 +29,9 @@
+                     chain.rules.back().uid->last + 1 == uid) {
+                     chain.rules.back().uid->last = uid;
+                 } else {
+-                    chain.rules.push_back({C::UidRange{uid, uid}, verdict});
++                    // Android17's cgroup owner path uses bpf_get_socket_uid,
++                    // not qtaguid's optional receive-side slow socket lookup.
++                    chain.rules.push_back({C::UidRange{uid, uid}, verdict, C::Selector::RawUid});
+                 }
+             }
+             chain.rules.push_back({std::nullopt,
+diff --git a/server/Gta3xlwifiUidPolicyTransaction.h b/server/Gta3xlwifiUidPolicyTransaction.h
+new file mode 100644
+--- /dev/null
++++ b/server/Gta3xlwifiUidPolicyTransaction.h
+@@ -0,0 +1,40 @@
++// SPDX-License-Identifier: Apache-2.0
++#pragma once
++#include "Gta3xlwifiDualStackUidChains.h"
++#include "Gta3xlwifiMeteredChainProgram.h"
++namespace android::net::gta3xlwifi {
++// Owns ONLY UID value/program transactions, not the complete network backend.
++// The eventual sole netd owner must supply complete packet dispatch and all
++// other mandatory protections before using any released gate. No Binder/DNS
++// registration, callback or global readiness signal is provided here.
++class UidPolicyTransaction final {
++public:
++    explicit UidPolicyTransaction(IptablesRestoreInterface& kernel) : mBackend(kernel) {}
++    ~UidPolicyTransaction();
++    int start(DualStackUidChains::HookMode mode = DualStackUidChains::HookMode::VerifyOnly);
++    void stop();
++    // Start remains held/unpublished. Explicit full initial state is required.
++    // Later mutators require a previously committed state. Every kernel error
++    // withdraws the value and closes the lease; explicit start/replace is needed.
++    int replace(const UidPolicy& policy);
++    int setChainEnabled(int32_t chain, bool enabled);
++    int setUidRule(int32_t chain, int32_t uid, int32_t rule);
++    int replaceUidChain(int32_t chain, const std::vector<int32_t>& uids);
++    int removeUid(int32_t uid);
++    int setDataSaver(bool enabled);
++    // Query values describe committed UID state only, not complete packet policy.
++    // EAGAIN means no committed value. Invalid/unpublished queries preserve output.
++    int getChainEnabled(int32_t chain, bool* enabled);
++    int getUidRule(int32_t chain, int32_t uid, int32_t* rule);
++    int blockedReasons(int32_t uid, uint32_t* reasons);
++    int isNetworkingBlocked(int32_t uid, bool metered);
++    static int compile(const UidPolicy& policy, UidChainProgram::Image* output);
++private:
++    int applyLocked(UidPolicy next);
++    void stopLocked();
++    std::mutex mMutex;
++    DualStackUidChains mBackend;
++    std::optional<UidPolicy> mPolicy;
++    bool mStarted = false;
++};
++}  // namespace android::net::gta3xlwifi
+diff --git a/server/Gta3xlwifiUidPolicyTransaction.cpp b/server/Gta3xlwifiUidPolicyTransaction.cpp
+new file mode 100644
+--- /dev/null
++++ b/server/Gta3xlwifiUidPolicyTransaction.cpp
+@@ -0,0 +1,105 @@
++// SPDX-License-Identifier: Apache-2.0
++#include "Gta3xlwifiUidPolicyTransaction.h"
++#include <cerrno>
++#include <iterator>
++#include <utility>
++namespace android::net::gta3xlwifi {
++UidPolicyTransaction::~UidPolicyTransaction() { stop(); }
++int UidPolicyTransaction::compile(const UidPolicy& policy, UidChainProgram::Image* output) {
++    if (!output) return -EINVAL;
++    UidChainProgram::Image next, metered;
++    int result = UidChainProgram::ordinary(policy, &next);
++    if (!result) result = MeteredChainProgram::compile(policy, &metered);
++    if (result) return result;
++    next.insert(next.end(), std::make_move_iterator(metered.begin()),
++                std::make_move_iterator(metered.end()));
++    result = CheckedUidChains::validateImage(next);  // Aggregate limits, not each part alone.
++    if (result) return result;
++    *output = std::move(next);
++    return 0;
++}
++int UidPolicyTransaction::start(DualStackUidChains::HookMode mode) {
++    std::lock_guard<std::mutex> lock(mMutex);
++    if (mStarted) return -EALREADY;
++    int result = mBackend.start(mode);
++    if (!result) mStarted = true;
++    return result;
++}
++void UidPolicyTransaction::stopLocked() {
++    mPolicy.reset();
++    mStarted = false;
++    mBackend.stop();
++}
++void UidPolicyTransaction::stop() {
++    std::lock_guard<std::mutex> lock(mMutex);
++    stopLocked();
++}
++int UidPolicyTransaction::applyLocked(UidPolicy next) {
++    if (!mStarted) return -ENOTCONN;
++    UidChainProgram::Image program;
++    int result = compile(next, &program);
++    if (result) return result;  // No I/O: preserve any prior committed value.
++    result = mBackend.replace(program, program);
++    if (result) {
++        stopLocked();  // Any kernel/ack uncertainty withdraws state and rearms the gate.
++        return result;
++    }
++    mPolicy = std::move(next);  // Publish only after both actual families verify and release.
++    return 0;
++}
++int UidPolicyTransaction::replace(const UidPolicy& policy) {
++    std::lock_guard<std::mutex> lock(mMutex);
++    return applyLocked(policy);
++}
++int UidPolicyTransaction::setChainEnabled(int32_t chain, bool enabled) {
++    std::lock_guard<std::mutex> lock(mMutex);
++    if (!mPolicy) return -EAGAIN;
++    UidPolicy next = *mPolicy;
++    int result = next.setChainEnabled(chain, enabled);
++    return result ? result : applyLocked(std::move(next));
++}
++int UidPolicyTransaction::setUidRule(int32_t chain, int32_t uid, int32_t rule) {
++    std::lock_guard<std::mutex> lock(mMutex);
++    if (!mPolicy) return -EAGAIN;
++    UidPolicy next = *mPolicy;
++    int result = next.setUidRule(chain, uid, rule);
++    return result ? result : applyLocked(std::move(next));
++}
++int UidPolicyTransaction::replaceUidChain(int32_t chain, const std::vector<int32_t>& uids) {
++    std::lock_guard<std::mutex> lock(mMutex);
++    if (!mPolicy) return -EAGAIN;
++    UidPolicy next = *mPolicy;
++    int result = next.replaceUidChain(chain, uids);
++    return result ? result : applyLocked(std::move(next));
++}
++int UidPolicyTransaction::removeUid(int32_t uid) {
++    std::lock_guard<std::mutex> lock(mMutex);
++    if (!mPolicy) return -EAGAIN;
++    UidPolicy next = *mPolicy;
++    int result = next.removeUid(uid);
++    return result ? result : applyLocked(std::move(next));
++}
++int UidPolicyTransaction::setDataSaver(bool enabled) {
++    std::lock_guard<std::mutex> lock(mMutex);
++    if (!mPolicy) return -EAGAIN;
++    UidPolicy next = *mPolicy;
++    next.setDataSaver(enabled);
++    return applyLocked(std::move(next));
++}
++int UidPolicyTransaction::getChainEnabled(int32_t chain, bool* enabled) {
++    std::lock_guard<std::mutex> lock(mMutex);
++    return mPolicy ? mPolicy->getChainEnabled(chain, enabled) : -EAGAIN;
++}
++int UidPolicyTransaction::getUidRule(int32_t chain, int32_t uid, int32_t* rule) {
++    std::lock_guard<std::mutex> lock(mMutex);
++    return mPolicy ? mPolicy->getUidRule(chain, uid, rule) : -EAGAIN;
++}
++int UidPolicyTransaction::blockedReasons(int32_t uid, uint32_t* reasons) {
++    std::lock_guard<std::mutex> lock(mMutex);
++    return mPolicy ? mPolicy->blockedReasons(uid, reasons) : -EAGAIN;
++}
++int UidPolicyTransaction::isNetworkingBlocked(int32_t uid, bool metered) {
++    std::lock_guard<std::mutex> lock(mMutex);
++    return mPolicy ? mPolicy->isNetworkingBlocked(uid, metered) : -EAGAIN;
++}
++}  // namespace android::net::gta3xlwifi

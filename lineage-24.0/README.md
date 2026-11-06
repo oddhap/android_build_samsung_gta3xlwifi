@@ -740,3 +740,22 @@ network/loopback protection, VPN/interface state and final integration remain.
 The owner requires implemented networking before the first test package. No
 Android prebuilt promotion, readiness bypass, offline-first package, partition
 change, flashing or signing is performed. The ROM is still not flash-ready.
+
+## Committed UID-state transaction component — November 6
+
+The [UID transaction proposal](experiments/uid-policy-transaction-20261106-01/README.md)
+combines all12 typed chains with aggregate limits and serializes candidate updates,
+actual dual-family commits and query publication. Start leaves state unpublished
+and the kernel lease held. Explicit full initial state is required; every kernel
+error withdraws state and closes the lease. Validation-only errors preserve the
+previous value. No Java/DNS callback, service or global readiness is registered.
+
+152 cases exercise all seven real C++ components with syscall/table fixtures,
+including partial writes, errors after possible commit, rollback/restart and
+concurrent reads/mutations. Final native02 compiles/combines all seven actual
+Android17 ARM64 CFI sources with complete1243/17 source audits. Ordinary membership
+now explicitly uses raw socket UID, matching bpf_traffic_account's actual argument
+to bpf_owner_match; the prior Owner-selector proposal is superseded. The separate
+lookup-appId primitive must not replace raw packet identity. Raw ordinary testing
+passes38 cases and1048576 actual A17 predicate comparisons. Packet dispatch,
+mandatory security, startup and real framework provider integration remain open.

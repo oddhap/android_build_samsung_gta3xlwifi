@@ -1,0 +1,8 @@
+/srv/android/artifacts/lineage-24.0-arm64/uid-policy-transaction-host-20261106-01/test.cpp: In function ‘int main()’:
+/srv/android/artifacts/lineage-24.0-arm64/uid-policy-transaction-host-20261106-01/test.cpp:156:3: error: this ‘for’ clause does not guard... [-Werror=misleading-indentation]
+  156 |   for(auto& t:threads)t.join();for(int i=0;i<24;i++){int32_t rule=0;C(p.getUidRule(1,20000+i,&rule)==0&&rule==UidPolicy::Allow);}C(k.tables[V4].size()==12&&k.tables[V4]==k.tables[V6]);
+      |   ^~~
+/srv/android/artifacts/lineage-24.0-arm64/uid-policy-transaction-host-20261106-01/test.cpp:156:32: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the ‘for’
+  156 |   for(auto& t:threads)t.join();for(int i=0;i<24;i++){int32_t rule=0;C(p.getUidRule(1,20000+i,&rule)==0&&rule==UidPolicy::Allow);}C(k.tables[V4].size()==12&&k.tables[V4]==k.tables[V6]);
+      |                                ^~~
+cc1plus: all warnings being treated as errors

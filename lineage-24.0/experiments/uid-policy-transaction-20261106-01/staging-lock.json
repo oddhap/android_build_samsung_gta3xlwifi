@@ -1,0 +1,29 @@
+{
+  "scope": "Serialized combined UID-chain transaction and publication, with raw socket UID membership in ordinary packet programs",
+  "project": "system/netd",
+  "prerequisites": [
+    "metered-chain-program-20261106-01",
+    "dualstack-uid-setup-20261106-01",
+    "netpolicy-lease-20261106-01"
+  ],
+  "patch_sha256": "e49906b66739ed692998fddf715f07f7915061596951f50d1bcb40a25ca8b33c",
+  "files": [
+    {
+      "path": "server/Gta3xlwifiUidChainProgram.cpp",
+      "before_sha256": "dca6cdb0740181ce3b9964becbac9359de2e8286138046b8e434c403ecad80b6",
+      "candidate_sha256": "b8936793c49b2cc0abee3cf2e6f27c82a171a582006a956a8ab2954ff380ffee"
+    },
+    {
+      "path": "server/Gta3xlwifiUidPolicyTransaction.h",
+      "before_sha256": null,
+      "candidate_sha256": "4d418dcbfb244fb8d0af4aebab47aa636f27cada65bf37b22838b318e8bdba0a"
+    },
+    {
+      "path": "server/Gta3xlwifiUidPolicyTransaction.cpp",
+      "before_sha256": null,
+      "candidate_sha256": "45e87f0cbf003ef75583eef9fc29fb7fe0125fd2985052cc7375ff974b8054f9"
+    }
+  ],
+  "active_source_changed": false,
+  "flash_ready": false
+}
