@@ -16,7 +16,7 @@ ARM/ARM64 ELF outputs are recorded in the reports; this is build/link evidence.
 
 Active snapshot **port-20261106-01** locks 1,243 projects and **16 exact patches**.
 It includes the device-scoped legacy v1 fscrypt keyring source integration;
-actual native compilation is in progress as recorded below.
+actual init/vold module compilation and multilib keyutils checks have passed, as recorded below.
 It adds a source backport of policy 30.0 compatibility data and generator modules,
 with the frozen API30 source copied verbatim from the pinned prior platform.
 The framework advertises 30.0 only for gta3xlwifi. Device inputs are separately
@@ -569,6 +569,23 @@ It keeps encryption and current SELinux rules, and never converts unsupported v2
 wrapped-key or permission errors into success. The final synthetic syscall/real
 code probe passes 88 cases with fatal sanitizer handling and matching Samsung
 UAPI payload layout; it does not exercise actual encryption or TEE keys.
-Snapshot port-20261105-03 audits 1,243 projects/16 patches, with exact composition
-proof and pinned device e998435. Actual init/vold compilation is in progress.
+Snapshot port-20261106-01 audits 1,243 projects/16 patches, with exact composition
+proof and pinned device e998435. Actual init/vold compilation passed.
 No ROM is flash-ready and no original kernel/vendor/recovery/data input changes.
+
+
+## November 6: native legacy fscrypt linked and inspected
+
+`legacy-fscrypt-native-20261106-01` completed exit 0, including complete before/
+after audits of 1,243 projects and 16 exact patches. Moving the device-scoped
+keyutils dependency to common `init_defaults` fixed final init linkage. The
+four runtime inputs remain byte-identical to the fatal-sanitizer host07 probe
+(88 cases). Earlier Soong type/link failures remain archived.
+
+[Native output evidence](experiments/fscrypt-native-evidence-20261106-01/report.json)
+checks actual installed ARM64 init/vold ELF files and the expected legacy code
+strings. Android `ld.lld -r` independently linked both actual keyutils archives
+without forcing their target: ARM32 and ARM64 ELF identities and required symbol
+definitions passed. This is source/build/link evidence; actual keyrings, userdata
+unlock, TEE, locking, recovery compatibility and rollback remain untested.
+No kernel/vendor input was replaced and no installation candidate was produced.
