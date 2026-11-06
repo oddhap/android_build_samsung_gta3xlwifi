@@ -1,0 +1,4 @@
+# SPDX-License-Identifier: Apache-2.0
+genfscon sysfs /devices/virtual/misc/xt_qtaguid/dev u:object_r:sysfs_gta3xlwifi_qtaguid:s0
+genfscon sysfs /module/xt_qtaguid/parameters/passive u:object_r:sysfs_gta3xlwifi_qtaguid:s0
+genfscon sysfs /module/xt_qtaguid/parameters/tag_tracking_passive u:object_r:sysfs_gta3xlwifi_qtaguid:s0

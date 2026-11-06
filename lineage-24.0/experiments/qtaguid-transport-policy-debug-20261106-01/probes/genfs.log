@@ -1,0 +1,6 @@
+libsepol.policydb_index_others: security:  1 users, 4 roles, 4020 types, 0 bools
+libsepol.policydb_index_others: security: 1 sens, 1024 cats
+libsepol.policydb_index_others: security:  108 classes, 82115 rules, 0 cond rules
+genfs=/devices/virtual/misc/xt_qtaguid/dev context=u:object_r:sysfs_gta3xlwifi_qtaguid:s0
+genfs=/module/xt_qtaguid/parameters/passive context=u:object_r:sysfs_gta3xlwifi_qtaguid:s0
+genfs=/module/xt_qtaguid/parameters/tag_tracking_passive context=u:object_r:sysfs_gta3xlwifi_qtaguid:s0

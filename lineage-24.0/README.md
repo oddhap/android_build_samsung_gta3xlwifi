@@ -14,7 +14,7 @@ The initial 23.2 port patches compiled successfully on Android 17 in
 `native-policy-20261101-01` (exit 0, followed by full source audit). Selected
 ARM/ARM64 ELF outputs are recorded in the reports; this is build/link evidence.
 
-Active snapshot **port-20261106-02** locks 1,243 projects and **16 exact patches**.
+Active snapshot **port-20261106-04** locks 1,243 projects and **17 exact patches**.
 It includes the device-scoped legacy v1 fscrypt keyring source integration;
 actual init/vold module compilation and multilib keyutils checks have passed, as recorded below.
 It adds a source backport of policy 30.0 compatibility data and generator modules,
@@ -606,3 +606,31 @@ reviewed patches; only the system/core patch changed since snapshot01. Full
 before/after source audits and private-index patch-composition proof pass.
 This is a data-preservation guard, not hardware unlock/TEE/recovery/rollback
 validation or a flashable-ROM claim.
+
+
+## November 6: integrated accounting build and filtered-table fix
+
+[Real qtaguid accounting](experiments/network-stats-native-20261106-02/) passed
+complete isolated native linking and complete actual Java module typechecking
+(101 sources/306 classes), then the ordinary project build and full source audits.
+Actual ARM64 expanded-APEX library, real ARM32 archive and Java JAR checks pass.
+Four new Android regression tests remain unexecuted on Android.
+
+[The access fix](experiments/network-stats-access-20261106-01/) restores the real
+procfs group initialization missing from Android17 and refuses silently filtered
+detailed tables. 37 fatal-sanitizer real-reader/kernel-predicate fixture cases
+pass, along with the real init verifier and strict compiled-policy permission
+queries. Its project build completed exit0 in4m45, followed by complete source
+and actual ARM32/ARM64/installed-init output verification.
+
+Current snapshot **port-20261106-04** pins1,243 projects and17 exact patches.
+Device commit87313db changes only the group/mode setup; only Connectivity's patch
+changes from03. The original kernel, selected MTP vendor and DTBO remain intact.
+No networking readiness, loader, firewall-owner or LNA/DNS bypass was introduced.
+
+The isolated transport SELinux proposal passes both strict profiles without
+removing any assertion/constraint. Actual permission/genfs and private-ioctl
+boundary probes pass. The [checked-chain I/O component](experiments/checked-uid-chains-20261106-01/)
+passes84 synthetic I/O cases and actual netd ARM64 CFI object compilation. It
+still needs a complete authoritative backend and dual-stack lifecycle. Neither
+experiment is selected into Android images. No ROM is flash-ready.

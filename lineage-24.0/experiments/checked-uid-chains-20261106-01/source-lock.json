@@ -1,0 +1,17 @@
+{
+  "files": [
+    {
+      "path": "system/netd/server/Gta3xlwifiCheckedUidChains.h",
+      "sha256": "23395984a5d78b0b72943cd77f710a43d083a12ff18ca2285b47c1ae157695cd",
+      "active": false
+    },
+    {
+      "path": "system/netd/server/Gta3xlwifiCheckedUidChains.cpp",
+      "sha256": "c4e584f6ac238791af691b5f13b5d1fe2dfe66163020bf773b409cf6da6cd350",
+      "active": false
+    }
+  ],
+  "scope": "Isolated checked single-family UID-chain I/O; not a complete network backend",
+  "active": false,
+  "flash_ready": false
+}

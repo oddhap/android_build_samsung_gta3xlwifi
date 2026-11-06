@@ -1,0 +1,2 @@
+libnetworkstats
+out/soong/.intermediates/packages/modules/Connectivity/service-t/service-connectivity-tiramisu-pre-jarjar/android_common_apex31/javac/service-connectivity-tiramisu-pre-jarjar.jar

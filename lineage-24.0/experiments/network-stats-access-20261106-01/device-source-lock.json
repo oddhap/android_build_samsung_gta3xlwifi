@@ -1,0 +1,8 @@
+{
+  "old_revision": "e9984355a95f21e7fc2168b9dbf49d822406c513",
+  "new_revision": "87313db641d21e298faf99425dca9c8fd95d83df",
+  "changed_path": "rootdir/init.gta3xlwifi.compat.rc",
+  "before_sha256": "2fcb0c10bb71a3b565f120208e4bbf2cc3d8ef2e96b8cf7de59528e224e08951",
+  "candidate_sha256": "c29642fcdf350c09bf0b7393098731146fbaf56fc21a84e516daaf8c4f310dac",
+  "parent_snapshot": "port-20261106-03"
+}

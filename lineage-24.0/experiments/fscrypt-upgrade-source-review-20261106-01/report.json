@@ -1,0 +1,24 @@
+{
+  "scope": "Read-only source review of real Android17 raw-key upgrade/rollback paths; no key material/device operation",
+  "inputs_sha256": {
+    "/srv/android/src/lineage-24.0-arm64/system/vold/KeyStorage.cpp": "f199ffdb4b86223dc7b7c56970c513126dfe8dc35f7f40ed23e2cc3682eabc2a",
+    "/srv/android/src/lineage-24.0-arm64/system/vold/Keystore.cpp": "eb0c8afffebcdfa5e4294d9381761fbae643e8692e5a3bab9135f47d1e248328",
+    "/srv/android/src/lineage-24.0-arm64/system/vold/Checkpoint.cpp": "7fd41d4ec0fc680975a04f28db976190d4cb346709e3c66993c736094cf15508",
+    "/srv/android/src/lineage-24.0-arm64/hardware/interfaces/keymaster/4.0/IKeymasterDevice.hal": "d0fb32f3ddeb9af7115ab32905225ea69b930d2472be8e9610f0cf136c15aefb",
+    "/srv/android/src/lineage-24.0-arm64/device/samsung/gta3xlwifi/releasetools.py": "a17048825f49c914546fb41d5ec4b30ee144746a42c86c68d0805ea09ed7ddab",
+    "/srv/android/src/lineage-24.0-arm64/device/samsung/gta3xlwifi/rootdir/etc/fstab.exynos7904": "ae87c90434eb2cfe64bd04ec52ec4d7da8019d12395b9a67c8515975b48b3742"
+  },
+  "observed_source": [
+    "CommitUpgradedKey replaces the original blob, fsyncs, then asks Keystore to delete the old key.",
+    "beginOperation commits an upgraded blob immediately unless cp_needsCheckpoint() defers it.",
+    "Keystore begin obtains optional upgradedBlob through the real createOperation result.",
+    "The ignored-upgradedBlob exception is explicitly for TAG_STORAGE_KEY conversion, not this raw v1 fallback.",
+    "Keymaster4 HAL specifies version/patch-level binding and rejects downgrades except the special OS_VERSION0 case; this is not permission to fake a version.",
+    "The carried installer still validates Android14 and can apply a recovery-header rewrite; no Android17 installer path is approved."
+  ],
+  "inference_requiring_hardware_validation": "Do not assume an old blob, installed TWRP or a successful source build guarantees rollback after a hardware key upgrade. Actual Samsung TEE behavior and checkpoint state have not been measured.",
+  "source_modified": false,
+  "hardware_tested": false,
+  "key_material_accessed": false,
+  "flash_ready": false
+}

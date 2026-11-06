@@ -1,0 +1,61 @@
+{
+  "passed": true,
+  "scope": "Bind qtaguid group initialization to actual A17 zygote and kernel filtering.\n\nSource/configuration and real init-parser checks only; no live ownership,\ncredentials, counters, kernel operation or device readiness is established.\n",
+  "inputs_sha256": {
+    "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/check-qtaguid-access-contract.py": "00bf2e6cef0f86b5826d7ee8c2c82f9d018feade5b36557310f84f048ddacfbd",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-gator-20261105-01/src/net/netfilter/xt_qtaguid.c": "212e2e4c3d459293a3427d2f715fb1843fac521787a7817c1f2d455598b254f3",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-gator-20261105-01/src/fs/proc/generic.c": "f2bd488f2f146b6899b897a4ee9e7b034b2481432981fdf2312c861fdcdca737",
+    "/srv/android/src/lineage-24.0-arm64/frameworks/base/core/java/com/android/internal/os/ZygoteInit.java": "d989ee5ad700785596b584ae6d09e1c19c0354275323cb13b420c8783b28ab84",
+    "/srv/android/src/lineage-24.0-arm64/system/core/libcutils/include/private/android_filesystem_config.h": "faad70383216abcf935ec76678bb5b40ca65b6396a0028a8fa6ffe9b9087eb37",
+    "/srv/android/src/lineage-24.0-arm64/device/samsung/gta3xlwifi/rootdir/init.gta3xlwifi.compat.rc": "2fcb0c10bb71a3b565f120208e4bbf2cc3d8ef2e96b8cf7de59528e224e08951",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-gator-20261105-01/out/.config": "fac42e3bbf996bb9502bb1031c91b1950986ad3586d0f33cad869a6fd0b3acea",
+    "/srv/android/ports/lineage-24.0-arm64/stats24-20261106-03/init.gta3xlwifi.compat.rc": "c29642fcdf350c09bf0b7393098731146fbaf56fc21a84e516daaf8c4f310dac",
+    "/srv/android/src/lineage-24.0-arm64/out/host/linux-x86/bin/host_init_verifier": "a54512026489d4f7517a4696f295fd7d5c7941346baa6898b9c3709964d1b05c"
+  },
+  "platform_aids": {
+    "ROOT": 0,
+    "NET_BW_STATS": 3006,
+    "NET_BW_ACCT": 3007
+  },
+  "actual_system_server_groups": [
+    1001,
+    1002,
+    1003,
+    1004,
+    1005,
+    1006,
+    1007,
+    1008,
+    1009,
+    1010,
+    1018,
+    1021,
+    1023,
+    1024,
+    1032,
+    1065,
+    3001,
+    3002,
+    3003,
+    3005,
+    3006,
+    3007,
+    3009,
+    3010,
+    3011,
+    3012
+  ],
+  "actual_kernel_predicate_sha256": "b5b945fdb5bf87634f6fc5451ba89ad12ef49de32639a7d5c744e591192c8159",
+  "default_kernel_proc_entry_zero_initialized": true,
+  "kernel_group_restrictions_remain_enabled": true,
+  "candidate_rc_only_adds_four_metadata_commands_and_comments": true,
+  "candidate_stats_mode": "0440",
+  "candidate_ctrl_mode": "0660",
+  "init_verifier_command": [
+    "/srv/android/src/lineage-24.0-arm64/out/host/linux-x86/bin/host_init_verifier",
+    "/srv/android/ports/lineage-24.0-arm64/stats24-20261106-03/init.gta3xlwifi.compat.rc"
+  ],
+  "init_verifier_exit": 0,
+  "hardware_tested": false,
+  "flash_ready": false
+}

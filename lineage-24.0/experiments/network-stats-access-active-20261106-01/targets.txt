@@ -1,0 +1,2 @@
+libnetworkstats
+out/target/product/gta3xlwifi/product/etc/init/init.gta3xlwifi.compat.rc

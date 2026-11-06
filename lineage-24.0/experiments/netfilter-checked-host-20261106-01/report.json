@@ -1,0 +1,28 @@
+{
+  "passed": true,
+  "scope": "Exercise the real checked-chain I/O component with scripted kernel effects.\n\nThe IptablesRestoreInterface is a fixture; no host/device rules or networking are\nchanged. These are parser/transaction tests, not packet, attachment, cross-family,\nstartup, owner lifecycle or complete-backend readiness validation.\n",
+  "passed_cases": 84,
+  "stderr": "",
+  "inputs_sha256": {
+    "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/test-checked-uid-chains24.py": "15cc75c12f9e8a69899adf4a0785d21a210f8b7be34807db5831389105f99ce5",
+    "/srv/android/ports/lineage-24.0-arm64/netfilter24-20261106-01/Gta3xlwifiCheckedUidChains.cpp": "c4e584f6ac238791af691b5f13b5d1fe2dfe66163020bf773b409cf6da6cd350",
+    "/srv/android/ports/lineage-24.0-arm64/netfilter24-20261106-01/Gta3xlwifiCheckedUidChains.h": "23395984a5d78b0b72943cd77f710a43d083a12ff18ca2285b47c1ae157695cd"
+  },
+  "command": [
+    "/usr/bin/clang++",
+    "-std=c++20",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-fsanitize=undefined",
+    "-fno-sanitize-recover=all",
+    "-I/srv/android/ports/lineage-24.0-arm64/netfilter24-20261106-01",
+    "-I/srv/android/artifacts/lineage-24.0-arm64/netfilter-checked-host-20261106-01",
+    "/srv/android/ports/lineage-24.0-arm64/netfilter24-20261106-01/Gta3xlwifiCheckedUidChains.cpp",
+    "/srv/android/artifacts/lineage-24.0-arm64/netfilter-checked-host-20261106-01/test.cpp",
+    "-o",
+    "/srv/android/artifacts/lineage-24.0-arm64/netfilter-checked-host-20261106-01/test"
+  ],
+  "hardware_tested": false,
+  "flash_ready": false
+}

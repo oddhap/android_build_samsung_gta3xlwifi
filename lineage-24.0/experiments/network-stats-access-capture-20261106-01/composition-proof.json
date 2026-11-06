@@ -1,0 +1,22 @@
+{
+  "passed": true,
+  "project": "packages/modules/Connectivity",
+  "exact_parent_patch_recovered": true,
+  "parent_patch_sha256": "6916b464e2b87fb01268a62462cb2933aade00bd813d758cca0f1e1e5d263b77",
+  "incremental_patch_sha256": "8940475004d1d3b872ad34c0933328b8da8853e9cef984c0bc80e7209f9b30f2",
+  "source_or_real_index_modified_by_proof": false,
+  "device_revision_change": {
+    "old_revision": "e9984355a95f21e7fc2168b9dbf49d822406c513",
+    "new_revision": "87313db641d21e298faf99425dca9c8fd95d83df",
+    "changed_path": "rootdir/init.gta3xlwifi.compat.rc",
+    "before_sha256": "2fcb0c10bb71a3b565f120208e4bbf2cc3d8ef2e96b8cf7de59528e224e08951",
+    "candidate_sha256": "c29642fcdf350c09bf0b7393098731146fbaf56fc21a84e516daaf8c4f310dac",
+    "parent_snapshot": "port-20261106-03"
+  },
+  "original_binary_inputs": {
+    "Image": "33c1a0d1b9e2696decd53fbedfc2231385b74464f4058a54b93ff06ff7c72553",
+    "dtbo.img": "b9041c37713a745290d9a0203423436b6caa7a1307ced79b6963b4f1f0271c4b",
+    "vendor.img": "a847a527931d61e5702b8a025210c84eb88a37ef1e60df93b6393a16dae9183a"
+  },
+  "readiness_or_policy_image_changes": false
+}

@@ -1,0 +1,51 @@
+--- a/service-t/native/libs/libnetworkstats/Gta3xlwifiLegacyStats.cpp
++++ b/service-t/native/libs/libnetworkstats/Gta3xlwifiLegacyStats.cpp
+@@ -6,17 +6,47 @@
+ #include <algorithm>
+ #include <cerrno>
+ #include <cstring>
++#include <private/android_filesystem_config.h>
++#include <sys/stat.h>
++#include <sys/vfs.h>
++#include <unistd.h>
+ 
+ namespace android::bpf {
+ bool gta3xlwifiLegacyStatsEnabled() {
+     return android::base::GetBoolProperty("ro.gta3xlwifi.legacy_networking", false);
+ }
+ 
++// A readable qtaguid table may still be silently filtered by the kernel to
++// the current UID. Require the product's privileged statistics group instead
++// of treating a partial/empty table as complete device accounting.
++static int checkProcAccess(FILE* file, bool detail) {
++    struct stat st {};
++    if (fstat(fileno(file), &st)) return -(errno ? errno : EIO);
++    if (!S_ISREG(st.st_mode)) return -ENODEV;
++    struct statfs fs {};
++    if (fstatfs(fileno(file), &fs)) return -(errno ? errno : EIO);
++    if (static_cast<uint64_t>(fs.f_type) != 0x9fa0) return -ENODEV;
++    if (!detail) return 0;
++    if (st.st_uid != AID_ROOT || st.st_gid != AID_NET_BW_STATS) return -EACCES;
++    if (getegid() == AID_NET_BW_STATS) return 0;
++    const int count = getgroups(0, nullptr);
++    if (count < 0) return -(errno ? errno : EIO);
++    if (count > 65536) return -EOVERFLOW;
++    std::vector<gid_t> groups(count);
++    const int copied = getgroups(count, groups.data());
++    if (copied < 0) return -(errno ? errno : EIO);
++    if (copied > count) return -EOVERFLOW;
++    groups.resize(copied);
++    return std::find(groups.begin(), groups.end(), AID_NET_BW_STATS) != groups.end()
++            ? 0 : -EACCES;
++}
++
+ static int readRecords(bool detail, std::vector<legacy::Record>* records) {
+     const char* path = detail ? "/proc/net/xt_qtaguid/stats" : "/proc/net/xt_qtaguid/iface_stat_fmt";
+     FILE* file = fopen(path, "re");
+     if (!file) return -errno;
+-    int error = legacy::readStats(file, detail, records);
++    int error = checkProcAccess(file, detail);
++    if (!error) error = legacy::readStats(file, detail, records);
+     if (fclose(file) && !error) error = -(errno ? errno : EIO);
+     return error;
+ }

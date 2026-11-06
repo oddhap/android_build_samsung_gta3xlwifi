@@ -1,0 +1,226 @@
+[
+  {
+    "source": "u:r:init:s0",
+    "target": "u:r:init:s0",
+    "class": "key",
+    "permission": "write",
+    "expected": "allow"
+  },
+  {
+    "source": "u:r:init:s0",
+    "target": "u:r:init:s0",
+    "class": "key",
+    "permission": "search",
+    "expected": "allow"
+  },
+  {
+    "source": "u:r:init:s0",
+    "target": "u:r:init:s0",
+    "class": "key",
+    "permission": "setattr",
+    "expected": "allow"
+  },
+  {
+    "source": "u:r:vold:s0",
+    "target": "u:r:init:s0",
+    "class": "key",
+    "permission": "write",
+    "expected": "allow"
+  },
+  {
+    "source": "u:r:vold:s0",
+    "target": "u:r:init:s0",
+    "class": "key",
+    "permission": "search",
+    "expected": "allow"
+  },
+  {
+    "source": "u:r:vold:s0",
+    "target": "u:r:init:s0",
+    "class": "key",
+    "permission": "setattr",
+    "expected": "allow"
+  },
+  {
+    "source": "u:r:vold:s0",
+    "target": "u:r:vold:s0",
+    "class": "key",
+    "permission": "write",
+    "expected": "allow"
+  },
+  {
+    "source": "u:r:vold:s0",
+    "target": "u:r:vold:s0",
+    "class": "key",
+    "permission": "search",
+    "expected": "allow"
+  },
+  {
+    "source": "u:r:vold:s0",
+    "target": "u:r:vold:s0",
+    "class": "key",
+    "permission": "setattr",
+    "expected": "allow"
+  },
+  {
+    "source": "u:r:init:s0",
+    "target": "u:r:vold:s0",
+    "class": "key",
+    "permission": "search",
+    "expected": "allow"
+  },
+  {
+    "source": "u:r:zygote:s0",
+    "target": "u:r:init:s0",
+    "class": "key",
+    "permission": "search",
+    "expected": "allow"
+  },
+  {
+    "source": "u:r:zygote:s0",
+    "target": "u:r:vold:s0",
+    "class": "key",
+    "permission": "search",
+    "expected": "allow"
+  },
+  {
+    "source": "u:r:system_server:s0",
+    "target": "u:r:init:s0",
+    "class": "key",
+    "permission": "search",
+    "expected": "allow"
+  },
+  {
+    "source": "u:r:system_server:s0",
+    "target": "u:r:vold:s0",
+    "class": "key",
+    "permission": "search",
+    "expected": "allow"
+  },
+  {
+    "source": "u:r:untrusted_app:s0",
+    "target": "u:r:init:s0",
+    "class": "key",
+    "permission": "search",
+    "expected": "allow"
+  },
+  {
+    "source": "u:r:untrusted_app:s0",
+    "target": "u:r:init:s0",
+    "class": "key",
+    "permission": "read",
+    "expected": "deny"
+  },
+  {
+    "source": "u:r:untrusted_app:s0",
+    "target": "u:r:init:s0",
+    "class": "key",
+    "permission": "write",
+    "expected": "deny"
+  },
+  {
+    "source": "u:r:untrusted_app:s0",
+    "target": "u:r:vold:s0",
+    "class": "key",
+    "permission": "search",
+    "expected": "allow"
+  },
+  {
+    "source": "u:r:untrusted_app:s0",
+    "target": "u:r:vold:s0",
+    "class": "key",
+    "permission": "read",
+    "expected": "deny"
+  },
+  {
+    "source": "u:r:untrusted_app:s0",
+    "target": "u:r:vold:s0",
+    "class": "key",
+    "permission": "write",
+    "expected": "deny"
+  },
+  {
+    "source": "u:r:untrusted_app:s0:c123,c256,c512,c768",
+    "target": "u:r:init:s0",
+    "class": "key",
+    "permission": "search",
+    "expected": "allow"
+  },
+  {
+    "source": "u:r:untrusted_app:s0:c123,c256,c512,c768",
+    "target": "u:r:init:s0",
+    "class": "key",
+    "permission": "read",
+    "expected": "deny"
+  },
+  {
+    "source": "u:r:untrusted_app:s0:c123,c256,c512,c768",
+    "target": "u:r:init:s0",
+    "class": "key",
+    "permission": "write",
+    "expected": "deny"
+  },
+  {
+    "source": "u:r:untrusted_app:s0:c123,c256,c512,c768",
+    "target": "u:r:vold:s0",
+    "class": "key",
+    "permission": "search",
+    "expected": "allow"
+  },
+  {
+    "source": "u:r:untrusted_app:s0:c123,c256,c512,c768",
+    "target": "u:r:vold:s0",
+    "class": "key",
+    "permission": "read",
+    "expected": "deny"
+  },
+  {
+    "source": "u:r:untrusted_app:s0:c123,c256,c512,c768",
+    "target": "u:r:vold:s0",
+    "class": "key",
+    "permission": "write",
+    "expected": "deny"
+  },
+  {
+    "source": "u:r:untrusted_app:s0:c123,c256,c513,c768",
+    "target": "u:r:init:s0",
+    "class": "key",
+    "permission": "search",
+    "expected": "allow"
+  },
+  {
+    "source": "u:r:untrusted_app:s0:c123,c256,c513,c768",
+    "target": "u:r:init:s0",
+    "class": "key",
+    "permission": "read",
+    "expected": "deny"
+  },
+  {
+    "source": "u:r:untrusted_app:s0:c123,c256,c513,c768",
+    "target": "u:r:init:s0",
+    "class": "key",
+    "permission": "write",
+    "expected": "deny"
+  },
+  {
+    "source": "u:r:untrusted_app:s0:c123,c256,c513,c768",
+    "target": "u:r:vold:s0",
+    "class": "key",
+    "permission": "search",
+    "expected": "allow"
+  },
+  {
+    "source": "u:r:untrusted_app:s0:c123,c256,c513,c768",
+    "target": "u:r:vold:s0",
+    "class": "key",
+    "permission": "read",
+    "expected": "deny"
+  },
+  {
+    "source": "u:r:untrusted_app:s0:c123,c256,c513,c768",
+    "target": "u:r:vold:s0",
+    "class": "key",
+    "permission": "write",
+    "expected": "deny"
+  }
+]

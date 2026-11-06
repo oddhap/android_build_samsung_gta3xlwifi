@@ -1,0 +1,66 @@
+{
+  "passed": true,
+  "scope": "Test whole real qtaguid adapter/parser with synthetic procfs reads.\n\nOnly Android property/header types and FILE creation/close effects are fixtures.\nNot a native ABI, actual procfs, socket, permission or networking-readiness test.\n",
+  "passed_cases": 37,
+  "stderr": "",
+  "commands": [
+    [
+      "/usr/bin/clang++",
+      "-std=c++20",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-fsanitize=undefined",
+      "-fno-sanitize-recover=all",
+      "-I/srv/android/artifacts/lineage-24.0-arm64/qtaguid-adapter-host-20261106-03",
+      "-I/srv/android/ports/lineage-24.0-arm64/stats24-20261106-03/service-t/native/libs/libnetworkstats",
+      "-include",
+      "/srv/android/artifacts/lineage-24.0-arm64/qtaguid-adapter-host-20261106-03/shim.h",
+      "-c",
+      "/srv/android/ports/lineage-24.0-arm64/stats24-20261106-03/service-t/native/libs/libnetworkstats/Gta3xlwifiLegacyStats.cpp",
+      "-o",
+      "/srv/android/artifacts/lineage-24.0-arm64/qtaguid-adapter-host-20261106-03/Gta3xlwifiLegacyStats.o"
+    ],
+    [
+      "/usr/bin/clang++",
+      "-std=c++20",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-fsanitize=undefined",
+      "-fno-sanitize-recover=all",
+      "-I/srv/android/artifacts/lineage-24.0-arm64/qtaguid-adapter-host-20261106-03",
+      "-I/srv/android/ports/lineage-24.0-arm64/stats24-20261106-03/service-t/native/libs/libnetworkstats",
+      "-c",
+      "/srv/android/ports/lineage-24.0-arm64/stats24-20261106-03/service-t/native/libs/libnetworkstats/QtaguidStats.cpp",
+      "-o",
+      "/srv/android/artifacts/lineage-24.0-arm64/qtaguid-adapter-host-20261106-03/QtaguidStats.o"
+    ],
+    [
+      "/usr/bin/clang++",
+      "-std=c++20",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-fsanitize=undefined",
+      "-fno-sanitize-recover=all",
+      "-I/srv/android/artifacts/lineage-24.0-arm64/qtaguid-adapter-host-20261106-03",
+      "-I/srv/android/ports/lineage-24.0-arm64/stats24-20261106-03/service-t/native/libs/libnetworkstats",
+      "/srv/android/artifacts/lineage-24.0-arm64/qtaguid-adapter-host-20261106-03/test.cpp",
+      "/srv/android/artifacts/lineage-24.0-arm64/qtaguid-adapter-host-20261106-03/Gta3xlwifiLegacyStats.o",
+      "/srv/android/artifacts/lineage-24.0-arm64/qtaguid-adapter-host-20261106-03/QtaguidStats.o",
+      "-o",
+      "/srv/android/artifacts/lineage-24.0-arm64/qtaguid-adapter-host-20261106-03/test"
+    ]
+  ],
+  "inputs_sha256": {
+    "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/test-qtaguid-adapter24.py": "cb96196e9d3f8f4785a4cad25f0af607436a23ecf878bdc34630bfcc7e791359",
+    "/srv/android/ports/lineage-24.0-arm64/stats24-20261106-03/service-t/native/libs/libnetworkstats/Gta3xlwifiLegacyStats.cpp": "6cd13f4b3761b8c31d8730d9bccb41681b47b47fd47a158bbf690f032c966a3c",
+    "/srv/android/ports/lineage-24.0-arm64/stats24-20261106-03/service-t/native/libs/libnetworkstats/Gta3xlwifiLegacyStats.h": "e6015b5e8b4f44907c534fd4a79c93ef992063f9b592100c50928d2d3763d969",
+    "/srv/android/ports/lineage-24.0-arm64/stats24-20261106-03/service-t/native/libs/libnetworkstats/QtaguidStats.cpp": "ea88ad02d5b2e46f5aa7b154451c7c209d9c1658815815ac6ecb88698e4a0729",
+    "/srv/android/ports/lineage-24.0-arm64/stats24-20261106-03/service-t/native/libs/libnetworkstats/QtaguidStats.h": "890551ab93bb209dd4824fda96c91fc92f61eb5dd4682bce993c14feefbf8861",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-gator-20261105-01/src/net/netfilter/xt_qtaguid.c": "212e2e4c3d459293a3427d2f715fb1843fac521787a7817c1f2d455598b254f3",
+    "/srv/android/src/lineage-24.0-arm64/system/core/libcutils/include/private/android_filesystem_config.h": "faad70383216abcf935ec76678bb5b40ca65b6396a0028a8fa6ffe9b9087eb37"
+  },
+  "hardware_tested": false
+}

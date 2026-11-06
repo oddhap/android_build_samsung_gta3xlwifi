@@ -1,0 +1,8 @@
+{
+  "status": "interrupted_before_build",
+  "correct_exit_code": 143,
+  "original_exit_trap_code": 0,
+  "reason": "TERM during source audit entered EXIT trap with status0; no Ninja compilation started. Original recorded exit preserved separately.",
+  "corrected_at_utc": "2026-11-06T06:29:45.861517+00:00",
+  "source_before_and_after_audits_passed": true
+}

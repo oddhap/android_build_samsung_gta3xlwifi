@@ -1,0 +1,8 @@
+neverallowx check failed at /srv/android/artifacts/lineage-24.0-arm64/qtaguid-transport-policy-production-20261106-01/probes02/7151/plat_sepolicy.cil:85909
+  (neverallowx netd qtaguid_device (ioctl chr_file (0x7151)))
+    <root>
+    allowx at /srv/android/artifacts/lineage-24.0-arm64/qtaguid-transport-policy-production-20261106-01/probes02/7151/plat_sepolicy.cil:85902
+      (allowx netd qtaguid_device (ioctl chr_file (0x7151)))
+
+Failed to generate binary
+Failed to build policydb

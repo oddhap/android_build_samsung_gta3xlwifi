@@ -44,7 +44,14 @@ for n in names+['Gta3xlwifiLegacyStats','QtaguidStats']:
  inputs[str(source)]=sha(source);run(cmd,n);built[n]=str(output)
 link=shlex.split(commands[3]);rsp=next(x[1:] for x in link if x.startswith('@'));original_rsp=T/rsp;tokens=shlex.split(original_rsp.read_text());inputs[str(original_rsp)]=sha(original_rsp)
 for obj,n in zip(objects,names):assert tokens.count(str(obj))==1;tokens[tokens.index(str(obj))]=built[n]
-tokens[0:0]=[built[n] for n in ['Gta3xlwifiLegacyStats','QtaguidStats']]
+substituted_new=[];added_new=[]
+for n in ['Gta3xlwifiLegacyStats','QtaguidStats']:
+ previous=str(base/variant/'obj'/srcdir/(n+'.o'));assert tokens.count(previous) in [0,1]
+ if previous in tokens:
+  tokens[tokens.index(previous)]=built[n];substituted_new.append(n)
+ else:added_new.append(n)
+tokens[0:0]=[built[n] for n in added_new]
+assert all(tokens.count(value)==1 for value in built.values())
 for token in tokens:
  if token not in built.values() and not token.startswith('-'):
   path=T/token;assert path.is_file(),token;inputs[str(path)]=sha(path)
@@ -63,5 +70,5 @@ baseline=T/target;old,new=symbols(baseline),symbols(binary);assert old<=new,sort
 assert dynamic(baseline)==dynamic(binary);inputs[str(baseline)]=sha(baseline)
 for path in [ninja,readelf,nm,Path(link[0]) if Path(link[0]).is_absolute() else T/link[0]]:inputs[str(path)]=sha(path)
 for name,h in inputs.items():assert sha(Path(name))==h,'Input changed during compilation: '+name
-report={'passed':True,'scope':__doc__,'source_lock':lock,'executed':executed,'inputs_sha256':inputs,'binary_sha256':sha(binary),'elf_class':64,'machine':183,'baseline_defined_dynamic_symbols_retained':len(old),'new_defined_dynamic_symbols':sorted(new-old),'dynamic_needed_and_soname_unchanged':True,'cfi_check_export_retained':True,'android32_built':False,'hardware_tested':False,'active_source_modified':False,'flash_ready':False}
+report={'passed':True,'scope':__doc__,'source_lock':lock,'executed':executed,'inputs_sha256':inputs,'binary_sha256':sha(binary),'elf_class':64,'machine':183,'baseline_defined_dynamic_symbols_retained':len(old),'new_defined_dynamic_symbols':sorted(new-old),'dynamic_needed_and_soname_unchanged':True,'cfi_check_export_retained':True,'new_source_objects_substituted':substituted_new,'new_source_objects_added':added_new,'android32_built':False,'hardware_tested':False,'active_source_modified':False,'flash_ready':False}
 (O/'report.json').write_text(json.dumps(report,indent=2)+'\n');print('PASS: complete real Android17 ARM64 CFI/APEX31 libnetworkstats linked; existing exports/SONAME/NEEDED retained')

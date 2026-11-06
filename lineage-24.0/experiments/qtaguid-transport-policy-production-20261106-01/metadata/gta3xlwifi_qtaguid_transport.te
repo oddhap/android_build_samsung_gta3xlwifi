@@ -1,0 +1,7 @@
+# SPDX-License-Identifier: Apache-2.0
+# The private netd-owned qtaguid I/O session; caller authorization is separate.
+type sysfs_gta3xlwifi_qtaguid, fs_type, sysfs_type;
+allow netd proc_qtaguid_ctrl:file { open write getattr };
+allow netd qtaguid_device:chr_file { open read getattr ioctl };
+allowxperm netd qtaguid_device:chr_file ioctl { 0x7151 };
+allow netd sysfs_gta3xlwifi_qtaguid:file { open read getattr };

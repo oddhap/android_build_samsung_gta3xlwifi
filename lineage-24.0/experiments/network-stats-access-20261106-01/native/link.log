@@ -1,0 +1,28 @@
+ld.lld: error: duplicate symbol: _ZN7android3bpf6legacy11addCountersERKNSt3__15arrayIlLm4EEEPS4_
+>>> defined in /srv/android/artifacts/lineage-24.0-arm64/network-stats-access-20261106-01/native/QtaguidStats.o
+>>> defined in out/soong/.intermediates/packages/modules/Connectivity/service-t/native/libs/libnetworkstats/libnetworkstats/android_arm64_armv8-a_static_cfi_apex31/obj/packages/modules/Connectivity/service-t/native/libs/libnetworkstats/QtaguidStats.o
+
+ld.lld: error: duplicate symbol: _ZN7android3bpf6legacy9readStatsEP7__sFILEbPNSt3__16vectorINS1_6RecordENS4_9allocatorIS6_EEEE
+>>> defined in /srv/android/artifacts/lineage-24.0-arm64/network-stats-access-20261106-01/native/QtaguidStats.o
+>>> defined in out/soong/.intermediates/packages/modules/Connectivity/service-t/native/libs/libnetworkstats/libnetworkstats/android_arm64_armv8-a_static_cfi_apex31/obj/packages/modules/Connectivity/service-t/native/libs/libnetworkstats/QtaguidStats.o
+
+ld.lld: error: duplicate symbol: _ZN7android3bpf28gta3xlwifiLegacyStatsEnabledEv
+>>> defined in /srv/android/artifacts/lineage-24.0-arm64/network-stats-access-20261106-01/native/Gta3xlwifiLegacyStats.o
+>>> defined in out/soong/.intermediates/packages/modules/Connectivity/service-t/native/libs/libnetworkstats/libnetworkstats/android_arm64_armv8-a_static_cfi_apex31/obj/packages/modules/Connectivity/service-t/native/libs/libnetworkstats/Gta3xlwifiLegacyStats.o
+
+ld.lld: error: duplicate symbol: _ZN7android3bpf22gta3xlwifiLegacyDetailEPNSt3__16vectorINS0_10stats_lineENS1_9allocatorIS3_EEEE
+>>> defined in /srv/android/artifacts/lineage-24.0-arm64/network-stats-access-20261106-01/native/Gta3xlwifiLegacyStats.o
+>>> defined in out/soong/.intermediates/packages/modules/Connectivity/service-t/native/libs/libnetworkstats/libnetworkstats/android_arm64_armv8-a_static_cfi_apex31/obj/packages/modules/Connectivity/service-t/native/libs/libnetworkstats/Gta3xlwifiLegacyStats.o
+
+ld.lld: error: duplicate symbol: _ZN7android3bpf19gta3xlwifiLegacyDevEPNSt3__16vectorINS0_10stats_lineENS1_9allocatorIS3_EEEE
+>>> defined in /srv/android/artifacts/lineage-24.0-arm64/network-stats-access-20261106-01/native/Gta3xlwifiLegacyStats.o
+>>> defined in out/soong/.intermediates/packages/modules/Connectivity/service-t/native/libs/libnetworkstats/libnetworkstats/android_arm64_armv8-a_static_cfi_apex31/obj/packages/modules/Connectivity/service-t/native/libs/libnetworkstats/Gta3xlwifiLegacyStats.o
+
+ld.lld: error: duplicate symbol: _ZN7android3bpf24gta3xlwifiLegacyUidStatsEjP10StatsValue
+>>> defined in /srv/android/artifacts/lineage-24.0-arm64/network-stats-access-20261106-01/native/Gta3xlwifiLegacyStats.o
+>>> defined in out/soong/.intermediates/packages/modules/Connectivity/service-t/native/libs/libnetworkstats/libnetworkstats/android_arm64_armv8-a_static_cfi_apex31/obj/packages/modules/Connectivity/service-t/native/libs/libnetworkstats/Gta3xlwifiLegacyStats.o
+
+ld.lld: error: duplicate symbol: _ZN7android3bpf26gta3xlwifiLegacyIfaceStatsEPKcP10StatsValue
+>>> defined in /srv/android/artifacts/lineage-24.0-arm64/network-stats-access-20261106-01/native/Gta3xlwifiLegacyStats.o
+>>> defined in out/soong/.intermediates/packages/modules/Connectivity/service-t/native/libs/libnetworkstats/libnetworkstats/android_arm64_armv8-a_static_cfi_apex31/obj/packages/modules/Connectivity/service-t/native/libs/libnetworkstats/Gta3xlwifiLegacyStats.o
+clang++-real: error: linker command failed with exit code 1 (use -v to see invocation)

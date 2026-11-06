@@ -1,0 +1,65 @@
+diff --git a/core/Makefile b/core/Makefile
+index 65c45cb835d01281314fd418cc4f52947e337d92..516876e2f8df0d3f08598f57a792c5a6a63e76e5 100644
+--- a/core/Makefile
++++ b/core/Makefile
+@@ -6166,7 +6166,12 @@ endif
+ 	$(hide) echo 'recovery_mkbootimg_args=$(BOARD_RECOVERY_MKBOOTIMG_ARGS)' >> $@
+ 	$(hide) echo 'mkbootimg_version_args=$(INTERNAL_MKBOOTIMG_VERSION_ARGS)' >> $@
+ 	$(hide) echo 'mkbootimg_init_args=$(BOARD_MKBOOTIMG_INIT_ARGS)' >> $@
++# Preserve the installed SM-T510 TWRP; no automatic replacement or two-step OTA.
++ifeq ($(TARGET_DEVICE),gta3xlwifi)
++	$(hide) echo "gta3xlwifi_preserve_recovery=true" >> $@
++else
+ 	$(hide) echo "multistage_support=1" >> $@
++endif
+ 	$(hide) echo "blockimgdiff_versions=3,4" >> $@
+ ifeq ($(PRODUCT_BUILD_GENERIC_OTA_PACKAGE),true)
+ 	$(hide) echo "build_generic_ota_package=true" >> $@
+diff --git a/core/config.mk b/core/config.mk
+index b7f07af034b39d1b7a22510038526ac5057a0919..59dc01b5e26c4978236b6cf214382f5ca84c638c 100644
+--- a/core/config.mk
++++ b/core/config.mk
+@@ -915,6 +915,7 @@ BOARD_SEPOLICY_VERS := $(PLATFORM_SEPOLICY_VERSION)
+ 
+ # A list of SEPolicy versions, besides PLATFORM_SEPOLICY_VERSION, that the framework supports.
+ PLATFORM_SEPOLICY_COMPAT_VERSIONS := \
++    $(if $(filter gta3xlwifi,$(TARGET_DEVICE)),30.0) \
+     31.0 \
+     32.0 \
+     33.0 \
+diff --git a/tools/releasetools/common.py b/tools/releasetools/common.py
+index fef646f3aec7e8fc2b75a8a8341a3762d6b94668..5fd30c236946c34f1ba28e19b134206aeea2ed97 100644
+--- a/tools/releasetools/common.py
++++ b/tools/releasetools/common.py
+@@ -3858,6 +3858,16 @@ def MakeRecoveryPatch(input_dir, output_sink, recovery_img, boot_img,
+   if info_dict is None:
+     info_dict = OPTIONS.info_dict
+ 
++  # This hybrid product keeps the original vendor image and installed TWRP.
++  # Do not generate recovery replacement resources, including during repacking.
++  if info_dict.get("gta3xlwifi_preserve_recovery") == "true":
++    if (info_dict.get("ab_update") == "true" or
++        info_dict.get("allow_non_ab") != "true" or
++        info_dict.get("multistage_support")):
++      raise ExternalError("Invalid SM-T510 recovery-preservation metadata")
++    logger.info("Preserving installed SM-T510 recovery; no replacement resources")
++    return
++
+   full_recovery_image = info_dict.get("full_recovery_image") == "true"
+   board_uses_vendorimage = info_dict.get("board_uses_vendorimage") == "true"
+ 
+diff --git a/tools/releasetools/non_ab_ota.py b/tools/releasetools/non_ab_ota.py
+index 2d1075eb814ec945805d882fa50a337b5929f4db..587c3faccae223d135f1f5920cedd7824cded764 100644
+--- a/tools/releasetools/non_ab_ota.py
++++ b/tools/releasetools/non_ab_ota.py
+@@ -573,6 +573,10 @@ endif;
+ 
+ def GenerateNonAbOtaPackage(target_file, output_file, source_file=None):
+   """Generates a non-A/B OTA package."""
++  if (OPTIONS.info_dict.get("gta3xlwifi_preserve_recovery") == "true" and
++      OPTIONS.two_step):
++    raise common.ExternalError("Two-step OTA would replace preserved recovery")
++
+   # Check the loaded info dicts first.
+   if OPTIONS.info_dict.get("no_recovery") == "true":
+     raise common.ExternalError(

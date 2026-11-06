@@ -1,0 +1,65 @@
+[
+  {
+    "source": "u:r:init:s0",
+    "target": "u:object_r:proc_qtaguid_stat:s0",
+    "class": "file",
+    "permission": "setattr",
+    "expected": "allow"
+  },
+  {
+    "source": "u:r:init:s0",
+    "target": "u:object_r:proc_qtaguid_ctrl:s0",
+    "class": "file",
+    "permission": "setattr",
+    "expected": "allow"
+  },
+  {
+    "source": "u:r:init:s0",
+    "target": "u:object_r:proc_net:s0",
+    "class": "dir",
+    "permission": "search",
+    "expected": "allow"
+  },
+  {
+    "source": "u:r:init:s0",
+    "target": "u:object_r:proc_qtaguid_stat:s0",
+    "class": "dir",
+    "permission": "search",
+    "expected": "allow"
+  },
+  {
+    "source": "u:r:init:s0",
+    "target": "u:r:init:s0",
+    "class": "capability",
+    "permission": "chown",
+    "expected": "allow"
+  },
+  {
+    "source": "u:r:system_server:s0",
+    "target": "u:object_r:proc_qtaguid_stat:s0",
+    "class": "file",
+    "permission": "open",
+    "expected": "allow"
+  },
+  {
+    "source": "u:r:system_server:s0",
+    "target": "u:object_r:proc_qtaguid_stat:s0",
+    "class": "file",
+    "permission": "read",
+    "expected": "allow"
+  },
+  {
+    "source": "u:r:system_server:s0",
+    "target": "u:object_r:proc_qtaguid_stat:s0",
+    "class": "file",
+    "permission": "getattr",
+    "expected": "allow"
+  },
+  {
+    "source": "u:r:system_server:s0",
+    "target": "u:object_r:proc:s0",
+    "class": "filesystem",
+    "permission": "getattr",
+    "expected": "allow"
+  }
+]
