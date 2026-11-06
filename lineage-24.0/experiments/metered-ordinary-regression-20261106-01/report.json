@@ -1,0 +1,42 @@
+{
+  "passed": true,
+  "scope": "Check typed ordinary-UID chain programs against actual Android17 BPF bit logic.\n\nRuns the actual policy/compiler/encoder with fatal UBSan and an independent\ninterpreter for its nine ordinary chains. No hook/packet dispatch, core bypass,\nmetered/VPN/LNA/network readiness or kernel execution is established.\n",
+  "passed_cases": 35,
+  "actual_android17_bit_predicate_comparisons": 1048576,
+  "stderr": "",
+  "command": [
+    "c++",
+    "-std=c++17",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-O1",
+    "-g",
+    "-fsanitize=undefined",
+    "-fno-sanitize-recover=all",
+    "-pthread",
+    "-I/srv/android/ports/lineage-24.0-arm64/metered-chain24-20261106-01",
+    "-I/srv/android/artifacts/lineage-24.0-arm64/metered-ordinary-regression-20261106-01",
+    "/srv/android/ports/lineage-24.0-arm64/metered-chain24-20261106-01/Gta3xlwifiUidPolicy.cpp",
+    "/srv/android/ports/lineage-24.0-arm64/metered-chain24-20261106-01/Gta3xlwifiCheckedUidChains.cpp",
+    "/srv/android/ports/lineage-24.0-arm64/metered-chain24-20261106-01/Gta3xlwifiUidChainProgram.cpp",
+    "/srv/android/artifacts/lineage-24.0-arm64/metered-ordinary-regression-20261106-01/test.cpp",
+    "-o",
+    "/srv/android/artifacts/lineage-24.0-arm64/metered-ordinary-regression-20261106-01/test"
+  ],
+  "inputs_sha256": {
+    "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/test-uid-chain-program24.py": "2a39d669c064e6f0c455b8c922dfadf4d3e664d94f3955424c10ea99ab4a4df3",
+    "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/test-kernel-qtaguid-socket-owned.py": "59516300b405af46c972b264353c3766b5c18cf882b04ac8ba9db6f70f436459",
+    "/srv/android/src/lineage-24.0-arm64/packages/modules/Connectivity/bpf/progs/netd.h": "ae85473717243924c609f8d963d03bc2631adbba8833ae527bf611291f38ca1a",
+    "/srv/android/artifacts/lineage-24.0-arm64/metered-ordinary-regression-20261106-01/test.cpp": "9ff68a7e6407c278ce68eb8e4fb2baac8e190c7fc738265e6956e9a8830f4529",
+    "/srv/android/artifacts/lineage-24.0-arm64/metered-ordinary-regression-20261106-01/IptablesRestoreController.h": "b0c661ac87b8ea7b0bf8e9fcf49c72ec44f76e005e65839c7f9939efa32cd8a6",
+    "/srv/android/ports/lineage-24.0-arm64/metered-chain24-20261106-01/Gta3xlwifiUidPolicy.cpp": "9f98afdf5ea0750b6a1215d1ecb46250aa7c62a6fb9a84e23300f112bfd2d239",
+    "/srv/android/ports/lineage-24.0-arm64/metered-chain24-20261106-01/Gta3xlwifiCheckedUidChains.cpp": "0cd389c6f54b984e587ad6b2d8839333308d9ff78c010962126070a51d743c1e",
+    "/srv/android/ports/lineage-24.0-arm64/metered-chain24-20261106-01/Gta3xlwifiUidChainProgram.cpp": "dca6cdb0740181ce3b9964becbac9359de2e8286138046b8e434c403ecad80b6",
+    "/srv/android/ports/lineage-24.0-arm64/metered-chain24-20261106-01/Gta3xlwifiUidPolicy.h": "254fae0c2fa1fd65e18e340149ef740b8a89fc7f4620e58ae22e0296815febb2",
+    "/srv/android/ports/lineage-24.0-arm64/metered-chain24-20261106-01/Gta3xlwifiCheckedUidChains.h": "98550883fbd1bfd2dba4d0c1b22dd9e3a50205558f071c98fe4e981781ec47a0",
+    "/srv/android/ports/lineage-24.0-arm64/metered-chain24-20261106-01/Gta3xlwifiUidChainProgram.h": "e6bd4a71fbd289f8bdc2a917649f03fea323d136584f0dccb3acba00e49b33a8"
+  },
+  "hardware_tested": false,
+  "flash_ready": false
+}

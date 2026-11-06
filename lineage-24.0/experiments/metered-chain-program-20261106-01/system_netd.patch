@@ -1,0 +1,243 @@
+diff --git a/server/Gta3xlwifiCheckedUidChains.cpp b/server/Gta3xlwifiCheckedUidChains.cpp
+--- a/server/Gta3xlwifiCheckedUidChains.cpp
++++ b/server/Gta3xlwifiCheckedUidChains.cpp
+@@ -14,26 +14,26 @@
+ 
+ bool singleFamily(IptablesTarget family) { return family == V4 || family == V6; }
+ 
+-bool number(std::string_view text, uint32_t* output) {
++bool number(std::string_view text, uint32_t* output, uint32_t maximum) {
+     if (text.empty()) return false;
+     // Numeric UID output from libxt_owner's save formatter, never names/signs.
+     for (char c : text) if (c < '0' || c > '9') return false;
+     uint32_t value = 0;
+     auto result = std::from_chars(text.data(), text.data() + text.size(), value);
+-    if (result.ec != std::errc{} || result.ptr != text.data() + text.size() || value > INT_MAX)
++    if (result.ec != std::errc{} || result.ptr != text.data() + text.size() || value > maximum)
+         return false;
+     *output = value;
+     return true;
+ }
+ 
+-bool range(std::string_view text, CheckedUidChains::UidRange* output) {
+-    const size_t dash = text.find('-');
++bool range(std::string_view text, CheckedUidChains::UidRange* output, char separator, uint32_t maximum) {
++    const size_t dash = text.find(separator);
+     uint32_t first = 0, last = 0;
+     if (dash == std::string_view::npos) {
+-        if (!number(text, &first)) return false;
++        if (!number(text, &first, maximum)) return false;
+         last = first;
+-    } else if (!number(text.substr(0, dash), &first) ||
+-               !number(text.substr(dash + 1), &last) || first > last) {
++    } else if (!number(text.substr(0, dash), &first, maximum) ||
++               !number(text.substr(dash + 1), &last, maximum) || first > last) {
+         return false;
+     }
+     *output = {first, last};
+@@ -58,17 +58,36 @@
+ bool CheckedUidChains::validImage(const std::vector<Chain>& image) {
+     std::vector<std::string> names;
+     size_t rules = 0;
++    bool needsDataSaver = false;
++    const Chain* dataSaver = nullptr;
+     for (const auto& chain : image) {
+         names.push_back(chain.name);
++        if (chain.name == "g24_data_saver") dataSaver = &chain;
+         if (chain.rules.size() > 65536) return false;
+         rules += chain.rules.size();
+         if (rules > 65536) return false;
+         for (const auto& rule : chain.rules) {
+-            if (rule.verdict != Verdict::Return && rule.verdict != Verdict::Drop) return false;
+-            if (rule.uid && (rule.uid->first > rule.uid->last || rule.uid->last > INT_MAX))
++            if (rule.verdict != Verdict::Return && rule.verdict != Verdict::Drop &&
++                rule.verdict != Verdict::Reject && rule.verdict != Verdict::DataSaverGoto)
+                 return false;
+-        }
+-    }
++            if (rule.verdict == Verdict::DataSaverGoto) needsDataSaver = true;
++            uint32_t maximum;
++            switch (rule.selector) {
++                case Selector::Owner: maximum = INT_MAX; break;
++                case Selector::RawUid: maximum = UINT32_MAX; break;
++                case Selector::LookupAppId:
++                case Selector::RawAppId: maximum = 99999; break;
++                default: return false;
++            }
++            if (!rule.uid && rule.selector != Selector::Owner) return false;
++            if (rule.uid && (rule.uid->first > rule.uid->last || rule.uid->last > maximum))
++                return false;
++        }
++    }
++    if (needsDataSaver && (!dataSaver || dataSaver->rules.size() != 1 ||
++        dataSaver->rules[0].uid || dataSaver->rules[0].selector != Selector::Owner ||
++        (dataSaver->rules[0].verdict != Verdict::Return &&
++         dataSaver->rules[0].verdict != Verdict::Reject))) return false;
+     return validNames(names);
+ }
+ 
+@@ -99,16 +118,43 @@
+             next.push_back({tokens[1], {}});
+             continue;
+         }
++        // REJECT's real -S formatter always emits its family-specific default.
++        // Strip only this exact suffix; other rejection modes are foreign input.
++        bool rejectSuffix = false;
++        if (tokens.size() >= 6 && tokens[tokens.size() - 2] == "--reject-with") {
++            if (tokens.back() != (family == V4 ? "icmp-port-unreachable" :
++                                                  "icmp6-port-unreachable")) return -EPROTO;
++            tokens.resize(tokens.size() - 2);
++            rejectSuffix = true;
++        }
+         if (next.empty() || (tokens.size() != 4 && tokens.size() != 8) ||
+             tokens[0] != "-A" || tokens[1] != next.back().name) return -EPROTO;
+         const size_t jump = tokens.size() - 2;
+-        if (tokens[jump] != "-j" || (tokens[jump + 1] != "RETURN" && tokens[jump + 1] != "DROP"))
+-            return -EPROTO;
+-        Rule rule{std::nullopt, tokens[jump + 1] == "RETURN" ? Verdict::Return : Verdict::Drop};
++        Verdict verdict;
++        if (tokens[jump] == "-j" && tokens[jump + 1] == "RETURN") verdict = Verdict::Return;
++        else if (tokens[jump] == "-j" && tokens[jump + 1] == "DROP") verdict = Verdict::Drop;
++        else if (tokens[jump] == "-j" && tokens[jump + 1] == "REJECT" && rejectSuffix)
++            verdict = Verdict::Reject;
++        else if (tokens[jump] == "-g" && tokens[jump + 1] == "g24_data_saver")
++            verdict = Verdict::DataSaverGoto;
++        else return -EPROTO;
++        if (rejectSuffix && verdict != Verdict::Reject) return -EPROTO;
++        Rule rule{std::nullopt, verdict};
+         if (tokens.size() == 8) {
++            if (tokens[2] != "-m") return -EPROTO;
++            char separator = ':';
++            uint32_t maximum;
++            if (tokens[3] == "owner" && tokens[4] == "--uid-owner") {
++                rule.selector = Selector::Owner; separator = '-'; maximum = INT_MAX;
++            } else if (tokens[3] == "gta3xlwifi_appid" && tokens[4] == "--appid") {
++                rule.selector = Selector::LookupAppId; maximum = 99999;
++            } else if (tokens[3] == "gta3xlwifi_raw_uid" && tokens[4] == "--raw_uid") {
++                rule.selector = Selector::RawUid; maximum = UINT32_MAX;
++            } else if (tokens[3] == "gta3xlwifi_raw_appid" && tokens[4] == "--raw_appid") {
++                rule.selector = Selector::RawAppId; maximum = 99999;
++            } else return -EPROTO;
+             UidRange uid{};
+-            if (tokens[2] != "-m" || tokens[3] != "owner" || tokens[4] != "--uid-owner" ||
+-                !range(tokens[5], &uid)) return -EPROTO;
++            if (!range(tokens[5], &uid, separator, maximum)) return -EPROTO;
+             rule.uid = uid;
+         }
+         next.back().rules.push_back(rule);
+@@ -127,11 +173,24 @@
+         for (const auto& rule : chain.rules) {
+             commands += "-A " + chain.name;
+             if (rule.uid) {
+-                commands += " -m owner --uid-owner " + std::to_string(rule.uid->first);
+-                if (rule.uid->last != rule.uid->first)
+-                    commands += "-" + std::to_string(rule.uid->last);
++                switch (rule.selector) {
++                    case Selector::Owner: commands += " -m owner --uid-owner "; break;
++                    case Selector::LookupAppId: commands += " -m gta3xlwifi_appid --appid "; break;
++                    case Selector::RawUid: commands += " -m gta3xlwifi_raw_uid --raw_uid "; break;
++                    case Selector::RawAppId: commands += " -m gta3xlwifi_raw_appid --raw_appid "; break;
++                }
++                commands += std::to_string(rule.uid->first);
++                if (rule.selector == Selector::Owner) {
++                    if (rule.uid->last != rule.uid->first)
++                        commands += "-" + std::to_string(rule.uid->last);
++                } else commands += ":" + std::to_string(rule.uid->last);
+             }
+-            commands += rule.verdict == Verdict::Return ? " -j RETURN\n" : " -j DROP\n";
++            switch (rule.verdict) {
++                case Verdict::Return: commands += " -j RETURN\n"; break;
++                case Verdict::Drop: commands += " -j DROP\n"; break;
++                case Verdict::Reject: commands += " -j REJECT\n"; break;
++                case Verdict::DataSaverGoto: commands += " -g g24_data_saver\n"; break;
++            }
+             if (commands.size() > kMaximumImageBytes) return -E2BIG;
+         }
+     }
+diff --git a/server/Gta3xlwifiCheckedUidChains.h b/server/Gta3xlwifiCheckedUidChains.h
+--- a/server/Gta3xlwifiCheckedUidChains.h
++++ b/server/Gta3xlwifiCheckedUidChains.h
+@@ -22,11 +22,15 @@
+         uint32_t last;
+         bool operator==(const UidRange& b) const { return first == b.first && last == b.last; }
+     };
+-    enum class Verdict { Return, Drop };
++    enum class Verdict { Return, Drop, Reject, DataSaverGoto };
++    enum class Selector { Owner, LookupAppId, RawUid, RawAppId };
+     struct Rule {
+         std::optional<UidRange> uid;
+         Verdict verdict;
+-        bool operator==(const Rule& b) const { return uid == b.uid && verdict == b.verdict; }
++        Selector selector = Selector::Owner;
++        bool operator==(const Rule& b) const {
++            return uid == b.uid && verdict == b.verdict && selector == b.selector;
++        }
+     };
+     struct Chain {
+         std::string name;
+diff --git a/server/Gta3xlwifiMeteredChainProgram.cpp b/server/Gta3xlwifiMeteredChainProgram.cpp
+new file mode 100644
+--- /dev/null
++++ b/server/Gta3xlwifiMeteredChainProgram.cpp
+@@ -0,0 +1,44 @@
++// SPDX-License-Identifier: Apache-2.0
++#include "Gta3xlwifiMeteredChainProgram.h"
++#include <algorithm>
++#include <cerrno>
++#include <climits>
++#include <iterator>
++#include <utility>
++namespace android::net::gta3xlwifi {
++namespace {
++using C = CheckedUidChains;
++void appendMembers(C::Chain* chain, const std::vector<int32_t>& members, C::Verdict verdict) {
++    for (int32_t member : members) {
++        const auto uid = static_cast<uint32_t>(member);
++        if (!chain->rules.empty() && chain->rules.back().selector == C::Selector::RawUid &&
++            chain->rules.back().uid && chain->rules.back().uid->last < INT_MAX &&
++            chain->rules.back().uid->last + 1 == uid) {
++            chain->rules.back().uid->last = uid;
++        } else chain->rules.push_back({C::UidRange{uid, uid}, verdict, C::Selector::RawUid});
++    }
++}
++}  // namespace
++int MeteredChainProgram::compile(const UidPolicy& policy, UidChainProgram::Image* output) {
++    if (!output) return -EINVAL;
++    std::vector<int32_t> happy, user, admin, denied;
++    int result = policy.matchingUids(10, &happy);
++    if (!result) result = policy.matchingUids(11, &user);
++    if (!result) result = policy.matchingUids(12, &admin);
++    if (result) return result;
++    std::set_union(user.begin(), user.end(), admin.begin(), admin.end(), std::back_inserter(denied));
++    C::Chain deny{"g24_meter_deny", {}};
++    appendMembers(&deny, denied, C::Verdict::Reject);
++    deny.rules.push_back({std::nullopt, C::Verdict::Return});
++    C::Chain allow{"g24_meter_allow", {{C::UidRange{0, 9999}, C::Verdict::Return, C::Selector::RawAppId}}};
++    appendMembers(&allow, happy, C::Verdict::Return);
++    allow.rules.push_back({std::nullopt, C::Verdict::DataSaverGoto});
++    C::Chain saver{"g24_data_saver", {{std::nullopt,
++        policy.dataSaver() ? C::Verdict::Reject : C::Verdict::Return}}};
++    UidChainProgram::Image next{std::move(deny), std::move(allow), std::move(saver)};
++    result = C::validateImage(next);
++    if (result) return result;
++    *output = std::move(next);
++    return 0;
++}
++}  // namespace android::net::gta3xlwifi
+diff --git a/server/Gta3xlwifiMeteredChainProgram.h b/server/Gta3xlwifiMeteredChainProgram.h
+new file mode 100644
+--- /dev/null
++++ b/server/Gta3xlwifiMeteredChainProgram.h
+@@ -0,0 +1,12 @@
++// SPDX-License-Identifier: Apache-2.0
++#pragma once
++#include "Gta3xlwifiUidChainProgram.h"
++namespace android::net::gta3xlwifi {
++// Compile metered deny union, happy/core allow and Data Saver into three owned
++// typed chains. Requires actual raw UID/appId matches, builtin family-default
++// REJECT support and correct parent goto wiring. This is not startup/readiness.
++class MeteredChainProgram {
++public:
++    static int compile(const UidPolicy& policy, UidChainProgram::Image* output);
++};
++}  // namespace android::net::gta3xlwifi

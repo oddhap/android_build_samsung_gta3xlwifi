@@ -707,3 +707,36 @@ images with exact membership/range compression, preserving output on failure.
 Actual three-source netd CFI object compilation/linking and complete source audits
 pass. Packet dispatch/core exemptions, metered and remaining backend features
 are separate requirements; no kernel rule is installed by this compiler.
+
+## Raw socket identity and metered programs — November 6
+
+The isolated kernel now has separate raw socket UID and appId matches, preserving
+owner revision1 and the separate receive-side lookup-appId path. Metered deny
+has no core exemption; metered allow uses raw appId/core plus HAPPY membership.
+Absent/non-full sockets use actual overflowuid, with literal65534 normalization
+only for the appId/core view. Host fixtures compare the actual A17 expressions.
+
+The complete kernel/modules build exits0, original config unchanged, Gator118/
+KUTF43 CRC checks pass. Image is d99587cc3b1ff4b879f6fbfcb7cf36f0efacd9c7a184e96299a2dc63e8011348.
+Complete60336 candidate/60331 protected and Android1243/17 audits pass before/after.
+All four private extensions build into the whole real ARM64 iptables binary,
+retaining70 old registrations and verifying all four new registration paths.
+See [kernel source proposal](experiments/kernel-raw-uid-20261106-01/README.md) and
+[iptables source proposal](experiments/xtables-raw-uid-20261106-01/README.md).
+
+The [metered program](experiments/metered-chain-program-20261106-01/README.md)
+compiles user/admin deny union, HAPPY/core allow and Data Saver to typed chains,
+using family-default builtin REJECT and a bounded self-contained goto target.
+Its51 host cases and1248 comparisons use actual A17 xtbpf predicates. Extended
+checked I/O passes84 prior cases; ordinary compilation passes35 cases plus
+1048576 A17 expression comparisons. Four actual C++ sources compile with Android17
+ARM64 netd CFI flags and combine in an isolated relocatable object. Complete
+source audits are included. Host socket/map/I/O behavior remains fixture-based;
+no kernel rule/packet execution or device behavior is established.
+
+These are inactive source proposals, not a complete network backend. Verified
+parent packet dispatch, real Java/DNS/provider/startup ownership, mandatory local
+network/loopback protection, VPN/interface state and final integration remain.
+The owner requires implemented networking before the first test package. No
+Android prebuilt promotion, readiness bypass, offline-first package, partition
+change, flashing or signing is performed. The ROM is still not flash-ready.

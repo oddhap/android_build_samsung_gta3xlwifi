@@ -1,0 +1,33 @@
+{
+  "passed": true,
+  "scope": "Check actual raw socket UID/appId matches against Android17 metered predicates.\n\nReal C bodies and A17 allow/deny expressions, fatal UBSan. Socket state/namespace,\nLinux helper UID results, BPF map lookup and registration are fixtures; no packets,\nreal BPF/kernel/device execution or backend readiness is established.\n",
+  "passed_cases": 19,
+  "actual_android17_metered_predicate_comparisons": 896,
+  "stderr": "",
+  "command": [
+    "cc",
+    "-std=gnu11",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-fsanitize=undefined",
+    "-fno-sanitize-recover=all",
+    "-I/srv/android/artifacts/lineage-24.0-arm64/kernel-raw-uid-host-20261106-01/include",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-raw-uid-host-20261106-01/test.c",
+    "-o",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-raw-uid-host-20261106-01/test"
+  ],
+  "linux_helper_semantics_reference": "https://raw.githubusercontent.com/torvalds/linux/v6.6/net/core/filter.c",
+  "inputs_sha256": {
+    "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/test-kernel-raw-uid24.py": "4e78f819d27b48d463a952f071e1836774f5980283153176a8b558549af27160",
+    "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/test-kernel-qtaguid-socket-owned.py": "59516300b405af46c972b264353c3766b5c18cf882b04ac8ba9db6f70f436459",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-raw-uid24-20261106-01/net/netfilter/xt_qtaguid.c": "d4d6763257d04e74fb82a2053d21476faa4f6737553d625fe4b3b7e08fb36929",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-raw-uid24-20261106-01/include/uapi/linux/netfilter/gta3xlwifi_socket_uid.h": "a91a730ca2eb53a0397a7bcd8b8d8b32fb9612908a70a279a1d9c0c02acbcffb",
+    "/srv/android/src/lineage-24.0-arm64/packages/modules/Connectivity/bpf/progs/netd.c": "7dc4fa02952c0268737dc9aad20a0571b55df255f878506a4db91c1d962713b6",
+    "/srv/android/src/lineage-24.0-arm64/packages/modules/Connectivity/bpf/progs/netd.h": "ae85473717243924c609f8d963d03bc2631adbba8833ae527bf611291f38ca1a",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-raw-uid-host-20261106-01/test.c": "957dee5ad79b149ee4d0f444d5e04ee69e32809d757bb556cd1de61e7e6bce13",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-raw-uid-host-20261106-01/include/linux/netfilter/gta3xlwifi_socket_uid.h": "a91a730ca2eb53a0397a7bcd8b8d8b32fb9612908a70a279a1d9c0c02acbcffb"
+  },
+  "hardware_tested": false,
+  "flash_ready": false
+}

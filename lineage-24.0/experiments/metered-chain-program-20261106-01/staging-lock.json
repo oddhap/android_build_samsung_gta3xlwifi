@@ -1,0 +1,34 @@
+{
+  "scope": "Typed raw selectors, family-default REJECT and self-contained metered deny/allow/DataSaver programs; no parent dispatch",
+  "project": "system/netd",
+  "prerequisites": [
+    "uid-chain-program-20261106-01",
+    "kernel-raw-uid-20261106-01",
+    "xtables-raw-uid-20261106-01"
+  ],
+  "patch_sha256": "4f5541d8a4ef12c925c06240c4a0e4717969d6ff420e27a9f5bf952a72f73cc3",
+  "files": [
+    {
+      "path": "server/Gta3xlwifiCheckedUidChains.cpp",
+      "before_sha256": "f2eb05a551469dc11b6106c807a94093f5e79ede9a4047af53bcfdb520a1dd48",
+      "candidate_sha256": "0cd389c6f54b984e587ad6b2d8839333308d9ff78c010962126070a51d743c1e"
+    },
+    {
+      "path": "server/Gta3xlwifiCheckedUidChains.h",
+      "before_sha256": "65b08bf9014fe6dd32e818cd8910e499a94503ab3797ee73ff4914c2731b304d",
+      "candidate_sha256": "98550883fbd1bfd2dba4d0c1b22dd9e3a50205558f071c98fe4e981781ec47a0"
+    },
+    {
+      "path": "server/Gta3xlwifiMeteredChainProgram.cpp",
+      "before_sha256": null,
+      "candidate_sha256": "187b81def0be32268ecd59c059df71b29a667864817a42d9eeae46bd356dd886"
+    },
+    {
+      "path": "server/Gta3xlwifiMeteredChainProgram.h",
+      "before_sha256": null,
+      "candidate_sha256": "642872e7b45e23aeddb899f3d2b2133d5b59ff4188642e714d8366229c85f1ce"
+    }
+  ],
+  "active_source_changed": false,
+  "flash_ready": false
+}

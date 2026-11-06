@@ -1,0 +1,11 @@
+/srv/android/artifacts/lineage-24.0-arm64/metered-chain-program-host-20261106-01/test.cpp: In function ‘int main()’:
+/srv/android/artifacts/lineage-24.0-arm64/metered-chain-program-host-20261106-01/test.cpp:106:29: error: enumerated and non-enumerated type in conditional expression [-Werror=extra]
+  106 |   Oracle::entry.rule=(bits&1?Oracle::HAPPY_BOX_MATCH:0)|(bits&2?Oracle::PENALTY_BOX_USER_MATCH:0)|(bits&4?Oracle::PENALTY_BOX_ADMIN_MATCH:0);
+      |                       ~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~
+/srv/android/artifacts/lineage-24.0-arm64/metered-chain-program-host-20261106-01/test.cpp:106:64: error: enumerated and non-enumerated type in conditional expression [-Werror=extra]
+  106 |   Oracle::entry.rule=(bits&1?Oracle::HAPPY_BOX_MATCH:0)|(bits&2?Oracle::PENALTY_BOX_USER_MATCH:0)|(bits&4?Oracle::PENALTY_BOX_ADMIN_MATCH:0);
+      |                                                          ~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/srv/android/artifacts/lineage-24.0-arm64/metered-chain-program-host-20261106-01/test.cpp:106:106: error: enumerated and non-enumerated type in conditional expression [-Werror=extra]
+  106 |   Oracle::entry.rule=(bits&1?Oracle::HAPPY_BOX_MATCH:0)|(bits&2?Oracle::PENALTY_BOX_USER_MATCH:0)|(bits&4?Oracle::PENALTY_BOX_ADMIN_MATCH:0);
+      |                                                                                                    ~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+cc1plus: all warnings being treated as errors

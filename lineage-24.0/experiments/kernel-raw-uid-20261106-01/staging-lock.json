@@ -1,0 +1,32 @@
+{
+  "scope": "Independent raw socket UID/appId matches for actual Android17 xtbpf metered semantics; no slow lookup or owner revision1 changes",
+  "prerequisites": [
+    "kernel-appid-20261106-01"
+  ],
+  "patch_sha256": "7f127f2a5140d91d4b8a2a55a3b6af2241734acef8e75cd667bf9e54f462cd2b",
+  "files": [
+    {
+      "path": "net/netfilter/xt_qtaguid.c",
+      "before_sha256": "f6b47d791c521624fd6436193ce40fcc516c9ec4dd19ea5c75f19d8be1d0ac3e",
+      "candidate_sha256": "d4d6763257d04e74fb82a2053d21476faa4f6737553d625fe4b3b7e08fb36929"
+    },
+    {
+      "path": "include/uapi/linux/netfilter/gta3xlwifi_socket_uid.h",
+      "before_sha256": null,
+      "candidate_sha256": "a91a730ca2eb53a0397a7bcd8b8d8b32fb9612908a70a279a1d9c0c02acbcffb"
+    }
+  ],
+  "supported_runtime_capability_bits": [
+    0,
+    1,
+    2,
+    3,
+    5,
+    9,
+    12
+  ],
+  "unknown_active_capabilities_rejected": true,
+  "android_prebuilt_promoted": false,
+  "hardware_tested": false,
+  "flash_ready": false
+}

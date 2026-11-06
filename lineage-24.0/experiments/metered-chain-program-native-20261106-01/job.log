@@ -1,0 +1,5 @@
+PASS: 84 real checked-chain parser/transaction cases; fatal UBSan, no real rules changed
+passed_cases=35 comparisons=1048576; actual policy/compiler/encoder vs Android17 predicate, fatal UBSan
+PASS: 1243 locked projects, 17 exact reviewed patches; no external alternates
+PASS: 1243 locked projects, 17 exact reviewed patches; no external alternates
+PASS: actual Android17 netd CFI flags compiled; native ARM64 object validated, production files unchanged

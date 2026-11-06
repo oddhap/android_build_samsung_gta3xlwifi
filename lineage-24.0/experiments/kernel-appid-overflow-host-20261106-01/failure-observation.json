@@ -1,0 +1,8 @@
+{
+  "passed": false,
+  "stage": "host fixture preparation before compilation",
+  "observed_error": "Missing unchanged include/uapi/linux/netfilter/gta3xlwifi_appid.h in standalone source folder",
+  "remediation": "Copied byte-identical prerequisite header; source unchanged; retry02 passed24 cases and343599 comparisons",
+  "scope": "Recorded from work log; no original traceback file was produced",
+  "flash_ready": false
+}

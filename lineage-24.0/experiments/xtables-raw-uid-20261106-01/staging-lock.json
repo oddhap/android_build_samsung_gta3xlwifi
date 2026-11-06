@@ -1,0 +1,30 @@
+{
+  "scope": "Separate raw socket UID and appId xtables matches; no owner rev1 replacement",
+  "project": "external/iptables",
+  "revision": "df1a07fd3d0c157a71a4c157cc728062a01032b2",
+  "prerequisites": [
+    "xtables-guard-20261106-01",
+    "xtables-appid-20261106-01"
+  ],
+  "kernel_prerequisite": "kernel-raw-uid-20261106-01",
+  "patch_sha256": "9d2b2622b19f6641c372929232472de5ba8c1125e2e30206a5ac1f916da29bfc",
+  "files": [
+    {
+      "path": "extensions/libxt_gta3xlwifi_raw_uid.c",
+      "before_sha256": null,
+      "candidate_sha256": "fdf8d7a1ab9ea62ebc076121ce8f043a2fb0a4a18a524b9b85a1906e9506a936"
+    },
+    {
+      "path": "extensions/libxt_gta3xlwifi_raw_appid.c",
+      "before_sha256": null,
+      "candidate_sha256": "aa42d0f3b582d6490ea49ae341de8efeb253a2dc4cc2687397242db625038db1"
+    },
+    {
+      "path": "include/linux/netfilter/gta3xlwifi_socket_uid.h",
+      "before_sha256": null,
+      "candidate_sha256": "a91a730ca2eb53a0397a7bcd8b8d8b32fb9612908a70a279a1d9c0c02acbcffb"
+    }
+  ],
+  "active_source_changed": false,
+  "flash_ready": false
+}
