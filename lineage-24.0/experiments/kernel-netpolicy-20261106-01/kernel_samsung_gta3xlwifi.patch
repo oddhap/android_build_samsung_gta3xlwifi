@@ -1,0 +1,222 @@
+--- a/net/netfilter/Makefile
++++ b/net/netfilter/Makefile
+@@ -157,6 +157,7 @@
+ obj-$(CONFIG_NETFILTER_XT_MATCH_PKTTYPE) += xt_pkttype.o
+ obj-$(CONFIG_NETFILTER_XT_MATCH_POLICY) += xt_policy.o
+ obj-$(CONFIG_NETFILTER_XT_MATCH_QTAGUID) += xt_qtaguid_print.o xt_qtaguid.o
++obj-$(CONFIG_NETFILTER_XT_MATCH_QTAGUID) += gta3xlwifi_netpolicy.o
+ obj-$(CONFIG_NETFILTER_XT_MATCH_ONESHOT) += xt_oneshot.o
+ obj-$(CONFIG_NETFILTER_XT_MATCH_QUOTA) += xt_quota.o
+ obj-$(CONFIG_NETFILTER_XT_MATCH_QUOTA2) += xt_quota2.o
+--- /dev/null
++++ b/net/netfilter/gta3xlwifi_netpolicy.c
+@@ -0,0 +1,182 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++/* A real, opt-in packet barrier shared by IPv4 and IPv6 rule transactions.
++ * The owner must first install and verify guard/DROP rules at its required
++ * hooks in BOTH families. This module never installs rules or advertises
++ * networking readiness. Ordinary owner/qtaguid matching is unchanged.
++ */
++#include <linux/capability.h>
++#include <linux/cred.h>
++#include <linux/fs.h>
++#include <linux/miscdevice.h>
++#include <linux/module.h>
++#include <linux/mutex.h>
++#include <linux/netdevice.h>
++#include <linux/netfilter.h>
++#include <linux/netfilter/x_tables.h>
++#include <linux/netfilter/gta3xlwifi_netpolicy.h>
++#include <linux/pid.h>
++#include <linux/sched.h>
++#include <linux/user_namespace.h>
++
++static DEFINE_MUTEX(netpolicy_lock);
++static struct file *netpolicy_owner_file;
++static struct pid *netpolicy_owner_pid;
++static bool netpolicy_held = true;
++
++static bool netpolicy_privileged(void)
++{
++	return uid_eq(current_euid(), GLOBAL_ROOT_UID) &&
++		ns_capable(&init_user_ns, CAP_NET_ADMIN);
++}
++
++static int netpolicy_open(struct inode *inode, struct file *file)
++{
++	int ret = 0;
++
++	if (!netpolicy_privileged() || !task_tgid(current))
++		return -EPERM;
++	mutex_lock(&netpolicy_lock);
++	if (netpolicy_owner_file) {
++		ret = -EBUSY;
++	} else {
++		WRITE_ONCE(netpolicy_held, true);
++		netpolicy_owner_file = file;
++		netpolicy_owner_pid = get_pid(task_tgid(current));
++		/* Drain any packet that entered before the lease was held. */
++		synchronize_net();
++	}
++	mutex_unlock(&netpolicy_lock);
++	return ret;
++}
++
++static void netpolicy_drop_lease(struct file *file, bool final_release)
++{
++	mutex_lock(&netpolicy_lock);
++	if (netpolicy_owner_file == file &&
++	    (final_release || netpolicy_owner_pid == task_tgid(current))) {
++		WRITE_ONCE(netpolicy_held, true);
++		/* Closing/exit must finish holding before the close completes. */
++		synchronize_net();
++		netpolicy_owner_file = NULL;
++		put_pid(netpolicy_owner_pid);
++		netpolicy_owner_pid = NULL;
++	}
++	mutex_unlock(&netpolicy_lock);
++}
++
++/* flush runs on every owner descriptor close, not just the final file ref.
++ * A forked child's close must not revoke the live parent's lease. */
++static int netpolicy_flush(struct file *file, fl_owner_t id)
++{
++	netpolicy_drop_lease(file, false);
++	return 0;
++}
++
++static int netpolicy_release(struct inode *inode, struct file *file)
++{
++	/* Final release can run in a worker or the last inheriting child. */
++	netpolicy_drop_lease(file, true);
++	return 0;
++}
++
++static long netpolicy_ioctl(struct file *file, unsigned int cmd,
++			   unsigned long arg)
++{
++	long ret = 0;
++
++	if (cmd != GTA3XLWIFI_NETPOLICY_ABI &&
++	    cmd != GTA3XLWIFI_NETPOLICY_HOLD &&
++	    cmd != GTA3XLWIFI_NETPOLICY_RELEASE &&
++	    cmd != GTA3XLWIFI_NETPOLICY_STATE)
++		return -ENOTTY;
++	if (arg)
++		return -EINVAL;
++	if (!netpolicy_privileged())
++		return -EPERM;
++	mutex_lock(&netpolicy_lock);
++	if (!netpolicy_owner_file) {
++		ret = -ENOTCONN;
++	} else if (netpolicy_owner_file != file ||
++		   netpolicy_owner_pid != task_tgid(current)) {
++		ret = -EPERM;
++	} else if (cmd == GTA3XLWIFI_NETPOLICY_ABI) {
++		ret = GTA3XLWIFI_NETPOLICY_VERSION;
++	} else if (cmd == GTA3XLWIFI_NETPOLICY_STATE) {
++		ret = READ_ONCE(netpolicy_held) ? 1 : 0;
++	} else if (cmd == GTA3XLWIFI_NETPOLICY_HOLD) {
++		WRITE_ONCE(netpolicy_held, true);
++		synchronize_net();
++	} else if (READ_ONCE(netpolicy_held)) {
++		/* A packet may have fetched the old filter table before HOLD.
++		 * Drain all such readers while closed before either family opens. */
++		synchronize_net();
++		smp_store_release(&netpolicy_held, false);
++	}
++	mutex_unlock(&netpolicy_lock);
++	return ret;
++}
++
++static bool netpolicy_match(const struct sk_buff *skb,
++			    struct xt_action_param *par)
++{
++	return smp_load_acquire(&netpolicy_held);
++}
++
++static int netpolicy_check(const struct xt_mtchk_param *par)
++{
++	const struct gta3xlwifi_netpolicy_match *info = par->matchinfo;
++	unsigned int i;
++
++	for (i = 0; i < sizeof(info->reserved); i++)
++		if (info->reserved[i])
++			return -EINVAL;
++	return 0;
++}
++
++static const struct file_operations netpolicy_fops = {
++	.owner = THIS_MODULE,
++	.open = netpolicy_open,
++	.flush = netpolicy_flush,
++	.release = netpolicy_release,
++	.unlocked_ioctl = netpolicy_ioctl,
++#ifdef CONFIG_COMPAT
++	.compat_ioctl = netpolicy_ioctl,
++#endif
++};
++
++static struct miscdevice netpolicy_device = {
++	.minor = MISC_DYNAMIC_MINOR,
++	.name = "gta3xlwifi_netpolicy",
++	.fops = &netpolicy_fops,
++	.mode = 0400,
++};
++
++static struct xt_match netpolicy_match_reg __read_mostly = {
++	.name = GTA3XLWIFI_NETPOLICY_MATCH,
++	.revision = 0,
++	.family = NFPROTO_UNSPEC,
++	.hooks = (1 << NF_INET_LOCAL_IN) | (1 << NF_INET_FORWARD) |
++		 (1 << NF_INET_LOCAL_OUT),
++	.match = netpolicy_match,
++	.checkentry = netpolicy_check,
++	.matchsize = sizeof(struct gta3xlwifi_netpolicy_match),
++	.me = THIS_MODULE,
++};
++
++static int __init gta3xlwifi_netpolicy_init(void)
++{
++	int ret;
++
++	ret = xt_register_match(&netpolicy_match_reg);
++	if (ret)
++		return ret;
++	ret = misc_register(&netpolicy_device);
++	if (ret)
++		xt_unregister_match(&netpolicy_match_reg);
++	return ret;
++}
++module_init(gta3xlwifi_netpolicy_init);
++MODULE_DESCRIPTION("SM-T510 leased dual-stack netfilter transaction barrier");
++MODULE_LICENSE("GPL");
++MODULE_ALIAS("ipt_gta3xlwifi_guard");
++MODULE_ALIAS("ip6t_gta3xlwifi_guard");
+--- /dev/null
++++ b/include/uapi/linux/netfilter/gta3xlwifi_netpolicy.h
+@@ -0,0 +1,24 @@
++/* SPDX-License-Identifier: GPL-2.0 WITH Linux-syscall-note */
++#ifndef _UAPI_GTA3XLWIFI_NETPOLICY_H
++#define _UAPI_GTA3XLWIFI_NETPOLICY_H
++#include <linux/ioctl.h>
++#include <linux/types.h>
++
++#define GTA3XLWIFI_NETPOLICY_VERSION 1
++#define GTA3XLWIFI_NETPOLICY_ABI     _IO('g', 0x50)
++#define GTA3XLWIFI_NETPOLICY_HOLD    _IO('g', 0x51)
++#define GTA3XLWIFI_NETPOLICY_RELEASE _IO('g', 0x52)
++#define GTA3XLWIFI_NETPOLICY_STATE   _IO('g', 0x53)
++#define GTA3XLWIFI_NETPOLICY_MATCH "gta3xlwifi_guard"
++
++/* No pointers or arguments: identical ioctl numbers on ARM32 and ARM64.
++ * ABI returns VERSION; STATE returns 1 when held, 0 when released.
++ * All other successful commands return 0. Every argument must be zero.
++ * Opening exclusively acquires a closed lease. Owner close/exit closes the
++ * barrier even if forked children still hold the file. This neither installs
++ * rules nor proves complete networking readiness.
++ */
++struct gta3xlwifi_netpolicy_match {
++	__u8 reserved[4];
++};
++#endif

@@ -1,0 +1,592 @@
+[
+  {
+    "experiment": "kernel-netlink-20261101-01",
+    "lock_sha256": "ff7bb5223a3b13e5975166276fa2df7ddb5a564135524d74dac2eec2a3e63e9e",
+    "data": {
+      "scope": "Isolated netlink candidate on partial synthetic three-patch base; NOT Android apply-port snapshot",
+      "original_kernel_revision": "669b9584e678ce5865ed38e04c24639082d78de1",
+      "synthetic_partial_tree_head": "ea345110458ca112b0fc68af968cc0bfb457f9a8",
+      "prerequisites": [
+        "qtaguid-persistent-20261022-02",
+        "kernel-policy-reader-20261023-01",
+        "kernel-functionfs-20261023-01"
+      ],
+      "patch_sha256": "5b2a9a039728ee0537f89de8ac17407fb00e51b3b73a67c3a9af3ceebb54b266",
+      "policycap9_load_rejection_retained": true,
+      "active_Android_sources_changed": false,
+      "kernel_image_built": false,
+      "hardware_tested": false,
+      "files": [
+        {
+          "path": "include/linux/lsm_audit.h",
+          "before_sha256": "d30fd3f8a4353770b8cce8ee5d621cfb43b7fa629b9b4ada010a310fc90c9488",
+          "candidate_sha256": "80df8e41ae60ecc3fd2196f3564773a366889fc3136039698898566e6acca399"
+        },
+        {
+          "path": "security/lsm_audit.c",
+          "before_sha256": "c5bb2ade9a08b089a1f391e3d2f2a7f80816a28c051e49dae8fc2dfa8f0e2296",
+          "candidate_sha256": "eac5a902bc5ae80de8ee837780ef093b67eeb5e1586897656cfedffb21edae72"
+        },
+        {
+          "path": "security/selinux/avc.c",
+          "before_sha256": "6c52f5784bd6826b2bf27b35a365350fff8c056e4caf43562a52e15f3c02235f",
+          "candidate_sha256": "54a300cec16e66c47a4a29598c61971b4b675be55a33b72c6077c60124b95798"
+        },
+        {
+          "path": "security/selinux/hooks.c",
+          "before_sha256": "d9055e98168e564cd6ff9eac804ad3976fb21bb6229fc7ecf11af98ddd9a92ef",
+          "candidate_sha256": "ced3e25507abc79779e9aa06abf8032bb5f7c002dbf2817a6fddfe104cf8ccac"
+        },
+        {
+          "path": "security/selinux/include/avc.h",
+          "before_sha256": "bd680564933a5792c77be605535381cbfe313ac89eae8d889c718724af440766",
+          "candidate_sha256": "1ca7cce670f29cc0a2c450341f8772970da8f2718169be278686edd8d8674501"
+        },
+        {
+          "path": "security/selinux/include/classmap.h",
+          "before_sha256": "ed7f864e3ba30aa0136e1b8ca11e4919c1ef02b125ac32977ef161aa90aa451d",
+          "candidate_sha256": "fdc46ee74b5912594d5a7b6ab06ef488c9783199d178dd0e04dee90f0b4d1b3d"
+        },
+        {
+          "path": "security/selinux/include/security.h",
+          "before_sha256": "6934011c67cbcdf4759aa2b780b70b883b930f03fed9ef7de0e4015682dc8e10",
+          "candidate_sha256": "5886825b351a7c964c8af029d6bddf0ac3ac0ce5a368739a88785fcd6c4ad593"
+        },
+        {
+          "path": "security/selinux/nlmsgtab.c",
+          "before_sha256": "180010cd29407868c3593ec63868356f8e4e71e189f3dd677e45d82436e863a5",
+          "candidate_sha256": "41a31d8a5a6f88a7cacbcfcf0e4432612026bf5ece9c72f4ea094fb139b6656e"
+        },
+        {
+          "path": "security/selinux/ss/services.c",
+          "before_sha256": "5800310a5d9e0a1c484c1d19992c72d0227a9977ae2b8558250a84495176a2d8",
+          "candidate_sha256": "30fc06328592ead5484a574c12b9ad1fd592bb0e38b594e76855788d0ef18280"
+        }
+      ]
+    }
+  },
+  {
+    "experiment": "kernel-mmap-20261103-01",
+    "lock_sha256": "403cdc758f91f91ac5435780556f04d35f87576c88828e679bbdb918c5ba0ba3",
+    "data": {
+      "scope": "Isolated mmap enforcement on guarded partial netlink candidate; not Android apply-port snapshot",
+      "original_kernel_revision": "669b9584e678ce5865ed38e04c24639082d78de1",
+      "prerequisites": [
+        "qtaguid-persistent-20261022-02",
+        "kernel-policy-reader-20261023-01",
+        "kernel-functionfs-20261023-01",
+        "kernel-netlink-20261101-01"
+      ],
+      "patch_sha256": "29e12c3b06127fc5c72eb869ea9842ba0048b5c76178231ee975fab06799c7c3",
+      "policycap9_load_rejection_retained": true,
+      "class_ids_unchanged": true,
+      "permission_bit_positions_change": true,
+      "full_kernel_compile_passed": false,
+      "kernel_image_promoted": false,
+      "hardware_tested": false,
+      "files": [
+        {
+          "path": "security/selinux/hooks.c",
+          "before_sha256": "ced3e25507abc79779e9aa06abf8032bb5f7c002dbf2817a6fddfe104cf8ccac",
+          "candidate_sha256": "59707478879f992cf80c4aee77df5cc4494633a2110a2d0fe526931a0376a219"
+        },
+        {
+          "path": "security/selinux/include/classmap.h",
+          "before_sha256": "fdc46ee74b5912594d5a7b6ab06ef488c9783199d178dd0e04dee90f0b4d1b3d",
+          "candidate_sha256": "7c626d3300cdd093f918e59d6d582f59bae0e7f5b4d759ab37e0101ab8f83f65"
+        }
+      ]
+    }
+  },
+  {
+    "experiment": "kernel-xperm-generation-20261103-01",
+    "lock_sha256": "52421eb0e9488c975e0ce7a3076b071f9080ba926757d49b0d1bb7dd36e097c9",
+    "data": {
+      "scope": "Isolated xperm/AV generation binding, not whole-skb netlink consistency",
+      "original_kernel_revision": "669b9584e678ce5865ed38e04c24639082d78de1",
+      "prerequisites": [
+        "qtaguid-persistent-20261022-02",
+        "kernel-policy-reader-20261023-01",
+        "kernel-functionfs-20261023-01",
+        "kernel-netlink-20261101-01",
+        "kernel-mmap-20261103-01"
+      ],
+      "patch_sha256": "2049cda6df58058d6b769106dfe1445a641a3227935ceb232490f032ccd0c08d",
+      "policycap9_load_rejection_retained": true,
+      "files": [
+        {
+          "path": "security/selinux/avc.c",
+          "before_sha256": "54a300cec16e66c47a4a29598c61971b4b675be55a33b72c6077c60124b95798",
+          "candidate_sha256": "7aa439d34fc918a9b6a396cc795d1faa8d4751b00b5dcc412df13cbcac2ba860"
+        },
+        {
+          "path": "security/selinux/include/security.h",
+          "before_sha256": "5886825b351a7c964c8af029d6bddf0ac3ac0ce5a368739a88785fcd6c4ad593",
+          "candidate_sha256": "84ce78230a3f7db49f847369eb675ab9d3b9674e044c56f34499d5429c8b8db0"
+        },
+        {
+          "path": "security/selinux/ss/services.c",
+          "before_sha256": "30fc06328592ead5484a574c12b9ad1fd592bb0e38b594e76855788d0ef18280",
+          "candidate_sha256": "964606e60ca52a06c4e093c877c303d6238bb991f4b9ca6eb440f2ac7b9bf447"
+        }
+      ],
+      "Image_promoted": false,
+      "hardware_tested": false
+    }
+  },
+  {
+    "experiment": "kernel-netlink-snapshot-20261103-01",
+    "lock_sha256": "2d4a6ec41b409ec0117c74b7efbcb564d1d60397ce32c0b22508f4fa376de39b",
+    "data": {
+      "scope": "Isolated complete-skb netlink mode/generation snapshot candidate; not Android apply-port snapshot",
+      "original_kernel_revision": "669b9584e678ce5865ed38e04c24639082d78de1",
+      "prerequisites": [
+        "qtaguid-persistent-20261022-02",
+        "kernel-policy-reader-20261023-01",
+        "kernel-functionfs-20261023-01",
+        "kernel-netlink-20261101-01",
+        "kernel-mmap-20261103-01",
+        "kernel-xperm-generation-20261103-01"
+      ],
+      "patch_sha256": "fa6e43a5f02bb508c8dbd63711e0c699ae30b468363e891dca12f8643d3fc1f9",
+      "policycap9_load_rejection_retained": true,
+      "files": [
+        {
+          "path": "security/selinux/avc.c",
+          "before_sha256": "7aa439d34fc918a9b6a396cc795d1faa8d4751b00b5dcc412df13cbcac2ba860",
+          "candidate_sha256": "c7c0d80d3e4a4e57e07e8c76b070a99078a028626f3af29e129abc7f2abbf31b"
+        },
+        {
+          "path": "security/selinux/hooks.c",
+          "before_sha256": "59707478879f992cf80c4aee77df5cc4494633a2110a2d0fe526931a0376a219",
+          "candidate_sha256": "7b3529be0f134f4c2a739bf7de9420f196211a9d269ff46d104f4dc278177388"
+        },
+        {
+          "path": "security/selinux/include/avc.h",
+          "before_sha256": "1ca7cce670f29cc0a2c450341f8772970da8f2718169be278686edd8d8674501",
+          "candidate_sha256": "db5be3f3837b703c25ec7802cf77fb45364ce493a3760595ad88ac25ad51e1fe"
+        },
+        {
+          "path": "security/selinux/include/security.h",
+          "before_sha256": "84ce78230a3f7db49f847369eb675ab9d3b9674e044c56f34499d5429c8b8db0",
+          "candidate_sha256": "4435d1b1f5a5f9d4c30396d844704c6a3e46980b82571428b1cd818dc53cc90f"
+        },
+        {
+          "path": "security/selinux/nlmsgtab.c",
+          "before_sha256": "41a31d8a5a6f88a7cacbcfcf0e4432612026bf5ece9c72f4ea094fb139b6656e",
+          "candidate_sha256": "f357e1c4a15a975dc5d7315f18fa1b303b6ece5746137a09823a167b5d8f2c04"
+        },
+        {
+          "path": "security/selinux/ss/services.c",
+          "before_sha256": "964606e60ca52a06c4e093c877c303d6238bb991f4b9ca6eb440f2ac7b9bf447",
+          "candidate_sha256": "ec62091d8c0c2d94562d277b0f467a53b01243027a6bf759dd7a13a64fb1ab27"
+        }
+      ],
+      "Image_promoted": false,
+      "hardware_tested": false
+    }
+  },
+  {
+    "experiment": "kernel-extsock-20261103-01",
+    "lock_sha256": "a510d6e6cea25a4bad167c90c7ef323d02801719eef675c337c30e0b3d7e53b2",
+    "data": {
+      "scope": "Isolated supported-legacy-UAPI extended socket selector with real create/label/bind hooks; SCTP must remain disabled",
+      "original_kernel_revision": "669b9584e678ce5865ed38e04c24639082d78de1",
+      "prerequisites": [
+        "qtaguid-persistent-20261022-02",
+        "kernel-policy-reader-20261023-01",
+        "kernel-functionfs-20261023-01",
+        "kernel-netlink-20261101-01",
+        "kernel-mmap-20261103-01",
+        "kernel-xperm-generation-20261103-01",
+        "kernel-netlink-snapshot-20261103-01"
+      ],
+      "patch_sha256": "8f3ff7d53fbf94cf4a14039fb681037d683db9ae5a2546e0bbb645edb2dd348b",
+      "policycap9_load_rejection_retained": true,
+      "files": [
+        {
+          "path": "security/selinux/hooks.c",
+          "before_sha256": "7b3529be0f134f4c2a739bf7de9420f196211a9d269ff46d104f4dc278177388",
+          "candidate_sha256": "04c9c572d504fb834a32197d23eb4825f68de17608ec5f97782b7cc2a19e862e"
+        },
+        {
+          "path": "security/selinux/include/classmap.h",
+          "before_sha256": "7c626d3300cdd093f918e59d6d582f59bae0e7f5b4d759ab37e0101ab8f83f65",
+          "candidate_sha256": "82bdb18c54a820f5ab628d98084d347e61a19a753f4dd8bc5e72d7767f9ab4d6"
+        },
+        {
+          "path": "security/selinux/include/security.h",
+          "before_sha256": "4435d1b1f5a5f9d4c30396d844704c6a3e46980b82571428b1cd818dc53cc90f",
+          "candidate_sha256": "42da5568f8de054658490246bcc33909a7dc901c93894bcf1293546df1a8cf32"
+        },
+        {
+          "path": "security/selinux/selinuxfs.c",
+          "before_sha256": "b6b0d169ca7c1be311ce4522d6b09231052f2f0b042e450fd8d5edadf537689d",
+          "candidate_sha256": "d47ccad982609b1a368798e8bc588cd1395d93faff136326354ea17851f557ac"
+        },
+        {
+          "path": "security/selinux/ss/services.c",
+          "before_sha256": "ec62091d8c0c2d94562d277b0f467a53b01243027a6bf759dd7a13a64fb1ab27",
+          "candidate_sha256": "dcf86993e6cab088037540066868346c5a4814714d91013def9e80bb9a130b47"
+        }
+      ],
+      "Image_promoted": false,
+      "hardware_tested": false
+    }
+  },
+  {
+    "experiment": "kernel-prlimit-20261103-01",
+    "lock_sha256": "b8f24fd047b226d401b02107ca18331f99412bdd1bf42f96fcbb3d0d9f22cc3e",
+    "data": {
+      "scope": "Isolated real prlimit LSM dispatch and syscall read/write mediation; not Android apply-port snapshot",
+      "original_kernel_revision": "669b9584e678ce5865ed38e04c24639082d78de1",
+      "prerequisites": [
+        "qtaguid-persistent-20261022-02",
+        "kernel-policy-reader-20261023-01",
+        "kernel-functionfs-20261023-01",
+        "kernel-netlink-20261101-01",
+        "kernel-mmap-20261103-01",
+        "kernel-xperm-generation-20261103-01",
+        "kernel-netlink-snapshot-20261103-01",
+        "kernel-extsock-20261103-01"
+      ],
+      "patch_sha256": "7a062abffcf757c84ef5e6aed297a4ec7e2ab39d7197ab995ab7471299c11f25",
+      "policycap9_load_rejection_retained": true,
+      "files": [
+        {
+          "path": "include/linux/lsm_hooks.h",
+          "before_sha256": "19f21fad756a34d5483b70ead525cbf987107f4227f5fcd3cace0a14bca672c2",
+          "candidate_sha256": "18cb0003fee0b25505e6b5b895a9b867290d41b10e5f61520e87c77005121612"
+        },
+        {
+          "path": "include/linux/security.h",
+          "before_sha256": "cabefb36df481ff4c83df8ee78d2a61f3b3c67be0588b3d76830978fb1fa762b",
+          "candidate_sha256": "fc0a158a19dd243af9bebea40a8a7b3883cc2a40cdaab2c1c3cd4817cc8647a9"
+        },
+        {
+          "path": "kernel/sys.c",
+          "before_sha256": "d7523a10596a7e9053ec3e1c6351301eb793ea0cdb287aa427a60153550f223e",
+          "candidate_sha256": "e757f77a4c954405ec8e04b49f8ad7d3b1af4c78eb63a0e869b04645b182bbcf"
+        },
+        {
+          "path": "security/security.c",
+          "before_sha256": "1c8d0b5c5bae98158772a9f8fa378f5948a9526adae42dbcb6dbb5aa3f8343c4",
+          "candidate_sha256": "21cafb0b1862d46d60773c04495ab8ad40ddc94342cae55d304fc12d1136e174"
+        },
+        {
+          "path": "security/selinux/hooks.c",
+          "before_sha256": "04c9c572d504fb834a32197d23eb4825f68de17608ec5f97782b7cc2a19e862e",
+          "candidate_sha256": "c5bd19bbb342ab0f4cc6c23a3c0d96761546b940a7aab19da4bf812cdb39a8d5"
+        },
+        {
+          "path": "security/selinux/include/classmap.h",
+          "before_sha256": "82bdb18c54a820f5ab628d98084d347e61a19a753f4dd8bc5e72d7767f9ab4d6",
+          "candidate_sha256": "63fd2ba6c725cab3c66fde77593ef80f84a6aa371be4f4562889248623f69990"
+        }
+      ],
+      "Image_promoted": false,
+      "hardware_tested": false
+    }
+  },
+  {
+    "experiment": "kernel-notify-20261104-01",
+    "lock_sha256": "2be15abb44d844ed8ceaf7aa4b69bc43ee33e5e5de67eb1f76610db7cdf9302f",
+    "data": {
+      "scope": "Isolated inode-watch mediation for enabled inotify and dnotify; FANOTIFY remains disabled",
+      "original_kernel_revision": "669b9584e678ce5865ed38e04c24639082d78de1",
+      "prerequisites": [
+        "qtaguid-persistent-20261022-02",
+        "kernel-policy-reader-20261023-01",
+        "kernel-functionfs-20261023-01",
+        "kernel-netlink-20261101-01",
+        "kernel-mmap-20261103-01",
+        "kernel-xperm-generation-20261103-01",
+        "kernel-netlink-snapshot-20261103-01",
+        "kernel-extsock-20261103-01",
+        "kernel-prlimit-20261103-01"
+      ],
+      "patch_sha256": "0f2840c15f468e8b8bfbb4c218c06b1497e553e797903e9a43d94418cefccf6f",
+      "policycap9_load_rejection_retained": true,
+      "class_ids_unchanged": true,
+      "permission_bit_positions_change": true,
+      "files": [
+        {
+          "path": "fs/notify/dnotify/dnotify.c",
+          "before_sha256": "3828c98fc0f54f0fa33220a2b53de8dbbe70777a71497885e5dd10b033f5e411",
+          "candidate_sha256": "6f5955a2577d8a1b6f8c8153b1d9dbbd00956a5924225c44655277008211f7b4"
+        },
+        {
+          "path": "fs/notify/inotify/inotify_user.c",
+          "before_sha256": "4665488f576f8b62ee45ed80b5e0bd01a81998cab8d11f6b7d6a81182b82e387",
+          "candidate_sha256": "ade737a2ff06de8e638ec8d11dd5b260e9817e4f8488f82d450ff57fbdb37349"
+        },
+        {
+          "path": "include/linux/fsnotify_backend.h",
+          "before_sha256": "9299abf5184b889435193927b5335a2894f717e7c1a9d0d1afdb4c77dea25f2f",
+          "candidate_sha256": "46679e58417f0114fd1fb86b1bc5977627f3ff99892ff7a865245db0f51c372a"
+        },
+        {
+          "path": "include/linux/lsm_hooks.h",
+          "before_sha256": "18cb0003fee0b25505e6b5b895a9b867290d41b10e5f61520e87c77005121612",
+          "candidate_sha256": "4d6c3068b3f50c089b1ae680d8c5898f128eb2df249a5e6aadd8be3347b48216"
+        },
+        {
+          "path": "include/linux/security.h",
+          "before_sha256": "fc0a158a19dd243af9bebea40a8a7b3883cc2a40cdaab2c1c3cd4817cc8647a9",
+          "candidate_sha256": "8368d4d2782c991ab07fc8f1a3dbf0c512dd7881839a88379ac61ebc4707a309"
+        },
+        {
+          "path": "security/security.c",
+          "before_sha256": "21cafb0b1862d46d60773c04495ab8ad40ddc94342cae55d304fc12d1136e174",
+          "candidate_sha256": "e9242f3fde07e09f7244d81c68c1a1168faaa27a4b233d0ff9249ccc67ae5d3b"
+        },
+        {
+          "path": "security/selinux/hooks.c",
+          "before_sha256": "c5bd19bbb342ab0f4cc6c23a3c0d96761546b940a7aab19da4bf812cdb39a8d5",
+          "candidate_sha256": "ae8a23db13fbcccf2987040a9adf5cfca7f9d32f053ad96eee6030c80fc1cb72"
+        },
+        {
+          "path": "security/selinux/include/classmap.h",
+          "before_sha256": "63fd2ba6c725cab3c66fde77593ef80f84a6aa371be4f4562889248623f69990",
+          "candidate_sha256": "2ec98cc1701dc10025046838cef75e6c14caa203649be8b92a42c79b8d3eb2b4"
+        }
+      ],
+      "Image_promoted": false,
+      "hardware_tested": false
+    }
+  },
+  {
+    "experiment": "kernel-perf-20261104-01",
+    "lock_sha256": "0943874d17ebdec259d052f4579342b9786a63808f2961871adb25793d6dfb33",
+    "data": {
+      "scope": "Isolated real perf open/CPU/kernel/trace/read/ioctl/mmap mediation and per-event owner-label lifecycle",
+      "original_kernel_revision": "669b9584e678ce5865ed38e04c24639082d78de1",
+      "prerequisites": [
+        "qtaguid-persistent-20261022-02",
+        "kernel-policy-reader-20261023-01",
+        "kernel-functionfs-20261023-01",
+        "kernel-netlink-20261101-01",
+        "kernel-mmap-20261103-01",
+        "kernel-xperm-generation-20261103-01",
+        "kernel-netlink-snapshot-20261103-01",
+        "kernel-extsock-20261103-01",
+        "kernel-prlimit-20261103-01",
+        "kernel-notify-20261104-01"
+      ],
+      "patch_sha256": "058b578b43fdc1869105017f5d835969d3032f3f5f11e4bf4e94323fc10803c9",
+      "policycap9_load_rejection_retained": true,
+      "existing_class_permission_ids_unchanged": true,
+      "event_layout_and_export_review_required": true,
+      "files": [
+        {
+          "path": "include/linux/lsm_hooks.h",
+          "before_sha256": "4d6c3068b3f50c089b1ae680d8c5898f128eb2df249a5e6aadd8be3347b48216",
+          "candidate_sha256": "7dd8c8004e135b657377542ba3eaad9ceda0c9632fd2c9e96895ab8c422afe73"
+        },
+        {
+          "path": "include/linux/perf_event.h",
+          "before_sha256": "686b48d2ff4736f7ac08253a5ff761df70f0dda3352020cefdf9cc0e1d0aecb0",
+          "candidate_sha256": "bcfafa5f8afb2db06daacc626bf30834d1233ff8d611cec276521cf3546befb7"
+        },
+        {
+          "path": "include/linux/security.h",
+          "before_sha256": "8368d4d2782c991ab07fc8f1a3dbf0c512dd7881839a88379ac61ebc4707a309",
+          "candidate_sha256": "b0b1de67e018010e0cc8718fa21f025a2f6b0bc44f554bb2390442f4e4d6d532"
+        },
+        {
+          "path": "kernel/events/core.c",
+          "before_sha256": "f556e348a40ec685e25b6f7309b882fd00a2442a15d5e82af87e8bfaf27d4dd0",
+          "candidate_sha256": "00b45604af5eaa57f079253f7a600b2c9dd22884dfab0276017a460023372095"
+        },
+        {
+          "path": "kernel/trace/trace_event_perf.c",
+          "before_sha256": "3736da490ef9be606a45d4650608b891c26cd7b0ef8e77165b2094552812b97a",
+          "candidate_sha256": "c36f861ded30f38151525cbb93b3ebe0d76c199bea1278c777793fe5b1a61c67"
+        },
+        {
+          "path": "security/security.c",
+          "before_sha256": "e9242f3fde07e09f7244d81c68c1a1168faaa27a4b233d0ff9249ccc67ae5d3b",
+          "candidate_sha256": "197c88e3ab12aa0d3c52ca00fe5dd2f5bdca406bee0c542058f9198143b5f51a"
+        },
+        {
+          "path": "security/selinux/hooks.c",
+          "before_sha256": "ae8a23db13fbcccf2987040a9adf5cfca7f9d32f053ad96eee6030c80fc1cb72",
+          "candidate_sha256": "e5b75757451174ff0ee95ee89783469b4926d00da264846a7bea0d30b721f08d"
+        },
+        {
+          "path": "security/selinux/include/classmap.h",
+          "before_sha256": "2ec98cc1701dc10025046838cef75e6c14caa203649be8b92a42c79b8d3eb2b4",
+          "candidate_sha256": "9548ed90e9e41665fd33b0efda16e0755a5e6b3927e5e832786ce368e6e9b5d9"
+        },
+        {
+          "path": "security/selinux/include/objsec.h",
+          "before_sha256": "dcaae84a08c27e76905e27e0d4ae63083ece667d1899fc9a6bc19ee0e554f8c0",
+          "candidate_sha256": "7c83b2ceb8f7f01af24a9ff86bcdda7e4a2031b1a68cfa30fdd0e0210c54f824"
+        }
+      ],
+      "Image_promoted": false,
+      "hardware_tested": false
+    }
+  },
+  {
+    "experiment": "kernel-firmware-20261104-01",
+    "lock_sha256": "38ed0f487fae74a3c4810560a92d417d0aabfa369de9aa7afc4c26f5bc9628ff",
+    "data": {
+      "scope": "Isolated real firmware loading mediation via existing old-API hook; direct file and user-helper completion, legacy module and IMA preserved",
+      "original_kernel_revision": "669b9584e678ce5865ed38e04c24639082d78de1",
+      "prerequisites": [
+        "qtaguid-persistent-20261022-02",
+        "kernel-policy-reader-20261023-01",
+        "kernel-functionfs-20261023-01",
+        "kernel-netlink-20261101-01",
+        "kernel-mmap-20261103-01",
+        "kernel-xperm-generation-20261103-01",
+        "kernel-netlink-snapshot-20261103-01",
+        "kernel-extsock-20261103-01",
+        "kernel-prlimit-20261103-01",
+        "kernel-notify-20261104-01",
+        "kernel-perf-20261104-01"
+      ],
+      "patch_sha256": "866ff11dbfacc1744c745c386572f24ddebdb3547e7f00154c58fa2c91d4adcc",
+      "policycap9_load_rejection_retained": true,
+      "existing_class_permission_ids_unchanged": true,
+      "files": [
+        {
+          "path": "security/selinux/hooks.c",
+          "before_sha256": "e5b75757451174ff0ee95ee89783469b4926d00da264846a7bea0d30b721f08d",
+          "candidate_sha256": "2c934952f7c32eff6927e8c595248e47aa02afc32ca071e127cb134b1a719fd4"
+        },
+        {
+          "path": "security/selinux/include/classmap.h",
+          "before_sha256": "9548ed90e9e41665fd33b0efda16e0755a5e6b3927e5e832786ce368e6e9b5d9",
+          "candidate_sha256": "b7c9377a9cc74b2f0d21fdf9b06835e4d5ee6867ea6ca33b1326a8fc32d32743"
+        }
+      ]
+    }
+  },
+  {
+    "experiment": "kernel-capabilities-20261104-01",
+    "lock_sha256": "a13dfc90034d3ab6abbd59cde8a6d2970ffd1186c1d23e16728d89c1b2212656",
+    "data": {
+      "scope": "Real implemented capability profile, actual enforcement prerequisites, reject every other active bit",
+      "original_kernel_revision": "669b9584e678ce5865ed38e04c24639082d78de1",
+      "prerequisites": [
+        "qtaguid-persistent-20261022-02",
+        "kernel-policy-reader-20261023-01",
+        "kernel-functionfs-20261023-01",
+        "kernel-netlink-20261101-01",
+        "kernel-mmap-20261103-01",
+        "kernel-xperm-generation-20261103-01",
+        "kernel-netlink-snapshot-20261103-01",
+        "kernel-extsock-20261103-01",
+        "kernel-prlimit-20261103-01",
+        "kernel-notify-20261104-01",
+        "kernel-perf-20261104-01",
+        "kernel-firmware-20261104-01"
+      ],
+      "patch_sha256": "eb7a252df503cd6de93cd52d4df0cf564162aca51abdceab329c1941c5f267a9",
+      "policycap9_load_rejection_retained": false,
+      "supported_runtime_capability_bits": [
+        0,
+        1,
+        2,
+        3,
+        5,
+        9,
+        12
+      ],
+      "unknown_active_capabilities_rejected": true,
+      "strict_vendor_policy_unchanged": true,
+      "files": [
+        {
+          "path": "security/selinux/include/security.h",
+          "before_sha256": "42da5568f8de054658490246bcc33909a7dc901c93894bcf1293546df1a8cf32",
+          "candidate_sha256": "4546a84346848a32e15809161d3be0b7cb0fc15463ceabcf2f3f9f632cd8d14f"
+        },
+        {
+          "path": "security/selinux/ss/policydb.c",
+          "before_sha256": "bfb0aa8718b86868ad043c83b6e1c0ea6c81954741723e3ef130ea26e76ffb90",
+          "candidate_sha256": "0b85260ae6ab93aedf199a7390d3745c61350bf720a5dd242ad87fd7f298e0a3"
+        }
+      ]
+    }
+  },
+  {
+    "experiment": "kernel-gator-20261105-01",
+    "lock_sha256": "63bf48c83657ab33ee1d8668dba27c4b6b244942e47665b776f748c9be24593a",
+    "data": {
+      "scope": "Stage bounded ARM64 interrupted-register stack tracing for the Gator module.",
+      "prerequisites": [
+        "kernel-capabilities-20261104-01"
+      ],
+      "patch_sha256": "90a6238ff7e68d33cd62ae327a1289dece259ddd313ce1984dbdf49da18edc85",
+      "files": [
+        {
+          "path": "arch/arm64/kernel/stacktrace.c",
+          "before_sha256": "e86a30841e4c44876f64d0d058594d166bdab95fe27b014da0012953f29756a9",
+          "candidate_sha256": "49658e2967aa86cd91c30da1a9a4dfbf318d71120565961198808396a38d676d"
+        },
+        {
+          "path": "drivers/gator/gator_backtrace.c",
+          "before_sha256": "5c1a0cd822cd82bd83f1ae5d5a931317f715dea17e88b68d950d287915a933ac",
+          "candidate_sha256": "b488619f04c536cbb43aec9d04ee337d59d9c3038f7337eaf36b87f57eaba923"
+        }
+      ],
+      "policycap9_load_rejection_retained": false,
+      "supported_runtime_capability_bits": [
+        0,
+        1,
+        2,
+        3,
+        5,
+        9,
+        12
+      ],
+      "unknown_active_capabilities_rejected": true,
+      "android_prebuilt_promoted": false,
+      "hardware_tested": false,
+      "flash_ready": false
+    }
+  },
+  {
+    "experiment": "kernel-netpolicy-20261106-01",
+    "lock_sha256": "0ef3a470a9ac23e19a4c7618cbd7546b13c6d782a21f2618b93a120ff783dff0",
+    "data": {
+      "scope": "Isolated leased cross-family netfilter barrier; explicit guard rules still required, no networking readiness claim",
+      "prerequisites": [
+        "kernel-gator-20261105-01"
+      ],
+      "patch_sha256": "1ba9df5c2f856f1d24e44a365e5dab55061e1d24eec3b09dcd1b86816ca99f1d",
+      "files": [
+        {
+          "path": "net/netfilter/Makefile",
+          "before_sha256": "9fae3254272ec87a3d7adbcf590877ec1e2fcea483daea614bafe2a1833187e0",
+          "candidate_sha256": "31519760551a96cfe5c9b54694db87b2ca970a65e16250b3ae14db29b72f0d10"
+        },
+        {
+          "path": "net/netfilter/gta3xlwifi_netpolicy.c",
+          "before_sha256": null,
+          "candidate_sha256": "850f5f35d65bc6f4db7211a4fa15e5b2859ae90f6139edf0107fcb104db7d751"
+        },
+        {
+          "path": "include/uapi/linux/netfilter/gta3xlwifi_netpolicy.h",
+          "before_sha256": null,
+          "candidate_sha256": "fd53c8c287840054ac9234efdabd88302140d95fc1488c57080de499a835d54c"
+        }
+      ],
+      "supported_runtime_capability_bits": [
+        0,
+        1,
+        2,
+        3,
+        5,
+        9,
+        12
+      ],
+      "unknown_active_capabilities_rejected": true,
+      "android_prebuilt_promoted": false,
+      "hardware_tested": false,
+      "flash_ready": false
+    }
+  }
+]

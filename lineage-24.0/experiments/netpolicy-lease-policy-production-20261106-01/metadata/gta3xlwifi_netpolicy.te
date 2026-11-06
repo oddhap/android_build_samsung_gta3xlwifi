@@ -1,0 +1,7 @@
+# SPDX-License-Identifier: Apache-2.0
+# Explicit isolated proposal for the exclusively owned packet-barrier lease.
+type gta3xlwifi_netpolicy_device, dev_type;
+type sysfs_gta3xlwifi_netpolicy, fs_type, sysfs_type;
+allow netd gta3xlwifi_netpolicy_device:chr_file { open read getattr ioctl };
+allowxperm netd gta3xlwifi_netpolicy_device:chr_file ioctl { 0x6750-0x6753 };
+allow netd sysfs_gta3xlwifi_netpolicy:file { open read getattr };

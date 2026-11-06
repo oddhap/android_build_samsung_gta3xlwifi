@@ -1,0 +1,73 @@
+diff --git a/extensions/libxt_gta3xlwifi_guard.c b/extensions/libxt_gta3xlwifi_guard.c
+new file mode 100644
+--- /dev/null
++++ b/extensions/libxt_gta3xlwifi_guard.c
+@@ -0,0 +1,39 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++/* Opt-in leased packet barrier; no rule installation or readiness claim. */
++#include <stdio.h>
++#include <string.h>
++#include <xtables.h>
++#include <linux/netfilter/gta3xlwifi_netpolicy.h>
++
++static void guard_help(void)
++{
++	printf("gta3xlwifi_guard: matches while the leased barrier is held; no options\n");
++}
++
++static void guard_init(struct xt_entry_match *match)
++{
++	memset(match->data, 0, sizeof(struct gta3xlwifi_netpolicy_match));
++}
++
++static void guard_print(const void *ip, const struct xt_entry_match *match,
++			int numeric)
++{
++	printf(" gta3xlwifi_guard");
++}
++
++static struct xtables_match guard_match = {
++	.family = NFPROTO_UNSPEC,
++	.name = GTA3XLWIFI_NETPOLICY_MATCH,
++	.revision = 0,
++	.version = XTABLES_VERSION,
++	.size = XT_ALIGN(sizeof(struct gta3xlwifi_netpolicy_match)),
++	.userspacesize = XT_ALIGN(sizeof(struct gta3xlwifi_netpolicy_match)),
++	.help = guard_help,
++	.init = guard_init,
++	.print = guard_print,
++};
++
++void _init(void)
++{
++	xtables_register_match(&guard_match);
++}
+diff --git a/include/linux/netfilter/gta3xlwifi_netpolicy.h b/include/linux/netfilter/gta3xlwifi_netpolicy.h
+new file mode 100644
+--- /dev/null
++++ b/include/linux/netfilter/gta3xlwifi_netpolicy.h
+@@ -0,0 +1,24 @@
++/* SPDX-License-Identifier: GPL-2.0 WITH Linux-syscall-note */
++#ifndef _UAPI_GTA3XLWIFI_NETPOLICY_H
++#define _UAPI_GTA3XLWIFI_NETPOLICY_H
++#include <linux/ioctl.h>
++#include <linux/types.h>
++
++#define GTA3XLWIFI_NETPOLICY_VERSION 1
++#define GTA3XLWIFI_NETPOLICY_ABI     _IO('g', 0x50)
++#define GTA3XLWIFI_NETPOLICY_HOLD    _IO('g', 0x51)
++#define GTA3XLWIFI_NETPOLICY_RELEASE _IO('g', 0x52)
++#define GTA3XLWIFI_NETPOLICY_STATE   _IO('g', 0x53)
++#define GTA3XLWIFI_NETPOLICY_MATCH "gta3xlwifi_guard"
++
++/* No pointers or arguments: identical ioctl numbers on ARM32 and ARM64.
++ * ABI returns VERSION; STATE returns 1 when held, 0 when released.
++ * All other successful commands return 0. Every argument must be zero.
++ * Opening exclusively acquires a closed lease. Owner close/exit closes the
++ * barrier even if forked children still hold the file. This neither installs
++ * rules nor proves complete networking readiness.
++ */
++struct gta3xlwifi_netpolicy_match {
++	__u8 reserved[4];
++};
++#endif

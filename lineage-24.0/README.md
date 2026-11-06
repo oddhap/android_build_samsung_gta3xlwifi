@@ -634,3 +634,22 @@ boundary probes pass. The [checked-chain I/O component](experiments/checked-uid-
 passes84 synthetic I/O cases and actual netd ARM64 CFI object compilation. It
 still needs a complete authoritative backend and dual-stack lifecycle. Neither
 experiment is selected into Android images. No ROM is flash-ready.
+
+## November 6: isolated leased packet barrier
+
+[The kernel proposal](experiments/kernel-netpolicy-20261106-01/) supplies a
+process-owned, initially held packet-barrier match with one IPv4/IPv6 state.
+The complete isolated Image/module build passed with unchanged configuration,
+all 118 Gator/43 KUTF imports and full candidate/protected source hash audits.
+44 actual-function host fixture cases cover ownership, close and grace ordering.
+[Its builtin xtables extension](experiments/xtables-guard-20261106-01/) passes
+complete actual ARM64 iptables linking, registry machine-code verification and
+full Android source audits. Neither proposal is selected into Android images.
+
+Explicit isolated lease-device policy proposals pass strict production/debug
+compilation, preserving all 5,918/5,881 existing assertions and constraints.
+17 permission queries per profile, actual genfs/file-context checks, four ioctl
+contradiction failures and both neighboring-ioctl denial assertions pass. No
+policy input is automatically replaced. Verified packet attachments, owner
+transport, the complete Android17 networking backend and installation/FBE/
+rollback integration remain required. No flash-ready ROM is produced.

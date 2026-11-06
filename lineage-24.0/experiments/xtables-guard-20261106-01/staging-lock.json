@@ -1,0 +1,22 @@
+{
+  "scope": "Isolated builtin packet-barrier match registration; no TOP or rule changes",
+  "project": "external/iptables",
+  "revision": "df1a07fd3d0c157a71a4c157cc728062a01032b2",
+  "patch_sha256": "b96611b1414c501ec6f785a3bc0d35d8251cb333a12e815878e497f527fcb1cd",
+  "files": [
+    {
+      "path": "extensions/libxt_gta3xlwifi_guard.c",
+      "before_sha256": null,
+      "candidate_sha256": "a976d9215ae167143e3e5d9f023a90cff5e1eddcab8bc06514cf589c486aebc1"
+    },
+    {
+      "path": "include/linux/netfilter/gta3xlwifi_netpolicy.h",
+      "before_sha256": null,
+      "candidate_sha256": "fd53c8c287840054ac9234efdabd88302140d95fc1488c57080de499a835d54c"
+    }
+  ],
+  "kernel_proposal": "kernel-netpolicy-20261106-01",
+  "kernel_uapi_byte_identical": true,
+  "active_source_changed": false,
+  "flash_ready": false
+}
