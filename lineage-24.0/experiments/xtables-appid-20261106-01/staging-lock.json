@@ -1,0 +1,24 @@
+{
+  "scope": "Isolated private per-user appId match registration alongside exact leased-barrier extension",
+  "project": "external/iptables",
+  "revision": "df1a07fd3d0c157a71a4c157cc728062a01032b2",
+  "prerequisites": [
+    "xtables-guard-20261106-01"
+  ],
+  "kernel_prerequisite": "kernel-appid-20261106-01",
+  "patch_sha256": "a68e7f786ff4d007cef165f31f0df1526160b6cf8109c72992ffedf56ed6808f",
+  "files": [
+    {
+      "path": "extensions/libxt_gta3xlwifi_appid.c",
+      "before_sha256": null,
+      "candidate_sha256": "4e3f868d52d72f707692163d1a002e6775f0ad88c4d851d6923ee152fc89ea33"
+    },
+    {
+      "path": "include/linux/netfilter/gta3xlwifi_appid.h",
+      "before_sha256": null,
+      "candidate_sha256": "0d06023da8290add60e73c90679328af285431609bca34260453d7055810067e"
+    }
+  ],
+  "active_source_changed": false,
+  "flash_ready": false
+}

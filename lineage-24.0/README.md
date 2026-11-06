@@ -682,3 +682,13 @@ netd binary link. It adds the held guard in the same exclusive filter-root rebui
 transaction, retaining other command sequences and original dependencies. Full
 source audits pass. The complete owner still must acquire the lease before
 Controllers startup; no main/service/backend/readiness wiring is applied here.
+
+[The independent appId match](experiments/kernel-appid-20261106-01/) implements
+per-user UID modulo100000 using the real Samsung socket-UID/INPUT lookup path.
+22 host fixture cases and343599 comparisons against the actual Android17
+system-UID predicate pass. Full isolated Image/modules build passes with unchanged
+config and Gator/KUTF CRCs, full kernel/protected and Android reference audits.
+[Both private xtables extensions](experiments/xtables-appid-20261106-01/) now link
+together into the whole ARM64 iptables binary, with actual registration machine
+code and full source audits. No packet execution, owner/backend readiness or
+Android prebuilt promotion is inferred from these build results.

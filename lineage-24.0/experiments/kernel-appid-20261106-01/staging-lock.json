@@ -1,0 +1,32 @@
+{
+  "scope": "Isolated explicit appId match with real Samsung socket UID/INPUT lookup; no owner revision1 changes",
+  "prerequisites": [
+    "kernel-netpolicy-20261106-01"
+  ],
+  "patch_sha256": "68d00b6a1500249756e2b2146205072e68e55dae298b4bf11621fca534d2143a",
+  "files": [
+    {
+      "path": "net/netfilter/xt_qtaguid.c",
+      "before_sha256": "212e2e4c3d459293a3427d2f715fb1843fac521787a7817c1f2d455598b254f3",
+      "candidate_sha256": "f6b47d791c521624fd6436193ce40fcc516c9ec4dd19ea5c75f19d8be1d0ac3e"
+    },
+    {
+      "path": "include/uapi/linux/netfilter/gta3xlwifi_appid.h",
+      "before_sha256": null,
+      "candidate_sha256": "0d06023da8290add60e73c90679328af285431609bca34260453d7055810067e"
+    }
+  ],
+  "supported_runtime_capability_bits": [
+    0,
+    1,
+    2,
+    3,
+    5,
+    9,
+    12
+  ],
+  "unknown_active_capabilities_rejected": true,
+  "android_prebuilt_promoted": false,
+  "hardware_tested": false,
+  "flash_ready": false
+}

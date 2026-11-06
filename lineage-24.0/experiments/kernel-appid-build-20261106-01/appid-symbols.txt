@@ -1,0 +1,6 @@
+ffffff800929b0f0 t __initcall_gta3xlwifi_appid_init6
+ffffff800929b0f8 t __initcall_qtaguid_mt_init6
+ffffff8008af7394 t gta3xlwifi_appid_check
+ffffff8009259fdc t gta3xlwifi_appid_init
+ffffff8008af7d50 t gta3xlwifi_appid_mt
+ffffff80097630e8 d gta3xlwifi_appid_reg

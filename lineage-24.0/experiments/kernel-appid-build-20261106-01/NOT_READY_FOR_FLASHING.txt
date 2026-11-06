@@ -1,0 +1,1 @@
+DIAGNOSTIC ONLY. Explicit appId packet match plus leased barrier and preserved reviewed kernel prerequisites. NOT FLASHABLE. No TOP/prebuilt/device changes; whole policy, networking, module ABI and runtime remain unvalidated.

@@ -1,0 +1,33 @@
+{
+  "passed": true,
+  "scope": "Compare the actual private appId match with the Android17 system-UID predicate.\n\nActual C bodies run with fatal UBSan. Socket references/lookup, namespace and\nregistration are fixtures; no real kernel packets, rules or devices are tested.\n",
+  "passed_cases": 22,
+  "actual_android17_predicate_comparisons": 343599,
+  "stderr": "",
+  "command": [
+    "cc",
+    "-std=gnu11",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-fsanitize=undefined",
+    "-fno-sanitize-recover=all",
+    "-I/srv/android/artifacts/lineage-24.0-arm64/kernel-appid-host-20261106-02/include",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-appid-host-20261106-02/test.c",
+    "-o",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-appid-host-20261106-02/test"
+  ],
+  "inputs_sha256": {
+    "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/test-kernel-appid24.py": "218ce715b841a4581579d45e101d5973988cc60fd32a4e822d5c643b38882291",
+    "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/test-kernel-qtaguid-socket-owned.py": "59516300b405af46c972b264353c3766b5c18cf882b04ac8ba9db6f70f436459",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-appid24-20261106-01/net/netfilter/xt_qtaguid.c": "f6b47d791c521624fd6436193ce40fcc516c9ec4dd19ea5c75f19d8be1d0ac3e",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-appid24-20261106-01/include/uapi/linux/netfilter/gta3xlwifi_appid.h": "0d06023da8290add60e73c90679328af285431609bca34260453d7055810067e",
+    "/srv/android/src/lineage-24.0-arm64/packages/modules/Connectivity/bpf/progs/netd.h": "ae85473717243924c609f8d963d03bc2631adbba8833ae527bf611291f38ca1a",
+    "/srv/android/src/lineage-24.0-arm64/system/core/libcutils/include/private/android_filesystem_config.h": "faad70383216abcf935ec76678bb5b40ca65b6396a0028a8fa6ffe9b9087eb37",
+    "/srv/android/src/lineage-24.0-arm64/packages/modules/Connectivity/bpf/progs/netd.c": "7dc4fa02952c0268737dc9aad20a0571b55df255f878506a4db91c1d962713b6",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-appid-host-20261106-02/test.c": "f13f39ba7d261f728e37e22a36a28efc7b9febedf9d83e299cc4ecce2de0abc7",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-appid-host-20261106-02/include/linux/netfilter/gta3xlwifi_appid.h": "0d06023da8290add60e73c90679328af285431609bca34260453d7055810067e"
+  },
+  "hardware_tested": false,
+  "flash_ready": false
+}

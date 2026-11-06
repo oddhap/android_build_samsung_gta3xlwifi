@@ -1,0 +1,7 @@
+/srv/android/artifacts/lineage-24.0-arm64/kernel-appid-host-20261106-01/test.c:24:43: error: ‘puts’ redeclared as different kind of symbol
+   24 | static struct sock* found;static unsigned puts,lookups;
+      |                                           ^~~~
+In file included from /srv/android/artifacts/lineage-24.0-arm64/kernel-appid-host-20261106-01/test.c:5:
+/usr/include/stdio.h:661:12: note: previous declaration of ‘puts’ with type ‘int(const char *)’
+  661 | extern int puts (const char *__s);
+      |            ^~~~
