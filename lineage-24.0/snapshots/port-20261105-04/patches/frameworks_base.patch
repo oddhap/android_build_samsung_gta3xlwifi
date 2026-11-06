@@ -1,0 +1,13 @@
+diff --git a/media/java/android/media/AudioHalVersionInfo.java b/media/java/android/media/AudioHalVersionInfo.java
+index 3e456a65c2e42a2a5093bcb4b407fa15130b3f9a..5ba7fdbec3ff45b23cc79cbed22c5651e3abe4f6 100644
+--- a/media/java/android/media/AudioHalVersionInfo.java
++++ b/media/java/android/media/AudioHalVersionInfo.java
+@@ -84,7 +84,7 @@ public final class AudioHalVersionInfo implements Parcelable, Comparable<AudioHa
+      * there is a change to supported versions.
+      */
+     public static final @NonNull List<AudioHalVersionInfo> VERSIONS =
+-            List.of(AIDL_1_0, HIDL_7_1, HIDL_7_0, HIDL_6_0);
++            List.of(AIDL_1_0, HIDL_7_1, HIDL_7_0, HIDL_6_0, HIDL_4_0);
+ 
+     private static final String TAG = "AudioHalVersionInfo";
+     private AudioHalVersion mHalVersion = new AudioHalVersion();

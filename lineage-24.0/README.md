@@ -14,7 +14,9 @@ The initial 23.2 port patches compiled successfully on Android 17 in
 `native-policy-20261101-01` (exit 0, followed by full source audit). Selected
 ARM/ARM64 ELF outputs are recorded in the reports; this is build/link evidence.
 
-Active snapshot **port-20261103-07** locks 1,243 projects and **15 exact patches**.
+Active snapshot **port-20261106-01** locks 1,243 projects and **16 exact patches**.
+It includes the device-scoped legacy v1 fscrypt keyring source integration;
+actual native compilation is in progress as recorded below.
 It adds a source backport of policy 30.0 compatibility data and generator modules,
 with the frozen API30 source copied verbatim from the pinned prior platform.
 The framework advertises 30.0 only for gta3xlwifi. Device inputs are separately
@@ -557,3 +559,16 @@ passed the actual kernel-reader/services/AVC/netlink host regression with zero
 Android17 libsepol differences. The final binaries need fresh regression after
 the isolated Gator kernel/module build. See [startup source review](reports/startup-source-review-20261105.md)
 for the actual fork/cpuacct and in-kernel LMK paths; it does not claim runtime proof.
+
+
+## November5: real legacy fscrypt source integration
+
+The [legacy fscrypt proposal](experiments/legacy-fscrypt-20261105-02/) restores the
+actual init session keyring and v1 raw-key install/evict API missing in Android17.
+It keeps encryption and current SELinux rules, and never converts unsupported v2,
+wrapped-key or permission errors into success. The final synthetic syscall/real
+code probe passes 88 cases with fatal sanitizer handling and matching Samsung
+UAPI payload layout; it does not exercise actual encryption or TEE keys.
+Snapshot port-20261105-03 audits 1,243 projects/16 patches, with exact composition
+proof and pinned device e998435. Actual init/vold compilation is in progress.
+No ROM is flash-ready and no original kernel/vendor/recovery/data input changes.

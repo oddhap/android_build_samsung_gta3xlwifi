@@ -1,0 +1,81 @@
+{
+  "passed": true,
+  "scope": "Exercise actual legacy init/keyutils/vold bodies with synthetic syscall fixtures.\n\nUses the real Android17 descriptor SHA512 and KeyBuffer allocator. Kernel key\npermissions, filesystem cipher I/O, open-inode lifetime and TEE are not exercised.\nNo real keyring syscall or device/user key material is accessed.\n",
+  "results": [
+    {
+      "legacy_profile_enabled": false,
+      "command": [
+        "/usr/lib/llvm-14/bin/clang",
+        "--driver-mode=g++",
+        "-std=gnu++17",
+        "--ld-path=/srv/android/src/lineage-24.0-arm64/prebuilts/clang/host/linux-x86/clang-r584948/bin/ld.lld",
+        "-O1",
+        "-g",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-Wno-unused-function",
+        "-Wno-unused-const-variable",
+        "-Wno-deprecated-declarations",
+        "-fsanitize=address,undefined",
+        "-I/srv/android/ports/lineage-24.0-arm64/fscrypt-20261105-02/system/core/libgta3xlwifi_keyutils/include",
+        "-I/srv/android/src/lineage-24.0-arm64/external/boringssl/src/include",
+        "/srv/android/artifacts/lineage-24.0-arm64/legacy-fscrypt-host-20261105-07/fixture.cpp",
+        "/srv/android/src/lineage-24.0-arm64/out/soong/.intermediates/external/boringssl/libcrypto_static/linux_glibc_x86_64_static/libcrypto_static.a",
+        "-lpthread",
+        "-ldl",
+        "-o",
+        "/srv/android/artifacts/lineage-24.0-arm64/legacy-fscrypt-host-20261105-07/modern"
+      ],
+      "stdout": "passed_cases=32\n"
+    },
+    {
+      "legacy_profile_enabled": true,
+      "command": [
+        "/usr/lib/llvm-14/bin/clang",
+        "--driver-mode=g++",
+        "-std=gnu++17",
+        "--ld-path=/srv/android/src/lineage-24.0-arm64/prebuilts/clang/host/linux-x86/clang-r584948/bin/ld.lld",
+        "-O1",
+        "-g",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-Wno-unused-function",
+        "-Wno-unused-const-variable",
+        "-Wno-deprecated-declarations",
+        "-fsanitize=address,undefined",
+        "-DGTA3XLWIFI_LEGACY_FSCRYPT",
+        "-I/srv/android/ports/lineage-24.0-arm64/fscrypt-20261105-02/system/core/libgta3xlwifi_keyutils/include",
+        "-I/srv/android/src/lineage-24.0-arm64/external/boringssl/src/include",
+        "/srv/android/artifacts/lineage-24.0-arm64/legacy-fscrypt-host-20261105-07/fixture.cpp",
+        "/srv/android/src/lineage-24.0-arm64/out/soong/.intermediates/external/boringssl/libcrypto_static/linux_glibc_x86_64_static/libcrypto_static.a",
+        "-lpthread",
+        "-ldl",
+        "-o",
+        "/srv/android/artifacts/lineage-24.0-arm64/legacy-fscrypt-host-20261105-07/legacy"
+      ],
+      "stdout": "passed_cases=56\n"
+    }
+  ],
+  "descriptor_sha512_oracle": "04334e23057a6e2d",
+  "inputs_sha256": {
+    "/srv/android/ports/lineage-24.0-arm64/kernel-gator-20261105-01/src/include/uapi/linux/fs.h": "fdb924b90675cdc1e82e45cd422dadaccd312d3d8913cff9e3041f8a8bf850e1",
+    "/usr/lib/llvm-14/bin/clang": "31925065812631303cf9af9a30b2f56427d2102667a87a9fb4ba03a306104589",
+    "/srv/android/src/lineage-24.0-arm64/prebuilts/clang/host/linux-x86/clang-r584948/bin/ld.lld": "439c7c7449c66d10ed94f045d11b006786623e8032fefbb4825b11ebe752965a",
+    "/srv/android/ports/lineage-24.0-arm64/fscrypt-20261105-02/system/vold/KeyUtil.cpp": "b5dcab3f13f527b4eaeaaf1df24883eea0467e5f9ae57bca47c7c0c5d3d3fa85",
+    "/srv/android/ports/lineage-24.0-arm64/fscrypt-20261105-02/system/core/init/init.cpp": "18192dcca819ef4a990e976156eb3ab42645f4cbbb970591f1131d6e3ab37318",
+    "/srv/android/src/lineage-24.0-arm64/bionic/libc/kernel/uapi/linux/fscrypt.h": "755f514b05f06cc2d4c891fa348074bae1b47ac8d6b78bf200eb66a284fad5ff",
+    "/srv/android/src/lineage-24.0-arm64/system/extras/libfscrypt/include/fscrypt/fscrypt.h": "a892a04699018177430b7e7b4fe49f330c339a7474d5e9c0f6ef1038d6fd7d04",
+    "/srv/android/src/lineage-24.0-arm64/system/vold/KeyBuffer.h": "b78b62bf0dcf1078889275d768b5e77ed86e5e85d8954365f9007e40543a6b8b",
+    "/srv/android/src/lineage-24.0-arm64/out/soong/.intermediates/external/boringssl/libcrypto_static/linux_glibc_x86_64_static/libcrypto_static.a": "3e2f21937f4050c0e34ff1650e1092fc6d14b29890f36893de154f3366fc55f4",
+    "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/test-legacy-fscrypt.py": "824e33bd4987a6a46b220c548e706db48b63acca2ebb23b64c6f3e6a0b18ce9c",
+    "/srv/android/ports/lineage-24.0-arm64/fscrypt-20261105-02/system/core/libgta3xlwifi_keyutils/keyutils.cpp": "73d8403a808b5315c917917d0fc68a37a8db73d4d52eb828f9a73bb3cf424fd9",
+    "/srv/android/ports/lineage-24.0-arm64/fscrypt-20261105-02/system/core/libgta3xlwifi_keyutils/include/keyutils.h": "0f5e53ce3e63fc7da54da6d37c66f90526fc58093b3cf704f2b4d45f322c351e"
+  },
+  "samsung_uapi_payload_layout_matches_android17": true,
+  "no_real_keyring_syscalls": true,
+  "actual_key_material_accessed": false,
+  "hardware_tested": false,
+  "flash_ready": false
+}

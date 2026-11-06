@@ -1,0 +1,260 @@
+--- a/init/init.cpp
++++ b/init/init.cpp
+@@ -15,6 +15,9 @@
+  */
+ 
+ #include "init.h"
++#ifdef GTA3XLWIFI_LEGACY_FSCRYPT
++#include <keyutils.h>
++#endif
+ 
+ #include <dirent.h>
+ #include <fcntl.h>
+@@ -1063,6 +1066,27 @@
+     monitor_thread.detach();
+ }
+ 
++#ifdef GTA3XLWIFI_LEGACY_FSCRYPT
++// Must run before property threads or service forks, so every child inherits
++// the same real session keyring. Storage key payloads are inserted only by vold.
++static bool SetupLegacyFscryptKeyrings() {
++    if (keyctl_get_keyring_ID(KEY_SPEC_SESSION_KEYRING, 1) < 0) {
++        PLOG(ERROR) << "Cannot create inherited session keyring";
++        return false;
++    }
++    if (keyctl_search(KEY_SPEC_SESSION_KEYRING, "keyring", "fscrypt", 0) >= 0) return true;
++    if (errno != ENOKEY) {
++        PLOG(ERROR) << "Cannot inspect fscrypt keyring";
++        return false;
++    }
++    if (add_key("keyring", "fscrypt", nullptr, 0, KEY_SPEC_SESSION_KEYRING) < 0) {
++        PLOG(ERROR) << "Cannot create fscrypt keyring";
++        return false;
++    }
++    return true;
++}
++#endif
++
+ int SecondStageMain(int argc, char** argv) {
+     if (REBOOT_BOOTLOADER_ON_PANIC && !AttemptingToBootNewSlot()) {
+         InstallRebootSignalHandlers();
+@@ -1105,6 +1129,12 @@
+         LOG(ERROR) << "Unable to write " << DEFAULT_OOM_SCORE_ADJUST
+                    << " to /proc/1/oom_score_adj: " << result.error();
+     }
++
++#ifdef GTA3XLWIFI_LEGACY_FSCRYPT
++    if (!SetupLegacyFscryptKeyrings()) {
++        LOG(FATAL) << "Legacy encrypted storage keyring setup failed";
++    }
++#endif
+ 
+     // Indicate that booting is in progress to background fw loaders, etc.
+     close(open("/dev/.booting", O_WRONLY | O_CREAT | O_CLOEXEC, 0000));
+--- a/init/Android.bp
++++ b/init/Android.bp
+@@ -234,6 +234,7 @@
+     name: "libinit_defaults",
+     recovery_available: true,
+     defaults: [
++        "gta3xlwifi_legacy_fscrypt_defaults",
+         "init_defaults",
+         "selinux_policy_version",
+     ],
+--- /dev/null
++++ b/libgta3xlwifi_keyutils/keyutils.cpp
+@@ -0,0 +1,69 @@
++/*
++ * Copyright (C) 2017 The Android Open Source Project
++ * All rights reserved.
++ *
++ * Redistribution and use in source and binary forms, with or without
++ * modification, are permitted provided that the following conditions
++ * are met:
++ *  * Redistributions of source code must retain the above copyright
++ *    notice, this list of conditions and the following disclaimer.
++ *  * Redistributions in binary form must reproduce the above copyright
++ *    notice, this list of conditions and the following disclaimer in
++ *    the documentation and/or other materials provided with the
++ *    distribution.
++ *
++ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
++ * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
++ * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
++ * FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
++ * COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
++ * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
++ * BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS
++ * OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED
++ * AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
++ * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT
++ * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
++ * SUCH DAMAGE.
++ */
++
++#include <keyutils.h>
++
++#include <stdarg.h>
++#include <sys/syscall.h>
++#include <unistd.h>
++
++// keyctl(2) is deliberately not exposed. Callers should use the typed APIs instead.
++
++key_serial_t add_key(const char* type, const char* description, const void* payload,
++                     size_t payload_length, key_serial_t ring_id) {
++  return syscall(__NR_add_key, type, description, payload, payload_length, ring_id);
++}
++
++key_serial_t keyctl_get_keyring_ID(key_serial_t id, int create) {
++  return syscall(__NR_keyctl, KEYCTL_GET_KEYRING_ID, id, create);
++}
++
++long keyctl_revoke(key_serial_t id) {
++  return syscall(__NR_keyctl, KEYCTL_REVOKE, id);
++}
++
++long keyctl_search(key_serial_t ring_id, const char* type, const char* description,
++                   key_serial_t dest_ring_id) {
++  return syscall(__NR_keyctl, KEYCTL_SEARCH, ring_id, type, description, dest_ring_id);
++}
++
++long keyctl_setperm(key_serial_t id, int permissions) {
++  return syscall(__NR_keyctl, KEYCTL_SETPERM, id, permissions);
++}
++
++long keyctl_unlink(key_serial_t key, key_serial_t keyring) {
++  return syscall(__NR_keyctl, KEYCTL_UNLINK, key, keyring);
++}
++
++long keyctl_restrict_keyring(key_serial_t keyring, const char* type, const char* restriction) {
++  return syscall(__NR_keyctl, KEYCTL_RESTRICT_KEYRING, keyring, type, restriction);
++}
++
++long keyctl_get_security(key_serial_t id, char* buffer, size_t buflen) {
++  return syscall(__NR_keyctl, KEYCTL_GET_SECURITY, id, buffer, buflen);
++}
+--- /dev/null
++++ b/libgta3xlwifi_keyutils/NOTICE
+@@ -0,0 +1,25 @@
++Copyright (C) 2017 The Android Open Source Project
++All rights reserved.
++
++Redistribution and use in source and binary forms, with or without
++modification, are permitted provided that the following conditions
++are met:
++ * Redistributions of source code must retain the above copyright
++   notice, this list of conditions and the following disclaimer.
++ * Redistributions in binary form must reproduce the above copyright
++   notice, this list of conditions and the following disclaimer in
++   the documentation and/or other materials provided with the
++   distribution.
++
++THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
++"AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
++LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
++FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
++COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
++INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
++BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS
++OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED
++AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
++OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT
++OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
++SUCH DAMAGE.
+--- /dev/null
++++ b/libgta3xlwifi_keyutils/include/keyutils.h
+@@ -0,0 +1,61 @@
++/*
++ * Copyright (C) 2017 The Android Open Source Project
++ * All rights reserved.
++ *
++ * Redistribution and use in source and binary forms, with or without
++ * modification, are permitted provided that the following conditions
++ * are met:
++ *  * Redistributions of source code must retain the above copyright
++ *    notice, this list of conditions and the following disclaimer.
++ *  * Redistributions in binary form must reproduce the above copyright
++ *    notice, this list of conditions and the following disclaimer in
++ *    the documentation and/or other materials provided with the
++ *    distribution.
++ *
++ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
++ * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
++ * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
++ * FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
++ * COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
++ * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
++ * BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS
++ * OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED
++ * AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
++ * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT
++ * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
++ * SUCH DAMAGE.
++ */
++
++#ifndef _KEYUTILS_H_
++#define _KEYUTILS_H_
++
++#include <linux/keyctl.h>
++#include <stdint.h>
++#include <stddef.h>
++#include <sys/cdefs.h>
++
++__BEGIN_DECLS
++
++typedef int32_t key_serial_t;
++
++key_serial_t add_key(const char* type, const char* description, const void* payload,
++                     size_t payload_length, key_serial_t ring_id);
++
++key_serial_t keyctl_get_keyring_ID(key_serial_t id, int create);
++
++long keyctl_revoke(key_serial_t id); /* TODO: remove this */
++
++long keyctl_search(key_serial_t ring_id, const char* type, const char* description,
++                   key_serial_t dest_ring_id);
++
++long keyctl_setperm(key_serial_t id, int permissions);
++
++long keyctl_unlink(key_serial_t key, key_serial_t keyring);
++
++long keyctl_restrict_keyring(key_serial_t keyring, const char* type, const char* restriction);
++
++long keyctl_get_security(key_serial_t key, char* buffer, size_t buflen);
++
++__END_DECLS
++
++#endif
+--- /dev/null
++++ b/libgta3xlwifi_keyutils/Android.bp
+@@ -0,0 +1,30 @@
++package {
++    default_applicable_licenses: ["gta3xlwifi_keyutils_license"],
++}
++license {
++    name: "gta3xlwifi_keyutils_license",
++    visibility: [":__subpackages__"],
++    license_kinds: ["SPDX-license-identifier-BSD"],
++    license_text: ["NOTICE"],
++}
++cc_library_static {
++    name: "libgta3xlwifi_keyutils",
++    ramdisk_available: true,
++    vendor_ramdisk_available: true,
++    recovery_available: true,
++    export_include_dirs: ["include"],
++    srcs: ["keyutils.cpp"],
++    cflags: ["-Wall", "-Wextra", "-Werror"],
++    stl: "none",
++}
++cc_defaults {
++    name: "gta3xlwifi_legacy_fscrypt_defaults",
++    cflags: select(soong_config_variable("gta3xlwifi", "legacy_fscrypt"), {
++        true: ["-DGTA3XLWIFI_LEGACY_FSCRYPT"],
++        default: [],
++    }),
++    static_libs: select(soong_config_variable("gta3xlwifi", "legacy_fscrypt"), {
++        true: ["libgta3xlwifi_keyutils"],
++        default: [],
++    }),
++}

@@ -1,0 +1,512 @@
+diff --git a/init/Android.bp b/init/Android.bp
+index 703542f342cfe18e6e4cc26f6856cd1b091e6851..c5a0bd13c331ae6206d920d9f516aa8e95a9da80 100644
+--- a/init/Android.bp
++++ b/init/Android.bp
+@@ -115,6 +115,7 @@ soong_config_module_type {
+ 
+ libinit_cc_defaults {
+     name: "init_defaults",
++    defaults: ["gta3xlwifi_legacy_fscrypt_defaults"],
+     sanitize: {
+         misc_undefined: ["signed-integer-overflow"],
+     },
+diff --git a/init/init.cpp b/init/init.cpp
+index aec2688fc8387d1166be7e6a6e24e4a536337c03..37c66942b5c84b48c00c93aa7bdcd36577d16574 100644
+--- a/init/init.cpp
++++ b/init/init.cpp
+@@ -15,6 +15,9 @@
+  */
+ 
+ #include "init.h"
++#ifdef GTA3XLWIFI_LEGACY_FSCRYPT
++#include <keyutils.h>
++#endif
+ 
+ #include <dirent.h>
+ #include <fcntl.h>
+@@ -1063,6 +1066,27 @@ static void StartSecondStageBootMonitor(int timeout_sec) {
+     monitor_thread.detach();
+ }
+ 
++#ifdef GTA3XLWIFI_LEGACY_FSCRYPT
++// Must run before property threads or service forks, so every child inherits
++// the same real session keyring. Storage key payloads are inserted only by vold.
++static bool SetupLegacyFscryptKeyrings() {
++    if (keyctl_get_keyring_ID(KEY_SPEC_SESSION_KEYRING, 1) < 0) {
++        PLOG(ERROR) << "Cannot create inherited session keyring";
++        return false;
++    }
++    if (keyctl_search(KEY_SPEC_SESSION_KEYRING, "keyring", "fscrypt", 0) >= 0) return true;
++    if (errno != ENOKEY) {
++        PLOG(ERROR) << "Cannot inspect fscrypt keyring";
++        return false;
++    }
++    if (add_key("keyring", "fscrypt", nullptr, 0, KEY_SPEC_SESSION_KEYRING) < 0) {
++        PLOG(ERROR) << "Cannot create fscrypt keyring";
++        return false;
++    }
++    return true;
++}
++#endif
++
+ int SecondStageMain(int argc, char** argv) {
+     if (REBOOT_BOOTLOADER_ON_PANIC && !AttemptingToBootNewSlot()) {
+         InstallRebootSignalHandlers();
+@@ -1106,6 +1130,12 @@ int SecondStageMain(int argc, char** argv) {
+                    << " to /proc/1/oom_score_adj: " << result.error();
+     }
+ 
++#ifdef GTA3XLWIFI_LEGACY_FSCRYPT
++    if (!SetupLegacyFscryptKeyrings()) {
++        LOG(FATAL) << "Legacy encrypted storage keyring setup failed";
++    }
++#endif
++
+     // Indicate that booting is in progress to background fw loaders, etc.
+     close(open("/dev/.booting", O_WRONLY | O_CREAT | O_CLOEXEC, 0000));
+ 
+diff --git a/libgta3xlwifi_keyutils/Android.bp b/libgta3xlwifi_keyutils/Android.bp
+new file mode 100644
+index 0000000000000000000000000000000000000000..5aaf3ff087c171e2ead689e5e7c663a40eb071a4
+--- /dev/null
++++ b/libgta3xlwifi_keyutils/Android.bp
+@@ -0,0 +1,30 @@
++package {
++    default_applicable_licenses: ["gta3xlwifi_keyutils_license"],
++}
++license {
++    name: "gta3xlwifi_keyutils_license",
++    visibility: [":__subpackages__"],
++    license_kinds: ["SPDX-license-identifier-BSD"],
++    license_text: ["NOTICE"],
++}
++cc_library_static {
++    name: "libgta3xlwifi_keyutils",
++    ramdisk_available: true,
++    vendor_ramdisk_available: true,
++    recovery_available: true,
++    export_include_dirs: ["include"],
++    srcs: ["keyutils.cpp"],
++    cflags: ["-Wall", "-Wextra", "-Werror"],
++    stl: "none",
++}
++cc_defaults {
++    name: "gta3xlwifi_legacy_fscrypt_defaults",
++    cflags: select(soong_config_variable("gta3xlwifi", "legacy_fscrypt"), {
++        "true": ["-DGTA3XLWIFI_LEGACY_FSCRYPT"],
++        default: [],
++    }),
++    static_libs: select(soong_config_variable("gta3xlwifi", "legacy_fscrypt"), {
++        "true": ["libgta3xlwifi_keyutils"],
++        default: [],
++    }),
++}
+diff --git a/libgta3xlwifi_keyutils/NOTICE b/libgta3xlwifi_keyutils/NOTICE
+new file mode 100644
+index 0000000000000000000000000000000000000000..5828550d53c61184c2f5b830d50fab2330f7250f
+--- /dev/null
++++ b/libgta3xlwifi_keyutils/NOTICE
+@@ -0,0 +1,25 @@
++Copyright (C) 2017 The Android Open Source Project
++All rights reserved.
++
++Redistribution and use in source and binary forms, with or without
++modification, are permitted provided that the following conditions
++are met:
++ * Redistributions of source code must retain the above copyright
++   notice, this list of conditions and the following disclaimer.
++ * Redistributions in binary form must reproduce the above copyright
++   notice, this list of conditions and the following disclaimer in
++   the documentation and/or other materials provided with the
++   distribution.
++
++THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
++"AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
++LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
++FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
++COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
++INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
++BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS
++OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED
++AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
++OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT
++OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
++SUCH DAMAGE.
+diff --git a/libgta3xlwifi_keyutils/include/keyutils.h b/libgta3xlwifi_keyutils/include/keyutils.h
+new file mode 100644
+index 0000000000000000000000000000000000000000..e84788715c7f63dc6b4118111e54c2c89028af9d
+--- /dev/null
++++ b/libgta3xlwifi_keyutils/include/keyutils.h
+@@ -0,0 +1,61 @@
++/*
++ * Copyright (C) 2017 The Android Open Source Project
++ * All rights reserved.
++ *
++ * Redistribution and use in source and binary forms, with or without
++ * modification, are permitted provided that the following conditions
++ * are met:
++ *  * Redistributions of source code must retain the above copyright
++ *    notice, this list of conditions and the following disclaimer.
++ *  * Redistributions in binary form must reproduce the above copyright
++ *    notice, this list of conditions and the following disclaimer in
++ *    the documentation and/or other materials provided with the
++ *    distribution.
++ *
++ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
++ * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
++ * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
++ * FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
++ * COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
++ * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
++ * BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS
++ * OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED
++ * AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
++ * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT
++ * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
++ * SUCH DAMAGE.
++ */
++
++#ifndef _KEYUTILS_H_
++#define _KEYUTILS_H_
++
++#include <linux/keyctl.h>
++#include <stdint.h>
++#include <stddef.h>
++#include <sys/cdefs.h>
++
++__BEGIN_DECLS
++
++typedef int32_t key_serial_t;
++
++key_serial_t add_key(const char* type, const char* description, const void* payload,
++                     size_t payload_length, key_serial_t ring_id);
++
++key_serial_t keyctl_get_keyring_ID(key_serial_t id, int create);
++
++long keyctl_revoke(key_serial_t id); /* TODO: remove this */
++
++long keyctl_search(key_serial_t ring_id, const char* type, const char* description,
++                   key_serial_t dest_ring_id);
++
++long keyctl_setperm(key_serial_t id, int permissions);
++
++long keyctl_unlink(key_serial_t key, key_serial_t keyring);
++
++long keyctl_restrict_keyring(key_serial_t keyring, const char* type, const char* restriction);
++
++long keyctl_get_security(key_serial_t key, char* buffer, size_t buflen);
++
++__END_DECLS
++
++#endif
+diff --git a/libgta3xlwifi_keyutils/keyutils.cpp b/libgta3xlwifi_keyutils/keyutils.cpp
+new file mode 100644
+index 0000000000000000000000000000000000000000..1c5acc9adb8f52b6bcdd3d2925abe716d255a595
+--- /dev/null
++++ b/libgta3xlwifi_keyutils/keyutils.cpp
+@@ -0,0 +1,69 @@
++/*
++ * Copyright (C) 2017 The Android Open Source Project
++ * All rights reserved.
++ *
++ * Redistribution and use in source and binary forms, with or without
++ * modification, are permitted provided that the following conditions
++ * are met:
++ *  * Redistributions of source code must retain the above copyright
++ *    notice, this list of conditions and the following disclaimer.
++ *  * Redistributions in binary form must reproduce the above copyright
++ *    notice, this list of conditions and the following disclaimer in
++ *    the documentation and/or other materials provided with the
++ *    distribution.
++ *
++ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
++ * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
++ * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
++ * FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
++ * COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
++ * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
++ * BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS
++ * OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED
++ * AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
++ * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT
++ * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
++ * SUCH DAMAGE.
++ */
++
++#include <keyutils.h>
++
++#include <stdarg.h>
++#include <sys/syscall.h>
++#include <unistd.h>
++
++// keyctl(2) is deliberately not exposed. Callers should use the typed APIs instead.
++
++key_serial_t add_key(const char* type, const char* description, const void* payload,
++                     size_t payload_length, key_serial_t ring_id) {
++  return syscall(__NR_add_key, type, description, payload, payload_length, ring_id);
++}
++
++key_serial_t keyctl_get_keyring_ID(key_serial_t id, int create) {
++  return syscall(__NR_keyctl, KEYCTL_GET_KEYRING_ID, id, create);
++}
++
++long keyctl_revoke(key_serial_t id) {
++  return syscall(__NR_keyctl, KEYCTL_REVOKE, id);
++}
++
++long keyctl_search(key_serial_t ring_id, const char* type, const char* description,
++                   key_serial_t dest_ring_id) {
++  return syscall(__NR_keyctl, KEYCTL_SEARCH, ring_id, type, description, dest_ring_id);
++}
++
++long keyctl_setperm(key_serial_t id, int permissions) {
++  return syscall(__NR_keyctl, KEYCTL_SETPERM, id, permissions);
++}
++
++long keyctl_unlink(key_serial_t key, key_serial_t keyring) {
++  return syscall(__NR_keyctl, KEYCTL_UNLINK, key, keyring);
++}
++
++long keyctl_restrict_keyring(key_serial_t keyring, const char* type, const char* restriction) {
++  return syscall(__NR_keyctl, KEYCTL_RESTRICT_KEYRING, keyring, type, restriction);
++}
++
++long keyctl_get_security(key_serial_t id, char* buffer, size_t buflen) {
++  return syscall(__NR_keyctl, KEYCTL_GET_SECURITY, id, buffer, buflen);
++}
+diff --git a/libprocessgroup/processgroup.cpp b/libprocessgroup/processgroup.cpp
+index 7648c21095bd16241db6acf0cc7861432bdfeac5..70906beacbebc060cf22b92cfb66148e614db371 100644
+--- a/libprocessgroup/processgroup.cpp
++++ b/libprocessgroup/processgroup.cpp
+@@ -78,7 +78,18 @@ bool CgroupGetControllerPath(const std::string& cgroup_name, std::string* path)
+     return true;
+ }
+ 
++static bool LegacyGta3xlwifiProcessGroups() {
++    static const bool legacy = access("/system/etc/cgroups.gta3xlwifi.json", F_OK) == 0;
++    return legacy;
++}
++
++static bool GetProcessGroupHierarchyPath(std::string* path) {
++    return CgroupGetControllerPath(LegacyGta3xlwifiProcessGroups() ? "cpuacct"
++                                                                : CGROUPV2_HIERARCHY_NAME, path);
++}
++
+ static bool CgroupKillAvailable() {
++    if (LegacyGta3xlwifiProcessGroups()) return false;
+     static std::once_flag f;
+     static bool cgroup_kill_available = false;
+     std::call_once(f, []() {
+@@ -298,7 +309,7 @@ static bool RemoveEmptyUidCgroups(const std::string& uid_path) {
+             if (rmdir(path.c_str()) == -1) {
+                 if (errno != EBUSY) {
+                     PLOG(WARNING) << "Failed to remove " << path << " " << errno;
+-                } else {
++                } else if (!LegacyGta3xlwifiProcessGroups()) {
+                     UnfreezeProcess(path);
+                 }
+                 empty = false;
+@@ -314,15 +325,17 @@ void removeAllEmptyProcessGroups() {
+     std::vector<std::string> cgroups;
+     std::string path, memcg_apps_path;
+ 
+-    if (CgroupGetControllerPath(CGROUPV2_HIERARCHY_NAME, &path)) {
++    if (GetProcessGroupHierarchyPath(&path)) {
+         cgroups.push_back(path);
+     }
+ 
+-    for (const char* sub : {"apps", "system"}) {
+-        std::string subpath = path + "/" + sub;
+-        struct stat st;
+-        if (stat(subpath.c_str(), &st) == 0 && S_ISDIR(st.st_mode)) {
+-            cgroups.push_back(subpath);
++    if (!LegacyGta3xlwifiProcessGroups()) {
++        for (const char* sub : {"apps", "system"}) {
++            std::string subpath = path + "/" + sub;
++            struct stat st;
++            if (stat(subpath.c_str(), &st) == 0 && S_ISDIR(st.st_mode)) {
++                cgroups.push_back(subpath);
++            }
+         }
+     }
+ 
+@@ -415,8 +428,13 @@ bool sendSignalToProcessGroup(uid_t uid, pid_t initialPid, int signal) {
+ 
+     if (CgroupsAvailable()) {
+         std::string hierarchy_root_path, cgroup_v2_path;
+-        CgroupGetControllerPath(CGROUPV2_HIERARCHY_NAME, &hierarchy_root_path);
+-        cgroup_v2_path = ConvertUidPidToPath(hierarchy_root_path.c_str(), uid, initialPid, true);
++        if (!GetProcessGroupHierarchyPath(&hierarchy_root_path)) {
++            kill(-initialPid, signal);
++            errno = ENODEV;
++            return false;
++        }
++        cgroup_v2_path = ConvertUidPidToPath(hierarchy_root_path.c_str(), uid, initialPid,
++                                            !LegacyGta3xlwifiProcessGroups());
+ 
+         if (signal == SIGKILL && CgroupKillAvailable()) {
+             LOG(VERBOSE) << "Using " << PROCESSGROUP_CGROUP_KILL_FILE << " to SIGKILL "
+@@ -561,6 +579,36 @@ static populated_status cgroupIsPopulated(int events_fd) {
+         populated_status::populated : populated_status::not_populated;
+ }
+ 
++// cgroup v1 has real cgroup.procs membership and EBUSY removal semantics, but
++// no cgroup.events, cgroup.kill or system/app v2 sub-hierarchies. Keep bounded
++// signaling/cleanup and propagate errors; never claim that a live group is gone.
++static int KillLegacyProcessGroup(uid_t uid, pid_t pid, int signal, bool once,
++                                  std::chrono::steady_clock::time_point until) {
++    std::string root;
++    if (!GetProcessGroupHierarchyPath(&root)) return -ENODEV;
++    int ret;
++    do {
++        if (!sendSignalToProcessGroup(uid, pid, signal) && errno != ENOENT) return -1;
++        ret = RemoveCgroup(root.c_str(), uid, pid, false);
++        if (ret && errno != EBUSY) return ret;
++        const int group_errno = errno;
++        if (isMemoryCgroupSupported() && UsePerAppMemcg()) {
++            std::string memory;
++            if (CgroupGetMemcgAppsPath(&memory) && memory != root) {
++                const int memory_ret = RemoveCgroup(memory.c_str(), uid, pid, false);
++                if (memory_ret && errno != EBUSY) return memory_ret;
++                if (memory_ret) ret = memory_ret;
++                else if (ret) errno = group_errno;
++            }
++        }
++        if (!ret || once) break;
++        const auto now = std::chrono::steady_clock::now();
++        if (now >= until) break;
++        std::this_thread::sleep_for(std::min(5ms, toMillisec(until - now)));
++    } while (true);
++    return ret;
++}
++
+ // The default timeout of 2200ms comes from the default number of retries in a previous
+ // implementation of this function. The default retry value was 40 for killing and 400 for cgroup
+ // removal with 5ms sleeps between each retry.
+@@ -582,6 +630,9 @@ int KillProcessGroup(
+     const bool signal_ret = sendSignalToProcessGroup(uid, initialPid, signal);
+ 
+     if (!CgroupsAvailable() || !signal_ret) return signal_ret ? 0 : -1;
++    if (LegacyGta3xlwifiProcessGroups()) {
++        return KillLegacyProcessGroup(uid, initialPid, signal, once, until);
++    }
+ 
+     std::string hierarchy_root_path;
+     CgroupGetControllerPath(CGROUPV2_HIERARCHY_NAME, &hierarchy_root_path);
+@@ -761,11 +812,15 @@ int createProcessGroup(uid_t uid, pid_t initialPid, bool memControl) {
+     }
+ 
+     std::string cgroup;
+-    CgroupGetControllerPath(CGROUPV2_HIERARCHY_NAME, &cgroup);
+-    return createProcessGroupInternal(uid, initialPid, cgroup, true);
++    if (!GetProcessGroupHierarchyPath(&cgroup)) return -ENODEV;
++    return createProcessGroupInternal(uid, initialPid, cgroup,
++                                      !LegacyGta3xlwifiProcessGroups());
+ }
+ 
+ int createCGroupForCloneInto(uid_t uid, pid_t zygote_pid, uint64_t start_seq) {
++    // CLONE_INTO_CGROUP requires cgroup v2 and clone3, absent on Samsung 4.4.
++    // Keep the error explicit; the Android 17 zygote caller needs separate review.
++    if (LegacyGta3xlwifiProcessGroups()) return -EOPNOTSUPP;
+     if (uid < 0) {
+         LOG(ERROR) << __func__ << ": invalid UID " << uid;
+         return -EINVAL;
+diff --git a/libprocessgroup/setup/cgroup_map_write.cpp b/libprocessgroup/setup/cgroup_map_write.cpp
+index 0b26e9568e9d2cb6d94ae2287592069cf79ef95d..8f31d35d9a32035311b60781abfdefc45e0c0919 100644
+--- a/libprocessgroup/setup/cgroup_map_write.cpp
++++ b/libprocessgroup/setup/cgroup_map_write.cpp
+@@ -182,8 +182,11 @@ static bool ActivateV2CgroupController(const CgroupDescriptor& descriptor) {
+ static bool MountV1CgroupController(const CgroupDescriptor& descriptor) {
+     const CgroupController* controller = descriptor.controller();
+ 
+-    // mkdir <path> [mode] [owner] [group]
+-    if (!Mkdir(controller->path(), descriptor.mode(), descriptor.uid(), descriptor.gid())) {
++    const bool legacy = access("/system/etc/cgroups.gta3xlwifi.json", F_OK) == 0;
++    // /acct is on the read-only system root before the controller is mounted.
++    // Apply ownership to the mounted controller, not the underlying directory.
++    if (!(legacy ? Mkdir(controller->path(), 0, "", "")
++                 : Mkdir(controller->path(), descriptor.mode(), descriptor.uid(), descriptor.gid()))) {
+         LOG(ERROR) << "Failed to create directory for " << controller->name() << " cgroup";
+         return false;
+     }
+@@ -196,7 +199,7 @@ static bool MountV1CgroupController(const CgroupDescriptor& descriptor) {
+         //                                       /dev/cpuset/cpuset.cpus.
+         // cpuset_v2_mode is required to restore the original cpu mask after a cpu is offlined, and
+         // then onlined in cgroup v1.
+-        options += ",noprefix,cpuset_v2_mode";
++        options += legacy ? ",noprefix" : ",noprefix,cpuset_v2_mode";
+     }
+ 
+     if (mount("none", controller->path(), "cgroup", MS_NODEV | MS_NOEXEC | MS_NOSUID,
+@@ -208,6 +211,10 @@ static bool MountV1CgroupController(const CgroupDescriptor& descriptor) {
+         PLOG(ERROR) << "Failed to mount controller " << controller->name();
+         return false;
+     }
++    if (legacy && !ChangeDirModeAndOwner(controller->path(), descriptor.mode(), descriptor.uid(),
++                                         descriptor.gid())) {
++        return false;
++    }
+     return true;
+ }
+ 
+@@ -282,8 +289,16 @@ bool CgroupSetup() {
+         return false;
+     }
+ 
++    // Samsung 4.4 has cpu/cpuacct/cpuset/memory v1, but no v2, blkio or
++    // schedtune. Retain the real controllers and report unsupported ones absent.
++    const bool legacy = access("/system/etc/cgroups.gta3xlwifi.json", F_OK) == 0;
+     // setup cgroups
+     for (auto& [name, descriptor] : descriptors) {
++        if (legacy && (descriptor.controller()->version() == 2 ||
++                       name == "blkio" || name == "schedtune")) {
++            descriptor.set_mounted(false);
++            continue;
++        }
+         if (descriptor.controller()->flags() & CGROUPRC_CONTROLLER_FLAG_MOUNTED) {
+             LOG(WARNING) << "Attempt to call CgroupSetup() more than once";
+             return true;
+@@ -295,6 +310,10 @@ bool CgroupSetup() {
+         }
+     }
+ 
++    // Android 17 makes v2 app/system isolation unconditional. The retained
++    // v1 hierarchy has neither subtree; do not create or claim v2 support.
++    if (legacy) return true;
++
+     const auto it = descriptors.find(CGROUPV2_HIERARCHY_NAME);
+     const std::string cgroup_v2_root = (it == descriptors.end())
+                                                ? CGROUP_V2_ROOT_DEFAULT
+diff --git a/libprocessgroup/task_profiles.cpp b/libprocessgroup/task_profiles.cpp
+index 9d9c871b1243d2960c43fa23b5561f17037922cf..5306a820294c7edb847f646508690b6a70720165 100644
+--- a/libprocessgroup/task_profiles.cpp
++++ b/libprocessgroup/task_profiles.cpp
+@@ -942,6 +942,10 @@ TaskProfiles::TaskProfiles() {
+         LOG(ERROR) << "Loading " << TASK_PROFILE_DB_SYSTEM_EXT_FILE
+                    << " for [" << getpid() << "] failed";
+     }
++    const char* legacy = "/system/etc/task_profiles.gta3xlwifi.json";
++    if (access(legacy, F_OK) == 0 && !Load(CgroupMap::GetInstance(), legacy)) {
++        LOG(ERROR) << "Failed to load SM-T510 cgroup v1 task profiles";
++    }
+ }
+ 
+ bool TaskProfiles::Load(const CgroupMap& cg_map, const std::string& file_name) {
+diff --git a/libprocessgroup/util/util.cpp b/libprocessgroup/util/util.cpp
+index 3a25c4b5e9b099bd2c52a804e2a6abd6915738d2..bd614b423d38bbae73a087a95749704f73b201d0 100644
+--- a/libprocessgroup/util/util.cpp
++++ b/libprocessgroup/util/util.cpp
+@@ -210,6 +210,13 @@ bool ReadDescriptors(CgroupDescriptorMap* descriptors) {
+         return false;
+     }
+ 
++    // Load the product's cpuacct hierarchy in init and in every client of
++    // libprocessgroup. In Android 16 this parsing moved out of cgroup setup.
++    const char* legacy = "/system/etc/cgroups.gta3xlwifi.json";
++    if (access(legacy, F_OK) == 0 && !ReadDescriptorsFromFile(legacy, descriptors)) {
++        return false;
++    }
++
+     // check for v1 mount/usability status
+     std::optional<std::map<MountDir, MountOpts>> v1Mounts;
+     for (auto& [name, descriptor] : *descriptors) {

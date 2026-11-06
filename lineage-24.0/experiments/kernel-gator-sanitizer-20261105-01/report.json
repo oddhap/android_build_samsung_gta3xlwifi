@@ -1,0 +1,55 @@
+{
+  "passed": true,
+  "scope": "Exercise actual ARM64 register-stack collector bodies in bounded host fixtures.\n\nThe unwinder/task stack and module lookup are mocked; no live interrupt proof.\n",
+  "results": [
+    {
+      "function_graph": false,
+      "bounded_cases": 168,
+      "null_registers_and_unavailable_stack": true,
+      "module_sentinel_rejected": true,
+      "command": [
+        "clang",
+        "-std=gnu11",
+        "-O1",
+        "-g",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-Wno-unused-function",
+        "-fsanitize=address,undefined",
+        "-DMODULE",
+        "/srv/android/artifacts/lineage-24.0-arm64/kernel-gator-sanitizer-20261105-01/fixture.c",
+        "-o",
+        "/srv/android/artifacts/lineage-24.0-arm64/kernel-gator-sanitizer-20261105-01/plain"
+      ]
+    },
+    {
+      "function_graph": true,
+      "bounded_cases": 168,
+      "null_registers_and_unavailable_stack": true,
+      "module_sentinel_rejected": true,
+      "command": [
+        "clang",
+        "-std=gnu11",
+        "-O1",
+        "-g",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-Wno-unused-function",
+        "-fsanitize=address,undefined",
+        "-DMODULE",
+        "-DCONFIG_FUNCTION_GRAPH_TRACER",
+        "/srv/android/artifacts/lineage-24.0-arm64/kernel-gator-sanitizer-20261105-01/fixture.c",
+        "-o",
+        "/srv/android/artifacts/lineage-24.0-arm64/kernel-gator-sanitizer-20261105-01/graph"
+      ]
+    }
+  ],
+  "inputs_sha256": {
+    "/srv/android/ports/lineage-24.0-arm64/kernel-gator-20261105-01/src/arch/arm64/kernel/stacktrace.c": "49658e2967aa86cd91c30da1a9a4dfbf318d71120565961198808396a38d676d",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-gator-20261105-01/src/drivers/gator/gator_backtrace.c": "b488619f04c536cbb43aec9d04ee337d59d9c3038f7337eaf36b87f57eaba923",
+    "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/test-kernel-stacktrace.py": "12d7a26d28311d098ed1604c2dd84ae86cdc799927b91b1225c0c27930266a8c"
+  },
+  "hardware_tested": false
+}

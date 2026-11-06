@@ -5,3 +5,7 @@ patches/twrp-header-test/*.patch -whitespace
 # Exact experiment diffs and generated context evidence retain original bytes.
 lineage-24.0/experiments/**/*.patch -whitespace
 lineage-24.0/experiments/**/combined_seapp_contexts -whitespace
+# Snapshot diffs preserve exact context lines and reviewed frozen-source bytes.
+lineage-24.0/snapshots/**/*.patch -whitespace
+# Keep repo-generated manifest bytes identical to the audited SHA256 inputs.
+lineage-24.0/snapshots/**/port-manifest.xml -whitespace

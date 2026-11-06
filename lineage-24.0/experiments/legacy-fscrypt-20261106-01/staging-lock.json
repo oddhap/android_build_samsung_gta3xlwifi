@@ -1,0 +1,95 @@
+{
+  "scope": "Stage device-scoped v1 raw-key fscrypt support for the real Samsung keyring API.",
+  "prerequisites": [
+    "port-20261103-07"
+  ],
+  "projects": [
+    {
+      "path": "system/vold",
+      "revision": "11d8982f824d52e8122c7aa732207ba66b8f23c8",
+      "patch": "system_vold.patch",
+      "patch_sha256": "df3d159c6012418209e14276d1f937c15d16b5a093afb7c824585ac706811123",
+      "files": [
+        {
+          "path": "KeyUtil.cpp",
+          "before_sha256": "2f301da8055681747d2a9e3910ec99ab4a17ba4b7d0f98d9d6a4217bc3deeaac",
+          "candidate_sha256": "b5dcab3f13f527b4eaeaaf1df24883eea0467e5f9ae57bca47c7c0c5d3d3fa85"
+        },
+        {
+          "path": "Android.bp",
+          "before_sha256": "2ce86525a37965953a0f73af2630afb06de6663a74a45c343c460d4adea01dd6",
+          "candidate_sha256": "1e88456c6371caff4091299af00c8a747f57439b12c137fb39ab13aab17deb92"
+        }
+      ]
+    },
+    {
+      "path": "system/core",
+      "revision": "65d661b1a536701e8b118be4e9728d7b5ca727c9",
+      "patch": "system_core.patch",
+      "patch_sha256": "81ab6331514667a964ffee6cc6d67ac3f13e8343dd130865f95bad5ca50d9f28",
+      "files": [
+        {
+          "path": "init/init.cpp",
+          "before_sha256": "4070fb5640a42fcd24d1d4b6cb88981b4648be5c9135e984e88800e345bf4f3b",
+          "candidate_sha256": "18192dcca819ef4a990e976156eb3ab42645f4cbbb970591f1131d6e3ab37318"
+        },
+        {
+          "path": "init/Android.bp",
+          "before_sha256": "1735cb1ed0e787c75d20b412abf55e4aaaa73750cfb0a7654dd096a148d9b363",
+          "candidate_sha256": "1755b491f4422c8ee3a40b458069ecb3fcde3c11d0aad2b659ebc1f7d59f032f"
+        },
+        {
+          "path": "libgta3xlwifi_keyutils/keyutils.cpp",
+          "before_sha256": null,
+          "candidate_sha256": "73d8403a808b5315c917917d0fc68a37a8db73d4d52eb828f9a73bb3cf424fd9"
+        },
+        {
+          "path": "libgta3xlwifi_keyutils/NOTICE",
+          "before_sha256": null,
+          "candidate_sha256": "511ce23b36ca7dd3858570d8ee3054ceed18e12d284f96661d030a82590a5954"
+        },
+        {
+          "path": "libgta3xlwifi_keyutils/include/keyutils.h",
+          "before_sha256": null,
+          "candidate_sha256": "0f5e53ce3e63fc7da54da6d37c66f90526fc58093b3cf704f2b4d45f322c351e"
+        },
+        {
+          "path": "libgta3xlwifi_keyutils/Android.bp",
+          "before_sha256": null,
+          "candidate_sha256": "f6145de2ca0565aa81cf97d890deee908a93b3e1f5f7cb63f9ea4dd0d4529d3a"
+        }
+      ]
+    },
+    {
+      "path": "device/samsung/gta3xlwifi",
+      "revision": "2f649d06fec3318926c61aaf7a5fa3f40aa9f266",
+      "patch": "device_samsung_gta3xlwifi.patch",
+      "patch_sha256": "2251d74cc06b33f47d83166cbf10be65c002c74020e02566e1e6994c7e1f9107",
+      "files": [
+        {
+          "path": "BoardConfig.mk",
+          "before_sha256": "958f7b2b4f948768fe75c345b2aa4233bd0dbacbd330c981afd83bf9288f51db",
+          "candidate_sha256": "1100d715889d0c7ae87c2dc1bc0641e3cc6deea9b87111dbb249a7405da4cd4a"
+        }
+      ]
+    }
+  ],
+  "runner_sha256": "a2638a8895a2fa3d81b9139b909d192899c415fd247b30b261ce593ccf2f76b0",
+  "source_refs_sha256": {
+    "reference/vold21-20261105/KeyUtil.cpp": "935f4c3267a8ccefa51b04cf1fc88cde426900cd896315679a2e6f5c677d27ec",
+    "reference/vold24-20261105/KeyUtil.h": "c701a9726b67a0c3ec0f94c178ce19a938d50c51dcbb5e5b1884459cfcdab313",
+    "reference/vold24-20261105/Android.bp": "2ce86525a37965953a0f73af2630afb06de6663a74a45c343c460d4adea01dd6",
+    "reference/vold24-20261105/KeyUtil.cpp": "2f301da8055681747d2a9e3910ec99ab4a17ba4b7d0f98d9d6a4217bc3deeaac",
+    "reference/init24-20261105/Android.bp": "1735cb1ed0e787c75d20b412abf55e4aaaa73750cfb0a7654dd096a148d9b363",
+    "reference/init24-20261105/init.cpp": "4070fb5640a42fcd24d1d4b6cb88981b4648be5c9135e984e88800e345bf4f3b",
+    "reference/keyutils21-20261105/NOTICE": "511ce23b36ca7dd3858570d8ee3054ceed18e12d284f96661d030a82590a5954",
+    "reference/keyutils21-20261105/keyutils.cpp": "73d8403a808b5315c917917d0fc68a37a8db73d4d52eb828f9a73bb3cf424fd9",
+    "reference/keyutils21-20261105/Android.bp": "4caa79ec8743b9db6127b8ef539c05ae30526fc2c0c1939e334032de5a44e548",
+    "reference/keyutils21-20261105/include/keyutils.h": "b0d1b35fdd1336a024ae93621d0d4a2b4ec3ce9a252be349f9e65b688496323b"
+  },
+  "selinux_modified": false,
+  "fstab_encryption_modified": false,
+  "actual_key_material_accessed": false,
+  "hardware_tested": false,
+  "flash_ready": false
+}

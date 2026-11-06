@@ -1,0 +1,197 @@
+diff --git a/libc/bionic/spawn.cpp b/libc/bionic/spawn.cpp
+index f1b8eb06dbefbbdd1f0954fbc2a60de66aaf7449..6210899017475bb8bf15374d071dbf9471b5dde3 100644
+--- a/libc/bionic/spawn.cpp
++++ b/libc/bionic/spawn.cpp
+@@ -28,14 +28,19 @@
+ 
+ #include <spawn.h>
+ 
++#include <dirent.h>
+ #include <errno.h>
+ #include <fcntl.h>
++#include <limits.h>
+ #include <linux/close_range.h>
++#include <linux/magic.h>
++#include <stddef.h>
+ #include <signal.h>
+ #include <stdlib.h>
+ #include <string.h>
+ #include <sys/resource.h>
+ #include <sys/syscall.h>
++#include <sys/vfs.h>
+ #include <unistd.h>
+ 
+ #include <android/fdsan.h>
+@@ -114,6 +119,96 @@ struct __posix_spawnattr {
+   } sigmask, sigdefault;
+ };
+ 
++extern "C" int __getdents64(unsigned int, dirent*, unsigned int);
++
++static int CloseOnExecScanError(int fd) {
++  int saved_errno = errno;
++  close(fd);
++  errno = saved_errno;
++  return -1;
++}
++
++static int SetCloseOnExecFromProc() {
++  // This runs after fork/vfork: opendir/readdir allocate and are not safe here.
++  // Scan the actual fd table rather than RLIMIT_NOFILE: existing descriptors can
++  // be above a subsequently lowered limit. The child's table is not shared
++  // with the parent's other threads, and no user signal handlers can run here.
++  int dir_fd = TEMP_FAILURE_RETRY(open("/proc/self/fd", O_RDONLY | O_DIRECTORY | O_CLOEXEC));
++  if (dir_fd == -1) return -1;
++  // A chroot may contain an ordinary /proc/self/fd directory. Treating that
++  // as an empty fd table would silently defeat CLOEXEC_DEFAULT.
++  struct statfs fs;
++  if (fstatfs(dir_fd, &fs) == -1) return CloseOnExecScanError(dir_fd);
++  if (fs.f_type != PROC_SUPER_MAGIC) {
++    errno = ENOTSUP;
++    return CloseOnExecScanError(dir_fd);
++  }
++  bool saw_dir_fd = false;
++  // Keep the post-vfork stack small (libc enforces a 2 KiB frame limit).
++  alignas(dirent) char buffer[1024];
++  constexpr size_t name_offset = offsetof(dirent, d_name);
++  while (true) {
++    int rc = TEMP_FAILURE_RETRY(__getdents64(dir_fd, reinterpret_cast<dirent*>(buffer), sizeof(buffer)));
++    if (rc == -1) return CloseOnExecScanError(dir_fd);
++    if (rc == 0) break;
++    size_t size = static_cast<size_t>(rc);
++    if (size > sizeof(buffer)) {
++      errno = EIO;
++      return CloseOnExecScanError(dir_fd);
++    }
++    for (size_t offset = 0; offset < size;) {
++      if (offset % alignof(dirent) != 0 || size - offset <= name_offset) {
++        errno = EIO;
++        return CloseOnExecScanError(dir_fd);
++      }
++      const auto* entry = reinterpret_cast<const dirent*>(buffer + offset);
++      if (entry->d_reclen <= name_offset || entry->d_reclen > size - offset) {
++        errno = EIO;
++        return CloseOnExecScanError(dir_fd);
++      }
++      const char* name = entry->d_name;
++      const char* end = static_cast<const char*>(memchr(name, '\0', entry->d_reclen - name_offset));
++      if (end == nullptr || end == name) {
++        errno = EIO;
++        return CloseOnExecScanError(dir_fd);
++      }
++      offset += entry->d_reclen;
++      if (strcmp(name, ".") == 0 || strcmp(name, "..") == 0) continue;
++      int fd = 0;
++      for (const char* p = name; p != end; ++p) {
++        if (*p < '0' || *p > '9' || fd > (INT_MAX - (*p - '0')) / 10) {
++          errno = EIO;
++          return CloseOnExecScanError(dir_fd);
++        }
++        fd = fd * 10 + (*p - '0');
++      }
++      if (fd == dir_fd) {
++        saw_dir_fd = true;
++        continue;
++      }
++      if (fd < 3) continue;
++      int flags = fcntl(fd, F_GETFD, 0);
++      if (flags == -1 || fcntl(fd, F_SETFD, flags | FD_CLOEXEC) == -1) {
++        if (errno == EBADF) continue;  // A closed descriptor cannot leak across exec.
++        return CloseOnExecScanError(dir_fd);
++      }
++    }
++  }
++  if (!saw_dir_fd) {
++    errno = EIO;
++    return CloseOnExecScanError(dir_fd);
++  }
++  return close(dir_fd);
++}
++
++static int SetAllFdsCloseOnExec() {
++  if (close_range(3, ~0U, CLOSE_RANGE_CLOEXEC) == 0) return 0;
++  // Linux < 5.9 has no close_range; 5.9/5.10 lack CLOSE_RANGE_CLOEXEC.
++  // Other errors (including permission failures) must not be hidden.
++  if (errno != ENOSYS && errno != EINVAL) return -1;
++  return SetCloseOnExecFromProc();
++}
++
+ static void ApplyAttrs(short flags, const posix_spawnattr_t* attr) {
+   // POSIX: "If POSIX_SPAWN_SETSIGDEF is set ... signals in sigdefault ...
+   // shall be set to their default actions in the child process."
+@@ -154,7 +249,7 @@ static void ApplyAttrs(short flags, const posix_spawnattr_t* attr) {
+ 
+   if ((flags & POSIX_SPAWN_CLOEXEC_DEFAULT) != 0) {
+     // mark all open fds except stdin/out/err as close-on-exec
+-    if (close_range(3, ~0U, CLOSE_RANGE_CLOEXEC)) _exit(127);
++    if (SetAllFdsCloseOnExec() == -1) _exit(127);
+   }
+ }
+ 
+diff --git a/tests/spawn_test.cpp b/tests/spawn_test.cpp
+index 0bef16f6065e2264786c3106bf91645690e14969..80c3bbe7928796cc9a3a4630140081b1a8784407 100644
+--- a/tests/spawn_test.cpp
++++ b/tests/spawn_test.cpp
+@@ -27,6 +27,7 @@
+ 
+ #include <android-base/file.h>
+ #include <android-base/strings.h>
++#include <android-base/unique_fd.h>
+ 
+ // Old versions of glibc didn't have POSIX_SPAWN_SETSID.
+ #if __GLIBC__
+@@ -528,6 +529,54 @@ TEST(spawn, signal_stress) {
+   AssertChildExited(pid, 99);
+ }
+ 
++#if defined(__BIONIC__)
++static void TestSpawnCloexecDefault(short extra_flags) {
++  android::base::unique_fd source(open("/proc/version", O_RDONLY));
++  ASSERT_NE(-1, source.get());
++  // Use high descriptors so the shell cannot accidentally reuse the leaked-fd
++  // probe while executing the test command.
++  android::base::unique_fd unwanted(fcntl(source.get(), F_DUPFD, 128));
++  android::base::unique_fd kept(fcntl(source.get(), F_DUPFD, 129));
++  ASSERT_NE(-1, unwanted.get());
++  ASSERT_NE(-1, kept.get());
++  int raw_pipe[2];
++  ASSERT_EQ(0, pipe(raw_pipe));
++  android::base::unique_fd read_end(raw_pipe[0]), write_end(raw_pipe[1]);
++  posix_spawnattr_t attr;
++  ASSERT_EQ(0, posix_spawnattr_init(&attr));
++  ASSERT_EQ(0, posix_spawnattr_setflags(&attr, POSIX_SPAWN_CLOEXEC_DEFAULT | extra_flags));
++  posix_spawn_file_actions_t actions;
++  ASSERT_EQ(0, posix_spawn_file_actions_init(&actions));
++  ASSERT_EQ(0, posix_spawn_file_actions_adddup2(&actions, write_end.get(), STDOUT_FILENO));
++  ASSERT_EQ(0, posix_spawn_file_actions_adddup2(&actions, kept.get(), kept.get()));
++  std::string command = android::base::StringPrintf(
++      "[ ! -e /proc/self/fd/%d ] && cat /proc/self/fd/%d", unwanted.get(), kept.get());
++  ExecTestHelper eth;
++  eth.SetArgs({BIN_DIR "sh", "-c", command.c_str(), nullptr});
++  pid_t pid;
++  ASSERT_EQ(0, posix_spawn(&pid, eth.GetArg0(), &actions, &attr, eth.GetArgs(), eth.GetEnv()));
++  ASSERT_EQ(0, posix_spawn_file_actions_destroy(&actions));
++  ASSERT_EQ(0, posix_spawnattr_destroy(&attr));
++  write_end.reset();
++  std::string content, expected;
++  ASSERT_TRUE(android::base::ReadFdToString(read_end.get(), &content));
++  ASSERT_TRUE(android::base::ReadFileToString("/proc/version", &expected));
++  EXPECT_EQ(expected, content);
++  AssertChildExited(pid, 0);
++  // fork and vfork must both leave the parent's flags alone.
++  EXPECT_EQ(0, fcntl(unwanted.get(), F_GETFD));
++  EXPECT_EQ(0, fcntl(kept.get(), F_GETFD));
++}
++
++TEST(spawn, posix_spawn_CLOEXEC_DEFAULT) {
++  TestSpawnCloexecDefault(0);
++}
++
++TEST(spawn, posix_spawn_CLOEXEC_DEFAULT_USEVFORK) {
++  TestSpawnCloexecDefault(POSIX_SPAWN_USEVFORK);
++}
++#endif
++
+ TEST(spawn, posix_spawn_dup2_CLOEXEC) {
+   int fds[2];
+   ASSERT_NE(-1, pipe(fds));

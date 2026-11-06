@@ -1,0 +1,234 @@
+{
+  "scope": "Read-only pinned-source/config review; no runtime HAL, permission, network or readiness validation.",
+  "inputs": {
+    "health_factory": {
+      "path": "/srv/android/src/lineage-24.0-arm64/frameworks/base/services/core/java/com/android/server/health/HealthServiceWrapper.java",
+      "sha256": "cd7e3dec3ab06d162c5cd8d79c3db4e0215b99d40ad67a34ab34a9ce29c20d96",
+      "evidence": [
+        {
+          "line": 165,
+          "needle": "return new HealthServiceWrapperHidl(",
+          "excerpt": "        }\n        return new HealthServiceWrapperHidl(\n                hidlRegCallback, hidlServiceManagerSupplier, hidlHealthSupplier);\n    }\n}"
+        }
+      ]
+    },
+    "keymint_connector": {
+      "path": "/srv/android/src/lineage-24.0-arm64/system/security/keystore2/src/globals.rs",
+      "sha256": "bc2beb5c4dc1d5157712707e22969ba688e1368db98165caf3cfd3892a3dab2a",
+      "evidence": [
+        {
+          "line": 341,
+          "needle": "pub fn get_keymint_device(",
+          "excerpt": "/// TODO the latter can be removed when the uuid is part of the hardware info.\npub fn get_keymint_device(\n    security_level: &SecurityLevel,\n) -> Result<(Strong<dyn IKeyMintDevice>, KeyMintHardwareInfo, Uuid)> {\n    let mut devices_map = KEY_MINT_DEVICES.lock().unwrap();\n    if let Some((dev, hw_info, uuid)) = devices_map.dev_by_sec_level(security_level) {"
+        }
+      ]
+    },
+    "keymaster_compat": {
+      "path": "/srv/android/src/lineage-24.0-arm64/system/security/keystore2/src/km_compat/km_compat.cpp",
+      "sha256": "880bc19f657394920ca3562dc00327c92d97f6eb66b4a65507427328b69b2817",
+      "evidence": [
+        {
+          "line": 1476,
+          "needle": "enumerateKeymasterDevices<Keymaster4>",
+          "excerpt": "    }\n    auto result = enumerateKeymasterDevices<Keymaster4>(serviceManager.get());\n    auto softKeymaster = result[SecurityLevel::SOFTWARE];\n    if ((!result[SecurityLevel::TRUSTED_ENVIRONMENT]) && (!result[SecurityLevel::STRONGBOX])) {\n        result = enumerateKeymasterDevices<Keymaster3>(serviceManager.get());\n    }"
+        }
+      ]
+    },
+    "permission_mapping": {
+      "path": "/srv/android/src/lineage-24.0-arm64/frameworks/base/data/etc/platform.xml",
+      "sha256": "4609a9a312597011778f5c69d62c633cf921913da0e3434beb2bd92bd1ea1fe3",
+      "evidence": [
+        {
+          "line": 59,
+          "needle": "permission name=\"android.permission.INTERNET\"",
+          "excerpt": "\n    <permission name=\"android.permission.INTERNET\" >\n        <group gid=\"inet\" />\n    </permission>\n\n    <permission name=\"android.permission.READ_LOGS\" >"
+        },
+        {
+          "line": 178,
+          "needle": "permission name=\"android.permission.INTERNET\"",
+          "excerpt": "\n    <assign-permission name=\"android.permission.INTERNET\" uid=\"media\" />\n\n    <assign-permission name=\"android.permission.INTERNET\" uid=\"shell\" />\n\n    <assign-permission name=\"android.permission.MODIFY_AUDIO_SETTINGS\" uid=\"audioserver\" />"
+        },
+        {
+          "line": 180,
+          "needle": "permission name=\"android.permission.INTERNET\"",
+          "excerpt": "\n    <assign-permission name=\"android.permission.INTERNET\" uid=\"shell\" />\n\n    <assign-permission name=\"android.permission.MODIFY_AUDIO_SETTINGS\" uid=\"audioserver\" />\n    <assign-permission name=\"android.permission.ACCESS_SURFACE_FLINGER\" uid=\"audioserver\" />\n    <assign-permission name=\"android.permission.WAKE_LOCK\" uid=\"audioserver\" />"
+        },
+        {
+          "line": 237,
+          "needle": "permission name=\"android.permission.INTERNET\"",
+          "excerpt": "        featureFlag=\"android.permission.flags.access_local_network_permission_enabled\" />\n    <assign-permission name=\"android.permission.INTERNET\" uid=\"bluetooth\"\n        featureFlag=\"android.permission.flags.access_local_network_permission_enabled\" />\n    <assign-permission name=\"android.permission.ACCESS_LOCAL_NETWORK\" uid=\"clat\"\n        featureFlag=\"android.permission.flags.access_local_network_permission_enabled\" />\n    <assign-permission name=\"android.permission.INTERNET\" uid=\"clat\""
+        },
+        {
+          "line": 241,
+          "needle": "permission name=\"android.permission.INTERNET\"",
+          "excerpt": "        featureFlag=\"android.permission.flags.access_local_network_permission_enabled\" />\n    <assign-permission name=\"android.permission.INTERNET\" uid=\"clat\"\n        featureFlag=\"android.permission.flags.access_local_network_permission_enabled\" />\n    <assign-permission name=\"android.permission.ACCESS_LOCAL_NETWORK\" uid=\"dns\"\n        featureFlag=\"android.permission.flags.access_local_network_permission_enabled\" />\n    <assign-permission name=\"android.permission.INTERNET\" uid=\"dns\""
+        },
+        {
+          "line": 245,
+          "needle": "permission name=\"android.permission.INTERNET\"",
+          "excerpt": "        featureFlag=\"android.permission.flags.access_local_network_permission_enabled\" />\n    <assign-permission name=\"android.permission.INTERNET\" uid=\"dns\"\n        featureFlag=\"android.permission.flags.access_local_network_permission_enabled\" />\n    <assign-permission name=\"android.permission.ACCESS_LOCAL_NETWORK\" uid=\"dns_tether\"\n        featureFlag=\"android.permission.flags.access_local_network_permission_enabled\" />\n    <assign-permission name=\"android.permission.INTERNET\" uid=\"dns_tether\""
+        },
+        {
+          "line": 249,
+          "needle": "permission name=\"android.permission.INTERNET\"",
+          "excerpt": "        featureFlag=\"android.permission.flags.access_local_network_permission_enabled\" />\n    <assign-permission name=\"android.permission.INTERNET\" uid=\"dns_tether\"\n        featureFlag=\"android.permission.flags.access_local_network_permission_enabled\" />\n    <assign-permission name=\"android.permission.ACCESS_LOCAL_NETWORK\" uid=\"shell\"\n        featureFlag=\"android.permission.flags.access_local_network_permission_enabled\" />\n    <assign-permission name=\"android.permission.ACCESS_LOCAL_NETWORK\" uid=\"wifi\""
+        },
+        {
+          "line": 255,
+          "needle": "permission name=\"android.permission.INTERNET\"",
+          "excerpt": "        featureFlag=\"android.permission.flags.access_local_network_permission_enabled\" />\n    <assign-permission name=\"android.permission.INTERNET\" uid=\"wifi\"\n        featureFlag=\"android.permission.flags.access_local_network_permission_enabled\" />\n    <assign-permission name=\"android.permission.ACCESS_LOCAL_NETWORK\" uid=\"thread_network\"\n        featureFlag=\"android.permission.flags.access_local_network_permission_enabled\" />\n    <assign-permission name=\"android.permission.INTERNET\" uid=\"thread_network\""
+        },
+        {
+          "line": 259,
+          "needle": "permission name=\"android.permission.INTERNET\"",
+          "excerpt": "        featureFlag=\"android.permission.flags.access_local_network_permission_enabled\" />\n    <assign-permission name=\"android.permission.INTERNET\" uid=\"thread_network\"\n        featureFlag=\"android.permission.flags.access_local_network_permission_enabled\" />\n    <assign-permission name=\"android.permission.ACCESS_LOCAL_NETWORK\" uid=\"radio\"\n        featureFlag=\"android.permission.flags.access_local_network_permission_enabled\" />\n    <assign-permission name=\"android.permission.INTERNET\" uid=\"radio\""
+        },
+        {
+          "line": 263,
+          "needle": "permission name=\"android.permission.INTERNET\"",
+          "excerpt": "        featureFlag=\"android.permission.flags.access_local_network_permission_enabled\" />\n    <assign-permission name=\"android.permission.INTERNET\" uid=\"radio\"\n        featureFlag=\"android.permission.flags.access_local_network_permission_enabled\" />\n\n    <split-permission name=\"android.permission.ACCESS_FINE_LOCATION\">\n        <new-permission name=\"android.permission.ACCESS_COARSE_LOCATION\" />"
+        },
+        {
+          "line": 366,
+          "needle": "permission name=\"android.permission.INTERNET\"",
+          "excerpt": "\n    <split-permission name=\"android.permission.INTERNET\"\n                      featureFlag=\"android.permission.flags.access_local_network_permission_enabled\"\n                      targetSdk=\"37\">\n        <new-permission name=\"android.permission.ACCESS_LOCAL_NETWORK\" />\n    </split-permission>"
+        }
+      ]
+    },
+    "kernel_config": {
+      "path": "/srv/android/ports/lineage-24.0-arm64/kernel-gator-20261105-01/out/.config",
+      "sha256": "fac42e3bbf996bb9502bb1031c91b1950986ad3586d0f33cad869a6fd0b3acea",
+      "evidence": [
+        {
+          "line": 720,
+          "needle": "CONFIG_ANDROID_PARANOID_NETWORK=y",
+          "excerpt": "CONFIG_DEFAULT_MPTCP_PM=\"default\"\nCONFIG_ANDROID_PARANOID_NETWORK=y\nCONFIG_NETWORK_SECMARK=y\n# CONFIG_NET_PTP_CLASSIFY is not set\n# CONFIG_NETWORK_PHY_TIMESTAMPING is not set\nCONFIG_NETFILTER=y"
+        },
+        {
+          "line": 735,
+          "needle": "CONFIG_NETFILTER_NETLINK_LOG=y",
+          "excerpt": "CONFIG_NETFILTER_NETLINK_QUEUE=y\nCONFIG_NETFILTER_NETLINK_LOG=y\nCONFIG_NF_CONNTRACK=y\nCONFIG_NF_LOG_COMMON=y\nCONFIG_NF_CONNTRACK_MARK=y\nCONFIG_NF_CONNTRACK_SECMARK=y"
+        },
+        {
+          "line": 820,
+          "needle": "CONFIG_NETFILTER_XT_MATCH_COMMENT=y",
+          "excerpt": "# CONFIG_NETFILTER_XT_MATCH_CLUSTER is not set\nCONFIG_NETFILTER_XT_MATCH_COMMENT=y\nCONFIG_NETFILTER_XT_MATCH_CONNBYTES=y\nCONFIG_NETFILTER_XT_MATCH_CONNLABEL=y\nCONFIG_NETFILTER_XT_MATCH_CONNLIMIT=y\nCONFIG_NETFILTER_XT_MATCH_CONNMARK=y"
+        },
+        {
+          "line": 839,
+          "needle": "CONFIG_NETFILTER_XT_MATCH_LIMIT=y",
+          "excerpt": "CONFIG_NETFILTER_XT_MATCH_LENGTH=y\nCONFIG_NETFILTER_XT_MATCH_LIMIT=y\nCONFIG_NETFILTER_XT_MATCH_MAC=y\nCONFIG_NETFILTER_XT_MATCH_MARK=y\n# CONFIG_NETFILTER_XT_MATCH_MULTIPORT is not set\n# CONFIG_NETFILTER_XT_MATCH_NFACCT is not set"
+        },
+        {
+          "line": 4980,
+          "needle": "CONFIG_KEYS=y",
+          "excerpt": "#\nCONFIG_KEYS=y\nCONFIG_KEYS_COMPAT=y\n# CONFIG_PERSISTENT_KEYRINGS is not set\n# CONFIG_BIG_KEYS is not set\nCONFIG_ENCRYPTED_KEYS=y"
+        }
+      ]
+    },
+    "ipv4_socket_gate": {
+      "path": "/srv/android/ports/lineage-24.0-arm64/kernel-gator-20261105-01/src/net/ipv4/af_inet.c",
+      "sha256": "1df3ec4f2c790c1ece676f4309b3139fe2f9f2282b8c159b9752bd11618dea27",
+      "evidence": [
+        {
+          "line": 291,
+          "needle": "if (!current_has_network())",
+          "excerpt": "\n\tif (!current_has_network())\n\t\treturn -EACCES;\n\n\tsock->state = SS_UNCONNECTED;\n"
+        }
+      ]
+    },
+    "ipv6_socket_gate": {
+      "path": "/srv/android/ports/lineage-24.0-arm64/kernel-gator-20261105-01/src/net/ipv6/af_inet6.c",
+      "sha256": "22f57a8b477e422aa5006fbcea4e549781336c6baec197a4718733476c3960cf",
+      "evidence": [
+        {
+          "line": 132,
+          "needle": "if (!current_has_network())",
+          "excerpt": "\n\tif (!current_has_network())\n\t\treturn -EACCES;\n\n\t/* Look for the requested type/protocol pair. */\nlookup_protocol:"
+        }
+      ]
+    },
+    "netd_init": {
+      "path": "/srv/android/src/lineage-24.0-arm64/system/netd/server/netd.rc",
+      "sha256": "51039198c9ec69111b1f7f1c8257ae12ee0a677c14599a87416c5b24b112948b",
+      "evidence": [
+        {
+          "line": 16,
+          "needle": "service netd /system/bin/netd",
+          "excerpt": "# Keep in sync with 'netd1shot' above.\nservice netd /system/bin/netd\n    disabled # only started once bpf programs are loaded\n    class main\n    capabilities CHOWN DAC_OVERRIDE DAC_READ_SEARCH FOWNER IPC_LOCK KILL NET_ADMIN NET_BIND_SERVICE NET_RAW SETUID SETGID\n    user root"
+        },
+        {
+          "line": 32,
+          "needle": "onrestart restart zygote",
+          "excerpt": "    # for obvious reasons 'onrestart' doesn't apply to netd1shot above\n    onrestart restart zygote\n    onrestart restart zygote_secondary\n\n# Moved from external/android-clat/vendor-464xlat.rc. Since\n# clatd is modularized and shipped in apex, migrate the"
+        },
+        {
+          "line": 33,
+          "needle": "onrestart restart zygote",
+          "excerpt": "    onrestart restart zygote\n    onrestart restart zygote_secondary\n\n# Moved from external/android-clat/vendor-464xlat.rc. Since\n# clatd is modularized and shipped in apex, migrate the\n# clat vendor property to netd."
+        }
+      ]
+    },
+    "bpf_boot_gate": {
+      "path": "/srv/android/src/lineage-24.0-arm64/packages/modules/Connectivity/bpf/loader/netbpfload.rc",
+      "sha256": "14c576d0d33894504202743e0a1ea28d16f964a72c6ac1924f78ef371736b05d",
+      "evidence": [
+        {
+          "line": 51,
+          "needle": "wait_for_prop bpf.progs_loaded 1",
+          "excerpt": "    # (this will hang if bpfloader fails)\n    wait_for_prop bpf.progs_loaded 1\n\n    # Restore kallsyms protection after bpf programs have been loaded.\n    # This has to happen after bpfloader has already terminated.\n    write /proc/sys/kernel/kptr_restrict 2"
+        },
+        {
+          "line": 58,
+          "needle": "start netd",
+          "excerpt": "    # At this point 'bpf.progs_loaded' is guaranteed to be '1'\n    exec_start netd1shot\n    start netd\n\n# Note: This will actually execute /apex/com.android.tethering/bin/netbpfload\n# by virtue of 'service bpfloader' being overridden by the apex shipped .rc"
+        },
+        {
+          "line": 59,
+          "needle": "start netd",
+          "excerpt": "    exec_start netd1shot\n    start netd\n\n# Note: This will actually execute /apex/com.android.tethering/bin/netbpfload\n# by virtue of 'service bpfloader' being overridden by the apex shipped .rc\n# Warning: the below settings are irrelevant unless the apex is missing."
+        }
+      ]
+    },
+    "bpf_wait": {
+      "path": "/srv/android/src/lineage-24.0-arm64/packages/modules/Connectivity/bpf/headers/include/bpf/WaitForProgsLoaded.h",
+      "sha256": "04f3d8a46c859bf4e513ce9e1da3b2d929e92d7737e9724a5d5088aa0f49999f",
+      "evidence": [
+        {
+          "line": 28,
+          "needle": "static inline void waitForProgsLoaded()",
+          "excerpt": "// Wait for bpfloader to load BPF programs.\nstatic inline void waitForProgsLoaded() {\n    // infinite loop until success with 5/10/20/40/60/60/60... delay\n    for (int delay = 5;; delay *= 2) {\n        if (delay > 60) delay = 60;\n        if (android::base::WaitForProperty(\"bpf.progs_loaded\", \"1\", std::chrono::seconds(delay)))"
+        }
+      ]
+    },
+    "bpf_handler": {
+      "path": "/srv/android/src/lineage-24.0-arm64/packages/modules/Connectivity/bpf/netd/BpfHandler.cpp",
+      "sha256": "6e12bb65318d2a9109c6d04a693c10c517cd7ca868debe289f499b43fc14f0c4",
+      "evidence": [
+        {
+          "line": 286,
+          "needle": "bpf::waitForProgsLoaded();",
+          "excerpt": "        ALOGI(\"Waiting for platform BPF programs\");\n        bpf::waitForProgsLoaded();\n    }\n\n    if (!mainlineNetBpfLoadDone()) {\n        // We're on < U QPR3 & it's the first time netd is starting up (unless crashlooping)"
+        }
+      ]
+    },
+    "java_maps": {
+      "path": "/srv/android/src/lineage-24.0-arm64/packages/modules/Connectivity/service/src/com/android/server/BpfNetMaps.java",
+      "sha256": "c78a90ae6352cdee00fc65a7dbd899e9f041456e8388dd5e72cab6064be47dfd",
+      "evidence": [
+        {
+          "line": 1761,
+          "needle": "public void addLocalNetAccess",
+          "excerpt": "    @RequiresApi(Build.VERSION_CODES.CUR_DEVELOPMENT)\n    public void addLocalNetAccess(final int lpmBitlen, @Nullable final String iface,\n            final InetAddress address, final int protocol, final int remotePort,\n            final boolean isAllowed) {\n        throwIfPre25Q2(\"addLocalNetAccess is not available on pre-B devices\");\n        if (iface == null) {"
+        },
+        {
+          "line": 1546,
+          "needle": "public void setChunkPermListForUids",
+          "excerpt": "    @RequiresApi(Build.VERSION_CODES.TIRAMISU)\n    public void setChunkPermListForUids(final SparseIntArray permissionsUids) {\n        throwIfUidMigrationIsDisabled(\n            \"setChunkPermListForUids is not available when flag permission_map_uid_migration\" +\n            \" is disabled\");\n"
+        }
+      ]
+    }
+  },
+  "hardware_tested": false,
+  "flash_ready": false
+}

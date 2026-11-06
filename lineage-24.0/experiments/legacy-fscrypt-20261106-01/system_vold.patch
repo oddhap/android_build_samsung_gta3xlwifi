@@ -1,0 +1,150 @@
+--- a/KeyUtil.cpp
++++ b/KeyUtil.cpp
+@@ -29,6 +29,10 @@
+ 
+ #include <android-base/file.h>
+ #include <android-base/logging.h>
++#ifdef GTA3XLWIFI_LEGACY_FSCRYPT
++#include <keyutils.h>
++#include <vector>
++#endif
+ 
+ #include "KeyStorage.h"
+ #include "Keystore.h"
+@@ -233,6 +237,89 @@
+     return o.str();
+ }
+ 
++#ifdef GTA3XLWIFI_LEGACY_FSCRYPT
++// Samsung's v1 fscrypt uses real logon keys in the inherited init keyring.
++// Wrapped keys and v2 policies must never enter this raw v1 compatibility path.
++static const char* const kLegacyKeyPrefixes[] = {"ext4", "f2fs", "fscrypt"};
++
++static bool legacyFscryptKeyring(key_serial_t* ring) {
++    *ring = keyctl_search(KEY_SPEC_SESSION_KEYRING, "keyring", "fscrypt", 0);
++    if (*ring < 0) {
++        PLOG(ERROR) << "Missing inherited fscrypt keyring";
++        return false;
++    }
++    return true;
++}
++
++static bool installKeyLegacy(const KeyBuffer& key, const std::string& raw_ref) {
++    if (key.size() != FSCRYPT_MAX_KEY_SIZE || raw_ref.size() != FSCRYPT_KEY_DESCRIPTOR_SIZE) {
++        LOG(ERROR) << "Invalid legacy v1 key or descriptor size";
++        return false;
++    }
++    key_serial_t ring;
++    if (!legacyFscryptKeyring(&ring)) return false;
++    KeyBuffer payload(sizeof(fscrypt_key), 0);
++    auto* fs_key = reinterpret_cast<fscrypt_key*>(payload.data());
++    static_assert(sizeof(fs_key->raw) == FSCRYPT_MAX_KEY_SIZE);
++    fs_key->size = key.size();
++    memcpy(fs_key->raw, key.data(), key.size());
++    std::vector<key_serial_t> inserted;
++    auto rollback = [&]() {
++        for (auto id : inserted) {
++            if (keyctl_unlink(id, ring) < 0) PLOG(ERROR) << "Legacy key insertion rollback failed";
++        }
++    };
++    for (auto prefix : kLegacyKeyPrefixes) {
++        const auto name = std::string(prefix) + ":" + keyrefstring(raw_ref);
++        const auto existing = keyctl_search(ring, "logon", name.c_str(), 0);
++        if (existing >= 0) continue;
++        if (errno != ENOKEY) {
++            PLOG(ERROR) << "Legacy key lookup failed";
++            rollback();
++            return false;
++        }
++        const auto id = add_key("logon", name.c_str(), payload.data(), payload.size(), ring);
++        if (id < 0) {
++            PLOG(ERROR) << "Legacy key insertion failed";
++            rollback();
++            return false;
++        }
++        inserted.push_back(id);
++    }
++    return true;
++}
++
++static bool evictKeyLegacy(const std::string& raw_ref) {
++    if (raw_ref.size() != FSCRYPT_KEY_DESCRIPTOR_SIZE) return false;
++    key_serial_t ring;
++    if (!legacyFscryptKeyring(&ring)) return false;
++    bool success = true;
++    for (auto prefix : kLegacyKeyPrefixes) {
++        const auto name = std::string(prefix) + ":" + keyrefstring(raw_ref);
++        const auto id = keyctl_search(ring, "logon", name.c_str(), 0);
++        if (id < 0) {
++            if (errno != ENOKEY) {
++                PLOG(ERROR) << "Legacy eviction lookup failed";
++                success = false;
++            }
++            continue;
++        }
++        if (keyctl_unlink(id, ring) < 0) {
++            PLOG(ERROR) << "Legacy key unlink failed";
++            success = false;
++        }
++    }
++    // Old fscrypt caches per-inode keys. As in the v1 platform, user processes
++    // must have closed their files; this cannot revoke keys held by open files.
++    sync();
++    if (!writeStringToFile("2", "/proc/sys/vm/drop_caches")) {
++        PLOG(ERROR) << "Failed to reclaim legacy encrypted inode caches";
++        success = false;
++    }
++    return success;
++}
++#endif
++
+ // Build a struct fscrypt_key_specifier for use in the key management ioctls.
+ static bool buildKeySpecifier(fscrypt_key_specifier* spec, const EncryptionPolicy& policy) {
+     switch (policy.options.version) {
+@@ -263,6 +350,12 @@
+ bool installKey(const std::string& mountpoint, const EncryptionOptions& options,
+                 const KeyBuffer& key, EncryptionPolicy* policy) {
+     const std::lock_guard<std::mutex> lock(fscrypt_keyring_mutex);
++#ifdef GTA3XLWIFI_LEGACY_FSCRYPT
++    if (key.empty()) {
++        LOG(ERROR) << "Cannot install an empty storage key";
++        return false;
++    }
++#endif
+     policy->options = options;
+     // Put the fscrypt_add_key_arg in an automatically-zeroing buffer, since we
+     // have to copy the raw key into it.
+@@ -328,6 +421,11 @@
+     }
+ 
+     if (ioctl(fd, FS_IOC_ADD_ENCRYPTION_KEY, arg) != 0) {
++#ifdef GTA3XLWIFI_LEGACY_FSCRYPT
++        if (errno == ENOTTY && options.version == 1 && options.key_type == KeyType::kRaw) {
++            return installKeyLegacy(key, policy->key_raw_ref);
++        }
++#endif
+         PLOG(ERROR) << "Failed to install fscrypt key to " << mountpoint;
+         return false;
+     }
+@@ -419,6 +517,11 @@
+     std::string ref = keyrefstring(policy.key_raw_ref);
+ 
+     if (ioctl(fd, FS_IOC_REMOVE_ENCRYPTION_KEY, &arg) != 0) {
++#ifdef GTA3XLWIFI_LEGACY_FSCRYPT
++        if (errno == ENOTTY && policy.options.version == 1 && policy.options.key_type == KeyType::kRaw) {
++            return evictKeyLegacy(policy.key_raw_ref);
++        }
++#endif
+         PLOG(ERROR) << "Failed to evict fscrypt key with ref " << ref << " from " << mountpoint;
+         return false;
+     }
+--- a/Android.bp
++++ b/Android.bp
+@@ -4,6 +4,7 @@
+ 
+ cc_defaults {
+     name: "vold_default_flags",
++    defaults: ["gta3xlwifi_legacy_fscrypt_defaults"],
+ 
+     cflags: [
+         "-Wall",

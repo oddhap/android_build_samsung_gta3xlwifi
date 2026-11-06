@@ -4,7 +4,7 @@
 
 The unwinder/task stack and module lookup are mocked; no live interrupt proof.
 """
-import argparse,hashlib,importlib.util,json,subprocess
+import argparse,hashlib,importlib.util,json,os,subprocess
 from pathlib import Path
 p=argparse.ArgumentParser(description=__doc__)
 for n in ['source','output']:p.add_argument('--'+n,type=Path,required=True)
@@ -75,6 +75,6 @@ results=[]
 for graph in [False,True]:
  binary=a.output/('graph' if graph else 'plain');cmd=['clang','-std=gnu11','-O1','-g','-Wall','-Wextra','-Werror','-Wno-unused-function','-fsanitize=address,undefined','-DMODULE',*(['-DCONFIG_FUNCTION_GRAPH_TRACER'] if graph else []),str(a.output/'fixture.c'),'-o',str(binary)]
  r=subprocess.run(cmd,capture_output=True,text=True);assert r.returncode==0,r.stderr
- r=subprocess.run([str(binary)],capture_output=True,text=True);assert r.returncode==0,r.stdout+r.stderr
+ r=subprocess.run([str(binary)],capture_output=True,text=True,env=dict(os.environ,UBSAN_OPTIONS='halt_on_error=1'));(a.output/(binary.name+'.log')).write_text(r.stdout+r.stderr);assert r.returncode==0 and not r.stderr,r.stdout+r.stderr
  results.append({'function_graph':graph,'bounded_cases':168,'null_registers_and_unavailable_stack':True,'module_sentinel_rejected':True,'command':cmd})
 (a.output/'report.json').write_text(json.dumps({'passed':True,'scope':__doc__,'results':results,'inputs_sha256':{str(x):hashlib.sha256(x.read_bytes()).hexdigest() for x in [src,gator,Path(__file__)]},'hardware_tested':False},indent=2)+'\n');print('PASS: actual register collector and Gator sentinel bodies; 336 bounded cases plus null/stack controls')

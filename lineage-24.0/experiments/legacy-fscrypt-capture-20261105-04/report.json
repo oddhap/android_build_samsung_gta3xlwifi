@@ -1,0 +1,19 @@
+{
+  "passed": true,
+  "snapshot": "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/snapshots/port-20261105-03",
+  "projects": 1243,
+  "exact_source_patches": 16,
+  "changed_patch_projects": [
+    "system/core",
+    "system/vold"
+  ],
+  "revision_changes": {
+    "device/samsung/gta3xlwifi": [
+      "2f649d06fec3318926c61aaf7a5fa3f40aa9f266",
+      "e9984355a95f21e7fc2168b9dbf49d822406c513"
+    ]
+  },
+  "prebuilts_promoted": false,
+  "hardware_tested": false,
+  "flash_ready": false
+}
