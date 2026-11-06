@@ -1,0 +1,27 @@
+{
+  "scope": "Isolated real-kernel packet-barrier lease transport; no TOP/service/readiness changes",
+  "project": "system/netd",
+  "revision": "fb7e47052620fd1139522e2b3d1343c8680f7c0f",
+  "patch_sha256": "e17ddb320056d15bcae487e855bb53b2d0f1782794153279d95e5ff2c2694a01",
+  "files": [
+    {
+      "path": "server/Gta3xlwifiNetpolicyLease.cpp",
+      "before_sha256": null,
+      "candidate_sha256": "4ad79f0d738b6573e6285b87f89fc1d7aaab09dd8998008aa50d3ee4294a0f87"
+    },
+    {
+      "path": "server/Gta3xlwifiNetpolicyLease.h",
+      "before_sha256": null,
+      "candidate_sha256": "fb8285a02e03db2b9c5ad719ba3b7985c99633c192e4935e213fe26b3dae69d6"
+    },
+    {
+      "path": "server/linux/netfilter/gta3xlwifi_netpolicy.h",
+      "before_sha256": null,
+      "candidate_sha256": "fd53c8c287840054ac9234efdabd88302140d95fc1488c57080de499a835d54c"
+    }
+  ],
+  "kernel_proposal": "kernel-netpolicy-20261106-01",
+  "kernel_uapi_byte_identical": true,
+  "active_source_changed": false,
+  "flash_ready": false
+}

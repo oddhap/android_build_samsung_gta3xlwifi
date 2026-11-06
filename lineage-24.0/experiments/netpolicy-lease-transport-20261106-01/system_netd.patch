@@ -1,0 +1,251 @@
+diff --git a/server/Gta3xlwifiNetpolicyLease.cpp b/server/Gta3xlwifiNetpolicyLease.cpp
+new file mode 100644
+--- /dev/null
++++ b/server/Gta3xlwifiNetpolicyLease.cpp
+@@ -0,0 +1,184 @@
++// SPDX-License-Identifier: Apache-2.0
++#include "Gta3xlwifiNetpolicyLease.h"
++#include <linux/netfilter/gta3xlwifi_netpolicy.h>
++#include <cerrno>
++#include <cinttypes>
++#include <climits>
++#include <cstdio>
++#include <cstring>
++#include <fcntl.h>
++#include <initializer_list>
++#include <netinet/in.h>
++#include <sys/socket.h>
++#include <sys/ioctl.h>
++#include <sys/stat.h>
++#include <sys/sysmacros.h>
++#include <sys/vfs.h>
++#include <unistd.h>
++
++namespace android::net::gta3xlwifi {
++namespace {
++constexpr uint64_t kSysfsMagic = 0x62656572;
++constexpr char kDevice[] = "/dev/gta3xlwifi_netpolicy";
++constexpr char kDeviceId[] = "/sys/devices/virtual/misc/gta3xlwifi_netpolicy/dev";
++
++class Fd {
++  public:
++    explicit Fd(int fd) : mFd(fd) {}
++    ~Fd() {
++        const int saved = errno;
++        if (mFd >= 0) close(mFd);  // Linux closes the descriptor even on EINTR.
++        errno = saved;
++    }
++    int get() const { return mFd; }
++    int release() { const int fd = mFd; mFd = -1; return fd; }
++  private:
++    int mFd;
++};
++
++int openFile(const char* path, int flags) {
++    int fd;
++    do { fd = open(path, flags | O_CLOEXEC | O_NOFOLLOW); } while (fd < 0 && errno == EINTR);
++    return fd;
++}
++
++int checkFile(int fd, uint64_t magic) {
++    struct stat st {};
++    if (fstat(fd, &st)) return errno ? -errno : -EIO;
++    if (!S_ISREG(st.st_mode) || st.st_uid != 0) return -ENODEV;
++    struct statfs fs {};
++    if (fstatfs(fd, &fs)) return errno ? -errno : -EIO;
++    return static_cast<uint64_t>(fs.f_type) == magic ? 0 : -ENODEV;
++}
++
++// Exact bounded sysfs text, not a generic file/property fallback. Inaccessible,
++// wrong filesystem, truncated, embedded-NUL or malformed input is an error.
++int readSysfs(const char* path, char* buffer, size_t capacity) {
++    Fd fd(openFile(path, O_RDONLY));
++    if (fd.get() < 0) return errno ? -errno : -EIO;
++    int result = checkFile(fd.get(), kSysfsMagic);
++    if (result) return result;
++    size_t used = 0;
++    while (used < capacity) {
++        ssize_t count;
++        do { count = read(fd.get(), buffer + used, capacity - used); }
++        while (count < 0 && errno == EINTR);
++        if (count < 0) return errno ? -errno : -EIO;
++        if (count == 0) {
++            if (used == 0 || memchr(buffer, '\0', used)) return -EPROTO;
++            buffer[used] = '\0';
++            return static_cast<int>(used);
++        }
++        used += static_cast<size_t>(count);
++    }
++    return -EOVERFLOW;
++}
++
++int deviceIdentity(dev_t* identity) {
++    char value[33];
++    const int size = readSysfs(kDeviceId, value, sizeof(value) - 1);
++    if (size < 0) return size;
++    unsigned int numbers[2] = {};
++    unsigned int part = 0;
++    bool digit = false;
++    for (int i = 0; i < size; ++i) {
++        const char c = value[i];
++        if (c >= '0' && c <= '9') {
++            if (numbers[part] > (UINT_MAX - static_cast<unsigned int>(c - '0')) / 10)
++                return -EPROTO;
++            numbers[part] = numbers[part] * 10 + static_cast<unsigned int>(c - '0');
++            digit = true;
++        } else if (c == ':' && part == 0 && digit) {
++            part = 1;
++            digit = false;
++        } else if (c == '\n' && i == size - 1 && part == 1 && digit) {
++            const dev_t dev = makedev(numbers[0], numbers[1]);
++            // Misc devices have major 10; also reject dev_t truncation.
++            if (numbers[0] != 10 || major(dev) != numbers[0] || minor(dev) != numbers[1])
++                return -ENODEV;
++            *identity = dev;
++            return 0;
++        } else {
++            return -EPROTO;
++        }
++    }
++    return -EPROTO;
++}
++
++}  // namespace
++
++NetpolicyLease::~NetpolicyLease() { stop(); }
++void NetpolicyLease::closeLocked() {
++    const int saved = errno;
++    const int fd = mFd;
++    mFd = -1;
++    if (fd >= 0) close(fd);  // Linux closes even on EINTR; never retry/reuse.
++    errno = saved;
++}
++void NetpolicyLease::stop() {
++    std::lock_guard<std::mutex> lock(mMutex);
++    closeLocked();
++}
++int NetpolicyLease::commandLocked(unsigned long request, int expected) {
++    if (mFd < 0) return -ENOTCONN;
++    int result;
++    do { result = ioctl(mFd, request, 0UL); } while (result < 0 && errno == EINTR);
++    if (result == expected) return 0;
++    const int error = result < 0 ? (errno ? -errno : -EIO) : -EPROTO;
++    closeLocked();  // Owner close in the private driver rearms the barrier.
++    return error;
++}
++int NetpolicyLease::stateLocked(bool* output) {
++    if (mFd < 0) return -ENOTCONN;
++    int result;
++    do { result = ioctl(mFd, GTA3XLWIFI_NETPOLICY_STATE, 0UL); }
++    while (result < 0 && errno == EINTR);
++    if (result == 0 || result == 1) { *output = result == 1; return 0; }
++    const int error = result < 0 ? (errno ? -errno : -EIO) : -EPROTO;
++    closeLocked();
++    return error;
++}
++int NetpolicyLease::start() {
++    std::lock_guard<std::mutex> lock(mMutex);
++    if (mFd >= 0) return -EALREADY;
++    dev_t identity {};
++    int result = deviceIdentity(&identity);
++    if (result) return result;
++    Fd device(openFile(kDevice, O_RDONLY));
++    if (device.get() < 0) return errno ? -errno : -EIO;
++    struct stat st {};
++    if (fstat(device.get(), &st)) return errno ? -errno : -EIO;
++    if (!S_ISCHR(st.st_mode) || st.st_rdev != identity || st.st_uid != 0 ||
++        st.st_gid != 0 || (st.st_mode & 07777) != 0400) return -ENODEV;
++    mFd = device.release();
++    result = commandLocked(GTA3XLWIFI_NETPOLICY_ABI, GTA3XLWIFI_NETPOLICY_VERSION);
++    if (result) return result;
++    bool held = false;
++    result = stateLocked(&held);
++    if (result) return result;
++    if (!held) { closeLocked(); return -EPROTO; }
++    return 0;  // A closed I/O lease only; no attachments or readiness implied.
++}
++int NetpolicyLease::changeLocked(unsigned long request, bool held) {
++    int result = commandLocked(request, 0);
++    if (result) return result;
++    bool actual = !held;
++    result = stateLocked(&actual);
++    if (result) return result;
++    if (actual != held) { closeLocked(); return -EPROTO; }
++    return 0;
++}
++int NetpolicyLease::hold() {
++    std::lock_guard<std::mutex> lock(mMutex);
++    return changeLocked(GTA3XLWIFI_NETPOLICY_HOLD, true);
++}
++int NetpolicyLease::release() {
++    std::lock_guard<std::mutex> lock(mMutex);
++    return changeLocked(GTA3XLWIFI_NETPOLICY_RELEASE, false);
++}
++int NetpolicyLease::isHeld(bool* output) {
++    if (!output) return -EINVAL;
++    std::lock_guard<std::mutex> lock(mMutex);
++    return stateLocked(output);
++}
++}  // namespace android::net::gta3xlwifi
+diff --git a/server/Gta3xlwifiNetpolicyLease.h b/server/Gta3xlwifiNetpolicyLease.h
+new file mode 100644
+--- /dev/null
++++ b/server/Gta3xlwifiNetpolicyLease.h
+@@ -0,0 +1,28 @@
++// SPDX-License-Identifier: Apache-2.0
++#pragma once
++#include <mutex>
++
++namespace android::net::gta3xlwifi {
++// Private real-kernel lease transport, not a networking backend or readiness API.
++// The sole backend owner must hold its transaction lock and verify guard/DROP
++// attachments in both families before calling release(). No FD is exposed.
++class NetpolicyLease final {
++public:
++    NetpolicyLease() = default;
++    ~NetpolicyLease();
++    NetpolicyLease(const NetpolicyLease&) = delete;
++    NetpolicyLease& operator=(const NetpolicyLease&) = delete;
++    int start();
++    int hold();
++    int release();
++    int isHeld(bool* output);
++    void stop();
++private:
++    int commandLocked(unsigned long request, int expected);
++    int stateLocked(bool* output);
++    int changeLocked(unsigned long request, bool held);
++    void closeLocked();
++    std::mutex mMutex;
++    int mFd = -1;
++};
++}  // namespace android::net::gta3xlwifi
+diff --git a/server/linux/netfilter/gta3xlwifi_netpolicy.h b/server/linux/netfilter/gta3xlwifi_netpolicy.h
+new file mode 100644
+--- /dev/null
++++ b/server/linux/netfilter/gta3xlwifi_netpolicy.h
+@@ -0,0 +1,24 @@
++/* SPDX-License-Identifier: GPL-2.0 WITH Linux-syscall-note */
++#ifndef _UAPI_GTA3XLWIFI_NETPOLICY_H
++#define _UAPI_GTA3XLWIFI_NETPOLICY_H
++#include <linux/ioctl.h>
++#include <linux/types.h>
++
++#define GTA3XLWIFI_NETPOLICY_VERSION 1
++#define GTA3XLWIFI_NETPOLICY_ABI     _IO('g', 0x50)
++#define GTA3XLWIFI_NETPOLICY_HOLD    _IO('g', 0x51)
++#define GTA3XLWIFI_NETPOLICY_RELEASE _IO('g', 0x52)
++#define GTA3XLWIFI_NETPOLICY_STATE   _IO('g', 0x53)
++#define GTA3XLWIFI_NETPOLICY_MATCH "gta3xlwifi_guard"
++
++/* No pointers or arguments: identical ioctl numbers on ARM32 and ARM64.
++ * ABI returns VERSION; STATE returns 1 when held, 0 when released.
++ * All other successful commands return 0. Every argument must be zero.
++ * Opening exclusively acquires a closed lease. Owner close/exit closes the
++ * barrier even if forked children still hold the file. This neither installs
++ * rules nor proves complete networking readiness.
++ */
++struct gta3xlwifi_netpolicy_match {
++	__u8 reserved[4];
++};
++#endif
