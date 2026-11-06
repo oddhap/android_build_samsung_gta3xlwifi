@@ -1,0 +1,24 @@
+{
+  "scope": "Read-only ext4 superblock inspection of preserved November3 diagnostic archive, not final ROM or GApps compatibility",
+  "archive": "/srv/android/artifacts/lineage-24.0-arm64/diagnostic-full-targetfiles-preserve-20261103-02/lineage_gta3xlwifi-target_files.zip",
+  "expected_archive_sha256": "5d6d30884abdf5c9cd2ea1680961005f681598a508bcb0937d6ebb27bebc3b45",
+  "method": "Read Android sparse RAW extent containing the ext4 superblock directly from ZIP; checked sparse and ext4 magic; block count/free/reserved include 64-bit extension if enabled",
+  "images": {
+    "IMAGES/system.img": {
+      "filesystem_bytes": 3196059648,
+      "free_bytes": 1279262720,
+      "reserved_bytes": 0
+    },
+    "IMAGES/product.img": {
+      "filesystem_bytes": 327155712,
+      "free_bytes": 122372096,
+      "reserved_bytes": 0
+    }
+  },
+  "gapps_package_selected": false,
+  "android17_gapps_compatibility_tested": false,
+  "partition_changes_performed": false,
+  "flash_ready": false,
+  "observed_archive_sha256": "5d6d30884abdf5c9cd2ea1680961005f681598a508bcb0937d6ebb27bebc3b45",
+  "archive_digest_verified": true
+}

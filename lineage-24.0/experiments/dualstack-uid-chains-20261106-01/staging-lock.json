@@ -1,0 +1,31 @@
+{
+  "scope": "Isolated guarded both-family existing UID-chain transaction; not full networking",
+  "project": "system/netd",
+  "revision": "fb7e47052620fd1139522e2b3d1343c8680f7c0f",
+  "patch_sha256": "6e23192a0a848a6f5bbe9e78cf4069066148bb970091156fad0f3d89248b40a3",
+  "files": [
+    {
+      "path": "server/Gta3xlwifiDualStackUidChains.cpp",
+      "before_sha256": null,
+      "candidate_sha256": "43ffc7bc9960e8ed4e9b84d7f16f73bd9b8fa05ff232b067092b400e92b9244d"
+    },
+    {
+      "path": "server/Gta3xlwifiDualStackUidChains.h",
+      "before_sha256": null,
+      "candidate_sha256": "b69a34740c9ab1eee71a5b81c1dc0cd9b6465071f6bad634da3b3d69ba6d44b2"
+    }
+  ],
+  "prerequisites": [
+    "checked-uid-chains-20261106-01",
+    "netpolicy-lease-transport-20261106-01"
+  ],
+  "dependency_source_sha256": {
+    "Gta3xlwifiCheckedUidChains.cpp": "c4e584f6ac238791af691b5f13b5d1fe2dfe66163020bf773b409cf6da6cd350",
+    "Gta3xlwifiCheckedUidChains.h": "23395984a5d78b0b72943cd77f710a43d083a12ff18ca2285b47c1ae157695cd",
+    "Gta3xlwifiNetpolicyLease.cpp": "4ad79f0d738b6573e6285b87f89fc1d7aaab09dd8998008aa50d3ee4294a0f87",
+    "Gta3xlwifiNetpolicyLease.h": "fb8285a02e03db2b9c5ad719ba3b7985c99633c192e4935e213fe26b3dae69d6",
+    "linux/netfilter/gta3xlwifi_netpolicy.h": "fd53c8c287840054ac9234efdabd88302140d95fc1488c57080de499a835d54c"
+  },
+  "active_source_changed": false,
+  "flash_ready": false
+}

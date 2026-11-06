@@ -653,3 +653,17 @@ contradiction failures and both neighboring-ioctl denial assertions pass. No
 policy input is automatically replaced. Verified packet attachments, owner
 transport, the complete Android17 networking backend and installation/FBE/
 rollback integration remain required. No flash-ready ROM is produced.
+
+[The real lease transport](experiments/netpolicy-lease-transport-20261106-01/)
+passes65 syscall-fixture cases and actual netd ARM64 CFI object compilation.
+[The composed two-family transaction](experiments/dualstack-uid-chains-20261106-01/)
+passes62 fatal-sanitizer cases and compilation/linking of all three components
+against the actual Android interface. It verifies all six guard hooks, actual
+both-family snapshots and final rule readbacks; failed/unverifiable recovery
+keeps the barrier held. These remain isolated components, without hook setup or
+full backend/service integration, and do not establish real packet behavior.
+
+A read-only [old diagnostic filesystem inspection](reports/gapps-space-diagnostic-20261106.json)
+finds1220MiB free in system and116.7MiB in product. The preserved archive digest
+matches. This does not establish final-ROM space or Android17 GApps support.
+No GApps package is selected and no A/B conversion/repartitioning is performed.
