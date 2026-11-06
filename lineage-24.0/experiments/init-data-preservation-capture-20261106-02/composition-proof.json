@@ -1,0 +1,8 @@
+{
+  "passed": true,
+  "project": "system/core",
+  "parent_patch_sha256": "ad90211f4f672fee28e438c6010c5b52ed1113958a3d236d65f6df1fbb62f83e",
+  "incremental_patch_sha256": "9f0c579d695ca318f4286e92e7306ca82f656f23ba7b8f39fbbe0d75cf9d3005",
+  "exact_parent_bytes_recovered": true,
+  "source_or_real_index_modified_by_proof": false
+}

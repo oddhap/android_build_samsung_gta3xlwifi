@@ -14,7 +14,7 @@ The initial 23.2 port patches compiled successfully on Android 17 in
 `native-policy-20261101-01` (exit 0, followed by full source audit). Selected
 ARM/ARM64 ELF outputs are recorded in the reports; this is build/link evidence.
 
-Active snapshot **port-20261106-01** locks 1,243 projects and **16 exact patches**.
+Active snapshot **port-20261106-02** locks 1,243 projects and **16 exact patches**.
 It includes the device-scoped legacy v1 fscrypt keyring source integration;
 actual init/vold module compilation and multilib keyutils checks have passed, as recorded below.
 It adds a source backport of policy 30.0 compatibility data and generator modules,
@@ -589,3 +589,20 @@ without forcing their target: ARM32 and ARM64 ELF identities and required symbol
 definitions passed. This is source/build/link evidence; actual keyrings, userdata
 unlock, TEE, locking, recovery compatibility and rollback remain untested.
 No kernel/vendor input was replaced and no installation candidate was produced.
+
+
+## November 6: preserve userdata on init recovery errors
+
+[The scoped init guard](experiments/init-data-preservation-20261106-01/) rejects
+recovery wipe requests before bootloader-message writes or shutdown. Mount and
+unlock failures remain errors. Current init callers for mount, directory-policy
+and vold initialization failures are covered; encryption and SELinux are intact.
+100 actual-function host cases passed with fatal UBSan on Mac/Linux. Native init
+rebuilt successfully, the guard is present in the installed binary, and actual
+init/vold plus ARM32/ARM64 keyutils verification passed again.
+
+Current snapshot **port-20261106-02** retains all 1,243 project revisions and 16
+reviewed patches; only the system/core patch changed since snapshot01. Full
+before/after source audits and private-index patch-composition proof pass.
+This is a data-preservation guard, not hardware unlock/TEE/recovery/rollback
+validation or a flashable-ROM claim.

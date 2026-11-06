@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "snapshot": "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/snapshots/port-20261106-02",
+  "projects": 1243,
+  "exact_source_patches": 16,
+  "changed_patch_projects": [
+    "system/core"
+  ],
+  "revision_changes": {},
+  "prebuilts_promoted": false,
+  "hardware_tested": false,
+  "flash_ready": false
+}

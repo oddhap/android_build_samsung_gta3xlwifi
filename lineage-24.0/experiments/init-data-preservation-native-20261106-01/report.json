@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "source_sha256": "6a52c8a899f2ae8627f9b1fe80f9a9cb1a56f40c1db8cedf25ce1ae87210fb2d",
+  "installed_init_sha256": "05c1e71cdbc732db7a90f0f304fcbcf9873e78258eb810b223599c3c4547bd97",
+  "installed_guard_literal_present": true,
+  "host_report_sha256": "af0bd440ec8a0fc3492612f4fe9b32d71a94eade1580b1b705812eb1593cd887",
+  "actual_function_tested_cases": 100,
+  "hardware_tested": false,
+  "flash_ready": false
+}

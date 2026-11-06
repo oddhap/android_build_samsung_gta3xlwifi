@@ -1,0 +1,2 @@
+libinit
+init_second_stage

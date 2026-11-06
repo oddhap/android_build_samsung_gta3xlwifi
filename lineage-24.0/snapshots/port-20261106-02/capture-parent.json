@@ -1,0 +1,67 @@
+{
+  "parent": "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/snapshots/port-20261106-01",
+  "parent_lock_sha256": "5325f565c710ce6bfd605d51d13b739fda65e9518d4ad39147a0586a60e60c59",
+  "byte_exact_style_approvals_reused": [
+    {
+      "project": "bionic",
+      "sha256": "43b0742e69552df4fed4c98110431a0aca661ff78054217cf4004ab452aae460"
+    },
+    {
+      "project": "device/lineage/sepolicy",
+      "sha256": "0fbab62b1e420e412734a38dd2cc11cc3676f995c357bdb8b9fd6908564871ab"
+    },
+    {
+      "project": "external/boringssl",
+      "sha256": "e231c00760a8de6be3dc95f35faf74593a34ce8b3485336d6fadef75771291be"
+    },
+    {
+      "project": "external/chromium-webview/patches",
+      "sha256": "dc954cadd9fe02a55c84ece2de1a2db57dcd07bc268f0c75722d214618d47cf8"
+    },
+    {
+      "project": "frameworks/av",
+      "sha256": "473a6d88eab497214c6e2851690712c9569dc7bd366f06bcae1700786f95db96"
+    },
+    {
+      "project": "frameworks/base",
+      "sha256": "6b8f451671fe5139339080482dc44846143a14d3cf5eff347937e01bac908933"
+    },
+    {
+      "project": "frameworks/native",
+      "sha256": "3d2ce918b6a5bde8e778ddbc8034ae3d4bd1fe58233e1129831d6ad571e2c4f8"
+    },
+    {
+      "project": "packages/apps/Backgrounds",
+      "sha256": "68e7108d136794b5858c7f1d3ee184fb7b6065c68d875b2b009b0a28df978fc5"
+    },
+    {
+      "project": "packages/modules/vndk",
+      "sha256": "3f1e7ffa3932c430eccc50863170c83583d80c0171a4b447a9b68e4faafcd7ba"
+    },
+    {
+      "project": "packages/screensavers/PhotoTable",
+      "sha256": "133ae7c59a1d2286c07316d9b5976b1d8dd4acdf39c0052c1536cdf9add105cd"
+    },
+    {
+      "project": "system/fs/fs_mgr",
+      "sha256": "2e7356d7f084a54cbba6f4b958f41f0fc0dd6b5deadd8db2dd8099116603fec1"
+    },
+    {
+      "project": "system/memory/libmeminfo",
+      "sha256": "1880571a9b1bd45ac4cae776b64b06b1035979ad5c5bf00000e1c92a8380b7f5"
+    },
+    {
+      "project": "build/make",
+      "sha256": "869299e0570db53fa0effc61eec780bca6dbfb716fdfd4fcfc440948c96d9230"
+    },
+    {
+      "project": "system/sepolicy",
+      "sha256": "0e9e493c96a69765b4f959eeb2a5642507580f50a6c106a9237072b0f5f6d8ed"
+    },
+    {
+      "project": "system/vold",
+      "sha256": "e592a2a0eaa37db92fc75b1d0ab10241dab1f29d64275d2083add33fd5d08f24"
+    }
+  ],
+  "changed_patches_style_checked": true
+}

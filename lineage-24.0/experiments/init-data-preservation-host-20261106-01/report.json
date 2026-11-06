@@ -1,0 +1,47 @@
+{
+  "passed": true,
+  "scope": "Compile actual init recovery/mount dispatch bodies against synthetic effects.\n\nChecks destructive-request rejection before bootloader writes/reboots. Does not\naccess a bootloader, recovery, mounted filesystem or real encryption key.\n",
+  "inputs_sha256": {
+    "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/experiments/init-data-preservation-20261106-01/builtins.cpp": "6a52c8a899f2ae8627f9b1fe80f9a9cb1a56f40c1db8cedf25ce1ae87210fb2d",
+    "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/test-init-data-preservation.py": "fba1dfff8f85487941518b3317a36871e9bef1e0538ba2607b97345732726400"
+  },
+  "results": [
+    {
+      "profile": "current",
+      "command": [
+        "/usr/bin/clang++",
+        "-std=c++17",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-fsanitize=undefined",
+        "-fno-sanitize-recover=all",
+        "/srv/android/artifacts/lineage-24.0-arm64/init-data-preservation-host-20261106-01/current.cpp",
+        "-o",
+        "/srv/android/artifacts/lineage-24.0-arm64/init-data-preservation-host-20261106-01/current"
+      ],
+      "passed_cases": 50,
+      "stderr": ""
+    },
+    {
+      "profile": "legacy",
+      "command": [
+        "/usr/bin/clang++",
+        "-DGTA3XLWIFI_LEGACY_FSCRYPT",
+        "-std=c++17",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-fsanitize=undefined",
+        "-fno-sanitize-recover=all",
+        "/srv/android/artifacts/lineage-24.0-arm64/init-data-preservation-host-20261106-01/legacy.cpp",
+        "-o",
+        "/srv/android/artifacts/lineage-24.0-arm64/init-data-preservation-host-20261106-01/legacy"
+      ],
+      "passed_cases": 50,
+      "stderr": ""
+    }
+  ],
+  "hardware_tested": false,
+  "flash_ready": false
+}

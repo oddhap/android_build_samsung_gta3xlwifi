@@ -1,0 +1,8 @@
+{
+  "path": "system/core/init/builtins.cpp",
+  "before_sha256": "cc754f60283d8e31eaee7d14b7cee1abc3f19f86d78bcdb446eb44b831b83a14",
+  "candidate_sha256": "6a52c8a899f2ae8627f9b1fe80f9a9cb1a56f40c1db8cedf25ce1ae87210fb2d",
+  "patch_sha256": "9f0c579d695ca318f4286e92e7306ca82f656f23ba7b8f39fbbe0d75cf9d3005",
+  "snapshot_parent": "port-20261106-01",
+  "scope": "GTA3XLWIFI_LEGACY_FSCRYPT only; recovery wipe requests fail before BCB/reboot; other requests and products unchanged"
+}

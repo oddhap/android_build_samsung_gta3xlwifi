@@ -1,0 +1,18 @@
+--- a/init/builtins.cpp
++++ b/init/builtins.cpp
+@@ -148,6 +148,15 @@
+ static constexpr std::chrono::nanoseconds kCommandRetryTimeout = 5s;
+ 
+ static Result<void> reboot_into_recovery(const std::vector<std::string>& options) {
++#if defined(GTA3XLWIFI_LEGACY_FSCRYPT)
++    // Keep existing encrypted data when this test port cannot mount or unlock it.
++    // Reject before writing the bootloader message or requesting a reboot.
++    for (const auto& option : options) {
++        if (option.rfind("--wipe_", 0) == 0 || option == "--prompt_and_wipe_data") {
++            return Error() << "gta3xlwifi: refusing automatic recovery data wipe";
++        }
++    }
++#endif
+     LOG(ERROR) << "Rebooting into recovery";
+     std::string err;
+     if (!IsMicrodroid() && !write_bootloader_message(options, &err)) {
