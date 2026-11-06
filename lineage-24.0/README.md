@@ -805,3 +805,22 @@ all four UAPI headers match the corrected full kernel; binary/archive hashes are
 recorded in the reuse report. No rules or packets execute. Complete mandatory
 LNA/loopback permission, VPN/IIF, DNS/CLAT, attachment/startup/provider/Java wiring,
 installation and final-ROM checks remain. This is not a flash-ready ROM.
+
+## Immutable socket creator prerequisite — November 6
+
+The [isolated creator marker](experiments/kernel-socket-creator-20261106-01/README.md)
+records real userspace inet creator UID independently of mutable socket/inode
+ownership. Kernel sockets are unmarked; cloned/accepted sockets do not inherit a
+marker. Existing initialization/copy/graft bodies and sk_uid behavior are retained.
+Two helper tests plus960 credential/lifecycle comparisons and exact hook/source
+contracts pass with fatal UBSan and explicit fixtures. No receiver lookup or
+permission check is supplied and no active packet rule consumes this metadata.
+
+Complete kernel/modules build exits0; Image dec48db3d5dbd684a9274823b3f1b8cc412c048606137a23dba595557fc77cbd.
+Original config is retained. Rebuilt Gator118/KUTF43 imports match current exports;
+full60338/60331 and Android1243/17 before/after audits pass. UAPI and prior native
+six-extension inputs remain byte-identical, with reuse hashes recorded. Internal
+struct sock layout changes require matching modules and a complete vendor-module
+inventory before promotion. No original module/prebuilt is replaced. Mandatory
+loopback/LNA enforcement and complete framework/startup/provider integration
+remain unfinished; no flash-ready ROM is produced.

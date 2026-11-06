@@ -1,0 +1,42 @@
+{
+  "scope": "Private immutable userspace INET creator UID marker and non-inheriting clone lifecycle; no permission enforcement, socket lookup, BPF storage or readiness implementation",
+  "prerequisites": [
+    "kernel-non-loopback-route-20261106-01"
+  ],
+  "patch_sha256": "19c26ee7ac7dc269f9b89bfa2e329d3f7d437af666bd80679688ab0467142d1d",
+  "files": [
+    {
+      "path": "include/net/sock.h",
+      "before_sha256": "ee341824bae116a4262301c6b12057d05c391e5c4d720c98810aae4f4eaccb7e",
+      "candidate_sha256": "ce34223463a568ab9ce94912cd41e6cc1e24daec40bbd16dba3d513ab5a9bc5f"
+    },
+    {
+      "path": "net/core/sock.c",
+      "before_sha256": "a0e4984ce0b1e8b22eeaae38e4e4d1e96019003cf13455ef136cf6a64c3e0b9e",
+      "candidate_sha256": "8ea4a91d66c8c28968cac22be1b2dbb54874b9cc310e3f16eca9f758b1df1848"
+    },
+    {
+      "path": "net/ipv4/af_inet.c",
+      "before_sha256": "1df3ec4f2c790c1ece676f4309b3139fe2f9f2282b8c159b9752bd11618dea27",
+      "candidate_sha256": "aec5c22b2204c953c95a4bde9899df1da5fcde66b01fc06b0e9d3fb2fbb5c662"
+    },
+    {
+      "path": "net/ipv6/af_inet6.c",
+      "before_sha256": "22f57a8b477e422aa5006fbcea4e549781336c6baec197a4718733476c3960cf",
+      "candidate_sha256": "a85a6d85a5ce23dfd918517fbbafdbd60f43fb92a16c82d9d4dd4e47a9c639a5"
+    }
+  ],
+  "supported_runtime_capability_bits": [
+    0,
+    1,
+    2,
+    3,
+    5,
+    9,
+    12
+  ],
+  "unknown_active_capabilities_rejected": true,
+  "android_prebuilt_promoted": false,
+  "hardware_tested": false,
+  "flash_ready": false
+}

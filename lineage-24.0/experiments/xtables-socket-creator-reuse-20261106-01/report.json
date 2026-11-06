@@ -1,0 +1,35 @@
+{
+  "passed": true,
+  "scope": "Unchanged native six-extension inputs and UAPI match newly built creator-metadata kernel. Internal struct sock ABI changed; this is not module ABI compatibility with original/prebuilt modules. No rules/packets or permissions execute.",
+  "original_native_report_sha256": "84f5bceceb0d65ebe27e61d9f1b90c4b05d8b1cc4029c8caa6d6f55b942be4d7",
+  "original_native_binary_sha256": "05c1ef62806e11ada93193da1ae06127fbfeec9ae2ae3a6ce6bc64de2dfcfc4a",
+  "original_native_archive_sha256": "3ab404c55f499b375bb3f53729fbb84a33d717f86b7c9ff1d20283e17c299db5",
+  "all_original_native_inputs_unchanged": true,
+  "headers": {
+    "gta3xlwifi_netpolicy.h": {
+      "sha256": "fd53c8c287840054ac9234efdabd88302140d95fc1488c57080de499a835d54c",
+      "kernel": "/srv/android/ports/lineage-24.0-arm64/kernel-socket-creator-20261106-01/src/include/uapi/linux/netfilter/gta3xlwifi_netpolicy.h",
+      "userspace": "/srv/android/ports/lineage-24.0-arm64/xtables-non-loopback24-20261106-01/include/linux/netfilter/gta3xlwifi_netpolicy.h"
+    },
+    "gta3xlwifi_appid.h": {
+      "sha256": "0d06023da8290add60e73c90679328af285431609bca34260453d7055810067e",
+      "kernel": "/srv/android/ports/lineage-24.0-arm64/kernel-socket-creator-20261106-01/src/include/uapi/linux/netfilter/gta3xlwifi_appid.h",
+      "userspace": "/srv/android/ports/lineage-24.0-arm64/xtables-non-loopback24-20261106-01/include/linux/netfilter/gta3xlwifi_appid.h"
+    },
+    "gta3xlwifi_socket_uid.h": {
+      "sha256": "a91a730ca2eb53a0397a7bcd8b8d8b32fb9612908a70a279a1d9c0c02acbcffb",
+      "kernel": "/srv/android/ports/lineage-24.0-arm64/kernel-socket-creator-20261106-01/src/include/uapi/linux/netfilter/gta3xlwifi_socket_uid.h",
+      "userspace": "/srv/android/ports/lineage-24.0-arm64/xtables-non-loopback24-20261106-01/include/linux/netfilter/gta3xlwifi_socket_uid.h"
+    },
+    "gta3xlwifi_owner_skip.h": {
+      "sha256": "966dc6938d9c2e7bf172083f10b6f380a6f8795432901ff456a2822b5cf30796",
+      "kernel": "/srv/android/ports/lineage-24.0-arm64/kernel-socket-creator-20261106-01/src/include/uapi/linux/netfilter/gta3xlwifi_owner_skip.h",
+      "userspace": "/srv/android/ports/lineage-24.0-arm64/xtables-non-loopback24-20261106-01/include/linux/netfilter/gta3xlwifi_owner_skip.h"
+    }
+  },
+  "kernel_Image_sha256": "dec48db3d5dbd684a9274823b3f1b8cc412c048606137a23dba595557fc77cbd",
+  "kernel_config_sha256": "fac42e3bbf996bb9502bb1031c91b1950986ad3586d0f33cad869a6fd0b3acea",
+  "rebuilt_module_report_sha256": "bdfa281731cb4ecba46d6f7642d471057ee560bc7bd85e8e406f036c1f0f7c5d",
+  "hardware_tested": false,
+  "flash_ready": false
+}

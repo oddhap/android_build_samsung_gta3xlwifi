@@ -1,0 +1,8 @@
+{
+  "passed": false,
+  "stage": "Source-contract verification before compilation",
+  "observed_error": "Verifier assumed all zero-default SK_STORAGE macros use MINAPI, MAXAPI, 0; system/bpf uses LOAD_ON_USERDEBUG, 0",
+  "remediation": "Require literal terminal-zero flags and absence of BPF_F_CLONE in both header variants. Product source unchanged; retry02 passed960 lifecycle comparisons.",
+  "scope": "Observation from tool traceback; no test report or compile output was generated",
+  "flash_ready": false
+}

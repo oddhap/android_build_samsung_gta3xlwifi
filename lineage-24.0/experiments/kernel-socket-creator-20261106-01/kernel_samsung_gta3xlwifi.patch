@@ -1,0 +1,86 @@
+diff --git a/include/net/sock.h b/include/net/sock.h
+--- a/include/net/sock.h
++++ b/include/net/sock.h
+@@ -456,6 +456,9 @@
+ #endif
+ 	__u32			sk_mark;
+ 	kuid_t			sk_uid;
++	/* Private immutable inet creator identity; current sk_uid may be chowned. */
++	u32                     sk_gta_creator_uid;
++	bool                    sk_gta_creator_valid;
+ #ifdef CONFIG_CGROUP_NET_CLASSID
+ 	u32			sk_classid;
+ #endif
+@@ -1644,6 +1647,7 @@
+ 
+ /* Initialise core socket variables */
+ void sock_init_data(struct socket *sock, struct sock *sk);
++void gta3xlwifi_socket_creator_init(struct sock *sk, bool kernel_socket);
+ 
+ /*
+  * Socket reference counting postulates.
+diff --git a/net/core/sock.c b/net/core/sock.c
+--- a/net/core/sock.c
++++ b/net/core/sock.c
+@@ -1437,6 +1437,31 @@
+  * even temporarly, because of RCU lookups. sk_node should also be left as is.
+  * We must not copy fields between sk_dontcopy_begin and sk_dontcopy_end
+  */
++/* Private identity prerequisite for future A17 receiver-UID policy. This is
++ * NOT a permission check or BPF storage/readiness implementation. Capture the
++ * real UID in init_user_ns, like bpf_get_current_uid_gid's low32 bits, rather
++ * than inode/current sk_uid or fsuid. Kernel-created sockets have no marker.
++ */
++void gta3xlwifi_socket_creator_init(struct sock *sk, bool kernel_socket)
++{
++	sk->sk_gta_creator_uid = 0;
++	sk->sk_gta_creator_valid = false;
++	if (!kernel_socket) {
++		sk->sk_gta_creator_uid = from_kuid(&init_user_ns, current_uid());
++		sk->sk_gta_creator_valid = true;
++	}
++}
++EXPORT_SYMBOL_GPL(gta3xlwifi_socket_creator_init);
++
++/* A17's sk_storage map has no BPF_F_CLONE. A cloned/accepted socket must not
++ * inherit an apparently captured creator from its parent storage.
++ */
++static void gta3xlwifi_socket_creator_clone_reset(struct sock *sk)
++{
++	sk->sk_gta_creator_uid = 0;
++	sk->sk_gta_creator_valid = false;
++}
++
+ static void sock_copy(struct sock *nsk, const struct sock *osk)
+ {
+ #ifdef CONFIG_SECURITY_NETWORK
+@@ -1721,6 +1746,7 @@
+ 		struct sk_filter *filter;
+ 
+ 		sock_copy(newsk, sk);
++		gta3xlwifi_socket_creator_clone_reset(newsk);
+ 
+ 		newsk->sk_prot_creator = sk->sk_prot;
+ 
+diff --git a/net/ipv4/af_inet.c b/net/ipv4/af_inet.c
+--- a/net/ipv4/af_inet.c
++++ b/net/ipv4/af_inet.c
+@@ -377,6 +377,7 @@
+ 	inet->inet_id = 0;
+ 
+ 	sock_init_data(sock, sk);
++	gta3xlwifi_socket_creator_init(sk, kern);
+ 
+ 	sk->sk_destruct	   = inet_sock_destruct;
+ 	sk->sk_protocol	   = protocol;
+diff --git a/net/ipv6/af_inet6.c b/net/ipv6/af_inet6.c
+--- a/net/ipv6/af_inet6.c
++++ b/net/ipv6/af_inet6.c
+@@ -194,6 +194,7 @@
+ 		goto out;
+ 
+ 	sock_init_data(sock, sk);
++	gta3xlwifi_socket_creator_init(sk, kern);
+ 
+ 	err = 0;
+ 	if (INET_PROTOSW_REUSE & answer_flags)
