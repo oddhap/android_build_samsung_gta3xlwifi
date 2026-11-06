@@ -5,6 +5,9 @@ Usage: test-qtaguid-stats.py LIBNETWORKSTATS_DIR XT_QTAGUID_C
 No tablet or host networking configuration is changed.
 """
 import argparse
+import hashlib
+import os
+import contextlib
 import json
 from pathlib import Path
 import re
@@ -103,17 +106,35 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('library', type=Path)
     parser.add_argument('kernel', type=Path)
+    parser.add_argument('--output', type=Path, help='New persistent evidence directory')
     args = parser.parse_args()
+    if args.output:
+        assert not args.output.exists()
+        args.output.mkdir(parents=True)
     source = args.kernel.read_text()
     headers = ('static const char* detail_header = ' + json.dumps(kernel_header(source, 'pp_stats_header')) + ';\n'
                'static const char* iface_header = ' + json.dumps(kernel_header(source, 'pp_iface_stat_header')) + ';\n')
-    with tempfile.TemporaryDirectory(prefix='gta3xlwifi-qtaguid-') as d:
+    context = contextlib.nullcontext(str(args.output.resolve())) if args.output else tempfile.TemporaryDirectory(prefix='gta3xlwifi-qtaguid-')
+    with context as d:
         cpp, binary = Path(d) / 'test.cpp', Path(d) / 'test'
         cpp.write_text(headers + HARNESS)
-        subprocess.run(['c++', '-std=c++20', '-O2', '-Wall', '-Wextra', '-Werror',
+        cmd = ['c++', '-std=c++20', '-O2', '-Wall', '-Wextra', '-Werror',
+                        '-fsanitize=undefined', '-fno-sanitize-recover=all',
                         '-I' + str(args.library), str(cpp), str(args.library / 'QtaguidStats.cpp'),
-                        '-o', str(binary)], check=True)
-        subprocess.run([str(binary)], check=True)
+                        '-o', str(binary)]
+        built = subprocess.run(cmd, capture_output=True, text=True)
+        assert built.returncode == 0, built.stderr
+        env = os.environ.copy(); env['UBSAN_OPTIONS'] = 'halt_on_error=1'
+        run = subprocess.run([str(binary)], capture_output=True, text=True, env=env)
+        assert run.returncode == 0 and not run.stderr, (run.returncode, run.stdout, run.stderr)
+        assert run.stdout == 'PASS: 36 actual qtaguid parser/counter cases; kernel schemas verified.\n', run.stdout
+        print(run.stdout, end='')
+        if args.output:
+            paths = [Path(__file__).resolve(), args.kernel.resolve(), args.library.resolve()/'QtaguidStats.cpp', args.library.resolve()/'QtaguidStats.h']
+            report = {'passed': True, 'passed_cases': 36, 'fatal_ubsan': True, 'stderr': run.stderr,
+                      'command': cmd, 'inputs_sha256': {str(p): hashlib.sha256(p.read_bytes()).hexdigest() for p in paths},
+                      'real_kernel_schema_verified': True, 'hardware_tested': False, 'flash_ready': False}
+            (args.output/'report.json').write_text(json.dumps(report, indent=2)+'\n')
 
 
 if __name__ == '__main__':

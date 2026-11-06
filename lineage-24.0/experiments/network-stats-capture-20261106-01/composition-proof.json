@@ -1,0 +1,27 @@
+{
+  "passed": true,
+  "project": "packages/modules/Connectivity",
+  "exact_clean_head_recovered": true,
+  "source_or_real_index_modified_by_proof": false,
+  "reviewed_files": [
+    "service-t/native/libs/libnetworkstats/Android.bp",
+    "service-t/native/libs/libnetworkstats/BpfNetworkStats.cpp",
+    "service-t/native/libs/libnetworkstats/Gta3xlwifiLegacyStats.cpp",
+    "service-t/native/libs/libnetworkstats/Gta3xlwifiLegacyStats.h",
+    "service-t/native/libs/libnetworkstats/QtaguidStats.cpp",
+    "service-t/native/libs/libnetworkstats/QtaguidStats.h",
+    "service-t/src/com/android/server/net/NetworkStatsFactory.java",
+    "tests/unit/java/com/android/server/net/NetworkStatsFactoryTest.java"
+  ],
+  "patches": [
+    {
+      "sha256": "9401f0f096c2476111e18bb246f5d1f67a3781662f92132f17a5fceef7756bef",
+      "path": "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/experiments/network-stats-native-20261106-02/packages_modules_Connectivity.patch"
+    },
+    {
+      "sha256": "26246a00d849b2d30f8329cead598e83f3edd475dc348204f912a597d4ce0784",
+      "path": "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/experiments/network-stats-java-20261106-01/packages_modules_Connectivity.patch"
+    }
+  ],
+  "network_readiness_or_loader_changes": false
+}

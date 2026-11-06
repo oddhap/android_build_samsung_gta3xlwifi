@@ -1,0 +1,20 @@
+{
+  "project": "packages/modules/Connectivity",
+  "revision": "7c04d866538e6f689823b769fb5c1e614ca0e295",
+  "patch_sha256": "26246a00d849b2d30f8329cead598e83f3edd475dc348204f912a597d4ce0784",
+  "files": [
+    {
+      "path": "service-t/src/com/android/server/net/NetworkStatsFactory.java",
+      "before_sha256": "c06e3c80b81a855329000a3bae6ff3712ee3e620c7a74db88a3fa427b97d72ce",
+      "candidate_sha256": "432c61b3fa0225975db124c259eff3571842ac53861d0812e6a8b8ca2b36fa43"
+    },
+    {
+      "path": "tests/unit/java/com/android/server/net/NetworkStatsFactoryTest.java",
+      "before_sha256": "d362b47847a2f6327f88b2d0a9e577ea3cca8977d88b3f74e29de153bf75dc6b",
+      "candidate_sha256": "fdb9b655c1835f52ca50727d09eb2a138ba004f286e49b91e4a4c413d638ffc5"
+    }
+  ],
+  "active": false,
+  "java_test_execution": false,
+  "scope": "Actual NetworkStatsFactory cumulative qtaguid integration; no BPF readiness/firewall bypass"
+}

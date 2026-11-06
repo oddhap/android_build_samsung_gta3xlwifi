@@ -1,0 +1,6 @@
+In file included from /srv/android/ports/lineage-24.0-arm64/stats24-20261106-01/service-t/native/libs/libnetworkstats/Gta3xlwifiLegacyStats.cpp:2:
+In file included from /srv/android/ports/lineage-24.0-arm64/stats24-20261106-01/service-t/native/libs/libnetworkstats/Gta3xlwifiLegacyStats.h:4:
+[1mpackages/modules/Connectivity/service-t/native/libs/libnetworkstats/include/netdbpf/BpfNetworkStats.h:97:9: [0m[0;1;31merror: [0m[1muse of undeclared identifier 'ALOGE'[0m
+   97 |         ALOGE([0;32m"Unknown name for ifindex %d with more than %"[0m PRId64 [0;32m" bytes of traffic"[0m, ifaceIndex,[0m
+      | [0;1;32m        ^~~~~
+[0m1 error generated.

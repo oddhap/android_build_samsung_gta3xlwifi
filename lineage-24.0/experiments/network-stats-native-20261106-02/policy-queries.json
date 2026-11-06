@@ -1,0 +1,128 @@
+[
+  {
+    "source": "u:r:system_server:s0",
+    "target": "u:object_r:proc_net:s0",
+    "class": "dir",
+    "permission": "search",
+    "expected": "allow"
+  },
+  {
+    "source": "u:r:system_server:s0",
+    "target": "u:object_r:proc_net:s0",
+    "class": "dir",
+    "permission": "open",
+    "expected": "allow"
+  },
+  {
+    "source": "u:r:system_server:s0",
+    "target": "u:object_r:proc_net:s0",
+    "class": "dir",
+    "permission": "read",
+    "expected": "allow"
+  },
+  {
+    "source": "u:r:system_server:s0",
+    "target": "u:object_r:proc_net:s0",
+    "class": "dir",
+    "permission": "getattr",
+    "expected": "allow"
+  },
+  {
+    "source": "u:r:system_server:s0",
+    "target": "u:object_r:proc_qtaguid_stat:s0",
+    "class": "dir",
+    "permission": "search",
+    "expected": "allow"
+  },
+  {
+    "source": "u:r:system_server:s0",
+    "target": "u:object_r:proc_qtaguid_stat:s0",
+    "class": "dir",
+    "permission": "open",
+    "expected": "allow"
+  },
+  {
+    "source": "u:r:system_server:s0",
+    "target": "u:object_r:proc_qtaguid_stat:s0",
+    "class": "dir",
+    "permission": "read",
+    "expected": "allow"
+  },
+  {
+    "source": "u:r:system_server:s0",
+    "target": "u:object_r:proc_qtaguid_stat:s0",
+    "class": "dir",
+    "permission": "getattr",
+    "expected": "allow"
+  },
+  {
+    "source": "u:r:system_server:s0",
+    "target": "u:object_r:proc_qtaguid_stat:s0",
+    "class": "file",
+    "permission": "open",
+    "expected": "allow"
+  },
+  {
+    "source": "u:r:system_server:s0",
+    "target": "u:object_r:proc_qtaguid_stat:s0",
+    "class": "file",
+    "permission": "read",
+    "expected": "allow"
+  },
+  {
+    "source": "u:r:system_server:s0",
+    "target": "u:object_r:proc_qtaguid_stat:s0",
+    "class": "file",
+    "permission": "getattr",
+    "expected": "allow"
+  },
+  {
+    "source": "u:r:netd:s0",
+    "target": "u:object_r:proc_qtaguid_ctrl:s0",
+    "class": "file",
+    "permission": "open",
+    "expected": "deny"
+  },
+  {
+    "source": "u:r:netd:s0",
+    "target": "u:object_r:proc_qtaguid_ctrl:s0",
+    "class": "file",
+    "permission": "read",
+    "expected": "deny"
+  },
+  {
+    "source": "u:r:netd:s0",
+    "target": "u:object_r:proc_qtaguid_ctrl:s0",
+    "class": "file",
+    "permission": "write",
+    "expected": "deny"
+  },
+  {
+    "source": "u:r:netd:s0",
+    "target": "u:object_r:proc_qtaguid_ctrl:s0",
+    "class": "file",
+    "permission": "getattr",
+    "expected": "deny"
+  },
+  {
+    "source": "u:r:untrusted_app:s0",
+    "target": "u:object_r:proc_qtaguid_ctrl:s0",
+    "class": "file",
+    "permission": "write",
+    "expected": "observe"
+  },
+  {
+    "source": "u:r:untrusted_app:s0",
+    "target": "u:object_r:proc_qtaguid_stat:s0",
+    "class": "file",
+    "permission": "read",
+    "expected": "observe"
+  },
+  {
+    "source": "u:r:system_server:s0",
+    "target": "u:object_r:proc_qtaguid_stat:s0",
+    "class": "file",
+    "permission": "write",
+    "expected": "observe"
+  }
+]

@@ -1,0 +1,39 @@
+{
+  "project": "packages/modules/Connectivity",
+  "revision": "7c04d866538e6f689823b769fb5c1e614ca0e295",
+  "patch_sha256": "e00e2de3e9d00eecb27916294583e050b7ae29c2a951c3891ce53bfcb4705116",
+  "files": [
+    {
+      "path": "service-t/native/libs/libnetworkstats/Android.bp",
+      "before_sha256": "dc3296e73a5d5738a0daf0aea81989ca97702eb9328c62ad5fc334577a0f541c",
+      "candidate_sha256": "78ed015ffc7108f51b9f49f8b405a19fce331cb16ea15b1a401d77bc0a7f7ab3"
+    },
+    {
+      "path": "service-t/native/libs/libnetworkstats/BpfNetworkStats.cpp",
+      "before_sha256": "db5bd1a5a366545d987c23a8108cb251578e9a1b3359531a99760a9f8f413e32",
+      "candidate_sha256": "033802726866020a100180e1154229f2db9f678a153735f750799fb7fd9cb528"
+    },
+    {
+      "path": "service-t/native/libs/libnetworkstats/Gta3xlwifiLegacyStats.cpp",
+      "before_sha256": null,
+      "candidate_sha256": "e6060642e4af27836d66cbc471c5708476c5f02c50d99a2d2da59c117a9b6158"
+    },
+    {
+      "path": "service-t/native/libs/libnetworkstats/Gta3xlwifiLegacyStats.h",
+      "before_sha256": null,
+      "candidate_sha256": "963cf334287b205fa258a8a1e9e43279b2f6fd057085b6c626349a173ed4106d"
+    },
+    {
+      "path": "service-t/native/libs/libnetworkstats/QtaguidStats.cpp",
+      "before_sha256": null,
+      "candidate_sha256": "ea88ad02d5b2e46f5aa7b154451c7c209d9c1658815815ac6ecb88698e4a0729"
+    },
+    {
+      "path": "service-t/native/libs/libnetworkstats/QtaguidStats.h",
+      "before_sha256": null,
+      "candidate_sha256": "890551ab93bb209dd4824fda96c91fc92f61eb5dd4682bce993c14feefbf8861"
+    }
+  ],
+  "active": false,
+  "scope": "Native real qtaguid accounting only; no DNS/readiness/firewall owner; aggregate output preserved on read/overflow/close errors"
+}

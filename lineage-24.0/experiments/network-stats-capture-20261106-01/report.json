@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "snapshot": "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/snapshots/port-20261106-03",
+  "projects": 1243,
+  "exact_source_patches": 17,
+  "new_patch_project": "packages/modules/Connectivity",
+  "all_parent_patches_byte_identical": true,
+  "revision_changes": {},
+  "network_readiness_or_loader_changes": false,
+  "prebuilts_promoted": false,
+  "hardware_tested": false,
+  "flash_ready": false
+}
