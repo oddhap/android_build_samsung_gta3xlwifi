@@ -1,0 +1,32 @@
+diff --git a/server/Controllers.cpp b/server/Controllers.cpp
+--- a/server/Controllers.cpp
++++ b/server/Controllers.cpp
+@@ -15,10 +15,12 @@
+  */
+ 
+ #include <cinttypes>
++#include <cstring>
+ #include <regex>
+ #include <set>
+ #include <string>
+ 
++#include <android-base/properties.h>
+ #include <android-base/stringprintf.h>
+ #include <android-base/strings.h>
+ #include <netdutils/Stopwatch.h>
+@@ -185,6 +187,15 @@
+         // Since at this point we don't know if parentChain is a built-in chain, do both.
+         StringAppendF(&command, ":%s -\n", parentChain);
+         StringAppendF(&command, "-F %s\n", parentChain);
++        // Rebuild a legacy root with the held guard in the SAME transaction.
++        // A later insertion would leave an unguarded window on netd restart.
++        // The complete owner must hold the private kernel lease before init.
++        if (!strcmp(table, "filter") &&
++            (!strcmp(parentChain, "INPUT") || !strcmp(parentChain, "FORWARD") ||
++             !strcmp(parentChain, "OUTPUT")) &&
++            android::base::GetBoolProperty("ro.gta3xlwifi.legacy_networking", false)) {
++            StringAppendF(&command, "-A %s -m gta3xlwifi_guard -j DROP\n", parentChain);
++        }
+     } else {
+         existingChildChains = findExistingChildChains(target, table, parentChain);
+     }

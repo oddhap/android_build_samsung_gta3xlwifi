@@ -1,0 +1,18 @@
+{
+  "scope": "Isolated current-platform root-chain rebuild preserving the held private guard atomically",
+  "project": "system/netd",
+  "revision": "fb7e47052620fd1139522e2b3d1343c8680f7c0f",
+  "patch_sha256": "8835fdbb72412690525c414c6901886ca0a88a764456166e731e69845b55f068",
+  "files": [
+    {
+      "path": "server/Controllers.cpp",
+      "before_sha256": "f1f69f181e5dca6dd061b04c9dfc5633aac3c36c4eaac6d7294ba67bd17d6b84",
+      "candidate_sha256": "df00a65076afe6156473bbbb6165c63a9265b0ce883c5be54ddc7dd603116538"
+    }
+  ],
+  "runtime_selector": "ro.gta3xlwifi.legacy_networking",
+  "kernel_prerequisite": "kernel-netpolicy-20261106-01",
+  "lease_held_by_complete_owner_required": true,
+  "active_source_changed": false,
+  "flash_ready": false
+}

@@ -1,0 +1,27 @@
+{
+  "passed": true,
+  "scope": "Compare actual Android17 root-chain command generation before/after guard insertion.\n\nExtracts the real createChildChains bodies. Existing-chain lookup, properties\nand command execution are fixtures; no kernel/rule/service is accessed.\n",
+  "passed_cases": 960,
+  "stderr": "",
+  "command": [
+    "c++",
+    "-std=c++17",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-fsanitize=undefined",
+    "-fno-sanitize-recover=all",
+    "/srv/android/artifacts/lineage-24.0-arm64/controllers-guard-host-20261106-01/test.cpp",
+    "-o",
+    "/srv/android/artifacts/lineage-24.0-arm64/controllers-guard-host-20261106-01/test"
+  ],
+  "inputs_sha256": {
+    "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/test-controllers-guard24.py": "37bdddec60f1d51c450dde958dcd779467a3001b185860aff76223c3b8c2ff70",
+    "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/test-kernel-qtaguid-socket-owned.py": "59516300b405af46c972b264353c3766b5c18cf882b04ac8ba9db6f70f436459",
+    "/srv/android/ports/lineage-24.0-arm64/controllers-guard24-20261106-01/Controllers.cpp": "df00a65076afe6156473bbbb6165c63a9265b0ce883c5be54ddc7dd603116538",
+    "/srv/android/src/lineage-24.0-arm64/system/netd/server/Controllers.cpp": "f1f69f181e5dca6dd061b04c9dfc5633aac3c36c4eaac6d7294ba67bd17d6b84",
+    "/srv/android/artifacts/lineage-24.0-arm64/controllers-guard-host-20261106-01/test.cpp": "aaf6cf0b0821c24f5a4d474e7e86986998696fb67df08f97bc6f535c49cfc711"
+  },
+  "hardware_tested": false,
+  "flash_ready": false
+}

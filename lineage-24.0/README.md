@@ -675,3 +675,10 @@ verification pass, including full source audits. Default mode only verifies.
 Real Controllers startup/restart integration must preserve guards atomically when
 exclusive root chains are rebuilt; installing them after an unguarded flush is
 insufficient. No service or readiness integration is selected yet.
+
+[Atomic Controllers guard preservation](experiments/controllers-guard-20261106-01/)
+passes960 actual-function command comparisons and a complete isolated ARM64 CFI
+netd binary link. It adds the held guard in the same exclusive filter-root rebuild
+transaction, retaining other command sequences and original dependencies. Full
+source audits pass. The complete owner still must acquire the lease before
+Controllers startup; no main/service/backend/readiness wiring is applied here.
