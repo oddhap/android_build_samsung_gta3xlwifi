@@ -1,0 +1,47 @@
+{
+  "scope": "Real immutable two-table Patricia LNA image and exact migrated A17 decision helper; no packet attachment or readiness",
+  "prerequisites": [
+    "kernel-uid-permissions-20261107-01"
+  ],
+  "patch_sha256": "33e1fda1fe40a64a3c1ab3b60562c9f8988576be724b7c687187b58c87340dd1",
+  "files": [
+    {
+      "path": "include/uapi/linux/netfilter/gta3xlwifi_local_network.h",
+      "before_sha256": null,
+      "candidate_sha256": "21d123c78f6f805e97f08c138b299ad05bc867b35619e3fb4e04ba9f4da0b800"
+    },
+    {
+      "path": "include/net/gta3xlwifi_local_network.h",
+      "before_sha256": null,
+      "candidate_sha256": "3641f391a13a08c13ca4e13c1136b9f7759304a6454e590a635d54e46ae27c85"
+    },
+    {
+      "path": "net/netfilter/gta3xlwifi_local_network.c",
+      "before_sha256": null,
+      "candidate_sha256": "745d700dbd23727e8b66b6c56bd9ecc1d7854575d444dfdd47963698564f36ce"
+    },
+    {
+      "path": "net/netfilter/gta3xlwifi_netpolicy.c",
+      "before_sha256": "a69c4546e48d45d81d16484868432d8cedf0d225decd4e358adbcc0a082ec2ed",
+      "candidate_sha256": "da006b315e69393b8b56d72aa71a70f48f019126bd6450313dfbdce9fa2e013f"
+    },
+    {
+      "path": "net/netfilter/Makefile",
+      "before_sha256": "5daf9b3163e62a478de70f4939728fd012dea803c7454aa4cfd1f9847ed54e16",
+      "candidate_sha256": "b031a1f765efc09dd9b63fdc31fccd843952f603e52523dadb5c1494ad4a9a32"
+    }
+  ],
+  "supported_runtime_capability_bits": [
+    0,
+    1,
+    2,
+    3,
+    5,
+    9,
+    12
+  ],
+  "unknown_active_capabilities_rejected": true,
+  "android_prebuilt_promoted": false,
+  "hardware_tested": false,
+  "flash_ready": false
+}

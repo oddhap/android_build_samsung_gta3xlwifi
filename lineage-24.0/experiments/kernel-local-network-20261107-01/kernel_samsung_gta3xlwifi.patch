@@ -1,0 +1,394 @@
+--- /dev/null
++++ b/include/uapi/linux/netfilter/gta3xlwifi_local_network.h
+@@ -0,0 +1,37 @@
++/* SPDX-License-Identifier: GPL-2.0 WITH Linux-syscall-note */
++#ifndef _UAPI_GTA3XLWIFI_LOCAL_NETWORK_H
++#define _UAPI_GTA3XLWIFI_LOCAL_NETWORK_H
++#include <linux/types.h>
++#include <linux/ioctl.h>
++#define GTA3XLWIFI_LNA_VERSION 1U
++#define GTA3XLWIFI_LNA_MAX_ENTRIES 1000U
++#define GTA3XLWIFI_LNA_KEY_BYTES 24U
++#define GTA3XLWIFI_LNA_KEY_BITS 192U
++/* A compiled real store primitive, NEVER complete networking readiness. */
++#define GTA3XLWIFI_UID_CAP_LNA_STORE (1U << 3)
++/* Canonical prefix: unused low bits/bytes are zero. Sort by prefix_bits then
++ * memcmp(key); duplicate prefixes are rejected. Native-order UID/ifindex/u16
++ * protocol, network-order address/port bytes match the actual A17 key payload.
++ */
++struct gta3xlwifi_lna_entry {
++    __u32 prefix_bits;
++    __u8 key[GTA3XLWIFI_LNA_KEY_BYTES];
++    __u8 allowed;
++    __u8 reserved[3];
++};
++struct gta3xlwifi_lna_transfer {
++    __u32 version;
++    __u32 network_count;
++    __u32 host_count;
++    __u32 reserved;
++    __aligned_u64 revision;
++    __aligned_u64 network_entries;
++    __aligned_u64 host_entries;
++};
++/* SET: full image, held owner lease only, revision+1 or identical replay.
++ * GET: both count/pointer pairs zero probes metadata; a data read supplies
++ * the exact probed revision and capacity for BOTH actual tables.
++ */
++#define GTA3XLWIFI_LNA_SET_IMAGE _IOW('g', 0x57, struct gta3xlwifi_lna_transfer)
++#define GTA3XLWIFI_LNA_GET_IMAGE _IOWR('g', 0x58, struct gta3xlwifi_lna_transfer)
++#endif
+--- /dev/null
++++ b/include/net/gta3xlwifi_local_network.h
+@@ -0,0 +1,16 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++#ifndef _NET_GTA3XLWIFI_LOCAL_NETWORK_H
++#define _NET_GTA3XLWIFI_LOCAL_NETWORK_H
++#include <linux/types.h>
++struct in6_addr;
++/* ONLY authenticated exclusive owner dispatch under its mutex may call ioctl.
++ * SET additionally requires the real shared gate held and readers drained.
++ */
++long gta3xlwifi_lna_ioctl(unsigned int cmd, unsigned long arg);
++/* UID already normalized as A17 traffic-accounting caller: raw65534 ->0.
++ * Caller supplies the parsed remote endpoint/current interface. No cache or
++ * packet/DNS/loopback applicability decision is invented by this store helper.
++ */
++bool gta3xlwifi_lna_blocked(u32 uid, u32 if_index, const struct in6_addr *remote,
++                           u16 protocol, __be16 remote_port);
++#endif
+--- /dev/null
++++ b/net/netfilter/gta3xlwifi_local_network.c
+@@ -0,0 +1,278 @@
++// SPDX-License-Identifier: GPL-2.0
++/* Actual bounded immutable LNA prefix store. No BPF storage/readiness emulation. */
++#include <linux/errno.h>
++#include <linux/in6.h>
++#include <linux/kernel.h>
++#include <linux/module.h>
++#include <linux/rcupdate.h>
++#include <linux/string.h>
++#include <linux/uaccess.h>
++#include <linux/vmalloc.h>
++#include <uapi/linux/netfilter/gta3xlwifi_local_network.h>
++#include <net/gta3xlwifi_local_network.h>
++#include <net/gta3xlwifi_uid_permissions.h>
++
++#define LNA_NONE (-1)
++struct lna_node {
++    u8 key[GTA3XLWIFI_LNA_KEY_BYTES];
++    u16 bits;
++    u8 has_value, value;
++    int child[2];
++};
++struct lna_table {
++    u32 count, nodes_count;
++    int root;
++    struct gta3xlwifi_lna_entry *entries;
++    struct lna_node *nodes;
++};
++struct lna_image {
++    u64 revision;
++    struct lna_table network, host;
++};
++static struct lna_image __rcu *lna_current;
++
++static bool lna_prefix(const u8 *a, const u8 *b, u32 bits)
++{
++    u32 bytes = bits / 8, remainder = bits % 8;
++    return !memcmp(a, b, bytes) &&
++        (!remainder || !((a[bytes] ^ b[bytes]) & (0xffU << (8 - remainder))));
++}
++static unsigned int lna_bit(const u8 *key, unsigned int bit)
++{
++    return (key[bit / 8] >> (7 - bit % 8)) & 1;
++}
++static void lna_canonical(u8 *key, u32 bits)
++{
++    u32 bytes = bits / 8;
++    if (bits % 8) {
++        key[bytes] &= 0xffU << (8 - bits % 8);
++        ++bytes;
++    }
++    memset(key + bytes, 0, GTA3XLWIFI_LNA_KEY_BYTES - bytes);
++}
++static int lna_node_new(struct lna_table *table, const u8 *key, u32 bits,
++                        bool has_value, bool value)
++{
++    struct lna_node *node;
++    int index;
++    if (table->nodes_count >= 2 * table->count)
++        return -E2BIG;
++    index = table->nodes_count++;
++    node = &table->nodes[index];
++    memcpy(node->key, key, sizeof(node->key));
++    lna_canonical(node->key, bits);
++    node->bits = bits;
++    node->has_value = has_value;
++    node->value = value;
++    node->child[0] = node->child[1] = LNA_NONE;
++    return index;
++}
++static int lna_insert(struct lna_table *table, const struct gta3xlwifi_lna_entry *entry)
++{
++    int *link = &table->root;
++    while (*link != LNA_NONE) {
++        struct lna_node *node = &table->nodes[*link];
++        u32 common = 0, limit = min_t(u32, node->bits, entry->prefix_bits);
++        int branch, leaf, previous = *link;
++        while (common < limit && lna_bit(node->key, common) == lna_bit(entry->key, common))
++            ++common;
++        if (common < node->bits) {
++            branch = lna_node_new(table, entry->key, common,
++                                   common == entry->prefix_bits, entry->allowed);
++            if (branch < 0)
++                return branch;
++            table->nodes[branch].child[lna_bit(node->key, common)] = previous;
++            if (common < entry->prefix_bits) {
++                leaf = lna_node_new(table, entry->key, entry->prefix_bits, true, entry->allowed);
++                if (leaf < 0)
++                    return leaf;
++                table->nodes[branch].child[lna_bit(entry->key, common)] = leaf;
++            }
++            *link = branch;
++            return 0;
++        }
++        if (common == entry->prefix_bits) {
++            if (node->has_value)
++                return -EINVAL;
++            node->has_value = true;
++            node->value = entry->allowed;
++            return 0;
++        }
++        link = &node->child[lna_bit(entry->key, node->bits)];
++    }
++    *link = lna_node_new(table, entry->key, entry->prefix_bits, true, entry->allowed);
++    return *link < 0 ? *link : 0;
++}
++static bool lna_lookup(const struct lna_table *table, const u8 *key, bool *value)
++{
++    int index = table->root;
++    bool found = false;
++    while (index != LNA_NONE) {
++        const struct lna_node *node = &table->nodes[index];
++        if (!lna_prefix(node->key, key, node->bits))
++            break;
++        if (node->has_value) {
++            *value = node->value;
++            found = true;
++        }
++        if (node->bits == GTA3XLWIFI_LNA_KEY_BITS)
++            break;
++        index = node->child[lna_bit(key, node->bits)];
++    }
++    return found;
++}
++static void lna_free(struct lna_image *image)
++{
++    if (!image)
++        return;
++    vfree(image->network.entries);
++    vfree(image->network.nodes);
++    vfree(image->host.entries);
++    vfree(image->host.nodes);
++    vfree(image);
++}
++static int lna_prepare(struct lna_table *table, u32 count, u64 pointer)
++{
++    u32 i;
++    int result;
++    table->root = LNA_NONE;
++    table->count = count;
++    if (!count)
++        return 0;
++    table->entries = vzalloc(count * sizeof(*table->entries));
++    table->nodes = vzalloc(2 * count * sizeof(*table->nodes));
++    if (!table->entries || !table->nodes)
++        return -ENOMEM;
++    if (copy_from_user(table->entries, (void __user *)(unsigned long)pointer,
++                       count * sizeof(*table->entries)))
++        return -EFAULT;
++    for (i = 0; i < count; ++i) {
++        const struct gta3xlwifi_lna_entry *e = &table->entries[i];
++        u8 canonical[GTA3XLWIFI_LNA_KEY_BYTES];
++        if (e->prefix_bits > GTA3XLWIFI_LNA_KEY_BITS || e->allowed > 1 ||
++            e->reserved[0] || e->reserved[1] || e->reserved[2])
++            return -EINVAL;
++        memcpy(canonical, e->key, sizeof(canonical));
++        lna_canonical(canonical, e->prefix_bits);
++        if (memcmp(canonical, e->key, sizeof(canonical)))
++            return -EINVAL;
++        if (i) {
++            const struct gta3xlwifi_lna_entry *previous = e - 1;
++            if (previous->prefix_bits > e->prefix_bits ||
++                (previous->prefix_bits == e->prefix_bits &&
++                 memcmp(previous->key, e->key, sizeof(e->key)) >= 0))
++                return -EINVAL;
++        }
++        result = lna_insert(table, e);
++        if (result)
++            return result;
++    }
++    return 0;
++}
++static bool lna_same(const struct lna_table *a, const struct lna_table *b)
++{
++    return a->count == b->count && (!a->count ||
++        !memcmp(a->entries, b->entries, a->count * sizeof(*a->entries)));
++}
++static long lna_set(const struct gta3xlwifi_lna_transfer *transfer)
++{
++    struct lna_image *next = vzalloc(sizeof(*next)), *old;
++    u64 previous;
++    int result;
++    if (!next)
++        return -ENOMEM;
++    result = lna_prepare(&next->network, transfer->network_count, transfer->network_entries);
++    if (!result)
++        result = lna_prepare(&next->host, transfer->host_count, transfer->host_entries);
++    if (result)
++        goto fail;
++    next->revision = transfer->revision;
++    old = rcu_dereference_protected(lna_current, 1); /* exclusive owner mutex */
++    previous = old ? old->revision : 0;
++    if (old && previous == next->revision && lna_same(&next->network, &old->network) &&
++        lna_same(&next->host, &old->host))
++        goto fail;
++    result = previous == ~0ULL ? -EOVERFLOW :
++        next->revision != previous + 1 ? -ESTALE : 0;
++    if (result)
++        goto fail;
++    rcu_assign_pointer(lna_current, next);
++    synchronize_rcu();
++    lna_free(old);
++    return 0;
++fail:
++    lna_free(next);
++    return result;
++}
++static long lna_get(struct gta3xlwifi_lna_transfer *transfer, void __user *argument)
++{
++    const struct lna_image *image = rcu_dereference_protected(lna_current, 1);
++    u32 network_capacity = transfer->network_count, host_capacity = transfer->host_count;
++    u64 expected = transfer->revision;
++    transfer->network_count = image ? image->network.count : 0;
++    transfer->host_count = image ? image->host.count : 0;
++    transfer->revision = image ? image->revision : 0;
++    if (network_capacity || host_capacity) {
++        if (!expected || expected != transfer->revision)
++            return -ESTALE;
++        if (network_capacity < transfer->network_count || host_capacity < transfer->host_count) {
++            if (copy_to_user(argument, transfer, sizeof(*transfer)))
++                return -EFAULT;
++            return -ENOSPC;
++        }
++        if ((transfer->network_count && copy_to_user(
++                 (void __user *)(unsigned long)transfer->network_entries, image->network.entries,
++                 transfer->network_count * sizeof(*image->network.entries))) ||
++            (transfer->host_count && copy_to_user(
++                 (void __user *)(unsigned long)transfer->host_entries, image->host.entries,
++                 transfer->host_count * sizeof(*image->host.entries))))
++            return -EFAULT;
++    }
++    return copy_to_user(argument, transfer, sizeof(*transfer)) ? -EFAULT : 0;
++}
++long gta3xlwifi_lna_ioctl(unsigned int cmd, unsigned long arg)
++{
++    struct gta3xlwifi_lna_transfer transfer;
++    void __user *argument = (void __user *)arg;
++    BUILD_BUG_ON(sizeof(transfer) != 40);
++    BUILD_BUG_ON(sizeof(struct gta3xlwifi_lna_entry) != 32);
++    if (cmd != GTA3XLWIFI_LNA_SET_IMAGE && cmd != GTA3XLWIFI_LNA_GET_IMAGE)
++        return -ENOTTY;
++    if (!arg || copy_from_user(&transfer, argument, sizeof(transfer)))
++        return -EFAULT;
++    if (transfer.version != GTA3XLWIFI_LNA_VERSION || transfer.reserved ||
++        transfer.network_count > GTA3XLWIFI_LNA_MAX_ENTRIES ||
++        transfer.host_count > GTA3XLWIFI_LNA_MAX_ENTRIES ||
++        (!!transfer.network_count != !!transfer.network_entries) ||
++        (!!transfer.host_count != !!transfer.host_entries))
++        return -EINVAL;
++    return cmd == GTA3XLWIFI_LNA_SET_IMAGE ? lna_set(&transfer) : lna_get(&transfer, argument);
++}
++
++bool gta3xlwifi_lna_blocked(u32 uid, u32 if_index, const struct in6_addr *remote,
++                           u16 protocol, __be16 remote_port)
++{
++    const struct lna_image *image;
++    u8 network_key[24], host_key[24];
++    bool value = false, blocked = false;
++    /* Exact migrated A17 exemption: literal0/1000, NOT appId/core range. */
++    if (uid == 0 || uid == 1000 || (gta3xlwifi_uid_permissions(uid) & 1U))
++        return false;
++    if (!remote)
++        return true; /* Invalid internal caller must not turn denial into success. */
++    memcpy(network_key, &if_index, 4);
++    memcpy(network_key + 4, remote, 16);
++    memcpy(network_key + 20, &protocol, 2);
++    memcpy(network_key + 22, &remote_port, 2);
++    memcpy(host_key, &uid, 4);
++    memcpy(host_key + 4, &if_index, 4);
++    memcpy(host_key + 8, remote, 16);
++    rcu_read_lock();
++    image = rcu_dereference(lna_current);
++    if (image && lna_lookup(&image->network, network_key, &value) && !value)
++        blocked = !lna_lookup(&image->host, host_key, &value) || !value;
++    rcu_read_unlock();
++    return blocked;
++}
++EXPORT_SYMBOL_GPL(gta3xlwifi_lna_blocked);
++MODULE_LICENSE("GPL");
+--- a/net/netfilter/gta3xlwifi_netpolicy.c
++++ b/net/netfilter/gta3xlwifi_netpolicy.c
+@@ -19,6 +19,8 @@
+ #include <linux/user_namespace.h>
+ #include <uapi/linux/netfilter/gta3xlwifi_uid_permissions.h>
+ #include <net/gta3xlwifi_uid_permissions.h>
++#include <uapi/linux/netfilter/gta3xlwifi_local_network.h>
++#include <net/gta3xlwifi_local_network.h>
+ 
+ static DEFINE_MUTEX(netpolicy_lock);
+ static struct file *netpolicy_owner_file;
+@@ -96,7 +98,8 @@
+ {
+ 	long ret;
+ 	if (cmd != GTA3XLWIFI_UID_FEATURES && cmd != GTA3XLWIFI_UID_SET_IMAGE &&
+-	    cmd != GTA3XLWIFI_UID_GET_IMAGE)
++	    cmd != GTA3XLWIFI_UID_GET_IMAGE && cmd != GTA3XLWIFI_LNA_SET_IMAGE &&
++	    cmd != GTA3XLWIFI_LNA_GET_IMAGE)
+ 		return -ENOTTY;
+ 	if (cmd == GTA3XLWIFI_UID_FEATURES && arg)
+ 		return -EINVAL;
+@@ -111,9 +114,12 @@
+ 	         netpolicy_owner_pid != task_tgid(current))
+ 		ret = -EPERM;
+ 	else if (cmd == GTA3XLWIFI_UID_FEATURES)
+-		ret = gta3xlwifi_uid_permissions_features();
+-	else if (cmd == GTA3XLWIFI_UID_SET_IMAGE && !READ_ONCE(netpolicy_held))
++		ret = gta3xlwifi_uid_permissions_features() | GTA3XLWIFI_UID_CAP_LNA_STORE;
++	else if ((cmd == GTA3XLWIFI_UID_SET_IMAGE || cmd == GTA3XLWIFI_LNA_SET_IMAGE) &&
++	         !READ_ONCE(netpolicy_held))
+ 		ret = -EBUSY;
++	else if (cmd == GTA3XLWIFI_LNA_SET_IMAGE || cmd == GTA3XLWIFI_LNA_GET_IMAGE)
++		ret = gta3xlwifi_lna_ioctl(cmd, arg);
+ 	else
+ 		ret = gta3xlwifi_uid_permissions_ioctl(cmd, arg);
+ 	mutex_unlock(&netpolicy_lock);
+@@ -126,7 +132,8 @@
+ 	long ret = 0;
+ 
+ 	if (cmd == GTA3XLWIFI_UID_FEATURES || cmd == GTA3XLWIFI_UID_SET_IMAGE ||
+-	    cmd == GTA3XLWIFI_UID_GET_IMAGE)
++	    cmd == GTA3XLWIFI_UID_GET_IMAGE || cmd == GTA3XLWIFI_LNA_SET_IMAGE ||
++	    cmd == GTA3XLWIFI_LNA_GET_IMAGE)
+ 		return netpolicy_image_ioctl(file, cmd, arg);
+ 	if (cmd != GTA3XLWIFI_NETPOLICY_ABI &&
+ 	    cmd != GTA3XLWIFI_NETPOLICY_HOLD &&
+--- a/net/netfilter/Makefile
++++ b/net/netfilter/Makefile
+@@ -194,3 +194,5 @@
+ 
+ # Private real UID permission image and inet creation checks.
+ obj-$(CONFIG_NETFILTER_XT_MATCH_QTAGUID) += gta3xlwifi_uid_permissions.o
++
++obj-$(CONFIG_NETFILTER_XT_MATCH_QTAGUID) += gta3xlwifi_local_network.o

@@ -204,6 +204,13 @@ int main(void){
  printf("passed_cases=%u comparisons=%u\n",cases,comparisons);
 }
 '''
+lna_header=S/'include/uapi/linux/netfilter/gta3xlwifi_local_network.h'
+if lna_header.exists():
+ prefix+='\n#include <linux/netfilter/gta3xlwifi_local_network.h>\nstatic long gta3xlwifi_lna_ioctl(unsigned int c,unsigned long arg){(void)c;(void)arg;assert(!"UID-only regression entered LNA store");return -ENOTTY;}\n'
+ if 'gta3xlwifi_lna_packet_features()' in d:
+  prefix+='\nstatic u32 gta3xlwifi_lna_packet_features(void){return 0;}\n'
+ tests=tests.replace('io(GTA3XLWIFI_UID_FEATURES,NULL)==7','io(GTA3XLWIFI_UID_FEATURES,NULL)==15')
+ exported_lna=O/'include/linux/netfilter/gta3xlwifi_local_network.h';exported_lna.parent.mkdir(parents=True,exist_ok=True);exported_lna.write_bytes(lna_header.read_bytes());inputs +=[lna_header,exported_lna]
 code='\n'.join([prefix,globals,store,functions,oracle,fixture,*tails,tests])
 for name in ['gta3xlwifi_uid_permissions.h','gta3xlwifi_netpolicy.h']:
  src=S/'include/uapi/linux/netfilter'/name;dst=O/'include/linux/netfilter'/name;dst.parent.mkdir(parents=True,exist_ok=True);dst.write_bytes(src.read_bytes());inputs +=[src,dst]

@@ -1,0 +1,5 @@
+/srv/android/artifacts/lineage-24.0-arm64/kernel-local-network-host-20261107-01/test.c: In function ‘main’:
+/srv/android/artifacts/lineage-24.0-arm64/kernel-local-network-host-20261107-01/test.c:723:86: error: ‘union <anonymous>’ has no member named ‘u6_addr8’; did you mean ‘__u6_addr8’?
+  723 |  u32 uidval=10001,index=7;u16 proto=17;__be16 port=htons(5353);struct in6_addr ip={{.u6_addr8={0x20,1,0x0d,0xb8}}};
+      |                                                                                      ^~~~~~~~
+      |                                                                                      __u6_addr8

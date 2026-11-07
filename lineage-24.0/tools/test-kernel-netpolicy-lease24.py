@@ -144,6 +144,10 @@ if image_header.exists():
  prefix += '\n#include <linux/netfilter/gta3xlwifi_uid_permissions.h>\n#define EXPORT_SYMBOL_GPL(x)\nstatic long netpolicy_image_ioctl(struct file*f,unsigned int c,unsigned long a){(void)f;(void)c;(void)a;assert(!"legacy test entered image dispatch");return -ENOTTY;}\n'
  tests=tests.replace('netpolicy_ioctl(&owner,0x6754,0)', 'netpolicy_ioctl(&owner,0x6757,0)')
  exported_image=O/'include/linux/netfilter/gta3xlwifi_uid_permissions.h';exported_image.parent.mkdir(parents=True,exist_ok=True);exported_image.write_bytes(image_header.read_bytes())
+lna_header=S/'include/uapi/linux/netfilter/gta3xlwifi_local_network.h'
+if lna_header.exists():
+ prefix+='\n#include <linux/netfilter/gta3xlwifi_local_network.h>\n'
+ exported_lna=O/'include/linux/netfilter/gta3xlwifi_local_network.h';exported_lna.parent.mkdir(parents=True,exist_ok=True);exported_lna.write_bytes(lna_header.read_bytes())
 code=prefix+globals+sync+'\n'.join(m.extract(text,n) for n in names)+metadata+registration+m.extract(text,'gta3xlwifi_netpolicy_init')+tests
 # Export only this UAPI header; use the host's installed Linux ABI dependencies.
 # Adding the raw kernel UAPI tree would accidentally include unexported headers.
