@@ -1,0 +1,24 @@
+{
+  "scope": "Publish combined committed UID policy and seven-bit permission VALUES after verified real kernel transaction only; no Binder or readiness registration",
+  "project": "system/netd",
+  "prerequisites": [
+    "owner-dispatch-20261106-01",
+    "permission-rule-transaction-20261107-01",
+    "uid-permission-state-20261106-01"
+  ],
+  "patch_sha256": "0246a233bfbc01399c676d6a698b33d352fd0e1cf83a4a0a51cbbb9c7287ce79",
+  "files": [
+    {
+      "path": "server/Gta3xlwifiUidPolicyTransaction.cpp",
+      "before_sha256": "bd7623520cfe025fac131f58d5521afa0a8842c55a56a2f8ddf25a91dc6b9a5a",
+      "candidate_sha256": "099d78005386b9249ef4b8421cbb28096a1871c49c32b424b6ae41d590301a93"
+    },
+    {
+      "path": "server/Gta3xlwifiUidPolicyTransaction.h",
+      "before_sha256": "4d418dcbfb244fb8d0af4aebab47aa636f27cada65bf37b22838b318e8bdba0a",
+      "candidate_sha256": "a02d8c5cc50a4c1b40e6c64120c6906c9417c66c970628ee908d6e3bd111a701"
+    }
+  ],
+  "active_source_changed": false,
+  "flash_ready": false
+}

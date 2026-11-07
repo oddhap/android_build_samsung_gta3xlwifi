@@ -1,0 +1,110 @@
+--- a/server/Gta3xlwifiUidPolicyTransaction.cpp
++++ b/server/Gta3xlwifiUidPolicyTransaction.cpp
+@@ -28,6 +28,7 @@
+ }
+ void UidPolicyTransaction::stopLocked() {
+     mPolicy.reset();
++    mPermissions.reset();
+     mStarted = false;
+     mBackend.stop();
+ }
+@@ -36,6 +37,7 @@
+     stopLocked();
+ }
+ int UidPolicyTransaction::applyLocked(UidPolicy next) {
++    if (mPermissions) return applyCombinedLocked(std::move(next), *mPermissions);
+     if (!mStarted) return -ENOTCONN;
+     UidChainProgram::Image program;
+     int result = compile(next, &program);
+@@ -78,7 +80,13 @@
+     if (!mPolicy) return -EAGAIN;
+     UidPolicy next = *mPolicy;
+     int result = next.removeUid(uid);
+-    return result ? result : applyLocked(std::move(next));
++    if (result) return result;
++    if (mPermissions) {
++        UidPermissionState permissions = *mPermissions;
++        result = permissions.remove(uid);
++        return result ? result : applyCombinedLocked(std::move(next), std::move(permissions));
++    }
++    return applyLocked(std::move(next));
+ }
+ int UidPolicyTransaction::setDataSaver(bool enabled) {
+     std::lock_guard<std::mutex> lock(mMutex);
+@@ -103,4 +111,41 @@
+     std::lock_guard<std::mutex> lock(mMutex);
+     return mPolicy ? mPolicy->isNetworkingBlocked(uid, metered) : -EAGAIN;
+ }
++int UidPolicyTransaction::applyCombinedLocked(UidPolicy next, UidPermissionState permissions) {
++    if (!mStarted) return -ENOTCONN;
++    UidChainProgram::Image program;
++    int result = compile(next, &program);
++    std::vector<UidPermissionState::Entry> values;
++    if (!result) result = permissions.snapshot(&values);
++    if (!result && values.size() > 65536) result = -E2BIG;
++    if (result) return result;  // Local invalid inputs do not touch committed state.
++    std::vector<NetpolicyLease::PermissionEntry> wire;
++    wire.reserve(values.size());
++    for (const auto& e : values) wire.push_back({e.uid, e.permissions});
++    result = mBackend.replaceWithPermissions(program, program, wire);
++    if (result) {
++        stopLocked();  // Withdraw BOTH values on any kernel/ack uncertainty.
++        return result;
++    }
++    // Readers and all mutations share this mutex. Neither value is visible
++    // until the complete real kernel transaction and release have succeeded.
++    mPolicy = std::move(next);
++    mPermissions = std::move(permissions);
++    return 0;
++}
++int UidPolicyTransaction::replace(const UidPolicy& policy, const UidPermissionState& permissions) {
++    std::lock_guard<std::mutex> lock(mMutex);
++    return applyCombinedLocked(policy, permissions);
++}
++int UidPolicyTransaction::setUidPermission(int32_t uid, uint32_t mask) {
++    std::lock_guard<std::mutex> lock(mMutex);
++    if (!mPolicy || !mPermissions) return -EAGAIN;
++    UidPermissionState permissions = *mPermissions;
++    const int result = permissions.set(uid, mask);
++    return result ? result : applyCombinedLocked(*mPolicy, std::move(permissions));
++}
++int UidPolicyTransaction::getUidPermission(int32_t uid, uint32_t* output) {
++    std::lock_guard<std::mutex> lock(mMutex);
++    return mPermissions ? mPermissions->get(uid, output) : -EAGAIN;
++}
+ }  // namespace android::net::gta3xlwifi
+--- a/server/Gta3xlwifiUidPolicyTransaction.h
++++ b/server/Gta3xlwifiUidPolicyTransaction.h
+@@ -2,6 +2,7 @@
+ #pragma once
+ #include "Gta3xlwifiDualStackUidChains.h"
+ #include "Gta3xlwifiMeteredChainProgram.h"
++#include "Gta3xlwifiUidPermissionState.h"
+ namespace android::net::gta3xlwifi {
+ // Owns ONLY UID value/program transactions, not the complete network backend.
+ // The eventual sole netd owner must supply complete packet dispatch and all
+@@ -17,6 +18,11 @@
+     // Later mutators require a previously committed state. Every kernel error
+     // withdraws the value and closes the lease; explicit start/replace is needed.
+     int replace(const UidPolicy& policy);
++    // Explicit full initial combined state. Later ordinary mutations retain
++    // these permissions and every change commits all components together.
++    int replace(const UidPolicy& policy, const UidPermissionState& permissions);
++    int setUidPermission(int32_t uid, uint32_t permissions);
++    int getUidPermission(int32_t uid, uint32_t* permissions);
+     int setChainEnabled(int32_t chain, bool enabled);
+     int setUidRule(int32_t chain, int32_t uid, int32_t rule);
+     int replaceUidChain(int32_t chain, const std::vector<int32_t>& uids);
+@@ -31,10 +37,12 @@
+     static int compile(const UidPolicy& policy, UidChainProgram::Image* output);
+ private:
+     int applyLocked(UidPolicy next);
++    int applyCombinedLocked(UidPolicy next, UidPermissionState permissions);
+     void stopLocked();
+     std::mutex mMutex;
+     DualStackUidChains mBackend;
+     std::optional<UidPolicy> mPolicy;
++    std::optional<UidPermissionState> mPermissions;
+     bool mStarted = false;
+ };
+ }  // namespace android::net::gta3xlwifi

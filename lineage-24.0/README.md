@@ -55,10 +55,24 @@ diagnostic archive8194 members contain no packaged .ko/module lists; vendor init
 has no active module-load commands. Repeat this inventory on the final package.
 See experiments/kernel-uid-permissions-20261107-01 and kernel-module-inventory-20261107-02.
 
-Exact UID-image policy grants are undergoing strict production/debug compiler and
-boundary tests. New userland read/write/readback transport is local untested WIP.
-Combined permission/rule rollback, full authoritative provider, LNA/loopback/real
-metrics, VPN/IIF/DNS/CLAT/startup and final strict image/FBE/installer gates remain.
+Exact UID-image grants passed strict production/debug compilation, preserved
+5918/5881 assertion/constraint records,17 access queries each, real labels and
+seven enabled/two denied neighbor ioctl compiler probes. Primitive transport90
+and original65 tests, real ARM64 CFI and actual ARM32/64 wire ABI checks passed.
+Combined both-family rule/image transaction55 +old90 tests and3-source CFI passed.
+Permission SET is last; no firewall I/O follows it before release. Any uncertainty
+quarantines; only a verified previous full commit may resume after rule rollback.
+
+Combined UID value publication82 cases +old164 regressions and actual9-source
+ARM64 CFI/audits also passed. Ordinary updates retain permissions, UID removal
+removes both, and neither value publishes until full kernel commit verifies.
+See experiments/uid-permission-publication-20261107-01. These are isolated UID
+primitives; Binder/Java/DNS registration and complete network startup remain.
+
+Next LNA contract is recorded in experiments/local-network-contract-20261107-02:
+selected migrated policy exempts only literal UID0/1000, not all core appIds.
+Actual prefix tables/packet path, loopback/real metrics, VPN/IIF/DNS/CLAT/complete
+attachments and final strict image/FBE/Keymaster/installer gates remain.
 
 ## Current build status — November 3
 

@@ -1,0 +1,136 @@
+static inline bool is_system_or_root(uint32_t uid) {
+    return (uid == AID_SYSTEM) || (uid == AID_ROOT);
+}
+
+function bool is_local_network_access_blocked(const uint32_t uid) {
+    uint32_t mapKey = 0;
+    bool *permissionPropagationEnabled =
+        bpf_permission_propagation_enabled_map_lookup_elem(&mapKey);
+    if (permissionPropagationEnabled && *permissionPropagationEnabled) {
+        if (is_system_or_root(uid)) return false;
+        if (get_chunk_permissions(uid) & PERMISSION_BIT_ACCESS_LOCAL_NETWORK)
+            return false;
+    } else {
+        // Continue exempting system UIDs for the old map. This branch will be
+        // deprecated soon.
+        if (is_system_uid(uid)) return false;
+
+        // Uid that is not in the blocked uid map has access to restricted local network
+        bool* block_local_net = bpf_local_net_blocked_uid_map_lookup_elem(&uid);
+        if (!block_local_net) return false; // uid not found in map
+        if (!*block_local_net) return false; // lookup returned 'bool false'
+    }
+    return true;
+}
+
+function bool is_local_net_access_allowed(const LocalNetAccessKey *query_key, const uint32_t uid) {
+    bool* v = bpf_local_net_access_map_lookup_elem(query_key);
+    if (!v || *v) {
+        return true;
+    }
+    LocalNetUidHostAllowlistKey allowlist_query_key = {
+        .lpm_bitlen =
+            8 * (sizeof(uid) + sizeof(query_key->if_index) + sizeof(query_key->remote_ip6)),
+        .uid = uid,
+        .if_index = query_key->if_index,
+        .remote_ip6 = query_key->remote_ip6,
+    };
+    v = bpf_local_net_uid_host_allowlist_map_lookup_elem(&allowlist_query_key);
+    return v && *v;
+}
+
+function bool is_local_net_access_allowed_cached(struct __sk_buff *skb,
+                                                 const uint32_t uid,
+                                                 const uint32_t if_index,
+                                                 const struct in6_addr *remote_ip6,
+                                                 const uint16_t protocol,
+                                                 const __be16 remote_port,
+                                                 const struct kver_uint kver) {
+    LocalNetAccessKey query_key = {
+        .lpm_bitlen = 8 * (sizeof(if_index) + sizeof(*remote_ip6) + sizeof(protocol)
+                           + sizeof(remote_port)),
+        .if_index = if_index,
+        .remote_ip6 = *remote_ip6,
+        .protocol = protocol,
+        .remote_port = remote_port
+    };
+
+    // Caching is enabled on kernel 5.10 and later, which supports BPF socket storage.
+    if (!KVER_IS_AT_LEAST(kver, 5, 10)) {
+        return is_local_net_access_allowed(&query_key, uid);
+    }
+
+    struct bpf_sock* sk = skb->sk;
+    if (!sk) return is_local_net_access_allowed(&query_key, uid);
+    SkStorageValue *sks = bpf_sk_storage_get(sk, 0, 0);
+    if (!sks) return is_local_net_access_allowed(&query_key, uid);
+
+    if (sks->lnp_cache.is_connected_tcp) return true;
+
+    uint32_t zero = 0;
+    uint64_t *gen_id = bpf_local_net_cache_generation_id_map_lookup_elem(&zero);
+    if (!gen_id) return false; // Should not happen
+    if (*gen_id == sks->lnp_cache.generation_id
+        && !__builtin_memcmp(&sks->lnp_cache.key, &query_key, sizeof(sks->lnp_cache.key))) {
+        return sks->lnp_cache.result;
+    }
+
+    bool isAllowed = is_local_net_access_allowed(&query_key, uid);
+
+    if (!(*gen_id & 1)) {
+        sks->lnp_cache.result = isAllowed;
+        sks->lnp_cache.generation_id = *gen_id;
+        sks->lnp_cache.key = query_key;
+    }
+    if (protocol == IPPROTO_TCP && isAllowed) sks->lnp_cache.is_connected_tcp = true;
+
+    return isAllowed;
+}
+
+function bool should_block_local_network_packets(const SkbIpPacketData *const packet,
+                                                 struct __sk_buff *skb,
+                                                 const uint32_t uid,
+                                                 const uint32_t if_index,
+                                                 const struct egress_bool egress,
+                                                 const struct kver_uint kver) {
+    bool reportLocalAccess = false;
+    if (KVER_IS_AT_LEAST(kver, 5, 10)) {
+        uint32_t key = 0;
+        bool *noteOpEnabled = bpf_local_net_note_op_enabled_map_lookup_elem(&key);
+        reportLocalAccess = noteOpEnabled && *noteOpEnabled;
+    }
+    bool isAllowed;
+    const struct in6_addr *remote_ip6 =
+        egress.egress ? &packet->daddr : &packet->saddr;
+    const __be16 remote_port = egress.egress ? packet->dport : packet->sport;
+    if (reportLocalAccess) {
+        isAllowed = is_local_net_access_allowed_cached(skb, uid, if_index, remote_ip6,
+                                                       packet->ip_proto, remote_port, kver);
+        // Currently, generate events for all local network access, regardless of the UID's
+        // permission status.
+        // This is to identify all UIDs that are accessing the local network.
+        if (!isAllowed) {
+            // Cache to report only once per minute per UID.
+            uint32_t* lastReportMinutes = bpf_local_net_note_op_cache_map_lookup_elem(&uid);
+            uint32_t bootMinutes = (uint32_t) (bpf_ktime_get_boot_ns() / NS_PER_MINUTE);
+            if (!lastReportMinutes || *lastReportMinutes < bootMinutes) {
+                LocalNetNoteOp *noteOp = bpf_local_net_note_op_ringbuf_reserve();
+                if (noteOp != NULL) {
+                    noteOp->uid = uid;
+                    bpf_local_net_note_op_ringbuf_submit(noteOp);
+                    bpf_local_net_note_op_cache_map_update_elem(&uid, &bootMinutes, BPF_ANY);
+                }
+            }
+        }
+    }
+
+    if (!is_local_network_access_blocked(uid)) {
+        return false;
+    }
+
+    if (!reportLocalAccess) {
+        isAllowed = is_local_net_access_allowed_cached(skb, uid, if_index, remote_ip6,
+                                                       packet->ip_proto, remote_port, kver);
+    }
+    return !isAllowed;
+}
