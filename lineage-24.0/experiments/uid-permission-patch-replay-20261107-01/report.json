@@ -1,0 +1,126 @@
+{
+  "passed": true,
+  "scope": "Exact four incremental public proposals replay and reverse cleanly; all20 final native source/header bytes match successful actual9-source Android CFI compile inputs",
+  "base_report_sha256": "597694586599a5150fea23d288fed1e81c5eec52ecb527e52dc32c987e7f62e2",
+  "target_report_sha256": "e24552f71f087a872c00a75db622f9ed297b401fa26362ee097e57a4161b0544",
+  "base_files_sha256": {
+    "server/Gta3xlwifiUidPolicy.cpp": "9f98afdf5ea0750b6a1215d1ecb46250aa7c62a6fb9a84e23300f112bfd2d239",
+    "server/Gta3xlwifiUidChainProgram.cpp": "b8936793c49b2cc0abee3cf2e6f27c82a171a582006a956a8ab2954ff380ffee",
+    "server/Gta3xlwifiMeteredChainProgram.cpp": "187b81def0be32268ecd59c059df71b29a667864817a42d9eeae46bd356dd886",
+    "server/Gta3xlwifiUidPolicyTransaction.cpp": "bd7623520cfe025fac131f58d5521afa0a8842c55a56a2f8ddf25a91dc6b9a5a",
+    "server/Gta3xlwifiDualStackUidChains.cpp": "058f390a05c0622a94594d0e72662be9d45c9f4fc820ec6d6e1a70fe338a93f7",
+    "server/Gta3xlwifiOrdinaryDispatch.cpp": "917927b0e66b78a3087e50c04e963b04813a7a4041e40dce6d9094119f9459c3",
+    "server/Gta3xlwifiNetpolicyLease.cpp": "4ad79f0d738b6573e6285b87f89fc1d7aaab09dd8998008aa50d3ee4294a0f87",
+    "server/Gta3xlwifiCheckedUidChains.cpp": "073b7988bd4f83200bf3b0d954de9f9bbd53b71775cb082194a56f769d3b454d",
+    "server/Gta3xlwifiCheckedUidChains.h": "b2ec612fb6165050240c1c9413e6c4bbd01ff511827c278e2ff62d5e91f49806",
+    "server/Gta3xlwifiNetpolicyLease.h": "fb8285a02e03db2b9c5ad719ba3b7985c99633c192e4935e213fe26b3dae69d6",
+    "server/Gta3xlwifiOrdinaryDispatch.h": "6e71c153ab368713437b4b4c2ea3ee246b7f35490f94cc87d23e18f7515547c5",
+    "server/Gta3xlwifiUidPolicyTransaction.h": "4d418dcbfb244fb8d0af4aebab47aa636f27cada65bf37b22838b318e8bdba0a",
+    "server/Gta3xlwifiUidPolicy.h": "254fae0c2fa1fd65e18e340149ef740b8a89fc7f4620e58ae22e0296815febb2",
+    "server/Gta3xlwifiMeteredChainProgram.h": "642872e7b45e23aeddb899f3d2b2133d5b59ff4188642e714d8366229c85f1ce",
+    "server/Gta3xlwifiDualStackUidChains.h": "d09e83c1f51e868d82126b6c53f40ddb281d75af24c081be02d5885050fa2b0c",
+    "server/Gta3xlwifiUidChainProgram.h": "e6bd4a71fbd289f8bdc2a917649f03fea323d136584f0dccb3acba00e49b33a8",
+    "server/linux/netfilter/gta3xlwifi_netpolicy.h": "fd53c8c287840054ac9234efdabd88302140d95fc1488c57080de499a835d54c"
+  },
+  "final_files_sha256": {
+    "server/Gta3xlwifiUidPermissionState.cpp": "cb075c44670ba172d32239ef33e164da79ba77ee6da2df045d74c55897cc84c0",
+    "server/Gta3xlwifiUidPolicy.cpp": "9f98afdf5ea0750b6a1215d1ecb46250aa7c62a6fb9a84e23300f112bfd2d239",
+    "server/Gta3xlwifiUidChainProgram.cpp": "b8936793c49b2cc0abee3cf2e6f27c82a171a582006a956a8ab2954ff380ffee",
+    "server/Gta3xlwifiMeteredChainProgram.cpp": "187b81def0be32268ecd59c059df71b29a667864817a42d9eeae46bd356dd886",
+    "server/Gta3xlwifiCheckedUidChains.h": "b2ec612fb6165050240c1c9413e6c4bbd01ff511827c278e2ff62d5e91f49806",
+    "server/Gta3xlwifiUidPolicyTransaction.cpp": "099d78005386b9249ef4b8421cbb28096a1871c49c32b424b6ae41d590301a93",
+    "server/Gta3xlwifiDualStackUidChains.cpp": "003f83e7c54a514ee118c0a55b3957065c15988a86a0ef21bd5fee39b8693a18",
+    "server/Gta3xlwifiUidPermissionState.h": "2309fee4cb9938d273dd094b7fe21e5f778b7de9ee57244572cbfeb66a7b84f4",
+    "server/Gta3xlwifiNetpolicyLease.h": "f2453a7891a1e73dbc3077efabdf7a38626838c00d5cc4f550298110e978ea09",
+    "server/Gta3xlwifiOrdinaryDispatch.cpp": "917927b0e66b78a3087e50c04e963b04813a7a4041e40dce6d9094119f9459c3",
+    "server/Gta3xlwifiOrdinaryDispatch.h": "6e71c153ab368713437b4b4c2ea3ee246b7f35490f94cc87d23e18f7515547c5",
+    "server/Gta3xlwifiUidPolicyTransaction.h": "a02d8c5cc50a4c1b40e6c64120c6906c9417c66c970628ee908d6e3bd111a701",
+    "server/Gta3xlwifiUidPolicy.h": "254fae0c2fa1fd65e18e340149ef740b8a89fc7f4620e58ae22e0296815febb2",
+    "server/Gta3xlwifiNetpolicyLease.cpp": "01721724568c6200ab824d1350b62fccd34648fb5ea165fcb5ae23dc44f7e0b7",
+    "server/Gta3xlwifiMeteredChainProgram.h": "642872e7b45e23aeddb899f3d2b2133d5b59ff4188642e714d8366229c85f1ce",
+    "server/Gta3xlwifiDualStackUidChains.h": "79370470c5a76e09f3b483af5a164ccfd9708ca3eae1bda3b5ac16b7bcd82a7f",
+    "server/Gta3xlwifiUidChainProgram.h": "e6bd4a71fbd289f8bdc2a917649f03fea323d136584f0dccb3acba00e49b33a8",
+    "server/Gta3xlwifiCheckedUidChains.cpp": "073b7988bd4f83200bf3b0d954de9f9bbd53b71775cb082194a56f769d3b454d",
+    "server/linux/netfilter/gta3xlwifi_netpolicy.h": "fd53c8c287840054ac9234efdabd88302140d95fc1488c57080de499a835d54c",
+    "server/linux/netfilter/gta3xlwifi_uid_permissions.h": "92d572695e88845aebb03c20474c804f56cd4c39c9b22dc01c355c0d81123945"
+  },
+  "proposal_order": [
+    {
+      "proposal": "uid-permission-transport-20261107-01",
+      "lock_sha256": "2bbbcb8a0fa21bfe6c84bb27a35ab28c709f12e9cbb607f0a46bb654793ec7bc",
+      "patch_sha256": "6494a60e75012d6a35ae7ed01009f77977ff85efaa3da3d2d73f95e66bf4b419",
+      "files": [
+        {
+          "path": "server/Gta3xlwifiNetpolicyLease.cpp",
+          "before_sha256": "4ad79f0d738b6573e6285b87f89fc1d7aaab09dd8998008aa50d3ee4294a0f87",
+          "candidate_sha256": "01721724568c6200ab824d1350b62fccd34648fb5ea165fcb5ae23dc44f7e0b7"
+        },
+        {
+          "path": "server/Gta3xlwifiNetpolicyLease.h",
+          "before_sha256": "fb8285a02e03db2b9c5ad719ba3b7985c99633c192e4935e213fe26b3dae69d6",
+          "candidate_sha256": "f2453a7891a1e73dbc3077efabdf7a38626838c00d5cc4f550298110e978ea09"
+        },
+        {
+          "path": "server/linux/netfilter/gta3xlwifi_uid_permissions.h",
+          "before_sha256": null,
+          "candidate_sha256": "92d572695e88845aebb03c20474c804f56cd4c39c9b22dc01c355c0d81123945"
+        }
+      ]
+    },
+    {
+      "proposal": "uid-permission-state-20261106-01",
+      "lock_sha256": "502ab762611b048879a10213594cc7e22b4e05350c5dcee299c70d3a22911f49",
+      "patch_sha256": "0d50d7ea25c6645353e8014ae01b3c6d3ee753b1172016ff91ccbda4bd5e92d4",
+      "files": [
+        {
+          "path": "server/Gta3xlwifiUidPermissionState.h",
+          "before_sha256": null,
+          "candidate_sha256": "2309fee4cb9938d273dd094b7fe21e5f778b7de9ee57244572cbfeb66a7b84f4"
+        },
+        {
+          "path": "server/Gta3xlwifiUidPermissionState.cpp",
+          "before_sha256": null,
+          "candidate_sha256": "cb075c44670ba172d32239ef33e164da79ba77ee6da2df045d74c55897cc84c0"
+        }
+      ]
+    },
+    {
+      "proposal": "permission-rule-transaction-20261107-01",
+      "lock_sha256": "47fe2cc6ffa223750386b2e1d59241bc2c51151717c906a8e54e619792c96a00",
+      "patch_sha256": "7694d48918320fffa355ed9e446fa0c2750e4e52e7643817d3a64fdadf8158c3",
+      "files": [
+        {
+          "path": "server/Gta3xlwifiDualStackUidChains.cpp",
+          "before_sha256": "058f390a05c0622a94594d0e72662be9d45c9f4fc820ec6d6e1a70fe338a93f7",
+          "candidate_sha256": "003f83e7c54a514ee118c0a55b3957065c15988a86a0ef21bd5fee39b8693a18"
+        },
+        {
+          "path": "server/Gta3xlwifiDualStackUidChains.h",
+          "before_sha256": "d09e83c1f51e868d82126b6c53f40ddb281d75af24c081be02d5885050fa2b0c",
+          "candidate_sha256": "79370470c5a76e09f3b483af5a164ccfd9708ca3eae1bda3b5ac16b7bcd82a7f"
+        }
+      ]
+    },
+    {
+      "proposal": "uid-permission-publication-20261107-01",
+      "lock_sha256": "8bdffa1e54ec4525b3fc47f3cff3737053fd25f4f625a3e1ed474308bf94dfea",
+      "patch_sha256": "0246a233bfbc01399c676d6a698b33d352fd0e1cf83a4a0a51cbbb9c7287ce79",
+      "files": [
+        {
+          "path": "server/Gta3xlwifiUidPolicyTransaction.cpp",
+          "before_sha256": "bd7623520cfe025fac131f58d5521afa0a8842c55a56a2f8ddf25a91dc6b9a5a",
+          "candidate_sha256": "099d78005386b9249ef4b8421cbb28096a1871c49c32b424b6ae41d590301a93"
+        },
+        {
+          "path": "server/Gta3xlwifiUidPolicyTransaction.h",
+          "before_sha256": "4d418dcbfb244fb8d0af4aebab47aa636f27cada65bf37b22838b318e8bdba0a",
+          "candidate_sha256": "a02d8c5cc50a4c1b40e6c64120c6906c9417c66c970628ee908d6e3bd111a701"
+        }
+      ]
+    }
+  ],
+  "base_exactly_restored_after_reverse": true,
+  "active_top_or_prebuilt_changed": false,
+  "hardware_tested": false,
+  "flash_ready": false
+}
