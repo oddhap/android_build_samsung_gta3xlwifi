@@ -1,0 +1,8913 @@
+{
+  "passed": true,
+  "scope": "Read-only complete ext4 directory inventory of actual selected MTP vendor plus diagnostic target-files member inventory; not device execution",
+  "vendor_sparse_sha256": "a847a527931d61e5702b8a025210c84eb88a37ef1e60df93b6393a16dae9183a",
+  "vendor_raw_sha256": "cb1426764a26cd17b921339d2ce75618ad9c800eb89849f7dc07f2664ca192fb",
+  "debugfs_sha256": "d8d3959fe11b32233f4291b795cb4ce2b8b8e6cbd2a467eebecedfe943a6dcd2",
+  "vendor_entries": 1074,
+  "vendor_directories": 103,
+  "unused_directory_slots_skipped": 3,
+  "vendor_kernel_modules_or_load_lists": [],
+  "vendor_init_files": [
+    {
+      "path": "/ueventd.rc",
+      "sha256": "7e712e7eaa74d85cd1de9c9cef4e12bf18b81b90ef4f41bb5315f0cbf9568814",
+      "module_command_lines": []
+    },
+    {
+      "path": "/etc/init/android.hardware.audio.service.rc",
+      "sha256": "9f333cf5552c40153a199ae173eb48a3d558b53a3f097c2702bfbfde2f1565fb",
+      "module_command_lines": []
+    },
+    {
+      "path": "/etc/init/android.hardware.bluetooth@1.0-service.rc",
+      "sha256": "23a1a3b86b7eb199af72b391664f00eebe0b379524291b0c8efb4b7fe7a339c8",
+      "module_command_lines": []
+    },
+    {
+      "path": "/etc/init/android.hardware.cas@1.2-service.rc",
+      "sha256": "6f0fb8ac0ad672cd42a4a371f5cc0913f50300bcb189604162713cacbe581898",
+      "module_command_lines": []
+    },
+    {
+      "path": "/etc/init/android.hardware.configstore@1.1-service.rc",
+      "sha256": "b659d349489e7f56a4a6f4d7f3995944ee4eab869a665cf98977968d761a52e7",
+      "module_command_lines": []
+    },
+    {
+      "path": "/etc/init/android.hardware.drm@1.3-service.clearkey.rc",
+      "sha256": "da4f4a3867787cd947da35475983185a2217cba1064619506dab478af3381a32",
+      "module_command_lines": []
+    },
+    {
+      "path": "/etc/init/android.hardware.drm@1.3-service.widevine.rc",
+      "sha256": "f1cbbb9cf4791c566636523e46f64544a73eb8fe41231fd7e301bfcd8977e144",
+      "module_command_lines": []
+    },
+    {
+      "path": "/etc/init/android.hardware.dumpstate@1.1-service-lazy.rc",
+      "sha256": "6ca12502e4bcb4418da2075257a18ac3db2758759c6fcb05956551da72fccf6b",
+      "module_command_lines": []
+    },
+    {
+      "path": "/etc/init/android.hardware.gatekeeper@1.0-service.rc",
+      "sha256": "c00b20390431f7576062dfb17668f7e9771156a42474d69f8de74fd27824b674",
+      "module_command_lines": []
+    },
+    {
+      "path": "/etc/init/android.hardware.graphics.allocator@2.0-service.rc",
+      "sha256": "cf5304c0d8249be9e94b776e5352bcb064516369acf0e62c57fc3a3a28a6b581",
+      "module_command_lines": []
+    },
+    {
+      "path": "/etc/init/android.hardware.graphics.composer@2.1-service.rc",
+      "sha256": "19c5f1a84f7a829ef34a92d05d8b21785c6f5c03ed51954c102eba0b5b478908",
+      "module_command_lines": []
+    },
+    {
+      "path": "/etc/init/android.hardware.health@2.1-service-samsung.rc",
+      "sha256": "31976ea1f9b66fa35c71c2c598657fc0cf0939248517a0e9a16d7ee2f2856fee",
+      "module_command_lines": []
+    },
+    {
+      "path": "/etc/init/android.hardware.keymaster@4.0-service.rc",
+      "sha256": "f8f7a87f5dbd2116f3d3c5ff047d1f09dbc083d8c4044d107df5ad7d95e26b5b",
+      "module_command_lines": []
+    },
+    {
+      "path": "/etc/init/android.hardware.media.omx@1.0-service.rc",
+      "sha256": "39ec885edf9e9f1b3cebc657b450c1c45e30fd9e172237ccc1883274d9bc629d",
+      "module_command_lines": []
+    },
+    {
+      "path": "/etc/init/android.hardware.memtrack@1.0-service.rc",
+      "sha256": "28f305d029a0aac7daaeb97e748b3be0d797e3c66a7aa24571c2e507b0141456",
+      "module_command_lines": []
+    },
+    {
+      "path": "/etc/init/android.hardware.sensors@1.0-service.rc",
+      "sha256": "6f65242d34d0528c23e5dd216e92821ba1c66dc653b60506cf05083e10c7ecf2",
+      "module_command_lines": []
+    },
+    {
+      "path": "/etc/init/android.hardware.usb@1.1-service.exynos7885.rc",
+      "sha256": "b58253600d6046ed99c3c76f44c3312911da60fdbbad37bdece51dee2f837a57",
+      "module_command_lines": []
+    },
+    {
+      "path": "/etc/init/android.hardware.wifi.supplicant-service.rc",
+      "sha256": "5c377599f79080c045ad2752cd74d44c06309ff67218029a4d70af836e3b1474",
+      "module_command_lines": []
+    },
+    {
+      "path": "/etc/init/android.hardware.wifi@1.0-service.rc",
+      "sha256": "ad76dc52f91f79c254279044067713e9beb9247917267730af7ac7dc0931a603",
+      "module_command_lines": []
+    },
+    {
+      "path": "/etc/init/boringssl_self_test.rc",
+      "sha256": "459fea4e63e78a19b04b37e6298e4ce22a816f2f5604b17289d04c3a57e1fe1d",
+      "module_command_lines": []
+    },
+    {
+      "path": "/etc/init/com.dsi.ant@1.0-service.rc",
+      "sha256": "8a05808cc232760330586f627207ed56c130df608b921b6a8cc8e6b8828b1c60",
+      "module_command_lines": []
+    },
+    {
+      "path": "/etc/init/emservice.rc",
+      "sha256": "22e16c2e0f6f9424d30224c2d84864539d54bedefc67466f97025bae8ab94f26",
+      "module_command_lines": []
+    },
+    {
+      "path": "/etc/init/hostapd.android.rc",
+      "sha256": "bf173cc6e9ac12033f85b7e008a91c5283a165ef7ef53e3d9ba2bf4e0ddb2abd",
+      "module_command_lines": []
+    },
+    {
+      "path": "/etc/init/hyper-default-sec.rc",
+      "sha256": "ceffae1ad4a9e07a891e7ca88ac46c28bd72890ae192160aac78b0b217c9003d",
+      "module_command_lines": []
+    },
+    {
+      "path": "/etc/init/icd_over_five_vendor.rc",
+      "sha256": "b54dba6d8d7edadc5d05218c80948909484468c601ac9de441848867ad294748",
+      "module_command_lines": []
+    },
+    {
+      "path": "/etc/init/init.baseband.rc",
+      "sha256": "2df1270f43b562347e5bcee421dd0507f7279323768a49091d8f1a2117efa90a",
+      "module_command_lines": []
+    },
+    {
+      "path": "/etc/init/init.exynos7904.rc",
+      "sha256": "bdb9ec664b3b9fc256b2d5c27884c6023f6f7ab1f7de1431350517787f9b283a",
+      "module_command_lines": []
+    },
+    {
+      "path": "/etc/init/init.exynos7904.usb.rc",
+      "sha256": "500d6fccbb990aad93a7de7fb4cf7e96d00702702bd021d18c9152d74e59ef1d",
+      "module_command_lines": []
+    },
+    {
+      "path": "/etc/init/init.gps.rc",
+      "sha256": "0b54318782954ecdbea347bf59dc34d56992844dbf47162f5fcf04c0fddb34ff",
+      "module_command_lines": []
+    },
+    {
+      "path": "/etc/init/init.vendor.rilcommon.rc",
+      "sha256": "cb93c33c1b3d6351ff460e5d93d6960c12855e16190a86ca0ff425d0d1417c64",
+      "module_command_lines": []
+    },
+    {
+      "path": "/etc/init/init.vendor.sysfw.rc",
+      "sha256": "4c02f7eea03436ead5bd6d0d8509cc5b2055a4dabdb742fd9017761f29776060",
+      "module_command_lines": []
+    },
+    {
+      "path": "/etc/init/lights-default-sec.rc",
+      "sha256": "e83fb7a55d9d5938c90d35ee8b67e3d4a518df1a4fd7ded49cd58ae43532ae0b",
+      "module_command_lines": []
+    },
+    {
+      "path": "/etc/init/mobicore.rc",
+      "sha256": "f9fc70e4f95b846a09c392e93aa729d04a4d87d10e375afc77d43f9da5d73170",
+      "module_command_lines": []
+    },
+    {
+      "path": "/etc/init/pa_daemon_kinibi.rc",
+      "sha256": "cc313cf76c2565ee748fdebe999aa241f82f551bb1d6b196cb287162fc52564c",
+      "module_command_lines": []
+    },
+    {
+      "path": "/etc/init/power-default-sec.rc",
+      "sha256": "e13611162371033cf2962c688a0eea75debee375d110da92152b9b8afa9b58b0",
+      "module_command_lines": []
+    },
+    {
+      "path": "/etc/init/secure_storage_daemon_kinibi.rc",
+      "sha256": "8256379be770edbc28f2c276c2b9ec589fae660387309c06ae7c64be4b47e21b",
+      "module_command_lines": []
+    },
+    {
+      "path": "/etc/init/snap_utility.rc",
+      "sha256": "70883ec28e370d5d06ce80f89fc4de416dd9cea617edfc0a3078251bf0c5f52e",
+      "module_command_lines": []
+    },
+    {
+      "path": "/etc/init/vaultkeeper_common.rc",
+      "sha256": "7215d911bd344193b78803ce059666576c68be629d5442e2e4590ac5a0948853",
+      "module_command_lines": []
+    },
+    {
+      "path": "/etc/init/vendor.samsung.hardware.camera.provider@4.0-service.rc",
+      "sha256": "91850e0d13e4abd7bd43c7c4255eda36dd8a9b12ab104ce3f2e48b7514682cea",
+      "module_command_lines": []
+    },
+    {
+      "path": "/etc/init/vendor.samsung.hardware.gnss@2.0-service.rc",
+      "sha256": "be351ed9ee3b813b623298df2e99e3ac4cd00abeae6293b380e28cea1a7fe88c",
+      "module_command_lines": []
+    },
+    {
+      "path": "/etc/init/vendor.samsung.hardware.hqm@1.0-service.rc",
+      "sha256": "d7555498596c4d98ab2cc953b136e69f2d3f7f65cd97910f1daa62c1fbdf1b91",
+      "module_command_lines": []
+    },
+    {
+      "path": "/etc/init/vendor.samsung.hardware.miscpower@2.0-service.rc",
+      "sha256": "0cf247ba1da12efbe7bbdd048b01d80aeb51ad85c887634b21260f1a10ca6f6f",
+      "module_command_lines": []
+    },
+    {
+      "path": "/etc/init/vendor.samsung.hardware.security.drk@2.0-service.rc",
+      "sha256": "1b65b8e3c91cb4636b1582f4419abd0e2db44231d328bb5e202f3dd9f03ebaca",
+      "module_command_lines": []
+    },
+    {
+      "path": "/etc/init/vendor.samsung.hardware.security.engmode@1.0-service.rc",
+      "sha256": "b611e9eceb212d0884d93cfbbe3254e1dc9d2b6b3f75c22ff742d26de6e73ca4",
+      "module_command_lines": []
+    },
+    {
+      "path": "/etc/init/vendor.samsung.hardware.security.widevine.keyprov@1.0-service.rc",
+      "sha256": "e72fc5a1bc080a9cb2e2ae8afb5085c10d5818e632d3342177dfa243cb2ad65e",
+      "module_command_lines": []
+    },
+    {
+      "path": "/etc/init/vendor.samsung.hardware.snap@1.2-service.rc",
+      "sha256": "d2999f04226ad2a2aa6f91b27ac6cf371424ee2fd7701535d3d953bd4a21ed76",
+      "module_command_lines": []
+    },
+    {
+      "path": "/etc/init/vendor.samsung.hardware.sysinput@1.1-service.rc",
+      "sha256": "ae9547cfa86ad7139b08cc362bb4724e213273251df2b46d471abe3c016a1b2e",
+      "module_command_lines": []
+    },
+    {
+      "path": "/etc/init/vendor.samsung.hardware.thermal@1.0-service.rc",
+      "sha256": "228faf829ec9e4370ce2dbbe1a6fe950330de4caf979a4eaa5df07d101bd818f",
+      "module_command_lines": []
+    },
+    {
+      "path": "/etc/init/vendor.samsung.hardware.tlc.atn@1.0-service.rc",
+      "sha256": "a6665f609f6f3f954091e05a21a439f85b9089aea6d579b00fff3a6e882922d1",
+      "module_command_lines": []
+    },
+    {
+      "path": "/etc/init/vendor.samsung.hardware.tlc.iccc@1.0-service.rc",
+      "sha256": "8aef9a7078f6057225b74987bd820ee8ca535842609702848d71ef40280b41a1",
+      "module_command_lines": []
+    },
+    {
+      "path": "/etc/init/vendor.samsung.hardware.tlc.tima@1.1-service.rc",
+      "sha256": "6b7f214a1f063df4f0ac27ed1c43e34cee4e881fdd51aed250d582fd5d8dc568",
+      "module_command_lines": []
+    },
+    {
+      "path": "/etc/init/vendor.samsung.hardware.tlc.ucm@2.0-service.rc",
+      "sha256": "2994905810e39e8bfb30cd0e022e4e0e2d95af4b072dbd5e96b3b1ec3595ae06",
+      "module_command_lines": []
+    },
+    {
+      "path": "/etc/init/vendor.samsung.hardware.wifi@2.0-service.rc",
+      "sha256": "9d2b76e6537ecf908edc7e977e0d64563fc5c35146f3dec24839edf89b916001",
+      "module_command_lines": []
+    },
+    {
+      "path": "/etc/init/vendor.samsung_slsi.hardware.ExynosHWCServiceTW@1.0-service.rc",
+      "sha256": "17d0c4bfdfb89998b91758a840d0951e007caec41695434c9d0d8df72fa626ca",
+      "module_command_lines": []
+    },
+    {
+      "path": "/etc/init/vendor.samsung_slsi.hardware.configstore@1.0-service.rc",
+      "sha256": "29c31f05ffd95cd90bf55cf2cb9d3dcfab580303f3964692d23d0b80f4167320",
+      "module_command_lines": []
+    },
+    {
+      "path": "/etc/init/vendor.trustonic.tee@1.0-service.rc",
+      "sha256": "88792ce2688d0a6390c2d59236cc9828b85bdc0c7f478da587848d8ebdd69110",
+      "module_command_lines": []
+    },
+    {
+      "path": "/etc/init/vendor.trustonic.teeregistry@1.0-service.rc",
+      "sha256": "afcb941cc0328fc9744127a813076c8b05b8c6aae9e074a6c216b3aa32876c99",
+      "module_command_lines": []
+    },
+    {
+      "path": "/etc/init/vndservicemanager.rc",
+      "sha256": "8dda986d89a2ab17268872e823eaa5d3899466c6a81693eddbeebb2070cd12a8",
+      "module_command_lines": []
+    },
+    {
+      "path": "/etc/init/wifi.rc",
+      "sha256": "ad290a2cf91094c4a552bf4e8326c00d9a62a0270874413b48f105504e4d0b5b",
+      "module_command_lines": []
+    },
+    {
+      "path": "/etc/init/wifi_slsi.rc",
+      "sha256": "4414ea924598a0b42290a29ea7c64c05d9a307bfa1c70435bb91edc41b14a54d",
+      "module_command_lines": []
+    }
+  ],
+  "diagnostic_archive_sha256": "5d6d30884abdf5c9cd2ea1680961005f681598a508bcb0937d6ebb27bebc3b45",
+  "diagnostic_archive_members": 8194,
+  "diagnostic_packaged_modules_or_load_lists": [],
+  "inventory": [
+    {
+      "path": "/app",
+      "inode": 12,
+      "mode": "040755",
+      "uid": 0,
+      "gid": 2000,
+      "size": null
+    },
+    {
+      "path": "/app/mcRegistry",
+      "inode": 13,
+      "mode": "040755",
+      "uid": 0,
+      "gid": 2000,
+      "size": null
+    },
+    {
+      "path": "/app/mcRegistry/00060308060501020000000000000000.tlbin",
+      "inode": 14,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 48617
+    },
+    {
+      "path": "/app/mcRegistry/07010000000000000000000000000000.tlbin",
+      "inode": 15,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 25733
+    },
+    {
+      "path": "/app/mcRegistry/0706000000000000000000000000004d.tlbin",
+      "inode": 16,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 52901
+    },
+    {
+      "path": "/app/mcRegistry/08130000000000000000000000000000.tlbin",
+      "inode": 17,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 10729
+    },
+    {
+      "path": "/app/mcRegistry/FFFFFFFF000000000000000000000001.drbin",
+      "inode": 18,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 16041
+    },
+    {
+      "path": "/app/mcRegistry/ffffffff000000000000000000000005.tlbin",
+      "inode": 19,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 24541
+    },
+    {
+      "path": "/app/mcRegistry/ffffffff00000000000000000000000a.tlbin",
+      "inode": 20,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 40813
+    },
+    {
+      "path": "/app/mcRegistry/ffffffff00000000000000000000000c.tlbin",
+      "inode": 21,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 183184
+    },
+    {
+      "path": "/app/mcRegistry/ffffffff00000000000000000000000d.tlbin",
+      "inode": 22,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 141389
+    },
+    {
+      "path": "/app/mcRegistry/ffffffff00000000000000000000000f.tlbin",
+      "inode": 23,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 44141
+    },
+    {
+      "path": "/app/mcRegistry/ffffffff000000000000000000000012.tlbin",
+      "inode": 24,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 458469
+    },
+    {
+      "path": "/app/mcRegistry/ffffffff000000000000000000000013.tlbin",
+      "inode": 25,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 88413
+    },
+    {
+      "path": "/app/mcRegistry/ffffffff000000000000000000000016.tlbin",
+      "inode": 26,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 27557
+    },
+    {
+      "path": "/app/mcRegistry/ffffffff000000000000000000000019.tlbin",
+      "inode": 27,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 33561
+    },
+    {
+      "path": "/app/mcRegistry/ffffffff00000000000000000000002f.tlbin",
+      "inode": 28,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 911693
+    },
+    {
+      "path": "/app/mcRegistry/ffffffff000000000000000000000038.tlbin",
+      "inode": 29,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 56489
+    },
+    {
+      "path": "/app/mcRegistry/ffffffff00000000000000000000003e.tlbin",
+      "inode": 30,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 778525
+    },
+    {
+      "path": "/app/mcRegistry/ffffffff000000000000000000000041.tlbin",
+      "inode": 31,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 26197
+    },
+    {
+      "path": "/app/mcRegistry/ffffffff000000000000000000000045.tlbin",
+      "inode": 32,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 907505
+    },
+    {
+      "path": "/app/mcRegistry/ffffffff000000000000000000000077.tlbin",
+      "inode": 33,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 756649
+    },
+    {
+      "path": "/app/mcRegistry/ffffffffd0000000000000000000000a.tlbin",
+      "inode": 34,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 14765
+    },
+    {
+      "path": "/app/mcRegistry/ffffffffd00000000000000000000016.tlbin",
+      "inode": 35,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 23813
+    },
+    {
+      "path": "/app/mcRegistry/ffffffffd00000000000000000000045.drbin",
+      "inode": 36,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 3053
+    },
+    {
+      "path": "/app/mcRegistry/ffffffffd00000000000000000000062.tlbin",
+      "inode": 37,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 648459
+    },
+    {
+      "path": "/bin",
+      "inode": 38,
+      "mode": "040751",
+      "uid": 0,
+      "gid": 2000,
+      "size": null
+    },
+    {
+      "path": "/bin/acpi",
+      "inode": 39,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/add.pb",
+      "inode": 40,
+      "mode": "100755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 602333
+    },
+    {
+      "path": "/bin/awk",
+      "inode": 41,
+      "mode": "100755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 103020
+    },
+    {
+      "path": "/bin/base64",
+      "inode": 42,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/basename",
+      "inode": 43,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/blockdev",
+      "inode": 44,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/boringssl_self_test32",
+      "inode": 45,
+      "mode": "100755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 3328
+    },
+    {
+      "path": "/bin/boringssl_self_test64",
+      "inode": 1070,
+      "mode": "100755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 11312
+    },
+    {
+      "path": "/bin/cal",
+      "inode": 46,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/cat",
+      "inode": 47,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/cbd",
+      "inode": 48,
+      "mode": "100755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 369928
+    },
+    {
+      "path": "/bin/chattr",
+      "inode": 49,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/chcon",
+      "inode": 50,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/chgrp",
+      "inode": 51,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/chmod",
+      "inode": 52,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/chown",
+      "inode": 53,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/chroot",
+      "inode": 54,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/chrt",
+      "inode": 55,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/cksum",
+      "inode": 56,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/cld",
+      "inode": 57,
+      "mode": "100755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 20756
+    },
+    {
+      "path": "/bin/clear",
+      "inode": 58,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/cmp",
+      "inode": 59,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/comm",
+      "inode": 60,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/cp",
+      "inode": 61,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/cpio",
+      "inode": 62,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/cut",
+      "inode": 63,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/date",
+      "inode": 64,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/dd",
+      "inode": 65,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/devmem",
+      "inode": 66,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/df",
+      "inode": 67,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/diff",
+      "inode": 68,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/dirname",
+      "inode": 69,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/disable_auto_coredump",
+      "inode": 70,
+      "mode": "100755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 137
+    },
+    {
+      "path": "/bin/dmesg",
+      "inode": 71,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/dos2unix",
+      "inode": 72,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/du",
+      "inode": 73,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/dumpsys",
+      "inode": 74,
+      "mode": "100755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 30128
+    },
+    {
+      "path": "/bin/echo",
+      "inode": 75,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/egrep",
+      "inode": 76,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/emservice",
+      "inode": 77,
+      "mode": "100755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 5384
+    },
+    {
+      "path": "/bin/env",
+      "inode": 78,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/expand",
+      "inode": 79,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/expr",
+      "inode": 80,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/fallocate",
+      "inode": 81,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/false",
+      "inode": 82,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/fgrep",
+      "inode": 83,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/file",
+      "inode": 84,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/find",
+      "inode": 85,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/flock",
+      "inode": 86,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/fmt",
+      "inode": 87,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/free",
+      "inode": 88,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/fsdbg_vendor",
+      "inode": 89,
+      "mode": "100755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 15520
+    },
+    {
+      "path": "/bin/fsync",
+      "inode": 90,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/getconf",
+      "inode": 91,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/getenforce",
+      "inode": 92,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/getevent",
+      "inode": 93,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 7
+    },
+    {
+      "path": "/bin/getprop",
+      "inode": 94,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 7
+    },
+    {
+      "path": "/bin/grep",
+      "inode": 95,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/groups",
+      "inode": 96,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/gunzip",
+      "inode": 97,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/gzip",
+      "inode": 98,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/head",
+      "inode": 99,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/hostname",
+      "inode": 100,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/hw",
+      "inode": 101,
+      "mode": "040751",
+      "uid": 0,
+      "gid": 2000,
+      "size": null
+    },
+    {
+      "path": "/bin/hw/android.hardware.audio.service",
+      "inode": 102,
+      "mode": "100755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 9140
+    },
+    {
+      "path": "/bin/hw/android.hardware.bluetooth@1.0-service",
+      "inode": 103,
+      "mode": "100755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 15428
+    },
+    {
+      "path": "/bin/hw/android.hardware.cas@1.2-service",
+      "inode": 104,
+      "mode": "100755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 36212
+    },
+    {
+      "path": "/bin/hw/android.hardware.configstore@1.1-service",
+      "inode": 105,
+      "mode": "100755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 12792
+    },
+    {
+      "path": "/bin/hw/android.hardware.drm@1.3-service.clearkey",
+      "inode": 106,
+      "mode": "100755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 111212
+    },
+    {
+      "path": "/bin/hw/android.hardware.drm@1.3-service.widevine",
+      "inode": 107,
+      "mode": "100755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 8384
+    },
+    {
+      "path": "/bin/hw/android.hardware.dumpstate@1.1-service-lazy",
+      "inode": 108,
+      "mode": "100755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 38168
+    },
+    {
+      "path": "/bin/hw/android.hardware.gatekeeper@1.0-service",
+      "inode": 109,
+      "mode": "100755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 6724
+    },
+    {
+      "path": "/bin/hw/android.hardware.graphics.allocator@2.0-service",
+      "inode": 110,
+      "mode": "100755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 4840
+    },
+    {
+      "path": "/bin/hw/android.hardware.graphics.composer@2.1-service",
+      "inode": 111,
+      "mode": "100755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 51852
+    },
+    {
+      "path": "/bin/hw/android.hardware.health@2.1-service-samsung",
+      "inode": 112,
+      "mode": "100755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 40524
+    },
+    {
+      "path": "/bin/hw/android.hardware.keymaster@4.0-service",
+      "inode": 113,
+      "mode": "100755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 7204
+    },
+    {
+      "path": "/bin/hw/android.hardware.media.omx@1.0-service",
+      "inode": 114,
+      "mode": "100755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 9784
+    },
+    {
+      "path": "/bin/hw/android.hardware.memtrack@1.0-service",
+      "inode": 115,
+      "mode": "100755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 4860
+    },
+    {
+      "path": "/bin/hw/android.hardware.power.samsung-service",
+      "inode": 116,
+      "mode": "100755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 20256
+    },
+    {
+      "path": "/bin/hw/android.hardware.sensors@1.0-service",
+      "inode": 117,
+      "mode": "100755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 4856
+    },
+    {
+      "path": "/bin/hw/android.hardware.usb@1.1-service.exynos7885",
+      "inode": 118,
+      "mode": "100755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 73040
+    },
+    {
+      "path": "/bin/hw/android.hardware.wifi@1.0-service",
+      "inode": 119,
+      "mode": "100755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 260152
+    },
+    {
+      "path": "/bin/hw/com.dsi.ant@1.0-service",
+      "inode": 120,
+      "mode": "100755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 24852
+    },
+    {
+      "path": "/bin/hw/gps.sh",
+      "inode": 121,
+      "mode": "100755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 441
+    },
+    {
+      "path": "/bin/hw/gpsd",
+      "inode": 122,
+      "mode": "100755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 5883920
+    },
+    {
+      "path": "/bin/hw/hostapd",
+      "inode": 123,
+      "mode": "100755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 690404
+    },
+    {
+      "path": "/bin/hw/macloader",
+      "inode": 124,
+      "mode": "100755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13624
+    },
+    {
+      "path": "/bin/hw/mfgloader",
+      "inode": 125,
+      "mode": "100755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 5484
+    },
+    {
+      "path": "/bin/hw/rild",
+      "inode": 126,
+      "mode": "100755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 10552
+    },
+    {
+      "path": "/bin/hw/vendor.samsung.hardware.camera.provider@4.0-service",
+      "inode": 127,
+      "mode": "100755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 12924
+    },
+    {
+      "path": "/bin/hw/vendor.samsung.hardware.gnss@2.0-service",
+      "inode": 128,
+      "mode": "100755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 6448
+    },
+    {
+      "path": "/bin/hw/vendor.samsung.hardware.hqm@1.0-service",
+      "inode": 129,
+      "mode": "100755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 10584
+    },
+    {
+      "path": "/bin/hw/vendor.samsung.hardware.hyper-service",
+      "inode": 130,
+      "mode": "100755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 15544
+    },
+    {
+      "path": "/bin/hw/vendor.samsung.hardware.light-service",
+      "inode": 131,
+      "mode": "100755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 30180
+    },
+    {
+      "path": "/bin/hw/vendor.samsung.hardware.miscpower@2.0-service",
+      "inode": 132,
+      "mode": "100755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 11060
+    },
+    {
+      "path": "/bin/hw/vendor.samsung.hardware.security.drk@2.0-service",
+      "inode": 133,
+      "mode": "100755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 14948
+    },
+    {
+      "path": "/bin/hw/vendor.samsung.hardware.snap@1.2-service",
+      "inode": 134,
+      "mode": "100755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 5300
+    },
+    {
+      "path": "/bin/hw/vendor.samsung.hardware.sysinput@1.1-service",
+      "inode": 135,
+      "mode": "100755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 21864
+    },
+    {
+      "path": "/bin/hw/vendor.samsung.hardware.thermal@1.0-service",
+      "inode": 136,
+      "mode": "100755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 116464
+    },
+    {
+      "path": "/bin/hw/vendor.samsung.hardware.tlc.atn@1.0-service",
+      "inode": 137,
+      "mode": "100755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 5236
+    },
+    {
+      "path": "/bin/hw/vendor.samsung.hardware.tlc.iccc@1.0-service",
+      "inode": 138,
+      "mode": "100755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 5652
+    },
+    {
+      "path": "/bin/hw/vendor.samsung.hardware.tlc.tima@1.0-service",
+      "inode": 139,
+      "mode": "100755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 5712
+    },
+    {
+      "path": "/bin/hw/vendor.samsung.hardware.tlc.tima@1.1-service",
+      "inode": 140,
+      "mode": "100755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 6440
+    },
+    {
+      "path": "/bin/hw/vendor.samsung.hardware.tlc.ucm@2.0-service",
+      "inode": 141,
+      "mode": "100755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 5136
+    },
+    {
+      "path": "/bin/hw/vendor.samsung.hardware.wifi@2.0-service",
+      "inode": 142,
+      "mode": "100755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 31408
+    },
+    {
+      "path": "/bin/hw/vendor.samsung_slsi.hardware.ExynosHWCServiceTW@1.0-service",
+      "inode": 143,
+      "mode": "100755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 28236
+    },
+    {
+      "path": "/bin/hw/vendor.samsung_slsi.hardware.configstore@1.0-service",
+      "inode": 144,
+      "mode": "100755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 10316
+    },
+    {
+      "path": "/bin/hw/vendor.trustonic.tee@1.0-service",
+      "inode": 145,
+      "mode": "100755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 49244
+    },
+    {
+      "path": "/bin/hw/vendor.trustonic.teeregistry@1.0-service",
+      "inode": 146,
+      "mode": "100755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 33896
+    },
+    {
+      "path": "/bin/hw/wpa_supplicant",
+      "inode": 147,
+      "mode": "100755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 1865404
+    },
+    {
+      "path": "/bin/hwclock",
+      "inode": 148,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/i2cdetect",
+      "inode": 149,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/i2cdump",
+      "inode": 150,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/i2cget",
+      "inode": 151,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/i2cset",
+      "inode": 152,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/iconv",
+      "inode": 153,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/id",
+      "inode": 154,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/ifconfig",
+      "inode": 155,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/inotifyd",
+      "inode": 156,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/insmod",
+      "inode": 157,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/install",
+      "inode": 158,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/iod",
+      "inode": 159,
+      "mode": "100755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 9268
+    },
+    {
+      "path": "/bin/iof_vendor",
+      "inode": 160,
+      "mode": "100755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 10396
+    },
+    {
+      "path": "/bin/ionice",
+      "inode": 161,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/iorenice",
+      "inode": 162,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/kill",
+      "inode": 163,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/killall",
+      "inode": 164,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/ln",
+      "inode": 165,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/load_policy",
+      "inode": 166,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/log",
+      "inode": 167,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/logname",
+      "inode": 168,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/logwrapper",
+      "inode": 169,
+      "mode": "100755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 11536
+    },
+    {
+      "path": "/bin/losetup",
+      "inode": 170,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/ls",
+      "inode": 171,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/lsattr",
+      "inode": 172,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/lsmod",
+      "inode": 173,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/lsof",
+      "inode": 174,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/lspci",
+      "inode": 175,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/lsusb",
+      "inode": 176,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/main_abox",
+      "inode": 177,
+      "mode": "100755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 10100
+    },
+    {
+      "path": "/bin/mcDriverDaemon",
+      "inode": 178,
+      "mode": "100755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 491756
+    },
+    {
+      "path": "/bin/md5sum",
+      "inode": 179,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/microcom",
+      "inode": 180,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/mkdir",
+      "inode": 181,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/mkfifo",
+      "inode": 182,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/mknod",
+      "inode": 183,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/mkswap",
+      "inode": 184,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/mktemp",
+      "inode": 185,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/modinfo",
+      "inode": 186,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/modprobe",
+      "inode": 187,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 7
+    },
+    {
+      "path": "/bin/more",
+      "inode": 188,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/moredump",
+      "inode": 189,
+      "mode": "100755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 1846
+    },
+    {
+      "path": "/bin/moredump.bin",
+      "inode": 190,
+      "mode": "100755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 780000
+    },
+    {
+      "path": "/bin/mount",
+      "inode": 191,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/mountpoint",
+      "inode": 192,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/mv",
+      "inode": 193,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/mx_log_collection.sh",
+      "inode": 194,
+      "mode": "100755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 6431
+    },
+    {
+      "path": "/bin/mx_logger_dump.sh",
+      "inode": 195,
+      "mode": "100755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 2736
+    },
+    {
+      "path": "/bin/nc",
+      "inode": 196,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/netcat",
+      "inode": 197,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/netstat",
+      "inode": 198,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/nice",
+      "inode": 199,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/nl",
+      "inode": 200,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/nohup",
+      "inode": 201,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/nproc",
+      "inode": 202,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/nsenter",
+      "inode": 203,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/od",
+      "inode": 204,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/paste",
+      "inode": 205,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/patch",
+      "inode": 206,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/pgrep",
+      "inode": 207,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/pidof",
+      "inode": 208,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/pkill",
+      "inode": 209,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/pmap",
+      "inode": 210,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/printenv",
+      "inode": 211,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/printf",
+      "inode": 212,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/ps",
+      "inode": 213,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/pwd",
+      "inode": 214,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/readelf",
+      "inode": 215,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/readlink",
+      "inode": 216,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/realpath",
+      "inode": 217,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/renice",
+      "inode": 218,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/restorecon",
+      "inode": 219,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/rm",
+      "inode": 220,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/rmdir",
+      "inode": 221,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/rmmod",
+      "inode": 222,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/runcon",
+      "inode": 223,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/scsc_get_platform_info.sh",
+      "inode": 224,
+      "mode": "100755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 732
+    },
+    {
+      "path": "/bin/secure_storage_daemon",
+      "inode": 225,
+      "mode": "100755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 51252
+    },
+    {
+      "path": "/bin/sed",
+      "inode": 226,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/sendevent",
+      "inode": 227,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/seq",
+      "inode": 228,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/setenforce",
+      "inode": 229,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/setprop",
+      "inode": 230,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 7
+    },
+    {
+      "path": "/bin/setsid",
+      "inode": 231,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/sh",
+      "inode": 232,
+      "mode": "100755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 215956
+    },
+    {
+      "path": "/bin/sha1sum",
+      "inode": 233,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/sha224sum",
+      "inode": 234,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/sha256sum",
+      "inode": 235,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/sha384sum",
+      "inode": 236,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/sha512sum",
+      "inode": 237,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/sleep",
+      "inode": 238,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/slsi_lerna",
+      "inode": 239,
+      "mode": "100755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 7656
+    },
+    {
+      "path": "/bin/slsi_wlan_udi_log",
+      "inode": 240,
+      "mode": "100755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 26188
+    },
+    {
+      "path": "/bin/slsi_wlan_udi_log_decode",
+      "inode": 241,
+      "mode": "100755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 2741428
+    },
+    {
+      "path": "/bin/snap_utility_32",
+      "inode": 242,
+      "mode": "100755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 595804
+    },
+    {
+      "path": "/bin/snap_utility_64",
+      "inode": 1071,
+      "mode": "100755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 592376
+    },
+    {
+      "path": "/bin/sort",
+      "inode": 243,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/split",
+      "inode": 244,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/start",
+      "inode": 245,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 7
+    },
+    {
+      "path": "/bin/stat",
+      "inode": 246,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/stop",
+      "inode": 247,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 7
+    },
+    {
+      "path": "/bin/storkd",
+      "inode": 248,
+      "mode": "100755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 8512
+    },
+    {
+      "path": "/bin/strings",
+      "inode": 249,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/stty",
+      "inode": 250,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/swapoff",
+      "inode": 251,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/swapon",
+      "inode": 252,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/sync",
+      "inode": 253,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/sysctl",
+      "inode": 254,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/tac",
+      "inode": 255,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/tail",
+      "inode": 256,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/tar",
+      "inode": 257,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/taskset",
+      "inode": 258,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/tee",
+      "inode": 259,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/test",
+      "inode": 260,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/test_model.json",
+      "inode": 261,
+      "mode": "100755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 521
+    },
+    {
+      "path": "/bin/time",
+      "inode": 262,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/timeout",
+      "inode": 263,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/toolbox",
+      "inode": 264,
+      "mode": "100755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 84228
+    },
+    {
+      "path": "/bin/top",
+      "inode": 265,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/touch",
+      "inode": 266,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/toybox_vendor",
+      "inode": 267,
+      "mode": "100755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 370228
+    },
+    {
+      "path": "/bin/tr",
+      "inode": 268,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/trigger_moredump",
+      "inode": 269,
+      "mode": "100755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 1078
+    },
+    {
+      "path": "/bin/true",
+      "inode": 270,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/truncate",
+      "inode": 271,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/tty",
+      "inode": 272,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/ulimit",
+      "inode": 273,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/umount",
+      "inode": 274,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/uname",
+      "inode": 275,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/uniq",
+      "inode": 276,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/unix2dos",
+      "inode": 277,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/unlink",
+      "inode": 278,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/unshare",
+      "inode": 279,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/uptime",
+      "inode": 280,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/usleep",
+      "inode": 281,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/uudecode",
+      "inode": 282,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/uuencode",
+      "inode": 283,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/uuidgen",
+      "inode": 284,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/vaultkeeperd",
+      "inode": 285,
+      "mode": "100755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13552
+    },
+    {
+      "path": "/bin/vendor.samsung.hardware.security.engmode@1.0-service",
+      "inode": 286,
+      "mode": "100755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 20140
+    },
+    {
+      "path": "/bin/vendor.samsung.hardware.security.proca@2.0-service",
+      "inode": 287,
+      "mode": "100755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 55600
+    },
+    {
+      "path": "/bin/vendor.samsung.hardware.security.vaultkeeper@2.0-service",
+      "inode": 288,
+      "mode": "100755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 15064
+    },
+    {
+      "path": "/bin/vendor.samsung.hardware.security.widevine.keyprov@1.0-service",
+      "inode": 289,
+      "mode": "100755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13160
+    },
+    {
+      "path": "/bin/vmstat",
+      "inode": 290,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/vndservice",
+      "inode": 291,
+      "mode": "100755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 64628
+    },
+    {
+      "path": "/bin/vndservicemanager",
+      "inode": 292,
+      "mode": "100755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 37100
+    },
+    {
+      "path": "/bin/watch",
+      "inode": 293,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/wc",
+      "inode": 294,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/which",
+      "inode": 295,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/whoami",
+      "inode": 296,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/wlbtd",
+      "inode": 297,
+      "mode": "100755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 19052
+    },
+    {
+      "path": "/bin/wvkprov",
+      "inode": 298,
+      "mode": "100755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 18088
+    },
+    {
+      "path": "/bin/xargs",
+      "inode": 299,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/xxd",
+      "inode": 300,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/yes",
+      "inode": 301,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/bin/zcat",
+      "inode": 302,
+      "mode": "120755",
+      "uid": 0,
+      "gid": 2000,
+      "size": 13
+    },
+    {
+      "path": "/build.prop",
+      "inode": 303,
+      "mode": "100600",
+      "uid": 0,
+      "gid": 0,
+      "size": 4363
+    },
+    {
+      "path": "/default.prop",
+      "inode": 304,
+      "mode": "100600",
+      "uid": 0,
+      "gid": 0,
+      "size": 494
+    },
+    {
+      "path": "/etc",
+      "inode": 305,
+      "mode": "040755",
+      "uid": 0,
+      "gid": 2000,
+      "size": null
+    },
+    {
+      "path": "/etc/NOTICE.xml.gz",
+      "inode": 306,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 163254
+    },
+    {
+      "path": "/etc/SoundBoosterParam.txt",
+      "inode": 307,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 14483
+    },
+    {
+      "path": "/etc/a2dp_audio_policy_configuration.xml",
+      "inode": 308,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 2090
+    },
+    {
+      "path": "/etc/abox_debug.xml",
+      "inode": 309,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 2120
+    },
+    {
+      "path": "/etc/audio_board_info.xml",
+      "inode": 310,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 3787
+    },
+    {
+      "path": "/etc/audio_effects.xml",
+      "inode": 311,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 1833
+    },
+    {
+      "path": "/etc/audio_effects_common.conf",
+      "inode": 312,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 1234
+    },
+    {
+      "path": "/etc/audio_effects_sec.xml",
+      "inode": 313,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 3633
+    },
+    {
+      "path": "/etc/audio_policy_configuration.xml",
+      "inode": 314,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 8206
+    },
+    {
+      "path": "/etc/audio_policy_configuration_sec.xml",
+      "inode": 315,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 6526
+    },
+    {
+      "path": "/etc/audio_policy_volumes.xml",
+      "inode": 316,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 12895
+    },
+    {
+      "path": "/etc/bluetooth",
+      "inode": 317,
+      "mode": "040755",
+      "uid": 0,
+      "gid": 2000,
+      "size": null
+    },
+    {
+      "path": "/etc/bluetooth/bt_did.conf",
+      "inode": 318,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 529
+    },
+    {
+      "path": "/etc/btcon.json",
+      "inode": 319,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 3
+    },
+    {
+      "path": "/etc/config_chipset.json",
+      "inode": 320,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 6299
+    },
+    {
+      "path": "/etc/config_vendor.json",
+      "inode": 321,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 19189
+    },
+    {
+      "path": "/etc/dax3_media_codecs_dolby_audio.xml",
+      "inode": 322,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 3008
+    },
+    {
+      "path": "/etc/default_volume_tables.xml",
+      "inode": 323,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 5133
+    },
+    {
+      "path": "/etc/dolby",
+      "inode": 324,
+      "mode": "040755",
+      "uid": 0,
+      "gid": 2000,
+      "size": null
+    },
+    {
+      "path": "/etc/dolby/dax-default.xml",
+      "inode": 325,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 56111
+    },
+    {
+      "path": "/etc/floating_feature.xml",
+      "inode": 326,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 26538
+    },
+    {
+      "path": "/etc/fs_config_dirs",
+      "inode": 327,
+      "mode": "100444",
+      "uid": 0,
+      "gid": 0,
+      "size": 0
+    },
+    {
+      "path": "/etc/fs_config_files",
+      "inode": 328,
+      "mode": "100444",
+      "uid": 0,
+      "gid": 0,
+      "size": 0
+    },
+    {
+      "path": "/etc/fstab.exynos7904",
+      "inode": 329,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 1526
+    },
+    {
+      "path": "/etc/fstab.sqzr",
+      "inode": 330,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 509
+    },
+    {
+      "path": "/etc/gnss",
+      "inode": 331,
+      "mode": "040755",
+      "uid": 0,
+      "gid": 2000,
+      "size": null
+    },
+    {
+      "path": "/etc/gnss/deleteLogCommands",
+      "inode": 332,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 208
+    },
+    {
+      "path": "/etc/gnss/gps.cer",
+      "inode": 333,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 64727
+    },
+    {
+      "path": "/etc/gnss/gps.debug.xml",
+      "inode": 334,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 1344
+    },
+    {
+      "path": "/etc/gnss/gps.issuetracker.xml",
+      "inode": 335,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 1379
+    },
+    {
+      "path": "/etc/gnss/gps.xml",
+      "inode": 336,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 1331
+    },
+    {
+      "path": "/etc/group",
+      "inode": 337,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 568
+    },
+    {
+      "path": "/etc/hearing_aid_audio_policy_configuration.xml",
+      "inode": 338,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 685
+    },
+    {
+      "path": "/etc/hqm_device.xml",
+      "inode": 339,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 65405
+    },
+    {
+      "path": "/etc/init",
+      "inode": 340,
+      "mode": "040755",
+      "uid": 0,
+      "gid": 2000,
+      "size": null
+    },
+    {
+      "path": "/etc/init/android.hardware.audio.service.rc",
+      "inode": 341,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 406
+    },
+    {
+      "path": "/etc/init/android.hardware.bluetooth@1.0-service.rc",
+      "inode": 342,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 371
+    },
+    {
+      "path": "/etc/init/android.hardware.cas@1.2-service.rc",
+      "inode": 343,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 188
+    },
+    {
+      "path": "/etc/init/android.hardware.configstore@1.1-service.rc",
+      "inode": 344,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 302
+    },
+    {
+      "path": "/etc/init/android.hardware.drm@1.3-service.clearkey.rc",
+      "inode": 345,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 705
+    },
+    {
+      "path": "/etc/init/android.hardware.drm@1.3-service.widevine.rc",
+      "inode": 346,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 1048
+    },
+    {
+      "path": "/etc/init/android.hardware.dumpstate@1.1-service-lazy.rc",
+      "inode": 347,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 305
+    },
+    {
+      "path": "/etc/init/android.hardware.gatekeeper@1.0-service.rc",
+      "inode": 348,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 274
+    },
+    {
+      "path": "/etc/init/android.hardware.graphics.allocator@2.0-service.rc",
+      "inode": 349,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 380
+    },
+    {
+      "path": "/etc/init/android.hardware.graphics.composer@2.1-service.rc",
+      "inode": 350,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 306
+    },
+    {
+      "path": "/etc/init/android.hardware.health@2.1-service-samsung.rc",
+      "inode": 351,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 194
+    },
+    {
+      "path": "/etc/init/android.hardware.keymaster@4.0-service.rc",
+      "inode": 352,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 481
+    },
+    {
+      "path": "/etc/init/android.hardware.media.omx@1.0-service.rc",
+      "inode": 353,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 232
+    },
+    {
+      "path": "/etc/init/android.hardware.memtrack@1.0-service.rc",
+      "inode": 354,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 195
+    },
+    {
+      "path": "/etc/init/android.hardware.sensors@1.0-service.rc",
+      "inode": 355,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 272
+    },
+    {
+      "path": "/etc/init/android.hardware.usb@1.1-service.exynos7885.rc",
+      "inode": 356,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 453
+    },
+    {
+      "path": "/etc/init/android.hardware.wifi.supplicant-service.rc",
+      "inode": 357,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 838
+    },
+    {
+      "path": "/etc/init/android.hardware.wifi@1.0-service.rc",
+      "inode": 358,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 448
+    },
+    {
+      "path": "/etc/init/boringssl_self_test.rc",
+      "inode": 359,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 751
+    },
+    {
+      "path": "/etc/init/com.dsi.ant@1.0-service.rc",
+      "inode": 360,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 110
+    },
+    {
+      "path": "/etc/init/emservice.rc",
+      "inode": 361,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 376
+    },
+    {
+      "path": "/etc/init/hostapd.android.rc",
+      "inode": 362,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 807
+    },
+    {
+      "path": "/etc/init/hyper-default-sec.rc",
+      "inode": 363,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 236
+    },
+    {
+      "path": "/etc/init/icd_over_five_vendor.rc",
+      "inode": 364,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 220
+    },
+    {
+      "path": "/etc/init/init.baseband.rc",
+      "inode": 365,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 3675
+    },
+    {
+      "path": "/etc/init/init.exynos7904.rc",
+      "inode": 366,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 30645
+    },
+    {
+      "path": "/etc/init/init.exynos7904.usb.rc",
+      "inode": 367,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 10847
+    },
+    {
+      "path": "/etc/init/init.gps.rc",
+      "inode": 368,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 1125
+    },
+    {
+      "path": "/etc/init/init.vendor.rilcommon.rc",
+      "inode": 369,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 1557
+    },
+    {
+      "path": "/etc/init/init.vendor.sysfw.rc",
+      "inode": 370,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 533
+    },
+    {
+      "path": "/etc/init/lights-default-sec.rc",
+      "inode": 371,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 146
+    },
+    {
+      "path": "/etc/init/mobicore.rc",
+      "inode": 372,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 903
+    },
+    {
+      "path": "/etc/init/pa_daemon_kinibi.rc",
+      "inode": 373,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 319
+    },
+    {
+      "path": "/etc/init/power-default-sec.rc",
+      "inode": 374,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 174
+    },
+    {
+      "path": "/etc/init/secure_storage_daemon_kinibi.rc",
+      "inode": 375,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 550
+    },
+    {
+      "path": "/etc/init/snap_utility.rc",
+      "inode": 376,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 1558
+    },
+    {
+      "path": "/etc/init/vaultkeeper_common.rc",
+      "inode": 377,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 411
+    },
+    {
+      "path": "/etc/init/vendor.samsung.hardware.camera.provider@4.0-service.rc",
+      "inode": 378,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 619
+    },
+    {
+      "path": "/etc/init/vendor.samsung.hardware.gnss@2.0-service.rc",
+      "inode": 379,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 133
+    },
+    {
+      "path": "/etc/init/vendor.samsung.hardware.hqm@1.0-service.rc",
+      "inode": 380,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 205
+    },
+    {
+      "path": "/etc/init/vendor.samsung.hardware.miscpower@2.0-service.rc",
+      "inode": 381,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 134
+    },
+    {
+      "path": "/etc/init/vendor.samsung.hardware.security.drk@2.0-service.rc",
+      "inode": 382,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 439
+    },
+    {
+      "path": "/etc/init/vendor.samsung.hardware.security.engmode@1.0-service.rc",
+      "inode": 383,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 138
+    },
+    {
+      "path": "/etc/init/vendor.samsung.hardware.security.widevine.keyprov@1.0-service.rc",
+      "inode": 384,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 297
+    },
+    {
+      "path": "/etc/init/vendor.samsung.hardware.snap@1.2-service.rc",
+      "inode": 385,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 120
+    },
+    {
+      "path": "/etc/init/vendor.samsung.hardware.sysinput@1.1-service.rc",
+      "inode": 386,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 250
+    },
+    {
+      "path": "/etc/init/vendor.samsung.hardware.thermal@1.0-service.rc",
+      "inode": 387,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 294
+    },
+    {
+      "path": "/etc/init/vendor.samsung.hardware.tlc.atn@1.0-service.rc",
+      "inode": 388,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 213
+    },
+    {
+      "path": "/etc/init/vendor.samsung.hardware.tlc.iccc@1.0-service.rc",
+      "inode": 389,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 218
+    },
+    {
+      "path": "/etc/init/vendor.samsung.hardware.tlc.tima@1.1-service.rc",
+      "inode": 390,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 364
+    },
+    {
+      "path": "/etc/init/vendor.samsung.hardware.tlc.ucm@2.0-service.rc",
+      "inode": 391,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 213
+    },
+    {
+      "path": "/etc/init/vendor.samsung.hardware.wifi@2.0-service.rc",
+      "inode": 392,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 307
+    },
+    {
+      "path": "/etc/init/vendor.samsung_slsi.hardware.ExynosHWCServiceTW@1.0-service.rc",
+      "inode": 393,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 158
+    },
+    {
+      "path": "/etc/init/vendor.samsung_slsi.hardware.configstore@1.0-service.rc",
+      "inode": 394,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 150
+    },
+    {
+      "path": "/etc/init/vendor.trustonic.tee@1.0-service.rc",
+      "inode": 395,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 111
+    },
+    {
+      "path": "/etc/init/vendor.trustonic.teeregistry@1.0-service.rc",
+      "inode": 396,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 127
+    },
+    {
+      "path": "/etc/init/vndservicemanager.rc",
+      "inode": 397,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 301
+    },
+    {
+      "path": "/etc/init/wifi.rc",
+      "inode": 398,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 2102
+    },
+    {
+      "path": "/etc/init/wifi_slsi.rc",
+      "inode": 399,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 1397
+    },
+    {
+      "path": "/etc/media_codecs.xml",
+      "inode": 400,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 15663
+    },
+    {
+      "path": "/etc/media_codecs_ac4.xml",
+      "inode": 401,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 1054
+    },
+    {
+      "path": "/etc/media_codecs_c2_sec.xml",
+      "inode": 402,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 2545
+    },
+    {
+      "path": "/etc/media_codecs_c2_sec_ape.xml",
+      "inode": 403,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 950
+    },
+    {
+      "path": "/etc/media_codecs_c2_sec_qcp.xml",
+      "inode": 404,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 1735
+    },
+    {
+      "path": "/etc/media_codecs_c2_sec_wmx.xml",
+      "inode": 405,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 1542
+    },
+    {
+      "path": "/etc/media_codecs_ddp.xml",
+      "inode": 406,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 1620
+    },
+    {
+      "path": "/etc/media_codecs_dolby_audio.xml",
+      "inode": 407,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 3008
+    },
+    {
+      "path": "/etc/media_codecs_google_audio.xml",
+      "inode": 408,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 4831
+    },
+    {
+      "path": "/etc/media_codecs_google_telephony.xml",
+      "inode": 409,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 973
+    },
+    {
+      "path": "/etc/media_codecs_google_video.xml",
+      "inode": 410,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 6411
+    },
+    {
+      "path": "/etc/media_codecs_performance.xml",
+      "inode": 411,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 10819
+    },
+    {
+      "path": "/etc/media_codecs_performance_c2.xml",
+      "inode": 412,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 6116
+    },
+    {
+      "path": "/etc/media_codecs_sec_ape.xml",
+      "inode": 413,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 968
+    },
+    {
+      "path": "/etc/media_codecs_sec_primary.xml",
+      "inode": 414,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 2893
+    },
+    {
+      "path": "/etc/media_codecs_sec_qcp.xml",
+      "inode": 415,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 1719
+    },
+    {
+      "path": "/etc/media_codecs_sec_video_primary.xml",
+      "inode": 416,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 2227
+    },
+    {
+      "path": "/etc/media_profiles_V1_0.xml",
+      "inode": 417,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 18820
+    },
+    {
+      "path": "/etc/mercury.json",
+      "inode": 418,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 3
+    },
+    {
+      "path": "/etc/mixer_gains.xml",
+      "inode": 419,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 40749
+    },
+    {
+      "path": "/etc/mixer_gains_rev02.xml",
+      "inode": 420,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 40749
+    },
+    {
+      "path": "/etc/mixer_paths.xml",
+      "inode": 421,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 45782
+    },
+    {
+      "path": "/etc/mixer_paths_rev02.xml",
+      "inode": 422,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 45479
+    },
+    {
+      "path": "/etc/mkshrc",
+      "inode": 423,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 389
+    },
+    {
+      "path": "/etc/passwd",
+      "inode": 424,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 898
+    },
+    {
+      "path": "/etc/permissions",
+      "inode": 425,
+      "mode": "040755",
+      "uid": 0,
+      "gid": 2000,
+      "size": null
+    },
+    {
+      "path": "/etc/permissions/android.hardware.bluetooth.xml",
+      "inode": 426,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 820
+    },
+    {
+      "path": "/etc/permissions/android.hardware.bluetooth_le.xml",
+      "inode": 427,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 830
+    },
+    {
+      "path": "/etc/permissions/android.hardware.camera.autofocus.xml",
+      "inode": 428,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 931
+    },
+    {
+      "path": "/etc/permissions/android.hardware.camera.front.xml",
+      "inode": 429,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 877
+    },
+    {
+      "path": "/etc/permissions/android.hardware.camera.xml",
+      "inode": 430,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 877
+    },
+    {
+      "path": "/etc/permissions/android.hardware.location.gps.xml",
+      "inode": 431,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 942
+    },
+    {
+      "path": "/etc/permissions/android.hardware.opengles.aep.xml",
+      "inode": 432,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 870
+    },
+    {
+      "path": "/etc/permissions/android.hardware.sensor.accelerometer.xml",
+      "inode": 433,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 824
+    },
+    {
+      "path": "/etc/permissions/android.hardware.telephony.ims.xml",
+      "inode": 434,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 821
+    },
+    {
+      "path": "/etc/permissions/android.hardware.touchscreen.multitouch.jazzhand.xml",
+      "inode": 435,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 1144
+    },
+    {
+      "path": "/etc/permissions/android.hardware.usb.accessory.xml",
+      "inode": 436,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 845
+    },
+    {
+      "path": "/etc/permissions/android.hardware.usb.host.xml",
+      "inode": 437,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 868
+    },
+    {
+      "path": "/etc/permissions/android.hardware.vulkan.compute.xml",
+      "inode": 438,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 866
+    },
+    {
+      "path": "/etc/permissions/android.hardware.vulkan.level.xml",
+      "inode": 439,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 865
+    },
+    {
+      "path": "/etc/permissions/android.hardware.vulkan.version.xml",
+      "inode": 440,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 902
+    },
+    {
+      "path": "/etc/permissions/android.hardware.wifi.direct.xml",
+      "inode": 441,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 843
+    },
+    {
+      "path": "/etc/permissions/android.hardware.wifi.passpoint.xml",
+      "inode": 442,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 845
+    },
+    {
+      "path": "/etc/permissions/android.hardware.wifi.xml",
+      "inode": 443,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 829
+    },
+    {
+      "path": "/etc/permissions/android.software.midi.xml",
+      "inode": 444,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 745
+    },
+    {
+      "path": "/etc/permissions/android.software.vulkan.deqp.level.xml",
+      "inode": 445,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 915
+    },
+    {
+      "path": "/etc/permissions/handheld_core_hardware.xml",
+      "inode": 446,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 5061
+    },
+    {
+      "path": "/etc/playback_record_audio_policy_configuration.xml",
+      "inode": 447,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 1630
+    },
+    {
+      "path": "/etc/public.libraries.txt",
+      "inode": 448,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 31
+    },
+    {
+      "path": "/etc/public.libraries.txt.backup",
+      "inode": 449,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 28
+    },
+    {
+      "path": "/etc/r_submix_audio_policy_configuration.xml",
+      "inode": 450,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 2265
+    },
+    {
+      "path": "/etc/saiv",
+      "inode": 451,
+      "mode": "040755",
+      "uid": 0,
+      "gid": 2000,
+      "size": null
+    },
+    {
+      "path": "/etc/saiv/fd",
+      "inode": 452,
+      "mode": "040755",
+      "uid": 0,
+      "gid": 2000,
+      "size": null
+    },
+    {
+      "path": "/etc/saiv/fd/fast_face_detect_model_full_angle_16_CHAR.dat",
+      "inode": 453,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 3287464
+    },
+    {
+      "path": "/etc/saiv/gae",
+      "inode": 454,
+      "mode": "040755",
+      "uid": 0,
+      "gid": 2000,
+      "size": null
+    },
+    {
+      "path": "/etc/saiv/gae/MeanFea.bin",
+      "inode": 455,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 33876
+    },
+    {
+      "path": "/etc/saiv/gae/ParaFea.bin",
+      "inode": 456,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 67748
+    },
+    {
+      "path": "/etc/saiv/gae/PmAgeFeatSelIdx.bin",
+      "inode": 457,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 176020
+    },
+    {
+      "path": "/etc/saiv/gae/PmAgeModel.bin",
+      "inode": 458,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 528080
+    },
+    {
+      "path": "/etc/saiv/gae/PmExpFeatSelIdx.bin",
+      "inode": 459,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 144016
+    },
+    {
+      "path": "/etc/saiv/gae/PmExpModel.bin",
+      "inode": 460,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 144016
+    },
+    {
+      "path": "/etc/saiv/gae/PmGenModel.bin",
+      "inode": 461,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 108016
+    },
+    {
+      "path": "/etc/saiv/gae/PmGenderFeatSelIdx.bin",
+      "inode": 462,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 48004
+    },
+    {
+      "path": "/etc/saiv/image_understanding",
+      "inode": 463,
+      "mode": "040755",
+      "uid": 0,
+      "gid": 2000,
+      "size": null
+    },
+    {
+      "path": "/etc/saiv/image_understanding/db",
+      "inode": 464,
+      "mode": "040755",
+      "uid": 0,
+      "gid": 2000,
+      "size": null
+    },
+    {
+      "path": "/etc/saiv/image_understanding/db/aic_classifier",
+      "inode": 465,
+      "mode": "040755",
+      "uid": 0,
+      "gid": 2000,
+      "size": null
+    },
+    {
+      "path": "/etc/saiv/image_understanding/db/aic_classifier/aic_classifier_cnn.prototxt",
+      "inode": 466,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 22089
+    },
+    {
+      "path": "/etc/saiv/image_understanding/db/aic_classifier/aic_classifier_cnn_light.caffemodel",
+      "inode": 467,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 7004623
+    },
+    {
+      "path": "/etc/saiv/image_understanding/db/aic_detector",
+      "inode": 468,
+      "mode": "040755",
+      "uid": 0,
+      "gid": 2000,
+      "size": null
+    },
+    {
+      "path": "/etc/saiv/image_understanding/db/aic_detector/aic_detector_cnn.prototxt",
+      "inode": 469,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 28155
+    },
+    {
+      "path": "/etc/saiv/image_understanding/db/aic_detector/aic_detector_cnn_light.caffemodel",
+      "inode": 470,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 10860247
+    },
+    {
+      "path": "/etc/saiv/ld",
+      "inode": 471,
+      "mode": "040755",
+      "uid": 0,
+      "gid": 2000,
+      "size": null
+    },
+    {
+      "path": "/etc/saiv/ld/avg_hog_13pt.dat",
+      "inode": 472,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 6656
+    },
+    {
+      "path": "/etc/saiv/ld/avg_hog_35pt.dat",
+      "inode": 473,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 10080
+    },
+    {
+      "path": "/etc/saiv/ld/mean_35pt.txt",
+      "inode": 474,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 694
+    },
+    {
+      "path": "/etc/saiv/ld/regress_matrix_short_13pt.dat",
+      "inode": 475,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 346112
+    },
+    {
+      "path": "/etc/saiv/ld/regress_matrix_short_35pt.dat",
+      "inode": 476,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 1411200
+    },
+    {
+      "path": "/etc/seccomp_policy",
+      "inode": 477,
+      "mode": "040755",
+      "uid": 0,
+      "gid": 2000,
+      "size": null
+    },
+    {
+      "path": "/etc/seccomp_policy/mediacodec.policy",
+      "inode": 478,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 118
+    },
+    {
+      "path": "/etc/seccomp_policy/mediaextractor_sec.policy",
+      "inode": 479,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 37
+    },
+    {
+      "path": "/etc/secnvm",
+      "inode": 480,
+      "mode": "040755",
+      "uid": 0,
+      "gid": 2000,
+      "size": null
+    },
+    {
+      "path": "/etc/secnvm/k250a_00000200.img",
+      "inode": 481,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 66304
+    },
+    {
+      "path": "/etc/selinux",
+      "inode": 482,
+      "mode": "040755",
+      "uid": 0,
+      "gid": 2000,
+      "size": null
+    },
+    {
+      "path": "/etc/selinux/plat_pub_versioned.cil",
+      "inode": 483,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 882372
+    },
+    {
+      "path": "/etc/selinux/plat_sepolicy_vers.txt",
+      "inode": 484,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 5
+    },
+    {
+      "path": "/etc/selinux/precompiled_sepolicy",
+      "inode": 485,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 977848
+    },
+    {
+      "path": "/etc/selinux/precompiled_sepolicy.plat_sepolicy_and_mapping.sha256",
+      "inode": 486,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 65
+    },
+    {
+      "path": "/etc/selinux/precompiled_sepolicy.product_sepolicy_and_mapping.sha256",
+      "inode": 487,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 65
+    },
+    {
+      "path": "/etc/selinux/precompiled_sepolicy.system_ext_sepolicy_and_mapping.sha256",
+      "inode": 488,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 65
+    },
+    {
+      "path": "/etc/selinux/product_sepolicy_and_mapping.sha256",
+      "inode": 489,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 65
+    },
+    {
+      "path": "/etc/selinux/selinux_denial_metadata",
+      "inode": 490,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 1459
+    },
+    {
+      "path": "/etc/selinux/sk",
+      "inode": 491,
+      "mode": "040755",
+      "uid": 0,
+      "gid": 2000,
+      "size": null
+    },
+    {
+      "path": "/etc/selinux/sk/authorize.xml",
+      "inode": 492,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 83400
+    },
+    {
+      "path": "/etc/selinux/vendor_file_contexts",
+      "inode": 493,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 119805
+    },
+    {
+      "path": "/etc/selinux/vendor_hwservice_contexts",
+      "inode": 494,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 9625
+    },
+    {
+      "path": "/etc/selinux/vendor_mac_permissions.xml",
+      "inode": 495,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 244061
+    },
+    {
+      "path": "/etc/selinux/vendor_property_contexts",
+      "inode": 496,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 9924
+    },
+    {
+      "path": "/etc/selinux/vendor_seapp_contexts",
+      "inode": 497,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 7768
+    },
+    {
+      "path": "/etc/selinux/vendor_sepolicy.cil",
+      "inode": 498,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 1471564
+    },
+    {
+      "path": "/etc/selinux/vendor_sepolicy_version",
+      "inode": 499,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 210
+    },
+    {
+      "path": "/etc/selinux/vendor_service_contexts",
+      "inode": 500,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 1258
+    },
+    {
+      "path": "/etc/selinux/vndservice_contexts",
+      "inode": 501,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 663
+    },
+    {
+      "path": "/etc/snap_gpu_kernel_32.bin",
+      "inode": 502,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 1615888
+    },
+    {
+      "path": "/etc/somxreg.conf",
+      "inode": 503,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 262
+    },
+    {
+      "path": "/etc/str",
+      "inode": 504,
+      "mode": "040755",
+      "uid": 0,
+      "gid": 2000,
+      "size": null
+    },
+    {
+      "path": "/etc/str/str_preference_data.dat",
+      "inode": 505,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 3081
+    },
+    {
+      "path": "/etc/traceconfig.txt",
+      "inode": 506,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 1504
+    },
+    {
+      "path": "/etc/usb_audio_policy_configuration.xml",
+      "inode": 507,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 2441
+    },
+    {
+      "path": "/etc/vintf",
+      "inode": 508,
+      "mode": "040755",
+      "uid": 0,
+      "gid": 2000,
+      "size": null
+    },
+    {
+      "path": "/etc/vintf/compatibility_matrix.xml",
+      "inode": 509,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 3423
+    },
+    {
+      "path": "/etc/vintf/manifest",
+      "inode": 510,
+      "mode": "040755",
+      "uid": 0,
+      "gid": 2000,
+      "size": null
+    },
+    {
+      "path": "/etc/vintf/manifest.xml",
+      "inode": 532,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 13593
+    },
+    {
+      "path": "/etc/vintf/manifest/android.hardware.cas@1.2-service.xml",
+      "inode": 511,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 323
+    },
+    {
+      "path": "/etc/vintf/manifest/android.hardware.dumpstate@1.1-service-lazy.xml",
+      "inode": 512,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 329
+    },
+    {
+      "path": "/etc/vintf/manifest/android.hardware.health@2.1-samsung.xml",
+      "inode": 513,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 510
+    },
+    {
+      "path": "/etc/vintf/manifest/android.hardware.wifi.hostapd.xml",
+      "inode": 514,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 324
+    },
+    {
+      "path": "/etc/vintf/manifest/android.hardware.wifi@1.0-service.xml",
+      "inode": 515,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 313
+    },
+    {
+      "path": "/etc/vintf/manifest/engmode_manifest.xml",
+      "inode": 516,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 338
+    },
+    {
+      "path": "/etc/vintf/manifest/hyper-default-sec.xml",
+      "inode": 517,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 180
+    },
+    {
+      "path": "/etc/vintf/manifest/lights-default-sec.xml",
+      "inode": 518,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 171
+    },
+    {
+      "path": "/etc/vintf/manifest/manifest.xml",
+      "inode": 519,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 330
+    },
+    {
+      "path": "/etc/vintf/manifest/manifest_android.hardware.drm@1.3-service.clearkey.xml",
+      "inode": 520,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 945
+    },
+    {
+      "path": "/etc/vintf/manifest/manifest_android.hardware.drm@1.3-service.widevine.xml",
+      "inode": 521,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 945
+    },
+    {
+      "path": "/etc/vintf/manifest/power-samsung.xml",
+      "inode": 522,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 170
+    },
+    {
+      "path": "/etc/vintf/manifest/sec_c2_manifest_default.xml",
+      "inode": 523,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 378
+    },
+    {
+      "path": "/etc/vintf/manifest/vaultkeeper_manifest.xml",
+      "inode": 524,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 346
+    },
+    {
+      "path": "/etc/vintf/manifest/vendor.samsung.hardware.hqm@1.0-manifest.xml",
+      "inode": 525,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 320
+    },
+    {
+      "path": "/etc/vintf/manifest/vendor.samsung.hardware.thermal@1.0-manifest.xml",
+      "inode": 526,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 562
+    },
+    {
+      "path": "/etc/vintf/manifest/vendor.samsung.hardware.tlc.atn@1.0-manifest.xml",
+      "inode": 527,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 274
+    },
+    {
+      "path": "/etc/vintf/manifest/vendor.samsung.hardware.tlc.iccc@1.0-manifest.xml",
+      "inode": 528,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 299
+    },
+    {
+      "path": "/etc/vintf/manifest/vendor.samsung.hardware.tlc.tima@1.0-manifest.xml",
+      "inode": 529,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 407
+    },
+    {
+      "path": "/etc/vintf/manifest/vendor.samsung.hardware.wifi.hostapd.xml",
+      "inode": 530,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 334
+    },
+    {
+      "path": "/etc/vintf/manifest/vendor.samsung.hardware.wifi@2.0-service.xml",
+      "inode": 531,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 323
+    },
+    {
+      "path": "/etc/wifi",
+      "inode": 533,
+      "mode": "040755",
+      "uid": 0,
+      "gid": 2000,
+      "size": null
+    },
+    {
+      "path": "/etc/wifi/hydra_config.sdb",
+      "inode": 534,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 384000
+    },
+    {
+      "path": "/etc/wifi/indoorchannel.info",
+      "inode": 535,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 14297
+    },
+    {
+      "path": "/etc/wifi/mx",
+      "inode": 536,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 0
+    },
+    {
+      "path": "/etc/wifi/mx140",
+      "inode": 537,
+      "mode": "040755",
+      "uid": 0,
+      "gid": 2000,
+      "size": null
+    },
+    {
+      "path": "/etc/wifi/mx140.bin",
+      "inode": 564,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 1360017
+    },
+    {
+      "path": "/etc/wifi/mx140/debug",
+      "inode": 538,
+      "mode": "040755",
+      "uid": 0,
+      "gid": 2000,
+      "size": null
+    },
+    {
+      "path": "/etc/wifi/mx140/debug/common",
+      "inode": 539,
+      "mode": "040755",
+      "uid": 0,
+      "gid": 2000,
+      "size": null
+    },
+    {
+      "path": "/etc/wifi/mx140/debug/common/log-strings.bin",
+      "inode": 540,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 653533
+    },
+    {
+      "path": "/etc/wifi/mx140/debug/hardware",
+      "inode": 541,
+      "mode": "040755",
+      "uid": 0,
+      "gid": 2000,
+      "size": null
+    },
+    {
+      "path": "/etc/wifi/mx140/debug/hardware/moredump",
+      "inode": 542,
+      "mode": "040755",
+      "uid": 0,
+      "gid": 2000,
+      "size": null
+    },
+    {
+      "path": "/etc/wifi/mx140/debug/hardware/moredump/bt_registers.xml",
+      "inode": 543,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 28345
+    },
+    {
+      "path": "/etc/wifi/mx140/debug/hardware/moredump/cortexM4.xml",
+      "inode": 544,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 21939
+    },
+    {
+      "path": "/etc/wifi/mx140/debug/hardware/moredump/cortexR4.xml",
+      "inode": 545,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 16462
+    },
+    {
+      "path": "/etc/wifi/mx140/debug/hardware/moredump/mailbox16.xml",
+      "inode": 546,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 813
+    },
+    {
+      "path": "/etc/wifi/mx140/debug/hardware/moredump/mailbox4.xml",
+      "inode": 547,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 811
+    },
+    {
+      "path": "/etc/wifi/mx140/debug/hardware/moredump/mailbox8.xml",
+      "inode": 548,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 811
+    },
+    {
+      "path": "/etc/wifi/mx140/debug/hardware/moredump/moredump.bin",
+      "inode": 549,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 780000
+    },
+    {
+      "path": "/etc/wifi/mx140/debug/hardware/moredump/moredump.xml",
+      "inode": 550,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 2437
+    },
+    {
+      "path": "/etc/wifi/mx140/debug/hardware/moredump/pl192vic.xml",
+      "inode": 551,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 3246
+    },
+    {
+      "path": "/etc/wifi/mx140/debug/hardware/moredump/rf_chip_registers.xml",
+      "inode": 552,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 85588
+    },
+    {
+      "path": "/etc/wifi/mx140/debug/hardware/moredump/wlan_sys_registers.xml",
+      "inode": 553,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 233433
+    },
+    {
+      "path": "/etc/wifi/mx140/debug/wlan",
+      "inode": 554,
+      "mode": "040755",
+      "uid": 0,
+      "gid": 2000,
+      "size": null
+    },
+    {
+      "path": "/etc/wifi/mx140/debug/wlan/hip_signals.xml",
+      "inode": 555,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 244484
+    },
+    {
+      "path": "/etc/wifi/mx140/debug/wlan/hydra_config.sdb",
+      "inode": 556,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 446464
+    },
+    {
+      "path": "/etc/wifi/mx140/debug/wlan/id.txt",
+      "inode": 557,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 128
+    },
+    {
+      "path": "/etc/wifi/mx140/debug/wlan/mib_out.xml",
+      "inode": 558,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 377943
+    },
+    {
+      "path": "/etc/wifi/mx140/debug/wlan/symbols.dbg",
+      "inode": 559,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 315943
+    },
+    {
+      "path": "/etc/wifi/mx140/debug/wlan/unicli.dbg",
+      "inode": 560,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 77394
+    },
+    {
+      "path": "/etc/wifi/mx140/debug/wlan/unitab.dbg",
+      "inode": 561,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 11544
+    },
+    {
+      "path": "/etc/wifi/mx140/debug/wlan/univif.dbg",
+      "inode": 562,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 11952
+    },
+    {
+      "path": "/etc/wifi/mx140/debug/wlan/xide_mib.dbg",
+      "inode": 563,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 141365
+    },
+    {
+      "path": "/etc/wifi/mx140_bt.hcf",
+      "inode": 565,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 136
+    },
+    {
+      "path": "/etc/wifi/mx140_t",
+      "inode": 566,
+      "mode": "040755",
+      "uid": 0,
+      "gid": 2000,
+      "size": null
+    },
+    {
+      "path": "/etc/wifi/mx140_t.bin",
+      "inode": 593,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 278673
+    },
+    {
+      "path": "/etc/wifi/mx140_t/debug",
+      "inode": 567,
+      "mode": "040755",
+      "uid": 0,
+      "gid": 2000,
+      "size": null
+    },
+    {
+      "path": "/etc/wifi/mx140_t/debug/common",
+      "inode": 568,
+      "mode": "040755",
+      "uid": 0,
+      "gid": 2000,
+      "size": null
+    },
+    {
+      "path": "/etc/wifi/mx140_t/debug/common/log-strings.bin",
+      "inode": 569,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 45919
+    },
+    {
+      "path": "/etc/wifi/mx140_t/debug/hardware",
+      "inode": 570,
+      "mode": "040755",
+      "uid": 0,
+      "gid": 2000,
+      "size": null
+    },
+    {
+      "path": "/etc/wifi/mx140_t/debug/hardware/moredump",
+      "inode": 571,
+      "mode": "040755",
+      "uid": 0,
+      "gid": 2000,
+      "size": null
+    },
+    {
+      "path": "/etc/wifi/mx140_t/debug/hardware/moredump/bt_registers.xml",
+      "inode": 572,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 28345
+    },
+    {
+      "path": "/etc/wifi/mx140_t/debug/hardware/moredump/cortexM4.xml",
+      "inode": 573,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 21939
+    },
+    {
+      "path": "/etc/wifi/mx140_t/debug/hardware/moredump/cortexR4.xml",
+      "inode": 574,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 16462
+    },
+    {
+      "path": "/etc/wifi/mx140_t/debug/hardware/moredump/mailbox16.xml",
+      "inode": 575,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 813
+    },
+    {
+      "path": "/etc/wifi/mx140_t/debug/hardware/moredump/mailbox4.xml",
+      "inode": 576,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 811
+    },
+    {
+      "path": "/etc/wifi/mx140_t/debug/hardware/moredump/mailbox8.xml",
+      "inode": 577,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 811
+    },
+    {
+      "path": "/etc/wifi/mx140_t/debug/hardware/moredump/moredump.bin",
+      "inode": 578,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 780000
+    },
+    {
+      "path": "/etc/wifi/mx140_t/debug/hardware/moredump/moredump.xml",
+      "inode": 579,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 2437
+    },
+    {
+      "path": "/etc/wifi/mx140_t/debug/hardware/moredump/pl192vic.xml",
+      "inode": 580,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 3246
+    },
+    {
+      "path": "/etc/wifi/mx140_t/debug/hardware/moredump/rf_chip_registers.xml",
+      "inode": 581,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 85588
+    },
+    {
+      "path": "/etc/wifi/mx140_t/debug/hardware/moredump/wlan_sys_registers.xml",
+      "inode": 582,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 233433
+    },
+    {
+      "path": "/etc/wifi/mx140_t/debug/wlan",
+      "inode": 583,
+      "mode": "040755",
+      "uid": 0,
+      "gid": 2000,
+      "size": null
+    },
+    {
+      "path": "/etc/wifi/mx140_t/debug/wlan/hip_signals.xml",
+      "inode": 584,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 244484
+    },
+    {
+      "path": "/etc/wifi/mx140_t/debug/wlan/hydra_config.sdb",
+      "inode": 585,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 446464
+    },
+    {
+      "path": "/etc/wifi/mx140_t/debug/wlan/id.txt",
+      "inode": 586,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 133
+    },
+    {
+      "path": "/etc/wifi/mx140_t/debug/wlan/mib_out.xml",
+      "inode": 587,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 377943
+    },
+    {
+      "path": "/etc/wifi/mx140_t/debug/wlan/symbols.dbg",
+      "inode": 588,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 307005
+    },
+    {
+      "path": "/etc/wifi/mx140_t/debug/wlan/unicli.dbg",
+      "inode": 589,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 68456
+    },
+    {
+      "path": "/etc/wifi/mx140_t/debug/wlan/unitab.dbg",
+      "inode": 590,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 11544
+    },
+    {
+      "path": "/etc/wifi/mx140_t/debug/wlan/univif.dbg",
+      "inode": 591,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 11952
+    },
+    {
+      "path": "/etc/wifi/mx140_t/debug/wlan/xide_mib.dbg",
+      "inode": 592,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 141365
+    },
+    {
+      "path": "/etc/wifi/mx140_t_wlan.hcf",
+      "inode": 594,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 4040
+    },
+    {
+      "path": "/etc/wifi/mx140_t_wlan_t.hcf",
+      "inode": 595,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 4060
+    },
+    {
+      "path": "/etc/wifi/mx140_wlan.hcf",
+      "inode": 596,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 4028
+    },
+    {
+      "path": "/etc/wifi/mx140_wlan_t.hcf",
+      "inode": 597,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 4012
+    },
+    {
+      "path": "/etc/wifi/p2p_supplicant_overlay.conf",
+      "inode": 598,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 354
+    },
+    {
+      "path": "/etc/wifi/platform.txt",
+      "inode": 599,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 22
+    },
+    {
+      "path": "/etc/wifi/wpa_supplicant.conf",
+      "inode": 600,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 81
+    },
+    {
+      "path": "/etc/wifi/wpa_supplicant_overlay.conf",
+      "inode": 601,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 36
+    },
+    {
+      "path": "/etc/wlan_common_rc",
+      "inode": 602,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 2102
+    },
+    {
+      "path": "/etc/wlan_vendor_rc",
+      "inode": 603,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 1397
+    },
+    {
+      "path": "/firmware",
+      "inode": 604,
+      "mode": "040755",
+      "uid": 0,
+      "gid": 2000,
+      "size": null
+    },
+    {
+      "path": "/firmware/APBargeIn_AUDIO_SLSI.bin",
+      "inode": 605,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 9184
+    },
+    {
+      "path": "/firmware/AP_AUDIO_SLSI.bin",
+      "inode": 606,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 62526
+    },
+    {
+      "path": "/firmware/Tfa9896.cnt",
+      "inode": 607,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 5541
+    },
+    {
+      "path": "/firmware/calliope_dram.bin",
+      "inode": 608,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 2018400
+    },
+    {
+      "path": "/firmware/calliope_sram.bin",
+      "inode": 609,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 28544
+    },
+    {
+      "path": "/firmware/dax_param.bin",
+      "inode": 610,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 16660
+    },
+    {
+      "path": "/firmware/fimc_is_lib.bin",
+      "inode": 611,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 4432033
+    },
+    {
+      "path": "/firmware/fimc_is_rta.bin",
+      "inode": 612,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 2147489
+    },
+    {
+      "path": "/firmware/mfc_fw.bin",
+      "inode": 613,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 786660
+    },
+    {
+      "path": "/firmware/setfile_4ha.bin",
+      "inode": 614,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 550392
+    },
+    {
+      "path": "/firmware/setfile_5e9.bin",
+      "inode": 615,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 1229952
+    },
+    {
+      "path": "/lib",
+      "inode": 616,
+      "mode": "040755",
+      "uid": 0,
+      "gid": 2000,
+      "size": null
+    },
+    {
+      "path": "/lib/android.hardware.audio.common-util.so",
+      "inode": 617,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 7808
+    },
+    {
+      "path": "/lib/android.hardware.audio.common@2.0-util.so",
+      "inode": 618,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 10120
+    },
+    {
+      "path": "/lib/android.hardware.audio.common@4.0-util.so",
+      "inode": 619,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 10120
+    },
+    {
+      "path": "/lib/android.hardware.camera.provider@2.4-legacy.so",
+      "inode": 620,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 149920
+    },
+    {
+      "path": "/lib/android.hardware.camera.provider@2.5-legacy.so",
+      "inode": 621,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 78568
+    },
+    {
+      "path": "/lib/android.hardware.gatekeeper@1.0-impl.so",
+      "inode": 622,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 12204
+    },
+    {
+      "path": "/lib/android.hardware.graphics.composer@2.1-resources.so",
+      "inode": 623,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 26424
+    },
+    {
+      "path": "/lib/camera.device@1.0-impl.so",
+      "inode": 624,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 137868
+    },
+    {
+      "path": "/lib/camera.device@3.2-impl.so",
+      "inode": 625,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 183108
+    },
+    {
+      "path": "/lib/camera.device@3.3-impl.so",
+      "inode": 626,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 25016
+    },
+    {
+      "path": "/lib/camera.device@3.4-impl.so",
+      "inode": 627,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 125156
+    },
+    {
+      "path": "/lib/camera.device@3.5-impl.so",
+      "inode": 628,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 144724
+    },
+    {
+      "path": "/lib/com.dsi.ant@1.0.so",
+      "inode": 629,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 93504
+    },
+    {
+      "path": "/lib/egl",
+      "inode": 630,
+      "mode": "040755",
+      "uid": 0,
+      "gid": 2000,
+      "size": null
+    },
+    {
+      "path": "/lib/egl/libGLES_mali.so",
+      "inode": 631,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 40093596
+    },
+    {
+      "path": "/lib/hw",
+      "inode": 632,
+      "mode": "040755",
+      "uid": 0,
+      "gid": 2000,
+      "size": null
+    },
+    {
+      "path": "/lib/hw/android.hardware.audio.effect@2.0-impl.so",
+      "inode": 633,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 210136
+    },
+    {
+      "path": "/lib/hw/android.hardware.audio.effect@4.0-impl.so",
+      "inode": 634,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 209380
+    },
+    {
+      "path": "/lib/hw/android.hardware.audio@2.0-impl.so",
+      "inode": 635,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 141208
+    },
+    {
+      "path": "/lib/hw/android.hardware.audio@4.0-impl.so",
+      "inode": 636,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 146792
+    },
+    {
+      "path": "/lib/hw/android.hardware.bluetooth@1.0-impl.so",
+      "inode": 637,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 56072
+    },
+    {
+      "path": "/lib/hw/android.hardware.gnss@2.0-impl.so",
+      "inode": 638,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 183504
+    },
+    {
+      "path": "/lib/hw/android.hardware.graphics.allocator@2.0-impl.so",
+      "inode": 639,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 13804
+    },
+    {
+      "path": "/lib/hw/android.hardware.graphics.mapper@2.0-impl.so",
+      "inode": 640,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 20464
+    },
+    {
+      "path": "/lib/hw/android.hardware.health@2.0-impl-2.1-samsung.so",
+      "inode": 641,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 81416
+    },
+    {
+      "path": "/lib/hw/android.hardware.memtrack@1.0-impl.so",
+      "inode": 642,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 9840
+    },
+    {
+      "path": "/lib/hw/android.hardware.renderscript@1.0-impl.so",
+      "inode": 643,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 41920
+    },
+    {
+      "path": "/lib/hw/android.hardware.sensors@1.0-impl.so",
+      "inode": 644,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 45488
+    },
+    {
+      "path": "/lib/hw/android.hardware.soundtrigger@2.0-impl.so",
+      "inode": 645,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 8788
+    },
+    {
+      "path": "/lib/hw/android.hardware.thermal@1.0-impl.so",
+      "inode": 646,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 13876
+    },
+    {
+      "path": "/lib/hw/audio.primary.default.so",
+      "inode": 647,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 9204
+    },
+    {
+      "path": "/lib/hw/audio.primary.exynos7904.so",
+      "inode": 648,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 118236
+    },
+    {
+      "path": "/lib/hw/audio.r_submix.default.so",
+      "inode": 649,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 20980
+    },
+    {
+      "path": "/lib/hw/audio.sec_primary.default.so",
+      "inode": 650,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 8064
+    },
+    {
+      "path": "/lib/hw/audio.usb.default.so",
+      "inode": 651,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 14772
+    },
+    {
+      "path": "/lib/hw/camera.exynos7904.so",
+      "inode": 652,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 26628
+    },
+    {
+      "path": "/lib/hw/flp.default.so",
+      "inode": 653,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 99464
+    },
+    {
+      "path": "/lib/hw/gatekeeper.exynos7904.so",
+      "inode": 654,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 11036
+    },
+    {
+      "path": "/lib/hw/gps.default.so",
+      "inode": 655,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 188972
+    },
+    {
+      "path": "/lib/hw/gralloc.default.so",
+      "inode": 656,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 13064
+    },
+    {
+      "path": "/lib/hw/gralloc.exynos7904.so",
+      "inode": 657,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 62804
+    },
+    {
+      "path": "/lib/hw/hwcomposer.exynos7904.so",
+      "inode": 658,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 52500
+    },
+    {
+      "path": "/lib/hw/local_time.default.so",
+      "inode": 659,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 4312
+    },
+    {
+      "path": "/lib/hw/memtrack.exynos7904.so",
+      "inode": 660,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 77268
+    },
+    {
+      "path": "/lib/hw/power.default.so",
+      "inode": 661,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 3344
+    },
+    {
+      "path": "/lib/hw/sensors.universal7904.so",
+      "inode": 662,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 31932
+    },
+    {
+      "path": "/lib/hw/thermal.universal7904.so",
+      "inode": 663,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 6904
+    },
+    {
+      "path": "/lib/hw/vendor.samsung.hardware.audio@1.0-impl.so",
+      "inode": 664,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 26672
+    },
+    {
+      "path": "/lib/hw/vendor.samsung.hardware.camera.provider@4.0-impl.so",
+      "inode": 665,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 12492
+    },
+    {
+      "path": "/lib/hw/vendor.samsung.hardware.gnss@2.0-impl.so",
+      "inode": 666,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 32300
+    },
+    {
+      "path": "/lib/hw/vendor.samsung.hardware.snap@1.2-impl.so",
+      "inode": 667,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 69416
+    },
+    {
+      "path": "/lib/hw/vibrator.default.so",
+      "inode": 668,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 5852
+    },
+    {
+      "path": "/lib/hw/vulkan.universal7904.so",
+      "inode": 669,
+      "mode": "120644",
+      "uid": 0,
+      "gid": 0,
+      "size": 31
+    },
+    {
+      "path": "/lib/libDLInterface.camera.samsung.so",
+      "inode": 670,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 91372
+    },
+    {
+      "path": "/lib/libExynosHWCService.so",
+      "inode": 671,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 59940
+    },
+    {
+      "path": "/lib/libExynosOMX_Core.so",
+      "inode": 672,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 63000
+    },
+    {
+      "path": "/lib/libExynosOMX_Resourcemanager.so",
+      "inode": 673,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 15924
+    },
+    {
+      "path": "/lib/libFrucSSMLib.so",
+      "inode": 674,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 663376
+    },
+    {
+      "path": "/lib/libGrallocWrapper.so",
+      "inode": 675,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 11872
+    },
+    {
+      "path": "/lib/libHMT.so",
+      "inode": 676,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 2771656
+    },
+    {
+      "path": "/lib/libMcClient.so",
+      "inode": 677,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 27044
+    },
+    {
+      "path": "/lib/libOpenCL.so",
+      "inode": 678,
+      "mode": "120644",
+      "uid": 0,
+      "gid": 0,
+      "size": 31
+    },
+    {
+      "path": "/lib/libOpenCL.so.1",
+      "inode": 679,
+      "mode": "120644",
+      "uid": 0,
+      "gid": 0,
+      "size": 31
+    },
+    {
+      "path": "/lib/libOpenCL.so.1.1",
+      "inode": 680,
+      "mode": "120644",
+      "uid": 0,
+      "gid": 0,
+      "size": 31
+    },
+    {
+      "path": "/lib/libOpenCL_vulkan_symlink.so",
+      "inode": 681,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 2816
+    },
+    {
+      "path": "/lib/libOpenCv.camera.samsung.so",
+      "inode": 682,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 7893896
+    },
+    {
+      "path": "/lib/libSEF.quram.so",
+      "inode": 683,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 120332
+    },
+    {
+      "path": "/lib/libSamsungPostProcessConvertor.so",
+      "inode": 684,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 4256
+    },
+    {
+      "path": "/lib/libSecC2ComponentStore.so",
+      "inode": 685,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 61516
+    },
+    {
+      "path": "/lib/lib_SamsungRec_07001.so",
+      "inode": 686,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 132860
+    },
+    {
+      "path": "/lib/lib_SoundAlive_3DPosition_ver202.so",
+      "inode": 687,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 233588
+    },
+    {
+      "path": "/lib/lib_SoundAlive_AlbumArt_ver105.so",
+      "inode": 688,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 227068
+    },
+    {
+      "path": "/lib/lib_SoundAlive_SRC384_ver320.so",
+      "inode": 689,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 66836
+    },
+    {
+      "path": "/lib/lib_SoundAlive_play_plus_ver400.so",
+      "inode": 690,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 1290496
+    },
+    {
+      "path": "/lib/lib_SoundBooster_ver1000.so",
+      "inode": 691,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 212720
+    },
+    {
+      "path": "/lib/lib_soundaliveresampler.so",
+      "inode": 692,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 6924
+    },
+    {
+      "path": "/lib/libacryl.so",
+      "inode": 693,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 71740
+    },
+    {
+      "path": "/lib/libalsautils.so",
+      "inode": 694,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 15260
+    },
+    {
+      "path": "/lib/libapex_cmn.so",
+      "inode": 695,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 166592
+    },
+    {
+      "path": "/lib/libapex_utils.so",
+      "inode": 696,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 29648
+    },
+    {
+      "path": "/lib/libaudio-ril.so",
+      "inode": 697,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 18412
+    },
+    {
+      "path": "/lib/libaudio_soundtrigger.so",
+      "inode": 698,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 2896
+    },
+    {
+      "path": "/lib/libaudiofoundation.so",
+      "inode": 699,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 54728
+    },
+    {
+      "path": "/lib/libavservices_minijail.so",
+      "inode": 700,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 9980
+    },
+    {
+      "path": "/lib/libbt-vendor.so",
+      "inode": 701,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 9948
+    },
+    {
+      "path": "/lib/libc++_shared.so",
+      "inode": 702,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 656756
+    },
+    {
+      "path": "/lib/libcodec2_hidl@1.0.so",
+      "inode": 703,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 194896
+    },
+    {
+      "path": "/lib/libcodec2_hidl@1.1.so",
+      "inode": 704,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 75680
+    },
+    {
+      "path": "/lib/libcodec2_sec_aacenc.so",
+      "inode": 705,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 48020
+    },
+    {
+      "path": "/lib/libcodec2_sec_amrnbdec.so",
+      "inode": 706,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 40000
+    },
+    {
+      "path": "/lib/libcodec2_sec_amrwbdec.so",
+      "inode": 707,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 40000
+    },
+    {
+      "path": "/lib/libcodec2_sec_flacdec.so",
+      "inode": 708,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 50040
+    },
+    {
+      "path": "/lib/libcodec2_sec_imadec.so",
+      "inode": 709,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 38380
+    },
+    {
+      "path": "/lib/libcodec2_sec_mp3dec.so",
+      "inode": 710,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 100492
+    },
+    {
+      "path": "/lib/libcodec2_sec_mp43dec.so",
+      "inode": 711,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 147120
+    },
+    {
+      "path": "/lib/libcodec2_sec_mp4vdec.so",
+      "inode": 712,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 53640
+    },
+    {
+      "path": "/lib/libcodec2_sec_soft_common.so",
+      "inode": 713,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 89160
+    },
+    {
+      "path": "/lib/libcodec2_sec_vc1dec.so",
+      "inode": 714,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 47804
+    },
+    {
+      "path": "/lib/libcodec2_sec_wmadec.so",
+      "inode": 715,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 486252
+    },
+    {
+      "path": "/lib/libcodec2_sec_wmv7dec.so",
+      "inode": 716,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 165872
+    },
+    {
+      "path": "/lib/libcodec2_sec_wmv8dec.so",
+      "inode": 717,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 153900
+    },
+    {
+      "path": "/lib/libcodec2_simple_component.so",
+      "inode": 718,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 67892
+    },
+    {
+      "path": "/lib/libcodec2_soft_ac4dec.so",
+      "inode": 719,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 2440784
+    },
+    {
+      "path": "/lib/libcodec2_soft_common.so",
+      "inode": 720,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 94792
+    },
+    {
+      "path": "/lib/libcodec2_soft_eac3dec.so",
+      "inode": 721,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 2938120
+    },
+    {
+      "path": "/lib/libcodec2_vndk.so",
+      "inode": 722,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 441504
+    },
+    {
+      "path": "/lib/libcodecsolutionhelper_vendor.so",
+      "inode": 723,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 36516
+    },
+    {
+      "path": "/lib/libcsc.so",
+      "inode": 724,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 20140
+    },
+    {
+      "path": "/lib/libdeccfg.so",
+      "inode": 725,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 32680
+    },
+    {
+      "path": "/lib/libdk_vnd_service_core.so",
+      "inode": 726,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 110328
+    },
+    {
+      "path": "/lib/libdsms_vendor.so",
+      "inode": 727,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 8936
+    },
+    {
+      "path": "/lib/libeffects.so",
+      "inode": 728,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 18236
+    },
+    {
+      "path": "/lib/libeffectsconfig.so",
+      "inode": 729,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 19320
+    },
+    {
+      "path": "/lib/libengmode15.so",
+      "inode": 730,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 99896
+    },
+    {
+      "path": "/lib/libengmode2lite.so",
+      "inode": 731,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 199096
+    },
+    {
+      "path": "/lib/libengmode_client.so",
+      "inode": 732,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 21104
+    },
+    {
+      "path": "/lib/libengmode_server.so",
+      "inode": 733,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 61444
+    },
+    {
+      "path": "/lib/libengmode_tlc.so",
+      "inode": 734,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 8064
+    },
+    {
+      "path": "/lib/libepicoperator.so",
+      "inode": 735,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 8740
+    },
+    {
+      "path": "/lib/libexynoscamera3.so",
+      "inode": 736,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 1549224
+    },
+    {
+      "path": "/lib/libexynosdisplay.so",
+      "inode": 737,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 414368
+    },
+    {
+      "path": "/lib/libexynosgraphicbuffer.so",
+      "inode": 738,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 12576
+    },
+    {
+      "path": "/lib/libexynosgraphicbuffer_public.so",
+      "inode": 739,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 12296
+    },
+    {
+      "path": "/lib/libexynosgscaler.so",
+      "inode": 740,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 32676
+    },
+    {
+      "path": "/lib/libexynosscaler.so",
+      "inode": 741,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 9716
+    },
+    {
+      "path": "/lib/libexynosutils.so",
+      "inode": 742,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 10212
+    },
+    {
+      "path": "/lib/libexynosv4l2.so",
+      "inode": 743,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 16740
+    },
+    {
+      "path": "/lib/libfloatingfeature.so",
+      "inode": 744,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 14864
+    },
+    {
+      "path": "/lib/libgiantmscl.so",
+      "inode": 745,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 17536
+    },
+    {
+      "path": "/lib/libhidltransport.so",
+      "inode": 746,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 2812
+    },
+    {
+      "path": "/lib/libhqm_hwparam.so",
+      "inode": 747,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 5024
+    },
+    {
+      "path": "/lib/libhwc2on1adapter.so",
+      "inode": 748,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 108712
+    },
+    {
+      "path": "/lib/libhwc2onfbadapter.so",
+      "inode": 749,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 22696
+    },
+    {
+      "path": "/lib/libhwjpeg.so",
+      "inode": 750,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 58612
+    },
+    {
+      "path": "/lib/libhwminijail.so",
+      "inode": 751,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 6460
+    },
+    {
+      "path": "/lib/libhyper.so",
+      "inode": 752,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 281124
+    },
+    {
+      "path": "/lib/libhypervintf.so",
+      "inode": 753,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 11740
+    },
+    {
+      "path": "/lib/libion_exynos.so",
+      "inode": 754,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 9456
+    },
+    {
+      "path": "/lib/libkeymaster4.so",
+      "inode": 755,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 53704
+    },
+    {
+      "path": "/lib/libkeymaster4_1support.so",
+      "inode": 756,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 86560
+    },
+    {
+      "path": "/lib/libkeymaster4support.so",
+      "inode": 757,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 67920
+    },
+    {
+      "path": "/lib/libkeymaster_helper.so",
+      "inode": 758,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 138476
+    },
+    {
+      "path": "/lib/libkeymaster_messages.so",
+      "inode": 759,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 49848
+    },
+    {
+      "path": "/lib/libkeymaster_portable.so",
+      "inode": 760,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 174652
+    },
+    {
+      "path": "/lib/libkeystore-engine-wifi-hidl.so",
+      "inode": 761,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 10724
+    },
+    {
+      "path": "/lib/libkeystore-wifi-hidl.so",
+      "inode": 762,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 5996
+    },
+    {
+      "path": "/lib/libmdf.so",
+      "inode": 763,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 3564
+    },
+    {
+      "path": "/lib/libnbaio_mono.so",
+      "inode": 764,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 11676
+    },
+    {
+      "path": "/lib/liboemcrypto.so",
+      "inode": 765,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 66948
+    },
+    {
+      "path": "/lib/libopus.so",
+      "inode": 766,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 336480
+    },
+    {
+      "path": "/lib/libpa.so",
+      "inode": 767,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 41992
+    },
+    {
+      "path": "/lib/libpadm.so",
+      "inode": 768,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 104292
+    },
+    {
+      "path": "/lib/libpredeflicker_native.so",
+      "inode": 769,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 341788
+    },
+    {
+      "path": "/lib/libprofileparamstorage.so",
+      "inode": 770,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 124980
+    },
+    {
+      "path": "/lib/libprotobuf-cpp-full-3.9.1.so",
+      "inode": 771,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 1609900
+    },
+    {
+      "path": "/lib/libprotobuf-cpp-lite-3.9.1.so",
+      "inode": 772,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 349368
+    },
+    {
+      "path": "/lib/libpuresoftkeymasterdevice.so",
+      "inode": 773,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 29696
+    },
+    {
+      "path": "/lib/librecordalive.so",
+      "inode": 774,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 20064
+    },
+    {
+      "path": "/lib/libreference-ril.so",
+      "inode": 775,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 75320
+    },
+    {
+      "path": "/lib/libril.so",
+      "inode": 776,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 454428
+    },
+    {
+      "path": "/lib/librilutils.so",
+      "inode": 777,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 6444
+    },
+    {
+      "path": "/lib/libsamsungDiamondVoice.so",
+      "inode": 778,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 253788
+    },
+    {
+      "path": "/lib/libsavsac.so",
+      "inode": 779,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 462784
+    },
+    {
+      "path": "/lib/libsavscmn.so",
+      "inode": 780,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 543164
+    },
+    {
+      "path": "/lib/libsavsvc.so",
+      "inode": 781,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 1244756
+    },
+    {
+      "path": "/lib/libsecaudiocoreutils.so",
+      "inode": 782,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 2808
+    },
+    {
+      "path": "/lib/libsecaudioinfo.so",
+      "inode": 783,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 26304
+    },
+    {
+      "path": "/lib/libsecnativefeature.so",
+      "inode": 784,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 29692
+    },
+    {
+      "path": "/lib/libsecril-client.so",
+      "inode": 785,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 33568
+    },
+    {
+      "path": "/lib/libsecure_storage.so",
+      "inode": 786,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 145356
+    },
+    {
+      "path": "/lib/libsemnativecarrierfeature.so",
+      "inode": 787,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 108444
+    },
+    {
+      "path": "/lib/libsensorlistener.so",
+      "inode": 788,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 27456
+    },
+    {
+      "path": "/lib/libsensorndkbridge.so",
+      "inode": 789,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 36732
+    },
+    {
+      "path": "/lib/libsfplugin_ccodec_utils.so",
+      "inode": 790,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 204184
+    },
+    {
+      "path": "/lib/libskeymaster4device.so",
+      "inode": 791,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 33860
+    },
+    {
+      "path": "/lib/libsnaace.so",
+      "inode": 792,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 341176
+    },
+    {
+      "path": "/lib/libsnamrnb.so",
+      "inode": 793,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 216100
+    },
+    {
+      "path": "/lib/libsnamrwb.so",
+      "inode": 794,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 210220
+    },
+    {
+      "path": "/lib/libsnap_compute.so",
+      "inode": 795,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 24651972
+    },
+    {
+      "path": "/lib/libsnap_compute_wrapper.so",
+      "inode": 796,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 148732
+    },
+    {
+      "path": "/lib/libsnap_v1.samsung.so",
+      "inode": 797,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 120056
+    },
+    {
+      "path": "/lib/libsnap_vndk.so",
+      "inode": 798,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 1931192
+    },
+    {
+      "path": "/lib/libsnaplite_native.so",
+      "inode": 799,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 1580844
+    },
+    {
+      "path": "/lib/libsnaplite_wrapper.so",
+      "inode": 800,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 136440
+    },
+    {
+      "path": "/lib/libsoft_attestation_cert.so",
+      "inode": 801,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 6832
+    },
+    {
+      "path": "/lib/libsomx263dsw.so",
+      "inode": 802,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 14064
+    },
+    {
+      "path": "/lib/libsomx264dsw.so",
+      "inode": 803,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 21672
+    },
+    {
+      "path": "/lib/libsomxadpcmd.so",
+      "inode": 804,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 18592
+    },
+    {
+      "path": "/lib/libsomxamrd.so",
+      "inode": 805,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 22220
+    },
+    {
+      "path": "/lib/libsomxcmn.so",
+      "inode": 806,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 75228
+    },
+    {
+      "path": "/lib/libsomxcore_vendor.so",
+      "inode": 807,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 18148
+    },
+    {
+      "path": "/lib/libsomxflacd.so",
+      "inode": 808,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 22436
+    },
+    {
+      "path": "/lib/libsomxhevcdsw.so",
+      "inode": 809,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 23952
+    },
+    {
+      "path": "/lib/libsomxmp3d.so",
+      "inode": 810,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 20560
+    },
+    {
+      "path": "/lib/libsomxmp4vdsw.so",
+      "inode": 811,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 20972
+    },
+    {
+      "path": "/lib/libsomxnaace.so",
+      "inode": 812,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 14040
+    },
+    {
+      "path": "/lib/libsomxvc1dsw.so",
+      "inode": 813,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 14652
+    },
+    {
+      "path": "/lib/libsomxvp8d.so",
+      "inode": 814,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 13860
+    },
+    {
+      "path": "/lib/libspeakercalibration.so",
+      "inode": 815,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 35336
+    },
+    {
+      "path": "/lib/libstagefright_amrnb_common.so",
+      "inode": 816,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 60008
+    },
+    {
+      "path": "/lib/libstagefright_bufferpool@2.0.1.so",
+      "inode": 817,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 132572
+    },
+    {
+      "path": "/lib/libstagefright_bufferqueue_helper_vendor.so",
+      "inode": 818,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 237688
+    },
+    {
+      "path": "/lib/libstagefright_enc_common.so",
+      "inode": 819,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 3756
+    },
+    {
+      "path": "/lib/libstagefright_flacdec.so",
+      "inode": 820,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 83368
+    },
+    {
+      "path": "/lib/libstagefright_omx_vendor.so",
+      "inode": 821,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 201376
+    },
+    {
+      "path": "/lib/libstagefright_soft_aacdec.so",
+      "inode": 822,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 638136
+    },
+    {
+      "path": "/lib/libstagefright_soft_aacenc.so",
+      "inode": 823,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 444556
+    },
+    {
+      "path": "/lib/libstagefright_soft_ac4dec.so",
+      "inode": 824,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 2295836
+    },
+    {
+      "path": "/lib/libstagefright_soft_amrdec.so",
+      "inode": 825,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 118900
+    },
+    {
+      "path": "/lib/libstagefright_soft_amrnbenc.so",
+      "inode": 826,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 82728
+    },
+    {
+      "path": "/lib/libstagefright_soft_amrwbenc.so",
+      "inode": 827,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 141564
+    },
+    {
+      "path": "/lib/libstagefright_soft_avcdec.so",
+      "inode": 828,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 323648
+    },
+    {
+      "path": "/lib/libstagefright_soft_avcenc.so",
+      "inode": 829,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 300464
+    },
+    {
+      "path": "/lib/libstagefright_soft_ddpdec.so",
+      "inode": 830,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 2897876
+    },
+    {
+      "path": "/lib/libstagefright_soft_flacdec.so",
+      "inode": 831,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 14964
+    },
+    {
+      "path": "/lib/libstagefright_soft_flacenc.so",
+      "inode": 832,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 96340
+    },
+    {
+      "path": "/lib/libstagefright_soft_g711dec.so",
+      "inode": 833,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 13164
+    },
+    {
+      "path": "/lib/libstagefright_soft_gsmdec.so",
+      "inode": 834,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 22192
+    },
+    {
+      "path": "/lib/libstagefright_soft_hevcdec.so",
+      "inode": 835,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 435844
+    },
+    {
+      "path": "/lib/libstagefright_soft_mp3dec.so",
+      "inode": 836,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 68360
+    },
+    {
+      "path": "/lib/libstagefright_soft_mpeg2dec.so",
+      "inode": 837,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 105920
+    },
+    {
+      "path": "/lib/libstagefright_soft_mpeg4dec.so",
+      "inode": 838,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 107176
+    },
+    {
+      "path": "/lib/libstagefright_soft_mpeg4enc.so",
+      "inode": 839,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 142644
+    },
+    {
+      "path": "/lib/libstagefright_soft_opusdec.so",
+      "inode": 840,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 17200
+    },
+    {
+      "path": "/lib/libstagefright_soft_rawdec.so",
+      "inode": 841,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 12040
+    },
+    {
+      "path": "/lib/libstagefright_soft_vorbisdec.so",
+      "inode": 842,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 17960
+    },
+    {
+      "path": "/lib/libstagefright_soft_vpxdec.so",
+      "inode": 843,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 16620
+    },
+    {
+      "path": "/lib/libstagefright_soft_vpxenc.so",
+      "inode": 844,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 21708
+    },
+    {
+      "path": "/lib/libstagefright_softomx.so",
+      "inode": 845,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 52460
+    },
+    {
+      "path": "/lib/libstagefright_softomx_plugin.so",
+      "inode": 846,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 9040
+    },
+    {
+      "path": "/lib/libstagefrighthw.so",
+      "inode": 847,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 6664
+    },
+    {
+      "path": "/lib/libtinycompress.so",
+      "inode": 848,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 11444
+    },
+    {
+      "path": "/lib/libtlc_comm_atn.so",
+      "inode": 849,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 6212
+    },
+    {
+      "path": "/lib/libtlc_comm_iccc.so",
+      "inode": 850,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 5204
+    },
+    {
+      "path": "/lib/libtlc_direct_comm_atn.so",
+      "inode": 851,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 14156
+    },
+    {
+      "path": "/lib/libtlc_direct_comm_iccc.so",
+      "inode": 852,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 10420
+    },
+    {
+      "path": "/lib/libucm_tlc_comm.so",
+      "inode": 853,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 6368
+    },
+    {
+      "path": "/lib/libucm_tlc_direct_comm.so",
+      "inode": 854,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 18980
+    },
+    {
+      "path": "/lib/libucm_tlc_tz_esecomm.so",
+      "inode": 855,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 23672
+    },
+    {
+      "path": "/lib/libucsengine.so",
+      "inode": 856,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 32892
+    },
+    {
+      "path": "/lib/libuniapi.so",
+      "inode": 857,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 8420
+    },
+    {
+      "path": "/lib/libuniplugin.so",
+      "inode": 858,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 11844
+    },
+    {
+      "path": "/lib/libvkmanager_vendor.so",
+      "inode": 859,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 38816
+    },
+    {
+      "path": "/lib/libvkservice.so",
+      "inode": 860,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 36536
+    },
+    {
+      "path": "/lib/libvorbisidec.so",
+      "inode": 861,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 130504
+    },
+    {
+      "path": "/lib/libvpx.so",
+      "inode": 862,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 1832280
+    },
+    {
+      "path": "/lib/libwebrtc_audio_preprocessing.so",
+      "inode": 863,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 776984
+    },
+    {
+      "path": "/lib/libwifi-hal.so",
+      "inode": 864,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 114548
+    },
+    {
+      "path": "/lib/libwpa_client.so",
+      "inode": 865,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 13316
+    },
+    {
+      "path": "/lib/libwrappergps.so",
+      "inode": 866,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 3664
+    },
+    {
+      "path": "/lib/libwvhidl.so",
+      "inode": 867,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 2117408
+    },
+    {
+      "path": "/lib/mediacas",
+      "inode": 868,
+      "mode": "040755",
+      "uid": 0,
+      "gid": 2000,
+      "size": null
+    },
+    {
+      "path": "/lib/mediacas/libclearkeycasplugin.so",
+      "inode": 869,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 61808
+    },
+    {
+      "path": "/lib/mediadrm",
+      "inode": 870,
+      "mode": "040755",
+      "uid": 0,
+      "gid": 2000,
+      "size": null
+    },
+    {
+      "path": "/lib/mediadrm/libdrmclearkeyplugin.so",
+      "inode": 871,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 40784
+    },
+    {
+      "path": "/lib/mediadrm/libwvdrmengine.so",
+      "inode": 872,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 2013372
+    },
+    {
+      "path": "/lib/omx",
+      "inode": 873,
+      "mode": "040755",
+      "uid": 0,
+      "gid": 2000,
+      "size": null
+    },
+    {
+      "path": "/lib/omx/libOMX.Exynos.AVC.Decoder.so",
+      "inode": 874,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 239532
+    },
+    {
+      "path": "/lib/omx/libOMX.Exynos.AVC.Encoder.so",
+      "inode": 875,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 249004
+    },
+    {
+      "path": "/lib/omx/libOMX.Exynos.HEVC.Decoder.so",
+      "inode": 876,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 241116
+    },
+    {
+      "path": "/lib/omx/libOMX.Exynos.HEVC.Encoder.so",
+      "inode": 877,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 244120
+    },
+    {
+      "path": "/lib/omx/libOMX.Exynos.MPEG4.Decoder.so",
+      "inode": 878,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 237856
+    },
+    {
+      "path": "/lib/omx/libOMX.Exynos.MPEG4.Encoder.so",
+      "inode": 879,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 234600
+    },
+    {
+      "path": "/lib/omx/libOMX.Exynos.VP8.Decoder.so",
+      "inode": 880,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 235308
+    },
+    {
+      "path": "/lib/omx/libOMX.Exynos.VP8.Encoder.so",
+      "inode": 881,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 234360
+    },
+    {
+      "path": "/lib/omx/libOMX.Exynos.VP9.Decoder.so",
+      "inode": 882,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 238528
+    },
+    {
+      "path": "/lib/omx/libOMX.Exynos.WMV.Decoder.so",
+      "inode": 883,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 238128
+    },
+    {
+      "path": "/lib/soundfx",
+      "inode": 884,
+      "mode": "040755",
+      "uid": 0,
+      "gid": 2000,
+      "size": null
+    },
+    {
+      "path": "/lib/soundfx/libaudioeffectoffload.so",
+      "inode": 885,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 16892
+    },
+    {
+      "path": "/lib/soundfx/libaudiopreprocessing.so",
+      "inode": 886,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 16464
+    },
+    {
+      "path": "/lib/soundfx/libaudiosaplus_sec.so",
+      "inode": 887,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 28400
+    },
+    {
+      "path": "/lib/soundfx/libbundlewrapper.so",
+      "inode": 888,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 69096
+    },
+    {
+      "path": "/lib/soundfx/libdownmix.so",
+      "inode": 889,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 8900
+    },
+    {
+      "path": "/lib/soundfx/libdynproc.so",
+      "inode": 890,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 38740
+    },
+    {
+      "path": "/lib/soundfx/libeffectproxy.so",
+      "inode": 891,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 7648
+    },
+    {
+      "path": "/lib/soundfx/libgearvr.so",
+      "inode": 892,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 14568
+    },
+    {
+      "path": "/lib/soundfx/libldnhncr.so",
+      "inode": 893,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 7784
+    },
+    {
+      "path": "/lib/soundfx/libmysound.so",
+      "inode": 894,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 72592
+    },
+    {
+      "path": "/lib/soundfx/libmyspace.so",
+      "inode": 895,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 15196
+    },
+    {
+      "path": "/lib/soundfx/libplaybackrecorder.so",
+      "inode": 896,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 5356
+    },
+    {
+      "path": "/lib/soundfx/libreverbwrapper.so",
+      "inode": 897,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 28896
+    },
+    {
+      "path": "/lib/soundfx/libsamsungSoundbooster_plus.so",
+      "inode": 898,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 17952
+    },
+    {
+      "path": "/lib/soundfx/libswdap.so",
+      "inode": 899,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 2303904
+    },
+    {
+      "path": "/lib/soundfx/libvisualizer.so",
+      "inode": 900,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 8124
+    },
+    {
+      "path": "/lib/vendor.samsung.frameworks.security.dsms@1.0.so",
+      "inode": 901,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 52520
+    },
+    {
+      "path": "/lib/vendor.samsung.frameworks.security.ucm.crypto@1.0.so",
+      "inode": 902,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 58616
+    },
+    {
+      "path": "/lib/vendor.samsung.hardware.audio@1.0.so",
+      "inode": 903,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 123924
+    },
+    {
+      "path": "/lib/vendor.samsung.hardware.bluetooth.a2dp@1.0.so",
+      "inode": 904,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 101140
+    },
+    {
+      "path": "/lib/vendor.samsung.hardware.bluetooth.a2dpsink@1.0.so",
+      "inode": 905,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 93868
+    },
+    {
+      "path": "/lib/vendor.samsung.hardware.bluetooth@2.0.so",
+      "inode": 906,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 61304
+    },
+    {
+      "path": "/lib/vendor.samsung.hardware.camera.device@5.0-impl.so",
+      "inode": 907,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 195304
+    },
+    {
+      "path": "/lib/vendor.samsung.hardware.camera.device@5.0.so",
+      "inode": 908,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 234188
+    },
+    {
+      "path": "/lib/vendor.samsung.hardware.camera.provider@4.0-legacy.so",
+      "inode": 909,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 164032
+    },
+    {
+      "path": "/lib/vendor.samsung.hardware.camera.provider@4.0.so",
+      "inode": 910,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 80548
+    },
+    {
+      "path": "/lib/vendor.samsung.hardware.gnss@2.0.so",
+      "inode": 911,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 226060
+    },
+    {
+      "path": "/lib/vendor.samsung.hardware.health@2.0.so",
+      "inode": 912,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 120024
+    },
+    {
+      "path": "/lib/vendor.samsung.hardware.hqm@1.0.so",
+      "inode": 913,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 56588
+    },
+    {
+      "path": "/lib/vendor.samsung.hardware.hyper-V1-ndk_platform.so",
+      "inode": 914,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 25044
+    },
+    {
+      "path": "/lib/vendor.samsung.hardware.light-V1-ndk_platform.so",
+      "inode": 915,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 22856
+    },
+    {
+      "path": "/lib/vendor.samsung.hardware.miscpower@2.0.so",
+      "inode": 916,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 52164
+    },
+    {
+      "path": "/lib/vendor.samsung.hardware.radio.bridge@2.0.so",
+      "inode": 917,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 121576
+    },
+    {
+      "path": "/lib/vendor.samsung.hardware.radio@2.0.so",
+      "inode": 918,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 386020
+    },
+    {
+      "path": "/lib/vendor.samsung.hardware.radio@2.1.so",
+      "inode": 919,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 310788
+    },
+    {
+      "path": "/lib/vendor.samsung.hardware.security.drk@2.0.so",
+      "inode": 920,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 53896
+    },
+    {
+      "path": "/lib/vendor.samsung.hardware.security.engmode@1.0.so",
+      "inode": 921,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 110668
+    },
+    {
+      "path": "/lib/vendor.samsung.hardware.security.proca@2.0.so",
+      "inode": 922,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 53884
+    },
+    {
+      "path": "/lib/vendor.samsung.hardware.security.securestorage@3.0.so",
+      "inode": 923,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 72536
+    },
+    {
+      "path": "/lib/vendor.samsung.hardware.security.vaultkeeper@2.0.so",
+      "inode": 924,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 84412
+    },
+    {
+      "path": "/lib/vendor.samsung.hardware.security.widevine.keyprov@1.0.so",
+      "inode": 925,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 56812
+    },
+    {
+      "path": "/lib/vendor.samsung.hardware.snap@1.0.so",
+      "inode": 926,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 79836
+    },
+    {
+      "path": "/lib/vendor.samsung.hardware.snap@1.1.so",
+      "inode": 927,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 71916
+    },
+    {
+      "path": "/lib/vendor.samsung.hardware.snap@1.2.so",
+      "inode": 928,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 102052
+    },
+    {
+      "path": "/lib/vendor.samsung.hardware.sysinput@1.0.so",
+      "inode": 929,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 81352
+    },
+    {
+      "path": "/lib/vendor.samsung.hardware.sysinput@1.1.so",
+      "inode": 930,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 76136
+    },
+    {
+      "path": "/lib/vendor.samsung.hardware.thermal@1.0.so",
+      "inode": 931,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 113944
+    },
+    {
+      "path": "/lib/vendor.samsung.hardware.tlc.atn@1.0-impl.so",
+      "inode": 932,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 23768
+    },
+    {
+      "path": "/lib/vendor.samsung.hardware.tlc.atn@1.0.so",
+      "inode": 933,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 61276
+    },
+    {
+      "path": "/lib/vendor.samsung.hardware.tlc.iccc@1.0-impl.so",
+      "inode": 934,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 21052
+    },
+    {
+      "path": "/lib/vendor.samsung.hardware.tlc.iccc@1.0.so",
+      "inode": 935,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 68636
+    },
+    {
+      "path": "/lib/vendor.samsung.hardware.tlc.tima@1.0-impl.so",
+      "inode": 936,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 26152
+    },
+    {
+      "path": "/lib/vendor.samsung.hardware.tlc.tima@1.0.so",
+      "inode": 937,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 57828
+    },
+    {
+      "path": "/lib/vendor.samsung.hardware.tlc.tima@1.1-impl.so",
+      "inode": 938,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 54340
+    },
+    {
+      "path": "/lib/vendor.samsung.hardware.tlc.tima@1.1.so",
+      "inode": 939,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 104888
+    },
+    {
+      "path": "/lib/vendor.samsung.hardware.tlc.ucm@2.0-impl.so",
+      "inode": 940,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 22848
+    },
+    {
+      "path": "/lib/vendor.samsung.hardware.tlc.ucm@2.0.so",
+      "inode": 941,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 83192
+    },
+    {
+      "path": "/lib/vendor.samsung.hardware.wifi.hostapd@3.0.so",
+      "inode": 942,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 117152
+    },
+    {
+      "path": "/lib/vendor.samsung.hardware.wifi.supplicant@3.0.so",
+      "inode": 943,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 382520
+    },
+    {
+      "path": "/lib/vendor.samsung.hardware.wifi@2.0.so",
+      "inode": 944,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 72996
+    },
+    {
+      "path": "/lib/vendor.samsung.hardware.wifi@2.1.so",
+      "inode": 945,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 66488
+    },
+    {
+      "path": "/lib/vendor.samsung_slsi.hardware.ExynosA2DPOffload@3.0.so",
+      "inode": 946,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 86044
+    },
+    {
+      "path": "/lib/vendor.samsung_slsi.hardware.ExynosHWCServiceTW@1.0.so",
+      "inode": 947,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 90876
+    },
+    {
+      "path": "/lib/vendor.samsung_slsi.hardware.configstore@1.0.so",
+      "inode": 948,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 81540
+    },
+    {
+      "path": "/lib/vendor.trustonic.tee@1.0.so",
+      "inode": 949,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 139928
+    },
+    {
+      "path": "/lib/vendor.trustonic.teeregistry@1.0.so",
+      "inode": 950,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 84324
+    },
+    {
+      "path": "/lib/vintf-codecsolution-V1-ndk_platform.so",
+      "inode": 951,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 33820
+    },
+    {
+      "path": "/lib/vndk",
+      "inode": 952,
+      "mode": "040755",
+      "uid": 0,
+      "gid": 2000,
+      "size": null
+    },
+    {
+      "path": "/lib/vndk/libaudioroute.so",
+      "inode": 953,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 23512
+    },
+    {
+      "path": "/lib/vndk/libstagefright_foundation.so",
+      "inode": 954,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 121436
+    },
+    {
+      "path": "/lib/vndk/libtinyalsa.so",
+      "inode": 955,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 20824
+    },
+    {
+      "path": "/lib64",
+      "inode": 6897,
+      "mode": "040755",
+      "uid": 0,
+      "gid": 2000,
+      "size": null
+    },
+    {
+      "path": "/lib64/egl",
+      "inode": 1072,
+      "mode": "040755",
+      "uid": 0,
+      "gid": 2000,
+      "size": null
+    },
+    {
+      "path": "/lib64/egl/libGLES_mali.so",
+      "inode": 1073,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 52100080
+    },
+    {
+      "path": "/lib64/hw",
+      "inode": 1074,
+      "mode": "040755",
+      "uid": 0,
+      "gid": 2000,
+      "size": null
+    },
+    {
+      "path": "/lib64/hw/android.hardware.graphics.mapper@2.0-impl.so",
+      "inode": 1075,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 30584
+    },
+    {
+      "path": "/lib64/hw/android.hardware.renderscript@1.0-impl.so",
+      "inode": 1076,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 64792
+    },
+    {
+      "path": "/lib64/hw/gralloc.default.so",
+      "inode": 1077,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 20640
+    },
+    {
+      "path": "/lib64/hw/gralloc.exynos7904.so",
+      "inode": 1078,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 80040
+    },
+    {
+      "path": "/lib64/hw/memtrack.exynos7904.so",
+      "inode": 1079,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 107160
+    },
+    {
+      "path": "/lib64/hw/vulkan.universal7904.so",
+      "inode": 1080,
+      "mode": "120777",
+      "uid": 0,
+      "gid": 0,
+      "size": 33
+    },
+    {
+      "path": "/lib64/libOpenCL.so",
+      "inode": 1081,
+      "mode": "120777",
+      "uid": 0,
+      "gid": 0,
+      "size": 33
+    },
+    {
+      "path": "/lib64/libion_exynos.so",
+      "inode": 1082,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 19752
+    },
+    {
+      "path": "/lib64/libsnap_vndk.so",
+      "inode": 1083,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 2952168
+    },
+    {
+      "path": "/lost+found",
+      "inode": 11,
+      "mode": "040700",
+      "uid": 0,
+      "gid": 0,
+      "size": null
+    },
+    {
+      "path": "/odm",
+      "inode": 956,
+      "mode": "040755",
+      "uid": 0,
+      "gid": 2000,
+      "size": null
+    },
+    {
+      "path": "/odm/etc",
+      "inode": 957,
+      "mode": "040755",
+      "uid": 0,
+      "gid": 2000,
+      "size": null
+    },
+    {
+      "path": "/odm/etc/NOTICE.xml.gz",
+      "inode": 958,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 491
+    },
+    {
+      "path": "/odm/etc/build.prop",
+      "inode": 959,
+      "mode": "100600",
+      "uid": 0,
+      "gid": 0,
+      "size": 867
+    },
+    {
+      "path": "/odm/etc/group",
+      "inode": 960,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 0
+    },
+    {
+      "path": "/odm/etc/passwd",
+      "inode": 961,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 0
+    },
+    {
+      "path": "/overlay",
+      "inode": 962,
+      "mode": "040755",
+      "uid": 0,
+      "gid": 2000,
+      "size": null
+    },
+    {
+      "path": "/overlay/AccentColorBlack",
+      "inode": 963,
+      "mode": "040755",
+      "uid": 0,
+      "gid": 2000,
+      "size": null
+    },
+    {
+      "path": "/overlay/AccentColorBlack/AccentColorBlackOverlay.apk",
+      "inode": 964,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 12775
+    },
+    {
+      "path": "/overlay/AccentColorCinnamon",
+      "inode": 965,
+      "mode": "040755",
+      "uid": 0,
+      "gid": 2000,
+      "size": null
+    },
+    {
+      "path": "/overlay/AccentColorCinnamon/AccentColorCinnamonOverlay.apk",
+      "inode": 966,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 12775
+    },
+    {
+      "path": "/overlay/AccentColorGreen",
+      "inode": 967,
+      "mode": "040755",
+      "uid": 0,
+      "gid": 2000,
+      "size": null
+    },
+    {
+      "path": "/overlay/AccentColorGreen/AccentColorGreenOverlay.apk",
+      "inode": 968,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 12775
+    },
+    {
+      "path": "/overlay/AccentColorOcean",
+      "inode": 969,
+      "mode": "040755",
+      "uid": 0,
+      "gid": 2000,
+      "size": null
+    },
+    {
+      "path": "/overlay/AccentColorOcean/AccentColorOceanOverlay.apk",
+      "inode": 970,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 12775
+    },
+    {
+      "path": "/overlay/AccentColorOrchid",
+      "inode": 971,
+      "mode": "040755",
+      "uid": 0,
+      "gid": 2000,
+      "size": null
+    },
+    {
+      "path": "/overlay/AccentColorOrchid/AccentColorOrchidOverlay.apk",
+      "inode": 972,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 12775
+    },
+    {
+      "path": "/overlay/AccentColorPurple",
+      "inode": 973,
+      "mode": "040755",
+      "uid": 0,
+      "gid": 2000,
+      "size": null
+    },
+    {
+      "path": "/overlay/AccentColorPurple/AccentColorPurpleOverlay.apk",
+      "inode": 974,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 12775
+    },
+    {
+      "path": "/overlay/AccentColorSpace",
+      "inode": 975,
+      "mode": "040755",
+      "uid": 0,
+      "gid": 2000,
+      "size": null
+    },
+    {
+      "path": "/overlay/AccentColorSpace/AccentColorSpaceOverlay.apk",
+      "inode": 976,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 12775
+    },
+    {
+      "path": "/overlay/CellBroadcastConfigOverlayPlatform.apk",
+      "inode": 977,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 49639
+    },
+    {
+      "path": "/overlay/CellBroadcastServiceOverlay.apk",
+      "inode": 978,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 12775
+    },
+    {
+      "path": "/overlay/DisplayCutoutEmulationCorner",
+      "inode": 979,
+      "mode": "040755",
+      "uid": 0,
+      "gid": 2000,
+      "size": null
+    },
+    {
+      "path": "/overlay/DisplayCutoutEmulationCorner/DisplayCutoutEmulationCornerOverlay.apk",
+      "inode": 980,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 25063
+    },
+    {
+      "path": "/overlay/DisplayCutoutEmulationDouble",
+      "inode": 981,
+      "mode": "040755",
+      "uid": 0,
+      "gid": 2000,
+      "size": null
+    },
+    {
+      "path": "/overlay/DisplayCutoutEmulationDouble/DisplayCutoutEmulationDoubleOverlay.apk",
+      "inode": 982,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 25063
+    },
+    {
+      "path": "/overlay/DisplayCutoutEmulationHole",
+      "inode": 983,
+      "mode": "040755",
+      "uid": 0,
+      "gid": 2000,
+      "size": null
+    },
+    {
+      "path": "/overlay/DisplayCutoutEmulationHole/DisplayCutoutEmulationHoleOverlay.apk",
+      "inode": 984,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 25063
+    },
+    {
+      "path": "/overlay/DisplayCutoutEmulationTall",
+      "inode": 985,
+      "mode": "040755",
+      "uid": 0,
+      "gid": 2000,
+      "size": null
+    },
+    {
+      "path": "/overlay/DisplayCutoutEmulationTall/DisplayCutoutEmulationTallOverlay.apk",
+      "inode": 986,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 25063
+    },
+    {
+      "path": "/overlay/DisplayCutoutEmulationWaterfall",
+      "inode": 987,
+      "mode": "040755",
+      "uid": 0,
+      "gid": 2000,
+      "size": null
+    },
+    {
+      "path": "/overlay/DisplayCutoutEmulationWaterfall/DisplayCutoutEmulationWaterfallOverlay.apk",
+      "inode": 988,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 25063
+    },
+    {
+      "path": "/overlay/FontNotoSerifSource",
+      "inode": 989,
+      "mode": "040755",
+      "uid": 0,
+      "gid": 2000,
+      "size": null
+    },
+    {
+      "path": "/overlay/FontNotoSerifSource/FontNotoSerifSourceOverlay.apk",
+      "inode": 990,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 12775
+    },
+    {
+      "path": "/overlay/GmsConfigOverlayCommon.apk",
+      "inode": 991,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 21048
+    },
+    {
+      "path": "/overlay/GmsConfigOverlayGSA.apk",
+      "inode": 992,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 12775
+    },
+    {
+      "path": "/overlay/GmsConfigOverlayPhotos.apk",
+      "inode": 993,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 12775
+    },
+    {
+      "path": "/overlay/GoogleDocumentsUIOverlay.apk",
+      "inode": 994,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 12775
+    },
+    {
+      "path": "/overlay/GooglePermissionControllerFrameworkOverlay.apk",
+      "inode": 995,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 12775
+    },
+    {
+      "path": "/overlay/GooglePermissionControllerOverlay.apk",
+      "inode": 996,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 12775
+    },
+    {
+      "path": "/overlay/IconPackCircularAndroid",
+      "inode": 997,
+      "mode": "040755",
+      "uid": 0,
+      "gid": 2000,
+      "size": null
+    },
+    {
+      "path": "/overlay/IconPackCircularAndroid/IconPackCircularAndroidOverlay.apk",
+      "inode": 998,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 88763
+    },
+    {
+      "path": "/overlay/IconPackCircularLauncher",
+      "inode": 999,
+      "mode": "040755",
+      "uid": 0,
+      "gid": 2000,
+      "size": null
+    },
+    {
+      "path": "/overlay/IconPackCircularLauncher/IconPackCircularLauncherOverlay.apk",
+      "inode": 1000,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 30534
+    },
+    {
+      "path": "/overlay/IconPackCircularSettings",
+      "inode": 1001,
+      "mode": "040755",
+      "uid": 0,
+      "gid": 2000,
+      "size": null
+    },
+    {
+      "path": "/overlay/IconPackCircularSettings/IconPackCircularSettingsOverlay.apk",
+      "inode": 1002,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 88796
+    },
+    {
+      "path": "/overlay/IconPackCircularSystemUI",
+      "inode": 1003,
+      "mode": "040755",
+      "uid": 0,
+      "gid": 2000,
+      "size": null
+    },
+    {
+      "path": "/overlay/IconPackCircularSystemUI/IconPackCircularSystemUIOverlay.apk",
+      "inode": 1004,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 70368
+    },
+    {
+      "path": "/overlay/IconPackCircularThemePicker",
+      "inode": 1005,
+      "mode": "040755",
+      "uid": 0,
+      "gid": 2000,
+      "size": null
+    },
+    {
+      "path": "/overlay/IconPackCircularThemePicker/IconPackCircularThemePickerOverlay.apk",
+      "inode": 1006,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 21868
+    },
+    {
+      "path": "/overlay/IconPackFilledAndroid",
+      "inode": 1007,
+      "mode": "040755",
+      "uid": 0,
+      "gid": 2000,
+      "size": null
+    },
+    {
+      "path": "/overlay/IconPackFilledAndroid/IconPackFilledAndroidOverlay.apk",
+      "inode": 1008,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 76000
+    },
+    {
+      "path": "/overlay/IconPackFilledLauncher",
+      "inode": 1009,
+      "mode": "040755",
+      "uid": 0,
+      "gid": 2000,
+      "size": null
+    },
+    {
+      "path": "/overlay/IconPackFilledLauncher/IconPackFilledLauncherOverlay.apk",
+      "inode": 1010,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 26438
+    },
+    {
+      "path": "/overlay/IconPackFilledSettings",
+      "inode": 1011,
+      "mode": "040755",
+      "uid": 0,
+      "gid": 2000,
+      "size": null
+    },
+    {
+      "path": "/overlay/IconPackFilledSettings/IconPackFilledSettingsOverlay.apk",
+      "inode": 1012,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 80604
+    },
+    {
+      "path": "/overlay/IconPackFilledSystemUI",
+      "inode": 1013,
+      "mode": "040755",
+      "uid": 0,
+      "gid": 2000,
+      "size": null
+    },
+    {
+      "path": "/overlay/IconPackFilledSystemUI/IconPackFilledSystemUIOverlay.apk",
+      "inode": 1014,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 62176
+    },
+    {
+      "path": "/overlay/IconPackFilledThemePicker",
+      "inode": 1015,
+      "mode": "040755",
+      "uid": 0,
+      "gid": 2000,
+      "size": null
+    },
+    {
+      "path": "/overlay/IconPackFilledThemePicker/IconPackFilledThemePickerOverlay.apk",
+      "inode": 1016,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 21868
+    },
+    {
+      "path": "/overlay/IconPackRoundedAndroid",
+      "inode": 1017,
+      "mode": "040755",
+      "uid": 0,
+      "gid": 2000,
+      "size": null
+    },
+    {
+      "path": "/overlay/IconPackRoundedAndroid/IconPackRoundedAndroidOverlay.apk",
+      "inode": 1018,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 80096
+    },
+    {
+      "path": "/overlay/IconPackRoundedLauncher",
+      "inode": 1019,
+      "mode": "040755",
+      "uid": 0,
+      "gid": 2000,
+      "size": null
+    },
+    {
+      "path": "/overlay/IconPackRoundedLauncher/IconPackRoundedLauncherOverlay.apk",
+      "inode": 1020,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 30534
+    },
+    {
+      "path": "/overlay/IconPackRoundedSettings",
+      "inode": 1021,
+      "mode": "040755",
+      "uid": 0,
+      "gid": 2000,
+      "size": null
+    },
+    {
+      "path": "/overlay/IconPackRoundedSettings/IconPackRoundedSettingsOverlay.apk",
+      "inode": 1022,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 88796
+    },
+    {
+      "path": "/overlay/IconPackRoundedSystemUI",
+      "inode": 1023,
+      "mode": "040755",
+      "uid": 0,
+      "gid": 2000,
+      "size": null
+    },
+    {
+      "path": "/overlay/IconPackRoundedSystemUI/IconPackRoundedSystemUIOverlay.apk",
+      "inode": 1024,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 66272
+    },
+    {
+      "path": "/overlay/IconPackRoundedThemePicker",
+      "inode": 1025,
+      "mode": "040755",
+      "uid": 0,
+      "gid": 2000,
+      "size": null
+    },
+    {
+      "path": "/overlay/IconPackRoundedThemePicker/IconPackRoundedThemePickerOverlay.apk",
+      "inode": 1026,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 21868
+    },
+    {
+      "path": "/overlay/IconShapePebble",
+      "inode": 1027,
+      "mode": "040755",
+      "uid": 0,
+      "gid": 2000,
+      "size": null
+    },
+    {
+      "path": "/overlay/IconShapePebble/IconShapePebbleOverlay.apk",
+      "inode": 1028,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 12775
+    },
+    {
+      "path": "/overlay/IconShapeRoundedRect",
+      "inode": 1029,
+      "mode": "040755",
+      "uid": 0,
+      "gid": 2000,
+      "size": null
+    },
+    {
+      "path": "/overlay/IconShapeRoundedRect/IconShapeRoundedRectOverlay.apk",
+      "inode": 1030,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 12775
+    },
+    {
+      "path": "/overlay/IconShapeSquircle",
+      "inode": 1031,
+      "mode": "040755",
+      "uid": 0,
+      "gid": 2000,
+      "size": null
+    },
+    {
+      "path": "/overlay/IconShapeSquircle/IconShapeSquircleOverlay.apk",
+      "inode": 1032,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 12775
+    },
+    {
+      "path": "/overlay/IconShapeTaperedRect",
+      "inode": 1033,
+      "mode": "040755",
+      "uid": 0,
+      "gid": 2000,
+      "size": null
+    },
+    {
+      "path": "/overlay/IconShapeTaperedRect/IconShapeTaperedRectOverlay.apk",
+      "inode": 1034,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 12775
+    },
+    {
+      "path": "/overlay/IconShapeTeardrop",
+      "inode": 1035,
+      "mode": "040755",
+      "uid": 0,
+      "gid": 2000,
+      "size": null
+    },
+    {
+      "path": "/overlay/IconShapeTeardrop/IconShapeTeardropOverlay.apk",
+      "inode": 1036,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 12775
+    },
+    {
+      "path": "/overlay/IconShapeVessel",
+      "inode": 1037,
+      "mode": "040755",
+      "uid": 0,
+      "gid": 2000,
+      "size": null
+    },
+    {
+      "path": "/overlay/IconShapeVessel/IconShapeVesselOverlay.apk",
+      "inode": 1038,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 12775
+    },
+    {
+      "path": "/overlay/NavigationBarMode3Button",
+      "inode": 1039,
+      "mode": "040755",
+      "uid": 0,
+      "gid": 2000,
+      "size": null
+    },
+    {
+      "path": "/overlay/NavigationBarMode3Button/NavigationBarMode3ButtonOverlay.apk",
+      "inode": 1040,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 12775
+    },
+    {
+      "path": "/overlay/NavigationBarModeGestural",
+      "inode": 1041,
+      "mode": "040755",
+      "uid": 0,
+      "gid": 2000,
+      "size": null
+    },
+    {
+      "path": "/overlay/NavigationBarModeGestural/NavigationBarModeGesturalOverlay.apk",
+      "inode": 1042,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 12775
+    },
+    {
+      "path": "/overlay/NavigationBarModeGesturalExtraWideBack",
+      "inode": 1043,
+      "mode": "040755",
+      "uid": 0,
+      "gid": 2000,
+      "size": null
+    },
+    {
+      "path": "/overlay/NavigationBarModeGesturalExtraWideBack/NavigationBarModeGesturalOverlayExtraWideBack.apk",
+      "inode": 1044,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 12775
+    },
+    {
+      "path": "/overlay/NavigationBarModeGesturalNarrowBack",
+      "inode": 1045,
+      "mode": "040755",
+      "uid": 0,
+      "gid": 2000,
+      "size": null
+    },
+    {
+      "path": "/overlay/NavigationBarModeGesturalNarrowBack/NavigationBarModeGesturalOverlayNarrowBack.apk",
+      "inode": 1046,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 12775
+    },
+    {
+      "path": "/overlay/NavigationBarModeGesturalNoHint",
+      "inode": 1047,
+      "mode": "040755",
+      "uid": 0,
+      "gid": 2000,
+      "size": null
+    },
+    {
+      "path": "/overlay/NavigationBarModeGesturalNoHint/NavigationBarModeGesturalNoHintOverlay.apk",
+      "inode": 1048,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 12775
+    },
+    {
+      "path": "/overlay/NavigationBarModeGesturalNoHintExtraWideBack",
+      "inode": 1049,
+      "mode": "040755",
+      "uid": 0,
+      "gid": 2000,
+      "size": null
+    },
+    {
+      "path": "/overlay/NavigationBarModeGesturalNoHintExtraWideBack/NavigationBarModeGesturalNoHintOverlayExtraWideBack.apk",
+      "inode": 1050,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 12775
+    },
+    {
+      "path": "/overlay/NavigationBarModeGesturalNoHintNarrowBack",
+      "inode": 1051,
+      "mode": "040755",
+      "uid": 0,
+      "gid": 2000,
+      "size": null
+    },
+    {
+      "path": "/overlay/NavigationBarModeGesturalNoHintNarrowBack/NavigationBarModeGesturalNoHintOverlayNarrowBack.apk",
+      "inode": 1052,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 12775
+    },
+    {
+      "path": "/overlay/NavigationBarModeGesturalNoHintWideBack",
+      "inode": 1053,
+      "mode": "040755",
+      "uid": 0,
+      "gid": 2000,
+      "size": null
+    },
+    {
+      "path": "/overlay/NavigationBarModeGesturalNoHintWideBack/NavigationBarModeGesturalNoHintOverlayWideBack.apk",
+      "inode": 1054,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 12775
+    },
+    {
+      "path": "/overlay/NavigationBarModeGesturalWideBack",
+      "inode": 1055,
+      "mode": "040755",
+      "uid": 0,
+      "gid": 2000,
+      "size": null
+    },
+    {
+      "path": "/overlay/NavigationBarModeGesturalWideBack/NavigationBarModeGesturalOverlayWideBack.apk",
+      "inode": 1056,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 12775
+    },
+    {
+      "path": "/overlay/NavigationBarModeSamsungGestural",
+      "inode": 1057,
+      "mode": "040755",
+      "uid": 0,
+      "gid": 2000,
+      "size": null
+    },
+    {
+      "path": "/overlay/NavigationBarModeSamsungGestural/NavigationBarModeSamsungGesturalOverlay.apk",
+      "inode": 1058,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 12775
+    },
+    {
+      "path": "/overlay/NavigationBarModeSamsungGesturalNoHint",
+      "inode": 1059,
+      "mode": "040755",
+      "uid": 0,
+      "gid": 2000,
+      "size": null
+    },
+    {
+      "path": "/overlay/NavigationBarModeSamsungGesturalNoHint/NavigationBarModeSamsungGesturalNoHintOverlay.apk",
+      "inode": 1060,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 12775
+    },
+    {
+      "path": "/overlay/SoftapOverlay",
+      "inode": 1061,
+      "mode": "040755",
+      "uid": 0,
+      "gid": 2000,
+      "size": null
+    },
+    {
+      "path": "/overlay/SoftapOverlay/SoftapOverlay.apk",
+      "inode": 1062,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 12775
+    },
+    {
+      "path": "/overlay/TetheringOverlay",
+      "inode": 1063,
+      "mode": "040755",
+      "uid": 0,
+      "gid": 2000,
+      "size": null
+    },
+    {
+      "path": "/overlay/TetheringOverlay/TetheringOverlay_NoTelephony.apk",
+      "inode": 1064,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 12775
+    },
+    {
+      "path": "/overlay/TetheringOverlay_Gsi",
+      "inode": 1065,
+      "mode": "040755",
+      "uid": 0,
+      "gid": 2000,
+      "size": null
+    },
+    {
+      "path": "/overlay/TetheringOverlay_Gsi/TetheringOverlay_Gsi.apk",
+      "inode": 1066,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 12775
+    },
+    {
+      "path": "/overlay/framework-res__auto_generated_rro_vendor.apk",
+      "inode": 1067,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 29520
+    },
+    {
+      "path": "/tima_measurement_info",
+      "inode": 1068,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 449
+    },
+    {
+      "path": "/ueventd.rc",
+      "inode": 1069,
+      "mode": "100644",
+      "uid": 0,
+      "gid": 0,
+      "size": 9696
+    }
+  ],
+  "scope_limit": "Final rebuilt package must repeat this check; external/data-provided modules and runtime loads are not measured",
+  "hardware_tested": false,
+  "flash_ready": false
+}

@@ -45,10 +45,20 @@ See experiments/kernel-socket-peer-20261106-01, uid-permission-state-20261106-01
 and network-permission-flags-20261106-02. These isolated parts do not implement
 the complete provider or constitute packet/hardware enforcement validation.
 
-New local WIP adds sparse permission-image ioctls and real IPv4/IPv6 NoInternet
-socket-creation enforcement. It is not compiled, selected or promoted. Full
-fault/authentication/legacy regressions, fresh kernel/module/audits, strict exact
-ioctl policy grants, and subsequent provider integration are required.
+The new isolated sparse permission-image and real IPv4/IPv6 NoInternet kernel
+completed exit0 (kernel-uid-permissions-build-20261107-01). Image660234ef...5559c,
+unchanged configuration, matching Gator/KUTF modules, all60343/60331 source hashes
+and1243/17 Android audits pass. Host81+124608 comparisons and44 lease regressions
+pass; actual ARM64 objects contain both create-check call sites. No runtime proof.
+The actual selected vendor image inventory1074 entries/60 init files and preserved
+diagnostic archive8194 members contain no packaged .ko/module lists; vendor init
+has no active module-load commands. Repeat this inventory on the final package.
+See experiments/kernel-uid-permissions-20261107-01 and kernel-module-inventory-20261107-02.
+
+Exact UID-image policy grants are undergoing strict production/debug compiler and
+boundary tests. New userland read/write/readback transport is local untested WIP.
+Combined permission/rule rollback, full authoritative provider, LNA/loopback/real
+metrics, VPN/IIF/DNS/CLAT/startup and final strict image/FBE/installer gates remain.
 
 ## Current build status — November 3
 

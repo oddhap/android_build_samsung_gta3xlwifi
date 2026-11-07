@@ -1,0 +1,35 @@
+{
+  "passed": true,
+  "scope": "Compare real private kernel owner-skip/non-loopback bodies with actual A17 parser/skip code.\n\nThe skb and relative byte-loading operations are fixtures, including errors and\nnonlinear-access failure. A17 relative L3 parsing is the intended semantic\nreference, not a claim that this 4.4 kernel executes modern BPF. No packets,\nfirewall hooks, metered/LNA decisions or network readiness are established.\n",
+  "passed_cases": 24,
+  "actual_android17_parse_skip_comparisons": 5774610,
+  "stderr": "",
+  "command": [
+    "cc",
+    "-std=gnu11",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-O2",
+    "-g",
+    "-fsanitize=undefined",
+    "-fno-sanitize-recover=all",
+    "-I/srv/android/artifacts/lineage-24.0-arm64/kernel-uid-permissions-build-20261107-01/non-loopback-route-host/include",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-uid-permissions-build-20261107-01/non-loopback-route-host/test.c",
+    "-o",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-uid-permissions-build-20261107-01/non-loopback-route-host/test"
+  ],
+  "inputs_sha256": {
+    "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/test-kernel-non-loopback-route24.py": "8ba5f8a14774f1bed265d8cbe8a9dbe7f7803f41f90c76444d9ba15889bb4ded",
+    "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/test-kernel-qtaguid-socket-owned.py": "59516300b405af46c972b264353c3766b5c18cf882b04ac8ba9db6f70f436459",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-uid-permissions-20261107-01/src/net/netfilter/gta3xlwifi_owner_skip.c": "8ee4cdcbef75a97001da4633ff607cac3232be57361349fb18343fb01051fec7",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-uid-permissions-20261107-01/src/include/uapi/linux/netfilter/gta3xlwifi_owner_skip.h": "966dc6938d9c2e7bf172083f10b6f380a6f8795432901ff456a2822b5cf30796",
+    "/srv/android/src/lineage-24.0-arm64/packages/modules/Connectivity/bpf/progs/netd.c": "7dc4fa02952c0268737dc9aad20a0571b55df255f878506a4db91c1d962713b6",
+    "/srv/android/src/lineage-24.0-arm64/packages/modules/Connectivity/bpf/progs/netd.h": "ae85473717243924c609f8d963d03bc2631adbba8833ae527bf611291f38ca1a",
+    "/srv/android/src/lineage-24.0-arm64/packages/modules/Connectivity/bpf/progs/bpf_net_helpers.h": "5fe981bdd5542a892c2c5cb4c3fcc968b10a93849d51699d991ea530372cbbc2",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-uid-permissions-build-20261107-01/non-loopback-route-host/include/linux/netfilter/gta3xlwifi_owner_skip.h": "966dc6938d9c2e7bf172083f10b6f380a6f8795432901ff456a2822b5cf30796",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-uid-permissions-build-20261107-01/non-loopback-route-host/test.c": "3398f3b091335768254172b58579259ae0bd9c3e9bd307ebbe8d5aef31fc24b7"
+  },
+  "hardware_tested": false,
+  "flash_ready": false
+}

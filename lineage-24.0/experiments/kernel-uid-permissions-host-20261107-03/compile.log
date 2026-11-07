@@ -1,0 +1,34 @@
+/srv/android/artifacts/lineage-24.0-arm64/kernel-uid-permissions-host-20261107-03/test.c:343:2: error: stray ‘#’ in program
+  343 | }#define PERMISSION_BIT_NO_INTERNET (1 << 2)
+      |  ^
+/srv/android/artifacts/lineage-24.0-arm64/kernel-uid-permissions-host-20261107-03/test.c:343:3: error: unknown type name ‘define’
+  343 | }#define PERMISSION_BIT_NO_INTERNET (1 << 2)
+      |   ^~~~~~
+/srv/android/artifacts/lineage-24.0-arm64/kernel-uid-permissions-host-20261107-03/test.c:343:38: error: expected declaration specifiers or ‘...’ before numeric constant
+  343 | }#define PERMISSION_BIT_NO_INTERNET (1 << 2)
+      |                                      ^
+/srv/android/artifacts/lineage-24.0-arm64/kernel-uid-permissions-host-20261107-03/test.c: In function ‘get_chunk_permissions’:
+/srv/android/artifacts/lineage-24.0-arm64/kernel-uid-permissions-host-20261107-03/test.c:345:55: error: ‘oracle_uid’ undeclared (first use in this function)
+  345 | static u32 get_chunk_permissions(u32 uid){return uid==oracle_uid?oracle_mask:0;}
+      |                                                       ^~~~~~~~~~
+/srv/android/artifacts/lineage-24.0-arm64/kernel-uid-permissions-host-20261107-03/test.c:345:55: note: each undeclared identifier is reported only once for each function it appears in
+/srv/android/artifacts/lineage-24.0-arm64/kernel-uid-permissions-host-20261107-03/test.c:345:66: error: ‘oracle_mask’ undeclared (first use in this function)
+  345 | static u32 get_chunk_permissions(u32 uid){return uid==oracle_uid?oracle_mask:0;}
+      |                                                                  ^~~~~~~~~~~
+/srv/android/artifacts/lineage-24.0-arm64/kernel-uid-permissions-host-20261107-03/test.c: In function ‘oracle’:
+/srv/android/artifacts/lineage-24.0-arm64/kernel-uid-permissions-host-20261107-03/test.c:348:65: error: ‘PERMISSION_BIT_NO_INTERNET’ undeclared (first use in this function)
+  348 | static int oracle(u32 uid){return (get_chunk_permissions(uid) & PERMISSION_BIT_NO_INTERNET)
+      |                                                                 ^~~~~~~~~~~~~~~~~~~~~~~~~~
+/srv/android/artifacts/lineage-24.0-arm64/kernel-uid-permissions-host-20261107-03/test.c: In function ‘main’:
+/srv/android/artifacts/lineage-24.0-arm64/kernel-uid-permissions-host-20261107-03/test.c:451:3: error: ‘oracle_uid’ undeclared (first use in this function); did you mean ‘oracle’?
+  451 |   oracle_uid=uids[u];oracle_mask=mask;task.uid=uids[u];
+      |   ^~~~~~~~~~
+      |   oracle
+/srv/android/artifacts/lineage-24.0-arm64/kernel-uid-permissions-host-20261107-03/test.c:451:22: error: ‘oracle_mask’ undeclared (first use in this function)
+  451 |   oracle_uid=uids[u];oracle_mask=mask;task.uid=uids[u];
+      |                      ^~~~~~~~~~~
+/srv/android/artifacts/lineage-24.0-arm64/kernel-uid-permissions-host-20261107-03/test.c: In function ‘oracle’:
+/srv/android/artifacts/lineage-24.0-arm64/kernel-uid-permissions-host-20261107-03/test.c:350:32: error: control reaches end of non-void function [-Werror=return-type]
+  350 |                    : BPF_ALLOW;}
+      |                                ^
+cc1: all warnings being treated as errors

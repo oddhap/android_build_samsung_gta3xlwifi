@@ -1,0 +1,57 @@
+{
+  "scope": "Sparse revisioned UID permission image under authenticated held lease; actual IPv4/IPv6 NoInternet create enforcement, not full network readiness",
+  "prerequisites": [
+    "kernel-socket-peer-20261106-01"
+  ],
+  "patch_sha256": "22b968a9b061eda503e2b604dadc826d5571d3dacdf3c312628e2c9abbecc65a",
+  "files": [
+    {
+      "path": "include/uapi/linux/netfilter/gta3xlwifi_uid_permissions.h",
+      "before_sha256": null,
+      "candidate_sha256": "92d572695e88845aebb03c20474c804f56cd4c39c9b22dc01c355c0d81123945"
+    },
+    {
+      "path": "include/net/gta3xlwifi_uid_permissions.h",
+      "before_sha256": null,
+      "candidate_sha256": "044d51b8bbf08437b6eb79fe5ca1e63b2bbfe8cbd59b430f1acf5c3cbe661879"
+    },
+    {
+      "path": "net/netfilter/gta3xlwifi_uid_permissions.c",
+      "before_sha256": null,
+      "candidate_sha256": "4283ae29bfc4c088179df9f18e121e21c4e8d9fdc24e1a83c4f1df05392edfe7"
+    },
+    {
+      "path": "net/netfilter/gta3xlwifi_netpolicy.c",
+      "before_sha256": "850f5f35d65bc6f4db7211a4fa15e5b2859ae90f6139edf0107fcb104db7d751",
+      "candidate_sha256": "a69c4546e48d45d81d16484868432d8cedf0d225decd4e358adbcc0a082ec2ed"
+    },
+    {
+      "path": "net/netfilter/Makefile",
+      "before_sha256": "1406e0dc5da729cd20ab523a5769414f8284996d853546b46ae69b4e9ede83a6",
+      "candidate_sha256": "5daf9b3163e62a478de70f4939728fd012dea803c7454aa4cfd1f9847ed54e16"
+    },
+    {
+      "path": "net/ipv4/af_inet.c",
+      "before_sha256": "aec5c22b2204c953c95a4bde9899df1da5fcde66b01fc06b0e9d3fb2fbb5c662",
+      "candidate_sha256": "4180d3a17dce7b7c1c2f59352eedf723f90bb382f54eaf2f1602255edc9f2c1d"
+    },
+    {
+      "path": "net/ipv6/af_inet6.c",
+      "before_sha256": "a85a6d85a5ce23dfd918517fbbafdbd60f43fb92a16c82d9d4dd4e47a9c639a5",
+      "candidate_sha256": "0dc5926b15e3775a0f1d8f4a961e866e4846cfe63fad3f7f99aaf88fa6c0d3db"
+    }
+  ],
+  "supported_runtime_capability_bits": [
+    0,
+    1,
+    2,
+    3,
+    5,
+    9,
+    12
+  ],
+  "unknown_active_capabilities_rejected": true,
+  "android_prebuilt_promoted": false,
+  "hardware_tested": false,
+  "flash_ready": false
+}

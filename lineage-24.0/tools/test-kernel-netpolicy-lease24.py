@@ -137,10 +137,17 @@ int main(void){unsigned checks=0;current=&parent;
  printf("passed_cases=%u\n",checks);
 }
 '''
+# Backward-compatible extension: this regression deliberately exercises only
+# the original four commands. New image dispatch is tested independently.
+image_header=S/'include/uapi/linux/netfilter/gta3xlwifi_uid_permissions.h'
+if image_header.exists():
+ prefix += '\n#include <linux/netfilter/gta3xlwifi_uid_permissions.h>\n#define EXPORT_SYMBOL_GPL(x)\nstatic long netpolicy_image_ioctl(struct file*f,unsigned int c,unsigned long a){(void)f;(void)c;(void)a;assert(!"legacy test entered image dispatch");return -ENOTTY;}\n'
+ tests=tests.replace('netpolicy_ioctl(&owner,0x6754,0)', 'netpolicy_ioctl(&owner,0x6757,0)')
+ exported_image=O/'include/linux/netfilter/gta3xlwifi_uid_permissions.h';exported_image.parent.mkdir(parents=True,exist_ok=True);exported_image.write_bytes(image_header.read_bytes())
 code=prefix+globals+sync+'\n'.join(m.extract(text,n) for n in names)+metadata+registration+m.extract(text,'gta3xlwifi_netpolicy_init')+tests
 # Export only this UAPI header; use the host's installed Linux ABI dependencies.
 # Adding the raw kernel UAPI tree would accidentally include unexported headers.
-exported=O/'include/linux/netfilter/gta3xlwifi_netpolicy.h';exported.parent.mkdir(parents=True);exported.write_bytes(header.read_bytes())
+exported=O/'include/linux/netfilter/gta3xlwifi_netpolicy.h';exported.parent.mkdir(parents=True,exist_ok=True);exported.write_bytes(header.read_bytes())
 (O/'test.c').write_text(code);cmd=['cc','-std=gnu11','-Wall','-Wextra','-Werror','-Wno-unused-parameter','-fsanitize=undefined','-fno-sanitize-recover=all','-pthread','-I'+str(O/'include'),str(O/'test.c'),'-o',str(O/'test')];r=subprocess.run(cmd,capture_output=True,text=True);assert r.returncode==0,r.stderr
 env=os.environ.copy();env['UBSAN_OPTIONS']='halt_on_error=1';r=subprocess.run([str(O/'test')],capture_output=True,text=True,env=env,timeout=30);assert r.returncode==0 and not r.stderr,(r.returncode,r.stdout,r.stderr)
 assert r.stdout=='passed_cases=44\n',r.stdout
