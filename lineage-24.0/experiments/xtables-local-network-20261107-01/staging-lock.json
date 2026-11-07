@@ -1,0 +1,24 @@
+{
+  "scope": "Real no-option private LNA xtables registration; not parent attachment or receive-context enforcement",
+  "project": "external/iptables",
+  "revision": "df1a07fd3d0c157a71a4c157cc728062a01032b2",
+  "prerequisites": [
+    "xtables-non-loopback-20261106-01"
+  ],
+  "kernel_prerequisite": "kernel-local-packet-20261107-01",
+  "patch_sha256": "6adadf34d81cb05e6b0bd414922ebcf423410b67dff9376cd079ff9fcbadcf8c",
+  "files": [
+    {
+      "path": "extensions/libxt_gta3xlwifi_lna.c",
+      "before_sha256": null,
+      "candidate_sha256": "058609232c024fd193cbcf04ee9bb4e7b020b2b9735f96563774e5486c76cea1"
+    },
+    {
+      "path": "include/linux/netfilter/gta3xlwifi_local_network.h",
+      "before_sha256": null,
+      "candidate_sha256": "012fc466f0616a334470e66f6a0654ca340ddcaf5b8b797f7062e12913099f5f"
+    }
+  ],
+  "active_source_changed": false,
+  "flash_ready": false
+}

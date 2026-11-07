@@ -1,0 +1,24 @@
+In file included from /srv/android/artifacts/lineage-24.0-arm64/kernel-local-packet-host-20261107-01/test.c:15:
+/srv/android/artifacts/lineage-24.0-arm64/kernel-local-packet-host-20261107-01/include/net/gta3xlwifi_packet.h:11:5: error: unknown type name ‘u8’
+   11 |     u8 ip_proto, tcp_flags, ip_version, pad;
+      |     ^~
+/srv/android/artifacts/lineage-24.0-arm64/kernel-local-packet-host-20261107-01/test.c: In function ‘main’:
+/srv/android/artifacts/lineage-24.0-arm64/kernel-local-packet-host-20261107-01/test.c:339:4: error: this ‘for’ clause does not guard... [-Werror=misleading-indentation]
+  339 |    for(unsigned b=0;b<sizeof(skb.data);b++)skb.data[b]=(b*7+proto+f)&255;skb.data[netoff]=ihl;skb.data[netoff+9]=proto;skb.data[netoff+(ihl&15)*4+13]=flags[f];compare(&skb);
+      |    ^~~
+/srv/android/artifacts/lineage-24.0-arm64/kernel-local-packet-host-20261107-01/test.c:339:74: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the ‘for’
+  339 |    for(unsigned b=0;b<sizeof(skb.data);b++)skb.data[b]=(b*7+proto+f)&255;skb.data[netoff]=ihl;skb.data[netoff+9]=proto;skb.data[netoff+(ihl&15)*4+13]=flags[f];compare(&skb);
+      |                                                                          ^~~
+/srv/android/artifacts/lineage-24.0-arm64/kernel-local-packet-host-20261107-01/test.c:343:4: error: this ‘for’ clause does not guard... [-Werror=misleading-indentation]
+  343 |    for(unsigned b=0;b<sizeof(skb.data);b++)skb.data[b]=(b*3+first+f)&255;skb.data[netoff+6]=first;skb.data[netoff+53]=f;compare(&skb);
+      |    ^~~
+/srv/android/artifacts/lineage-24.0-arm64/kernel-local-packet-host-20261107-01/test.c:343:74: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the ‘for’
+  343 |    for(unsigned b=0;b<sizeof(skb.data);b++)skb.data[b]=(b*3+first+f)&255;skb.data[netoff+6]=first;skb.data[netoff+53]=f;compare(&skb);
+      |                                                                          ^~~
+/srv/android/artifacts/lineage-24.0-arm64/kernel-local-packet-host-20261107-01/test.c:346:4: error: this ‘for’ clause does not guard... [-Werror=misleading-indentation]
+  346 |    for(unsigned b=0;b<sizeof(skb.data);b++)skb.data[b]=(b*5+proto+f)&255;skb.data[netoff+6]=ext?IPPROTO_DSTOPTS:IPPROTO_HOPOPTS;skb.data[netoff+40]=proto;skb.data[netoff+41]=len;u8 off=(u8)(40+(len+1)*8);skb.data[netoff+off+13]=flags[f];compare(&skb);
+      |    ^~~
+/srv/android/artifacts/lineage-24.0-arm64/kernel-local-packet-host-20261107-01/test.c:346:74: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the ‘for’
+  346 |    for(unsigned b=0;b<sizeof(skb.data);b++)skb.data[b]=(b*5+proto+f)&255;skb.data[netoff+6]=ext?IPPROTO_DSTOPTS:IPPROTO_HOPOPTS;skb.data[netoff+40]=proto;skb.data[netoff+41]=len;u8 off=(u8)(40+(len+1)*8);skb.data[netoff+off+13]=flags[f];compare(&skb);
+      |                                                                          ^~~
+cc1: all warnings being treated as errors

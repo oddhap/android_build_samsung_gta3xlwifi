@@ -3,8 +3,9 @@
 Design candidate only. Nothing described here is selected or implemented yet.
 The actual A17 source bound in report.json declares1000 entries for each of the
 local_net_access_map and local_net_uid_host_allowlist_map. Its host-exception
-comment says all current entries use the maximum192-bit payload prefix length;
-the main map genuinely uses longest-prefix matching. Capacity and packet-time
+comment claims only192-bit keys, but the actual Java constructor and BpfNetMaps
+producer also use64-bit UID/interface keys for wildcard remote hosts. Both host
+and main maps therefore require real longest-prefix behavior. Capacity and packet-time
 cost must be assessed against those actual limits, not guessed small tables.
 
 A possible way to use the existing verified rule/image transaction without new

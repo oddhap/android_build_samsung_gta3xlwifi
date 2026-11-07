@@ -1,0 +1,11 @@
+{
+  "scope": "Primary upstream Linux6.6 cgroup skb wrapper identity contract; not a complete legacy receive-hook implementation",
+  "url": "https://raw.githubusercontent.com/torvalds/linux/v6.6/kernel/bpf/cgroup.c",
+  "source_sha256": "2ab2670acdc58a50d146addece471140273ad63efd9912f29f301f56de5a1a59",
+  "function": "__cgroup_bpf_run_filter_skb",
+  "wrapper_temporarily_binds_supplied_full_inet_socket": true,
+  "wrapper_restores_original_socket_after_filter": true,
+  "plain_netfilter_input_socket_equivalence_unproven": true,
+  "hardware_tested": false,
+  "flash_ready": false
+}

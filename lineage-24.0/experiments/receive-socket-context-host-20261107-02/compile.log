@@ -1,0 +1,7 @@
+/srv/android/artifacts/lineage-24.0-arm64/receive-socket-context-host-20261107-02/test.c:714:30: error: ‘foreign’ defined but not used [-Werror=unused-variable]
+  714 | static struct file owner={1},foreign={2};
+      |                              ^~~~~~~
+/srv/android/artifacts/lineage-24.0-arm64/receive-socket-context-host-20261107-02/test.c:32:30: error: ‘child_pid’ defined but not used [-Werror=unused-variable]
+   32 | static struct pid parent_pid,child_pid;static struct task task={0,0,true,&parent_pid};
+      |                              ^~~~~~~~~
+cc1: all warnings being treated as errors

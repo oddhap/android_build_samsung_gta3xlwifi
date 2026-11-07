@@ -1,0 +1,57 @@
+{
+  "scope": "Exact A17 parsed packet endpoint/current route/raw UID LNA netfilter match; independent of ordinary/core/DNS policy, no parent attachment/readiness",
+  "prerequisites": [
+    "kernel-local-network-20261107-01"
+  ],
+  "patch_sha256": "e2f6b792b2b8476530300d08afb1510613dab54de70dac37bf62e6029c6795b3",
+  "files": [
+    {
+      "path": "include/net/gta3xlwifi_packet.h",
+      "before_sha256": null,
+      "candidate_sha256": "1bbf75c17eb0c7d5312a8542ecc55da1b444cd78a524f826fe030287c7b1d769"
+    },
+    {
+      "path": "net/netfilter/gta3xlwifi_packet.c",
+      "before_sha256": null,
+      "candidate_sha256": "6d24c7233acd17edcb4476ff1bf85ea90fd48f50111bf9b1040771c1c05f42b9"
+    },
+    {
+      "path": "include/uapi/linux/netfilter/gta3xlwifi_local_network.h",
+      "before_sha256": "21d123c78f6f805e97f08c138b299ad05bc867b35619e3fb4e04ba9f4da0b800",
+      "candidate_sha256": "012fc466f0616a334470e66f6a0654ca340ddcaf5b8b797f7062e12913099f5f"
+    },
+    {
+      "path": "include/net/gta3xlwifi_local_network.h",
+      "before_sha256": "3641f391a13a08c13ca4e13c1136b9f7759304a6454e590a635d54e46ae27c85",
+      "candidate_sha256": "2417969fb1c5001d811f41af6ca4f9afcc60323c4454ed48c38b1cccdf93c523"
+    },
+    {
+      "path": "net/netfilter/xt_qtaguid.c",
+      "before_sha256": "d4d6763257d04e74fb82a2053d21476faa4f6737553d625fe4b3b7e08fb36929",
+      "candidate_sha256": "5094efc55d64f8f42f08d90892c49ea47bfbbc5249457e72e3e8a2a59fc72b7d"
+    },
+    {
+      "path": "net/netfilter/gta3xlwifi_netpolicy.c",
+      "before_sha256": "da006b315e69393b8b56d72aa71a70f48f019126bd6450313dfbdce9fa2e013f",
+      "candidate_sha256": "f46f2c746cc66e94513101b877d47471290bcc07a35f6ad0e15f5666dd346b5b"
+    },
+    {
+      "path": "net/netfilter/Makefile",
+      "before_sha256": "b031a1f765efc09dd9b63fdc31fccd843952f603e52523dadb5c1494ad4a9a32",
+      "candidate_sha256": "cde9f91a70052464bab107c1ea9bf9e03331899da4cb148cc26edc378e319294"
+    }
+  ],
+  "supported_runtime_capability_bits": [
+    0,
+    1,
+    2,
+    3,
+    5,
+    9,
+    12
+  ],
+  "unknown_active_capabilities_rejected": true,
+  "android_prebuilt_promoted": false,
+  "hardware_tested": false,
+  "flash_ready": false
+}

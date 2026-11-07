@@ -1,0 +1,3 @@
+PASS: 1243 locked projects, 17 exact reviewed patches; no external alternates
+PASS: 1243 locked projects, 17 exact reviewed patches; no external alternates
+PASS actual A17 ARM32/ARM64 LNA ABI:40/32/4 bytes, offsets16/24/32, exact ioctl commands

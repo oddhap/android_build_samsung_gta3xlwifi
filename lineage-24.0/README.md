@@ -74,6 +74,27 @@ selected migrated policy exempts only literal UID0/1000, not all core appIds.
 Actual prefix tables/packet path, loopback/real metrics, VPN/IIF/DNS/CLAT/complete
 attachments and final strict image/FBE/Keymaster/installer gates remain.
 
+## Local-network kernel checkpoint — November 7
+
+Real immutable1000-entry main/host Patricia tables, exact migrated permission
+semantics and held-owner ioctls passed73 tests/787916 comparisons after adding
+explicit64-bit interface wildcard and192-bit host override coverage. The exact
+A17 parser/private match passed17 cases/2887305 parsed values/5774610 dispatches.
+Two full isolated kernels/modules/config/source audits passed; latest Image is
+9d7f49c7771883aa0d98f4dbe8147fc096b62bd0cc2c96a9859012b3682e0213.
+Actual whole ARM64 iptables has70 original plus7 private registrations, all final
+registry paths verified. Exact new ioctl policy grants passed strict production/
+debug assertions, contexts/access and boundary probes. Actual ARM32/64 wire ABI
+is40/32/4 bytes with identical command codes. All Android1243/17 audits unchanged.
+
+Receive attachment is a material open gate: an actual-C composition fixture
+reproduces that an unassociated early INPUT skb normalizes to root while the
+supplied receiving UID is denied. Modern cgroup filtering supplies that socket
+context explicitly. Plain INPUT activation is not approved; socket-aware receive
+(and egress) placement, DNS/tag/NAT/guard/accounting order must be completed.
+See experiments/receive-socket-context-20261107-01. No new kernel/network/policy
+inputs were selected into Android images and no flash candidate exists.
+
 ## Current build status — November 3
 
 The first full `target-files-package otatools` build completed exit 0 in 4h46m51s

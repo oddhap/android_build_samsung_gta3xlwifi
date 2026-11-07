@@ -108,6 +108,19 @@ int main(void){
  }
  T(gta3xlwifi_lna_blocked(10001,index,NULL,proto,port));
  struct gta3xlwifi_uid_permission_transfer clear={1,0,uid_image->revision+1,0};assert(io(GTA3XLWIFI_UID_SET_IMAGE,&clear)==0);
+
+ // Actual Java producer uses a64-bit UID/interface wildcard, not only192 hosts.
+ struct gta3xlwifi_lna_entry wide[2]={{.prefix_bits=64,.allowed=1},{.prefix_bits=192,.allowed=0}};
+ memcpy(wide[0].key,&uidval,4);memcpy(wide[0].key+4,&index,4);
+ memcpy(wide[1].key,wide[0].key,24);memcpy(wide[1].key+8,&ip,16);
+ t=tx(lna_current->revision+1,1,&deny,2,wide);T(io(GTA3XLWIFI_LNA_SET_IMAGE,&t)==0);reference_image(&deny,1,wide,2);
+ T(gta3xlwifi_lna_blocked(uidval,index,&ip,proto,port));check_decision(uidval,index,&ip,proto,port);
+ struct in6_addr other=ip;other.s6_addr[15]^=1;T(!gta3xlwifi_lna_blocked(uidval,index,&other,proto,port));check_decision(uidval,index,&other,proto,port);
+ T(gta3xlwifi_lna_blocked(uidval,index+1,&other,proto,port));check_decision(uidval,index+1,&other,proto,port);
+ T(gta3xlwifi_lna_blocked(uidval+1,index,&other,proto,port));check_decision(uidval+1,index,&other,proto,port);
+ struct in6_addr mapped={0};mapped.s6_addr[10]=mapped.s6_addr[11]=255;mapped.s6_addr[12]=192;mapped.s6_addr[15]=1;T(!gta3xlwifi_lna_blocked(uidval,index,&mapped,proto,port));check_decision(uidval,index,&mapped,proto,port);
+ wide[0].allowed=0;wide[1].allowed=1;t.revision=lna_current->revision+1;T(io(GTA3XLWIFI_LNA_SET_IMAGE,&t)==0);
+ T(!gta3xlwifi_lna_blocked(uidval,index,&ip,proto,port));T(gta3xlwifi_lna_blocked(uidval,index,&other,proto,port));check_decision(uidval,index,&ip,proto,port);check_decision(uidval,index,&other,proto,port);
  // Independent slow bit-loop oracle across compressed branch/ancestor/sibling paths.
  struct gta3xlwifi_lna_entry many[1000],hosts[1000];
  for(unsigned round=0;round<64;round++){

@@ -1,0 +1,215 @@
+--- /dev/null
++++ b/include/net/gta3xlwifi_packet.h
+@@ -0,0 +1,14 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++#ifndef _NET_GTA3XLWIFI_PACKET_H
++#define _NET_GTA3XLWIFI_PACKET_H
++#include <linux/types.h>
++#include <linux/in6.h>
++struct sk_buff;
++/* Exact A17 SkbIpPacketData layout. Parser initializes the whole output. */
++struct gta3xlwifi_packet {
++    struct in6_addr saddr, daddr;
++    __be16 sport, dport;
++    u8 ip_proto, tcp_flags, ip_version, pad;
++};
++bool gta3xlwifi_parse_packet(const struct sk_buff *skb, struct gta3xlwifi_packet *packet);
++#endif
+--- /dev/null
++++ b/net/netfilter/gta3xlwifi_packet.c
+@@ -0,0 +1,78 @@
++// SPDX-License-Identifier: GPL-2.0
++/* Exact selected A17 relative-L3 parser, not general IPv6 extension traversal. */
++#include <linux/if_ether.h>
++#include <linux/ip.h>
++#include <linux/ipv6.h>
++#include <linux/module.h>
++#include <linux/skbuff.h>
++#include <linux/string.h>
++#include <net/gta3xlwifi_packet.h>
++
++static bool gta3xlwifi_packet_read(const struct sk_buff *skb, unsigned int offset,
++                                  void *output, unsigned int length)
++{
++    if (skb_copy_bits(skb, skb_network_offset(skb) + offset, output, length)) {
++        memset(output, 0, length);
++        return false;
++    }
++    return true;
++}
++bool gta3xlwifi_parse_packet(const struct sk_buff *skb, struct gta3xlwifi_packet *packet)
++{
++    u8 protocol = 0, l4_offset = 0;
++    struct { u8 protocol, length; } extension;
++    if (!packet)
++        return false;
++    memset(packet, 0, sizeof(*packet));
++    if (!skb)
++        return false;
++    if (skb->protocol == htons(ETH_P_IP)) {
++        packet->ip_version = 4;
++        packet->saddr.s6_addr32[2] = htonl(0xffff);
++        gta3xlwifi_packet_read(skb, offsetof(struct iphdr, saddr),
++                               &packet->saddr.s6_addr32[3], 4);
++        packet->daddr.s6_addr32[2] = htonl(0xffff);
++        gta3xlwifi_packet_read(skb, offsetof(struct iphdr, daddr),
++                               &packet->daddr.s6_addr32[3], 4);
++        gta3xlwifi_packet_read(skb, offsetof(struct iphdr, protocol), &protocol, 1);
++        gta3xlwifi_packet_read(skb, 0, &l4_offset, 1);
++        if (l4_offset < 0x45 || l4_offset > 0x4f)
++            return false;
++        l4_offset = (l4_offset & 0x0f) * 4;
++    } else if (skb->protocol == htons(ETH_P_IPV6)) {
++        packet->ip_version = 6;
++        gta3xlwifi_packet_read(skb, offsetof(struct ipv6hdr, saddr), &packet->saddr, 16);
++        gta3xlwifi_packet_read(skb, offsetof(struct ipv6hdr, daddr), &packet->daddr, 16);
++        gta3xlwifi_packet_read(skb, offsetof(struct ipv6hdr, nexthdr), &protocol, 1);
++        l4_offset = sizeof(struct ipv6hdr);
++        if (protocol == IPPROTO_HOPOPTS || protocol == IPPROTO_DSTOPTS) {
++            if (gta3xlwifi_packet_read(skb, l4_offset, &extension, sizeof(extension))) {
++                protocol = extension.protocol;
++                l4_offset += (extension.length + 1) * 8; /* A17 u8 wrapping. */
++            }
++        }
++    } else {
++        return false;
++    }
++    packet->ip_proto = protocol;
++    switch (protocol) {
++    case IPPROTO_TCP:
++        gta3xlwifi_packet_read(skb, l4_offset + 13, &packet->tcp_flags, 1);
++        /* fall through */
++    case IPPROTO_DCCP:
++    case IPPROTO_UDP:
++    case IPPROTO_UDPLITE:
++    case IPPROTO_SCTP:
++        gta3xlwifi_packet_read(skb, l4_offset, &packet->sport, 2);
++        gta3xlwifi_packet_read(skb, l4_offset + 2, &packet->dport, 2);
++        break;
++    case IPPROTO_ICMP:
++    case IPPROTO_ICMPV6:
++        gta3xlwifi_packet_read(skb, l4_offset, (char *)&packet->sport + 1, 1);
++        gta3xlwifi_packet_read(skb, l4_offset + 1, (char *)&packet->dport + 1, 1);
++        break;
++    }
++    return true;
++}
++EXPORT_SYMBOL_GPL(gta3xlwifi_parse_packet);
++MODULE_LICENSE("GPL");
+--- a/include/uapi/linux/netfilter/gta3xlwifi_local_network.h
++++ b/include/uapi/linux/netfilter/gta3xlwifi_local_network.h
+@@ -9,6 +9,9 @@
+ #define GTA3XLWIFI_LNA_KEY_BITS 192U
+ /* A compiled real store primitive, NEVER complete networking readiness. */
+ #define GTA3XLWIFI_UID_CAP_LNA_STORE (1U << 3)
++#define GTA3XLWIFI_UID_CAP_LNA_MATCH (1U << 4)
++#define GTA3XLWIFI_LNA_MATCH "gta3xlwifi_lna"
++struct gta3xlwifi_lna_match { __u32 reserved; };
+ /* Canonical prefix: unused low bits/bytes are zero. Sort by prefix_bits then
+  * memcmp(key); duplicate prefixes are rejected. Native-order UID/ifindex/u16
+  * protocol, network-order address/port bytes match the actual A17 key payload.
+--- a/include/net/gta3xlwifi_local_network.h
++++ b/include/net/gta3xlwifi_local_network.h
+@@ -6,6 +6,8 @@
+ /* ONLY authenticated exclusive owner dispatch under its mutex may call ioctl.
+  * SET additionally requires the real shared gate held and readers drained.
+  */
++/* Reports actual successful private match registration, never hook readiness. */
++u32 gta3xlwifi_lna_packet_features(void);
+ long gta3xlwifi_lna_ioctl(unsigned int cmd, unsigned long arg);
+ /* UID already normalized as A17 traffic-accounting caller: raw65534 ->0.
+  * Caller supplies the parsed remote endpoint/current interface. No cache or
+--- a/net/netfilter/xt_qtaguid.c
++++ b/net/netfilter/xt_qtaguid.c
+@@ -3251,3 +3251,71 @@
+ MODULE_ALIAS("ip6t_gta3xlwifi_raw_uid");
+ MODULE_ALIAS("ipt_gta3xlwifi_raw_appid");
+ MODULE_ALIAS("ip6t_gta3xlwifi_raw_appid");
++
++/* Independent A17 LNA protection. The sole backend must put this AFTER actual
++ * ordinary/VPN/IIF decisions and the verified system-DNS exception. This match
++ * invents no DNS identity or exemption and installs no parent rules itself.
++ */
++#include <net/dst.h>
++#include <net/gta3xlwifi_packet.h>
++#include <net/gta3xlwifi_local_network.h>
++#include <uapi/linux/netfilter/gta3xlwifi_local_network.h>
++
++static bool gta3xlwifi_lna_registered;
++u32 gta3xlwifi_lna_packet_features(void)
++{
++    return READ_ONCE(gta3xlwifi_lna_registered) ? GTA3XLWIFI_UID_CAP_LNA_MATCH : 0;
++}
++static bool gta3xlwifi_lna_mt(const struct sk_buff *skb, struct xt_action_param *par)
++{
++    struct gta3xlwifi_packet packet;
++    const struct net_device *device;
++    u32 uid, if_index;
++    bool output;
++    if (!skb || !par || (par->hooknum != NF_INET_LOCAL_IN &&
++                        par->hooknum != NF_INET_LOCAL_OUT))
++        return false;
++    if (!gta3xlwifi_parse_packet(skb, &packet))
++        return false;
++    output = par->hooknum == NF_INET_LOCAL_OUT;
++    if (output) {
++        const struct dst_entry *route = skb_dst(skb);
++        device = route ? route->dev : NULL;
++    } else {
++        device = par->in;
++    }
++    if_index = device ? device->ifindex : 0;
++    uid = gta3xlwifi_raw_socket_uid(skb);
++    if (uid == 65534)
++        uid = 0; /* Exact bpf_traffic_account normalization, NOT receiver UID. */
++    return gta3xlwifi_lna_blocked(uid, if_index, output ? &packet.daddr : &packet.saddr,
++                                  packet.ip_proto, output ? packet.dport : packet.sport);
++}
++static int gta3xlwifi_lna_check(const struct xt_mtchk_param *par)
++{
++    const struct gta3xlwifi_lna_match *info = par->matchinfo;
++    if (current_user_ns() != &init_user_ns || info->reserved ||
++        (par->family != NFPROTO_IPV4 && par->family != NFPROTO_IPV6))
++        return -EINVAL;
++    return 0;
++}
++static struct xt_match gta3xlwifi_lna_reg __read_mostly = {
++    .name = GTA3XLWIFI_LNA_MATCH,
++    .revision = 0,
++    .family = NFPROTO_UNSPEC,
++    .hooks = (1 << NF_INET_LOCAL_IN) | (1 << NF_INET_LOCAL_OUT),
++    .match = gta3xlwifi_lna_mt,
++    .checkentry = gta3xlwifi_lna_check,
++    .matchsize = sizeof(struct gta3xlwifi_lna_match),
++    .me = THIS_MODULE,
++};
++static int __init gta3xlwifi_lna_init(void)
++{
++    int result = xt_register_match(&gta3xlwifi_lna_reg);
++    if (!result)
++        WRITE_ONCE(gta3xlwifi_lna_registered, true);
++    return result;
++}
++module_init(gta3xlwifi_lna_init);
++MODULE_ALIAS("ipt_gta3xlwifi_lna");
++MODULE_ALIAS("ip6t_gta3xlwifi_lna");
+--- a/net/netfilter/gta3xlwifi_netpolicy.c
++++ b/net/netfilter/gta3xlwifi_netpolicy.c
+@@ -114,7 +114,8 @@
+ 	         netpolicy_owner_pid != task_tgid(current))
+ 		ret = -EPERM;
+ 	else if (cmd == GTA3XLWIFI_UID_FEATURES)
+-		ret = gta3xlwifi_uid_permissions_features() | GTA3XLWIFI_UID_CAP_LNA_STORE;
++		ret = gta3xlwifi_uid_permissions_features() | GTA3XLWIFI_UID_CAP_LNA_STORE |
++		      gta3xlwifi_lna_packet_features();
+ 	else if ((cmd == GTA3XLWIFI_UID_SET_IMAGE || cmd == GTA3XLWIFI_LNA_SET_IMAGE) &&
+ 	         !READ_ONCE(netpolicy_held))
+ 		ret = -EBUSY;
+--- a/net/netfilter/Makefile
++++ b/net/netfilter/Makefile
+@@ -196,3 +196,5 @@
+ obj-$(CONFIG_NETFILTER_XT_MATCH_QTAGUID) += gta3xlwifi_uid_permissions.o
+ 
+ obj-$(CONFIG_NETFILTER_XT_MATCH_QTAGUID) += gta3xlwifi_local_network.o
++
++obj-$(CONFIG_NETFILTER_XT_MATCH_QTAGUID) += gta3xlwifi_packet.o
