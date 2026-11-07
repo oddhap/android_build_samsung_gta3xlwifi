@@ -1,0 +1,24 @@
+{
+  "scope": "Combined actual IPv4/IPv6 UID rule and shared permission-image primitive transaction, not full provider/readiness",
+  "project": "system/netd",
+  "prerequisites": [
+    "owner-dispatch-20261106-01",
+    "dualstack-uid-setup-20261106-01",
+    "uid-permission-transport-20261107-01"
+  ],
+  "patch_sha256": "7694d48918320fffa355ed9e446fa0c2750e4e52e7643817d3a64fdadf8158c3",
+  "files": [
+    {
+      "path": "server/Gta3xlwifiDualStackUidChains.cpp",
+      "before_sha256": "058f390a05c0622a94594d0e72662be9d45c9f4fc820ec6d6e1a70fe338a93f7",
+      "candidate_sha256": "003f83e7c54a514ee118c0a55b3957065c15988a86a0ef21bd5fee39b8693a18"
+    },
+    {
+      "path": "server/Gta3xlwifiDualStackUidChains.h",
+      "before_sha256": "d09e83c1f51e868d82126b6c53f40ddb281d75af24c081be02d5885050fa2b0c",
+      "candidate_sha256": "79370470c5a76e09f3b483af5a164ccfd9708ca3eae1bda3b5ac16b7bcd82a7f"
+    }
+  ],
+  "active_source_changed": false,
+  "flash_ready": false
+}

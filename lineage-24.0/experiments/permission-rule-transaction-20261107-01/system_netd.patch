@@ -1,0 +1,153 @@
+--- a/server/Gta3xlwifiDualStackUidChains.cpp
++++ b/server/Gta3xlwifiDualStackUidChains.cpp
+@@ -2,6 +2,7 @@
+ #include "Gta3xlwifiDualStackUidChains.h"
+ #include <cerrno>
+ #include <sstream>
++#include <utility>
+ 
+ namespace android::net::gta3xlwifi {
+ namespace {
+@@ -86,7 +87,10 @@
+ }
+ int DualStackUidChains::quarantine(int error) {
+     mLease.stop();  // The real driver rearms and drains on owner close.
+-    mSession = mCommitted = false;
++    mSession = mCommitted = mPermissionMode = false;
++    mPermissionImage.reset();
++    mPermissionRules4.clear();
++    mPermissionRules6.clear();
+     return error;
+ }
+ int DualStackUidChains::start(HookMode mode) {
+@@ -109,7 +113,7 @@
+     int result = mChains.read(family, names(expected), &actual);
+     return result ? result : actual == expected ? 0 : -EREMOTEIO;
+ }
+-int DualStackUidChains::restore(const Image& ipv4, const Image& ipv6, int originalError) {
++int DualStackUidChains::restore(const Image& ipv4, const Image& ipv6, int originalError, bool releaseCommitted) {
+     // Try BOTH families even if the first restoration fails. A failed ack can
+     // follow a committed operation; only final actual readbacks establish it.
+     const int r4 = mChains.replace(V4, ipv4);
+@@ -120,12 +124,13 @@
+     if (r4 || r6 || v4 || v6 || hooks) return quarantine(-EUCLEAN);
+     // Before the first complete commit there is no previously published update
+     // to resume. Keep the lease held rather than opening arbitrary old rules.
+-    if (mCommitted && mLease.release()) return quarantine(-EUCLEAN);
++    if (releaseCommitted && mCommitted && mLease.release()) return quarantine(-EUCLEAN);
+     return originalError;
+ }
+ int DualStackUidChains::replace(const Image& ipv4, const Image& ipv6) {
+     std::lock_guard<std::mutex> lock(mMutex);
+     if (!mSession) return -ENOTCONN;
++    if (mPermissionMode) return -EOPNOTSUPP;
+     int result = mLease.hold();
+     if (result) return quarantine(result);
+     result = verifyHooks();
+@@ -144,4 +149,68 @@
+     mCommitted = true;
+     return 0;
+ }
++int DualStackUidChains::replaceWithPermissions(const Image& ipv4, const Image& ipv6,
++        const std::vector<NetpolicyLease::PermissionEntry>& permissions) {
++    // Validate every value before HOLD or any kernel I/O. These are already
++    // canonical sparse permissions, not legacy INTERNET-positive masks.
++    int result = CheckedUidChains::validateImage(ipv4);
++    if (!result) result = CheckedUidChains::validateImage(ipv6);
++    if (result) return result;
++    if (permissions.size() > 65536) return -EINVAL;
++    for (size_t i = 0; i < permissions.size(); ++i) {
++        const auto& e = permissions[i];
++        if (e.uid < 0 || !e.permissions || (e.permissions & ~0x7fu) ||
++            (i && permissions[i - 1].uid >= e.uid)) return -EINVAL;
++    }
++    NetpolicyLease::PermissionImage next;
++    next.entries = permissions;
++    Image next4 = ipv4, next6 = ipv6;  // Allocate committed caches before any write.
++    std::lock_guard<std::mutex> lock(mMutex);
++    if (!mSession) return -ENOTCONN;
++    mPermissionMode = true;
++    result = mLease.hold();
++    if (result) return quarantine(result);
++    result = verifyHooks();
++    if (result) return quarantine(result);
++    NetpolicyLease::PermissionImage before;
++    result = mLease.readUidPermissions(&before);
++    if (result) return quarantine(result);
++    if (before.revision == UINT64_MAX) return quarantine(-EOVERFLOW);
++    Image before4, before6;
++    result = mChains.read(V4, names(ipv4), &before4);
++    if (!result) result = mChains.read(V6, names(ipv6), &before6);
++    if (result) return quarantine(result);
++    if (mPermissionImage && (before.revision != mPermissionImage->revision ||
++            before.entries != mPermissionImage->entries || before4 != mPermissionRules4 ||
++            before6 != mPermissionRules6)) return quarantine(-EUCLEAN);
++    result = mChains.replace(V4, ipv4);
++    if (!result) result = mChains.replace(V6, ipv6);
++    if (!result) result = verifyImage(V4, ipv4);
++    if (!result) result = verifyImage(V6, ipv6);
++    if (!result) result = verifyHooks();
++    if (result) {
++        const int original = result;
++        // Permission SET has not happened. Restore both actual rule images,
++        // then prove the shared table is still EXACTLY the old revision/value.
++        result = restore(before4, before6, original, false);
++        if (!mSession) return result;
++        NetpolicyLease::PermissionImage actual;
++        result = mLease.readUidPermissions(&actual);
++        if (result || actual.revision != before.revision || actual.entries != before.entries)
++            return quarantine(-EUCLEAN);
++        // Initial/unpublished before-images never justify opening the gate.
++        if (mPermissionImage && mLease.release()) return quarantine(-EUCLEAN);
++        return original;
++    }
++    result = mLease.replaceUidPermissions(before.revision, permissions, &next.revision);
++    // Any SET/readback uncertainty quarantines. Do not run firewall commands
++    // or invent a rollback after a possibly committed permission image.
++    if (result) return quarantine(-EUCLEAN);
++    if (mLease.release()) return quarantine(-EUCLEAN);
++    mPermissionImage = std::move(next);
++    mPermissionRules4 = std::move(next4);
++    mPermissionRules6 = std::move(next6);
++    mCommitted = true;
++    return 0;  // Combined UID primitives only, not a complete networking backend.
++}
+ }  // namespace android::net::gta3xlwifi
+--- a/server/Gta3xlwifiDualStackUidChains.h
++++ b/server/Gta3xlwifiDualStackUidChains.h
+@@ -2,6 +2,7 @@
+ #pragma once
+ #include "Gta3xlwifiCheckedUidChains.h"
+ #include "Gta3xlwifiNetpolicyLease.h"
++#include <optional>
+ 
+ namespace android::net::gta3xlwifi {
+ // Bounded two-family update of EXISTING owned UID chains. The complete backend
+@@ -22,17 +23,26 @@
+     // publish nothing. EUCLEAN means quarantined: unknown/failed recovery, held
+     // gate and invalid session. A new start never automatically releases it.
+     int replace(const Image& ipv4, const Image& ipv6);
++    // Full UID primitive transaction: gate both families, verify rules, then
++    // SET/readback the shared permission image LAST before opening the gate.
++    // No firewall I/O occurs after SET (NoInternet may deny control sockets).
++    // Once this mode is entered, plain replace cannot omit permission state.
++    int replaceWithPermissions(const Image& ipv4, const Image& ipv6,
++                              const std::vector<NetpolicyLease::PermissionEntry>& permissions);
+ private:
+     int prepareHooks(HookMode mode);
+     int verifyHooks();
+     int verifyImage(IptablesTarget family, const Image& expected);
+     int quarantine(int error);
+-    int restore(const Image& ipv4, const Image& ipv6, int originalError);
++    int restore(const Image& ipv4, const Image& ipv6, int originalError, bool releaseCommitted = true);
+     IptablesRestoreInterface& mKernel;
+     CheckedUidChains mChains;
+     NetpolicyLease mLease;
+     std::mutex mMutex;
+     bool mSession = false;
+     bool mCommitted = false;
++    bool mPermissionMode = false;
++    std::optional<NetpolicyLease::PermissionImage> mPermissionImage;
++    Image mPermissionRules4, mPermissionRules6;
+ };
+ }  // namespace android::net::gta3xlwifi
