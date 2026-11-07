@@ -1,0 +1,25 @@
+{
+  "passed": true,
+  "scope": "Actual complete-kernel ARM64 object disassembly verifies both inet create call sites; not runtime enforcement",
+  "inputs_sha256": {
+    "/srv/android/toolchains/aarch64-linux-android-4.9/bin/aarch64-linux-android-objdump": "ac9786f3adfeb1ad95a07a3ae6df255b729370f919da1f12e022f9510211a54c",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-uid-permissions-20261107-01/out/net/ipv4/af_inet.o": "8ec8f04c4d77765b1f7b60ae16cef627ae3c9f34de93759a69f9f08200e226da",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-uid-permissions-20261107-01/src/net/ipv4/af_inet.c": "4180d3a17dce7b7c1c2f59352eedf723f90bb382f54eaf2f1602255edc9f2c1d",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-uid-permissions-20261107-01/out/net/ipv6/af_inet6.o": "dd5f2258fc31bb9f34d151cb03e2dfa8b8036b2dfa65bcbc938c0207b65f6a49",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-uid-permissions-20261107-01/src/net/ipv6/af_inet6.c": "0dc5926b15e3775a0f1d8f4a961e866e4846cfe63fad3f7f99aaf88fa6c0d3db"
+  },
+  "inet_paths": [
+    {
+      "function": "inet_create",
+      "actual_create_check_call_relocations": 1,
+      "cleanup_and_creator_calls_present": true
+    },
+    {
+      "function": "inet6_create",
+      "actual_create_check_call_relocations": 1,
+      "cleanup_and_creator_calls_present": true
+    }
+  ],
+  "hardware_tested": false,
+  "flash_ready": false
+}

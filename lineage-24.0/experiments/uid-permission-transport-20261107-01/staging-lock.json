@@ -1,0 +1,27 @@
+{
+  "scope": "Real authenticated UID image primitive read/replace/readback in existing lease; no callback or readiness publication",
+  "project": "system/netd",
+  "revision": "fb7e47052620fd1139522e2b3d1343c8680f7c0f",
+  "prerequisite": "netpolicy-lease-transport-20261106-01",
+  "kernel_prerequisite": "kernel-uid-permissions-20261107-01",
+  "patch_sha256": "6494a60e75012d6a35ae7ed01009f77977ff85efaa3da3d2d73f95e66bf4b419",
+  "files": [
+    {
+      "path": "server/Gta3xlwifiNetpolicyLease.cpp",
+      "before_sha256": "4ad79f0d738b6573e6285b87f89fc1d7aaab09dd8998008aa50d3ee4294a0f87",
+      "candidate_sha256": "01721724568c6200ab824d1350b62fccd34648fb5ea165fcb5ae23dc44f7e0b7"
+    },
+    {
+      "path": "server/Gta3xlwifiNetpolicyLease.h",
+      "before_sha256": "fb8285a02e03db2b9c5ad719ba3b7985c99633c192e4935e213fe26b3dae69d6",
+      "candidate_sha256": "f2453a7891a1e73dbc3077efabdf7a38626838c00d5cc4f550298110e978ea09"
+    },
+    {
+      "path": "server/linux/netfilter/gta3xlwifi_uid_permissions.h",
+      "before_sha256": null,
+      "candidate_sha256": "92d572695e88845aebb03c20474c804f56cd4c39c9b22dc01c355c0d81123945"
+    }
+  ],
+  "active_source_changed": false,
+  "flash_ready": false
+}

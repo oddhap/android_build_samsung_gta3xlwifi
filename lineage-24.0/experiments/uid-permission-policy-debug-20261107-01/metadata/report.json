@@ -1,0 +1,35 @@
+{
+  "staged": true,
+  "scope": "Append exact UID-image ioctl grants to explicitly selected strict lease inputs.\n\nPreserves the Android17 platform and Samsung vendor assertion inventory and\nlegacy vendor symbols. Does not select any policy/image inputs automatically.\n",
+  "baseline": "/srv/android/artifacts/lineage-24.0-arm64/netpolicy-lease-policy-debug-20261106-01/strict/report.json",
+  "platform_original_prefix_unchanged": true,
+  "platform_candidate_sha256": "e2b3e20687f01dd3aec887ed018be98f14898642c034ac9bbeca28637ca9dbf6",
+  "assertion_constraint_records_preserved": 5881,
+  "assertion_inventory_sha256": "8a83171aef5659d5bd35845ec09d0af47b9bd5d14d78d6cccb0c135dec199458",
+  "new_ioctl_low16_codes": [
+    26452,
+    26453,
+    26454
+  ],
+  "inputs_sha256": {
+    "/srv/android/artifacts/lineage-24.0-arm64/netpolicy-lease-policy-debug-20261106-01/metadata/plat_sepolicy.cil": "1050cc8227421de4b99484b5a3ad186c514de33475ebd6203fbfb1bd5fb5849f",
+    "/srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/system/etc/selinux/mapping/30.0.cil": "61f3a8e8be06ce66629cc6f27083c9a45ad8c65877069fe176ca12f51d447c6e",
+    "/srv/android/artifacts/lineage-24.0-arm64/staged-debug-policy-20261105-04/metadata/30.0.compat.cil": "0a463f047c1ab686e30c7c2f95308edb2ecce121d7fe0e06743177f7422061a2",
+    "/srv/android/artifacts/lineage-24.0-arm64/staged-debug-policy-20261105-04/metadata/system_ext_sepolicy.cil": "f2790a162a9f22c78590b33ce30a2fd6012f87babe3afcaf874de6ab746ff0fb",
+    "/srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/system/system_ext/etc/selinux/mapping/30.0.cil": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/system/system_ext/etc/selinux/mapping/30.0.compat.cil": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/product/etc/selinux/product_sepolicy.cil": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+    "/srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/product/etc/selinux/mapping/30.0.cil": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/srv/android/artifacts/lineage-24.0-arm64/staged-debug-policy-20261105-04/metadata/vendor/etc/selinux/plat_pub_versioned.cil": "5478939b47a7980cd4abe373a0825d812c8f103f65d9d2dd8883781f39b20a6f",
+    "/srv/android/artifacts/lineage-24.0-arm64/vendor-app-data-types-20261105-02/metadata/vendor_sepolicy.cil": "7455615956ed1d316bae5b609fa24e759036478117915f497674ab74e170e161",
+    "/srv/android/artifacts/lineage-24.0-arm64/netpolicy-lease-policy-debug-20261106-01/metadata/file_contexts": "9fe5f6df60a14a0134709273668d21f05d01f524733b9a89b45ca9145c1d5287",
+    "/srv/android/artifacts/lineage-24.0-arm64/netpolicy-lease-policy-debug-20261106-01/metadata/genfs_contexts": "a37107beeb66e55e28b0d971e169c683af9c192dc47bcc26ee22dfb6d9393114",
+    "/srv/android/artifacts/lineage-24.0-arm64/netpolicy-lease-policy-debug-20261106-01/metadata/ueventd.rc": "f3b9d588a325ee9fdaf151c453457059dd6c1b098a6f4f0d1022635fd70f8747",
+    "/srv/android/artifacts/lineage-24.0-arm64/netpolicy-lease-policy-debug-20261106-01/metadata/gta3xlwifi_netpolicy.te": "af3de86884bffd24b5774edddeebc670900dcbcaf38382b6c39bcd8519d00a47",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-uid-permissions-20261107-01/src/include/uapi/linux/netfilter/gta3xlwifi_uid_permissions.h": "92d572695e88845aebb03c20474c804f56cd4c39c9b22dc01c355c0d81123945",
+    "/srv/android/artifacts/lineage-24.0-arm64/netpolicy-lease-policy-debug-20261106-01/strict/report.json": "4e1ca4c6a243a96c14ff7b8638b422f66ce1bd21613430435b8492b6bf026ddf",
+    "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/stage-uid-permission-policy24.py": "1ab4ab5582e03d09cc8b50799f39b498cdd3fa795b1ca1866b6777e13438f27f"
+  },
+  "active_policy_or_images_changed": false,
+  "flash_ready": false
+}

@@ -1,0 +1,214 @@
+--- a/server/Gta3xlwifiNetpolicyLease.cpp
++++ b/server/Gta3xlwifiNetpolicyLease.cpp
+@@ -1,6 +1,8 @@
+ // SPDX-License-Identifier: Apache-2.0
+ #include "Gta3xlwifiNetpolicyLease.h"
+ #include <linux/netfilter/gta3xlwifi_netpolicy.h>
++#include <linux/netfilter/gta3xlwifi_uid_permissions.h>
++#include <utility>
+ #include <cerrno>
+ #include <cinttypes>
+ #include <climits>
+@@ -181,4 +183,117 @@
+     std::lock_guard<std::mutex> lock(mMutex);
+     return stateLocked(output);
+ }
++int NetpolicyLease::imageErrorLocked(int error) {
++    closeLocked();  // Any kernel/protocol uncertainty rearms the leased gate.
++    return error;
++}
++int NetpolicyLease::imageCommandLocked(unsigned long request, void* argument) {
++    if (mFd < 0) return -ENOTCONN;
++    int result;
++    do { result = ioctl(mFd, request, reinterpret_cast<unsigned long>(argument)); }
++    while (result < 0 && errno == EINTR);
++    if (result == 0) return 0;
++    return imageErrorLocked(result < 0 ? (errno ? -errno : -EIO) : -EPROTO);
++}
++int NetpolicyLease::imageFeaturesLocked() {
++    if (mFd < 0) return -ENOTCONN;
++    int result;
++    do { result = ioctl(mFd, GTA3XLWIFI_UID_FEATURES, 0UL); }
++    while (result < 0 && errno == EINTR);
++    if (result < 0) return imageErrorLocked(errno ? -errno : -EIO);
++    constexpr int required = GTA3XLWIFI_UID_CAP_IMAGE | GTA3XLWIFI_UID_CAP_CREATE4 |
++                             GTA3XLWIFI_UID_CAP_CREATE6;
++    return (result & required) == required ? 0 : imageErrorLocked(-EOPNOTSUPP);
++}
++int NetpolicyLease::imageMetadataLocked(gta3xlwifi_uid_permission_transfer* metadata) {
++    gta3xlwifi_uid_permission_transfer next {};
++    next.version = GTA3XLWIFI_UID_IMAGE_VERSION;
++    int result = imageCommandLocked(GTA3XLWIFI_UID_GET_IMAGE, &next);
++    if (result) return result;
++    if (next.version != GTA3XLWIFI_UID_IMAGE_VERSION || next.entries != 0 ||
++        next.count > GTA3XLWIFI_UID_IMAGE_MAX_ENTRIES || (!next.revision && next.count))
++        return imageErrorLocked(-EPROTO);
++    *metadata = next;
++    return 0;
++}
++int NetpolicyLease::imageDataLocked(gta3xlwifi_uid_permission_transfer* metadata,
++                                  gta3xlwifi_uid_permission_entry* buffer) {
++    const auto before = *metadata;
++    metadata->entries = before.count ? reinterpret_cast<uintptr_t>(buffer) : 0;
++    const uint64_t pointer = metadata->entries;
++    int result = imageCommandLocked(GTA3XLWIFI_UID_GET_IMAGE, metadata);
++    if (result) return result;
++    if (metadata->version != before.version || metadata->revision != before.revision ||
++        metadata->count != before.count || metadata->entries != pointer)
++        return imageErrorLocked(-EPROTO);
++    for (uint32_t i = 0; i < before.count; ++i) {
++        const auto& e = buffer[i];
++        if (e.uid > GTA3XLWIFI_UID_IMAGE_MAX_UID || !e.permissions ||
++            (e.permissions & ~GTA3XLWIFI_UID_PERMISSION_MASK) ||
++            (i && buffer[i - 1].uid >= e.uid)) return imageErrorLocked(-EPROTO);
++    }
++    return 0;
++}
++int NetpolicyLease::readUidPermissions(PermissionImage* output) {
++    if (!output) return -EINVAL;
++    std::lock_guard<std::mutex> lock(mMutex);
++    int result = imageFeaturesLocked();
++    gta3xlwifi_uid_permission_transfer metadata {};
++    if (!result) result = imageMetadataLocked(&metadata);
++    if (result) return result;
++    std::vector<gta3xlwifi_uid_permission_entry> wire(metadata.count);
++    PermissionImage next;
++    next.entries.resize(metadata.count);
++    result = imageDataLocked(&metadata, wire.data());
++    if (result) return result;
++    next.revision = metadata.revision;
++    for (size_t i = 0; i < wire.size(); ++i)
++        next.entries[i] = {static_cast<int32_t>(wire[i].uid), wire[i].permissions};
++    *output = std::move(next);  // Caller output changes only after coherent validation.
++    return 0;
++}
++int NetpolicyLease::replaceUidPermissions(uint64_t expectedRevision,
++        const std::vector<PermissionEntry>& entries, uint64_t* newRevision) {
++    if (!newRevision || entries.size() > GTA3XLWIFI_UID_IMAGE_MAX_ENTRIES) return -EINVAL;
++    if (expectedRevision == UINT64_MAX) return -EOVERFLOW;
++    std::vector<gta3xlwifi_uid_permission_entry> wire(entries.size()), readback(entries.size());
++    for (size_t i = 0; i < entries.size(); ++i) {
++        const auto& e = entries[i];
++        if (e.uid < 0 || !e.permissions || (e.permissions & ~GTA3XLWIFI_UID_PERMISSION_MASK) ||
++            (i && entries[i - 1].uid >= e.uid)) return -EINVAL;
++        wire[i] = {static_cast<uint32_t>(e.uid), e.permissions};
++    }
++    std::lock_guard<std::mutex> lock(mMutex);
++    int result = imageFeaturesLocked();
++    bool held = false;
++    if (!result) result = stateLocked(&held);
++    if (result) return result;
++    if (!held) return imageErrorLocked(-EBUSY);
++    gta3xlwifi_uid_permission_transfer current {};
++    result = imageMetadataLocked(&current);
++    if (result) return result;
++    if (current.revision != expectedRevision) return imageErrorLocked(-ESTALE);
++    gta3xlwifi_uid_permission_transfer next {};
++    next.version = GTA3XLWIFI_UID_IMAGE_VERSION;
++    next.count = static_cast<uint32_t>(wire.size());
++    next.revision = expectedRevision + 1;
++    next.entries = wire.empty() ? 0 : reinterpret_cast<uintptr_t>(wire.data());
++    result = imageCommandLocked(GTA3XLWIFI_UID_SET_IMAGE, &next);
++    if (result) return result;
++    // Everything needed for readback was allocated before SET. Never release
++    // or publish merely because the write acknowledged; verify the real image.
++    result = imageMetadataLocked(&current);
++    if (result) return result;
++    if (current.revision != expectedRevision + 1 || current.count != wire.size())
++        return imageErrorLocked(-EPROTO);
++    result = imageDataLocked(&current, readback.data());
++    if (result) return result;
++    if (!wire.empty() && memcmp(wire.data(), readback.data(), wire.size() * sizeof(wire[0])))
++        return imageErrorLocked(-EPROTO);
++    result = stateLocked(&held);
++    if (result) return result;
++    if (!held) return imageErrorLocked(-EPROTO);
++    *newRevision = current.revision;
++    return 0;  // Held primitive update only, never full-network readiness.
++}
+ }  // namespace android::net::gta3xlwifi
+--- a/server/Gta3xlwifiNetpolicyLease.h
++++ b/server/Gta3xlwifiNetpolicyLease.h
+@@ -1,6 +1,11 @@
+ // SPDX-License-Identifier: Apache-2.0
+ #pragma once
+ #include <mutex>
++#include <cstdint>
++#include <vector>
++
++struct gta3xlwifi_uid_permission_transfer;
++struct gta3xlwifi_uid_permission_entry;
+ 
+ namespace android::net::gta3xlwifi {
+ // Private real-kernel lease transport, not a networking backend or readiness API.
+@@ -12,12 +17,35 @@
+     ~NetpolicyLease();
+     NetpolicyLease(const NetpolicyLease&) = delete;
+     NetpolicyLease& operator=(const NetpolicyLease&) = delete;
++    struct PermissionEntry {
++        int32_t uid;
++        uint32_t permissions;
++        bool operator==(const PermissionEntry& b) const {
++            return uid == b.uid && permissions == b.permissions;
++        }
++    };
++    struct PermissionImage {
++        uint64_t revision = 0;  // Zero means real store is not initialized.
++        std::vector<PermissionEntry> entries;
++    };
++    // Primitive I/O only. Does not release the gate or publish callback state.
++    // A sole backend transaction owner must serialize these with rule changes.
++    int readUidPermissions(PermissionImage* output);
++    int replaceUidPermissions(uint64_t expectedRevision,
++                              const std::vector<PermissionEntry>& entries,
++                              uint64_t* newRevision);
+     int start();
+     int hold();
+     int release();
+     int isHeld(bool* output);
+     void stop();
+ private:
++    int imageCommandLocked(unsigned long request, void* argument);
++    int imageFeaturesLocked();
++    int imageMetadataLocked(struct gta3xlwifi_uid_permission_transfer* metadata);
++    int imageDataLocked(struct gta3xlwifi_uid_permission_transfer* metadata,
++                        struct gta3xlwifi_uid_permission_entry* buffer);
++    int imageErrorLocked(int error);
+     int commandLocked(unsigned long request, int expected);
+     int stateLocked(bool* output);
+     int changeLocked(unsigned long request, bool held);
+--- /dev/null
++++ b/server/linux/netfilter/gta3xlwifi_uid_permissions.h
+@@ -0,0 +1,32 @@
++/* SPDX-License-Identifier: GPL-2.0 WITH Linux-syscall-note */
++#ifndef _UAPI_GTA3XLWIFI_UID_PERMISSIONS_H
++#define _UAPI_GTA3XLWIFI_UID_PERMISSIONS_H
++#include <linux/types.h>
++#include <linux/ioctl.h>
++#define GTA3XLWIFI_UID_IMAGE_VERSION 1U
++#define GTA3XLWIFI_UID_IMAGE_MAX_ENTRIES 65536U
++#define GTA3XLWIFI_UID_IMAGE_MAX_UID 0x7fffffffU
++#define GTA3XLWIFI_UID_PERMISSION_MASK 0x7fU
++#define GTA3XLWIFI_UID_NO_INTERNET (1U << 2)
++/* Support bits describe real primitives, NEVER whole-network readiness. */
++#define GTA3XLWIFI_UID_CAP_IMAGE (1U << 0)
++#define GTA3XLWIFI_UID_CAP_CREATE4 (1U << 1)
++#define GTA3XLWIFI_UID_CAP_CREATE6 (1U << 2)
++struct gta3xlwifi_uid_permission_entry {
++    __u32 uid;
++    __u32 permissions;
++};
++/* Fixed24 bytes in native/compat userspace. SET is a full sorted sparse image;
++ * revision must advance by1, or repeat an identical current image. GET with
++ * count0/entries0 probes metadata; a data read supplies that exact revision.
++ */
++struct gta3xlwifi_uid_permission_transfer {
++    __u32 version;
++    __u32 count;
++    __aligned_u64 revision;
++    __aligned_u64 entries;
++};
++#define GTA3XLWIFI_UID_FEATURES _IO('g', 0x54)
++#define GTA3XLWIFI_UID_SET_IMAGE _IOW('g', 0x55, struct gta3xlwifi_uid_permission_transfer)
++#define GTA3XLWIFI_UID_GET_IMAGE _IOWR('g', 0x56, struct gta3xlwifi_uid_permission_transfer)
++#endif

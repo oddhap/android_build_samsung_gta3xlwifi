@@ -1,0 +1,240 @@
+0000000000001fd0 <inet_create>:
+    1fd0:	a9b97bfd 	stp	x29, x30, [sp,#-112]!
+    1fd4:	7103fc5f 	cmp	w2, #0xff
+    1fd8:	910003fd 	mov	x29, sp
+    1fdc:	a90153f3 	stp	x19, x20, [sp,#16]
+    1fe0:	a9025bf5 	stp	x21, x22, [sp,#32]
+    1fe4:	a90363f7 	stp	x23, x24, [sp,#48]
+    1fe8:	a9046bf9 	stp	x25, x26, [sp,#64]
+    1fec:	f9002bfb 	str	x27, [sp,#80]
+    1ff0:	2a0203f4 	mov	w20, w2
+    1ff4:	aa0003fa 	mov	x26, x0
+    1ff8:	aa0103f6 	mov	x22, x1
+    1ffc:	2a0303f7 	mov	w23, w3
+    2000:	54001888 	b.hi	2310 <inet_create+0x340>
+    2004:	52817760 	mov	w0, #0xbbb                 	// #3003
+    2008:	94000000 	bl	0 <in_egroup_p>
+			2008: R_AARCH64_CALL26	in_egroup_p
+    200c:	340010e0 	cbz	w0, 2228 <inet_create+0x258>
+    2010:	90000015 	adrp	x21, 0 <inet_compat_ioctl>
+			2010: R_AARCH64_ADR_PREL_PG_HI21	.bss
+    2014:	90000018 	adrp	x24, 0 <inet_compat_ioctl>
+			2014: R_AARCH64_ADR_PREL_PG_HI21	.rodata.str1.8+0x1d8
+    2018:	910002b5 	add	x21, x21, #0x0
+			2018: R_AARCH64_ADD_ABS_LO12_NC	.bss
+    201c:	90000019 	adrp	x25, 0 <inet_compat_ioctl>
+			201c: R_AARCH64_ADR_PREL_PG_HI21	.rodata.str1.8+0x1b8
+    2020:	52800020 	mov	w0, #0x1                   	// #1
+    2024:	5280001b 	mov	w27, #0x0                   	// #0
+    2028:	b90002c0 	str	w0, [x22]
+    202c:	910022b5 	add	x21, x21, #0x8
+    2030:	91000318 	add	x24, x24, #0x0
+			2030: R_AARCH64_ADD_ABS_LO12_NC	.rodata.str1.8+0x1d8
+    2034:	91000339 	add	x25, x25, #0x0
+			2034: R_AARCH64_ADD_ABS_LO12_NC	.rodata.str1.8+0x1b8
+    2038:	94000000 	bl	0 <__rcu_read_lock>
+			2038: R_AARCH64_CALL26	__rcu_read_lock
+    203c:	79c00ac2 	ldrsh	w2, [x22,#4]
+    2040:	937c7c40 	sbfiz	x0, x2, #4, #32
+    2044:	8b0002a1 	add	x1, x21, x0
+    2048:	f8606ab3 	ldr	x19, [x21,x0]
+    204c:	eb13003f 	cmp	x1, x19
+    2050:	540000e1 	b.ne	206c <inet_create+0x9c>
+    2054:	140000b5 	b	2328 <inet_create+0x358>
+    2058:	34000dd4 	cbz	w20, 2210 <inet_create+0x240>
+    205c:	34000100 	cbz	w0, 207c <inet_create+0xac>
+    2060:	f9400273 	ldr	x19, [x19]
+    2064:	eb13003f 	cmp	x1, x19
+    2068:	54000bc0 	b.eq	21e0 <inet_create+0x210>
+    206c:	79402660 	ldrh	w0, [x19,#18]
+    2070:	6b00029f 	cmp	w20, w0
+    2074:	54ffff21 	b.ne	2058 <inet_create+0x88>
+    2078:	34ffff54 	cbz	w20, 2060 <inet_create+0x90>
+    207c:	6b1f02ff 	cmp	w23, wzr
+    2080:	1a9f17f8 	cset	w24, eq
+    2084:	71000c5f 	cmp	w2, #0x3
+    2088:	54000041 	b.ne	2090 <inet_create+0xc0>
+    208c:	35000e98 	cbnz	w24, 225c <inet_create+0x28c>
+    2090:	f9401260 	ldr	x0, [x19,#32]
+    2094:	f90016c0 	str	x0, [x22,#40]
+    2098:	f9400e63 	ldr	x3, [x19,#24]
+    209c:	f90037a3 	str	x3, [x29,#104]
+    20a0:	3940a273 	ldrb	w19, [x19,#40]
+    20a4:	94000000 	bl	0 <__rcu_read_unlock>
+			20a4: R_AARCH64_CALL26	__rcu_read_unlock
+    20a8:	f94037a3 	ldr	x3, [x29,#104]
+    20ac:	f9408860 	ldr	x0, [x3,#272]
+    20b0:	b4001380 	cbz	x0, 2320 <inet_create+0x350>
+    20b4:	52801802 	mov	w2, #0xc0                  	// #192
+    20b8:	aa1a03e0 	mov	x0, x26
+    20bc:	72a04802 	movk	w2, #0x240, lsl #16
+    20c0:	52800041 	mov	w1, #0x2                   	// #2
+    20c4:	2a1703e4 	mov	w4, w23
+    20c8:	94000000 	bl	0 <sk_alloc>
+			20c8: R_AARCH64_CALL26	sk_alloc
+    20cc:	aa0003f5 	mov	x21, x0
+    20d0:	b4001240 	cbz	x0, 2318 <inet_create+0x348>
+    20d4:	360000b3 	tbz	w19, #0, 20e8 <inet_create+0x118>
+    20d8:	39404ea0 	ldrb	w0, [x21,#19]
+    20dc:	52800021 	mov	w1, #0x1                   	// #1
+    20e0:	33000c20 	bfxil	w0, w1, #0, #4
+    20e4:	39004ea0 	strb	w0, [x21,#19]
+    20e8:	395602a0 	ldrb	w0, [x21,#1408]
+    20ec:	d3420a73 	ubfx	x19, x19, #2, #1
+    20f0:	331f0260 	bfi	w0, w19, #1, #1
+    20f4:	12001800 	and	w0, w0, #0x7f
+    20f8:	391602a0 	strb	w0, [x21,#1408]
+    20fc:	79c00ac1 	ldrsh	w1, [x22,#4]
+    2100:	71000c3f 	cmp	w1, #0x3
+    2104:	54000c80 	b.eq	2294 <inet_create+0x2c4>
+    2108:	b945e742 	ldr	w2, [x26,#1508]
+    210c:	aa1603e0 	mov	x0, x22
+    2110:	aa1503e1 	mov	x1, x21
+    2114:	790ad6bf 	strh	wzr, [x21,#1386]
+    2118:	6b1f005f 	cmp	w2, wzr
+    211c:	1a9f17e2 	cset	w2, eq
+    2120:	3915fea2 	strb	w2, [x21,#1407]
+    2124:	94000000 	bl	0 <sock_init_data>
+			2124: R_AARCH64_CALL26	sock_init_data
+    2128:	6b1f02ff 	cmp	w23, wzr
+    212c:	aa1503e0 	mov	x0, x21
+    2130:	1a9f07e1 	cset	w1, ne
+    2134:	94000000 	bl	0 <gta3xlwifi_socket_creator_init>
+			2134: R_AARCH64_CALL26	gta3xlwifi_socket_creator_init
+    2138:	390526b4 	strb	w20, [x21,#329]
+    213c:	f94016a2 	ldr	x2, [x21,#40]
+    2140:	90000001 	adrp	x1, 88 <inet_sock_destruct>
+			2140: R_AARCH64_ADR_PREL_PG_HI21	inet_sock_destruct
+    2144:	91000021 	add	x1, x1, #0x0
+			2144: R_AARCH64_ADD_ABS_LO12_NC	inet_sock_destruct
+    2148:	f902aaa1 	str	x1, [x21,#1360]
+    214c:	395602a0 	ldrb	w0, [x21,#1408]
+    2150:	f9404443 	ldr	x3, [x2,#136]
+    2154:	321c0000 	orr	w0, w0, #0x10
+    2158:	f902a6a3 	str	x3, [x21,#1352]
+    215c:	79401ea1 	ldrh	w1, [x21,#14]
+    2160:	12800003 	mov	w3, #0xffffffff            	// #-1
+    2164:	321a0000 	orr	w0, w0, #0x40
+    2168:	790acaa3 	strh	w3, [x21,#1380]
+    216c:	391602a0 	strb	w0, [x21,#1408]
+    2170:	52800023 	mov	w3, #0x1                   	// #1
+    2174:	b9058abf 	str	wzr, [x21,#1416]
+    2178:	3915faa3 	strb	w3, [x21,#1406]
+    217c:	f902cabf 	str	xzr, [x21,#1424]
+    2180:	39160abf 	strb	wzr, [x21,#1410]
+    2184:	340000e1 	cbz	w1, 21a0 <inet_create+0x1d0>
+    2188:	5ac00421 	rev16	w1, w1
+    218c:	790ad2a1 	strh	w1, [x21,#1384]
+    2190:	aa1503e0 	mov	x0, x21
+    2194:	f9404c41 	ldr	x1, [x2,#152]
+    2198:	d63f0020 	blr	x1
+    219c:	f94016a2 	ldr	x2, [x21,#40]
+    21a0:	f9401441 	ldr	x1, [x2,#40]
+    21a4:	b40000a1 	cbz	x1, 21b8 <inet_create+0x1e8>
+    21a8:	aa1503e0 	mov	x0, x21
+    21ac:	d63f0020 	blr	x1
+    21b0:	2a0003f3 	mov	w19, w0
+    21b4:	350009a0 	cbnz	w0, 22e8 <inet_create+0x318>
+    21b8:	52800013 	mov	w19, #0x0                   	// #0
+    21bc:	35000898 	cbnz	w24, 22cc <inet_create+0x2fc>
+    21c0:	2a1303e0 	mov	w0, w19
+    21c4:	f9402bfb 	ldr	x27, [sp,#80]
+    21c8:	a94153f3 	ldp	x19, x20, [sp,#16]
+    21cc:	a9425bf5 	ldp	x21, x22, [sp,#32]
+    21d0:	a94363f7 	ldp	x23, x24, [sp,#48]
+    21d4:	a9446bf9 	ldp	x25, x26, [sp,#64]
+    21d8:	a8c77bfd 	ldp	x29, x30, [sp],#112
+    21dc:	d65f03c0 	ret
+    21e0:	12800b93 	mov	w19, #0xffffffa3            	// #-93
+    21e4:	71000b7f 	cmp	w27, #0x2
+    21e8:	54000440 	b.eq	2270 <inet_create+0x2a0>
+    21ec:	94000000 	bl	0 <__rcu_read_unlock>
+			21ec: R_AARCH64_CALL26	__rcu_read_unlock
+    21f0:	340005fb 	cbz	w27, 22ac <inet_create+0x2dc>
+    21f4:	52800042 	mov	w2, #0x2                   	// #2
+    21f8:	aa1803e1 	mov	x1, x24
+    21fc:	2a1403e3 	mov	w3, w20
+    2200:	52800020 	mov	w0, #0x1                   	// #1
+    2204:	2a0203fb 	mov	w27, w2
+    2208:	94000000 	bl	0 <__request_module>
+			2208: R_AARCH64_CALL26	__request_module
+    220c:	17ffff8b 	b	2038 <inet_create+0x68>
+    2210:	6b1f02ff 	cmp	w23, wzr
+    2214:	2a0003f4 	mov	w20, w0
+    2218:	1a9f17f8 	cset	w24, eq
+    221c:	71000c5f 	cmp	w2, #0x3
+    2220:	54fff360 	b.eq	208c <inet_create+0xbc>
+    2224:	17ffff9b 	b	2090 <inet_create+0xc0>
+    2228:	528001a0 	mov	w0, #0xd                   	// #13
+    222c:	12800193 	mov	w19, #0xfffffff3            	// #-13
+    2230:	94000000 	bl	0 <capable>
+			2230: R_AARCH64_CALL26	capable
+    2234:	53001c00 	uxtb	w0, w0
+    2238:	35ffeec0 	cbnz	w0, 2010 <inet_create+0x40>
+    223c:	2a1303e0 	mov	w0, w19
+    2240:	f9402bfb 	ldr	x27, [sp,#80]
+    2244:	a94153f3 	ldp	x19, x20, [sp,#16]
+    2248:	a9425bf5 	ldp	x21, x22, [sp,#32]
+    224c:	a94363f7 	ldp	x23, x24, [sp,#48]
+    2250:	a9446bf9 	ldp	x25, x26, [sp,#64]
+    2254:	a8c77bfd 	ldp	x29, x30, [sp],#112
+    2258:	d65f03c0 	ret
+    225c:	528001a0 	mov	w0, #0xd                   	// #13
+    2260:	94000000 	bl	0 <capable>
+			2260: R_AARCH64_CALL26	capable
+    2264:	53001c00 	uxtb	w0, w0
+    2268:	35fff140 	cbnz	w0, 2090 <inet_create+0xc0>
+    226c:	12800013 	mov	w19, #0xffffffff            	// #-1
+    2270:	94000000 	bl	0 <__rcu_read_unlock>
+			2270: R_AARCH64_CALL26	__rcu_read_unlock
+    2274:	f9402bfb 	ldr	x27, [sp,#80]
+    2278:	2a1303e0 	mov	w0, w19
+    227c:	a94153f3 	ldp	x19, x20, [sp,#16]
+    2280:	a9425bf5 	ldp	x21, x22, [sp,#32]
+    2284:	a94363f7 	ldp	x23, x24, [sp,#48]
+    2288:	a9446bf9 	ldp	x25, x26, [sp,#64]
+    228c:	a8c77bfd 	ldp	x29, x30, [sp],#112
+    2290:	d65f03c0 	ret
+    2294:	79001eb4 	strh	w20, [x21,#14]
+    2298:	7103fe9f 	cmp	w20, #0xff
+    229c:	54fff361 	b.ne	2108 <inet_create+0x138>
+    22a0:	321d0000 	orr	w0, w0, #0x8
+    22a4:	391602a0 	strb	w0, [x21,#1408]
+    22a8:	17ffff98 	b	2108 <inet_create+0x138>
+    22ac:	79c00ac4 	ldrsh	w4, [x22,#4]
+    22b0:	aa1903e1 	mov	x1, x25
+    22b4:	52800042 	mov	w2, #0x2                   	// #2
+    22b8:	2a1403e3 	mov	w3, w20
+    22bc:	52800020 	mov	w0, #0x1                   	// #1
+    22c0:	5280003b 	mov	w27, #0x1                   	// #1
+    22c4:	94000000 	bl	0 <__request_module>
+			22c4: R_AARCH64_CALL26	__request_module
+    22c8:	17ffff5c 	b	2038 <inet_create+0x68>
+    22cc:	94000000 	bl	0 <gta3xlwifi_uid_inet_create_check>
+			22cc: R_AARCH64_CALL26	gta3xlwifi_uid_inet_create_check
+    22d0:	2a0003e1 	mov	w1, w0
+    22d4:	34fff760 	cbz	w0, 21c0 <inet_create+0x1f0>
+    22d8:	aa1503e0 	mov	x0, x21
+    22dc:	2a0103f3 	mov	w19, w1
+    22e0:	94000000 	bl	0 <sk_common_release>
+			22e0: R_AARCH64_CALL26	sk_common_release
+    22e4:	17ffffb7 	b	21c0 <inet_create+0x1f0>
+    22e8:	aa1503e0 	mov	x0, x21
+    22ec:	94000000 	bl	0 <sk_common_release>
+			22ec: R_AARCH64_CALL26	sk_common_release
+    22f0:	f9402bfb 	ldr	x27, [sp,#80]
+    22f4:	2a1303e0 	mov	w0, w19
+    22f8:	a94153f3 	ldp	x19, x20, [sp,#16]
+    22fc:	a9425bf5 	ldp	x21, x22, [sp,#32]
+    2300:	a94363f7 	ldp	x23, x24, [sp,#48]
+    2304:	a9446bf9 	ldp	x25, x26, [sp,#64]
+    2308:	a8c77bfd 	ldp	x29, x30, [sp],#112
+    230c:	d65f03c0 	ret
+    2310:	128002b3 	mov	w19, #0xffffffea            	// #-22
+    2314:	17ffffab 	b	21c0 <inet_create+0x1f0>
+    2318:	12800d13 	mov	w19, #0xffffff97            	// #-105
+    231c:	17ffffa9 	b	21c0 <inet_create+0x1f0>
+    2320:	d4210000 	brk	#0x800
+    2324:	17ffff64 	b	20b4 <inet_create+0xe4>
+    2328:	12800bb3 	mov	w19, #0xffffffa2            	// #-94
+    232c:	17ffffae 	b	21e4 <inet_create+0x214>

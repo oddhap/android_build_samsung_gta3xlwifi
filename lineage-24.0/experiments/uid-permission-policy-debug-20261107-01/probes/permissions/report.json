@@ -1,0 +1,186 @@
+{
+  "passed": true,
+  "scope": "Query actual strict compiled policy permissions using Android17 libsepol.\n\nNo policy, context, kernel, source or device input is replaced. A permission\nquery alone does not validate pathname labeling, DAC, kernel restrictions or I/O.\n",
+  "policy_sha256": "c3e26b0f00d43c08cb93d357eb3e85fe3fe7f2884a99e2bc2f9086ef77541ef0",
+  "strict_assertions_bound": true,
+  "inputs_sha256": {
+    "/srv/android/artifacts/lineage-24.0-arm64/uid-permission-policy-debug-20261107-01/strict/strict.policy": "c3e26b0f00d43c08cb93d357eb3e85fe3fe7f2884a99e2bc2f9086ef77541ef0",
+    "/srv/android/artifacts/lineage-24.0-arm64/uid-permission-policy-debug-20261107-01/strict/report.json": "f271873ec8c95a5d356b9cc5b670f938c53128db61b274db3be2c4be25976af1",
+    "/srv/android/artifacts/lineage-24.0-arm64/uid-permission-policy-debug-20261107-01/probes/queries.json": "07eaa8bb1bbbb355fea9c1fb7cf826be6db593909594395e6bef7f99665a209e",
+    "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/query-strict-policy-access.py": "f4934133ce6966ae7a332f825c73e4e817a5462e6846a94c3eaa038cce0b1e8d",
+    "/srv/android/artifacts/lineage-24.0-arm64/uid-permission-policy-debug-20261107-01/probes/permissions/query.c": "615870ea6fac89d30613a7571c744a401dd3a52e68475bdc2016cd6d4f36355d",
+    "/srv/android/src/lineage-24.0-arm64/prebuilts/clang/host/linux-x86/clang-r584948/bin/clang": "15261046b6ea9504da0ae57b9d65ebc869ab1942aecb1af2819762b9b5251957",
+    "/srv/android/src/lineage-24.0-arm64/out/soong/.intermediates/external/selinux/libsepol/libsepol/linux_glibc_x86_64_static/libsepol.a": "ca605354f68652d0ae1130ebcb713e1a31018c52e4a0e144b202421b1bdb8bd3",
+    "/srv/android/src/lineage-24.0-arm64/out/host/linux-x86/bin/sepolicy-analyze": "10cf86f3d15df9aa41a51b67430666a35ed5863e248734ca8bb6e8d5cc3488a7"
+  },
+  "queries": [
+    {
+      "source": "u:r:netd:s0",
+      "target": "u:object_r:gta3xlwifi_netpolicy_device:s0",
+      "class": "chr_file",
+      "permission": "open",
+      "expected": "allow",
+      "allowed": true,
+      "no_permissive_domains": true
+    },
+    {
+      "source": "u:r:netd:s0",
+      "target": "u:object_r:gta3xlwifi_netpolicy_device:s0",
+      "class": "chr_file",
+      "permission": "read",
+      "expected": "allow",
+      "allowed": true,
+      "no_permissive_domains": true
+    },
+    {
+      "source": "u:r:netd:s0",
+      "target": "u:object_r:gta3xlwifi_netpolicy_device:s0",
+      "class": "chr_file",
+      "permission": "getattr",
+      "expected": "allow",
+      "allowed": true,
+      "no_permissive_domains": true
+    },
+    {
+      "source": "u:r:netd:s0",
+      "target": "u:object_r:gta3xlwifi_netpolicy_device:s0",
+      "class": "chr_file",
+      "permission": "ioctl",
+      "expected": "allow",
+      "allowed": true,
+      "no_permissive_domains": true
+    },
+    {
+      "source": "u:r:netd:s0",
+      "target": "u:object_r:gta3xlwifi_netpolicy_device:s0",
+      "class": "chr_file",
+      "permission": "write",
+      "expected": "deny",
+      "allowed": false,
+      "no_permissive_domains": true
+    },
+    {
+      "source": "u:r:netd:s0",
+      "target": "u:object_r:sysfs_gta3xlwifi_netpolicy:s0",
+      "class": "file",
+      "permission": "open",
+      "expected": "allow",
+      "allowed": true,
+      "no_permissive_domains": true
+    },
+    {
+      "source": "u:r:netd:s0",
+      "target": "u:object_r:sysfs_gta3xlwifi_netpolicy:s0",
+      "class": "file",
+      "permission": "read",
+      "expected": "allow",
+      "allowed": true,
+      "no_permissive_domains": true
+    },
+    {
+      "source": "u:r:netd:s0",
+      "target": "u:object_r:sysfs_gta3xlwifi_netpolicy:s0",
+      "class": "file",
+      "permission": "getattr",
+      "expected": "allow",
+      "allowed": true,
+      "no_permissive_domains": true
+    },
+    {
+      "source": "u:r:netd:s0",
+      "target": "u:object_r:sysfs_gta3xlwifi_netpolicy:s0",
+      "class": "file",
+      "permission": "write",
+      "expected": "deny",
+      "allowed": false,
+      "no_permissive_domains": true
+    },
+    {
+      "source": "u:r:netd:s0",
+      "target": "u:object_r:sysfs:s0",
+      "class": "dir",
+      "permission": "search",
+      "expected": "allow",
+      "allowed": true,
+      "no_permissive_domains": true
+    },
+    {
+      "source": "u:r:init:s0",
+      "target": "u:object_r:sysfs_gta3xlwifi_netpolicy:s0",
+      "class": "file",
+      "permission": "read",
+      "expected": "allow",
+      "allowed": true,
+      "no_permissive_domains": true
+    },
+    {
+      "source": "u:r:init:s0",
+      "target": "u:object_r:sysfs_gta3xlwifi_netpolicy:s0",
+      "class": "file",
+      "permission": "getattr",
+      "expected": "allow",
+      "allowed": true,
+      "no_permissive_domains": true
+    },
+    {
+      "source": "u:r:init:s0",
+      "target": "u:object_r:sysfs_gta3xlwifi_netpolicy:s0",
+      "class": "file",
+      "permission": "write",
+      "expected": "deny",
+      "allowed": false,
+      "no_permissive_domains": true
+    },
+    {
+      "source": "u:r:system_server:s0",
+      "target": "u:object_r:gta3xlwifi_netpolicy_device:s0",
+      "class": "chr_file",
+      "permission": "open",
+      "expected": "deny",
+      "allowed": false,
+      "no_permissive_domains": true
+    },
+    {
+      "source": "u:r:system_server:s0",
+      "target": "u:object_r:gta3xlwifi_netpolicy_device:s0",
+      "class": "chr_file",
+      "permission": "ioctl",
+      "expected": "deny",
+      "allowed": false,
+      "no_permissive_domains": true
+    },
+    {
+      "source": "u:r:untrusted_app:s0",
+      "target": "u:object_r:gta3xlwifi_netpolicy_device:s0",
+      "class": "chr_file",
+      "permission": "open",
+      "expected": "deny",
+      "allowed": false,
+      "no_permissive_domains": true
+    },
+    {
+      "source": "u:r:untrusted_app:s0",
+      "target": "u:object_r:gta3xlwifi_netpolicy_device:s0",
+      "class": "chr_file",
+      "permission": "ioctl",
+      "expected": "deny",
+      "allowed": false,
+      "no_permissive_domains": true
+    }
+  ],
+  "compile_command": [
+    "/srv/android/src/lineage-24.0-arm64/prebuilts/clang/host/linux-x86/clang-r584948/bin/clang",
+    "-fuse-ld=lld",
+    "-std=gnu11",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-I/srv/android/src/lineage-24.0-arm64/external/selinux/libsepol/include",
+    "/srv/android/artifacts/lineage-24.0-arm64/uid-permission-policy-debug-20261107-01/probes/permissions/query.c",
+    "/srv/android/src/lineage-24.0-arm64/out/soong/.intermediates/external/selinux/libsepol/libsepol/linux_glibc_x86_64_static/libsepol.a",
+    "-o",
+    "/srv/android/artifacts/lineage-24.0-arm64/uid-permission-policy-debug-20261107-01/probes/permissions/query"
+  ],
+  "no_permissive_domains": true,
+  "hardware_tested": false
+}
