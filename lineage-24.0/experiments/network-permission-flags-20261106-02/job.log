@@ -1,0 +1,3 @@
+PASS: 1243 locked projects, 17 exact reviewed patches; no external alternates
+PASS: 1243 locked projects, 17 exact reviewed patches; no external alternates
+PASS: actual CP2A readonly UID migration/loopback metrics enabled, beta metrics disabled; both generated Java variants bound

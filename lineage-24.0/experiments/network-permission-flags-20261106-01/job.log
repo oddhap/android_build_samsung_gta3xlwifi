@@ -1,0 +1,14 @@
+PASS: 1243 locked projects, 17 exact reviewed patches; no external alternates
+PASS: 1243 locked projects, 17 exact reviewed patches; no external alternates
+Traceback (most recent call last):
+  File "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/audit-network-permission-flags24.py", line 32, in <module>
+    resolved=(T/path).resolve();assert resolved.is_relative_to(T);bind(resolved)
+  File "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/audit-network-permission-flags24.py", line 14, in bind
+    def bind(p):p=Path(p).resolve();inputs[str(p)]=sha(p)
+  File "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/audit-network-permission-flags24.py", line 13, in <lambda>
+    sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest();inputs={}
+  File "/usr/lib/python3.10/pathlib.py", line 1126, in read_bytes
+    with self.open(mode='rb') as f:
+  File "/usr/lib/python3.10/pathlib.py", line 1119, in open
+    return self._accessor.open(self, mode, buffering, encoding, errors,
+FileNotFoundError: [Errno 2] No such file or directory: '/srv/android/src/lineage-24.0-arm64/ build/release/aconfig/cp2a/com.android.tethering.flags/loopback_access_metrics_flag_values.textproto'

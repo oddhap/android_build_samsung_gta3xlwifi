@@ -1,0 +1,7 @@
+/srv/android/artifacts/lineage-24.0-arm64/kernel-socket-peer-host-20261106-01/test.c:23:36: error: ‘puts’ redeclared as different kind of symbol
+   23 | static unsigned references,lookups,puts,gets,expected_kind;
+      |                                    ^~~~
+In file included from /srv/android/artifacts/lineage-24.0-arm64/kernel-socket-peer-host-20261106-01/test.c:6:
+/usr/include/stdio.h:661:12: note: previous declaration of ‘puts’ with type ‘int(const char *)’
+  661 | extern int puts (const char *__s);
+      |            ^~~~

@@ -1,0 +1,37 @@
+{
+  "scope": "Kernel-only typed TCP/UDP tuple lookup and referenced immutable receiver UID; no packet eligibility or permission enforcement",
+  "prerequisites": [
+    "kernel-socket-creator-read-20261106-01"
+  ],
+  "patch_sha256": "8936bddce1e310dddd6bc5edaa39e2fbbd07985d714da7f0506a4d9ebd654c2f",
+  "files": [
+    {
+      "path": "net/netfilter/Makefile",
+      "before_sha256": "e9a9a24ee59296cbcc59e77c2159f3347249544f27c0677aabce397ee7a1cff1",
+      "candidate_sha256": "1406e0dc5da729cd20ab523a5769414f8284996d853546b46ae69b4e9ede83a6"
+    },
+    {
+      "path": "include/net/gta3xlwifi_socket_peer.h",
+      "before_sha256": null,
+      "candidate_sha256": "fa98dcced9f1c6594b059b6c37ad2d484ced15325fd76679a92aea5d512109e7"
+    },
+    {
+      "path": "net/netfilter/gta3xlwifi_socket_peer.c",
+      "before_sha256": null,
+      "candidate_sha256": "6ec29146f0ee5e4a62af31dbd78ce0c0820e44fd008b633a6fb2209daff3bb11"
+    }
+  ],
+  "supported_runtime_capability_bits": [
+    0,
+    1,
+    2,
+    3,
+    5,
+    9,
+    12
+  ],
+  "unknown_active_capabilities_rejected": true,
+  "android_prebuilt_promoted": false,
+  "hardware_tested": false,
+  "flash_ready": false
+}

@@ -1,0 +1,151 @@
+{
+  "passed_source_contract_checks": true,
+  "scope": "Bind selected CP2A permission/metrics flag values to actual generated Java.\n\nRead-only source/cache/generated-code audit, not runtime or readiness evidence.\nNo flags, policy inputs, maps or properties are changed.\n",
+  "project_revisions": {
+    "build/release": "c85f4aebe46714235599a9bd6430a0fe30c6e8d5",
+    "frameworks/base": "03e13d72d00d80eeba4465893dfad669e3ad3ce6",
+    "packages/modules/Connectivity": "7c04d866538e6f689823b769fb5c1e614ca0e295",
+    "system/core": "65d661b1a536701e8b118be4e9728d7b5ca727c9"
+  },
+  "inputs_sha256": {
+    "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/audit-port.py": "ebdd07fdf6ea6ef5c259d712002afeddb9e452e3ec53718d69c15f98ca98d348",
+    "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/audit-network-permission-flags24.py": "6270831c625a46e60cb64d5ab284d6072d2fe18c685d37735b3dc0b79dbc5141",
+    "/srv/android/artifacts/lineage-24.0-arm64/network-contract-20261106-02/report.json": "ae6861c800713e4c5647b4204d6bcca59a1aaaf196d156088b2bd3c31c4c423e",
+    "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/audit-network-contract24.py": "d2944a731989427f27560fa0139649b16a05c1463cf97c8c7901f38db2cabcdd",
+    "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/snapshots/port-20261106-04/port-manifest.xml": "31f142b6c2e5f04f14ed9cdecb3cd6b13716508b428ad8c86d3d3332d6a24594",
+    "/srv/android/src/lineage-24.0-arm64/out/soong/.intermediates/frameworks/base/android.permission.flags-aconfig-java/android_common/gen/android.permission.flags-aconfig-java.srcjar": "42355c3549f84eeabc1f96d28e2da1d55483eb0b6ee5608f954564c34476b0ec",
+    "/srv/android/src/lineage-24.0-arm64/build/release/aconfig/cp2a/android.permission.flags/access_local_network_permission_enabled_flag_values.textproto": "e100c3f4a27cce465503c89b7f7eacd1a14f48d93c732716ce89dc05ca291161",
+    "/srv/android/src/lineage-24.0-arm64/build/release/aconfig/cp2a/android.permission.flags/use_loopback_interface_permission_enabled_flag_values.textproto": "ac8c87327166da6f807fae41391eb0f39549e7f0b5d55cf06a2e5946138ea4d3",
+    "/srv/android/src/lineage-24.0-arm64/packages/modules/Connectivity/service/src/com/android/server/BpfNetMaps.java": "c78a90ae6352cdee00fc65a7dbd899e9f041456e8388dd5e72cab6064be47dfd",
+    "/srv/android/src/lineage-24.0-arm64/packages/modules/Connectivity/bpf/netd/NetdUpdatable.cpp": "f3f79b5e10b848539b4e00fb01056a049fa62a3552e7de0be75e9465f9af5d28",
+    "/srv/android/src/lineage-24.0-arm64/packages/modules/Connectivity/staticlibs/netd/Android.bp": "a2930e32d56a8047b73d9ad9a768fdc3c86baedd1208ca5213599f2186467c1b",
+    "/srv/android/src/lineage-24.0-arm64/frameworks/base/data/etc/platform.xml": "4609a9a312597011778f5c69d62c633cf921913da0e3434beb2bd92bd1ea1fe3",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-appid-20261106-01/out/.config": "fac42e3bbf996bb9502bb1031c91b1950986ad3586d0f33cad869a6fd0b3acea",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-appid-20261106-01/src/net/ipv4/af_inet.c": "1df3ec4f2c790c1ece676f4309b3139fe2f9f2282b8c159b9752bd11618dea27",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-appid-20261106-01/src/net/ipv6/af_inet6.c": "22f57a8b477e422aa5006fbcea4e549781336c6baec197a4718733476c3960cf",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-appid-20261106-01/src/include/linux/android_aid.h": "7780e87f97421ceca6871457d1e0d1d41fd48dcbaad203d874982c5fe128feb9",
+    "/srv/android/src/lineage-24.0-arm64/system/core/libcutils/include/private/android_filesystem_config.h": "faad70383216abcf935ec76678bb5b40ca65b6396a0028a8fa6ffe9b9087eb37",
+    "/srv/android/src/lineage-24.0-arm64/out/soong/.intermediates/packages/modules/Connectivity/common/com.android.tethering.flags-aconfig/aconfig-cache.pb": "b83f6805d58ac112da02f3b37a9a17b653972faa28cc3d44ba81e71590599a0b",
+    "/srv/android/src/lineage-24.0-arm64/out/host/linux-x86/bin/aconfig": "32c20ca002cbf29c6b4141e4749ed8281ffd73db3f240e3afa06bd6b4557101e",
+    "/srv/android/src/lineage-24.0-arm64/packages/modules/Connectivity/common/flags.aconfig": "a6773c3e61186ccd3f8643009a63b716ec845c223a9895b2879ce748feebeb82",
+    "/srv/android/src/lineage-24.0-arm64/build/release/aconfig/cp2a/com.android.tethering.flags/loopback_access_metrics_flag_values.textproto": "9b89b51774f74ee1748ee532c7a3620ee78b0b63181411f3eac6d86f65956351",
+    "/srv/android/src/lineage-24.0-arm64/build/release/aconfig/mainline_2026_02/com.android.tethering.flags/permission_map_uid_migration_flag_values.textproto": "01b241e247802deee9cbc7a553a50cdf7749a6641a6318839c4404a04636a25c",
+    "/srv/android/src/lineage-24.0-arm64/out/soong/.intermediates/packages/modules/Connectivity/common/com.android.tethering.flags-aconfig-java/android_common/gen/com.android.tethering.flags-aconfig-java.srcjar": "ef8236390d703f004b36ed18d5395fcdb7ee862efd9047a5ecaa7912d81799e1",
+    "/srv/android/src/lineage-24.0-arm64/out/soong/.intermediates/packages/modules/Connectivity/common/com.android.tethering.flags-aconfig-java/android_common_apex31/gen/com.android.tethering.flags-aconfig-java.srcjar": "ef8236390d703f004b36ed18d5395fcdb7ee862efd9047a5ecaa7912d81799e1",
+    "/srv/android/src/lineage-24.0-arm64/packages/modules/Connectivity/common/Android.bp": "fca93a79f379d185e9d5390e3a08669aa8b0ac2f6da1656f58d96b8a5181fa9e"
+  },
+  "command": [
+    "/srv/android/src/lineage-24.0-arm64/out/host/linux-x86/bin/aconfig",
+    "dump",
+    "--cache",
+    "/srv/android/src/lineage-24.0-arm64/out/soong/.intermediates/packages/modules/Connectivity/common/com.android.tethering.flags-aconfig/aconfig-cache.pb",
+    "--format",
+    "{fully_qualified_name}|{state}|{permission}|{is_fixed_read_only}|{trace:paths}",
+    "--filter",
+    "name:permission_map_uid_migration",
+    "--filter",
+    "name:loopback_access_metrics",
+    "--filter",
+    "name:collect_beta_metrics"
+  ],
+  "selected_cp2a_flags": [
+    {
+      "fully_qualified_name": "com.android.tethering.flags.collect_beta_metrics",
+      "state": "DISABLED",
+      "permission": "READ_ONLY",
+      "is_fixed_read_only": false,
+      "trace_paths": [
+        "packages/modules/Connectivity/common/flags.aconfig"
+      ],
+      "generated_getters": [
+        {
+          "srcjar": "/srv/android/src/lineage-24.0-arm64/out/soong/.intermediates/packages/modules/Connectivity/common/com.android.tethering.flags-aconfig-java/android_common/gen/com.android.tethering.flags-aconfig-java.srcjar",
+          "member": "com/android/tethering/flags/Flags.java",
+          "getter": "public static boolean collectBetaMetrics() {\n        return false;\n    }",
+          "returns": false
+        },
+        {
+          "srcjar": "/srv/android/src/lineage-24.0-arm64/out/soong/.intermediates/packages/modules/Connectivity/common/com.android.tethering.flags-aconfig-java/android_common_apex31/gen/com.android.tethering.flags-aconfig-java.srcjar",
+          "member": "com/android/tethering/flags/Flags.java",
+          "getter": "public static boolean collectBetaMetrics() {\n        return false;\n    }",
+          "returns": false
+        }
+      ]
+    },
+    {
+      "fully_qualified_name": "com.android.tethering.flags.loopback_access_metrics",
+      "state": "ENABLED",
+      "permission": "READ_ONLY",
+      "is_fixed_read_only": false,
+      "trace_paths": [
+        "packages/modules/Connectivity/common/flags.aconfig",
+        "build/release/aconfig/cp2a/com.android.tethering.flags/loopback_access_metrics_flag_values.textproto"
+      ],
+      "generated_getters": [
+        {
+          "srcjar": "/srv/android/src/lineage-24.0-arm64/out/soong/.intermediates/packages/modules/Connectivity/common/com.android.tethering.flags-aconfig-java/android_common/gen/com.android.tethering.flags-aconfig-java.srcjar",
+          "member": "com/android/tethering/flags/Flags.java",
+          "getter": "public static boolean loopbackAccessMetrics() {\n        return true;\n    }",
+          "returns": true
+        },
+        {
+          "srcjar": "/srv/android/src/lineage-24.0-arm64/out/soong/.intermediates/packages/modules/Connectivity/common/com.android.tethering.flags-aconfig-java/android_common_apex31/gen/com.android.tethering.flags-aconfig-java.srcjar",
+          "member": "com/android/tethering/flags/Flags.java",
+          "getter": "public static boolean loopbackAccessMetrics() {\n        return true;\n    }",
+          "returns": true
+        }
+      ]
+    },
+    {
+      "fully_qualified_name": "com.android.tethering.flags.permission_map_uid_migration",
+      "state": "ENABLED",
+      "permission": "READ_ONLY",
+      "is_fixed_read_only": false,
+      "trace_paths": [
+        "packages/modules/Connectivity/common/flags.aconfig",
+        "build/release/aconfig/mainline_2026_02/com.android.tethering.flags/permission_map_uid_migration_flag_values.textproto"
+      ],
+      "generated_getters": [
+        {
+          "srcjar": "/srv/android/src/lineage-24.0-arm64/out/soong/.intermediates/packages/modules/Connectivity/common/com.android.tethering.flags-aconfig-java/android_common/gen/com.android.tethering.flags-aconfig-java.srcjar",
+          "member": "com/android/tethering/flags/Flags.java",
+          "getter": "public static boolean permissionMapUidMigration() {\n        return true;\n    }",
+          "returns": true
+        },
+        {
+          "srcjar": "/srv/android/src/lineage-24.0-arm64/out/soong/.intermediates/packages/modules/Connectivity/common/com.android.tethering.flags-aconfig-java/android_common_apex31/gen/com.android.tethering.flags-aconfig-java.srcjar",
+          "member": "com/android/tethering/flags/Flags.java",
+          "getter": "public static boolean permissionMapUidMigration() {\n        return true;\n    }",
+          "returns": true
+        }
+      ]
+    }
+  ],
+  "platform_security_flags_reused": [
+    {
+      "name": "access_local_network_permission_enabled",
+      "package": "android.permission.flags",
+      "selected_release_value": "ENABLED",
+      "permission": "READ_ONLY",
+      "actual_generated_getter_returns": true,
+      "getter": "public static boolean accessLocalNetworkPermissionEnabled() {\n        return true;\n    }"
+    },
+    {
+      "name": "use_loopback_interface_permission_enabled",
+      "package": "android.permission.flags",
+      "selected_release_value": "ENABLED",
+      "permission": "READ_ONLY",
+      "actual_generated_getter_returns": true,
+      "getter": "public static boolean useLoopbackInterfacePermissionEnabled() {\n        return true;\n    }"
+    }
+  ],
+  "android17_permission_propagation_expected_enabled": true,
+  "uid_migration_requires_real_dynamic_no_internet_create_check": true,
+  "static_inet_group_check_is_not_complete_dynamic_permission_enforcement": true,
+  "loopback_metrics_requires_real_event_producer_and_consumer": true,
+  "beta_local_network_metrics_selected_disabled": true,
+  "runtime_or_hardware_tested": false,
+  "flags_changed": false,
+  "bpf_or_network_ready_claimed": false,
+  "flash_ready": false
+}

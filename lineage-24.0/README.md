@@ -32,6 +32,24 @@ checks are separate from Android execution. Optional GPU BPF accounting still
 reports unavailable, rather than invented counters. Existing safety/installer
 and strict SELinux checks remain enforced.
 
+## Current isolated networking checkpoint — November 7
+
+The server reboot left completed results intact; SSH, idle processes and free
+build.lock were checked at14:35 UTC. Active Android inputs remain unchanged.
+Peer tuple lookup full kernel/modules/audits passed (Image04790c4..., host8+672).
+The seven-bit UID permission value passed46 cases and two1048576-comparison A17
+oracles plus actual ARM64 CFI compilation. Selected cache/generated Java flags
+confirm UID-map migration and loopback metrics are READ_ONLY ENABLED. Dynamic
+NoInternet, LNA, cross-profile loopback and real metrics remain required.
+See experiments/kernel-socket-peer-20261106-01, uid-permission-state-20261106-01
+and network-permission-flags-20261106-02. These isolated parts do not implement
+the complete provider or constitute packet/hardware enforcement validation.
+
+New local WIP adds sparse permission-image ioctls and real IPv4/IPv6 NoInternet
+socket-creation enforcement. It is not compiled, selected or promoted. Full
+fault/authentication/legacy regressions, fresh kernel/module/audits, strict exact
+ioctl policy grants, and subsequent provider integration are required.
+
 ## Current build status — November 3
 
 The first full `target-files-package otatools` build completed exit 0 in 4h46m51s

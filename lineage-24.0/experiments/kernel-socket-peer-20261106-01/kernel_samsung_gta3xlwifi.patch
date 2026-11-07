@@ -1,0 +1,107 @@
+diff --git a/net/netfilter/Makefile b/net/netfilter/Makefile
+--- a/net/netfilter/Makefile
++++ b/net/netfilter/Makefile
+@@ -188,3 +188,6 @@
+ 
+ # Private A17 packet-exemption predicate; QTAGUID is a builtin y/n dependency.
+ obj-$(CONFIG_NETFILTER_XT_MATCH_QTAGUID) += gta3xlwifi_owner_skip.o
++
++# Private referenced socket peer identity helper; no packet hook or policy.
++obj-$(CONFIG_NETFILTER_XT_MATCH_QTAGUID) += gta3xlwifi_socket_peer.o
+diff --git a/include/net/gta3xlwifi_socket_peer.h b/include/net/gta3xlwifi_socket_peer.h
+new file mode 100644
+--- /dev/null
++++ b/include/net/gta3xlwifi_socket_peer.h
+@@ -0,0 +1,22 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++#ifndef _NET_GTA3XLWIFI_SOCKET_PEER_H
++#define _NET_GTA3XLWIFI_SOCKET_PEER_H
++#include <linux/types.h>
++#include <linux/in6.h>
++struct net;
++struct gta3xlwifi_socket_peer_tuple {
++    u16 family;
++    u8 protocol;
++    __be16 sport, dport;
++    union {
++        struct { __be32 saddr, daddr; } v4;
++        struct { struct in6_addr saddr, daddr; } v6;
++    } address;
++};
++/* Caller protects net lifetime and supplies a parsed, current packet tuple and
++ * interface index. This does NOT decide packet eligibility, permission or
++ * readiness. No result preserves output and must never be replaced with UID0.
++ */
++bool gta3xlwifi_socket_peer_uid(struct net *net, int ifindex,
++    const struct gta3xlwifi_socket_peer_tuple *tuple, u32 *uid);
++#endif
+diff --git a/net/netfilter/gta3xlwifi_socket_peer.c b/net/netfilter/gta3xlwifi_socket_peer.c
+new file mode 100644
+--- /dev/null
++++ b/net/netfilter/gta3xlwifi_socket_peer.c
+@@ -0,0 +1,65 @@
++// SPDX-License-Identifier: GPL-2.0
++/* Dedicated tuple lookup, never qtaguid's INPUT-only skb lookup on OUTPUT.
++ * Holds the original lookup reference while resolving request->listener and
++ * reading creator metadata, then releases THAT original reference exactly once.
++ */
++#include <linux/module.h>
++#include <net/sock.h>
++#include <net/inet_sock.h>
++#include <net/inet_hashtables.h>
++#include <net/inet6_hashtables.h>
++#include <net/tcp.h>
++#include <net/udp.h>
++#include <net/gta3xlwifi_socket_peer.h>
++
++bool gta3xlwifi_socket_peer_uid(struct net *net, int ifindex,
++    const struct gta3xlwifi_socket_peer_tuple *tuple, u32 *uid)
++{
++    struct sock *original = NULL;
++    struct sock *full;
++    u32 found_uid;
++    bool known;
++
++    if (!net || !tuple || !uid || ifindex < 0)
++        return false;
++    switch (tuple->family) {
++    case AF_INET:
++        if (tuple->protocol == IPPROTO_TCP)
++            original = inet_lookup(net, &tcp_hashinfo,
++                tuple->address.v4.saddr, tuple->sport,
++                tuple->address.v4.daddr, tuple->dport, ifindex);
++        else if (tuple->protocol == IPPROTO_UDP)
++            original = udp4_lib_lookup(net,
++                tuple->address.v4.saddr, tuple->sport,
++                tuple->address.v4.daddr, tuple->dport, ifindex);
++        break;
++#if IS_ENABLED(CONFIG_IPV6)
++    case AF_INET6:
++        if (tuple->protocol == IPPROTO_TCP)
++            original = inet6_lookup(net, &tcp_hashinfo,
++                &tuple->address.v6.saddr, tuple->sport,
++                &tuple->address.v6.daddr, tuple->dport, ifindex);
++        else if (tuple->protocol == IPPROTO_UDP)
++            original = udp6_lib_lookup(net,
++                &tuple->address.v6.saddr, tuple->sport,
++                &tuple->address.v6.daddr, tuple->dport, ifindex);
++        break;
++#endif
++    default:
++        break;
++    }
++    if (!original)
++        return false;
++    /* A request socket holds its listener reference. Read before releasing the
++     * request; do not put the borrowed listener or return a raw socket pointer.
++     */
++    full = sk_to_full_sk(original);
++    known = gta3xlwifi_socket_creator_uid(full, &found_uid);
++    sock_gen_put(original);
++    if (known)
++        *uid = found_uid;
++    return known;
++}
++EXPORT_SYMBOL_GPL(gta3xlwifi_socket_peer_uid);
++MODULE_LICENSE("GPL");
++MODULE_DESCRIPTION("Private referenced inet peer creator identity; no policy or readiness");

@@ -1,0 +1,12 @@
+0000000000000000 T android::net::gta3xlwifi::UidPermissionState::set(int, unsigned int)
+0000000000000000 T android::net::gta3xlwifi::UidPermissionState::remove(int)
+0000000000000000 T android::net::gta3xlwifi::UidPermissionState::replace(std::__1::vector<android::net::gta3xlwifi::UidPermissionState::Entry, std::__1::allocator<android::net::gta3xlwifi::UidPermissionState::Entry>> const&)
+0000000000000000 T android::net::gta3xlwifi::UidPermissionState::permissions(unsigned int) const
+0000000000000000 T android::net::gta3xlwifi::UidPermissionState::matchingUids(unsigned int, std::__1::vector<int, std::__1::allocator<int>>*) const
+0000000000000000 T android::net::gta3xlwifi::UidPermissionState::loopbackAllowed(unsigned int, unsigned int, bool*) const
+0000000000000000 T android::net::gta3xlwifi::UidPermissionState::noInternetDenied(int, bool*) const
+0000000000000000 T android::net::gta3xlwifi::UidPermissionState::get(int, unsigned int*) const
+0000000000000000 T android::net::gta3xlwifi::UidPermissionState::snapshot(std::__1::vector<android::net::gta3xlwifi::UidPermissionState::Entry, std::__1::allocator<android::net::gta3xlwifi::UidPermissionState::Entry>>*) const
+0000000000000000 W std::__1::vector<android::net::gta3xlwifi::UidPermissionState::Entry, std::__1::allocator<android::net::gta3xlwifi::UidPermissionState::Entry>>::__throw_length_error[abi:nn220000]()
+0000000000000000 W std::__1::vector<android::net::gta3xlwifi::UidPermissionState::Entry, std::__1::allocator<android::net::gta3xlwifi::UidPermissionState::Entry>>::__throw_length_error[abi:nn220000]() (.cfi)
+0000000000000000 W android::net::gta3xlwifi::UidPermissionState::Entry& std::__1::vector<android::net::gta3xlwifi::UidPermissionState::Entry, std::__1::allocator<android::net::gta3xlwifi::UidPermissionState::Entry>>::emplace_back<android::net::gta3xlwifi::UidPermissionState::Entry>(android::net::gta3xlwifi::UidPermissionState::Entry&&)::'lambda0'()::operator()() const

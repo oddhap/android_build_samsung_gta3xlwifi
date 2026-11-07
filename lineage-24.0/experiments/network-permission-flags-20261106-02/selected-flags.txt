@@ -1,0 +1,3 @@
+com.android.tethering.flags.collect_beta_metrics|DISABLED|READ_ONLY|false|packages/modules/Connectivity/common/flags.aconfig
+com.android.tethering.flags.loopback_access_metrics|ENABLED|READ_ONLY|false|packages/modules/Connectivity/common/flags.aconfig, build/release/aconfig/cp2a/com.android.tethering.flags/loopback_access_metrics_flag_values.textproto
+com.android.tethering.flags.permission_map_uid_migration|ENABLED|READ_ONLY|false|packages/modules/Connectivity/common/flags.aconfig, build/release/aconfig/mainline_2026_02/com.android.tethering.flags/permission_map_uid_migration_flag_values.textproto

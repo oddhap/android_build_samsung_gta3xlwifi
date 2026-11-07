@@ -1,0 +1,36 @@
+{
+  "passed": true,
+  "scope": "Check candidate seven-bit permission VALUES against actual A17 expressions.\n\nExtracted loopback UID predicate and migrated socket-create NoInternet branch;\npermission map/credentials are fixtures. No kernel permission storage, socket\ncreation, packet policy, callback publication or readiness is established.\n",
+  "passed_cases": 46,
+  "actual_android17_loopback_permission_comparisons": 1048576,
+  "actual_android17_migrated_create_value_comparisons": 1048576,
+  "stderr": "",
+  "command": [
+    "c++",
+    "-std=c++17",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-O1",
+    "-g",
+    "-fsanitize=undefined",
+    "-fno-sanitize-recover=all",
+    "-I/srv/android/ports/lineage-24.0-arm64/uid-permission-state24-20261106-01",
+    "/srv/android/ports/lineage-24.0-arm64/uid-permission-state24-20261106-01/Gta3xlwifiUidPermissionState.cpp",
+    "/srv/android/artifacts/lineage-24.0-arm64/uid-permission-state-host-20261106-01/test.cpp",
+    "-o",
+    "/srv/android/artifacts/lineage-24.0-arm64/uid-permission-state-host-20261106-01/test"
+  ],
+  "inputs_sha256": {
+    "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/test-uid-permission-state24.py": "d00f4d90b2f04a18ae84f0c65e4dbf4653f40b97d58c8ec4bf9bf4b27d9444e1",
+    "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/test-kernel-qtaguid-socket-owned.py": "59516300b405af46c972b264353c3766b5c18cf882b04ac8ba9db6f70f436459",
+    "/srv/android/src/lineage-24.0-arm64/packages/modules/Connectivity/bpf/progs/netd.h": "ae85473717243924c609f8d963d03bc2631adbba8833ae527bf611291f38ca1a",
+    "/srv/android/src/lineage-24.0-arm64/packages/modules/Connectivity/bpf/progs/netd.c": "7dc4fa02952c0268737dc9aad20a0571b55df255f878506a4db91c1d962713b6",
+    "/srv/android/src/lineage-24.0-arm64/system/core/libcutils/include/private/android_filesystem_config.h": "faad70383216abcf935ec76678bb5b40ca65b6396a0028a8fa6ffe9b9087eb37",
+    "/srv/android/ports/lineage-24.0-arm64/uid-permission-state24-20261106-01/Gta3xlwifiUidPermissionState.cpp": "cb075c44670ba172d32239ef33e164da79ba77ee6da2df045d74c55897cc84c0",
+    "/srv/android/ports/lineage-24.0-arm64/uid-permission-state24-20261106-01/Gta3xlwifiUidPermissionState.h": "2309fee4cb9938d273dd094b7fe21e5f778b7de9ee57244572cbfeb66a7b84f4",
+    "/srv/android/artifacts/lineage-24.0-arm64/uid-permission-state-host-20261106-01/test.cpp": "2824967d4db4550db8eb72b7661065cad8cd0d2c2bf5203c39c397aaf8328165"
+  },
+  "hardware_tested": false,
+  "flash_ready": false
+}

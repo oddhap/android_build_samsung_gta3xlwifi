@@ -1,0 +1,21 @@
+{
+  "scope": "Candidate seven-bit UidPermissionChunk values and exact UID loopback/NoInternet branch evaluation, not kernel enforcement or readiness",
+  "project": "system/netd",
+  "prerequisites": [],
+  "patch_sha256": "0d50d7ea25c6645353e8014ae01b3c6d3ee753b1172016ff91ccbda4bd5e92d4",
+  "files": [
+    {
+      "path": "server/Gta3xlwifiUidPermissionState.h",
+      "before_sha256": null,
+      "candidate_sha256": "2309fee4cb9938d273dd094b7fe21e5f778b7de9ee57244572cbfeb66a7b84f4"
+    },
+    {
+      "path": "server/Gta3xlwifiUidPermissionState.cpp",
+      "before_sha256": null,
+      "candidate_sha256": "cb075c44670ba172d32239ef33e164da79ba77ee6da2df045d74c55897cc84c0"
+    }
+  ],
+  "active_source_changed": false,
+  "hardware_tested": false,
+  "flash_ready": false
+}

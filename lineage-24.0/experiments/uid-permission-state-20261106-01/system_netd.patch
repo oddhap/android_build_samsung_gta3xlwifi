@@ -1,0 +1,127 @@
+diff --git a/server/Gta3xlwifiUidPermissionState.h b/server/Gta3xlwifiUidPermissionState.h
+new file mode 100644
+--- /dev/null
++++ b/server/Gta3xlwifiUidPermissionState.h
+@@ -0,0 +1,45 @@
++// SPDX-License-Identifier: Apache-2.0
++#pragma once
++#include <cstdint>
++#include <map>
++#include <vector>
++namespace android::net::gta3xlwifi {
++// Candidate A17 UidPermissionChunk VALUES, not kernel enforcement or readiness.
++// In particular NoInternet is a negative bit; absent entries have mask0. A sole
++// future owner must commit real kernel state before publishing this value.
++class UidPermissionState {
++public:
++    enum Permission : uint32_t {
++        AccessLocalNetwork = 1u << 0,
++        UpdateDeviceStats = 1u << 1,
++        NoInternet = 1u << 2,
++        UseLoopbackInterface = 1u << 3,
++        ForceUseLoopbackInterface = 1u << 4,
++        InteractAcrossUsersFull = 1u << 5,
++        InteractAcrossUsersOrProfiles = 1u << 6,
++        KnownMask = (1u << 7) - 1,
++    };
++    struct Entry {
++        int32_t uid;
++        uint32_t permissions;
++        bool operator==(const Entry& b) const { return uid == b.uid && permissions == b.permissions; }
++    };
++    int set(int32_t uid, uint32_t permissions);
++    int get(int32_t uid, uint32_t* permissions) const;
++    int remove(int32_t uid);
++    // Validate all input before replacement. Duplicate UIDs are ambiguous and
++    // rejected. Zero-valued entries are omitted from the canonical snapshot.
++    int replace(const std::vector<Entry>& entries);
++    int snapshot(std::vector<Entry>* output) const;
++    int matchingUids(uint32_t required, std::vector<int32_t>* output) const;
++    // EXACT value-level A17 uids_have_loopback_permissions contract. Packet
++    // callers first normalize sender raw65534 as bpf_traffic_account does;
++    // receiver creator65534 stays literal. This method does no lookup/eligibility
++    // test and is NOT itself a packet policy or a publishable callback.
++    int loopbackAllowed(uint32_t sender, uint32_t receiver, bool* output) const;
++    int noInternetDenied(int32_t uid, bool* output) const;
++private:
++    uint32_t permissions(uint32_t uid) const;
++    std::map<uint32_t, uint32_t> mPermissions;
++};
++}  // namespace android::net::gta3xlwifi
+diff --git a/server/Gta3xlwifiUidPermissionState.cpp b/server/Gta3xlwifiUidPermissionState.cpp
+new file mode 100644
+--- /dev/null
++++ b/server/Gta3xlwifiUidPermissionState.cpp
+@@ -0,0 +1,72 @@
++// SPDX-License-Identifier: Apache-2.0
++#include "Gta3xlwifiUidPermissionState.h"
++#include <cerrno>
++#include <set>
++#include <utility>
++namespace android::net::gta3xlwifi {
++uint32_t UidPermissionState::permissions(uint32_t uid) const {
++    const auto entry = mPermissions.find(uid);
++    return entry == mPermissions.end() ? 0 : entry->second;
++}
++int UidPermissionState::set(int32_t uid, uint32_t mask) {
++    if (uid < 0 || (mask & ~KnownMask)) return -EINVAL;
++    if (mask) mPermissions[static_cast<uint32_t>(uid)] = mask;
++    else mPermissions.erase(static_cast<uint32_t>(uid));
++    return 0;
++}
++int UidPermissionState::get(int32_t uid, uint32_t* output) const {
++    if (uid < 0 || !output) return -EINVAL;
++    *output = permissions(static_cast<uint32_t>(uid));
++    return 0;
++}
++int UidPermissionState::remove(int32_t uid) { return set(uid, 0); }
++int UidPermissionState::replace(const std::vector<Entry>& entries) {
++    std::map<uint32_t, uint32_t> next;
++    std::set<int32_t> seen;
++    for (const auto& entry : entries) {
++        if (entry.uid < 0 || (entry.permissions & ~KnownMask) ||
++            !seen.insert(entry.uid).second) return -EINVAL;
++        if (entry.permissions) next[static_cast<uint32_t>(entry.uid)] = entry.permissions;
++    }
++    mPermissions = std::move(next);
++    return 0;
++}
++int UidPermissionState::snapshot(std::vector<Entry>* output) const {
++    if (!output) return -EINVAL;
++    std::vector<Entry> next;
++    next.reserve(mPermissions.size());
++    for (const auto& entry : mPermissions)
++        next.push_back({static_cast<int32_t>(entry.first), entry.second});
++    *output = std::move(next);
++    return 0;
++}
++int UidPermissionState::matchingUids(uint32_t required, std::vector<int32_t>* output) const {
++    if (!output || !required || (required & ~KnownMask)) return -EINVAL;
++    std::vector<int32_t> next;
++    for (const auto& entry : mPermissions)
++        if ((entry.second & required) == required) next.push_back(static_cast<int32_t>(entry.first));
++    *output = std::move(next);
++    return 0;
++}
++int UidPermissionState::loopbackAllowed(uint32_t sender, uint32_t receiver, bool* output) const {
++    if (!output) return -EINVAL;
++    bool allowed = sender % 100000 < 10000 || receiver % 100000 < 10000 ||
++                   sender / 100000 == receiver / 100000;
++    if (!allowed) {
++        const auto senderMask = permissions(sender);
++        const auto receiverMask = permissions(receiver);
++        allowed = (senderMask & InteractAcrossUsersFull) ||
++                  ((receiverMask & (ForceUseLoopbackInterface | InteractAcrossUsersFull)) ==
++                   (ForceUseLoopbackInterface | InteractAcrossUsersFull)) ||
++                  (sender % 100000 == receiver % 100000 &&
++                   (senderMask & InteractAcrossUsersOrProfiles));
++    }
++    *output = allowed;
++    return 0;
++}
++int UidPermissionState::noInternetDenied(int32_t uid, bool* output) const {
++    if (uid < 0 || !output) return -EINVAL;
++    *output = (permissions(static_cast<uint32_t>(uid)) & NoInternet) != 0;
++    return 0;
++}
++}  // namespace android::net::gta3xlwifi
