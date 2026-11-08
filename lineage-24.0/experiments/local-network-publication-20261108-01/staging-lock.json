@@ -1,0 +1,23 @@
+{
+  "scope": "Isolated private LNA/UID primitive state/transaction/publication; not complete backend readiness",
+  "prerequisites": [
+    "local-network-transaction-20261108-01",
+    "uid-permission-publication-20261107-01"
+  ],
+  "patch_sha256": "8d353ba58faa0366bdf1d74e74b251fd895f91c9c6f51dfb68236bfb447b93b5",
+  "files": [
+    {
+      "path": "Gta3xlwifiUidPolicyTransaction.cpp",
+      "before_sha256": "099d78005386b9249ef4b8421cbb28096a1871c49c32b424b6ae41d590301a93",
+      "candidate_sha256": "d2cbf64e49e1b181a817115b57fcf5ded8648ffb5cd2621ce9d2c49848d00d16"
+    },
+    {
+      "path": "Gta3xlwifiUidPolicyTransaction.h",
+      "before_sha256": "a02d8c5cc50a4c1b40e6c64120c6906c9417c66c970628ee908d6e3bd111a701",
+      "candidate_sha256": "8a4c12740d4f500fa87bb2866011cb999c9900a898a670323ca00ad9a7ba044b"
+    }
+  ],
+  "android_source_modified": false,
+  "hardware_tested": false,
+  "flash_ready": false
+}

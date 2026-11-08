@@ -1,0 +1,31 @@
+{
+  "passed": true,
+  "scope": "Test real packet-barrier lease code with synthetic file/PID/net-grace effects.\n\nUses actual C bodies, real pthread mutex/contended close, and atomic memory order.\nPID refs, credentials, registration, grace periods and packets remain fixtures;\nno host/device kernel, rule, network, credential or descriptor is changed.\n",
+  "passed_cases": 44,
+  "stderr": "",
+  "command": [
+    "cc",
+    "-std=gnu11",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-Wno-unused-parameter",
+    "-fsanitize=undefined",
+    "-fno-sanitize-recover=all",
+    "-pthread",
+    "-I/srv/android/artifacts/lineage-24.0-arm64/kernel-egress-clat-build-20261108-01/netpolicy-host/include",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-egress-clat-build-20261108-01/netpolicy-host/test.c",
+    "-o",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-egress-clat-build-20261108-01/netpolicy-host/test"
+  ],
+  "inputs_sha256": {
+    "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/test-kernel-netpolicy-lease24.py": "306820299403324d061883a69425ad378953abb879deb674ef3646767fa75a37",
+    "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/test-kernel-qtaguid-socket-owned.py": "59516300b405af46c972b264353c3766b5c18cf882b04ac8ba9db6f70f436459",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-egress-clat-build-20261108-01/netpolicy-host/test.c": "baa30e5154cc4a4c8b44b31bde088e300abe6d714d165a79a627a099ca3c903c",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-egress-clat-20261108-01/src/net/netfilter/gta3xlwifi_netpolicy.c": "fb12fde626b6e8ed5518bd96a68993e38fae1ba91ad2457fb432fd73acd7e304",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-egress-clat-20261108-01/src/include/uapi/linux/netfilter/gta3xlwifi_netpolicy.h": "fd53c8c287840054ac9234efdabd88302140d95fc1488c57080de499a835d54c",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-egress-clat-build-20261108-01/netpolicy-host/include/linux/netfilter/gta3xlwifi_netpolicy.h": "fd53c8c287840054ac9234efdabd88302140d95fc1488c57080de499a835d54c"
+  },
+  "packet_or_kernel_runtime_tested": false,
+  "flash_ready": false
+}

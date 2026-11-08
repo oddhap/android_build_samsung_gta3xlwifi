@@ -1,0 +1,20 @@
+{
+  "scope": "Private held-lease two-table full-image LNA transport; no release/publication/readiness",
+  "prerequisite": "uid-permission-transport-20261107-01",
+  "patch_sha256": "05d1dbb8764f442598e8160bd24d59d6b4122e5538314053cf7e208d523fbada",
+  "files": [
+    {
+      "path": "Gta3xlwifiNetpolicyLease.cpp",
+      "before_sha256": "01721724568c6200ab824d1350b62fccd34648fb5ea165fcb5ae23dc44f7e0b7",
+      "candidate_sha256": "0a9915a06ae8f8405bf603de349ede525acde35c16cf91fbc5501da00e9126b8"
+    },
+    {
+      "path": "Gta3xlwifiNetpolicyLease.h",
+      "before_sha256": "f2453a7891a1e73dbc3077efabdf7a38626838c00d5cc4f550298110e978ea09",
+      "candidate_sha256": "38fd334d95ef65a9a4d28786e70a99f7bd6dd97faaef981def7d870a587443b6"
+    }
+  ],
+  "uapi_sha256": "78d66f9b5c834c56d035ea108c4323c849186df3c98d3fb3a48c3de53797b7be",
+  "android_source_modified": false,
+  "flash_ready": false
+}

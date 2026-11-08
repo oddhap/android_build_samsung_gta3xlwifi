@@ -1,5 +1,10 @@
 # Actual-socket egress LNA attachment
 
+**CLAT correction:** the untagged raw socketUID1029 case in this historical
+prototype was too restrictive. `kernel-egress-clat-20261108-01` explicitly ports
+A17's statsUid fallback and supersedes that expectation. Do not promote this
+historical Image as the final egress implementation.
+
 Isolated extension of the receive-context proposal. The supplied full AF_INET/
 AF_INET6 socket, not skb owner or INPUT-only peer lookup, determines mutable UID.
 Real qtaguid accounting metadata supplies CLAT (statsUID1029, egress only) and

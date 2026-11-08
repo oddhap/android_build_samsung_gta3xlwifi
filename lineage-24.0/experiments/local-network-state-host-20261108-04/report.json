@@ -1,0 +1,57 @@
+{
+  "passed": true,
+  "scope": "Canonical LNA state versus actual selected kernel Patricia lookup/canonical C.\n\nBounded queries use an independent bit-by-bit reference. Socket/UID permission\napplication and actual kernel packets are not exercised by this value test.\n",
+  "passed_cases": 27096,
+  "oracle_comparisons": 144246,
+  "inputs_sha256": {
+    "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/test-local-network-state24.py": "caba1aab2e13753a4471b47aa96bbc810e931377a9d9f16c79c050c663f809a6",
+    "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/test-kernel-qtaguid-socket-owned.py": "59516300b405af46c972b264353c3766b5c18cf882b04ac8ba9db6f70f436459",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-egress-context-20261108-01/src/net/netfilter/gta3xlwifi_local_network.c": "745d700dbd23727e8b66b6c56bd9ecc1d7854575d444dfdd47963698564f36ce",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-egress-context-20261108-01/src/include/uapi/linux/netfilter/gta3xlwifi_local_network.h": "78d66f9b5c834c56d035ea108c4323c849186df3c98d3fb3a48c3de53797b7be",
+    "/srv/android/src/lineage-24.0-arm64/packages/modules/Connectivity/common/src/com/android/net/module/util/bpf/LocalNetUidHostAllowlistKey.java": "d77232039bb358400d1a71e3f7f06ec650f815799fbbf52a66de53fb4acb9fbc",
+    "/srv/android/artifacts/lineage-24.0-arm64/local-network-state-host-20261108-04/oracle.c": "51a9a2658242a2930d0fc250672fb7f5eaec99c1e59814242fb9cfa5410c916f",
+    "/srv/android/artifacts/lineage-24.0-arm64/local-network-state-host-20261108-04/test.cpp": "0bf9b163139d1ab63ddaf882e5c5f00070b2f415b3cd1099a2cf64d6b9806ead",
+    "/srv/android/ports/lineage-24.0-arm64/local-network-state24-20261108-01/Gta3xlwifiLocalNetworkState.cpp": "f10d18a3bd69f270161e1970c481b1cc390cca5bf7fe2c0cb9081fd002a6f333",
+    "/srv/android/ports/lineage-24.0-arm64/local-network-state24-20261108-01/Gta3xlwifiLocalNetworkState.h": "c4f57c2d9b4a6163f71682b3b8817d147329621b149c0be2104ac7e6b96b1ecc",
+    "/srv/android/ports/lineage-24.0-arm64/local-network-state24-20261108-01/Gta3xlwifiNetpolicyLease.h": "38fd334d95ef65a9a4d28786e70a99f7bd6dd97faaef981def7d870a587443b6"
+  },
+  "commands": [
+    [
+      "cc",
+      "-std=gnu11",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-g",
+      "-O1",
+      "-fsanitize=undefined",
+      "-fno-sanitize-recover=all",
+      "-I/srv/android/artifacts/lineage-24.0-arm64/local-network-state-host-20261108-04/include",
+      "-c",
+      "/srv/android/artifacts/lineage-24.0-arm64/local-network-state-host-20261108-04/oracle.c",
+      "-o",
+      "/srv/android/artifacts/lineage-24.0-arm64/local-network-state-host-20261108-04/oracle.o"
+    ],
+    [
+      "c++",
+      "-std=c++17",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-pthread",
+      "-g",
+      "-O1",
+      "-fsanitize=undefined",
+      "-fno-sanitize-recover=all",
+      "-I/srv/android/ports/lineage-24.0-arm64/local-network-state24-20261108-01",
+      "-I/srv/android/artifacts/lineage-24.0-arm64/local-network-state-host-20261108-04/include",
+      "/srv/android/ports/lineage-24.0-arm64/local-network-state24-20261108-01/Gta3xlwifiLocalNetworkState.cpp",
+      "/srv/android/artifacts/lineage-24.0-arm64/local-network-state-host-20261108-04/test.cpp",
+      "/srv/android/artifacts/lineage-24.0-arm64/local-network-state-host-20261108-04/oracle.o",
+      "-o",
+      "/srv/android/artifacts/lineage-24.0-arm64/local-network-state-host-20261108-04/test"
+    ]
+  ],
+  "hardware_tested": false,
+  "flash_ready": false
+}

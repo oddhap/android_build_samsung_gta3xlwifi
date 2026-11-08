@@ -1,0 +1,8 @@
+/srv/android/artifacts/lineage-24.0-arm64/local-network-state-host-20261108-02/oracle.c:12:5: error: unknown type name ‘u16’
+   12 |     u16 bits;
+      |     ^~~
+/srv/android/artifacts/lineage-24.0-arm64/local-network-state-host-20261108-02/oracle.c: In function ‘lna_insert’:
+/srv/android/artifacts/lineage-24.0-arm64/local-network-state-host-20261108-02/oracle.c:67:20: error: comparison of integer expressions of different signedness: ‘u32’ {aka ‘unsigned int’} and ‘int’ [-Werror=sign-compare]
+   67 |         if (common < node->bits) {
+      |                    ^
+cc1: all warnings being treated as errors

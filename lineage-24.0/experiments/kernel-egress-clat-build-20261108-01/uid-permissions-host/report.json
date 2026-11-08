@@ -1,0 +1,42 @@
+{
+  "passed": true,
+  "scope": "Execute actual UID image/lease dispatch/create C with fault and lifetime fixtures.\n\nActual sparse store, binary search, generation, ioctl authorization and inet-check\nbodies execute with pthread owner mutex. RCU, user copies, allocation, credentials,\nnetwork grace and socket cleanup are fixtures; not kernel/device packet evidence.\nThe selected Android17 NoInternet expression supplies the independent value oracle.\n",
+  "cases": 81,
+  "comparisons": 124608,
+  "command": [
+    "cc",
+    "-std=gnu11",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-Wno-unused-parameter",
+    "-O1",
+    "-g",
+    "-fsanitize=undefined",
+    "-fno-sanitize-recover=all",
+    "-pthread",
+    "-I/srv/android/artifacts/lineage-24.0-arm64/kernel-egress-clat-build-20261108-01/uid-permissions-host/include",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-egress-clat-build-20261108-01/uid-permissions-host/test.c",
+    "-o",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-egress-clat-build-20261108-01/uid-permissions-host/test"
+  ],
+  "inputs_sha256": {
+    "/srv/android/ports/lineage-24.0-arm64/kernel-egress-clat-20261108-01/src/net/netfilter/gta3xlwifi_uid_permissions.c": "4283ae29bfc4c088179df9f18e121e21c4e8d9fdc24e1a83c4f1df05392edfe7",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-egress-clat-20261108-01/src/net/netfilter/gta3xlwifi_netpolicy.c": "fb12fde626b6e8ed5518bd96a68993e38fae1ba91ad2457fb432fd73acd7e304",
+    "/srv/android/src/lineage-24.0-arm64/packages/modules/Connectivity/bpf/progs/netd.c": "7dc4fa02952c0268737dc9aad20a0571b55df255f878506a4db91c1d962713b6",
+    "/srv/android/src/lineage-24.0-arm64/packages/modules/Connectivity/bpf/progs/netd.h": "ae85473717243924c609f8d963d03bc2631adbba8833ae527bf611291f38ca1a",
+    "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/test-kernel-qtaguid-socket-owned.py": "59516300b405af46c972b264353c3766b5c18cf882b04ac8ba9db6f70f436459",
+    "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/test-kernel-uid-permissions24.py": "86b1373ea0bdce80cd42142b239090e9c8bc253529524989a9e6d7634bebafd1",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-egress-clat-20261108-01/src/net/ipv4/af_inet.c": "4180d3a17dce7b7c1c2f59352eedf723f90bb382f54eaf2f1602255edc9f2c1d",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-egress-clat-20261108-01/src/net/ipv6/af_inet6.c": "0dc5926b15e3775a0f1d8f4a961e866e4846cfe63fad3f7f99aaf88fa6c0d3db",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-egress-clat-20261108-01/src/include/uapi/linux/netfilter/gta3xlwifi_local_network.h": "78d66f9b5c834c56d035ea108c4323c849186df3c98d3fb3a48c3de53797b7be",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-egress-clat-build-20261108-01/uid-permissions-host/include/linux/netfilter/gta3xlwifi_local_network.h": "78d66f9b5c834c56d035ea108c4323c849186df3c98d3fb3a48c3de53797b7be",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-egress-clat-20261108-01/src/include/uapi/linux/netfilter/gta3xlwifi_uid_permissions.h": "92d572695e88845aebb03c20474c804f56cd4c39c9b22dc01c355c0d81123945",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-egress-clat-build-20261108-01/uid-permissions-host/include/linux/netfilter/gta3xlwifi_uid_permissions.h": "92d572695e88845aebb03c20474c804f56cd4c39c9b22dc01c355c0d81123945",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-egress-clat-20261108-01/src/include/uapi/linux/netfilter/gta3xlwifi_netpolicy.h": "fd53c8c287840054ac9234efdabd88302140d95fc1488c57080de499a835d54c",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-egress-clat-build-20261108-01/uid-permissions-host/include/linux/netfilter/gta3xlwifi_netpolicy.h": "fd53c8c287840054ac9234efdabd88302140d95fc1488c57080de499a835d54c",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-egress-clat-build-20261108-01/uid-permissions-host/test.c": "294166022abd336133ed1fa5692624b2f08748a8e82dfc769d25c08197d95dd2"
+  },
+  "kernel_runtime_tested": false,
+  "flash_ready": false
+}

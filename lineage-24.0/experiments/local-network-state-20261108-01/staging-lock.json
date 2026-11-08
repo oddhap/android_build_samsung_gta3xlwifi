@@ -1,0 +1,22 @@
+{
+  "scope": "Isolated private LNA/UID primitive state/transaction/publication; not complete backend readiness",
+  "prerequisites": [
+    "local-network-transport-20261108-01"
+  ],
+  "patch_sha256": "f9d927d83db0e936777f1983c33b68926f4d1767afd0f70ce5d270b488c7787e",
+  "files": [
+    {
+      "path": "Gta3xlwifiLocalNetworkState.cpp",
+      "before_sha256": null,
+      "candidate_sha256": "f10d18a3bd69f270161e1970c481b1cc390cca5bf7fe2c0cb9081fd002a6f333"
+    },
+    {
+      "path": "Gta3xlwifiLocalNetworkState.h",
+      "before_sha256": null,
+      "candidate_sha256": "c4f57c2d9b4a6163f71682b3b8817d147329621b149c0be2104ac7e6b96b1ecc"
+    }
+  ],
+  "android_source_modified": false,
+  "hardware_tested": false,
+  "flash_ready": false
+}

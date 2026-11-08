@@ -29,6 +29,17 @@ mc=m.extract(v4.read_text(),'ip_mc_output');oldmc=m.extract(old4.read_text(),'ip
 ip6=m.extract(v6.read_text(),'ip6_output');oldip6=m.extract(old6.read_text(),'ip6_output');addition='\t/* Match modern output context before netfilter and the policy callback. */\n\tskb->protocol = htons(ETH_P_IPV6);\n\tskb->dev = dev;\n\n';assert ip6.replace(addition,'')==oldip6
 assert ip6.index('skb->dev = dev')<ip6.index('NF_HOOK_COND')
 android=A/'packages/modules/Connectivity/bpf/progs/netd.c';aids=A/'system/core/libcutils/include/private/android_filesystem_config.h';assert re.search(r'#define AID_CLAT\s+1029\b',aids.read_text());assert 'if (egress.egress && statsUid == AID_CLAT) return PASS;' in android.read_text()
+clat_source=android.read_text();begin=clat_source.index('    // sock_uid will be',clat_source.index('function int bpf_traffic_account('));end=clat_source.index('    SkbIpPacketData packet_data = {};',begin)
+code+=r'''
+#define PASS 1
+#define AID_CLAT 1029
+struct egress_bool{bool egress;};typedef struct{u32 uid,tag;}UidTagValue;
+static struct sock*oracle_socket;
+static u32 bpf_get_socket_uid(struct __sk_buff*s){(void)s;return oracle_socket->uid;}
+static u64 bpf_get_socket_cookie(struct __sk_buff*s){(void)s;return 7;}
+static UidTagValue* bpf_cookie_tag_map_lookup_elem(u64*cookie){static UidTagValue value;assert(*cookie==7);if(tagged_sk!=oracle_socket)return NULL;value.uid=get_uid_from_tag(tagged.tag);value.tag=get_atag_from_tag(tagged.tag)>>32;return &value;}
+static int oracle_clat(struct __sk_buff*skb,const struct egress_bool egress){
+'''+clat_source[begin:end]+'(void)tag; return 0;\n}\n'
 code+=r'''
 static unsigned consumed,output4,output6,outputmc;static int output_error;
 static void kfree_skb(struct sk_buff*s){assert(s);++consumed;}
@@ -48,7 +59,7 @@ int main(void){
  tagged_sk=&receiver;tagged.tag=1029;T(gta3xlwifi_egress_policy(&receiver,&skb)==-EPERM);T(netpolicy_ioctl(&owner,GTA3XLWIFI_NETPOLICY_RELEASE,0)==0);
  T(gta3xlwifi_egress_policy(&receiver,&skb)==0);T(gta3xlwifi_receive_policy(&receiver,&skb)==-EPERM);tagged_sk=NULL;
  T(gta3xlwifi_egress_policy(&receiver,&skb)==-EPERM&&skb.sk==&foreign&&skb.data_at==34&&skb.network==-20);skb.sk=NULL;T(gta3xlwifi_egress_policy(&receiver,&skb)==-EPERM&&skb.sk==NULL);
- receiver.uid=1029;T(gta3xlwifi_egress_policy(&receiver,&skb)==-EPERM);receiver.uid=1051;T(gta3xlwifi_egress_policy(&receiver,&skb)==-EPERM);receiver.uid=0;T(gta3xlwifi_egress_policy(&receiver,&skb)==0);receiver.uid=65534;T(gta3xlwifi_egress_policy(&receiver,&skb)==0);receiver.uid=10001;
+ receiver.uid=1029;T(gta3xlwifi_egress_policy(&receiver,&skb)==0);tagged_sk=&receiver;tagged.tag=10001;T(gta3xlwifi_egress_policy(&receiver,&skb)==-EPERM);tagged_sk=NULL;receiver.uid=1051;T(gta3xlwifi_egress_policy(&receiver,&skb)==-EPERM);receiver.uid=0;T(gta3xlwifi_egress_policy(&receiver,&skb)==0);receiver.uid=65534;T(gta3xlwifi_egress_policy(&receiver,&skb)==0);receiver.uid=10001;
  tagged_sk=&receiver;tagged.tag=((u64)0xffffff82<<32)|1051;T(gta3xlwifi_egress_policy(&receiver,&skb)==0);tagged.tag=((u64)0xffffff81<<32)|1051;T(gta3xlwifi_egress_policy(&receiver,&skb)==-EPERM);tagged.tag=((u64)0xffffff82<<32)|10001;T(gta3xlwifi_egress_policy(&receiver,&skb)==-EPERM);
  module_passive=true;T(gta3xlwifi_egress_policy(&receiver,&skb)==-EOPNOTSUPP);module_passive=false;tagged_sk=NULL;
  T(gta3xlwifi_egress_policy(NULL,&skb)==0);T(gta3xlwifi_egress_policy(&receiver,NULL)==0);receiver.full=false;T(gta3xlwifi_egress_policy(&receiver,&skb)==0);receiver.full=true;receiver.sk_family=AF_UNIX;T(gta3xlwifi_egress_policy(&receiver,&skb)==0);receiver.sk_family=AF_INET6;T(gta3xlwifi_egress_policy(&receiver,&skb)==-EPERM);receiver.sk_family=AF_INET;
@@ -56,6 +67,17 @@ int main(void){
  u8 saved[1200];memcpy(saved,skb.data,sizeof(saved));memset(skb.data,0,sizeof(skb.data));skb.protocol=htons(ETH_P_IPV6);skb.data[14]=0x60;skb.data[20]=17;skb.data[38]=0xfd;receiver.sk_family=AF_INET6;
  T(gta3xlwifi_egress_policy(&receiver,&skb)==-EPERM);tagged_sk=&receiver;tagged.tag=1029;T(gta3xlwifi_egress_policy(&receiver,&skb)==0);tagged_sk=NULL;
  memcpy(skb.data,saved,sizeof(saved));skb.protocol=htons(ETH_P_IP);receiver.sk_family=AF_INET;
+ // Actual A17 traffic-account prefix, including absent-tag statsUid fallback.
+ oracle_socket=&receiver;struct __sk_buff context={&skb,skb.protocol};
+ const u32 uids[]={0,1000,1029,1051,10001,65534};
+ for(unsigned family=0;family<2;family++)for(unsigned u=0;u<6;u++)for(unsigned meta=0;meta<4;meta++){
+  receiver.sk_family=family?AF_INET6:AF_INET;receiver.uid=uids[u];tagged_sk=meta?&receiver:NULL;
+  tagged.tag=meta==1?1029:meta==2?((u64)0xffffff82<<32)|1051:((u64)0xffffff81<<32)|10001;
+  bool clat=oracle_clat(&context,(struct egress_bool){true});
+  bool expected=clat||meta==2||uids[u]==0||uids[u]==1000||uids[u]==65534;
+  T(gta3xlwifi_egress_policy(&receiver,&skb)==(expected?0:-EPERM));
+ }
+ receiver.uid=10001;receiver.sk_family=AF_INET;tagged_sk=NULL;
  // Prefix isolation proves destination address, port and real device are used.
  T(netpolicy_ioctl(&owner,GTA3XLWIFI_NETPOLICY_HOLD,0)==0);
  struct gta3xlwifi_packet packet;T(gta3xlwifi_parse_packet(&skb,&packet));
@@ -82,4 +104,4 @@ int main(void){
 (O/'test.c').write_text(code);cmd=['cc','-std=gnu11','-Wall','-Wextra','-Werror','-Wno-unused-parameter','-O1','-g','-fsanitize=undefined','-fno-sanitize-recover=all','-pthread','-I'+str(O/'receive-prerequisite/include'),str(O/'test.c'),'-o',str(O/'test')];x=subprocess.run(cmd,capture_output=True,text=True);(O/'compile.log').write_text(x.stdout+x.stderr);assert x.returncode==0,x.stderr
 x=subprocess.run([str(O/'test')],capture_output=True,text=True,timeout=60,env={**os.environ,'UBSAN_OPTIONS':'halt_on_error=1'});(O/'test.log').write_text(x.stdout+x.stderr);assert x.returncode==0 and not x.stderr,(x.returncode,x.stdout,x.stderr)
 match=re.search(r'egress_passed_cases=(\d+)\n$',x.stdout);assert match and int(match[1])>=50
-paths=[Path(__file__),helper,receive,prior,raw,v4,v6,old4,old6,android,aids,S/'include/net/gta3xlwifi_receive.h',S/'include/uapi/linux/netfilter/gta3xlwifi_local_network.h',O/'test.c'];(O/'report.json').write_text(json.dumps({'passed':True,'scope':__doc__,'passed_cases':int(match[1]),'output_original_body_identity':True,'multicast_callbacks_checked':2,'consume_once_error_and_success_checked':True,'HOLD_waits_for_output_reader':True,'inputs_sha256':{str(p):sha(p) for p in paths},'command':cmd,'hardware_tested':False,'flash_ready':False},indent=2)+'\n');print(x.stdout.strip())
+paths=[Path(__file__),helper,receive,prior,raw,v4,v6,old4,old6,android,aids,S/'include/net/gta3xlwifi_receive.h',S/'include/uapi/linux/netfilter/gta3xlwifi_local_network.h',O/'test.c'];(O/'report.json').write_text(json.dumps({'passed':True,'scope':__doc__,'passed_cases':int(match[1]),'actual_android17_clat_fallback_cases':48,'output_original_body_identity':True,'multicast_callbacks_checked':2,'consume_once_error_and_success_checked':True,'HOLD_waits_for_output_reader':True,'inputs_sha256':{str(p):sha(p) for p in paths},'command':cmd,'hardware_tested':False,'flash_ready':False},indent=2)+'\n');print(x.stdout.strip())

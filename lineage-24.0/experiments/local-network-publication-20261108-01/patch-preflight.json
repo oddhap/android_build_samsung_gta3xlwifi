@@ -1,0 +1,26 @@
+[
+  {
+    "stage": "local-network-transport-20261108-01",
+    "patch_sha256": "05d1dbb8764f442598e8160bd24d59d6b4122e5538314053cf7e208d523fbada",
+    "exact_base_hashes_match": true,
+    "git_apply_check": true
+  },
+  {
+    "stage": "local-network-state-20261108-01",
+    "patch_sha256": "f9d927d83db0e936777f1983c33b68926f4d1767afd0f70ce5d270b488c7787e",
+    "exact_base_hashes_match": true,
+    "git_apply_check": true
+  },
+  {
+    "stage": "local-network-transaction-20261108-01",
+    "patch_sha256": "dce31c961e4856f67f0ef7f3e9b433032d029f885064fa9133739faa1104f27b",
+    "exact_base_hashes_match": true,
+    "git_apply_check": true
+  },
+  {
+    "stage": "local-network-publication-20261108-01",
+    "patch_sha256": "8d353ba58faa0366bdf1d74e74b251fd895f91c9c6f51dfb68236bfb447b93b5",
+    "exact_base_hashes_match": true,
+    "git_apply_check": true
+  }
+]

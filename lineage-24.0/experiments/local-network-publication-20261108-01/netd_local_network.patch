@@ -1,0 +1,133 @@
+diff --git a/Gta3xlwifiUidPolicyTransaction.cpp b/Gta3xlwifiUidPolicyTransaction.cpp
+index a30628e..18e01e8 100644
+--- a/Gta3xlwifiUidPolicyTransaction.cpp
++++ b/Gta3xlwifiUidPolicyTransaction.cpp
+@@ -29,6 +29,7 @@ int UidPolicyTransaction::start(DualStackUidChains::HookMode mode) {
+ void UidPolicyTransaction::stopLocked() {
+     mPolicy.reset();
+     mPermissions.reset();
++    mLocalNetwork.reset();
+     mStarted = false;
+     mBackend.stop();
+ }
+@@ -84,7 +85,14 @@ int UidPolicyTransaction::removeUid(int32_t uid) {
+     if (mPermissions) {
+         UidPermissionState permissions = *mPermissions;
+         result = permissions.remove(uid);
+-        return result ? result : applyCombinedLocked(std::move(next), std::move(permissions));
++        if (result) return result;
++        if (mLocalNetwork) {
++            LocalNetworkState localNetwork = *mLocalNetwork;
++            result = localNetwork.removeUid(uid);
++            return result ? result : applyLocalNetworkLocked(std::move(next), std::move(permissions),
++                                                             std::move(localNetwork));
++        }
++        return applyCombinedLocked(std::move(next), std::move(permissions));
+     }
+     return applyLocked(std::move(next));
+ }
+@@ -112,6 +120,7 @@ int UidPolicyTransaction::isNetworkingBlocked(int32_t uid, bool metered) {
+     return mPolicy ? mPolicy->isNetworkingBlocked(uid, metered) : -EAGAIN;
+ }
+ int UidPolicyTransaction::applyCombinedLocked(UidPolicy next, UidPermissionState permissions) {
++    if (mLocalNetwork) return applyLocalNetworkLocked(std::move(next), std::move(permissions), *mLocalNetwork);
+     if (!mStarted) return -ENOTCONN;
+     UidChainProgram::Image program;
+     int result = compile(next, &program);
+@@ -148,4 +157,54 @@ int UidPolicyTransaction::getUidPermission(int32_t uid, uint32_t* output) {
+     std::lock_guard<std::mutex> lock(mMutex);
+     return mPermissions ? mPermissions->get(uid, output) : -EAGAIN;
+ }
++int UidPolicyTransaction::applyLocalNetworkLocked(UidPolicy next, UidPermissionState permissions,
++        LocalNetworkState localNetwork) {
++    if (!mStarted) return -ENOTCONN;
++    UidChainProgram::Image program;
++    int result = compile(next, &program);
++    std::vector<UidPermissionState::Entry> values;
++    if (!result) result = permissions.snapshot(&values);
++    if (!result && values.size() > 65536) result = -E2BIG;
++    std::vector<NetpolicyLease::LocalNetworkEntry> network, host;
++    if (!result) result = localNetwork.snapshot(&network, &host);
++    if (result) return result;
++    std::vector<NetpolicyLease::PermissionEntry> wire;
++    wire.reserve(values.size());
++    for (const auto& e : values) wire.push_back({e.uid, e.permissions});
++    result = mBackend.replaceWithLocalNetwork(program, program, wire, network, host);
++    if (result) {
++        stopLocked();  // Withdraw all three values on kernel/ack uncertainty.
++        return result;
++    }
++    mPolicy = std::move(next);
++    mPermissions = std::move(permissions);
++    mLocalNetwork = std::move(localNetwork);
++    return 0;
++}
++int UidPolicyTransaction::replace(const UidPolicy& policy, const UidPermissionState& permissions,
++        const LocalNetworkState& localNetwork) {
++    std::lock_guard<std::mutex> lock(mMutex);
++    return applyLocalNetworkLocked(policy, permissions, localNetwork);
++}
++int UidPolicyTransaction::setLocalNetworkEntry(LocalNetworkState::Table table,
++        LocalNetworkState::Entry entry) {
++    std::lock_guard<std::mutex> lock(mMutex);
++    if (!mPolicy || !mPermissions || !mLocalNetwork) return -EAGAIN;
++    LocalNetworkState localNetwork = *mLocalNetwork;
++    const int result = localNetwork.set(table, entry);
++    return result ? result : applyLocalNetworkLocked(*mPolicy, *mPermissions, std::move(localNetwork));
++}
++int UidPolicyTransaction::removeLocalNetworkEntry(LocalNetworkState::Table table,
++        LocalNetworkState::Entry entry) {
++    std::lock_guard<std::mutex> lock(mMutex);
++    if (!mPolicy || !mPermissions || !mLocalNetwork) return -EAGAIN;
++    LocalNetworkState localNetwork = *mLocalNetwork;
++    const int result = localNetwork.erase(table, entry);
++    return result ? result : applyLocalNetworkLocked(*mPolicy, *mPermissions, std::move(localNetwork));
++}
++int UidPolicyTransaction::getLocalNetworkAccess(LocalNetworkState::Table table,
++        LocalNetworkState::Entry query, bool* found, bool* allowed) {
++    std::lock_guard<std::mutex> lock(mMutex);
++    return mLocalNetwork ? mLocalNetwork->lookup(table, query, found, allowed) : -EAGAIN;
++}
+ }  // namespace android::net::gta3xlwifi
+diff --git a/Gta3xlwifiUidPolicyTransaction.h b/Gta3xlwifiUidPolicyTransaction.h
+index 2bfd1bf..bc7354e 100644
+--- a/Gta3xlwifiUidPolicyTransaction.h
++++ b/Gta3xlwifiUidPolicyTransaction.h
+@@ -3,6 +3,7 @@
+ #include "Gta3xlwifiDualStackUidChains.h"
+ #include "Gta3xlwifiMeteredChainProgram.h"
+ #include "Gta3xlwifiUidPermissionState.h"
++#include "Gta3xlwifiLocalNetworkState.h"
+ namespace android::net::gta3xlwifi {
+ // Owns ONLY UID value/program transactions, not the complete network backend.
+ // The eventual sole netd owner must supply complete packet dispatch and all
+@@ -21,6 +22,14 @@ public:
+     // Explicit full initial combined state. Later ordinary mutations retain
+     // these permissions and every change commits all components together.
+     int replace(const UidPolicy& policy, const UidPermissionState& permissions);
++    // Complete explicit LNA+UID primitive value. Later mutations retain every
++    // component and publish only after full real transaction/readback/release.
++    int replace(const UidPolicy& policy, const UidPermissionState& permissions,
++                const LocalNetworkState& localNetwork);
++    int setLocalNetworkEntry(LocalNetworkState::Table table, LocalNetworkState::Entry entry);
++    int removeLocalNetworkEntry(LocalNetworkState::Table table, LocalNetworkState::Entry entry);
++    int getLocalNetworkAccess(LocalNetworkState::Table table, LocalNetworkState::Entry query,
++                              bool* found, bool* allowed);
+     int setUidPermission(int32_t uid, uint32_t permissions);
+     int getUidPermission(int32_t uid, uint32_t* permissions);
+     int setChainEnabled(int32_t chain, bool enabled);
+@@ -38,11 +47,14 @@ public:
+ private:
+     int applyLocked(UidPolicy next);
+     int applyCombinedLocked(UidPolicy next, UidPermissionState permissions);
++    int applyLocalNetworkLocked(UidPolicy next, UidPermissionState permissions,
++                                LocalNetworkState localNetwork);
+     void stopLocked();
+     std::mutex mMutex;
+     DualStackUidChains mBackend;
+     std::optional<UidPolicy> mPolicy;
+     std::optional<UidPermissionState> mPermissions;
++    std::optional<LocalNetworkState> mLocalNetwork;
+     bool mStarted = false;
+ };
+ }  // namespace android::net::gta3xlwifi

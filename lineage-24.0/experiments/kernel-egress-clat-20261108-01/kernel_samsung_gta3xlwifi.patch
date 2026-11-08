@@ -1,0 +1,41 @@
+diff --git a/net/netfilter/xt_qtaguid.c b/net/netfilter/xt_qtaguid.c
+index 8a34ed5..5b0a47f 100644
+--- a/net/netfilter/xt_qtaguid.c
++++ b/net/netfilter/xt_qtaguid.c
+@@ -3420,24 +3420,29 @@ int gta3xlwifi_egress_policy(struct sock *sk, struct sk_buff *skb)
+         result = -EPERM;
+         goto out;
+     }
++    net = sock_net(sk);
++    uid = from_kuid_munged(net->user_ns, sock_net_uid(net, sk));
++    if (uid == 65534)
++        uid = 0;
+     metadata = gta3xlwifi_socket_accounting(sk, &stats_uid, &tag);
+     if (metadata && metadata != -ENOENT) {
+         result = metadata;
+         goto out;
+     }
+-    /* Exact A17 accounting-UID exception. A CLAT process UID by itself does
+-     * not identify a tagged CLAT socket. Applies only to output.
++    /* Exact A17 statsUid fallback when no tag record exists. This is the
++     * supplied SOCKET uid, never the current process uid. A present tag record
++     * overrides it, including when that record belongs to a different stats UID.
+      */
+-    if (!metadata && stats_uid == 1029)
++    if (metadata == -ENOENT) {
++        stats_uid = uid;
++        tag = 0;
++    }
++    if (stats_uid == 1029)
+         goto out;
+     if (!gta3xlwifi_parse_packet(skb, &packet))
+         goto out;
+     if (!metadata && stats_uid == 1051 && tag == 0xffffff82U)
+         goto out;
+-    net = sock_net(sk);
+-    uid = from_kuid_munged(net->user_ns, sock_net_uid(net, sk));
+-    if (uid == 65534)
+-        uid = 0;
+     /* ip_output/ip6_output set dev before POST_ROUTING, matching the modern
+      * cgroup context. Never substitute a stale skb owner or skb_iif.
+      */

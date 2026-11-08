@@ -42,6 +42,7 @@ int main(){
 }
 '''
 (O/'test.cpp').write_text(code);names=['Gta3xlwifiCheckedUidChains','Gta3xlwifiNetpolicyLease','Gta3xlwifiDualStackUidChains','Gta3xlwifiUidPolicy','Gta3xlwifiUidChainProgram','Gta3xlwifiMeteredChainProgram','Gta3xlwifiOrdinaryDispatch','Gta3xlwifiUidPolicyTransaction','Gta3xlwifiUidPermissionState'];sources=[S/(n+'.cpp') for n in names]
+if (S/'Gta3xlwifiLocalNetworkState.cpp').exists():sources.append(S/'Gta3xlwifiLocalNetworkState.cpp')
 cmd=['c++','-std=c++17','-Wall','-Wextra','-Werror','-g','-O1','-fsanitize=undefined','-fno-sanitize-recover=all','-pthread','-I'+str(S),'-I'+str(O),*map(str,sources),str(O/'test.cpp'),'-o',str(O/'test')]+['-Wl,--wrap='+x for x in ['open','close','read','__read_chk','fstat','fstatfs','ioctl']]
 x=subprocess.run(cmd,capture_output=True,text=True);(O/'compile.log').write_text(x.stdout+x.stderr);assert x.returncode==0,x.stderr
 env=os.environ.copy();env['UBSAN_OPTIONS']='halt_on_error=1';x=subprocess.run([str(O/'test')],capture_output=True,text=True,env=env,timeout=60);(O/'test.log').write_text(x.stdout+x.stderr);assert x.returncode==0 and not x.stderr,(x.returncode,x.stdout,x.stderr)

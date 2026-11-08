@@ -1,0 +1,227 @@
+diff --git a/Gta3xlwifiNetpolicyLease.cpp b/Gta3xlwifiNetpolicyLease.cpp
+index ac12487..fbe481c 100644
+--- a/Gta3xlwifiNetpolicyLease.cpp
++++ b/Gta3xlwifiNetpolicyLease.cpp
+@@ -2,6 +2,7 @@
+ #include "Gta3xlwifiNetpolicyLease.h"
+ #include <linux/netfilter/gta3xlwifi_netpolicy.h>
+ #include <linux/netfilter/gta3xlwifi_uid_permissions.h>
++#include <linux/netfilter/gta3xlwifi_local_network.h>
+ #include <utility>
+ #include <cerrno>
+ #include <cinttypes>
+@@ -296,4 +297,160 @@ int NetpolicyLease::replaceUidPermissions(uint64_t expectedRevision,
+     *newRevision = current.revision;
+     return 0;  // Held primitive update only, never full-network readiness.
+ }
++namespace {
++bool canonicalLocalNetworkKey(uint32_t bits, const uint8_t* key) {
++    if (bits > GTA3XLWIFI_LNA_KEY_BITS) return false;
++    const uint32_t bytes = bits / 8, remainder = bits % 8;
++    if (remainder && (key[bytes] & ((1u << (8 - remainder)) - 1))) return false;
++    for (uint32_t i = bytes + !!remainder; i < GTA3XLWIFI_LNA_KEY_BYTES; ++i)
++        if (key[i]) return false;
++    return true;
++}
++bool validLocalNetworkEntries(const std::vector<NetpolicyLease::LocalNetworkEntry>& entries) {
++    if (entries.size() > GTA3XLWIFI_LNA_MAX_ENTRIES) return false;
++    for (size_t i = 0; i < entries.size(); ++i) {
++        const auto& e = entries[i];
++        if (!canonicalLocalNetworkKey(e.prefixBits, e.key.data())) return false;
++        if (i && (entries[i - 1].prefixBits > e.prefixBits ||
++            (entries[i - 1].prefixBits == e.prefixBits &&
++             memcmp(entries[i - 1].key.data(), e.key.data(), e.key.size()) >= 0))) return false;
++    }
++    return true;
++}
++void encodeLocalNetwork(const std::vector<NetpolicyLease::LocalNetworkEntry>& entries,
++                        std::vector<gta3xlwifi_lna_entry>* wire) {
++    for (size_t i = 0; i < entries.size(); ++i) {
++        auto& e = (*wire)[i];
++        e = {};
++        e.prefix_bits = entries[i].prefixBits;
++        memcpy(e.key, entries[i].key.data(), sizeof(e.key));
++        e.allowed = entries[i].allowed;
++    }
++}
++bool validLocalNetworkWire(const gta3xlwifi_lna_entry* entries, size_t count) {
++    for (size_t i = 0; i < count; ++i) {
++        const auto& e = entries[i];
++        if (!canonicalLocalNetworkKey(e.prefix_bits, e.key) || e.allowed > 1 ||
++            e.reserved[0] || e.reserved[1] || e.reserved[2]) return false;
++        if (i && (entries[i - 1].prefix_bits > e.prefix_bits ||
++            (entries[i - 1].prefix_bits == e.prefix_bits &&
++             memcmp(entries[i - 1].key, e.key, sizeof(e.key)) >= 0))) return false;
++    }
++    return true;
++}
++void decodeLocalNetwork(const std::vector<gta3xlwifi_lna_entry>& wire,
++                        std::vector<NetpolicyLease::LocalNetworkEntry>* entries) {
++    for (size_t i = 0; i < wire.size(); ++i) {
++        auto& e = (*entries)[i];
++        e.prefixBits = wire[i].prefix_bits;
++        memcpy(e.key.data(), wire[i].key, e.key.size());
++        e.allowed = wire[i].allowed;
++    }
++}
++}  // namespace
++int NetpolicyLease::localNetworkFeaturesLocked() {
++    if (mFd < 0) return -ENOTCONN;
++    int result;
++    do { result = ioctl(mFd, GTA3XLWIFI_UID_FEATURES, 0UL); }
++    while (result < 0 && errno == EINTR);
++    if (result < 0) return imageErrorLocked(errno ? -errno : -EIO);
++    // This transport requires only the real store. Packet-hook feature bits
++    // and complete backend requirements are independently checked by its owner.
++    return (result & GTA3XLWIFI_UID_CAP_LNA_STORE) ? 0 : imageErrorLocked(-EOPNOTSUPP);
++}
++int NetpolicyLease::localNetworkMetadataLocked(gta3xlwifi_lna_transfer* metadata) {
++    gta3xlwifi_lna_transfer next {};
++    next.version = GTA3XLWIFI_LNA_VERSION;
++    int result = imageCommandLocked(GTA3XLWIFI_LNA_GET_IMAGE, &next);
++    if (result) return result;
++    if (next.version != GTA3XLWIFI_LNA_VERSION || next.reserved ||
++        next.network_entries || next.host_entries ||
++        next.network_count > GTA3XLWIFI_LNA_MAX_ENTRIES ||
++        next.host_count > GTA3XLWIFI_LNA_MAX_ENTRIES ||
++        (!next.revision && (next.network_count || next.host_count)))
++        return imageErrorLocked(-EPROTO);
++    *metadata = next;
++    return 0;
++}
++int NetpolicyLease::localNetworkDataLocked(gta3xlwifi_lna_transfer* metadata,
++        gta3xlwifi_lna_entry* network, gta3xlwifi_lna_entry* host) {
++    const auto before = *metadata;
++    metadata->network_entries = before.network_count ? reinterpret_cast<uintptr_t>(network) : 0;
++    metadata->host_entries = before.host_count ? reinterpret_cast<uintptr_t>(host) : 0;
++    const uint64_t networkPointer = metadata->network_entries, hostPointer = metadata->host_entries;
++    int result = imageCommandLocked(GTA3XLWIFI_LNA_GET_IMAGE, metadata);
++    if (result) return result;
++    if (metadata->version != before.version || metadata->reserved ||
++        metadata->revision != before.revision || metadata->network_count != before.network_count ||
++        metadata->host_count != before.host_count || metadata->network_entries != networkPointer ||
++        metadata->host_entries != hostPointer || !validLocalNetworkWire(network, before.network_count) ||
++        !validLocalNetworkWire(host, before.host_count)) return imageErrorLocked(-EPROTO);
++    return 0;
++}
++int NetpolicyLease::readLocalNetwork(LocalNetworkImage* output) {
++    if (!output) return -EINVAL;
++    std::lock_guard<std::mutex> lock(mMutex);
++    int result = localNetworkFeaturesLocked();
++    gta3xlwifi_lna_transfer metadata {};
++    if (!result) result = localNetworkMetadataLocked(&metadata);
++    if (result) return result;
++    std::vector<gta3xlwifi_lna_entry> network(metadata.network_count), host(metadata.host_count);
++    LocalNetworkImage next;
++    next.network.resize(metadata.network_count);
++    next.host.resize(metadata.host_count);
++    result = localNetworkDataLocked(&metadata, network.data(), host.data());
++    if (result) return result;
++    next.revision = metadata.revision;
++    decodeLocalNetwork(network, &next.network);
++    decodeLocalNetwork(host, &next.host);
++    *output = std::move(next);
++    return 0;
++}
++int NetpolicyLease::replaceLocalNetwork(uint64_t expectedRevision,
++        const std::vector<LocalNetworkEntry>& network, const std::vector<LocalNetworkEntry>& host,
++        uint64_t* newRevision) {
++    if (!newRevision || !validLocalNetworkEntries(network) || !validLocalNetworkEntries(host))
++        return -EINVAL;
++    if (expectedRevision == UINT64_MAX) return -EOVERFLOW;
++    std::vector<gta3xlwifi_lna_entry> networkWire(network.size()), hostWire(host.size());
++    std::vector<gta3xlwifi_lna_entry> networkReadback(network.size()), hostReadback(host.size());
++    encodeLocalNetwork(network, &networkWire);
++    encodeLocalNetwork(host, &hostWire);
++    std::lock_guard<std::mutex> lock(mMutex);
++    int result = localNetworkFeaturesLocked();
++    bool held = false;
++    if (!result) result = stateLocked(&held);
++    if (result) return result;
++    if (!held) return imageErrorLocked(-EBUSY);
++    gta3xlwifi_lna_transfer current {};
++    result = localNetworkMetadataLocked(&current);
++    if (result) return result;
++    if (current.revision != expectedRevision) return imageErrorLocked(-ESTALE);
++    gta3xlwifi_lna_transfer next {};
++    next.version = GTA3XLWIFI_LNA_VERSION;
++    next.network_count = networkWire.size();
++    next.host_count = hostWire.size();
++    next.revision = expectedRevision + 1;
++    next.network_entries = networkWire.empty() ? 0 : reinterpret_cast<uintptr_t>(networkWire.data());
++    next.host_entries = hostWire.empty() ? 0 : reinterpret_cast<uintptr_t>(hostWire.data());
++    result = imageCommandLocked(GTA3XLWIFI_LNA_SET_IMAGE, &next);
++    if (result) return result;
++    // All storage exists before SET; no publication/release until exact readback.
++    result = localNetworkMetadataLocked(&current);
++    if (result) return result;
++    if (current.revision != expectedRevision + 1 || current.network_count != networkWire.size() ||
++        current.host_count != hostWire.size()) return imageErrorLocked(-EPROTO);
++    result = localNetworkDataLocked(&current, networkReadback.data(), hostReadback.data());
++    if (result) return result;
++    if ((!networkWire.empty() && memcmp(networkWire.data(), networkReadback.data(),
++                                      networkWire.size() * sizeof(networkWire[0]))) ||
++        (!hostWire.empty() && memcmp(hostWire.data(), hostReadback.data(),
++                                   hostWire.size() * sizeof(hostWire[0])))) return imageErrorLocked(-EPROTO);
++    result = stateLocked(&held);
++    if (result) return result;
++    if (!held) return imageErrorLocked(-EPROTO);
++    *newRevision = current.revision;
++    return 0;
++}
++
+ }  // namespace android::net::gta3xlwifi
+diff --git a/Gta3xlwifiNetpolicyLease.h b/Gta3xlwifiNetpolicyLease.h
+index 2a73dd0..1ec480b 100644
+--- a/Gta3xlwifiNetpolicyLease.h
++++ b/Gta3xlwifiNetpolicyLease.h
+@@ -3,9 +3,12 @@
+ #include <mutex>
+ #include <cstdint>
+ #include <vector>
++#include <array>
+ 
+ struct gta3xlwifi_uid_permission_transfer;
+ struct gta3xlwifi_uid_permission_entry;
++struct gta3xlwifi_lna_transfer;
++struct gta3xlwifi_lna_entry;
+ 
+ namespace android::net::gta3xlwifi {
+ // Private real-kernel lease transport, not a networking backend or readiness API.
+@@ -34,12 +37,36 @@ public:
+     int replaceUidPermissions(uint64_t expectedRevision,
+                               const std::vector<PermissionEntry>& entries,
+                               uint64_t* newRevision);
++    struct LocalNetworkEntry {
++        uint32_t prefixBits;
++        std::array<uint8_t, 24> key;
++        bool allowed;
++        bool operator==(const LocalNetworkEntry& b) const {
++            return prefixBits == b.prefixBits && key == b.key && allowed == b.allowed;
++        }
++    };
++    struct LocalNetworkImage {
++        uint64_t revision = 0;
++        std::vector<LocalNetworkEntry> network, host;
++    };
++    // Canonical sorted full images only; state-level callers canonicalize BPF
++    // key suffixes before this transport. Primitive methods never release/publish.
++    int readLocalNetwork(LocalNetworkImage* output);
++    int replaceLocalNetwork(uint64_t expectedRevision,
++                            const std::vector<LocalNetworkEntry>& network,
++                            const std::vector<LocalNetworkEntry>& host,
++                            uint64_t* newRevision);
+     int start();
+     int hold();
+     int release();
+     int isHeld(bool* output);
+     void stop();
+ private:
++    int localNetworkFeaturesLocked();
++    int localNetworkMetadataLocked(struct gta3xlwifi_lna_transfer* metadata);
++    int localNetworkDataLocked(struct gta3xlwifi_lna_transfer* metadata,
++                               struct gta3xlwifi_lna_entry* network,
++                               struct gta3xlwifi_lna_entry* host);
+     int imageCommandLocked(unsigned long request, void* argument);
+     int imageFeaturesLocked();
+     int imageMetadataLocked(struct gta3xlwifi_uid_permission_transfer* metadata);

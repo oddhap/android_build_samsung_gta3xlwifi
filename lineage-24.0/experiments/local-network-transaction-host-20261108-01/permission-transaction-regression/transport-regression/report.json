@@ -1,0 +1,41 @@
+{
+  "passed": true,
+  "scope": "Run actual UID permission image transport with syscall/protocol fault fixtures.\n\nGNU syscall wrappers model the private device and image, including ambiguous\nwrites and malformed readback. No real device, kernel or network is accessed.\n",
+  "passed_cases": 90,
+  "stderr": "",
+  "command": [
+    "c++",
+    "-std=c++17",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-g",
+    "-O1",
+    "-fsanitize=undefined",
+    "-fno-sanitize-recover=all",
+    "-pthread",
+    "-I/srv/android/ports/lineage-24.0-arm64/local-network-transaction24-20261108-01",
+    "/srv/android/ports/lineage-24.0-arm64/local-network-transaction24-20261108-01/Gta3xlwifiNetpolicyLease.cpp",
+    "/srv/android/artifacts/lineage-24.0-arm64/local-network-transaction-host-20261108-01/permission-transaction-regression/transport-regression/test.cpp",
+    "-o",
+    "/srv/android/artifacts/lineage-24.0-arm64/local-network-transaction-host-20261108-01/permission-transaction-regression/transport-regression/test",
+    "-Wl,--wrap=open",
+    "-Wl,--wrap=close",
+    "-Wl,--wrap=read",
+    "-Wl,--wrap=__read_chk",
+    "-Wl,--wrap=fstat",
+    "-Wl,--wrap=fstatfs",
+    "-Wl,--wrap=ioctl"
+  ],
+  "inputs_sha256": {
+    "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/test-uid-permission-transport24.py": "bfece6e2c67c4246fb84b66afcbd02f3f844bdeafdfd0a5a8382fa507ea8bd2e",
+    "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/test-netpolicy-lease24.py": "2973daa1fa042fdc2be454d40014727134b93575cfebbdf71587d760a04e5d95",
+    "/srv/android/artifacts/lineage-24.0-arm64/local-network-transaction-host-20261108-01/permission-transaction-regression/transport-regression/test.cpp": "90590730e3e1073e33b6c7b2291d460ea406bbfba1e226d9be1c7aad3160842a",
+    "/srv/android/ports/lineage-24.0-arm64/local-network-transaction24-20261108-01/Gta3xlwifiNetpolicyLease.cpp": "0a9915a06ae8f8405bf603de349ede525acde35c16cf91fbc5501da00e9126b8",
+    "/srv/android/ports/lineage-24.0-arm64/local-network-transaction24-20261108-01/Gta3xlwifiNetpolicyLease.h": "38fd334d95ef65a9a4d28786e70a99f7bd6dd97faaef981def7d870a587443b6",
+    "/srv/android/ports/lineage-24.0-arm64/local-network-transaction24-20261108-01/linux/netfilter/gta3xlwifi_netpolicy.h": "fd53c8c287840054ac9234efdabd88302140d95fc1488c57080de499a835d54c",
+    "/srv/android/ports/lineage-24.0-arm64/local-network-transaction24-20261108-01/linux/netfilter/gta3xlwifi_uid_permissions.h": "92d572695e88845aebb03c20474c804f56cd4c39c9b22dc01c355c0d81123945"
+  },
+  "hardware_tested": false,
+  "flash_ready": false
+}

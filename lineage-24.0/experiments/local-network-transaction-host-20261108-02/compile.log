@@ -1,0 +1,8 @@
+/srv/android/artifacts/lineage-24.0-arm64/local-network-transaction-host-20261108-02/test.cpp: In function ‘int uid_ioctl(int, long unsigned int, ...)’:
+/srv/android/artifacts/lineage-24.0-arm64/local-network-transaction-host-20261108-02/test.cpp:80:3: error: this ‘if’ clause does not guard... [-Werror=misleading-indentation]
+   80 |   if(cmd==GTA3XLWIFI_NETPOLICY_HOLD)firewallAllowed=true;held=cmd==GTA3XLWIFI_NETPOLICY_HOLD;return ack;
+      |   ^~
+/srv/android/artifacts/lineage-24.0-arm64/local-network-transaction-host-20261108-02/test.cpp:80:58: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the ‘if’
+   80 |   if(cmd==GTA3XLWIFI_NETPOLICY_HOLD)firewallAllowed=true;held=cmd==GTA3XLWIFI_NETPOLICY_HOLD;return ack;
+      |                                                          ^~~~
+cc1plus: all warnings being treated as errors

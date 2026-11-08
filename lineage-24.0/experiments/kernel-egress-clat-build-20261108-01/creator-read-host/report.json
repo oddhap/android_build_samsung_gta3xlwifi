@@ -1,0 +1,43 @@
+{
+  "passed": true,
+  "scope": "Check private immutable creator identity getter/helpers and exact socket hook sites.\n\nActual new C bodies plus existing kernel BPF UID helper body, with credential,\nnamespace and object-copy fixtures. A17 source storage assignment/no-clone map\ncontract is checked. No sockets, permissions, storage map or readiness execute.\n",
+  "passed_cases": 41,
+  "identity_lifecycle_comparisons": 960,
+  "exact_inet4_inet6_clone_hook_contracts": true,
+  "socket_init_copy_graft_functions_unchanged": true,
+  "stderr": "",
+  "command": [
+    "cc",
+    "-std=gnu11",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-O1",
+    "-g",
+    "-fsanitize=undefined",
+    "-fno-sanitize-recover=all",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-egress-clat-build-20261108-01/creator-read-host/test.c",
+    "-o",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-egress-clat-build-20261108-01/creator-read-host/test"
+  ],
+  "inputs_sha256": {
+    "/srv/android/ports/lineage-24.0-arm64/kernel-socket-creator-20261106-01/src/include/net/tcp_states.h": "e459e1d08c17f5f38fc530eabd45134a4ec4eb2be5db2bd3741551eb109d4c30",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-egress-clat-build-20261108-01/creator-read-host/tcp_states.h": "e459e1d08c17f5f38fc530eabd45134a4ec4eb2be5db2bd3741551eb109d4c30",
+    "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/test-kernel-socket-creator-read24.py": "2537b47e115bad440d7687b78b4d52db9bc302801e5bd68c8510b6ac12fa397d",
+    "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/test-kernel-qtaguid-socket-owned.py": "59516300b405af46c972b264353c3766b5c18cf882b04ac8ba9db6f70f436459",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-egress-clat-20261108-01/src/net/core/sock.c": "51890194fac13bd6b6bc0a7c3822d956d42515cb2ce78bebc60140acf13f335a",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-egress-clat-20261108-01/src/include/net/sock.h": "ff6e9934fde08a827c73d0dbac8c2a798b5923ac1944dc3b35bb74b51a56f729",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-socket-creator-20261106-01/src/kernel/bpf/helpers.c": "84472dac9ad6b424900ad2581254f64b4c117047e2bfc527a990ca4164e6da72",
+    "/srv/android/src/lineage-24.0-arm64/packages/modules/Connectivity/bpf/progs/netd.c": "7dc4fa02952c0268737dc9aad20a0571b55df255f878506a4db91c1d962713b6",
+    "/srv/android/src/lineage-24.0-arm64/packages/modules/Connectivity/bpf/progs/include/bpf_helpers.h": "994ddc11ae9337f9f0cda46a398099d22ca9f467b55b261b8ef9082748b12f08",
+    "/srv/android/src/lineage-24.0-arm64/system/bpf/include/bpf/bpf_helpers.h": "c4a079e38f7ec63159235d18dcc61d270eb2f35802a3fca5ae35e2b43d4d4dc2",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-egress-clat-build-20261108-01/creator-read-host/test.c": "a5ad8db970e3d767ba2c0003af344ac1f216952711efff03b9070781642dacdf",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-egress-clat-20261108-01/src/net/ipv4/af_inet.c": "4180d3a17dce7b7c1c2f59352eedf723f90bb382f54eaf2f1602255edc9f2c1d",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-egress-clat-20261108-01/src/net/ipv6/af_inet6.c": "0dc5926b15e3775a0f1d8f4a961e866e4846cfe63fad3f7f99aaf88fa6c0d3db",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-socket-creator-20261106-01/src/net/core/sock.c": "8ea4a91d66c8c28968cac22be1b2dbb54874b9cc310e3f16eca9f758b1df1848",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-socket-creator-20261106-01/src/include/net/sock.h": "ce34223463a568ab9ce94912cd41e6cc1e24daec40bbd16dba3d513ab5a9bc5f"
+  },
+  "modern_helper_reference": "https://raw.githubusercontent.com/torvalds/linux/v6.6/kernel/bpf/helpers.c",
+  "hardware_tested": false,
+  "flash_ready": false
+}

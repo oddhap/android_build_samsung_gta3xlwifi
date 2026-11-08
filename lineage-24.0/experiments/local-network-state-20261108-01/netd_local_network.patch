@@ -1,0 +1,150 @@
+diff --git a/Gta3xlwifiLocalNetworkState.cpp b/Gta3xlwifiLocalNetworkState.cpp
+new file mode 100644
+index 0000000..a8d1d74
+--- /dev/null
++++ b/Gta3xlwifiLocalNetworkState.cpp
+@@ -0,0 +1,102 @@
++// SPDX-License-Identifier: Apache-2.0
++#include "Gta3xlwifiLocalNetworkState.h"
++#include <cerrno>
++#include <cstring>
++#include <utility>
++namespace android::net::gta3xlwifi {
++int LocalNetworkState::canonicalize(Entry* entry) {
++    if (!entry || entry->prefixBits > 192) return -EINVAL;
++    const auto bytes = entry->prefixBits / 8, remainder = entry->prefixBits % 8;
++    if (remainder) entry->key[bytes] &= 0xffu << (8 - remainder);
++    for (size_t i = bytes + !!remainder; i < entry->key.size(); ++i) entry->key[i] = 0;
++    return 0;
++}
++LocalNetworkState::Entries* LocalNetworkState::entries(Table table) {
++    switch (table) {
++        case Table::Network: return &mNetwork;
++        case Table::Host: return &mHost;
++    }
++    return nullptr;
++}
++const LocalNetworkState::Entries* LocalNetworkState::entries(Table table) const {
++    switch (table) {
++        case Table::Network: return &mNetwork;
++        case Table::Host: return &mHost;
++    }
++    return nullptr;
++}
++int LocalNetworkState::set(Table table, Entry entry) {
++    auto* values = entries(table);
++    if (!values || canonicalize(&entry)) return -EINVAL;
++    Key key {entry.prefixBits, entry.key};
++    auto position = values->find(key);
++    if (position == values->end() && values->size() >= 1000) return -ENOSPC;
++    (*values)[key] = entry.allowed;
++    return 0;
++}
++int LocalNetworkState::erase(Table table, Entry entry) {
++    auto* values = entries(table);
++    if (!values || canonicalize(&entry)) return -EINVAL;
++    values->erase(Key {entry.prefixBits, entry.key});
++    return 0;
++}
++int LocalNetworkState::fill(const std::vector<Entry>& input, Entries* output) {
++    if (input.size() > 1000) return -ENOSPC;
++    Entries next;
++    for (auto entry : input) {
++        if (canonicalize(&entry)) return -EINVAL;
++        if (!next.emplace(Key {entry.prefixBits, entry.key}, entry.allowed).second) return -EEXIST;
++    }
++    *output = std::move(next);
++    return 0;
++}
++int LocalNetworkState::replace(const std::vector<Entry>& network, const std::vector<Entry>& host) {
++    Entries nextNetwork, nextHost;
++    int result = fill(network, &nextNetwork);
++    if (!result) result = fill(host, &nextHost);
++    if (result) return result;
++    mNetwork = std::move(nextNetwork);
++    mHost = std::move(nextHost);
++    return 0;
++}
++int LocalNetworkState::snapshot(std::vector<Entry>* network, std::vector<Entry>* host) const {
++    if (!network || !host || network == host) return -EINVAL;
++    std::vector<Entry> nextNetwork, nextHost;
++    nextNetwork.reserve(mNetwork.size());
++    nextHost.reserve(mHost.size());
++    for (const auto& e : mNetwork) nextNetwork.push_back({e.first.bits, e.first.bytes, e.second});
++    for (const auto& e : mHost) nextHost.push_back({e.first.bits, e.first.bytes, e.second});
++    *network = std::move(nextNetwork);
++    *host = std::move(nextHost);
++    return 0;
++}
++int LocalNetworkState::lookup(Table table, Entry query, bool* found, bool* allowed) const {
++    const auto* values = entries(table);
++    if (!values || !found || !allowed || found == allowed || canonicalize(&query)) return -EINVAL;
++    bool matched = false, value = true;
++    for (const auto& e : *values) {
++        if (e.first.bits > query.prefixBits) break;
++        const auto bytes = e.first.bits / 8, remainder = e.first.bits % 8;
++        if (memcmp(e.first.bytes.data(), query.key.data(), bytes)) continue;
++        if (remainder && ((e.first.bytes[bytes] ^ query.key[bytes]) & (0xffu << (8 - remainder))))
++            continue;
++        matched = true;
++        value = e.second;
++    }
++    *found = matched;
++    *allowed = value;
++    return 0;
++}
++int LocalNetworkState::removeUid(int32_t uid) {
++    if (uid < 0) return -EINVAL;
++    // UID is the native-order first32 bits of actual A17 host keys (64-bit
++    // UID/interface wildcard or192-bit host). Broader multi-UID prefixes remain.
++    for (auto i = mHost.begin(); i != mHost.end();) {
++        uint32_t owner;
++        memcpy(&owner, i->first.bytes.data(), sizeof(owner));
++        if (i->first.bits >= 32 && owner == static_cast<uint32_t>(uid)) i = mHost.erase(i);
++        else ++i;
++    }
++    return 0;
++}
++}  // namespace android::net::gta3xlwifi
+diff --git a/Gta3xlwifiLocalNetworkState.h b/Gta3xlwifiLocalNetworkState.h
+new file mode 100644
+index 0000000..a6a594b
+--- /dev/null
++++ b/Gta3xlwifiLocalNetworkState.h
+@@ -0,0 +1,36 @@
++// SPDX-License-Identifier: Apache-2.0
++#pragma once
++#include "Gta3xlwifiNetpolicyLease.h"
++#include <map>
++namespace android::net::gta3xlwifi {
++// Canonical two-table LNA value. No kernel I/O, publication or readiness.
++// BPF ignores key suffixes outside prefixBits; this class clears those bits
++// before snapshotting the strict canonical wire accepted by the real store.
++class LocalNetworkState {
++public:
++    using Entry = NetpolicyLease::LocalNetworkEntry;
++    enum class Table { Network, Host };
++    static int canonicalize(Entry* entry);
++    int set(Table table, Entry entry);
++    int erase(Table table, Entry entry);
++    int replace(const std::vector<Entry>& network, const std::vector<Entry>& host);
++    int snapshot(std::vector<Entry>* network, std::vector<Entry>* host) const;
++    // Exact value-level LPM, bounded by the query prefix as in BPF. Missing
++    // entries return found=false and allowed=true; this is not a UID decision.
++    int lookup(Table table, Entry query, bool* found, bool* allowed) const;
++    int removeUid(int32_t uid);
++private:
++    struct Key {
++        uint32_t bits;
++        std::array<uint8_t, 24> bytes;
++        bool operator<(const Key& b) const {
++            return bits < b.bits || (bits == b.bits && bytes < b.bytes);
++        }
++    };
++    using Entries = std::map<Key, bool>;
++    static int fill(const std::vector<Entry>& input, Entries* output);
++    Entries* entries(Table table);
++    const Entries* entries(Table table) const;
++    Entries mNetwork, mHost;
++};
++}  // namespace android::net::gta3xlwifi

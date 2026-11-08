@@ -32,6 +32,23 @@ checks are separate from Android execution. Optional GPU BPF accounting still
 reports unavailable, rather than invented counters. Existing safety/installer
 and strict SELinux checks remain enforced.
 
+## Native LNA transaction checkpoint — November 8
+
+Real two-table LNA lease transport now passes696 host checks plus90 UID regressions
+and actual Android17 ARM64 CFI/ARM32+64 wire ABI proof. Canonical state passes27096
+checks/144246 kernel Patricia/reference comparisons and CFI. Combined rules/LNA/UID
+transaction62 +publication106 cases pass, together with55/82 prior regressions.
+Actual four-/ten-source CFI compile/link and1243/17 before/after audits pass.
+See experiments/local-network-{transport,state,transaction,publication}-20261108-01.
+These components remain isolated from production Binder/startup and prebuilts.
+
+A subsequent source audit found the first egress prototype missed untagged CLAT's
+actual socketUID fallback. Explicit kernel-egress-clat-20261108-01 corrects it;
+100 egress cases include48 comparisons with the actual A17 accounting prefix.
+Full corrected kernel/modules/audits pass (Image6bf52891...579d9, config unchanged).
+Historical67ec0b37 output is
+superseded for that case. No test-ROM candidate or global networking readiness.
+
 ## Socket-aware attachment checkpoint — November 8
 
 The real receive LNA/shared gate hook now passes51 host cases and5,632 actual

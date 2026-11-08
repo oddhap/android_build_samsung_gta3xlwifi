@@ -1,0 +1,152 @@
+diff --git a/Gta3xlwifiDualStackUidChains.cpp b/Gta3xlwifiDualStackUidChains.cpp
+index 85fc20d..72270d8 100644
+--- a/Gta3xlwifiDualStackUidChains.cpp
++++ b/Gta3xlwifiDualStackUidChains.cpp
+@@ -1,5 +1,6 @@
+ // SPDX-License-Identifier: Apache-2.0
+ #include "Gta3xlwifiDualStackUidChains.h"
++#include "Gta3xlwifiLocalNetworkState.h"
+ #include <cerrno>
+ #include <sstream>
+ #include <utility>
+@@ -87,7 +88,8 @@ int DualStackUidChains::verifyHooks() {
+ }
+ int DualStackUidChains::quarantine(int error) {
+     mLease.stop();  // The real driver rearms and drains on owner close.
+-    mSession = mCommitted = mPermissionMode = false;
++    mSession = mCommitted = mPermissionMode = mLocalNetworkMode = false;
++    mLocalNetworkImage.reset();
+     mPermissionImage.reset();
+     mPermissionRules4.clear();
+     mPermissionRules6.clear();
+@@ -167,6 +169,7 @@ int DualStackUidChains::replaceWithPermissions(const Image& ipv4, const Image& i
+     Image next4 = ipv4, next6 = ipv6;  // Allocate committed caches before any write.
+     std::lock_guard<std::mutex> lock(mMutex);
+     if (!mSession) return -ENOTCONN;
++    if (mLocalNetworkMode) return -EOPNOTSUPP;
+     mPermissionMode = true;
+     result = mLease.hold();
+     if (result) return quarantine(result);
+@@ -213,4 +216,95 @@ int DualStackUidChains::replaceWithPermissions(const Image& ipv4, const Image& i
+     mCommitted = true;
+     return 0;  // Combined UID primitives only, not a complete networking backend.
+ }
++int DualStackUidChains::replaceWithLocalNetwork(const Image& ipv4, const Image& ipv6,
++        const std::vector<NetpolicyLease::PermissionEntry>& permissions,
++        const std::vector<NetpolicyLease::LocalNetworkEntry>& network,
++        const std::vector<NetpolicyLease::LocalNetworkEntry>& host) {
++    // Validate every value before HOLD or any kernel I/O. These are already
++    // canonical sparse permissions, not legacy INTERNET-positive masks.
++    int result = CheckedUidChains::validateImage(ipv4);
++    if (!result) result = CheckedUidChains::validateImage(ipv6);
++    if (result) return result;
++    if (permissions.size() > 65536) return -EINVAL;
++    for (size_t i = 0; i < permissions.size(); ++i) {
++        const auto& e = permissions[i];
++        if (e.uid < 0 || !e.permissions || (e.permissions & ~0x7fu) ||
++            (i && permissions[i - 1].uid >= e.uid)) return -EINVAL;
++    }
++    LocalNetworkState canonical;
++    result = canonical.replace(network, host);
++    if (result) return result;
++    NetpolicyLease::LocalNetworkImage nextLocal;
++    result = canonical.snapshot(&nextLocal.network, &nextLocal.host);
++    if (result) return result;
++    if (nextLocal.network != network || nextLocal.host != host) return -EINVAL;
++    NetpolicyLease::PermissionImage next;
++    next.entries = permissions;
++    Image next4 = ipv4, next6 = ipv6;  // Allocate committed caches before any write.
++    std::lock_guard<std::mutex> lock(mMutex);
++    if (!mSession) return -ENOTCONN;
++    mPermissionMode = mLocalNetworkMode = true;
++    result = mLease.hold();
++    if (result) return quarantine(result);
++    result = verifyHooks();
++    if (result) return quarantine(result);
++    NetpolicyLease::PermissionImage before;
++    result = mLease.readUidPermissions(&before);
++    if (result) return quarantine(result);
++    if (before.revision == UINT64_MAX) return quarantine(-EOVERFLOW);
++    NetpolicyLease::LocalNetworkImage beforeLocal;
++    result = mLease.readLocalNetwork(&beforeLocal);
++    if (result) return quarantine(result);
++    if (beforeLocal.revision == UINT64_MAX) return quarantine(-EOVERFLOW);
++    if (mLocalNetworkImage && (beforeLocal.revision != mLocalNetworkImage->revision ||
++            beforeLocal.network != mLocalNetworkImage->network ||
++            beforeLocal.host != mLocalNetworkImage->host)) return quarantine(-EUCLEAN);
++    Image before4, before6;
++    result = mChains.read(V4, names(ipv4), &before4);
++    if (!result) result = mChains.read(V6, names(ipv6), &before6);
++    if (result) return quarantine(result);
++    if (mPermissionImage && (before.revision != mPermissionImage->revision ||
++            before.entries != mPermissionImage->entries || before4 != mPermissionRules4 ||
++            before6 != mPermissionRules6)) return quarantine(-EUCLEAN);
++    result = mChains.replace(V4, ipv4);
++    if (!result) result = mChains.replace(V6, ipv6);
++    if (!result) result = verifyImage(V4, ipv4);
++    if (!result) result = verifyImage(V6, ipv6);
++    if (!result) result = verifyHooks();
++    if (result) {
++        const int original = result;
++        // Permission SET has not happened. Restore both actual rule images,
++        // then prove the shared table is still EXACTLY the old revision/value.
++        result = restore(before4, before6, original, false);
++        if (!mSession) return result;
++        NetpolicyLease::PermissionImage actual;
++        result = mLease.readUidPermissions(&actual);
++        if (result || actual.revision != before.revision || actual.entries != before.entries)
++            return quarantine(-EUCLEAN);
++        NetpolicyLease::LocalNetworkImage actualLocal;
++        result = mLease.readLocalNetwork(&actualLocal);
++        if (result || actualLocal.revision != beforeLocal.revision ||
++                actualLocal.network != beforeLocal.network || actualLocal.host != beforeLocal.host)
++            return quarantine(-EUCLEAN);
++        // Initial/unpublished before-images never justify opening the gate.
++        if (mLocalNetworkImage && mLease.release()) return quarantine(-EUCLEAN);
++        return original;
++    }
++    // No firewall I/O after this point. LNA is verified before the final UID
++    // SET, which can deny future control sockets even for root. The same sole
++    // owner and mutex prevent intervening writes to the LNA image.
++    result = mLease.replaceLocalNetwork(beforeLocal.revision, network, host, &nextLocal.revision);
++    if (result) return quarantine(-EUCLEAN);
++    result = mLease.replaceUidPermissions(before.revision, permissions, &next.revision);
++    // Any SET/readback uncertainty quarantines. Do not run firewall commands
++    // or invent a rollback after a possibly committed permission image.
++    if (result) return quarantine(-EUCLEAN);
++    if (mLease.release()) return quarantine(-EUCLEAN);
++    mLocalNetworkImage = std::move(nextLocal);
++    mPermissionImage = std::move(next);
++    mPermissionRules4 = std::move(next4);
++    mPermissionRules6 = std::move(next6);
++    mCommitted = true;
++    return 0;  // Combined LNA/UID primitives only, not a complete networking backend.
++}
+ }  // namespace android::net::gta3xlwifi
+diff --git a/Gta3xlwifiDualStackUidChains.h b/Gta3xlwifiDualStackUidChains.h
+index 04854a8..65ad056 100644
+--- a/Gta3xlwifiDualStackUidChains.h
++++ b/Gta3xlwifiDualStackUidChains.h
+@@ -29,6 +29,13 @@ public:
+     // Once this mode is entered, plain replace cannot omit permission state.
+     int replaceWithPermissions(const Image& ipv4, const Image& ipv6,
+                               const std::vector<NetpolicyLease::PermissionEntry>& permissions);
++    // Full LNA+UID primitive transaction; all firewall work precedes LNA SET,
++    // then UID SET LAST. Any uncertainty after the first SET quarantines.
++    // Once entered, older methods cannot omit the two-table LNA state.
++    int replaceWithLocalNetwork(const Image& ipv4, const Image& ipv6,
++            const std::vector<NetpolicyLease::PermissionEntry>& permissions,
++            const std::vector<NetpolicyLease::LocalNetworkEntry>& network,
++            const std::vector<NetpolicyLease::LocalNetworkEntry>& host);
+ private:
+     int prepareHooks(HookMode mode);
+     int verifyHooks();
+@@ -42,6 +49,8 @@ private:
+     bool mSession = false;
+     bool mCommitted = false;
+     bool mPermissionMode = false;
++    bool mLocalNetworkMode = false;
++    std::optional<NetpolicyLease::LocalNetworkImage> mLocalNetworkImage;
+     std::optional<NetpolicyLease::PermissionImage> mPermissionImage;
+     Image mPermissionRules4, mPermissionRules6;
+ };
