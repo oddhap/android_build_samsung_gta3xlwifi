@@ -32,6 +32,18 @@ checks are separate from Android execution. Optional GPU BPF accounting still
 reports unavailable, rather than invented counters. Existing safety/installer
 and strict SELinux checks remain enforced.
 
+## Socket-aware attachment checkpoint — November 8
+
+The real receive LNA/shared gate hook now passes51 host cases and5,632 actual
+Android17 parser comparisons, full kernel/modules and complete source audits.
+Image808468364a79c037930089f4d5f2d63085ca7fdc52b9d0646a47c5ff59381529;
+configuration remains unchanged. Native xtables70+7 registrations/link pass.
+See `experiments/kernel-receive-context-20261107-01`. Ordinary UID/VPN/IIF and
+accounting still require correct late socket attachment; this LNA component does
+not complete networking. New output hooks (IPv4/IPv6/multicast) pass51 additional
+host cases and full isolated kernel/modules/audits plus native xtables now pass
+(exit0, Image67ec0b37...915bb). No prebuilt promotion.
+
 ## Current isolated networking checkpoint — November 7
 
 The server reboot left completed results intact; SSH, idle processes and free

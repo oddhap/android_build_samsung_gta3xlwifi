@@ -1,0 +1,217 @@
+diff --git a/include/net/gta3xlwifi_receive.h b/include/net/gta3xlwifi_receive.h
+index c7669c8..695e2aa 100644
+--- a/include/net/gta3xlwifi_receive.h
++++ b/include/net/gta3xlwifi_receive.h
+@@ -11,10 +11,18 @@ struct sk_buff;
+  */
+ int gta3xlwifi_receive_policy(struct sock *sk, struct sk_buff *skb);
+ u32 gta3xlwifi_receive_features(void);
++/* Post-routing, pre-fragmentation actual full socket; borrowed skb is unchanged.
++ * Caller owns the skb and must consume it on rejection. LNA/gate only. */
++int gta3xlwifi_egress_policy(struct sock *sk, struct sk_buff *skb);
++u32 gta3xlwifi_egress_features(void);
+ #else
+ static inline int gta3xlwifi_receive_policy(struct sock *sk, struct sk_buff *skb)
+ {
+     return 0;
+ }
++static inline int gta3xlwifi_egress_policy(struct sock *sk, struct sk_buff *skb)
++{
++    return 0;
++}
+ #endif
+ #endif
+diff --git a/include/uapi/linux/netfilter/gta3xlwifi_local_network.h b/include/uapi/linux/netfilter/gta3xlwifi_local_network.h
+index e756736..d6d830d 100644
+--- a/include/uapi/linux/netfilter/gta3xlwifi_local_network.h
++++ b/include/uapi/linux/netfilter/gta3xlwifi_local_network.h
+@@ -12,6 +12,7 @@
+ #define GTA3XLWIFI_UID_CAP_LNA_MATCH (1U << 4)
+ /* Socket-aware receive LNA/shared gate only, not complete firewall readiness. */
+ #define GTA3XLWIFI_UID_CAP_LNA_RECEIVE (1U << 5)
++#define GTA3XLWIFI_UID_CAP_LNA_EGRESS (1U << 6) /* compiled real output hooks, not whole backend */
+ #define GTA3XLWIFI_LNA_MATCH "gta3xlwifi_lna"
+ struct gta3xlwifi_lna_match { __u32 reserved; };
+ /* Canonical prefix: unused low bits/bytes are zero. Sort by prefix_bits then
+diff --git a/net/ipv4/ip_output.c b/net/ipv4/ip_output.c
+index af2f2ef..8c089d1 100644
+--- a/net/ipv4/ip_output.c
++++ b/net/ipv4/ip_output.c
+@@ -1,3 +1,4 @@
++#include <net/gta3xlwifi_receive.h>
+ /*
+  * INET		An implementation of the TCP/IP protocol suite for the LINUX
+  *		operating system.  INET is implemented using the  BSD Socket
+@@ -274,7 +275,7 @@ static int ip_finish_output_gso(struct net *net, struct sock *sk,
+ 	return ret;
+ }
+ 
+-static int ip_finish_output(struct net *net, struct sock *sk, struct sk_buff *skb)
++static int __ip_finish_output(struct net *net, struct sock *sk, struct sk_buff *skb)
+ {
+ 	unsigned int mtu;
+ 
+@@ -295,6 +296,27 @@ static int ip_finish_output(struct net *net, struct sock *sk, struct sk_buff *sk
+ 	return ip_finish_output2(net, sk, skb);
+ }
+ 
++static int ip_finish_output(struct net *net, struct sock *sk, struct sk_buff *skb)
++{
++	int result = gta3xlwifi_egress_policy(sk, skb);
++	if (result) {
++		kfree_skb(skb);
++		return result;
++	}
++	return __ip_finish_output(net, sk, skb);
++}
++
++/* Multicast/broadcast loopback clones have their own POST_ROUTING callback. */
++static int ip_mc_finish_output(struct net *net, struct sock *sk, struct sk_buff *skb)
++{
++	int result = gta3xlwifi_egress_policy(sk, skb);
++	if (result) {
++		kfree_skb(skb);
++		return result;
++	}
++	return dev_loopback_xmit(net, sk, skb);
++}
++
+ int ip_mc_output(struct net *net, struct sock *sk, struct sk_buff *skb)
+ {
+ 	struct rtable *rt = skb_rtable(skb);
+@@ -332,7 +354,7 @@ int ip_mc_output(struct net *net, struct sock *sk, struct sk_buff *skb)
+ 			if (newskb)
+ 				NF_HOOK(NFPROTO_IPV4, NF_INET_POST_ROUTING,
+ 					net, sk, newskb, NULL, newskb->dev,
+-					dev_loopback_xmit);
++					ip_mc_finish_output);
+ 		}
+ 
+ 		/* Multicasts with ttl 0 must not go beyond the host */
+@@ -348,7 +370,7 @@ int ip_mc_output(struct net *net, struct sock *sk, struct sk_buff *skb)
+ 		if (newskb)
+ 			NF_HOOK(NFPROTO_IPV4, NF_INET_POST_ROUTING,
+ 				net, sk, newskb, NULL, newskb->dev,
+-				dev_loopback_xmit);
++				ip_mc_finish_output);
+ 	}
+ 
+ 	return NF_HOOK_COND(NFPROTO_IPV4, NF_INET_POST_ROUTING,
+diff --git a/net/ipv6/ip6_output.c b/net/ipv6/ip6_output.c
+index f8cca81..9b41b23 100644
+--- a/net/ipv6/ip6_output.c
++++ b/net/ipv6/ip6_output.c
+@@ -1,3 +1,4 @@
++#include <net/gta3xlwifi_receive.h>
+ /*
+  *	IPv6 output functions
+  *	Linux INET6 implementation
+@@ -121,7 +122,7 @@ static int ip6_finish_output2(struct net *net, struct sock *sk, struct sk_buff *
+ 	return -EINVAL;
+ }
+ 
+-static int ip6_finish_output(struct net *net, struct sock *sk, struct sk_buff *skb)
++static int __ip6_finish_output(struct net *net, struct sock *sk, struct sk_buff *skb)
+ {
+ 	if ((skb->len > ip6_skb_dst_mtu(skb) && !skb_is_gso(skb)) ||
+ 	    dst_allfrag(skb_dst(skb)) ||
+@@ -131,11 +132,25 @@ static int ip6_finish_output(struct net *net, struct sock *sk, struct sk_buff *s
+ 		return ip6_finish_output2(net, sk, skb);
+ }
+ 
++static int ip6_finish_output(struct net *net, struct sock *sk, struct sk_buff *skb)
++{
++	int result = gta3xlwifi_egress_policy(sk, skb);
++	if (result) {
++		kfree_skb(skb);
++		return result;
++	}
++	return __ip6_finish_output(net, sk, skb);
++}
++
+ int ip6_output(struct net *net, struct sock *sk, struct sk_buff *skb)
+ {
+ 	struct net_device *dev = skb_dst(skb)->dev;
+ 	struct inet6_dev *idev = ip6_dst_idev(skb_dst(skb));
+ 
++	/* Match modern output context before netfilter and the policy callback. */
++	skb->protocol = htons(ETH_P_IPV6);
++	skb->dev = dev;
++
+ 	if (unlikely(idev->cnf.disable_ipv6)) {
+ 		IP6_INC_STATS(net, idev, IPSTATS_MIB_OUTDISCARDS);
+ 		kfree_skb(skb);
+diff --git a/net/netfilter/gta3xlwifi_netpolicy.c b/net/netfilter/gta3xlwifi_netpolicy.c
+index 2c6441f..8c53c09 100644
+--- a/net/netfilter/gta3xlwifi_netpolicy.c
++++ b/net/netfilter/gta3xlwifi_netpolicy.c
+@@ -116,7 +116,7 @@ static long netpolicy_image_ioctl(struct file *file, unsigned int cmd,
+ 		ret = -EPERM;
+ 	else if (cmd == GTA3XLWIFI_UID_FEATURES)
+ 		ret = gta3xlwifi_uid_permissions_features() | GTA3XLWIFI_UID_CAP_LNA_STORE |
+-		      gta3xlwifi_lna_packet_features() | gta3xlwifi_receive_features();
++		      gta3xlwifi_lna_packet_features() | gta3xlwifi_receive_features() | gta3xlwifi_egress_features();
+ 	else if ((cmd == GTA3XLWIFI_UID_SET_IMAGE || cmd == GTA3XLWIFI_LNA_SET_IMAGE) &&
+ 	         !READ_ONCE(netpolicy_held))
+ 		ret = -EBUSY;
+diff --git a/net/netfilter/xt_qtaguid.c b/net/netfilter/xt_qtaguid.c
+index d06d10a..8a34ed5 100644
+--- a/net/netfilter/xt_qtaguid.c
++++ b/net/netfilter/xt_qtaguid.c
+@@ -3396,3 +3396,56 @@ out:
+     rcu_read_unlock();
+     return result;
+ }
++
++/* Post-routing output uses the supplied full socket, not skb->sk or an
++ * INPUT-only tuple lookup. Borrowed socket is protected by the output caller.
++ * Keep policy in the shared RCU drain domain, including all metadata reads.
++ */
++u32 gta3xlwifi_egress_features(void)
++{
++    return GTA3XLWIFI_UID_CAP_LNA_EGRESS;
++}
++
++int gta3xlwifi_egress_policy(struct sock *sk, struct sk_buff *skb)
++{
++    struct gta3xlwifi_packet packet;
++    struct net *net;
++    u32 uid, stats_uid, tag, if_index;
++    int result = 0, metadata;
++    if (!sk || !skb || !sk_fullsock(sk) ||
++        (sk->sk_family != AF_INET && sk->sk_family != AF_INET6))
++        return 0;
++    rcu_read_lock();
++    if (gta3xlwifi_netpolicy_held()) {
++        result = -EPERM;
++        goto out;
++    }
++    metadata = gta3xlwifi_socket_accounting(sk, &stats_uid, &tag);
++    if (metadata && metadata != -ENOENT) {
++        result = metadata;
++        goto out;
++    }
++    /* Exact A17 accounting-UID exception. A CLAT process UID by itself does
++     * not identify a tagged CLAT socket. Applies only to output.
++     */
++    if (!metadata && stats_uid == 1029)
++        goto out;
++    if (!gta3xlwifi_parse_packet(skb, &packet))
++        goto out;
++    if (!metadata && stats_uid == 1051 && tag == 0xffffff82U)
++        goto out;
++    net = sock_net(sk);
++    uid = from_kuid_munged(net->user_ns, sock_net_uid(net, sk));
++    if (uid == 65534)
++        uid = 0;
++    /* ip_output/ip6_output set dev before POST_ROUTING, matching the modern
++     * cgroup context. Never substitute a stale skb owner or skb_iif.
++     */
++    if_index = skb->dev ? skb->dev->ifindex : 0;
++    if (gta3xlwifi_lna_blocked(uid, if_index, &packet.daddr,
++                               packet.ip_proto, packet.dport))
++        result = -EPERM;
++out:
++    rcu_read_unlock();
++    return result;
++}

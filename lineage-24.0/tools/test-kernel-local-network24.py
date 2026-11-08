@@ -18,6 +18,10 @@ prefix+='''\n#include <netinet/in.h>\n#include <linux/netfilter/gta3xlwifi_local
 image=S/'net/netfilter/gta3xlwifi_local_network.c';driver=S/'net/netfilter/gta3xlwifi_netpolicy.c';uid=U/'net/netfilter/gta3xlwifi_uid_permissions.c';c=image.read_text();d=driver.read_text();uc=uid.read_text();reference=A/'packages/modules/Connectivity/bpf/progs/netd.c';rh=reference.with_name('netd.h');r=reference.read_text();h=rh.read_text()
 if 'gta3xlwifi_lna_packet_features()' in d:
  prefix+='\nstatic u32 gta3xlwifi_lna_packet_features(void){return 0;} /* registration tested separately */\n'
+if 'gta3xlwifi_receive_features()' in d:
+ prefix+='\nstatic u32 gta3xlwifi_receive_features(void){return 0;} /* receive registration tested separately */\n'
+if 'gta3xlwifi_egress_features()' in d:
+ prefix+='\nstatic u32 gta3xlwifi_egress_features(void){return 0;} /* output hooks tested separately */\n'
 globals=d[d.index('static DEFINE_MUTEX('):d.index('static bool netpolicy_privileged(')]
 store=uc[uc.index('struct gta3xlwifi_uid_image {'):uc.index('MODULE_LICENSE(')]+c[c.index('#define LNA_NONE'):c.index('MODULE_LICENSE(')]
 functions='\n'.join(m.extract(d,n) for n in ['netpolicy_privileged','netpolicy_open','netpolicy_drop_lease','netpolicy_flush','netpolicy_release','netpolicy_image_ioctl','netpolicy_ioctl'])

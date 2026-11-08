@@ -1,0 +1,168 @@
+--- /dev/null
++++ b/include/net/gta3xlwifi_receive.h
+@@ -0,0 +1,20 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++#ifndef _NET_GTA3XLWIFI_RECEIVE_H
++#define _NET_GTA3XLWIFI_RECEIVE_H
++#include <linux/types.h>
++struct sock;
++struct sk_buff;
++#ifdef CONFIG_NETFILTER_XT_MATCH_QTAGUID
++/* Called at original socket-filter receive stage, with caller-protected actual
++ * receiving socket and current device. Does not change skb socket/owner/data.
++ * Implements shared held gate + actual LNA only, not full UID/VPN/IIF/accounting.
++ */
++int gta3xlwifi_receive_policy(struct sock *sk, struct sk_buff *skb);
++u32 gta3xlwifi_receive_features(void);
++#else
++static inline int gta3xlwifi_receive_policy(struct sock *sk, struct sk_buff *skb)
++{
++    return 0;
++}
++#endif
++#endif
+--- a/include/uapi/linux/netfilter/gta3xlwifi_local_network.h
++++ b/include/uapi/linux/netfilter/gta3xlwifi_local_network.h
+@@ -10,6 +10,8 @@
+ /* A compiled real store primitive, NEVER complete networking readiness. */
+ #define GTA3XLWIFI_UID_CAP_LNA_STORE (1U << 3)
+ #define GTA3XLWIFI_UID_CAP_LNA_MATCH (1U << 4)
++/* Socket-aware receive LNA/shared gate only, not complete firewall readiness. */
++#define GTA3XLWIFI_UID_CAP_LNA_RECEIVE (1U << 5)
+ #define GTA3XLWIFI_LNA_MATCH "gta3xlwifi_lna"
+ struct gta3xlwifi_lna_match { __u32 reserved; };
+ /* Canonical prefix: unused low bits/bytes are zero. Sort by prefix_bits then
+--- a/net/core/filter.c
++++ b/net/core/filter.c
+@@ -48,6 +48,7 @@
+ #include <linux/bpf.h>
+ #include <net/sch_generic.h>
+ #include <net/cls_cgroup.h>
++#include <net/gta3xlwifi_receive.h>
+ #include <net/dst_metadata.h>
+ #include <net/dst.h>
+ 
+@@ -76,6 +77,10 @@
+ 	 */
+ 	if (skb_pfmemalloc(skb) && !sock_flag(sk, SOCK_MEMALLOC))
+ 		return -ENOMEM;
++
++	err = gta3xlwifi_receive_policy(sk, skb);
++	if (err)
++		return err;
+ 
+ 	err = security_sock_rcv_skb(sk, skb);
+ 	if (err)
+--- a/net/netfilter/xt_qtaguid.c
++++ b/net/netfilter/xt_qtaguid.c
+@@ -3319,3 +3319,80 @@
+ module_init(gta3xlwifi_lna_init);
+ MODULE_ALIAS("ipt_gta3xlwifi_lna");
+ MODULE_ALIAS("ip6t_gta3xlwifi_lna");
++
++/* Socket-aware receive stage. Original caller protects sk lifetime. A17 binds
++ * this actual full socket while evaluating ingress, not an early-demux guess.
++ */
++#include <net/gta3xlwifi_receive.h>
++#include <net/gta3xlwifi_uid_permissions.h>
++
++static int gta3xlwifi_socket_accounting(const struct sock *sk, u32 *uid, u32 *tag)
++{
++    const struct sock_tag *entry;
++    u32 snapshot_uid, snapshot_tag;
++    if (!sk || !uid || !tag)
++        return -EINVAL;
++    if (READ_ONCE(module_passive))
++        return -EOPNOTSUPP;
++    spin_lock_bh(&sock_tag_list_lock);
++    entry = get_sock_stat_nl(sk);
++    if (!entry) {
++        spin_unlock_bh(&sock_tag_list_lock);
++        return -ENOENT;
++    }
++    snapshot_uid = get_uid_from_tag(entry->tag);
++    snapshot_tag = get_atag_from_tag(entry->tag) >> 32;
++    spin_unlock_bh(&sock_tag_list_lock);
++    *uid = snapshot_uid;
++    *tag = snapshot_tag;
++    return 0;
++}
++
++u32 gta3xlwifi_receive_features(void)
++{
++    return GTA3XLWIFI_UID_CAP_LNA_RECEIVE;
++}
++
++int gta3xlwifi_receive_policy(struct sock *sk, struct sk_buff *skb)
++{
++    struct gta3xlwifi_packet packet;
++    struct net *net;
++    u32 uid, stats_uid, tag, if_index;
++    int result = 0, metadata;
++    /* Same full-inet-socket applicability as the modern cgroup wrapper. */
++    if (!sk || !skb || !sk_fullsock(sk) ||
++        (sk->sk_family != AF_INET && sk->sk_family != AF_INET6))
++        return 0;
++    /* synchronize_net() is synchronize_rcu() in this exact4.4 tree. Keep the
++     * entire decision in its reader section, including DNS metadata and parse.
++     * HOLD/close cannot complete while a reader that saw the old gate is live.
++     */
++    rcu_read_lock();
++    if (gta3xlwifi_netpolicy_held()) {
++        result = -EPERM;
++        goto out;
++    }
++    if (!gta3xlwifi_parse_packet(skb, &packet))
++        goto out;
++    metadata = gta3xlwifi_socket_accounting(sk, &stats_uid, &tag);
++    if (metadata && metadata != -ENOENT) {
++        result = metadata;
++        goto out;
++    }
++    /* Actual A17 TAG_SYSTEM_DNS +AID_DNS. UID/process identity alone is never
++     * a DNS exemption. Tag values are copied under the real qtaguid tree lock.
++     */
++    if (!metadata && stats_uid == 1051 && tag == 0xffffff82U)
++        goto out;
++    net = sock_net(sk);
++    uid = from_kuid_munged(net->user_ns, sock_net_uid(net, sk));
++    if (uid == 65534)
++        uid = 0;
++    if_index = skb->dev ? skb->dev->ifindex : 0;
++    if (gta3xlwifi_lna_blocked(uid, if_index, &packet.saddr,
++                               packet.ip_proto, packet.sport))
++        result = -EPERM;
++out:
++    rcu_read_unlock();
++    return result;
++}
+--- a/net/netfilter/gta3xlwifi_packet.c
++++ b/net/netfilter/gta3xlwifi_packet.c
+@@ -11,7 +11,7 @@
+ static bool gta3xlwifi_packet_read(const struct sk_buff *skb, unsigned int offset,
+                                   void *output, unsigned int length)
+ {
+-    if (skb_copy_bits(skb, skb_network_offset(skb) + offset, output, length)) {
++    if (skb_copy_bits(skb, skb_network_offset(skb) + (int)offset, output, length)) {
+         memset(output, 0, length);
+         return false;
+     }
+--- a/net/netfilter/gta3xlwifi_netpolicy.c
++++ b/net/netfilter/gta3xlwifi_netpolicy.c
+@@ -21,6 +21,7 @@
+ #include <net/gta3xlwifi_uid_permissions.h>
+ #include <uapi/linux/netfilter/gta3xlwifi_local_network.h>
+ #include <net/gta3xlwifi_local_network.h>
++#include <net/gta3xlwifi_receive.h>
+ 
+ static DEFINE_MUTEX(netpolicy_lock);
+ static struct file *netpolicy_owner_file;
+@@ -115,7 +116,7 @@
+ 		ret = -EPERM;
+ 	else if (cmd == GTA3XLWIFI_UID_FEATURES)
+ 		ret = gta3xlwifi_uid_permissions_features() | GTA3XLWIFI_UID_CAP_LNA_STORE |
+-		      gta3xlwifi_lna_packet_features();
++		      gta3xlwifi_lna_packet_features() | gta3xlwifi_receive_features();
+ 	else if ((cmd == GTA3XLWIFI_UID_SET_IMAGE || cmd == GTA3XLWIFI_LNA_SET_IMAGE) &&
+ 	         !READ_ONCE(netpolicy_held))
+ 		ret = -EBUSY;
