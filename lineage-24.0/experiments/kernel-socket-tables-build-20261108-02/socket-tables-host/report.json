@@ -1,0 +1,38 @@
+{
+  "passed": true,
+  "scope": "Actual private socket-table lifecycle/grammar/evaluator/lease helper C.\n\nTable allocation/translation/evaluation, netns, sockets, RCU and credentials are\nfixtures. Checks exact core insertion boundaries; no global hook, real packets,\ncomplete owner policy, iptables syscall or readiness is validated by this test.\n",
+  "passed_cases": 52,
+  "grammar_comparisons": 864,
+  "core_replacement_bodies_preserved_except_exact_private_inserts": true,
+  "no_global_nf_hooks_registered": true,
+  "inputs_sha256": {
+    "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/test-kernel-socket-tables24.py": "aa262cff85cd4136d1ec7b24d7ce898683c0a7d024e744664a1d889722ee911d",
+    "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/test-kernel-qtaguid-socket-owned.py": "59516300b405af46c972b264353c3766b5c18cf882b04ac8ba9db6f70f436459",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-socket-tables-20261108-02/src/net/netfilter/gta3xlwifi_socket_tables.c": "b998561e06417e20bf7b10e445f9c13535975a458d28a5cd3ac3bf12169b0588",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-socket-tables-20261108-02/src/net/netfilter/gta3xlwifi_netpolicy.c": "6c5ad3c517a10fe521afa49cccb5c8b3ee9b0fcf5fde9aa48c84b28cb1a8912c",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-socket-tables-20261108-02/src/include/net/gta3xlwifi_socket_tables.h": "9fa9238677669b5a65f135d0c8a06b78ff113f73bcaf37c4b0c318af1ae894ba",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-socket-tables-20261108-02/src/net/ipv4/netfilter/ip_tables.c": "d5246967f78016e285c2aeaeb4de04873d78bd40a04257c39f2a4ca09db5f73f",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-loopback-events-20261108-01/src/net/ipv4/netfilter/ip_tables.c": "c2dc195f372873889d589281d9d894bcbe57c973b99071fb68ead76e56ba52e3",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-socket-tables-20261108-02/src/net/ipv6/netfilter/ip6_tables.c": "3695e739d2418370518125829b530b9250cab9bf258fc5dfc54a8361aabe5f9e",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-loopback-events-20261108-01/src/net/ipv6/netfilter/ip6_tables.c": "37ba7b3bb2ad459039fd4b0e97d3974bc1122bffea60b765b24f337f747eda1b",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-socket-tables-build-20261108-02/socket-tables-host/test.c": "bb578a113ab703e31fdc8ddddfa1aed6c3b3374236c22f7ebd41c5b600c3fe0f"
+  },
+  "command": [
+    "cc",
+    "-std=gnu11",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-Wno-unused-parameter",
+    "-O1",
+    "-g",
+    "-fsanitize=undefined",
+    "-fno-sanitize-recover=all",
+    "-pthread",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-socket-tables-build-20261108-02/socket-tables-host/test.c",
+    "-o",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-socket-tables-build-20261108-02/socket-tables-host/test"
+  ],
+  "hardware_tested": false,
+  "flash_ready": false
+}

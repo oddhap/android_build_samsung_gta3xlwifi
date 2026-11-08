@@ -1,0 +1,140 @@
+diff --git a/Gta3xlwifiCheckedUidChains.cpp b/Gta3xlwifiCheckedUidChains.cpp
+index e1d929e..eb3c1ad 100644
+--- a/Gta3xlwifiCheckedUidChains.cpp
++++ b/Gta3xlwifiCheckedUidChains.cpp
+@@ -15,6 +15,13 @@ constexpr size_t kMaximumImageBytes = 1024 * 1024;
+ 
+ bool singleFamily(IptablesTarget family) { return family == V4 || family == V6; }
+ 
++const char* tablePrefix(CheckedUidChains::Table table) {
++    switch (table) {
++        case CheckedUidChains::Table::Filter: return "*filter\n";
++        case CheckedUidChains::Table::Socket: return "*g24sock\n";
++    }
++    return nullptr;
++}
+ bool number(std::string_view text, uint32_t* output, uint32_t maximum) {
+     if (text.empty()) return false;
+     // Numeric UID output from libxt_owner's save formatter, never names/signs.
+@@ -108,10 +115,34 @@ bool CheckedUidChains::validImage(const std::vector<Chain>& image) {
+     return validNames(names);
+ }
+ 
++bool CheckedUidChains::validTableNames(Table table, const std::vector<std::string>& names) {
++    if (!tablePrefix(table) || !validNames(names)) return false;
++    if (table == Table::Filter) return true;
++    for (const auto& name : names) {
++        if (name == "g24_owner_in" || name == "g24_owner_out") continue;
++        if (name.size() != 9 || name.rfind("g24_uid_", 0) || name[8] < '1' || name[8] > '9')
++            return false;
++    }
++    return true;
++}
++bool CheckedUidChains::validTableImage(Table table, const std::vector<Chain>& image) {
++    if (!validImage(image)) return false;
++    std::vector<std::string> names;
++    for (const auto& chain : image) {
++        names.push_back(chain.name);
++        if (table != Table::Socket) continue;
++        for (const auto& rule : chain.rules) {
++            if (rule.verdict == Verdict::Reject || rule.verdict == Verdict::DataSaverGoto ||
++                rule.selector == Selector::LookupAppId ||
++                (rule.selector == Selector::Owner && rule.uid)) return false;
++        }
++    }
++    return validTableNames(table, names);
++}
+ int CheckedUidChains::readLocked(IptablesTarget family, const std::vector<std::string>& names,
+                                 std::vector<Chain>* output) {
+-    if (!singleFamily(family) || !output || !validNames(names)) return -EINVAL;
+-    std::string commands = "*filter\n";
++    if (!singleFamily(family) || !output || !validTableNames(mTable, names)) return -EINVAL;
++    std::string commands = tablePrefix(mTable);
+     for (const auto& name : names) commands += "-S " + name + "\n";
+     commands += "COMMIT\n";
+     std::string text;
+@@ -189,14 +220,14 @@ int CheckedUidChains::readLocked(IptablesTarget family, const std::vector<std::s
+         next.back().rules.push_back(rule);
+     }
+     std::string rollback;
+-    if (next.size() != names.size() || encode(next, &rollback)) return -EPROTO;
++    if (next.size() != names.size() || encode(next, &rollback, mTable)) return -EPROTO;
+     *output = std::move(next);
+     return 0;
+ }
+ 
+-int CheckedUidChains::encode(const std::vector<Chain>& image, std::string* output) {
+-    if (!validImage(image)) return -EINVAL;
+-    std::string commands = "*filter\n";
++int CheckedUidChains::encode(const std::vector<Chain>& image, std::string* output, Table table) {
++    if (!validTableImage(table, image)) return -EINVAL;
++    std::string commands = tablePrefix(table);
+     for (const auto& chain : image) {
+         commands += ":" + chain.name + " -\n";
+         for (const auto& rule : chain.rules) {
+@@ -235,14 +266,14 @@ int CheckedUidChains::encode(const std::vector<Chain>& image, std::string* outpu
+     return 0;
+ }
+ 
+-int CheckedUidChains::validateImage(const std::vector<Chain>& image) {
++int CheckedUidChains::validateImage(const std::vector<Chain>& image, Table table) {
+     std::string validated;
+-    return encode(image, &validated);
++    return encode(image, &validated, table);
+ }
+ 
+ int CheckedUidChains::writeLocked(IptablesTarget family, const std::vector<Chain>& image) {
+     std::string commands;
+-    int result = encode(image, &commands);
++    int result = encode(image, &commands, mTable);
+     if (result) return result;
+     return mKernel.execute(family, commands, nullptr) ? -EREMOTEIO : 0;
+ }
+@@ -257,7 +288,7 @@ int CheckedUidChains::replace(IptablesTarget family, const std::vector<Chain>& d
+     std::lock_guard<std::mutex> lock(mMutex);
+     if (!singleFamily(family)) return -EINVAL;
+     std::string validated;
+-    int encoded = encode(desired, &validated);
++    int encoded = encode(desired, &validated, mTable);
+     if (encoded) return encoded;
+     std::vector<std::string> names;
+     for (const auto& chain : desired) names.push_back(chain.name);
+diff --git a/Gta3xlwifiCheckedUidChains.h b/Gta3xlwifiCheckedUidChains.h
+index 855605f..85129ab 100644
+--- a/Gta3xlwifiCheckedUidChains.h
++++ b/Gta3xlwifiCheckedUidChains.h
+@@ -17,6 +17,7 @@ namespace android::net::gta3xlwifi {
+ // sole owner and hold the netd firewall transaction lock across each operation.
+ class CheckedUidChains {
+ public:
++    enum class Table { Filter, Socket };
+     struct UidRange {
+         uint32_t first;
+         uint32_t last;
+@@ -39,8 +40,9 @@ public:
+         bool operator==(const Chain& b) const { return name == b.name && rules == b.rules; }
+     };
+     // Use the exact encoder/limits without any kernel I/O.
+-    static int validateImage(const std::vector<Chain>& image);
+-    explicit CheckedUidChains(IptablesRestoreInterface& kernel) : mKernel(kernel) {}
++    static int validateImage(const std::vector<Chain>& image, Table table = Table::Filter);
++    explicit CheckedUidChains(IptablesRestoreInterface& kernel, Table table = Table::Filter)
++        : mKernel(kernel), mTable(table) {}
+     int read(IptablesTarget family, const std::vector<std::string>& names,
+              std::vector<Chain>* output);
+     // Success requires exact ordered kernel readback. Any failed write or
+@@ -53,10 +55,13 @@ private:
+     int readLocked(IptablesTarget family, const std::vector<std::string>& names,
+                    std::vector<Chain>* output);
+     int writeLocked(IptablesTarget family, const std::vector<Chain>& image);
+-    static int encode(const std::vector<Chain>& image, std::string* output);
++    static int encode(const std::vector<Chain>& image, std::string* output, Table table);
++    static bool validTableNames(Table table, const std::vector<std::string>& names);
++    static bool validTableImage(Table table, const std::vector<Chain>& image);
+     static bool validNames(const std::vector<std::string>& names);
+     static bool validImage(const std::vector<Chain>& image);
+     IptablesRestoreInterface& mKernel;
++    const Table mTable;
+     std::mutex mMutex;
+ };
+ 

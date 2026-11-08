@@ -1,0 +1,21 @@
+{
+  "scope": "Explicit socket table checked I/O only; no root bootstrap/attachment/complete transaction",
+  "prerequisites": [
+    "local-network-publication-20261108-01"
+  ],
+  "patch_sha256": "6d92bfcdd9ca29309b86506a53d9eebd07c52da195dd7d14dea18b095697cdb1",
+  "files": [
+    {
+      "path": "Gta3xlwifiCheckedUidChains.cpp",
+      "before_sha256": "073b7988bd4f83200bf3b0d954de9f9bbd53b71775cb082194a56f769d3b454d",
+      "candidate_sha256": "f4dd342da1656ec15a0660f169ba13c8c7e332da9ad9b7b899add33e50d3131b"
+    },
+    {
+      "path": "Gta3xlwifiCheckedUidChains.h",
+      "before_sha256": "b2ec612fb6165050240c1c9413e6c4bbd01ff511827c278e2ff62d5e91f49806",
+      "candidate_sha256": "240be01a5496a3f9ad555361c6e8c82abf499b9e5cffe27ce4d009f2195b906a"
+    }
+  ],
+  "hardware_tested": false,
+  "flash_ready": false
+}

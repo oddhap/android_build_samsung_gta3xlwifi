@@ -1,0 +1,52 @@
+{
+  "scope": "Private default-DROP per-netns IPv4/IPv6 tables, no global hooks; safe explicit socket evaluator and held-lease-only validated rule replacement. Not attached to packet policy or ready backend.",
+  "prerequisites": [
+    "kernel-loopback-events-20261108-01"
+  ],
+  "patch_sha256": "de34da2017fc87c41b5801c2833717f35f42a8f924aba6f5906994c4a1b583b9",
+  "files": [
+    {
+      "path": "net/ipv4/netfilter/ip_tables.c",
+      "before_sha256": "c2dc195f372873889d589281d9d894bcbe57c973b99071fb68ead76e56ba52e3",
+      "candidate_sha256": "d5246967f78016e285c2aeaeb4de04873d78bd40a04257c39f2a4ca09db5f73f"
+    },
+    {
+      "path": "net/ipv6/netfilter/ip6_tables.c",
+      "before_sha256": "37ba7b3bb2ad459039fd4b0e97d3974bc1122bffea60b765b24f337f747eda1b",
+      "candidate_sha256": "3695e739d2418370518125829b530b9250cab9bf258fc5dfc54a8361aabe5f9e"
+    },
+    {
+      "path": "net/netfilter/gta3xlwifi_netpolicy.c",
+      "before_sha256": "a5730ffd7875923909026e51e0336924e964d11edaef5f0c3b70f942a2752a7d",
+      "candidate_sha256": "6c5ad3c517a10fe521afa49cccb5c8b3ee9b0fcf5fde9aa48c84b28cb1a8912c"
+    },
+    {
+      "path": "net/netfilter/Makefile",
+      "before_sha256": "50f336f7956e03f61d1e288e6ea9e6170d594e24cea62ccc692d5694537e254b",
+      "candidate_sha256": "c8399b62949676e184270861f89cf9fc734d32e11e82690f5ad0a61aa3f84193"
+    },
+    {
+      "path": "net/netfilter/gta3xlwifi_socket_tables.c",
+      "before_sha256": null,
+      "candidate_sha256": "e47d896e1e9505259ad653a5b53bebf8e09223a7be75d463b1b7937ef80fed92"
+    },
+    {
+      "path": "include/net/gta3xlwifi_socket_tables.h",
+      "before_sha256": null,
+      "candidate_sha256": "9fa9238677669b5a65f135d0c8a06b78ff113f73bcaf37c4b0c318af1ae894ba"
+    }
+  ],
+  "supported_runtime_capability_bits": [
+    0,
+    1,
+    2,
+    3,
+    5,
+    9,
+    12
+  ],
+  "unknown_active_capabilities_rejected": true,
+  "android_prebuilt_promoted": false,
+  "hardware_tested": false,
+  "flash_ready": false
+}

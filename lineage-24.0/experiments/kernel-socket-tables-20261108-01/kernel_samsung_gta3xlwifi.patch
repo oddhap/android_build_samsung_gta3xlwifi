@@ -1,0 +1,449 @@
+diff --git a/net/ipv4/netfilter/ip_tables.c b/net/ipv4/netfilter/ip_tables.c
+index 4f45433..9cacf73 100644
+--- a/net/ipv4/netfilter/ip_tables.c
++++ b/net/ipv4/netfilter/ip_tables.c
+@@ -28,6 +28,7 @@
+ 
+ #include <linux/netfilter/x_tables.h>
+ #include <linux/netfilter_ipv4/ip_tables.h>
++#include <net/gta3xlwifi_socket_tables.h>
+ #include <net/netfilter/nf_log.h>
+ #include "../../netfilter/xt_repldata.h"
+ 
+@@ -1201,12 +1202,16 @@ __do_replace(struct net *net, const char *name, unsigned int valid_hooks,
+ 	     struct xt_table_info *newinfo, unsigned int num_counters,
+ 	     void __user *counters_ptr)
+ {
+-	int ret;
++	int ret, socket_lease = 0;
+ 	struct xt_table *t;
+ 	struct xt_table_info *oldinfo;
+ 	struct xt_counters *counters;
+ 	struct ipt_entry *iter;
+ 
++	ret = gta3xlwifi_socket_rules4(name, newinfo);
++	if (ret)
++		return ret;
++
+ 	ret = 0;
+ 	counters = vzalloc(num_counters * sizeof(struct xt_counters));
+ 	if (!counters) {
+@@ -1229,6 +1234,12 @@ __do_replace(struct net *net, const char *name, unsigned int valid_hooks,
+ 		goto put_module;
+ 	}
+ 
++	socket_lease = gta3xlwifi_socket_update_begin(name);
++	if (socket_lease < 0) {
++		ret = socket_lease;
++		socket_lease = 0;
++		goto put_module;
++	}
+ 	oldinfo = xt_replace_table(t, num_counters, newinfo, &ret);
+ 	if (!oldinfo)
+ 		goto put_module;
+@@ -1257,11 +1268,13 @@ __do_replace(struct net *net, const char *name, unsigned int valid_hooks,
+ 		net_warn_ratelimited("iptables: counters copy to user failed while replacing table\n");
+ 	}
+ 	vfree(counters);
++	gta3xlwifi_socket_update_end(socket_lease);
+ 	xt_table_unlock(t);
+ 	return ret;
+ 
+  put_module:
+ 	module_put(t->me);
++	gta3xlwifi_socket_update_end(socket_lease);
+ 	xt_table_unlock(t);
+  free_newinfo_counters_untrans:
+ 	vfree(counters);
+diff --git a/net/ipv6/netfilter/ip6_tables.c b/net/ipv6/netfilter/ip6_tables.c
+index 7fcaa06..153a282 100644
+--- a/net/ipv6/netfilter/ip6_tables.c
++++ b/net/ipv6/netfilter/ip6_tables.c
+@@ -31,6 +31,7 @@
+ #include <linux/cpumask.h>
+ 
+ #include <linux/netfilter_ipv6/ip6_tables.h>
++#include <net/gta3xlwifi_socket_tables.h>
+ #include <linux/netfilter/x_tables.h>
+ #include <net/netfilter/nf_log.h>
+ #include "../../netfilter/xt_repldata.h"
+@@ -1212,12 +1213,16 @@ __do_replace(struct net *net, const char *name, unsigned int valid_hooks,
+ 	     struct xt_table_info *newinfo, unsigned int num_counters,
+ 	     void __user *counters_ptr)
+ {
+-	int ret;
++	int ret, socket_lease = 0;
+ 	struct xt_table *t;
+ 	struct xt_table_info *oldinfo;
+ 	struct xt_counters *counters;
+ 	struct ip6t_entry *iter;
+ 
++	ret = gta3xlwifi_socket_rules6(name, newinfo);
++	if (ret)
++		return ret;
++
+ 	ret = 0;
+ 	counters = vzalloc(num_counters * sizeof(struct xt_counters));
+ 	if (!counters) {
+@@ -1240,6 +1245,12 @@ __do_replace(struct net *net, const char *name, unsigned int valid_hooks,
+ 		goto put_module;
+ 	}
+ 
++	socket_lease = gta3xlwifi_socket_update_begin(name);
++	if (socket_lease < 0) {
++		ret = socket_lease;
++		socket_lease = 0;
++		goto put_module;
++	}
+ 	oldinfo = xt_replace_table(t, num_counters, newinfo, &ret);
+ 	if (!oldinfo)
+ 		goto put_module;
+@@ -1268,11 +1279,13 @@ __do_replace(struct net *net, const char *name, unsigned int valid_hooks,
+ 		net_warn_ratelimited("ip6tables: counters copy to user failed while replacing table\n");
+ 	}
+ 	vfree(counters);
++	gta3xlwifi_socket_update_end(socket_lease);
+ 	xt_table_unlock(t);
+ 	return ret;
+ 
+  put_module:
+ 	module_put(t->me);
++	gta3xlwifi_socket_update_end(socket_lease);
+ 	xt_table_unlock(t);
+  free_newinfo_counters_untrans:
+ 	vfree(counters);
+diff --git a/net/netfilter/gta3xlwifi_netpolicy.c b/net/netfilter/gta3xlwifi_netpolicy.c
+index 3ca858f..9111993 100644
+--- a/net/netfilter/gta3xlwifi_netpolicy.c
++++ b/net/netfilter/gta3xlwifi_netpolicy.c
+@@ -9,6 +9,7 @@
+ #include <linux/fs.h>
+ #include <linux/miscdevice.h>
+ #include <linux/module.h>
++#include <linux/string.h>
+ #include <linux/mutex.h>
+ #include <linux/netdevice.h>
+ #include <linux/netfilter.h>
+@@ -22,6 +23,7 @@
+ #include <uapi/linux/netfilter/gta3xlwifi_local_network.h>
+ #include <net/gta3xlwifi_local_network.h>
+ #include <net/gta3xlwifi_receive.h>
++#include <net/gta3xlwifi_socket_tables.h>
+ #include <net/gta3xlwifi_loopback.h>
+ #include <uapi/linux/netfilter/gta3xlwifi_loopback.h>
+ 
+@@ -43,6 +45,31 @@ static bool netpolicy_privileged(void)
+ 		ns_capable(&init_user_ns, CAP_NET_ADMIN);
+ }
+ 
++/* Ordinary helper children perform iptables syscalls; the root/init capability
++ * check and exclusive held lease serialize private table commits. No private
++ * FD is exposed and no foreign table is affected by these helpers.
++ */
++int gta3xlwifi_socket_update_begin(const char *name)
++{
++    if (strcmp(name, GTA3XLWIFI_SOCKET_TABLE))
++        return 0;
++    if (!netpolicy_privileged())
++        return -EPERM;
++    mutex_lock(&netpolicy_lock);
++    if (!netpolicy_owner_file || !READ_ONCE(netpolicy_held)) {
++        mutex_unlock(&netpolicy_lock);
++        return -EBUSY;
++    }
++    return 1;
++}
++EXPORT_SYMBOL_GPL(gta3xlwifi_socket_update_begin);
++void gta3xlwifi_socket_update_end(int held)
++{
++    if (held == 1)
++        mutex_unlock(&netpolicy_lock);
++}
++EXPORT_SYMBOL_GPL(gta3xlwifi_socket_update_end);
++
+ static int netpolicy_open(struct inode *inode, struct file *file)
+ {
+ 	int ret = 0;
+diff --git a/net/netfilter/Makefile b/net/netfilter/Makefile
+index 72d7e28..1bdefce 100644
+--- a/net/netfilter/Makefile
++++ b/net/netfilter/Makefile
+@@ -199,3 +199,4 @@ obj-$(CONFIG_NETFILTER_XT_MATCH_QTAGUID) += gta3xlwifi_local_network.o
+ 
+ obj-$(CONFIG_NETFILTER_XT_MATCH_QTAGUID) += gta3xlwifi_packet.o
+ obj-$(CONFIG_NETFILTER_XT_MATCH_QTAGUID) += gta3xlwifi_loopback.o
++obj-$(CONFIG_NETFILTER_XT_MATCH_QTAGUID) += gta3xlwifi_socket_tables.o
+diff --git a/net/netfilter/gta3xlwifi_socket_tables.c b/net/netfilter/gta3xlwifi_socket_tables.c
+new file mode 100644
+index 0000000..9b756d5
+--- /dev/null
++++ b/net/netfilter/gta3xlwifi_socket_tables.c
+@@ -0,0 +1,230 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++/* Dedicated socket-stage tables, never a second traversal of foreign filters.
++ * Registered default-DROP, without NF hook registration. Not backend readiness.
++ */
++#include <linux/module.h>
++#include <linux/string.h>
++#include <linux/errno.h>
++#include <linux/if_ether.h>
++#include <linux/slab.h>
++#include <linux/netfilter.h>
++#include <linux/netfilter_ipv4/ip_tables.h>
++#include <linux/netfilter_ipv6/ip6_tables.h>
++#include <net/net_namespace.h>
++#include <net/netns/generic.h>
++#include <net/sock.h>
++#include <net/gta3xlwifi_socket_tables.h>
++#include <net/gta3xlwifi_uid_permissions.h>
++#define SOCKET_HOOKS ((1U << NF_INET_LOCAL_IN) | (1U << NF_INET_LOCAL_OUT))
++struct socket_tables {
++    struct xt_table *v4, *v6;
++};
++static unsigned int socket_tables_id;
++static bool socket_tables_registered;
++static const struct xt_table socket_table4 = {
++    .name = GTA3XLWIFI_SOCKET_TABLE, .valid_hooks = SOCKET_HOOKS,
++    .me = THIS_MODULE, .af = NFPROTO_IPV4, .priority = NF_IP_PRI_FILTER,
++};
++#if IS_ENABLED(CONFIG_IP6_NF_IPTABLES)
++static const struct xt_table socket_table6 = {
++    .name = GTA3XLWIFI_SOCKET_TABLE, .valid_hooks = SOCKET_HOOKS,
++    .me = THIS_MODULE, .af = NFPROTO_IPV6, .priority = NF_IP6_PRI_FILTER,
++};
++#endif
++static bool socket_match_safe(const struct xt_entry_match *match)
++{
++    const char *name = match->u.kernel.match->name;
++    return !strcmp(name, "gta3xlwifi_raw_uid") ||
++           !strcmp(name, "gta3xlwifi_raw_appid") ||
++           !strcmp(name, "gta3xlwifi_owner_skip") ||
++           !strcmp(name, "gta3xlwifi_non_loopback");
++}
++static bool socket_target_safe(const struct xt_entry_target *target)
++{
++    const char *name = target->u.kernel.target->name;
++    if (!strcmp(name, XT_ERROR_TARGET))
++        return true; /* Chain-label/terminal ERROR can only DROP, never steal. */
++    if (strcmp(name, XT_STANDARD_TARGET))
++        return false;
++    /* Core translation already checked jump offsets/loop freedom. Restrict
++     * verdicts to non-consuming ACCEPT/DROP/RETURN or validated chain jumps.
++     */
++    return ((const struct xt_standard_target *)target)->verdict >= 0 ||
++           ((const struct xt_standard_target *)target)->verdict == XT_RETURN ||
++           ((const struct xt_standard_target *)target)->verdict == -NF_ACCEPT - 1 ||
++           ((const struct xt_standard_target *)target)->verdict == -NF_DROP - 1;
++}
++int gta3xlwifi_socket_rules4(const char *name, const struct xt_table_info *info)
++{
++    struct ipt_entry *entry;
++    struct xt_entry_match *match;
++    if (strcmp(name, GTA3XLWIFI_SOCKET_TABLE))
++        return 0;
++    xt_entry_foreach(entry, info->entries, info->size) {
++        xt_ematch_foreach(match, entry)
++            if (!socket_match_safe(match))
++                return -EINVAL;
++        if (!socket_target_safe(ipt_get_target(entry)))
++            return -EINVAL;
++    }
++    return 0;
++}
++EXPORT_SYMBOL_GPL(gta3xlwifi_socket_rules4);
++int gta3xlwifi_socket_rules6(const char *name, const struct xt_table_info *info)
++{
++#if IS_ENABLED(CONFIG_IP6_NF_IPTABLES)
++    struct ip6t_entry *entry;
++    struct xt_entry_match *match;
++    if (strcmp(name, GTA3XLWIFI_SOCKET_TABLE))
++        return 0;
++    xt_entry_foreach(entry, info->entries, info->size) {
++        xt_ematch_foreach(match, entry)
++            if (!socket_match_safe(match))
++                return -EINVAL;
++        if (!socket_target_safe(ip6t_get_target(entry)))
++            return -EINVAL;
++    }
++    return 0;
++#else
++    return strcmp(name, GTA3XLWIFI_SOCKET_TABLE) ? 0 : -EOPNOTSUPP;
++#endif
++}
++EXPORT_SYMBOL_GPL(gta3xlwifi_socket_rules6);
++static int __net_init socket_tables_net_init(struct net *net)
++{
++    struct socket_tables *tables = net_generic(net, socket_tables_id);
++    struct ipt_replace *v4;
++#if IS_ENABLED(CONFIG_IP6_NF_IPTABLES)
++    struct ip6t_replace *v6;
++#endif
++    v4 = ipt_alloc_initial_table(&socket_table4);
++    if (!v4)
++        return -ENOMEM;
++    ((struct ipt_standard *)v4->entries)[0].target.verdict = -NF_DROP - 1;
++    ((struct ipt_standard *)v4->entries)[1].target.verdict = -NF_DROP - 1;
++    tables->v4 = ipt_register_table(net, &socket_table4, v4);
++    kfree(v4);
++    if (IS_ERR(tables->v4)) {
++        int result = PTR_ERR(tables->v4);
++        tables->v4 = NULL;
++        return result;
++    }
++#if IS_ENABLED(CONFIG_IP6_NF_IPTABLES)
++    v6 = ip6t_alloc_initial_table(&socket_table6);
++    if (!v6) {
++        ipt_unregister_table(net, tables->v4);
++        tables->v4 = NULL;
++        return -ENOMEM;
++    }
++    ((struct ip6t_standard *)v6->entries)[0].target.verdict = -NF_DROP - 1;
++    ((struct ip6t_standard *)v6->entries)[1].target.verdict = -NF_DROP - 1;
++    tables->v6 = ip6t_register_table(net, &socket_table6, v6);
++    kfree(v6);
++    if (IS_ERR(tables->v6)) {
++        int result = PTR_ERR(tables->v6);
++        tables->v6 = NULL;
++        ipt_unregister_table(net, tables->v4);
++        tables->v4 = NULL;
++        return result;
++    }
++#endif
++    return 0;
++}
++static void __net_exit socket_tables_net_exit(struct net *net)
++{
++    struct socket_tables *tables = net_generic(net, socket_tables_id);
++#if IS_ENABLED(CONFIG_IP6_NF_IPTABLES)
++    if (tables->v6)
++        ip6t_unregister_table(net, tables->v6);
++#endif
++    if (tables->v4)
++        ipt_unregister_table(net, tables->v4);
++    tables->v4 = tables->v6 = NULL;
++}
++static struct pernet_operations socket_tables_ops = {
++    .id = &socket_tables_id, .size = sizeof(struct socket_tables),
++    .init = socket_tables_net_init, .exit = socket_tables_net_exit,
++};
++static int __init socket_tables_init(void)
++{
++    /* Intentionally no xt_hook_link()/NF hook registration. */
++    int result = register_pernet_subsys(&socket_tables_ops);
++    if (!result)
++        smp_store_release(&socket_tables_registered, true);
++    return result;
++}
++/* qtaguid is bool. Initialize after both ip_tables modules registered their
++ * standard/ERROR targets, rather than relying on net/ directory link order. */
++late_initcall(socket_tables_init);
++int gta3xlwifi_socket_table_policy(struct sock *sk, struct sk_buff *skb, bool output)
++{
++    struct socket_tables *tables;
++    struct xt_table *table;
++    struct nf_hook_state state = {};
++    struct sock *saved_sk;
++    unsigned int verdict, offset;
++    int result = 0;
++    if (!sk || !skb || !sk_fullsock(sk) ||
++        (sk->sk_family != AF_INET && sk->sk_family != AF_INET6))
++        return 0;
++    /* Selected socket stages have L3 at or before data, as modern cgroup skb
++     * evaluation does. Reject inconsistent header metadata before mutation.
++     */
++    if (!smp_load_acquire(&socket_tables_registered))
++        return -EPERM;
++    if (skb_network_header(skb) > skb->data)
++        return -EPERM;
++    offset = skb->data - skb_network_header(skb);
++    if (offset > skb_headroom(skb))
++        return -EPERM;
++    rcu_read_lock();
++    if (gta3xlwifi_netpolicy_held()) {
++        result = -EPERM;
++        goto out;
++    }
++    state.net = sock_net(sk);
++    tables = net_generic(state.net, socket_tables_id);
++    /* Choose packet family (IPv4-mapped AF_INET6 sockets can carry IPv4). */
++    if (skb->protocol == htons(ETH_P_IP)) {
++        state.pf = NFPROTO_IPV4;
++        table = tables->v4;
++    } else if (skb->protocol == htons(ETH_P_IPV6)) {
++        state.pf = NFPROTO_IPV6;
++        table = tables->v6;
++    } else {
++        result = -EPERM;
++        goto out;
++    }
++    if (!table || skb_headlen(skb) + offset <
++            (state.pf == NFPROTO_IPV4 ? sizeof(struct iphdr) : sizeof(struct ipv6hdr)) ||
++        (state.pf == NFPROTO_IPV4 && ip_hdrlen(skb) < sizeof(struct iphdr))) {
++        result = -EPERM;
++        goto out;
++    }
++    state.hook = output ? NF_INET_LOCAL_OUT : NF_INET_LOCAL_IN;
++    state.in = output ? NULL : skb->dev;
++    state.out = output ? skb->dev : NULL;
++    state.sk = sk;
++    saved_sk = skb->sk;
++    skb->sk = sk;
++    __skb_push(skb, offset);
++    if (state.pf == NFPROTO_IPV4)
++        verdict = ipt_do_table(skb, &state, table);
++#if IS_ENABLED(CONFIG_IP6_NF_IPTABLES)
++    else
++        verdict = ip6t_do_table(skb, &state, table);
++#else
++    else
++        verdict = NF_DROP;
++#endif
++    __skb_pull(skb, offset);
++    skb->sk = saved_sk;
++    if (verdict != NF_ACCEPT)
++        result = -EPERM;
++out:
++    rcu_read_unlock();
++    return result;
++}
++EXPORT_SYMBOL_GPL(gta3xlwifi_socket_table_policy);
++MODULE_LICENSE("GPL");
++MODULE_DESCRIPTION("Private default-DROP socket-stage tables; no automatic packet hooks");
+diff --git a/include/net/gta3xlwifi_socket_tables.h b/include/net/gta3xlwifi_socket_tables.h
+new file mode 100644
+index 0000000..29cebff
+--- /dev/null
++++ b/include/net/gta3xlwifi_socket_tables.h
+@@ -0,0 +1,32 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++#ifndef _NET_GTA3XLWIFI_SOCKET_TABLES_H
++#define _NET_GTA3XLWIFI_SOCKET_TABLES_H
++#include <linux/types.h>
++struct net;
++struct sock;
++struct sk_buff;
++struct xt_table_info;
++#define GTA3XLWIFI_SOCKET_TABLE "g24sock"
++#ifdef CONFIG_NETFILTER_XT_MATCH_QTAGUID
++/* Only the private table is constrained. Other table behavior is unchanged. */
++int gta3xlwifi_socket_rules4(const char *name, const struct xt_table_info *info);
++int gta3xlwifi_socket_rules6(const char *name, const struct xt_table_info *info);
++/* begin:1 holds owner mutex,0 foreign table,-errno no change allowed.
++ * Rule helper processes may write only while the real privileged lease is held.
++ * end must be paired on all paths and before releasing the xt table lock.
++ */
++int gta3xlwifi_socket_update_begin(const char *name);
++void gta3xlwifi_socket_update_end(int held);
++/* Explicit evaluation only; there are NO global NF hooks for this table.
++ * This API does not free/steal skb, alter ownership, or publish readiness.
++ * Not attached to policy hooks until the complete private rules/transactions
++ * and A17 ordering have been ported and independently validated.
++ */
++int gta3xlwifi_socket_table_policy(struct sock *sk, struct sk_buff *skb, bool output);
++#else
++static inline int gta3xlwifi_socket_rules4(const char *n,const struct xt_table_info*i){return 0;}
++static inline int gta3xlwifi_socket_rules6(const char *n,const struct xt_table_info*i){return 0;}
++static inline int gta3xlwifi_socket_update_begin(const char*n){return 0;}
++static inline void gta3xlwifi_socket_update_end(int h){}
++#endif
++#endif

@@ -1,0 +1,4 @@
+PASS: 1243 locked projects, 17 exact reviewed patches; no external alternates
+PASS: 1243 locked projects, 17 exact reviewed patches; no external alternates
+PASS: actual Android17 netd CFI flags compiled; native ARM64 object validated, production files unchanged
+Sun Nov  8 18:32:27 UTC 2026
