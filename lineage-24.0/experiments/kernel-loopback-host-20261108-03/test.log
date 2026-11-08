@@ -1,0 +1,3 @@
+passed_cases=51 negative_headroom_parser_comparisons=5632
+egress_passed_cases=100
+loopback_passed_cases=1183 permission_comparisons=98304

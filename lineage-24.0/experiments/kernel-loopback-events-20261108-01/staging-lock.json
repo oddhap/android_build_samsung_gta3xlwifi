@@ -1,0 +1,52 @@
+{
+  "scope": "Real socket-aware loopback permission check with packet-derived bounded rate-limited metrics queue and authenticated consumer; not complete backend readiness",
+  "prerequisites": [
+    "kernel-egress-clat-20261108-01"
+  ],
+  "patch_sha256": "ffb43bec91b9c709fb88608111f7954a61fa88ee07b700db02d591934d02b35d",
+  "files": [
+    {
+      "path": "net/netfilter/Makefile",
+      "before_sha256": "cde9f91a70052464bab107c1ea9bf9e03331899da4cb148cc26edc378e319294",
+      "candidate_sha256": "50f336f7956e03f61d1e288e6ea9e6170d594e24cea62ccc692d5694537e254b"
+    },
+    {
+      "path": "net/netfilter/xt_qtaguid.c",
+      "before_sha256": "7b2dc9b9a6f37b75e75165c549154de25fba6d85e2b0bbbe1377962ddd0c8d31",
+      "candidate_sha256": "8c2a4782d5ceb0d6b34e4eaaf6cea6f4160a86bd147d3e32e7942ad30bd27a8e"
+    },
+    {
+      "path": "net/netfilter/gta3xlwifi_netpolicy.c",
+      "before_sha256": "fb12fde626b6e8ed5518bd96a68993e38fae1ba91ad2457fb432fd73acd7e304",
+      "candidate_sha256": "a5730ffd7875923909026e51e0336924e964d11edaef5f0c3b70f942a2752a7d"
+    },
+    {
+      "path": "net/netfilter/gta3xlwifi_loopback.c",
+      "before_sha256": null,
+      "candidate_sha256": "4d1c293adfbc9d28f75484a95e426559437b4ea63d705d6a1b64f80a31578f02"
+    },
+    {
+      "path": "include/net/gta3xlwifi_loopback.h",
+      "before_sha256": null,
+      "candidate_sha256": "2f4509cbf3d757c302cd299cccf4e563aba9b1e6f85d007e50a5f1b493f74f3c"
+    },
+    {
+      "path": "include/uapi/linux/netfilter/gta3xlwifi_loopback.h",
+      "before_sha256": null,
+      "candidate_sha256": "81c17681a2b846b98daefbbd36b609c22dc429a1aaf3c6af7b4540af6c524604"
+    }
+  ],
+  "supported_runtime_capability_bits": [
+    0,
+    1,
+    2,
+    3,
+    5,
+    9,
+    12
+  ],
+  "unknown_active_capabilities_rejected": true,
+  "android_prebuilt_promoted": false,
+  "hardware_tested": false,
+  "flash_ready": false
+}

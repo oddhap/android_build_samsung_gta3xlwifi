@@ -211,6 +211,10 @@ if lna_header.exists():
   prefix+='\nstatic u32 gta3xlwifi_lna_packet_features(void){return 0;}\n'
  tests=tests.replace('io(GTA3XLWIFI_UID_FEATURES,NULL)==7','io(GTA3XLWIFI_UID_FEATURES,NULL)==15')
  exported_lna=O/'include/linux/netfilter/gta3xlwifi_local_network.h';exported_lna.parent.mkdir(parents=True,exist_ok=True);exported_lna.write_bytes(lna_header.read_bytes());inputs +=[lna_header,exported_lna]
+metrics_header=S/'include/uapi/linux/netfilter/gta3xlwifi_loopback.h'
+if metrics_header.exists():
+ prefix+='\n#include <linux/netfilter/gta3xlwifi_loopback.h>\nstatic u32 gta3xlwifi_loopback_features(void){return 0;}\nstatic long gta3xlwifi_loopback_ioctl(unsigned int cmd,unsigned long arg){(void)cmd;(void)arg;assert(!"legacy primitive test entered loopback stream");return -ENOTTY;}\n'
+ exported_metrics=O/'include/linux/netfilter/gta3xlwifi_loopback.h';exported_metrics.parent.mkdir(parents=True,exist_ok=True);exported_metrics.write_bytes(metrics_header.read_bytes())
 if 'gta3xlwifi_receive_features()' in d:
  prefix+='\nstatic u32 gta3xlwifi_receive_features(void){return 0;} /* receive registration tested separately */\n'
 if 'gta3xlwifi_egress_features()' in d:

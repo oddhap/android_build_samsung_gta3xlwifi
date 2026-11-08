@@ -1,0 +1,24 @@
+{
+  "scope": "Private genuine loopback event consume transport; not worker/Binder/global readiness",
+  "prerequisites": [
+    "local-network-transport-20261108-01",
+    "kernel-loopback-events-20261108-01"
+  ],
+  "patch_sha256": "20dd06606e9d49e600edeba3f4a579083cdcc5316262236ad79223d4889942c1",
+  "files": [
+    {
+      "path": "Gta3xlwifiNetpolicyLease.cpp",
+      "before_sha256": "0a9915a06ae8f8405bf603de349ede525acde35c16cf91fbc5501da00e9126b8",
+      "candidate_sha256": "412e264340ea94dd2a6c646813deae650235e69c19bf3ec814aec5a4192e6f97"
+    },
+    {
+      "path": "Gta3xlwifiNetpolicyLease.h",
+      "before_sha256": "38fd334d95ef65a9a4d28786e70a99f7bd6dd97faaef981def7d870a587443b6",
+      "candidate_sha256": "04027ade57648f18862b5ba59778d063b10657782291a7019c2f71df287850d5"
+    }
+  ],
+  "uapi_sha256": "81c17681a2b846b98daefbbd36b609c22dc429a1aaf3c6af7b4540af6c524604",
+  "android_source_modified": false,
+  "hardware_tested": false,
+  "flash_ready": false
+}

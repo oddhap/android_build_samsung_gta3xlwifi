@@ -1,0 +1,5 @@
+{
+  "passed": true,
+  "scope": "Read-only exact-base git apply --check",
+  "patch_sha256": "20dd06606e9d49e600edeba3f4a579083cdcc5316262236ad79223d4889942c1"
+}

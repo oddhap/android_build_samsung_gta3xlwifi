@@ -19,7 +19,10 @@ cmd+=['--output',str(O/'receive-prerequisite')];subprocess.run(cmd,check=True)
 prior=O/'receive-prerequisite/test.c';code=prior.read_text().replace('int main(void){','static int receive_main(void){')
 # Existing receive harness ended main with implicit return; make its reuse explicit.
 code=code.rstrip();assert code.endswith('}');code=code[:-1]+'return 0;\n}\n'
-raw=S/'net/netfilter/xt_qtaguid.c';text=raw.read_text();code+='\n'+m.extract(text,'gta3xlwifi_egress_features')+'\n'+m.extract(text,'gta3xlwifi_egress_policy')+'\n'
+raw=S/'net/netfilter/xt_qtaguid.c';text=raw.read_text()
+if 'gta3xlwifi_loopback_blocked(' in m.extract(text,'gta3xlwifi_egress_policy'):
+ code+='\nstatic bool gta3xlwifi_loopback_blocked(struct net*n,u32 ifindex,u32 uid,const struct gta3xlwifi_packet*p){(void)n;(void)uid;(void)p;assert(ifindex!=1);return false;} /* Non-loopback regression scope; real hook/queue tested separately. */\n'
+code+='\n'+m.extract(text,'gta3xlwifi_egress_features')+'\n'+m.extract(text,'gta3xlwifi_egress_policy')+'\n'
 v4=S/'net/ipv4/ip_output.c';v6=S/'net/ipv6/ip6_output.c';old4=B/'net/ipv4/ip_output.c';old6=B/'net/ipv6/ip6_output.c'
 # Exact old slow/GSO/XFRM/fragmentation bodies retained behind the new wrappers.
 for new,old,n in [(v4,old4,'ip_finish_output'),(v6,old6,'ip6_finish_output')]:

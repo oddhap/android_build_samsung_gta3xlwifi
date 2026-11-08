@@ -18,6 +18,10 @@ prefix+='''\n#include <netinet/in.h>\n#include <linux/netfilter/gta3xlwifi_local
 image=S/'net/netfilter/gta3xlwifi_local_network.c';driver=S/'net/netfilter/gta3xlwifi_netpolicy.c';uid=U/'net/netfilter/gta3xlwifi_uid_permissions.c';c=image.read_text();d=driver.read_text();uc=uid.read_text();reference=A/'packages/modules/Connectivity/bpf/progs/netd.c';rh=reference.with_name('netd.h');r=reference.read_text();h=rh.read_text()
 if 'gta3xlwifi_lna_packet_features()' in d:
  prefix+='\nstatic u32 gta3xlwifi_lna_packet_features(void){return 0;} /* registration tested separately */\n'
+metrics_header=S/'include/uapi/linux/netfilter/gta3xlwifi_loopback.h'
+if metrics_header.exists():
+ prefix+='\n#include <linux/netfilter/gta3xlwifi_loopback.h>\nstatic u32 gta3xlwifi_loopback_features(void){return 0;}\nstatic long gta3xlwifi_loopback_ioctl(unsigned int cmd,unsigned long arg){(void)cmd;(void)arg;assert(!"legacy primitive test entered loopback stream");return -ENOTTY;}\n'
+ exported_metrics=O/'include/linux/netfilter/gta3xlwifi_loopback.h';exported_metrics.parent.mkdir(parents=True,exist_ok=True);exported_metrics.write_bytes(metrics_header.read_bytes())
 if 'gta3xlwifi_receive_features()' in d:
  prefix+='\nstatic u32 gta3xlwifi_receive_features(void){return 0;} /* receive registration tested separately */\n'
 if 'gta3xlwifi_egress_features()' in d:

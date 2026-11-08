@@ -1,0 +1,129 @@
+diff --git a/Gta3xlwifiNetpolicyLease.cpp b/Gta3xlwifiNetpolicyLease.cpp
+index fbe481c..bbc7e2a 100644
+--- a/Gta3xlwifiNetpolicyLease.cpp
++++ b/Gta3xlwifiNetpolicyLease.cpp
+@@ -3,6 +3,7 @@
+ #include <linux/netfilter/gta3xlwifi_netpolicy.h>
+ #include <linux/netfilter/gta3xlwifi_uid_permissions.h>
+ #include <linux/netfilter/gta3xlwifi_local_network.h>
++#include <linux/netfilter/gta3xlwifi_loopback.h>
+ #include <utility>
+ #include <cerrno>
+ #include <cinttypes>
+@@ -112,6 +113,7 @@ int deviceIdentity(dev_t* identity) {
+ 
+ NetpolicyLease::~NetpolicyLease() { stop(); }
+ void NetpolicyLease::closeLocked() {
++    mLastEventSequence = mLastEventLoss = mLastEventLossTotal = 0;
+     const int saved = errno;
+     const int fd = mFd;
+     mFd = -1;
+@@ -453,4 +455,76 @@ int NetpolicyLease::replaceLocalNetwork(uint64_t expectedRevision,
+     return 0;
+ }
+ 
++int NetpolicyLease::loopbackFeaturesLocked() {
++    if (mFd < 0) return -ENOTCONN;
++    int result;
++    do { result = ioctl(mFd, GTA3XLWIFI_UID_FEATURES, 0UL); }
++    while (result < 0 && errno == EINTR);
++    if (result < 0) return imageErrorLocked(errno ? -errno : -EIO);
++    return (result & GTA3XLWIFI_UID_CAP_LOOPBACK) ? 0 : imageErrorLocked(-EOPNOTSUPP);
++}
++int NetpolicyLease::eventCommandLocked(void* argument) {
++    if (mFd < 0) return -ENOTCONN;
++    // A consuming operation is not an image SET replay. Never retry a syscall
++    // whose consumption status is uncertain, including EINTR.
++    const int result = ioctl(mFd, GTA3XLWIFI_LOOPBACK_GET_EVENTS,
++                             reinterpret_cast<unsigned long>(argument));
++    if (result == 0) return 0;
++    return imageErrorLocked(result < 0 ? (errno ? -errno : -EIO) : -EPROTO);
++}
++int NetpolicyLease::readLoopbackEvents(LoopbackBatch* output) {
++    if (!output) return -EINVAL;
++    std::lock_guard<std::mutex> lock(mMutex);
++    int result = loopbackFeaturesLocked();
++    gta3xlwifi_loopback_transfer metadata {};
++    metadata.version = GTA3XLWIFI_LOOPBACK_VERSION;
++    if (!result) result = eventCommandLocked(&metadata);
++    if (result) return result;
++    if (metadata.version != GTA3XLWIFI_LOOPBACK_VERSION || metadata.entries ||
++        metadata.count > GTA3XLWIFI_LOOPBACK_MAX_EVENTS ||
++        (!!metadata.count != !!metadata.first_sequence) || metadata.lost_events < mLastEventLossTotal)
++        return imageErrorLocked(-EPROTO);
++    LoopbackBatch next;
++    next.lostEvents = metadata.lost_events;
++    if (!metadata.count) {
++        mLastEventLossTotal = next.lostEvents;
++        *output = std::move(next);
++        return 0;  // Actual empty queue, never a fabricated metrics source.
++    }
++    if ((mLastEventSequence && (mLastEventSequence == UINT64_MAX ||
++            metadata.first_sequence != mLastEventSequence + 1)) ||
++        metadata.first_sequence > UINT64_MAX - (metadata.count - 1))
++        return imageErrorLocked(-EPROTO);
++    std::vector<gta3xlwifi_loopback_event> wire(metadata.count);
++    next.events.resize(metadata.count);  // All storage exists before consumption.
++    const auto expected = metadata;
++    metadata.entries = reinterpret_cast<uintptr_t>(wire.data());
++    const uint64_t pointer = metadata.entries;
++    result = eventCommandLocked(&metadata);
++    if (result) return result;
++    if (metadata.version != expected.version || metadata.count != expected.count ||
++        metadata.entries != pointer || metadata.first_sequence != expected.first_sequence ||
++        metadata.lost_events < expected.lost_events)
++        return imageErrorLocked(-EPROTO);
++    uint64_t lastLoss = mLastEventLoss;
++    for (size_t i = 0; i < wire.size(); ++i) {
++        const auto& e = wire[i];
++        if (e.reserved || e.result > GTA3XLWIFI_LOOPBACK_BLOCKED ||
++            e.sender_uid == e.receiver_uid || e.sequence != expected.first_sequence + i ||
++            e.lost_events < lastLoss || e.lost_events > metadata.lost_events)
++            return imageErrorLocked(-EPROTO);
++        // Producers timestamp before taking the queue lock; timestamps can be
++        // reordered across CPUs. Sequence and loss counters remain ordered.
++        next.events[i] = {e.sender_uid, e.receiver_uid, e.result, e.boottime_ns,
++                          e.sequence, e.lost_events};
++        lastLoss = e.lost_events;
++    }
++    next.lostEvents = metadata.lost_events;
++    mLastEventSequence = wire.back().sequence;
++    mLastEventLoss = lastLoss;
++    mLastEventLossTotal = metadata.lost_events;
++    *output = std::move(next);
++    return 0;  // Real primitive batch, not Binder delivery or global readiness.
++}
++
+ }  // namespace android::net::gta3xlwifi
+diff --git a/Gta3xlwifiNetpolicyLease.h b/Gta3xlwifiNetpolicyLease.h
+index 1ec480b..62780a8 100644
+--- a/Gta3xlwifiNetpolicyLease.h
++++ b/Gta3xlwifiNetpolicyLease.h
+@@ -56,12 +56,27 @@ public:
+                             const std::vector<LocalNetworkEntry>& network,
+                             const std::vector<LocalNetworkEntry>& host,
+                             uint64_t* newRevision);
++    struct LoopbackEvent {
++        uint32_t senderUid, receiverUid, result;
++        uint64_t boottimeNs, sequence, lostEvents;
++    };
++    struct LoopbackBatch {
++        std::vector<LoopbackEvent> events;
++        uint64_t lostEvents = 0;
++    };
++    // Real destructive event read, sole owner only. Allocate before consumption;
++    // validate all frames before exposing any. Never retries an uncertain consume.
++    // Caller must serialize this with its complete backend transaction owner.
++    int readLoopbackEvents(LoopbackBatch* output);
+     int start();
+     int hold();
+     int release();
+     int isHeld(bool* output);
+     void stop();
+ private:
++    int loopbackFeaturesLocked();
++    int eventCommandLocked(void* argument);
++    uint64_t mLastEventSequence = 0, mLastEventLoss = 0, mLastEventLossTotal = 0;
+     int localNetworkFeaturesLocked();
+     int localNetworkMetadataLocked(struct gta3xlwifi_lna_transfer* metadata);
+     int localNetworkDataLocked(struct gta3xlwifi_lna_transfer* metadata,

@@ -1,0 +1,13 @@
+/srv/android/artifacts/lineage-24.0-arm64/kernel-loopback-host-20261108-01/test.c: In function ‘install_permissions’:
+/srv/android/artifacts/lineage-24.0-arm64/kernel-loopback-host-20261108-01/test.c:1519:2: error: this ‘if’ clause does not guard... [-Werror=misleading-indentation]
+ 1519 |  if(pa)entries[count++]=(struct gta3xlwifi_uid_permission_entry){a,pa};if(pb&&a!=b)entries[count++]=(struct gta3xlwifi_uid_permission_entry){b,pb};
+      |  ^~
+/srv/android/artifacts/lineage-24.0-arm64/kernel-loopback-host-20261108-01/test.c:1519:72: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the ‘if’
+ 1519 |  if(pa)entries[count++]=(struct gta3xlwifi_uid_permission_entry){a,pa};if(pb&&a!=b)entries[count++]=(struct gta3xlwifi_uid_permission_entry){b,pb};
+      |                                                                        ^~
+/srv/android/artifacts/lineage-24.0-arm64/kernel-loopback-host-20261108-01/test.c: In function ‘main’:
+/srv/android/artifacts/lineage-24.0-arm64/kernel-loopback-host-20261108-01/test.c:1556:89: error: ‘child_pid’ undeclared (first use in this function)
+ 1556 |  task.uid=10001;T(event_io(&transfer)==-EPERM&&loopback_count==1);task.uid=0;task.tgid=&child_pid;T(event_io(&transfer)==-EPERM&&loopback_count==1);task.tgid=&parent_pid;T(event_io(&transfer)==0&&loopback_count==0);
+      |                                                                                         ^~~~~~~~~
+/srv/android/artifacts/lineage-24.0-arm64/kernel-loopback-host-20261108-01/test.c:1556:89: note: each undeclared identifier is reported only once for each function it appears in
+cc1: all warnings being treated as errors

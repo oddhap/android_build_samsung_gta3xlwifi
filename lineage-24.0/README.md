@@ -32,6 +32,20 @@ checks are separate from Android execution. Optional GPU BPF accounting still
 reports unavailable, rather than invented counters. Existing safety/installer
 and strict SELinux checks remain enforced.
 
+## Loopback enforcement and metrics checkpoint — November 8
+
+Real actual-socket loopback permissions and packet-derived metrics now pass1797
+host cases/98304 A17 permission comparisons, full kernel/modules and source audits.
+Imagec3194ba82cbaf32e3cab903d9cae0dff534fd823ee0e1fad715f7edaa6473f58,
+config unchanged. Bounded event queue/real loss/rate-limited LRU and authenticated
+consumer are implemented; unknown receiver is never UID0, DNS does not bypass
+loopback, and CLAT preserves the corrected A17 fallback. Strict production/debug
+ioctl6759 grants retain5918/5881 assertions,17 queries and12 compiler probes each.
+Private native consume client passes132 cases (+696/90 regressions), actual CFI
+and ARM32/64 wire checks. See kernel-loopback-events-20261108-01 and
+loopback-event-transport-20261108-01. No worker/Binder delivery, late ordinary/VPN/
+IIF/accounting completion, global readiness or prebuilt promotion is implied.
+
 ## Native LNA transaction checkpoint — November 8
 
 Real two-table LNA lease transport now passes696 host checks plus90 UID regressions

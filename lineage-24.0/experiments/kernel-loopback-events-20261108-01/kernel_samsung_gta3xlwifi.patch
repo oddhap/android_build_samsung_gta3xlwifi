@@ -1,0 +1,344 @@
+diff --git a/net/netfilter/Makefile b/net/netfilter/Makefile
+index ca30df3..72d7e28 100644
+--- a/net/netfilter/Makefile
++++ b/net/netfilter/Makefile
+@@ -198,3 +198,4 @@ obj-$(CONFIG_NETFILTER_XT_MATCH_QTAGUID) += gta3xlwifi_uid_permissions.o
+ obj-$(CONFIG_NETFILTER_XT_MATCH_QTAGUID) += gta3xlwifi_local_network.o
+ 
+ obj-$(CONFIG_NETFILTER_XT_MATCH_QTAGUID) += gta3xlwifi_packet.o
++obj-$(CONFIG_NETFILTER_XT_MATCH_QTAGUID) += gta3xlwifi_loopback.o
+diff --git a/net/netfilter/xt_qtaguid.c b/net/netfilter/xt_qtaguid.c
+index 5b0a47f..e49ca30 100644
+--- a/net/netfilter/xt_qtaguid.c
++++ b/net/netfilter/xt_qtaguid.c
+@@ -3324,6 +3324,7 @@ MODULE_ALIAS("ip6t_gta3xlwifi_lna");
+  * this actual full socket while evaluating ingress, not an early-demux guess.
+  */
+ #include <net/gta3xlwifi_receive.h>
++#include <net/gta3xlwifi_loopback.h>
+ #include <net/gta3xlwifi_uid_permissions.h>
+ 
+ static int gta3xlwifi_socket_accounting(const struct sock *sk, u32 *uid, u32 *tag)
+@@ -3441,12 +3442,18 @@ int gta3xlwifi_egress_policy(struct sock *sk, struct sk_buff *skb)
+         goto out;
+     if (!gta3xlwifi_parse_packet(skb, &packet))
+         goto out;
++    if_index = skb->dev ? skb->dev->ifindex : 0;
++    /* DNS exempts LNA only; A17 checks loopback before its DNS LNA exception. */
++    if (gta3xlwifi_loopback_blocked(net, if_index, uid, &packet)) {
++        result = -EPERM;
++        goto out;
++    }
+     if (!metadata && stats_uid == 1051 && tag == 0xffffff82U)
+         goto out;
+     /* ip_output/ip6_output set dev before POST_ROUTING, matching the modern
+      * cgroup context. Never substitute a stale skb owner or skb_iif.
+      */
+-    if_index = skb->dev ? skb->dev->ifindex : 0;
++
+     if (gta3xlwifi_lna_blocked(uid, if_index, &packet.daddr,
+                                packet.ip_proto, packet.dport))
+         result = -EPERM;
+diff --git a/net/netfilter/gta3xlwifi_netpolicy.c b/net/netfilter/gta3xlwifi_netpolicy.c
+index 8c53c09..3ca858f 100644
+--- a/net/netfilter/gta3xlwifi_netpolicy.c
++++ b/net/netfilter/gta3xlwifi_netpolicy.c
+@@ -22,6 +22,8 @@
+ #include <uapi/linux/netfilter/gta3xlwifi_local_network.h>
+ #include <net/gta3xlwifi_local_network.h>
+ #include <net/gta3xlwifi_receive.h>
++#include <net/gta3xlwifi_loopback.h>
++#include <uapi/linux/netfilter/gta3xlwifi_loopback.h>
+ 
+ static DEFINE_MUTEX(netpolicy_lock);
+ static struct file *netpolicy_owner_file;
+@@ -100,7 +102,7 @@ static long netpolicy_image_ioctl(struct file *file, unsigned int cmd,
+ 	long ret;
+ 	if (cmd != GTA3XLWIFI_UID_FEATURES && cmd != GTA3XLWIFI_UID_SET_IMAGE &&
+ 	    cmd != GTA3XLWIFI_UID_GET_IMAGE && cmd != GTA3XLWIFI_LNA_SET_IMAGE &&
+-	    cmd != GTA3XLWIFI_LNA_GET_IMAGE)
++	    cmd != GTA3XLWIFI_LNA_GET_IMAGE && cmd != GTA3XLWIFI_LOOPBACK_GET_EVENTS)
+ 		return -ENOTTY;
+ 	if (cmd == GTA3XLWIFI_UID_FEATURES && arg)
+ 		return -EINVAL;
+@@ -116,10 +118,12 @@ static long netpolicy_image_ioctl(struct file *file, unsigned int cmd,
+ 		ret = -EPERM;
+ 	else if (cmd == GTA3XLWIFI_UID_FEATURES)
+ 		ret = gta3xlwifi_uid_permissions_features() | GTA3XLWIFI_UID_CAP_LNA_STORE |
+-		      gta3xlwifi_lna_packet_features() | gta3xlwifi_receive_features() | gta3xlwifi_egress_features();
++		      gta3xlwifi_lna_packet_features() | gta3xlwifi_receive_features() | gta3xlwifi_egress_features() | gta3xlwifi_loopback_features();
+ 	else if ((cmd == GTA3XLWIFI_UID_SET_IMAGE || cmd == GTA3XLWIFI_LNA_SET_IMAGE) &&
+ 	         !READ_ONCE(netpolicy_held))
+ 		ret = -EBUSY;
++	else if (cmd == GTA3XLWIFI_LOOPBACK_GET_EVENTS)
++		ret = gta3xlwifi_loopback_ioctl(cmd, arg);
+ 	else if (cmd == GTA3XLWIFI_LNA_SET_IMAGE || cmd == GTA3XLWIFI_LNA_GET_IMAGE)
+ 		ret = gta3xlwifi_lna_ioctl(cmd, arg);
+ 	else
+@@ -135,7 +139,7 @@ static long netpolicy_ioctl(struct file *file, unsigned int cmd,
+ 
+ 	if (cmd == GTA3XLWIFI_UID_FEATURES || cmd == GTA3XLWIFI_UID_SET_IMAGE ||
+ 	    cmd == GTA3XLWIFI_UID_GET_IMAGE || cmd == GTA3XLWIFI_LNA_SET_IMAGE ||
+-	    cmd == GTA3XLWIFI_LNA_GET_IMAGE)
++	    cmd == GTA3XLWIFI_LNA_GET_IMAGE || cmd == GTA3XLWIFI_LOOPBACK_GET_EVENTS)
+ 		return netpolicy_image_ioctl(file, cmd, arg);
+ 	if (cmd != GTA3XLWIFI_NETPOLICY_ABI &&
+ 	    cmd != GTA3XLWIFI_NETPOLICY_HOLD &&
+diff --git a/net/netfilter/gta3xlwifi_loopback.c b/net/netfilter/gta3xlwifi_loopback.c
+new file mode 100644
+index 0000000..a6974ba
+--- /dev/null
++++ b/net/netfilter/gta3xlwifi_loopback.c
+@@ -0,0 +1,193 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++/* Product-specific equivalent of selected A17 loopback permissions and genuine
++ * metrics. No BPF map emulation, synthetic event or readiness declaration.
++ */
++#include <linux/module.h>
++#include <linux/errno.h>
++#include <linux/kernel.h>
++#include <linux/spinlock.h>
++#include <linux/timekeeping.h>
++#include <linux/uaccess.h>
++#include <linux/vmalloc.h>
++#include <linux/in.h>
++#include <net/gta3xlwifi_loopback.h>
++#include <net/gta3xlwifi_packet.h>
++#include <net/gta3xlwifi_socket_peer.h>
++#include <net/gta3xlwifi_uid_permissions.h>
++#include <uapi/linux/netfilter/gta3xlwifi_loopback.h>
++#define LOOPBACK_CACHE_SIZE 100U
++#define LOOPBACK_REPORT_NS (60ULL * 1000ULL * 1000ULL * 1000ULL)
++struct loopback_report_cache {
++    u32 sender, receiver, result;
++    u64 last_report_ns, recency;
++    bool occupied;
++};
++static DEFINE_SPINLOCK(loopback_lock);
++static struct loopback_report_cache loopback_cache[LOOPBACK_CACHE_SIZE];
++static struct gta3xlwifi_loopback_event loopback_events[GTA3XLWIFI_LOOPBACK_MAX_EVENTS];
++static u32 loopback_head, loopback_count;
++static u64 loopback_sequence, loopback_losses, loopback_recency;
++
++static bool loopback_permissions(u32 sender, u32 receiver)
++{
++    u32 sender_permissions, receiver_permissions;
++    if (sender % 100000U < 10000U || receiver % 100000U < 10000U)
++        return true;
++    if (sender / 100000U == receiver / 100000U)
++        return true;
++    sender_permissions = gta3xlwifi_uid_permissions(sender);
++    receiver_permissions = gta3xlwifi_uid_permissions(receiver);
++    if (((sender_permissions & (1U << 4)) && (sender_permissions & (1U << 5))) ||
++        ((receiver_permissions & (1U << 4)) && (receiver_permissions & (1U << 5))))
++        return true;
++    if (sender % 100000U == receiver % 100000U)
++        return !!(sender_permissions & ((1U << 5) | (1U << 6)));
++    return !!(sender_permissions & (1U << 5));
++}
++static void loopback_emit(u32 sender, u32 receiver, bool allowed)
++{
++    struct loopback_report_cache *entry = NULL, *oldest = &loopback_cache[0];
++    struct gta3xlwifi_loopback_event event = {};
++    u64 now = ktime_get_boot_ns();
++    u32 i, result = allowed ? GTA3XLWIFI_LOOPBACK_ALLOWED : GTA3XLWIFI_LOOPBACK_BLOCKED;
++    spin_lock_bh(&loopback_lock);
++    for (i = 0; i < LOOPBACK_CACHE_SIZE; ++i) {
++        struct loopback_report_cache *candidate = &loopback_cache[i];
++        if (candidate->occupied && candidate->sender == sender &&
++            candidate->receiver == receiver && candidate->result == result) {
++            entry = candidate;
++            break;
++        }
++        if (!candidate->occupied || (oldest->occupied && candidate->recency < oldest->recency))
++            oldest = candidate;
++    }
++    if (entry) {
++        /* A17 lookup refreshes LRU even for an expired key when reserve fails. */
++        entry->recency = ++loopback_recency;
++        if (now - entry->last_report_ns < LOOPBACK_REPORT_NS)
++            goto out;
++    }
++    /* A full ring never advances the report timestamp; an actual later packet
++     * can still report after userspace drains the queue. Loss counter saturates.
++     */
++    if (loopback_count == GTA3XLWIFI_LOOPBACK_MAX_EVENTS || loopback_sequence == ~0ULL) {
++        if (loopback_losses != ~0ULL)
++            ++loopback_losses;
++        goto out;
++    }
++    if (!entry) {
++        entry = oldest;
++        entry->recency = ++loopback_recency;
++    }
++    entry->occupied = true;
++    entry->sender = sender;
++    entry->receiver = receiver;
++    entry->result = result;
++    entry->last_report_ns = now;
++    event.sender_uid = sender;
++    event.receiver_uid = receiver;
++    event.result = result;
++    event.boottime_ns = now;
++    event.sequence = ++loopback_sequence;
++    event.lost_events = loopback_losses;
++    loopback_events[(loopback_head + loopback_count) % GTA3XLWIFI_LOOPBACK_MAX_EVENTS] = event;
++    ++loopback_count;
++out:
++    spin_unlock_bh(&loopback_lock);
++}
++u32 gta3xlwifi_loopback_features(void)
++{
++    return GTA3XLWIFI_UID_CAP_LOOPBACK;
++}
++bool gta3xlwifi_loopback_blocked(struct net *net, u32 ifindex, u32 sender,
++                                 const struct gta3xlwifi_packet *packet)
++{
++    struct gta3xlwifi_socket_peer_tuple tuple = {};
++    u32 receiver;
++    bool allowed;
++    if (!net || !packet || ifindex != 1 ||
++        (packet->ip_proto != IPPROTO_TCP && packet->ip_proto != IPPROTO_UDP) ||
++        (packet->ip_proto == IPPROTO_TCP && !(packet->tcp_flags & 0x02)))
++        return false;
++    if (packet->ip_version == 4) {
++        tuple.family = AF_INET;
++        tuple.address.v4.saddr = packet->saddr.s6_addr32[3];
++        tuple.address.v4.daddr = packet->daddr.s6_addr32[3];
++    } else if (packet->ip_version == 6) {
++        tuple.family = AF_INET6;
++        tuple.address.v6.saddr = packet->saddr;
++        tuple.address.v6.daddr = packet->daddr;
++    } else {
++        return false;
++    }
++    tuple.protocol = packet->ip_proto;
++    tuple.sport = packet->sport;
++    tuple.dport = packet->dport;
++    /* Actual referenced peer lookup supplies immutable creator UID; unknown is
++     * not UID0. No event for unknown receiver or self, matching A17.
++     */
++    if (!gta3xlwifi_socket_peer_uid(net, ifindex, &tuple, &receiver) || sender == receiver)
++        return false;
++    allowed = loopback_permissions(sender, receiver);
++    loopback_emit(sender, receiver, allowed);
++    return !allowed;
++}
++long gta3xlwifi_loopback_ioctl(unsigned int cmd, unsigned long arg)
++{
++    struct gta3xlwifi_loopback_transfer transfer;
++    struct gta3xlwifi_loopback_event *events = NULL;
++    void __user *argument = (void __user *)arg;
++    u32 capacity, count, i;
++    u64 first;
++    int result = 0;
++    BUILD_BUG_ON(sizeof(transfer) != 32);
++    BUILD_BUG_ON(sizeof(struct gta3xlwifi_loopback_event) != 40);
++    if (cmd != GTA3XLWIFI_LOOPBACK_GET_EVENTS)
++        return -ENOTTY;
++    if (!arg || copy_from_user(&transfer, argument, sizeof(transfer)))
++        return -EFAULT;
++    capacity = transfer.count;
++    if (transfer.version != GTA3XLWIFI_LOOPBACK_VERSION ||
++        capacity > GTA3XLWIFI_LOOPBACK_MAX_EVENTS || (!!capacity != !!transfer.entries))
++        return -EINVAL;
++    if (capacity) {
++        events = vzalloc(capacity * sizeof(*events));
++        if (!events)
++            return -ENOMEM;
++    }
++    spin_lock_bh(&loopback_lock);
++    first = loopback_count ? loopback_events[loopback_head].sequence : 0;
++    if (capacity && transfer.first_sequence != first) {
++        spin_unlock_bh(&loopback_lock);
++        result = -ESTALE;
++        goto out;
++    }
++    count = capacity ? min_t(u32, capacity, loopback_count) : loopback_count;
++    transfer.count = count;
++    transfer.first_sequence = first;
++    transfer.lost_events = loopback_losses;
++    if (capacity)
++        for (i = 0; i < count; ++i)
++            events[i] = loopback_events[(loopback_head + i) % GTA3XLWIFI_LOOPBACK_MAX_EVENTS];
++    spin_unlock_bh(&loopback_lock);
++    if ((capacity && count && copy_to_user((void __user *)(unsigned long)transfer.entries,
++                                           events, count * sizeof(*events))) ||
++        copy_to_user(argument, &transfer, sizeof(transfer))) {
++        result = -EFAULT;
++        goto out;
++    }
++    if (capacity && count) {
++        /* netpolicy_lock serializes all consuming reads; producers only append.
++         * User faults retain the complete queue, with no acknowledged consume.
++         */
++        spin_lock_bh(&loopback_lock);
++        loopback_head = (loopback_head + count) % GTA3XLWIFI_LOOPBACK_MAX_EVENTS;
++        loopback_count -= count;
++        spin_unlock_bh(&loopback_lock);
++    }
++out:
++    vfree(events);
++    return result;
++}
++MODULE_LICENSE("GPL");
++MODULE_DESCRIPTION("Private actual loopback permissions and packet-derived event queue");
+diff --git a/include/net/gta3xlwifi_loopback.h b/include/net/gta3xlwifi_loopback.h
+new file mode 100644
+index 0000000..d817a0a
+--- /dev/null
++++ b/include/net/gta3xlwifi_loopback.h
+@@ -0,0 +1,15 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++#ifndef _NET_GTA3XLWIFI_LOOPBACK_H
++#define _NET_GTA3XLWIFI_LOOPBACK_H
++#include <linux/types.h>
++struct net;
++struct gta3xlwifi_packet;
++/* Caller holds actual full-socket policy RCU/drain section, after CLAT bypass,
++ * before DNS LNA exception. Checks/metrics are READ_ONLY ENABLED in this product.
++ */
++bool gta3xlwifi_loopback_blocked(struct net *net, u32 ifindex, u32 sender_uid,
++                                 const struct gta3xlwifi_packet *packet);
++u32 gta3xlwifi_loopback_features(void);
++/* Only called by authenticated lease owner under netpolicy_lock. */
++long gta3xlwifi_loopback_ioctl(unsigned int cmd, unsigned long arg);
++#endif
+diff --git a/include/uapi/linux/netfilter/gta3xlwifi_loopback.h b/include/uapi/linux/netfilter/gta3xlwifi_loopback.h
+new file mode 100644
+index 0000000..850d3f3
+--- /dev/null
++++ b/include/uapi/linux/netfilter/gta3xlwifi_loopback.h
+@@ -0,0 +1,32 @@
++/* SPDX-License-Identifier: GPL-2.0 WITH Linux-syscall-note */
++#ifndef _UAPI_GTA3XLWIFI_LOOPBACK_H
++#define _UAPI_GTA3XLWIFI_LOOPBACK_H
++#include <linux/types.h>
++#include <linux/ioctl.h>
++#define GTA3XLWIFI_LOOPBACK_VERSION 1U
++#define GTA3XLWIFI_LOOPBACK_MAX_EVENTS 512U
++#define GTA3XLWIFI_UID_CAP_LOOPBACK (1U << 7) /* real check/event/read primitive only */
++#define GTA3XLWIFI_LOOPBACK_ALLOWED 0U
++#define GTA3XLWIFI_LOOPBACK_BLOCKED 1U
++/* Genuine packet-derived event. Sequence/boot clock/loss are diagnostic stream
++ * metadata; the src/dst/result payload matches A17 LoopbackAccessEvent values.
++ */
++struct gta3xlwifi_loopback_event {
++    __u32 sender_uid, receiver_uid, result, reserved;
++    __aligned_u64 boottime_ns;
++    __aligned_u64 sequence;
++    __aligned_u64 lost_events;
++};
++/* count0/entries0 probes queue metadata. A consuming data read supplies the
++ * probed first_sequence and capacity1..512. Returns up to capacity records and
++ * actual current loss count. Both user copies must succeed before consumption.
++ * Sole authenticated lease owner only. No enable/disable or injection API.
++ */
++struct gta3xlwifi_loopback_transfer {
++    __u32 version, count;
++    __aligned_u64 entries;
++    __aligned_u64 first_sequence;
++    __aligned_u64 lost_events;
++};
++#define GTA3XLWIFI_LOOPBACK_GET_EVENTS _IOWR('g', 0x59, struct gta3xlwifi_loopback_transfer)
++#endif
