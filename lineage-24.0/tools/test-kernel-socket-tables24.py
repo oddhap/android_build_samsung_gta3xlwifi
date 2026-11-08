@@ -164,7 +164,48 @@ int main(void){
  printf("passed_cases=%u grammar_comparisons=%u\n",cases,comparisons);return 0;
 }
 '''
+
+raw=None
+if 'gta3xlwifi_socket_context_uid(' in text:
+ raw=S/'net/netfilter/xt_qtaguid.c'
+ code=code.replace('struct net{struct socket_tables tables;}', 'struct net{struct socket_tables tables;void*user_ns;}')
+ code=code.replace('static unsigned evaluate(',r'''static unsigned cpu_reads,bh_depth;
+#define DEFINE_PER_CPU(type,name) type name
+#define get_cpu_ptr(p) (++cpu_reads,(p))
+#define put_cpu_ptr(p) do{(void)(p);assert(cpu_reads);--cpu_reads;}while(0)
+#define this_cpu_ptr(p) (assert(bh_depth),(p))
+#define local_bh_disable() do{++bh_depth;}while(0)
+#define local_bh_enable() do{assert(bh_depth);--bh_depth;}while(0)
+static unsigned overflowuid=65534;
+static struct sock*skb_to_full_sk(const struct sk_buff*s){return s->sk;}
+static u32 sock_net_uid(struct net*n,struct sock*s){assert(n==s->net);return s->uid;}
+static u32 from_kuid_munged(void*n,u32 uid){(void)n;return uid;}
+bool gta3xlwifi_socket_context_uid(const struct sk_buff*,u32*);
+int gta3xlwifi_socket_table_policy_uid(struct sock*,struct sk_buff*,bool,u32);
+'''+m.extract(raw.read_text(),'gta3xlwifi_raw_socket_uid')+r'''
+static bool change_uid,nest;static unsigned nesting;static u32 outer_before,outer_after,inner_uid;
+static unsigned evaluate(''',1)
+ code=code.replace('assert(rcu_depth==1&&s->sk==st->sk', 'assert(rcu_depth>=1&&s->sk==st->sk')
+ code=code.replace('observed_uid=s->sk->uid;++eval_calls;',r'''observed_uid=gta3xlwifi_raw_socket_uid(s);assert(bh_depth&&!cpu_reads);++eval_calls;
+ if(change_uid){u32 sampled=observed_uid;s->sk->uid=20002;assert(gta3xlwifi_raw_socket_uid(s)==sampled);struct sk_buff clone=*s;assert(gta3xlwifi_raw_socket_uid(&clone)==20002);}
+ if(nest&&!nesting){outer_before=gta3xlwifi_raw_socket_uid(s);struct sk_buff clone=*s;++nesting;assert(gta3xlwifi_socket_table_policy_uid(s->sk,&clone,st->hook==3,12345)==0);--nesting;outer_after=gta3xlwifi_raw_socket_uid(s);assert(outer_before==outer_after);observed_uid=outer_after;}
+ else if(nest)inner_uid=observed_uid;
+''')
+ needle=' socket_tables_net_exit(&net1);socket_tables_net_exit(&net0);'
+ assert needle in code
+ tests=r'''
+ // The actual raw getter is scoped to this skb and returns one normalized sample.
+ skb=(struct sk_buff){bytes,bytes+34,bytes+14,180,0,&foreign,&dev,htons(ETH_P_IP),destructor};bytes[14]=0x45;owner.uid=10001;owner.full=true;owner.sk_family=AF_INET;held=false;result_verdict=NF_ACCEPT;
+ change_uid=true;T(gta3xlwifi_socket_table_policy(&owner,&skb,false)==0&&observed_uid==10001&&owner.uid==20002&&!bh_depth&&!cpu_reads);change_uid=false;
+ u32 sampled=777;T(!gta3xlwifi_socket_context_uid(&skb,&sampled)&&sampled==777);T(!gta3xlwifi_socket_context_uid(NULL,&sampled)&&sampled==777);T(!gta3xlwifi_socket_context_uid(&skb,NULL));
+ owner.uid=65534;T(gta3xlwifi_socket_table_policy(&owner,&skb,false)==0&&observed_uid==0);skb.sk=&owner;T(gta3xlwifi_raw_socket_uid(&skb)==65534);skb.sk=&foreign;
+ owner.uid=20001;T(gta3xlwifi_socket_table_policy_uid(&owner,&skb,false,10001)==0&&observed_uid==10001&&owner.uid==20001);
+ nest=true;T(gta3xlwifi_socket_table_policy_uid(&owner,&skb,false,10001)==0&&outer_before==10001&&inner_uid==12345&&outer_after==10001&&!cpu_reads&&!bh_depth);nest=false;
+ T(!gta3xlwifi_socket_context_uid(&skb,&sampled)&&sampled==777&&gta3xlwifi_raw_socket_uid(&skb)==0);
+'''
+ code=code.replace(needle,tests+needle)
+
 (O/'test.c').write_text(code);cmd=['cc','-std=gnu11','-Wall','-Wextra','-Werror','-Wno-unused-parameter','-O1','-g','-fsanitize=undefined','-fno-sanitize-recover=all','-pthread',str(O/'test.c'),'-o',str(O/'test')];r=subprocess.run(cmd,capture_output=True,text=True);(O/'compile.log').write_text(r.stdout+r.stderr);assert r.returncode==0,r.stderr
 r=subprocess.run([str(O/'test')],capture_output=True,text=True,timeout=30,env={**os.environ,'UBSAN_OPTIONS':'halt_on_error=1'});(O/'test.log').write_text(r.stdout+r.stderr);assert r.returncode==0 and not r.stderr,(r.returncode,r.stdout,r.stderr)
 match=re.fullmatch(r'passed_cases=(\d+) grammar_comparisons=(\d+)\n',r.stdout);assert match and int(match[2])==864
-sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest();paths=[Path(__file__),helper,module,d,S/'include/net/gta3xlwifi_socket_tables.h',*cores,O/'test.c'];(O/'report.json').write_text(json.dumps({'passed':True,'scope':__doc__,'passed_cases':int(match[1]),'grammar_comparisons':int(match[2]),'core_replacement_bodies_preserved_except_exact_private_inserts':True,'no_global_nf_hooks_registered':True,'inputs_sha256':{str(p):sha(p) for p in paths},'command':cmd,'hardware_tested':False,'flash_ready':False},indent=2)+'\n');print(r.stdout.strip()+'; actual private table C, fatal UBSan fixtures')
+sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest();paths=[Path(__file__),helper,module,d,S/'include/net/gta3xlwifi_socket_tables.h',*cores,O/'test.c'];paths += [raw] if raw else [];(O/'report.json').write_text(json.dumps({'passed':True,'scope':__doc__,'passed_cases':int(match[1]),'grammar_comparisons':int(match[2]),'core_replacement_bodies_preserved_except_exact_private_inserts':True,'no_global_nf_hooks_registered':True,'actual_uid_snapshot_and_nested_restore_tested':bool(raw),'inputs_sha256':{str(p):sha(p) for p in paths},'command':cmd,'hardware_tested':False,'flash_ready':False},indent=2)+'\n');print(r.stdout.strip()+'; actual private table C, fatal UBSan fixtures')

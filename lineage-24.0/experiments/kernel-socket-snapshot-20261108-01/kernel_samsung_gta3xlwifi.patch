@@ -1,0 +1,145 @@
+diff --git a/include/net/gta3xlwifi_socket_tables.h b/include/net/gta3xlwifi_socket_tables.h
+index 29cebff..e94e109 100644
+--- a/include/net/gta3xlwifi_socket_tables.h
++++ b/include/net/gta3xlwifi_socket_tables.h
+@@ -22,8 +22,14 @@ void gta3xlwifi_socket_update_end(int held);
+  * Not attached to policy hooks until the complete private rules/transactions
+  * and A17 ordering have been ported and independently validated.
+  */
++/* Per-evaluation UID snapshot. Outside the exact active skb this returns false;
++ * raw/metered matching keeps its original live-UID semantics. */
++bool gta3xlwifi_socket_context_uid(const struct sk_buff *skb, u32 *uid);
++int gta3xlwifi_socket_table_policy_uid(struct sock *sk, struct sk_buff *skb,
++                                      bool output, u32 uid_snapshot);
+ int gta3xlwifi_socket_table_policy(struct sock *sk, struct sk_buff *skb, bool output);
+ #else
++static inline bool gta3xlwifi_socket_context_uid(const struct sk_buff*s,u32*u){return false;}
+ static inline int gta3xlwifi_socket_rules4(const char *n,const struct xt_table_info*i){return 0;}
+ static inline int gta3xlwifi_socket_rules6(const char *n,const struct xt_table_info*i){return 0;}
+ static inline int gta3xlwifi_socket_update_begin(const char*n){return 0;}
+diff --git a/net/netfilter/gta3xlwifi_socket_tables.c b/net/netfilter/gta3xlwifi_socket_tables.c
+index b6653d1..6152689 100644
+--- a/net/netfilter/gta3xlwifi_socket_tables.c
++++ b/net/netfilter/gta3xlwifi_socket_tables.c
+@@ -7,6 +7,7 @@
+ #include <linux/errno.h>
+ #include <linux/if_ether.h>
+ #include <linux/slab.h>
++#include <linux/percpu.h>
+ #include <linux/netfilter.h>
+ #include <linux/netfilter_ipv4/ip_tables.h>
+ #include <linux/netfilter_ipv6/ip6_tables.h>
+@@ -157,12 +158,33 @@ static int __init socket_tables_init(void)
+ /* qtaguid is bool. Initialize after both ip_tables modules registered their
+  * standard/ERROR targets, rather than relying on net/ directory link order. */
+ late_initcall(socket_tables_init);
+-int gta3xlwifi_socket_table_policy(struct sock *sk, struct sk_buff *skb, bool output)
++struct socket_uid_snapshot {
++    const struct sk_buff *skb;
++    u32 uid;
++};
++static DEFINE_PER_CPU(struct socket_uid_snapshot, socket_uid_context);
++bool gta3xlwifi_socket_context_uid(const struct sk_buff *skb, u32 *uid)
++{
++    struct socket_uid_snapshot *context;
++    bool found;
++    if (!skb || !uid)
++        return false;
++    context = get_cpu_ptr(&socket_uid_context);
++    found = context->skb == skb;
++    if (found)
++        *uid = context->uid;
++    put_cpu_ptr(&socket_uid_context);
++    return found;
++}
++EXPORT_SYMBOL_GPL(gta3xlwifi_socket_context_uid);
++int gta3xlwifi_socket_table_policy_uid(struct sock *sk, struct sk_buff *skb,
++                                      bool output, u32 uid_snapshot)
+ {
+     struct socket_tables *tables;
+     struct xt_table *table;
+     struct nf_hook_state state = {};
+     struct sock *saved_sk;
++    struct socket_uid_snapshot *context, previous;
+     unsigned int verdict, offset;
+     int result = 0;
+     if (!sk || !skb || !sk_fullsock(sk) ||
+@@ -206,6 +228,15 @@ int gta3xlwifi_socket_table_policy(struct sock *sk, struct sk_buff *skb, bool ou
+     state.in = output ? NULL : skb->dev;
+     state.out = output ? skb->dev : NULL;
+     state.sk = sk;
++    /* Bottom halves/preemption stay disabled across the entire synchronous
++     * read-only evaluation, including nested ipt_do_table. A nested evaluation
++     * saves/restores the prior context, and pointer identity isolates clones.
++     */
++    local_bh_disable();
++    context = this_cpu_ptr(&socket_uid_context);
++    previous = *context;
++    context->skb = skb;
++    context->uid = uid_snapshot == 65534 ? 0 : uid_snapshot;
+     saved_sk = skb->sk;
+     skb->sk = sk;
+     __skb_push(skb, offset);
+@@ -220,12 +251,35 @@ int gta3xlwifi_socket_table_policy(struct sock *sk, struct sk_buff *skb, bool ou
+ #endif
+     __skb_pull(skb, offset);
+     skb->sk = saved_sk;
++    *context = previous;
++    local_bh_enable();
+     if (verdict != NF_ACCEPT)
+         result = -EPERM;
+ out:
+     rcu_read_unlock();
+     return result;
+ }
++EXPORT_SYMBOL_GPL(gta3xlwifi_socket_table_policy_uid);
++int gta3xlwifi_socket_table_policy(struct sock *sk, struct sk_buff *skb, bool output)
++{
++    struct net *net;
++    u32 uid;
++    int result;
++    if (!sk || !skb || !sk_fullsock(sk) ||
++        (sk->sk_family != AF_INET && sk->sk_family != AF_INET6))
++        return 0;
++    rcu_read_lock();
++    if (gta3xlwifi_netpolicy_held()) {
++        result = -EPERM;
++        goto out;
++    }
++    net = sock_net(sk);
++    uid = from_kuid_munged(net->user_ns, sock_net_uid(net, sk));
++    result = gta3xlwifi_socket_table_policy_uid(sk, skb, output, uid);
++out:
++    rcu_read_unlock();
++    return result;
++}
+ EXPORT_SYMBOL_GPL(gta3xlwifi_socket_table_policy);
+ MODULE_LICENSE("GPL");
+ MODULE_DESCRIPTION("Private default-DROP socket-stage tables; no automatic packet hooks");
+diff --git a/net/netfilter/xt_qtaguid.c b/net/netfilter/xt_qtaguid.c
+index e49ca30..21a5514 100644
+--- a/net/netfilter/xt_qtaguid.c
++++ b/net/netfilter/xt_qtaguid.c
+@@ -14,6 +14,7 @@
+  */
+ #define DEBUG
+ 
++#include <net/gta3xlwifi_socket_tables.h>
+ #include <linux/capability.h>
+ #include <linux/file.h>
+ #include <linux/inetdevice.h>
+@@ -3160,9 +3161,13 @@ MODULE_ALIAS("ip6t_gta3xlwifi_appid");
+  */
+ static uid_t gta3xlwifi_raw_socket_uid(const struct sk_buff *skb)
+ {
+-	struct sock *sk = skb_to_full_sk(skb);
++	struct sock *sk;
+ 	struct net *net;
++	u32 snapshot;
+ 
++	if (gta3xlwifi_socket_context_uid(skb, &snapshot))
++		return snapshot;
++	sk = skb_to_full_sk(skb);
+ 	if (!sk || !sk_fullsock(sk))
+ 		return overflowuid;
+ 	net = sock_net(sk);

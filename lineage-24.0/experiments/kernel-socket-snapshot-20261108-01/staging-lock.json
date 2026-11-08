@@ -1,0 +1,37 @@
+{
+  "scope": "One normalized UID snapshot per exact private-table skb, per-CPU/BH-scoped and nested restoration; no global raw/metered change or automatic packet attachment.",
+  "prerequisites": [
+    "kernel-socket-tables-20261108-02"
+  ],
+  "patch_sha256": "bd58313b2d6368282ffbd19a079dfb0a6e6297838c6bbd8d6fbf06c60919364c",
+  "files": [
+    {
+      "path": "include/net/gta3xlwifi_socket_tables.h",
+      "before_sha256": "9fa9238677669b5a65f135d0c8a06b78ff113f73bcaf37c4b0c318af1ae894ba",
+      "candidate_sha256": "baa491a7833fd0e7468ea2142d25840c0204f08f12145c7f2f926121a541b56c"
+    },
+    {
+      "path": "net/netfilter/gta3xlwifi_socket_tables.c",
+      "before_sha256": "b998561e06417e20bf7b10e445f9c13535975a458d28a5cd3ac3bf12169b0588",
+      "candidate_sha256": "589707676f52bc24ac1c80e12b5c8ec5e359a12f4784988862cf228a3450a680"
+    },
+    {
+      "path": "net/netfilter/xt_qtaguid.c",
+      "before_sha256": "8c2a4782d5ceb0d6b34e4eaaf6cea6f4160a86bd147d3e32e7942ad30bd27a8e",
+      "candidate_sha256": "89a2d662ae4dfcff893548d6f41d163590ac013b86e01eb33cb6bd6cc74ddedb"
+    }
+  ],
+  "supported_runtime_capability_bits": [
+    0,
+    1,
+    2,
+    3,
+    5,
+    9,
+    12
+  ],
+  "unknown_active_capabilities_rejected": true,
+  "android_prebuilt_promoted": false,
+  "hardware_tested": false,
+  "flash_ready": false
+}

@@ -1,0 +1,31 @@
+{
+  "passed": true,
+  "scope": "Test real packet-barrier lease code with synthetic file/PID/net-grace effects.\n\nUses actual C bodies, real pthread mutex/contended close, and atomic memory order.\nPID refs, credentials, registration, grace periods and packets remain fixtures;\nno host/device kernel, rule, network, credential or descriptor is changed.\n",
+  "passed_cases": 44,
+  "stderr": "",
+  "command": [
+    "cc",
+    "-std=gnu11",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-Wno-unused-parameter",
+    "-fsanitize=undefined",
+    "-fno-sanitize-recover=all",
+    "-pthread",
+    "-I/srv/android/artifacts/lineage-24.0-arm64/kernel-socket-snapshot-build-20261108-01/netpolicy-host/include",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-socket-snapshot-build-20261108-01/netpolicy-host/test.c",
+    "-o",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-socket-snapshot-build-20261108-01/netpolicy-host/test"
+  ],
+  "inputs_sha256": {
+    "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/test-kernel-netpolicy-lease24.py": "e39d0c03e57b25b10f3e59c141338db1b875c7a91263b2acf70a7f8c85616eb1",
+    "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/test-kernel-qtaguid-socket-owned.py": "59516300b405af46c972b264353c3766b5c18cf882b04ac8ba9db6f70f436459",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-socket-snapshot-build-20261108-01/netpolicy-host/test.c": "078d3c51a6554e00d357e34277428b22b316b556e53009f728451731f9f2c714",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-socket-snapshot-20261108-01/src/net/netfilter/gta3xlwifi_netpolicy.c": "6c5ad3c517a10fe521afa49cccb5c8b3ee9b0fcf5fde9aa48c84b28cb1a8912c",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-socket-snapshot-20261108-01/src/include/uapi/linux/netfilter/gta3xlwifi_netpolicy.h": "fd53c8c287840054ac9234efdabd88302140d95fc1488c57080de499a835d54c",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-socket-snapshot-build-20261108-01/netpolicy-host/include/linux/netfilter/gta3xlwifi_netpolicy.h": "fd53c8c287840054ac9234efdabd88302140d95fc1488c57080de499a835d54c"
+  },
+  "packet_or_kernel_runtime_tested": false,
+  "flash_ready": false
+}

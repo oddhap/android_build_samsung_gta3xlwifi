@@ -94,6 +94,8 @@ int main(void){
  printf("passed_cases=%u parser_comparisons=%u endpoint_dispatches=%u\n",cases,comparisons,dispatches);
 }
 '''
+if 'gta3xlwifi_socket_context_uid(' in actual:
+ prefix+='\nstatic bool gta3xlwifi_socket_context_uid(const struct sk_buff*s,u32*u){(void)s;(void)u;return false;} /* outside private evaluator regression */\n'
 code='\n'.join([prefix,actual,metadata,register,oracle,tests]);(O/'test.c').write_text(code)
 paths=[Path(__file__),helper,old,parser,raw,ref,header,helpers]
 for src,dst in [(S/'include/net/gta3xlwifi_packet.h',O/'include/net/gta3xlwifi_packet.h'),(S/'include/uapi/linux/netfilter/gta3xlwifi_local_network.h',O/'include/linux/netfilter/gta3xlwifi_local_network.h')]:dst.parent.mkdir(parents=True,exist_ok=True);dst.write_bytes(src.read_bytes());paths +=[src,dst]

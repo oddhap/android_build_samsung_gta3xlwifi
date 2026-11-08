@@ -67,6 +67,8 @@ static uint32_t bpf_get_socket_uid(const struct __sk_buff* skb){return skb->refe
 typedef struct{uint32_t iif,rule;}UidOwnerValue;static UidOwnerValue entry;static uint32_t entry_uid;static bool present;
 static UidOwnerValue* bpf_uid_owner_map_lookup_elem(const uint32_t* uid){return present&&*uid==entry_uid?&entry:NULL;}
 '''
+if 'gta3xlwifi_socket_context_uid(' in actual:
+ prefix+='\ntypedef uint32_t u32;\nstatic bool gta3xlwifi_socket_context_uid(const struct sk_buff*s,u32*u){(void)s;(void)u;return false;} /* outside private evaluator regression */\n'
 code=prefix+enum+'\n'+m.extract(enum_header.read_text(),'is_system_uid')+'\n'+actual+'\n'+metadata+m.extract(text,'gta3xlwifi_raw_uid_init')+'\n'+oracles+r'''
 static unsigned cases,comparisons;
 #define T(x) do{assert(x);++cases;}while(0)
