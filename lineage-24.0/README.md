@@ -32,6 +32,18 @@ checks are separate from Android execution. Optional GPU BPF accounting still
 reports unavailable, rather than invented counters. Existing safety/installer
 and strict SELinux checks remain enforced.
 
+## Private socket-table control checkpoint — November 12
+
+The isolated dual-stack private tables now have one exact-skb UID snapshot and a
+real registered-primitive capability. Full kernel/modules and all source audits
+pass; selected prebuilts are unchanged. Held-gate root bootstrap/activation passes
+180 fault/recovery assertions plus90/59/84 regressions and six-source actual ARM64
+netd CFI compilation. See experiments/kernel-socket-{tables,snapshot}-20261108-01
+(the table success is02), kernel-socket-capability-20261112-01 and
+socket-roots-20261112-01. This does not attach packet hooks or complete the
+ordinary/VPN/IIF/accounting, multi-table transaction, Binder/startup or metrics
+consumer work. No flash candidate exists.
+
 ## Loopback enforcement and metrics checkpoint — November 8
 
 Real actual-socket loopback permissions and packet-derived metrics now pass1797

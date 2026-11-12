@@ -205,7 +205,22 @@ static unsigned evaluate(''',1)
 '''
  code=code.replace(needle,tests+needle)
 
+cap=S/'include/uapi/linux/netfilter/gta3xlwifi_socket_tables.h'
+if cap.exists():
+ code='#include "'+str(cap)+'"\n'+code
+ code=code.replace('reset();reg_subsys_error=-EIO;', 'reset();T(gta3xlwifi_socket_tables_features()==0);reg_subsys_error=-EIO;')
+ code=code.replace('T(socket_tables_init()==-EIO&&!socket_tables_registered);','T(socket_tables_init()==-EIO&&!socket_tables_registered);T(gta3xlwifi_socket_tables_features()==0);')
+ code=code.replace('reset();T(socket_tables_init()==0&&socket_tables_registered&&net0.tables.v4&&net0.tables.v6);','reset();T(socket_tables_init()==0&&socket_tables_registered&&net0.tables.v4&&net0.tables.v6);T(gta3xlwifi_socket_tables_features()==256);')
+ code=code.replace('socket_tables_registered=false;T(allocs==frees','socket_tables_registered=false;T(gta3xlwifi_socket_tables_features()==0);T(allocs==frees')
+ # Independently compile the real function with IPv6 disabled as well.
+ feature=m.extract(text,'gta3xlwifi_socket_tables_features')
+ probe=code[:code.index('#define SOCKET_HOOKS')]+feature+'\nint main(void){socket_tables_registered=false;assert(gta3xlwifi_socket_tables_features()==0);socket_tables_registered=true;assert(gta3xlwifi_socket_tables_features()==0);return 0;}\n'
+ # The lifecycle fixture preamble carries many unused functions: compile the
+ # production function in a minimal fixture instead of suppressing diagnostics.
+ probe='#include <assert.h>\n#include <stdbool.h>\n#include <stdint.h>\n#include "'+str(cap)+'"\ntypedef uint32_t u32;\n#define IS_ENABLED(x) (x)\n#define CONFIG_IP6_NF_IPTABLES 0\n#define smp_load_acquire(p) (*(p))\nstatic bool socket_tables_registered;\n'+feature+'\nint main(void){socket_tables_registered=false;assert(gta3xlwifi_socket_tables_features()==0);socket_tables_registered=true;assert(gta3xlwifi_socket_tables_features()==0);return 0;}\n'
+ (O/'ipv4-only.c').write_text(probe);subprocess.run(['cc','-std=gnu11','-Wall','-Wextra','-Werror',str(O/'ipv4-only.c'),'-o',str(O/'ipv4-only')],check=True);subprocess.run([str(O/'ipv4-only')],check=True)
+
 (O/'test.c').write_text(code);cmd=['cc','-std=gnu11','-Wall','-Wextra','-Werror','-Wno-unused-parameter','-O1','-g','-fsanitize=undefined','-fno-sanitize-recover=all','-pthread',str(O/'test.c'),'-o',str(O/'test')];r=subprocess.run(cmd,capture_output=True,text=True);(O/'compile.log').write_text(r.stdout+r.stderr);assert r.returncode==0,r.stderr
 r=subprocess.run([str(O/'test')],capture_output=True,text=True,timeout=30,env={**os.environ,'UBSAN_OPTIONS':'halt_on_error=1'});(O/'test.log').write_text(r.stdout+r.stderr);assert r.returncode==0 and not r.stderr,(r.returncode,r.stdout,r.stderr)
 match=re.fullmatch(r'passed_cases=(\d+) grammar_comparisons=(\d+)\n',r.stdout);assert match and int(match[2])==864
-sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest();paths=[Path(__file__),helper,module,d,S/'include/net/gta3xlwifi_socket_tables.h',*cores,O/'test.c'];paths += [raw] if raw else [];(O/'report.json').write_text(json.dumps({'passed':True,'scope':__doc__,'passed_cases':int(match[1]),'grammar_comparisons':int(match[2]),'core_replacement_bodies_preserved_except_exact_private_inserts':True,'no_global_nf_hooks_registered':True,'actual_uid_snapshot_and_nested_restore_tested':bool(raw),'inputs_sha256':{str(p):sha(p) for p in paths},'command':cmd,'hardware_tested':False,'flash_ready':False},indent=2)+'\n');print(r.stdout.strip()+'; actual private table C, fatal UBSan fixtures')
+sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest();paths=[Path(__file__),helper,module,d,S/'include/net/gta3xlwifi_socket_tables.h',*cores,O/'test.c'];paths += [raw] if raw else [];paths += [cap,O/'ipv4-only.c'] if cap.exists() else [];(O/'report.json').write_text(json.dumps({'passed':True,'scope':__doc__,'passed_cases':int(match[1]),'grammar_comparisons':int(match[2]),'core_replacement_bodies_preserved_except_exact_private_inserts':True,'no_global_nf_hooks_registered':True,'actual_uid_snapshot_and_nested_restore_tested':bool(raw),'inputs_sha256':{str(p):sha(p) for p in paths},'command':cmd,'hardware_tested':False,'flash_ready':False},indent=2)+'\n');print(r.stdout.strip()+'; actual private table C, fatal UBSan fixtures')

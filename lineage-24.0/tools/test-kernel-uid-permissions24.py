@@ -217,6 +217,8 @@ if metrics_header.exists():
  exported_metrics=O/'include/linux/netfilter/gta3xlwifi_loopback.h';exported_metrics.parent.mkdir(parents=True,exist_ok=True);exported_metrics.write_bytes(metrics_header.read_bytes())
 if 'gta3xlwifi_receive_features()' in d:
  prefix+='\nstatic u32 gta3xlwifi_receive_features(void){return 0;} /* receive registration tested separately */\n'
+if 'gta3xlwifi_socket_tables_features()' in d:
+ prefix+='\nstatic u32 gta3xlwifi_socket_tables_features(void){return 0;} /* real table registration tested separately */\n'
 if 'gta3xlwifi_egress_features()' in d:
  prefix+='\nstatic u32 gta3xlwifi_egress_features(void){return 0;} /* output hooks tested separately */\n'
 code='\n'.join([prefix,globals,store,functions,oracle,fixture,*tails,tests])

@@ -1,0 +1,42 @@
+{
+  "scope": "Runtime capability only for successfully registered dual-stack snapshot-safe private tables; no packet attachment or readiness.",
+  "prerequisites": [
+    "kernel-socket-snapshot-20261108-01"
+  ],
+  "patch_sha256": "69bd541fa5dff35879f3b746cfc8320d9e4d1697a9cfde3d448d4005d6838aef",
+  "files": [
+    {
+      "path": "include/net/gta3xlwifi_socket_tables.h",
+      "before_sha256": "baa491a7833fd0e7468ea2142d25840c0204f08f12145c7f2f926121a541b56c",
+      "candidate_sha256": "6923767de43cdecffe414718be228056b7db37a46eb104ce984085d92258979c"
+    },
+    {
+      "path": "net/netfilter/gta3xlwifi_socket_tables.c",
+      "before_sha256": "589707676f52bc24ac1c80e12b5c8ec5e359a12f4784988862cf228a3450a680",
+      "candidate_sha256": "9e8985abf779d895c8e705520d7286ded8a8b77b5416931adba36875cd51a1eb"
+    },
+    {
+      "path": "net/netfilter/gta3xlwifi_netpolicy.c",
+      "before_sha256": "6c5ad3c517a10fe521afa49cccb5c8b3ee9b0fcf5fde9aa48c84b28cb1a8912c",
+      "candidate_sha256": "9991608c486caf1dfc9120c8fd91cecdae4762d4e39c22c33a6b9d0676be10cf"
+    },
+    {
+      "path": "include/uapi/linux/netfilter/gta3xlwifi_socket_tables.h",
+      "before_sha256": null,
+      "candidate_sha256": "eb2ea2ef9328d3ecbdfd52d167e27f9374be2189fb9ed789bbb0c68584ad6bd7"
+    }
+  ],
+  "supported_runtime_capability_bits": [
+    0,
+    1,
+    2,
+    3,
+    5,
+    9,
+    12
+  ],
+  "unknown_active_capabilities_rejected": true,
+  "android_prebuilt_promoted": false,
+  "hardware_tested": false,
+  "flash_ready": false
+}

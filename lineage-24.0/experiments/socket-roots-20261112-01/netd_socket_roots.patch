@@ -1,0 +1,274 @@
+--- a/Gta3xlwifiNetpolicyLease.cpp
++++ b/Gta3xlwifiNetpolicyLease.cpp
+@@ -4,6 +4,7 @@
+ #include <linux/netfilter/gta3xlwifi_uid_permissions.h>
+ #include <linux/netfilter/gta3xlwifi_local_network.h>
+ #include <linux/netfilter/gta3xlwifi_loopback.h>
++#include <linux/netfilter/gta3xlwifi_socket_tables.h>
+ #include <utility>
+ #include <cerrno>
+ #include <cinttypes>
+@@ -198,6 +199,17 @@
+     if (result == 0) return 0;
+     return imageErrorLocked(result < 0 ? (errno ? -errno : -EIO) : -EPROTO);
+ }
++int NetpolicyLease::requireSocketTables() {
++    std::lock_guard<std::mutex> lock(mMutex);
++    if (mFd < 0) return -ENOTCONN;
++    int result;
++    // Read-only capability query; retry does not consume events or change policy.
++    do { result = ioctl(mFd, GTA3XLWIFI_UID_FEATURES, 0UL); }
++    while (result < 0 && errno == EINTR);
++    if (result < 0) return imageErrorLocked(errno ? -errno : -EIO);
++    return (result & GTA3XLWIFI_UID_CAP_SOCKET_TABLES) ? 0 :
++            imageErrorLocked(-EOPNOTSUPP);
++}
+ int NetpolicyLease::imageFeaturesLocked() {
+     if (mFd < 0) return -ENOTCONN;
+     int result;
+--- a/Gta3xlwifiNetpolicyLease.h
++++ b/Gta3xlwifiNetpolicyLease.h
+@@ -68,6 +68,9 @@
+     // validate all frames before exposing any. Never retries an uncertain consume.
+     // Caller must serialize this with its complete backend transaction owner.
+     int readLoopbackEvents(LoopbackBatch* output);
++    // Registered dual-stack private tables with exact-skb UID snapshot.
++    // This primitive capability does not release the gate or publish readiness.
++    int requireSocketTables();
+     int start();
+     int hold();
+     int release();
+--- /dev/null
++++ b/Gta3xlwifiSocketRoots.cpp
+@@ -0,0 +1,184 @@
++// SPDX-License-Identifier: Apache-2.0
++#include "Gta3xlwifiSocketRoots.h"
++#include "Gta3xlwifiOrdinaryDispatch.h"
++#include <algorithm>
++#include <cerrno>
++#include <sstream>
++
++namespace android::net::gta3xlwifi {
++namespace {
++constexpr IptablesTarget families[] = {V4, V6};
++constexpr const char* roots[] = {"INPUT", "OUTPUT"};
++constexpr const char* owners[] = {"g24_owner_in", "g24_owner_out"};
++constexpr size_t maximumBytes = 1024 * 1024;
++}
++std::vector<std::string> SocketRoots::names() {
++    std::vector<std::string> result;
++    for (unsigned id = 1; id <= 9; ++id) result.push_back("g24_uid_" + std::to_string(id));
++    result.insert(result.end(), std::begin(owners), std::end(owners));
++    return result;
++}
++int SocketRoots::validate(const Image& image) {
++    const auto ordered = names();
++    if (image.size() != ordered.size()) return -EINVAL;
++    for (size_t i = 0; i < ordered.size(); ++i) if (image[i].name != ordered[i]) return -EINVAL;
++    int result = CheckedUidChains::validateImage(image, CheckedUidChains::Table::Socket);
++    if (result) return result;
++    // Only the compiler's exact ordinary dispatch may sit below builtin roots.
++    Image canonical(image.begin(), image.begin() + 9);
++    result = OrdinaryDispatch::append(&canonical);
++    return result ? result : canonical == image ? 0 : -EINVAL;
++}
++int SocketRoots::fail(int error) {
++    mLease.stop();
++    return error;
++}
++int SocketRoots::held() {
++    int result = mLease.requireSocketTables();
++    if (result) return fail(result);
++    bool value = false;
++    result = mLease.isHeld(&value);
++    return result ? fail(result) : value ? 0 : fail(-EBUSY);
++}
++int SocketRoots::inventory(IptablesTarget family, Inventory* output) {
++    std::string text;
++    if (mKernel.execute(family, "*g24sock\n-S\nCOMMIT\n", &text)) return -EREMOTEIO;
++    if (text.empty() || text.size() > maximumBytes || text.back() != '\n') return -EPROTO;
++    for (unsigned char c : text) if (c != '\n' && (c < 32 || c > 126)) return -EPROTO;
++    const auto ordered = names();
++    const std::set<std::string> allowed(ordered.begin(), ordered.end());
++    Inventory next;
++    std::array<bool, 2> policy{};
++    std::set<std::string> ruleChains;
++    std::istringstream stream(text);
++    std::string line;
++    while (std::getline(stream, line)) {
++        if (line.empty() || line.front() == ' ' || line.back() == ' ' ||
++            line.find("  ") != std::string::npos) return -EPROTO;
++        std::istringstream words(line);
++        std::vector<std::string> tokens;
++        for (std::string word; words >> word;) tokens.push_back(std::move(word));
++        if (tokens.size() == 3 && tokens[0] == "-P") {
++            unsigned id = tokens[1] == roots[0] ? 0 : tokens[1] == roots[1] ? 1 : 2;
++            if (id == 2 || policy[id] || (tokens[2] != "ACCEPT" && tokens[2] != "DROP"))
++                return -EPROTO;
++            policy[id] = true;
++            next.accept[id] = tokens[2] == "ACCEPT";
++        } else if (tokens.size() == 2 && tokens[0] == "-N") {
++            if (!allowed.count(tokens[1]) || !next.users.insert(tokens[1]).second) return -EPROTO;
++        } else if (tokens.size() >= 4 && tokens[0] == "-A") {
++            unsigned id = tokens[1] == roots[0] ? 0 : tokens[1] == roots[1] ? 1 : 2;
++            if (id < 2) {
++                if (next.jump[id] || tokens.size() != 4 || tokens[2] != "-j" ||
++                    tokens[3] != owners[id]) return -EPROTO;
++                next.jump[id] = true;
++            } else {
++                if (!allowed.count(tokens[1])) return -EPROTO;
++                ruleChains.insert(tokens[1]);
++                next.userRules = true;  // Actual rule grammar checked by mChains.
++            }
++        } else return -EPROTO;
++    }
++    if (!policy[0] || !policy[1]) return -EPROTO;
++    for (const auto& name : ruleChains) if (!next.users.count(name)) return -EPROTO;
++    for (unsigned id = 0; id < 2; ++id) {
++        if ((next.jump[id] && !next.users.count(owners[id])) ||
++            (next.accept[id] && !next.jump[id])) return -EPROTO;
++    }
++    *output = std::move(next);
++    return 0;
++}
++int SocketRoots::readImage(IptablesTarget family, const Image* expected) {
++    Image actual;
++    int result = mChains.read(family, names(), &actual);
++    return result ? result : expected && actual != *expected ? -ESTALE : 0;
++}
++int SocketRoots::check(IptablesTarget family, const Inventory& state,
++                       const Image& expected, bool active) {
++    if (state.users.size() != names().size()) return -EPROTO;
++    if (active && (!state.accept[0] || !state.accept[1] || !state.jump[0] || !state.jump[1]))
++        return -EPROTO;
++    return readImage(family, &expected);
++}
++int SocketRoots::prepare() {
++    std::lock_guard<std::mutex> lock(mMutex);
++    int result = held();
++    if (result) return result;
++    std::array<Inventory, 2> before;
++    std::array<Image, 2> retained;
++    // Capture and validate BOTH families before the first write.
++    for (unsigned f = 0; f < 2; ++f) {
++        result = inventory(families[f], &before[f]);
++        if (result) return fail(result);
++        if (before[f].users.size() != names().size()) {
++            if (before[f].accept[0] || before[f].accept[1] ||
++                before[f].jump[0] || before[f].jump[1] || before[f].userRules)
++                return fail(-EPROTO);
++            for (const auto& name : names()) retained[f].push_back({name, {}});
++        } else {
++            result = mChains.read(families[f], names(), &retained[f]);
++            if (result) return fail(result);
++        }
++    }
++    for (unsigned f = 0; f < 2; ++f) {
++        std::string commands = "*g24sock\n";
++        for (const auto& name : names()) if (!before[f].users.count(name))
++            commands += "-N " + name + "\n";
++        if (commands == "*g24sock\n") continue;
++        commands += "COMMIT\n";
++        if (mKernel.execute(families[f], commands, nullptr)) return fail(-EREMOTEIO);
++    }
++    for (unsigned f = 0; f < 2; ++f) {
++        Inventory after;
++        result = inventory(families[f], &after);
++        if (result || after.users.size() != names().size() ||
++            after.accept != before[f].accept || after.jump != before[f].jump)
++            return fail(result ? result : -EPROTO);
++        result = readImage(families[f], &retained[f]);
++        if (result) return fail(result);
++    }
++    return 0;
++}
++int SocketRoots::verifyLocked(const Image& expected) {
++    int result = held();
++    if (result) return result;
++    for (auto family : families) {
++        Inventory state;
++        result = inventory(family, &state);
++        if (!result) result = check(family, state, expected, true);
++        if (result) return fail(result);
++    }
++    return 0;
++}
++int SocketRoots::verify(const Image& expected) {
++    int result = validate(expected);
++    if (result) return result;  // Pure invalid caller input never changes the lease.
++    std::lock_guard<std::mutex> lock(mMutex);
++    return verifyLocked(expected);
++}
++int SocketRoots::activate(const Image& expected) {
++    int result = validate(expected);
++    if (result) return result;
++    std::lock_guard<std::mutex> lock(mMutex);
++    result = held();
++    if (result) return result;
++    std::array<Inventory, 2> before;
++    for (unsigned f = 0; f < 2; ++f) {
++        result = inventory(families[f], &before[f]);
++        if (!result) result = check(families[f], before[f], expected, false);
++        if (result) return fail(result);
++    }
++    for (unsigned f = 0; f < 2; ++f) {
++        std::string commands = "*g24sock\n";
++        // Install both jumps BEFORE making either builtin default ACCEPT.
++        for (unsigned id = 0; id < 2; ++id) if (!before[f].jump[id])
++            commands += std::string("-A ") + roots[id] + " -j " + owners[id] + "\n";
++        for (unsigned id = 0; id < 2; ++id) if (!before[f].accept[id])
++            commands += std::string("-P ") + roots[id] + " ACCEPT\n";
++        if (commands == "*g24sock\n") continue;
++        commands += "COMMIT\n";
++        if (mKernel.execute(families[f], commands, nullptr)) return fail(-EREMOTEIO);
++    }
++    return verifyLocked(expected);
++}
++}  // namespace android::net::gta3xlwifi
+--- /dev/null
++++ b/Gta3xlwifiSocketRoots.h
+@@ -0,0 +1,44 @@
++// SPDX-License-Identifier: Apache-2.0
++#pragma once
++#include "Gta3xlwifiCheckedUidChains.h"
++#include "Gta3xlwifiNetpolicyLease.h"
++#include <array>
++#include <set>
++
++namespace android::net::gta3xlwifi {
++// Private table bootstrap only. The sole backend owner MUST hold its complete
++// transaction mutex across this object, chain writes and UID/LNA publication.
++// Never releases the gate or advertises backend readiness. A failure closes the
++// lease, retaining the gate even after a partial family/root update.
++class SocketRoots final {
++public:
++    using Image = std::vector<CheckedUidChains::Chain>;
++    SocketRoots(IptablesRestoreInterface& kernel, NetpolicyLease& lease)
++        : mKernel(kernel), mLease(lease), mChains(kernel, CheckedUidChains::Table::Socket) {}
++    // Create missing chains only in an inert DROP table with no rules. Existing
++    // complete programs are parsed and retained; foreign input is never replayed.
++    int prepare();
++    // Requires a complete checked ordinary image already installed in BOTH
++    // families. Adds owned jumps before ACCEPT policy; exact readback required.
++    int activate(const Image& expected);
++    int verify(const Image& expected);
++private:
++    struct Inventory {
++        std::set<std::string> users;
++        std::array<bool, 2> accept{}, jump{};
++        bool userRules = false;
++    };
++    static std::vector<std::string> names();
++    static int validate(const Image& image);
++    int held();
++    int fail(int error);
++    int inventory(IptablesTarget family, Inventory* output);
++    int readImage(IptablesTarget family, const Image* expected);
++    int check(IptablesTarget family, const Inventory& state, const Image& expected, bool active);
++    int verifyLocked(const Image& expected);
++    IptablesRestoreInterface& mKernel;
++    NetpolicyLease& mLease;
++    CheckedUidChains mChains;
++    std::mutex mMutex;
++};
++}  // namespace android::net::gta3xlwifi

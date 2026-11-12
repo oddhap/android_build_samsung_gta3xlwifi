@@ -1,0 +1,52 @@
+Started Thu Nov 12 19:17:53 UTC 2026
+Note: switching to 'efbdbfa3e216b0c300d381c340b0a22b24e15c13'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by switching back to a branch.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -c with the switch command. Example:
+
+  git switch -c <new-branch-name>
+
+Or undo this operation with:
+
+  git switch -
+
+Turn off this advice by setting config variable advice.detachedHead to false
+
+Audited 60331 tracked kernel files: /srv/android/artifacts/lineage-24.0-arm64/kernel-socket-capability-build-20261112-01/protected-before.json
+Audited 60355 tracked kernel files: /srv/android/artifacts/lineage-24.0-arm64/kernel-socket-capability-build-20261112-01/source-before.json
+PASS: 44 actual lease/match/registration/grace-order cases with real mutex contention, fatal UBSan
+PASS: 1243 locked projects, 17 exact reviewed patches; no external alternates
+passed_cases=24 comparisons=343599; actual C match vs Android17 predicate, fatal UBSan
+passed_cases=19 comparisons=896; actual raw matches vs A17 metered predicates, fatal UBSan fixtures
+passed_cases=24 comparisons=5774610; actual A17 parse/skip and real kernel bodies, fatal UBSan fixtures
+passed_cases=2 comparisons=960; actual creator init/reset helpers and exact hook contracts, fatal UBSan fixtures
+passed_cases=41 comparisons=960; actual creator getter/init/reset helpers and exact hook contracts, fatal UBSan fixtures
+passed_cases=8 comparisons=672; actual peer/getter/convert bodies with lookup/ref fixtures, fatal UBSan
+passed_cases=81 comparisons=124608; actual C bodies + selected A17 oracle, fatal UBSan
+passed_cases=73 comparisons=787916; actual store/trie/decision/dispatch C + selected A17 oracle, fatal UBSan
+passed_cases=17 parser_comparisons=2887305 endpoint_dispatches=5774610; actual parser/rawUID/match + A17 oracle, fatal UBSan fixtures
+passed_cases=51 negative_headroom_parser_comparisons=5632; actual receive/tag/filter/parser/store code, fatal UBSan fixtures
+passed_cases=51 negative_headroom_parser_comparisons=5632; actual receive/tag/filter/parser/store code, fatal UBSan fixtures
+passed_cases=51 negative_headroom_parser_comparisons=5632
+egress_passed_cases=100
+passed_cases=51 negative_headroom_parser_comparisons=5632; actual receive/tag/filter/parser/store code, fatal UBSan fixtures
+passed_cases=51 negative_headroom_parser_comparisons=5632
+egress_passed_cases=100
+Traceback (most recent call last):
+  File "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/test-kernel-loopback24.py", line 105, in <module>
+    (O/'test.c').write_text(code);cmd=['cc','-std=gnu11','-Wall','-Wextra','-Werror','-Wno-unused-parameter','-O1','-g','-fsanitize=undefined','-fno-sanitize-recover=all','-pthread','-I'+str(O/'egress-regression/receive-prerequisite/include'),str(O/'test.c'),'-o',str(O/'test')];x=subprocess.run(cmd,capture_output=True,text=True);(O/'compile.log').write_text(x.stdout+x.stderr);assert x.returncode==0,x.stderr
+AssertionError: /srv/android/artifacts/lineage-24.0-arm64/kernel-socket-capability-build-20261112-01/loopback-host/test.c: In function ‘netpolicy_image_ioctl’:
+/srv/android/artifacts/lineage-24.0-arm64/kernel-socket-capability-build-20261112-01/loopback-host/test.c:584:23: error: implicit declaration of function ‘gta3xlwifi_socket_tables_features’; did you mean ‘gta3xlwifi_receive_features’? [-Werror=implicit-function-declaration]
+  584 |                       gta3xlwifi_socket_tables_features();
+      |                       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      |                       gta3xlwifi_receive_features
+cc1: all warnings being treated as errors
+
+PASS: 1243 locked projects, 17 exact reviewed patches; no external alternates
+Audited 60355 tracked kernel files: /srv/android/artifacts/lineage-24.0-arm64/kernel-socket-capability-build-20261112-01/source-after.json
+Audited 60331 tracked kernel files: /srv/android/artifacts/lineage-24.0-arm64/kernel-socket-capability-build-20261112-01/protected-after.json
+Thu Nov 12 19:19:27 UTC 2026

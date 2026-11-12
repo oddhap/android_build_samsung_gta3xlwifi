@@ -21,6 +21,8 @@ code=code.replace('static int copy_to_user(', 'static void (*copy_hook)(void*,co
 header=S/'include/uapi/linux/netfilter/gta3xlwifi_loopback.h';dst=O/'egress-regression/receive-prerequisite/include/linux/netfilter/gta3xlwifi_loopback.h';dst.write_bytes(header.read_bytes());code='#include <linux/netfilter/gta3xlwifi_loopback.h>\n'+code
 # Compile the actual extended owner dispatch, not the hash-bound prior store's old dispatch.
 driver=S/'net/netfilter/gta3xlwifi_netpolicy.c';d=driver.read_text();i=code.index(m.extract(code,'netpolicy_image_ioctl'));code=code[:i]+'u32 gta3xlwifi_receive_features(void);u32 gta3xlwifi_egress_features(void);u32 gta3xlwifi_loopback_features(void);long gta3xlwifi_loopback_ioctl(unsigned int,unsigned long);\n'+code[i:]
+if 'gta3xlwifi_socket_tables_features()' in d:
+ code='static unsigned gta3xlwifi_socket_tables_features(void){return 0;} /* table lifecycle tested separately */\n'+code
 for name in ['netpolicy_image_ioctl','netpolicy_ioctl']:code=code.replace(m.extract(code,name),m.extract(d,name))
 peer=S/'include/net/gta3xlwifi_socket_peer.h';dst=O/'egress-regression/receive-prerequisite/include/net/gta3xlwifi_socket_peer.h';dst.write_bytes(peer.read_bytes())
 code+=r'''

@@ -1,0 +1,1 @@
+test: /srv/android/artifacts/lineage-24.0-arm64/socket-roots-host-20261112-01/test.cpp:204: int main(): Assertion `l.start()==0&&roots.prepare()==-71&&held&&files.empty()&&k.writes==0' failed.

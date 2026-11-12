@@ -1,0 +1,6 @@
+/srv/android/artifacts/lineage-24.0-arm64/kernel-socket-capability-build-20261112-01/loopback-host/test.c: In function ‘netpolicy_image_ioctl’:
+/srv/android/artifacts/lineage-24.0-arm64/kernel-socket-capability-build-20261112-01/loopback-host/test.c:584:23: error: implicit declaration of function ‘gta3xlwifi_socket_tables_features’; did you mean ‘gta3xlwifi_receive_features’? [-Werror=implicit-function-declaration]
+  584 |                       gta3xlwifi_socket_tables_features();
+      |                       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      |                       gta3xlwifi_receive_features
+cc1: all warnings being treated as errors

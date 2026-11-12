@@ -1,0 +1,71 @@
+--- a/include/net/gta3xlwifi_socket_tables.h
++++ b/include/net/gta3xlwifi_socket_tables.h
+@@ -2,12 +2,15 @@
+ #ifndef _NET_GTA3XLWIFI_SOCKET_TABLES_H
+ #define _NET_GTA3XLWIFI_SOCKET_TABLES_H
+ #include <linux/types.h>
++#include <uapi/linux/netfilter/gta3xlwifi_socket_tables.h>
+ struct net;
+ struct sock;
+ struct sk_buff;
+ struct xt_table_info;
+ #define GTA3XLWIFI_SOCKET_TABLE "g24sock"
+ #ifdef CONFIG_NETFILTER_XT_MATCH_QTAGUID
++/* Real registered IPv4+IPv6 snapshot-safe evaluator, not global readiness. */
++u32 gta3xlwifi_socket_tables_features(void);
+ /* Only the private table is constrained. Other table behavior is unchanged. */
+ int gta3xlwifi_socket_rules4(const char *name, const struct xt_table_info *info);
+ int gta3xlwifi_socket_rules6(const char *name, const struct xt_table_info *info);
+@@ -29,6 +32,7 @@
+                                       bool output, u32 uid_snapshot);
+ int gta3xlwifi_socket_table_policy(struct sock *sk, struct sk_buff *skb, bool output);
+ #else
++static inline u32 gta3xlwifi_socket_tables_features(void){return 0;}
+ static inline bool gta3xlwifi_socket_context_uid(const struct sk_buff*s,u32*u){return false;}
+ static inline int gta3xlwifi_socket_rules4(const char *n,const struct xt_table_info*i){return 0;}
+ static inline int gta3xlwifi_socket_rules6(const char *n,const struct xt_table_info*i){return 0;}
+--- a/net/netfilter/gta3xlwifi_socket_tables.c
++++ b/net/netfilter/gta3xlwifi_socket_tables.c
+@@ -158,6 +158,19 @@
+ /* qtaguid is bool. Initialize after both ip_tables modules registered their
+  * standard/ERROR targets, rather than relying on net/ directory link order. */
+ late_initcall(socket_tables_init);
++/* A capability for this exact primitive only. Both families and the per-netns
++ * late registration must be real; no packet hook/backend-ready claim is made.
++ */
++u32 gta3xlwifi_socket_tables_features(void)
++{
++#if IS_ENABLED(CONFIG_IP6_NF_IPTABLES)
++    return smp_load_acquire(&socket_tables_registered) ?
++        GTA3XLWIFI_UID_CAP_SOCKET_TABLES : 0;
++#else
++    return 0;
++#endif
++}
++EXPORT_SYMBOL_GPL(gta3xlwifi_socket_tables_features);
+ struct socket_uid_snapshot {
+     const struct sk_buff *skb;
+     u32 uid;
+--- a/net/netfilter/gta3xlwifi_netpolicy.c
++++ b/net/netfilter/gta3xlwifi_netpolicy.c
+@@ -145,7 +145,8 @@
+ 		ret = -EPERM;
+ 	else if (cmd == GTA3XLWIFI_UID_FEATURES)
+ 		ret = gta3xlwifi_uid_permissions_features() | GTA3XLWIFI_UID_CAP_LNA_STORE |
+-		      gta3xlwifi_lna_packet_features() | gta3xlwifi_receive_features() | gta3xlwifi_egress_features() | gta3xlwifi_loopback_features();
++		      gta3xlwifi_lna_packet_features() | gta3xlwifi_receive_features() | gta3xlwifi_egress_features() | gta3xlwifi_loopback_features() |
++		      gta3xlwifi_socket_tables_features();
+ 	else if ((cmd == GTA3XLWIFI_UID_SET_IMAGE || cmd == GTA3XLWIFI_LNA_SET_IMAGE) &&
+ 	         !READ_ONCE(netpolicy_held))
+ 		ret = -EBUSY;
+--- /dev/null
++++ b/include/uapi/linux/netfilter/gta3xlwifi_socket_tables.h
+@@ -0,0 +1,8 @@
++/* SPDX-License-Identifier: GPL-2.0 WITH Linux-syscall-note */
++#ifndef _UAPI_GTA3XLWIFI_SOCKET_TABLES_H
++#define _UAPI_GTA3XLWIFI_SOCKET_TABLES_H
++/* UID_FEATURES: registered private IPv4+IPv6 tables and exact-skb UID snapshot.
++ * Does not assert hooks, rules, full owner policy, BPF support or readiness.
++ */
++#define GTA3XLWIFI_UID_CAP_SOCKET_TABLES (1U << 8)
++#endif

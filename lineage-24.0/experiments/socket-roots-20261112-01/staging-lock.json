@@ -1,0 +1,88 @@
+{
+  "scope": "Held-gate dual-stack private-root bootstrap and exact ordinary dispatch activation only. No release/backend readiness.",
+  "prerequisites": [
+    "socket-chain-io-20261108-01",
+    "loopback-event-transport-20261108-01",
+    "kernel-socket-capability-20261112-01"
+  ],
+  "patch_sha256": "d828b3a0f0a1efa2566b3539ebd7fe299e1a0acd77771984274996cc5b9651e4",
+  "files": [
+    {
+      "path": "Gta3xlwifiNetpolicyLease.cpp",
+      "before_sha256": "412e264340ea94dd2a6c646813deae650235e69c19bf3ec814aec5a4192e6f97",
+      "candidate_sha256": "8bf243ecde20da5bda738271749af491e8211c6c401021e4fb9bc15b51436d38"
+    },
+    {
+      "path": "Gta3xlwifiNetpolicyLease.h",
+      "before_sha256": "04027ade57648f18862b5ba59778d063b10657782291a7019c2f71df287850d5",
+      "candidate_sha256": "7f8d99494f1620519a3114c3d027d96eaa99848327d8d5663bafb3393249dd9d"
+    },
+    {
+      "path": "Gta3xlwifiSocketRoots.cpp",
+      "before_sha256": null,
+      "candidate_sha256": "844b5a8bcea8a158ce4aea748e71e5e470ae5bf9e18fd3e9d15c7e4719671431"
+    },
+    {
+      "path": "Gta3xlwifiSocketRoots.h",
+      "before_sha256": null,
+      "candidate_sha256": "21f08b35f0d828ea6b155c788179fe81efe8abdf5c0d6bf3238ef804e5048e1d"
+    }
+  ],
+  "source_dependencies_sha256": [
+    {
+      "path": "Gta3xlwifiCheckedUidChains.cpp",
+      "sha256": "f4dd342da1656ec15a0660f169ba13c8c7e332da9ad9b7b899add33e50d3131b"
+    },
+    {
+      "path": "Gta3xlwifiCheckedUidChains.h",
+      "sha256": "240be01a5496a3f9ad555361c6e8c82abf499b9e5cffe27ce4d009f2195b906a"
+    },
+    {
+      "path": "Gta3xlwifiOrdinaryDispatch.cpp",
+      "sha256": "917927b0e66b78a3087e50c04e963b04813a7a4041e40dce6d9094119f9459c3"
+    },
+    {
+      "path": "Gta3xlwifiOrdinaryDispatch.h",
+      "sha256": "6e71c153ab368713437b4b4c2ea3ee246b7f35490f94cc87d23e18f7515547c5"
+    },
+    {
+      "path": "Gta3xlwifiUidChainProgram.cpp",
+      "sha256": "b8936793c49b2cc0abee3cf2e6f27c82a171a582006a956a8ab2954ff380ffee"
+    },
+    {
+      "path": "Gta3xlwifiUidChainProgram.h",
+      "sha256": "e6bd4a71fbd289f8bdc2a917649f03fea323d136584f0dccb3acba00e49b33a8"
+    },
+    {
+      "path": "Gta3xlwifiUidPolicy.cpp",
+      "sha256": "9f98afdf5ea0750b6a1215d1ecb46250aa7c62a6fb9a84e23300f112bfd2d239"
+    },
+    {
+      "path": "Gta3xlwifiUidPolicy.h",
+      "sha256": "254fae0c2fa1fd65e18e340149ef740b8a89fc7f4620e58ae22e0296815febb2"
+    },
+    {
+      "path": "linux/netfilter/gta3xlwifi_local_network.h",
+      "sha256": "78d66f9b5c834c56d035ea108c4323c849186df3c98d3fb3a48c3de53797b7be"
+    },
+    {
+      "path": "linux/netfilter/gta3xlwifi_loopback.h",
+      "sha256": "81c17681a2b846b98daefbbd36b609c22dc429a1aaf3c6af7b4540af6c524604"
+    },
+    {
+      "path": "linux/netfilter/gta3xlwifi_netpolicy.h",
+      "sha256": "fd53c8c287840054ac9234efdabd88302140d95fc1488c57080de499a835d54c"
+    },
+    {
+      "path": "linux/netfilter/gta3xlwifi_socket_tables.h",
+      "sha256": "eb2ea2ef9328d3ecbdfd52d167e27f9374be2189fb9ed789bbb0c68584ad6bd7"
+    },
+    {
+      "path": "linux/netfilter/gta3xlwifi_uid_permissions.h",
+      "sha256": "92d572695e88845aebb03c20474c804f56cd4c39c9b22dc01c355c0d81123945"
+    }
+  ],
+  "kernel_uapi_exact": true,
+  "hardware_tested": false,
+  "flash_ready": false
+}
