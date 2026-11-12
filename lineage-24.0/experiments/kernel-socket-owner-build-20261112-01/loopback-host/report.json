@@ -1,0 +1,39 @@
+{
+  "passed": true,
+  "scope": "Actual loopback permission/egress/event queue/lease dispatch with host fixtures.\n\nPeer lookup is a referenced-lookup result fixture (that helper has separate tests).\nActual A17 permission expressions are compiled as oracle. RCU/copies/credentials/\nclock/sockets are modeled; no real packets, hardware or whole-backend readiness.\n",
+  "passed_cases": 1797,
+  "actual_A17_permission_comparisons": 98304,
+  "inputs_sha256": {
+    "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/test-kernel-loopback24.py": "73adeb6487e66591776d235e6c0f9d9dc5f85b475550480bbecb528f6832b7a4",
+    "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/test-kernel-qtaguid-socket-owned.py": "59516300b405af46c972b264353c3766b5c18cf882b04ac8ba9db6f70f436459",
+    "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/test-kernel-egress-context24.py": "0801db9705c82a53fdeb0f605a7904566191c1f3a02d90d58f4c4bd4ea8cf200",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-socket-owner-build-20261112-01/loopback-host/egress-regression/test.c": "f606283c31bfcd4b730e837f1f2c9714013d5458204484f038016a9133a7af56",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-socket-owner-20261112-01/src/include/uapi/linux/netfilter/gta3xlwifi_loopback.h": "81c17681a2b846b98daefbbd36b609c22dc429a1aaf3c6af7b4540af6c524604",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-socket-owner-20261112-01/src/net/netfilter/gta3xlwifi_loopback.c": "4d1c293adfbc9d28f75484a95e426559437b4ea63d705d6a1b64f80a31578f02",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-socket-owner-20261112-01/src/include/net/gta3xlwifi_socket_peer.h": "fa98dcced9f1c6594b059b6c37ad2d484ced15325fd76679a92aea5d512109e7",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-socket-owner-20261112-01/src/net/netfilter/gta3xlwifi_netpolicy.c": "9991608c486caf1dfc9120c8fd91cecdae4762d4e39c22c33a6b9d0676be10cf",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-socket-owner-20261112-01/src/net/netfilter/xt_qtaguid.c": "00810e18f5c093de39c1ab4df7b1e7f5f7923574b32be0ab064ec4be12fe30e4",
+    "/srv/android/src/lineage-24.0-arm64/packages/modules/Connectivity/bpf/progs/netd.c": "7dc4fa02952c0268737dc9aad20a0571b55df255f878506a4db91c1d962713b6",
+    "/srv/android/src/lineage-24.0-arm64/packages/modules/Connectivity/bpf/progs/netd.h": "ae85473717243924c609f8d963d03bc2631adbba8833ae527bf611291f38ca1a",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-socket-owner-build-20261112-01/loopback-host/test.c": "5ce1a1aa11a657c48d997aaed37834757a78f4d9d2c76a85eeabcb4a1c3c1a0b"
+  },
+  "command": [
+    "cc",
+    "-std=gnu11",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-Wno-unused-parameter",
+    "-O1",
+    "-g",
+    "-fsanitize=undefined",
+    "-fno-sanitize-recover=all",
+    "-pthread",
+    "-I/srv/android/artifacts/lineage-24.0-arm64/kernel-socket-owner-build-20261112-01/loopback-host/egress-regression/receive-prerequisite/include",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-socket-owner-build-20261112-01/loopback-host/test.c",
+    "-o",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-socket-owner-build-20261112-01/loopback-host/test"
+  ],
+  "hardware_tested": false,
+  "flash_ready": false
+}

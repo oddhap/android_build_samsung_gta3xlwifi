@@ -1,0 +1,51 @@
+--- a/net/netfilter/xt_qtaguid.c
++++ b/net/netfilter/xt_qtaguid.c
+@@ -3378,22 +3378,29 @@
+         result = -EPERM;
+         goto out;
+     }
+-    if (!gta3xlwifi_parse_packet(skb, &packet))
+-        goto out;
++    net = sock_net(sk);
++    uid = from_kuid_munged(net->user_ns, sock_net_uid(net, sk));
++    if (uid == 65534)
++        uid = 0;
+     metadata = gta3xlwifi_socket_accounting(sk, &stats_uid, &tag);
+     if (metadata && metadata != -ENOENT) {
+         result = metadata;
+         goto out;
+     }
++    /* Ordinary owner DROP applies even to DNS and when the LNA parser fails.
++     * The private evaluator binds the actual socket and reuses this UID sample;
++     * it cannot free/steal skb. Only the original receive caller owns the skb.
++     */
++    result = gta3xlwifi_socket_table_policy_uid(sk, skb, false, uid);
++    if (result)
++        goto out;
++    if (!gta3xlwifi_parse_packet(skb, &packet))
++        goto out;
+     /* Actual A17 TAG_SYSTEM_DNS +AID_DNS. UID/process identity alone is never
+      * a DNS exemption. Tag values are copied under the real qtaguid tree lock.
+      */
+     if (!metadata && stats_uid == 1051 && tag == 0xffffff82U)
+         goto out;
+-    net = sock_net(sk);
+-    uid = from_kuid_munged(net->user_ns, sock_net_uid(net, sk));
+-    if (uid == 65534)
+-        uid = 0;
+     if_index = skb->dev ? skb->dev->ifindex : 0;
+     if (gta3xlwifi_lna_blocked(uid, if_index, &packet.saddr,
+                                packet.ip_proto, packet.sport))
+@@ -3445,6 +3452,12 @@
+     }
+     if (stats_uid == 1029)
+         goto out;
++    /* A17: CLAT bypass precedes owner policy; owner DROP precedes parser-gated
++     * loopback/LNA and cannot be undone by the system-DNS LNA exemption.
++     */
++    result = gta3xlwifi_socket_table_policy_uid(sk, skb, true, uid);
++    if (result)
++        goto out;
+     if (!gta3xlwifi_parse_packet(skb, &packet))
+         goto out;
+     if_index = skb->dev ? skb->dev->ifindex : 0;

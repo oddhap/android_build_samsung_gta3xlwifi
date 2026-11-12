@@ -32,6 +32,17 @@ checks are separate from Android execution. Optional GPU BPF accounting still
 reports unavailable, rather than invented counters. Existing safety/installer
 and strict SELinux checks remain enforced.
 
+## Actual ordinary socket hooks checkpoint — November 12
+
+The private ordinary program is now evaluated at actual supplied-socket receive
+and egress stages in an isolated full kernel build. One UID sample spans tag,
+ordinary, LNA and loopback decisions; CLAT precedes egress owner policy and DNS
+cannot bypass ordinary DROP. Source-bound84 hook assertions plus all prior
+regressions, actual ARM64 call relocations and full kernel/modules/source audits
+pass. See experiments/kernel-socket-owner-20261112-01. Real VPN/IIF, accounting,
+complete multi-table native transactions, Binder/startup and metrics consumer
+remain required. Selected Android inputs are unchanged; no flash candidate.
+
 ## Private socket-table control checkpoint — November 12
 
 The isolated dual-stack private tables now have one exact-skb UID snapshot and a

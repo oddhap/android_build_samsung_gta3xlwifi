@@ -1,0 +1,27 @@
+{
+  "scope": "Actual supplied-socket receive/egress ordinary private-table attachment with one UID snapshot, before DNS/parser exemptions; CLAT precedes egress owner. VPN/IIF/accounting/backend readiness remain incomplete.",
+  "prerequisites": [
+    "kernel-socket-capability-20261112-01"
+  ],
+  "patch_sha256": "58ea45e6b1983e1a32242749fd010dc7a0afe1e662cdb0185efde9b8fe0824d0",
+  "files": [
+    {
+      "path": "net/netfilter/xt_qtaguid.c",
+      "before_sha256": "89a2d662ae4dfcff893548d6f41d163590ac013b86e01eb33cb6bd6cc74ddedb",
+      "candidate_sha256": "00810e18f5c093de39c1ab4df7b1e7f5f7923574b32be0ab064ec4be12fe30e4"
+    }
+  ],
+  "supported_runtime_capability_bits": [
+    0,
+    1,
+    2,
+    3,
+    5,
+    9,
+    12
+  ],
+  "unknown_active_capabilities_rejected": true,
+  "android_prebuilt_promoted": false,
+  "hardware_tested": false,
+  "flash_ready": false
+}
