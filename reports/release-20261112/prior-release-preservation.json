@@ -1,0 +1,65 @@
+{
+  "passed": true,
+  "checked_at_utc": "2026-11-12T21:01:37.710287+00:00",
+  "prior_tag": "lineage-21.0-arm64-20261101",
+  "prior_release_metadata_unchanged": true,
+  "prior_asset_ids_sizes_digests_unchanged": true,
+  "assets": [
+    {
+      "id": 698394585,
+      "name": "INSTALL.md",
+      "size": 6339,
+      "digest": "sha256:8d8731be31e56a6f35ecf1105c2fa1f57ec98f52fcb3a8b849de82bb7bc03d78",
+      "state": "uploaded"
+    },
+    {
+      "id": 698394631,
+      "name": "RESTORE_STOCK_VENDOR.sh",
+      "size": 2080,
+      "digest": "sha256:a09eb3f7658eef215a52ccd8b8f9022991229f55ad63aad492cbbe2b1c396ef9",
+      "state": "uploaded"
+    },
+    {
+      "id": 698394687,
+      "name": "SHA256SUMS",
+      "size": 696,
+      "digest": "sha256:83a73398918ca6e9a067c414ff56ca502b27d7add64ba90886a7bdf3c0836fad",
+      "state": "uploaded"
+    },
+    {
+      "id": 698394723,
+      "name": "lineage-21.0-20261101-UNOFFICIAL-gta3xlwifi-arm64.zip",
+      "size": 908593322,
+      "digest": "sha256:2d2b10a1dcb7a045f28292cdd05ef0c912ff95cc52b9896dfed071b7e06eadf3",
+      "state": "uploaded"
+    },
+    {
+      "id": 698396250,
+      "name": "twrp-3.7.1_12-gta3xlwifi-arm64-20261015-ap.tar",
+      "size": 40284160,
+      "digest": "sha256:05232acf2e1386a9ef61833cfc6c3a2653abf6d61cd7f7522cf7fb902effa9a0",
+      "state": "uploaded"
+    },
+    {
+      "id": 698396383,
+      "name": "twrp-3.7.1_12-gta3xlwifi-arm64-20261015.img",
+      "size": 40275984,
+      "digest": "sha256:10c2c2ee77ee593ace840a12fb90145809e4521942b681bcee6e9c3b364370ed",
+      "state": "uploaded"
+    },
+    {
+      "id": 698396560,
+      "name": "vbmeta-disabled.img",
+      "size": 4096,
+      "digest": "sha256:3e679bb0b8b2e6fb5d94d8316846b7459eead2209cee8f038cbbdda8c6483750",
+      "state": "uploaded"
+    },
+    {
+      "id": 698396600,
+      "name": "vendor-stock-T510XXU5CWA1.raw.img",
+      "size": 343932928,
+      "digest": "sha256:9c2c323343118f8a75d31c69c367e77144b6c74c660ca9930076ecc513b8d97c",
+      "state": "uploaded"
+    }
+  ]
+}

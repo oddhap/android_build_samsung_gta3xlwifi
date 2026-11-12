@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "file": "lineage-21.0-20261112-UNOFFICIAL-gta3xlwifi-arm64.zip",
+  "destination": "/sdcard/Download/lineage-21.0-20261112-UNOFFICIAL-gta3xlwifi-arm64.zip",
+  "bytes": 908673013,
+  "sha256": "3f6356924f0431a386fd5a916910f43820f9bbfa11077439deff7add0460c73c",
+  "local_and_tablet_sha256_match": true,
+  "device_model": "SM-T510",
+  "installed_build_unchanged": "gta3xlwifi.arm64.20261101.092053",
+  "rom_flashed": false,
+  "device_rebooted": false,
+  "shell_uid": "2000"
+}
