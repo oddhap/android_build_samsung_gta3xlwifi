@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "actual_framework_method_and_spline_compiled": true,
+  "minimums_tested": [
+    0,
+    0.011764706,
+    0.05
+  ],
+  "samples_per_minimum": 1001,
+  "screen_off_bypass_present": true,
+  "source_sha256": "2514b217827be8b119a8a911029851a534d17f9cd3e2532abc46b9f302492e2e",
+  "full_android_runtime_tested": false
+}

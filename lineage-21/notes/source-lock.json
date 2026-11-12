@@ -1,9 +1,9 @@
 [
   {
     "project": "frameworks/base",
-    "revision": "993528cf0efb452d8d948ddbe17237f085454682",
+    "revision": "c80ce64e9b895d822645e93997956827f1f871db",
     "patch": "frameworks_base.patch",
-    "sha256": "5cb906c2bb0c44d80e29cd8362f7a439bcbeda26b50374390cd8808f8bcf5d79",
+    "sha256": "206b3a56bfc18e13599a4529470f62282995b0f96fa140d46261b38675dad185",
     "new_files": [],
     "clean_index_patch_check_passed": true
   },
@@ -112,7 +112,7 @@
   },
   {
     "project": "packages/apps/Aperture",
-    "revision": "ea0f2b48cb98bb75c1414cbc180ec4a248d583d1",
+    "revision": "1104fe84351b561405170c3a2590b849621dcb5b",
     "patch": "packages_apps_Aperture.patch",
     "sha256": "0127e9279742041b01ec729232bc11eb1364f77c79b1a3786214fbe682beeead",
     "new_files": [],
@@ -120,7 +120,7 @@
   },
   {
     "project": "packages/apps/DeskClock",
-    "revision": "f430a0efa7ae17fed95f5b744507a11f0386aee5",
+    "revision": "a3036a198607729c61384036ec24ff4f0fd0e9c2",
     "patch": "packages_apps_DeskClock.patch",
     "sha256": "797fd321703f65b509fe5aeaa0f015ec9a930c4c0af53101833fec1f39b60ffe",
     "new_files": [],
@@ -128,7 +128,7 @@
   },
   {
     "project": "packages/apps/Etar",
-    "revision": "bd3ff03ac53a9e1919a67aa8e990ff222674fc57",
+    "revision": "4d2296336b25a8cba2d54b8fda02b21799a0f69a",
     "patch": "packages_apps_Etar.patch",
     "sha256": "f1fd191236891c1dc7c6111d2b3e35ba5279923610d5c505213ee88b501cbb0e",
     "new_files": [],
@@ -152,7 +152,7 @@
   },
   {
     "project": "packages/apps/Glimpse",
-    "revision": "a1ec5c8763a2ce850ad03f69d6865d9a68341975",
+    "revision": "56b043d447f2984eb071457b0ee090dfd46c579c",
     "patch": "packages_apps_Glimpse.patch",
     "sha256": "e024364e1b285d9006c2d83d296d9ee349d8380fce1925f8a078d60411575d8f",
     "new_files": [],
@@ -160,7 +160,7 @@
   },
   {
     "project": "packages/apps/Jelly",
-    "revision": "c228ac888cf6d8731f1ccc83460271d837978b4e",
+    "revision": "bc8989fc12a061d785dda283cb9a156482b25432",
     "patch": "packages_apps_Jelly.patch",
     "sha256": "d304ddbae19f7841fbb04ae764de9f651897783dce3de9e7d5ecbde7a4c6f770",
     "new_files": [],
@@ -200,7 +200,7 @@
   },
   {
     "project": "packages/apps/Eleven",
-    "revision": "971ca68122a31057ad416f2843b60bad7bf15cc4",
+    "revision": "fcc250e603ce1e0811de901835caf291344cfef5",
     "patch": "packages_apps_Eleven.patch",
     "sha256": "4aefcd555f3e7e8bed24f3e7c4b9c6924b87b4629684734617ab24136bc66a4f",
     "new_files": [],

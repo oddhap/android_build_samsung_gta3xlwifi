@@ -1,45 +1,32 @@
 # LineageOS 21 for SM-T510 — ARM64
 
-Native **ARM64 Android 14** with **ARM32 app support**, for Galaxy Tab A 10.1
-(2019) **SM-T510 / gta3xlwifi only**. Unofficial, signed with the existing project
-release keys, configured for SELinux Enforcing and file-based encryption.
-Google apps are optional and are not bundled. Only ARM64 ROM releases are maintained.
+Native **ARM64 Android 14** with **ARM32 app support**, for Samsung Galaxy Tab A
+10.1 (2019), **SM-T510 / gta3xlwifi only**. Unofficial, signed with the existing
+release keys, SELinux Enforcing and file-based encryption. Google apps are optional.
 
-- [ROM, ARM64 TWRP, checksums and installation guide](https://github.com/oddhap/android_build_samsung_gta3xlwifi/releases/tag/lineage-21.0-arm64-20261101)
+- [Download ROM, ARM64 TWRP, checksums and installation guide](https://github.com/oddhap/android_build_samsung_gta3xlwifi/releases/tag/lineage-21.0-arm64-20261112)
 - [Installation](INSTALL_ARM64.md) and [GApps integration](docs/gapps-arm64-build.md)
-- [ARM64 device tree](https://github.com/oddhap/android_device_samsung_gta3xlwifi/tree/lineage-21.0-arm64)
-- [Kernel](https://github.com/oddhap/android_kernel_samsung_gta3xlwifi/tree/lineage-21.0)
-- [Stock vendor inputs](https://github.com/oddhap/android_vendor_samsung_gta3xlwifi/tree/lineage-21.0)
+- [Device tree](https://github.com/oddhap/android_device_samsung_gta3xlwifi/tree/lineage-21.0-arm64)
 
-## 1 November 2026 update
+## 12 November 2026 update
 
-Build `gta3xlwifi.arm64.20261101.092053` includes the latest available LineageOS 21
-sources fetched on 1 November: 12 updated projects among
-281 fetched Lineage refs, including WebView 156.0.8078.47 and the
-trust-store sources. Framework security patch remains **2026-10-01**.
-USB file transfer now uses a single FunctionFS MTP/PTP configuration, resolving
-the conflicting Samsung and generic USB setup. Double tap to wake, the powered-off
-charging display and ARM64 GApps capacity are retained.
+- Updated to the latest available LineageOS 21 sources.
+- Fixed the lowest brightness setting switching off the backlight.
 
-The signed package passes all eleven offline release checks and the GApps
-capacity check. The exact MTP configuration was physically tested on the
-15 October ROM; the complete new ROM has not been test-installed.
-See [validation](reports/release-20261101/validation-summary.json) and
-[MTP details](lineage-21/notes/mtp-20261101.md).
-
-The ZIP writes boot, system, product and a minimal hybrid vendor. Returning to
-an ARM32 ROM requires restoring stock CWA1 vendor first. Use the unchanged,
-previously tested native ARM64 TWRP from 15 October; see INSTALL_ARM64.md.
+Build `gta3xlwifi.arm64.20261112.200307`, framework security patch **2026-10-01**.
+All 12 offline release checks pass; physical testing of this build is pending.
+[Validation](reports/release-20261112/validation-summary.json).
 
 ## Source and build
 
-The repository contains all 25 pinned platform patches, the complete 1,430-project
-manifest, device/build/staging tools, donor extraction, recovery patches and
-validation reports. See [source preparation](PUBLIC_BUILD.md) and
-[build/signing workflow](BUILD_ARM64.md). Private signing keys are not distributed.
-Earlier releases, source tags and reports remain available.
+All 25 pinned port patches, the 1,430-project source manifest, device/build tools
+and validation reports are included. See [source preparation](PUBLIC_BUILD.md)
+and [build/signing workflow](BUILD_ARM64.md). Private signing keys are not distributed.
+Only ARM64 ROM releases are maintained. SM-T515 is unsupported.
 
-Long-term stability, Bluetooth pairing/audio, microphone, video/DRM codecs and
-advanced graphics/storage features are not fully tested. Xubuntu/Thunar itself
-has not been directly tested. New tools/configuration are Apache-2.0; upstream
-code, kernel and proprietary firmware retain their original licenses.
+The ROM writes boot, system, product and vendor. Returning to ARM32 requires
+restoring stock CWA1 vendor first; see the installation guide. The framework
+patch date does not describe the security level of the older Samsung kernel/vendor.
+Long-term stability and all Bluetooth, microphone, codec/DRM and advanced storage
+features are not fully validated. Built-in OTA downloads are not configured.
+New code/configuration is Apache-2.0; upstream components retain their licenses.

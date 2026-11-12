@@ -1,3 +1,19 @@
+# Current ARM64 release — 12 November 2026
+
+Build `gta3xlwifi.arm64.20261112.200307`, framework SPL `2026-10-01`.
+ROM SHA-256: `3f6356924f0431a386fd5a916910f43820f9bbfa11077439deff7add0460c73c`.
+
+Updated sources and the minimum-backlight fix. All 12 offline release checks,
+GApps headroom and vendor VINTF/runtime-policy linking pass. Runtime-mode policy
+linking does not claim strict cross-version neverallow compatibility.
+The complete new ROM has not been physically tested.
+
+[Validation](reports/release-20261112/validation-summary.json).
+
+Older build results below are historical.
+
+---
+
 # Current ARM64 release — 1 November 2026
 
 Build `gta3xlwifi.arm64.20261101.092053`, Android14, framework SPL `2026-10-01`.

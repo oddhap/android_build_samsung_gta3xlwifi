@@ -1,3 +1,13 @@
+# 12 November 2026 build update
+
+The pinned LineageOS 21 source snapshot advances 22 projects among 281 fetched
+Lineage refs. The framework minimum-backlight mapping is corrected and has a
+host JVM regression test using the real framework method and Android Spline.
+The release validator now has 12 checks, including signed services bytecode
+verification of the minimum/maximum backlight mapping and its inverse.
+
+The existing workflow and dated historical results follow.
+
 # November 2026 ARM64 build update
 
 The pinned source snapshot now contains 281 freshly fetched official Lineage

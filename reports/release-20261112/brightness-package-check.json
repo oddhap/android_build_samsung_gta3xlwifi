@@ -1,0 +1,8 @@
+{
+  "passed": true,
+  "build_incremental": "gta3xlwifi.arm64.20261112.200307",
+  "signed_services_jar_sha256": "e1e026e08e38c9a8c86069d5f8c13e7422df20ca8dc2024b4fa0950df06d22e9",
+  "signed_dex_contains_minimum_and_maximum_backlight_mapping": true,
+  "both_mapping_directions_present": true,
+  "hardware_tested": false
+}

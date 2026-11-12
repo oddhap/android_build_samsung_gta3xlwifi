@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "build": "gta3xlwifi.arm64.20261101.092053",
+  "pin_set_and_unlock_confirmed_by_owner": true,
+  "pre_pin_ce_marker_preserved": true,
+  "recovery_pin_decryption_passed": true,
+  "android_return_passed": true,
+  "temporary_pin_removed_by_owner": true,
+  "ce_marker_preserved_after_pin_removal": true,
+  "own_markers_removed": true,
+  "recovery_full_partition_unchanged": true
+}

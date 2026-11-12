@@ -1,0 +1,22 @@
+{
+  "observed_fields": [
+    "connected=true",
+    "host_connected=false",
+    "audio_accessory_connected=false",
+    "connected=true",
+    "current_mode=ufp",
+    "power_role=sink",
+    "data_role=device",
+    "power_role=source",
+    "data_role=host",
+    "power_role=source",
+    "data_role=device",
+    "power_role=sink",
+    "data_role=host",
+    "power_role=sink",
+    "data_role=device",
+    "can_change_power_role=true",
+    "can_change_data_role=true",
+    "usb_hal_version=11"
+  ]
+}

@@ -64,20 +64,20 @@
   },
   "upstream_refresh": {
     "passed": true,
-    "fetched_at_utc": "2026-11-01T09:17:56.076258+00:00",
+    "fetched_at_utc": "2026-11-12T19:56:44.943737+00:00",
     "lineage_projects_fetched": 281,
-    "changed_projects": 12,
+    "changed_projects": 22,
     "manifest_commit": "121f4ec5f11dc98ff2c427bc9d23165e914c54bb",
-    "report": "upstream-refresh-20261101.json",
+    "report": "upstream-refresh-20261112.json",
     "all_port_changes_preserved": true
   },
   "validation": {
-    "report": "../../reports/release-20261101/validation-summary.json",
+    "report": "../../reports/release-20261112/validation-summary.json",
     "full_hardware_validation_complete": false,
     "candidate_pending_runtime": true,
     "offline_checks_passed": true,
-    "build_incremental": "gta3xlwifi.arm64.20261101.092053",
-    "rom_zip_sha256": "2d2b10a1dcb7a045f28292cdd05ef0c912ff95cc52b9896dfed071b7e06eadf3"
+    "build_incremental": "gta3xlwifi.arm64.20261112.200307",
+    "rom_zip_sha256": "3f6356924f0431a386fd5a916910f43820f9bbfa11077439deff7add0460c73c"
   },
   "android_device_samsung_gta3xlwifi_twrp": {
     "url": "https://github.com/oddhap/android_device_samsung_gta3xlwifi_twrp",

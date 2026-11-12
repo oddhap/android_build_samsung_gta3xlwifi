@@ -85,6 +85,34 @@ index 2b6f72eab..afcb812ab 100644
  
      private static final String TAG = "AudioHalVersionInfo";
      private AudioHalVersion mHalVersion = new AudioHalVersion();
+diff --git a/services/core/java/com/android/server/display/DisplayDeviceConfig.java b/services/core/java/com/android/server/display/DisplayDeviceConfig.java
+index 9b2dcc53f..7b30790bd 100644
+--- a/services/core/java/com/android/server/display/DisplayDeviceConfig.java
++++ b/services/core/java/com/android/server/display/DisplayDeviceConfig.java
+@@ -2691,16 +2691,15 @@ public class DisplayDeviceConfig {
+     }
+ 
+     private void setSimpleMappingStrategyValues() {
+-        // No translation from backlight to brightness should occur if we are using a
+-        // SimpleMappingStrategy (ie they should be the same) so the splines are
+-        // set to be linear, between 0.0 and 1.0
++        // A missing nits calibration must not discard the configured backlight
++        // limits. In particular, logical minimum brightness must keep an LCD lit.
++        // LocalDisplayAdapter handles BRIGHTNESS_OFF_FLOAT before this mapping.
+         mNits = null;
+         mBacklight = null;
+-        float[] simpleMappingStrategyArray = new float[]{0.0f, 1.0f};
+-        mBrightnessToBacklightSpline = Spline.createSpline(simpleMappingStrategyArray,
+-                simpleMappingStrategyArray);
+-        mBacklightToBrightnessSpline = Spline.createSpline(simpleMappingStrategyArray,
+-                simpleMappingStrategyArray);
++        float[] brightness = new float[]{0.0f, 1.0f};
++        float[] backlight = new float[]{mBacklightMinimum, mBacklightMaximum};
++        mBrightnessToBacklightSpline = Spline.createSpline(brightness, backlight);
++        mBacklightToBrightnessSpline = Spline.createSpline(backlight, brightness);
+     }
+ 
+     /**
 diff --git a/services/core/java/com/android/server/power/stats/BatteryExternalStatsWorker.java b/services/core/java/com/android/server/power/stats/BatteryExternalStatsWorker.java
 index a8eda3ca6..85c010a54 100644
 --- a/services/core/java/com/android/server/power/stats/BatteryExternalStatsWorker.java

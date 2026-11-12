@@ -1,0 +1,19 @@
+{
+  "build": "gta3xlwifi.arm64.20261101.092053",
+  "selections": [
+    {
+      "ui_selection": "File transfer",
+      "config": "mtp,adb",
+      "state": "mtp,adb"
+    },
+    {
+      "ui_selection": "No data transfer",
+      "config": "adb",
+      "state": "adb"
+    }
+  ],
+  "restored_config": "adb",
+  "reported_disabled_menu_reproduced": false,
+  "port_partner_present": true,
+  "actual_ui_mode_switch_passed": true
+}

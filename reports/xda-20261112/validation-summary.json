@@ -1,0 +1,16 @@
+{
+  "passed": true,
+  "scope": "LineageOS 21 ARM64 / SM-T510",
+  "platform_projects": 1430,
+  "lineage_projects_fetched": 281,
+  "changed_projects": 22,
+  "port_patch_locks_verified": 25,
+  "source_indexes_passed": true,
+  "brightness_source_regression_passed": true,
+  "brightness_runtime_tested": false,
+  "new_rom_built": false,
+  "new_release_published": false,
+  "pin_roundtrip_passed_on_existing_november_1_rom": true,
+  "usb_settings_failure_reproduced": false,
+  "test_device_root_disabled": true
+}

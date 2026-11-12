@@ -1,6 +1,6 @@
 # LineageOS 21 ARM64 for SM-T510
 
-Android 14, build `gta3xlwifi.arm64.20261101.092053`, framework security patch
+Android 14, build `gta3xlwifi.arm64.20261112.200307`, framework security patch
 2026-10-01. **SM-T510 / gta3xlwifi only**, not SM-T515. Native ARM64 Android
 with ARM32 app support, SELinux Enforcing and file-based encryption.
 
@@ -10,7 +10,7 @@ separately. Only ARM64 releases will be maintained going forward.
 
 ## Downloads
 
-- `lineage-21.0-20261101-UNOFFICIAL-gta3xlwifi-arm64.zip`: signed ROM.
+- `lineage-21.0-20261112-UNOFFICIAL-gta3xlwifi-arm64.zip`: signed ROM.
 - `twrp-3.7.1_12-gta3xlwifi-arm64-20261015.img`: native ARM64 TWRP 3.7.1_12,
   with working PIN and automatic PIN-free decryption.
 - `twrp-3.7.1_12-gta3xlwifi-arm64-20261015-ap.tar`: Odin AP archive containing
@@ -42,10 +42,10 @@ bootloader unlocked with this ROM; leave **Re-Partition disabled**.
 
    Wait a few seconds, then unmount Vendor. The installer refuses to write
    images while Vendor is mounted; do not bypass that check.
-4. Install the ROM ZIP, or use `adb sideload lineage-21.0-20261101-UNOFFICIAL-gta3xlwifi-arm64.zip`.
+4. Install the ROM ZIP, or use `adb sideload lineage-21.0-20261112-UNOFFICIAL-gta3xlwifi-arm64.zip`.
 5. The ROM retains addon.d support for preserving an existing MindTheGapps
-   installation. This was physically verified on the 15 October update; the
-   complete new ROM has not been test-installed. Keep the same Android 14 ARM64
+   installation. Preservation was physically verified with the November 1 ROM; the
+   complete November 12 ROM has not been test-installed. Keep the same Android 14 ARM64
    package available in case recovery reports a restore failure. See the Google apps section before boot.
    **Do not Format Data for a routine update.**
 
