@@ -130,6 +130,8 @@ static unsigned ip6t_do_table(struct sk_buff*s,const struct nf_hook_state*st,str
 '''
 code+='\n'.join(m.extract(dt,n) for n in ['gta3xlwifi_socket_update_begin','gta3xlwifi_socket_update_end'])+'\n'
 # The production struct is already defined above to type the netns fixture.
+if 'gta3xlwifi_ingress_features()' in text:
+ code+='\nstatic u32 gta3xlwifi_ingress_features(void){return 0;} /* registry tested separately */\n'
 body=text[text.index('#define SOCKET_HOOKS'):text.index('MODULE_LICENSE(')];body=body.replace(text[start:end],'');code+=body
 code+=r'''
 static unsigned cases,comparisons;
@@ -202,6 +204,22 @@ static unsigned evaluate(''',1)
  owner.uid=20001;T(gta3xlwifi_socket_table_policy_uid(&owner,&skb,false,10001)==0&&observed_uid==10001&&owner.uid==20001);
  nest=true;T(gta3xlwifi_socket_table_policy_uid(&owner,&skb,false,10001)==0&&outer_before==10001&&inner_uid==12345&&outer_after==10001&&!cpu_reads&&!bh_depth);nest=false;
  T(!gta3xlwifi_socket_context_uid(&skb,&sampled)&&sampled==777&&gta3xlwifi_raw_socket_uid(&skb)==0);
+'''
+ code=code.replace(needle,tests+needle)
+
+has_meta='gta3xlwifi_socket_table_policy_meta(' in text
+if has_meta:
+ code=code.replace('static unsigned evaluate(', 'bool gta3xlwifi_socket_context_packet(const struct sk_buff*,bool*,bool*);\nint gta3xlwifi_socket_table_policy_meta(struct sock*,struct sk_buff*,bool,u32,bool);\nstatic bool observed_dns,observed_output;\nstatic unsigned evaluate(',1)
+ code=code.replace('++eval_calls;', '++eval_calls;assert(gta3xlwifi_socket_context_packet(s,&observed_dns,&observed_output));',1)
+ code=code.replace('outer_before=gta3xlwifi_raw_socket_uid(s);struct sk_buff clone=*s;', 'outer_before=gta3xlwifi_raw_socket_uid(s);bool d0,o0;assert(gta3xlwifi_socket_context_packet(s,&d0,&o0));struct sk_buff clone=*s;',1)
+ code=code.replace('outer_after=gta3xlwifi_raw_socket_uid(s);assert(outer_before==outer_after);', 'outer_after=gta3xlwifi_raw_socket_uid(s);bool d1,o1;assert(gta3xlwifi_socket_context_packet(s,&d1,&o1)&&d0==d1&&o0==o1);observed_dns=d1;observed_output=o1;assert(outer_before==outer_after);',1)
+ needle=' socket_tables_net_exit(&net1);socket_tables_net_exit(&net0);'
+ tests=r''' 
+ bool dns=true,direction=false;T(!gta3xlwifi_socket_context_packet(&skb,&dns,&direction)&&dns&&!direction);T(!gta3xlwifi_socket_context_packet(NULL,&dns,&direction)&&dns&&!direction);T(!gta3xlwifi_socket_context_packet(&skb,NULL,&direction));T(!gta3xlwifi_socket_context_packet(&skb,&dns,NULL));
+ T(gta3xlwifi_socket_table_policy_meta(&owner,&skb,true,10001,true)==0&&observed_uid==10001&&observed_dns&&observed_output);
+ T(gta3xlwifi_socket_table_policy_uid(&owner,&skb,false,10001)==0&&!observed_dns&&!observed_output);
+ nest=true;T(gta3xlwifi_socket_table_policy_meta(&owner,&skb,false,10001,true)==0&&observed_dns&&!observed_output&&outer_before==10001&&outer_after==10001&&inner_uid==12345);nest=false;
+ T(!gta3xlwifi_socket_context_packet(&skb,&dns,&direction)&&dns&&!direction&&!bh_depth&&!cpu_reads);
 '''
  code=code.replace(needle,tests+needle)
 

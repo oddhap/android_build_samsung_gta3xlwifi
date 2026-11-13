@@ -1,0 +1,32 @@
+{
+  "passed": true,
+  "scope": "Actual ingress xtables callback parsers/savers with a minimal API fixture.\n\nTests bounded numeric/hex inputs, no partial payload writes on error, ABI sizes,\nregistration metadata and canonical save output. Mandatory-option/inversion\nengine behavior, actual CLI parsing and kernel execution are not claimed.\n",
+  "passed_cases": 76,
+  "inputs_sha256": {
+    "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/test-xtables-ingress24.py": "f91933bb1fcbbf5176dde7c47c6d83ab24fda4b8b639297f6b3ada96250ba8ee",
+    "/srv/android/ports/lineage-24.0-arm64/xtables-ingress24-20261113-01/extensions/libxt_gta3xlwifi_bad_iif.c": "cf474fd00d5d38a6b0eb7322f2faeaee1d89336e69c4d9791aa4754d01d4b17d",
+    "/srv/android/ports/lineage-24.0-arm64/xtables-ingress24-20261113-01/extensions/libxt_gta3xlwifi_ingress_discard.c": "7c6ac6f8d9a84eeb49a07e8da33a41441db6aa1b26db5953551ad70c592781ce",
+    "/srv/android/ports/lineage-24.0-arm64/xtables-ingress24-20261113-01/include/linux/netfilter/gta3xlwifi_ingress.h": "5d04d156089975356fedf9a870ac8737dd7ac8a1333c6f17977c9c65beaa2260",
+    "/srv/android/artifacts/lineage-24.0-arm64/xtables-ingress-host-20261113-01/test.c": "b309e05478d0e8c5ee922c838e81c60b0c69bc3bfbc89b33797e769b8bf81e72",
+    "/srv/android/artifacts/lineage-24.0-arm64/xtables-ingress-host-20261113-01/xtables.h": "b847ffbbc8f65e481be96eeb9d0bd99a07cf8d7db4dee2cc2f1f852eeae4853e"
+  },
+  "command": [
+    "cc",
+    "-std=gnu11",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-Wno-unused-parameter",
+    "-O1",
+    "-g",
+    "-fsanitize=undefined",
+    "-fno-sanitize-recover=all",
+    "-I/srv/android/artifacts/lineage-24.0-arm64/xtables-ingress-host-20261113-01",
+    "-I/srv/android/ports/lineage-24.0-arm64/xtables-ingress24-20261113-01/include",
+    "/srv/android/artifacts/lineage-24.0-arm64/xtables-ingress-host-20261113-01/test.c",
+    "-o",
+    "/srv/android/artifacts/lineage-24.0-arm64/xtables-ingress-host-20261113-01/test"
+  ],
+  "hardware_tested": false,
+  "flash_ready": false
+}

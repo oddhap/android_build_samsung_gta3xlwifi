@@ -1,0 +1,48 @@
+{
+  "passed": true,
+  "scope": "Actual socket-owner hook bodies and ordering with source-bound LNA/LB fixtures.\n\nThe private table verdict is a fixture, not a real packet/table interpreter.\nReal evaluator/snapshot is covered separately. Reuses the immutable prior actual\nparser/LNA/loopback implementation and exercises DROP/PASS, DNS, CLAT, one UID\nsample across inode mutations and actual pthread lease-drain ordering.\n",
+  "passed_cases": 92,
+  "inherited_reference_implementation_regressions": 1797,
+  "inputs_sha256": {
+    "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/test-kernel-socket-owner24.py": "f42c2f96349cf9526dbd5d8b9a4c3d93844f7ae6ffdad28ba94830dd4bcf7ed2",
+    "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/test-kernel-qtaguid-socket-owned.py": "59516300b405af46c972b264353c3766b5c18cf882b04ac8ba9db6f70f436459",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-ingress-context24-20261112-01/net/netfilter/xt_qtaguid.c": "101c8cf71b7b242da760bc1de9c0178c66e9c82562337b84832492d8f0df853b",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-socket-capability-20261112-02/src/net/netfilter/xt_qtaguid.c": "89a2d662ae4dfcff893548d6f41d163590ac013b86e01eb33cb6bd6cc74ddedb",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-socket-capability-build-20261112-02/loopback-host/report.json": "c30a92dd217f2142f4facdf3402cd345090f7687c8091710bb0af8b8587e63d4",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-socket-capability-build-20261112-02/loopback-host/test.c": "b0dce88e64198c3da3be1c2f5bd947ed2dd11ad31d35ec3e1f91df04ef9d8243",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-ingress-owner-host-20261113-01/test.c": "c33ee6bfc05b104b2da928fab3bcc544149f6a68d947c51f9fa594ef68f38aca"
+  },
+  "reference_fixture_inputs_sha256": {
+    "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/test-kernel-loopback24.py": "73adeb6487e66591776d235e6c0f9d9dc5f85b475550480bbecb528f6832b7a4",
+    "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/test-kernel-qtaguid-socket-owned.py": "59516300b405af46c972b264353c3766b5c18cf882b04ac8ba9db6f70f436459",
+    "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/test-kernel-egress-context24.py": "0801db9705c82a53fdeb0f605a7904566191c1f3a02d90d58f4c4bd4ea8cf200",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-socket-capability-build-20261112-02/loopback-host/egress-regression/test.c": "a2a88df97cedc14c465726088c66c3f7d29eade4de027cee3d91b4e28260cf45",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-socket-capability-20261112-02/src/include/uapi/linux/netfilter/gta3xlwifi_loopback.h": "81c17681a2b846b98daefbbd36b609c22dc429a1aaf3c6af7b4540af6c524604",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-socket-capability-20261112-02/src/net/netfilter/gta3xlwifi_loopback.c": "4d1c293adfbc9d28f75484a95e426559437b4ea63d705d6a1b64f80a31578f02",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-socket-capability-20261112-02/src/include/net/gta3xlwifi_socket_peer.h": "fa98dcced9f1c6594b059b6c37ad2d484ced15325fd76679a92aea5d512109e7",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-socket-capability-20261112-02/src/net/netfilter/gta3xlwifi_netpolicy.c": "9991608c486caf1dfc9120c8fd91cecdae4762d4e39c22c33a6b9d0676be10cf",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-socket-capability-20261112-02/src/net/netfilter/xt_qtaguid.c": "89a2d662ae4dfcff893548d6f41d163590ac013b86e01eb33cb6bd6cc74ddedb",
+    "/srv/android/src/lineage-24.0-arm64/packages/modules/Connectivity/bpf/progs/netd.c": "7dc4fa02952c0268737dc9aad20a0571b55df255f878506a4db91c1d962713b6",
+    "/srv/android/src/lineage-24.0-arm64/packages/modules/Connectivity/bpf/progs/netd.h": "ae85473717243924c609f8d963d03bc2631adbba8833ae527bf611291f38ca1a",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-socket-capability-build-20261112-02/loopback-host/test.c": "b0dce88e64198c3da3be1c2f5bd947ed2dd11ad31d35ec3e1f91df04ef9d8243"
+  },
+  "command": [
+    "cc",
+    "-std=gnu11",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-Wno-unused-parameter",
+    "-O1",
+    "-g",
+    "-fsanitize=undefined",
+    "-fno-sanitize-recover=all",
+    "-pthread",
+    "-I/srv/android/artifacts/lineage-24.0-arm64/kernel-socket-capability-build-20261112-02/loopback-host/egress-regression/receive-prerequisite/include",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-ingress-owner-host-20261113-01/test.c",
+    "-o",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-ingress-owner-host-20261113-01/test"
+  ],
+  "hardware_tested": false,
+  "flash_ready": false
+}

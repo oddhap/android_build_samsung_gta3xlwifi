@@ -60,6 +60,8 @@ static struct sock_tag*get_sock_stat_nl(const struct sock*s){assert(tag_depth==1
 '''
 if 'result = gta3xlwifi_socket_table_policy_uid(' in rt:
  code+='\nstatic int gta3xlwifi_socket_table_policy_uid(struct sock*s,struct sk_buff*b,bool o,u32 u){(void)s;(void)b;(void)o;(void)u;assert(rcu_depth);return 0;} /* scoped LNA fixture; DROP/snapshot/order tested separately */\n'
+if 'result = gta3xlwifi_socket_table_policy_meta(' in rt:
+ code+='\nstatic int gta3xlwifi_socket_table_policy_meta(struct sock*s,struct sk_buff*b,bool o,u32 u,bool d){(void)s;(void)b;(void)o;(void)u;(void)d;assert(rcu_depth);return 0;} /* scoped LNA fixture; owner/DNS tested separately */\n'
 code+='\n'.join(line for line in it.splitlines() if line.startswith('#define TAG_UID_MASK ') or line.startswith('#define TAG_ACCT_MASK '))+'\n'+'\n'.join(m.extract(it,n) for n in ['get_uid_from_tag','get_atag_from_tag'])+'\n'+'\n'.join(m.extract(parser.read_text(),n) for n in ['gta3xlwifi_packet_read','gta3xlwifi_parse_packet'])+'\n'+'\n'.join(m.extract(rt,n) for n in ['gta3xlwifi_socket_accounting','gta3xlwifi_receive_features','gta3xlwifi_receive_policy'])
 # Reuse the actual A17 parser/oracle text from its hash-bound previous host run.
 pp=a.packet_host/'test.c';pp_report=json.loads((a.packet_host/'report.json').read_text());assert pp_report['passed'] and sha(pp)==pp_report['inputs_sha256'][str(pp)]

@@ -32,6 +32,17 @@ checks are separate from Android execution. Optional GPU BPF accounting still
 reports unavailable, rather than invented counters. Existing safety/installer
 and strict SELinux checks remain enforced.
 
+## Private ingress predicate checkpoint — November 13
+
+The isolated actual socket hooks now carry exact-skb DNS/direction metadata.
+Read-only private IIF/lockdown and ingress-discard predicates pass240/2160 actual
+A17 comparisons; context73 and owner92 regressions pass. Full kernel/modules,
+60357/60331 source audits and1243/17 Android audits pass. Both new xtables plugins
+pass76 callback tests and actual full ARM64 iptables link with nine private
+registrations. See kernel-ingress-context-20261113-01 and xtables-ingress-20261113-01.
+Native ingress state/compiler, atomic complete transactions, accounting and
+Binder/startup/metrics integration remain required; no test-ROM candidate exists.
+
 ## Actual ordinary socket hooks checkpoint — November 12
 
 The private ordinary program is now evaluated at actual supplied-socket receive

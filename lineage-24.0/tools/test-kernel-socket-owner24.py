@@ -32,6 +32,9 @@ code+=r'''
 static unsigned owner_calls;static u32 owner_uid;static bool owner_direction,mutate_owner_uid;static int owner_result;
 static int gta3xlwifi_socket_table_policy_uid(struct sock*s,struct sk_buff*b,bool output,u32 uid){assert(s==&receiver&&b&&rcu_depth);++owner_calls;owner_uid=uid;owner_direction=output;if(mutate_owner_uid)s->uid=20002;return gta3xlwifi_netpolicy_held()?-EPERM:owner_result;}
 '''
+has_meta='gta3xlwifi_socket_table_policy_meta(' in new
+if has_meta:
+ code+='\nstatic bool owner_dns;\nstatic int gta3xlwifi_socket_table_policy_meta(struct sock*s,struct sk_buff*b,bool output,u32 uid,bool dns){owner_dns=dns;return gta3xlwifi_socket_table_policy_uid(s,b,output,uid); }\n'
 for name in ['gta3xlwifi_receive_policy','gta3xlwifi_egress_policy']:
  code+='\n'+m.extract(new,name).replace('int '+name+'(', 'static int candidate_'+name+'(',1)+'\n'
 code+=r'''
@@ -79,6 +82,9 @@ int main(void){
  T(netpolicy_flush(&owner,NULL)==0);T(netpolicy_release(NULL,&owner)==0);lna_free(lna_current);lna_current=NULL;vfree(uid_image);uid_image=NULL;T(allocs==frees&&!rcu_depth&&!tag_depth);printf("owner_passed_cases=%u\n",cases-before);
 }
 '''
+if has_meta:
+ code=code.replace('owner_result=0;T(candidate(&skb,output)==0&&owner_calls==3);','owner_result=0;T(candidate(&skb,output)==0&&owner_calls==3);T(owner_dns);')
+ code=code.replace('tagged.tag=((u64)0xffffff81<<32)|1051;T(candidate(&skb,output)==-EPERM&&owner_calls==4);','tagged.tag=((u64)0xffffff81<<32)|1051;T(candidate(&skb,output)==-EPERM&&owner_calls==4);T(!owner_dns);')
 (O/'test.c').write_text(code)
 cmd=['cc','-std=gnu11','-Wall','-Wextra','-Werror','-Wno-unused-parameter','-O1','-g','-fsanitize=undefined','-fno-sanitize-recover=all','-pthread','-I'+str(H/'egress-regression/receive-prerequisite/include'),str(O/'test.c'),'-o',str(O/'test')]
 r=subprocess.run(cmd,capture_output=True,text=True);(O/'compile.log').write_text(r.stdout+r.stderr);assert r.returncode==0,r.stderr

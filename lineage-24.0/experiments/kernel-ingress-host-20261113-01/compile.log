@@ -1,0 +1,16 @@
+In file included from /srv/android/artifacts/lineage-24.0-arm64/kernel-ingress-host-20261113-01/test.c:12:
+/srv/android/artifacts/lineage-24.0-arm64/kernel-ingress-host-20261113-01/include/net/gta3xlwifi_packet.h:11:5: error: unknown type name ‘u8’
+   11 |     u8 ip_proto, tcp_flags, ip_version, pad;
+      |     ^~
+/srv/android/artifacts/lineage-24.0-arm64/kernel-ingress-host-20261113-01/test.c:39:13: error: static declaration of ‘gta3xlwifi_parse_packet’ follows non-static declaration
+   39 | static bool gta3xlwifi_parse_packet(const struct sk_buff*s,struct gta3xlwifi_packet*p){assert(s==&frame);*p=packet;return parse_result;}
+      |             ^~~~~~~~~~~~~~~~~~~~~~~
+In file included from /srv/android/artifacts/lineage-24.0-arm64/kernel-ingress-host-20261113-01/test.c:12:
+/srv/android/artifacts/lineage-24.0-arm64/kernel-ingress-host-20261113-01/include/net/gta3xlwifi_packet.h:13:6: note: previous declaration of ‘gta3xlwifi_parse_packet’ with type ‘_Bool(const struct sk_buff *, struct gta3xlwifi_packet *)’
+   13 | bool gta3xlwifi_parse_packet(const struct sk_buff *skb, struct gta3xlwifi_packet *packet);
+      |      ^~~~~~~~~~~~~~~~~~~~~~~
+/srv/android/artifacts/lineage-24.0-arm64/kernel-ingress-host-20261113-01/test.c: In function ‘bpf_owner_match’:
+/srv/android/artifacts/lineage-24.0-arm64/kernel-ingress-host-20261113-01/test.c:203:31: error: initialization discards ‘const’ qualifier from pointer target type [-Werror=discarded-qualifiers]
+  203 |     UidOwnerValue* uidEntry = bpf_uid_owner_map_lookup_elem(&uid);
+      |                               ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+cc1: all warnings being treated as errors

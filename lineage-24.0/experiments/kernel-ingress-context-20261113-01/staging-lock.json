@@ -1,0 +1,57 @@
+{
+  "scope": "Exact-skb actual DNS/direction context and registered read-only private ingress predicates; no rules, compiler state, whole policy or readiness installed.",
+  "prerequisites": [
+    "kernel-socket-owner-20261112-01"
+  ],
+  "patch_sha256": "827e082c89a634779f4114b7175e4ffa7d717c14e9acf400863076e9fc5903f2",
+  "files": [
+    {
+      "path": "include/net/gta3xlwifi_socket_tables.h",
+      "before_sha256": "6923767de43cdecffe414718be228056b7db37a46eb104ce984085d92258979c",
+      "candidate_sha256": "4032f279b03010923213e4c3292eb85c8b87b3b5570ed33acfd35960ea852b71"
+    },
+    {
+      "path": "include/uapi/linux/netfilter/gta3xlwifi_socket_tables.h",
+      "before_sha256": "eb2ea2ef9328d3ecbdfd52d167e27f9374be2189fb9ed789bbb0c68584ad6bd7",
+      "candidate_sha256": "6873b2d1ce429749d447c0406354b5f5d2c1a3783ca8dfa967d43a95721052d6"
+    },
+    {
+      "path": "net/netfilter/gta3xlwifi_socket_tables.c",
+      "before_sha256": "9e8985abf779d895c8e705520d7286ded8a8b77b5416931adba36875cd51a1eb",
+      "candidate_sha256": "800c7a0dde5c32e9bdc57c6b97a57cc79c33d75310f3d02eede865a5f8305d3f"
+    },
+    {
+      "path": "net/netfilter/xt_qtaguid.c",
+      "before_sha256": "00810e18f5c093de39c1ab4df7b1e7f5f7923574b32be0ab064ec4be12fe30e4",
+      "candidate_sha256": "101c8cf71b7b242da760bc1de9c0178c66e9c82562337b84832492d8f0df853b"
+    },
+    {
+      "path": "net/netfilter/Makefile",
+      "before_sha256": "c8399b62949676e184270861f89cf9fc734d32e11e82690f5ad0a61aa3f84193",
+      "candidate_sha256": "c5d2a41a1758c619518bdfc1477bed16fb3bc7dba92ebea5fef77f3098593a46"
+    },
+    {
+      "path": "include/uapi/linux/netfilter/gta3xlwifi_ingress.h",
+      "before_sha256": null,
+      "candidate_sha256": "5d04d156089975356fedf9a870ac8737dd7ac8a1333c6f17977c9c65beaa2260"
+    },
+    {
+      "path": "net/netfilter/gta3xlwifi_ingress.c",
+      "before_sha256": null,
+      "candidate_sha256": "3c7d70813a07f3280985c012769aa66a3a4ce18fc2efac17db385c2e47cc8453"
+    }
+  ],
+  "supported_runtime_capability_bits": [
+    0,
+    1,
+    2,
+    3,
+    5,
+    9,
+    12
+  ],
+  "unknown_active_capabilities_rejected": true,
+  "android_prebuilt_promoted": false,
+  "hardware_tested": false,
+  "flash_ready": false
+}
