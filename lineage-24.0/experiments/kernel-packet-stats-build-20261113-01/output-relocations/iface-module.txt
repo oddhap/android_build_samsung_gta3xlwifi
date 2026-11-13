@@ -1,0 +1,455 @@
+
+/srv/android/ports/lineage-24.0-arm64/kernel-packet-stats-20261113-01/out/net/netfilter/gta3xlwifi_iface_stats.o:     file format elf64-littleaarch64
+
+
+Disassembly of section .text:
+
+0000000000000000 <gta3xlwifi_iface_egress_features>:
+   0:	52810000 	mov	w0, #0x800                 	// #2048
+   4:	d65f03c0 	ret
+
+0000000000000008 <iface_compare>:
+   8:	b9400002 	ldr	w2, [x0]
+   c:	b9400021 	ldr	w1, [x1]
+  10:	6b01005f 	cmp	w2, w1
+  14:	1a9f97e0 	cset	w0, hi
+  18:	6b01005f 	cmp	w2, w1
+  1c:	5a9f2000 	csinv	w0, w0, wzr, cs
+  20:	d65f03c0 	ret
+
+0000000000000024 <gta3xlwifi_iface_lost>:
+  24:	a9be7bfd 	stp	x29, x30, [sp,#-32]!
+  28:	910003fd 	mov	x29, sp
+  2c:	a90153f3 	stp	x19, x20, [sp,#16]
+  30:	90000013 	adrp	x19, 0 <gta3xlwifi_iface_egress_features>
+			30: R_AARCH64_ADR_PREL_PG_HI21	.bss
+  34:	91000274 	add	x20, x19, #0x0
+			34: R_AARCH64_ADD_ABS_LO12_NC	.bss
+  38:	aa1403e0 	mov	x0, x20
+  3c:	94000000 	bl	0 <_raw_spin_lock_bh>
+			3c: R_AARCH64_CALL26	_raw_spin_lock_bh
+  40:	f9400680 	ldr	x0, [x20,#8]
+  44:	b100041f 	cmn	x0, #0x1
+  48:	54000060 	b.eq	54 <gta3xlwifi_iface_lost+0x30>
+  4c:	91000400 	add	x0, x0, #0x1
+  50:	f9000680 	str	x0, [x20,#8]
+  54:	91000261 	add	x1, x19, #0x0
+			54: R_AARCH64_ADD_ABS_LO12_NC	.bss
+  58:	aa0103e0 	mov	x0, x1
+  5c:	f9400822 	ldr	x2, [x1,#16]
+  60:	91000442 	add	x2, x2, #0x1
+  64:	f9000822 	str	x2, [x1,#16]
+  68:	94000000 	bl	0 <_raw_spin_unlock_bh>
+			68: R_AARCH64_CALL26	_raw_spin_unlock_bh
+  6c:	a94153f3 	ldp	x19, x20, [sp,#16]
+  70:	a8c27bfd 	ldp	x29, x30, [sp],#32
+  74:	d65f03c0 	ret
+
+0000000000000078 <gta3xlwifi_iface_account>:
+  78:	a9bb7bfd 	stp	x29, x30, [sp,#-80]!
+  7c:	53001c63 	uxtb	w3, w3
+  80:	910003fd 	mov	x29, sp
+  84:	a90153f3 	stp	x19, x20, [sp,#16]
+  88:	a9025bf5 	stp	x21, x22, [sp,#32]
+  8c:	a90363f7 	stp	x23, x24, [sp,#48]
+  90:	f90023f9 	str	x25, [sp,#64]
+  94:	53001c53 	uxtb	w19, w2
+  98:	b4000de0 	cbz	x0, 254 <gta3xlwifi_iface_account+0x1dc>
+  9c:	b9407815 	ldr	w21, [x0,#120]
+  a0:	d2800039 	mov	x25, #0x1                   	// #1
+  a4:	f11772bf 	cmp	x21, #0x5dc
+  a8:	54000209 	b.ls	e8 <gta3xlwifi_iface_account+0x70>
+  ac:	79417005 	ldrh	w5, [x0,#184]
+  b0:	529bb0c4 	mov	w4, #0xdd86                	// #56710
+  b4:	d280b502 	mov	x2, #0x5a8                 	// #1448
+  b8:	d280b280 	mov	x0, #0x594                 	// #1428
+  bc:	6b0400bf 	cmp	w5, w4
+  c0:	9a820000 	csel	x0, x0, x2, eq
+  c4:	6b0400bf 	cmp	w5, w4
+  c8:	d2800905 	mov	x5, #0x48                  	// #72
+  cc:	d2800684 	mov	x4, #0x34                  	// #52
+  d0:	9a8400a4 	csel	x4, x5, x4, eq
+  d4:	d1000414 	sub	x20, x0, #0x1
+  d8:	cb0402b5 	sub	x21, x21, x4
+  dc:	8b150285 	add	x5, x20, x21
+  e0:	9ac008b9 	udiv	x25, x5, x0
+  e4:	9b045735 	madd	x21, x25, x4, x21
+  e8:	35000943 	cbnz	w3, 210 <gta3xlwifi_iface_account+0x198>
+  ec:	2a0103f4 	mov	w20, w1
+  f0:	52800021 	mov	w1, #0x1                   	// #1
+  f4:	72b3c6e1 	movk	w1, #0x9e37, lsl #16
+  f8:	90000016 	adrp	x22, 0 <gta3xlwifi_iface_egress_features>
+			f8: R_AARCH64_ADR_PREL_PG_HI21	.bss
+  fc:	910002d7 	add	x23, x22, #0x0
+			fc: R_AARCH64_ADD_ABS_LO12_NC	.bss
+ 100:	1b017e98 	mul	w24, w20, w1
+ 104:	aa1703e0 	mov	x0, x23
+ 108:	910062f7 	add	x23, x23, #0x18
+ 10c:	53157f18 	lsr	w24, w24, #21
+ 110:	94000000 	bl	0 <_raw_spin_lock_bh>
+			110: R_AARCH64_CALL26	_raw_spin_lock_bh
+ 114:	b8785ae2 	ldr	w2, [x23,w24,uxtw #2]
+ 118:	340002e2 	cbz	w2, 174 <gta3xlwifi_iface_account+0xfc>
+ 11c:	51000440 	sub	w0, w2, #0x1
+ 120:	90000001 	adrp	x1, 0 <gta3xlwifi_iface_egress_features>
+			120: R_AARCH64_ADR_PREL_PG_HI21	.bss+0x1100
+ 124:	91000025 	add	x5, x1, #0x0
+			124: R_AARCH64_ADD_ABS_LO12_NC	.bss+0x1100
+ 128:	d37be803 	lsl	x3, x0, #5
+ 12c:	913c60a5 	add	x5, x5, #0xf18
+ 130:	8b000c63 	add	x3, x3, x0, lsl #3
+ 134:	8b0300a3 	add	x3, x5, x3
+ 138:	b9400463 	ldr	w3, [x3,#4]
+ 13c:	6b14007f 	cmp	w3, w20
+ 140:	540000e1 	b.ne	15c <gta3xlwifi_iface_account+0xe4>
+ 144:	14000036 	b	21c <gta3xlwifi_iface_account+0x1a4>
+ 148:	8b000c63 	add	x3, x3, x0, lsl #3
+ 14c:	8b0300a3 	add	x3, x5, x3
+ 150:	b9400464 	ldr	w4, [x3,#4]
+ 154:	6b14009f 	cmp	w4, w20
+ 158:	54000620 	b.eq	21c <gta3xlwifi_iface_account+0x1a4>
+ 15c:	d37be804 	lsl	x4, x0, #5
+ 160:	8b000c80 	add	x0, x4, x0, lsl #3
+ 164:	b86068a4 	ldr	w4, [x5,x0]
+ 168:	51000480 	sub	w0, w4, #0x1
+ 16c:	d37be803 	lsl	x3, x0, #5
+ 170:	35fffec4 	cbnz	w4, 148 <gta3xlwifi_iface_account+0xd0>
+ 174:	90000006 	adrp	x6, 0 <gta3xlwifi_iface_egress_features>
+			174: R_AARCH64_ADR_PREL_PG_HI21	.bss+0xbb00
+ 178:	910000c6 	add	x6, x6, #0x0
+			178: R_AARCH64_ADD_ABS_LO12_NC	.bss+0xbb00
+ 17c:	b94158c1 	ldr	w1, [x6,#344]
+ 180:	710fa03f 	cmp	w1, #0x3e8
+ 184:	540006c0 	b.eq	25c <gta3xlwifi_iface_account+0x1e4>
+ 188:	2a0103e4 	mov	w4, w1
+ 18c:	90000000 	adrp	x0, 0 <gta3xlwifi_iface_egress_features>
+			18c: R_AARCH64_ADR_PREL_PG_HI21	.bss+0x1100
+ 190:	d37be885 	lsl	x5, x4, #5
+ 194:	91000000 	add	x0, x0, #0x0
+			194: R_AARCH64_ADD_ABS_LO12_NC	.bss+0x1100
+ 198:	8b040ca5 	add	x5, x5, x4, lsl #3
+ 19c:	913c6003 	add	x3, x0, #0xf18
+ 1a0:	910002c4 	add	x4, x22, #0x0
+			1a0: R_AARCH64_ADD_ABS_LO12_NC	.bss
+ 1a4:	8b050060 	add	x0, x3, x5
+ 1a8:	91006084 	add	x4, x4, #0x18
+ 1ac:	11000421 	add	w1, w1, #0x1
+ 1b0:	b8256862 	str	w2, [x3,x5]
+ 1b4:	b90158c1 	str	w1, [x6,#344]
+ 1b8:	b9000414 	str	w20, [x0,#4]
+ 1bc:	b8385881 	str	w1, [x4,w24,uxtw #2]
+ 1c0:	340003d3 	cbz	w19, 238 <gta3xlwifi_iface_account+0x1c0>
+ 1c4:	f9400c01 	ldr	x1, [x0,#24]
+ 1c8:	f9401013 	ldr	x19, [x0,#32]
+ 1cc:	8b190039 	add	x25, x1, x25
+ 1d0:	f9000c19 	str	x25, [x0,#24]
+ 1d4:	8b150275 	add	x21, x19, x21
+ 1d8:	f9001015 	str	x21, [x0,#32]
+ 1dc:	910002c1 	add	x1, x22, #0x0
+			1dc: R_AARCH64_ADD_ABS_LO12_NC	.bss
+ 1e0:	aa0103e0 	mov	x0, x1
+ 1e4:	f9400822 	ldr	x2, [x1,#16]
+ 1e8:	91000442 	add	x2, x2, #0x1
+ 1ec:	f9000822 	str	x2, [x1,#16]
+ 1f0:	94000000 	bl	0 <_raw_spin_unlock_bh>
+			1f0: R_AARCH64_CALL26	_raw_spin_unlock_bh
+ 1f4:	52800000 	mov	w0, #0x0                   	// #0
+ 1f8:	a94153f3 	ldp	x19, x20, [sp,#16]
+ 1fc:	a9425bf5 	ldp	x21, x22, [sp,#32]
+ 200:	a94363f7 	ldp	x23, x24, [sp,#48]
+ 204:	f94023f9 	ldr	x25, [sp,#64]
+ 208:	a8c57bfd 	ldp	x29, x30, [sp],#80
+ 20c:	d65f03c0 	ret
+ 210:	cb1903f9 	neg	x25, x25
+ 214:	cb1503f5 	neg	x21, x21
+ 218:	17ffffb5 	b	ec <gta3xlwifi_iface_account+0x74>
+ 21c:	91000021 	add	x1, x1, #0x0
+			21c: R_AARCH64_ADD_ABS_LO12_NC	.bss+0x1100
+ 220:	d37be803 	lsl	x3, x0, #5
+ 224:	913c6021 	add	x1, x1, #0xf18
+ 228:	8b000c60 	add	x0, x3, x0, lsl #3
+ 22c:	ab000020 	adds	x0, x1, x0
+ 230:	54fffa20 	b.eq	174 <gta3xlwifi_iface_account+0xfc>
+ 234:	35fffc93 	cbnz	w19, 1c4 <gta3xlwifi_iface_account+0x14c>
+ 238:	f9400402 	ldr	x2, [x0,#8]
+ 23c:	f9400801 	ldr	x1, [x0,#16]
+ 240:	8b190059 	add	x25, x2, x25
+ 244:	f9000419 	str	x25, [x0,#8]
+ 248:	8b150035 	add	x21, x1, x21
+ 24c:	f9000815 	str	x21, [x0,#16]
+ 250:	17ffffe3 	b	1dc <gta3xlwifi_iface_account+0x164>
+ 254:	128002a0 	mov	w0, #0xffffffea            	// #-22
+ 258:	17ffffe8 	b	1f8 <gta3xlwifi_iface_account+0x180>
+ 25c:	910002c1 	add	x1, x22, #0x0
+			25c: R_AARCH64_ADD_ABS_LO12_NC	.bss
+ 260:	f9400420 	ldr	x0, [x1,#8]
+ 264:	b100041f 	cmn	x0, #0x1
+ 268:	54000060 	b.eq	274 <gta3xlwifi_iface_account+0x1fc>
+ 26c:	91000400 	add	x0, x0, #0x1
+ 270:	f9000420 	str	x0, [x1,#8]
+ 274:	910002d6 	add	x22, x22, #0x0
+			274: R_AARCH64_ADD_ABS_LO12_NC	.bss
+ 278:	aa1603e0 	mov	x0, x22
+ 27c:	f9400ac1 	ldr	x1, [x22,#16]
+ 280:	91000421 	add	x1, x1, #0x1
+ 284:	f9000ac1 	str	x1, [x22,#16]
+ 288:	94000000 	bl	0 <_raw_spin_unlock_bh>
+			288: R_AARCH64_CALL26	_raw_spin_unlock_bh
+ 28c:	12800360 	mov	w0, #0xffffffe4            	// #-28
+ 290:	17ffffda 	b	1f8 <gta3xlwifi_iface_account+0x180>
+
+0000000000000294 <gta3xlwifi_iface_stats_ioctl>:
+ 294:	a9b67bfd 	stp	x29, x30, [sp,#-160]!
+ 298:	528ceb42 	mov	w2, #0x675a                	// #26458
+ 29c:	910003fd 	mov	x29, sp
+ 2a0:	a90153f3 	stp	x19, x20, [sp,#16]
+ 2a4:	90000014 	adrp	x20, 0 <__stack_chk_guard>
+			2a4: R_AARCH64_ADR_PREL_PG_HI21	__stack_chk_guard
+ 2a8:	72b80402 	movk	w2, #0xc020, lsl #16
+ 2ac:	6b02001f 	cmp	w0, w2
+ 2b0:	f90023f9 	str	x25, [sp,#64]
+ 2b4:	a9025bf5 	stp	x21, x22, [sp,#32]
+ 2b8:	f9400280 	ldr	x0, [x20]
+			2b8: R_AARCH64_LDST64_ABS_LO12_NC	__stack_chk_guard
+ 2bc:	aa0103f3 	mov	x19, x1
+ 2c0:	a90363f7 	stp	x23, x24, [sp,#48]
+ 2c4:	f9004fa0 	str	x0, [x29,#152]
+ 2c8:	540011c1 	b.ne	500 <gta3xlwifi_iface_stats_ioctl+0x26c>
+ 2cc:	b40011e1 	cbz	x1, 508 <gta3xlwifi_iface_stats_ioctl+0x274>
+ 2d0:	94000000 	bl	0 <gta3xlwifi_iface_stats_features>
+			2d0: R_AARCH64_CALL26	gta3xlwifi_iface_stats_features
+ 2d4:	34001620 	cbz	w0, 598 <gta3xlwifi_iface_stats_ioctl+0x304>
+ 2d8:	d5384100 	mrs	x0, sp_el0
+ 2dc:	f9400402 	ldr	x2, [x0,#8]
+ 2e0:	aa1303e0 	mov	x0, x19
+ 2e4:	aa0203e1 	mov	x1, x2
+ 2e8:	b1008000 	adds	x0, x0, #0x20
+ 2ec:	9a8183e1 	csel	x1, xzr, x1, hi
+ 2f0:	da9f3000 	csinv	x0, x0, xzr, cc
+ 2f4:	fa01001f 	sbcs	xzr, x0, x1
+ 2f8:	9a9f87e0 	cset	x0, ls
+ 2fc:	b4000c00 	cbz	x0, 47c <gta3xlwifi_iface_stats_ioctl+0x1e8>
+ 300:	ea22027f 	bics	xzr, x19, x2
+ 304:	9a9f0261 	csel	x1, x19, xzr, eq
+ 308:	d503229f 	hint	#0x14
+ 30c:	910163b7 	add	x23, x29, #0x58
+ 310:	d2800402 	mov	x2, #0x20                  	// #32
+ 314:	aa1703e0 	mov	x0, x23
+ 318:	94000000 	bl	0 <__arch_copy_from_user>
+			318: R_AARCH64_CALL26	__arch_copy_from_user
+ 31c:	b5000f60 	cbnz	x0, 508 <gta3xlwifi_iface_stats_ioctl+0x274>
+ 320:	b9405ba0 	ldr	w0, [x29,#88]
+ 324:	7100041f 	cmp	w0, #0x1
+ 328:	54000e01 	b.ne	4e8 <gta3xlwifi_iface_stats_ioctl+0x254>
+ 32c:	b94006e0 	ldr	w0, [x23,#4]
+ 330:	710fa01f 	cmp	w0, #0x3e8
+ 334:	54000da8 	b.hi	4e8 <gta3xlwifi_iface_stats_ioctl+0x254>
+ 338:	f94006e2 	ldr	x2, [x23,#8]
+ 33c:	6b1f001f 	cmp	w0, wzr
+ 340:	1a9f07e1 	cset	w1, ne
+ 344:	eb1f005f 	cmp	x2, xzr
+ 348:	1a9f07e2 	cset	w2, ne
+ 34c:	6b01005f 	cmp	w2, w1
+ 350:	54000cc1 	b.ne	4e8 <gta3xlwifi_iface_stats_ioctl+0x254>
+ 354:	f9400ae2 	ldr	x2, [x23,#16]
+ 358:	b5000c82 	cbnz	x2, 4e8 <gta3xlwifi_iface_stats_ioctl+0x254>
+ 35c:	f9400ee2 	ldr	x2, [x23,#24]
+ 360:	b5000c42 	cbnz	x2, 4e8 <gta3xlwifi_iface_stats_ioctl+0x254>
+ 364:	34000be1 	cbz	w1, 4e0 <gta3xlwifi_iface_stats_ioctl+0x24c>
+ 368:	2a0003e0 	mov	w0, w0
+ 36c:	d37be801 	lsl	x1, x0, #5
+ 370:	8b000c20 	add	x0, x1, x0, lsl #3
+ 374:	94000000 	bl	0 <vzalloc>
+			374: R_AARCH64_CALL26	vzalloc
+ 378:	aa0003f6 	mov	x22, x0
+ 37c:	b4001120 	cbz	x0, 5a0 <gta3xlwifi_iface_stats_ioctl+0x30c>
+ 380:	90000019 	adrp	x25, 0 <gta3xlwifi_iface_egress_features>
+			380: R_AARCH64_ADR_PREL_PG_HI21	.bss
+ 384:	9101e3b5 	add	x21, x29, #0x78
+ 388:	a9400ee2 	ldp	x2, x3, [x23]
+ 38c:	91000338 	add	x24, x25, #0x0
+			38c: R_AARCH64_ADD_ABS_LO12_NC	.bss
+ 390:	a94116e4 	ldp	x4, x5, [x23,#16]
+ 394:	aa1803e0 	mov	x0, x24
+ 398:	a9000ea2 	stp	x2, x3, [x21]
+ 39c:	a90116a4 	stp	x4, x5, [x21,#16]
+ 3a0:	94000000 	bl	0 <_raw_spin_lock_bh>
+			3a0: R_AARCH64_CALL26	_raw_spin_lock_bh
+ 3a4:	90000000 	adrp	x0, 0 <gta3xlwifi_iface_egress_features>
+			3a4: R_AARCH64_ADR_PREL_PG_HI21	.bss+0xbc58
+ 3a8:	f9400703 	ldr	x3, [x24,#8]
+ 3ac:	f9400b01 	ldr	x1, [x24,#16]
+ 3b0:	f90047a3 	str	x3, [x29,#136]
+ 3b4:	b9400002 	ldr	w2, [x0]
+			3b4: R_AARCH64_LDST32_ABS_LO12_NC	.bss+0xbc58
+ 3b8:	b9405fa0 	ldr	w0, [x29,#92]
+ 3bc:	b9007fa2 	str	w2, [x29,#124]
+ 3c0:	f9004ba1 	str	x1, [x29,#144]
+ 3c4:	34000380 	cbz	w0, 434 <gta3xlwifi_iface_stats_ioctl+0x1a0>
+ 3c8:	6b00005f 	cmp	w2, w0
+ 3cc:	54000928 	b.hi	4f0 <gta3xlwifi_iface_stats_ioctl+0x25c>
+ 3d0:	34000322 	cbz	w2, 434 <gta3xlwifi_iface_stats_ioctl+0x1a0>
+ 3d4:	d2800583 	mov	x3, #0x2c                  	// #44
+ 3d8:	51000442 	sub	w2, w2, #0x1
+ 3dc:	52800504 	mov	w4, #0x28                  	// #40
+ 3e0:	90000000 	adrp	x0, 0 <gta3xlwifi_iface_egress_features>
+			3e0: R_AARCH64_ADR_PREL_PG_HI21	.bss+0x1100
+ 3e4:	91000000 	add	x0, x0, #0x0
+			3e4: R_AARCH64_ADD_ABS_LO12_NC	.bss+0x1100
+ 3e8:	aa1603e1 	mov	x1, x22
+ 3ec:	9ba40c42 	umaddl	x2, w2, w4, x3
+ 3f0:	913c6003 	add	x3, x0, #0xf18
+ 3f4:	913c7000 	add	x0, x0, #0xf1c
+ 3f8:	8b020063 	add	x3, x3, x2
+ 3fc:	b9400002 	ldr	w2, [x0]
+ 400:	9100a000 	add	x0, x0, #0x28
+ 404:	b9000022 	str	w2, [x1]
+ 408:	9100a021 	add	x1, x1, #0x28
+ 40c:	eb03001f 	cmp	x0, x3
+ 410:	f85dc002 	ldur	x2, [x0,#-36]
+ 414:	f81e0022 	stur	x2, [x1,#-32]
+ 418:	f85e4002 	ldur	x2, [x0,#-28]
+ 41c:	f81e8022 	stur	x2, [x1,#-24]
+ 420:	f85ec002 	ldur	x2, [x0,#-20]
+ 424:	f81f0022 	stur	x2, [x1,#-16]
+ 428:	f85f4002 	ldur	x2, [x0,#-12]
+ 42c:	f81f8022 	stur	x2, [x1,#-8]
+ 430:	54fffe61 	b.ne	3fc <gta3xlwifi_iface_stats_ioctl+0x168>
+ 434:	91000320 	add	x0, x25, #0x0
+			434: R_AARCH64_ADD_ABS_LO12_NC	.bss
+ 438:	94000000 	bl	0 <_raw_spin_unlock_bh>
+			438: R_AARCH64_CALL26	_raw_spin_unlock_bh
+ 43c:	b9405fa0 	ldr	w0, [x29,#92]
+ 440:	35000680 	cbnz	w0, 510 <gta3xlwifi_iface_stats_ioctl+0x27c>
+ 444:	d5384100 	mrs	x0, sp_el0
+ 448:	f9400402 	ldr	x2, [x0,#8]
+ 44c:	aa1303e0 	mov	x0, x19
+ 450:	aa0203e1 	mov	x1, x2
+ 454:	b1008000 	adds	x0, x0, #0x20
+ 458:	9a8183e1 	csel	x1, xzr, x1, hi
+ 45c:	da9f3000 	csinv	x0, x0, xzr, cc
+ 460:	fa01001f 	sbcs	xzr, x0, x1
+ 464:	9a9f87e0 	cset	x0, ls
+ 468:	b5000280 	cbnz	x0, 4b8 <gta3xlwifi_iface_stats_ioctl+0x224>
+ 46c:	928001b3 	mov	x19, #0xfffffffffffffff2    	// #-14
+ 470:	aa1603e0 	mov	x0, x22
+ 474:	94000000 	bl	0 <vfree>
+			474: R_AARCH64_CALL26	vfree
+ 478:	14000005 	b	48c <gta3xlwifi_iface_stats_ioctl+0x1f8>
+ 47c:	910163a0 	add	x0, x29, #0x58
+ 480:	928001b3 	mov	x19, #0xfffffffffffffff2    	// #-14
+ 484:	a9007c1f 	stp	xzr, xzr, [x0]
+ 488:	a9017c1f 	stp	xzr, xzr, [x0,#16]
+ 48c:	f9404fa2 	ldr	x2, [x29,#152]
+ 490:	aa1303e0 	mov	x0, x19
+ 494:	f9400281 	ldr	x1, [x20]
+			494: R_AARCH64_LDST64_ABS_LO12_NC	__stack_chk_guard
+ 498:	eb01005f 	cmp	x2, x1
+ 49c:	54000861 	b.ne	5a8 <gta3xlwifi_iface_stats_ioctl+0x314>
+ 4a0:	a94153f3 	ldp	x19, x20, [sp,#16]
+ 4a4:	a9425bf5 	ldp	x21, x22, [sp,#32]
+ 4a8:	a94363f7 	ldp	x23, x24, [sp,#48]
+ 4ac:	f94023f9 	ldr	x25, [sp,#64]
+ 4b0:	a8ca7bfd 	ldp	x29, x30, [sp],#160
+ 4b4:	d65f03c0 	ret
+ 4b8:	ea22027f 	bics	xzr, x19, x2
+ 4bc:	9a9f0260 	csel	x0, x19, xzr, eq
+ 4c0:	d503229f 	hint	#0x14
+ 4c4:	d2800402 	mov	x2, #0x20                  	// #32
+ 4c8:	aa1503e1 	mov	x1, x21
+ 4cc:	928001b3 	mov	x19, #0xfffffffffffffff2    	// #-14
+ 4d0:	94000000 	bl	0 <__arch_copy_to_user>
+			4d0: R_AARCH64_CALL26	__arch_copy_to_user
+ 4d4:	eb1f001f 	cmp	x0, xzr
+ 4d8:	9a9303f3 	csel	x19, xzr, x19, eq
+ 4dc:	17ffffe5 	b	470 <gta3xlwifi_iface_stats_ioctl+0x1dc>
+ 4e0:	d2800016 	mov	x22, #0x0                   	// #0
+ 4e4:	17ffffa7 	b	380 <gta3xlwifi_iface_stats_ioctl+0xec>
+ 4e8:	928002b3 	mov	x19, #0xffffffffffffffea    	// #-22
+ 4ec:	17ffffe8 	b	48c <gta3xlwifi_iface_stats_ioctl+0x1f8>
+ 4f0:	aa1803e0 	mov	x0, x24
+ 4f4:	92800373 	mov	x19, #0xffffffffffffffe4    	// #-28
+ 4f8:	94000000 	bl	0 <_raw_spin_unlock_bh>
+			4f8: R_AARCH64_CALL26	_raw_spin_unlock_bh
+ 4fc:	17ffffdd 	b	470 <gta3xlwifi_iface_stats_ioctl+0x1dc>
+ 500:	92800313 	mov	x19, #0xffffffffffffffe7    	// #-25
+ 504:	17ffffe2 	b	48c <gta3xlwifi_iface_stats_ioctl+0x1f8>
+ 508:	928001b3 	mov	x19, #0xfffffffffffffff2    	// #-14
+ 50c:	17ffffe0 	b	48c <gta3xlwifi_iface_stats_ioctl+0x1f8>
+ 510:	b9407fa1 	ldr	w1, [x29,#124]
+ 514:	90000003 	adrp	x3, 0 <gta3xlwifi_iface_egress_features>
+			514: R_AARCH64_ADR_PREL_PG_HI21	.text+0x8
+ 518:	aa1603e0 	mov	x0, x22
+ 51c:	d2800502 	mov	x2, #0x28                  	// #40
+ 520:	91000063 	add	x3, x3, #0x0
+			520: R_AARCH64_ADD_ABS_LO12_NC	.text+0x8
+ 524:	d2800004 	mov	x4, #0x0                   	// #0
+ 528:	d5384119 	mrs	x25, sp_el0
+ 52c:	94000000 	bl	0 <sort>
+			52c: R_AARCH64_CALL26	sort
+ 530:	f94033b8 	ldr	x24, [x29,#96]
+ 534:	b9407fa0 	ldr	w0, [x29,#124]
+ 538:	aa1803e1 	mov	x1, x24
+ 53c:	d37be817 	lsl	x23, x0, #5
+ 540:	8b000ef7 	add	x23, x23, x0, lsl #3
+ 544:	f9400720 	ldr	x0, [x25,#8]
+ 548:	ab170021 	adds	x1, x1, x23
+ 54c:	9a8083e0 	csel	x0, xzr, x0, hi
+ 550:	da9f3021 	csinv	x1, x1, xzr, cc
+ 554:	fa00003f 	sbcs	xzr, x1, x0
+ 558:	9a9f87e1 	cset	x1, ls
+ 55c:	b40001a1 	cbz	x1, 590 <gta3xlwifi_iface_stats_ioctl+0x2fc>
+ 560:	aa1703e1 	mov	x1, x23
+ 564:	aa1603e0 	mov	x0, x22
+ 568:	52800022 	mov	w2, #0x1                   	// #1
+ 56c:	94000000 	bl	0 <__check_object_size>
+			56c: R_AARCH64_CALL26	__check_object_size
+ 570:	f9400721 	ldr	x1, [x25,#8]
+ 574:	ea21031f 	bics	xzr, x24, x1
+ 578:	9a9f0300 	csel	x0, x24, xzr, eq
+ 57c:	d503229f 	hint	#0x14
+ 580:	aa1703e2 	mov	x2, x23
+ 584:	aa1603e1 	mov	x1, x22
+ 588:	94000000 	bl	0 <__arch_copy_to_user>
+			588: R_AARCH64_CALL26	__arch_copy_to_user
+ 58c:	aa0003f7 	mov	x23, x0
+ 590:	b4fff5b7 	cbz	x23, 444 <gta3xlwifi_iface_stats_ioctl+0x1b0>
+ 594:	17ffffb6 	b	46c <gta3xlwifi_iface_stats_ioctl+0x1d8>
+ 598:	92800bd3 	mov	x19, #0xffffffffffffffa1    	// #-95
+ 59c:	17ffffbc 	b	48c <gta3xlwifi_iface_stats_ioctl+0x1f8>
+ 5a0:	92800173 	mov	x19, #0xfffffffffffffff4    	// #-12
+ 5a4:	17ffffba 	b	48c <gta3xlwifi_iface_stats_ioctl+0x1f8>
+ 5a8:	94000000 	bl	0 <__stack_chk_fail>
+			5a8: R_AARCH64_CALL26	__stack_chk_fail
+
+00000000000005ac <gta3xlwifi_accounted_egress>:
+ 5ac:	a9bd7bfd 	stp	x29, x30, [sp,#-48]!
+ 5b0:	910003fd 	mov	x29, sp
+ 5b4:	a90153f3 	stp	x19, x20, [sp,#16]
+ 5b8:	aa0103f3 	mov	x19, x1
+ 5bc:	f90017a0 	str	x0, [x29,#40]
+ 5c0:	94000000 	bl	0 <__rcu_read_lock>
+			5c0: R_AARCH64_CALL26	__rcu_read_lock
+ 5c4:	f94017a0 	ldr	x0, [x29,#40]
+ 5c8:	aa1303e1 	mov	x1, x19
+ 5cc:	94000000 	bl	0 <gta3xlwifi_egress_policy>
+			5cc: R_AARCH64_CALL26	gta3xlwifi_egress_policy
+ 5d0:	2a0003f4 	mov	w20, w0
+ 5d4:	34000120 	cbz	w0, 5f8 <gta3xlwifi_accounted_egress+0x4c>
+ 5d8:	b4000113 	cbz	x19, 5f8 <gta3xlwifi_accounted_egress+0x4c>
+ 5dc:	f9401260 	ldr	x0, [x19,#32]
+ 5e0:	b4000160 	cbz	x0, 60c <gta3xlwifi_accounted_egress+0x60>
+ 5e4:	b9412001 	ldr	w1, [x0,#288]
+ 5e8:	52800022 	mov	w2, #0x1                   	// #1
+ 5ec:	aa1303e0 	mov	x0, x19
+ 5f0:	2a0203e3 	mov	w3, w2
+ 5f4:	94000000 	bl	78 <gta3xlwifi_iface_account>
+			5f4: R_AARCH64_CALL26	gta3xlwifi_iface_account
+ 5f8:	94000000 	bl	0 <__rcu_read_unlock>
+			5f8: R_AARCH64_CALL26	__rcu_read_unlock
+ 5fc:	2a1403e0 	mov	w0, w20
+ 600:	a94153f3 	ldp	x19, x20, [sp,#16]
+ 604:	a8c37bfd 	ldp	x29, x30, [sp],#48
+ 608:	d65f03c0 	ret
+ 60c:	52800001 	mov	w1, #0x0                   	// #0
+ 610:	17fffff6 	b	5e8 <gta3xlwifi_accounted_egress+0x3c>

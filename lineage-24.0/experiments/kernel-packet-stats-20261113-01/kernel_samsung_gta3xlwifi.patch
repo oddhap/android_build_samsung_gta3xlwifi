@@ -1,0 +1,450 @@
+--- a/net/netfilter/Makefile
++++ b/net/netfilter/Makefile
+@@ -202,3 +202,4 @@
+ obj-$(CONFIG_NETFILTER_XT_MATCH_QTAGUID) += gta3xlwifi_socket_tables.o
+ obj-$(CONFIG_NETFILTER_XT_MATCH_QTAGUID) += gta3xlwifi_ingress.o
+ obj-$(CONFIG_NETFILTER_XT_MATCH_QTAGUID) += gta3xlwifi_iface_stats.o
++obj-$(CONFIG_NETFILTER_XT_MATCH_QTAGUID) += gta3xlwifi_packet_stats.o
+--- a/net/netfilter/gta3xlwifi_netpolicy.c
++++ b/net/netfilter/gta3xlwifi_netpolicy.c
+@@ -26,6 +26,7 @@
+ #include <net/gta3xlwifi_socket_tables.h>
+ #include <net/gta3xlwifi_loopback.h>
+ #include <net/gta3xlwifi_iface_stats.h>
++#include <net/gta3xlwifi_packet_stats.h>
+ #include <uapi/linux/netfilter/gta3xlwifi_loopback.h>
+ 
+ static DEFINE_MUTEX(netpolicy_lock);
+@@ -130,7 +131,7 @@
+ 	long ret;
+ 	if (cmd != GTA3XLWIFI_UID_FEATURES && cmd != GTA3XLWIFI_UID_SET_IMAGE &&
+ 	    cmd != GTA3XLWIFI_UID_GET_IMAGE && cmd != GTA3XLWIFI_LNA_SET_IMAGE &&
+-	    cmd != GTA3XLWIFI_LNA_GET_IMAGE && cmd != GTA3XLWIFI_LOOPBACK_GET_EVENTS && cmd != GTA3XLWIFI_IFACE_STATS_GET)
++	    cmd != GTA3XLWIFI_LNA_GET_IMAGE && cmd != GTA3XLWIFI_LOOPBACK_GET_EVENTS && cmd != GTA3XLWIFI_IFACE_STATS_GET && cmd != GTA3XLWIFI_STATS_GET_STATE && cmd != GTA3XLWIFI_STATS_READ && cmd != GTA3XLWIFI_STATS_SWAP && cmd != GTA3XLWIFI_STATS_ACK && cmd != GTA3XLWIFI_STATS_EDIT)
+ 		return -ENOTTY;
+ 	if (cmd == GTA3XLWIFI_UID_FEATURES && arg)
+ 		return -EINVAL;
+@@ -147,10 +148,12 @@
+ 	else if (cmd == GTA3XLWIFI_UID_FEATURES)
+ 		ret = gta3xlwifi_uid_permissions_features() | GTA3XLWIFI_UID_CAP_LNA_STORE |
+ 		      gta3xlwifi_lna_packet_features() | gta3xlwifi_receive_features() | gta3xlwifi_egress_features() | gta3xlwifi_loopback_features() |
+-		      gta3xlwifi_socket_tables_features() | gta3xlwifi_iface_stats_features();
++		      gta3xlwifi_socket_tables_features() | gta3xlwifi_iface_stats_features() | gta3xlwifi_packet_stats_features();
+ 	else if ((cmd == GTA3XLWIFI_UID_SET_IMAGE || cmd == GTA3XLWIFI_LNA_SET_IMAGE) &&
+ 	         !READ_ONCE(netpolicy_held))
+ 		ret = -EBUSY;
++	else if (cmd == GTA3XLWIFI_STATS_GET_STATE || cmd == GTA3XLWIFI_STATS_READ || cmd == GTA3XLWIFI_STATS_SWAP || cmd == GTA3XLWIFI_STATS_ACK || cmd == GTA3XLWIFI_STATS_EDIT)
++		ret = gta3xlwifi_packet_stats_ioctl(cmd, arg);
+ 	else if (cmd == GTA3XLWIFI_IFACE_STATS_GET)
+ 		ret = gta3xlwifi_iface_stats_ioctl(cmd, arg);
+ 	else if (cmd == GTA3XLWIFI_LOOPBACK_GET_EVENTS)
+@@ -170,7 +173,7 @@
+ 
+ 	if (cmd == GTA3XLWIFI_UID_FEATURES || cmd == GTA3XLWIFI_UID_SET_IMAGE ||
+ 	    cmd == GTA3XLWIFI_UID_GET_IMAGE || cmd == GTA3XLWIFI_LNA_SET_IMAGE ||
+-	    cmd == GTA3XLWIFI_LNA_GET_IMAGE || cmd == GTA3XLWIFI_LOOPBACK_GET_EVENTS || cmd == GTA3XLWIFI_IFACE_STATS_GET)
++	    cmd == GTA3XLWIFI_LNA_GET_IMAGE || cmd == GTA3XLWIFI_LOOPBACK_GET_EVENTS || cmd == GTA3XLWIFI_IFACE_STATS_GET || cmd == GTA3XLWIFI_STATS_GET_STATE || cmd == GTA3XLWIFI_STATS_READ || cmd == GTA3XLWIFI_STATS_SWAP || cmd == GTA3XLWIFI_STATS_ACK || cmd == GTA3XLWIFI_STATS_EDIT)
+ 		return netpolicy_image_ioctl(file, cmd, arg);
+ 	if (cmd != GTA3XLWIFI_NETPOLICY_ABI &&
+ 	    cmd != GTA3XLWIFI_NETPOLICY_HOLD &&
+--- /dev/null
++++ b/include/uapi/linux/netfilter/gta3xlwifi_packet_stats.h
+@@ -0,0 +1,73 @@
++/* SPDX-License-Identifier: GPL-2.0 WITH Linux-syscall-note */
++#ifndef _UAPI_GTA3XLWIFI_PACKET_STATS_H
++#define _UAPI_GTA3XLWIFI_PACKET_STATS_H
++#include <linux/types.h>
++#include <linux/ioctl.h>
++#define GTA3XLWIFI_PACKET_STATS_VERSION 1U
++#define GTA3XLWIFI_PACKET_STATS_MAX 5000U
++#define GTA3XLWIFI_APP_STATS_MAX 10000U
++#define GTA3XLWIFI_COUNTERSET_MAX 20000U
++/* Storage/control primitive only. NO actual packet-hook/Ready claim. */
++#define GTA3XLWIFI_UID_CAP_PACKET_STATS_STORE (1U << 12)
++#define GTA3XLWIFI_STATS_BANK_A 0U
++#define GTA3XLWIFI_STATS_BANK_B 1U
++#define GTA3XLWIFI_STATS_APP_UID 2U
++struct gta3xlwifi_stats_key { __u32 uid, tag, counterset, ifindex; };
++struct gta3xlwifi_packet_stats_entry {
++    struct gta3xlwifi_stats_key key;
++    __aligned_u64 rx_packets, rx_bytes, tx_packets, tx_bytes;
++};
++struct gta3xlwifi_app_stats_entry {
++    __u32 uid, reserved;
++    __aligned_u64 rx_packets, rx_bytes, tx_packets, tx_bytes;
++};
++struct gta3xlwifi_packet_stats_state {
++    __u32 version, active_bank;
++    __aligned_u64 active_epoch;
++    __u32 bank_count[2], app_count, counterset_count;
++    __aligned_u64 bank_epoch[2], bank_lost[2], app_lost, total_stats_lost;
++    __u32 pending_mask, reserved;
++};
++/* Non-consuming one-call snapshot: capacity5000 for frozen bank,10000 for app.
++ * Input reserved/lost_updates/sequence must0. count0+entries0 probes only.
++ * Frozen bank requires pending and exact epoch. APP_UID input epoch must0.
++ * Loss counts real failed update attempts, not estimated lost packets.
++ */
++struct gta3xlwifi_packet_stats_transfer {
++    __u32 version, kind;
++    __aligned_u64 epoch;
++    __u32 count, reserved;
++    __aligned_u64 entries, lost_updates, sequence;
++};
++/* Input active_bank/active_epoch are CAS. Other input fields must0. On success
++ * returns NEW active state plus frozen previous bank/epoch. A copy failure can
++ * follow a real commit: never blindly retry; inspect STATE to recover.
++ */
++struct gta3xlwifi_packet_stats_swap {
++    __u32 version, active_bank;
++    __aligned_u64 active_epoch;
++    __u32 inactive_bank, reserved;
++    __aligned_u64 inactive_epoch;
++};
++/* Explicit drain ACK only after the full frozen snapshot has been delivered.
++ * Epoch ACK is idempotent, never clears active/new-generation counters.
++ */
++struct gta3xlwifi_packet_stats_ack {
++    __u32 version, bank;
++    __aligned_u64 epoch, reserved;
++};
++#define GTA3XLWIFI_STATS_SET_COUNTERSET 1U
++#define GTA3XLWIFI_STATS_DELETE_UID 2U
++/* SET_COUNTERSET accepts0(default/delete) or1(foreground), tag must0.
++ * DELETE_UID clears both stats banks/app/counterset, NOT socket tag metadata.
++ * It requires no pending frozen batch, matching poll/ACK-before-UID-removal.
++ */
++struct gta3xlwifi_packet_stats_edit {
++    __u32 version, operation, uid, tag, counterset, reserved;
++};
++#define GTA3XLWIFI_STATS_GET_STATE _IOR('g',0x5b,struct gta3xlwifi_packet_stats_state)
++#define GTA3XLWIFI_STATS_READ _IOWR('g',0x5c,struct gta3xlwifi_packet_stats_transfer)
++#define GTA3XLWIFI_STATS_SWAP _IOWR('g',0x5d,struct gta3xlwifi_packet_stats_swap)
++#define GTA3XLWIFI_STATS_ACK _IOW('g',0x5e,struct gta3xlwifi_packet_stats_ack)
++#define GTA3XLWIFI_STATS_EDIT _IOW('g',0x5f,struct gta3xlwifi_packet_stats_edit)
++#endif
+--- /dev/null
++++ b/include/net/gta3xlwifi_packet_stats.h
+@@ -0,0 +1,16 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++#ifndef _NET_GTA3XLWIFI_PACKET_STATS_H
++#define _NET_GTA3XLWIFI_PACKET_STATS_H
++#include <linux/types.h>
++#include <uapi/linux/netfilter/gta3xlwifi_packet_stats.h>
++struct sock;struct sk_buff;
++/* Caller protects actual supplied socket/skb. No tag lookup/permission verdict,
++ * skb mutation/free or user-injectable counter API. Errors are diagnostic;
++ * accounting capacity must never change a packet's security verdict.
++ */
++int gta3xlwifi_packet_stats_record(struct sock *sk,const struct sk_buff *skb,
++                                 u32 stats_uid,u32 tag,u32 ifindex,bool output);
++void gta3xlwifi_packet_stats_lost(void);
++u32 gta3xlwifi_packet_stats_features(void);
++long gta3xlwifi_packet_stats_ioctl(unsigned int cmd,unsigned long arg);
++#endif
+--- /dev/null
++++ b/net/netfilter/gta3xlwifi_packet_stats.c
+@@ -0,0 +1,303 @@
++// SPDX-License-Identifier: GPL-2.0
++/* Genuine bounded UID/tag/app counters and explicit frozen-bank lifecycle.
++ * No BPF objects, automatic packet hooks, source/prebuilt selection or Ready.
++ */
++#include <linux/errno.h>
++#include <linux/hash.h>
++#include <linux/if_ether.h>
++#include <linux/ip.h>
++#include <linux/ipv6.h>
++#include <linux/module.h>
++#include <linux/skbuff.h>
++#include <linux/sort.h>
++#include <linux/spinlock.h>
++#include <linux/string.h>
++#include <linux/tcp.h>
++#include <linux/udp.h>
++#include <linux/uaccess.h>
++#include <linux/vmalloc.h>
++#include <net/sock.h>
++#include <net/gta3xlwifi_packet_stats.h>
++#define STATS_HASH_BITS 13
++#define APP_HASH_BITS 14
++#define SET_HASH_BITS 15
++struct stats_row { u32 next; struct gta3xlwifi_packet_stats_entry entry; };
++struct app_row { u32 next; struct gta3xlwifi_app_stats_entry entry; };
++struct set_row { u32 next, uid, value; };
++struct stats_bank {
++    u32 heads[1U << STATS_HASH_BITS], count;
++    struct stats_row rows[GTA3XLWIFI_PACKET_STATS_MAX];
++    u64 lost, sequence, last_ack;
++    bool pending;
++};
++static DEFINE_SPINLOCK(stats_lock);
++static struct stats_bank stats_banks[2];
++/* Keep large stores in BSS rather than embedding zero arrays in Image data. */
++static u64 stats_bank_epoch[2] = { 1, 0 };
++static u32 stats_active;
++static u64 stats_epoch = 1, stats_total_lost;
++static u32 app_heads[1U << APP_HASH_BITS], app_count;
++static struct app_row app_rows[GTA3XLWIFI_APP_STATS_MAX];
++static u64 app_lost, app_sequence;
++static u32 set_heads[1U << SET_HASH_BITS], set_count, set_cursor, set_free;
++static struct set_row set_rows[GTA3XLWIFI_COUNTERSET_MAX];
++static void stats_loss(u64 *value) { if (*value != ~(u64)0) ++*value; }
++static u32 stats_rotate(u32 v, unsigned n) { return (v << n) | (v >> (32 - n)); }
++static u32 stats_hash(const struct gta3xlwifi_stats_key *key)
++{
++    return hash_32(key->uid ^ stats_rotate(key->tag,7) ^
++                   stats_rotate(key->counterset,15) ^ stats_rotate(key->ifindex,23),
++                   STATS_HASH_BITS);
++}
++static void packet_amount(struct sock *sk,const struct sk_buff *skb,u64 *packets,u64 *bytes)
++{
++    /* Exact pinned A17 >=5.4 UID/app branch, using REAL4.4 GSO metadata.
++     * tcp_offload.c in this tree sets gso_segs for segmentation and GRO.
++     * Unlike interface-XT's explicit4.9 estimator, do not infer from length.
++     */
++    u64 p=1,b=skb->len;
++    u32 segs=skb_shinfo(skb)->gso_segs;
++    if(segs>1){
++        bool tcp_or_unknown=!sk||!sk_fullsock(sk)||sk->sk_protocol==IPPROTO_TCP;
++        int overhead=(skb->protocol==htons(ETH_P_IPV6)?sizeof(struct ipv6hdr):sizeof(struct iphdr))+
++                     (tcp_or_unknown?sizeof(struct tcphdr)+12:sizeof(struct udphdr));
++        u64 payload=b-overhead;
++        p=segs;b=overhead*p+payload;
++    }
++    *packets=p;*bytes=b;
++}
++u32 gta3xlwifi_packet_stats_features(void)
++{
++#if defined(CONFIG_INET) && defined(CONFIG_IPV6)
++    return GTA3XLWIFI_UID_CAP_PACKET_STATS_STORE;
++#else
++    return 0;
++#endif
++}
++EXPORT_SYMBOL_GPL(gta3xlwifi_packet_stats_features);
++static u32 counterset(u32 uid)
++{
++    u32 n;for(n=set_heads[hash_32(uid,SET_HASH_BITS)];n;n=set_rows[n-1].next)
++        if(set_rows[n-1].uid==uid)return set_rows[n-1].value;
++    return 0;
++}
++static struct gta3xlwifi_packet_stats_entry *stats_entry(struct stats_bank *bank,
++                                                        const struct gta3xlwifi_stats_key *key)
++{
++    u32 bucket=stats_hash(key),n;struct stats_row *row;
++    for(n=bank->heads[bucket];n;n=bank->rows[n-1].next)
++        if(!memcmp(&bank->rows[n-1].entry.key,key,sizeof(*key)))return &bank->rows[n-1].entry;
++    if(bank->count==GTA3XLWIFI_PACKET_STATS_MAX)return NULL;
++    row=&bank->rows[bank->count++];memset(row,0,sizeof(*row));row->entry.key=*key;
++    row->next=bank->heads[bucket];bank->heads[bucket]=bank->count;return &row->entry;
++}
++static struct gta3xlwifi_app_stats_entry *app_entry(u32 uid)
++{
++    u32 bucket=hash_32(uid,APP_HASH_BITS),n;struct app_row *row;
++    for(n=app_heads[bucket];n;n=app_rows[n-1].next)
++        if(app_rows[n-1].entry.uid==uid)return &app_rows[n-1].entry;
++    if(app_count==GTA3XLWIFI_APP_STATS_MAX)return NULL;
++    row=&app_rows[app_count++];memset(row,0,sizeof(*row));row->entry.uid=uid;
++    row->next=app_heads[bucket];app_heads[bucket]=app_count;return &row->entry;
++}
++int gta3xlwifi_packet_stats_record(struct sock *sk,const struct sk_buff *skb,
++                                 u32 uid,u32 tag,u32 ifindex,bool output)
++{
++    struct gta3xlwifi_stats_key key={uid,tag,0,ifindex};
++    struct gta3xlwifi_packet_stats_entry *entry;
++    struct gta3xlwifi_app_stats_entry *app;
++    struct stats_bank *bank;u64 packets,bytes;int result=0;
++    if(!skb)return -EINVAL;
++    packet_amount(sk,skb,&packets,&bytes);
++    spin_lock_bh(&stats_lock);bank=&stats_banks[stats_active];key.counterset=counterset(uid);
++    entry=stats_entry(bank,&key);app=app_entry(uid);
++    /* These are independent A17 stores: a full bank does not prevent the app
++     * update, and a full app store does not prevent the bank update.
++     */
++    if(entry){if(output){entry->tx_packets+=packets;entry->tx_bytes+=bytes;}
++              else{entry->rx_packets+=packets;entry->rx_bytes+=bytes;}}
++    else{stats_loss(&bank->lost);stats_loss(&stats_total_lost);result=-ENOSPC;}
++    if(app){if(output){app->tx_packets+=packets;app->tx_bytes+=bytes;}
++            else{app->rx_packets+=packets;app->rx_bytes+=bytes;}}
++    else{stats_loss(&app_lost);result=-ENOSPC;}
++    ++bank->sequence;++app_sequence;spin_unlock_bh(&stats_lock);return result;
++}
++EXPORT_SYMBOL_GPL(gta3xlwifi_packet_stats_record);
++void gta3xlwifi_packet_stats_lost(void)
++{
++    /* Caller could not establish real accounting identity. Never invent UID0.
++     * Counts failed accounting attempts, not a fabricated packet/byte estimate.
++     */
++    spin_lock_bh(&stats_lock);stats_loss(&stats_banks[stats_active].lost);
++    stats_loss(&stats_total_lost);stats_loss(&app_lost);
++    ++stats_banks[stats_active].sequence;++app_sequence;spin_unlock_bh(&stats_lock);
++}
++EXPORT_SYMBOL_GPL(gta3xlwifi_packet_stats_lost);
++static long stats_state(unsigned long arg)
++{
++    struct gta3xlwifi_packet_stats_state value;memset(&value,0,sizeof(value));
++    spin_lock_bh(&stats_lock);value.version=GTA3XLWIFI_PACKET_STATS_VERSION;
++    value.active_bank=stats_active;value.active_epoch=stats_epoch;
++    value.bank_count[0]=stats_banks[0].count;value.bank_count[1]=stats_banks[1].count;
++    value.bank_epoch[0]=stats_bank_epoch[0];value.bank_epoch[1]=stats_bank_epoch[1];
++    value.bank_lost[0]=stats_banks[0].lost;value.bank_lost[1]=stats_banks[1].lost;
++    value.app_count=app_count;value.counterset_count=set_count;value.app_lost=app_lost;
++    value.total_stats_lost=stats_total_lost;
++    value.pending_mask=(stats_banks[0].pending?1U:0)|(stats_banks[1].pending?2U:0);
++    spin_unlock_bh(&stats_lock);
++    return copy_to_user((void __user *)arg,&value,sizeof(value))?-EFAULT:0;
++}
++static int stats_compare(const void *a,const void *b)
++{
++    const struct gta3xlwifi_stats_key *x=&((const struct gta3xlwifi_packet_stats_entry *)a)->key;
++    const struct gta3xlwifi_stats_key *y=&((const struct gta3xlwifi_packet_stats_entry *)b)->key;
++#define CMP_FIELD(f) if(x->f!=y->f)return x->f<y->f?-1:1
++    CMP_FIELD(uid);CMP_FIELD(tag);CMP_FIELD(counterset);CMP_FIELD(ifindex);
++#undef CMP_FIELD
++    return 0;
++}
++static int app_compare(const void *a,const void *b)
++{
++    u32 x=((const struct gta3xlwifi_app_stats_entry *)a)->uid;
++    u32 y=((const struct gta3xlwifi_app_stats_entry *)b)->uid;
++    return x<y?-1:x>y?1:0;
++}
++static long stats_read(unsigned long arg)
++{
++    struct gta3xlwifi_packet_stats_transfer request,answer;
++    void *rows=NULL;u32 limit,actual,i;size_t size;bool app;int result=0;
++    if(copy_from_user(&request,(void __user *)arg,sizeof(request)))return -EFAULT;
++    if(request.version!=GTA3XLWIFI_PACKET_STATS_VERSION||request.kind>GTA3XLWIFI_STATS_APP_UID||
++       request.reserved||request.lost_updates||request.sequence|| (!!request.count!=!!request.entries))return -EINVAL;
++    app=request.kind==GTA3XLWIFI_STATS_APP_UID;
++    if(app&&request.epoch)return -EINVAL;
++    limit=app?GTA3XLWIFI_APP_STATS_MAX:GTA3XLWIFI_PACKET_STATS_MAX;
++    size=app?sizeof(struct gta3xlwifi_app_stats_entry):sizeof(struct gta3xlwifi_packet_stats_entry);
++    if(request.count>limit)return -EINVAL;
++    if(request.count){rows=vzalloc(request.count*size);if(!rows)return -ENOMEM;}
++    answer=request;spin_lock_bh(&stats_lock);
++    if(!app&&request.kind==stats_active)result=-EBUSY;
++    else if(!app&&!stats_banks[request.kind].pending)result=-ENODATA;
++    else if(!app&&request.epoch!=stats_bank_epoch[request.kind])result=-ESTALE;
++    if(!result){
++        actual=app?app_count:stats_banks[request.kind].count;
++        answer.count=actual;answer.epoch=app?0:stats_bank_epoch[request.kind];
++        answer.lost_updates=app?app_lost:stats_banks[request.kind].lost;
++        answer.sequence=app?app_sequence:stats_banks[request.kind].sequence;
++        if(request.count&&request.count<actual)result=-ENOSPC;
++        else if(request.count){
++            if(app)for(i=0;i<actual;++i)((struct gta3xlwifi_app_stats_entry *)rows)[i]=app_rows[i].entry;
++            else for(i=0;i<actual;++i)((struct gta3xlwifi_packet_stats_entry *)rows)[i]=stats_banks[request.kind].rows[i].entry;
++        }
++    }
++    spin_unlock_bh(&stats_lock);
++    if(!result&&request.count){
++        sort(rows,answer.count,size,app?app_compare:stats_compare,NULL);
++        if(copy_to_user((void __user *)(unsigned long)request.entries,rows,answer.count*size))result=-EFAULT;
++    }
++    if(!result&&copy_to_user((void __user *)arg,&answer,sizeof(answer)))result=-EFAULT;
++    vfree(rows);return result;
++}
++static long stats_swap(unsigned long arg)
++{
++    struct gta3xlwifi_packet_stats_swap request,answer;u32 next;int result=0;
++    if(copy_from_user(&request,(void __user *)arg,sizeof(request)))return -EFAULT;
++    if(request.version!=GTA3XLWIFI_PACKET_STATS_VERSION||request.active_bank>1||
++       !request.active_epoch||request.inactive_bank||request.reserved||request.inactive_epoch)return -EINVAL;
++    spin_lock_bh(&stats_lock);next=1U-stats_active;answer=request;
++    if(request.active_bank!=stats_active||request.active_epoch!=stats_epoch)result=-ESTALE;
++    else if(stats_banks[next].pending)result=-EBUSY;
++    else if(stats_epoch==~(u64)0)result=-EOVERFLOW;
++    else{
++        stats_banks[stats_active].pending=true;
++        answer.inactive_bank=stats_active;answer.inactive_epoch=stats_epoch;
++        stats_active=next;++stats_epoch;stats_bank_epoch[next]=stats_epoch;
++        stats_banks[next].sequence=0;
++        answer.active_bank=stats_active;answer.active_epoch=stats_epoch;
++    }
++    spin_unlock_bh(&stats_lock);
++    if(!result&&copy_to_user((void __user *)arg,&answer,sizeof(answer)))result=-EFAULT;
++    /* No rollback after user-copy fault: real producers may have entered the
++     * new bank. STATE exposes the committed result for explicit recovery.
++     */
++    return result;
++}
++static long stats_ack(unsigned long arg)
++{
++    struct gta3xlwifi_packet_stats_ack request;struct stats_bank *bank;int result=0;
++    if(copy_from_user(&request,(void __user *)arg,sizeof(request)))return -EFAULT;
++    if(request.version!=GTA3XLWIFI_PACKET_STATS_VERSION||request.bank>1||!request.epoch||request.reserved)return -EINVAL;
++    spin_lock_bh(&stats_lock);bank=&stats_banks[request.bank];
++    if(bank->last_ack==request.epoch){ /* Safe idempotent receipt, even after reuse. */ }
++    else if(request.bank==stats_active||!bank->pending||stats_bank_epoch[request.bank]!=request.epoch)result=-ESTALE;
++    else{
++        /* Reused rows are zeroed on allocation. Avoid clearing240KB under BH
++         * lock; resetting heads/count is sufficient and never leaks stale rows.
++         */
++        memset(bank->heads,0,sizeof(bank->heads));bank->count=0;bank->lost=0;
++        bank->pending=false;bank->last_ack=request.epoch;
++    }
++    spin_unlock_bh(&stats_lock);return result;
++}
++static int set_counterset(u32 uid,u32 value)
++{
++    u32 bucket=hash_32(uid,SET_HASH_BITS),*link=&set_heads[bucket],n;
++    struct set_row *row;
++    while(*link){n=*link;row=&set_rows[n-1];if(row->uid==uid){
++        if(value)row->value=value;
++        else{*link=row->next;memset(row,0,sizeof(*row));row->next=set_free;set_free=n;--set_count;}
++        return 0;
++    }link=&row->next;}
++    if(!value)return 0;
++    if(set_count==GTA3XLWIFI_COUNTERSET_MAX)return -ENOSPC;
++    if(set_free){n=set_free;set_free=set_rows[n-1].next;}else n=++set_cursor;
++    row=&set_rows[n-1];memset(row,0,sizeof(*row));row->uid=uid;row->value=value;
++    row->next=set_heads[bucket];set_heads[bucket]=n;++set_count;return 0;
++}
++static void stats_remove_uid(u32 uid)
++{
++    u32 b,i,n;struct stats_bank *bank;
++    for(b=0;b<2;++b){
++        bank=&stats_banks[b];n=0;
++        for(i=0;i<bank->count;++i)if(bank->rows[i].entry.key.uid!=uid)
++            bank->rows[n++].entry=bank->rows[i].entry;
++        bank->count=n;memset(bank->heads,0,sizeof(bank->heads));
++        for(i=0;i<n;++i){u32 h=stats_hash(&bank->rows[i].entry.key);bank->rows[i].next=bank->heads[h];bank->heads[h]=i+1;}
++        ++bank->sequence;
++    }
++    n=0;for(i=0;i<app_count;++i)if(app_rows[i].entry.uid!=uid)app_rows[n++].entry=app_rows[i].entry;
++    app_count=n;memset(app_heads,0,sizeof(app_heads));
++    for(i=0;i<n;++i){u32 h=hash_32(app_rows[i].entry.uid,APP_HASH_BITS);app_rows[i].next=app_heads[h];app_heads[h]=i+1;}
++    ++app_sequence;set_counterset(uid,0);
++}
++static long stats_edit(unsigned long arg)
++{
++    struct gta3xlwifi_packet_stats_edit request;int result=0;
++    if(copy_from_user(&request,(void __user *)arg,sizeof(request)))return -EFAULT;
++    if(request.version!=GTA3XLWIFI_PACKET_STATS_VERSION||request.reserved||request.tag)return -EINVAL;
++    if(request.operation==GTA3XLWIFI_STATS_SET_COUNTERSET){if(request.counterset>1)return -EINVAL;}
++    else if(request.operation==GTA3XLWIFI_STATS_DELETE_UID){if(request.counterset)return -EINVAL;}
++    else return -EINVAL;
++    spin_lock_bh(&stats_lock);
++    if(request.operation==GTA3XLWIFI_STATS_SET_COUNTERSET)result=set_counterset(request.uid,request.counterset);
++    else if(stats_banks[0].pending||stats_banks[1].pending)result=-EBUSY;
++    else stats_remove_uid(request.uid);
++    spin_unlock_bh(&stats_lock);return result;
++}
++long gta3xlwifi_packet_stats_ioctl(unsigned int cmd,unsigned long arg)
++{
++    if(cmd!=GTA3XLWIFI_STATS_GET_STATE&&cmd!=GTA3XLWIFI_STATS_READ&&cmd!=GTA3XLWIFI_STATS_SWAP&&
++       cmd!=GTA3XLWIFI_STATS_ACK&&cmd!=GTA3XLWIFI_STATS_EDIT)return -ENOTTY;
++    if(!arg)return -EFAULT;
++    if(!gta3xlwifi_packet_stats_features())return -EOPNOTSUPP;
++    switch(cmd){
++    case GTA3XLWIFI_STATS_GET_STATE:return stats_state(arg);
++    case GTA3XLWIFI_STATS_READ:return stats_read(arg);
++    case GTA3XLWIFI_STATS_SWAP:return stats_swap(arg);
++    case GTA3XLWIFI_STATS_ACK:return stats_ack(arg);
++    default:return stats_edit(arg);
++    }
++}
++EXPORT_SYMBOL_GPL(gta3xlwifi_packet_stats_ioctl);
++MODULE_LICENSE("GPL");
++MODULE_DESCRIPTION("Bounded real UID/tag/app statistics with explicit frozen-bank ACK; no automatic hooks");

@@ -1,0 +1,2 @@
+# SPDX-License-Identifier: Apache-2.0
+genfscon sysfs /devices/virtual/misc/gta3xlwifi_netpolicy/dev u:object_r:sysfs_gta3xlwifi_netpolicy:s0

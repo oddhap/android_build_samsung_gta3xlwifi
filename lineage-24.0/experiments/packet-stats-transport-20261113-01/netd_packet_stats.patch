@@ -1,0 +1,253 @@
+--- a/Gta3xlwifiNetpolicyLease.cpp
++++ b/Gta3xlwifiNetpolicyLease.cpp
+@@ -1,4 +1,6 @@
+ // SPDX-License-Identifier: Apache-2.0
++#include <linux/netfilter/gta3xlwifi_packet_stats.h>
++#include <tuple>
+ #include "Gta3xlwifiNetpolicyLease.h"
+ #include <linux/netfilter/gta3xlwifi_netpolicy.h>
+ #include <linux/netfilter/gta3xlwifi_uid_permissions.h>
+@@ -601,3 +603,108 @@
+ }
+ 
+ }  // namespace android::net::gta3xlwifi
++
++
++namespace android::net::gta3xlwifi {
++int NetpolicyLease::packetStorageLocked() {
++    if(mFd<0)return -ENOTCONN;
++    int result;do{result=ioctl(mFd,GTA3XLWIFI_UID_FEATURES,0UL);}while(result<0&&errno==EINTR);
++    if(result<0)return imageErrorLocked(errno?-errno:-EIO);
++    return (result&GTA3XLWIFI_UID_CAP_PACKET_STATS_STORE)?0:imageErrorLocked(-EOPNOTSUPP);
++}
++int NetpolicyLease::packetCommandLocked(unsigned long request,void* arg,bool retry) {
++    int result;
++    do{result=ioctl(mFd,request,reinterpret_cast<unsigned long>(arg));}
++    while(retry&&result<0&&errno==EINTR);
++    return result?imageErrorLocked(result<0?(errno?-errno:-EIO):-EPROTO):0;
++}
++int NetpolicyLease::readPacketState(PacketState* output) {
++    if(!output)return -EINVAL;
++    std::lock_guard<std::mutex> lock(mMutex);int error=packetStorageLocked();if(error)return error;
++    gta3xlwifi_packet_stats_state value{};
++    int result;
++    do{value={};result=ioctl(mFd,GTA3XLWIFI_STATS_GET_STATE,reinterpret_cast<unsigned long>(&value));}
++    while(result<0&&errno==EINTR);
++    if(result)return imageErrorLocked(result<0?(errno?-errno:-EIO):-EPROTO);
++    if(value.version!=1||value.reserved||value.active_bank>1||!value.active_epoch||
++       value.pending_mask>3||(value.pending_mask&(1U<<value.active_bank))||
++       value.bank_epoch[value.active_bank]!=value.active_epoch||
++       value.app_count>GTA3XLWIFI_APP_STATS_MAX||value.counterset_count>GTA3XLWIFI_COUNTERSET_MAX)
++        return imageErrorLocked(-EPROTO);
++    PacketState next;next.activeBank=value.active_bank;next.activeEpoch=value.active_epoch;
++    next.pendingMask=value.pending_mask;next.appCount=value.app_count;next.countersetCount=value.counterset_count;
++    next.appLost=value.app_lost;next.totalStatsLost=value.total_stats_lost;
++    for(unsigned i=0;i<2;++i){
++        if(value.bank_count[i]>GTA3XLWIFI_PACKET_STATS_MAX||value.bank_epoch[i]>value.active_epoch||
++           ((value.pending_mask&(1U<<i))&&!value.bank_epoch[i]))return imageErrorLocked(-EPROTO);
++        next.bankCount[i]=value.bank_count[i];next.bankEpoch[i]=value.bank_epoch[i];next.bankLost[i]=value.bank_lost[i];
++    }
++    *output=next;return 0;
++}
++int NetpolicyLease::readFrozenPacketStats(uint32_t bank,uint64_t epoch,PacketSnapshot* output) {
++    if(!output||bank>1||!epoch)return -EINVAL;
++    std::lock_guard<std::mutex> lock(mMutex);int error=packetStorageLocked();if(error)return error;
++    std::vector<gta3xlwifi_packet_stats_entry> rows(GTA3XLWIFI_PACKET_STATS_MAX);
++    gta3xlwifi_packet_stats_transfer value{};int result;
++    do{value={};value.version=1;value.kind=bank;value.epoch=epoch;value.count=rows.size();
++        value.entries=reinterpret_cast<uintptr_t>(rows.data());
++        result=ioctl(mFd,GTA3XLWIFI_STATS_READ,reinterpret_cast<unsigned long>(&value));
++    }while(result<0&&errno==EINTR);
++    if(result)return imageErrorLocked(result<0?(errno?-errno:-EIO):-EPROTO);
++    if(value.version!=1||value.kind!=bank||value.epoch!=epoch||value.reserved||
++       value.count>rows.size()||value.entries!=reinterpret_cast<uintptr_t>(rows.data()))return imageErrorLocked(-EPROTO);
++    PacketSnapshot next;next.epoch=epoch;next.lostUpdates=value.lost_updates;next.sequence=value.sequence;
++    next.entries.reserve(value.count);
++    for(size_t i=0;i<value.count;++i){const auto&r=rows[i];const auto&k=r.key;
++        auto key=[](const auto&x){return std::tie(x.uid,x.tag,x.counterset,x.ifindex);};
++        if(k.counterset>1||(i&&!(key(rows[i-1].key)<key(k))))return imageErrorLocked(-EPROTO);
++        next.entries.push_back({k.uid,k.tag,k.counterset,k.ifindex,r.rx_packets,r.rx_bytes,r.tx_packets,r.tx_bytes});
++    }
++    *output=std::move(next);return 0;
++}
++int NetpolicyLease::readAppStats(AppSnapshot* output) {
++    if(!output)return -EINVAL;
++    std::lock_guard<std::mutex> lock(mMutex);int error=packetStorageLocked();if(error)return error;
++    std::vector<gta3xlwifi_app_stats_entry> rows(GTA3XLWIFI_APP_STATS_MAX);
++    gta3xlwifi_packet_stats_transfer value{};int result;
++    do{value={};value.version=1;value.kind=GTA3XLWIFI_STATS_APP_UID;value.count=rows.size();
++        value.entries=reinterpret_cast<uintptr_t>(rows.data());
++        result=ioctl(mFd,GTA3XLWIFI_STATS_READ,reinterpret_cast<unsigned long>(&value));
++    }while(result<0&&errno==EINTR);
++    if(result)return imageErrorLocked(result<0?(errno?-errno:-EIO):-EPROTO);
++    if(value.version!=1||value.kind!=GTA3XLWIFI_STATS_APP_UID||value.epoch||value.reserved||
++       value.count>rows.size()||value.entries!=reinterpret_cast<uintptr_t>(rows.data()))return imageErrorLocked(-EPROTO);
++    AppSnapshot next;next.lostUpdates=value.lost_updates;next.sequence=value.sequence;next.entries.reserve(value.count);
++    for(size_t i=0;i<value.count;++i){const auto&r=rows[i];
++        if(r.reserved||(i&&rows[i-1].uid>=r.uid))return imageErrorLocked(-EPROTO);
++        next.entries.push_back({r.uid,r.rx_packets,r.rx_bytes,r.tx_packets,r.tx_bytes});
++    }
++    *output=std::move(next);return 0;
++}
++int NetpolicyLease::swapPacketStats(uint32_t bank,uint64_t epoch,BankTransition* output) {
++    if(!output||bank>1||!epoch||epoch==UINT64_MAX)return -EINVAL;
++    std::lock_guard<std::mutex> lock(mMutex);int error=packetStorageLocked();if(error)return error;
++    gta3xlwifi_packet_stats_swap value{1,bank,epoch,0,0,0};
++    error=packetCommandLocked(GTA3XLWIFI_STATS_SWAP,&value,false);if(error)return error;
++    if(value.version!=1||value.reserved||value.active_bank!=1U-bank||value.active_epoch!=epoch+1||
++       value.inactive_bank!=bank||value.inactive_epoch!=epoch)return imageErrorLocked(-EPROTO);
++    *output={value.active_bank,value.inactive_bank,value.active_epoch,value.inactive_epoch};return 0;
++}
++int NetpolicyLease::acknowledgePacketStats(uint32_t bank,uint64_t epoch) {
++    if(bank>1||!epoch)return -EINVAL;
++    std::lock_guard<std::mutex> lock(mMutex);int error=packetStorageLocked();if(error)return error;
++    gta3xlwifi_packet_stats_ack value{1,bank,epoch,0};
++    return packetCommandLocked(GTA3XLWIFI_STATS_ACK,&value,true);
++}
++int NetpolicyLease::setPacketCounterset(uint32_t uid,uint32_t counterset) {
++    if(counterset>1)return -EINVAL;
++    std::lock_guard<std::mutex> lock(mMutex);int error=packetStorageLocked();if(error)return error;
++    gta3xlwifi_packet_stats_edit value{1,GTA3XLWIFI_STATS_SET_COUNTERSET,uid,0,counterset,0};
++    return packetCommandLocked(GTA3XLWIFI_STATS_EDIT,&value,false);
++}
++int NetpolicyLease::deleteUidPacketStats(uint32_t uid) {
++    std::lock_guard<std::mutex> lock(mMutex);int error=packetStorageLocked();if(error)return error;
++    gta3xlwifi_packet_stats_edit value{1,GTA3XLWIFI_STATS_DELETE_UID,uid,0,0,0};
++    return packetCommandLocked(GTA3XLWIFI_STATS_EDIT,&value,false);
++}
++} // namespace android::net::gta3xlwifi
+--- a/Gta3xlwifiNetpolicyLease.h
++++ b/Gta3xlwifiNetpolicyLease.h
+@@ -87,12 +87,56 @@
+     // One non-consuming actual snapshot, no metadata/data race or fake totals.
+     // Loss is returned explicitly. Caller must not describe lossy data as complete.
+     int readIfaceStats(IfaceSnapshot* output);
++    struct PacketState {
++        uint32_t activeBank=0, pendingMask=0;
++        uint64_t activeEpoch=0;
++        std::array<uint32_t,2> bankCount{};
++        std::array<uint64_t,2> bankEpoch{},bankLost{};
++        uint32_t appCount=0,countersetCount=0;
++        uint64_t appLost=0,totalStatsLost=0;
++    };
++    struct PacketCounter {
++        uint32_t uid,tag,counterset,ifindex;
++        uint64_t rxPackets,rxBytes,txPackets,txBytes;
++    };
++    struct PacketSnapshot {
++        std::vector<PacketCounter> entries;
++        uint64_t epoch=0,lostUpdates=0,sequence=0;
++    };
++    struct AppCounter {
++        uint32_t uid;
++        uint64_t rxPackets,rxBytes,txPackets,txBytes;
++    };
++    struct AppSnapshot {
++        std::vector<AppCounter> entries;
++        uint64_t lostUpdates=0,sequence=0;
++    };
++    struct BankTransition {
++        uint32_t activeBank=0,inactiveBank=0;
++        uint64_t activeEpoch=0,inactiveEpoch=0;
++    };
++    // Storage only: no installed packet-hook or statistics-readiness claim.
++    // The complete backend owner must serialize these with its poll/lifecycle.
++    // SWAP/EDIT are never blindly retried. Uncertain results close the lease;
++    // after explicit owner recovery, STATE exposes a possibly committed swap.
++    // READ does not consume. ACK is explicit/idempotent; persist data first.
++    int readPacketState(PacketState* output);
++    int readFrozenPacketStats(uint32_t bank,uint64_t epoch,PacketSnapshot* output);
++    int readAppStats(AppSnapshot* output);
++    int swapPacketStats(uint32_t expectedBank,uint64_t expectedEpoch,BankTransition* output);
++    int acknowledgePacketStats(uint32_t bank,uint64_t epoch);
++    int setPacketCounterset(uint32_t uid,uint32_t counterset);
++    // Statistics/counterset only. Caller must separately remove socket tags and
++    // perform the final poll/ACK first; pending banks intentionally reject this.
++    int deleteUidPacketStats(uint32_t uid);
+     int start();
+     int hold();
+     int release();
+     int isHeld(bool* output);
+     void stop();
+ private:
++    int packetStorageLocked();
++    int packetCommandLocked(unsigned long request,void* argument,bool retry);
+     int loopbackFeaturesLocked();
+     int eventCommandLocked(void* argument);
+     uint64_t mLastEventSequence = 0, mLastEventLoss = 0, mLastEventLossTotal = 0;
+--- /dev/null
++++ b/linux/netfilter/gta3xlwifi_packet_stats.h
+@@ -0,0 +1,73 @@
++/* SPDX-License-Identifier: GPL-2.0 WITH Linux-syscall-note */
++#ifndef _UAPI_GTA3XLWIFI_PACKET_STATS_H
++#define _UAPI_GTA3XLWIFI_PACKET_STATS_H
++#include <linux/types.h>
++#include <linux/ioctl.h>
++#define GTA3XLWIFI_PACKET_STATS_VERSION 1U
++#define GTA3XLWIFI_PACKET_STATS_MAX 5000U
++#define GTA3XLWIFI_APP_STATS_MAX 10000U
++#define GTA3XLWIFI_COUNTERSET_MAX 20000U
++/* Storage/control primitive only. NO actual packet-hook/Ready claim. */
++#define GTA3XLWIFI_UID_CAP_PACKET_STATS_STORE (1U << 12)
++#define GTA3XLWIFI_STATS_BANK_A 0U
++#define GTA3XLWIFI_STATS_BANK_B 1U
++#define GTA3XLWIFI_STATS_APP_UID 2U
++struct gta3xlwifi_stats_key { __u32 uid, tag, counterset, ifindex; };
++struct gta3xlwifi_packet_stats_entry {
++    struct gta3xlwifi_stats_key key;
++    __aligned_u64 rx_packets, rx_bytes, tx_packets, tx_bytes;
++};
++struct gta3xlwifi_app_stats_entry {
++    __u32 uid, reserved;
++    __aligned_u64 rx_packets, rx_bytes, tx_packets, tx_bytes;
++};
++struct gta3xlwifi_packet_stats_state {
++    __u32 version, active_bank;
++    __aligned_u64 active_epoch;
++    __u32 bank_count[2], app_count, counterset_count;
++    __aligned_u64 bank_epoch[2], bank_lost[2], app_lost, total_stats_lost;
++    __u32 pending_mask, reserved;
++};
++/* Non-consuming one-call snapshot: capacity5000 for frozen bank,10000 for app.
++ * Input reserved/lost_updates/sequence must0. count0+entries0 probes only.
++ * Frozen bank requires pending and exact epoch. APP_UID input epoch must0.
++ * Loss counts real failed update attempts, not estimated lost packets.
++ */
++struct gta3xlwifi_packet_stats_transfer {
++    __u32 version, kind;
++    __aligned_u64 epoch;
++    __u32 count, reserved;
++    __aligned_u64 entries, lost_updates, sequence;
++};
++/* Input active_bank/active_epoch are CAS. Other input fields must0. On success
++ * returns NEW active state plus frozen previous bank/epoch. A copy failure can
++ * follow a real commit: never blindly retry; inspect STATE to recover.
++ */
++struct gta3xlwifi_packet_stats_swap {
++    __u32 version, active_bank;
++    __aligned_u64 active_epoch;
++    __u32 inactive_bank, reserved;
++    __aligned_u64 inactive_epoch;
++};
++/* Explicit drain ACK only after the full frozen snapshot has been delivered.
++ * Epoch ACK is idempotent, never clears active/new-generation counters.
++ */
++struct gta3xlwifi_packet_stats_ack {
++    __u32 version, bank;
++    __aligned_u64 epoch, reserved;
++};
++#define GTA3XLWIFI_STATS_SET_COUNTERSET 1U
++#define GTA3XLWIFI_STATS_DELETE_UID 2U
++/* SET_COUNTERSET accepts0(default/delete) or1(foreground), tag must0.
++ * DELETE_UID clears both stats banks/app/counterset, NOT socket tag metadata.
++ * It requires no pending frozen batch, matching poll/ACK-before-UID-removal.
++ */
++struct gta3xlwifi_packet_stats_edit {
++    __u32 version, operation, uid, tag, counterset, reserved;
++};
++#define GTA3XLWIFI_STATS_GET_STATE _IOR('g',0x5b,struct gta3xlwifi_packet_stats_state)
++#define GTA3XLWIFI_STATS_READ _IOWR('g',0x5c,struct gta3xlwifi_packet_stats_transfer)
++#define GTA3XLWIFI_STATS_SWAP _IOWR('g',0x5d,struct gta3xlwifi_packet_stats_swap)
++#define GTA3XLWIFI_STATS_ACK _IOW('g',0x5e,struct gta3xlwifi_packet_stats_ack)
++#define GTA3XLWIFI_STATS_EDIT _IOW('g',0x5f,struct gta3xlwifi_packet_stats_edit)
++#endif

@@ -1,0 +1,42 @@
+{
+  "passed": true,
+  "scope": "Actual immutable LNA store/trie/decision and lease dispatch C with fault fixtures.\n\nActual selected Android17 permission and LPM decision expressions are the oracle;\nmap lookup fixtures use an independent bitwise linear LPM implementation. RCU,\nalloc/copies/credentials are fixtures, not kernel/packet/runtime readiness.\n",
+  "passed_cases": 73,
+  "comparisons": 787916,
+  "command": [
+    "cc",
+    "-std=gnu11",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-Wno-unused-parameter",
+    "-O1",
+    "-g",
+    "-fsanitize=undefined",
+    "-fno-sanitize-recover=all",
+    "-pthread",
+    "-I/srv/android/artifacts/lineage-24.0-arm64/kernel-packet-stats-build-20261113-01/local-network-host/include",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-packet-stats-build-20261113-01/local-network-host/test.c",
+    "-o",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-packet-stats-build-20261113-01/local-network-host/test"
+  ],
+  "inputs_sha256": {
+    "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/test-kernel-local-network24.py": "d85baab7a8d9e627b060bfae64e5649e800112f3f31a765158c44e13d3c00878",
+    "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/test-kernel-qtaguid-socket-owned.py": "59516300b405af46c972b264353c3766b5c18cf882b04ac8ba9db6f70f436459",
+    "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/test-kernel-uid-permissions24.py": "1ee303fe84c897e2d292895a72a219c62ab3814f6511324faabdeb1d01fe97c8",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-packet-stats-20261113-01/src/net/netfilter/gta3xlwifi_local_network.c": "745d700dbd23727e8b66b6c56bd9ecc1d7854575d444dfdd47963698564f36ce",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-packet-stats-20261113-01/src/net/netfilter/gta3xlwifi_netpolicy.c": "3b32ad9b993d35ea75adfd5780b1e603e07a1953ce2584903b3b195d8915fd4a",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-packet-stats-20261113-01/src/net/netfilter/gta3xlwifi_uid_permissions.c": "4283ae29bfc4c088179df9f18e121e21c4e8d9fdc24e1a83c4f1df05392edfe7",
+    "/srv/android/src/lineage-24.0-arm64/packages/modules/Connectivity/bpf/progs/netd.c": "7dc4fa02952c0268737dc9aad20a0571b55df255f878506a4db91c1d962713b6",
+    "/srv/android/src/lineage-24.0-arm64/packages/modules/Connectivity/bpf/progs/netd.h": "ae85473717243924c609f8d963d03bc2631adbba8833ae527bf611291f38ca1a",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-packet-stats-20261113-01/src/include/uapi/linux/netfilter/gta3xlwifi_uid_permissions.h": "92d572695e88845aebb03c20474c804f56cd4c39c9b22dc01c355c0d81123945",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-packet-stats-build-20261113-01/local-network-host/include/linux/netfilter/gta3xlwifi_uid_permissions.h": "92d572695e88845aebb03c20474c804f56cd4c39c9b22dc01c355c0d81123945",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-packet-stats-20261113-01/src/include/uapi/linux/netfilter/gta3xlwifi_netpolicy.h": "fd53c8c287840054ac9234efdabd88302140d95fc1488c57080de499a835d54c",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-packet-stats-build-20261113-01/local-network-host/include/linux/netfilter/gta3xlwifi_netpolicy.h": "fd53c8c287840054ac9234efdabd88302140d95fc1488c57080de499a835d54c",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-packet-stats-20261113-01/src/include/uapi/linux/netfilter/gta3xlwifi_local_network.h": "78d66f9b5c834c56d035ea108c4323c849186df3c98d3fb3a48c3de53797b7be",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-packet-stats-build-20261113-01/local-network-host/include/linux/netfilter/gta3xlwifi_local_network.h": "78d66f9b5c834c56d035ea108c4323c849186df3c98d3fb3a48c3de53797b7be",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-packet-stats-build-20261113-01/local-network-host/test.c": "80ce34c39c62dc8938e8e4dbbe2684d6ff3000dafb32eebbcbcca960b78d6a88"
+  },
+  "kernel_runtime_tested": false,
+  "flash_ready": false
+}

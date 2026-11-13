@@ -1,0 +1,47 @@
+{
+  "scope": "Real bounded UID/tag/app storage, explicit bank freeze/read/ACK and counterset controls. No packet hooks, global readiness or selected source/prebuilt change.",
+  "prerequisites": [
+    "kernel-iface-capability-20261113-01"
+  ],
+  "patch_sha256": "89d108b05b15f5c568909b20301a68be6efae68fde9f7166375e3f3c87401a3c",
+  "files": [
+    {
+      "path": "net/netfilter/Makefile",
+      "before_sha256": "539380d837d5e22ffca65e2f91e15789522a344bece4c7a86158527203ee9224",
+      "candidate_sha256": "fa804801a9fa5c42d78f59b3748d888d46ce970f7ee17e981d96207b64e77ab0"
+    },
+    {
+      "path": "net/netfilter/gta3xlwifi_netpolicy.c",
+      "before_sha256": "750ddd1251fd263e2a287c80585968ea36dc84014c18df376a83fea51e4323be",
+      "candidate_sha256": "3b32ad9b993d35ea75adfd5780b1e603e07a1953ce2584903b3b195d8915fd4a"
+    },
+    {
+      "path": "include/uapi/linux/netfilter/gta3xlwifi_packet_stats.h",
+      "before_sha256": null,
+      "candidate_sha256": "a44d03ddee8cfdfea4e1ccc55033c1161e6b43e2b882a1075857f25b3bdc65cb"
+    },
+    {
+      "path": "include/net/gta3xlwifi_packet_stats.h",
+      "before_sha256": null,
+      "candidate_sha256": "fdf7aec15f705dfd6780f71d109b9d8d69c297a061ec25b238189c65d0e2734d"
+    },
+    {
+      "path": "net/netfilter/gta3xlwifi_packet_stats.c",
+      "before_sha256": null,
+      "candidate_sha256": "17230f8b2f5237244a1ac59be73f38000a075aa81dc81ceb8f652b7772071502"
+    }
+  ],
+  "supported_runtime_capability_bits": [
+    0,
+    1,
+    2,
+    3,
+    5,
+    9,
+    12
+  ],
+  "unknown_active_capabilities_rejected": true,
+  "android_prebuilt_promoted": false,
+  "hardware_tested": false,
+  "flash_ready": false
+}
