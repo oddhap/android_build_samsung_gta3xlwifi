@@ -1,0 +1,24 @@
+{
+  "passed": true,
+  "checked_at_utc": "2026-11-13T04:00:40.404342+00:00",
+  "scope": "Selected Android prebuilt kernel, latest21 MTP vendor and DTBO remain original; no experiment promoted.",
+  "inputs": [
+    {
+      "path": "/srv/android/src/lineage-24.0-arm64/device/samsung/gta3xlwifi/prebuilt/Image",
+      "sha256": "33c1a0d1b9e2696decd53fbedfc2231385b74464f4058a54b93ff06ff7c72553",
+      "bytes": 25378168
+    },
+    {
+      "path": "/srv/android/src/lineage-24.0-arm64/device/samsung/gta3xlwifi/prebuilt/vendor.img",
+      "sha256": "a847a527931d61e5702b8a025210c84eb88a37ef1e60df93b6393a16dae9183a",
+      "bytes": 265657140
+    },
+    {
+      "path": "/srv/android/src/lineage-24.0-arm64/device/samsung/gta3xlwifi/prebuilt/dtbo.img",
+      "sha256": "b9041c37713a745290d9a0203423436b6caa7a1307ced79b6963b4f1f0271c4b",
+      "bytes": 163252
+    }
+  ],
+  "hardware_tested": false,
+  "flash_ready": false
+}
