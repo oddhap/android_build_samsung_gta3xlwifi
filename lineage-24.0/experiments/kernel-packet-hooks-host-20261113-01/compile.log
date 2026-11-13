@@ -1,0 +1,31 @@
+/srv/android/artifacts/lineage-24.0-arm64/kernel-packet-hooks-host-20261113-01/test.c:494: error: "AF_INET" redefined [-Werror]
+  494 | #define AF_INET 2
+      | 
+In file included from /usr/include/x86_64-linux-gnu/sys/socket.h:33,
+                 from /usr/include/netinet/in.h:23,
+                 from /usr/include/arpa/inet.h:22,
+                 from /srv/android/artifacts/lineage-24.0-arm64/kernel-packet-hooks-host-20261113-01/test.c:10:
+/usr/include/x86_64-linux-gnu/bits/socket.h:97: note: this is the location of the previous definition
+   97 | #define AF_INET         PF_INET
+      | 
+/srv/android/artifacts/lineage-24.0-arm64/kernel-packet-hooks-host-20261113-01/test.c:495: error: "AF_INET6" redefined [-Werror]
+  495 | #define AF_INET6 10
+      | 
+In file included from /usr/include/x86_64-linux-gnu/sys/socket.h:33,
+                 from /usr/include/netinet/in.h:23,
+                 from /usr/include/arpa/inet.h:22,
+                 from /srv/android/artifacts/lineage-24.0-arm64/kernel-packet-hooks-host-20261113-01/test.c:10:
+/usr/include/x86_64-linux-gnu/bits/socket.h:105: note: this is the location of the previous definition
+  105 | #define AF_INET6        PF_INET6
+      | 
+/srv/android/artifacts/lineage-24.0-arm64/kernel-packet-hooks-host-20261113-01/test.c:496: error: "AF_UNIX" redefined [-Werror]
+  496 | #define AF_UNIX 1
+      | 
+In file included from /usr/include/x86_64-linux-gnu/sys/socket.h:33,
+                 from /usr/include/netinet/in.h:23,
+                 from /usr/include/arpa/inet.h:22,
+                 from /srv/android/artifacts/lineage-24.0-arm64/kernel-packet-hooks-host-20261113-01/test.c:10:
+/usr/include/x86_64-linux-gnu/bits/socket.h:95: note: this is the location of the previous definition
+   95 | #define AF_UNIX         PF_UNIX
+      | 
+cc1: all warnings being treated as errors

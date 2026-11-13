@@ -170,6 +170,8 @@ int main(void){
  printf("passed_cases=%u comparisons=%u\n",cases,comparisons);
 }
 '''
+if 'gta3xlwifi_packet_hooks_features()' in d:
+ prefix+='\nstatic unsigned gta3xlwifi_packet_hooks_features(void){return 0;} /* compiled primitive tested separately */\n'
 code='\n'.join([prefix,globals,store,functions,oracle,tests]);(O/'test.c').write_text(code);inputs=[Path(__file__),helper,legacy,image,driver,uid,reference,rh]
 for root,name in [(U,'gta3xlwifi_uid_permissions.h'),(U,'gta3xlwifi_netpolicy.h'),(S,'gta3xlwifi_local_network.h')]:
  src=root/'include/uapi/linux/netfilter'/name;dst=O/'include/linux/netfilter'/name;dst.parent.mkdir(parents=True,exist_ok=True);dst.write_bytes(src.read_bytes());inputs +=[src,dst]

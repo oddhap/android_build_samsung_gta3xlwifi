@@ -1,0 +1,27 @@
+{
+  "scope": "Actual receive/egress UID/app producer hookup; no native hook-admission bit, global readiness or source/prebuilt selection.",
+  "prerequisites": [
+    "kernel-packet-stats-20261113-01"
+  ],
+  "patch_sha256": "0e26cb7b06af2fc1b94b9d6f59b8a8cba00c58feebe5882a73a8b8588150f273",
+  "files": [
+    {
+      "path": "net/netfilter/xt_qtaguid.c",
+      "before_sha256": "1c5faeb7b34f838408e0e04f800c3591195bfd44e8a604ba9ca7e304d8c08f1e",
+      "candidate_sha256": "54f363931d7929ff68cf6796cea4a47664e9268f36663734a94b6a0fedb84d6d"
+    }
+  ],
+  "supported_runtime_capability_bits": [
+    0,
+    1,
+    2,
+    3,
+    5,
+    9,
+    12
+  ],
+  "unknown_active_capabilities_rejected": true,
+  "android_prebuilt_promoted": false,
+  "hardware_tested": false,
+  "flash_ready": false
+}

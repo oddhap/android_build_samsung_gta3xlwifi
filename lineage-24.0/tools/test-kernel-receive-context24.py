@@ -62,6 +62,8 @@ if 'result = gta3xlwifi_socket_table_policy_uid(' in rt:
  code+='\nstatic int gta3xlwifi_socket_table_policy_uid(struct sock*s,struct sk_buff*b,bool o,u32 u){(void)s;(void)b;(void)o;(void)u;assert(rcu_depth);return 0;} /* scoped LNA fixture; DROP/snapshot/order tested separately */\n'
 if 'result = gta3xlwifi_socket_table_policy_meta(' in rt:
  code+='\nstatic int gta3xlwifi_socket_table_policy_meta(struct sock*s,struct sk_buff*b,bool o,u32 u,bool d){(void)s;(void)b;(void)o;(void)u;(void)d;assert(rcu_depth);return 0;} /* scoped LNA fixture; owner/DNS tested separately */\n'
+if 'gta3xlwifi_account_packet(' in rt:
+ code+='\nstatic int gta3xlwifi_packet_stats_record(struct sock*s,const struct sk_buff*b,u32 uid,u32 tag,u32 index,bool out){(void)s;(void)b;(void)uid;(void)tag;(void)index;(void)out;assert(rcu_depth);return 0;} /* effects tested by actual store+hooks oracle */\nstatic void gta3xlwifi_packet_stats_lost(void){assert(rcu_depth);}\n'+m.extract(rt,'gta3xlwifi_account_packet')+'\n'
 code+='\n'.join(line for line in it.splitlines() if line.startswith('#define TAG_UID_MASK ') or line.startswith('#define TAG_ACCT_MASK '))+'\n'+'\n'.join(m.extract(it,n) for n in ['get_uid_from_tag','get_atag_from_tag'])+'\n'+'\n'.join(m.extract(parser.read_text(),n) for n in ['gta3xlwifi_packet_read','gta3xlwifi_parse_packet'])+'\n'+'\n'.join(m.extract(rt,n) for n in ['gta3xlwifi_socket_accounting','gta3xlwifi_receive_features','gta3xlwifi_receive_policy'])
 # Reuse the actual A17 parser/oracle text from its hash-bound previous host run.
 pp=a.packet_host/'test.c';pp_report=json.loads((a.packet_host/'report.json').read_text());assert pp_report['passed'] and sha(pp)==pp_report['inputs_sha256'][str(pp)]
@@ -132,6 +134,8 @@ int main(void){
 for name in ['gta3xlwifi_netpolicy.h','gta3xlwifi_uid_permissions.h']:
  src=a.store_host/'include/linux/netfilter'/name;dst=O/'include/linux/netfilter'/name;dst.parent.mkdir(parents=True,exist_ok=True);dst.write_bytes(src.read_bytes())
 for src,dst in [(S/'include/uapi/linux/netfilter/gta3xlwifi_local_network.h',O/'include/linux/netfilter/gta3xlwifi_local_network.h'),(B/'include/net/gta3xlwifi_packet.h',O/'include/net/gta3xlwifi_packet.h')]:dst.parent.mkdir(parents=True,exist_ok=True);dst.write_bytes(src.read_bytes())
+if 'gta3xlwifi_account_packet(' in rt:
+ code=code.replace('T(tag_lookups==0);','T(tag_lookups==1);') # ingress DROP now samples once for real accounting
 (O/'test.c').write_text(code);cmd=['cc','-std=gnu11','-Wall','-Wextra','-Werror','-Wno-unused-parameter','-O1','-g','-fsanitize=undefined','-fno-sanitize-recover=all','-pthread','-I'+str(O/'include'),str(O/'test.c'),'-o',str(O/'test')];x=subprocess.run(cmd,capture_output=True,text=True);(O/'compile.log').write_text(x.stdout+x.stderr);assert x.returncode==0,x.stderr
 x=subprocess.run([str(O/'test')],capture_output=True,text=True,timeout=60,env={**os.environ,'UBSAN_OPTIONS':'halt_on_error=1'});(O/'test.log').write_text(x.stdout+x.stderr);assert x.returncode==0 and not x.stderr,(x.returncode,x.stdout,x.stderr)
 match=re.fullmatch(r'passed_cases=(\d+) negative_headroom_parser_comparisons=(\d+)\n',x.stdout);assert match and int(match[1])>=40 and int(match[2])==5632

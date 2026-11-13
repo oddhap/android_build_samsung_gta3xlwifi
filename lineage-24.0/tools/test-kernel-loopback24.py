@@ -31,6 +31,8 @@ packet_header=S/'include/uapi/linux/netfilter/gta3xlwifi_packet_stats.h'
 if packet_header.exists():
  dst=O/'egress-regression/receive-prerequisite/include/linux/netfilter/gta3xlwifi_packet_stats.h';dst.write_bytes(packet_header.read_bytes())
  code='#include <linux/netfilter/gta3xlwifi_packet_stats.h>\nstatic unsigned gta3xlwifi_packet_stats_features(void){return 0;} /* separately tested packet storage */\nstatic long gta3xlwifi_packet_stats_ioctl(unsigned int c,unsigned long a){(void)c;(void)a;return -25;}\n'+code
+if 'gta3xlwifi_packet_hooks_features()' in d:
+ code='static unsigned gta3xlwifi_packet_hooks_features(void){return 0;} /* compiled producer admission separately tested */\n'+code
 for name in ['netpolicy_image_ioctl','netpolicy_ioctl']:code=code.replace(m.extract(code,name),m.extract(d,name))
 peer=S/'include/net/gta3xlwifi_socket_peer.h';dst=O/'egress-regression/receive-prerequisite/include/net/gta3xlwifi_socket_peer.h';dst.write_bytes(peer.read_bytes())
 code+=r'''

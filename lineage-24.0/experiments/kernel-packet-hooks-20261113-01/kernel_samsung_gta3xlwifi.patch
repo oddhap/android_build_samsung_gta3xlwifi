@@ -1,0 +1,88 @@
+--- a/net/netfilter/xt_qtaguid.c
++++ b/net/netfilter/xt_qtaguid.c
+@@ -3354,6 +3354,22 @@
+     return 0;
+ }
+ 
++/* UID/app accounting uses the SAME socket/tag sample as the policy decision.
++ * Receive DROP is counted, output DROP is not. Capacity/identity loss never
++ * changes the security verdict and is exposed by the real store loss fields.
++ */
++#include <net/gta3xlwifi_packet_stats.h>
++static void gta3xlwifi_account_packet(struct sock *sk,struct sk_buff *skb,
++                                      u32 uid,u32 stats_uid,u32 tag,
++                                      int metadata,bool output)
++{
++    if(metadata==-ENOENT){stats_uid=uid;tag=0;}
++    else if(metadata){gta3xlwifi_packet_stats_lost();return;}
++    if(stats_uid==1051&&tag==0xffffff82U)stats_uid=uid;
++    gta3xlwifi_packet_stats_record(sk,skb,stats_uid,tag,
++                                  skb->dev?skb->dev->ifindex:0,output);
++}
++
+ u32 gta3xlwifi_receive_features(void)
+ {
+     return GTA3XLWIFI_UID_CAP_LNA_RECEIVE;
+@@ -3363,7 +3379,7 @@
+ {
+     struct gta3xlwifi_packet packet;
+     struct net *net;
+-    u32 uid, stats_uid, tag, if_index;
++    u32 uid, stats_uid=0, tag=0, if_index;
+     int result = 0, metadata;
+     /* Same full-inet-socket applicability as the modern cgroup wrapper. */
+     if (!sk || !skb || !sk_fullsock(sk) ||
+@@ -3374,15 +3390,18 @@
+      * HOLD/close cannot complete while a reader that saw the old gate is live.
+      */
+     rcu_read_lock();
+-    if (gta3xlwifi_netpolicy_held()) {
+-        result = -EPERM;
+-        goto out;
+-    }
++    /* Ingress is accounted even when the private gate drops it. Sample once
++     * inside the RCU lifetime; retain the gate's original EPERM priority.
++     */
+     net = sock_net(sk);
+     uid = from_kuid_munged(net->user_ns, sock_net_uid(net, sk));
+     if (uid == 65534)
+         uid = 0;
+     metadata = gta3xlwifi_socket_accounting(sk, &stats_uid, &tag);
++    if (gta3xlwifi_netpolicy_held()) {
++        result = -EPERM;
++        goto out;
++    }
+     if (metadata && metadata != -ENOENT) {
+         result = metadata;
+         goto out;
+@@ -3407,6 +3426,7 @@
+                                packet.ip_proto, packet.sport))
+         result = -EPERM;
+ out:
++    gta3xlwifi_account_packet(sk,skb,uid,stats_uid,tag,metadata,false);
+     rcu_read_unlock();
+     return result;
+ }
+@@ -3424,8 +3444,8 @@
+ {
+     struct gta3xlwifi_packet packet;
+     struct net *net;
+-    u32 uid, stats_uid, tag, if_index;
+-    int result = 0, metadata;
++    u32 uid=0, stats_uid=0, tag=0, if_index;
++    int result = 0, metadata=-EAGAIN;
+     if (!sk || !skb || !sk_fullsock(sk) ||
+         (sk->sk_family != AF_INET && sk->sk_family != AF_INET6))
+         return 0;
+@@ -3478,6 +3498,11 @@
+                                packet.ip_proto, packet.dport))
+         result = -EPERM;
+ out:
++    /* A17 excludes dropped output and all statsUID CLAT output. The original
++     * outer output wrapper separately retains the real interface DROP UNDO.
++     */
++    if(!result&&stats_uid!=1029)
++        gta3xlwifi_account_packet(sk,skb,uid,stats_uid,tag,metadata,true);
+     rcu_read_unlock();
+     return result;
+ }

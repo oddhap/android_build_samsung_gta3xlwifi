@@ -1,0 +1,42 @@
+{
+  "scope": "Exact compiled packet primitive capability/admission; no global readiness or source/prebuilt selection.",
+  "prerequisites": [
+    "kernel-packet-hooks-20261113-01"
+  ],
+  "patch_sha256": "1b8cc5f299d6f3d57a834af1056fa37f4c197185adf38f34c4b6888038e30550",
+  "files": [
+    {
+      "path": "include/uapi/linux/netfilter/gta3xlwifi_packet_stats.h",
+      "before_sha256": "a44d03ddee8cfdfea4e1ccc55033c1161e6b43e2b882a1075857f25b3bdc65cb",
+      "candidate_sha256": "6c74850ea0ec6294db4b1a456485eb45975b3d8bb11db08a4d578f6637209350"
+    },
+    {
+      "path": "include/net/gta3xlwifi_packet_stats.h",
+      "before_sha256": "fdf7aec15f705dfd6780f71d109b9d8d69c297a061ec25b238189c65d0e2734d",
+      "candidate_sha256": "7404538d469cef4f702665c5a92f7e1ae01c7cb3e2ab4fd190a8c09aaa5f93fa"
+    },
+    {
+      "path": "net/netfilter/gta3xlwifi_packet_stats.c",
+      "before_sha256": "17230f8b2f5237244a1ac59be73f38000a075aa81dc81ceb8f652b7772071502",
+      "candidate_sha256": "359a4152a78fa8f9c71bc833bbbb838b4dadbdc763995083e04c1cd613c8e24f"
+    },
+    {
+      "path": "net/netfilter/gta3xlwifi_netpolicy.c",
+      "before_sha256": "3b32ad9b993d35ea75adfd5780b1e603e07a1953ce2584903b3b195d8915fd4a",
+      "candidate_sha256": "40d42c689d11fa9b73469a14fe6c253b4ee025673adb95bc17a20b6dfe40eea4"
+    }
+  ],
+  "hardware_tested": false,
+  "flash_ready": false,
+  "android_prebuilt_promoted": false,
+  "supported_runtime_capability_bits": [
+    0,
+    1,
+    2,
+    3,
+    5,
+    9,
+    12
+  ],
+  "unknown_active_capabilities_rejected": true
+}

@@ -1,0 +1,61 @@
+--- a/Gta3xlwifiNetpolicyLease.cpp
++++ b/Gta3xlwifiNetpolicyLease.cpp
+@@ -708,3 +708,16 @@
+     return packetCommandLocked(GTA3XLWIFI_STATS_EDIT,&value,false);
+ }
+ } // namespace android::net::gta3xlwifi
++
++namespace android::net::gta3xlwifi {
++int NetpolicyLease::requirePacketAccountingPrimitives() {
++    std::lock_guard<std::mutex> lock(mMutex);
++    if(mFd<0)return -ENOTCONN;
++    int result;
++    do{result=ioctl(mFd,GTA3XLWIFI_UID_FEATURES,0UL);}while(result<0&&errno==EINTR);
++    if(result<0)return imageErrorLocked(errno?-errno:-EIO);
++    constexpr int required=GTA3XLWIFI_UID_CAP_PACKET_STATS_STORE|
++                           GTA3XLWIFI_UID_CAP_PACKET_STATS_HOOKS;
++    return (result&required)==required?0:imageErrorLocked(-EOPNOTSUPP);
++}
++} // namespace android::net::gta3xlwifi
+--- a/Gta3xlwifiNetpolicyLease.h
++++ b/Gta3xlwifiNetpolicyLease.h
+@@ -87,6 +87,9 @@
+     // One non-consuming actual snapshot, no metadata/data race or fake totals.
+     // Loss is returned explicitly. Caller must not describe lossy data as complete.
+     int readIfaceStats(IfaceSnapshot* output);
++    // Requires actual storage AND compiled dual-stack UID/app producers.
++    // No rule installation, gate release or global readiness is implied.
++    int requirePacketAccountingPrimitives();
+     struct PacketState {
+         uint32_t activeBank=0, pendingMask=0;
+         uint64_t activeEpoch=0;
+--- a/Gta3xlwifiSocketPolicyProjection.cpp
++++ b/Gta3xlwifiSocketPolicyProjection.cpp
+@@ -55,6 +55,7 @@
+   if (r) return r;
+   r = mLease.requirePolicyPrimitives();
+   if (!r) r = mLease.requireIfaceAccountingPrimitives();
++  if (!r) r = mLease.requirePacketAccountingPrimitives();
+   if (!r) r = prepareHooks(mode);
+   if (!r) r = mAccounting.prepare(program);
+   if (!r) r = mSocket.prepare();
+@@ -64,7 +65,7 @@
+   if (r) return quarantine(r);
+   mAccountingEnabled = true;
+   mStarted = true;
+-  return 0;  // Held, actual interface producers verified, no policy/Ready yet.
++  return 0;  // Held, iface producers and UID/app primitives verified; no policy/Ready yet.
+ }
+ void SocketPolicyProjection::stop() {
+   std::lock_guard<std::mutex> lock(mMutex);
+--- a/linux/netfilter/gta3xlwifi_packet_stats.h
++++ b/linux/netfilter/gta3xlwifi_packet_stats.h
+@@ -9,6 +9,8 @@
+ #define GTA3XLWIFI_COUNTERSET_MAX 20000U
+ /* Storage/control primitive only. NO actual packet-hook/Ready claim. */
+ #define GTA3XLWIFI_UID_CAP_PACKET_STATS_STORE (1U << 12)
++/* Compiled dual-stack actual packet producers, separate from storage. */
++#define GTA3XLWIFI_UID_CAP_PACKET_STATS_HOOKS (1U << 13)
+ #define GTA3XLWIFI_STATS_BANK_A 0U
+ #define GTA3XLWIFI_STATS_BANK_B 1U
+ #define GTA3XLWIFI_STATS_APP_UID 2U

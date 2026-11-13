@@ -19,6 +19,14 @@ prior=H/'test.c';assert sha(prior)==r['inputs_sha256'][str(prior)]
 raw=S/'net/netfilter/xt_qtaguid.c';base=B/'net/netfilter/xt_qtaguid.c';new=raw.read_text();old=base.read_text();code=prior.read_text()
 assert sha(base)==next(h for path,h in r['inputs_sha256'].items() if path.endswith('/net/netfilter/xt_qtaguid.c'))
 recovered=new
+packet_helper=None
+if 'gta3xlwifi_account_packet(' in new:
+ start=recovered.index('/* UID/app accounting uses the SAME socket/tag sample');end=recovered.index('u32 gta3xlwifi_receive_features(void)',start)
+ addition=recovered[start:end]
+ # Exact reviewed producer helper/include/comment, not arbitrary code stripping.
+ assert hashlib.sha256(addition.encode()).hexdigest()=='8dfadf29b3a1624a5b3a70731504f85d3575b7713135460919ded8d2cb9cb576'
+ packet_helper=m.extract(new,'gta3xlwifi_account_packet')
+ recovered=recovered[:start]+recovered[end:]
 for name in ['gta3xlwifi_receive_policy','gta3xlwifi_egress_policy']:
  assert m.extract(code,name)==m.extract(old,name)
  recovered=recovered.replace(m.extract(new,name),m.extract(old,name),1)
@@ -41,6 +49,8 @@ static int gta3xlwifi_socket_table_policy_uid(struct sock*s,struct sk_buff*b,boo
 has_meta='gta3xlwifi_socket_table_policy_meta(' in new
 if has_meta:
  code+='\nstatic bool owner_dns;\nstatic int gta3xlwifi_socket_table_policy_meta(struct sock*s,struct sk_buff*b,bool output,u32 uid,bool dns){owner_dns=dns;return gta3xlwifi_socket_table_policy_uid(s,b,output,uid); }\n'
+if packet_helper:
+ code+='\nstatic int gta3xlwifi_packet_stats_record(struct sock*s,const struct sk_buff*b,u32 uid,u32 tag,u32 index,bool out){(void)s;(void)b;(void)uid;(void)tag;(void)index;(void)out;assert(rcu_depth);return 0;} /* store effects have dedicated actual A17 flow oracle */\nstatic void gta3xlwifi_packet_stats_lost(void){assert(rcu_depth);}\n'+packet_helper+'\n'
 for name in ['gta3xlwifi_receive_policy','gta3xlwifi_egress_policy']:
  code+='\n'+m.extract(new,name).replace('int '+name+'(', 'static int candidate_'+name+'(',1)+'\n'
 code+=r'''

@@ -32,6 +32,46 @@ checks are separate from Android execution. Optional GPU BPF accounting still
 reports unavailable, rather than invented counters. Existing safety/installer
 and strict SELinux checks remain enforced.
 
+## Actual packet accounting checkpoint — November 13
+
+Both real socket-aware packet functions now feed the bounded UID/app store.
+One UID/tag sample controls policy and accounting. Receive DROP (including HOLD)
+is counted; output DROP and CLAT output are excluded. System DNS billing remaps
+to the socket UID while preserving its tag. Capacity loss never changes verdicts.
+Actual store plus actual packet functions match the pinned Android 17
+bpf_traffic_account function in 7,200 flows, alongside the earlier 9,830,400 GSO
+comparisons and 80,000 concurrent updates. ARM64 disassembly proves both compiled
+packet paths reach record/loss, and all original output hooks remain bound.
+See kernel-packet-hooks-20261113-01 and kernel-packet-hooks-build-20261113-02.
+
+A separate compiled-producer bit 13 now distinguishes these paths from storage
+bit 12. Eight getter checks across four configs and exact source identity checks
+pass; packet/accounting bodies remain unchanged. A fresh full kernel and modules,
+Gator/KUTF bindings, unchanged product config and all protected/Android source
+audits pass. See kernel-packet-capability-20261113-01.
+
+The single-lease accounting owner now requires both storage and compiled packet
+producers before any firewall operation. Tests cover both missing bits, all
+fourteen missing primitive flags, all 74 startup and 114 update I/O fault points,
+and the existing hard cutoff before policy image publication. Primitive admission
+(40), transport (99), generic owner (994) and integrated owner (1,251) checks pass.
+Fourteen actual ARM64 CFI sources partially link, private namespace resolution
+and actual ARM32/64 wire checks pass, and all 1,243-project/17-patch audits pass.
+See packet-accounting-owner-20261113-01.
+
+The five ioctl definitions and layouts are unchanged. All actual strict
+production/debug policy inputs and compiled policy hashes were rechecked intact;
+no new policy grant, neverallow exception or automatic selection was introduced.
+The selected kernel/latest LineageOS 21 MTP vendor/dtbo are unchanged. See
+packet-accounting-final-inputs-20261113-01. Earlier hook host runs 01/02 preserve
+test-fixture compile failures; run 03 passed. Initial full hook build 01 stopped
+on an old source-identity fixture; the reviewed helper is now accepted only with
+its exact fixed hash, retaining all other identity checks. Full build 02 passed.
+
+Statistics poll/lifecycle and Controllers/Binder/Java routing still need
+integration with this one owner. No production source/prebuilt promotion,
+network readiness, hardware validation or flash candidate is claimed.
+
 ## Packet statistics storage checkpoint — November 13
 
 A real bounded UID/tag/counterset/interface store and app UID counters now build

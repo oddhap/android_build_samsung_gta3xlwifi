@@ -1,0 +1,30 @@
+{
+  "passed": true,
+  "scope": "Verify actual ARM64 output code changes only the policy call target.\n\nCompiler inlining can duplicate source callback bodies. Compare complete actual\nbaseline/candidate disassembly, not an assumed source-to-machine call count.\n",
+  "output_objects": [
+    {
+      "object": "net/ipv4/ip_output.o",
+      "baseline_policy_call_relocations": 2,
+      "candidate_accounted_call_relocations": 2,
+      "entire_normalized_disassembly_identical": true
+    },
+    {
+      "object": "net/ipv6/ip6_output.o",
+      "baseline_policy_call_relocations": 2,
+      "candidate_accounted_call_relocations": 2,
+      "entire_normalized_disassembly_identical": true
+    }
+  ],
+  "counter_module_calls_actual_policy": true,
+  "inputs_sha256": {
+    "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/check-iface-egress-relocations24.py": "69786c6386361ef4c681929c0864ecb62b4ce9d16080522c576e2994ca075eb7",
+    "/srv/android/toolchains/aarch64-linux-android-4.9/bin/aarch64-linux-android-objdump": "ac9786f3adfeb1ad95a07a3ae6df255b729370f919da1f12e022f9510211a54c",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-iface-stats-20261113-02/out/net/ipv4/ip_output.o": "80ddadbd1d2fba627b9cae8428311185d8d97d5a89c116d0f745d51a274cd03e",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-packet-capability-20261113-01/out/net/ipv4/ip_output.o": "ba32e325a6eb4d06dfbca9be2e9fb706b570a73549f5887c22ae2684f44f857a",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-iface-stats-20261113-02/out/net/ipv6/ip6_output.o": "71cbb5c902fef781f54aef413eef6890f611bec190f599ac4e4d120843f777ab",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-packet-capability-20261113-01/out/net/ipv6/ip6_output.o": "78aa0a5f8cfc1171aab0b1432286ec7ea42208b2e0832888b3577ae714de70b9",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-packet-capability-20261113-01/out/net/netfilter/gta3xlwifi_iface_stats.o": "d09d7cc067686b0b764de9b5b022dc960d2a512ff0f4babaf00b54379a61b948"
+  },
+  "hardware_tested": false,
+  "flash_ready": false
+}

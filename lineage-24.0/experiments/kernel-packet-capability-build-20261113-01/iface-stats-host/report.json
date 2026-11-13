@@ -1,0 +1,35 @@
+{
+  "passed": true,
+  "scope": "Actual bounded interface store/snapshot and XT producer vs A17 counter macro.\n\nRegistration, skb, tag lookup and user copies are fixtures; real pthread locks\nexercise snapshot/update concurrency. Actual A17 explicit interface4.9 arithmetic\nis the oracle. No installed rules, UID accounting or whole-network readiness.\n",
+  "passed_cases": 49,
+  "actual_A17_amount_comparisons": 786432,
+  "inputs_sha256": {
+    "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/test-kernel-iface-stats24.py": "6026d920d9cf6bed017c45995ed3ebcafa8f72de251dafe0c8529a9d6531b685",
+    "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/test-kernel-qtaguid-socket-owned.py": "59516300b405af46c972b264353c3766b5c18cf882b04ac8ba9db6f70f436459",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-packet-capability-20261113-01/src/net/netfilter/gta3xlwifi_iface_stats.c": "4083eb6c211487c001e538797b283c703147f51b660221297dc17513cb61b646",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-packet-capability-20261113-01/src/net/netfilter/xt_qtaguid.c": "54f363931d7929ff68cf6796cea4a47664e9268f36663734a94b6a0fedb84d6d",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-packet-capability-20261113-01/src/include/uapi/linux/netfilter/gta3xlwifi_iface_stats.h": "6f35482ced56487d7982956c6a48b4840f7207133d43f45338dcb634710c43f3",
+    "/srv/android/src/lineage-24.0-arm64/packages/modules/Connectivity/bpf/progs/netd.c": "7dc4fa02952c0268737dc9aad20a0571b55df255f878506a4db91c1d962713b6",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-packet-capability-build-20261113-01/iface-stats-host/test.c": "fe387f86150481538b47926d629819d4f5de508a822dc5b14dd02f9f206530fe",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-packet-capability-build-20261113-01/iface-stats-host/include/linux/netfilter/gta3xlwifi_iface_stats.h": "6f35482ced56487d7982956c6a48b4840f7207133d43f45338dcb634710c43f3"
+  },
+  "command": [
+    "cc",
+    "-std=gnu11",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-Wno-unused-parameter",
+    "-O1",
+    "-g",
+    "-fsanitize=undefined",
+    "-fno-sanitize-recover=all",
+    "-pthread",
+    "-I/srv/android/artifacts/lineage-24.0-arm64/kernel-packet-capability-build-20261113-01/iface-stats-host/include",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-packet-capability-build-20261113-01/iface-stats-host/test.c",
+    "-o",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-packet-capability-build-20261113-01/iface-stats-host/test"
+  ],
+  "hardware_tested": false,
+  "flash_ready": false
+}

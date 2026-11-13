@@ -1,0 +1,6 @@
+{
+  "passed": true,
+  "partial_object_sha256": "0a2581d4febe8865d7d5703348e13b64c53425e44c27a9f5c554290ff44d6c83",
+  "undefined_private_namespace_symbols": [],
+  "scope": "Private namespace resolution only; platform/library/full service linking remains."
+}

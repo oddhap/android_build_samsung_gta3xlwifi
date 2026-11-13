@@ -1,0 +1,33 @@
+{
+  "passed": true,
+  "scope": "Compare the actual private appId match with the Android17 system-UID predicate.\n\nActual C bodies run with fatal UBSan. Socket references/lookup, namespace and\nregistration are fixtures; no real kernel packets, rules or devices are tested.\n",
+  "passed_cases": 24,
+  "actual_android17_predicate_comparisons": 343599,
+  "stderr": "",
+  "command": [
+    "cc",
+    "-std=gnu11",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-fsanitize=undefined",
+    "-fno-sanitize-recover=all",
+    "-I/srv/android/artifacts/lineage-24.0-arm64/kernel-packet-capability-build-20261113-01/appid-host/include",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-packet-capability-build-20261113-01/appid-host/test.c",
+    "-o",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-packet-capability-build-20261113-01/appid-host/test"
+  ],
+  "inputs_sha256": {
+    "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/test-kernel-appid-overflow24.py": "22ac1d4912b02d11d4b9f15935bd0ae6e12b70c485e2833d76b1769b62e4bfb6",
+    "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/test-kernel-qtaguid-socket-owned.py": "59516300b405af46c972b264353c3766b5c18cf882b04ac8ba9db6f70f436459",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-packet-capability-20261113-01/src/net/netfilter/xt_qtaguid.c": "54f363931d7929ff68cf6796cea4a47664e9268f36663734a94b6a0fedb84d6d",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-packet-capability-20261113-01/src/include/uapi/linux/netfilter/gta3xlwifi_appid.h": "0d06023da8290add60e73c90679328af285431609bca34260453d7055810067e",
+    "/srv/android/src/lineage-24.0-arm64/packages/modules/Connectivity/bpf/progs/netd.h": "ae85473717243924c609f8d963d03bc2631adbba8833ae527bf611291f38ca1a",
+    "/srv/android/src/lineage-24.0-arm64/system/core/libcutils/include/private/android_filesystem_config.h": "faad70383216abcf935ec76678bb5b40ca65b6396a0028a8fa6ffe9b9087eb37",
+    "/srv/android/src/lineage-24.0-arm64/packages/modules/Connectivity/bpf/progs/netd.c": "7dc4fa02952c0268737dc9aad20a0571b55df255f878506a4db91c1d962713b6",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-packet-capability-build-20261113-01/appid-host/test.c": "1b456bf06cf2d4cfefadb60178e09f1381b38519177ce42807291ecdbfc6ffa6",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-packet-capability-build-20261113-01/appid-host/include/linux/netfilter/gta3xlwifi_appid.h": "0d06023da8290add60e73c90679328af285431609bca34260453d7055810067e"
+  },
+  "hardware_tested": false,
+  "flash_ready": false
+}

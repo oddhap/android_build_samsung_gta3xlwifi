@@ -1,0 +1,29 @@
+/srv/android/ports/lineage-24.0-arm64/kernel-packet-capability-20261113-01/out/net/netfilter/gta3xlwifi_packet_stats.o  :
+section                                              size   addr
+.text                                                6108      0
+__ksymtab_strings                                     156      0
+___ksymtab_gpl+gta3xlwifi_packet_hooks_features        16      0
+___kcrctab_gpl+gta3xlwifi_packet_stats_features         8      0
+___ksymtab_gpl+gta3xlwifi_packet_stats_lost            16      0
+___ksymtab_gpl+gta3xlwifi_packet_stats_ioctl           16      0
+___kcrctab_gpl+gta3xlwifi_packet_stats_record           8      0
+___kcrctab_gpl+gta3xlwifi_packet_stats_lost             8      0
+___ksymtab_gpl+gta3xlwifi_packet_stats_record          16      0
+___ksymtab_gpl+gta3xlwifi_packet_stats_features        16      0
+___kcrctab_gpl+gta3xlwifi_packet_hooks_features         8      0
+___kcrctab_gpl+gta3xlwifi_packet_stats_ioctl            8      0
+.data                                                  24      0
+.bss                                              1542276      0
+.debug_info                                         95030      0
+.debug_abbrev                                        1792      0
+.debug_loc                                           4929      0
+.debug_aranges                                         48      0
+.debug_ranges                                        3088      0
+.debug_line                                          6845      0
+.debug_str                                          61773      0
+.comment                                               40      0
+.note.GNU-stack                                         0      0
+.debug_frame                                          656      0
+Total                                             1722885
+
+

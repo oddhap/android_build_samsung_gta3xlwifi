@@ -229,6 +229,8 @@ if 'gta3xlwifi_socket_tables_features()' in d:
  prefix+='\nstatic u32 gta3xlwifi_socket_tables_features(void){return 0;} /* real table registration tested separately */\n'
 if 'gta3xlwifi_egress_features()' in d:
  prefix+='\nstatic u32 gta3xlwifi_egress_features(void){return 0;} /* output hooks tested separately */\n'
+if 'gta3xlwifi_packet_hooks_features()' in d:
+ prefix+='\nstatic unsigned gta3xlwifi_packet_hooks_features(void){return 0;} /* compiled primitive tested separately */\n'
 code='\n'.join([prefix,globals,store,functions,oracle,fixture,*tails,tests])
 for name in ['gta3xlwifi_uid_permissions.h','gta3xlwifi_netpolicy.h']:
  src=S/'include/uapi/linux/netfilter'/name;dst=O/'include/linux/netfilter'/name;dst.parent.mkdir(parents=True,exist_ok=True);dst.write_bytes(src.read_bytes());inputs +=[src,dst]

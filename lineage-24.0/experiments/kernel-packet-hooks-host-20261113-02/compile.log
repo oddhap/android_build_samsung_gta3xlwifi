@@ -1,0 +1,2 @@
+/srv/android/artifacts/lineage-24.0-arm64/kernel-packet-hooks-host-20261113-02/test.c: Assembler messages:
+/srv/android/artifacts/lineage-24.0-arm64/kernel-packet-hooks-host-20261113-02/test.c:819: Error: junk at end of line, first unrecognized character is `%'

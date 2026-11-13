@@ -1,0 +1,53 @@
+--- a/include/uapi/linux/netfilter/gta3xlwifi_packet_stats.h
++++ b/include/uapi/linux/netfilter/gta3xlwifi_packet_stats.h
+@@ -9,6 +9,8 @@
+ #define GTA3XLWIFI_COUNTERSET_MAX 20000U
+ /* Storage/control primitive only. NO actual packet-hook/Ready claim. */
+ #define GTA3XLWIFI_UID_CAP_PACKET_STATS_STORE (1U << 12)
++/* Compiled dual-stack actual packet producers, separate from storage. */
++#define GTA3XLWIFI_UID_CAP_PACKET_STATS_HOOKS (1U << 13)
+ #define GTA3XLWIFI_STATS_BANK_A 0U
+ #define GTA3XLWIFI_STATS_BANK_B 1U
+ #define GTA3XLWIFI_STATS_APP_UID 2U
+--- a/include/net/gta3xlwifi_packet_stats.h
++++ b/include/net/gta3xlwifi_packet_stats.h
+@@ -12,5 +12,6 @@
+                                  u32 stats_uid,u32 tag,u32 ifindex,bool output);
+ void gta3xlwifi_packet_stats_lost(void);
+ u32 gta3xlwifi_packet_stats_features(void);
++u32 gta3xlwifi_packet_hooks_features(void);
+ long gta3xlwifi_packet_stats_ioctl(unsigned int cmd,unsigned long arg);
+ #endif
+--- a/net/netfilter/gta3xlwifi_packet_stats.c
++++ b/net/netfilter/gta3xlwifi_packet_stats.c
+@@ -66,6 +66,19 @@
+     }
+     *packets=p;*bytes=b;
+ }
++u32 gta3xlwifi_packet_hooks_features(void)
++{
++#if defined(CONFIG_INET) && defined(CONFIG_IPV6)
++    /* This staged source includes both real packet producer bodies and the
++     * original full-socket receive/output call sites. Their actual compiled
++     * reachability is a mandatory build check, not a BPF/runtime Ready claim.
++     */
++    return GTA3XLWIFI_UID_CAP_PACKET_STATS_HOOKS;
++#else
++    return 0;
++#endif
++}
++EXPORT_SYMBOL_GPL(gta3xlwifi_packet_hooks_features);
+ u32 gta3xlwifi_packet_stats_features(void)
+ {
+ #if defined(CONFIG_INET) && defined(CONFIG_IPV6)
+--- a/net/netfilter/gta3xlwifi_netpolicy.c
++++ b/net/netfilter/gta3xlwifi_netpolicy.c
+@@ -148,7 +148,7 @@
+ 	else if (cmd == GTA3XLWIFI_UID_FEATURES)
+ 		ret = gta3xlwifi_uid_permissions_features() | GTA3XLWIFI_UID_CAP_LNA_STORE |
+ 		      gta3xlwifi_lna_packet_features() | gta3xlwifi_receive_features() | gta3xlwifi_egress_features() | gta3xlwifi_loopback_features() |
+-		      gta3xlwifi_socket_tables_features() | gta3xlwifi_iface_stats_features() | gta3xlwifi_packet_stats_features();
++		      gta3xlwifi_socket_tables_features() | gta3xlwifi_iface_stats_features() | gta3xlwifi_packet_stats_features() | gta3xlwifi_packet_hooks_features();
+ 	else if ((cmd == GTA3XLWIFI_UID_SET_IMAGE || cmd == GTA3XLWIFI_LNA_SET_IMAGE) &&
+ 	         !READ_ONCE(netpolicy_held))
+ 		ret = -EBUSY;

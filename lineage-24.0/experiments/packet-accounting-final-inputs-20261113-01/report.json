@@ -1,0 +1,25 @@
+{
+  "passed": true,
+  "scope": "Selected Android inputs and all actual strict production/debug policy inputs rechecked after isolated packet producer/capability and owner builds. No new ioctl or wire change; feature delta only. No selection/device access.",
+  "checked_at_utc": "2026-11-13T18:42:02.830239+00:00",
+  "selected_inputs_sha256": {
+    "/srv/android/src/lineage-24.0-arm64/device/samsung/gta3xlwifi/prebuilt/Image": "33c1a0d1b9e2696decd53fbedfc2231385b74464f4058a54b93ff06ff7c72553",
+    "/srv/android/src/lineage-24.0-arm64/device/samsung/gta3xlwifi/prebuilt/vendor.img": "a847a527931d61e5702b8a025210c84eb88a37ef1e60df93b6393a16dae9183a",
+    "/srv/android/src/lineage-24.0-arm64/device/samsung/gta3xlwifi/prebuilt/dtbo.img": "b9041c37713a745290d9a0203423436b6caa7a1307ced79b6963b4f1f0271c4b"
+  },
+  "unchanged_strict_policies": [
+    {
+      "flavor": "production",
+      "strict_report_sha256": "063bb7396134d06e8bd037e6fe26b7c035c4e7fac008108c60781824a4088bc9",
+      "compiled_policy_sha256": "dd1f70a59ef440750be7ce2cb45209fe974d834f9a56183d9d896658200c442a",
+      "all_actual_policy_inputs_unchanged": true
+    },
+    {
+      "flavor": "debug",
+      "strict_report_sha256": "ae135be4600d45db5346461974601aba1a7a66da45212ba3c174507da1920382",
+      "compiled_policy_sha256": "cf74927ea953dc5641b0e3cbba7cee6a8ec6db9ad9d7b1e6910851f134c0baa0",
+      "all_actual_policy_inputs_unchanged": true
+    }
+  ],
+  "flash_ready": false
+}

@@ -1,0 +1,42 @@
+{
+  "passed": true,
+  "scope": "Actual private socket-table lifecycle/grammar/evaluator/lease helper C.\n\nTable allocation/translation/evaluation, netns, sockets, RCU and credentials are\nfixtures. Checks exact core insertion boundaries; no global hook, real packets,\ncomplete owner policy, iptables syscall or readiness is validated by this test.\n",
+  "passed_cases": 73,
+  "grammar_comparisons": 864,
+  "core_replacement_bodies_preserved_except_exact_private_inserts": true,
+  "no_global_nf_hooks_registered": true,
+  "actual_uid_snapshot_and_nested_restore_tested": true,
+  "inputs_sha256": {
+    "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/test-kernel-socket-tables24.py": "339b35a58fd2e5ff7097d6bfbc2e9c24c0d99f87915e6689270e158b247b0fb3",
+    "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/test-kernel-qtaguid-socket-owned.py": "59516300b405af46c972b264353c3766b5c18cf882b04ac8ba9db6f70f436459",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-packet-hooks-20261113-02/src/net/netfilter/gta3xlwifi_socket_tables.c": "800c7a0dde5c32e9bdc57c6b97a57cc79c33d75310f3d02eede865a5f8305d3f",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-packet-hooks-20261113-02/src/net/netfilter/gta3xlwifi_netpolicy.c": "3b32ad9b993d35ea75adfd5780b1e603e07a1953ce2584903b3b195d8915fd4a",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-packet-hooks-20261113-02/src/include/net/gta3xlwifi_socket_tables.h": "4032f279b03010923213e4c3292eb85c8b87b3b5570ed33acfd35960ea852b71",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-packet-hooks-20261113-02/src/net/ipv4/netfilter/ip_tables.c": "d5246967f78016e285c2aeaeb4de04873d78bd40a04257c39f2a4ca09db5f73f",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-loopback-events-20261108-01/src/net/ipv4/netfilter/ip_tables.c": "c2dc195f372873889d589281d9d894bcbe57c973b99071fb68ead76e56ba52e3",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-packet-hooks-20261113-02/src/net/ipv6/netfilter/ip6_tables.c": "3695e739d2418370518125829b530b9250cab9bf258fc5dfc54a8361aabe5f9e",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-loopback-events-20261108-01/src/net/ipv6/netfilter/ip6_tables.c": "37ba7b3bb2ad459039fd4b0e97d3974bc1122bffea60b765b24f337f747eda1b",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-packet-hooks-build-20261113-02/socket-tables-host/test.c": "128e963775a39b1e232a332917aa7f8c0693fee6a415f85d8d23bd24fb496978",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-packet-hooks-20261113-02/src/net/netfilter/xt_qtaguid.c": "54f363931d7929ff68cf6796cea4a47664e9268f36663734a94b6a0fedb84d6d",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-packet-hooks-20261113-02/src/include/uapi/linux/netfilter/gta3xlwifi_socket_tables.h": "6873b2d1ce429749d447c0406354b5f5d2c1a3783ca8dfa967d43a95721052d6",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-packet-hooks-build-20261113-02/socket-tables-host/ipv4-only.c": "4c221282dce5bfbd039cd309f94d7071af4c696d2bb392d4460135eb7e3b4f83"
+  },
+  "command": [
+    "cc",
+    "-std=gnu11",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-Wno-unused-parameter",
+    "-O1",
+    "-g",
+    "-fsanitize=undefined",
+    "-fno-sanitize-recover=all",
+    "-pthread",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-packet-hooks-build-20261113-02/socket-tables-host/test.c",
+    "-o",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-packet-hooks-build-20261113-02/socket-tables-host/test"
+  ],
+  "hardware_tested": false,
+  "flash_ready": false
+}
