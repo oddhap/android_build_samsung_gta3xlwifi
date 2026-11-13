@@ -38,12 +38,12 @@ A real bounded UID/tag/counterset/interface store and app UID counters now build
 in a fresh isolated kernel. Two banks use explicit epoch-bound swap/read/ACK;
 loss is reported, and pending-bank deletion is rejected. Capacities match the
 pinned Android 17 maps. Actual Linux 4.4 GSO metadata matches the Android 17
-UID/app arithmetic in 9830400 comparisons; 109 cases and 80000 concurrent updates
-pass. Full Image/modules, Gator118/KUTF43, unchanged product config, all60363
-candidate/all60331 protected source hashes and Android1243/17 audits pass.
+UID/app arithmetic in 9,830,400 comparisons; 109 cases and 80,000 concurrent updates
+pass. Full Image/modules, Gator (118)/KUTF (43), unchanged product config, all 60,363
+candidate/all 60,331 protected source hashes and Android 1,243-project/17-patch audits pass.
 See kernel-packet-stats-20261113-01 and kernel-packet-stats-build-20261113-01.
 
-Shared-lease Android transport passes99 wire/fault cases,994 generic and1245
+Shared-lease Android transport passes 99 wire/fault cases, 994 generic and 1,245
 accounting-owner regressions. Fourteen actual ARM64 netd CFI sources partially
 link with no unresolved private namespace symbols; actual ARM32/64 layouts pass
 for all five new controls. Uncertain swaps/edits close the lease without blind
@@ -51,16 +51,16 @@ retry. Reads do not consume; ACK is explicit and idempotent. UID statistics
 removal does not remove socket tags. See packet-stats-transport-20261113-01.
 
 Both production and debug policy compile with strict assertions enabled. Their
-5918/5881 assertion/constraint inventories remain identical. Each passes17 real
-permission/label checks and18 strict compiler ioctl oracles (16 allowed controls,
+5,918/5,881 assertion/constraint inventories remain identical. Each passes 17 real
+permission/label checks and 18 strict compiler ioctl oracles (16 allowed controls,
 two denied neighbors). Only five exact new ioctl grants are staged. No policy
 input selection, SELinux weakening or prebuilt promotion occurred. The selected
-latest21 MTP vendor hash is unchanged. See packet-stats-policy-*-20261113-01 and
-packet-stats-final-inputs-20261113-01. Earlier packet-store host runs01/02 retained
+latest LineageOS 21 MTP vendor hash is unchanged. See packet-stats-policy-*-20261113-01 and
+packet-stats-final-inputs-20261113-01. Earlier packet-store host runs 01/02 retained
 the passing executable results but failed report writing due to a missing helper;
-run03 and the full kernel runner contain complete successful reports.
+run 03 and the full kernel runner contain complete successful reports.
 
-Private bit12 proves storage/control only. Actual packet-hook production,
+Private bit 12 proves storage/control only. Actual packet-hook production,
 statistics poll/lifecycle and Controllers/Binder/Java routing are still required.
 There is no network readiness or flash-ROM claim.
 
