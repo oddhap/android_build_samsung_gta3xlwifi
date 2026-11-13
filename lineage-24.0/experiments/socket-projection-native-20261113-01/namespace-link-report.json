@@ -1,0 +1,8 @@
+{
+  "passed": true,
+  "object_sha256": "01a8e0c1a150ecb6fb1da6ff1dd68821a67b7a717777e66f4fe184c9a71ddbc5",
+  "undefined_policy_namespace_symbols": [],
+  "scope": "All twelve policy translation units resolve their own namespace in the partial ARM64 link; platform/library symbols still require full netd integration.",
+  "full_netd_linked": false,
+  "flash_ready": false
+}

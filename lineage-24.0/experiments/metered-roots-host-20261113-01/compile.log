@@ -1,0 +1,8 @@
+/srv/android/artifacts/lineage-24.0-arm64/metered-roots-host-20261113-01/test.cpp: In function ‘int runChain(const MK::T&, const string&, uint32_t, unsigned int, bool, bool, unsigned int)’:
+/srv/android/artifacts/lineage-24.0-arm64/metered-roots-host-20261113-01/test.cpp:224:2: error: this ‘if’ clause does not guard... [-Werror=misleading-indentation]
+  224 |  if(!match)continue;auto target=w.back();bool go=w[w.size()-2]=="-g";if(target=="RETURN")return 0;if(target=="REJECT")return 1;int child=runChain(t,target,uid,type,v6,quota,depth+1);if(child||go)return child;
+      |  ^~
+/srv/android/artifacts/lineage-24.0-arm64/metered-roots-host-20261113-01/test.cpp:224:21: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the ‘if’
+  224 |  if(!match)continue;auto target=w.back();bool go=w[w.size()-2]=="-g";if(target=="RETURN")return 0;if(target=="REJECT")return 1;int child=runChain(t,target,uid,type,v6,quota,depth+1);if(child||go)return child;
+      |                     ^~~~
+cc1plus: all warnings being treated as errors

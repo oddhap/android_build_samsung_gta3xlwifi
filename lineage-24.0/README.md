@@ -32,6 +32,19 @@ checks are separate from Android execution. Optional GPU BPF accounting still
 reports unavailable, rather than invented counters. Existing safety/installer
 and strict SELinux checks remain enforced.
 
+## Shared four-state policy projection checkpoint — November 13
+
+A single genuine lease/mutex now covers private ordinary/ingress and filter
+metered programs, both LNA tables, UID permission images and four-value publication.
+All firewall work ends before LNA then UID SET/readback LAST. Shared20000-owner
+union admission, real startup feature checks, stale generations and quarantine
+are implemented.990 fault/publication tests and actual twelve-source ARM64 netd
+CFI/partial link pass, with no unresolved private namespace symbols. The metered
+parent bridge retains critical IPv6 exceptions and quota/foreign rules;141 tests/
+1280 graph comparisons and nine-source CFI pass. See socket-projection-20261113-01
+and metered-roots-20261113-01. Source startup/control routing, accounting and
+Binder/Java/metrics delivery remain; no global readiness or flash candidate.
+
 ## Native ingress compiler checkpoint — November 13
 
 Canonical IIF/lockdown/destination state now compiles into typed private input

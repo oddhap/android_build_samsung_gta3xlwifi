@@ -1,0 +1,471 @@
+--- a/Gta3xlwifiNetpolicyLease.cpp
++++ b/Gta3xlwifiNetpolicyLease.cpp
+@@ -220,6 +220,17 @@
+     constexpr int required=GTA3XLWIFI_UID_CAP_SOCKET_TABLES | GTA3XLWIFI_UID_CAP_INGRESS_MATCHES;
+     return (result & required)==required ? 0 : imageErrorLocked(-EOPNOTSUPP);
+ }
++int NetpolicyLease::requirePolicyPrimitives() {
++    std::lock_guard<std::mutex> lock(mMutex);
++    if(mFd<0)return -ENOTCONN;
++    int result;do{result=ioctl(mFd,GTA3XLWIFI_UID_FEATURES,0UL);}while(result<0&&errno==EINTR);
++    if(result<0)return imageErrorLocked(errno?-errno:-EIO);
++    constexpr int required=GTA3XLWIFI_UID_CAP_IMAGE|GTA3XLWIFI_UID_CAP_CREATE4|
++        GTA3XLWIFI_UID_CAP_CREATE6|GTA3XLWIFI_UID_CAP_LNA_STORE|GTA3XLWIFI_UID_CAP_LNA_MATCH|
++        GTA3XLWIFI_UID_CAP_LNA_RECEIVE|GTA3XLWIFI_UID_CAP_LNA_EGRESS|GTA3XLWIFI_UID_CAP_LOOPBACK|
++        GTA3XLWIFI_UID_CAP_SOCKET_TABLES|GTA3XLWIFI_UID_CAP_INGRESS_MATCHES;
++    return (result&required)==required?0:imageErrorLocked(-EOPNOTSUPP);
++}
+ int NetpolicyLease::imageFeaturesLocked() {
+     if (mFd < 0) return -ENOTCONN;
+     int result;
+--- a/Gta3xlwifiNetpolicyLease.h
++++ b/Gta3xlwifiNetpolicyLease.h
+@@ -72,6 +72,7 @@
+     // This primitive capability does not release the gate or publish readiness.
+     int requireSocketTables();
+     int requireIngressMatches();
++    int requirePolicyPrimitives();
+     int start();
+     int hold();
+     int release();
+--- a/Gta3xlwifiIngressPolicy.cpp
++++ b/Gta3xlwifiIngressPolicy.cpp
+@@ -33,6 +33,12 @@
+     if (uid<0) return -EINVAL;
+     Owner next;if(auto i=mOwners.find(uid);i!=mOwners.end())next=i->second;
+     next.lockdown=enabled;return update(uid,next);
++}
++int IngressPolicy::ownerUids(std::vector<int32_t>* output) const {
++    if(!output)return -EINVAL;
++    std::vector<int32_t> next;next.reserve(mOwners.size());
++    for(const auto& item:mOwners)next.push_back(item.first);
++    *output=std::move(next);return 0;
+ }
+ int IngressPolicy::removeUid(int32_t uid) {
+     if (uid<0) return -EINVAL;
+--- a/Gta3xlwifiIngressPolicy.h
++++ b/Gta3xlwifiIngressPolicy.h
+@@ -12,6 +12,7 @@
+     int clearIif(int32_t uid);
+     int setLockdown(int32_t uid, bool enabled);
+     int removeUid(int32_t uid);
++    int ownerUids(std::vector<int32_t>* output) const;
+     int setDiscard(const Address& address, uint32_t first, uint32_t second);
+     int clearDiscard(const Address& address);
+     // Input must be the complete original11-chain ordinary compiler image.
+--- a/Gta3xlwifiSocketRoots.cpp
++++ b/Gta3xlwifiSocketRoots.cpp
+@@ -159,6 +159,13 @@
+     return false;
+ }
+ }
++int SocketRoots::verifyPrepared() {
++    std::lock_guard<std::mutex> lock(mMutex);int result=held();if(result)return result;
++    for(auto family:families){Inventory state;result=inventory(family,&state);
++        if(result||state.users.size()!=names().size())return fail(result?result:-EPROTO);
++        result=readImage(family,nullptr);if(result)return fail(result);
++    }return 0;
++}
+ int SocketRoots::verifyLocked(const Image& expected) {
+     int result = held();
+     if (result) return result;
+--- a/Gta3xlwifiSocketRoots.h
++++ b/Gta3xlwifiSocketRoots.h
+@@ -18,6 +18,7 @@
+     // Create missing chains only in an inert DROP table with no rules. Existing
+     // complete programs are parsed and retained; foreign input is never replayed.
+     int prepare();
++    int verifyPrepared();
+     // Requires a complete checked ordinary image already installed in BOTH
+     // families. Adds owned jumps before ACCEPT policy; exact readback required.
+     int activate(const Image& expected);
+--- /dev/null
++++ b/Gta3xlwifiSocketPolicyProjection.cpp
+@@ -0,0 +1,227 @@
++// SPDX-License-Identifier: Apache-2.0
++#include <cerrno>
++#include <set>
++#include <sstream>
++#include <utility>
++
++#include "Gta3xlwifiMeteredChainProgram.h"
++#include "Gta3xlwifiOrdinaryDispatch.h"
++#include "Gta3xlwifiSocketPolicyProjection.h"
++namespace android::net::gta3xlwifi {
++#include "projection-guards.inc"
++namespace {
++std::vector<std::string> chainNames(
++    const std::vector<CheckedUidChains::Chain>& image) {
++  std::vector<std::string> next;
++  for (const auto& c : image) next.push_back(c.name);
++  return next;
++}
++bool same(const NetpolicyLease::PermissionImage& a,
++          const NetpolicyLease::PermissionImage& b) {
++  return a.revision == b.revision && a.entries == b.entries;
++}
++bool same(const NetpolicyLease::LocalNetworkImage& a,
++          const NetpolicyLease::LocalNetworkImage& b) {
++  return a.revision == b.revision && a.network == b.network && a.host == b.host;
++}
++}  // namespace
++int SocketPolicyProjection::quarantine(int error) {
++  mCommit.reset();
++  mStarted = false;
++  mLease.stop();
++  return error;
++}
++int SocketPolicyProjection::start(HookMode mode) {
++  std::lock_guard<std::mutex> lock(mMutex);
++  if (mStarted) return -EALREADY;
++  int r = mLease.start();
++  if (r) return r;
++  r = mLease.requirePolicyPrimitives();
++  if (r) return quarantine(r);
++  r = prepareHooks(mode);
++  if (!r) r = mSocket.prepare();
++  if (!r) r = mMeter.prepare();
++  if (r) return quarantine(r);
++  mStarted = true;
++  return 0;  // Still held/unpublished.
++}
++void SocketPolicyProjection::stop() {
++  std::lock_guard<std::mutex> lock(mMutex);
++  quarantine(0);
++}
++int SocketPolicyProjection::replace(const State& value, uint64_t expected) {
++  std::lock_guard<std::mutex> lock(mMutex);
++  if (!mStarted) return -ENOTCONN;
++  if (expected != (mCommit ? mCommit->generation : 0)) return -ESTALE;
++  return applyLocked(value);
++}
++int SocketPolicyProjection::snapshot(State* output, uint64_t* generation) {
++  if (!output || !generation) return -EINVAL;
++  std::lock_guard<std::mutex> lock(mMutex);
++  if (!mCommit) return -EAGAIN;
++  State copy = mCommit->value;
++  *output = std::move(copy);
++  *generation = mCommit->generation;
++  return 0;
++}
++int SocketPolicyProjection::applyLocked(State value) {
++  if (mGeneration == UINT64_MAX) return -EOVERFLOW;
++  auto next = std::make_unique<Commit>();
++  next->value = std::move(value);
++  next->generation = mGeneration + 1;
++  // Exact shared A17 uid_owner_map union, including disabled-chain members
++  // and explicitly present wildcard IIF0. Permission/LNA stores are separate.
++  std::set<int32_t> owners;
++  std::vector<int32_t> uids;
++  for (const auto& chain : UidPolicy::chains()) {
++    int r = next->value.policy.matchingUids(chain.id, &uids);
++    if (r) return r;
++    owners.insert(uids.begin(), uids.end());
++    if (owners.size() > 20000) return -E2BIG;
++  }
++  int r = next->value.ingress.ownerUids(&uids);
++  if (r) return r;
++  owners.insert(uids.begin(), uids.end());
++  if (owners.size() > 20000) return -E2BIG;
++  Image ordinary;
++  r = UidChainProgram::ordinary(next->value.policy, &ordinary);
++  if (!r) r = OrdinaryDispatch::append(&ordinary);
++  if (!r) r = next->value.ingress.compile(ordinary, &next->ordinary);
++  if (!r) r = MeteredChainProgram::compile(next->value.policy, &next->metered);
++  if (!r) r = MeteredRoots::validateImage(next->metered);
++  if (r) return r;
++  std::vector<UidPermissionState::Entry> permissions;
++  r = next->value.permissions.snapshot(&permissions);
++  if (r) return r;
++  if (permissions.size() > 65536) return -E2BIG;
++  next->uid.entries.reserve(permissions.size());
++  for (const auto& e : permissions)
++    next->uid.entries.push_back({e.uid, e.permissions});
++  r = next->value.local.snapshot(&next->local.network, &next->local.host);
++  if (r) return r;
++  // Everything above is pure validation/allocation. Invalid values preserve
++  // the old released state and perform NO ioctl or firewall operation.
++  r = mLease.hold();
++  if (r) return quarantine(r);
++  r = verifyHooks();
++  if (!r) r = mSocket.verifyPrepared();
++  if (!r) r = mMeter.verifyPrepared();
++  if (!r && mCommit) r = mSocket.verify(mCommit->ordinary);
++  if (!r && mCommit) r = mMeter.verify(mCommit->metered);
++  if (r) return quarantine(r);
++  NetpolicyLease::PermissionImage beforeUid;
++  NetpolicyLease::LocalNetworkImage beforeLocal;
++  r = mLease.readUidPermissions(&beforeUid);
++  if (!r) r = mLease.readLocalNetwork(&beforeLocal);
++  if (r) return quarantine(r);
++  if (beforeUid.revision == UINT64_MAX || beforeLocal.revision == UINT64_MAX)
++    return quarantine(-EOVERFLOW);
++  if (mCommit &&
++      (!same(beforeUid, mCommit->uid) || !same(beforeLocal, mCommit->local)))
++    return quarantine(-EUCLEAN);
++  Image beforeOrd[2], beforeMeter[2];
++  unsigned index = 0;
++  for (auto family : {V4, V6}) {
++    r = mSocketWriter.read(family, chainNames(next->ordinary),
++                           &beforeOrd[index]);
++    if (!r)
++      r = mFilterWriter.read(family, chainNames(next->metered),
++                             &beforeMeter[index]);
++    if (r) return quarantine(r);
++    if (mCommit && (beforeOrd[index] != mCommit->ordinary ||
++                    beforeMeter[index] != mCommit->metered))
++      return quarantine(-EUCLEAN);
++    ++index;
++  }
++  // Any uncertain program/parent result withdraws all four states, even when
++  // a component restored itself. No mixed-family old/new state is released.
++  for (auto family : {V4, V6}) {
++    r = mSocketWriter.replace(family, next->ordinary);
++    if (r) return quarantine(r);
++  }
++  for (auto family : {V4, V6}) {
++    r = mFilterWriter.replace(family, next->metered);
++    if (r) return quarantine(r);
++  }
++  r = mSocket.activate(next->ordinary);
++  if (!r) r = mMeter.activate(next->metered);
++  if (!r) r = mSocket.verify(next->ordinary);
++  if (!r) r = mMeter.verify(next->metered);
++  if (!r) r = verifyHooks();
++  if (r) return quarantine(r);
++  // HARD firewall cutoff: nothing below may open/query/change iptables.
++  r = mLease.replaceLocalNetwork(beforeLocal.revision, next->local.network,
++                                 next->local.host, &next->local.revision);
++  if (r) return quarantine(-EUCLEAN);
++  r = mLease.replaceUidPermissions(beforeUid.revision, next->uid.entries,
++                                   &next->uid.revision);
++  if (r) return quarantine(-EUCLEAN);
++  if (mLease.release()) return quarantine(-EUCLEAN);
++  mGeneration = next->generation;
++  mCommit = std::move(next);
++  return 0;
++}
++int SocketPolicyProjection::update(const std::function<int(State&)>& mutation) {
++  std::lock_guard<std::mutex> lock(mMutex);
++  if (!mCommit) return -EAGAIN;
++  State next = mCommit->value;
++  int r = mutation(next);
++  return r ? r : applyLocked(std::move(next));
++}
++int SocketPolicyProjection::removeUid(int32_t uid) {
++  return update([uid](State& s) {
++    int r = s.policy.removeUid(uid);
++    if (!r) r = s.ingress.removeUid(uid);
++    if (!r) r = s.permissions.remove(uid);
++    if (!r) r = s.local.removeUid(uid);
++    return r;
++  });
++}
++int SocketPolicyProjection::setUidRule(int32_t c, int32_t u, int32_t r) {
++  return update([=](State& s) { return s.policy.setUidRule(c, u, r); });
++}
++int SocketPolicyProjection::setChainEnabled(int32_t c, bool e) {
++  return update([=](State& s) { return s.policy.setChainEnabled(c, e); });
++}
++int SocketPolicyProjection::setDataSaver(bool e) {
++  return update([=](State& s) {
++    s.policy.setDataSaver(e);
++    return 0;
++  });
++}
++int SocketPolicyProjection::setUidPermission(int32_t u, uint32_t p) {
++  return update([=](State& s) { return s.permissions.set(u, p); });
++}
++int SocketPolicyProjection::setIif(int32_t u, uint32_t i) {
++  return update([=](State& s) { return s.ingress.setIif(u, i); });
++}
++int SocketPolicyProjection::clearIif(int32_t u) {
++  return update([=](State& s) { return s.ingress.clearIif(u); });
++}
++int SocketPolicyProjection::setLockdown(int32_t u, bool e) {
++  return update([=](State& s) { return s.ingress.setLockdown(u, e); });
++}
++int SocketPolicyProjection::setDiscard(const IngressPolicy::Address& a,
++                                       uint32_t f, uint32_t b) {
++  return update([=](State& s) { return s.ingress.setDiscard(a, f, b); });
++}
++int SocketPolicyProjection::clearDiscard(const IngressPolicy::Address& a) {
++  return update([=](State& s) { return s.ingress.clearDiscard(a); });
++}
++int SocketPolicyProjection::setLocalEntry(LocalNetworkState::Table t,
++                                          LocalNetworkState::Entry e) {
++  return update([=](State& s) { return s.local.set(t, e); });
++}
++int SocketPolicyProjection::clearLocalEntry(LocalNetworkState::Table t,
++                                            LocalNetworkState::Entry e) {
++  return update([=](State& s) { return s.local.erase(t, e); });
++}
++int SocketPolicyProjection::readLoopbackEvents(
++    NetpolicyLease::LoopbackBatch* output) {
++  if (!output) return -EINVAL;
++  std::lock_guard<std::mutex> lock(mMutex);
++  if (!mCommit) return -EAGAIN;
++  int r = mLease.readLoopbackEvents(output);
++  return r ? quarantine(r) : 0;
++}
++}  // namespace android::net::gta3xlwifi
+--- /dev/null
++++ b/Gta3xlwifiSocketPolicyProjection.h
+@@ -0,0 +1,81 @@
++// SPDX-License-Identifier: Apache-2.0
++#pragma once
++#include <functional>
++#include <memory>
++
++#include "Gta3xlwifiIngressPolicy.h"
++#include "Gta3xlwifiLocalNetworkState.h"
++#include "Gta3xlwifiMeteredRoots.h"
++#include "Gta3xlwifiSocketRoots.h"
++#include "Gta3xlwifiUidPermissionState.h"
++#include "Gta3xlwifiUidPolicy.h"
++namespace android::net::gta3xlwifi {
++// Four-state POLICY projection only; not accounting/Binder/startup/readiness.
++// Sole owner of ONE real lease and one mutex. All rules/parents/guards in both
++// families finish before LNA SET, then UID SET LAST. Error withdraws every
++// value and closes/holds the gate; no post-SET firewall I/O or automatic policy
++// repair.
++class SocketPolicyProjection final {
++ public:
++  struct State {
++    UidPolicy policy;
++    IngressPolicy ingress;
++    UidPermissionState permissions;
++    LocalNetworkState local;
++  };
++  enum class HookMode { VerifyOnly, InstallMissing };
++  explicit SocketPolicyProjection(IptablesRestoreInterface& kernel)
++      : mKernel(kernel),
++        mSocket(kernel, mLease),
++        mMeter(kernel, mLease),
++        mSocketWriter(kernel, CheckedUidChains::Table::Socket),
++        mFilterWriter(kernel) {}
++  ~SocketPolicyProjection() { stop(); }
++  int start(HookMode mode = HookMode::VerifyOnly);
++  void stop();
++  // expectedGeneration=0 is explicit first commit after start. Stale updates
++  // fail before kernel I/O. Readers see one complete committed state or EAGAIN.
++  int replace(const State& state, uint64_t expectedGeneration);
++  int snapshot(State* output, uint64_t* generation);
++  int removeUid(int32_t uid);
++  int setUidRule(int32_t chain, int32_t uid, int32_t rule);
++  int setChainEnabled(int32_t chain, bool enabled);
++  int setDataSaver(bool enabled);
++  int setUidPermission(int32_t uid, uint32_t permissions);
++  int setIif(int32_t uid, uint32_t ifindex);
++  int clearIif(int32_t uid);
++  int setLockdown(int32_t uid, bool enabled);
++  int setDiscard(const IngressPolicy::Address& address, uint32_t first,
++                 uint32_t second);
++  int clearDiscard(const IngressPolicy::Address& address);
++  int setLocalEntry(LocalNetworkState::Table table,
++                    LocalNetworkState::Entry entry);
++  int clearLocalEntry(LocalNetworkState::Table table,
++                      LocalNetworkState::Entry entry);
++  int readLoopbackEvents(NetpolicyLease::LoopbackBatch* output);
++
++ private:
++  using Image = std::vector<CheckedUidChains::Chain>;
++  struct Commit {
++    State value;
++    Image ordinary, metered;
++    NetpolicyLease::PermissionImage uid;
++    NetpolicyLease::LocalNetworkImage local;
++    uint64_t generation = 0;
++  };
++  int applyLocked(State value);
++  int update(const std::function<int(State&)>& mutation);
++  int prepareHooks(HookMode mode);
++  int verifyHooks();
++  int quarantine(int error);
++  IptablesRestoreInterface& mKernel;
++  NetpolicyLease mLease;
++  SocketRoots mSocket;
++  MeteredRoots mMeter;
++  CheckedUidChains mSocketWriter, mFilterWriter;
++  std::mutex mMutex;
++  bool mStarted = false;
++  uint64_t mGeneration = 0;
++  std::unique_ptr<Commit> mCommit;
++};
++}  // namespace android::net::gta3xlwifi
+--- /dev/null
++++ b/projection-guards.inc
+@@ -0,0 +1,73 @@
++namespace {
++bool guarded(const std::string& chain, const std::string& text) {
++    if (text.empty() || text.size() > 1024 * 1024 || text.back() != '\n') return false;
++    for (unsigned char c : text) if ((c < 32 && c != '\n') || c == 127) return false;
++    std::istringstream input(text);
++    std::string line;
++    if (!std::getline(input, line) || (line != "-P " + chain + " ACCEPT" &&
++                                     line != "-P " + chain + " DROP")) return false;
++    if (!std::getline(input, line) ||
++        line != "-A " + chain + " -m gta3xlwifi_guard -j DROP") return false;
++    while (std::getline(input, line)) {
++        if (line.size() > 65536 || line.rfind("-A " + chain + " ", 0) != 0) return false;
++    }
++    return true;
++}
++}
++int SocketPolicyProjection::prepareHooks(HookMode mode) {
++    if (mode == HookMode::VerifyOnly) return verifyHooks();
++    if (mode != HookMode::InstallMissing) return -EINVAL;
++    struct Hook { IptablesTarget family; std::string chain, expected; bool missing; };
++    std::vector<Hook> hooks;
++    // Capture and validate every root before touching either family. Never
++    // submit existing/foreign rule text back to the command interpreter.
++    for (const auto family : {V4, V6}) {
++        for (const auto chain : {"INPUT", "FORWARD", "OUTPUT"}) {
++            const std::string name(chain);
++            std::string text;
++            if (mKernel.execute(family, "*filter\n-S " + name + "\nCOMMIT\n", &text))
++                return -EREMOTEIO;
++            if (guarded(name, text)) { hooks.push_back({family, name, text, false}); continue; }
++            if (text.empty() || text.size() > 1024 * 1024 || text.back() != '\n' ||
++                text.find("gta3xlwifi_guard") != std::string::npos) return -EPROTO;
++            for (unsigned char c : text) if ((c < 32 && c != '\n') || c == 127) return -EPROTO;
++            std::istringstream input(text);
++            std::string policy, line;
++            if (!std::getline(input, policy) || (policy != "-P " + name + " ACCEPT" &&
++                                                policy != "-P " + name + " DROP")) return -EPROTO;
++            while (std::getline(input, line)) {
++                if (line.size() > 65536 || line.rfind("-A " + name + " ", 0) != 0) return -EPROTO;
++            }
++            const std::string expected = policy + "\n-A " + name +
++                " -m gta3xlwifi_guard -j DROP\n" + text.substr(policy.size() + 1);
++            hooks.push_back({family, name, expected, true});
++        }
++    }
++    for (const auto family : {V4, V6}) {
++        std::string command = "*filter\n";
++        for (const auto& hook : hooks) {
++            if (hook.family == family && hook.missing)
++                command += "-I " + hook.chain + " 1 -m gta3xlwifi_guard -j DROP\n";
++        }
++        if (command != "*filter\n" && mKernel.execute(family, command + "COMMIT\n", nullptr))
++            return -EREMOTEIO;  // May have committed: retain guards and the held kernel state.
++    }
++    for (const auto& hook : hooks) {
++        std::string actual;
++        if (mKernel.execute(hook.family, "*filter\n-S " + hook.chain + "\nCOMMIT\n", &actual))
++            return -EREMOTEIO;
++        if (actual != hook.expected || !guarded(hook.chain, actual)) return -EPROTO;
++    }
++    return 0;  // All six actual images verified, but the barrier remains held.
++}
++int SocketPolicyProjection::verifyHooks() {
++    for (const auto family : {V4, V6}) {
++        for (const auto chain : {"INPUT", "FORWARD", "OUTPUT"}) {
++            std::string output;
++            if (mKernel.execute(family, "*filter\n-S " + std::string(chain) + "\nCOMMIT\n",
++                                &output)) return -EREMOTEIO;
++            if (!guarded(chain, output)) return -EPROTO;
++        }
++    }
++    return 0;
++}

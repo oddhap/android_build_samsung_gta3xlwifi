@@ -1,0 +1,199 @@
+--- /dev/null
++++ b/Gta3xlwifiMeteredRoots.cpp
+@@ -0,0 +1,152 @@
++// SPDX-License-Identifier: Apache-2.0
++#include "Gta3xlwifiMeteredRoots.h"
++#include <algorithm>
++#include <cerrno>
++#include <climits>
++#include <sstream>
++namespace android::net::gta3xlwifi {
++namespace {
++constexpr IptablesTarget families[]={V4,V6};
++constexpr const char* parents[]={"bw_penalty_box","bw_happy_box"};
++bool members(const std::vector<CheckedUidChains::Rule>& rules,size_t start,size_t end,
++             CheckedUidChains::Verdict verdict) {
++    using C=CheckedUidChains;uint32_t last=0;bool have=false;
++    for(size_t i=start;i<end;++i){const auto&r=rules[i];
++        if(!r.uid||r.selector!=C::Selector::RawUid||r.verdict!=verdict||r.targetUidChain||
++           r.ingressIfIndex||r.ingressDiscard||r.uid->last>INT_MAX||
++           (have&&r.uid->first<=last))return false;
++        last=r.uid->last;have=true;
++    }return true;
++}
++}
++std::vector<std::string> MeteredRoots::names(){return {"g24_meter_deny","g24_meter_allow","g24_data_saver"};}
++int MeteredRoots::validateImage(const Image& image){
++    using C=CheckedUidChains;
++    int r=C::validateImage(image,C::Table::Filter);if(r)return r;
++    if(image.size()!=3)return -EINVAL;
++    auto n=names();for(size_t i=0;i<3;++i)if(image[i].name!=n[i])return -EINVAL;
++    const auto&deny=image[0].rules;const auto&allow=image[1].rules;const auto&saver=image[2].rules;
++    const C::Rule end{std::nullopt,C::Verdict::Return};
++    const C::Rule core{C::UidRange{0,9999},C::Verdict::Return,C::Selector::RawAppId};
++    const C::Rule fallback{std::nullopt,C::Verdict::DataSaverGoto};
++    const C::Rule reject{std::nullopt,C::Verdict::Reject};
++    if(deny.empty()||allow.size()<2||saver.size()!=1||!(deny.back()==end)||
++       !(allow.front()==core)||!(allow.back()==fallback)||
++       (!(saver.front()==end)&&!(saver.front()==reject))||
++       !members(deny,0,deny.size()-1,C::Verdict::Reject)||
++       !members(allow,1,allow.size()-1,C::Verdict::Return))return -EINVAL;
++    return 0;
++}
++std::array<std::vector<std::string>,2> MeteredRoots::parentRules(IptablesTarget family){
++    std::array<std::vector<std::string>,2> r;
++    r[0]={"-A bw_penalty_box -j g24_meter_deny","-A bw_penalty_box -j bw_happy_box"};
++    // Same six wildcard-code ICMPv6 exemptions as A17's makeCriticalCommands.
++    // Moving them after deny but before happy is verdict-equivalent for either
++    // data-saver value. Use the actual ip6tables -S protocol/match/save spelling.
++    if(family==V6)for(unsigned type:{2u,133u,134u,135u,136u,137u})
++        r[1].push_back("-A bw_happy_box -p ipv6-icmp -m icmp6 --icmpv6-type "+
++                       std::to_string(type)+" -j RETURN");
++    // GOTO makes happy RETURN leave this parent explicitly. The old data-saver
++    // jump must not remain after this bridge; verification rejects extra rows.
++    r[1].push_back("-A bw_happy_box -g g24_meter_allow");return r;
++}
++int MeteredRoots::fail(int error){mLease.stop();return error;}
++int MeteredRoots::held(){bool value=false;int r=mLease.isHeld(&value);return r?fail(r):value?0:fail(-EBUSY);}
++int MeteredRoots::inventory(IptablesTarget family,Inventory*output){
++    std::string text;if(mKernel.execute(family,"*filter\n-S\nCOMMIT\n",&text))return -EREMOTEIO;
++    if(text.empty()||text.size()>4*1024*1024||text.back()!='\n')return -EPROTO;
++    for(unsigned char c:text)if((c<32&&c!='\n')||c==127)return -EPROTO;
++    Inventory next;std::set<std::string> declared,used,builtins;
++    const auto owned=names();const std::set<std::string> allowed(owned.begin(),owned.end());
++    std::istringstream input(text);std::string line;
++    while(std::getline(input,line)){
++        if(line.empty())return -EPROTO;
++        std::istringstream words(line);std::string op,name;words>>op>>name;
++        if(op=="-P"){
++            std::string policy,extra;words>>policy;
++            if((name!="INPUT"&&name!="OUTPUT"&&name!="FORWARD")||
++               (policy!="ACCEPT"&&policy!="DROP")||(words>>extra)||
++               !declared.insert(name).second)return -EPROTO;
++            builtins.insert(name);next.foreign.push_back(line);
++        }else if(op=="-N"){
++            std::string extra;
++            if(name.empty()||name.size()>28||(words>>extra)||
++               name=="INPUT"||name=="OUTPUT"||name=="FORWARD"||
++               !declared.insert(name).second)return -EPROTO;
++            if(name.rfind("g24_",0)==0&&!allowed.count(name))return -EPROTO;
++            next.users.insert(name);if(!allowed.count(name))next.foreign.push_back(line);
++        }else if(op=="-A"){
++            std::string rest;if(name.empty()||!(words>>rest))return -EPROTO;
++            used.insert(name);
++            if(name==parents[0])next.parents[0].push_back(line);
++            else if(name==parents[1])next.parents[1].push_back(line);
++            else if(allowed.count(name))next.ownedRules=true;
++            else {if(line.find("g24_")!=std::string::npos)return -EPROTO;next.foreign.push_back(line);}
++        }else return -EPROTO;
++    }
++    if(builtins.size()!=3||!next.users.count(parents[0])||!next.users.count(parents[1]))return -EPROTO;
++    for(const auto&chain:used)if(!declared.count(chain))return -EPROTO;
++    auto expected=parentRules(family);
++    for(unsigned i=0;i<2;++i)if(next.parents[i].size()>expected[i].size()||
++        !std::equal(next.parents[i].begin(),next.parents[i].end(),expected[i].begin()))return -EPROTO;
++    *output=std::move(next);return 0;
++}
++int MeteredRoots::image(IptablesTarget family,Image*output){
++    Image next;int r=mChains.read(family,names(),&next);if(r)return r;
++    bool empty=true;for(const auto&chain:next)empty&=chain.rules.empty();
++    if(!empty&&(r=validateImage(next)))return r;
++    *output=std::move(next);return 0;
++}
++int MeteredRoots::prepare(){
++    std::lock_guard<std::mutex>lock(mMutex);int r=held();if(r)return r;
++    std::array<Inventory,2>before;std::array<Image,2>retained;
++    for(unsigned f=0;f<2;++f){
++        r=inventory(families[f],&before[f]);if(r)return fail(r);
++        bool complete=true;for(const auto&n:names())complete&=before[f].users.count(n)!=0;
++        if(!complete){
++            if(before[f].ownedRules||!before[f].parents[0].empty()||!before[f].parents[1].empty())return fail(-EPROTO);
++            for(const auto&n:names())retained[f].push_back({n,{}});
++        }else{r=image(families[f],&retained[f]);if(r)return fail(r);}
++    }
++    for(unsigned f=0;f<2;++f){std::string command="*filter\n";
++        for(const auto&n:names())if(!before[f].users.count(n))command+="-N "+n+"\n";
++        if(command!="*filter\n"&&mKernel.execute(families[f],command+"COMMIT\n",nullptr))return fail(-EREMOTEIO);
++    }
++    for(unsigned f=0;f<2;++f){Inventory after;Image actual;
++        r=inventory(families[f],&after);if(r)return fail(r);
++        if(after.parents!=before[f].parents||after.foreign!=before[f].foreign)return fail(-ESTALE);
++        r=image(families[f],&actual);if(r||actual!=retained[f])return fail(r?r:-ESTALE);
++    }return 0;
++}
++int MeteredRoots::verifyLocked(const Image*expected,bool active){
++    int r=held();if(r)return r;
++    for(auto family:families){Inventory state;Image actual;
++        r=inventory(family,&state);if(r)return fail(r);
++        if(active&&state.parents!=parentRules(family))return fail(-EPROTO);
++        r=image(family,&actual);if(r||(expected&&actual!=*expected))return fail(r?r:-ESTALE);
++    }return 0;
++}
++int MeteredRoots::verifyPrepared(){std::lock_guard<std::mutex>lock(mMutex);return verifyLocked(nullptr,false);}
++int MeteredRoots::verify(const Image&expected){
++    int r=validateImage(expected);if(r)return r;
++    std::lock_guard<std::mutex>lock(mMutex);return verifyLocked(&expected,true);
++}
++int MeteredRoots::activate(const Image&expected){
++    int r=validateImage(expected);if(r)return r;
++    std::lock_guard<std::mutex>lock(mMutex);r=held();if(r)return r;
++    std::array<Inventory,2>before;
++    for(unsigned f=0;f<2;++f){Image actual;r=inventory(families[f],&before[f]);if(r)return fail(r);
++        r=image(families[f],&actual);if(r||actual!=expected)return fail(r?r:-ESTALE);
++    }
++    for(unsigned f=0;f<2;++f){auto wanted=parentRules(families[f]);std::string command="*filter\n";
++        for(unsigned p=0;p<2;++p)for(size_t i=before[f].parents[p].size();i<wanted[p].size();++i)
++            command+=wanted[p][i]+"\n";
++        if(command!="*filter\n"&&mKernel.execute(families[f],command+"COMMIT\n",nullptr))return fail(-EREMOTEIO);
++    }
++    for(unsigned f=0;f<2;++f){Inventory after;Image actual;
++        r=inventory(families[f],&after);if(r)return fail(r);
++        if(after.foreign!=before[f].foreign||after.parents!=parentRules(families[f]))return fail(-ESTALE);
++        r=image(families[f],&actual);if(r||actual!=expected)return fail(r?r:-ESTALE);
++    }return 0;
++}
++}  // namespace android::net::gta3xlwifi
+--- /dev/null
++++ b/Gta3xlwifiMeteredRoots.h
+@@ -0,0 +1,41 @@
++// SPDX-License-Identifier: Apache-2.0
++#pragma once
++#include "Gta3xlwifiCheckedUidChains.h"
++#include "Gta3xlwifiNetpolicyLease.h"
++#include <array>
++#include <set>
++namespace android::net::gta3xlwifi {
++// Bridge from EXISTING BandwidthController costly-interface paths to the three
++// owned metered chains. Caller must serialize all firewall changes/transactions.
++// Existing parent rules must be EMPTY or exact known prefixes; foreign/BPF
++// rules are rejected, never automatically replaced. No release/Ready callback.
++class MeteredRoots final {
++public:
++    using Image=std::vector<CheckedUidChains::Chain>;
++    MeteredRoots(IptablesRestoreInterface& kernel,NetpolicyLease& lease)
++        : mKernel(kernel),mLease(lease),mChains(kernel) {}
++    static int validateImage(const Image& image);
++    int prepare();
++    int verifyPrepared();
++    int activate(const Image& expected);
++    int verify(const Image& expected);
++private:
++    struct Inventory {
++        std::set<std::string> users;
++        std::array<std::vector<std::string>,2> parents;
++        std::vector<std::string> foreign;
++        bool ownedRules=false;
++    };
++    static std::vector<std::string> names();
++    static std::array<std::vector<std::string>,2> parentRules(IptablesTarget family);
++    int fail(int error);
++    int held();
++    int inventory(IptablesTarget family,Inventory* output);
++    int image(IptablesTarget family,Image* output);
++    int verifyLocked(const Image* expected,bool active);
++    IptablesRestoreInterface& mKernel;
++    NetpolicyLease& mLease;
++    CheckedUidChains mChains;
++    std::mutex mMutex;
++};
++}  // namespace android::net::gta3xlwifi
