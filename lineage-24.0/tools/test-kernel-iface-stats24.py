@@ -51,7 +51,10 @@ static void vfree(void*p){if(p){++frees;free(p);}}
 static void sort(void*p,size_t n,size_t size,int(*cmp)(const void*,const void*),void*swap){assert(!swap);qsort(p,n,size,cmp);}
 u32 gta3xlwifi_iface_stats_features(void);
 '''
-code+=source.read_text()[source.read_text().index('#define IFACE_HASH_BITS'):source.read_text().index('MODULE_LICENSE(')]
+body=source.read_text()[source.read_text().index('#define IFACE_HASH_BITS'):source.read_text().index('MODULE_LICENSE(')]
+if 'int gta3xlwifi_accounted_egress(' in body:
+ body=body.replace(m.extract(body,'gta3xlwifi_accounted_egress'),'').replace('EXPORT_SYMBOL_GPL(gta3xlwifi_accounted_egress);','')
+code+=body
 code+=r'''
 #define NF_INET_PRE_ROUTING 0
 #define NF_INET_POST_ROUTING 4

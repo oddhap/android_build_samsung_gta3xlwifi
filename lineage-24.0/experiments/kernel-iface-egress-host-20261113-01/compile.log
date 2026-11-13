@@ -1,0 +1,7 @@
+/srv/android/artifacts/lineage-24.0-arm64/kernel-iface-egress-host-20261113-01/test.c:266:23: error: ‘comparisons’ defined but not used [-Werror=unused-variable]
+  266 | static unsigned cases,comparisons;
+      |                       ^~~~~~~~~~~
+/srv/android/artifacts/lineage-24.0-arm64/kernel-iface-egress-host-20261113-01/test.c:145:25: error: ‘other_ns’ defined but not used [-Werror=unused-variable]
+  145 | static int init_user_ns,other_ns;static const void*user_ns=&init_user_ns;
+      |                         ^~~~~~~~
+cc1: all warnings being treated as errors

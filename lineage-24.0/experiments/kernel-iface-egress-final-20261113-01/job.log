@@ -1,0 +1,6 @@
+PASS: [('/srv/android/ports/lineage-24.0-arm64/kernel-iface-egress-20261113-01/out/drivers/gator/gator.ko', 118), ('/srv/android/ports/lineage-24.0-arm64/kernel-iface-egress-20261113-01/out/drivers/gpu/arm/b_r26p0/tests/kutf/kutf.ko', 43)]
+Audited 60360 tracked kernel files: /srv/android/artifacts/lineage-24.0-arm64/kernel-iface-egress-final-20261113-01/source-current.json
+Audited 60331 tracked kernel files: /srv/android/artifacts/lineage-24.0-arm64/kernel-iface-egress-final-20261113-01/protected-current.json
+PASS: 1243 locked projects, 17 exact reviewed patches; no external alternates
+PASS: Image/modules/source/relocations and exact expected export transition; original failed job exits retained
+Fri Nov 13 14:04:47 UTC 2026

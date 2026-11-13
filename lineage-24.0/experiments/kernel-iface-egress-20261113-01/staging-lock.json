@@ -1,0 +1,42 @@
+{
+  "scope": "Actual postrouting policy and interface DROP correction share an outer RCU lifetime in all three output wrappers. No installed producer rules, UID/tag accounting or full readiness.",
+  "prerequisites": [
+    "kernel-iface-stats-20261113-01"
+  ],
+  "patch_sha256": "77f92439b84d41b2813a20ceb26d74f83636deae6dc51c4e658c7d9310b475bf",
+  "files": [
+    {
+      "path": "include/net/gta3xlwifi_iface_stats.h",
+      "before_sha256": "2e73d48660e22f280061d8f03ed41358d8fe8a04bbb932b19b8f540e5c78d90f",
+      "candidate_sha256": "288124c6815c2bd0ce9274f9d5010a5bb4ccfc1900a9929491e5653e782d6964"
+    },
+    {
+      "path": "net/netfilter/gta3xlwifi_iface_stats.c",
+      "before_sha256": "d5d845f85d9ca1e5956ceeff9724264aa9bb7f5b3356379be0bf40e169bf0287",
+      "candidate_sha256": "7bc289fea629d5e70d5a83bcac6f1139914bafb4de45b4ddeb96046b8c1c9f53"
+    },
+    {
+      "path": "net/ipv4/ip_output.c",
+      "before_sha256": "eef9b43fd931d4233d9d76bf9370ebd08f6f765c380fd590f99d29d1622c6ba4",
+      "candidate_sha256": "5cb6e7532d366420bb974325d47d34ca71dbd091624e8412ed4026080506a4d6"
+    },
+    {
+      "path": "net/ipv6/ip6_output.c",
+      "before_sha256": "ccc27e896372a9f8a94ff23ce0bf280cfd206024c1bc635223d1e65f6a346cac",
+      "candidate_sha256": "5619dc2a4c834c9a016d9b48a0818871e1696539f0bb6522a642c53415e7f269"
+    }
+  ],
+  "supported_runtime_capability_bits": [
+    0,
+    1,
+    2,
+    3,
+    5,
+    9,
+    12
+  ],
+  "unknown_active_capabilities_rejected": true,
+  "android_prebuilt_promoted": false,
+  "hardware_tested": false,
+  "flash_ready": false
+}

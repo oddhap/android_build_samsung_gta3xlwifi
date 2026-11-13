@@ -1,0 +1,96 @@
+[
+  {
+    "experiment": "qtaguid-persistent-20261022-02",
+    "lock_sha256": "5d12605f4eae9276cce9c67c68bdac47efa72a7e2aca04a3269e95fcc6ee3e4c",
+    "project": {
+      "path": "kernel/samsung/gta3xlwifi",
+      "revision": "669b9584e678ce5865ed38e04c24639082d78de1",
+      "patch": "kernel_samsung_gta3xlwifi.patch",
+      "sha256": "91a9a64dd42490a588cab8dc73a2fc834148ae1696e7600ec64b3dec66d9a93b",
+      "files": [
+        {
+          "path": "net/netfilter/xt_qtaguid.c",
+          "reference_sha256": "820c02d16ab777502ac784ae3e800a171c70db8cf665d13dfab1b41d3874f776",
+          "staged_sha256": "212e2e4c3d459293a3427d2f715fb1843fac521787a7817c1f2d455598b254f3"
+        },
+        {
+          "path": "net/netfilter/xt_qtaguid_internal.h",
+          "reference_sha256": "74dd8b5ede13d8c366ee5cce3c998584a3c72878a1327c05082eb086cb0259c5",
+          "staged_sha256": "68ba021c7f67fa8578df3e7199944bb15cb0317c5a43ecc16b88becf11debde5"
+        },
+        {
+          "path": "include/uapi/linux/netfilter/xt_qtaguid_sock.h",
+          "reference_sha256": null,
+          "staged_sha256": "9096f41f971a71018f49f155d3577204678e7298a0e44728e644361332f98387"
+        }
+      ],
+      "selected_file_git_replay_passed": true
+    }
+  },
+  {
+    "experiment": "kernel-policy-reader-20261023-01",
+    "lock_sha256": "d75a22c50f861c99497515564402e1260816f92327a5082a450202fc27bd6366",
+    "project": {
+      "path": "kernel/samsung/gta3xlwifi",
+      "revision": "669b9584e678ce5865ed38e04c24639082d78de1",
+      "patch": "kernel_samsung_gta3xlwifi.patch",
+      "sha256": "700847b98babb54bf9cf1bdb31e65c6a659e8766401d11a4d60ee12204bea7f6",
+      "files": [
+        {
+          "path": "security/selinux/ss/avtab.c",
+          "reference_sha256": "45f716fa189a7d209a5a27d78df691aa1025e66fa6ac0c74d9b6b5a5c7678df1",
+          "staged_sha256": "0e7cfb7d017944012bd7c1b241b37ea4859f14d35aa46d46e457862db3a660dc"
+        },
+        {
+          "path": "security/selinux/ss/avtab.h",
+          "reference_sha256": "1aa697528c2d10a8272c2c2e503c9f9805d0be392a0a90ccc554c5d59437fe89",
+          "staged_sha256": "f43803ad7360e4bcc8780d6289f8af3c7170dd111a847016f6ca34e88f497d85"
+        },
+        {
+          "path": "security/selinux/ss/policydb.c",
+          "reference_sha256": "663b48f177d85fd58366f1c167ea30c161aeabfcab4b445148b360fc109b0125",
+          "staged_sha256": "bfb0aa8718b86868ad043c83b6e1c0ea6c81954741723e3ef130ea26e76ffb90"
+        }
+      ],
+      "selected_file_git_replay_passed": true
+    }
+  },
+  {
+    "experiment": "kernel-functionfs-20261023-01",
+    "lock_sha256": "88e6510bf811f32eee2dff7e55c27ab5786509bf2df83c783158fb5c934ae12b",
+    "project": {
+      "path": "kernel/samsung/gta3xlwifi",
+      "revision": "669b9584e678ce5865ed38e04c24639082d78de1",
+      "patch": "kernel_samsung_gta3xlwifi.patch",
+      "sha256": "c00fab6037e3a466b85f3c92795cc158780aea734d18ce1cc13358c37481bd48",
+      "files": [
+        {
+          "path": "security/selinux/hooks.c",
+          "reference_sha256": "d0767047a33a0fafffdfe8119a5a3bd68b30dd673d319c727b9775dc0ba0d64d",
+          "staged_sha256": "d9055e98168e564cd6ff9eac804ad3976fb21bb6229fc7ecf11af98ddd9a92ef"
+        },
+        {
+          "path": "security/selinux/include/classmap.h",
+          "reference_sha256": "ffe30eef4378308e33219b59e22f05b3238595d3d0b73c14e1f9ec18f181f1b1",
+          "staged_sha256": "ed7f864e3ba30aa0136e1b8ca11e4919c1ef02b125ac32977ef161aa90aa451d"
+        },
+        {
+          "path": "security/selinux/include/security.h",
+          "reference_sha256": "89be1df7e25b0ee24623030ff56792d569f1d1f658a47907b3311553b43bd96f",
+          "staged_sha256": "6934011c67cbcdf4759aa2b780b70b883b930f03fed9ef7de0e4015682dc8e10"
+        },
+        {
+          "path": "security/selinux/selinuxfs.c",
+          "reference_sha256": "fb7dd595ff29a3f6e2ab74c745fb1495a5acfcebe3c823dcd1f0a7884c40c2d4",
+          "staged_sha256": "b6b0d169ca7c1be311ce4522d6b09231052f2f0b042e450fd8d5edadf537689d"
+        },
+        {
+          "path": "security/selinux/ss/services.c",
+          "reference_sha256": "b249fac1390640fd34166479d7b7c9fa12c9d9309a9241c876237e78a6d9f67c",
+          "staged_sha256": "5800310a5d9e0a1c484c1d19992c72d0227a9977ae2b8558250a84495176a2d8"
+        }
+      ],
+      "selected_file_git_replay_passed": true
+    }
+  }
+]

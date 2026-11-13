@@ -1,0 +1,86 @@
+Audited 60360 tracked kernel files: /srv/android/artifacts/lineage-24.0-arm64/kernel-iface-egress-complete-20261113-01/source-before.json
+Audited 60331 tracked kernel files: /srv/android/artifacts/lineage-24.0-arm64/kernel-iface-egress-complete-20261113-01/protected-before.json
+PASS: 1243 locked projects, 17 exact reviewed patches; no external alternates
+PASS: complete IPv4/IPv6 code identity after policy-target substitution; 4 actual call relocations
+/srv/android/ports/lineage-24.0-arm64/kernel-iface-egress-20261113-01/out/init/uh.elf: OK
+/srv/android/ports/lineage-24.0-arm64/kernel-iface-egress-20261113-01/out/firmware/exynos7885_acpm_fvp.fw: OK
+/srv/android/ports/lineage-24.0-arm64/kernel-iface-egress-20261113-01/out/.config: OK
+make: Entering directory '/srv/android/ports/lineage-24.0-arm64/kernel-iface-egress-20261113-01/src'
+make[1]: Entering directory '/srv/android/ports/lineage-24.0-arm64/kernel-iface-egress-20261113-01/out'
+  CHK     include/config/kernel.release
+  GEN     ./Makefile
+  CHK     include/generated/uapi/linux/version.h
+/srv/android/ports/lineage-24.0-arm64/kernel-iface-egress-20261113-01/src/security/samsung/defex_lsm/Makefile:13: [DEFEX] INTEGRITY_ENABLE
+/srv/android/ports/lineage-24.0-arm64/kernel-iface-egress-20261113-01/src/firmware/Makefile:180: 'firmware/tsp_zinitix' directory dose not exist
+  Using /srv/android/ports/lineage-24.0-arm64/kernel-iface-egress-20261113-01/src as source for kernel
+  CHK     include/generated/utsrelease.h
+  CHK     scripts/mod/devicetable-offsets.h
+ANDROID_VERSION is 110000
+ANDROID_PLATFORM_VERSION is 11
+  CHK     include/generated/timeconst.h
+  CHK     include/generated/bounds.h
+  CHK     include/generated/asm-offsets.h
+  CALL    /srv/android/ports/lineage-24.0-arm64/kernel-iface-egress-20261113-01/src/scripts/checksyscalls.sh
+ANDROID_VERSION is 110000
+ANDROID_PLATFORM_VERSION is 11
+make[2]: 'include/generated/vdso-offsets.h' is up to date.
+  CHK     include/generated/compile.h
+/srv/android/ports/lineage-24.0-arm64/kernel-iface-egress-20261113-01/src/firmware/Makefile:180: 'firmware/tsp_zinitix' directory dose not exist
+/srv/android/ports/lineage-24.0-arm64/kernel-iface-egress-20261113-01/src/security/samsung/defex_lsm/Makefile:13: [DEFEX] INTEGRITY_ENABLE
+  CHK     kernel/config_data.h
+ANDROID_VERSION is 110000
+ANDROID_PLATFORM_VERSION is 11
+ANDROID_VERSION is 110000
+ANDROID_PLATFORM_VERSION is 11
+  CC [M]  drivers/gpu/arm/b_r26p0/tests/kutf/kutf_mem.o
+  CC [M]  drivers/gpu/arm/b_r26p0/tests/kutf/kutf_resultset.o
+  CC [M]  drivers/gpu/arm/b_r26p0/tests/kutf/kutf_suite.o
+  CC [M]  drivers/gpu/arm/b_r26p0/tests/kutf/kutf_utils.o
+  CC [M]  drivers/gpu/arm/b_r26p0/tests/kutf/kutf_helpers.o
+  CC [M]  drivers/gpu/arm/b_r26p0/tests/kutf/kutf_helpers_user.o
+  LD [M]  drivers/gpu/arm/b_r26p0/tests/kutf/kutf.o
+  Building modules, stage 2.
+  MODPOST 1 modules
+  CC      drivers/gpu/arm/b_r26p0/tests/kutf/kutf.mod.o
+  LD [M]  drivers/gpu/arm/b_r26p0/tests/kutf/kutf.ko
+firmware/Makefile:180: 'firmware/tsp_zinitix' directory dose not exist
+/srv/android/ports/lineage-24.0-arm64/kernel-iface-egress-20261113-01/src/scripts/Makefile.fwinst:43: target '/lib/firmware/tsp_melfas/mss100_a30.fw' given more than once in the same rule
+/srv/android/ports/lineage-24.0-arm64/kernel-iface-egress-20261113-01/src/scripts/Makefile.fwinst:43: target '/lib/firmware/tsp_melfas/mss100_a30_old.fw' given more than once in the same rule
+make[1]: Leaving directory '/srv/android/ports/lineage-24.0-arm64/kernel-iface-egress-20261113-01/out'
+make: Leaving directory '/srv/android/ports/lineage-24.0-arm64/kernel-iface-egress-20261113-01/src'
+make: Entering directory '/srv/android/ports/lineage-24.0-arm64/kernel-iface-egress-20261113-01/src'
+make[1]: Entering directory '/srv/android/ports/lineage-24.0-arm64/kernel-iface-egress-20261113-01/out'
+  CHK     include/config/kernel.release
+  GEN     ./Makefile
+  CHK     include/generated/uapi/linux/version.h
+  CHK     scripts/mod/devicetable-offsets.h
+  Using /srv/android/ports/lineage-24.0-arm64/kernel-iface-egress-20261113-01/src as source for kernel
+  CHK     include/generated/utsrelease.h
+  CHK     include/generated/timeconst.h
+  CHK     include/generated/bounds.h
+  CHK     include/generated/asm-offsets.h
+  CALL    /srv/android/ports/lineage-24.0-arm64/kernel-iface-egress-20261113-01/src/scripts/checksyscalls.sh
+make[2]: 'include/generated/vdso-offsets.h' is up to date.
+  CHK     drivers/gator/generated_gator_src_md5.h
+  CC [M]  drivers/gator/gator_events_block.o
+  CC [M]  drivers/gator/gator_events_irq.o
+  CC [M]  drivers/gator/gator_events_meminfo.o
+  CC [M]  drivers/gator/gator_events_mmapped.o
+  CC [M]  drivers/gator/gator_events_net.o
+  CC [M]  drivers/gator/gator_events_sched.o
+  CC [M]  drivers/gator/gator_main.o
+  LD [M]  drivers/gator/gator.o
+  MODPOST 2 modules
+  CC      drivers/gator/gator.mod.o
+  LD [M]  drivers/gator/gator.ko
+make[1]: Leaving directory '/srv/android/ports/lineage-24.0-arm64/kernel-iface-egress-20261113-01/out'
+make: Leaving directory '/srv/android/ports/lineage-24.0-arm64/kernel-iface-egress-20261113-01/src'
+/srv/android/ports/lineage-24.0-arm64/kernel-iface-egress-20261113-01/out/arch/arm64/boot/Image: OK
+PASS: [('/srv/android/ports/lineage-24.0-arm64/kernel-iface-egress-20261113-01/out/drivers/gator/gator.ko', 118), ('/srv/android/ports/lineage-24.0-arm64/kernel-iface-egress-20261113-01/out/drivers/gpu/arm/b_r26p0/tests/kutf/kutf.ko', 43)]
+Audited 60360 tracked kernel files: /srv/android/artifacts/lineage-24.0-arm64/kernel-iface-egress-complete-20261113-01/source-after.json
+Audited 60331 tracked kernel files: /srv/android/artifacts/lineage-24.0-arm64/kernel-iface-egress-complete-20261113-01/protected-after.json
+PASS: 1243 locked projects, 17 exact reviewed patches; no external alternates
+Traceback (most recent call last):
+  File "<stdin>", line 4, in <module>
+AssertionError: Resume input changed: /srv/android/ports/lineage-24.0-arm64/kernel-iface-egress-20261113-01/out/Module.symvers
+Fri Nov 13 13:45:33 UTC 2026

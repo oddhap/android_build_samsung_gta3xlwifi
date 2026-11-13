@@ -1,0 +1,99 @@
+--- a/include/net/gta3xlwifi_iface_stats.h
++++ b/include/net/gta3xlwifi_iface_stats.h
+@@ -4,6 +4,19 @@
+ #include <linux/types.h>
+ #include <uapi/linux/netfilter/gta3xlwifi_iface_stats.h>
+ struct sk_buff;
++struct sock;
++#ifdef CONFIG_NETFILTER_XT_MATCH_QTAGUID
++/* Actual postrouting policy + interface DROP correction share one outer RCU
++ * read section, so HOLD drains the correction as well as the policy decision.
++ * Caller retains skb ownership and consumes it exactly once on rejection.
++ */
++int gta3xlwifi_accounted_egress(struct sock *sk,struct sk_buff *skb);
++#else
++static inline int gta3xlwifi_accounted_egress(struct sock *sk,struct sk_buff *skb)
++{
++    return 0;
++}
++#endif
+ u32 gta3xlwifi_iface_stats_features(void);
+ int gta3xlwifi_iface_account(const struct sk_buff *skb,u32 ifindex,bool output,bool undo);
+ void gta3xlwifi_iface_lost(void);
+--- a/net/netfilter/gta3xlwifi_iface_stats.c
++++ b/net/netfilter/gta3xlwifi_iface_stats.c
+@@ -9,6 +9,9 @@
+ #include <linux/ip.h>
+ #include <linux/ipv6.h>
+ #include <linux/module.h>
++#include <linux/netdevice.h>
++#include <linux/rcupdate.h>
++#include <net/gta3xlwifi_receive.h>
+ #include <linux/skbuff.h>
+ #include <linux/sort.h>
+ #include <linux/spinlock.h>
+@@ -113,5 +116,21 @@
+     vfree(rows);return result;
+ }
+ EXPORT_SYMBOL_GPL(gta3xlwifi_iface_stats_ioctl);
++/* The interface producer ran in mangle POSTROUTING. Match A17's correction
++ * before returning any policy rejection; later output/fragmentation failures
++ * are not policy DROP and must not trigger another correction. No skb mutation,
++ * clamping, freeing or automatic producer rule installation is performed here.
++ */
++int gta3xlwifi_accounted_egress(struct sock *sk,struct sk_buff *skb)
++{
++    int result;
++    rcu_read_lock();
++    result=gta3xlwifi_egress_policy(sk,skb);
++    if(result&&skb)
++        gta3xlwifi_iface_account(skb,skb->dev?skb->dev->ifindex:0,true,true);
++    rcu_read_unlock();
++    return result;
++}
++EXPORT_SYMBOL_GPL(gta3xlwifi_accounted_egress);
+ MODULE_LICENSE("GPL");
+ MODULE_DESCRIPTION("Real bounded interface counter snapshots; no automatic accounting hooks");
+--- a/net/ipv4/ip_output.c
++++ b/net/ipv4/ip_output.c
+@@ -1,4 +1,5 @@
+ #include <net/gta3xlwifi_receive.h>
++#include <net/gta3xlwifi_iface_stats.h>
+ /*
+  * INET		An implementation of the TCP/IP protocol suite for the LINUX
+  *		operating system.  INET is implemented using the  BSD Socket
+@@ -298,7 +299,7 @@
+ 
+ static int ip_finish_output(struct net *net, struct sock *sk, struct sk_buff *skb)
+ {
+-	int result = gta3xlwifi_egress_policy(sk, skb);
++	int result = gta3xlwifi_accounted_egress(sk, skb);
+ 	if (result) {
+ 		kfree_skb(skb);
+ 		return result;
+@@ -309,7 +310,7 @@
+ /* Multicast/broadcast loopback clones have their own POST_ROUTING callback. */
+ static int ip_mc_finish_output(struct net *net, struct sock *sk, struct sk_buff *skb)
+ {
+-	int result = gta3xlwifi_egress_policy(sk, skb);
++	int result = gta3xlwifi_accounted_egress(sk, skb);
+ 	if (result) {
+ 		kfree_skb(skb);
+ 		return result;
+--- a/net/ipv6/ip6_output.c
++++ b/net/ipv6/ip6_output.c
+@@ -1,4 +1,5 @@
+ #include <net/gta3xlwifi_receive.h>
++#include <net/gta3xlwifi_iface_stats.h>
+ /*
+  *	IPv6 output functions
+  *	Linux INET6 implementation
+@@ -134,7 +135,7 @@
+ 
+ static int ip6_finish_output(struct net *net, struct sock *sk, struct sk_buff *skb)
+ {
+-	int result = gta3xlwifi_egress_policy(sk, skb);
++	int result = gta3xlwifi_accounted_egress(sk, skb);
+ 	if (result) {
+ 		kfree_skb(skb);
+ 		return result;

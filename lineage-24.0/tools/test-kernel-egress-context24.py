@@ -50,6 +50,9 @@ static int __ip_finish_output(struct net*n,struct sock*sk,struct sk_buff*s){asse
 static int __ip6_finish_output(struct net*n,struct sock*sk,struct sk_buff*s){assert(n==&net&&s);(void)sk;++output6;++consumed;return output_error;}
 static int dev_loopback_xmit(struct net*n,struct sock*sk,struct sk_buff*s){assert(n==&net&&s);(void)sk;++outputmc;++consumed;return output_error;}
 '''
+accounting=S/'net/netfilter/gta3xlwifi_iface_stats.c'
+if 'gta3xlwifi_accounted_egress(' in v4.read_text():
+ code+='\nstatic int gta3xlwifi_iface_account(const struct sk_buff*s,u32 i,bool output,bool undo){assert(s&&rcu_depth&&output&&undo);assert(i==(s->dev?s->dev->ifindex:0));return 0;} /* counter effects tested separately */\n'+m.extract(accounting.read_text(),'gta3xlwifi_accounted_egress')+'\n'
 for f,n in [(v4,'ip_finish_output'),(v6,'ip6_finish_output'),(v4,'ip_mc_finish_output')]:code+='\n'+m.extract(f.read_text(),n)
 code+=r'''
 static void*egress_thread(void*x){receive_result=gta3xlwifi_egress_policy(&receiver,x);return NULL;}
@@ -107,4 +110,4 @@ int main(void){
 (O/'test.c').write_text(code);cmd=['cc','-std=gnu11','-Wall','-Wextra','-Werror','-Wno-unused-parameter','-O1','-g','-fsanitize=undefined','-fno-sanitize-recover=all','-pthread','-I'+str(O/'receive-prerequisite/include'),str(O/'test.c'),'-o',str(O/'test')];x=subprocess.run(cmd,capture_output=True,text=True);(O/'compile.log').write_text(x.stdout+x.stderr);assert x.returncode==0,x.stderr
 x=subprocess.run([str(O/'test')],capture_output=True,text=True,timeout=60,env={**os.environ,'UBSAN_OPTIONS':'halt_on_error=1'});(O/'test.log').write_text(x.stdout+x.stderr);assert x.returncode==0 and not x.stderr,(x.returncode,x.stdout,x.stderr)
 match=re.search(r'egress_passed_cases=(\d+)\n$',x.stdout);assert match and int(match[1])>=50
-paths=[Path(__file__),helper,receive,prior,raw,v4,v6,old4,old6,android,aids,S/'include/net/gta3xlwifi_receive.h',S/'include/uapi/linux/netfilter/gta3xlwifi_local_network.h',O/'test.c'];(O/'report.json').write_text(json.dumps({'passed':True,'scope':__doc__,'passed_cases':int(match[1]),'actual_android17_clat_fallback_cases':48,'output_original_body_identity':True,'multicast_callbacks_checked':2,'consume_once_error_and_success_checked':True,'HOLD_waits_for_output_reader':True,'inputs_sha256':{str(p):sha(p) for p in paths},'command':cmd,'hardware_tested':False,'flash_ready':False},indent=2)+'\n');print(x.stdout.strip())
+paths=[Path(__file__),helper,receive,prior,raw,v4,v6,old4,old6,android,aids,S/'include/net/gta3xlwifi_receive.h',S/'include/uapi/linux/netfilter/gta3xlwifi_local_network.h',O/'test.c'];paths+=([accounting,S/'include/net/gta3xlwifi_iface_stats.h'] if 'gta3xlwifi_accounted_egress(' in v4.read_text() else []);(O/'report.json').write_text(json.dumps({'passed':True,'scope':__doc__,'passed_cases':int(match[1]),'actual_android17_clat_fallback_cases':48,'output_original_body_identity':True,'multicast_callbacks_checked':2,'consume_once_error_and_success_checked':True,'HOLD_waits_for_output_reader':True,'inputs_sha256':{str(p):sha(p) for p in paths},'command':cmd,'hardware_tested':False,'flash_ready':False},indent=2)+'\n');print(x.stdout.strip())

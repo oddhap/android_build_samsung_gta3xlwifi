@@ -32,6 +32,20 @@ checks are separate from Android execution. Optional GPU BPF accounting still
 reports unavailable, rather than invented counters. Existing safety/installer
 and strict SELinux checks remain enforced.
 
+## Interface DROP correction checkpoint — November 13
+
+All three actual postrouting wrappers now call the original policy and genuine
+interface UNDO inside one outer RCU lifetime. The real store/wrapper passes 251
+host cases and 60 actual Android17 counter-flow comparisons. Full kernel Image
+and modules, Gator/KUTF CRCs, unchanged config, complete candidate/protected and
+Android source audits pass. Complete normalized ARM64 output disassembly retains
+all old code except the intended call target, including four compiled calls.
+The finalizer verifies the exact expected module-export transition and all frozen
+inputs, preserving earlier failed test-assumption logs. See
+kernel-iface-egress-20261113-01 and kernel-iface-egress-final-20261113-01.
+No producer rules or Android startup are activated; UID/tag/bank accounting and
+service integration remain. No selected source/prebuilt change or test candidate.
+
 ## Interface counter primitive checkpoint — November 13
 
 An isolated real interface XT producer, bounded global counter store and leased
@@ -47,8 +61,8 @@ extensions preserve all 5918/5881 assertions/constraints and pass 17 access quer
 plus 13 ioctl compiler probes each. See kernel-iface-stats-20261113-01,
 iface-stats-transport-20261113-01 and xtables-iface-stats-20261113-01.
 
-Producer rules, matching egress DROP UNDO, UID/tag/bank accounting, actual service
-and startup integration remain. No new source, policy or kernel is selected into
+Producer-rule activation, UID/tag/bank accounting, actual service and startup
+integration remain. Matching egress DROP UNDO is built in the checkpoint above. No new source, policy or kernel is selected into
 Android images, no readiness is fabricated and no test-ROM candidate exists.
 
 ## Shared four-state policy projection checkpoint — November 13
