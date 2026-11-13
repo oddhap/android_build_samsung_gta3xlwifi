@@ -1,0 +1,10 @@
+/srv/android/artifacts/lineage-24.0-arm64/ingress-chain-host-20261113-01/test.cpp:217:262: error: macro "C" passed 2 arguments, but takes just 1
+  217 |  IP large;for(unsigned i=0;i<20000;i++)assert(large.setIif(10000+i,17)==0);C(large.setIif(30000,17)==-E2BIG&&large.setIif(10000,17)==0);C(large.compile(base,&out)==0&&out[9].rules.size()==13&&out[9].rules[11].uid==std::optional<ChainIO::UidRange>{{10000,29999}});
+      |                                                                                                                                                                                                                                                                      ^
+/srv/android/artifacts/lineage-24.0-arm64/ingress-chain-host-20261113-01/test.cpp:20: note: macro "C" defined here
+   20 | #define C(x) do {++cases;assert(x);}while(0)
+      | 
+/srv/android/artifacts/lineage-24.0-arm64/ingress-chain-host-20261113-01/test.cpp: In function ‘int main()’:
+/srv/android/artifacts/lineage-24.0-arm64/ingress-chain-host-20261113-01/test.cpp:217:137: error: ‘C’ was not declared in this scope
+  217 |  IP large;for(unsigned i=0;i<20000;i++)assert(large.setIif(10000+i,17)==0);C(large.setIif(30000,17)==-E2BIG&&large.setIif(10000,17)==0);C(large.compile(base,&out)==0&&out[9].rules.size()==13&&out[9].rules[11].uid==std::optional<ChainIO::UidRange>{{10000,29999}});
+      |                                                                                                                                         ^

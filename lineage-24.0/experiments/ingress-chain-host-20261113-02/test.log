@@ -1,0 +1,2 @@
+passed_cases=32 owner_comparisons=240 discard_comparisons=2160
+passed_cases=72 oracle_comparisons=1800

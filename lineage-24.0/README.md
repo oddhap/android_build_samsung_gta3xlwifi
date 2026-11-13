@@ -32,6 +32,17 @@ checks are separate from Android execution. Optional GPU BPF accounting still
 reports unavailable, rather than invented counters. Existing safety/installer
 and strict SELinux checks remain enforced.
 
+## Native ingress compiler checkpoint — November 13
+
+Canonical IIF/lockdown/destination state now compiles into typed private input
+rules within the fixed ordinary exemptions. Explicit wildcard0 is preserved;
+discard precedes IIF, both actual kernel bits are required for ingress root
+activation, and filter placement is rejected.72 host cases/1800 actual A17 C
+comparisons plus180/90/59/84 regressions pass; seven actual ARM64 netd CFI sources
+and all source/UAPI audits pass. See ingress-chain-20261113-01. Shared owner
+capacity/image-size limits and complete atomic native/Binder/startup/accounting/
+metrics integration still require work. No selected image or flash candidate.
+
 ## Private ingress predicate checkpoint — November 13
 
 The isolated actual socket hooks now carry exact-skb DNS/direction metadata.

@@ -1,0 +1,348 @@
+--- a/Gta3xlwifiCheckedUidChains.cpp
++++ b/Gta3xlwifiCheckedUidChains.cpp
+@@ -46,6 +46,27 @@
+     }
+     *output = {first, last};
+     return true;
++}
++std::string addressHex(const std::array<uint8_t,16>& address) {
++    constexpr char digits[] = "0123456789abcdef";
++    std::string result;
++    for (uint8_t b : address) { result += digits[b >> 4]; result += digits[b & 15]; }
++    return result;
++}
++bool readAddress(std::string_view text, std::array<uint8_t,16>* output) {
++    if (text.size() != 32) return false;
++    std::array<uint8_t,16> value{};
++    for (size_t i=0; i<32; ++i) {
++        char c=text[i];
++        if (!((c>='0' && c<='9') || (c>='a' && c<='f'))) return false;
++        value[i/2] = (value[i/2]<<4) | (c<='9' ? c-'0' : c-'a'+10);
++    }
++    *output=value; return true;
++}
++bool validAddress(const std::array<uint8_t,16>& a) {
++    static const std::array<uint8_t,16> zero{};
++    static const std::array<uint8_t,16> mappedZero{0,0,0,0,0,0,0,0,0,0,255,255,0,0,0,0};
++    return a != zero && a != mappedZero;
+ }
+ }  // namespace
+ 
+@@ -76,6 +97,16 @@
+         rules += chain.rules.size();
+         if (rules > 65536) return false;
+         for (const auto& rule : chain.rules) {
++            if (rule.ingressIfIndex || rule.ingressDiscard) {
++                if (chain.name != "g24_owner_in" || rule.verdict != Verdict::Drop ||
++                    rule.targetUidChain || (rule.ingressIfIndex && rule.ingressDiscard)) return false;
++                if (rule.ingressIfIndex && (*rule.ingressIfIndex > INT_MAX || !rule.uid ||
++                    rule.selector != Selector::RawUid || rule.uid->last > INT_MAX)) return false;
++                if (rule.ingressDiscard && (rule.uid || rule.selector != Selector::Owner ||
++                    !validAddress(rule.ingressDiscard->daddr) ||
++                    rule.ingressDiscard->allowedIfIndex[0] > INT_MAX ||
++                    rule.ingressDiscard->allowedIfIndex[1] > INT_MAX)) return false;
++            }
+             if (rule.verdict != Verdict::Return && rule.verdict != Verdict::Drop &&
+                 rule.verdict != Verdict::Reject && rule.verdict != Verdict::DataSaverGoto &&
+                 rule.verdict != Verdict::UidCall)
+@@ -130,7 +161,11 @@
+     std::vector<std::string> names;
+     for (const auto& chain : image) {
+         names.push_back(chain.name);
+-        if (table != Table::Socket) continue;
++        if (table != Table::Socket) {
++            for (const auto& rule : chain.rules)
++                if (rule.ingressIfIndex || rule.ingressDiscard) return false;
++            continue;
++        }
+         for (const auto& rule : chain.rules) {
+             if (rule.verdict == Verdict::Reject || rule.verdict == Verdict::DataSaverGoto ||
+                 rule.selector == Selector::LookupAppId ||
+@@ -175,7 +210,7 @@
+             tokens.resize(tokens.size() - 2);
+             rejectSuffix = true;
+         }
+-        if (next.empty() || (tokens.size() != 4 && tokens.size() != 6 && tokens.size() != 8) ||
++        if (next.empty() || (tokens.size() != 4 && tokens.size() != 6 && tokens.size() != 8 && tokens.size() != 12) ||
+             tokens[0] != "-A" || tokens[1] != next.back().name) return -EPROTO;
+         const size_t jump = tokens.size() - 2;
+         Verdict verdict;
+@@ -194,6 +229,25 @@
+         if (rejectSuffix && verdict != Verdict::Reject) return -EPROTO;
+         Rule rule{std::nullopt, verdict};
+         rule.targetUidChain = targetUidChain;
++        if (tokens.size() == 12) {
++            if (tokens[2] != "-m") return -EPROTO;
++            if (tokens[3] == "gta3xlwifi_raw_uid" && tokens[4] == "--raw_uid" &&
++                tokens[6] == "-m" && tokens[7] == "gta3xlwifi_bad_iif" &&
++                tokens[8] == "--allowed-iif") {
++                UidRange uid{}; uint32_t index;
++                if (!range(tokens[5], &uid, ':', INT_MAX) || !number(tokens[9], &index, INT_MAX))
++                    return -EPROTO;
++                rule.uid=uid; rule.selector=Selector::RawUid; rule.ingressIfIndex=index;
++            } else if (tokens[3] == "gta3xlwifi_ingress_discard" &&
++                       tokens[4] == "--ingress-daddr" && tokens[6] == "--allowed-iif1" &&
++                       tokens[8] == "--allowed-iif2") {
++                IngressDiscard discard;
++                if (!readAddress(tokens[5], &discard.daddr) ||
++                    !number(tokens[7], &discard.allowedIfIndex[0], INT_MAX) ||
++                    !number(tokens[9], &discard.allowedIfIndex[1], INT_MAX)) return -EPROTO;
++                rule.ingressDiscard=discard;
++            } else return -EPROTO;
++        }
+         if (tokens.size() == 6) {
+             if (tokens[2] != "-m") return -EPROTO;
+             if (tokens[3] == "gta3xlwifi_owner_skip") rule.selector = Selector::OwnerSkip;
+@@ -249,6 +303,14 @@
+                         commands += "-" + std::to_string(rule.uid->last);
+                 } else commands += ":" + std::to_string(rule.uid->last);
+             }
++            if (rule.ingressIfIndex)
++                commands += " -m gta3xlwifi_bad_iif --allowed-iif " + std::to_string(*rule.ingressIfIndex);
++            if (rule.ingressDiscard) {
++                const auto& d=*rule.ingressDiscard;
++                commands += " -m gta3xlwifi_ingress_discard --ingress-daddr " + addressHex(d.daddr) +
++                    " --allowed-iif1 " + std::to_string(d.allowedIfIndex[0]) +
++                    " --allowed-iif2 " + std::to_string(d.allowedIfIndex[1]);
++            }
+             switch (rule.verdict) {
+                 case Verdict::Return: commands += " -j RETURN\n"; break;
+                 case Verdict::Drop: commands += " -j DROP\n"; break;
+--- a/Gta3xlwifiCheckedUidChains.h
++++ b/Gta3xlwifiCheckedUidChains.h
+@@ -2,6 +2,7 @@
+ #pragma once
+ 
+ #include <cstdint>
++#include <array>
+ #include <mutex>
+ #include <optional>
+ #include <string>
+@@ -25,13 +26,23 @@
+     };
+     enum class Verdict { Return, Drop, Reject, DataSaverGoto, UidCall };
+     enum class Selector { Owner, LookupAppId, RawUid, RawAppId, OwnerSkip, NonLoopback };
++    struct IngressDiscard {
++        std::array<uint8_t,16> daddr{};
++        std::array<uint32_t,2> allowedIfIndex{};
++        bool operator==(const IngressDiscard& b) const {
++            return daddr == b.daddr && allowedIfIndex == b.allowedIfIndex;
++        }
++    };
+     struct Rule {
+         std::optional<UidRange> uid;
+         Verdict verdict;
+         Selector selector = Selector::Owner;
+         uint8_t targetUidChain = 0;
++        std::optional<uint32_t> ingressIfIndex = std::nullopt;
++        std::optional<IngressDiscard> ingressDiscard = std::nullopt;
+         bool operator==(const Rule& b) const {
+-            return uid == b.uid && verdict == b.verdict && selector == b.selector && targetUidChain == b.targetUidChain;
++            return uid == b.uid && verdict == b.verdict && selector == b.selector && targetUidChain == b.targetUidChain &&
++                   ingressIfIndex == b.ingressIfIndex && ingressDiscard == b.ingressDiscard;
+         }
+     };
+     struct Chain {
+--- a/Gta3xlwifiNetpolicyLease.cpp
++++ b/Gta3xlwifiNetpolicyLease.cpp
+@@ -210,6 +210,16 @@
+     return (result & GTA3XLWIFI_UID_CAP_SOCKET_TABLES) ? 0 :
+             imageErrorLocked(-EOPNOTSUPP);
+ }
++int NetpolicyLease::requireIngressMatches() {
++    std::lock_guard<std::mutex> lock(mMutex);
++    if (mFd < 0) return -ENOTCONN;
++    int result;
++    do { result=ioctl(mFd,GTA3XLWIFI_UID_FEATURES,0UL); }
++    while (result<0 && errno==EINTR);
++    if (result<0) return imageErrorLocked(errno ? -errno : -EIO);
++    constexpr int required=GTA3XLWIFI_UID_CAP_SOCKET_TABLES | GTA3XLWIFI_UID_CAP_INGRESS_MATCHES;
++    return (result & required)==required ? 0 : imageErrorLocked(-EOPNOTSUPP);
++}
+ int NetpolicyLease::imageFeaturesLocked() {
+     if (mFd < 0) return -ENOTCONN;
+     int result;
+--- a/Gta3xlwifiNetpolicyLease.h
++++ b/Gta3xlwifiNetpolicyLease.h
+@@ -71,6 +71,7 @@
+     // Registered dual-stack private tables with exact-skb UID snapshot.
+     // This primitive capability does not release the gate or publish readiness.
+     int requireSocketTables();
++    int requireIngressMatches();
+     int start();
+     int hold();
+     int release();
+--- a/Gta3xlwifiSocketRoots.cpp
++++ b/Gta3xlwifiSocketRoots.cpp
+@@ -27,7 +27,20 @@
+     // Only the compiler's exact ordinary dispatch may sit below builtin roots.
+     Image canonical(image.begin(), image.begin() + 9);
+     result = OrdinaryDispatch::append(&canonical);
+-    return result ? result : canonical == image ? 0 : -EINVAL;
++    if (result) return result;
++    if (!(image[10] == canonical[10])) return -EINVAL;
++    const auto& actual=image[9].rules;
++    const auto& prefix=canonical[9].rules;
++    if (actual.size()<prefix.size() || !(actual.back()==prefix.back()) ||
++        !std::equal(prefix.begin(),prefix.end()-1,actual.begin())) return -EINVAL;
++    bool seenIif=false;
++    for (size_t i=prefix.size()-1; i+1<actual.size(); ++i) {
++        const auto& rule=actual[i];
++        if (!rule.ingressIfIndex && !rule.ingressDiscard) return -EINVAL;
++        if (rule.ingressIfIndex) seenIif=true;
++        if (seenIif && rule.ingressDiscard) return -EINVAL;
++    }
++    return 0;
+ }
+ int SocketRoots::fail(int error) {
+     mLease.stop();
+@@ -139,9 +152,20 @@
+     }
+     return 0;
+ }
++namespace {
++bool hasIngress(const SocketRoots::Image& image) {
++    for (const auto& chain : image) for (const auto& rule : chain.rules)
++        if (rule.ingressIfIndex || rule.ingressDiscard) return true;
++    return false;
++}
++}
+ int SocketRoots::verifyLocked(const Image& expected) {
+     int result = held();
+     if (result) return result;
++    if (hasIngress(expected)) {
++        result=mLease.requireIngressMatches();
++        if (result) return fail(result);
++    }
+     for (auto family : families) {
+         Inventory state;
+         result = inventory(family, &state);
+@@ -162,6 +186,10 @@
+     std::lock_guard<std::mutex> lock(mMutex);
+     result = held();
+     if (result) return result;
++    if (hasIngress(expected)) {
++        result=mLease.requireIngressMatches();
++        if (result) return fail(result);
++    }
+     std::array<Inventory, 2> before;
+     for (unsigned f = 0; f < 2; ++f) {
+         result = inventory(families[f], &before[f]);
+--- /dev/null
++++ b/Gta3xlwifiIngressPolicy.cpp
+@@ -0,0 +1,84 @@
++// SPDX-License-Identifier: Apache-2.0
++#include "Gta3xlwifiIngressPolicy.h"
++#include "Gta3xlwifiOrdinaryDispatch.h"
++#include <cerrno>
++#include <climits>
++namespace android::net::gta3xlwifi {
++namespace {
++bool assigned(const IngressPolicy::Address& address) {
++    static const IngressPolicy::Address zero{};
++    static const IngressPolicy::Address mappedZero{0,0,0,0,0,0,0,0,0,0,255,255,0,0,0,0};
++    return address!=zero && address!=mappedZero;
++}
++}
++int IngressPolicy::update(int32_t uid, const Owner& owner) {
++    if (uid<0) return -EINVAL;
++    if (!owner.hasIif && !owner.lockdown) { mOwners.erase(uid); return 0; }
++    // Exact selected A17 uid_owner_map capacity; other owner components must
++    // enforce their shared union capacity in the complete transaction as well.
++    if (!mOwners.count(uid) && mOwners.size()>=20000) return -E2BIG;
++    mOwners[uid]=owner; return 0;
++}
++int IngressPolicy::setIif(int32_t uid, uint32_t ifindex) {
++    if (uid<0 || ifindex>INT_MAX) return -EINVAL;
++    Owner next; if (auto i=mOwners.find(uid);i!=mOwners.end()) next=i->second;
++    next.hasIif=true;next.ifindex=ifindex;return update(uid,next);
++}
++int IngressPolicy::clearIif(int32_t uid) {
++    if (uid<0) return -EINVAL;
++    Owner next;if(auto i=mOwners.find(uid);i!=mOwners.end())next=i->second;
++    next.hasIif=false;next.ifindex=0;return update(uid,next);
++}
++int IngressPolicy::setLockdown(int32_t uid, bool enabled) {
++    if (uid<0) return -EINVAL;
++    Owner next;if(auto i=mOwners.find(uid);i!=mOwners.end())next=i->second;
++    next.lockdown=enabled;return update(uid,next);
++}
++int IngressPolicy::removeUid(int32_t uid) {
++    if (uid<0) return -EINVAL;
++    mOwners.erase(uid);return 0;
++}
++int IngressPolicy::setDiscard(const Address& address,uint32_t first,uint32_t second) {
++    if (!assigned(address)||first>INT_MAX||second>INT_MAX)return -EINVAL;
++    if (!mDiscard.count(address)&&mDiscard.size()>=100)return -E2BIG;
++    mDiscard[address]={first,second};return 0;
++}
++int IngressPolicy::clearDiscard(const Address& address) {
++    if (!assigned(address))return -EINVAL;
++    mDiscard.erase(address);return 0;
++}
++int IngressPolicy::compile(const std::vector<CheckedUidChains::Chain>& ordinary,
++                           std::vector<CheckedUidChains::Chain>* output) const {
++    using C=CheckedUidChains;
++    if (!output||ordinary.size()!=11)return -EINVAL;
++    int result=C::validateImage(ordinary,C::Table::Socket);if(result)return result;
++    for (size_t i=0;i<9;++i) if(ordinary[i].name!="g24_uid_"+std::to_string(i+1))return -EINVAL;
++    C::Chain input=ordinary[9];
++    std::vector<C::Chain> canonical(ordinary.begin(),ordinary.begin()+9);
++    result=OrdinaryDispatch::append(&canonical);
++    if(result||canonical!=ordinary)return result?result:-EINVAL;
++    input.rules.pop_back();  // Preserve exact system/owner-skip/UID prefix.
++    for(const auto& [address,indices]:mDiscard){
++        C::Rule rule{std::nullopt,C::Verdict::Drop};
++        rule.ingressDiscard=C::IngressDiscard{address,indices};input.rules.push_back(rule);
++    }
++    for(const auto& [uid,owner]:mOwners){
++        // A present wildcard IIF suppresses lockdown and produces no DROP.
++        if(owner.hasIif ? !owner.ifindex : !owner.lockdown)continue;
++        const uint32_t index=owner.hasIif?owner.ifindex:0;
++        if(!input.rules.empty()){
++            auto& last=input.rules.back();
++            if(last.ingressIfIndex==std::optional<uint32_t>{index}&&last.uid&&
++               last.uid->last<INT_MAX&&last.uid->last+1==uint32_t(uid)){
++                last.uid->last=uid;continue;
++            }
++        }
++        C::Rule rule{C::UidRange{uint32_t(uid),uint32_t(uid)},C::Verdict::Drop,C::Selector::RawUid};
++        rule.ingressIfIndex=index;input.rules.push_back(rule);
++    }
++    input.rules.push_back(ordinary[9].rules.back());
++    auto next=ordinary;next[9]=std::move(input);
++    result=C::validateImage(next,C::Table::Socket);if(result)return result;
++    *output=std::move(next);return 0;
++}
++}  // namespace android::net::gta3xlwifi
+--- /dev/null
++++ b/Gta3xlwifiIngressPolicy.h
+@@ -0,0 +1,28 @@
++// SPDX-License-Identifier: Apache-2.0
++#pragma once
++#include "Gta3xlwifiCheckedUidChains.h"
++#include <map>
++namespace android::net::gta3xlwifi {
++// Canonical private control state only. No kernel I/O, release or publication.
++// The backend must transact this with ordinary/metered/UID/LNA state together.
++class IngressPolicy final {
++public:
++    using Address = std::array<uint8_t,16>;
++    int setIif(int32_t uid, uint32_t ifindex);
++    int clearIif(int32_t uid);
++    int setLockdown(int32_t uid, bool enabled);
++    int removeUid(int32_t uid);
++    int setDiscard(const Address& address, uint32_t first, uint32_t second);
++    int clearDiscard(const Address& address);
++    // Input must be the complete original11-chain ordinary compiler image.
++    // Adds discard then IIF DROP records inside the existing input exemptions.
++    // Output is unchanged on any validation/encoding error.
++    int compile(const std::vector<CheckedUidChains::Chain>& ordinary,
++                std::vector<CheckedUidChains::Chain>* output) const;
++private:
++    struct Owner { bool hasIif=false; uint32_t ifindex=0; bool lockdown=false; };
++    int update(int32_t uid, const Owner& owner);
++    std::map<int32_t,Owner> mOwners;
++    std::map<Address,std::array<uint32_t,2>> mDiscard;
++};
++}  // namespace android::net::gta3xlwifi

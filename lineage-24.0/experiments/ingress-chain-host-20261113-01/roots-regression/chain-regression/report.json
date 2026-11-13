@@ -1,0 +1,42 @@
+{
+  "passed": true,
+  "scope": "Real checked UID chain I/O with explicit private g24sock table and strict grammar.\n\nOriginal84 filter regressions remain. Kernel command effects are scripted; no\npacket hooks, root bootstrap, full transaction or readiness is provided here.\n",
+  "passed_cases": 59,
+  "stderr": "",
+  "inputs_sha256": {
+    "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/test-socket-chain-io24.py": "bcf79e887b6c00085cdf2dc41c6a6d5c5e8a5abdc71c8d4244655116e2698d89",
+    "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/test-checked-uid-chains24.py": "15cc75c12f9e8a69899adf4a0785d21a210f8b7be34807db5831389105f99ce5",
+    "/srv/android/ports/lineage-24.0-arm64/ingress-chain24-20261113-01/Gta3xlwifiCheckedUidChains.cpp": "01fec53b90fe6d8527dcc1bf808db0bf0dbf82c7c1a59e73d7b04aa722b02967",
+    "/srv/android/ports/lineage-24.0-arm64/ingress-chain24-20261113-01/Gta3xlwifiUidPolicy.cpp": "9f98afdf5ea0750b6a1215d1ecb46250aa7c62a6fb9a84e23300f112bfd2d239",
+    "/srv/android/ports/lineage-24.0-arm64/ingress-chain24-20261113-01/Gta3xlwifiUidChainProgram.cpp": "b8936793c49b2cc0abee3cf2e6f27c82a171a582006a956a8ab2954ff380ffee",
+    "/srv/android/ports/lineage-24.0-arm64/ingress-chain24-20261113-01/Gta3xlwifiOrdinaryDispatch.cpp": "917927b0e66b78a3087e50c04e963b04813a7a4041e40dce6d9094119f9459c3",
+    "/srv/android/ports/lineage-24.0-arm64/ingress-chain24-20261113-01/Gta3xlwifiCheckedUidChains.h": "c1bd4d386c54698c15575988f3a2d7d26c2dafbdbb99780851f7be482e172e3b",
+    "/srv/android/ports/lineage-24.0-arm64/ingress-chain24-20261113-01/Gta3xlwifiUidPolicy.h": "254fae0c2fa1fd65e18e340149ef740b8a89fc7f4620e58ae22e0296815febb2",
+    "/srv/android/ports/lineage-24.0-arm64/ingress-chain24-20261113-01/Gta3xlwifiUidChainProgram.h": "e6bd4a71fbd289f8bdc2a917649f03fea323d136584f0dccb3acba00e49b33a8",
+    "/srv/android/ports/lineage-24.0-arm64/ingress-chain24-20261113-01/Gta3xlwifiOrdinaryDispatch.h": "6e71c153ab368713437b4b4c2ea3ee246b7f35490f94cc87d23e18f7515547c5",
+    "/srv/android/artifacts/lineage-24.0-arm64/ingress-chain-host-20261113-01/roots-regression/chain-regression/test.cpp": "7cd6dc0defeaf3442e6240edc6309655706542ac2dcd5dae68548a91945a1df1"
+  },
+  "command": [
+    "c++",
+    "-std=c++20",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-g",
+    "-O1",
+    "-fsanitize=undefined",
+    "-fno-sanitize-recover=all",
+    "-pthread",
+    "-I/srv/android/ports/lineage-24.0-arm64/ingress-chain24-20261113-01",
+    "-I/srv/android/artifacts/lineage-24.0-arm64/ingress-chain-host-20261113-01/roots-regression/chain-regression",
+    "/srv/android/ports/lineage-24.0-arm64/ingress-chain24-20261113-01/Gta3xlwifiCheckedUidChains.cpp",
+    "/srv/android/ports/lineage-24.0-arm64/ingress-chain24-20261113-01/Gta3xlwifiUidPolicy.cpp",
+    "/srv/android/ports/lineage-24.0-arm64/ingress-chain24-20261113-01/Gta3xlwifiUidChainProgram.cpp",
+    "/srv/android/ports/lineage-24.0-arm64/ingress-chain24-20261113-01/Gta3xlwifiOrdinaryDispatch.cpp",
+    "/srv/android/artifacts/lineage-24.0-arm64/ingress-chain-host-20261113-01/roots-regression/chain-regression/test.cpp",
+    "-o",
+    "/srv/android/artifacts/lineage-24.0-arm64/ingress-chain-host-20261113-01/roots-regression/chain-regression/test"
+  ],
+  "hardware_tested": false,
+  "flash_ready": false
+}

@@ -1,0 +1,28 @@
+{
+  "passed": true,
+  "scope": "Exercise the real checked-chain I/O component with scripted kernel effects.\n\nThe IptablesRestoreInterface is a fixture; no host/device rules or networking are\nchanged. These are parser/transaction tests, not packet, attachment, cross-family,\nstartup, owner lifecycle or complete-backend readiness validation.\n",
+  "passed_cases": 84,
+  "stderr": "",
+  "inputs_sha256": {
+    "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/test-checked-uid-chains24.py": "15cc75c12f9e8a69899adf4a0785d21a210f8b7be34807db5831389105f99ce5",
+    "/srv/android/ports/lineage-24.0-arm64/ingress-chain24-20261113-01/Gta3xlwifiCheckedUidChains.cpp": "01fec53b90fe6d8527dcc1bf808db0bf0dbf82c7c1a59e73d7b04aa722b02967",
+    "/srv/android/ports/lineage-24.0-arm64/ingress-chain24-20261113-01/Gta3xlwifiCheckedUidChains.h": "c1bd4d386c54698c15575988f3a2d7d26c2dafbdbb99780851f7be482e172e3b"
+  },
+  "command": [
+    "/usr/bin/clang++",
+    "-std=c++20",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-fsanitize=undefined",
+    "-fno-sanitize-recover=all",
+    "-I/srv/android/ports/lineage-24.0-arm64/ingress-chain24-20261113-01",
+    "-I/srv/android/artifacts/lineage-24.0-arm64/ingress-chain-host-20261113-01/roots-regression/chain-regression/filter-regression",
+    "/srv/android/ports/lineage-24.0-arm64/ingress-chain24-20261113-01/Gta3xlwifiCheckedUidChains.cpp",
+    "/srv/android/artifacts/lineage-24.0-arm64/ingress-chain-host-20261113-01/roots-regression/chain-regression/filter-regression/test.cpp",
+    "-o",
+    "/srv/android/artifacts/lineage-24.0-arm64/ingress-chain-host-20261113-01/roots-regression/chain-regression/filter-regression/test"
+  ],
+  "hardware_tested": false,
+  "flash_ready": false
+}
