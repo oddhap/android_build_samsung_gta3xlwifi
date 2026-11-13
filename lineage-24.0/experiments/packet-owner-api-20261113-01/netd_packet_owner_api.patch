@@ -1,0 +1,125 @@
+--- a/Gta3xlwifiSocketPolicyProjection.cpp
++++ b/Gta3xlwifiSocketPolicyProjection.cpp
+@@ -256,3 +256,68 @@
+   return r ? quarantine(r) : 0;
+ }
+ }  // namespace android::net::gta3xlwifi
++
++namespace android::net::gta3xlwifi {
++int SocketPolicyProjection::packetAccountingAvailableLocked() const {
++  if (!mStarted || !mCommit) return -EAGAIN;
++  return mAccountingEnabled ? 0 : -EOPNOTSUPP;
++}
++int SocketPolicyProjection::readPacketState(NetpolicyLease::PacketState* output) {
++  if (!output) return -EINVAL;
++  std::lock_guard<std::mutex> lock(mMutex);
++  int result = packetAccountingAvailableLocked();
++  if (result) return result;
++  result = mLease.readPacketState(output);
++  return result ? quarantine(result) : 0;
++}
++int SocketPolicyProjection::readFrozenPacketStats(
++    uint32_t bank, uint64_t epoch, NetpolicyLease::PacketSnapshot* output) {
++  if (!output || bank > 1 || !epoch) return -EINVAL;
++  std::lock_guard<std::mutex> lock(mMutex);
++  int result = packetAccountingAvailableLocked();
++  if (result) return result;
++  result = mLease.readFrozenPacketStats(bank, epoch, output);
++  return result ? quarantine(result) : 0;
++}
++int SocketPolicyProjection::readAppStats(NetpolicyLease::AppSnapshot* output) {
++  if (!output) return -EINVAL;
++  std::lock_guard<std::mutex> lock(mMutex);
++  int result = packetAccountingAvailableLocked();
++  if (result) return result;
++  result = mLease.readAppStats(output);
++  return result ? quarantine(result) : 0;
++}
++int SocketPolicyProjection::swapPacketStats(
++    uint32_t bank, uint64_t epoch, NetpolicyLease::BankTransition* output) {
++  if (!output || bank > 1 || !epoch || epoch == UINT64_MAX) return -EINVAL;
++  std::lock_guard<std::mutex> lock(mMutex);
++  int result = packetAccountingAvailableLocked();
++  if (result) return result;
++  result = mLease.swapPacketStats(bank, epoch, output);
++  return result ? quarantine(result) : 0;
++}
++int SocketPolicyProjection::acknowledgePacketStats(uint32_t bank, uint64_t epoch) {
++  if (bank > 1 || !epoch) return -EINVAL;
++  std::lock_guard<std::mutex> lock(mMutex);
++  int result = packetAccountingAvailableLocked();
++  if (result) return result;
++  result = mLease.acknowledgePacketStats(bank, epoch);
++  return result ? quarantine(result) : 0;
++}
++int SocketPolicyProjection::setPacketCounterset(int32_t uid, uint32_t counterset) {
++  if (uid < 0 || counterset > 1) return -EINVAL;
++  std::lock_guard<std::mutex> lock(mMutex);
++  int result = packetAccountingAvailableLocked();
++  if (result) return result;
++  result = mLease.setPacketCounterset(static_cast<uint32_t>(uid), counterset);
++  return result ? quarantine(result) : 0;
++}
++int SocketPolicyProjection::deleteUidPacketStats(int32_t uid) {
++  if (uid < 0) return -EINVAL;
++  std::lock_guard<std::mutex> lock(mMutex);
++  int result = packetAccountingAvailableLocked();
++  if (result) return result;
++  result = mLease.deleteUidPacketStats(static_cast<uint32_t>(uid));
++  return result ? quarantine(result) : 0;
++}
++}  // namespace android::net::gta3xlwifi
+--- a/Gta3xlwifiSocketPolicyProjection.h
++++ b/Gta3xlwifiSocketPolicyProjection.h
+@@ -11,7 +11,8 @@
+ #include "Gta3xlwifiUidPermissionState.h"
+ #include "Gta3xlwifiUidPolicy.h"
+ namespace android::net::gta3xlwifi {
+-// Four-state POLICY projection only; not accounting/Binder/startup/readiness.
++// Four-state policy owner with private producer startup/statistics primitives.
++// Not Binder routing, poll persistence or global networking readiness.
+ // Sole owner of ONE real lease and one mutex. All rules/parents/guards in both
+ // families finish before LNA SET, then UID SET LAST. Error withdraws every
+ // value and closes/holds the gate; no post-SET firewall I/O or automatic policy
+@@ -35,8 +36,9 @@
+   ~SocketPolicyProjection() { stop(); }
+   int start(HookMode mode = HookMode::VerifyOnly);
+   // Explicit source-factory startup after the last generic bandwidth reset.
+-  // Requires real producers+DROP correction, verifies both families while held,
+-  // and leaves all policy unpublished until replace(). Not UID accounting/Ready.
++  // Requires real iface producers/DROP correction and UID/app packet primitives,
++  // verifies both families while held,
++  // and leaves all policy unpublished until replace(). No global Ready claim.
+   int startWithAccounting(const AccountingRoots::Program& program,
+                           HookMode mode = HookMode::VerifyOnly);
+   void stop();
+@@ -59,6 +61,21 @@
+                     LocalNetworkState::Entry entry);
+   int clearLocalEntry(LocalNetworkState::Table table,
+                       LocalNetworkState::Entry entry);
++  // Primitive statistics controls share this owner's transaction mutex/lease.
++  // Available only after startWithAccounting plus complete policy publication.
++  // Non-consuming reads expose real loss; caller must not report lossy data as
++  // complete. SWAP/ACK are explicit; no poll persistence or RPC lifecycle here.
++  // Kernel/protocol failure quarantines the complete four-state publication.
++  int readPacketState(NetpolicyLease::PacketState* output);
++  int readFrozenPacketStats(uint32_t bank, uint64_t epoch,
++                            NetpolicyLease::PacketSnapshot* output);
++  int readAppStats(NetpolicyLease::AppSnapshot* output);
++  int swapPacketStats(uint32_t expectedBank, uint64_t expectedEpoch,
++                      NetpolicyLease::BankTransition* output);
++  int acknowledgePacketStats(uint32_t bank, uint64_t epoch);
++  int setPacketCounterset(int32_t uid, uint32_t counterset);
++  // Final poll/ACK and separate socket-tag cleanup remain caller obligations.
++  int deleteUidPacketStats(int32_t uid);
+   int readIfaceStats(NetpolicyLease::IfaceSnapshot* output);
+   int readLoopbackEvents(NetpolicyLease::LoopbackBatch* output);
+ 
+@@ -71,6 +88,7 @@
+     NetpolicyLease::LocalNetworkImage local;
+     uint64_t generation = 0;
+   };
++  int packetAccountingAvailableLocked() const;
+   int applyLocked(State value);
+   int update(const std::function<int(State&)>& mutation);
+   int prepareHooks(HookMode mode);

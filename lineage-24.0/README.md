@@ -32,6 +32,27 @@ checks are separate from Android execution. Optional GPU BPF accounting still
 reports unavailable, rather than invented counters. Existing safety/installer
 and strict SELinux checks remain enforced.
 
+## Published-owner statistics API checkpoint — November 13
+
+All seven statistics controls now use the published accounting owner's existing
+mutex and descriptor. Before publication they return EAGAIN; generic-only mode
+returns EOPNOTSUPP without statistics I/O. Invalid arguments preserve the current
+publication. Kernel/protocol failure withdraws all four states and closes/holds
+the lease. Loss and epoch fields remain explicit; uncertain SWAP/EDIT never
+blindly retries. Original owner implementation bodies remain unchanged.
+
+The facade passes 286 new cases plus all 1,251 accounting-owner regressions;
+the generic owner passes 994 checks. Fourteen actual ARM64 CFI sources partially
+link, all seven facade symbols resolve, actual ARM32/64 layouts and complete
+1,243-project/17-patch audits pass. See packet-owner-api-20261113-01,
+packet-owner-api-host-20261113-02 and packet-owner-api-native-20261113-01.
+The first host run retained a test-expectation failure: ordinary mutations after
+quarantine correctly return EAGAIN; the production implementation did not change.
+
+This remains a primitive API. Statistics polling/persistence, final UID/socket-tag
+cleanup, Binder/Java routing and permission bootstrap still require integration.
+No production source/prebuilt selection, global Ready or flash candidate exists.
+
 ## Actual packet accounting checkpoint — November 13
 
 Both real socket-aware packet functions now feed the bounded UID/app store.
