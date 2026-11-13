@@ -1,0 +1,158 @@
+--- /dev/null
++++ b/Gta3xlwifiPermissionBootstrap.cpp
+@@ -0,0 +1,75 @@
++// SPDX-License-Identifier: Apache-2.0
++#include "Gta3xlwifiPermissionBootstrap.h"
++#include <cerrno>
++#include <limits>
++#include <map>
++#include <set>
++#include <utility>
++namespace android::net::gta3xlwifi {
++int PermissionBootstrap::convert(uint32_t raw, bool loopback, uint32_t* output) {
++  if (!output || (raw & ~RawKnownMask)) return -EINVAL;
++  uint32_t value = 0;
++  if ((raw & (1u << 0)) || (raw & (1u << 8))) value |= UidPermissionState::AccessLocalNetwork;
++  if (raw & (1u << 1)) value |= UidPermissionState::UpdateDeviceStats;
++  if (!(raw & (1u << 2))) value |= UidPermissionState::NoInternet;
++  if (loopback) {
++    if (raw & (1u << 3)) value |= UidPermissionState::UseLoopbackInterface;
++    if (raw & (1u << 4)) value |= UidPermissionState::ForceUseLoopbackInterface;
++    if (raw & (1u << 5)) value |= UidPermissionState::InteractAcrossUsersFull;
++    if ((raw & (1u << 6)) || (raw & (1u << 7))) value |= UidPermissionState::InteractAcrossUsersOrProfiles;
++  }
++  *output = value;
++  return 0;
++}
++int PermissionBootstrap::compile(const Snapshot& input, UidPermissionState* output) {
++  if (!output) return -EINVAL;
++  if (input.users.size() > MaxEntries || input.knownUids.size() > MaxEntries ||
++      input.observed.size() > MaxEntries) return -E2BIG;
++  std::set<int32_t> users;
++  for (int32_t user : input.users) {
++    if (user < 0 || user > (std::numeric_limits<int32_t>::max() - 1000) / PerUserRange ||
++        !users.insert(user).second) return -EINVAL;
++  }
++  if (!users.count(0)) return -EPROTO;
++  std::map<int32_t, uint32_t> raw;
++  for (const auto& row : input.observed) {
++    if (row.uid < 0 || (row.bits & ~RawKnownMask) || !raw.emplace(row.uid, row.bits).second)
++      return -EINVAL;
++    if (!users.count(row.uid / PerUserRange)) return -EPROTO;
++  }
++  // PermissionService's initial callback explicitly supplies all-granted core
++  // rows for every user. Do not invent these rows or silently allow an omitted
++  // core frame. Runtime updates still retain their existing independent API.
++  for (int32_t user : users) {
++    for (int32_t appId : {0, 1000}) {
++      auto row = raw.find(user * PerUserRange + appId);
++      if (row == raw.end() || row->second != RawKnownMask) return -EPROTO;
++    }
++  }
++  // Preserve membership even when conversion produces0. It proves INTERNET
++  // was observed; absence from the canonical nonzero-only store does not.
++  std::map<int32_t, uint32_t> canonical;
++  for (const auto& row : raw) {
++    uint32_t value = 0;
++    int result = convert(row.second, input.loopbackPermissionEnabled, &value);
++    if (result) return result;
++    canonical.emplace(row.first, value);
++  }
++  for (int32_t uid : input.knownUids) {
++    if (uid < 0) return -EINVAL;
++    if (!users.count(uid / PerUserRange)) return -EPROTO;
++    canonical.emplace(uid, UidPermissionState::NoInternet);
++  }
++  std::vector<UidPermissionState::Entry> rows;
++  for (const auto& row : canonical) {
++    if (!row.second) continue;
++    if (rows.size() == MaxEntries) return -E2BIG;
++    rows.push_back({row.first, row.second});
++  }
++  UidPermissionState next;
++  int result = next.replace(rows);
++  if (result) return result;
++  *output = std::move(next);
++  return 0;
++}
++}  // namespace android::net::gta3xlwifi
+--- /dev/null
++++ b/Gta3xlwifiPermissionBootstrap.h
+@@ -0,0 +1,30 @@
++// SPDX-License-Identifier: Apache-2.0
++#pragma once
++#include <cstdint>
++#include <vector>
++#include "Gta3xlwifiUidPermissionState.h"
++namespace android::net::gta3xlwifi {
++// Compile a COMPLETE, immutable caller-supplied Android17 permission snapshot.
++// No observer registration, snapshot collection, IPC, kernel I/O or Ready here.
++class PermissionBootstrap final {
++ public:
++  struct RawPermission { int32_t uid; uint32_t bits; };
++  struct Snapshot {
++    std::vector<int32_t> users;
++    // Shared-UID packages may repeat a UID. Include SDK sandbox UIDs as needed.
++    std::vector<int32_t> knownUids;
++    std::vector<RawPermission> observed;
++    bool loopbackPermissionEnabled = false;
++  };
++  static constexpr uint32_t RawKnownMask = (1u << 10) - 1;
++  static constexpr uint32_t MaxEntries = 65536;
++  static constexpr int32_t PerUserRange = 100000;
++  // Exact pinned PermissionMonitor conversion. Zero is a real observed value:
++  // INTERNET-only maps to canonical0 and must not become a missing UID.
++  static int convert(uint32_t raw, bool loopbackPermissionEnabled, uint32_t* output);
++  // Requires user0 and actual framework all-granted root/system rows per user.
++  // Missing known UID gets explicit NoInternet, preserving observed canonical0.
++  // Unknown users/incomplete core coverage reject before changing output.
++  static int compile(const Snapshot& snapshot, UidPermissionState* output);
++};
++}  // namespace android::net::gta3xlwifi
+--- a/Gta3xlwifiSocketPolicyProjection.cpp
++++ b/Gta3xlwifiSocketPolicyProjection.cpp
+@@ -321,3 +321,21 @@
+   return result ? quarantine(result) : 0;
+ }
+ }  // namespace android::net::gta3xlwifi
++
++namespace android::net::gta3xlwifi {
++int SocketPolicyProjection::publishInitialPermissions(
++    const State& policy, const PermissionBootstrap::Snapshot& permissions) {
++  std::lock_guard<std::mutex> lock(mMutex);
++  if (!mStarted) return -ENOTCONN;
++  if (!mAccountingEnabled) return -EOPNOTSUPP;
++  if (mCommit) return -EALREADY;
++  std::vector<UidPermissionState::Entry> existing;
++  int result = policy.permissions.snapshot(&existing);
++  if (result) return result;
++  if (!existing.empty()) return -EINVAL;
++  State next = policy;
++  result = PermissionBootstrap::compile(permissions, &next.permissions);
++  if (result) return result;
++  return applyLocked(std::move(next));
++}
++}  // namespace android::net::gta3xlwifi
+--- a/Gta3xlwifiSocketPolicyProjection.h
++++ b/Gta3xlwifiSocketPolicyProjection.h
+@@ -4,6 +4,7 @@
+ #include <memory>
+ 
+ #include "Gta3xlwifiIngressPolicy.h"
++#include "Gta3xlwifiPermissionBootstrap.h"
+ #include "Gta3xlwifiAccountingRoots.h"
+ #include "Gta3xlwifiLocalNetworkState.h"
+ #include "Gta3xlwifiMeteredRoots.h"
+@@ -41,6 +42,12 @@
+   // and leaves all policy unpublished until replace(). No global Ready claim.
+   int startWithAccounting(const AccountingRoots::Program& program,
+                           HookMode mode = HookMode::VerifyOnly);
++  // Explicit first publication only. Caller supplies a complete immutable
++  // permission frame plus all other policy state; this does not collect it.
++  // policyWithoutPermissions must have no nonzero permission entries. Invalid
++  // or incomplete frames leave the held gate and unpublished state intact.
++  int publishInitialPermissions(const State& policyWithoutPermissions,
++                                const PermissionBootstrap::Snapshot& permissions);
+   void stop();
+   // expectedGeneration=0 is explicit first commit after start. Stale updates
+   // fail before kernel I/O. Readers see one complete committed state or EAGAIN.

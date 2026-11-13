@@ -32,6 +32,30 @@ checks are separate from Android execution. Optional GPU BPF accounting still
 reports unavailable, rather than invented counters. Existing safety/installer
 and strict SELinux checks remain enforced.
 
+## Complete permission-frame checkpoint — November 13
+
+An explicit first-publication path now validates the caller's complete user,
+known-UID and raw permission snapshot before any transaction I/O. It preserves
+observed INTERNET-only entries that convert to canonical zero, supplies explicit
+NoInternet for missing known UIDs, and requires the actual framework's complete
+root/system rows for each declared user. It rejects ambiguous, incomplete or
+oversized input while leaving the gate held and the output unchanged.
+
+The converter matches the actual pinned PermissionMonitor body in all 2,048
+raw/loopback-flag combinations. The frame builder passes 39 cases, and the
+integrated path adds 1,192 cases to the previous 1,537 owner/statistics checks,
+including both sides of every 114 publication I/O fault points. Generic owner
+regressions (994), fifteen actual ARM64 CFI sources, private namespace partial
+linking, actual ARM32/64 wire checks and 1,243-project/17-patch audits pass.
+See permission-bootstrap-20261113-01 and permission-bootstrap-native-20261113-01.
+The initial pure host attempt stopped on an overly narrow source-spelling check;
+run 02 validates the actual Kotlin long-mask expression and passes.
+
+This validates a caller-supplied frame; Java snapshot collection/order, early
+policy buffering and Binder/Controllers routing remain to be implemented. It
+creates no BPF map or global readiness flag and selects no source/policy/image.
+No installation candidate exists.
+
 ## Published-owner statistics API checkpoint — November 13
 
 All seven statistics controls now use the published accounting owner's existing
