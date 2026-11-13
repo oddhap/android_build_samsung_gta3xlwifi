@@ -54,7 +54,10 @@ run 02 validates the actual Kotlin long-mask expression and passes.
 This validates a caller-supplied frame; Java snapshot collection/order, early
 policy buffering and Binder/Controllers routing remain to be implemented. It
 creates no BPF map or global readiness flag and selects no source/policy/image.
-No installation candidate exists.
+Selected kernel/latest LineageOS 21 MTP vendor/dtbo hashes were rechecked unchanged
+in permission-bootstrap-final-inputs-20261113-01. Runtime loopback check/metrics
+switches and LNA propagation/legacy-blocked-UID mode still need explicit source-
+faithful control before actual service activation. No installation candidate exists.
 
 ## Published-owner statistics API checkpoint — November 13
 
