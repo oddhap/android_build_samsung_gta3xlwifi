@@ -1,0 +1,39 @@
+{
+  "scope": "Real interface-counter XT parser and canonical save; no automatic rule installation or accounting readiness.",
+  "prerequisites": [
+    "xtables-ingress-20261113-01",
+    "kernel-iface-stats-20261113-01"
+  ],
+  "patch_sha256": "71e0c9c6b382564ce97416d1b3d84f123ea1dc58759136d86163df9817331e2a",
+  "files": [
+    {
+      "path": "extensions/libxt_gta3xlwifi_iface_stats.c",
+      "before_sha256": null,
+      "candidate_sha256": "821efda7fd55e024524619e8d736469394c32b492cb32c5742e56f76b90ed50f"
+    },
+    {
+      "path": "include/linux/netfilter/gta3xlwifi_iface_stats.h",
+      "before_sha256": null,
+      "candidate_sha256": "949ed6e347715c339267b45b7705a65de0ccf8840fbf8ab4bb7198dbc044d967"
+    }
+  ],
+  "unchanged_dependency_hashes": {
+    "extensions/libxt_gta3xlwifi_appid.c": "4e3f868d52d72f707692163d1a002e6775f0ad88c4d851d6923ee152fc89ea33",
+    "extensions/libxt_gta3xlwifi_bad_iif.c": "cf474fd00d5d38a6b0eb7322f2faeaee1d89336e69c4d9791aa4754d01d4b17d",
+    "extensions/libxt_gta3xlwifi_guard.c": "a976d9215ae167143e3e5d9f023a90cff5e1eddcab8bc06514cf589c486aebc1",
+    "extensions/libxt_gta3xlwifi_ingress_discard.c": "7c6ac6f8d9a84eeb49a07e8da33a41441db6aa1b26db5953551ad70c592781ce",
+    "extensions/libxt_gta3xlwifi_lna.c": "058609232c024fd193cbcf04ee9bb4e7b020b2b9735f96563774e5486c76cea1",
+    "extensions/libxt_gta3xlwifi_non_loopback.c": "838319e160e31d3efb877831620f7a512eaf2000099e65feacf71bbf07599d4d",
+    "extensions/libxt_gta3xlwifi_owner_skip.c": "43b765027343f0309910d5daec90d92133b61e081edae9fd6ccfa72f09ed1f4e",
+    "extensions/libxt_gta3xlwifi_raw_appid.c": "aa42d0f3b582d6490ea49ae341de8efeb253a2dc4cc2687397242db625038db1",
+    "extensions/libxt_gta3xlwifi_raw_uid.c": "fdf8d7a1ab9ea62ebc076121ce8f043a2fb0a4a18a524b9b85a1906e9506a936",
+    "include/linux/netfilter/gta3xlwifi_appid.h": "0d06023da8290add60e73c90679328af285431609bca34260453d7055810067e",
+    "include/linux/netfilter/gta3xlwifi_ingress.h": "5d04d156089975356fedf9a870ac8737dd7ac8a1333c6f17977c9c65beaa2260",
+    "include/linux/netfilter/gta3xlwifi_local_network.h": "78d66f9b5c834c56d035ea108c4323c849186df3c98d3fb3a48c3de53797b7be",
+    "include/linux/netfilter/gta3xlwifi_netpolicy.h": "fd53c8c287840054ac9234efdabd88302140d95fc1488c57080de499a835d54c",
+    "include/linux/netfilter/gta3xlwifi_owner_skip.h": "966dc6938d9c2e7bf172083f10b6f380a6f8795432901ff456a2822b5cf30796",
+    "include/linux/netfilter/gta3xlwifi_socket_uid.h": "a91a730ca2eb53a0397a7bcd8b8d8b32fb9612908a70a279a1d9c0c02acbcffb"
+  },
+  "hardware_tested": false,
+  "flash_ready": false
+}

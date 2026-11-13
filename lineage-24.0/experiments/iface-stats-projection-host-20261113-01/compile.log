@@ -1,0 +1,23 @@
+/srv/android/ports/lineage-24.0-arm64/iface-stats-transport24-20261113-01/Gta3xlwifiSocketPolicyProjection.cpp:219:5: error: no declaration matches ‘int android::net::gta3xlwifi::SocketPolicyProjection::readIfaceStats(android::net::gta3xlwifi::NetpolicyLease::IfaceSnapshot*)’
+  219 | int SocketPolicyProjection::readIfaceStats(NetpolicyLease::IfaceSnapshot* output) {
+      |     ^~~~~~~~~~~~~~~~~~~~~~
+/srv/android/ports/lineage-24.0-arm64/iface-stats-transport24-20261113-01/Gta3xlwifiSocketPolicyProjection.cpp:219:5: note: no functions named ‘int android::net::gta3xlwifi::SocketPolicyProjection::readIfaceStats(android::net::gta3xlwifi::NetpolicyLease::IfaceSnapshot*)’
+In file included from /srv/android/ports/lineage-24.0-arm64/iface-stats-transport24-20261113-01/Gta3xlwifiSocketPolicyProjection.cpp:9:
+/srv/android/ports/lineage-24.0-arm64/iface-stats-transport24-20261113-01/Gta3xlwifiSocketPolicyProjection.h:18:7: note: ‘class android::net::gta3xlwifi::SocketPolicyProjection’ defined here
+   18 | class SocketPolicyProjection final {
+      |       ^~~~~~~~~~~~~~~~~~~~~~
+In file included from /usr/include/c++/11/cassert:44,
+                 from /srv/android/artifacts/lineage-24.0-arm64/iface-stats-projection-host-20261113-01/test.cpp:6:
+/srv/android/artifacts/lineage-24.0-arm64/iface-stats-projection-host-20261113-01/test.cpp: In function ‘int main()’:
+/srv/android/artifacts/lineage-24.0-arm64/iface-stats-projection-host-20261113-01/test.cpp:319:117: error: ‘using P = class android::net::gta3xlwifi::SocketPolicyProjection’ {aka ‘class android::net::gta3xlwifi::SocketPolicyProjection’} has no member named ‘readIfaceStats’
+  319 |  resetProjection();{Combined k;P p(k);C(p.start()==0&&p.replace(a,0)==0);NetpolicyLease::IfaceSnapshot counters;C(p.readIfaceStats(nullptr)==-EINVAL);C(p.readIfaceStats(&counters)==-EOPNOTSUPP&&held&&files.empty());P::State out;uint64_t g=0;C(p.snapshot(&out,&g)==-EAGAIN); }
+      |                                                                                                                     ^~~~~~~~~~~~~~
+/srv/android/artifacts/lineage-24.0-arm64/iface-stats-projection-host-20261113-01/test.cpp:319:113: note: in expansion of macro ‘C’
+  319 |  resetProjection();{Combined k;P p(k);C(p.start()==0&&p.replace(a,0)==0);NetpolicyLease::IfaceSnapshot counters;C(p.readIfaceStats(nullptr)==-EINVAL);C(p.readIfaceStats(&counters)==-EOPNOTSUPP&&held&&files.empty());P::State out;uint64_t g=0;C(p.snapshot(&out,&g)==-EAGAIN); }
+      |                                                                                                                 ^
+/srv/android/artifacts/lineage-24.0-arm64/iface-stats-projection-host-20261113-01/test.cpp:319:155: error: ‘using P = class android::net::gta3xlwifi::SocketPolicyProjection’ {aka ‘class android::net::gta3xlwifi::SocketPolicyProjection’} has no member named ‘readIfaceStats’
+  319 |  resetProjection();{Combined k;P p(k);C(p.start()==0&&p.replace(a,0)==0);NetpolicyLease::IfaceSnapshot counters;C(p.readIfaceStats(nullptr)==-EINVAL);C(p.readIfaceStats(&counters)==-EOPNOTSUPP&&held&&files.empty());P::State out;uint64_t g=0;C(p.snapshot(&out,&g)==-EAGAIN); }
+      |                                                                                                                                                           ^~~~~~~~~~~~~~
+/srv/android/artifacts/lineage-24.0-arm64/iface-stats-projection-host-20261113-01/test.cpp:319:151: note: in expansion of macro ‘C’
+  319 |  resetProjection();{Combined k;P p(k);C(p.start()==0&&p.replace(a,0)==0);NetpolicyLease::IfaceSnapshot counters;C(p.readIfaceStats(nullptr)==-EINVAL);C(p.readIfaceStats(&counters)==-EOPNOTSUPP&&held&&files.empty());P::State out;uint64_t g=0;C(p.snapshot(&out,&g)==-EAGAIN); }
+      |                                                                                                                                                       ^

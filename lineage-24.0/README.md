@@ -32,6 +32,25 @@ checks are separate from Android execution. Optional GPU BPF accounting still
 reports unavailable, rather than invented counters. Existing safety/installer
 and strict SELinux checks remain enforced.
 
+## Interface counter primitive checkpoint — November 13
+
+An isolated real interface XT producer, bounded global counter store and leased
+snapshot pass 49 host cases and 786432 comparisons against the actual Android17
+counter macro. Full kernel Image/modules, Gator/KUTF bindings, unchanged config,
+60360 candidate/60331 protected source hashes and 1243-project/17-patch Android
+audits pass. The same policy owner exposes snapshots with genuine loss and
+quarantines on I/O/protocol failure; 25 transport and 994 owner tests pass. All
+twelve sources compile with actual netd ARM64 CFI flags; both real ARM32/ARM64
+commands validate wire layouts. A tenth builtin XT parser passes 25 cases and
+full ARM64 iptables link with all 80 registrations. Strict production/debug
+extensions preserve all 5918/5881 assertions/constraints and pass 17 access queries
+plus 13 ioctl compiler probes each. See kernel-iface-stats-20261113-01,
+iface-stats-transport-20261113-01 and xtables-iface-stats-20261113-01.
+
+Producer rules, matching egress DROP UNDO, UID/tag/bank accounting, actual service
+and startup integration remain. No new source, policy or kernel is selected into
+Android images, no readiness is fabricated and no test-ROM candidate exists.
+
 ## Shared four-state policy projection checkpoint — November 13
 
 A single genuine lease/mutex now covers private ordinary/ingress and filter

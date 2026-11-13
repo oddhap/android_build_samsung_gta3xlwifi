@@ -1,0 +1,33 @@
+{
+  "passed": true,
+  "scope": "Exercise actual interface-counter XT callbacks with a bound API fixture.\n\nThe fixture tests payload, parser/saver and registration contracts, not actual\nCLI option-engine behavior, rule installation or kernel accounting readiness.\n",
+  "passed_cases": 25,
+  "inputs_sha256": {
+    "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/test-xtables-iface-stats24.py": "ce1700cf27a0a80d7e71e913aad90e0dc8b2d150407d189b90a185280ae481e1",
+    "/srv/android/artifacts/lineage-24.0-arm64/xtables-ingress-host-20261113-01/report.json": "b55711d3b874e381d045a516b2aadf6e146daf22358af8da429d1739e0822163",
+    "/srv/android/artifacts/lineage-24.0-arm64/xtables-ingress-host-20261113-01/xtables.h": "b847ffbbc8f65e481be96eeb9d0bd99a07cf8d7db4dee2cc2f1f852eeae4853e",
+    "/srv/android/ports/lineage-24.0-arm64/xtables-iface-stats24-20261113-01/extensions/libxt_gta3xlwifi_iface_stats.c": "821efda7fd55e024524619e8d736469394c32b492cb32c5742e56f76b90ed50f",
+    "/srv/android/ports/lineage-24.0-arm64/xtables-iface-stats24-20261113-01/include/linux/netfilter/gta3xlwifi_iface_stats.h": "949ed6e347715c339267b45b7705a65de0ccf8840fbf8ab4bb7198dbc044d967",
+    "/srv/android/artifacts/lineage-24.0-arm64/xtables-iface-stats-host-20261113-01/test.c": "f591ae3e6bb53f918f403d7480740bf3cc03963af11fa6727af5160986611c7f",
+    "/srv/android/artifacts/lineage-24.0-arm64/xtables-iface-stats-host-20261113-01/xtables.h": "b847ffbbc8f65e481be96eeb9d0bd99a07cf8d7db4dee2cc2f1f852eeae4853e"
+  },
+  "command": [
+    "cc",
+    "-std=gnu11",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-Wno-unused-parameter",
+    "-O1",
+    "-g",
+    "-fsanitize=undefined",
+    "-fno-sanitize-recover=all",
+    "-I/srv/android/artifacts/lineage-24.0-arm64/xtables-iface-stats-host-20261113-01",
+    "-I/srv/android/ports/lineage-24.0-arm64/xtables-iface-stats24-20261113-01/include",
+    "/srv/android/artifacts/lineage-24.0-arm64/xtables-iface-stats-host-20261113-01/test.c",
+    "-o",
+    "/srv/android/artifacts/lineage-24.0-arm64/xtables-iface-stats-host-20261113-01/test"
+  ],
+  "hardware_tested": false,
+  "flash_ready": false
+}

@@ -1,0 +1,77 @@
+--- /dev/null
++++ b/extensions/libxt_gta3xlwifi_iface_stats.c
+@@ -0,0 +1,46 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++#include <stdio.h>
++#include <string.h>
++#include <xtables.h>
++#include <linux/netfilter/gta3xlwifi_iface_stats.h>
++static const struct xt_option_entry iface_stats_options[] = {
++    { .name = "direction", .id = 0, .type = XTTYPE_STRING, .flags = XTOPT_MAND },
++    XTOPT_TABLEEND,
++};
++static void iface_stats_help(void)
++{
++    printf("gta3xlwifi_iface_stats: --direction ingress|egress (real interface counters)\n");
++}
++static void iface_stats_init(struct xt_entry_match *match)
++{
++    memset(match->data, 0, sizeof(struct gta3xlwifi_iface_stats_match));
++}
++static void iface_stats_parse(struct xt_option_call *cb)
++{
++    struct gta3xlwifi_iface_stats_match *info = cb->data;
++    unsigned output;
++    xtables_option_parse(cb);
++    if (!strcmp(cb->arg, "ingress")) output = 0;
++    else if (!strcmp(cb->arg, "egress")) output = 1;
++    else xtables_error(PARAMETER_PROBLEM, "direction must be ingress or egress");
++    info->output = output;
++}
++static void iface_stats_print(const void *ip, const struct xt_entry_match *match, int numeric)
++{
++    const struct gta3xlwifi_iface_stats_match *info = (const void *)match->data;
++    printf(" iface-stats %s", info->output ? "egress" : "ingress");
++}
++static void iface_stats_save(const void *ip, const struct xt_entry_match *match)
++{
++    const struct gta3xlwifi_iface_stats_match *info = (const void *)match->data;
++    printf(" --direction %s", info->output ? "egress" : "ingress");
++}
++static struct xtables_match iface_stats_match = {
++    .family = NFPROTO_UNSPEC, .name = GTA3XLWIFI_IFACE_STATS_MATCH, .revision = 0,
++    .version = XTABLES_VERSION, .size = XT_ALIGN(sizeof(struct gta3xlwifi_iface_stats_match)),
++    .userspacesize = XT_ALIGN(sizeof(struct gta3xlwifi_iface_stats_match)),
++    .help = iface_stats_help, .init = iface_stats_init,
++    .print = iface_stats_print, .save = iface_stats_save,
++    .x6_parse = iface_stats_parse, .x6_options = iface_stats_options,
++};
++void _init(void) { xtables_register_match(&iface_stats_match); }
+--- /dev/null
++++ b/include/linux/netfilter/gta3xlwifi_iface_stats.h
+@@ -0,0 +1,25 @@
++/* SPDX-License-Identifier: GPL-2.0 WITH Linux-syscall-note */
++#ifndef _UAPI_GTA3XLWIFI_IFACE_STATS_H
++#define _UAPI_GTA3XLWIFI_IFACE_STATS_H
++#include <linux/types.h>
++#include <linux/ioctl.h>
++#define GTA3XLWIFI_IFACE_STATS_VERSION 1U
++#define GTA3XLWIFI_IFACE_STATS_MAX 1000U
++#define GTA3XLWIFI_IFACE_STATS_MATCH "gta3xlwifi_iface_stats"
++#define GTA3XLWIFI_UID_CAP_IFACE_STATS (1U << 10)
++struct gta3xlwifi_iface_stats_match { __u32 output; __u32 reserved; };
++struct gta3xlwifi_iface_stats_entry {
++    __u32 ifindex; __u32 reserved;
++    __aligned_u64 rx_packets, rx_bytes, tx_packets, tx_bytes;
++};
++/* Non-consuming single snapshot. Input lost_updates/update_sequence MUST be0.
++ * count0+entries0 probes metadata only. A caller needing consistent records
++ * supplies capacity1000 in ONE call; there is no probe/data revision race.
++ * Lost updates saturate at U64_MAX; sequence is opaque modulo2^64.
++ */
++struct gta3xlwifi_iface_stats_transfer {
++    __u32 version, count;
++    __aligned_u64 entries, lost_updates, update_sequence;
++};
++#define GTA3XLWIFI_IFACE_STATS_GET _IOWR('g',0x5a,struct gta3xlwifi_iface_stats_transfer)
++#endif

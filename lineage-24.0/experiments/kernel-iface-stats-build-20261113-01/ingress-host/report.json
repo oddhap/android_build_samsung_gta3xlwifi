@@ -1,0 +1,38 @@
+{
+  "passed": true,
+  "scope": "Actual private ingress predicates vs selected Android17 owner/discard C.\n\nPacket parsing, exact-skb metadata and xtables registration are fixtures here;\nthe actual parser/context/lifecycle have separate tests. No automatic IIF policy,\nrules, native compiler, packet hook completion or network readiness is validated.\n",
+  "passed_cases": 32,
+  "actual_A17_owner_comparisons": 240,
+  "actual_A17_discard_comparisons": 2160,
+  "inputs_sha256": {
+    "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/test-kernel-ingress24.py": "fa46f9713320d472aa980092dbd63e9476260669de43649d38e60015498c737f",
+    "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/test-kernel-qtaguid-socket-owned.py": "59516300b405af46c972b264353c3766b5c18cf882b04ac8ba9db6f70f436459",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-iface-stats-20261113-01/src/net/netfilter/gta3xlwifi_ingress.c": "3c7d70813a07f3280985c012769aa66a3a4ce18fc2efac17db385c2e47cc8453",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-iface-stats-20261113-01/src/net/netfilter/gta3xlwifi_socket_tables.c": "800c7a0dde5c32e9bdc57c6b97a57cc79c33d75310f3d02eede865a5f8305d3f",
+    "/srv/android/src/lineage-24.0-arm64/packages/modules/Connectivity/bpf/progs/netd.c": "7dc4fa02952c0268737dc9aad20a0571b55df255f878506a4db91c1d962713b6",
+    "/srv/android/src/lineage-24.0-arm64/packages/modules/Connectivity/bpf/progs/netd.h": "ae85473717243924c609f8d963d03bc2631adbba8833ae527bf611291f38ca1a",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-iface-stats-build-20261113-01/ingress-host/test.c": "74c56709d440bad7ceee0fee82682b5be8626d79cb6301ea7a718aa99be1091f",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-iface-stats-build-20261113-01/ingress-host/include/linux/netfilter/gta3xlwifi_ingress.h": "5d04d156089975356fedf9a870ac8737dd7ac8a1333c6f17977c9c65beaa2260",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-iface-stats-build-20261113-01/ingress-host/include/linux/netfilter/gta3xlwifi_socket_tables.h": "6873b2d1ce429749d447c0406354b5f5d2c1a3783ca8dfa967d43a95721052d6",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-iface-stats-build-20261113-01/ingress-host/include/net/gta3xlwifi_packet.h": "1bbf75c17eb0c7d5312a8542ecc55da1b444cd78a524f826fe030287c7b1d769",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-iface-stats-20261113-01/src/include/net/gta3xlwifi_socket_tables.h": "4032f279b03010923213e4c3292eb85c8b87b3b5570ed33acfd35960ea852b71"
+  },
+  "command": [
+    "cc",
+    "-std=gnu11",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-Wno-unused-parameter",
+    "-O1",
+    "-g",
+    "-fsanitize=undefined",
+    "-fno-sanitize-recover=all",
+    "-I/srv/android/artifacts/lineage-24.0-arm64/kernel-iface-stats-build-20261113-01/ingress-host/include",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-iface-stats-build-20261113-01/ingress-host/test.c",
+    "-o",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-iface-stats-build-20261113-01/ingress-host/test"
+  ],
+  "hardware_tested": false,
+  "flash_ready": false
+}

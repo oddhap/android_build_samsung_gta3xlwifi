@@ -1,0 +1,1 @@
+DIAGNOSTIC ONLY. Explicit raw socket UID/appId plus lookup appId and leased barrier; preserved reviewed prerequisites. NOT FLASHABLE. No TOP/prebuilt/device changes; whole policy, networking, module ABI and runtime remain unvalidated.

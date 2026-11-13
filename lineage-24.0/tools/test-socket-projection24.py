@@ -78,6 +78,9 @@ int main(){
  C(files.empty()&&held);printf("passed_cases=%u start_fault_points=%u replace_fault_points=%u\n",cases,startPoints,replacePoints);
 }
 '''
+iface_header=S/'linux/netfilter/gta3xlwifi_iface_stats.h'
+if iface_header.exists():
+ code=code.replace(' C(files.empty()&&held);printf(', ' resetProjection();{Combined k;P p(k);C(p.start()==0&&p.replace(a,0)==0);NetpolicyLease::IfaceSnapshot counters;C(p.readIfaceStats(nullptr)==-EINVAL);C(p.readIfaceStats(&counters)==-EOPNOTSUPP&&held&&files.empty());P::State out;uint64_t g=0;C(p.snapshot(&out,&g)==-EAGAIN); }\n C(files.empty()&&held);printf(',1)
 (O/'test.cpp').write_text(code);names=['Gta3xlwifiNetpolicyLease','Gta3xlwifiCheckedUidChains','Gta3xlwifiUidPolicy','Gta3xlwifiUidChainProgram','Gta3xlwifiOrdinaryDispatch','Gta3xlwifiSocketRoots','Gta3xlwifiIngressPolicy','Gta3xlwifiMeteredChainProgram','Gta3xlwifiMeteredRoots','Gta3xlwifiUidPermissionState','Gta3xlwifiLocalNetworkState','Gta3xlwifiSocketPolicyProjection'];sources=[S/(n+'.cpp') for n in names]
 cmd=['c++','-std=c++20','-Wall','-Wextra','-Werror','-g','-O1','-fsanitize=undefined','-fno-sanitize-recover=all','-pthread','-I'+str(S),'-I'+str(O),*map(str,sources),str(O/'test.cpp'),'-o',str(O/'test')]+['-Wl,--wrap='+x for x in ['open','close','read','__read_chk','fstat','fstatfs','ioctl']]
 x=subprocess.run(cmd,capture_output=True,text=True);(O/'compile.log').write_text(x.stdout+x.stderr);assert x.returncode==0,x.stderr

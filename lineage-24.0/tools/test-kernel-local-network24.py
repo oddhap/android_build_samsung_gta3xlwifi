@@ -24,6 +24,10 @@ if metrics_header.exists():
  exported_metrics=O/'include/linux/netfilter/gta3xlwifi_loopback.h';exported_metrics.parent.mkdir(parents=True,exist_ok=True);exported_metrics.write_bytes(metrics_header.read_bytes())
 if 'gta3xlwifi_receive_features()' in d:
  prefix+='\nstatic u32 gta3xlwifi_receive_features(void){return 0;} /* receive registration tested separately */\n'
+iface_header=S/'include/uapi/linux/netfilter/gta3xlwifi_iface_stats.h'
+if iface_header.exists():
+ prefix+='\n#include <linux/netfilter/gta3xlwifi_iface_stats.h>\nstatic unsigned gta3xlwifi_iface_stats_features(void){return 0;} /* actual producer tested separately */\nstatic long gta3xlwifi_iface_stats_ioctl(unsigned int c,unsigned long a){(void)c;(void)a;assert(!"legacy fixture entered interface snapshot");return -ENOTTY;}\n'
+ exported_iface=O/'include/linux/netfilter/gta3xlwifi_iface_stats.h';exported_iface.parent.mkdir(parents=True,exist_ok=True);exported_iface.write_bytes(iface_header.read_bytes())
 if 'gta3xlwifi_socket_tables_features()' in d:
  prefix+='\nstatic u32 gta3xlwifi_socket_tables_features(void){return 0;} /* real table registration tested separately */\n'
 if 'gta3xlwifi_egress_features()' in d:

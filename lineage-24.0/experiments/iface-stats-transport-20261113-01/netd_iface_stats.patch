@@ -1,0 +1,119 @@
+--- a/Gta3xlwifiNetpolicyLease.cpp
++++ b/Gta3xlwifiNetpolicyLease.cpp
+@@ -4,6 +4,7 @@
+ #include <linux/netfilter/gta3xlwifi_uid_permissions.h>
+ #include <linux/netfilter/gta3xlwifi_local_network.h>
+ #include <linux/netfilter/gta3xlwifi_loopback.h>
++#include <linux/netfilter/gta3xlwifi_iface_stats.h>
+ #include <linux/netfilter/gta3xlwifi_socket_tables.h>
+ #include <utility>
+ #include <cerrno>
+@@ -231,6 +232,34 @@
+         GTA3XLWIFI_UID_CAP_SOCKET_TABLES|GTA3XLWIFI_UID_CAP_INGRESS_MATCHES;
+     return (result&required)==required?0:imageErrorLocked(-EOPNOTSUPP);
+ }
++int NetpolicyLease::readIfaceStats(IfaceSnapshot* output) {
++    if(!output)return -EINVAL;
++    std::lock_guard<std::mutex> lock(mMutex);
++    if(mFd<0)return -ENOTCONN;
++    std::vector<gta3xlwifi_iface_stats_entry> rows(GTA3XLWIFI_IFACE_STATS_MAX);
++    int result;
++    do{result=ioctl(mFd,GTA3XLWIFI_UID_FEATURES,0UL);}while(result<0&&errno==EINTR);
++    if(result<0)return imageErrorLocked(errno?-errno:-EIO);
++    if(!(result&GTA3XLWIFI_UID_CAP_IFACE_STATS))return imageErrorLocked(-EOPNOTSUPP);
++    gta3xlwifi_iface_stats_transfer request{};
++    do{
++        // A retry takes a FRESH snapshot and resets all output-only metadata.
++        request={};request.version=GTA3XLWIFI_IFACE_STATS_VERSION;
++        request.count=GTA3XLWIFI_IFACE_STATS_MAX;
++        request.entries=reinterpret_cast<uintptr_t>(rows.data());
++        result=ioctl(mFd,GTA3XLWIFI_IFACE_STATS_GET,reinterpret_cast<unsigned long>(&request));
++    }while(result<0&&errno==EINTR);
++    if(result)return imageErrorLocked(result<0?(errno?-errno:-EIO):-EPROTO);
++    if(request.version!=1||request.count>GTA3XLWIFI_IFACE_STATS_MAX||
++       request.entries!=reinterpret_cast<uintptr_t>(rows.data()))return imageErrorLocked(-EPROTO);
++    IfaceSnapshot next;next.entries.reserve(request.count);
++    next.lostUpdates=request.lost_updates;next.updateSequence=request.update_sequence;
++    for(size_t i=0;i<request.count;++i){const auto&r=rows[i];
++        if(r.reserved||r.ifindex>INT_MAX||(i&&rows[i-1].ifindex>=r.ifindex))return imageErrorLocked(-EPROTO);
++        next.entries.push_back({r.ifindex,r.rx_packets,r.rx_bytes,r.tx_packets,r.tx_bytes});
++    }
++    *output=std::move(next);return 0;
++}
+ int NetpolicyLease::imageFeaturesLocked() {
+     if (mFd < 0) return -ENOTCONN;
+     int result;
+--- a/Gta3xlwifiNetpolicyLease.h
++++ b/Gta3xlwifiNetpolicyLease.h
+@@ -73,6 +73,17 @@
+     int requireSocketTables();
+     int requireIngressMatches();
+     int requirePolicyPrimitives();
++    struct IfaceCounter {
++        uint32_t ifindex;
++        uint64_t rxPackets,rxBytes,txPackets,txBytes;
++    };
++    struct IfaceSnapshot {
++        std::vector<IfaceCounter> entries;
++        uint64_t lostUpdates=0, updateSequence=0;
++    };
++    // One non-consuming actual snapshot, no metadata/data race or fake totals.
++    // Loss is returned explicitly. Caller must not describe lossy data as complete.
++    int readIfaceStats(IfaceSnapshot* output);
+     int start();
+     int hold();
+     int release();
+--- a/Gta3xlwifiSocketPolicyProjection.cpp
++++ b/Gta3xlwifiSocketPolicyProjection.cpp
+@@ -216,6 +216,13 @@
+                                             LocalNetworkState::Entry e) {
+   return update([=](State& s) { return s.local.erase(t, e); });
+ }
++int SocketPolicyProjection::readIfaceStats(NetpolicyLease::IfaceSnapshot* output) {
++  if (!output) return -EINVAL;
++  std::lock_guard<std::mutex> lock(mMutex);
++  if (!mCommit) return -EAGAIN;
++  int result = mLease.readIfaceStats(output);
++  return result ? quarantine(result) : 0;
++}
+ int SocketPolicyProjection::readLoopbackEvents(
+     NetpolicyLease::LoopbackBatch* output) {
+   if (!output) return -EINVAL;
+--- a/Gta3xlwifiSocketPolicyProjection.h
++++ b/Gta3xlwifiSocketPolicyProjection.h
+@@ -52,6 +52,7 @@
+                     LocalNetworkState::Entry entry);
+   int clearLocalEntry(LocalNetworkState::Table table,
+                       LocalNetworkState::Entry entry);
++  int readIfaceStats(NetpolicyLease::IfaceSnapshot* output);
+   int readLoopbackEvents(NetpolicyLease::LoopbackBatch* output);
+ 
+  private:
+--- /dev/null
++++ b/linux/netfilter/gta3xlwifi_iface_stats.h
+@@ -0,0 +1,25 @@
++/* SPDX-License-Identifier: GPL-2.0 WITH Linux-syscall-note */
++#ifndef _UAPI_GTA3XLWIFI_IFACE_STATS_H
++#define _UAPI_GTA3XLWIFI_IFACE_STATS_H
++#include <linux/types.h>
++#include <linux/ioctl.h>
++#define GTA3XLWIFI_IFACE_STATS_VERSION 1U
++#define GTA3XLWIFI_IFACE_STATS_MAX 1000U
++#define GTA3XLWIFI_IFACE_STATS_MATCH "gta3xlwifi_iface_stats"
++#define GTA3XLWIFI_UID_CAP_IFACE_STATS (1U << 10)
++struct gta3xlwifi_iface_stats_match { __u32 output; __u32 reserved; };
++struct gta3xlwifi_iface_stats_entry {
++    __u32 ifindex; __u32 reserved;
++    __aligned_u64 rx_packets, rx_bytes, tx_packets, tx_bytes;
++};
++/* Non-consuming single snapshot. Input lost_updates/update_sequence MUST be0.
++ * count0+entries0 probes metadata only. A caller needing consistent records
++ * supplies capacity1000 in ONE call; there is no probe/data revision race.
++ * Lost updates saturate at U64_MAX; sequence is opaque modulo2^64.
++ */
++struct gta3xlwifi_iface_stats_transfer {
++    __u32 version, count;
++    __aligned_u64 entries, lost_updates, update_sequence;
++};
++#define GTA3XLWIFI_IFACE_STATS_GET _IOWR('g',0x5a,struct gta3xlwifi_iface_stats_transfer)
++#endif

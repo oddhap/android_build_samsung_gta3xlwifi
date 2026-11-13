@@ -152,6 +152,10 @@ metrics_header=S/'include/uapi/linux/netfilter/gta3xlwifi_loopback.h'
 if metrics_header.exists():
  prefix+='\n#include <linux/netfilter/gta3xlwifi_loopback.h>\n'
  exported_metrics=O/'include/linux/netfilter/gta3xlwifi_loopback.h';exported_metrics.parent.mkdir(parents=True,exist_ok=True);exported_metrics.write_bytes(metrics_header.read_bytes())
+iface_header=S/'include/uapi/linux/netfilter/gta3xlwifi_iface_stats.h'
+if iface_header.exists():
+ prefix+='\n#include <linux/netfilter/gta3xlwifi_iface_stats.h>\n'
+ exported_iface=O/'include/linux/netfilter/gta3xlwifi_iface_stats.h';exported_iface.parent.mkdir(parents=True,exist_ok=True);exported_iface.write_bytes(iface_header.read_bytes())
 code=prefix+globals+sync+'\n'.join(m.extract(text,n) for n in names)+metadata+registration+m.extract(text,'gta3xlwifi_netpolicy_init')+tests
 # Export only this UAPI header; use the host's installed Linux ABI dependencies.
 # Adding the raw kernel UAPI tree would accidentally include unexported headers.

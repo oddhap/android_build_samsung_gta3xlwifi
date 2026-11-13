@@ -1,0 +1,272 @@
+--- a/net/netfilter/Makefile
++++ b/net/netfilter/Makefile
+@@ -201,3 +201,4 @@
+ obj-$(CONFIG_NETFILTER_XT_MATCH_QTAGUID) += gta3xlwifi_loopback.o
+ obj-$(CONFIG_NETFILTER_XT_MATCH_QTAGUID) += gta3xlwifi_socket_tables.o
+ obj-$(CONFIG_NETFILTER_XT_MATCH_QTAGUID) += gta3xlwifi_ingress.o
++obj-$(CONFIG_NETFILTER_XT_MATCH_QTAGUID) += gta3xlwifi_iface_stats.o
+--- a/net/netfilter/xt_qtaguid.c
++++ b/net/netfilter/xt_qtaguid.c
+@@ -3481,3 +3481,58 @@
+     rcu_read_unlock();
+     return result;
+ }
++
++/* Real A17 interface-XT counter producer. Existing qtaguid counters are separate.
++ * No producer rule is installed by registering this match. Full source hookup
++ * and matching egress-policy UNDO are required before accounting readiness.
++ */
++#include <net/gta3xlwifi_iface_stats.h>
++static bool gta3xlwifi_iface_registered;
++u32 gta3xlwifi_iface_stats_features(void)
++{
++    return READ_ONCE(gta3xlwifi_iface_registered)?GTA3XLWIFI_UID_CAP_IFACE_STATS:0;
++}
++EXPORT_SYMBOL_GPL(gta3xlwifi_iface_stats_features);
++static bool gta3xlwifi_iface_mt(const struct sk_buff *skb,struct xt_action_param *par)
++{
++    const struct gta3xlwifi_iface_stats_match *info=par->matchinfo;
++    const struct net_device *device=info->output?par->out:par->in;
++    if(info->output){
++        struct sock *sk=skb_to_full_sk(skb);
++        if(sk&&sk_fullsock(sk)){
++            struct net *net=sock_net(sk);
++            u32 uid=from_kuid_munged(net->user_ns,sock_net_uid(net,sk));
++            if(uid==1000){
++                u32 stats_uid,tag;
++                int metadata=gta3xlwifi_socket_accounting(sk,&stats_uid,&tag);
++                if(!metadata&&stats_uid==1029)return false; /* Exact A17 CLAT NOMATCH. */
++                if(metadata&&metadata!=-ENOENT){gta3xlwifi_iface_lost();return false;}
++            }
++        }
++    }
++    gta3xlwifi_iface_account(skb,device?device->ifindex:0,info->output,false);
++    return true; /* Counter effect only, never consumes/drops a packet. */
++}
++static int gta3xlwifi_iface_check(const struct xt_mtchk_param *par)
++{
++    const struct gta3xlwifi_iface_stats_match *info=par->matchinfo;
++    unsigned int hook;
++    if(current_user_ns()!=&init_user_ns||info->reserved||info->output>1||
++       (par->family!=NFPROTO_IPV4&&par->family!=NFPROTO_IPV6))return -EINVAL;
++    hook=info->output?NF_INET_POST_ROUTING:NF_INET_PRE_ROUTING;
++    if(strcmp(par->table,info->output?"mangle":"raw")||par->hook_mask&~(1U<<hook))return -EINVAL;
++    return 0;
++}
++static struct xt_match gta3xlwifi_iface_reg __read_mostly={
++    .name=GTA3XLWIFI_IFACE_STATS_MATCH,.revision=0,.family=NFPROTO_UNSPEC,
++    .hooks=(1<<NF_INET_PRE_ROUTING)|(1<<NF_INET_POST_ROUTING),
++    .match=gta3xlwifi_iface_mt,.checkentry=gta3xlwifi_iface_check,
++    .matchsize=sizeof(struct gta3xlwifi_iface_stats_match),.me=THIS_MODULE,
++};
++static int __init gta3xlwifi_iface_init(void)
++{
++    int result=xt_register_match(&gta3xlwifi_iface_reg);
++    if(!result)WRITE_ONCE(gta3xlwifi_iface_registered,true);
++    return result;
++}
++module_init(gta3xlwifi_iface_init);
+--- a/net/netfilter/gta3xlwifi_netpolicy.c
++++ b/net/netfilter/gta3xlwifi_netpolicy.c
+@@ -25,6 +25,7 @@
+ #include <net/gta3xlwifi_receive.h>
+ #include <net/gta3xlwifi_socket_tables.h>
+ #include <net/gta3xlwifi_loopback.h>
++#include <net/gta3xlwifi_iface_stats.h>
+ #include <uapi/linux/netfilter/gta3xlwifi_loopback.h>
+ 
+ static DEFINE_MUTEX(netpolicy_lock);
+@@ -129,7 +130,7 @@
+ 	long ret;
+ 	if (cmd != GTA3XLWIFI_UID_FEATURES && cmd != GTA3XLWIFI_UID_SET_IMAGE &&
+ 	    cmd != GTA3XLWIFI_UID_GET_IMAGE && cmd != GTA3XLWIFI_LNA_SET_IMAGE &&
+-	    cmd != GTA3XLWIFI_LNA_GET_IMAGE && cmd != GTA3XLWIFI_LOOPBACK_GET_EVENTS)
++	    cmd != GTA3XLWIFI_LNA_GET_IMAGE && cmd != GTA3XLWIFI_LOOPBACK_GET_EVENTS && cmd != GTA3XLWIFI_IFACE_STATS_GET)
+ 		return -ENOTTY;
+ 	if (cmd == GTA3XLWIFI_UID_FEATURES && arg)
+ 		return -EINVAL;
+@@ -146,10 +147,12 @@
+ 	else if (cmd == GTA3XLWIFI_UID_FEATURES)
+ 		ret = gta3xlwifi_uid_permissions_features() | GTA3XLWIFI_UID_CAP_LNA_STORE |
+ 		      gta3xlwifi_lna_packet_features() | gta3xlwifi_receive_features() | gta3xlwifi_egress_features() | gta3xlwifi_loopback_features() |
+-		      gta3xlwifi_socket_tables_features();
++		      gta3xlwifi_socket_tables_features() | gta3xlwifi_iface_stats_features();
+ 	else if ((cmd == GTA3XLWIFI_UID_SET_IMAGE || cmd == GTA3XLWIFI_LNA_SET_IMAGE) &&
+ 	         !READ_ONCE(netpolicy_held))
+ 		ret = -EBUSY;
++	else if (cmd == GTA3XLWIFI_IFACE_STATS_GET)
++		ret = gta3xlwifi_iface_stats_ioctl(cmd, arg);
+ 	else if (cmd == GTA3XLWIFI_LOOPBACK_GET_EVENTS)
+ 		ret = gta3xlwifi_loopback_ioctl(cmd, arg);
+ 	else if (cmd == GTA3XLWIFI_LNA_SET_IMAGE || cmd == GTA3XLWIFI_LNA_GET_IMAGE)
+@@ -167,7 +170,7 @@
+ 
+ 	if (cmd == GTA3XLWIFI_UID_FEATURES || cmd == GTA3XLWIFI_UID_SET_IMAGE ||
+ 	    cmd == GTA3XLWIFI_UID_GET_IMAGE || cmd == GTA3XLWIFI_LNA_SET_IMAGE ||
+-	    cmd == GTA3XLWIFI_LNA_GET_IMAGE || cmd == GTA3XLWIFI_LOOPBACK_GET_EVENTS)
++	    cmd == GTA3XLWIFI_LNA_GET_IMAGE || cmd == GTA3XLWIFI_LOOPBACK_GET_EVENTS || cmd == GTA3XLWIFI_IFACE_STATS_GET)
+ 		return netpolicy_image_ioctl(file, cmd, arg);
+ 	if (cmd != GTA3XLWIFI_NETPOLICY_ABI &&
+ 	    cmd != GTA3XLWIFI_NETPOLICY_HOLD &&
+--- /dev/null
++++ b/include/uapi/linux/netfilter/gta3xlwifi_iface_stats.h
+@@ -0,0 +1,25 @@
++/* SPDX-License-Identifier: GPL-2.0 WITH Linux-syscall-note */
++#ifndef _UAPI_GTA3XLWIFI_IFACE_STATS_H
++#define _UAPI_GTA3XLWIFI_IFACE_STATS_H
++#include <linux/types.h>
++#include <linux/ioctl.h>
++#define GTA3XLWIFI_IFACE_STATS_VERSION 1U
++#define GTA3XLWIFI_IFACE_STATS_MAX 1000U
++#define GTA3XLWIFI_IFACE_STATS_MATCH "gta3xlwifi_iface_stats"
++#define GTA3XLWIFI_UID_CAP_IFACE_STATS (1U << 10)
++struct gta3xlwifi_iface_stats_match { __u32 output; __u32 reserved; };
++struct gta3xlwifi_iface_stats_entry {
++    __u32 ifindex; __u32 reserved;
++    __aligned_u64 rx_packets, rx_bytes, tx_packets, tx_bytes;
++};
++/* Non-consuming single snapshot. Input lost_updates/update_sequence MUST be0.
++ * count0+entries0 probes metadata only. A caller needing consistent records
++ * supplies capacity1000 in ONE call; there is no probe/data revision race.
++ * Lost updates saturate at U64_MAX; sequence is opaque modulo2^64.
++ */
++struct gta3xlwifi_iface_stats_transfer {
++    __u32 version, count;
++    __aligned_u64 entries, lost_updates, update_sequence;
++};
++#define GTA3XLWIFI_IFACE_STATS_GET _IOWR('g',0x5a,struct gta3xlwifi_iface_stats_transfer)
++#endif
+--- /dev/null
++++ b/include/net/gta3xlwifi_iface_stats.h
+@@ -0,0 +1,11 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++#ifndef _NET_GTA3XLWIFI_IFACE_STATS_H
++#define _NET_GTA3XLWIFI_IFACE_STATS_H
++#include <linux/types.h>
++#include <uapi/linux/netfilter/gta3xlwifi_iface_stats.h>
++struct sk_buff;
++u32 gta3xlwifi_iface_stats_features(void);
++int gta3xlwifi_iface_account(const struct sk_buff *skb,u32 ifindex,bool output,bool undo);
++void gta3xlwifi_iface_lost(void);
++long gta3xlwifi_iface_stats_ioctl(unsigned int cmd,unsigned long arg);
++#endif
+--- /dev/null
++++ b/net/netfilter/gta3xlwifi_iface_stats.c
+@@ -0,0 +1,117 @@
++// SPDX-License-Identifier: GPL-2.0
++/* Real bounded global interface counters, as the A17 global iface_stats_map.
++ * Existing qtaguid/proc/vendor counters are untouched. No automatic hook/rule
++ * installation, BPF objects or whole-network readiness is provided here.
++ */
++#include <linux/errno.h>
++#include <linux/hash.h>
++#include <linux/if_ether.h>
++#include <linux/ip.h>
++#include <linux/ipv6.h>
++#include <linux/module.h>
++#include <linux/skbuff.h>
++#include <linux/sort.h>
++#include <linux/spinlock.h>
++#include <linux/string.h>
++#include <linux/uaccess.h>
++#include <linux/vmalloc.h>
++#include <net/gta3xlwifi_iface_stats.h>
++#define IFACE_HASH_BITS 11
++#define IFACE_BUCKETS (1U << IFACE_HASH_BITS)
++struct iface_counter {
++    u32 next, ifindex;
++    u64 rx_packets,rx_bytes,tx_packets,tx_bytes;
++};
++static DEFINE_SPINLOCK(iface_lock);
++/* Index+1 links, no allocation in packet context and no external pointers. */
++static u32 iface_heads[IFACE_BUCKETS],iface_count;
++static struct iface_counter iface_rows[GTA3XLWIFI_IFACE_STATS_MAX];
++static u64 iface_lost_updates,iface_sequence;
++static void iface_amount(const struct sk_buff *skb,u64 *packets,u64 *bytes)
++{
++    /* EXACT A17 interface XT program's explicit KVER_4_9 arithmetic. This is
++     * not a claim that the real4.4 kernel is5.x or that it loaded a BPF program.
++     * UID/tag accounting uses different modern GSO semantics and is separate.
++     */
++    const int mtu=1500;
++    u64 p=1,b=skb->len;
++    if(b>mtu){
++        int overhead=(skb->protocol==htons(ETH_P_IPV6)?sizeof(struct ipv6hdr):sizeof(struct iphdr))+32;
++        int mss=mtu-overhead;
++        u64 payload=b-overhead;
++        p=(payload+mss-1)/mss;b=overhead*p+payload;
++    }
++    *packets=p;*bytes=b;
++}
++void gta3xlwifi_iface_lost(void)
++{
++    spin_lock_bh(&iface_lock);
++    if(iface_lost_updates!=~(u64)0)++iface_lost_updates;
++    ++iface_sequence;
++    spin_unlock_bh(&iface_lock);
++}
++EXPORT_SYMBOL_GPL(gta3xlwifi_iface_lost);
++int gta3xlwifi_iface_account(const struct sk_buff *skb,u32 ifindex,bool output,bool undo)
++{
++    struct iface_counter *row=NULL;
++    u32 bucket,index;
++    u64 packets,bytes;
++    if(!skb)return -EINVAL;
++    iface_amount(skb,&packets,&bytes);
++    if(undo){packets=-packets;bytes=-bytes;} /* Exact unsigned A17 UNDO. */
++    bucket=hash_32(ifindex,IFACE_HASH_BITS);
++    spin_lock_bh(&iface_lock);
++    for(index=iface_heads[bucket];index;index=iface_rows[index-1].next)
++        if(iface_rows[index-1].ifindex==ifindex){row=&iface_rows[index-1];break;}
++    if(!row){
++        if(iface_count==GTA3XLWIFI_IFACE_STATS_MAX){
++            if(iface_lost_updates!=~(u64)0)++iface_lost_updates;
++            ++iface_sequence;spin_unlock_bh(&iface_lock);return -ENOSPC;
++        }
++        row=&iface_rows[iface_count++];row->ifindex=ifindex;
++        row->next=iface_heads[bucket];iface_heads[bucket]=iface_count;
++    }
++    if(output){row->tx_packets+=packets;row->tx_bytes+=bytes;}
++    else{row->rx_packets+=packets;row->rx_bytes+=bytes;}
++    ++iface_sequence;spin_unlock_bh(&iface_lock);return 0;
++}
++EXPORT_SYMBOL_GPL(gta3xlwifi_iface_account);
++static int iface_compare(const void *a,const void *b)
++{
++    const struct gta3xlwifi_iface_stats_entry *x=a,*y=b;
++    return x->ifindex<y->ifindex?-1:x->ifindex>y->ifindex?1:0;
++}
++long gta3xlwifi_iface_stats_ioctl(unsigned int cmd,unsigned long arg)
++{
++    struct gta3xlwifi_iface_stats_transfer request,answer;
++    struct gta3xlwifi_iface_stats_entry *rows=NULL;
++    u32 i;
++    int result=0;
++    if(cmd!=GTA3XLWIFI_IFACE_STATS_GET)return -ENOTTY;
++    if(!arg)return -EFAULT;
++    if(!gta3xlwifi_iface_stats_features())return -EOPNOTSUPP;
++    if(copy_from_user(&request,(void __user *)arg,sizeof(request)))return -EFAULT;
++    if(request.version!=GTA3XLWIFI_IFACE_STATS_VERSION||
++       request.count>GTA3XLWIFI_IFACE_STATS_MAX||
++       (!!request.count!=!!request.entries)||request.lost_updates||request.update_sequence)return -EINVAL;
++    if(request.count){rows=vzalloc(request.count*sizeof(*rows));if(!rows)return -ENOMEM;}
++    answer=request;
++    spin_lock_bh(&iface_lock);
++    answer.count=iface_count;answer.lost_updates=iface_lost_updates;answer.update_sequence=iface_sequence;
++    if(request.count&&request.count<iface_count)result=-ENOSPC;
++    else if(request.count)for(i=0;i<iface_count;++i){
++        rows[i].ifindex=iface_rows[i].ifindex;
++        rows[i].rx_packets=iface_rows[i].rx_packets;rows[i].rx_bytes=iface_rows[i].rx_bytes;
++        rows[i].tx_packets=iface_rows[i].tx_packets;rows[i].tx_bytes=iface_rows[i].tx_bytes;
++    }
++    spin_unlock_bh(&iface_lock);
++    if(!result&&request.count){
++        sort(rows,answer.count,sizeof(*rows),iface_compare,NULL);
++        if(copy_to_user((void __user *)(unsigned long)request.entries,rows,answer.count*sizeof(*rows)))result=-EFAULT;
++    }
++    if(!result&&copy_to_user((void __user *)arg,&answer,sizeof(answer)))result=-EFAULT;
++    vfree(rows);return result;
++}
++EXPORT_SYMBOL_GPL(gta3xlwifi_iface_stats_ioctl);
++MODULE_LICENSE("GPL");
++MODULE_DESCRIPTION("Real bounded interface counter snapshots; no automatic accounting hooks");

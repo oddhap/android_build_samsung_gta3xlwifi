@@ -22,6 +22,12 @@ recovered=new
 for name in ['gta3xlwifi_receive_policy','gta3xlwifi_egress_policy']:
  assert m.extract(code,name)==m.extract(old,name)
  recovered=recovered.replace(m.extract(new,name),m.extract(old,name),1)
+marker='/* Real A17 interface-XT counter producer.'
+if marker in recovered:
+ suffix=recovered[recovered.index(marker):]
+ assert suffix==new[new.index(marker):]
+ recovered=recovered[:recovered.index(marker)].rstrip()+'\n'
+ old=old.rstrip()+'\n'
 assert recovered==old,'Unexpected raw source change outside the two reviewed hook bodies'
 code=code.replace('int main(void){','static int baseline_regression_main(void){',1)
 # Simulate a live inode UID change during the real tag-query lock, without

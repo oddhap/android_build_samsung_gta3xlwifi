@@ -1,0 +1,52 @@
+{
+  "scope": "Real interface-XT counter primitive and authenticated non-consuming snapshot; no installed producer rules, drop UNDO linkage, UID/tag accounting or full readiness.",
+  "prerequisites": [
+    "kernel-ingress-context-20261113-01"
+  ],
+  "patch_sha256": "58a18d2e448a8f8482a91fa242027db5ff9b3eb2eb72e209e566041043304044",
+  "files": [
+    {
+      "path": "net/netfilter/Makefile",
+      "before_sha256": "c5d2a41a1758c619518bdfc1477bed16fb3bc7dba92ebea5fef77f3098593a46",
+      "candidate_sha256": "539380d837d5e22ffca65e2f91e15789522a344bece4c7a86158527203ee9224"
+    },
+    {
+      "path": "net/netfilter/xt_qtaguid.c",
+      "before_sha256": "101c8cf71b7b242da760bc1de9c0178c66e9c82562337b84832492d8f0df853b",
+      "candidate_sha256": "fb9c5e5506f7d8669d1f06a30c4ab7e9661b55a04acebd6fb311c2f4f0f2ab60"
+    },
+    {
+      "path": "net/netfilter/gta3xlwifi_netpolicy.c",
+      "before_sha256": "9991608c486caf1dfc9120c8fd91cecdae4762d4e39c22c33a6b9d0676be10cf",
+      "candidate_sha256": "750ddd1251fd263e2a287c80585968ea36dc84014c18df376a83fea51e4323be"
+    },
+    {
+      "path": "include/uapi/linux/netfilter/gta3xlwifi_iface_stats.h",
+      "before_sha256": null,
+      "candidate_sha256": "949ed6e347715c339267b45b7705a65de0ccf8840fbf8ab4bb7198dbc044d967"
+    },
+    {
+      "path": "include/net/gta3xlwifi_iface_stats.h",
+      "before_sha256": null,
+      "candidate_sha256": "2e73d48660e22f280061d8f03ed41358d8fe8a04bbb932b19b8f540e5c78d90f"
+    },
+    {
+      "path": "net/netfilter/gta3xlwifi_iface_stats.c",
+      "before_sha256": null,
+      "candidate_sha256": "d5d845f85d9ca1e5956ceeff9724264aa9bb7f5b3356379be0bf40e169bf0287"
+    }
+  ],
+  "supported_runtime_capability_bits": [
+    0,
+    1,
+    2,
+    3,
+    5,
+    9,
+    12
+  ],
+  "unknown_active_capabilities_rejected": true,
+  "android_prebuilt_promoted": false,
+  "hardware_tested": false,
+  "flash_ready": false
+}

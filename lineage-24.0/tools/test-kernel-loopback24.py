@@ -23,6 +23,10 @@ header=S/'include/uapi/linux/netfilter/gta3xlwifi_loopback.h';dst=O/'egress-regr
 driver=S/'net/netfilter/gta3xlwifi_netpolicy.c';d=driver.read_text();i=code.index(m.extract(code,'netpolicy_image_ioctl'));code=code[:i]+'u32 gta3xlwifi_receive_features(void);u32 gta3xlwifi_egress_features(void);u32 gta3xlwifi_loopback_features(void);long gta3xlwifi_loopback_ioctl(unsigned int,unsigned long);\n'+code[i:]
 if 'gta3xlwifi_socket_tables_features()' in d:
  code='static unsigned gta3xlwifi_socket_tables_features(void){return 0;} /* table lifecycle tested separately */\n'+code
+iface_header=S/'include/uapi/linux/netfilter/gta3xlwifi_iface_stats.h'
+if iface_header.exists():
+ dst=O/'egress-regression/receive-prerequisite/include/linux/netfilter/gta3xlwifi_iface_stats.h';dst.write_bytes(iface_header.read_bytes())
+ code='#include <linux/netfilter/gta3xlwifi_iface_stats.h>\nstatic unsigned gta3xlwifi_iface_stats_features(void){return 0;} /* separately tested counter producer */\nstatic long gta3xlwifi_iface_stats_ioctl(unsigned int c,unsigned long a){(void)c;(void)a;return -25;}\n'+code
 for name in ['netpolicy_image_ioctl','netpolicy_ioctl']:code=code.replace(m.extract(code,name),m.extract(d,name))
 peer=S/'include/net/gta3xlwifi_socket_peer.h';dst=O/'egress-regression/receive-prerequisite/include/net/gta3xlwifi_socket_peer.h';dst.write_bytes(peer.read_bytes())
 code+=r'''
