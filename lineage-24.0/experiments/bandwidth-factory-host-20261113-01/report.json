@@ -1,0 +1,38 @@
+{
+  "passed": true,
+  "scope": "Execute actual A17 and explicit private-backend accounting factories.\n\nChecks exact preserved order/content outside four deliberately omitted metered\nparent rows and two genuine producer substitutions. This is pure source factory\nvalidation, not installation, startup sequencing or network readiness.\n",
+  "passed_cases": 1040,
+  "mark_variants": 20,
+  "stock_factory_and_other_controller_source_unchanged": true,
+  "inputs_sha256": {
+    "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/test-bandwidth-factory24.py": "a87176a9c10ad848754af98603ebeff558816210b00ba1a1203174eda5ce058d",
+    "/srv/android/src/lineage-24.0-arm64/system/netd/server/BandwidthController.cpp": "dbe9330c18ad702b780aeac7ca7b1771897815edc3ec01418248f9175fa5b961",
+    "/srv/android/src/lineage-24.0-arm64/system/netd/server/BandwidthController.h": "52228f81b8fc4aa3900498db2df9d397bb71cf92e59f4d2b4a79049f66119ed8",
+    "/srv/android/ports/lineage-24.0-arm64/bandwidth-factory24-20261113-01/BandwidthController.cpp": "b79b4d8c67d5f36319189db56235be125e77c9d7d9ffe4741b5ffddfabae35e2",
+    "/srv/android/ports/lineage-24.0-arm64/bandwidth-factory24-20261113-01/BandwidthController.h": "0886e5d770aa66a3b3bc3a620133700f989972da63ed97d131f07c0b9629e584",
+    "/srv/android/src/lineage-24.0-arm64/system/netd/include/Fwmark.h": "74cff60cf0e3228994b646584706cc0c106ccbe1b2ae3f3ee1572c703e2b93db",
+    "/srv/android/src/lineage-24.0-arm64/system/netd/include/Permission.h": "c3763af97dc0a35e4bceaf233bf5a217641f5dcc031813e8e84f5be04d055ae7",
+    "/srv/android/src/lineage-24.0-arm64/system/netd/server/NetdConstants.h": "34710414f883e2a70b2e54f117a57d141175fb711907b0fcdd52c0520a2df842",
+    "/srv/android/src/lineage-24.0-arm64/system/netd/include/mainline/XtBpfProgLocations.h": "b87559166df9d248563c4be321b8ad63cde0f2ddabf586395aea8b8444c0c918",
+    "/srv/android/src/lineage-24.0-arm64/packages/modules/Connectivity/staticlibs/netd/aidl_api/netd_aidl_interface/18/android/net/INetd.aidl": "f19e6b05499decb989965f92b3c63f0bbd27bdd183eacba3391ae450be142362",
+    "/srv/android/artifacts/lineage-24.0-arm64/bandwidth-factory-host-20261113-01/test.cpp": "bfa6db0ab689372524768b16a4acea02a2b5d9d64eaca252bf58c58a6054c006"
+  },
+  "command": [
+    "c++",
+    "-std=c++20",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-O1",
+    "-g",
+    "-fsanitize=undefined",
+    "-fno-sanitize-recover=all",
+    "-I/srv/android/src/lineage-24.0-arm64/system/netd/include",
+    "/srv/android/artifacts/lineage-24.0-arm64/bandwidth-factory-host-20261113-01/test.cpp",
+    "-o",
+    "/srv/android/artifacts/lineage-24.0-arm64/bandwidth-factory-host-20261113-01/test"
+  ],
+  "rules_installed": false,
+  "hardware_tested": false,
+  "flash_ready": false
+}

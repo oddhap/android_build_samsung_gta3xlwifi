@@ -1,0 +1,70 @@
+{
+  "passed": true,
+  "scope": "Bind actual factory defaults and actual A17 MARK/policy save formatting.\n\nExecutes previously tested actual factory code and actual formatter bodies with\nminimal payload fixtures. No kernel rules, ABI execution or readiness is claimed.\n",
+  "source_program": [
+    "*filter",
+    "-A bw_INPUT -j bw_global_alert",
+    "-A bw_INPUT -p esp -j RETURN",
+    "-A bw_INPUT -m mark --mark 0x100000/0x100000 -j RETURN",
+    "-A bw_INPUT -j MARK --or-mark 0x100000",
+    "-A bw_OUTPUT -j bw_global_alert",
+    "-A bw_costly_shared -j bw_penalty_box",
+    "-A bw_data_saver -j RETURN",
+    "COMMIT",
+    "*raw",
+    "-A bw_raw_PREROUTING -m mark --mark 0xdeadc1a7 -j DROP",
+    "-A bw_raw_PREROUTING -i ipsec+ -j RETURN",
+    "-A bw_raw_PREROUTING -m policy --pol ipsec --dir in -j RETURN",
+    "-A bw_raw_PREROUTING -m gta3xlwifi_iface_stats --direction ingress",
+    "COMMIT",
+    "*mangle",
+    "-A bw_mangle_POSTROUTING -o ipsec+ -j RETURN",
+    "-A bw_mangle_POSTROUTING -m policy --pol ipsec --dir out -j RETURN",
+    "-A bw_mangle_POSTROUTING -j MARK --set-mark 0x0/0x100000",
+    "-A bw_mangle_POSTROUTING -m gta3xlwifi_iface_stats --direction egress",
+    "COMMIT\n"
+  ],
+  "canonical_formatter_results": [
+    "-j MARK --set-xmark 0x100000/0x100000",
+    "-j MARK --set-xmark 0x0/0x100000",
+    "-m policy --dir in --pol ipsec",
+    "-m policy --dir out --pol ipsec"
+  ],
+  "inputs_sha256": {
+    "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/export-accounting-contract24.py": "1c9b0fc7fe8b897f9cd709facbc3c6ca2baf6044afa6269cb7081fe56503962b",
+    "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/test-kernel-qtaguid-socket-owned.py": "59516300b405af46c972b264353c3766b5c18cf882b04ac8ba9db6f70f436459",
+    "/srv/android/artifacts/lineage-24.0-arm64/bandwidth-factory-host-20261113-01/report.json": "76f53e420b77f304dd610496e2238c32fc4a8da8fab5235509f67decb7a75020",
+    "/srv/android/artifacts/lineage-24.0-arm64/bandwidth-factory-host-20261113-01/test.cpp": "bfa6db0ab689372524768b16a4acea02a2b5d9d64eaca252bf58c58a6054c006",
+    "/srv/android/src/lineage-24.0-arm64/external/iptables/extensions/libxt_MARK.c": "bc28f0019ae2b4c0c68b0723c296137b9d307e4cc855f378c9382fd570553797",
+    "/srv/android/src/lineage-24.0-arm64/external/iptables/extensions/libxt_policy.c": "173a5d87bb646bd98609d2c13b54dbe0f9794a1dfe89e1efb94e2ddd92a39282",
+    "/srv/android/src/lineage-24.0-arm64/bionic/libc/kernel/uapi/linux/netfilter/xt_policy.h": "cec60b890e98cb6deeb76ccf6a0067252397e923f548e5df84b9d2406e709436",
+    "/srv/android/artifacts/lineage-24.0-arm64/accounting-contract-host-20261113-01/factory.cpp": "2c57cc7847042208a41ac22ac7fa6fae6ea5d2a61e12b336f4e38826588fa385",
+    "/srv/android/artifacts/lineage-24.0-arm64/accounting-contract-host-20261113-01/formatters.c": "a3007c93a4a9258ef207ca5c151c0dc2c283ea66ad4666da731389a91f953f01"
+  },
+  "factory_compile_command": [
+    "c++",
+    "-std=c++20",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-I/srv/android/src/lineage-24.0-arm64/system/netd/include",
+    "/srv/android/artifacts/lineage-24.0-arm64/accounting-contract-host-20261113-01/factory.cpp",
+    "-o",
+    "/srv/android/artifacts/lineage-24.0-arm64/accounting-contract-host-20261113-01/factory"
+  ],
+  "formatter_compile_command": [
+    "cc",
+    "-std=gnu11",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-Wno-unused-parameter",
+    "-fsanitize=undefined",
+    "-fno-sanitize-recover=all",
+    "/srv/android/artifacts/lineage-24.0-arm64/accounting-contract-host-20261113-01/formatters.c",
+    "-o",
+    "/srv/android/artifacts/lineage-24.0-arm64/accounting-contract-host-20261113-01/formatters"
+  ],
+  "hardware_tested": false,
+  "flash_ready": false
+}

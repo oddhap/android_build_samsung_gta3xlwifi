@@ -1,0 +1,23 @@
+[
+  "*filter",
+  "-A bw_INPUT -j bw_global_alert",
+  "-A bw_INPUT -p esp -j RETURN",
+  "-A bw_INPUT -m mark --mark 0x100000/0x100000 -j RETURN",
+  "-A bw_INPUT -j MARK --or-mark 0x100000",
+  "-A bw_OUTPUT -j bw_global_alert",
+  "-A bw_costly_shared -j bw_penalty_box",
+  "-A bw_data_saver -j RETURN",
+  "COMMIT",
+  "*raw",
+  "-A bw_raw_PREROUTING -m mark --mark 0xdeadc1a7 -j DROP",
+  "-A bw_raw_PREROUTING -i ipsec+ -j RETURN",
+  "-A bw_raw_PREROUTING -m policy --pol ipsec --dir in -j RETURN",
+  "-A bw_raw_PREROUTING -m gta3xlwifi_iface_stats --direction ingress",
+  "COMMIT",
+  "*mangle",
+  "-A bw_mangle_POSTROUTING -o ipsec+ -j RETURN",
+  "-A bw_mangle_POSTROUTING -m policy --pol ipsec --dir out -j RETURN",
+  "-A bw_mangle_POSTROUTING -j MARK --set-mark 0x0/0x100000",
+  "-A bw_mangle_POSTROUTING -m gta3xlwifi_iface_stats --direction egress",
+  "COMMIT\n"
+]

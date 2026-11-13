@@ -1,0 +1,55 @@
+--- a/include/uapi/linux/netfilter/gta3xlwifi_iface_stats.h
++++ b/include/uapi/linux/netfilter/gta3xlwifi_iface_stats.h
+@@ -7,6 +7,8 @@
+ #define GTA3XLWIFI_IFACE_STATS_MAX 1000U
+ #define GTA3XLWIFI_IFACE_STATS_MATCH "gta3xlwifi_iface_stats"
+ #define GTA3XLWIFI_UID_CAP_IFACE_STATS (1U << 10)
++/* Real compiled IPv4+IPv6 postrouting correction, not accounting activation. */
++#define GTA3XLWIFI_UID_CAP_IFACE_DROP_UNDO (1U << 11)
+ struct gta3xlwifi_iface_stats_match { __u32 output; __u32 reserved; };
+ struct gta3xlwifi_iface_stats_entry {
+     __u32 ifindex; __u32 reserved;
+--- a/include/net/gta3xlwifi_iface_stats.h
++++ b/include/net/gta3xlwifi_iface_stats.h
+@@ -18,6 +18,7 @@
+ }
+ #endif
+ u32 gta3xlwifi_iface_stats_features(void);
++u32 gta3xlwifi_iface_egress_features(void);
+ int gta3xlwifi_iface_account(const struct sk_buff *skb,u32 ifindex,bool output,bool undo);
+ void gta3xlwifi_iface_lost(void);
+ long gta3xlwifi_iface_stats_ioctl(unsigned int cmd,unsigned long arg);
+--- a/net/netfilter/gta3xlwifi_iface_stats.c
++++ b/net/netfilter/gta3xlwifi_iface_stats.c
+@@ -30,6 +30,19 @@
+ static u32 iface_heads[IFACE_BUCKETS],iface_count;
+ static struct iface_counter iface_rows[GTA3XLWIFI_IFACE_STATS_MAX];
+ static u64 iface_lost_updates,iface_sequence;
++/* Truthful primitive availability only. Both actual output paths are compiled
++ * in this product and source/call relocations are audited. No producer rules,
++ * UID/tag accounting, selected-image compatibility or global Ready is implied.
++ */
++u32 gta3xlwifi_iface_egress_features(void)
++{
++#if defined(CONFIG_INET) && defined(CONFIG_IPV6)
++    return GTA3XLWIFI_UID_CAP_IFACE_DROP_UNDO;
++#else
++    return 0;
++#endif
++}
++EXPORT_SYMBOL_GPL(gta3xlwifi_iface_egress_features);
+ static void iface_amount(const struct sk_buff *skb,u64 *packets,u64 *bytes)
+ {
+     /* EXACT A17 interface XT program's explicit KVER_4_9 arithmetic. This is
+--- a/net/netfilter/xt_qtaguid.c
++++ b/net/netfilter/xt_qtaguid.c
+@@ -3490,7 +3490,8 @@
+ static bool gta3xlwifi_iface_registered;
+ u32 gta3xlwifi_iface_stats_features(void)
+ {
+-    return READ_ONCE(gta3xlwifi_iface_registered)?GTA3XLWIFI_UID_CAP_IFACE_STATS:0;
++    return READ_ONCE(gta3xlwifi_iface_registered)?
++        GTA3XLWIFI_UID_CAP_IFACE_STATS|gta3xlwifi_iface_egress_features():0;
+ }
+ EXPORT_SYMBOL_GPL(gta3xlwifi_iface_stats_features);
+ static bool gta3xlwifi_iface_mt(const struct sk_buff *skb,struct xt_action_param *par)

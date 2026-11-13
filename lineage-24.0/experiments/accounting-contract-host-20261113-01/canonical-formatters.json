@@ -1,0 +1,6 @@
+[
+  "-j MARK --set-xmark 0x100000/0x100000",
+  "-j MARK --set-xmark 0x0/0x100000",
+  "-m policy --dir in --pol ipsec",
+  "-m policy --dir out --pol ipsec"
+]

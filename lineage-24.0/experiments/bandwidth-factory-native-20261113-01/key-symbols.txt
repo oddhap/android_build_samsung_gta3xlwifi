@@ -1,0 +1,35 @@
+0000000000000000 R BandwidthController::LOCAL_INPUT
+0000000000000000 T BandwidthController::updateQuota(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> const&, long)
+0000000000000000 R BandwidthController::LOCAL_OUTPUT
+0000000000000000 R BandwidthController::LOCAL_FORWARD
+0000000000000000 T BandwidthController::setCostlyAlert(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> const&, long, long*)
+0000000000000000 T BandwidthController::setGlobalAlert(long)
+0000000000000000 T BandwidthController::enableDataSaver(bool)
+0000000000000000 T BandwidthController::flushCleanTables(bool)
+0000000000000000 T BandwidthController::getInterfaceQuota(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> const&, long*)
+0000000000000000 T BandwidthController::removeCostlyAlert(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> const&, long*)
+0000000000000000 T BandwidthController::removeGlobalAlert()
+0000000000000000 T BandwidthController::setInterfaceAlert(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> const&, long)
+0000000000000000 T BandwidthController::setInterfaceQuota(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> const&, long)
+0000000000000000 R BandwidthController::LOCAL_GLOBAL_ALERT
+0000000000000000 T BandwidthController::setupIptablesHooks()
+0000000000000000 T BandwidthController::runIptablesAlertCmd(BandwidthController::IptOp, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> const&, long)
+0000000000000000 R BandwidthController::LOCAL_RAW_PREROUTING
+0000000000000000 T BandwidthController::makeDataSaverCommand(IptablesTarget, bool)
+0000000000000000 T BandwidthController::removeInterfaceAlert(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> const&)
+0000000000000000 T BandwidthController::removeInterfaceQuota(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> const&)
+0000000000000000 T BandwidthController::enableBandwidthControl()
+0000000000000000 T BandwidthController::getInterfaceSharedQuota(long*)
+0000000000000000 D BandwidthController::iptablesRestoreFunction
+0000000000000000 T BandwidthController::setInterfaceSharedQuota(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> const&, long)
+0000000000000000 R BandwidthController::LOCAL_MANGLE_POSTROUTING
+0000000000000000 T BandwidthController::flushExistingCostlyTables(bool)
+0000000000000000 T BandwidthController::parseAndFlushCostlyTables(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> const&, bool)
+0000000000000000 T BandwidthController::parseAndFlushCostlyTables(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> const&, bool) (.cfi)
+0000000000000000 T BandwidthController::removeInterfaceSharedQuota(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> const&)
+0000000000000000 T BandwidthController::makeGta3xlwifiAccountingCommands()
+0000000000000000 T BandwidthController::makeGta3xlwifiAccountingCommands() (.cfi)
+0000000000000000 T BandwidthController::BandwidthController()
+0000000000000000 T BandwidthController::BandwidthController()
+0000000000000000 W std::__1::__tree<std::__1::__value_type<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>, BandwidthController::QuotaInfo>, std::__1::__map_value_compare<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>, std::__1::pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> const, BandwidthController::QuotaInfo>, std::__1::less<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>>>, std::__1::allocator<std::__1::pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> const, BandwidthController::QuotaInfo>>>::__tree_deleter::operator()[abi:nn220000](std::__1::__tree_node<std::__1::__value_type<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>, BandwidthController::QuotaInfo>, void*>*)
+0000000000000000 W std::__1::pair<std::__1::__tree_iterator<std::__1::__value_type<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>, BandwidthController::QuotaInfo>, std::__1::__tree_node<std::__1::__value_type<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>, BandwidthController::QuotaInfo>, void*>*, long>, bool> std::__1::__tree<std::__1::__value_type<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>, BandwidthController::QuotaInfo>, std::__1::__map_value_compare<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>, std::__1::pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> const, BandwidthController::QuotaInfo>, std::__1::less<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>>>>, std::__1::allocator<std::__1::pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> const, BandwidthController::QuotaInfo>>>::__emplace_unique[abi:nn220000]<std::__1::piecewise_construct_t const&, std::__1::tuple<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> const&>, std::__1::tuple<>>(std::__1::piecewise_construct_t const&, std::__1::tuple<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> const&>&&, std::__1::tuple<>&&)::'lambda'(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> const&, std::__1::piecewise_construct_t const&, std::__1::tuple<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> const&>&&, std::__1::tuple<>&&)::operator()(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> const&, std::__1::piecewise_construct_t const&, std::__1::tuple<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char>> const&>&&, std::__1::tuple<>&&) const

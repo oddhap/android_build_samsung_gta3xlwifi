@@ -1,0 +1,25 @@
+{
+  "passed": true,
+  "scope": "Exact current-source identity outside the explicit read-only capability getter/bit/declaration. Existing counter and accounted-egress functions are byte-identical to their built/validated prerequisite; new capability getter has independent four-config tests.",
+  "unchanged_functions": [
+    "gta3xlwifi_accounted_egress",
+    "iface_amount",
+    "gta3xlwifi_iface_account",
+    "gta3xlwifi_iface_lost",
+    "gta3xlwifi_iface_stats_ioctl",
+    "iface_compare"
+  ],
+  "inputs_sha256": {
+    "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/test-kernel-qtaguid-socket-owned.py": "59516300b405af46c972b264353c3766b5c18cf882b04ac8ba9db6f70f436459",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-iface-capability-20261113-01/src/net/netfilter/gta3xlwifi_iface_stats.c": "4083eb6c211487c001e538797b283c703147f51b660221297dc17513cb61b646",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-iface-egress-20261113-01/src/net/netfilter/gta3xlwifi_iface_stats.c": "7bc289fea629d5e70d5a83bcac6f1139914bafb4de45b4ddeb96046b8c1c9f53",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-iface-capability-20261113-01/src/net/netfilter/xt_qtaguid.c": "1c5faeb7b34f838408e0e04f800c3591195bfd44e8a604ba9ca7e304d8c08f1e",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-iface-egress-20261113-01/src/net/netfilter/xt_qtaguid.c": "fb9c5e5506f7d8669d1f06a30c4ab7e9661b55a04acebd6fb311c2f4f0f2ab60",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-iface-capability-20261113-01/src/include/uapi/linux/netfilter/gta3xlwifi_iface_stats.h": "6f35482ced56487d7982956c6a48b4840f7207133d43f45338dcb634710c43f3",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-iface-egress-20261113-01/src/include/uapi/linux/netfilter/gta3xlwifi_iface_stats.h": "949ed6e347715c339267b45b7705a65de0ccf8840fbf8ab4bb7198dbc044d967",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-iface-capability-20261113-01/src/include/net/gta3xlwifi_iface_stats.h": "910191ab92f3195747a6bd78c11bd9e1a8d6afb970c7c68ddef0023f11ab04f8",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-iface-egress-20261113-01/src/include/net/gta3xlwifi_iface_stats.h": "288124c6815c2bd0ce9274f9d5010a5bb4ccfc1900a9929491e5653e782d6964"
+  },
+  "hardware_tested": false,
+  "flash_ready": false
+}

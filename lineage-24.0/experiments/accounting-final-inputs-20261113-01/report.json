@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "scope": "Selected Android inputs rechecked after all isolated accounting/feature builds; latest21-MTP vendor remains unchanged. No source/image selection or device access.",
+  "checked_at_utc": "2026-11-13T16:32:11.459162+00:00",
+  "selected_inputs_sha256": {
+    "/srv/android/src/lineage-24.0-arm64/device/samsung/gta3xlwifi/prebuilt/Image": "33c1a0d1b9e2696decd53fbedfc2231385b74464f4058a54b93ff06ff7c72553",
+    "/srv/android/src/lineage-24.0-arm64/device/samsung/gta3xlwifi/prebuilt/vendor.img": "a847a527931d61e5702b8a025210c84eb88a37ef1e60df93b6393a16dae9183a",
+    "/srv/android/src/lineage-24.0-arm64/device/samsung/gta3xlwifi/prebuilt/dtbo.img": "b9041c37713a745290d9a0203423436b6caa7a1307ced79b6963b4f1f0271c4b"
+  },
+  "flash_ready": false
+}

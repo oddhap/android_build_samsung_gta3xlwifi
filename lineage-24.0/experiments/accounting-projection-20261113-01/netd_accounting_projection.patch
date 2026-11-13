@@ -1,0 +1,253 @@
+--- /dev/null
++++ b/Gta3xlwifiAccountingRoots.cpp
+@@ -0,0 +1,117 @@
++// SPDX-License-Identifier: Apache-2.0
++#include "Gta3xlwifiAccountingRoots.h"
++#include <algorithm>
++#include <cerrno>
++#include <cctype>
++#include <sstream>
++namespace android::net::gta3xlwifi {
++namespace {
++constexpr IptablesTarget families[]={V4,V6};
++bool nameValid(const std::string& n){
++ if(n.empty()||n.size()>28)return false;
++ for(unsigned char c:n)if(!std::isalnum(c)&&c!='_'&&c!='-'&&c!='.'&&c!='+')return false;
++ return true;
++}
++}
++const AccountingRoots::Program& AccountingRoots::approvedProgram(){
++ // Bound to actual A17 Fwmark, frozen INetd18 CLAT_MARK and explicit source
++ // factory defaults. A future source/schema change must be reviewed, not silently
++ // accepted as arbitrary rule text. This is not a parser for live/foreign input.
++ static const Program p={
++    "*filter",
++    "-A bw_INPUT -j bw_global_alert",
++    "-A bw_INPUT -p esp -j RETURN",
++    "-A bw_INPUT -m mark --mark 0x100000/0x100000 -j RETURN",
++    "-A bw_INPUT -j MARK --or-mark 0x100000",
++    "-A bw_OUTPUT -j bw_global_alert",
++    "-A bw_costly_shared -j bw_penalty_box",
++    "-A bw_data_saver -j RETURN",
++    "COMMIT",
++    "*raw",
++    "-A bw_raw_PREROUTING -m mark --mark 0xdeadc1a7 -j DROP",
++    "-A bw_raw_PREROUTING -i ipsec+ -j RETURN",
++    "-A bw_raw_PREROUTING -m policy --pol ipsec --dir in -j RETURN",
++    "-A bw_raw_PREROUTING -m gta3xlwifi_iface_stats --direction ingress",
++    "COMMIT",
++    "*mangle",
++    "-A bw_mangle_POSTROUTING -o ipsec+ -j RETURN",
++    "-A bw_mangle_POSTROUTING -m policy --pol ipsec --dir out -j RETURN",
++    "-A bw_mangle_POSTROUTING -j MARK --set-mark 0x0/0x100000",
++    "-A bw_mangle_POSTROUTING -m gta3xlwifi_iface_stats --direction egress",
++    "COMMIT\n"
++ };return p;
++}
++bool AccountingRoots::validProgram(const Program& p){return p==approvedProgram();}
++std::array<AccountingRoots::Table,3> AccountingRoots::tables(){
++ std::array<Table,3> t={Table{"filter",{},{}},Table{"raw",{},{}},Table{"mangle",{},{}}};
++ for(const auto* n:{"bw_INPUT","bw_OUTPUT","bw_costly_shared","bw_data_saver","bw_penalty_box","bw_happy_box"})t[0].source[n]={};
++ t[1].source["bw_raw_PREROUTING"]={};t[2].source["bw_mangle_POSTROUTING"]={};
++ unsigned index=0;
++ for(const auto&line:approvedProgram()){
++  if(line=="*filter"){index=0;continue;}if(line=="*raw"){index=1;continue;}if(line=="*mangle"){index=2;continue;}
++  if(line=="COMMIT"||line=="COMMIT\n")continue;
++  auto end=line.find(' ',3);const auto chain=line.substr(3,end-3);t[index].source.at(chain).push_back(line);
++ }
++ for(auto&table:t){table.canonical=table.source;for(auto&[chain,rules]:table.canonical){(void)chain;for(auto&line:rules){
++  // Actual A17 revision2 MARK save and policy print_flags outputs, executed in
++  // export-accounting-contract24.py. Do not canonicalize untrusted kernel rows.
++  const std::pair<const char*,const char*> substitutions[]={
++   {"-j MARK --or-mark 0x100000","-j MARK --set-xmark 0x100000/0x100000"},
++   {"-j MARK --set-mark 0x0/0x100000","-j MARK --set-xmark 0x0/0x100000"},
++   {"-m policy --pol ipsec --dir in","-m policy --dir in --pol ipsec"},
++   {"-m policy --pol ipsec --dir out","-m policy --dir out --pol ipsec"}};
++  for(const auto&[from,to]:substitutions){auto where=line.find(from);if(where!=std::string::npos)line.replace(where,std::char_traits<char>::length(from),to);}
++ }}}return t;
++}
++int AccountingRoots::fail(int error){mLease.stop();return error;}
++int AccountingRoots::held(){int r=mLease.requireIfaceAccountingPrimitives();if(r)return fail(r);bool value=false;r=mLease.isHeld(&value);return r?fail(r):value?0:fail(-EBUSY);}
++int AccountingRoots::inventory(IptablesTarget family,const Table&t,Inventory*output){
++ std::string text;if(mKernel.execute(family,std::string("*")+t.name+"\n-S\nCOMMIT\n",&text))return -EREMOTEIO;
++ if(text.empty()||text.size()>4*1024*1024||text.back()!='\n')return -EPROTO;
++ for(unsigned char c:text)if((c<32&&c!='\n')||c==127)return -EPROTO;
++ Inventory next;std::set<std::string> declared,used,builtins;std::istringstream input(text);std::string line;
++ const std::set<std::string> wanted=std::string(t.name)=="filter"?std::set<std::string>{"INPUT","FORWARD","OUTPUT"}:std::string(t.name)=="raw"?std::set<std::string>{"PREROUTING","OUTPUT"}:std::set<std::string>{"PREROUTING","INPUT","FORWARD","OUTPUT","POSTROUTING"};
++ while(std::getline(input,line)){
++  if(line.empty()||line.size()>65536)return -EPROTO;
++  std::istringstream words(line);std::string op,n,rest;words>>op>>n;if(!nameValid(n))return -EPROTO;
++  if(op=="-P"){
++   std::string extra;words>>rest;if(!wanted.count(n)||(rest!="ACCEPT"&&rest!="DROP")||(words>>extra)||line!="-P "+n+" "+rest||!declared.insert(n).second)return -EPROTO;
++   builtins.insert(n);next.foreign.push_back(line);
++  }else if(op=="-N"){
++   if(line!="-N "+n||wanted.count(n)||!declared.insert(n).second)return -EPROTO;
++   next.users.insert(n);if(!t.source.count(n))next.foreign.push_back(line);
++  }else if(op=="-A"){
++   if(line.rfind("-A "+n+" ",0)!=0||!(words>>rest))return -EPROTO;
++   used.insert(n);if(t.source.count(n))next.owned[n].push_back(line);else next.foreign.push_back(line);
++  }else return -EPROTO;
++ }
++ if(builtins!=wanted)return -EPROTO;
++ for(const auto&n:used)if(!declared.count(n))return -EPROTO;
++ for(const auto&[n,rules]:t.source){(void)rules;if(!next.users.count(n))return -ENOENT;next.owned[n];}
++ if(std::string(t.name)=="filter"&&!next.users.count("bw_global_alert"))return -ENOENT;
++ *output=std::move(next);return 0;
++}
++int AccountingRoots::prepare(const Program&program){
++ if(!validProgram(program))return -EINVAL; // Pure rejection; preserves any existing lease/state.
++ std::lock_guard<std::mutex> lock(mMutex);int r=held();if(r)return r;
++ const auto plan=tables();std::array<std::array<Inventory,3>,2> before;
++ for(unsigned f=0;f<2;++f)for(unsigned k=0;k<3;++k){
++  r=inventory(families[f],plan[k],&before[f][k]);if(r)return fail(r);
++  for(const auto&[chain,expected]:plan[k].canonical){const auto&actual=before[f][k].owned.at(chain);if(actual.size()>expected.size()||!std::equal(actual.begin(),actual.end(),expected.begin()))return fail(-EPROTO);}
++ }
++ // BOTH families/all tables validated before the first write. Commands contain
++ // only compiled source rows, never captured foreign text. No flush/rollback.
++ for(unsigned f=0;f<2;++f)for(unsigned k=0;k<3;++k){
++  std::string command=std::string("*")+plan[k].name+"\n";bool changed=false;
++  for(const auto&[chain,rows]:plan[k].source)for(size_t i=before[f][k].owned.at(chain).size();i<rows.size();++i){command+=rows[i]+"\n";changed=true;}
++  if(changed){r=held();if(r)return r;if(mKernel.execute(families[f],command+"COMMIT\n",nullptr))return fail(-EREMOTEIO);}
++ }
++ for(unsigned f=0;f<2;++f)for(unsigned k=0;k<3;++k){Inventory actual;r=inventory(families[f],plan[k],&actual);if(r)return fail(r);if(actual.owned!=plan[k].canonical||actual.foreign!=before[f][k].foreign)return fail(-EPROTO);}
++ return 0; // Genuine producers verified; policy/backend remain held/unpublished.
++}
++int AccountingRoots::verifyProducers(){
++ std::lock_guard<std::mutex> lock(mMutex);int r=held();if(r)return r;const auto plan=tables();
++ for(auto f:families)for(unsigned k:{1u,2u}){Inventory actual;r=inventory(f,plan[k],&actual);if(r)return fail(r);if(actual.owned!=plan[k].canonical)return fail(-EPROTO);}
++ return 0;
++}
++} // namespace android::net::gta3xlwifi
+--- /dev/null
++++ b/Gta3xlwifiAccountingRoots.h
+@@ -0,0 +1,38 @@
++// SPDX-License-Identifier: Apache-2.0
++#pragma once
++#include "Gta3xlwifiNetpolicyLease.h"
++#include "IptablesRestoreController.h"
++#include <array>
++#include <map>
++#include <mutex>
++#include <set>
++#include <string>
++#include <vector>
++namespace android::net::gta3xlwifi {
++// Explicit private factory bootstrap, never a live-rule migration/flush. Caller
++// owns the complete transaction mutex and installs global held-gate guards first.
++// Only EMPTY or exact known ordered prefixes are accepted. No FD/Ready/release.
++class AccountingRoots final {
++ public:
++  using Program=std::vector<std::string>;
++  AccountingRoots(IptablesRestoreInterface& kernel,NetpolicyLease& lease)
++      :mKernel(kernel),mLease(lease){}
++  static bool validProgram(const Program& program);
++  int prepare(const Program& program);
++  // After startup, metered bridges/quotas legitimately change filter chains.
++  // Verify only the immutable raw/mangle producers before policy publication.
++  int verifyProducers();
++ private:
++  using Rules=std::map<std::string,std::vector<std::string>>;
++  struct Table {const char* name;Rules source,canonical;};
++  struct Inventory {Rules owned;std::set<std::string> users;std::vector<std::string> foreign;};
++  static const Program& approvedProgram();
++  static std::array<Table,3> tables();
++  int inventory(IptablesTarget family,const Table& table,Inventory* output);
++  int held();
++  int fail(int error);
++  IptablesRestoreInterface& mKernel;
++  NetpolicyLease& mLease;
++  std::mutex mMutex;
++};
++} // namespace android::net::gta3xlwifi
+--- a/Gta3xlwifiSocketPolicyProjection.cpp
++++ b/Gta3xlwifiSocketPolicyProjection.cpp
+@@ -28,6 +28,7 @@
+ int SocketPolicyProjection::quarantine(int error) {
+   mCommit.reset();
+   mStarted = false;
++  mAccountingEnabled = false;
+   mLease.stop();
+   return error;
+ }
+@@ -44,6 +45,26 @@
+   if (r) return quarantine(r);
+   mStarted = true;
+   return 0;  // Still held/unpublished.
++}
++int SocketPolicyProjection::startWithAccounting(
++    const AccountingRoots::Program& program, HookMode mode) {
++  std::lock_guard<std::mutex> lock(mMutex);
++  if (mStarted) return -EALREADY;
++  if (!AccountingRoots::validProgram(program)) return -EINVAL;
++  int r = mLease.start();
++  if (r) return r;
++  r = mLease.requirePolicyPrimitives();
++  if (!r) r = mLease.requireIfaceAccountingPrimitives();
++  if (!r) r = prepareHooks(mode);
++  if (!r) r = mAccounting.prepare(program);
++  if (!r) r = mSocket.prepare();
++  if (!r) r = mMeter.prepare();
++  if (!r) r = mAccounting.verifyProducers();
++  if (!r) r = verifyHooks();
++  if (r) return quarantine(r);
++  mAccountingEnabled = true;
++  mStarted = true;
++  return 0;  // Held, actual interface producers verified, no policy/Ready yet.
+ }
+ void SocketPolicyProjection::stop() {
+   std::lock_guard<std::mutex> lock(mMutex);
+@@ -104,6 +125,7 @@
+   r = mLease.hold();
+   if (r) return quarantine(r);
+   r = verifyHooks();
++  if (!r && mAccountingEnabled) r = mAccounting.verifyProducers();
+   if (!r) r = mSocket.verifyPrepared();
+   if (!r) r = mMeter.verifyPrepared();
+   if (!r && mCommit) r = mSocket.verify(mCommit->ordinary);
+@@ -148,6 +170,7 @@
+   if (!r) r = mSocket.verify(next->ordinary);
+   if (!r) r = mMeter.verify(next->metered);
+   if (!r) r = verifyHooks();
++  if (!r && mAccountingEnabled) r = mAccounting.verifyProducers();
+   if (r) return quarantine(r);
+   // HARD firewall cutoff: nothing below may open/query/change iptables.
+   r = mLease.replaceLocalNetwork(beforeLocal.revision, next->local.network,
+--- a/Gta3xlwifiSocketPolicyProjection.h
++++ b/Gta3xlwifiSocketPolicyProjection.h
+@@ -4,6 +4,7 @@
+ #include <memory>
+ 
+ #include "Gta3xlwifiIngressPolicy.h"
++#include "Gta3xlwifiAccountingRoots.h"
+ #include "Gta3xlwifiLocalNetworkState.h"
+ #include "Gta3xlwifiMeteredRoots.h"
+ #include "Gta3xlwifiSocketRoots.h"
+@@ -28,10 +29,16 @@
+       : mKernel(kernel),
+         mSocket(kernel, mLease),
+         mMeter(kernel, mLease),
++        mAccounting(kernel, mLease),
+         mSocketWriter(kernel, CheckedUidChains::Table::Socket),
+         mFilterWriter(kernel) {}
+   ~SocketPolicyProjection() { stop(); }
+   int start(HookMode mode = HookMode::VerifyOnly);
++  // Explicit source-factory startup after the last generic bandwidth reset.
++  // Requires real producers+DROP correction, verifies both families while held,
++  // and leaves all policy unpublished until replace(). Not UID accounting/Ready.
++  int startWithAccounting(const AccountingRoots::Program& program,
++                          HookMode mode = HookMode::VerifyOnly);
+   void stop();
+   // expectedGeneration=0 is explicit first commit after start. Stale updates
+   // fail before kernel I/O. Readers see one complete committed state or EAGAIN.
+@@ -73,9 +80,11 @@
+   NetpolicyLease mLease;
+   SocketRoots mSocket;
+   MeteredRoots mMeter;
++  AccountingRoots mAccounting;
+   CheckedUidChains mSocketWriter, mFilterWriter;
+   std::mutex mMutex;
+   bool mStarted = false;
++  bool mAccountingEnabled = false;
+   uint64_t mGeneration = 0;
+   std::unique_ptr<Commit> mCommit;
+ };

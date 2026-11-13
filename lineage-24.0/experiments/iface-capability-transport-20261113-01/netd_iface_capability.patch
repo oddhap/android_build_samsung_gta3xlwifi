@@ -1,0 +1,43 @@
+--- a/Gta3xlwifiNetpolicyLease.cpp
++++ b/Gta3xlwifiNetpolicyLease.cpp
+@@ -232,6 +232,17 @@
+         GTA3XLWIFI_UID_CAP_SOCKET_TABLES|GTA3XLWIFI_UID_CAP_INGRESS_MATCHES;
+     return (result&required)==required?0:imageErrorLocked(-EOPNOTSUPP);
+ }
++int NetpolicyLease::requireIfaceAccountingPrimitives() {
++    std::lock_guard<std::mutex> lock(mMutex);
++    if (mFd < 0) return -ENOTCONN;
++    int result;
++    do { result = ioctl(mFd, GTA3XLWIFI_UID_FEATURES, 0UL); }
++    while (result < 0 && errno == EINTR);
++    if (result < 0) return imageErrorLocked(errno ? -errno : -EIO);
++    constexpr int required = GTA3XLWIFI_UID_CAP_IFACE_STATS |
++                             GTA3XLWIFI_UID_CAP_IFACE_DROP_UNDO;
++    return (result & required) == required ? 0 : imageErrorLocked(-EOPNOTSUPP);
++}
+ int NetpolicyLease::readIfaceStats(IfaceSnapshot* output) {
+     if(!output)return -EINVAL;
+     std::lock_guard<std::mutex> lock(mMutex);
+--- a/Gta3xlwifiNetpolicyLease.h
++++ b/Gta3xlwifiNetpolicyLease.h
+@@ -73,6 +73,9 @@
+     int requireSocketTables();
+     int requireIngressMatches();
+     int requirePolicyPrimitives();
++    // Requires BOTH actual interface producer registration and compiled dual-stack
++    // DROP correction. Does not install rules, release, or advertise Ready.
++    int requireIfaceAccountingPrimitives();
+     struct IfaceCounter {
+         uint32_t ifindex;
+         uint64_t rxPackets,rxBytes,txPackets,txBytes;
+--- a/linux/netfilter/gta3xlwifi_iface_stats.h
++++ b/linux/netfilter/gta3xlwifi_iface_stats.h
+@@ -7,6 +7,8 @@
+ #define GTA3XLWIFI_IFACE_STATS_MAX 1000U
+ #define GTA3XLWIFI_IFACE_STATS_MATCH "gta3xlwifi_iface_stats"
+ #define GTA3XLWIFI_UID_CAP_IFACE_STATS (1U << 10)
++/* Real compiled IPv4+IPv6 postrouting correction, not accounting activation. */
++#define GTA3XLWIFI_UID_CAP_IFACE_DROP_UNDO (1U << 11)
+ struct gta3xlwifi_iface_stats_match { __u32 output; __u32 reserved; };
+ struct gta3xlwifi_iface_stats_entry {
+     __u32 ifindex; __u32 reserved;

@@ -1,0 +1,305 @@
+/srv/android/artifacts/lineage-24.0-arm64/accounting-projection-host-20261113-01/test.cpp:304:39: error: ‘const std::vector<std::__cxx11::basic_string<char> > program’ redeclared as different kind of entity
+  304 | static const std::vector<std::string> program={"*filter","-A bw_INPUT -j bw_global_alert","-A bw_INPUT -p esp -j RETURN","-A bw_INPUT -m mark --mark 0x100000/0x100000 -j RETURN","-A bw_INPUT -j MARK --or-mark 0x100000","-A bw_OUTPUT -j bw_global_alert","-A bw_costly_shared -j bw_penalty_box","-A bw_data_saver -j RETURN","COMMIT","*raw","-A bw_raw_PREROUTING -m mark --mark 0xdeadc1a7 -j DROP","-A bw_raw_PREROUTING -i ipsec+ -j RETURN","-A bw_raw_PREROUTING -m policy --pol ipsec --dir in -j RETURN","-A bw_raw_PREROUTING -m gta3xlwifi_iface_stats --direction ingress","COMMIT","*mangle","-A bw_mangle_POSTROUTING -o ipsec+ -j RETURN","-A bw_mangle_POSTROUTING -m policy --pol ipsec --dir out -j RETURN","-A bw_mangle_POSTROUTING -j MARK --set-mark 0x0/0x100000","-A bw_mangle_POSTROUTING -m gta3xlwifi_iface_stats --direction egress","COMMIT\n"};
+      |                                       ^~~~~~~
+/srv/android/artifacts/lineage-24.0-arm64/accounting-projection-host-20261113-01/test.cpp:189:11: note: previous declaration ‘RootImage program()’
+  189 | RootImage program(){UidPolicy p;assert(p.setChainEnabled(1,true)==0&&p.setUidRule(1,10001,UidPolicy::Allow)==0);RootImage v;assert(UidChainProgram::ordinary(p,&v)==0&&OrdinaryDispatch::append(&v)==0);return v;}
+      |           ^~~~~~~
+/srv/android/artifacts/lineage-24.0-arm64/accounting-projection-host-20261113-01/test.cpp: In function ‘std::array<std::map<std::__cxx11::basic_string<char>, std::vector<std::__cxx11::basic_string<char> > >, 3> expectedAccounting()’:
+/srv/android/artifacts/lineage-24.0-arm64/accounting-projection-host-20261113-01/test.cpp:312:322: error: no matching function for call to ‘begin(std::vector<android::net::gta3xlwifi::CheckedUidChains::Chain> (&)())’
+  312 | static std::array<AccountingRules,3> expectedAccounting(){std::array<AccountingRules,3> rows;for(const auto*n:{"bw_INPUT","bw_OUTPUT","bw_costly_shared","bw_data_saver","bw_penalty_box","bw_happy_box"})rows[0][n]={};rows[1]["bw_raw_PREROUTING"]={};rows[2]["bw_mangle_POSTROUTING"]={};unsigned table=0;for(const auto&line:program){if(line.front()=='*'){table=tableIndex(line.substr(1));continue;}if(line.rfind("COMMIT",0)==0)continue;auto n=line.substr(3,line.find(' ',3)-3);rows[table][n].push_back(accountingCanonical(line));}return rows;}
+      |                                                                                                                                                                                                                                                                                                                                  ^~~~~~~
+In file included from /usr/include/c++/11/utility:76,
+                 from /usr/include/c++/11/tuple:38,
+                 from /usr/include/c++/11/mutex:38,
+                 from /srv/android/ports/lineage-24.0-arm64/accounting-roots24-20261113-01/Gta3xlwifiNetpolicyLease.h:3,
+                 from /srv/android/artifacts/lineage-24.0-arm64/accounting-projection-host-20261113-01/test.cpp:4:
+/usr/include/c++/11/initializer_list:90:5: note: candidate: ‘template<class _Tp> constexpr const _Tp* std::begin(std::initializer_list<_Tp>)’
+   90 |     begin(initializer_list<_Tp> __ils) noexcept
+      |     ^~~~~
+/usr/include/c++/11/initializer_list:90:5: note:   template argument deduction/substitution failed:
+/srv/android/artifacts/lineage-24.0-arm64/accounting-projection-host-20261113-01/test.cpp:312:322: note:   mismatched types ‘std::initializer_list<_Tp>’ and ‘std::vector<android::net::gta3xlwifi::CheckedUidChains::Chain> (*)()’
+  312 | static std::array<AccountingRules,3> expectedAccounting(){std::array<AccountingRules,3> rows;for(const auto*n:{"bw_INPUT","bw_OUTPUT","bw_costly_shared","bw_data_saver","bw_penalty_box","bw_happy_box"})rows[0][n]={};rows[1]["bw_raw_PREROUTING"]={};rows[2]["bw_mangle_POSTROUTING"]={};unsigned table=0;for(const auto&line:program){if(line.front()=='*'){table=tableIndex(line.substr(1));continue;}if(line.rfind("COMMIT",0)==0)continue;auto n=line.substr(3,line.find(' ',3)-3);rows[table][n].push_back(accountingCanonical(line));}return rows;}
+      |                                                                                                                                                                                                                                                                                                                                  ^~~~~~~
+In file included from /usr/include/c++/11/array:41,
+                 from /usr/include/c++/11/tuple:39,
+                 from /usr/include/c++/11/mutex:38,
+                 from /srv/android/ports/lineage-24.0-arm64/accounting-roots24-20261113-01/Gta3xlwifiNetpolicyLease.h:3,
+                 from /srv/android/artifacts/lineage-24.0-arm64/accounting-projection-host-20261113-01/test.cpp:4:
+/usr/include/c++/11/bits/range_access.h:51:5: note: candidate: ‘template<class _Container> constexpr decltype (__cont.begin()) std::begin(_Container&)’
+   51 |     begin(_Container& __cont) -> decltype(__cont.begin())
+      |     ^~~~~
+/usr/include/c++/11/bits/range_access.h:51:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/11/bits/range_access.h: In substitution of ‘template<class _Container> constexpr decltype (__cont.begin()) std::begin(_Container&) [with _Container = std::vector<android::net::gta3xlwifi::CheckedUidChains::Chain>()]’:
+/srv/android/artifacts/lineage-24.0-arm64/accounting-projection-host-20261113-01/test.cpp:312:322:   required from here
+/usr/include/c++/11/bits/range_access.h:51:50: error: request for member ‘begin’ in ‘__cont’, which is of non-class type ‘std::vector<android::net::gta3xlwifi::CheckedUidChains::Chain>()’
+   51 |     begin(_Container& __cont) -> decltype(__cont.begin())
+      |                                           ~~~~~~~^~~~~
+/usr/include/c++/11/bits/range_access.h:61:5: note: candidate: ‘template<class _Container> constexpr decltype (__cont.begin()) std::begin(const _Container&)’
+   61 |     begin(const _Container& __cont) -> decltype(__cont.begin())
+      |     ^~~~~
+/usr/include/c++/11/bits/range_access.h:61:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/11/bits/range_access.h: In substitution of ‘template<class _Container> constexpr decltype (__cont.begin()) std::begin(const _Container&) [with _Container = std::vector<android::net::gta3xlwifi::CheckedUidChains::Chain>()]’:
+/srv/android/artifacts/lineage-24.0-arm64/accounting-projection-host-20261113-01/test.cpp:312:322:   required from here
+/usr/include/c++/11/bits/range_access.h:61:56: error: request for member ‘begin’ in ‘__cont’, which is of non-class type ‘std::vector<android::net::gta3xlwifi::CheckedUidChains::Chain>()’
+   61 |     begin(const _Container& __cont) -> decltype(__cont.begin())
+      |                                                 ~~~~~~~^~~~~
+/usr/include/c++/11/bits/range_access.h:90:5: note: candidate: ‘template<class _Tp, long unsigned int _Nm> constexpr _Tp* std::begin(_Tp (&)[_Nm])’
+   90 |     begin(_Tp (&__arr)[_Nm]) noexcept
+      |     ^~~~~
+/usr/include/c++/11/bits/range_access.h:90:5: note:   template argument deduction/substitution failed:
+/srv/android/artifacts/lineage-24.0-arm64/accounting-projection-host-20261113-01/test.cpp:312:322: note:   mismatched types ‘_Tp [_Nm]’ and ‘std::vector<android::net::gta3xlwifi::CheckedUidChains::Chain>()’
+  312 | static std::array<AccountingRules,3> expectedAccounting(){std::array<AccountingRules,3> rows;for(const auto*n:{"bw_INPUT","bw_OUTPUT","bw_costly_shared","bw_data_saver","bw_penalty_box","bw_happy_box"})rows[0][n]={};rows[1]["bw_raw_PREROUTING"]={};rows[2]["bw_mangle_POSTROUTING"]={};unsigned table=0;for(const auto&line:program){if(line.front()=='*'){table=tableIndex(line.substr(1));continue;}if(line.rfind("COMMIT",0)==0)continue;auto n=line.substr(3,line.find(' ',3)-3);rows[table][n].push_back(accountingCanonical(line));}return rows;}
+      |                                                                                                                                                                                                                                                                                                                                  ^~~~~~~
+In file included from /usr/include/c++/11/array:41,
+                 from /usr/include/c++/11/tuple:39,
+                 from /usr/include/c++/11/mutex:38,
+                 from /srv/android/ports/lineage-24.0-arm64/accounting-roots24-20261113-01/Gta3xlwifiNetpolicyLease.h:3,
+                 from /srv/android/artifacts/lineage-24.0-arm64/accounting-projection-host-20261113-01/test.cpp:4:
+/usr/include/c++/11/bits/range_access.h:107:31: note: candidate: ‘template<class _Tp> _Tp* std::begin(std::valarray<_Tp>&)’
+  107 |   template<typename _Tp> _Tp* begin(valarray<_Tp>&) noexcept;
+      |                               ^~~~~
+/usr/include/c++/11/bits/range_access.h:107:31: note:   template argument deduction/substitution failed:
+/srv/android/artifacts/lineage-24.0-arm64/accounting-projection-host-20261113-01/test.cpp:312:322: note:   mismatched types ‘std::valarray<_Tp>’ and ‘std::vector<android::net::gta3xlwifi::CheckedUidChains::Chain>()’
+  312 | static std::array<AccountingRules,3> expectedAccounting(){std::array<AccountingRules,3> rows;for(const auto*n:{"bw_INPUT","bw_OUTPUT","bw_costly_shared","bw_data_saver","bw_penalty_box","bw_happy_box"})rows[0][n]={};rows[1]["bw_raw_PREROUTING"]={};rows[2]["bw_mangle_POSTROUTING"]={};unsigned table=0;for(const auto&line:program){if(line.front()=='*'){table=tableIndex(line.substr(1));continue;}if(line.rfind("COMMIT",0)==0)continue;auto n=line.substr(3,line.find(' ',3)-3);rows[table][n].push_back(accountingCanonical(line));}return rows;}
+      |                                                                                                                                                                                                                                                                                                                                  ^~~~~~~
+In file included from /usr/include/c++/11/array:41,
+                 from /usr/include/c++/11/tuple:39,
+                 from /usr/include/c++/11/mutex:38,
+                 from /srv/android/ports/lineage-24.0-arm64/accounting-roots24-20261113-01/Gta3xlwifiNetpolicyLease.h:3,
+                 from /srv/android/artifacts/lineage-24.0-arm64/accounting-projection-host-20261113-01/test.cpp:4:
+/usr/include/c++/11/bits/range_access.h:108:37: note: candidate: ‘template<class _Tp> const _Tp* std::begin(const std::valarray<_Tp>&)’
+  108 |   template<typename _Tp> const _Tp* begin(const valarray<_Tp>&) noexcept;
+      |                                     ^~~~~
+/usr/include/c++/11/bits/range_access.h:108:37: note:   template argument deduction/substitution failed:
+/srv/android/artifacts/lineage-24.0-arm64/accounting-projection-host-20261113-01/test.cpp:312:322: note:   mismatched types ‘const std::valarray<_Tp>’ and ‘std::vector<android::net::gta3xlwifi::CheckedUidChains::Chain>()’
+  312 | static std::array<AccountingRules,3> expectedAccounting(){std::array<AccountingRules,3> rows;for(const auto*n:{"bw_INPUT","bw_OUTPUT","bw_costly_shared","bw_data_saver","bw_penalty_box","bw_happy_box"})rows[0][n]={};rows[1]["bw_raw_PREROUTING"]={};rows[2]["bw_mangle_POSTROUTING"]={};unsigned table=0;for(const auto&line:program){if(line.front()=='*'){table=tableIndex(line.substr(1));continue;}if(line.rfind("COMMIT",0)==0)continue;auto n=line.substr(3,line.find(' ',3)-3);rows[table][n].push_back(accountingCanonical(line));}return rows;}
+      |                                                                                                                                                                                                                                                                                                                                  ^~~~~~~
+/srv/android/artifacts/lineage-24.0-arm64/accounting-projection-host-20261113-01/test.cpp:312:322: error: no matching function for call to ‘end(std::vector<android::net::gta3xlwifi::CheckedUidChains::Chain> (&)())’
+In file included from /usr/include/c++/11/utility:76,
+                 from /usr/include/c++/11/tuple:38,
+                 from /usr/include/c++/11/mutex:38,
+                 from /srv/android/ports/lineage-24.0-arm64/accounting-roots24-20261113-01/Gta3xlwifiNetpolicyLease.h:3,
+                 from /srv/android/artifacts/lineage-24.0-arm64/accounting-projection-host-20261113-01/test.cpp:4:
+/usr/include/c++/11/initializer_list:101:5: note: candidate: ‘template<class _Tp> constexpr const _Tp* std::end(std::initializer_list<_Tp>)’
+  101 |     end(initializer_list<_Tp> __ils) noexcept
+      |     ^~~
+/usr/include/c++/11/initializer_list:101:5: note:   template argument deduction/substitution failed:
+/srv/android/artifacts/lineage-24.0-arm64/accounting-projection-host-20261113-01/test.cpp:312:322: note:   mismatched types ‘std::initializer_list<_Tp>’ and ‘std::vector<android::net::gta3xlwifi::CheckedUidChains::Chain> (*)()’
+  312 | static std::array<AccountingRules,3> expectedAccounting(){std::array<AccountingRules,3> rows;for(const auto*n:{"bw_INPUT","bw_OUTPUT","bw_costly_shared","bw_data_saver","bw_penalty_box","bw_happy_box"})rows[0][n]={};rows[1]["bw_raw_PREROUTING"]={};rows[2]["bw_mangle_POSTROUTING"]={};unsigned table=0;for(const auto&line:program){if(line.front()=='*'){table=tableIndex(line.substr(1));continue;}if(line.rfind("COMMIT",0)==0)continue;auto n=line.substr(3,line.find(' ',3)-3);rows[table][n].push_back(accountingCanonical(line));}return rows;}
+      |                                                                                                                                                                                                                                                                                                                                  ^~~~~~~
+In file included from /usr/include/c++/11/array:41,
+                 from /usr/include/c++/11/tuple:39,
+                 from /usr/include/c++/11/mutex:38,
+                 from /srv/android/ports/lineage-24.0-arm64/accounting-roots24-20261113-01/Gta3xlwifiNetpolicyLease.h:3,
+                 from /srv/android/artifacts/lineage-24.0-arm64/accounting-projection-host-20261113-01/test.cpp:4:
+/usr/include/c++/11/bits/range_access.h:71:5: note: candidate: ‘template<class _Container> constexpr decltype (__cont.end()) std::end(_Container&)’
+   71 |     end(_Container& __cont) -> decltype(__cont.end())
+      |     ^~~
+/usr/include/c++/11/bits/range_access.h:71:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/11/bits/range_access.h: In substitution of ‘template<class _Container> constexpr decltype (__cont.end()) std::end(_Container&) [with _Container = std::vector<android::net::gta3xlwifi::CheckedUidChains::Chain>()]’:
+/srv/android/artifacts/lineage-24.0-arm64/accounting-projection-host-20261113-01/test.cpp:312:322:   required from here
+/usr/include/c++/11/bits/range_access.h:71:48: error: request for member ‘end’ in ‘__cont’, which is of non-class type ‘std::vector<android::net::gta3xlwifi::CheckedUidChains::Chain>()’
+   71 |     end(_Container& __cont) -> decltype(__cont.end())
+      |                                         ~~~~~~~^~~
+/usr/include/c++/11/bits/range_access.h:81:5: note: candidate: ‘template<class _Container> constexpr decltype (__cont.end()) std::end(const _Container&)’
+   81 |     end(const _Container& __cont) -> decltype(__cont.end())
+      |     ^~~
+/usr/include/c++/11/bits/range_access.h:81:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/11/bits/range_access.h: In substitution of ‘template<class _Container> constexpr decltype (__cont.end()) std::end(const _Container&) [with _Container = std::vector<android::net::gta3xlwifi::CheckedUidChains::Chain>()]’:
+/srv/android/artifacts/lineage-24.0-arm64/accounting-projection-host-20261113-01/test.cpp:312:322:   required from here
+/usr/include/c++/11/bits/range_access.h:81:54: error: request for member ‘end’ in ‘__cont’, which is of non-class type ‘std::vector<android::net::gta3xlwifi::CheckedUidChains::Chain>()’
+   81 |     end(const _Container& __cont) -> decltype(__cont.end())
+      |                                               ~~~~~~~^~~
+/usr/include/c++/11/bits/range_access.h:100:5: note: candidate: ‘template<class _Tp, long unsigned int _Nm> constexpr _Tp* std::end(_Tp (&)[_Nm])’
+  100 |     end(_Tp (&__arr)[_Nm]) noexcept
+      |     ^~~
+/usr/include/c++/11/bits/range_access.h:100:5: note:   template argument deduction/substitution failed:
+/srv/android/artifacts/lineage-24.0-arm64/accounting-projection-host-20261113-01/test.cpp:312:322: note:   mismatched types ‘_Tp [_Nm]’ and ‘std::vector<android::net::gta3xlwifi::CheckedUidChains::Chain>()’
+  312 | static std::array<AccountingRules,3> expectedAccounting(){std::array<AccountingRules,3> rows;for(const auto*n:{"bw_INPUT","bw_OUTPUT","bw_costly_shared","bw_data_saver","bw_penalty_box","bw_happy_box"})rows[0][n]={};rows[1]["bw_raw_PREROUTING"]={};rows[2]["bw_mangle_POSTROUTING"]={};unsigned table=0;for(const auto&line:program){if(line.front()=='*'){table=tableIndex(line.substr(1));continue;}if(line.rfind("COMMIT",0)==0)continue;auto n=line.substr(3,line.find(' ',3)-3);rows[table][n].push_back(accountingCanonical(line));}return rows;}
+      |                                                                                                                                                                                                                                                                                                                                  ^~~~~~~
+In file included from /usr/include/c++/11/array:41,
+                 from /usr/include/c++/11/tuple:39,
+                 from /usr/include/c++/11/mutex:38,
+                 from /srv/android/ports/lineage-24.0-arm64/accounting-roots24-20261113-01/Gta3xlwifiNetpolicyLease.h:3,
+                 from /srv/android/artifacts/lineage-24.0-arm64/accounting-projection-host-20261113-01/test.cpp:4:
+/usr/include/c++/11/bits/range_access.h:109:31: note: candidate: ‘template<class _Tp> _Tp* std::end(std::valarray<_Tp>&)’
+  109 |   template<typename _Tp> _Tp* end(valarray<_Tp>&) noexcept;
+      |                               ^~~
+/usr/include/c++/11/bits/range_access.h:109:31: note:   template argument deduction/substitution failed:
+/srv/android/artifacts/lineage-24.0-arm64/accounting-projection-host-20261113-01/test.cpp:312:322: note:   mismatched types ‘std::valarray<_Tp>’ and ‘std::vector<android::net::gta3xlwifi::CheckedUidChains::Chain>()’
+  312 | static std::array<AccountingRules,3> expectedAccounting(){std::array<AccountingRules,3> rows;for(const auto*n:{"bw_INPUT","bw_OUTPUT","bw_costly_shared","bw_data_saver","bw_penalty_box","bw_happy_box"})rows[0][n]={};rows[1]["bw_raw_PREROUTING"]={};rows[2]["bw_mangle_POSTROUTING"]={};unsigned table=0;for(const auto&line:program){if(line.front()=='*'){table=tableIndex(line.substr(1));continue;}if(line.rfind("COMMIT",0)==0)continue;auto n=line.substr(3,line.find(' ',3)-3);rows[table][n].push_back(accountingCanonical(line));}return rows;}
+      |                                                                                                                                                                                                                                                                                                                                  ^~~~~~~
+In file included from /usr/include/c++/11/array:41,
+                 from /usr/include/c++/11/tuple:39,
+                 from /usr/include/c++/11/mutex:38,
+                 from /srv/android/ports/lineage-24.0-arm64/accounting-roots24-20261113-01/Gta3xlwifiNetpolicyLease.h:3,
+                 from /srv/android/artifacts/lineage-24.0-arm64/accounting-projection-host-20261113-01/test.cpp:4:
+/usr/include/c++/11/bits/range_access.h:110:37: note: candidate: ‘template<class _Tp> const _Tp* std::end(const std::valarray<_Tp>&)’
+  110 |   template<typename _Tp> const _Tp* end(const valarray<_Tp>&) noexcept;
+      |                                     ^~~
+/usr/include/c++/11/bits/range_access.h:110:37: note:   template argument deduction/substitution failed:
+/srv/android/artifacts/lineage-24.0-arm64/accounting-projection-host-20261113-01/test.cpp:312:322: note:   mismatched types ‘const std::valarray<_Tp>’ and ‘std::vector<android::net::gta3xlwifi::CheckedUidChains::Chain>()’
+  312 | static std::array<AccountingRules,3> expectedAccounting(){std::array<AccountingRules,3> rows;for(const auto*n:{"bw_INPUT","bw_OUTPUT","bw_costly_shared","bw_data_saver","bw_penalty_box","bw_happy_box"})rows[0][n]={};rows[1]["bw_raw_PREROUTING"]={};rows[2]["bw_mangle_POSTROUTING"]={};unsigned table=0;for(const auto&line:program){if(line.front()=='*'){table=tableIndex(line.substr(1));continue;}if(line.rfind("COMMIT",0)==0)continue;auto n=line.substr(3,line.find(' ',3)-3);rows[table][n].push_back(accountingCanonical(line));}return rows;}
+      |                                                                                                                                                                                                                                                                                                                                  ^~~~~~~
+In file included from /usr/include/c++/11/cassert:44,
+                 from /srv/android/artifacts/lineage-24.0-arm64/accounting-projection-host-20261113-01/test.cpp:6:
+/srv/android/artifacts/lineage-24.0-arm64/accounting-projection-host-20261113-01/test.cpp: In member function ‘virtual int AccountingModel::execute(IptablesTarget, const string&, std::string*)’:
+/srv/android/artifacts/lineage-24.0-arm64/accounting-projection-host-20261113-01/test.cpp:321:85: error: request for member ‘begin’ in ‘program’, which is of non-class type ‘RootImage()’ {aka ‘std::vector<android::net::gta3xlwifi::CheckedUidChains::Chain>()’}
+  321 |   else{assert(!output);++writes;do{if(line=="COMMIT")break;assert(std::find(program.begin(),program.end(),line)!=program.end()&&line.rfind("-A ",0)==0);auto n=line.substr(3,line.find(' ',3)-3);assert(t.chains.count(n));t.chains[n].push_back(accountingCanonical(line));}while(std::getline(in,line));assert(line=="COMMIT"&&!std::getline(in,line));if(foreignMutation){t.chains["oem_saved"].push_back("-A oem_saved -j RETURN");foreignMutation=false;}}
+      |                                                                                     ^~~~~
+/srv/android/artifacts/lineage-24.0-arm64/accounting-projection-host-20261113-01/test.cpp:321:101: error: request for member ‘end’ in ‘program’, which is of non-class type ‘RootImage()’ {aka ‘std::vector<android::net::gta3xlwifi::CheckedUidChains::Chain>()’}
+  321 |   else{assert(!output);++writes;do{if(line=="COMMIT")break;assert(std::find(program.begin(),program.end(),line)!=program.end()&&line.rfind("-A ",0)==0);auto n=line.substr(3,line.find(' ',3)-3);assert(t.chains.count(n));t.chains[n].push_back(accountingCanonical(line));}while(std::getline(in,line));assert(line=="COMMIT"&&!std::getline(in,line));if(foreignMutation){t.chains["oem_saved"].push_back("-A oem_saved -j RETURN");foreignMutation=false;}}
+      |                                                                                                     ^~~
+/srv/android/artifacts/lineage-24.0-arm64/accounting-projection-host-20261113-01/test.cpp:321:122: error: request for member ‘end’ in ‘program’, which is of non-class type ‘RootImage()’ {aka ‘std::vector<android::net::gta3xlwifi::CheckedUidChains::Chain>()’}
+  321 |   else{assert(!output);++writes;do{if(line=="COMMIT")break;assert(std::find(program.begin(),program.end(),line)!=program.end()&&line.rfind("-A ",0)==0);auto n=line.substr(3,line.find(' ',3)-3);assert(t.chains.count(n));t.chains[n].push_back(accountingCanonical(line));}while(std::getline(in,line));assert(line=="COMMIT"&&!std::getline(in,line));if(foreignMutation){t.chains["oem_saved"].push_back("-A oem_saved -j RETURN");foreignMutation=false;}}
+      |                                                                                                                          ^~~
+/srv/android/artifacts/lineage-24.0-arm64/accounting-projection-host-20261113-01/test.cpp: In function ‘int main()’:
+/srv/android/artifacts/lineage-24.0-arm64/accounting-projection-host-20261113-01/test.cpp:338:79: error: request for member ‘push_back’ in ‘invalid’, which is of non-class type ‘std::vector<android::net::gta3xlwifi::CheckedUidChains::Chain> (*)()’
+  338 |  auto state=desired();auto other=desired(110001);auto invalid=program;invalid.push_back("*filter");
+      |                                                                               ^~~~~~~~~
+In file included from /usr/include/c++/11/cassert:44,
+                 from /srv/android/artifacts/lineage-24.0-arm64/accounting-projection-host-20261113-01/test.cpp:6:
+/srv/android/artifacts/lineage-24.0-arm64/accounting-projection-host-20261113-01/test.cpp:339:73: error: cannot convert ‘std::vector<android::net::gta3xlwifi::CheckedUidChains::Chain> (*)()’ to ‘const Program&’ {aka ‘const std::vector<std::__cxx11::basic_string<char> >&’}
+  339 |  resetIntegrated();{AccountingCombined k;P p(k);C(p.startWithAccounting(invalid)==-EINVAL&&opens==0&&ioCount==0);C(p.startWithAccounting(program)==0&&held&&opens==1);startPoints=ioCount;P::State out;uint64_t g=77;C(p.snapshot(&out,&g)==-EAGAIN&&g==77);ioCount=0;C(p.replace(state,0)==0&&!held&&opens==1&&files.size()==1);replacePoints=ioCount;checkState(p,10001,1);auto before=ioCount;C(p.startWithAccounting(program)==-EALREADY&&ioCount==before&&!held);C(p.setDataSaver(false)==0&&!held);C(p.snapshot(&out,&g)==0&&g==2&&!out.policy.dataSaverEnabled());
+      |                                                                         ^~~~~~~
+      |                                                                         |
+      |                                                                         std::vector<android::net::gta3xlwifi::CheckedUidChains::Chain> (*)()
+/srv/android/artifacts/lineage-24.0-arm64/accounting-projection-host-20261113-01/test.cpp:339:49: note: in expansion of macro ‘C’
+  339 |  resetIntegrated();{AccountingCombined k;P p(k);C(p.startWithAccounting(invalid)==-EINVAL&&opens==0&&ioCount==0);C(p.startWithAccounting(program)==0&&held&&opens==1);startPoints=ioCount;P::State out;uint64_t g=77;C(p.snapshot(&out,&g)==-EAGAIN&&g==77);ioCount=0;C(p.replace(state,0)==0&&!held&&opens==1&&files.size()==1);replacePoints=ioCount;checkState(p,10001,1);auto before=ioCount;C(p.startWithAccounting(program)==-EALREADY&&ioCount==before&&!held);C(p.setDataSaver(false)==0&&!held);C(p.snapshot(&out,&g)==0&&g==2&&!out.policy.dataSaverEnabled());
+      |                                                 ^
+In file included from /srv/android/artifacts/lineage-24.0-arm64/accounting-projection-host-20261113-01/test.cpp:277:
+/srv/android/ports/lineage-24.0-arm64/accounting-roots24-20261113-01/Gta3xlwifiSocketPolicyProjection.h:40:59: note:   initializing argument 1 of ‘int android::net::gta3xlwifi::SocketPolicyProjection::startWithAccounting(const Program&, android::net::gta3xlwifi::SocketPolicyProjection::HookMode)’
+   40 |   int startWithAccounting(const AccountingRoots::Program& program,
+      |                           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+In file included from /usr/include/c++/11/cassert:44,
+                 from /srv/android/artifacts/lineage-24.0-arm64/accounting-projection-host-20261113-01/test.cpp:6:
+/srv/android/artifacts/lineage-24.0-arm64/accounting-projection-host-20261113-01/test.cpp:339:138: error: cannot convert ‘RootImage()’ {aka ‘std::vector<android::net::gta3xlwifi::CheckedUidChains::Chain>()’} to ‘const Program&’ {aka ‘const std::vector<std::__cxx11::basic_string<char> >&’}
+  339 |  resetIntegrated();{AccountingCombined k;P p(k);C(p.startWithAccounting(invalid)==-EINVAL&&opens==0&&ioCount==0);C(p.startWithAccounting(program)==0&&held&&opens==1);startPoints=ioCount;P::State out;uint64_t g=77;C(p.snapshot(&out,&g)==-EAGAIN&&g==77);ioCount=0;C(p.replace(state,0)==0&&!held&&opens==1&&files.size()==1);replacePoints=ioCount;checkState(p,10001,1);auto before=ioCount;C(p.startWithAccounting(program)==-EALREADY&&ioCount==before&&!held);C(p.setDataSaver(false)==0&&!held);C(p.snapshot(&out,&g)==0&&g==2&&!out.policy.dataSaverEnabled());
+      |                                                                                                                                          ^~~~~~~
+      |                                                                                                                                          |
+      |                                                                                                                                          RootImage() {aka std::vector<android::net::gta3xlwifi::CheckedUidChains::Chain>()}
+/srv/android/artifacts/lineage-24.0-arm64/accounting-projection-host-20261113-01/test.cpp:339:114: note: in expansion of macro ‘C’
+  339 |  resetIntegrated();{AccountingCombined k;P p(k);C(p.startWithAccounting(invalid)==-EINVAL&&opens==0&&ioCount==0);C(p.startWithAccounting(program)==0&&held&&opens==1);startPoints=ioCount;P::State out;uint64_t g=77;C(p.snapshot(&out,&g)==-EAGAIN&&g==77);ioCount=0;C(p.replace(state,0)==0&&!held&&opens==1&&files.size()==1);replacePoints=ioCount;checkState(p,10001,1);auto before=ioCount;C(p.startWithAccounting(program)==-EALREADY&&ioCount==before&&!held);C(p.setDataSaver(false)==0&&!held);C(p.snapshot(&out,&g)==0&&g==2&&!out.policy.dataSaverEnabled());
+      |                                                                                                                  ^
+In file included from /srv/android/artifacts/lineage-24.0-arm64/accounting-projection-host-20261113-01/test.cpp:277:
+/srv/android/ports/lineage-24.0-arm64/accounting-roots24-20261113-01/Gta3xlwifiSocketPolicyProjection.h:40:59: note:   initializing argument 1 of ‘int android::net::gta3xlwifi::SocketPolicyProjection::startWithAccounting(const Program&, android::net::gta3xlwifi::SocketPolicyProjection::HookMode)’
+   40 |   int startWithAccounting(const AccountingRoots::Program& program,
+      |                           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+In file included from /usr/include/c++/11/cassert:44,
+                 from /srv/android/artifacts/lineage-24.0-arm64/accounting-projection-host-20261113-01/test.cpp:6:
+/srv/android/artifacts/lineage-24.0-arm64/accounting-projection-host-20261113-01/test.cpp:339:410: error: cannot convert ‘RootImage()’ {aka ‘std::vector<android::net::gta3xlwifi::CheckedUidChains::Chain>()’} to ‘const Program&’ {aka ‘const std::vector<std::__cxx11::basic_string<char> >&’}
+  339 |  resetIntegrated();{AccountingCombined k;P p(k);C(p.startWithAccounting(invalid)==-EINVAL&&opens==0&&ioCount==0);C(p.startWithAccounting(program)==0&&held&&opens==1);startPoints=ioCount;P::State out;uint64_t g=77;C(p.snapshot(&out,&g)==-EAGAIN&&g==77);ioCount=0;C(p.replace(state,0)==0&&!held&&opens==1&&files.size()==1);replacePoints=ioCount;checkState(p,10001,1);auto before=ioCount;C(p.startWithAccounting(program)==-EALREADY&&ioCount==before&&!held);C(p.setDataSaver(false)==0&&!held);C(p.snapshot(&out,&g)==0&&g==2&&!out.policy.dataSaverEnabled());
+      |                                                                                                                                                                                                                                                                                                                                                                                                                          ^~~~~~~
+      |                                                                                                                                                                                                                                                                                                                                                                                                                          |
+      |                                                                                                                                                                                                                                                                                                                                                                                                                          RootImage() {aka std::vector<android::net::gta3xlwifi::CheckedUidChains::Chain>()}
+/srv/android/artifacts/lineage-24.0-arm64/accounting-projection-host-20261113-01/test.cpp:339:386: note: in expansion of macro ‘C’
+  339 |  resetIntegrated();{AccountingCombined k;P p(k);C(p.startWithAccounting(invalid)==-EINVAL&&opens==0&&ioCount==0);C(p.startWithAccounting(program)==0&&held&&opens==1);startPoints=ioCount;P::State out;uint64_t g=77;C(p.snapshot(&out,&g)==-EAGAIN&&g==77);ioCount=0;C(p.replace(state,0)==0&&!held&&opens==1&&files.size()==1);replacePoints=ioCount;checkState(p,10001,1);auto before=ioCount;C(p.startWithAccounting(program)==-EALREADY&&ioCount==before&&!held);C(p.setDataSaver(false)==0&&!held);C(p.snapshot(&out,&g)==0&&g==2&&!out.policy.dataSaverEnabled());
+      |                                                                                                                                                                                                                                                                                                                                                                                                  ^
+In file included from /srv/android/artifacts/lineage-24.0-arm64/accounting-projection-host-20261113-01/test.cpp:277:
+/srv/android/ports/lineage-24.0-arm64/accounting-roots24-20261113-01/Gta3xlwifiSocketPolicyProjection.h:40:59: note:   initializing argument 1 of ‘int android::net::gta3xlwifi::SocketPolicyProjection::startWithAccounting(const Program&, android::net::gta3xlwifi::SocketPolicyProjection::HookMode)’
+   40 |   int startWithAccounting(const AccountingRoots::Program& program,
+      |                           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+In file included from /usr/include/c++/11/cassert:44,
+                 from /srv/android/artifacts/lineage-24.0-arm64/accounting-projection-host-20261113-01/test.cpp:6:
+/srv/android/artifacts/lineage-24.0-arm64/accounting-projection-host-20261113-01/test.cpp:339:534: error: ‘class android::net::gta3xlwifi::UidPolicy’ has no member named ‘dataSaverEnabled’
+  339 |  resetIntegrated();{AccountingCombined k;P p(k);C(p.startWithAccounting(invalid)==-EINVAL&&opens==0&&ioCount==0);C(p.startWithAccounting(program)==0&&held&&opens==1);startPoints=ioCount;P::State out;uint64_t g=77;C(p.snapshot(&out,&g)==-EAGAIN&&g==77);ioCount=0;C(p.replace(state,0)==0&&!held&&opens==1&&files.size()==1);replacePoints=ioCount;checkState(p,10001,1);auto before=ioCount;C(p.startWithAccounting(program)==-EALREADY&&ioCount==before&&!held);C(p.setDataSaver(false)==0&&!held);C(p.snapshot(&out,&g)==0&&g==2&&!out.policy.dataSaverEnabled());
+      |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      ^~~~~~~~~~~~~~~~
+/srv/android/artifacts/lineage-24.0-arm64/accounting-projection-host-20261113-01/test.cpp:339:490: note: in expansion of macro ‘C’
+  339 |  resetIntegrated();{AccountingCombined k;P p(k);C(p.startWithAccounting(invalid)==-EINVAL&&opens==0&&ioCount==0);C(p.startWithAccounting(program)==0&&held&&opens==1);startPoints=ioCount;P::State out;uint64_t g=77;C(p.snapshot(&out,&g)==-EAGAIN&&g==77);ioCount=0;C(p.replace(state,0)==0&&!held&&opens==1&&files.size()==1);replacePoints=ioCount;checkState(p,10001,1);auto before=ioCount;C(p.startWithAccounting(program)==-EALREADY&&ioCount==before&&!held);C(p.setDataSaver(false)==0&&!held);C(p.snapshot(&out,&g)==0&&g==2&&!out.policy.dataSaverEnabled());
+      |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          ^
+/srv/android/artifacts/lineage-24.0-arm64/accounting-projection-host-20261113-01/test.cpp:343:129: error: cannot convert ‘RootImage()’ {aka ‘std::vector<android::net::gta3xlwifi::CheckedUidChains::Chain>()’} to ‘const Program&’ {aka ‘const std::vector<std::__cxx11::basic_string<char> >&’}
+  343 |  for(unsigned bit=0;bit<12;++bit){resetIntegrated();features=4095^(1u<<bit);AccountingCombined k;P p(k);C(p.startWithAccounting(program)==-EOPNOTSUPP&&held&&files.empty()&&k.calls==0);}
+      |                                                                                                                                 ^~~~~~~
+      |                                                                                                                                 |
+      |                                                                                                                                 RootImage() {aka std::vector<android::net::gta3xlwifi::CheckedUidChains::Chain>()}
+/srv/android/artifacts/lineage-24.0-arm64/accounting-projection-host-20261113-01/test.cpp:343:105: note: in expansion of macro ‘C’
+  343 |  for(unsigned bit=0;bit<12;++bit){resetIntegrated();features=4095^(1u<<bit);AccountingCombined k;P p(k);C(p.startWithAccounting(program)==-EOPNOTSUPP&&held&&files.empty()&&k.calls==0);}
+      |                                                                                                         ^
+In file included from /srv/android/artifacts/lineage-24.0-arm64/accounting-projection-host-20261113-01/test.cpp:277:
+/srv/android/ports/lineage-24.0-arm64/accounting-roots24-20261113-01/Gta3xlwifiSocketPolicyProjection.h:40:59: note:   initializing argument 1 of ‘int android::net::gta3xlwifi::SocketPolicyProjection::startWithAccounting(const Program&, android::net::gta3xlwifi::SocketPolicyProjection::HookMode)’
+   40 |   int startWithAccounting(const AccountingRoots::Program& program,
+      |                           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+In file included from /usr/include/c++/11/cassert:44,
+                 from /srv/android/artifacts/lineage-24.0-arm64/accounting-projection-host-20261113-01/test.cpp:6:
+/srv/android/artifacts/lineage-24.0-arm64/accounting-projection-host-20261113-01/test.cpp:344:177: error: cannot convert ‘RootImage()’ {aka ‘std::vector<android::net::gta3xlwifi::CheckedUidChains::Chain>()’} to ‘const Program&’ {aka ‘const std::vector<std::__cxx11::basic_string<char> >&’}
+  344 |  for(bool after:{false,true})for(unsigned point=1;point<=startPoints;++point){resetIntegrated();AccountingCombined k;P p(k);ioFault=point;ioAfter=after;C(p.startWithAccounting(program)<0&&held&&files.empty());P::State out;uint64_t g=77;C(p.snapshot(&out,&g)==-EAGAIN&&g==77);}
+      |                                                                                                                                                                                 ^~~~~~~
+      |                                                                                                                                                                                 |
+      |                                                                                                                                                                                 RootImage() {aka std::vector<android::net::gta3xlwifi::CheckedUidChains::Chain>()}
+/srv/android/artifacts/lineage-24.0-arm64/accounting-projection-host-20261113-01/test.cpp:344:153: note: in expansion of macro ‘C’
+  344 |  for(bool after:{false,true})for(unsigned point=1;point<=startPoints;++point){resetIntegrated();AccountingCombined k;P p(k);ioFault=point;ioAfter=after;C(p.startWithAccounting(program)<0&&held&&files.empty());P::State out;uint64_t g=77;C(p.snapshot(&out,&g)==-EAGAIN&&g==77);}
+      |                                                                                                                                                         ^
+In file included from /srv/android/artifacts/lineage-24.0-arm64/accounting-projection-host-20261113-01/test.cpp:277:
+/srv/android/ports/lineage-24.0-arm64/accounting-roots24-20261113-01/Gta3xlwifiSocketPolicyProjection.h:40:59: note:   initializing argument 1 of ‘int android::net::gta3xlwifi::SocketPolicyProjection::startWithAccounting(const Program&, android::net::gta3xlwifi::SocketPolicyProjection::HookMode)’
+   40 |   int startWithAccounting(const AccountingRoots::Program& program,
+      |                           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+In file included from /usr/include/c++/11/cassert:44,
+                 from /srv/android/artifacts/lineage-24.0-arm64/accounting-projection-host-20261113-01/test.cpp:6:
+/srv/android/artifacts/lineage-24.0-arm64/accounting-projection-host-20261113-01/test.cpp:345:151: error: cannot convert ‘RootImage()’ {aka ‘std::vector<android::net::gta3xlwifi::CheckedUidChains::Chain>()’} to ‘const Program&’ {aka ‘const std::vector<std::__cxx11::basic_string<char> >&’}
+  345 |  for(bool after:{false,true})for(unsigned point=1;point<=replacePoints;++point){resetIntegrated();AccountingCombined k;P p(k);C(p.startWithAccounting(program)==0);ioCount=0;ioFault=point;ioAfter=after;C(p.replace(state,0)<0&&held&&files.empty());P::State out;uint64_t g=77;C(p.snapshot(&out,&g)==-EAGAIN&&g==77);C(p.replace(other,0)==-ENOTCONN);}
+      |                                                                                                                                                       ^~~~~~~
+      |                                                                                                                                                       |
+      |                                                                                                                                                       RootImage() {aka std::vector<android::net::gta3xlwifi::CheckedUidChains::Chain>()}
+/srv/android/artifacts/lineage-24.0-arm64/accounting-projection-host-20261113-01/test.cpp:345:127: note: in expansion of macro ‘C’
+  345 |  for(bool after:{false,true})for(unsigned point=1;point<=replacePoints;++point){resetIntegrated();AccountingCombined k;P p(k);C(p.startWithAccounting(program)==0);ioCount=0;ioFault=point;ioAfter=after;C(p.replace(state,0)<0&&held&&files.empty());P::State out;uint64_t g=77;C(p.snapshot(&out,&g)==-EAGAIN&&g==77);C(p.replace(other,0)==-ENOTCONN);}
+      |                                                                                                                               ^
+In file included from /srv/android/artifacts/lineage-24.0-arm64/accounting-projection-host-20261113-01/test.cpp:277:
+/srv/android/ports/lineage-24.0-arm64/accounting-roots24-20261113-01/Gta3xlwifiSocketPolicyProjection.h:40:59: note:   initializing argument 1 of ‘int android::net::gta3xlwifi::SocketPolicyProjection::startWithAccounting(const Program&, android::net::gta3xlwifi::SocketPolicyProjection::HookMode)’
+   40 |   int startWithAccounting(const AccountingRoots::Program& program,
+      |                           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+In file included from /usr/include/c++/11/cassert:44,
+                 from /srv/android/artifacts/lineage-24.0-arm64/accounting-projection-host-20261113-01/test.cpp:6:
+/srv/android/artifacts/lineage-24.0-arm64/accounting-projection-host-20261113-01/test.cpp:346:129: error: cannot convert ‘RootImage()’ {aka ‘std::vector<android::net::gta3xlwifi::CheckedUidChains::Chain>()’} to ‘const Program&’ {aka ‘const std::vector<std::__cxx11::basic_string<char> >&’}
+  346 |  resetIntegrated();{AccountingCombined k;for(auto&f:k.hooks)for(auto&[n,r]:f){(void)n;r.clear();}P p(k);C(p.startWithAccounting(program,P::HookMode::InstallMissing)==0&&held);C(p.replace(state,0)==0&&!held&&opens==1);}
+      |                                                                                                                                 ^~~~~~~
+      |                                                                                                                                 |
+      |                                                                                                                                 RootImage() {aka std::vector<android::net::gta3xlwifi::CheckedUidChains::Chain>()}
+/srv/android/artifacts/lineage-24.0-arm64/accounting-projection-host-20261113-01/test.cpp:346:105: note: in expansion of macro ‘C’
+  346 |  resetIntegrated();{AccountingCombined k;for(auto&f:k.hooks)for(auto&[n,r]:f){(void)n;r.clear();}P p(k);C(p.startWithAccounting(program,P::HookMode::InstallMissing)==0&&held);C(p.replace(state,0)==0&&!held&&opens==1);}
+      |                                                                                                         ^
+In file included from /srv/android/artifacts/lineage-24.0-arm64/accounting-projection-host-20261113-01/test.cpp:277:
+/srv/android/ports/lineage-24.0-arm64/accounting-roots24-20261113-01/Gta3xlwifiSocketPolicyProjection.h:40:59: note:   initializing argument 1 of ‘int android::net::gta3xlwifi::SocketPolicyProjection::startWithAccounting(const Program&, android::net::gta3xlwifi::SocketPolicyProjection::HookMode)’
+   40 |   int startWithAccounting(const AccountingRoots::Program& program,
+      |                           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+In file included from /usr/include/c++/11/cassert:44,
+                 from /srv/android/artifacts/lineage-24.0-arm64/accounting-projection-host-20261113-01/test.cpp:6:
+/srv/android/artifacts/lineage-24.0-arm64/accounting-projection-host-20261113-01/test.cpp:347:149: error: cannot convert ‘RootImage()’ {aka ‘std::vector<android::net::gta3xlwifi::CheckedUidChains::Chain>()’} to ‘const Program&’ {aka ‘const std::vector<std::__cxx11::basic_string<char> >&’}
+  347 |  for(unsigned point:{startPoints/2,startPoints-2}){resetIntegrated();AccountingCombined k;P p(k);ioFault=point;ioAfter=true;C(p.startWithAccounting(program)<0&&held&&files.empty());ioFault=0;C(p.startWithAccounting(program)==0&&held);C(p.replace(state,0)==0&&!held);}
+      |                                                                                                                                                     ^~~~~~~
+      |                                                                                                                                                     |
+      |                                                                                                                                                     RootImage() {aka std::vector<android::net::gta3xlwifi::CheckedUidChains::Chain>()}
+/srv/android/artifacts/lineage-24.0-arm64/accounting-projection-host-20261113-01/test.cpp:347:125: note: in expansion of macro ‘C’
+  347 |  for(unsigned point:{startPoints/2,startPoints-2}){resetIntegrated();AccountingCombined k;P p(k);ioFault=point;ioAfter=true;C(p.startWithAccounting(program)<0&&held&&files.empty());ioFault=0;C(p.startWithAccounting(program)==0&&held);C(p.replace(state,0)==0&&!held);}
+      |                                                                                                                             ^
+In file included from /srv/android/artifacts/lineage-24.0-arm64/accounting-projection-host-20261113-01/test.cpp:277:
+/srv/android/ports/lineage-24.0-arm64/accounting-roots24-20261113-01/Gta3xlwifiSocketPolicyProjection.h:40:59: note:   initializing argument 1 of ‘int android::net::gta3xlwifi::SocketPolicyProjection::startWithAccounting(const Program&, android::net::gta3xlwifi::SocketPolicyProjection::HookMode)’
+   40 |   int startWithAccounting(const AccountingRoots::Program& program,
+      |                           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+In file included from /usr/include/c++/11/cassert:44,
+                 from /srv/android/artifacts/lineage-24.0-arm64/accounting-projection-host-20261113-01/test.cpp:6:
+/srv/android/artifacts/lineage-24.0-arm64/accounting-projection-host-20261113-01/test.cpp:347:216: error: cannot convert ‘RootImage()’ {aka ‘std::vector<android::net::gta3xlwifi::CheckedUidChains::Chain>()’} to ‘const Program&’ {aka ‘const std::vector<std::__cxx11::basic_string<char> >&’}
+  347 |  for(unsigned point:{startPoints/2,startPoints-2}){resetIntegrated();AccountingCombined k;P p(k);ioFault=point;ioAfter=true;C(p.startWithAccounting(program)<0&&held&&files.empty());ioFault=0;C(p.startWithAccounting(program)==0&&held);C(p.replace(state,0)==0&&!held);}
+      |                                                                                                                                                                                                                        ^~~~~~~
+      |                                                                                                                                                                                                                        |
+      |                                                                                                                                                                                                                        RootImage() {aka std::vector<android::net::gta3xlwifi::CheckedUidChains::Chain>()}
+/srv/android/artifacts/lineage-24.0-arm64/accounting-projection-host-20261113-01/test.cpp:347:192: note: in expansion of macro ‘C’
+  347 |  for(unsigned point:{startPoints/2,startPoints-2}){resetIntegrated();AccountingCombined k;P p(k);ioFault=point;ioAfter=true;C(p.startWithAccounting(program)<0&&held&&files.empty());ioFault=0;C(p.startWithAccounting(program)==0&&held);C(p.replace(state,0)==0&&!held);}
+      |                                                                                                                                                                                                ^
+In file included from /srv/android/artifacts/lineage-24.0-arm64/accounting-projection-host-20261113-01/test.cpp:277:
+/srv/android/ports/lineage-24.0-arm64/accounting-roots24-20261113-01/Gta3xlwifiSocketPolicyProjection.h:40:59: note:   initializing argument 1 of ‘int android::net::gta3xlwifi::SocketPolicyProjection::startWithAccounting(const Program&, android::net::gta3xlwifi::SocketPolicyProjection::HookMode)’
+   40 |   int startWithAccounting(const AccountingRoots::Program& program,
+      |                           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+In file included from /usr/include/c++/11/cassert:44,
+                 from /srv/android/artifacts/lineage-24.0-arm64/accounting-projection-host-20261113-01/test.cpp:6:
+/srv/android/artifacts/lineage-24.0-arm64/accounting-projection-host-20261113-01/test.cpp:348:188: error: cannot convert ‘RootImage()’ {aka ‘std::vector<android::net::gta3xlwifi::CheckedUidChains::Chain>()’} to ‘const Program&’ {aka ‘const std::vector<std::__cxx11::basic_string<char> >&’}
+  348 |  resetIntegrated();{AccountingCombined k;k.accounting.tables[1][2].chains["bw_mangle_POSTROUTING"]={"-A bw_mangle_POSTROUTING -m bpf --object-pinned /old"};P p(k);C(p.startWithAccounting(program)==-EPROTO&&k.filter.writes==0&&k.accounting.writes==0&&held&&files.empty());}
+      |                                                                                                                                                                                            ^~~~~~~
+      |                                                                                                                                                                                            |
+      |                                                                                                                                                                                            RootImage() {aka std::vector<android::net::gta3xlwifi::CheckedUidChains::Chain>()}
+/srv/android/artifacts/lineage-24.0-arm64/accounting-projection-host-20261113-01/test.cpp:348:164: note: in expansion of macro ‘C’
+  348 |  resetIntegrated();{AccountingCombined k;k.accounting.tables[1][2].chains["bw_mangle_POSTROUTING"]={"-A bw_mangle_POSTROUTING -m bpf --object-pinned /old"};P p(k);C(p.startWithAccounting(program)==-EPROTO&&k.filter.writes==0&&k.accounting.writes==0&&held&&files.empty());}
+      |                                                                                                                                                                    ^
+In file included from /srv/android/artifacts/lineage-24.0-arm64/accounting-projection-host-20261113-01/test.cpp:277:
+/srv/android/ports/lineage-24.0-arm64/accounting-roots24-20261113-01/Gta3xlwifiSocketPolicyProjection.h:40:59: note:   initializing argument 1 of ‘int android::net::gta3xlwifi::SocketPolicyProjection::startWithAccounting(const Program&, android::net::gta3xlwifi::SocketPolicyProjection::HookMode)’
+   40 |   int startWithAccounting(const AccountingRoots::Program& program,
+      |                           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~

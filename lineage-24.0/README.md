@@ -32,6 +32,26 @@ checks are separate from Android execution. Optional GPU BPF accounting still
 reports unavailable, rather than invented counters. Existing safety/installer
 and strict SELinux checks remain enforced.
 
+## Held accounting startup checkpoint — November 13
+
+The actual BandwidthController now has an explicit private source factory with
+real interface producers and empty metered parents; its other code remains
+unchanged. AccountingRoots accepts only empty/known ordered prefixes, verifies
+both families/all three tables before writing and preserves foreign rules.
+The four-state owner can bootstrap these producers under its existing lease and
+reverify them before publication, with no firewall operation after image SET.
+129 component, 1245 integrated owner and 994 generic regression checks pass.
+Fourteen actual ARM64 netd CFI sources partially link; both wire architectures,
+all UAPI/source audits and private namespace resolution pass. Source factory
+checks pass 1040 cases. See accounting-projection-20261113-01.
+
+A truthful separate kernel primitive bit distinguishes compiled DROP correction
+from producer registration; twelve getter/config checks, forty transport cases
+and a full fresh kernel/modules/source audit pass. See
+kernel-iface-capability-20261113-01 and iface-capability-transport-20261113-01.
+Actual Controllers/Binder/Java routing, UID/tag/app/bank statistics and remaining
+ROM gates are still required. No selected image or test-ROM candidate exists.
+
 ## Interface DROP correction checkpoint — November 13
 
 All three actual postrouting wrappers now call the original policy and genuine

@@ -1,0 +1,24 @@
+{
+  "scope": "bandwidth-factory-20261113-01: isolated explicit factory or genuine primitive negotiation, not installation/accounting/network readiness.",
+  "prerequisites": [
+    "kernel-iface-egress-20261113-01",
+    "xtables-iface-stats-20261113-01",
+    "metered-roots-20261113-01"
+  ],
+  "patch_sha256": "f10832880e0d5e49fb93352d873e49d7ebd6e278b35ce7004440e6885d8120eb",
+  "files": [
+    {
+      "path": "BandwidthController.cpp",
+      "before_sha256": "dbe9330c18ad702b780aeac7ca7b1771897815edc3ec01418248f9175fa5b961",
+      "candidate_sha256": "b79b4d8c67d5f36319189db56235be125e77c9d7d9ffe4741b5ffddfabae35e2"
+    },
+    {
+      "path": "BandwidthController.h",
+      "before_sha256": "52228f81b8fc4aa3900498db2df9d397bb71cf92e59f4d2b4a79049f66119ed8",
+      "candidate_sha256": "0886e5d770aa66a3b3bc3a620133700f989972da63ed97d131f07c0b9629e584"
+    }
+  ],
+  "android_prebuilt_promoted": false,
+  "hardware_tested": false,
+  "flash_ready": false
+}
