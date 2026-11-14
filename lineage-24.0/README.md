@@ -32,6 +32,48 @@ checks are separate from Android execution. Optional GPU BPF accounting still
 reports unavailable, rather than invented counters. Existing safety/installer
 and strict SELinux checks remain enforced.
 
+## Explicit runtime network modes checkpoint — November 14
+
+The isolated kernel now implements Android 17's independent loopback checks and
+metrics switches, and both permission-propagation and legacy blocked-UID local
+network modes. A versioned 32-byte runtime image uses the existing authenticated
+owner lease. Each new lease requires explicit confirmed configuration before
+RELEASE; no mode is silently enabled or disabled. Exact revision/content SET
+receipts are idempotent, and native publication requires matching real readback.
+The owner commits all five states under one held lease, after the last firewall
+operation, with runtime before LNA and UID permissions last. Any uncertain
+kernel result withdraws the complete publication.
+
+Actual kernel/pinned Android 17 predicate comparisons pass 49,152 LNA and
+786,432 loopback combinations, plus 120 lifecycle/protocol cases. The full isolated
+Image/modules build passes, retaining the product configuration, Gator/KUTF
+imports and complete candidate/protected kernel and Android revision audits.
+Image `ef3426a0c001f0dea8ac4203d7faf02a9c7ccc74f722fcdc74d3b5f9c7d771ee`
+is an isolated build; it is not the selected Android prebuilt.
+
+Native transport passes 71 cases; the combined five-state owner passes 2,711,
+including generic and accounting failure-point replays. Packet transport's 99
+cases pass on the current source. Fifteen actual Android 17 ARM64 CFI sources
+compile and partially link without unresolved private namespace symbols. Actual
+ARM32/64 compilation checks runtime field offsets, sizes and ioctl encodings;
+all nine UAPI headers match the complete kernel. Source audits retain all 1,243
+projects and 17 exact patches. These are compiler/host results, not device proof.
+
+Both strict policy profiles pass with all 5,918/5,881 existing assertions and
+constraints retained. Only exact runtime controls 0x6760/0x6761 are appended.
+Each profile passes 17 compiled permission queries, real device/genfs label
+checks, 18 enabled-ioctl contradiction tests and two denied-neighbor tests.
+No neverallow bypass, permissive domain or automatic policy selection is used.
+Failed attempts are archived unchanged alongside the final evidence.
+
+See kernel-runtime-policy-20261113-01, runtime-transport-20261114-01,
+runtime-owner-20261114-01 and runtime-policy-20261114-01. Current selected kernel,
+latest LineageOS 21 MTP vendor and DTBO remain unchanged, verified in
+runtime-final-inputs-20261114-01. Controllers/Binder/Java routing, complete initial
+snapshot/delta ordering, statistics poll/persistence/ACK and event delivery remain
+required, followed by installation, encryption and final-ROM checks. No flash
+candidate or global networking readiness is claimed.
+
 ## Complete permission-frame checkpoint — November 13
 
 An explicit first-publication path now validates the caller's complete user,

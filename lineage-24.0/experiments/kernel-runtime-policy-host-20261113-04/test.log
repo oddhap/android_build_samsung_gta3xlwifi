@@ -1,0 +1,2 @@
+SET failed result=-22 rev=3 flags=0 count=0 held=1
+test: /srv/android/artifacts/lineage-24.0-arm64/kernel-runtime-policy-host-20261113-04/test.c:608: set_mode: Assertion `!result' failed.

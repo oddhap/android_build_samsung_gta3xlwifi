@@ -1,0 +1,2 @@
+bad UID payload cmd=c020675a version=1 count=1000 ptr=0
+test: /srv/android/artifacts/lineage-24.0-arm64/runtime-owner-host-20261114-05/test.cpp:88: int uid_ioctl(int, long unsigned int, ...): Assertion `t->version==1&&t->count<=65536&&bool(t->count)==bool(t->entries)' failed.

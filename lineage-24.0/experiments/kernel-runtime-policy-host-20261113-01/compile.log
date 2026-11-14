@@ -1,0 +1,12 @@
+/srv/android/artifacts/lineage-24.0-arm64/kernel-runtime-policy-host-20261113-01/test.c: In function ‘is_system_or_root’:
+/srv/android/artifacts/lineage-24.0-arm64/kernel-runtime-policy-host-20261113-01/test.c:435:20: error: ‘AID_SYSTEM’ undeclared (first use in this function)
+  435 |     return (uid == AID_SYSTEM) || (uid == AID_ROOT);
+      |                    ^~~~~~~~~~
+/srv/android/artifacts/lineage-24.0-arm64/kernel-runtime-policy-host-20261113-01/test.c:435:20: note: each undeclared identifier is reported only once for each function it appears in
+/srv/android/artifacts/lineage-24.0-arm64/kernel-runtime-policy-host-20261113-01/test.c:435:43: error: ‘AID_ROOT’ undeclared (first use in this function)
+  435 |     return (uid == AID_SYSTEM) || (uid == AID_ROOT);
+      |                                           ^~~~~~~~
+/srv/android/artifacts/lineage-24.0-arm64/kernel-runtime-policy-host-20261113-01/test.c:436:1: error: control reaches end of non-void function [-Werror=return-type]
+  436 | }
+      | ^
+cc1: all warnings being treated as errors

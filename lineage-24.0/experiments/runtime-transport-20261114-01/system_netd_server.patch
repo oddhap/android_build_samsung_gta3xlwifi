@@ -1,0 +1,144 @@
+--- a/Gta3xlwifiNetpolicyLease.cpp
++++ b/Gta3xlwifiNetpolicyLease.cpp
+@@ -1,5 +1,6 @@
+ // SPDX-License-Identifier: Apache-2.0
+ #include <linux/netfilter/gta3xlwifi_packet_stats.h>
++#include <linux/netfilter/gta3xlwifi_runtime_policy.h>
+ #include <tuple>
+ #include "Gta3xlwifiNetpolicyLease.h"
+ #include <linux/netfilter/gta3xlwifi_netpolicy.h>
+@@ -721,3 +722,73 @@
+     return (result&required)==required?0:imageErrorLocked(-EOPNOTSUPP);
+ }
+ } // namespace android::net::gta3xlwifi
++
++namespace android::net::gta3xlwifi {
++int NetpolicyLease::runtimeFeaturesLocked() {
++    if(mFd<0)return -ENOTCONN;
++    int result;
++    do{result=ioctl(mFd,GTA3XLWIFI_UID_FEATURES,0UL);}while(result<0&&errno==EINTR);
++    if(result<0)return imageErrorLocked(errno?-errno:-EIO);
++    return (result&GTA3XLWIFI_UID_CAP_RUNTIME_POLICY)?0:imageErrorLocked(-EOPNOTSUPP);
++}
++int NetpolicyLease::requireRuntimePolicy() {
++    std::lock_guard<std::mutex> lock(mMutex);
++    return runtimeFeaturesLocked();
++}
++int NetpolicyLease::runtimeReadLocked(RuntimeImage* output) {
++    int error=runtimeFeaturesLocked();if(error)return error;
++    gta3xlwifi_runtime_transfer metadata{};int result;
++    do{metadata={};metadata.version=1;result=ioctl(mFd,GTA3XLWIFI_RUNTIME_GET,reinterpret_cast<unsigned long>(&metadata));}
++    while(result<0&&errno==EINTR);
++    if(result)return imageErrorLocked(result<0?(errno?-errno:-EIO):-EPROTO);
++    if(metadata.version!=1||metadata.entries||metadata.count>GTA3XLWIFI_RUNTIME_MAX_BLOCKED_UIDS||
++       (metadata.flags&~GTA3XLWIFI_RUNTIME_FLAG_MASK)||(metadata.status&~GTA3XLWIFI_RUNTIME_CONFIGURED)||
++       (!metadata.revision&&(metadata.count||metadata.flags||metadata.status)))return imageErrorLocked(-EPROTO);
++    RuntimeImage next;next.revision=metadata.revision;next.flags=metadata.flags;
++    next.confirmedForLease=metadata.status&GTA3XLWIFI_RUNTIME_CONFIGURED;
++    next.legacyBlockedUids.resize(metadata.count);
++    if(metadata.count){
++        gta3xlwifi_runtime_transfer data{};
++        do{data={};data.version=1;data.count=metadata.count;data.revision=metadata.revision;
++            data.entries=reinterpret_cast<uintptr_t>(next.legacyBlockedUids.data());
++            result=ioctl(mFd,GTA3XLWIFI_RUNTIME_GET,reinterpret_cast<unsigned long>(&data));
++        }while(result<0&&errno==EINTR);
++        if(result)return imageErrorLocked(result<0?(errno?-errno:-EIO):-EPROTO);
++        if(data.version!=1||data.count!=metadata.count||data.revision!=metadata.revision||
++           data.flags!=metadata.flags||data.status!=metadata.status||
++           data.entries!=reinterpret_cast<uintptr_t>(next.legacyBlockedUids.data()))return imageErrorLocked(-EPROTO);
++        for(size_t i=0;i<next.legacyBlockedUids.size();++i)
++            if(next.legacyBlockedUids[i]>INT_MAX||(i&&next.legacyBlockedUids[i-1]>=next.legacyBlockedUids[i]))
++                return imageErrorLocked(-EPROTO);
++    }
++    *output=std::move(next);return 0;
++}
++int NetpolicyLease::readRuntimePolicy(RuntimeImage* output) {
++    if(!output)return -EINVAL;
++    std::lock_guard<std::mutex> lock(mMutex);
++    return runtimeReadLocked(output);
++}
++int NetpolicyLease::replaceRuntimePolicy(uint64_t expected,uint32_t flags,
++                                         const std::vector<uint32_t>& uids,uint64_t* revision) {
++    if(!revision||(flags&~GTA3XLWIFI_RUNTIME_FLAG_MASK)||uids.size()>GTA3XLWIFI_RUNTIME_MAX_BLOCKED_UIDS)
++        return -EINVAL;
++    for(size_t i=0;i<uids.size();++i)if(uids[i]>INT_MAX||(i&&uids[i-1]>=uids[i]))return -EINVAL;
++    if(expected==UINT64_MAX)return -EOVERFLOW;
++    std::lock_guard<std::mutex> lock(mMutex);
++    int result=runtimeFeaturesLocked();if(result)return result;
++    bool held=false;result=stateLocked(&held);if(result)return result;
++    if(!held)return imageErrorLocked(-EBUSY);
++    gta3xlwifi_runtime_transfer request{};request.version=1;request.flags=flags;
++    request.count=uids.size();request.revision=expected+1;
++    request.entries=uids.empty()?0:reinterpret_cast<uintptr_t>(uids.data());
++    // Exact revision+content SET is idempotently acknowledged by the real
++    // kernel, so EINTR retry differs deliberately from packet-bank SWAP.
++    do{result=ioctl(mFd,GTA3XLWIFI_RUNTIME_SET,reinterpret_cast<unsigned long>(&request));}
++    while(result<0&&errno==EINTR);
++    if(result)return imageErrorLocked(result<0?(errno?-errno:-EIO):-EPROTO);
++    RuntimeImage after;result=runtimeReadLocked(&after);if(result)return result;
++    if(after.revision!=expected+1||after.flags!=flags||!after.confirmedForLease||after.legacyBlockedUids!=uids)
++        return imageErrorLocked(-EPROTO);
++    *revision=after.revision;return 0;
++}
++}  // namespace android::net::gta3xlwifi
+--- a/Gta3xlwifiNetpolicyLease.h
++++ b/Gta3xlwifiNetpolicyLease.h
+@@ -132,12 +132,27 @@
+     // Statistics/counterset only. Caller must separately remove socket tags and
+     // perform the final poll/ACK first; pending banks intentionally reject this.
+     int deleteUidPacketStats(uint32_t uid);
++    struct RuntimeImage {
++        uint64_t revision=0;
++        uint32_t flags=0;
++        bool confirmedForLease=false;
++        std::vector<uint32_t> legacyBlockedUids;
++    };
++    // Real runtime mode image, not global readiness. Same owner descriptor and
++    // mutex; mutable writes require HOLD and exact readback before success.
++    int requireRuntimePolicy();
++    int readRuntimePolicy(RuntimeImage* output);
++    int replaceRuntimePolicy(uint64_t expectedRevision,uint32_t flags,
++                             const std::vector<uint32_t>& blockedUids,
++                             uint64_t* newRevision);
+     int start();
+     int hold();
+     int release();
+     int isHeld(bool* output);
+     void stop();
+ private:
++    int runtimeFeaturesLocked();
++    int runtimeReadLocked(RuntimeImage* output);
+     int packetStorageLocked();
+     int packetCommandLocked(unsigned long request,void* argument,bool retry);
+     int loopbackFeaturesLocked();
+--- /dev/null
++++ b/linux/netfilter/gta3xlwifi_runtime_policy.h
+@@ -0,0 +1,28 @@
++/* SPDX-License-Identifier: GPL-2.0 WITH Linux-syscall-note */
++#ifndef _UAPI_GTA3XLWIFI_RUNTIME_POLICY_H
++#define _UAPI_GTA3XLWIFI_RUNTIME_POLICY_H
++#include <linux/types.h>
++#include <linux/ioctl.h>
++#define GTA3XLWIFI_RUNTIME_VERSION 1U
++#define GTA3XLWIFI_RUNTIME_MAX_BLOCKED_UIDS 1000U
++#define GTA3XLWIFI_RUNTIME_LOOPBACK_CHECKS 1U
++#define GTA3XLWIFI_RUNTIME_LOOPBACK_METRICS 2U
++#define GTA3XLWIFI_RUNTIME_PERMISSION_PROPAGATION 4U
++#define GTA3XLWIFI_RUNTIME_FLAG_MASK 7U
++#define GTA3XLWIFI_RUNTIME_CONFIGURED 1U
++#define GTA3XLWIFI_UID_CAP_RUNTIME_POLICY (1U << 14)
++/* Entries are sorted unique u32 UIDs with true legacy local-net blocking.
++ * False/absent map values are equivalent for this A17 predicate.
++ * GET input flags/status must0; count0+entries0 queries metadata. Data requires
++ * matching nonzero revision. Revision0 is uninitialized, never configured-off.
++ * SET status must0; revision is next current+1, or exact idempotent receipt.
++ * A successful SET confirms configuration for THIS lease. Open/close invalidates
++ * that confirmation while preserving real image metadata for explicit recovery.
++ */
++struct gta3xlwifi_runtime_transfer {
++    __u32 version, count, flags, status;
++    __aligned_u64 revision, entries;
++};
++#define GTA3XLWIFI_RUNTIME_GET _IOWR('g',0x60,struct gta3xlwifi_runtime_transfer)
++#define GTA3XLWIFI_RUNTIME_SET _IOW('g',0x61,struct gta3xlwifi_runtime_transfer)
++#endif

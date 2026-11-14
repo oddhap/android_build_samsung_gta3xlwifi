@@ -1,0 +1,1661 @@
+#include <stdbool.h>
+#include <linux/netfilter/gta3xlwifi_runtime_policy.h>
+static unsigned gta3xlwifi_runtime_features(void){return 0;}
+static bool gta3xlwifi_runtime_configured(void){return true;}
+static unsigned gta3xlwifi_runtime_loopback_flags(void){return 3;} /* explicit checks+metrics fixture */
+static long gta3xlwifi_runtime_ioctl(unsigned c,unsigned long a){(void)c;(void)a;return -25;}
+static unsigned gta3xlwifi_packet_hooks_features(void){return 0;} /* compiled producer admission separately tested */
+#include <linux/netfilter/gta3xlwifi_packet_stats.h>
+static unsigned gta3xlwifi_packet_stats_features(void){return 0;} /* separately tested packet storage */
+static long gta3xlwifi_packet_stats_ioctl(unsigned int c,unsigned long a){(void)c;(void)a;return -25;}
+#include <linux/netfilter/gta3xlwifi_iface_stats.h>
+static unsigned gta3xlwifi_iface_stats_features(void){return 0;} /* separately tested counter producer */
+static long gta3xlwifi_iface_stats_ioctl(unsigned int c,unsigned long a){(void)c;(void)a;return -25;}
+static unsigned gta3xlwifi_socket_tables_features(void){return 0;} /* table lifecycle tested separately */
+#include <linux/netfilter/gta3xlwifi_loopback.h>
+
+#include <pthread.h>
+#include <assert.h>
+#include <stdbool.h>
+static pthread_mutex_t rmu=PTHREAD_MUTEX_INITIALIZER;
+static pthread_cond_t rcv=PTHREAD_COND_INITIALIZER;
+static unsigned active_readers;static bool pause_tag,tag_entered,continue_tag,drain_entered,hold_done;
+static void wait_readers(void){assert(pthread_mutex_lock(&rmu)==0);while(active_readers)pthread_cond_wait(&rcv,&rmu);assert(pthread_mutex_unlock(&rmu)==0);}
+
+#include <assert.h>
+#include <errno.h>
+#include <stdbool.h>
+#include <stddef.h>
+#include <stdint.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <pthread.h>
+#include <linux/netfilter/gta3xlwifi_uid_permissions.h>
+#include <linux/netfilter/gta3xlwifi_netpolicy.h>
+typedef uint64_t u64;typedef uint32_t u32;
+#define __rcu
+#define __user
+#define EXPORT_SYMBOL_GPL(x)
+#define CONFIG_INET 1
+#define CONFIG_IPV6 1
+#define IS_ENABLED(x) (x)
+#define BUILD_BUG_ON(x) _Static_assert(!(x),#x)
+#define GLOBAL_ROOT_UID 0
+#define CAP_NET_ADMIN 12
+#define DEFINE_MUTEX(n) pthread_mutex_t n=PTHREAD_MUTEX_INITIALIZER
+#define mutex_lock(n) assert(pthread_mutex_lock(n)==0)
+#define mutex_unlock(n) assert(pthread_mutex_unlock(n)==0)
+#define WRITE_ONCE(p,v) __atomic_store_n(&(p),(v),__ATOMIC_RELAXED)
+#define READ_ONCE(p) __atomic_load_n(&(p),__ATOMIC_RELAXED)
+#define smp_store_release(p,v) __atomic_store_n((p),(v),__ATOMIC_RELEASE)
+#define smp_load_acquire(p) __atomic_load_n((p),__ATOMIC_ACQUIRE)
+struct file{int id;};struct inode{int id;};typedef void* fl_owner_t;
+struct pid{int refs;};struct task{u32 uid,euid;bool admin;struct pid*tgid;};
+static struct pid parent_pid;static struct task task={0,0,true,&parent_pid};
+#define current (&task)
+static int init_user_ns;
+static u32 current_euid(void){return task.euid;}
+static u32 current_uid(void){return task.uid;}
+static bool uid_eq(u32 a,u32 b){return a==b;}
+static u32 from_kuid(const void*n,u32 uid){assert(n==&init_user_ns);return uid;}
+static bool ns_capable(const void*n,int c){assert(n==&init_user_ns&&c==CAP_NET_ADMIN);return task.admin;}
+static struct pid*task_tgid(struct task*t){return t->tgid;}
+static struct pid*get_pid(struct pid*p){++p->refs;return p;}
+static void put_pid(struct pid*p){assert(p->refs>0);--p->refs;}
+static unsigned network_graces,rcu_graces,allocs,frees;static __thread unsigned rcu_depth;
+static int alloc_fail,alloc_attempt,alloc_fail_at,from_calls,to_calls,from_fail,to_fail;
+static void* last_publication;static bool publication_pending;
+static void synchronize_net(void){++network_graces;assert(pthread_mutex_lock(&rmu)==0);drain_entered=true;pthread_cond_broadcast(&rcv);while(active_readers)pthread_cond_wait(&rcv,&rmu);assert(pthread_mutex_unlock(&rmu)==0);}
+static void* vzalloc(size_t n){if(++alloc_attempt==alloc_fail_at||alloc_fail)return NULL;void*p=calloc(1,n);assert(p);++allocs;return p;}
+static void vfree(void*p){if(p){assert(!publication_pending);++frees;free(p);}}
+static int copy_from_user(void*d,const void*s,size_t n){if(++from_calls==from_fail)return 1;memcpy(d,s,n);return 0;}
+static void (*copy_hook)(void*,const void*,size_t);
+static int copy_to_user(void*d,const void*s,size_t n){if(copy_hook)copy_hook(d,s,n);if(++to_calls==to_fail)return 1;memcpy(d,s,n);return 0;}
+static void rcu_read_lock(void){assert(pthread_mutex_lock(&rmu)==0);if(!rcu_depth++)++active_readers;assert(pthread_mutex_unlock(&rmu)==0);}
+static void rcu_read_unlock(void){assert(pthread_mutex_lock(&rmu)==0);assert(rcu_depth);if(!--rcu_depth)--active_readers;pthread_cond_broadcast(&rcv);assert(pthread_mutex_unlock(&rmu)==0);}
+#define rcu_dereference(p) (assert(rcu_depth),(p))
+#define rcu_dereference_protected(p,c) (assert(c),(p))
+#define rcu_assign_pointer(p,v) do{assert(!publication_pending);(p)=(v);last_publication=(v);publication_pending=true;}while(0)
+static void synchronize_rcu(void){wait_readers();assert(publication_pending&&last_publication&&!rcu_depth);publication_pending=false;++rcu_graces;}
+
+#include <netinet/in.h>
+#include <linux/netfilter/gta3xlwifi_local_network.h>
+typedef uint8_t u8;typedef uint16_t u16;typedef uint16_t __be16;
+#define min_t(t,a,b) ((t)(a)<(t)(b)?(t)(a):(t)(b))
+
+static u32 gta3xlwifi_lna_packet_features(void){return 0;} /* registration tested separately */
+
+static DEFINE_MUTEX(netpolicy_lock);
+static struct file *netpolicy_owner_file;
+static struct pid *netpolicy_owner_pid;
+static bool netpolicy_held = true;
+
+bool gta3xlwifi_netpolicy_held(void)
+{
+	return smp_load_acquire(&netpolicy_held);
+}
+EXPORT_SYMBOL_GPL(gta3xlwifi_netpolicy_held);
+
+
+
+struct gta3xlwifi_uid_image {
+    u64 revision;
+    u32 count;
+    struct gta3xlwifi_uid_permission_entry entries[];
+};
+static struct gta3xlwifi_uid_image __rcu *uid_image;
+
+static u32 uid_image_lookup(const struct gta3xlwifi_uid_image *image, u32 uid)
+{
+    u32 low = 0, high = image ? image->count : 0;
+    while (low < high) {
+        u32 middle = low + (high - low) / 2;
+        const struct gta3xlwifi_uid_permission_entry *entry = &image->entries[middle];
+        if (entry->uid == uid)
+            return entry->permissions;
+        if (entry->uid < uid)
+            low = middle + 1;
+        else
+            high = middle;
+    }
+    return 0; /* Actual A17 chunk default NONE; NoInternet is a negative bit. */
+}
+
+u32 gta3xlwifi_uid_permissions(u32 uid)
+{
+    u32 permissions;
+    rcu_read_lock();
+    permissions = uid_image_lookup(rcu_dereference(uid_image), uid);
+    rcu_read_unlock();
+    return permissions;
+}
+EXPORT_SYMBOL_GPL(gta3xlwifi_uid_permissions);
+
+int gta3xlwifi_uid_inet_create_check(void)
+{
+    u32 uid = from_kuid(&init_user_ns, current_uid());
+    bool control = uid % 100000 < 10000;
+    int result = 0;
+    if (!control && gta3xlwifi_netpolicy_held())
+        control = ns_capable(&init_user_ns, CAP_NET_ADMIN);
+    rcu_read_lock();
+    if (uid_image_lookup(rcu_dereference(uid_image), uid) & GTA3XLWIFI_UID_NO_INTERNET)
+        result = -EPERM;
+    else if (gta3xlwifi_netpolicy_held() && !control)
+        result = -EAGAIN;
+    rcu_read_unlock();
+    /* Holding a transaction prevents unprivileged new fds during transient
+     * grants/rollback. Trusted core/control tasks may create control sockets
+     * while held, but NEVER bypass an actual NoInternet denial.
+     */
+    return result;
+}
+EXPORT_SYMBOL_GPL(gta3xlwifi_uid_inet_create_check);
+
+u32 gta3xlwifi_uid_permissions_features(void)
+{
+    u32 features = GTA3XLWIFI_UID_CAP_IMAGE;
+#ifdef CONFIG_INET
+    features |= GTA3XLWIFI_UID_CAP_CREATE4;
+#endif
+#if IS_ENABLED(CONFIG_IPV6)
+    features |= GTA3XLWIFI_UID_CAP_CREATE6;
+#endif
+    return features;
+}
+
+static long uid_image_set(const struct gta3xlwifi_uid_permission_transfer *transfer)
+{
+    struct gta3xlwifi_uid_image *next, *old;
+    size_t bytes = transfer->count * sizeof(next->entries[0]);
+    u64 previous;
+    u32 i;
+    long result = 0;
+
+    next = vzalloc(sizeof(*next) + bytes);
+    if (!next)
+        return -ENOMEM;
+    next->count = transfer->count;
+    next->revision = transfer->revision;
+    if (bytes && copy_from_user(next->entries,
+            (void __user *)(unsigned long)transfer->entries, bytes)) {
+        result = -EFAULT;
+        goto fail;
+    }
+    for (i = 0; i < next->count; ++i) {
+        const struct gta3xlwifi_uid_permission_entry *entry = &next->entries[i];
+        if (entry->uid > GTA3XLWIFI_UID_IMAGE_MAX_UID || !entry->permissions ||
+            (entry->permissions & ~GTA3XLWIFI_UID_PERMISSION_MASK) ||
+            (i && next->entries[i - 1].uid >= entry->uid)) {
+            result = -EINVAL;
+            goto fail;
+        }
+    }
+    old = rcu_dereference_protected(uid_image, 1); /* owner dispatch mutex held */
+    previous = old ? old->revision : 0;
+    if (old && next->revision == previous && next->count == old->count &&
+        !memcmp(next->entries, old->entries, bytes))
+        goto fail; /* Idempotent acknowledgement, no replacement. */
+    if (previous == ~0ULL) {
+        result = -EOVERFLOW;
+        goto fail;
+    }
+    if (next->revision != previous + 1) {
+        result = -ESTALE;
+        goto fail;
+    }
+    rcu_assign_pointer(uid_image, next);
+    synchronize_rcu();
+    vfree(old);
+    return 0; /* No fallible operation/acknowledgement copy after publication. */
+fail:
+    vfree(next);
+    return result;
+}
+
+static long uid_image_get(struct gta3xlwifi_uid_permission_transfer *transfer,
+                          void __user *argument)
+{
+    struct gta3xlwifi_uid_image *image = rcu_dereference_protected(uid_image, 1);
+    u32 capacity = transfer->count;
+    u64 expected = transfer->revision;
+    transfer->count = image ? image->count : 0;
+    transfer->revision = image ? image->revision : 0;
+    if (capacity) {
+        if (!expected || expected != transfer->revision)
+            return -ESTALE;
+        if (capacity < transfer->count) {
+            if (copy_to_user(argument, transfer, sizeof(*transfer)))
+                return -EFAULT;
+            return -ENOSPC;
+        }
+        if (image && image->count && copy_to_user(
+                (void __user *)(unsigned long)transfer->entries, image->entries,
+                image->count * sizeof(image->entries[0])))
+            return -EFAULT;
+    }
+    if (copy_to_user(argument, transfer, sizeof(*transfer)))
+        return -EFAULT;
+    return 0;
+}
+
+long gta3xlwifi_uid_permissions_ioctl(unsigned int cmd, unsigned long arg)
+{
+    struct gta3xlwifi_uid_permission_transfer transfer;
+    void __user *argument = (void __user *)arg;
+    BUILD_BUG_ON(sizeof(transfer) != 24);
+    BUILD_BUG_ON(sizeof(struct gta3xlwifi_uid_permission_entry) != 8);
+    if (cmd != GTA3XLWIFI_UID_SET_IMAGE && cmd != GTA3XLWIFI_UID_GET_IMAGE)
+        return -ENOTTY;
+    if (!arg || copy_from_user(&transfer, argument, sizeof(transfer)))
+        return -EFAULT;
+    if (transfer.version != GTA3XLWIFI_UID_IMAGE_VERSION ||
+        transfer.count > GTA3XLWIFI_UID_IMAGE_MAX_ENTRIES ||
+        (!!transfer.count != !!transfer.entries))
+        return -EINVAL;
+    if (cmd == GTA3XLWIFI_UID_SET_IMAGE)
+        return uid_image_set(&transfer);
+    return uid_image_get(&transfer, argument);
+}
+#define LNA_NONE (-1)
+struct lna_node {
+    u8 key[GTA3XLWIFI_LNA_KEY_BYTES];
+    u16 bits;
+    u8 has_value, value;
+    int child[2];
+};
+struct lna_table {
+    u32 count, nodes_count;
+    int root;
+    struct gta3xlwifi_lna_entry *entries;
+    struct lna_node *nodes;
+};
+struct lna_image {
+    u64 revision;
+    struct lna_table network, host;
+};
+static struct lna_image __rcu *lna_current;
+
+static bool lna_prefix(const u8 *a, const u8 *b, u32 bits)
+{
+    u32 bytes = bits / 8, remainder = bits % 8;
+    return !memcmp(a, b, bytes) &&
+        (!remainder || !((a[bytes] ^ b[bytes]) & (0xffU << (8 - remainder))));
+}
+static unsigned int lna_bit(const u8 *key, unsigned int bit)
+{
+    return (key[bit / 8] >> (7 - bit % 8)) & 1;
+}
+static void lna_canonical(u8 *key, u32 bits)
+{
+    u32 bytes = bits / 8;
+    if (bits % 8) {
+        key[bytes] &= 0xffU << (8 - bits % 8);
+        ++bytes;
+    }
+    memset(key + bytes, 0, GTA3XLWIFI_LNA_KEY_BYTES - bytes);
+}
+static int lna_node_new(struct lna_table *table, const u8 *key, u32 bits,
+                        bool has_value, bool value)
+{
+    struct lna_node *node;
+    int index;
+    if (table->nodes_count >= 2 * table->count)
+        return -E2BIG;
+    index = table->nodes_count++;
+    node = &table->nodes[index];
+    memcpy(node->key, key, sizeof(node->key));
+    lna_canonical(node->key, bits);
+    node->bits = bits;
+    node->has_value = has_value;
+    node->value = value;
+    node->child[0] = node->child[1] = LNA_NONE;
+    return index;
+}
+static int lna_insert(struct lna_table *table, const struct gta3xlwifi_lna_entry *entry)
+{
+    int *link = &table->root;
+    while (*link != LNA_NONE) {
+        struct lna_node *node = &table->nodes[*link];
+        u32 common = 0, limit = min_t(u32, node->bits, entry->prefix_bits);
+        int branch, leaf, previous = *link;
+        while (common < limit && lna_bit(node->key, common) == lna_bit(entry->key, common))
+            ++common;
+        if (common < node->bits) {
+            branch = lna_node_new(table, entry->key, common,
+                                   common == entry->prefix_bits, entry->allowed);
+            if (branch < 0)
+                return branch;
+            table->nodes[branch].child[lna_bit(node->key, common)] = previous;
+            if (common < entry->prefix_bits) {
+                leaf = lna_node_new(table, entry->key, entry->prefix_bits, true, entry->allowed);
+                if (leaf < 0)
+                    return leaf;
+                table->nodes[branch].child[lna_bit(entry->key, common)] = leaf;
+            }
+            *link = branch;
+            return 0;
+        }
+        if (common == entry->prefix_bits) {
+            if (node->has_value)
+                return -EINVAL;
+            node->has_value = true;
+            node->value = entry->allowed;
+            return 0;
+        }
+        link = &node->child[lna_bit(entry->key, node->bits)];
+    }
+    *link = lna_node_new(table, entry->key, entry->prefix_bits, true, entry->allowed);
+    return *link < 0 ? *link : 0;
+}
+static bool lna_lookup(const struct lna_table *table, const u8 *key, bool *value)
+{
+    int index = table->root;
+    bool found = false;
+    while (index != LNA_NONE) {
+        const struct lna_node *node = &table->nodes[index];
+        if (!lna_prefix(node->key, key, node->bits))
+            break;
+        if (node->has_value) {
+            *value = node->value;
+            found = true;
+        }
+        if (node->bits == GTA3XLWIFI_LNA_KEY_BITS)
+            break;
+        index = node->child[lna_bit(key, node->bits)];
+    }
+    return found;
+}
+static void lna_free(struct lna_image *image)
+{
+    if (!image)
+        return;
+    vfree(image->network.entries);
+    vfree(image->network.nodes);
+    vfree(image->host.entries);
+    vfree(image->host.nodes);
+    vfree(image);
+}
+static int lna_prepare(struct lna_table *table, u32 count, u64 pointer)
+{
+    u32 i;
+    int result;
+    table->root = LNA_NONE;
+    table->count = count;
+    if (!count)
+        return 0;
+    table->entries = vzalloc(count * sizeof(*table->entries));
+    table->nodes = vzalloc(2 * count * sizeof(*table->nodes));
+    if (!table->entries || !table->nodes)
+        return -ENOMEM;
+    if (copy_from_user(table->entries, (void __user *)(unsigned long)pointer,
+                       count * sizeof(*table->entries)))
+        return -EFAULT;
+    for (i = 0; i < count; ++i) {
+        const struct gta3xlwifi_lna_entry *e = &table->entries[i];
+        u8 canonical[GTA3XLWIFI_LNA_KEY_BYTES];
+        if (e->prefix_bits > GTA3XLWIFI_LNA_KEY_BITS || e->allowed > 1 ||
+            e->reserved[0] || e->reserved[1] || e->reserved[2])
+            return -EINVAL;
+        memcpy(canonical, e->key, sizeof(canonical));
+        lna_canonical(canonical, e->prefix_bits);
+        if (memcmp(canonical, e->key, sizeof(canonical)))
+            return -EINVAL;
+        if (i) {
+            const struct gta3xlwifi_lna_entry *previous = e - 1;
+            if (previous->prefix_bits > e->prefix_bits ||
+                (previous->prefix_bits == e->prefix_bits &&
+                 memcmp(previous->key, e->key, sizeof(e->key)) >= 0))
+                return -EINVAL;
+        }
+        result = lna_insert(table, e);
+        if (result)
+            return result;
+    }
+    return 0;
+}
+static bool lna_same(const struct lna_table *a, const struct lna_table *b)
+{
+    return a->count == b->count && (!a->count ||
+        !memcmp(a->entries, b->entries, a->count * sizeof(*a->entries)));
+}
+static long lna_set(const struct gta3xlwifi_lna_transfer *transfer)
+{
+    struct lna_image *next = vzalloc(sizeof(*next)), *old;
+    u64 previous;
+    int result;
+    if (!next)
+        return -ENOMEM;
+    result = lna_prepare(&next->network, transfer->network_count, transfer->network_entries);
+    if (!result)
+        result = lna_prepare(&next->host, transfer->host_count, transfer->host_entries);
+    if (result)
+        goto fail;
+    next->revision = transfer->revision;
+    old = rcu_dereference_protected(lna_current, 1); /* exclusive owner mutex */
+    previous = old ? old->revision : 0;
+    if (old && previous == next->revision && lna_same(&next->network, &old->network) &&
+        lna_same(&next->host, &old->host))
+        goto fail;
+    result = previous == ~0ULL ? -EOVERFLOW :
+        next->revision != previous + 1 ? -ESTALE : 0;
+    if (result)
+        goto fail;
+    rcu_assign_pointer(lna_current, next);
+    synchronize_rcu();
+    lna_free(old);
+    return 0;
+fail:
+    lna_free(next);
+    return result;
+}
+static long lna_get(struct gta3xlwifi_lna_transfer *transfer, void __user *argument)
+{
+    const struct lna_image *image = rcu_dereference_protected(lna_current, 1);
+    u32 network_capacity = transfer->network_count, host_capacity = transfer->host_count;
+    u64 expected = transfer->revision;
+    transfer->network_count = image ? image->network.count : 0;
+    transfer->host_count = image ? image->host.count : 0;
+    transfer->revision = image ? image->revision : 0;
+    if (network_capacity || host_capacity) {
+        if (!expected || expected != transfer->revision)
+            return -ESTALE;
+        if (network_capacity < transfer->network_count || host_capacity < transfer->host_count) {
+            if (copy_to_user(argument, transfer, sizeof(*transfer)))
+                return -EFAULT;
+            return -ENOSPC;
+        }
+        if ((transfer->network_count && copy_to_user(
+                 (void __user *)(unsigned long)transfer->network_entries, image->network.entries,
+                 transfer->network_count * sizeof(*image->network.entries))) ||
+            (transfer->host_count && copy_to_user(
+                 (void __user *)(unsigned long)transfer->host_entries, image->host.entries,
+                 transfer->host_count * sizeof(*image->host.entries))))
+            return -EFAULT;
+    }
+    return copy_to_user(argument, transfer, sizeof(*transfer)) ? -EFAULT : 0;
+}
+long gta3xlwifi_lna_ioctl(unsigned int cmd, unsigned long arg)
+{
+    struct gta3xlwifi_lna_transfer transfer;
+    void __user *argument = (void __user *)arg;
+    BUILD_BUG_ON(sizeof(transfer) != 40);
+    BUILD_BUG_ON(sizeof(struct gta3xlwifi_lna_entry) != 32);
+    if (cmd != GTA3XLWIFI_LNA_SET_IMAGE && cmd != GTA3XLWIFI_LNA_GET_IMAGE)
+        return -ENOTTY;
+    if (!arg || copy_from_user(&transfer, argument, sizeof(transfer)))
+        return -EFAULT;
+    if (transfer.version != GTA3XLWIFI_LNA_VERSION || transfer.reserved ||
+        transfer.network_count > GTA3XLWIFI_LNA_MAX_ENTRIES ||
+        transfer.host_count > GTA3XLWIFI_LNA_MAX_ENTRIES ||
+        (!!transfer.network_count != !!transfer.network_entries) ||
+        (!!transfer.host_count != !!transfer.host_entries))
+        return -EINVAL;
+    return cmd == GTA3XLWIFI_LNA_SET_IMAGE ? lna_set(&transfer) : lna_get(&transfer, argument);
+}
+
+bool gta3xlwifi_lna_blocked(u32 uid, u32 if_index, const struct in6_addr *remote,
+                           u16 protocol, __be16 remote_port)
+{
+    const struct lna_image *image;
+    u8 network_key[24], host_key[24];
+    bool value = false, blocked = false;
+    /* Exact migrated A17 exemption: literal0/1000, NOT appId/core range. */
+    if (uid == 0 || uid == 1000 || (gta3xlwifi_uid_permissions(uid) & 1U))
+        return false;
+    if (!remote)
+        return true; /* Invalid internal caller must not turn denial into success. */
+    memcpy(network_key, &if_index, 4);
+    memcpy(network_key + 4, remote, 16);
+    memcpy(network_key + 20, &protocol, 2);
+    memcpy(network_key + 22, &remote_port, 2);
+    memcpy(host_key, &uid, 4);
+    memcpy(host_key + 4, &if_index, 4);
+    memcpy(host_key + 8, remote, 16);
+    rcu_read_lock();
+    image = rcu_dereference(lna_current);
+    if (image && lna_lookup(&image->network, network_key, &value) && !value)
+        blocked = !lna_lookup(&image->host, host_key, &value) || !value;
+    rcu_read_unlock();
+    return blocked;
+}
+EXPORT_SYMBOL_GPL(gta3xlwifi_lna_blocked);
+
+static bool netpolicy_privileged(void)
+{
+	return uid_eq(current_euid(), GLOBAL_ROOT_UID) &&
+		ns_capable(&init_user_ns, CAP_NET_ADMIN);
+}
+static int netpolicy_open(struct inode *inode, struct file *file)
+{
+	int ret = 0;
+
+	if (!netpolicy_privileged() || !task_tgid(current))
+		return -EPERM;
+	mutex_lock(&netpolicy_lock);
+	if (netpolicy_owner_file) {
+		ret = -EBUSY;
+	} else {
+		WRITE_ONCE(netpolicy_held, true);
+		netpolicy_owner_file = file;
+		netpolicy_owner_pid = get_pid(task_tgid(current));
+		/* Drain any packet that entered before the lease was held. */
+		synchronize_net();
+	}
+	mutex_unlock(&netpolicy_lock);
+	return ret;
+}
+static void netpolicy_drop_lease(struct file *file, bool final_release)
+{
+	mutex_lock(&netpolicy_lock);
+	if (netpolicy_owner_file == file &&
+	    (final_release || netpolicy_owner_pid == task_tgid(current))) {
+		WRITE_ONCE(netpolicy_held, true);
+		/* Closing/exit must finish holding before the close completes. */
+		synchronize_net();
+		netpolicy_owner_file = NULL;
+		put_pid(netpolicy_owner_pid);
+		netpolicy_owner_pid = NULL;
+	}
+	mutex_unlock(&netpolicy_lock);
+}
+static int netpolicy_flush(struct file *file, fl_owner_t id)
+{
+	netpolicy_drop_lease(file, false);
+	return 0;
+}
+static int netpolicy_release(struct inode *inode, struct file *file)
+{
+	/* Final release can run in a worker or the last inheriting child. */
+	netpolicy_drop_lease(file, true);
+	return 0;
+}
+u32 gta3xlwifi_receive_features(void);u32 gta3xlwifi_egress_features(void);u32 gta3xlwifi_loopback_features(void);long gta3xlwifi_loopback_ioctl(unsigned int,unsigned long);
+static long netpolicy_image_ioctl(struct file *file, unsigned int cmd,
+                                  unsigned long arg)
+{
+	long ret;
+	if (cmd != GTA3XLWIFI_UID_FEATURES && cmd != GTA3XLWIFI_UID_SET_IMAGE &&
+	    cmd != GTA3XLWIFI_UID_GET_IMAGE && cmd != GTA3XLWIFI_LNA_SET_IMAGE &&
+	    cmd != GTA3XLWIFI_LNA_GET_IMAGE && cmd != GTA3XLWIFI_LOOPBACK_GET_EVENTS && cmd != GTA3XLWIFI_IFACE_STATS_GET && cmd != GTA3XLWIFI_STATS_GET_STATE && cmd != GTA3XLWIFI_STATS_READ && cmd != GTA3XLWIFI_STATS_SWAP && cmd != GTA3XLWIFI_STATS_ACK && cmd != GTA3XLWIFI_STATS_EDIT && cmd != GTA3XLWIFI_RUNTIME_GET && cmd != GTA3XLWIFI_RUNTIME_SET)
+		return -ENOTTY;
+	if (cmd == GTA3XLWIFI_UID_FEATURES && arg)
+		return -EINVAL;
+	if (cmd != GTA3XLWIFI_UID_FEATURES && !arg)
+		return -EFAULT;
+	if (!netpolicy_privileged())
+		return -EPERM;
+	mutex_lock(&netpolicy_lock);
+	if (!netpolicy_owner_file)
+		ret = -ENOTCONN;
+	else if (netpolicy_owner_file != file ||
+	         netpolicy_owner_pid != task_tgid(current))
+		ret = -EPERM;
+	else if (cmd == GTA3XLWIFI_UID_FEATURES)
+		ret = gta3xlwifi_uid_permissions_features() | GTA3XLWIFI_UID_CAP_LNA_STORE |
+		      gta3xlwifi_lna_packet_features() | gta3xlwifi_receive_features() | gta3xlwifi_egress_features() | gta3xlwifi_loopback_features() |
+		      gta3xlwifi_socket_tables_features() | gta3xlwifi_iface_stats_features() | gta3xlwifi_packet_stats_features() | gta3xlwifi_packet_hooks_features() | gta3xlwifi_runtime_features();
+	else if ((cmd == GTA3XLWIFI_UID_SET_IMAGE || cmd == GTA3XLWIFI_LNA_SET_IMAGE || cmd == GTA3XLWIFI_RUNTIME_SET) &&
+	         !READ_ONCE(netpolicy_held))
+		ret = -EBUSY;
+	else if (cmd == GTA3XLWIFI_RUNTIME_GET || cmd == GTA3XLWIFI_RUNTIME_SET)
+		ret = gta3xlwifi_runtime_ioctl(cmd, arg);
+	else if (cmd == GTA3XLWIFI_STATS_GET_STATE || cmd == GTA3XLWIFI_STATS_READ || cmd == GTA3XLWIFI_STATS_SWAP || cmd == GTA3XLWIFI_STATS_ACK || cmd == GTA3XLWIFI_STATS_EDIT)
+		ret = gta3xlwifi_packet_stats_ioctl(cmd, arg);
+	else if (cmd == GTA3XLWIFI_IFACE_STATS_GET)
+		ret = gta3xlwifi_iface_stats_ioctl(cmd, arg);
+	else if (cmd == GTA3XLWIFI_LOOPBACK_GET_EVENTS)
+		ret = gta3xlwifi_loopback_ioctl(cmd, arg);
+	else if (cmd == GTA3XLWIFI_LNA_SET_IMAGE || cmd == GTA3XLWIFI_LNA_GET_IMAGE)
+		ret = gta3xlwifi_lna_ioctl(cmd, arg);
+	else
+		ret = gta3xlwifi_uid_permissions_ioctl(cmd, arg);
+	mutex_unlock(&netpolicy_lock);
+	return ret;
+}
+static long netpolicy_ioctl(struct file *file, unsigned int cmd,
+			   unsigned long arg)
+{
+	long ret = 0;
+
+	if (cmd == GTA3XLWIFI_UID_FEATURES || cmd == GTA3XLWIFI_UID_SET_IMAGE ||
+	    cmd == GTA3XLWIFI_UID_GET_IMAGE || cmd == GTA3XLWIFI_LNA_SET_IMAGE ||
+	    cmd == GTA3XLWIFI_LNA_GET_IMAGE || cmd == GTA3XLWIFI_LOOPBACK_GET_EVENTS || cmd == GTA3XLWIFI_IFACE_STATS_GET || cmd == GTA3XLWIFI_STATS_GET_STATE || cmd == GTA3XLWIFI_STATS_READ || cmd == GTA3XLWIFI_STATS_SWAP || cmd == GTA3XLWIFI_STATS_ACK || cmd == GTA3XLWIFI_STATS_EDIT || cmd == GTA3XLWIFI_RUNTIME_GET || cmd == GTA3XLWIFI_RUNTIME_SET)
+		return netpolicy_image_ioctl(file, cmd, arg);
+	if (cmd != GTA3XLWIFI_NETPOLICY_ABI &&
+	    cmd != GTA3XLWIFI_NETPOLICY_HOLD &&
+	    cmd != GTA3XLWIFI_NETPOLICY_RELEASE &&
+	    cmd != GTA3XLWIFI_NETPOLICY_STATE)
+		return -ENOTTY;
+	if (arg)
+		return -EINVAL;
+	if (!netpolicy_privileged())
+		return -EPERM;
+	mutex_lock(&netpolicy_lock);
+	if (!netpolicy_owner_file) {
+		ret = -ENOTCONN;
+	} else if (netpolicy_owner_file != file ||
+		   netpolicy_owner_pid != task_tgid(current)) {
+		ret = -EPERM;
+	} else if (cmd == GTA3XLWIFI_NETPOLICY_ABI) {
+		ret = GTA3XLWIFI_NETPOLICY_VERSION;
+	} else if (cmd == GTA3XLWIFI_NETPOLICY_STATE) {
+		ret = READ_ONCE(netpolicy_held) ? 1 : 0;
+	} else if (cmd == GTA3XLWIFI_NETPOLICY_HOLD) {
+		WRITE_ONCE(netpolicy_held, true);
+		synchronize_net();
+	} else if (!gta3xlwifi_runtime_configured()) {
+		ret = -EAGAIN;
+	} else if (READ_ONCE(netpolicy_held)) {
+		/* A packet may have fetched the old filter table before HOLD.
+		 * Drain all such readers while closed before either family opens. */
+		synchronize_net();
+		smp_store_release(&netpolicy_held, false);
+	}
+	mutex_unlock(&netpolicy_lock);
+	return ret;
+}
+
+#define function static
+#define AID_ROOT 0U
+#define AID_SYSTEM 1000U
+#define AID_USER_OFFSET 100000U
+#define AID_APP_START 10000U
+#define PERMISSION_BIT_ACCESS_LOCAL_NETWORK (1 << 0)
+typedef struct {
+    // Longest prefix match length in bits (value from 0 to 192).
+    uint32_t lpm_bitlen;
+    uint32_t if_index;
+    // IPv4 uses IPv4-mapped IPv6 address format.
+    struct in6_addr remote_ip6;
+    // u16 instead of u8 to avoid padding due to alignment requirement.
+    uint16_t protocol;
+    __be16 remote_port;
+} LocalNetAccessKey;
+typedef struct {
+    // Longest prefix match length in bits (value from 0 to 192).
+    uint32_t lpm_bitlen;
+    uint32_t uid;
+    uint32_t if_index;
+    // IPv4 uses IPv4-mapped IPv6 address format.
+    struct in6_addr remote_ip6;
+} LocalNetUidHostAllowlistKey;
+static struct gta3xlwifi_lna_entry *onetwork,*ohost;
+static u32 oncount,ohcount;
+static bool oracle_propagation=true,omvalue,ohvalue;
+static const struct gta3xlwifi_lna_entry* slow_lpm(const struct gta3xlwifi_lna_entry*e,u32 count,const u8*key){
+ const struct gta3xlwifi_lna_entry*best=NULL;
+ for(u32 i=0;i<count;i++){
+  bool equal=true;for(u32 bit=0;bit<e[i].prefix_bits;bit++)if(((key[bit/8]>>(7-bit%8))&1)!=((e[i].key[bit/8]>>(7-bit%8))&1)){equal=false;break;}
+  if(equal&&(!best||e[i].prefix_bits>best->prefix_bits))best=&e[i];
+ }return best;
+}
+static bool* bpf_local_net_access_map_lookup_elem(const LocalNetAccessKey*k){assert(k->lpm_bitlen==192);const struct gta3xlwifi_lna_entry*e=slow_lpm(onetwork,oncount,(const u8*)&k->if_index);if(!e)return NULL;omvalue=e->allowed;return &omvalue;}
+static bool* bpf_local_net_uid_host_allowlist_map_lookup_elem(const LocalNetUidHostAllowlistKey*k){assert(k->lpm_bitlen==192);const struct gta3xlwifi_lna_entry*e=slow_lpm(ohost,ohcount,(const u8*)&k->uid);if(!e)return NULL;ohvalue=e->allowed;return &ohvalue;}
+static bool* bpf_permission_propagation_enabled_map_lookup_elem(const u32*k){assert(*k==0);return &oracle_propagation;}
+static bool* bpf_local_net_blocked_uid_map_lookup_elem(const u32*k){(void)k;assert(!"unselected old permission branch");return NULL;}
+static u32 get_chunk_permissions(u32 uid){return gta3xlwifi_uid_permissions(uid);}
+static inline bool is_system_uid(uint32_t uid) {
+    // MIN_SYSTEM_UID is AID_ROOT == 0, so uint32_t is *always* >= 0
+    // MAX_SYSTEM_UID is AID_NOBODY == 9999, while AID_APP_START == 10000
+    return ((uid % AID_USER_OFFSET) < AID_APP_START);
+}
+static inline bool is_system_or_root(uint32_t uid) {
+    return (uid == AID_SYSTEM) || (uid == AID_ROOT);
+}
+function bool is_local_network_access_blocked(const uint32_t uid) {
+    uint32_t mapKey = 0;
+    bool *permissionPropagationEnabled =
+        bpf_permission_propagation_enabled_map_lookup_elem(&mapKey);
+    if (permissionPropagationEnabled && *permissionPropagationEnabled) {
+        if (is_system_or_root(uid)) return false;
+        if (get_chunk_permissions(uid) & PERMISSION_BIT_ACCESS_LOCAL_NETWORK)
+            return false;
+    } else {
+        // Continue exempting system UIDs for the old map. This branch will be
+        // deprecated soon.
+        if (is_system_uid(uid)) return false;
+
+        // Uid that is not in the blocked uid map has access to restricted local network
+        bool* block_local_net = bpf_local_net_blocked_uid_map_lookup_elem(&uid);
+        if (!block_local_net) return false; // uid not found in map
+        if (!*block_local_net) return false; // lookup returned 'bool false'
+    }
+    return true;
+}
+function bool is_local_net_access_allowed(const LocalNetAccessKey *query_key, const uint32_t uid) {
+    bool* v = bpf_local_net_access_map_lookup_elem(query_key);
+    if (!v || *v) {
+        return true;
+    }
+    LocalNetUidHostAllowlistKey allowlist_query_key = {
+        .lpm_bitlen =
+            8 * (sizeof(uid) + sizeof(query_key->if_index) + sizeof(query_key->remote_ip6)),
+        .uid = uid,
+        .if_index = query_key->if_index,
+        .remote_ip6 = query_key->remote_ip6,
+    };
+    v = bpf_local_net_uid_host_allowlist_map_lookup_elem(&allowlist_query_key);
+    return v && *v;
+}
+static bool oracle_blocked(u32 uid,u32 index,const struct in6_addr*remote,u16 protocol,__be16 port){
+ LocalNetAccessKey key={.lpm_bitlen=192,.if_index=index,.remote_ip6=*remote,.protocol=protocol,.remote_port=port};
+ return is_local_network_access_blocked(uid)&&!is_local_net_access_allowed(&key,uid);
+}
+
+
+static unsigned cases;
+#define T(x) do{if(!(x)){fprintf(stderr,"line %d: %s\n",__LINE__,#x);abort();}++cases;}while(0)
+static struct file owner={1};
+static long io(unsigned cmd,void*arg){from_calls=to_calls=alloc_attempt=0;return netpolicy_ioctl(&owner,cmd,(unsigned long)arg);}
+
+
+
+
+
+
+
+#include <linux/ip.h>
+#include <linux/ipv6.h>
+#include <linux/if_ether.h>
+#include <net/gta3xlwifi_packet.h>
+struct net{const void*user_ns;};struct bpf_prog{unsigned value;};struct sk_filter{struct bpf_prog*prog;};
+struct sock{u32 uid,creator_uid;bool full,memalloc;unsigned sk_family;struct net*net;struct sk_filter*sk_filter;};
+struct net_device{u32 ifindex;};struct sk_buff{u8 data[1200];int data_at,network;unsigned length;u16 protocol;struct sock*sk;struct net_device*dev;bool pfmemalloc;};
+static bool sk_fullsock(const struct sock*s){return s->full;}
+static struct net*sock_net(struct sock*s){return s->net;}
+static u32 sock_net_uid(struct net*n,struct sock*s){assert(s->net==n);return s->uid;}
+static u32 from_kuid_munged(const void*n,u32 uid){assert(n==&init_user_ns);return uid;}
+static int skb_network_offset(const struct sk_buff*s){return s->network;}
+static int skb_copy_bits(const struct sk_buff*s,int off,void*out,int count){if(off < -s->data_at || off+count>(int)s->length)return -EFAULT;memcpy(out,s->data+s->data_at+off,count);return 0;}
+typedef u64 tag_t;
+struct sock_tag{tag_t tag;};static struct sock_tag tagged;static const struct sock*tagged_sk;
+static bool module_passive,poison_tag;static unsigned tag_lookups,tag_depth;
+static pthread_mutex_t sock_tag_list_lock=PTHREAD_MUTEX_INITIALIZER;
+#define spin_lock_bh(lock) do{assert(pthread_mutex_lock(lock)==0);++tag_depth;}while(0)
+#define spin_unlock_bh(lock) do{assert(tag_depth==1);--tag_depth;if(poison_tag)tagged.tag=0;assert(pthread_mutex_unlock(lock)==0);}while(0)
+static struct sock_tag*get_sock_stat_nl(const struct sock*s){assert(tag_depth==1);++tag_lookups;assert(pthread_mutex_lock(&rmu)==0);if(pause_tag){tag_entered=true;pthread_cond_broadcast(&rcv);while(!continue_tag)pthread_cond_wait(&rcv,&rmu);}assert(pthread_mutex_unlock(&rmu)==0);return s==tagged_sk?&tagged:NULL;}
+
+static int gta3xlwifi_socket_table_policy_meta(struct sock*s,struct sk_buff*b,bool o,u32 u,bool d){(void)s;(void)b;(void)o;(void)u;(void)d;assert(rcu_depth);return 0;} /* scoped LNA fixture; owner/DNS tested separately */
+
+static int gta3xlwifi_packet_stats_record(struct sock*s,const struct sk_buff*b,u32 uid,u32 tag,u32 index,bool out){(void)s;(void)b;(void)uid;(void)tag;(void)index;(void)out;assert(rcu_depth);return 0;} /* effects tested by actual store+hooks oracle */
+static void gta3xlwifi_packet_stats_lost(void){assert(rcu_depth);}
+static void gta3xlwifi_account_packet(struct sock *sk,struct sk_buff *skb,
+                                      u32 uid,u32 stats_uid,u32 tag,
+                                      int metadata,bool output)
+{
+    if(metadata==-ENOENT){stats_uid=uid;tag=0;}
+    else if(metadata){gta3xlwifi_packet_stats_lost();return;}
+    if(stats_uid==1051&&tag==0xffffff82U)stats_uid=uid;
+    gta3xlwifi_packet_stats_record(sk,skb,stats_uid,tag,
+                                  skb->dev?skb->dev->ifindex:0,output);
+}
+#define TAG_UID_MASK 0xFFFFFFFFULL
+#define TAG_ACCT_MASK (~0xFFFFFFFFULL)
+static inline uid_t get_uid_from_tag(tag_t tag)
+{
+	return tag & TAG_UID_MASK;
+}
+static inline tag_t get_atag_from_tag(tag_t tag)
+{
+	return tag & TAG_ACCT_MASK;
+}
+static bool gta3xlwifi_packet_read(const struct sk_buff *skb, unsigned int offset,
+                                  void *output, unsigned int length)
+{
+    if (skb_copy_bits(skb, skb_network_offset(skb) + (int)offset, output, length)) {
+        memset(output, 0, length);
+        return false;
+    }
+    return true;
+}
+bool gta3xlwifi_parse_packet(const struct sk_buff *skb, struct gta3xlwifi_packet *packet)
+{
+    u8 protocol = 0, l4_offset = 0;
+    struct { u8 protocol, length; } extension;
+    if (!packet)
+        return false;
+    memset(packet, 0, sizeof(*packet));
+    if (!skb)
+        return false;
+    if (skb->protocol == htons(ETH_P_IP)) {
+        packet->ip_version = 4;
+        packet->saddr.s6_addr32[2] = htonl(0xffff);
+        gta3xlwifi_packet_read(skb, offsetof(struct iphdr, saddr),
+                               &packet->saddr.s6_addr32[3], 4);
+        packet->daddr.s6_addr32[2] = htonl(0xffff);
+        gta3xlwifi_packet_read(skb, offsetof(struct iphdr, daddr),
+                               &packet->daddr.s6_addr32[3], 4);
+        gta3xlwifi_packet_read(skb, offsetof(struct iphdr, protocol), &protocol, 1);
+        gta3xlwifi_packet_read(skb, 0, &l4_offset, 1);
+        if (l4_offset < 0x45 || l4_offset > 0x4f)
+            return false;
+        l4_offset = (l4_offset & 0x0f) * 4;
+    } else if (skb->protocol == htons(ETH_P_IPV6)) {
+        packet->ip_version = 6;
+        gta3xlwifi_packet_read(skb, offsetof(struct ipv6hdr, saddr), &packet->saddr, 16);
+        gta3xlwifi_packet_read(skb, offsetof(struct ipv6hdr, daddr), &packet->daddr, 16);
+        gta3xlwifi_packet_read(skb, offsetof(struct ipv6hdr, nexthdr), &protocol, 1);
+        l4_offset = sizeof(struct ipv6hdr);
+        if (protocol == IPPROTO_HOPOPTS || protocol == IPPROTO_DSTOPTS) {
+            if (gta3xlwifi_packet_read(skb, l4_offset, &extension, sizeof(extension))) {
+                protocol = extension.protocol;
+                l4_offset += (extension.length + 1) * 8; /* A17 u8 wrapping. */
+            }
+        }
+    } else {
+        return false;
+    }
+    packet->ip_proto = protocol;
+    switch (protocol) {
+    case IPPROTO_TCP:
+        gta3xlwifi_packet_read(skb, l4_offset + 13, &packet->tcp_flags, 1);
+        /* fall through */
+    case IPPROTO_DCCP:
+    case IPPROTO_UDP:
+    case IPPROTO_UDPLITE:
+    case IPPROTO_SCTP:
+        gta3xlwifi_packet_read(skb, l4_offset, &packet->sport, 2);
+        gta3xlwifi_packet_read(skb, l4_offset + 2, &packet->dport, 2);
+        break;
+    case IPPROTO_ICMP:
+    case IPPROTO_ICMPV6:
+        gta3xlwifi_packet_read(skb, l4_offset, (char *)&packet->sport + 1, 1);
+        gta3xlwifi_packet_read(skb, l4_offset + 1, (char *)&packet->dport + 1, 1);
+        break;
+    }
+    return true;
+}
+static int gta3xlwifi_socket_accounting(const struct sock *sk, u32 *uid, u32 *tag)
+{
+    const struct sock_tag *entry;
+    u32 snapshot_uid, snapshot_tag;
+    if (!sk || !uid || !tag)
+        return -EINVAL;
+    if (READ_ONCE(module_passive))
+        return -EOPNOTSUPP;
+    spin_lock_bh(&sock_tag_list_lock);
+    entry = get_sock_stat_nl(sk);
+    if (!entry) {
+        spin_unlock_bh(&sock_tag_list_lock);
+        return -ENOENT;
+    }
+    snapshot_uid = get_uid_from_tag(entry->tag);
+    snapshot_tag = get_atag_from_tag(entry->tag) >> 32;
+    spin_unlock_bh(&sock_tag_list_lock);
+    *uid = snapshot_uid;
+    *tag = snapshot_tag;
+    return 0;
+}
+u32 gta3xlwifi_receive_features(void)
+{
+    return GTA3XLWIFI_UID_CAP_LNA_RECEIVE;
+}
+int gta3xlwifi_receive_policy(struct sock *sk, struct sk_buff *skb)
+{
+    struct gta3xlwifi_packet packet;
+    struct net *net;
+    u32 uid, stats_uid=0, tag=0, if_index;
+    int result = 0, metadata;
+    /* Same full-inet-socket applicability as the modern cgroup wrapper. */
+    if (!sk || !skb || !sk_fullsock(sk) ||
+        (sk->sk_family != AF_INET && sk->sk_family != AF_INET6))
+        return 0;
+    /* synchronize_net() is synchronize_rcu() in this exact4.4 tree. Keep the
+     * entire decision in its reader section, including DNS metadata and parse.
+     * HOLD/close cannot complete while a reader that saw the old gate is live.
+     */
+    rcu_read_lock();
+    /* Ingress is accounted even when the private gate drops it. Sample once
+     * inside the RCU lifetime; retain the gate's original EPERM priority.
+     */
+    net = sock_net(sk);
+    uid = from_kuid_munged(net->user_ns, sock_net_uid(net, sk));
+    if (uid == 65534)
+        uid = 0;
+    metadata = gta3xlwifi_socket_accounting(sk, &stats_uid, &tag);
+    if (gta3xlwifi_netpolicy_held()) {
+        result = -EPERM;
+        goto out;
+    }
+    if (metadata && metadata != -ENOENT) {
+        result = metadata;
+        goto out;
+    }
+    /* Ordinary owner DROP applies even to DNS and when the LNA parser fails.
+     * The private evaluator binds the actual socket and reuses this UID sample;
+     * it cannot free/steal skb. Only the original receive caller owns the skb.
+     */
+    result = gta3xlwifi_socket_table_policy_meta(sk, skb, false, uid,
+                       !metadata && stats_uid == 1051 && tag == 0xffffff82U);
+    if (result)
+        goto out;
+    if (!gta3xlwifi_parse_packet(skb, &packet))
+        goto out;
+    /* Actual A17 TAG_SYSTEM_DNS +AID_DNS. UID/process identity alone is never
+     * a DNS exemption. Tag values are copied under the real qtaguid tree lock.
+     */
+    if (!metadata && stats_uid == 1051 && tag == 0xffffff82U)
+        goto out;
+    if_index = skb->dev ? skb->dev->ifindex : 0;
+    if (gta3xlwifi_lna_blocked(uid, if_index, &packet.saddr,
+                               packet.ip_proto, packet.sport))
+        result = -EPERM;
+out:
+    gta3xlwifi_account_packet(sk,skb,uid,stats_uid,tag,metadata,false);
+    rcu_read_unlock();
+    return result;
+}
+struct tcphdr_with_flags16 {
+  __be16 source;
+  __be16 dest;
+  __be32 seq;
+  __be32 ack_seq;
+  __extension__ union {
+    __be16 flags16;
+    struct {
+      // copied from //external/iproute2/include/uapi/linux/tcp.h
+#if defined(__LITTLE_ENDIAN_BITFIELD)
+      __u16 rsvd:4, doff:4, fin:1, syn:1, rst:1, psh:1, ack:1, urg:1, ece:1, cwr:1;
+#elif defined(__BIG_ENDIAN_BITFIELD)
+      __u16 doff:4, rsvd:4, cwr:1, ece:1, urg:1, ack:1, psh:1, rst:1, syn:1, fin:1;
+#else
+#error "Adjust your <asm/byteorder.h> defines"
+#endif
+    };
+  };
+  __be16 window;
+  __sum16 check;
+  __be16 urg_ptr;
+};
+typedef struct {
+    struct in6_addr saddr; // Stores v6 or v4-mapped-v6
+    struct in6_addr daddr; // Stores v6 or v4-mapped-v6
+    __be16 sport;
+    __be16 dport;
+    uint8_t ip_proto;
+    uint8_t tcp_flags;
+    uint8_t ip_version;
+    uint8_t pad;
+} SkbIpPacketData;
+
+#define TCP_OFFSET(field) offsetof(struct tcphdr_with_flags16, field)
+#define IP4_OFFSET(field) offsetof(struct iphdr, field)
+#define IP6_OFFSET(field) offsetof(struct ipv6hdr, field)
+#define IPPROTO_IHL_OFF 0
+#define TCP_FLAG8_OFF (TCP_OFFSET(flags16) + 1)
+struct kver_uint{unsigned version;};struct __sk_buff{const struct sk_buff*skb;uint16_t protocol;};
+static long bpf_skb_load_bytes_net(const struct __sk_buff*s,const int offset,void*out,const int len,const struct kver_uint k){(void)k;int result=skb_copy_bits(s->skb,s->skb->network+offset,out,len);if(result)memset(out,0,len);return result;}
+function bool parse_skb(SkbIpPacketData *const packet,
+                        const struct __sk_buff *const skb,
+                        const struct kver_uint kver) {
+    // Errors from bpf_skb_load_bytes_net are ignored to favor returning
+    // something over returning nothing. In the event of an error, the kernel
+    // will fill in zero for the destination memory.
+    uint8_t proto = 0;
+    uint8_t L4_off = 0;
+    if (skb->protocol == htons(ETH_P_IP)) {
+        packet->ip_version = 4;
+        packet->saddr.s6_addr32[2] = htonl(0xFFFF);
+        (void)bpf_skb_load_bytes_net(skb, IP4_OFFSET(saddr),
+                                     &packet->saddr.s6_addr32[3],
+                                     sizeof(__be32), kver);
+
+        packet->daddr.s6_addr32[2] = htonl(0xFFFF);
+        (void)bpf_skb_load_bytes_net(skb, IP4_OFFSET(daddr),
+                                     &packet->daddr.s6_addr32[3],
+                                     sizeof(__be32), kver);
+
+        (void)bpf_skb_load_bytes_net(skb, IP4_OFFSET(protocol), &proto,
+                                     sizeof(proto), kver);
+        // IHL calculation
+        (void)bpf_skb_load_bytes_net(skb, IPPROTO_IHL_OFF, &L4_off,
+                                     sizeof(L4_off), kver);
+        if (L4_off < 0x45 || L4_off > 0x4F) return false;
+        L4_off = (L4_off & 0x0F) * 4;
+    } else if (skb->protocol == htons(ETH_P_IPV6)) {
+        packet->ip_version = 6;
+        (void)bpf_skb_load_bytes_net(skb, IP6_OFFSET(saddr), &packet->saddr,
+                                     sizeof(packet->saddr), kver);
+        (void)bpf_skb_load_bytes_net(skb, IP6_OFFSET(daddr), &packet->daddr,
+                                     sizeof(packet->daddr), kver);
+        (void)bpf_skb_load_bytes_net(skb, IP6_OFFSET(nexthdr), &proto,
+                                     sizeof(proto), kver);
+        L4_off = sizeof(struct ipv6hdr);
+        // skip over a *single* HOPOPTS or DSTOPTS extension header (if present)
+        if (proto == IPPROTO_HOPOPTS || proto == IPPROTO_DSTOPTS) {
+            struct {
+                uint8_t proto, len;
+            } ext_hdr;
+            if (!bpf_skb_load_bytes_net(skb, L4_off, &ext_hdr, sizeof(ext_hdr), kver)) {
+                proto = ext_hdr.proto;
+                L4_off += (ext_hdr.len + 1) * 8;
+            }
+        }
+    } else {
+        // Not an IP packet. Don't continue parsing.
+        return false;
+    }
+    packet->ip_proto = proto;
+
+    switch (proto) {
+        case IPPROTO_TCP:
+            (void)bpf_skb_load_bytes_net(skb, L4_off + TCP_FLAG8_OFF,
+                                         &packet->tcp_flags,
+                                         sizeof(packet->tcp_flags), kver);
+            // fallthrough
+        case IPPROTO_DCCP:
+        case IPPROTO_UDP:
+        case IPPROTO_UDPLITE:
+        case IPPROTO_SCTP:
+            (void)bpf_skb_load_bytes_net(skb, L4_off + 0, &packet->sport,
+                                         sizeof(packet->sport), kver);
+            (void)bpf_skb_load_bytes_net(skb, L4_off + 2, &packet->dport,
+                                         sizeof(packet->dport), kver);
+            break;
+        case IPPROTO_ICMP:
+        case IPPROTO_ICMPV6:
+            // Both IPv4 and IPv6 icmp start with u8 type & code, which we store
+            // in the bottom (ie. second) byte of sport/dport (which are be16s),
+            // the top byte is already zero.
+            (void)bpf_skb_load_bytes_net(skb, L4_off + 0,
+                                         (char *)&packet->sport + 1, 1,
+                                         kver); // type
+            (void)bpf_skb_load_bytes_net(skb, L4_off + 1,
+                                         (char *)&packet->dport + 1, 1,
+                                         kver); // code
+            break;
+    }
+    return true;
+}
+
+
+#define SOCK_MEMALLOC 1
+#define max(a,b) ((a)>(b)?(a):(b))
+static int lsm_error,trim_error;static unsigned lsm_calls,filter_calls,trim_calls;
+static bool skb_pfmemalloc(const struct sk_buff*s){return s->pfmemalloc;}
+static bool sock_flag(const struct sock*s,int flag){assert(flag==SOCK_MEMALLOC);return s->memalloc;}
+static int security_sock_rcv_skb(struct sock*s,struct sk_buff*b){assert(s&&b);++lsm_calls;return lsm_error;}
+static unsigned bpf_prog_run_save_cb(struct bpf_prog*p,struct sk_buff*b){assert(b&&lsm_calls);++filter_calls;return p->value;}
+static int pskb_trim(struct sk_buff*b,unsigned count){++trim_calls;if(trim_error)return trim_error;if(b->length>count)b->length=count;return 0;}
+int sk_filter_trim_cap(struct sock *sk, struct sk_buff *skb, unsigned int cap)
+{
+	int err;
+	struct sk_filter *filter;
+
+	/*
+	 * If the skb was allocated from pfmemalloc reserves, only
+	 * allow SOCK_MEMALLOC sockets to use it as this socket is
+	 * helping free memory
+	 */
+	if (skb_pfmemalloc(skb) && !sock_flag(sk, SOCK_MEMALLOC))
+		return -ENOMEM;
+
+	err = gta3xlwifi_receive_policy(sk, skb);
+	if (err)
+		return err;
+
+	err = security_sock_rcv_skb(sk, skb);
+	if (err)
+		return err;
+
+	rcu_read_lock();
+	filter = rcu_dereference(sk->sk_filter);
+	if (filter) {
+		unsigned int pkt_len = bpf_prog_run_save_cb(filter->prog, skb);
+		err = pkt_len ? pskb_trim(skb, max(cap, pkt_len)) : -EPERM;
+	}
+	rcu_read_unlock();
+
+	return err;
+}
+static struct net net={&init_user_ns};static struct net_device device={17};
+static struct sock receiver={.uid=10001,.creator_uid=777,.full=true,.sk_family=AF_INET,.net=&net};
+static struct sock foreign={.uid=0,.full=true,.sk_family=AF_INET,.net=&net};
+static int receive_result,hold_result;
+static void*receive_thread(void*x){receive_result=gta3xlwifi_receive_policy(&receiver,x);return NULL;}
+static void*hold_thread(void*x){(void)x;hold_result=netpolicy_ioctl(&owner,GTA3XLWIFI_NETPOLICY_HOLD,0);assert(pthread_mutex_lock(&rmu)==0);hold_done=true;pthread_cond_broadcast(&rcv);assert(pthread_mutex_unlock(&rmu)==0);return NULL;}
+static unsigned parse_comparisons;
+static void packet_check(struct sk_buff*s){struct gta3xlwifi_packet actual;SkbIpPacketData expected={0};struct __sk_buff o={s,s->protocol};bool a=gta3xlwifi_parse_packet(s,&actual),b=parse_skb(&expected,&o,(struct kver_uint){515});assert(a==b&&!memcmp(&actual,&expected,40));++parse_comparisons;}
+static int receive_main(void){
+ T(gta3xlwifi_receive_features()==32);T(netpolicy_open(NULL,&owner)==0);
+ struct gta3xlwifi_lna_entry deny={.allowed=0};struct gta3xlwifi_lna_transfer image={1,1,0,0,1,(uintptr_t)&deny,0};T(io(GTA3XLWIFI_LNA_SET_IMAGE,&image)==0);
+ onetwork=&deny;oncount=1;ohost=NULL;ohcount=0;
+ struct sk_buff skb={.length=1200-34,.data_at=34,.network=-20,.protocol=htons(ETH_P_IP),.sk=&foreign,.dev=&device};skb.data[14]=0x45;skb.data[23]=17;skb.data[26]=192;skb.data[29]=7;
+ T(gta3xlwifi_receive_policy(&receiver,&skb)==-EPERM);T(tag_lookups==1);T(netpolicy_ioctl(&owner,GTA3XLWIFI_NETPOLICY_RELEASE,0)==0);
+ T(gta3xlwifi_receive_policy(&receiver,&skb)==-EPERM&&skb.sk==&foreign&&skb.data_at==34&&skb.network==-20);T(oracle_blocked(receiver.uid,17,&(struct in6_addr){0},17,0));
+ skb.sk=NULL;T(gta3xlwifi_receive_policy(&receiver,&skb)==-EPERM&&skb.sk==NULL);
+ receiver.creator_uid=0;T(gta3xlwifi_receive_policy(&receiver,&skb)==-EPERM);receiver.uid=0;T(gta3xlwifi_receive_policy(&receiver,&skb)==0);receiver.uid=10001;
+ T(gta3xlwifi_receive_policy(NULL,&skb)==0);T(gta3xlwifi_receive_policy(&receiver,NULL)==0);receiver.full=false;T(gta3xlwifi_receive_policy(&receiver,&skb)==0);receiver.full=true;receiver.sk_family=AF_UNIX;T(gta3xlwifi_receive_policy(&receiver,&skb)==0);receiver.sk_family=AF_INET6;T(gta3xlwifi_receive_policy(&receiver,&skb)==-EPERM);receiver.sk_family=AF_INET;
+ u32 stats=777,tag=888;T(gta3xlwifi_socket_accounting(NULL,&stats,&tag)==-EINVAL&&stats==777&&tag==888);T(gta3xlwifi_socket_accounting(&receiver,NULL,&tag)==-EINVAL);T(gta3xlwifi_socket_accounting(&receiver,&stats,NULL)==-EINVAL);T(gta3xlwifi_socket_accounting(&receiver,&stats,&tag)==-ENOENT&&stats==777&&tag==888);
+ tagged_sk=&receiver;tagged.tag=((u64)0xffffff82<<32)|1051;poison_tag=true;T(gta3xlwifi_socket_accounting(&receiver,&stats,&tag)==0&&stats==1051&&tag==0xffffff82&&tagged.tag==0);poison_tag=false;
+ tagged.tag=((u64)0xffffff82<<32)|1051;T(gta3xlwifi_receive_policy(&receiver,&skb)==0);
+ tagged.tag=((u64)0xffffff81<<32)|1051;T(gta3xlwifi_receive_policy(&receiver,&skb)==-EPERM);
+ tagged.tag=((u64)0xffffff82<<32)|10001;T(gta3xlwifi_receive_policy(&receiver,&skb)==-EPERM);
+ tagged.tag=((u64)0xffffff82<<32)|1051;module_passive=true;stats=777;tag=888;T(gta3xlwifi_socket_accounting(&receiver,&stats,&tag)==-EOPNOTSUPP&&stats==777&&tag==888);T(gta3xlwifi_receive_policy(&receiver,&skb)==-EOPNOTSUPP);module_passive=false;
+
+ tagged_sk=NULL;receiver.uid=1051;T(gta3xlwifi_receive_policy(&receiver,&skb)==-EPERM);receiver.uid=10001;
+ T(netpolicy_ioctl(&owner,GTA3XLWIFI_NETPOLICY_HOLD,0)==0);
+ struct gta3xlwifi_uid_permission_entry entry={10001,1};struct gta3xlwifi_uid_permission_transfer permission={1,1,1,(uintptr_t)&entry};T(io(GTA3XLWIFI_UID_SET_IMAGE,&permission)==0);T(netpolicy_ioctl(&owner,GTA3XLWIFI_NETPOLICY_RELEASE,0)==0);
+ T(gta3xlwifi_receive_policy(&receiver,&skb)==0);receiver.uid=10002;T(gta3xlwifi_receive_policy(&receiver,&skb)==-EPERM);receiver.uid=10001;
+ T(netpolicy_ioctl(&owner,GTA3XLWIFI_NETPOLICY_HOLD,0)==0);permission.count=0;permission.entries=0;permission.revision=2;T(io(GTA3XLWIFI_UID_SET_IMAGE,&permission)==0);T(netpolicy_ioctl(&owner,GTA3XLWIFI_NETPOLICY_RELEASE,0)==0);
+ tagged_sk=&receiver;tagged.tag=((u64)0xffffff82<<32)|1051;
+ T(netpolicy_ioctl(&owner,GTA3XLWIFI_NETPOLICY_HOLD,0)==0);T(gta3xlwifi_receive_policy(&receiver,&skb)==-EPERM);T(netpolicy_ioctl(&owner,GTA3XLWIFI_NETPOLICY_RELEASE,0)==0);tagged_sk=NULL;
+ // Existing socket-filter behavior/LSM errors are retained after the new check.
+ struct bpf_prog prog={0};struct sk_filter socket_filter={&prog};receiver.sk_filter=&socket_filter;
+ skb.pfmemalloc=true;T(sk_filter_trim_cap(&receiver,&skb,1)==-ENOMEM&&lsm_calls==0&&filter_calls==0);skb.pfmemalloc=false;
+ T(sk_filter_trim_cap(&receiver,&skb,1)==-EPERM&&lsm_calls==0&&filter_calls==0);
+ tagged_sk=&receiver;tagged.tag=((u64)0xffffff82<<32)|1051;lsm_error=-EACCES;T(sk_filter_trim_cap(&receiver,&skb,1)==-EACCES&&lsm_calls==1&&filter_calls==0);lsm_error=0;
+ T(sk_filter_trim_cap(&receiver,&skb,1)==-EPERM&&lsm_calls==2&&filter_calls==1&&trim_calls==0);
+ prog.value=80;unsigned oldlength=skb.length;T(sk_filter_trim_cap(&receiver,&skb,100)==0&&skb.length==100&&trim_calls==1);skb.length=oldlength;receiver.sk_filter=NULL;T(sk_filter_trim_cap(&receiver,&skb,1)==0);tagged_sk=NULL;
+ // Full parser values remain correct with L3 both before and after skb data.
+ for(unsigned family=0;family<2;family++)for(int at=0;at<=100;at+=10)for(unsigned proto=0;proto<256;proto++){
+  skb.data_at=at;skb.network=14-at;skb.length=1200-at;skb.protocol=htons(family?ETH_P_IPV6:ETH_P_IP);for(unsigned i=0;i<1200;i++)skb.data[i]=(i*7+proto)&255;skb.data[14]=0x45;skb.data[23]=proto;skb.data[20]=proto;packet_check(&skb);
+ }
+ // Real owner HOLD must wait for a receive reader that observed the old open gate.
+ skb.data_at=34;skb.network=-20;skb.length=1166;skb.protocol=htons(ETH_P_IP);memset(skb.data,0,sizeof(skb.data));skb.data[14]=0x45;skb.data[23]=17;
+ pause_tag=true;tag_entered=continue_tag=drain_entered=hold_done=false;pthread_t receive,hold;
+ T(pthread_create(&receive,NULL,receive_thread,&skb)==0);assert(pthread_mutex_lock(&rmu)==0);while(!tag_entered)pthread_cond_wait(&rcv,&rmu);assert(pthread_mutex_unlock(&rmu)==0);
+ T(pthread_create(&hold,NULL,hold_thread,NULL)==0);assert(pthread_mutex_lock(&rmu)==0);while(!drain_entered)pthread_cond_wait(&rcv,&rmu);T(!hold_done&&active_readers>0);continue_tag=true;pthread_cond_broadcast(&rcv);assert(pthread_mutex_unlock(&rmu)==0);
+ T(pthread_join(receive,NULL)==0&&pthread_join(hold,NULL)==0&&hold_result==0&&receive_result==-EPERM&&gta3xlwifi_netpolicy_held()&&active_readers==0);
+ pause_tag=false;T(netpolicy_flush(&owner,NULL)==0);T(netpolicy_release(NULL,&owner)==0);lna_free(lna_current);lna_current=NULL;vfree(uid_image);uid_image=NULL;T(allocs==frees&&!rcu_depth&&!tag_depth);
+ printf("passed_cases=%u negative_headroom_parser_comparisons=%u\n",cases,parse_comparisons);
+return 0;
+}
+
+bool gta3xlwifi_loopback_blocked(struct net*,u32,u32,const struct gta3xlwifi_packet*); /* Non-loopback regression scope; real hook/queue tested separately. */
+
+u32 gta3xlwifi_egress_features(void)
+{
+    return GTA3XLWIFI_UID_CAP_LNA_EGRESS;
+}
+int gta3xlwifi_egress_policy(struct sock *sk, struct sk_buff *skb)
+{
+    struct gta3xlwifi_packet packet;
+    struct net *net;
+    u32 uid=0, stats_uid=0, tag=0, if_index;
+    int result = 0, metadata=-EAGAIN;
+    if (!sk || !skb || !sk_fullsock(sk) ||
+        (sk->sk_family != AF_INET && sk->sk_family != AF_INET6))
+        return 0;
+    rcu_read_lock();
+    if (gta3xlwifi_netpolicy_held()) {
+        result = -EPERM;
+        goto out;
+    }
+    net = sock_net(sk);
+    uid = from_kuid_munged(net->user_ns, sock_net_uid(net, sk));
+    if (uid == 65534)
+        uid = 0;
+    metadata = gta3xlwifi_socket_accounting(sk, &stats_uid, &tag);
+    if (metadata && metadata != -ENOENT) {
+        result = metadata;
+        goto out;
+    }
+    /* Exact A17 statsUid fallback when no tag record exists. This is the
+     * supplied SOCKET uid, never the current process uid. A present tag record
+     * overrides it, including when that record belongs to a different stats UID.
+     */
+    if (metadata == -ENOENT) {
+        stats_uid = uid;
+        tag = 0;
+    }
+    if (stats_uid == 1029)
+        goto out;
+    /* A17: CLAT bypass precedes owner policy; owner DROP precedes parser-gated
+     * loopback/LNA and cannot be undone by the system-DNS LNA exemption.
+     */
+    result = gta3xlwifi_socket_table_policy_meta(sk, skb, true, uid,
+                       !metadata && stats_uid == 1051 && tag == 0xffffff82U);
+    if (result)
+        goto out;
+    if (!gta3xlwifi_parse_packet(skb, &packet))
+        goto out;
+    if_index = skb->dev ? skb->dev->ifindex : 0;
+    /* DNS exempts LNA only; A17 checks loopback before its DNS LNA exception. */
+    if (gta3xlwifi_loopback_blocked(net, if_index, uid, &packet)) {
+        result = -EPERM;
+        goto out;
+    }
+    if (!metadata && stats_uid == 1051 && tag == 0xffffff82U)
+        goto out;
+    /* ip_output/ip6_output set dev before POST_ROUTING, matching the modern
+     * cgroup context. Never substitute a stale skb owner or skb_iif.
+     */
+
+    if (gta3xlwifi_lna_blocked(uid, if_index, &packet.daddr,
+                               packet.ip_proto, packet.dport))
+        result = -EPERM;
+out:
+    /* A17 excludes dropped output and all statsUID CLAT output. The original
+     * outer output wrapper separately retains the real interface DROP UNDO.
+     */
+    if(!result&&stats_uid!=1029)
+        gta3xlwifi_account_packet(sk,skb,uid,stats_uid,tag,metadata,true);
+    rcu_read_unlock();
+    return result;
+}
+
+#define PASS 1
+#define AID_CLAT 1029
+struct egress_bool{bool egress;};typedef struct{u32 uid,tag;}UidTagValue;
+static struct sock*oracle_socket;
+static u32 bpf_get_socket_uid(struct __sk_buff*s){(void)s;return oracle_socket->uid;}
+static u64 bpf_get_socket_cookie(struct __sk_buff*s){(void)s;return 7;}
+static UidTagValue* bpf_cookie_tag_map_lookup_elem(u64*cookie){static UidTagValue value;assert(*cookie==7);if(tagged_sk!=oracle_socket)return NULL;value.uid=get_uid_from_tag(tagged.tag);value.tag=get_atag_from_tag(tagged.tag)>>32;return &value;}
+static int oracle_clat(struct __sk_buff*skb,const struct egress_bool egress){
+    // sock_uid will be 'overflowuid' if !sk_fullsock(sk_to_full_sk(skb->sk))
+    uint32_t sock_uid = bpf_get_socket_uid(skb);
+
+    // kernel's DEFAULT_OVERFLOWUID is 65534, this is the overflow 'nobody' uid,
+    // usually this being returned means that skb->sk is NULL during RX
+    // (early decap socket lookup failure), which commonly happens for incoming
+    // packets to an unconnected udp socket.
+    // But it can also happen for egress from a timewait socket.
+    // Let's treat such cases as 'root' which is_system_uid()
+    if (sock_uid == 65534) sock_uid = 0;
+
+    uint64_t cookie = bpf_get_socket_cookie(skb);  // 0 iff !skb->sk
+    UidTagValue* utag = bpf_cookie_tag_map_lookup_elem(&cookie);
+    uint32_t statsUid, tag;
+    if (utag) {
+        statsUid = utag->uid;
+        tag = utag->tag;
+    } else {
+        statsUid = sock_uid;
+        tag = 0;
+    }
+
+    // Always allow and never count clat traffic. Only the IPv4 traffic on the stacked
+    // interface is accounted for and subject to usage restrictions.
+    // CLAT IPv6 TX sockets are *always* tagged with CLAT uid, see tagSocketAsClat()
+    // CLAT daemon receives via an untagged AF_PACKET socket.
+    if (egress.egress && statsUid == AID_CLAT) return PASS;
+
+(void)tag; return 0;
+}
+
+static unsigned consumed,output4,output6,outputmc;static int output_error;
+static void kfree_skb(struct sk_buff*s){assert(s);++consumed;}
+static int __ip_finish_output(struct net*n,struct sock*sk,struct sk_buff*s){assert(n==&net&&s);(void)sk;++output4;++consumed;return output_error;}
+static int __ip6_finish_output(struct net*n,struct sock*sk,struct sk_buff*s){assert(n==&net&&s);(void)sk;++output6;++consumed;return output_error;}
+static int dev_loopback_xmit(struct net*n,struct sock*sk,struct sk_buff*s){assert(n==&net&&s);(void)sk;++outputmc;++consumed;return output_error;}
+
+static int gta3xlwifi_iface_account(const struct sk_buff*s,u32 i,bool output,bool undo){assert(s&&rcu_depth&&output&&undo);assert(i==(s->dev?s->dev->ifindex:0));return 0;} /* counter effects tested separately */
+int gta3xlwifi_accounted_egress(struct sock *sk,struct sk_buff *skb)
+{
+    int result;
+    rcu_read_lock();
+    result=gta3xlwifi_egress_policy(sk,skb);
+    if(result&&skb)
+        gta3xlwifi_iface_account(skb,skb->dev?skb->dev->ifindex:0,true,true);
+    rcu_read_unlock();
+    return result;
+}
+
+static int ip_finish_output(struct net *net, struct sock *sk, struct sk_buff *skb)
+{
+	int result = gta3xlwifi_accounted_egress(sk, skb);
+	if (result) {
+		kfree_skb(skb);
+		return result;
+	}
+	return __ip_finish_output(net, sk, skb);
+}
+static int ip6_finish_output(struct net *net, struct sock *sk, struct sk_buff *skb)
+{
+	int result = gta3xlwifi_accounted_egress(sk, skb);
+	if (result) {
+		kfree_skb(skb);
+		return result;
+	}
+	return __ip6_finish_output(net, sk, skb);
+}
+static int ip_mc_finish_output(struct net *net, struct sock *sk, struct sk_buff *skb)
+{
+	int result = gta3xlwifi_accounted_egress(sk, skb);
+	if (result) {
+		kfree_skb(skb);
+		return result;
+	}
+	return dev_loopback_xmit(net, sk, skb);
+}
+static void*egress_thread(void*x){receive_result=gta3xlwifi_egress_policy(&receiver,x);return NULL;}
+static int egress_regression_main(void){
+ assert(receive_main()==0);unsigned before_cases=cases;
+ T(gta3xlwifi_egress_features()==64);T(netpolicy_open(NULL,&owner)==0);
+ struct gta3xlwifi_lna_entry deny={.allowed=0};struct gta3xlwifi_lna_transfer image={1,1,0,0,1,(uintptr_t)&deny,0};T(io(GTA3XLWIFI_LNA_SET_IMAGE,&image)==0);
+ struct sk_buff skb={.length=1166,.data_at=34,.network=-20,.protocol=htons(ETH_P_IP),.sk=&foreign,.dev=&device};skb.data[14]=0x45;skb.data[23]=17;skb.data[30]=192;skb.data[33]=7;
+ receiver.uid=10001;receiver.full=true;receiver.sk_family=AF_INET;receiver.creator_uid=0;receiver.sk_filter=NULL;
+ tagged_sk=&receiver;tagged.tag=1029;T(gta3xlwifi_egress_policy(&receiver,&skb)==-EPERM);T(netpolicy_ioctl(&owner,GTA3XLWIFI_NETPOLICY_RELEASE,0)==0);
+ T(gta3xlwifi_egress_policy(&receiver,&skb)==0);T(gta3xlwifi_receive_policy(&receiver,&skb)==-EPERM);tagged_sk=NULL;
+ T(gta3xlwifi_egress_policy(&receiver,&skb)==-EPERM&&skb.sk==&foreign&&skb.data_at==34&&skb.network==-20);skb.sk=NULL;T(gta3xlwifi_egress_policy(&receiver,&skb)==-EPERM&&skb.sk==NULL);
+ receiver.uid=1029;T(gta3xlwifi_egress_policy(&receiver,&skb)==0);tagged_sk=&receiver;tagged.tag=10001;T(gta3xlwifi_egress_policy(&receiver,&skb)==-EPERM);tagged_sk=NULL;receiver.uid=1051;T(gta3xlwifi_egress_policy(&receiver,&skb)==-EPERM);receiver.uid=0;T(gta3xlwifi_egress_policy(&receiver,&skb)==0);receiver.uid=65534;T(gta3xlwifi_egress_policy(&receiver,&skb)==0);receiver.uid=10001;
+ tagged_sk=&receiver;tagged.tag=((u64)0xffffff82<<32)|1051;T(gta3xlwifi_egress_policy(&receiver,&skb)==0);tagged.tag=((u64)0xffffff81<<32)|1051;T(gta3xlwifi_egress_policy(&receiver,&skb)==-EPERM);tagged.tag=((u64)0xffffff82<<32)|10001;T(gta3xlwifi_egress_policy(&receiver,&skb)==-EPERM);
+ module_passive=true;T(gta3xlwifi_egress_policy(&receiver,&skb)==-EOPNOTSUPP);module_passive=false;tagged_sk=NULL;
+ T(gta3xlwifi_egress_policy(NULL,&skb)==0);T(gta3xlwifi_egress_policy(&receiver,NULL)==0);receiver.full=false;T(gta3xlwifi_egress_policy(&receiver,&skb)==0);receiver.full=true;receiver.sk_family=AF_UNIX;T(gta3xlwifi_egress_policy(&receiver,&skb)==0);receiver.sk_family=AF_INET6;T(gta3xlwifi_egress_policy(&receiver,&skb)==-EPERM);receiver.sk_family=AF_INET;
+ // Actual IPv6 L3 packet, with supplied AF_INET6 socket and absent skb owner.
+ u8 saved[1200];memcpy(saved,skb.data,sizeof(saved));memset(skb.data,0,sizeof(skb.data));skb.protocol=htons(ETH_P_IPV6);skb.data[14]=0x60;skb.data[20]=17;skb.data[38]=0xfd;receiver.sk_family=AF_INET6;
+ T(gta3xlwifi_egress_policy(&receiver,&skb)==-EPERM);tagged_sk=&receiver;tagged.tag=1029;T(gta3xlwifi_egress_policy(&receiver,&skb)==0);tagged_sk=NULL;
+ memcpy(skb.data,saved,sizeof(saved));skb.protocol=htons(ETH_P_IP);receiver.sk_family=AF_INET;
+ // Actual A17 traffic-account prefix, including absent-tag statsUid fallback.
+ oracle_socket=&receiver;struct __sk_buff context={&skb,skb.protocol};
+ const u32 uids[]={0,1000,1029,1051,10001,65534};
+ for(unsigned family=0;family<2;family++)for(unsigned u=0;u<6;u++)for(unsigned meta=0;meta<4;meta++){
+  receiver.sk_family=family?AF_INET6:AF_INET;receiver.uid=uids[u];tagged_sk=meta?&receiver:NULL;
+  tagged.tag=meta==1?1029:meta==2?((u64)0xffffff82<<32)|1051:((u64)0xffffff81<<32)|10001;
+  bool clat=oracle_clat(&context,(struct egress_bool){true});
+  bool expected=clat||meta==2||uids[u]==0||uids[u]==1000||uids[u]==65534;
+  T(gta3xlwifi_egress_policy(&receiver,&skb)==(expected?0:-EPERM));
+ }
+ receiver.uid=10001;receiver.sk_family=AF_INET;tagged_sk=NULL;
+ // Prefix isolation proves destination address, port and real device are used.
+ T(netpolicy_ioctl(&owner,GTA3XLWIFI_NETPOLICY_HOLD,0)==0);
+ struct gta3xlwifi_packet packet;T(gta3xlwifi_parse_packet(&skb,&packet));
+ deny.prefix_bits=192;memcpy(deny.key,&device.ifindex,4);memcpy(deny.key+4,&packet.daddr,16);memcpy(deny.key+20,&packet.ip_proto,2);memcpy(deny.key+22,&packet.dport,2);image.revision=2;T(io(GTA3XLWIFI_LNA_SET_IMAGE,&image)==0);T(netpolicy_ioctl(&owner,GTA3XLWIFI_NETPOLICY_RELEASE,0)==0);
+ T(gta3xlwifi_egress_policy(&receiver,&skb)==-EPERM);T(gta3xlwifi_receive_policy(&receiver,&skb)==0);device.ifindex=18;T(gta3xlwifi_egress_policy(&receiver,&skb)==0);device.ifindex=17;skb.data[37]=1;T(gta3xlwifi_egress_policy(&receiver,&skb)==0);skb.data[37]=0;T(gta3xlwifi_egress_policy(&receiver,&skb)==-EPERM);skb.dev=NULL;T(gta3xlwifi_egress_policy(&receiver,&skb)==0);skb.dev=&device;
+ // Ownership: each rejecting wrapper consumes once and never calls downstream.
+ int (*wrappers[])(struct net*,struct sock*,struct sk_buff*)={ip_finish_output,ip6_finish_output,ip_mc_finish_output};
+ for(unsigned i=0;i<3;i++){
+  unsigned old=consumed,total=output4+output6+outputmc;T(wrappers[i](&net,&receiver,&skb)==-EPERM&&consumed==old+1&&output4+output6+outputmc==total);
+  tagged_sk=&receiver;tagged.tag=1029;old=consumed;T(wrappers[i](&net,&receiver,&skb)==0&&consumed==old+1&&output4+output6+outputmc==total+1);
+  output_error=-ENOBUFS;old=consumed;T(wrappers[i](&net,&receiver,&skb)==-ENOBUFS&&consumed==old+1&&output4+output6+outputmc==total+2);output_error=0;tagged_sk=NULL;
+ }
+ // Unknown protocol/read failure follows A17 LNA parser behavior, no owner changes.
+ u16 protocol=skb.protocol;skb.protocol=0;T(gta3xlwifi_egress_policy(&receiver,&skb)==0);skb.protocol=protocol;
+ // HOLD drains an output reader before it can finish, exactly as receive.
+ pause_tag=true;tag_entered=continue_tag=drain_entered=hold_done=false;pthread_t reader,hold;
+ T(pthread_create(&reader,NULL,egress_thread,&skb)==0);assert(pthread_mutex_lock(&rmu)==0);while(!tag_entered)pthread_cond_wait(&rcv,&rmu);assert(pthread_mutex_unlock(&rmu)==0);
+ T(pthread_create(&hold,NULL,hold_thread,NULL)==0);assert(pthread_mutex_lock(&rmu)==0);while(!drain_entered)pthread_cond_wait(&rcv,&rmu);T(!hold_done&&active_readers>0);continue_tag=true;pthread_cond_broadcast(&rcv);assert(pthread_mutex_unlock(&rmu)==0);
+ T(pthread_join(reader,NULL)==0&&pthread_join(hold,NULL)==0&&hold_result==0&&receive_result==-EPERM&&gta3xlwifi_netpolicy_held()&&active_readers==0);
+ pause_tag=false;T(netpolicy_flush(&owner,NULL)==0);T(netpolicy_release(NULL,&owner)==0);lna_free(lna_current);lna_current=NULL;T(allocs==frees&&!rcu_depth&&!tag_depth);
+ printf("egress_passed_cases=%u\n",cases-before_cases);return 0;
+}
+
+#include <net/gta3xlwifi_socket_peer.h>
+#define DEFINE_SPINLOCK(name) pthread_mutex_t name=PTHREAD_MUTEX_INITIALIZER
+static u64 mock_boottime;
+static u64 ktime_get_boot_ns(void){return mock_boottime;}
+static bool peer_known;static u32 peer_uid;static unsigned peer_lookups;
+static struct gta3xlwifi_socket_peer_tuple last_tuple;
+bool gta3xlwifi_socket_peer_uid(struct net*n,int ifindex,const struct gta3xlwifi_socket_peer_tuple*t,u32*uid){assert(n==&net&&ifindex==1&&rcu_depth);++peer_lookups;last_tuple=*t;if(!peer_known)return false;*uid=peer_uid;return true;}
+
+#define LOOPBACK_CACHE_SIZE 100U
+#define LOOPBACK_REPORT_NS (60ULL * 1000ULL * 1000ULL * 1000ULL)
+struct loopback_report_cache {
+    u32 sender, receiver, result;
+    u64 last_report_ns, recency;
+    bool occupied;
+};
+static DEFINE_SPINLOCK(loopback_lock);
+static struct loopback_report_cache loopback_cache[LOOPBACK_CACHE_SIZE];
+static struct gta3xlwifi_loopback_event loopback_events[GTA3XLWIFI_LOOPBACK_MAX_EVENTS];
+static u32 loopback_head, loopback_count;
+static u64 loopback_sequence, loopback_losses, loopback_recency;
+
+static bool loopback_permissions(u32 sender, u32 receiver)
+{
+    u32 sender_permissions, receiver_permissions;
+    if (sender % 100000U < 10000U || receiver % 100000U < 10000U)
+        return true;
+    if (sender / 100000U == receiver / 100000U)
+        return true;
+    sender_permissions = gta3xlwifi_uid_permissions(sender);
+    receiver_permissions = gta3xlwifi_uid_permissions(receiver);
+    if (((sender_permissions & (1U << 4)) && (sender_permissions & (1U << 5))) ||
+        ((receiver_permissions & (1U << 4)) && (receiver_permissions & (1U << 5))))
+        return true;
+    if (sender % 100000U == receiver % 100000U)
+        return !!(sender_permissions & ((1U << 5) | (1U << 6)));
+    return !!(sender_permissions & (1U << 5));
+}
+static void loopback_emit(u32 sender, u32 receiver, bool allowed)
+{
+    struct loopback_report_cache *entry = NULL, *oldest = &loopback_cache[0];
+    struct gta3xlwifi_loopback_event event = {};
+    u64 now = ktime_get_boot_ns();
+    u32 i, result = allowed ? GTA3XLWIFI_LOOPBACK_ALLOWED : GTA3XLWIFI_LOOPBACK_BLOCKED;
+    spin_lock_bh(&loopback_lock);
+    for (i = 0; i < LOOPBACK_CACHE_SIZE; ++i) {
+        struct loopback_report_cache *candidate = &loopback_cache[i];
+        if (candidate->occupied && candidate->sender == sender &&
+            candidate->receiver == receiver && candidate->result == result) {
+            entry = candidate;
+            break;
+        }
+        if (!candidate->occupied || (oldest->occupied && candidate->recency < oldest->recency))
+            oldest = candidate;
+    }
+    if (entry) {
+        /* A17 lookup refreshes LRU even for an expired key when reserve fails. */
+        entry->recency = ++loopback_recency;
+        if (now - entry->last_report_ns < LOOPBACK_REPORT_NS)
+            goto out;
+    }
+    /* A full ring never advances the report timestamp; an actual later packet
+     * can still report after userspace drains the queue. Loss counter saturates.
+     */
+    if (loopback_count == GTA3XLWIFI_LOOPBACK_MAX_EVENTS || loopback_sequence == ~0ULL) {
+        if (loopback_losses != ~0ULL)
+            ++loopback_losses;
+        goto out;
+    }
+    if (!entry) {
+        entry = oldest;
+        entry->recency = ++loopback_recency;
+    }
+    entry->occupied = true;
+    entry->sender = sender;
+    entry->receiver = receiver;
+    entry->result = result;
+    entry->last_report_ns = now;
+    event.sender_uid = sender;
+    event.receiver_uid = receiver;
+    event.result = result;
+    event.boottime_ns = now;
+    event.sequence = ++loopback_sequence;
+    event.lost_events = loopback_losses;
+    loopback_events[(loopback_head + loopback_count) % GTA3XLWIFI_LOOPBACK_MAX_EVENTS] = event;
+    ++loopback_count;
+out:
+    spin_unlock_bh(&loopback_lock);
+}
+u32 gta3xlwifi_loopback_features(void)
+{
+    return GTA3XLWIFI_UID_CAP_LOOPBACK;
+}
+bool gta3xlwifi_loopback_blocked(struct net *net, u32 ifindex, u32 sender,
+                                 const struct gta3xlwifi_packet *packet)
+{
+    struct gta3xlwifi_socket_peer_tuple tuple = {};
+    u32 receiver;
+    bool allowed;
+    u32 flags = gta3xlwifi_runtime_loopback_flags();
+    if (!flags)
+        return false;
+    if (!net || !packet || ifindex != 1 ||
+        (packet->ip_proto != IPPROTO_TCP && packet->ip_proto != IPPROTO_UDP) ||
+        (packet->ip_proto == IPPROTO_TCP && !(packet->tcp_flags & 0x02)))
+        return false;
+    if (packet->ip_version == 4) {
+        tuple.family = AF_INET;
+        tuple.address.v4.saddr = packet->saddr.s6_addr32[3];
+        tuple.address.v4.daddr = packet->daddr.s6_addr32[3];
+    } else if (packet->ip_version == 6) {
+        tuple.family = AF_INET6;
+        tuple.address.v6.saddr = packet->saddr;
+        tuple.address.v6.daddr = packet->daddr;
+    } else {
+        return false;
+    }
+    tuple.protocol = packet->ip_proto;
+    tuple.sport = packet->sport;
+    tuple.dport = packet->dport;
+    /* Actual referenced peer lookup supplies immutable creator UID; unknown is
+     * not UID0. No event for unknown receiver or self, matching A17.
+     */
+    if (!gta3xlwifi_socket_peer_uid(net, ifindex, &tuple, &receiver) || sender == receiver)
+        return false;
+    allowed = !(flags & GTA3XLWIFI_RUNTIME_LOOPBACK_CHECKS) ||
+              loopback_permissions(sender, receiver);
+    if (flags & GTA3XLWIFI_RUNTIME_LOOPBACK_METRICS)
+        loopback_emit(sender, receiver, allowed);
+    return !allowed;
+}
+long gta3xlwifi_loopback_ioctl(unsigned int cmd, unsigned long arg)
+{
+    struct gta3xlwifi_loopback_transfer transfer;
+    struct gta3xlwifi_loopback_event *events = NULL;
+    void __user *argument = (void __user *)arg;
+    u32 capacity, count, i;
+    u64 first;
+    int result = 0;
+    BUILD_BUG_ON(sizeof(transfer) != 32);
+    BUILD_BUG_ON(sizeof(struct gta3xlwifi_loopback_event) != 40);
+    if (cmd != GTA3XLWIFI_LOOPBACK_GET_EVENTS)
+        return -ENOTTY;
+    if (!arg || copy_from_user(&transfer, argument, sizeof(transfer)))
+        return -EFAULT;
+    capacity = transfer.count;
+    if (transfer.version != GTA3XLWIFI_LOOPBACK_VERSION ||
+        capacity > GTA3XLWIFI_LOOPBACK_MAX_EVENTS || (!!capacity != !!transfer.entries))
+        return -EINVAL;
+    if (capacity) {
+        events = vzalloc(capacity * sizeof(*events));
+        if (!events)
+            return -ENOMEM;
+    }
+    spin_lock_bh(&loopback_lock);
+    first = loopback_count ? loopback_events[loopback_head].sequence : 0;
+    if (capacity && transfer.first_sequence != first) {
+        spin_unlock_bh(&loopback_lock);
+        result = -ESTALE;
+        goto out;
+    }
+    count = capacity ? min_t(u32, capacity, loopback_count) : loopback_count;
+    transfer.count = count;
+    transfer.first_sequence = first;
+    transfer.lost_events = loopback_losses;
+    if (capacity)
+        for (i = 0; i < count; ++i)
+            events[i] = loopback_events[(loopback_head + i) % GTA3XLWIFI_LOOPBACK_MAX_EVENTS];
+    spin_unlock_bh(&loopback_lock);
+    if ((capacity && count && copy_to_user((void __user *)(unsigned long)transfer.entries,
+                                           events, count * sizeof(*events))) ||
+        copy_to_user(argument, &transfer, sizeof(transfer))) {
+        result = -EFAULT;
+        goto out;
+    }
+    if (capacity && count) {
+        /* netpolicy_lock serializes all consuming reads; producers only append.
+         * User faults retain the complete queue, with no acknowledged consume.
+         */
+        spin_lock_bh(&loopback_lock);
+        loopback_head = (loopback_head + count) % GTA3XLWIFI_LOOPBACK_MAX_EVENTS;
+        loopback_count -= count;
+        spin_unlock_bh(&loopback_lock);
+    }
+out:
+    vfree(events);
+    return result;
+}
+
+enum LoopbackAccessResult {
+  LOOPBACK_ACCESS_ALLOWED = 0,
+  LOOPBACK_ACCESS_BLOCKED = (1 << 0),
+};
+_Static_assert(LOOPBACK_ACCESS_ALLOWED==GTA3XLWIFI_LOOPBACK_ALLOWED,"A17 allowed payload");
+_Static_assert(LOOPBACK_ACCESS_BLOCKED==GTA3XLWIFI_LOOPBACK_BLOCKED,"A17 blocked payload");
+
+#define PERMISSION_BIT_FORCE_USE_LOOPBACK_INTERFACE (1 << 4)
+#define PERMISSION_BIT_INTERACT_ACROSS_USERS_FULL (1 << 5)
+#define PERMISSION_BIT_INTERACT_ACROSS_USERS_OR_PROFILES (1 << 6)
+function bool can_force_loopback(const uint32_t permissions) {
+    return (permissions & PERMISSION_BIT_FORCE_USE_LOOPBACK_INTERFACE)
+        && (permissions & PERMISSION_BIT_INTERACT_ACROSS_USERS_FULL);
+}
+function bool uids_have_loopback_permissions(const uint32_t sender_uid,
+                                             const uint32_t receiver_uid) {
+    // TODO: be more specific about which system uids we should exempt
+    if (is_system_uid(sender_uid) || is_system_uid(receiver_uid)) return true;
+
+    bool same_profile =
+        sender_uid / AID_USER_OFFSET == receiver_uid / AID_USER_OFFSET;
+    if (same_profile) return true;
+
+    uint32_t sender_perms = get_chunk_permissions(sender_uid);
+    uint32_t receiver_perms = get_chunk_permissions(receiver_uid);
+    if (can_force_loopback(sender_perms)
+        || can_force_loopback(receiver_perms)) return true;
+
+    // TODO: check loopback interface permissions for both sender and receiver
+    bool same_app_id =
+        sender_uid % AID_USER_OFFSET == receiver_uid % AID_USER_OFFSET;
+    if (same_app_id) {
+        return
+            (sender_perms & PERMISSION_BIT_INTERACT_ACROSS_USERS_OR_PROFILES) ||
+            (sender_perms & PERMISSION_BIT_INTERACT_ACROSS_USERS_FULL);
+    } else {
+        return sender_perms & PERMISSION_BIT_INTERACT_ACROSS_USERS_FULL;
+    }
+}
+static void clear_events(void){memset(loopback_cache,0,sizeof(loopback_cache));memset(loopback_events,0,sizeof(loopback_events));loopback_head=loopback_count=0;loopback_sequence=loopback_losses=loopback_recency=0;mock_boottime=1000000000ULL;}
+static long event_io(struct gta3xlwifi_loopback_transfer*t){return netpolicy_ioctl(&owner,GTA3XLWIFI_LOOPBACK_GET_EVENTS,(unsigned long)t);}
+static void install_permissions(u32 a,u32 b,u32 pa,u32 pb){
+ T(netpolicy_ioctl(&owner,GTA3XLWIFI_NETPOLICY_HOLD,0)==0);
+ struct gta3xlwifi_uid_permission_entry entries[2];unsigned count=0;
+ if(pa){entries[count++]=(struct gta3xlwifi_uid_permission_entry){a,pa};}if(pb&&a!=b){entries[count++]=(struct gta3xlwifi_uid_permission_entry){b,pb};}
+ if(count==2&&entries[0].uid>entries[1].uid){struct gta3xlwifi_uid_permission_entry x=entries[0];entries[0]=entries[1];entries[1]=x;}
+ struct gta3xlwifi_uid_permission_transfer t={1,count,uid_image?uid_image->revision+1:1,count?(uintptr_t)entries:0};T(io(GTA3XLWIFI_UID_SET_IMAGE,&t)==0);T(netpolicy_ioctl(&owner,GTA3XLWIFI_NETPOLICY_RELEASE,0)==0);
+}
+static pthread_mutex_t copy_mu=PTHREAD_MUTEX_INITIALIZER;static pthread_cond_t copy_cv=PTHREAD_COND_INITIALIZER;static bool copy_started,copy_continue;static int consume_result;static struct gta3xlwifi_loopback_transfer consume_transfer;
+static void pause_copy(void*d,const void*s,size_t n){(void)d;(void)s;if(n!=sizeof(struct gta3xlwifi_loopback_event))return;assert(pthread_mutex_lock(&copy_mu)==0);copy_started=true;pthread_cond_broadcast(&copy_cv);while(!copy_continue)pthread_cond_wait(&copy_cv,&copy_mu);assert(pthread_mutex_unlock(&copy_mu)==0);}
+static void*consume_thread(void*x){(void)x;consume_result=event_io(&consume_transfer);return NULL;}
+static unsigned permission_comparisons;
+int main(void){
+ assert(egress_regression_main()==0);unsigned before_cases=cases;T(gta3xlwifi_loopback_features()==128);T(netpolicy_open(NULL,&owner)==0);T(netpolicy_ioctl(&owner,GTA3XLWIFI_UID_FEATURES,0)==239);
+ struct gta3xlwifi_lna_transfer lna={1,0,0,0,1,0,0};T(io(GTA3XLWIFI_LNA_SET_IMAGE,&lna)==0);T(netpolicy_ioctl(&owner,GTA3XLWIFI_NETPOLICY_RELEASE,0)==0);
+ // Exhaust all seven-bit permission pairs against actual A17 expressions.
+ const u32 pairs[][2]={{10001,110001},{10001,110002},{65534,110001},{110001,65534},{1000,110001},{10001,10002}};
+ for(unsigned pair=0;pair<6;pair++)for(unsigned a=0;a<128;a++)for(unsigned b=0;b<128;b++){
+  struct gta3xlwifi_uid_permission_entry entries[2]={{pairs[pair][0],a},{pairs[pair][1],b}};if(entries[0].uid>entries[1].uid){struct gta3xlwifi_uid_permission_entry x=entries[0];entries[0]=entries[1];entries[1]=x;}
+  // Direct actual image for this pure expression oracle, never a runtime input API.
+  struct gta3xlwifi_uid_image *image=calloc(1,sizeof(*image)+2*sizeof(entries[0]));assert(image);image->count=2;memcpy(image->entries,entries,sizeof(entries));struct gta3xlwifi_uid_image*old=uid_image;uid_image=image;
+  assert(loopback_permissions(pairs[pair][0],pairs[pair][1])==uids_have_loopback_permissions(pairs[pair][0],pairs[pair][1]));++permission_comparisons;uid_image=old;free(image);
+ }
+ install_permissions(10001,110001,0,0);clear_events();peer_known=true;peer_uid=110001;device.ifindex=1;receiver.uid=10001;receiver.sk_family=AF_INET;receiver.full=true;tagged_sk=NULL;
+ struct sk_buff skb={.length=1166,.data_at=34,.network=-20,.protocol=htons(ETH_P_IP),.sk=&foreign,.dev=&device};skb.data[14]=0x45;skb.data[23]=17;skb.data[26]=127;skb.data[29]=1;skb.data[30]=127;skb.data[33]=1;skb.data[34]=0x12;skb.data[35]=0x34;skb.data[36]=0x56;skb.data[37]=0x78;
+ T(gta3xlwifi_egress_policy(&receiver,&skb)==-EPERM&&loopback_count==1&&last_tuple.family==AF_INET&&last_tuple.protocol==17&&last_tuple.sport==htons(0x1234)&&last_tuple.dport==htons(0x5678));
+ struct gta3xlwifi_loopback_transfer transfer={1,0,0,0,0};T(event_io(&transfer)==0&&transfer.count==1&&transfer.first_sequence==1&&transfer.lost_events==0);
+ struct gta3xlwifi_loopback_event events[512];transfer.entries=(uintptr_t)events;T(event_io(&transfer)==0&&transfer.count==1&&loopback_count==0);T(events[0].sender_uid==10001&&events[0].receiver_uid==110001&&events[0].result==1&&events[0].reserved==0&&events[0].boottime_ns==mock_boottime&&events[0].sequence==1);
+ mock_boottime+=59000000000ULL;T(gta3xlwifi_egress_policy(&receiver,&skb)==-EPERM&&loopback_count==0);mock_boottime+=1000000000ULL;T(gta3xlwifi_egress_policy(&receiver,&skb)==-EPERM&&loopback_count==1);
+ install_permissions(10001,110001,64,0);T(gta3xlwifi_egress_policy(&receiver,&skb)==0&&loopback_count==2&&loopback_events[(loopback_head+1)%512].result==0);install_permissions(10001,110001,0,0);
+ clear_events();peer_known=false;unsigned before_lookup=peer_lookups;T(gta3xlwifi_egress_policy(&receiver,&skb)==0&&loopback_count==0&&peer_lookups==before_lookup+1);peer_known=true;peer_uid=10001;T(gta3xlwifi_egress_policy(&receiver,&skb)==0&&loopback_count==0);peer_uid=110001;
+ // TCP ACK skips lookup; SYN and SYN+ACK are checked; other protocols skip.
+ skb.data[23]=6;skb.data[47]=16;before_lookup=peer_lookups;T(gta3xlwifi_egress_policy(&receiver,&skb)==0&&peer_lookups==before_lookup);skb.data[47]=2;T(gta3xlwifi_egress_policy(&receiver,&skb)==-EPERM&&peer_lookups==before_lookup+1);skb.data[47]=18;T(gta3xlwifi_egress_policy(&receiver,&skb)==-EPERM);skb.data[23]=132;before_lookup=peer_lookups;T(gta3xlwifi_egress_policy(&receiver,&skb)==0&&peer_lookups==before_lookup);skb.data[23]=17;
+ // DNS bypass is LNA-only. Tagged and untagged CLAT bypass loopback before parse.
+ clear_events();tagged_sk=&receiver;tagged.tag=((u64)0xffffff82<<32)|1051;T(gta3xlwifi_egress_policy(&receiver,&skb)==-EPERM&&loopback_count==1);tagged.tag=1029;before_lookup=peer_lookups;T(gta3xlwifi_egress_policy(&receiver,&skb)==0&&peer_lookups==before_lookup&&loopback_count==1);tagged_sk=NULL;receiver.uid=1029;T(gta3xlwifi_egress_policy(&receiver,&skb)==0&&peer_lookups==before_lookup);receiver.uid=65534;T(gta3xlwifi_egress_policy(&receiver,&skb)==0&&loopback_events[(loopback_head+1)%512].sender_uid==0);receiver.uid=110001;peer_uid=65534;T(gta3xlwifi_egress_policy(&receiver,&skb)==-EPERM&&loopback_events[(loopback_head+2)%512].receiver_uid==65534);
+ // IPv6 parser -> exact referenced tuple and actual receiver creator UID.
+ clear_events();receiver.uid=10001;peer_uid=110001;receiver.sk_family=AF_INET6;memset(skb.data,0,sizeof(skb.data));skb.protocol=htons(ETH_P_IPV6);skb.data[14]=0x60;skb.data[20]=17;skb.data[37]=1;skb.data[53]=1;skb.data[54]=0x12;skb.data[55]=0x34;skb.data[56]=0x56;skb.data[57]=0x78;T(gta3xlwifi_egress_policy(&receiver,&skb)==-EPERM&&last_tuple.family==AF_INET6&&last_tuple.address.v6.daddr.s6_addr[15]==1&&last_tuple.dport==htons(0x5678));
+ // True bounded queue, actual overflow, no report-cache advance on overflow.
+ clear_events();for(unsigned i=0;i<512;i++){receiver.uid=10001+i;T(gta3xlwifi_egress_policy(&receiver,&skb)==-EPERM);}T(loopback_count==512&&loopback_sequence==512);receiver.uid=20001;T(gta3xlwifi_egress_policy(&receiver,&skb)==-EPERM&&loopback_count==512&&loopback_sequence==512&&loopback_losses==1);
+ transfer=(struct gta3xlwifi_loopback_transfer){1,512,(uintptr_t)events,1,0};T(event_io(&transfer)==0&&transfer.count==512&&transfer.lost_events==1&&loopback_count==0);for(unsigned i=0;i<512;i++)T(events[i].sequence==i+1&&events[i].result==1&&events[i].reserved==0);
+ T(gta3xlwifi_egress_policy(&receiver,&skb)==-EPERM&&loopback_count==1&&loopback_sequence==513&&loopback_events[loopback_head].lost_events==1);
+ // All copy/alloc faults retain the queue. No consume until BOTH user copies succeed.
+ transfer=(struct gta3xlwifi_loopback_transfer){1,1,(uintptr_t)events,513,0};from_fail=from_calls+1;T(event_io(&transfer)==-EFAULT&&loopback_count==1);from_fail=0;alloc_fail=1;T(event_io(&transfer)==-ENOMEM&&loopback_count==1);alloc_fail=0;
+ to_fail=to_calls+1;T(event_io(&transfer)==-EFAULT&&loopback_count==1);to_fail=0;to_fail=to_calls+2;T(event_io(&transfer)==-EFAULT&&loopback_count==1);to_fail=0;transfer.first_sequence=1;T(event_io(&transfer)==-ESTALE&&loopback_count==1);transfer.first_sequence=513;
+ task.uid=task.euid=10001;T(event_io(&transfer)==-EPERM&&loopback_count==1);task.uid=task.euid=0;struct pid foreign_pid={0};task.tgid=&foreign_pid;T(event_io(&transfer)==-EPERM&&loopback_count==1);task.tgid=&parent_pid;T(event_io(&transfer)==0&&loopback_count==0);
+ // Producer can append during sleeping user copies; acknowledged consume removes only its snapshot.
+ clear_events();receiver.uid=10001;peer_uid=110001;T(gta3xlwifi_egress_policy(&receiver,&skb)==-EPERM&&loopback_count==1);
+ consume_transfer=(struct gta3xlwifi_loopback_transfer){1,1,(uintptr_t)events,1,0};copy_hook=pause_copy;copy_started=copy_continue=false;pthread_t consumer;T(pthread_create(&consumer,NULL,consume_thread,NULL)==0);assert(pthread_mutex_lock(&copy_mu)==0);while(!copy_started)pthread_cond_wait(&copy_cv,&copy_mu);assert(pthread_mutex_unlock(&copy_mu)==0);
+ receiver.uid=10002;T(gta3xlwifi_egress_policy(&receiver,&skb)==-EPERM&&loopback_count==2);assert(pthread_mutex_lock(&copy_mu)==0);copy_continue=true;pthread_cond_broadcast(&copy_cv);assert(pthread_mutex_unlock(&copy_mu)==0);T(pthread_join(consumer,NULL)==0&&consume_result==0&&events[0].sequence==1&&loopback_count==1&&loopback_events[loopback_head].sequence==2);copy_hook=NULL;
+ // Exact bounded LRU: a rate-limited lookup refreshes recency; eviction permits genuine re-report.
+ clear_events();for(unsigned i=0;i<100;i++){receiver.uid=10001+i;T(gta3xlwifi_egress_policy(&receiver,&skb)==-EPERM);}receiver.uid=10001;T(gta3xlwifi_egress_policy(&receiver,&skb)==-EPERM&&loopback_count==100);receiver.uid=20001;T(gta3xlwifi_egress_policy(&receiver,&skb)==-EPERM&&loopback_count==101);receiver.uid=10002;T(gta3xlwifi_egress_policy(&receiver,&skb)==-EPERM&&loopback_count==102);receiver.uid=10001;T(gta3xlwifi_egress_policy(&receiver,&skb)==-EPERM&&loopback_count==102);
+ // An expired key still refreshes LRU on a full ring (A17 lookup precedes reserve).
+ clear_events();for(unsigned i=0;i<510;i++){receiver.uid=30001+i;T(gta3xlwifi_egress_policy(&receiver,&skb)==-EPERM);}receiver.uid=10001;T(gta3xlwifi_egress_policy(&receiver,&skb)==-EPERM);mock_boottime=60000000000ULL;receiver.uid=20001;T(gta3xlwifi_egress_policy(&receiver,&skb)==-EPERM&&loopback_count==512);mock_boottime=61000000000ULL;receiver.uid=10001;T(gta3xlwifi_egress_policy(&receiver,&skb)==-EPERM&&loopback_losses==1);
+ transfer=(struct gta3xlwifi_loopback_transfer){1,512,(uintptr_t)events,1,0};T(event_io(&transfer)==0&&loopback_count==0);mock_boottime=63000000000ULL;for(unsigned i=0;i<99;i++){receiver.uid=40001+i;T(gta3xlwifi_egress_policy(&receiver,&skb)==-EPERM);}receiver.uid=20001;T(gta3xlwifi_egress_policy(&receiver,&skb)==-EPERM&&loopback_count==100);
+ clear_events();
+ T(netpolicy_ioctl(&owner,GTA3XLWIFI_NETPOLICY_HOLD,0)==0);before_lookup=peer_lookups;T(gta3xlwifi_egress_policy(&receiver,&skb)==-EPERM&&peer_lookups==before_lookup&&loopback_count==0);T(netpolicy_flush(&owner,NULL)==0);T(event_io(&transfer)==-ENOTCONN);T(netpolicy_release(NULL,&owner)==0);lna_free(lna_current);lna_current=NULL;vfree(uid_image);uid_image=NULL;T(allocs==frees&&!rcu_depth&&!tag_depth);
+ printf("loopback_passed_cases=%u permission_comparisons=%u\n",cases-before_cases,permission_comparisons);return 0;
+}

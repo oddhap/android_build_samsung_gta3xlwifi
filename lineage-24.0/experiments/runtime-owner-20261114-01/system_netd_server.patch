@@ -1,0 +1,143 @@
+--- a/Gta3xlwifiSocketPolicyProjection.cpp
++++ b/Gta3xlwifiSocketPolicyProjection.cpp
+@@ -38,6 +38,7 @@
+   int r = mLease.start();
+   if (r) return r;
+   r = mLease.requirePolicyPrimitives();
++  if (!r) r = mLease.requireRuntimePolicy();
+   if (r) return quarantine(r);
+   r = prepareHooks(mode);
+   if (!r) r = mSocket.prepare();
+@@ -54,6 +55,7 @@
+   int r = mLease.start();
+   if (r) return r;
+   r = mLease.requirePolicyPrimitives();
++  if (!r) r = mLease.requireRuntimePolicy();
+   if (!r) r = mLease.requireIfaceAccountingPrimitives();
+   if (!r) r = mLease.requirePacketAccountingPrimitives();
+   if (!r) r = prepareHooks(mode);
+@@ -88,9 +90,18 @@
+ }
+ int SocketPolicyProjection::applyLocked(State value) {
+   if (mGeneration == UINT64_MAX) return -EOVERFLOW;
++  if (!value.runtime.supplied || (value.runtime.flags & ~7U) ||
++      value.runtime.legacyBlockedUids.size() > 1000) return -EINVAL;
++  for (size_t i = 0; i < value.runtime.legacyBlockedUids.size(); ++i)
++    if (value.runtime.legacyBlockedUids[i] > INT32_MAX ||
++        (i && value.runtime.legacyBlockedUids[i-1] >= value.runtime.legacyBlockedUids[i]))
++      return -EINVAL;
+   auto next = std::make_unique<Commit>();
+   next->value = std::move(value);
+   next->generation = mGeneration + 1;
++  next->runtime.flags = next->value.runtime.flags;
++  next->runtime.legacyBlockedUids = next->value.runtime.legacyBlockedUids;
++
+   // Exact shared A17 uid_owner_map union, including disabled-chain members
+   // and explicitly present wildcard IIF0. Permission/LNA stores are separate.
+   std::set<int32_t> owners;
+@@ -134,13 +145,18 @@
+   if (r) return quarantine(r);
+   NetpolicyLease::PermissionImage beforeUid;
+   NetpolicyLease::LocalNetworkImage beforeLocal;
++  NetpolicyLease::RuntimeImage beforeRuntime;
+   r = mLease.readUidPermissions(&beforeUid);
+   if (!r) r = mLease.readLocalNetwork(&beforeLocal);
+-  if (r) return quarantine(r);
+-  if (beforeUid.revision == UINT64_MAX || beforeLocal.revision == UINT64_MAX)
++  if (!r) r = mLease.readRuntimePolicy(&beforeRuntime);
++  if (r) return quarantine(r);
++  if (beforeUid.revision == UINT64_MAX || beforeLocal.revision == UINT64_MAX || beforeRuntime.revision == UINT64_MAX)
+     return quarantine(-EOVERFLOW);
+   if (mCommit &&
+-      (!same(beforeUid, mCommit->uid) || !same(beforeLocal, mCommit->local)))
++      (!same(beforeUid, mCommit->uid) || !same(beforeLocal, mCommit->local) ||
++       beforeRuntime.revision != mCommit->runtime.revision ||
++       beforeRuntime.flags != mCommit->runtime.flags || !beforeRuntime.confirmedForLease ||
++       beforeRuntime.legacyBlockedUids != mCommit->runtime.legacyBlockedUids))
+     return quarantine(-EUCLEAN);
+   Image beforeOrd[2], beforeMeter[2];
+   unsigned index = 0;
+@@ -174,6 +190,11 @@
+   if (!r && mAccountingEnabled) r = mAccounting.verifyProducers();
+   if (r) return quarantine(r);
+   // HARD firewall cutoff: nothing below may open/query/change iptables.
++  // Runtime mode commits before LNA/UID, all while the shared gate is held.
++  r = mLease.replaceRuntimePolicy(beforeRuntime.revision, next->runtime.flags,
++                                  next->runtime.legacyBlockedUids, &next->runtime.revision);
++  if (r) return quarantine(-EUCLEAN);
++  next->runtime.confirmedForLease = true;  // Exact real SET/readback succeeded.
+   r = mLease.replaceLocalNetwork(beforeLocal.revision, next->local.network,
+                                  next->local.host, &next->local.revision);
+   if (r) return quarantine(-EUCLEAN);
+@@ -198,6 +219,12 @@
+     if (!r) r = s.ingress.removeUid(uid);
+     if (!r) r = s.permissions.remove(uid);
+     if (!r) r = s.local.removeUid(uid);
++    if (!r) {
++      for (auto i=s.runtime.legacyBlockedUids.begin();i!=s.runtime.legacyBlockedUids.end();) {
++        if (*i==static_cast<uint32_t>(uid)) i=s.runtime.legacyBlockedUids.erase(i);
++        else ++i;
++      }
++    }
+     return r;
+   });
+ }
+@@ -339,3 +366,13 @@
+   return applyLocked(std::move(next));
+ }
+ }  // namespace android::net::gta3xlwifi
++
++namespace android::net::gta3xlwifi {
++int SocketPolicyProjection::setRuntimePolicy(
++    uint32_t flags, const std::vector<uint32_t>& blockedUids) {
++  if ((flags & ~7U) || blockedUids.size() > 1000) return -EINVAL;
++  for (size_t i=0;i<blockedUids.size();++i)
++    if (blockedUids[i]>INT32_MAX || (i&&blockedUids[i-1]>=blockedUids[i])) return -EINVAL;
++  return update([&](State& s) { s.runtime={true,flags,blockedUids};return 0; });
++}
++}  // namespace android::net::gta3xlwifi
+--- a/Gta3xlwifiSocketPolicyProjection.h
++++ b/Gta3xlwifiSocketPolicyProjection.h
+@@ -12,7 +12,7 @@
+ #include "Gta3xlwifiUidPermissionState.h"
+ #include "Gta3xlwifiUidPolicy.h"
+ namespace android::net::gta3xlwifi {
+-// Four-state policy owner with private producer startup/statistics primitives.
++// Five-state policy owner with private producer startup/statistics primitives.
+ // Not Binder routing, poll persistence or global networking readiness.
+ // Sole owner of ONE real lease and one mutex. All rules/parents/guards in both
+ // families finish before LNA SET, then UID SET LAST. Error withdraws every
+@@ -20,11 +20,17 @@
+ // repair.
+ class SocketPolicyProjection final {
+  public:
++  struct RuntimePolicy {
++    bool supplied = false;  // Caller must explicitly supply actual Android modes.
++    uint32_t flags = 0;
++    std::vector<uint32_t> legacyBlockedUids;
++  };
+   struct State {
+     UidPolicy policy;
+     IngressPolicy ingress;
+     UidPermissionState permissions;
+     LocalNetworkState local;
++    RuntimePolicy runtime;
+   };
+   enum class HookMode { VerifyOnly, InstallMissing };
+   explicit SocketPolicyProjection(IptablesRestoreInterface& kernel)
+@@ -73,6 +79,7 @@
+   // Non-consuming reads expose real loss; caller must not report lossy data as
+   // complete. SWAP/ACK are explicit; no poll persistence or RPC lifecycle here.
+   // Kernel/protocol failure quarantines the complete four-state publication.
++  int setRuntimePolicy(uint32_t flags, const std::vector<uint32_t>& blockedUids);
+   int readPacketState(NetpolicyLease::PacketState* output);
+   int readFrozenPacketStats(uint32_t bank, uint64_t epoch,
+                             NetpolicyLease::PacketSnapshot* output);
+@@ -93,6 +100,7 @@
+     Image ordinary, metered;
+     NetpolicyLease::PermissionImage uid;
+     NetpolicyLease::LocalNetworkImage local;
++    NetpolicyLease::RuntimeImage runtime;
+     uint64_t generation = 0;
+   };
+   int packetAccountingAvailableLocked() const;

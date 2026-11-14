@@ -152,6 +152,10 @@ metrics_header=S/'include/uapi/linux/netfilter/gta3xlwifi_loopback.h'
 if metrics_header.exists():
  prefix+='\n#include <linux/netfilter/gta3xlwifi_loopback.h>\n'
  exported_metrics=O/'include/linux/netfilter/gta3xlwifi_loopback.h';exported_metrics.parent.mkdir(parents=True,exist_ok=True);exported_metrics.write_bytes(metrics_header.read_bytes())
+runtime_header=S/'include/uapi/linux/netfilter/gta3xlwifi_runtime_policy.h'
+if runtime_header.exists():
+ exported_runtime=O/'include/linux/netfilter/gta3xlwifi_runtime_policy.h';exported_runtime.parent.mkdir(parents=True,exist_ok=True);exported_runtime.write_bytes(runtime_header.read_bytes())
+ prefix+='\n#include <linux/netfilter/gta3xlwifi_runtime_policy.h>\nstatic bool gta3xlwifi_runtime_configured(void){return true;}\nstatic void gta3xlwifi_runtime_invalidate(void){} /* actual state tested separately */\n'
 iface_header=S/'include/uapi/linux/netfilter/gta3xlwifi_iface_stats.h'
 if iface_header.exists():
  prefix+='\n#include <linux/netfilter/gta3xlwifi_iface_stats.h>\n'

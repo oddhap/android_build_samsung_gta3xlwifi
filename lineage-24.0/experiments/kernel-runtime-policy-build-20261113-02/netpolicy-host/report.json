@@ -1,0 +1,31 @@
+{
+  "passed": true,
+  "scope": "Test real packet-barrier lease code with synthetic file/PID/net-grace effects.\n\nUses actual C bodies, real pthread mutex/contended close, and atomic memory order.\nPID refs, credentials, registration, grace periods and packets remain fixtures;\nno host/device kernel, rule, network, credential or descriptor is changed.\n",
+  "passed_cases": 44,
+  "stderr": "",
+  "command": [
+    "cc",
+    "-std=gnu11",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-Wno-unused-parameter",
+    "-fsanitize=undefined",
+    "-fno-sanitize-recover=all",
+    "-pthread",
+    "-I/srv/android/artifacts/lineage-24.0-arm64/kernel-runtime-policy-build-20261113-02/netpolicy-host/include",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-runtime-policy-build-20261113-02/netpolicy-host/test.c",
+    "-o",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-runtime-policy-build-20261113-02/netpolicy-host/test"
+  ],
+  "inputs_sha256": {
+    "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/test-kernel-netpolicy-lease24.py": "2cb48c75ccf00f1156e1cdeefa7f9edf0756fd2307b7546e95c927a3723087a9",
+    "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/test-kernel-qtaguid-socket-owned.py": "59516300b405af46c972b264353c3766b5c18cf882b04ac8ba9db6f70f436459",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-runtime-policy-build-20261113-02/netpolicy-host/test.c": "bac9c6a1fa126d3e30e91ad36b942c2ab10abd7b344b018f04d81ec14ccd9fc3",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-runtime-policy-20261113-02/src/net/netfilter/gta3xlwifi_netpolicy.c": "c4c4a9738b3d156fccc70c62369878070ba88b62b87a011e799a279bdd98ba4f",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-runtime-policy-20261113-02/src/include/uapi/linux/netfilter/gta3xlwifi_netpolicy.h": "fd53c8c287840054ac9234efdabd88302140d95fc1488c57080de499a835d54c",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-runtime-policy-build-20261113-02/netpolicy-host/include/linux/netfilter/gta3xlwifi_netpolicy.h": "fd53c8c287840054ac9234efdabd88302140d95fc1488c57080de499a835d54c"
+  },
+  "packet_or_kernel_runtime_tested": false,
+  "flash_ready": false
+}

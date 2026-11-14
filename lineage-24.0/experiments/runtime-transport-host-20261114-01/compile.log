@@ -1,0 +1,42 @@
+/srv/android/artifacts/lineage-24.0-arm64/runtime-transport-host-20261114-01/test.cpp:203:12: error: redefinition of ‘int getError’
+  203 | static int getError,setError;static bool positiveGet,positiveSet,setAfterError;
+      |            ^~~~~~~~
+/srv/android/artifacts/lineage-24.0-arm64/runtime-transport-host-20261114-01/test.cpp:68:18: note: ‘int getError’ previously defined here
+   68 | int getErrorAt=0,getError=0,setError=0,setAck=0,setEintrAfterCommit=0;
+      |                  ^~~~~~~~
+/srv/android/artifacts/lineage-24.0-arm64/runtime-transport-host-20261114-01/test.cpp:203:21: error: redefinition of ‘int setError’
+  203 | static int getError,setError;static bool positiveGet,positiveSet,setAfterError;
+      |                     ^~~~~~~~
+/srv/android/artifacts/lineage-24.0-arm64/runtime-transport-host-20261114-01/test.cpp:68:29: note: ‘int setError’ previously defined here
+   68 | int getErrorAt=0,getError=0,setError=0,setAck=0,setEintrAfterCommit=0;
+      |                             ^~~~~~~~
+/srv/android/artifacts/lineage-24.0-arm64/runtime-transport-host-20261114-01/test.cpp:224:11: error: ambiguating new declaration of ‘RI sentinel()’
+  224 | static RI sentinel(){RI x;x.revision=99;x.flags=66;x.confirmedForLease=true;x.legacyBlockedUids={77};return x;}
+      |           ^~~~~~~~
+/srv/android/artifacts/lineage-24.0-arm64/runtime-transport-host-20261114-01/test.cpp:129:12: note: old declaration ‘ImageValue sentinel()’
+  129 | ImageValue sentinel(){return {777,{{555,1}}};}
+      |            ^~~~~~~~
+/srv/android/artifacts/lineage-24.0-arm64/runtime-transport-host-20261114-01/test.cpp: In function ‘int main()’:
+/srv/android/artifacts/lineage-24.0-arm64/runtime-transport-host-20261114-01/test.cpp:227:50: error: conversion from ‘ImageValue’ {aka ‘android::net::gta3xlwifi::NetpolicyLease::PermissionImage’} to non-scalar type ‘RI’ {aka ‘android::net::gta3xlwifi::NetpolicyLease::RuntimeImage’} requested
+  227 |  resetRuntime();{NetpolicyLease l;RI out=sentinel();uint64_t rev=99;C(l.requireRuntimePolicy()==-ENOTCONN);C(l.readRuntimePolicy(&out)==-ENOTCONN&&unchanged(out));C(l.start()==0);C(l.readRuntimePolicy(&out)==0&&!out.revision&&!out.confirmedForLease&&out.legacyBlockedUids.empty());metaRetries=2;C(l.readRuntimePolicy(&out)==0&&!metaRetries);C(l.replaceRuntimePolicy(0,7,{10001,110001},&rev)==0&&rev==1&&commits==1&&held&&opens==1);metaRetries=dataRetries=2;C(l.readRuntimePolicy(&out)==0&&out.flags==7&&out.confirmedForLease&&out.legacyBlockedUids==std::vector<uint32_t>({10001,110001})&&!metaRetries&&!dataRetries);setRetries=3;C(l.replaceRuntimePolicy(1,0,{},&rev)==0&&rev==2&&commits==2&&sets==5&&!setRetries);C(l.release()==0&&!held);C(l.readRuntimePolicy(&out)==0&&!held&&out.revision==2&&out.confirmedForLease);auto count=sets;C(l.replaceRuntimePolicy(2,7,{},&rev)==-EBUSY&&sets==count&&files.empty()&&held&&!runtimeImage.confirmedForLease);}
+      |                                          ~~~~~~~~^~
+/srv/android/artifacts/lineage-24.0-arm64/runtime-transport-host-20261114-01/test.cpp:230:103: error: conversion from ‘ImageValue’ {aka ‘android::net::gta3xlwifi::NetpolicyLease::PermissionImage’} to non-scalar type ‘RI’ {aka ‘android::net::gta3xlwifi::NetpolicyLease::RuntimeImage’} requested
+  230 |  for(unsigned fault:{1u,4u,5u,6u,10u}){resetRuntime();metaFault=fault;NetpolicyLease l;RI out=sentinel();C(l.start()==0&&l.readRuntimePolicy(&out)==-EPROTO&&unchanged(out)&&files.empty()&&held);}
+      |                                                                                               ~~~~~~~~^~
+/srv/android/artifacts/lineage-24.0-arm64/runtime-transport-host-20261114-01/test.cpp:231:134: error: conversion from ‘ImageValue’ {aka ‘android::net::gta3xlwifi::NetpolicyLease::PermissionImage’} to non-scalar type ‘RI’ {aka ‘android::net::gta3xlwifi::NetpolicyLease::RuntimeImage’} requested
+  231 |  for(unsigned fault=1;fault<=9;fault++){resetRuntime();runtimeImage={1,7,true,{1,2}};dataFault=fault;NetpolicyLease l;RI out=sentinel();C(l.start()==0&&l.readRuntimePolicy(&out)==-EPROTO&&unchanged(out)&&files.empty()&&held);}
+      |                                                                                                                              ~~~~~~~~^~
+/srv/android/artifacts/lineage-24.0-arm64/runtime-transport-host-20261114-01/test.cpp:232:120: error: conversion from ‘ImageValue’ {aka ‘android::net::gta3xlwifi::NetpolicyLease::PermissionImage’} to non-scalar type ‘RI’ {aka ‘android::net::gta3xlwifi::NetpolicyLease::RuntimeImage’} requested
+  232 |  for(int error:{EIO,EFAULT,ESTALE,ENOSPC,ENOMEM,ENOTTY}){resetRuntime();getError=error;NetpolicyLease l;RI out=sentinel();C(l.start()==0&&l.readRuntimePolicy(&out)==-error&&unchanged(out)&&files.empty()&&held);}
+      |                                                                                                                ~~~~~~~~^~
+/srv/android/artifacts/lineage-24.0-arm64/runtime-transport-host-20261114-01/test.cpp:233:80: error: conversion from ‘ImageValue’ {aka ‘android::net::gta3xlwifi::NetpolicyLease::PermissionImage’} to non-scalar type ‘RI’ {aka ‘android::net::gta3xlwifi::NetpolicyLease::RuntimeImage’} requested
+  233 |  resetRuntime();getError=EIO;positiveGet=true;{NetpolicyLease l;RI out=sentinel();C(l.start()==0&&l.readRuntimePolicy(&out)==-EPROTO&&unchanged(out)&&files.empty());}
+      |                                                                        ~~~~~~~~^~
+/srv/android/artifacts/lineage-24.0-arm64/runtime-transport-host-20261114-01/test.cpp:236:91: error: conversion from ‘ImageValue’ {aka ‘android::net::gta3xlwifi::NetpolicyLease::PermissionImage’} to non-scalar type ‘RI’ {aka ‘android::net::gta3xlwifi::NetpolicyLease::RuntimeImage’} requested
+  236 |  for(int absent:{0,16383}){resetRuntime();features=absent;NetpolicyLease l;RI out=sentinel();C(l.start()==0&&l.readRuntimePolicy(&out)==-EOPNOTSUPP&&gets==0&&unchanged(out)&&files.empty());}
+      |                                                                                   ~~~~~~~~^~
+/srv/android/artifacts/lineage-24.0-arm64/runtime-transport-host-20261114-01/test.cpp: At global scope:
+/srv/android/artifacts/lineage-24.0-arm64/runtime-transport-host-20261114-01/test.cpp:224:11: error: ‘RI sentinel()’ defined but not used [-Werror=unused-function]
+  224 | static RI sentinel(){RI x;x.revision=99;x.flags=66;x.confirmedForLease=true;x.legacyBlockedUids={77};return x;}
+      |           ^~~~~~~~
+cc1plus: all warnings being treated as errors

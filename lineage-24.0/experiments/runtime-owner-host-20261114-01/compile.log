@@ -1,0 +1,5 @@
+/srv/android/ports/lineage-24.0-arm64/runtime-owner24-20261114-01/Gta3xlwifiSocketPolicyProjection.cpp: In lambda function:
+/srv/android/ports/lineage-24.0-arm64/runtime-owner24-20261114-01/Gta3xlwifiSocketPolicyProjection.cpp:222:8: error: suggest explicit braces to avoid ambiguous ‘else’ [-Werror=dangling-else]
+  222 |     if (!r) for (auto i=s.runtime.legacyBlockedUids.begin();i!=s.runtime.legacyBlockedUids.end();)
+      |        ^
+cc1plus: all warnings being treated as errors

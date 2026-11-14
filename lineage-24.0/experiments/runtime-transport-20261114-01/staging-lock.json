@@ -1,0 +1,67 @@
+{
+  "scope": "Explicit real runtime GET/SET on the existing owner lease with idempotent SET recovery and mandatory readback.",
+  "prerequisites": [
+    "permission-bootstrap-20261113-01",
+    "kernel-runtime-policy-20261113-01"
+  ],
+  "patch_sha256": "814c1fcbf2b4a05534feebb926a7784cc0417bbf081283edebdb828d5153e850",
+  "files": [
+    {
+      "path": "Gta3xlwifiNetpolicyLease.cpp",
+      "before_sha256": "a61e202a7610c342f61a12fae38a953bb624b1c5fbea27b842a991a327169270",
+      "candidate_sha256": "6af0918ea72c063ff096a38740fde2d16466b7f9e697f5b24423418b48f9f360"
+    },
+    {
+      "path": "Gta3xlwifiNetpolicyLease.h",
+      "before_sha256": "b94424895d3dfbb531d1f4438993a3a25ce3b19127f8d4fe4c70fa95c2c5956b",
+      "candidate_sha256": "350829030544b19feb587f2604dd137afeb1f559be8a592dbf1d62dc9f2dba20"
+    },
+    {
+      "path": "linux/netfilter/gta3xlwifi_runtime_policy.h",
+      "before_sha256": null,
+      "candidate_sha256": "2562f685fc4d4a236732c1200a7a2c6c3671a8920392bbe62eb6952f36b18101"
+    }
+  ],
+  "dependencies_sha256": {
+    "BandwidthController.cpp": "b79b4d8c67d5f36319189db56235be125e77c9d7d9ffe4741b5ffddfabae35e2",
+    "BandwidthController.h": "0886e5d770aa66a3b3bc3a620133700f989972da63ed97d131f07c0b9629e584",
+    "Gta3xlwifiAccountingRoots.cpp": "8f13fa8f07b5a687c83cdc55cd7968009a05452fc35baa7b88c3504d00d15738",
+    "Gta3xlwifiAccountingRoots.h": "e4f9ffe64bdeb19b1c9075f1cb869334d63be124a3694a847a8ab6e10adf7857",
+    "Gta3xlwifiCheckedUidChains.cpp": "01fec53b90fe6d8527dcc1bf808db0bf0dbf82c7c1a59e73d7b04aa722b02967",
+    "Gta3xlwifiCheckedUidChains.h": "c1bd4d386c54698c15575988f3a2d7d26c2dafbdbb99780851f7be482e172e3b",
+    "Gta3xlwifiIngressPolicy.cpp": "7461f8484dada4417700b85a046d4d6e157344be476b726c7376f9af443d0454",
+    "Gta3xlwifiIngressPolicy.h": "40bbb1909b82220ee779eede5b4ce5923358519f2bfea7a46d9d4a0268a0c82b",
+    "Gta3xlwifiLocalNetworkState.cpp": "f10d18a3bd69f270161e1970c481b1cc390cca5bf7fe2c0cb9081fd002a6f333",
+    "Gta3xlwifiLocalNetworkState.h": "c4f57c2d9b4a6163f71682b3b8817d147329621b149c0be2104ac7e6b96b1ecc",
+    "Gta3xlwifiMeteredChainProgram.cpp": "187b81def0be32268ecd59c059df71b29a667864817a42d9eeae46bd356dd886",
+    "Gta3xlwifiMeteredChainProgram.h": "642872e7b45e23aeddb899f3d2b2133d5b59ff4188642e714d8366229c85f1ce",
+    "Gta3xlwifiMeteredRoots.cpp": "cac2f043da0a3b020f7249ee1198fc2d68a9ba34bb60f150d60bafa36081dcd1",
+    "Gta3xlwifiMeteredRoots.h": "ec3fd6684dda5e49d65327323a9b5bba16c33d0382c9ef498c0dcbd87bfb3bd5",
+    "Gta3xlwifiOrdinaryDispatch.cpp": "917927b0e66b78a3087e50c04e963b04813a7a4041e40dce6d9094119f9459c3",
+    "Gta3xlwifiOrdinaryDispatch.h": "6e71c153ab368713437b4b4c2ea3ee246b7f35490f94cc87d23e18f7515547c5",
+    "Gta3xlwifiPermissionBootstrap.cpp": "6f2339469319d9e476e0883c21ccbb9eb48735ecf91c97483086518b84105065",
+    "Gta3xlwifiPermissionBootstrap.h": "a0e16f3df5814baf8a626eb5a4144b86e249ca8fa6eb925b6e0645196128dd13",
+    "Gta3xlwifiSocketPolicyProjection.cpp": "be6c9c3ab8096bee6852744dd3e4c2e352047cb2dd32282dda5602ca54c95dc8",
+    "Gta3xlwifiSocketPolicyProjection.h": "7c9ec31a026501239aa7a4fa18b5308ba9db316e06843e1fba599e625035df28",
+    "Gta3xlwifiSocketRoots.cpp": "c7cf0e7c413b67ac26d2e66536b2a472b7683a9ee3eb3c3a7ac6f5ff622eb6b5",
+    "Gta3xlwifiSocketRoots.h": "a60a36a3315db218493423e80611d6c568638e0a7e5313277a35793f42205ebd",
+    "Gta3xlwifiUidChainProgram.cpp": "b8936793c49b2cc0abee3cf2e6f27c82a171a582006a956a8ab2954ff380ffee",
+    "Gta3xlwifiUidChainProgram.h": "e6bd4a71fbd289f8bdc2a917649f03fea323d136584f0dccb3acba00e49b33a8",
+    "Gta3xlwifiUidPermissionState.cpp": "cb075c44670ba172d32239ef33e164da79ba77ee6da2df045d74c55897cc84c0",
+    "Gta3xlwifiUidPermissionState.h": "2309fee4cb9938d273dd094b7fe21e5f778b7de9ee57244572cbfeb66a7b84f4",
+    "Gta3xlwifiUidPolicy.cpp": "9f98afdf5ea0750b6a1215d1ecb46250aa7c62a6fb9a84e23300f112bfd2d239",
+    "Gta3xlwifiUidPolicy.h": "254fae0c2fa1fd65e18e340149ef740b8a89fc7f4620e58ae22e0296815febb2",
+    "linux/netfilter/gta3xlwifi_iface_stats.h": "6f35482ced56487d7982956c6a48b4840f7207133d43f45338dcb634710c43f3",
+    "linux/netfilter/gta3xlwifi_ingress.h": "5d04d156089975356fedf9a870ac8737dd7ac8a1333c6f17977c9c65beaa2260",
+    "linux/netfilter/gta3xlwifi_local_network.h": "78d66f9b5c834c56d035ea108c4323c849186df3c98d3fb3a48c3de53797b7be",
+    "linux/netfilter/gta3xlwifi_loopback.h": "81c17681a2b846b98daefbbd36b609c22dc429a1aaf3c6af7b4540af6c524604",
+    "linux/netfilter/gta3xlwifi_netpolicy.h": "fd53c8c287840054ac9234efdabd88302140d95fc1488c57080de499a835d54c",
+    "linux/netfilter/gta3xlwifi_packet_stats.h": "6c74850ea0ec6294db4b1a456485eb45975b3d8bb11db08a4d578f6637209350",
+    "linux/netfilter/gta3xlwifi_socket_tables.h": "6873b2d1ce429749d447c0406354b5f5d2c1a3783ca8dfa967d43a95721052d6",
+    "linux/netfilter/gta3xlwifi_uid_permissions.h": "92d572695e88845aebb03c20474c804f56cd4c39c9b22dc01c355c0d81123945",
+    "projection-guards.inc": "09b4d36ba5c78053f1fc0713621ca40405c214016c7f5a8b69e3459587d4ba7e"
+  },
+  "android_prebuilt_promoted": false,
+  "hardware_tested": false,
+  "flash_ready": false
+}

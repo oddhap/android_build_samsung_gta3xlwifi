@@ -1,0 +1,11 @@
+PASS: 1243 locked projects, 17 exact reviewed patches; no external alternates
+STAGED: two exact runtime-image ioctls; 5918 assertion/constraint records unchanged
+Strict compiler exit: 0 ; diagnostics: {'normal': 0, 'extended': 0, 'total': 0}
+PASS: 17 real compiled-policy permission queries; no permissive domains, strict assertion report bound
+PASS: 17 actual permissions, actual device/genfs labels, eighteen exact enabled ioctls and two denied neighbors with strict compiler oracles
+STAGED: two exact runtime-image ioctls; 5881 assertion/constraint records unchanged
+Strict compiler exit: 0 ; diagnostics: {'normal': 0, 'extended': 0, 'total': 0}
+PASS: 17 real compiled-policy permission queries; no permissive domains, strict assertion report bound
+PASS: 17 actual permissions, actual device/genfs labels, eighteen exact enabled ioctls and two denied neighbors with strict compiler oracles
+PASS: 1243 locked projects, 17 exact reviewed patches; no external alternates
+Sat Nov 14 08:18:55 UTC 2026

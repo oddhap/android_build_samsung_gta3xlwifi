@@ -231,6 +231,10 @@ if 'gta3xlwifi_egress_features()' in d:
  prefix+='\nstatic u32 gta3xlwifi_egress_features(void){return 0;} /* output hooks tested separately */\n'
 if 'gta3xlwifi_packet_hooks_features()' in d:
  prefix+='\nstatic unsigned gta3xlwifi_packet_hooks_features(void){return 0;} /* compiled primitive tested separately */\n'
+runtime_header=S/'include/uapi/linux/netfilter/gta3xlwifi_runtime_policy.h'
+if runtime_header.exists():
+ exported_runtime=O/'include/linux/netfilter/gta3xlwifi_runtime_policy.h';exported_runtime.parent.mkdir(parents=True,exist_ok=True);exported_runtime.write_bytes(runtime_header.read_bytes())
+ prefix+='\n#include <linux/netfilter/gta3xlwifi_runtime_policy.h>\nstatic unsigned gta3xlwifi_runtime_features(void){return 0;}\nstatic bool gta3xlwifi_runtime_configured(void){return true;}\nstatic void gta3xlwifi_runtime_invalidate(void){}\nstatic long gta3xlwifi_runtime_ioctl(unsigned c,unsigned long a){(void)c;(void)a;assert(!"runtime primitive separately tested");return -ENOTTY;}\n'
 code='\n'.join([prefix,globals,store,functions,oracle,fixture,*tails,tests])
 for name in ['gta3xlwifi_uid_permissions.h','gta3xlwifi_netpolicy.h']:
  src=S/'include/uapi/linux/netfilter'/name;dst=O/'include/linux/netfilter'/name;dst.parent.mkdir(parents=True,exist_ok=True);dst.write_bytes(src.read_bytes());inputs +=[src,dst]

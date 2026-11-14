@@ -1,0 +1,8 @@
+neverallowx check failed at /srv/android/artifacts/lineage-24.0-arm64/runtime-policy-production-20261114-01/probes/675c/plat_sepolicy.cil:85940
+  (neverallowx netd gta3xlwifi_netpolicy_device (ioctl chr_file (0x675c)))
+    <root>
+    allowx at /srv/android/artifacts/lineage-24.0-arm64/runtime-policy-production-20261114-01/probes/675c/plat_sepolicy.cil:85934
+      (allowx netd gta3xlwifi_netpolicy_device (ioctl chr_file (0x675b 0x675c 0x675d 0x675e 0x675f)))
+
+Failed to generate binary
+Failed to build policydb

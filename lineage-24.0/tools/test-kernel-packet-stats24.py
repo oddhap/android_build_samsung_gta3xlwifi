@@ -16,13 +16,16 @@ helper=Path(__file__).with_name('test-kernel-qtaguid-socket-owned.py');spec=impo
 inc=O/'include/linux/netfilter';inc.mkdir(parents=True)
 for f in (B/'include/uapi/linux/netfilter').glob('gta3xlwifi*.h'):shutil.copyfile(f,inc/f.name)
 header=S/'include/uapi/linux/netfilter/gta3xlwifi_packet_stats.h';shutil.copyfile(header,inc/header.name)
+runtime_header=S/'include/uapi/linux/netfilter/gta3xlwifi_runtime_policy.h'
+if runtime_header.exists():shutil.copyfile(runtime_header,inc/runtime_header.name)
 module=S/'net/netfilter/gta3xlwifi_packet_stats.c';driver=S/'net/netfilter/gta3xlwifi_netpolicy.c';android=A/'packages/modules/Connectivity/bpf/progs/netd.c';at=android.read_text()
 assert 'uid_counterset_map, HASH, uint32_t, uint8_t, 20000' in at and 'app_uid_stats_map, HASH, uint32_t, StatsValue, 10000' in at
 assert re.search(r'#define STATS_MAP_SIZE 5000\b',android.with_name('netd.h').read_text())
 gso=B/'include/linux/skbuff.h';tcp=B/'net/ipv4/tcp_offload.c';assert re.search(r'unsigned short\s+gso_segs;',gso.read_text()) and 'gso_segs = NAPI_GRO_CB(skb)->count;' in tcp.read_text()
 # Existing real lease credential/file/TGID checks are not changed by dispatch.
 for name in ['netpolicy_privileged','netpolicy_open','netpolicy_drop_lease','netpolicy_flush','netpolicy_release']:
- assert m.extract(driver.read_text(),name)==m.extract((B/'net/netfilter/gta3xlwifi_netpolicy.c').read_text(),name)
+ actual=m.extract(driver.read_text(),name).replace('\t\tgta3xlwifi_runtime_invalidate();\n','')
+ assert actual==m.extract((B/'net/netfilter/gta3xlwifi_netpolicy.c').read_text(),name)
 code=r'''
 #include <assert.h>
 #include <stdbool.h>
@@ -89,7 +92,7 @@ static long gta3xlwifi_iface_stats_ioctl(unsigned c,unsigned long a){(void)c;(vo
 static long gta3xlwifi_loopback_ioctl(unsigned c,unsigned long a){(void)c;(void)a;assert(!"unrelated loopback fixture");return -ENOTTY;}
 static long gta3xlwifi_lna_ioctl(unsigned c,unsigned long a){(void)c;(void)a;assert(!"unrelated LNA fixture");return -ENOTTY;}
 static long gta3xlwifi_uid_permissions_ioctl(unsigned c,unsigned long a){(void)c;(void)a;assert(!"unrelated permissions fixture");return -ENOTTY;}
-'''+m.extract(driver.read_text(),'netpolicy_image_ioctl')+r'''
+'''+('#include <linux/netfilter/gta3xlwifi_runtime_policy.h>\nstatic u32 gta3xlwifi_runtime_features(void){return 0;}\nstatic long gta3xlwifi_runtime_ioctl(unsigned c,unsigned long a){(void)c;(void)a;assert(!"scoped packet fixture entered runtime image");return -ENOTTY;}\n' if runtime_header.exists() else '')+m.extract(driver.read_text(),'netpolicy_image_ioctl')+r'''
 #define function static
 #define KVER_IS_AT_LEAST(k,a,b) ((k).version>=(((a)<<16)|((b)<<8)))
 #define BPF_NOEXIST 1

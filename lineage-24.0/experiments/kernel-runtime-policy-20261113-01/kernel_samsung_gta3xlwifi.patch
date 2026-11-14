@@ -1,0 +1,291 @@
+--- a/net/netfilter/Makefile
++++ b/net/netfilter/Makefile
+@@ -203,3 +203,4 @@
+ obj-$(CONFIG_NETFILTER_XT_MATCH_QTAGUID) += gta3xlwifi_ingress.o
+ obj-$(CONFIG_NETFILTER_XT_MATCH_QTAGUID) += gta3xlwifi_iface_stats.o
+ obj-$(CONFIG_NETFILTER_XT_MATCH_QTAGUID) += gta3xlwifi_packet_stats.o
++obj-$(CONFIG_NETFILTER_XT_MATCH_QTAGUID) += gta3xlwifi_runtime_policy.o
+--- a/net/netfilter/gta3xlwifi_netpolicy.c
++++ b/net/netfilter/gta3xlwifi_netpolicy.c
+@@ -27,6 +27,7 @@
+ #include <net/gta3xlwifi_loopback.h>
+ #include <net/gta3xlwifi_iface_stats.h>
+ #include <net/gta3xlwifi_packet_stats.h>
++#include <net/gta3xlwifi_runtime_policy.h>
+ #include <uapi/linux/netfilter/gta3xlwifi_loopback.h>
+ 
+ static DEFINE_MUTEX(netpolicy_lock);
+@@ -85,6 +86,7 @@
+ 		WRITE_ONCE(netpolicy_held, true);
+ 		netpolicy_owner_file = file;
+ 		netpolicy_owner_pid = get_pid(task_tgid(current));
++		gta3xlwifi_runtime_invalidate();
+ 		/* Drain any packet that entered before the lease was held. */
+ 		synchronize_net();
+ 	}
+@@ -100,6 +102,7 @@
+ 		WRITE_ONCE(netpolicy_held, true);
+ 		/* Closing/exit must finish holding before the close completes. */
+ 		synchronize_net();
++		gta3xlwifi_runtime_invalidate();
+ 		netpolicy_owner_file = NULL;
+ 		put_pid(netpolicy_owner_pid);
+ 		netpolicy_owner_pid = NULL;
+@@ -131,7 +134,7 @@
+ 	long ret;
+ 	if (cmd != GTA3XLWIFI_UID_FEATURES && cmd != GTA3XLWIFI_UID_SET_IMAGE &&
+ 	    cmd != GTA3XLWIFI_UID_GET_IMAGE && cmd != GTA3XLWIFI_LNA_SET_IMAGE &&
+-	    cmd != GTA3XLWIFI_LNA_GET_IMAGE && cmd != GTA3XLWIFI_LOOPBACK_GET_EVENTS && cmd != GTA3XLWIFI_IFACE_STATS_GET && cmd != GTA3XLWIFI_STATS_GET_STATE && cmd != GTA3XLWIFI_STATS_READ && cmd != GTA3XLWIFI_STATS_SWAP && cmd != GTA3XLWIFI_STATS_ACK && cmd != GTA3XLWIFI_STATS_EDIT)
++	    cmd != GTA3XLWIFI_LNA_GET_IMAGE && cmd != GTA3XLWIFI_LOOPBACK_GET_EVENTS && cmd != GTA3XLWIFI_IFACE_STATS_GET && cmd != GTA3XLWIFI_STATS_GET_STATE && cmd != GTA3XLWIFI_STATS_READ && cmd != GTA3XLWIFI_STATS_SWAP && cmd != GTA3XLWIFI_STATS_ACK && cmd != GTA3XLWIFI_STATS_EDIT && cmd != GTA3XLWIFI_RUNTIME_GET && cmd != GTA3XLWIFI_RUNTIME_SET)
+ 		return -ENOTTY;
+ 	if (cmd == GTA3XLWIFI_UID_FEATURES && arg)
+ 		return -EINVAL;
+@@ -148,10 +151,12 @@
+ 	else if (cmd == GTA3XLWIFI_UID_FEATURES)
+ 		ret = gta3xlwifi_uid_permissions_features() | GTA3XLWIFI_UID_CAP_LNA_STORE |
+ 		      gta3xlwifi_lna_packet_features() | gta3xlwifi_receive_features() | gta3xlwifi_egress_features() | gta3xlwifi_loopback_features() |
+-		      gta3xlwifi_socket_tables_features() | gta3xlwifi_iface_stats_features() | gta3xlwifi_packet_stats_features() | gta3xlwifi_packet_hooks_features();
+-	else if ((cmd == GTA3XLWIFI_UID_SET_IMAGE || cmd == GTA3XLWIFI_LNA_SET_IMAGE) &&
++		      gta3xlwifi_socket_tables_features() | gta3xlwifi_iface_stats_features() | gta3xlwifi_packet_stats_features() | gta3xlwifi_packet_hooks_features() | gta3xlwifi_runtime_features();
++	else if ((cmd == GTA3XLWIFI_UID_SET_IMAGE || cmd == GTA3XLWIFI_LNA_SET_IMAGE || cmd == GTA3XLWIFI_RUNTIME_SET) &&
+ 	         !READ_ONCE(netpolicy_held))
+ 		ret = -EBUSY;
++	else if (cmd == GTA3XLWIFI_RUNTIME_GET || cmd == GTA3XLWIFI_RUNTIME_SET)
++		ret = gta3xlwifi_runtime_ioctl(cmd, arg);
+ 	else if (cmd == GTA3XLWIFI_STATS_GET_STATE || cmd == GTA3XLWIFI_STATS_READ || cmd == GTA3XLWIFI_STATS_SWAP || cmd == GTA3XLWIFI_STATS_ACK || cmd == GTA3XLWIFI_STATS_EDIT)
+ 		ret = gta3xlwifi_packet_stats_ioctl(cmd, arg);
+ 	else if (cmd == GTA3XLWIFI_IFACE_STATS_GET)
+@@ -173,7 +178,7 @@
+ 
+ 	if (cmd == GTA3XLWIFI_UID_FEATURES || cmd == GTA3XLWIFI_UID_SET_IMAGE ||
+ 	    cmd == GTA3XLWIFI_UID_GET_IMAGE || cmd == GTA3XLWIFI_LNA_SET_IMAGE ||
+-	    cmd == GTA3XLWIFI_LNA_GET_IMAGE || cmd == GTA3XLWIFI_LOOPBACK_GET_EVENTS || cmd == GTA3XLWIFI_IFACE_STATS_GET || cmd == GTA3XLWIFI_STATS_GET_STATE || cmd == GTA3XLWIFI_STATS_READ || cmd == GTA3XLWIFI_STATS_SWAP || cmd == GTA3XLWIFI_STATS_ACK || cmd == GTA3XLWIFI_STATS_EDIT)
++	    cmd == GTA3XLWIFI_LNA_GET_IMAGE || cmd == GTA3XLWIFI_LOOPBACK_GET_EVENTS || cmd == GTA3XLWIFI_IFACE_STATS_GET || cmd == GTA3XLWIFI_STATS_GET_STATE || cmd == GTA3XLWIFI_STATS_READ || cmd == GTA3XLWIFI_STATS_SWAP || cmd == GTA3XLWIFI_STATS_ACK || cmd == GTA3XLWIFI_STATS_EDIT || cmd == GTA3XLWIFI_RUNTIME_GET || cmd == GTA3XLWIFI_RUNTIME_SET)
+ 		return netpolicy_image_ioctl(file, cmd, arg);
+ 	if (cmd != GTA3XLWIFI_NETPOLICY_ABI &&
+ 	    cmd != GTA3XLWIFI_NETPOLICY_HOLD &&
+@@ -197,6 +202,8 @@
+ 	} else if (cmd == GTA3XLWIFI_NETPOLICY_HOLD) {
+ 		WRITE_ONCE(netpolicy_held, true);
+ 		synchronize_net();
++	} else if (!gta3xlwifi_runtime_configured()) {
++		ret = -EAGAIN;
+ 	} else if (READ_ONCE(netpolicy_held)) {
+ 		/* A packet may have fetched the old filter table before HOLD.
+ 		 * Drain all such readers while closed before either family opens. */
+--- a/net/netfilter/gta3xlwifi_local_network.c
++++ b/net/netfilter/gta3xlwifi_local_network.c
+@@ -11,6 +11,7 @@
+ #include <uapi/linux/netfilter/gta3xlwifi_local_network.h>
+ #include <net/gta3xlwifi_local_network.h>
+ #include <net/gta3xlwifi_uid_permissions.h>
++#include <net/gta3xlwifi_runtime_policy.h>
+ 
+ #define LNA_NONE (-1)
+ struct lna_node {
+@@ -255,8 +256,8 @@
+     const struct lna_image *image;
+     u8 network_key[24], host_key[24];
+     bool value = false, blocked = false;
+-    /* Exact migrated A17 exemption: literal0/1000, NOT appId/core range. */
+-    if (uid == 0 || uid == 1000 || (gta3xlwifi_uid_permissions(uid) & 1U))
++    /* Actual selected A17 propagation/legacy-blocked-UID predicate. */
++    if (!gta3xlwifi_runtime_lna_needs_check(uid))
+         return false;
+     if (!remote)
+         return true; /* Invalid internal caller must not turn denial into success. */
+--- a/net/netfilter/gta3xlwifi_loopback.c
++++ b/net/netfilter/gta3xlwifi_loopback.c
+@@ -14,6 +14,7 @@
+ #include <net/gta3xlwifi_packet.h>
+ #include <net/gta3xlwifi_socket_peer.h>
+ #include <net/gta3xlwifi_uid_permissions.h>
++#include <net/gta3xlwifi_runtime_policy.h>
+ #include <uapi/linux/netfilter/gta3xlwifi_loopback.h>
+ #define LOOPBACK_CACHE_SIZE 100U
+ #define LOOPBACK_REPORT_NS (60ULL * 1000ULL * 1000ULL * 1000ULL)
+@@ -105,6 +106,9 @@
+     struct gta3xlwifi_socket_peer_tuple tuple = {};
+     u32 receiver;
+     bool allowed;
++    u32 flags = gta3xlwifi_runtime_loopback_flags();
++    if (!flags)
++        return false;
+     if (!net || !packet || ifindex != 1 ||
+         (packet->ip_proto != IPPROTO_TCP && packet->ip_proto != IPPROTO_UDP) ||
+         (packet->ip_proto == IPPROTO_TCP && !(packet->tcp_flags & 0x02)))
+@@ -128,8 +132,10 @@
+      */
+     if (!gta3xlwifi_socket_peer_uid(net, ifindex, &tuple, &receiver) || sender == receiver)
+         return false;
+-    allowed = loopback_permissions(sender, receiver);
+-    loopback_emit(sender, receiver, allowed);
++    allowed = !(flags & GTA3XLWIFI_RUNTIME_LOOPBACK_CHECKS) ||
++              loopback_permissions(sender, receiver);
++    if (flags & GTA3XLWIFI_RUNTIME_LOOPBACK_METRICS)
++        loopback_emit(sender, receiver, allowed);
+     return !allowed;
+ }
+ long gta3xlwifi_loopback_ioctl(unsigned int cmd, unsigned long arg)
+--- /dev/null
++++ b/include/uapi/linux/netfilter/gta3xlwifi_runtime_policy.h
+@@ -0,0 +1,28 @@
++/* SPDX-License-Identifier: GPL-2.0 WITH Linux-syscall-note */
++#ifndef _UAPI_GTA3XLWIFI_RUNTIME_POLICY_H
++#define _UAPI_GTA3XLWIFI_RUNTIME_POLICY_H
++#include <linux/types.h>
++#include <linux/ioctl.h>
++#define GTA3XLWIFI_RUNTIME_VERSION 1U
++#define GTA3XLWIFI_RUNTIME_MAX_BLOCKED_UIDS 1000U
++#define GTA3XLWIFI_RUNTIME_LOOPBACK_CHECKS 1U
++#define GTA3XLWIFI_RUNTIME_LOOPBACK_METRICS 2U
++#define GTA3XLWIFI_RUNTIME_PERMISSION_PROPAGATION 4U
++#define GTA3XLWIFI_RUNTIME_FLAG_MASK 7U
++#define GTA3XLWIFI_RUNTIME_CONFIGURED 1U
++#define GTA3XLWIFI_UID_CAP_RUNTIME_POLICY (1U << 14)
++/* Entries are sorted unique u32 UIDs with true legacy local-net blocking.
++ * False/absent map values are equivalent for this A17 predicate.
++ * GET input flags/status must0; count0+entries0 queries metadata. Data requires
++ * matching nonzero revision. Revision0 is uninitialized, never configured-off.
++ * SET status must0; revision is next current+1, or exact idempotent receipt.
++ * A successful SET confirms configuration for THIS lease. Open/close invalidates
++ * that confirmation while preserving real image metadata for explicit recovery.
++ */
++struct gta3xlwifi_runtime_transfer {
++    __u32 version, count, flags, status;
++    __aligned_u64 revision, entries;
++};
++#define GTA3XLWIFI_RUNTIME_GET _IOWR('g',0x60,struct gta3xlwifi_runtime_transfer)
++#define GTA3XLWIFI_RUNTIME_SET _IOW('g',0x61,struct gta3xlwifi_runtime_transfer)
++#endif
+--- /dev/null
++++ b/include/net/gta3xlwifi_runtime_policy.h
+@@ -0,0 +1,12 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++#ifndef _NET_GTA3XLWIFI_RUNTIME_POLICY_H
++#define _NET_GTA3XLWIFI_RUNTIME_POLICY_H
++#include <linux/types.h>
++#include <uapi/linux/netfilter/gta3xlwifi_runtime_policy.h>
++u32 gta3xlwifi_runtime_features(void);
++u32 gta3xlwifi_runtime_loopback_flags(void);
++bool gta3xlwifi_runtime_lna_needs_check(u32 uid);
++bool gta3xlwifi_runtime_configured(void);
++void gta3xlwifi_runtime_invalidate(void);
++long gta3xlwifi_runtime_ioctl(unsigned int cmd,unsigned long arg);
++#endif
+--- /dev/null
++++ b/net/netfilter/gta3xlwifi_runtime_policy.c
+@@ -0,0 +1,113 @@
++// SPDX-License-Identifier: GPL-2.0
++/* Real leased A17 runtime selection and canonical legacy blocked UID image.
++ * No BPF objects, automatic feature disabling or global readiness declaration.
++ */
++#include <linux/errno.h>
++#include <linux/kernel.h>
++#include <linux/module.h>
++#include <linux/rcupdate.h>
++#include <linux/string.h>
++#include <linux/uaccess.h>
++#include <linux/vmalloc.h>
++#include <net/gta3xlwifi_uid_permissions.h>
++#include <net/gta3xlwifi_runtime_policy.h>
++struct runtime_image { u64 revision;u32 flags,count;u32 uids[]; };
++static struct runtime_image __rcu *runtime_current;
++static bool runtime_lease_configured;
++u32 gta3xlwifi_runtime_features(void)
++{
++#if defined(CONFIG_INET) && defined(CONFIG_IPV6)
++    return GTA3XLWIFI_UID_CAP_RUNTIME_POLICY;
++#else
++    return 0;
++#endif
++}
++EXPORT_SYMBOL_GPL(gta3xlwifi_runtime_features);
++bool gta3xlwifi_runtime_configured(void) { return READ_ONCE(runtime_lease_configured); }
++EXPORT_SYMBOL_GPL(gta3xlwifi_runtime_configured);
++void gta3xlwifi_runtime_invalidate(void) { WRITE_ONCE(runtime_lease_configured,false); }
++EXPORT_SYMBOL_GPL(gta3xlwifi_runtime_invalidate);
++static bool runtime_contains(const struct runtime_image *image,u32 uid)
++{
++    u32 low=0,high=image?image->count:0;
++    while(low<high){u32 middle=low+(high-low)/2;
++        if(image->uids[middle]==uid)return true;
++        if(image->uids[middle]<uid)low=middle+1;else high=middle;
++    }
++    return false;
++}
++u32 gta3xlwifi_runtime_loopback_flags(void)
++{
++    const struct runtime_image *image;u32 flags;
++    rcu_read_lock();image=rcu_dereference(runtime_current);
++    /* Unconfigured traffic cannot be released. Preserve the original guarded
++     * enabled/enabled primitive for direct callers until an explicit SET.
++     */
++    flags=image?image->flags:GTA3XLWIFI_RUNTIME_FLAG_MASK;
++    rcu_read_unlock();return flags&3U;
++}
++EXPORT_SYMBOL_GPL(gta3xlwifi_runtime_loopback_flags);
++bool gta3xlwifi_runtime_lna_needs_check(u32 uid)
++{
++    const struct runtime_image *image;bool result;u32 flags;
++    rcu_read_lock();image=rcu_dereference(runtime_current);
++    flags=image?image->flags:GTA3XLWIFI_RUNTIME_FLAG_MASK;
++    if(flags&GTA3XLWIFI_RUNTIME_PERMISSION_PROPAGATION)
++        result=uid!=0&&uid!=1000&&!(gta3xlwifi_uid_permissions(uid)&1U);
++    else result=uid%100000U>=10000U&&runtime_contains(image,uid);
++    rcu_read_unlock();return result;
++}
++EXPORT_SYMBOL_GPL(gta3xlwifi_runtime_lna_needs_check);
++static long runtime_set(const struct gta3xlwifi_runtime_transfer *t)
++{
++    struct runtime_image *next,*old;u64 previous;u32 i;long result=0;
++    size_t bytes=t->count*sizeof(u32);
++    if(!t->revision)return -EINVAL;
++    next=vzalloc(sizeof(*next)+bytes);if(!next)return -ENOMEM;
++    next->revision=t->revision;next->flags=t->flags;next->count=t->count;
++    if(bytes&&copy_from_user(next->uids,(void __user *)(unsigned long)t->entries,bytes)){result=-EFAULT;goto fail;}
++    for(i=0;i<next->count;++i)if(next->uids[i]>0x7fffffffU||(i&&next->uids[i-1]>=next->uids[i])){result=-EINVAL;goto fail;}
++    old=rcu_dereference_protected(runtime_current,1); /* authenticated owner mutex */
++    previous=old?old->revision:0;
++    if(old&&next->revision==previous&&next->flags==old->flags&&next->count==old->count&&
++       !memcmp(next->uids,old->uids,bytes)){
++        WRITE_ONCE(runtime_lease_configured,true);goto fail;
++    }
++    if(previous==~(u64)0){result=-EOVERFLOW;goto fail;}
++    if(next->revision!=previous+1){result=-ESTALE;goto fail;}
++    rcu_assign_pointer(runtime_current,next);synchronize_rcu();vfree(old);
++    WRITE_ONCE(runtime_lease_configured,true);
++    return 0; /* No fallible acknowledgement copy after real publication. */
++fail:
++    vfree(next);return result;
++}
++static long runtime_get(struct gta3xlwifi_runtime_transfer *t,void __user *argument)
++{
++    const struct runtime_image *image=rcu_dereference_protected(runtime_current,1);
++    u32 capacity=t->count;u64 expected=t->revision;
++    t->revision=image?image->revision:0;t->flags=image?image->flags:0;
++    t->count=image?image->count:0;
++    t->status=gta3xlwifi_runtime_configured()?GTA3XLWIFI_RUNTIME_CONFIGURED:0;
++    if(capacity){
++        if(!expected||expected!=t->revision)return -ESTALE;
++        if(capacity<t->count){if(copy_to_user(argument,t,sizeof(*t)))return -EFAULT;return -ENOSPC;}
++        if(image&&image->count&&copy_to_user((void __user *)(unsigned long)t->entries,image->uids,image->count*sizeof(u32)))return -EFAULT;
++    }
++    return copy_to_user(argument,t,sizeof(*t))?-EFAULT:0;
++}
++long gta3xlwifi_runtime_ioctl(unsigned int cmd,unsigned long arg)
++{
++    struct gta3xlwifi_runtime_transfer t;void __user *argument=(void __user *)arg;
++    BUILD_BUG_ON(sizeof(t)!=32);
++    if(cmd!=GTA3XLWIFI_RUNTIME_GET&&cmd!=GTA3XLWIFI_RUNTIME_SET)return -ENOTTY;
++    if(!arg||copy_from_user(&t,argument,sizeof(t)))return -EFAULT;
++    if(t.version!=GTA3XLWIFI_RUNTIME_VERSION||t.count>GTA3XLWIFI_RUNTIME_MAX_BLOCKED_UIDS||
++       (!!t.count!=!!t.entries)||t.status||(t.flags&~GTA3XLWIFI_RUNTIME_FLAG_MASK))return -EINVAL;
++    if(!gta3xlwifi_runtime_features())return -EOPNOTSUPP;
++    if(cmd==GTA3XLWIFI_RUNTIME_SET)return runtime_set(&t);
++    if(t.flags)return -EINVAL;
++    return runtime_get(&t,argument);
++}
++EXPORT_SYMBOL_GPL(gta3xlwifi_runtime_ioctl);
++MODULE_LICENSE("GPL");
++MODULE_DESCRIPTION("Explicit A17 runtime loopback and migrated/legacy LNA modes under owner lease");

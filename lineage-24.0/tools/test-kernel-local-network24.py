@@ -172,6 +172,11 @@ int main(void){
 '''
 if 'gta3xlwifi_packet_hooks_features()' in d:
  prefix+='\nstatic unsigned gta3xlwifi_packet_hooks_features(void){return 0;} /* compiled primitive tested separately */\n'
+runtime_header=S/'include/uapi/linux/netfilter/gta3xlwifi_runtime_policy.h'
+if runtime_header.exists():
+ exported_runtime=O/'include/linux/netfilter/gta3xlwifi_runtime_policy.h';exported_runtime.parent.mkdir(parents=True,exist_ok=True);exported_runtime.write_bytes(runtime_header.read_bytes())
+ prefix+='\n#include <linux/netfilter/gta3xlwifi_runtime_policy.h>\nstatic unsigned gta3xlwifi_runtime_features(void){return 0;}\nstatic bool gta3xlwifi_runtime_configured(void){return true;}\nstatic void gta3xlwifi_runtime_invalidate(void){}\nstatic long gta3xlwifi_runtime_ioctl(unsigned c,unsigned long a){(void)c;(void)a;assert(!"runtime primitive separately tested");return -ENOTTY;}\n'
+ prefix+='u32 gta3xlwifi_uid_permissions(u32);\nstatic bool gta3xlwifi_runtime_lna_needs_check(u32 uid){return uid!=0&&uid!=1000&&!(gta3xlwifi_uid_permissions(uid)&1U);} /* migrated mode scoped fixture */\n'
 code='\n'.join([prefix,globals,store,functions,oracle,tests]);(O/'test.c').write_text(code);inputs=[Path(__file__),helper,legacy,image,driver,uid,reference,rh]
 for root,name in [(U,'gta3xlwifi_uid_permissions.h'),(U,'gta3xlwifi_netpolicy.h'),(S,'gta3xlwifi_local_network.h')]:
  src=root/'include/uapi/linux/netfilter'/name;dst=O/'include/linux/netfilter'/name;dst.parent.mkdir(parents=True,exist_ok=True);dst.write_bytes(src.read_bytes());inputs +=[src,dst]

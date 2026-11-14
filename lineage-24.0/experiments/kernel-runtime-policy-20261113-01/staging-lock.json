@@ -1,0 +1,57 @@
+{
+  "scope": "Explicit real loopback checks/metrics and propagation/legacy LNA runtime image under owner lease, not global Ready.",
+  "prerequisites": [
+    "kernel-packet-capability-20261113-01"
+  ],
+  "patch_sha256": "4d524a07a884a7d18683c81d418e4f8c4f97d3e9113372dc57c853aa5b9547ed",
+  "files": [
+    {
+      "path": "net/netfilter/Makefile",
+      "before_sha256": "fa804801a9fa5c42d78f59b3748d888d46ce970f7ee17e981d96207b64e77ab0",
+      "candidate_sha256": "e939c2501af2296bf2ceb47349c734a05fad959a7f3051c8603d6a274a11f111"
+    },
+    {
+      "path": "net/netfilter/gta3xlwifi_netpolicy.c",
+      "before_sha256": "40d42c689d11fa9b73469a14fe6c253b4ee025673adb95bc17a20b6dfe40eea4",
+      "candidate_sha256": "c4c4a9738b3d156fccc70c62369878070ba88b62b87a011e799a279bdd98ba4f"
+    },
+    {
+      "path": "net/netfilter/gta3xlwifi_local_network.c",
+      "before_sha256": "745d700dbd23727e8b66b6c56bd9ecc1d7854575d444dfdd47963698564f36ce",
+      "candidate_sha256": "946806d5140c640b850eb93bdb30a8e63b48630b5c9dd9c99cb848bf8e68077f"
+    },
+    {
+      "path": "net/netfilter/gta3xlwifi_loopback.c",
+      "before_sha256": "4d1c293adfbc9d28f75484a95e426559437b4ea63d705d6a1b64f80a31578f02",
+      "candidate_sha256": "c22b0c7d91fc5b19229c9f37d95cc862cf1bd0ead9c645499d665fd74e204ef6"
+    },
+    {
+      "path": "include/uapi/linux/netfilter/gta3xlwifi_runtime_policy.h",
+      "before_sha256": null,
+      "candidate_sha256": "2562f685fc4d4a236732c1200a7a2c6c3671a8920392bbe62eb6952f36b18101"
+    },
+    {
+      "path": "include/net/gta3xlwifi_runtime_policy.h",
+      "before_sha256": null,
+      "candidate_sha256": "f254a52bc487bb35b8e93f2a5713101c3cb68f081edabd6b8f665388fe5ae384"
+    },
+    {
+      "path": "net/netfilter/gta3xlwifi_runtime_policy.c",
+      "before_sha256": null,
+      "candidate_sha256": "7dc7ddea73da4c5cf1f7608e423dfae7e02e7ad84eaa68eef0c9cf0a268c143b"
+    }
+  ],
+  "supported_runtime_capability_bits": [
+    0,
+    1,
+    2,
+    3,
+    5,
+    9,
+    12
+  ],
+  "unknown_active_capabilities_rejected": true,
+  "android_prebuilt_promoted": false,
+  "hardware_tested": false,
+  "flash_ready": false
+}

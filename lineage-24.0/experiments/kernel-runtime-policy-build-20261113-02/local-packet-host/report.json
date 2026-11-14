@@ -1,0 +1,40 @@
+{
+  "passed": true,
+  "scope": "Actual private packet parser/raw UID/LNA match against actual A17 packet parsing.\n\nskb loading, routes, credentials, socket identity, LNA decision and registration\nare fixtures. Checks full40-byte parsed value, real normalized UID/remote endpoint/\ncurrent device dispatch and honest registration features. No packet/hook runtime.\n",
+  "passed_cases": 17,
+  "parser_comparisons": 2887305,
+  "endpoint_dispatches": 5774610,
+  "command": [
+    "cc",
+    "-std=gnu11",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-Wno-unused-parameter",
+    "-O1",
+    "-g",
+    "-fsanitize=undefined",
+    "-fno-sanitize-recover=all",
+    "-I/srv/android/artifacts/lineage-24.0-arm64/kernel-runtime-policy-build-20261113-02/local-packet-host/include",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-runtime-policy-build-20261113-02/local-packet-host/test.c",
+    "-o",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-runtime-policy-build-20261113-02/local-packet-host/test"
+  ],
+  "inputs_sha256": {
+    "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/test-kernel-local-packet24.py": "ea6b67b4d7857249bce1265d8455d2045d19dc9373fe3c37c0b0660bf834ab92",
+    "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/test-kernel-qtaguid-socket-owned.py": "59516300b405af46c972b264353c3766b5c18cf882b04ac8ba9db6f70f436459",
+    "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/test-kernel-non-loopback-route24.py": "8ba5f8a14774f1bed265d8cbe8a9dbe7f7803f41f90c76444d9ba15889bb4ded",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-runtime-policy-20261113-02/src/net/netfilter/gta3xlwifi_packet.c": "54f8c9380210d21e1df5bfa562a4090ff7ba4fbfe6edab9854ddf390947327a9",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-runtime-policy-20261113-02/src/net/netfilter/xt_qtaguid.c": "54f363931d7929ff68cf6796cea4a47664e9268f36663734a94b6a0fedb84d6d",
+    "/srv/android/src/lineage-24.0-arm64/packages/modules/Connectivity/bpf/progs/netd.c": "7dc4fa02952c0268737dc9aad20a0571b55df255f878506a4db91c1d962713b6",
+    "/srv/android/src/lineage-24.0-arm64/packages/modules/Connectivity/bpf/progs/netd.h": "ae85473717243924c609f8d963d03bc2631adbba8833ae527bf611291f38ca1a",
+    "/srv/android/src/lineage-24.0-arm64/packages/modules/Connectivity/bpf/progs/bpf_net_helpers.h": "5fe981bdd5542a892c2c5cb4c3fcc968b10a93849d51699d991ea530372cbbc2",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-runtime-policy-20261113-02/src/include/net/gta3xlwifi_packet.h": "1bbf75c17eb0c7d5312a8542ecc55da1b444cd78a524f826fe030287c7b1d769",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-runtime-policy-build-20261113-02/local-packet-host/include/net/gta3xlwifi_packet.h": "1bbf75c17eb0c7d5312a8542ecc55da1b444cd78a524f826fe030287c7b1d769",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-runtime-policy-20261113-02/src/include/uapi/linux/netfilter/gta3xlwifi_local_network.h": "78d66f9b5c834c56d035ea108c4323c849186df3c98d3fb3a48c3de53797b7be",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-runtime-policy-build-20261113-02/local-packet-host/include/linux/netfilter/gta3xlwifi_local_network.h": "78d66f9b5c834c56d035ea108c4323c849186df3c98d3fb3a48c3de53797b7be",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-runtime-policy-build-20261113-02/local-packet-host/test.c": "5d32515555ded43bbf8df52ee79fe358ec901282b59d0c7f80df31bcda4a86a1"
+  },
+  "kernel_runtime_tested": false,
+  "flash_ready": false
+}

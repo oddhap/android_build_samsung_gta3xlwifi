@@ -1,0 +1,18 @@
+/srv/android/artifacts/lineage-24.0-arm64/kernel-runtime-policy-build-20261113-01/loopback-host/test.c:3:8: error: unknown type name ‘bool’
+    3 | static bool gta3xlwifi_runtime_configured(void){return true;}
+      |        ^~~~
+/srv/android/artifacts/lineage-24.0-arm64/kernel-runtime-policy-build-20261113-01/loopback-host/test.c: In function ‘gta3xlwifi_runtime_configured’:
+/srv/android/artifacts/lineage-24.0-arm64/kernel-runtime-policy-build-20261113-01/loopback-host/test.c:3:56: error: ‘true’ undeclared (first use in this function)
+    3 | static bool gta3xlwifi_runtime_configured(void){return true;}
+      |                                                        ^~~~
+/srv/android/artifacts/lineage-24.0-arm64/kernel-runtime-policy-build-20261113-01/loopback-host/test.c:2:1: note: ‘true’ is defined in header ‘<stdbool.h>’; did you forget to ‘#include <stdbool.h>’?
+    1 | #include <linux/netfilter/gta3xlwifi_runtime_policy.h>
+  +++ |+#include <stdbool.h>
+    2 | static unsigned gta3xlwifi_runtime_features(void){return 0;}
+/srv/android/artifacts/lineage-24.0-arm64/kernel-runtime-policy-build-20261113-01/loopback-host/test.c:3:56: note: each undeclared identifier is reported only once for each function it appears in
+    3 | static bool gta3xlwifi_runtime_configured(void){return true;}
+      |                                                        ^~~~
+/srv/android/artifacts/lineage-24.0-arm64/kernel-runtime-policy-build-20261113-01/loopback-host/test.c:3:61: error: control reaches end of non-void function [-Werror=return-type]
+    3 | static bool gta3xlwifi_runtime_configured(void){return true;}
+      |                                                             ^
+cc1: all warnings being treated as errors
