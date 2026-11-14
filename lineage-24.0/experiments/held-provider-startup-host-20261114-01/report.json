@@ -1,0 +1,35 @@
+{
+  "passed": true,
+  "scope": "Actual held-provider adapter and main startup fragment with boundary fixtures.\n\nController/transport/library/Netlink dependencies are fixtures. Main/DNS/oneshot\nsource outside explicit initialization changes remains identical to the baseline.\n",
+  "passed_cases": 21,
+  "original_main_DNS_oneshot_outside_initialization_unchanged": true,
+  "actual_private_init_before_Netlink_and_Binder": true,
+  "failed_init_closes_transport_and_owner": true,
+  "inputs_sha256": {
+    "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/test-held-provider-startup24.py": "c4fb6adc4acf6b25c9976d45bbacab73d15f78f41f5b70a58ff24ca6c00a4632",
+    "/srv/android/artifacts/lineage-24.0-arm64/held-provider-startup-host-20261114-01/test.cpp": "743542fded717a783badad511f8f15891e60355aef04d17d3c8567f30a004dd6",
+    "/srv/android/ports/lineage-24.0-arm64/held-provider24-20261114-01/main.cpp": "bf497381c7ece57d0df5092f7193e52221be6e2565a308ab471dc2dfa4cfeccf",
+    "/srv/android/ports/lineage-24.0-arm64/held-provider24-20261114-01/main.cpp.reference": "8eb0beb43bc035a45dc5bbc89af188374127c7e31c31c207ad7bee5d80801222",
+    "/srv/android/ports/lineage-24.0-arm64/held-provider24-20261114-01/Gta3xlwifiHeldProvider.cpp": "f8b66abbc9fa22db14cc350618733f1486296002d5f8710ae92bd65337e3e209",
+    "/srv/android/ports/lineage-24.0-arm64/held-provider24-20261114-01/Gta3xlwifiHeldProvider.h": "dd0cf415c7afcc5a0b4b44182f0825a71ef6c6ab011ba1caa99fe2219a37261d",
+    "/srv/android/ports/lineage-24.0-arm64/held-provider24-20261114-01/NetdUpdatablePublic.h": "c78caf54cedf724e57a0df83629b4c04549490f51f32bd9e482358969e1e492d"
+  },
+  "command": [
+    "c++",
+    "-std=c++20",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-O1",
+    "-g",
+    "-fsanitize=undefined",
+    "-fno-sanitize-recover=all",
+    "-I/srv/android/ports/lineage-24.0-arm64/held-provider24-20261114-01",
+    "/srv/android/artifacts/lineage-24.0-arm64/held-provider-startup-host-20261114-01/test.cpp",
+    "-o",
+    "/srv/android/artifacts/lineage-24.0-arm64/held-provider-startup-host-20261114-01/test"
+  ],
+  "stderr": "",
+  "hardware_tested": false,
+  "flash_ready": false
+}

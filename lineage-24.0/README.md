@@ -32,6 +32,36 @@ checks are separate from Android execution. Optional GPU BPF accounting still
 reports unavailable, rather than invented counters. Existing safety/installer
 and strict SELinux checks remain enforced.
 
+## Atomic tagging and held mainline provider — November 14
+
+The isolated native stack now performs tagging permission checks, real active
+statistics budgets and transport I/O under the sole owner's transaction mutex.
+It matches A17's canonical-UID UpdateDeviceStats logic, core/DNS exemptions and
+CLAT prohibition. The real qtaguid transport closes on passive/inaccessible mode
+and requires explicit recovery. App input/ordinary command errors preserve the
+publication; session loss or protocol errors close the owner and hold traffic.
+
+An explicit private libnetd_updatable entry point validates and publishes immutable
+callbacks only after genuine held-owner/tag-session initialization. All three old
+C APIs/default BPF behavior remain. The private main path verifies Controllers
+and this provider before listeners start. It publishes no BPF objects or networking
+Ready signal; complete framework policy is still required to release traffic.
+
+All23,026 owner assertions,2,339 socket/FD transport assertions,29 registration
+cases with6,400 concurrent callbacks and21 startup/cleanup cases pass. Actual18
+server CFI sources plus new main and minSDK31 library dispatch compile; complete
+netd and provider DSO link with unchanged dynamic dependencies and append-only C
+exports. Actual ARM32/64 callback/wire checks and full1,243-project/17-patch audits
+pass. Current strict production/debug policies each pass22 permissions,3 genfs
+labels and7151 enabled/neighbor-boundary probes without changing assertions or
+grants. See socket-tagging-owner-20261114-01 and held-provider-20261114-01.
+
+The selected kernel/latest21-MTP-vendor/DTBO and strict policy inputs remain
+unchanged, rehashed in held-provider-final-inputs-20261114-01. Java/Binder frames,
+statistics/event lifecycle, privileged CLAT, boot admission and final installation/
+encryption/package gates are unfinished. These inactive proposals are not a test
+ROM or evidence of device execution.
+
 ## Active statistics for tagging budgets — November 14
 
 The isolated kernel can now snapshot the real active packet-statistics bank

@@ -1,0 +1,1 @@
+PASS: 2339 transport/fixture assertions; real IPv4/IPv6 TCP/UDP and FD-reuse checks; mocked driver I/O only

@@ -1,0 +1,35 @@
+{
+  "passed": true,
+  "scope": "Actual mainline provider dispatch with strict registration/lifetime fixtures.\n\nBPF initialization and held/native callbacks are fixtures. Does not load BPF,\ninitialize the real provider or claim packet/service/device readiness.\n",
+  "passed_cases": 29,
+  "concurrent_callback_calls": 6400,
+  "legacy_init_never_calls_or_reports_BPF_init": true,
+  "old_dispatch_preserved": true,
+  "callbacks_copied_and_immutable_after_publication": true,
+  "inputs_sha256": {
+    "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/test-held-provider-library24.py": "af2a0f43f8dce8a3e44ee2262020e01b5c33b0a1553e0208671e0ca29930fc56",
+    "/srv/android/ports/lineage-24.0-arm64/held-provider24-20261114-01/NetdUpdatable.cpp": "b7df3501419a3335f682bb2a78791f17bb682a7f15f621f569d0df17f685bcf5",
+    "/srv/android/ports/lineage-24.0-arm64/held-provider24-20261114-01/NetdUpdatablePublic.h": "c78caf54cedf724e57a0df83629b4c04549490f51f32bd9e482358969e1e492d",
+    "/srv/android/ports/lineage-24.0-arm64/held-provider24-20261114-01/libnetd_updatable.map.txt": "34b0f98bb08aa80f08863e31d7ef1cd281f1334d2ca8b2ea249a2d9b07a9842f",
+    "/srv/android/artifacts/lineage-24.0-arm64/held-provider-library-host-20261114-01/test.cpp": "0d87bb2be34d398d3ae93125362491e62035cb015222b704d5e1b1daace05f4e"
+  },
+  "command": [
+    "c++",
+    "-std=c++20",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-O1",
+    "-g",
+    "-fsanitize=undefined",
+    "-fno-sanitize-recover=all",
+    "-pthread",
+    "-I/srv/android/ports/lineage-24.0-arm64/held-provider24-20261114-01",
+    "/srv/android/artifacts/lineage-24.0-arm64/held-provider-library-host-20261114-01/test.cpp",
+    "-o",
+    "/srv/android/artifacts/lineage-24.0-arm64/held-provider-library-host-20261114-01/test"
+  ],
+  "stderr": "",
+  "hardware_tested": false,
+  "flash_ready": false
+}

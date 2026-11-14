@@ -1,0 +1,27 @@
+out/soong/.intermediates/system/netd/server/libnetd_server/android_arm64_armv8-a_static_cfi/libnetd_server.a:
+  input: g.cc.ar
+    out/soong/.intermediates/system/netd/server/libnetd_server/android_arm64_armv8-a_static_cfi/obj/system/netd/server/BandwidthController.o
+    out/soong/.intermediates/system/netd/server/libnetd_server/android_arm64_armv8-a_static_cfi/obj/system/netd/server/Controllers.o
+    out/soong/.intermediates/system/netd/server/libnetd_server/android_arm64_armv8-a_static_cfi/obj/system/netd/server/NetdConstants.o
+    out/soong/.intermediates/system/netd/server/libnetd_server/android_arm64_armv8-a_static_cfi/obj/system/netd/server/FirewallController.o
+    out/soong/.intermediates/system/netd/server/libnetd_server/android_arm64_armv8-a_static_cfi/obj/system/netd/server/IdletimerController.o
+    out/soong/.intermediates/system/netd/server/libnetd_server/android_arm64_armv8-a_static_cfi/obj/system/netd/server/InterfaceController.o
+    out/soong/.intermediates/system/netd/server/libnetd_server/android_arm64_armv8-a_static_cfi/obj/system/netd/server/IptablesRestoreController.o
+    out/soong/.intermediates/system/netd/server/libnetd_server/android_arm64_armv8-a_static_cfi/obj/system/netd/server/NFLogListener.o
+    out/soong/.intermediates/system/netd/server/libnetd_server/android_arm64_armv8-a_static_cfi/obj/system/netd/server/NetlinkCommands.o
+    out/soong/.intermediates/system/netd/server/libnetd_server/android_arm64_armv8-a_static_cfi/obj/system/netd/server/NetlinkManager.o
+    out/soong/.intermediates/system/netd/server/libnetd_server/android_arm64_armv8-a_static_cfi/obj/system/netd/server/RouteController.o
+    out/soong/.intermediates/system/netd/server/libnetd_server/android_arm64_armv8-a_static_cfi/obj/system/netd/server/SockDiag.o
+    out/soong/.intermediates/system/netd/server/libnetd_server/android_arm64_armv8-a_static_cfi/obj/system/netd/server/StrictController.o
+    out/soong/.intermediates/system/netd/server/libnetd_server/android_arm64_armv8-a_static_cfi/obj/system/netd/server/TcpSocketMonitor.o
+    out/soong/.intermediates/system/netd/server/libnetd_server/android_arm64_armv8-a_static_cfi/obj/system/netd/server/TetherController.o
+    out/soong/.intermediates/system/netd/server/libnetd_server/android_arm64_armv8-a_static_cfi/obj/system/netd/server/UidRanges.o
+    out/soong/.intermediates/system/netd/server/libnetd_server/android_arm64_armv8-a_static_cfi/obj/system/netd/server/WakeupController.o
+    out/soong/.intermediates/system/netd/server/libnetd_server/android_arm64_armv8-a_static_cfi/obj/system/netd/server/XfrmController.o
+    | prebuilts/clang/host/linux-x86/clang-r596125/bin/llvm-ar
+    | Rm-deps
+  outputs:
+    out/target/product/gta3xlwifi/obj/STATIC_LIBRARIES/libnetd_server.cfi_intermediates/libnetd_server.cfi.a
+    libnetd_server-android_arm64_armv8-a_static_cfi-checkbuild-soong
+    libnetd_server-android_arm64_armv8-a_static_cfi-outputs-soong
+    out/soong/.intermediates/system/netd/server/netd/android_arm64_armv8-a_cfi/unstripped/netd

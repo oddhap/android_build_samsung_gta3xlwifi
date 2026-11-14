@@ -1,0 +1,89 @@
+--- a/bpf/netd/NetdUpdatable.cpp
++++ b/bpf/netd/NetdUpdatable.cpp
+@@ -22,10 +22,21 @@
+ #include <android-base/result.h>
+ 
+ #include "NetdUpdatablePublic.h"
++#include <atomic>
++#include <cerrno>
++#include <mutex>
+ 
+ static android::net::BpfHandler sBpfHandler;
++namespace {
++std::mutex sInitMutex;
++bool sInitialized = false;
++std::atomic<bool> sPrivateProvider{false};
++NetdGta3xlwifiCallbacks sCallbacks{};
++}
+ 
+ int libnetd_updatable_init(const char* cg2_path) {
++    std::lock_guard<std::mutex> lock(sInitMutex);
++    if (sPrivateProvider.load(std::memory_order_acquire)) return -EBUSY;
+     android::base::InitLogging(/*argv=*/nullptr);
+     LOG(INFO) << __func__ << ": Initializing";
+ 
+@@ -34,13 +45,33 @@
+         LOG(ERROR) << __func__ << ": Failed: " << ret.error().message();
+         abort();
+     }
++    sInitialized = true;
+     return 0;
+ }
+ 
+ int libnetd_updatable_tagSocket(int sockFd, uint32_t tag, uid_t chargeUid, uid_t realUid) {
++    if (sPrivateProvider.load(std::memory_order_acquire))
++        return sCallbacks.tag_socket(sockFd, tag, chargeUid, realUid);
+     return sBpfHandler.tagSocket(sockFd, tag, chargeUid, realUid);
+ }
+ 
+ int libnetd_updatable_untagSocket(int sockFd) {
++    if (sPrivateProvider.load(std::memory_order_acquire))
++        return sCallbacks.untag_socket(sockFd);
+     return sBpfHandler.untagSocket(sockFd);
+ }
++
++int libnetd_updatable_init_gta3xlwifi(const NetdGta3xlwifiCallbacks* callbacks) {
++    if (!callbacks || callbacks->version != 1 || callbacks->size != sizeof(*callbacks) ||
++        !callbacks->initialize_held || !callbacks->tag_socket || !callbacks->untag_socket)
++        return -EINVAL;
++    std::lock_guard<std::mutex> lock(sInitMutex);
++    if (sInitialized) return -EALREADY;
++    const NetdGta3xlwifiCallbacks next = *callbacks;
++    const int result = next.initialize_held();
++    if (result) return result < 0 ? result : -EPROTO;
++    sCallbacks = next;
++    sInitialized = true;
++    sPrivateProvider.store(true, std::memory_order_release);
++    return 0;  // Held transport initialized, policy still unpublished.
++}
+--- a/bpf/netd/include/NetdUpdatablePublic.h
++++ b/bpf/netd/include/NetdUpdatablePublic.h
+@@ -58,4 +58,19 @@
+  */
+ int libnetd_updatable_untagSocket(int sockFd);
+ 
++/* Private gta3xlwifi ABI. Initialization verifies a genuine held backend and
++ * socket-owned tagging session; it is NOT BPF/global networking readiness.
++ * Callbacks have process lifetime, canonical full-UID permission semantics and
++ * use the same native policy owner. initialize_held must not re-enter this API.
++ * The Java bridge must validate its actual UID-migration mode before publishing.
++ */
++struct NetdGta3xlwifiCallbacks {
++    uint32_t version;
++    uint32_t size;
++    int (*initialize_held)(void);
++    int (*tag_socket)(int sockFd, uint32_t tag, uid_t chargeUid, uid_t realUid);
++    int (*untag_socket)(int sockFd);
++};
++int libnetd_updatable_init_gta3xlwifi(const struct NetdGta3xlwifiCallbacks* callbacks);
++
+ __END_DECLS--- a/bpf/netd/libnetd_updatable.map.txt
++++ b/bpf/netd/libnetd_updatable.map.txt
+@@ -20,6 +20,7 @@
+ LIBNETD_UPDATABLE {
+   global:
+     libnetd_updatable_init; # apex
++    libnetd_updatable_init_gta3xlwifi; # apex
+     libnetd_updatable_tagSocket; # apex
+     libnetd_updatable_untagSocket; # apex
+   local:

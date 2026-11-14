@@ -1,0 +1,5 @@
+000000000000f000 T __cfi_check
+000000000000fc30 T libnetd_updatable_init@@LIBNETD_UPDATABLE
+000000000000fc28 T libnetd_updatable_init_gta3xlwifi@@LIBNETD_UPDATABLE
+000000000000fc40 T libnetd_updatable_tagSocket@@LIBNETD_UPDATABLE
+000000000000fc38 T libnetd_updatable_untagSocket@@LIBNETD_UPDATABLE

@@ -1,0 +1,398 @@
+--- a/Gta3xlwifiSocketPolicyProjection.cpp
++++ b/Gta3xlwifiSocketPolicyProjection.cpp
+@@ -401,6 +401,9 @@
+ int SocketPolicyProjection::readTaggingBudget(int32_t uid, TaggingBudget* output) {
+   if (uid < 0 || !output) return -EINVAL;
+   std::lock_guard<std::mutex> lock(mMutex);
++  return readTaggingBudgetLocked(uid, output);
++}
++int SocketPolicyProjection::readTaggingBudgetLocked(int32_t uid, TaggingBudget* output) {
+   int result = packetAccountingAvailableLocked();
+   if (result) return result;
+   NetpolicyLease::PacketState state;
+@@ -420,3 +423,40 @@
+   return 0;
+ }
+ }  // namespace android::net::gta3xlwifi
++
++namespace android::net::gta3xlwifi {
++int SocketPolicyProjection::tagSocket(SocketTagger& transport, int fd, uint32_t tag,
++                                     int32_t chargeUid, int32_t realUid) {
++  if (fd < 0 || chargeUid < 0 || realUid < 0) return -EINVAL;
++  std::lock_guard<std::mutex> lock(mMutex);
++  int result = packetAccountingAvailableLocked();
++  if (result) return result;
++  uint32_t permissions = 0;
++  result = mCommit->value.permissions.get(realUid, &permissions);
++  if (result) return result;
++  const int32_t appId = realUid % 100000;
++  const bool canChargeOther = (permissions & UidPermissionState::UpdateDeviceStats) ||
++                             appId == 0 || appId == 1000 || appId == 1051;
++  if ((chargeUid != realUid && !canChargeOther) || chargeUid == 1029) return -EPERM;
++  if (!transport.connected()) return quarantine(-ENOTCONN);
++  TaggingBudget budget;
++  result = readTaggingBudgetLocked(chargeUid, &budget);
++  if (result) return result;
++  // Exact pinned A17 BpfHandler limits/strict greater-than predicate. A later
++  // packet may add a row, as in the original active-map iteration contract.
++  if (budget.totalEntries > 4500 || budget.uidEntries > 500) return -EMFILE;
++  result = transport.tagSocket(fd, tag, static_cast<uid_t>(chargeUid));
++  if (!transport.connected()) return quarantine(result < 0 ? result : -EPROTO);
++  return result > 0 ? quarantine(-EPROTO) : result;
++}
++int SocketPolicyProjection::untagSocket(SocketTagger& transport, int fd) {
++  if (fd < 0) return -EINVAL;
++  std::lock_guard<std::mutex> lock(mMutex);
++  int result = packetAccountingAvailableLocked();
++  if (result) return result;
++  if (!transport.connected()) return quarantine(-ENOTCONN);
++  result = transport.untagSocket(fd);
++  if (!transport.connected()) return quarantine(result < 0 ? result : -EPROTO);
++  return result > 0 ? quarantine(-EPROTO) : result;
++}
++}  // namespace android::net::gta3xlwifi
+--- a/Gta3xlwifiSocketPolicyProjection.h
++++ b/Gta3xlwifiSocketPolicyProjection.h
+@@ -4,6 +4,7 @@
+ #include <memory>
+ 
+ #include "Gta3xlwifiIngressPolicy.h"
++#include "Gta3xlwifiSocketTagger.h"
+ #include "Gta3xlwifiPermissionBootstrap.h"
+ #include "Gta3xlwifiAccountingRoots.h"
+ #include "Gta3xlwifiLocalNetworkState.h"
+@@ -90,6 +91,11 @@
+   // Exact active stats row counts, not number of tags or socket descriptors.
+   // Does not authorize tagging or consume/persist any statistics.
+   int readTaggingBudget(int32_t chargeUid, TaggingBudget* output);
++  // Canonical full-UID permission mode. The framework bridge must require its
++  // actual UID-migration flag. Permissions, active budgets and I/O share mMutex.
++  int tagSocket(SocketTagger& transport, int fd, uint32_t tag,
++                int32_t chargeUid, int32_t realUid);
++  int untagSocket(SocketTagger& transport, int fd);
+   int readPacketState(NetpolicyLease::PacketState* output);
+   int readFrozenPacketStats(uint32_t bank, uint64_t epoch,
+                             NetpolicyLease::PacketSnapshot* output);
+@@ -115,6 +121,7 @@
+   };
+   int acquireAccountingLeaseLocked();
+   int packetAccountingAvailableLocked() const;
++  int readTaggingBudgetLocked(int32_t chargeUid, TaggingBudget* output);
+   int applyLocked(State value);
+   int update(const std::function<int(State&)>& mutation);
+   int prepareHooks(HookMode mode);
+--- /dev/null
++++ b/Gta3xlwifiSocketTagger.h
+@@ -0,0 +1,16 @@
++// SPDX-License-Identifier: Apache-2.0
++#pragma once
++#include <cstdint>
++#include <sys/types.h>
++namespace android::net::gta3xlwifi {
++// Trusted native transport dependency. No authorization/readiness implied by
++// connection. The sole policy owner checks permissions/budgets and invokes I/O
++// under its transaction mutex. Never accept such an object from a Binder caller.
++class SocketTagger {
++ public:
++  virtual ~SocketTagger() = default;
++  virtual bool connected() const = 0;
++  virtual int tagSocket(int fd, uint32_t tag, uid_t uid) = 0;
++  virtual int untagSocket(int fd) = 0;
++};
++}  // namespace android::net::gta3xlwifi
+--- /dev/null
++++ b/Gta3xlwifiQtaguidTransport.cpp
+@@ -0,0 +1,231 @@
++/* SPDX-License-Identifier: Apache-2.0 */
++#include "Gta3xlwifiQtaguidTransport.h"
++#include "Gta3xlwifiQtaguidProtocol.h"
++
++#include <cerrno>
++#include <cinttypes>
++#include <climits>
++#include <cstdio>
++#include <cstring>
++#include <fcntl.h>
++#include <initializer_list>
++#include <netinet/in.h>
++#include <sys/socket.h>
++#include <sys/ioctl.h>
++#include <sys/stat.h>
++#include <sys/sysmacros.h>
++#include <sys/vfs.h>
++#include <unistd.h>
++
++namespace android::net::gta3xlwifi {
++namespace {
++constexpr uint64_t kProcMagic = 0x9fa0;
++constexpr uint64_t kSysfsMagic = 0x62656572;
++constexpr char kDevice[] = "/dev/xt_qtaguid";
++constexpr char kControl[] = "/proc/net/xt_qtaguid/ctrl";
++constexpr char kDeviceId[] = "/sys/class/misc/xt_qtaguid/dev";
++constexpr char kPassive[] = "/sys/module/xt_qtaguid/parameters/passive";
++constexpr char kTrackingPassive[] = "/sys/module/xt_qtaguid/parameters/tag_tracking_passive";
++
++class Fd {
++  public:
++    explicit Fd(int fd) : mFd(fd) {}
++    ~Fd() {
++        const int saved = errno;
++        if (mFd >= 0) close(mFd);  // Linux closes the descriptor even on EINTR.
++        errno = saved;
++    }
++    int get() const { return mFd; }
++    int release() { const int fd = mFd; mFd = -1; return fd; }
++  private:
++    int mFd;
++};
++
++int openFile(const char* path, int flags) {
++    int fd;
++    do { fd = open(path, flags | O_CLOEXEC | O_NOFOLLOW); } while (fd < 0 && errno == EINTR);
++    return fd;
++}
++
++int checkFile(int fd, uint64_t magic) {
++    struct stat st {};
++    if (fstat(fd, &st)) return -errno;
++    if (!S_ISREG(st.st_mode)) return -ENODEV;
++    struct statfs fs {};
++    if (fstatfs(fd, &fs)) return -errno;
++    return static_cast<uint64_t>(fs.f_type) == magic ? 0 : -ENODEV;
++}
++
++// Exact bounded sysfs text, not a generic file/property fallback. Inaccessible,
++// wrong filesystem, truncated, embedded-NUL or malformed input is an error.
++int readSysfs(const char* path, char* buffer, size_t capacity) {
++    Fd fd(openFile(path, O_RDONLY));
++    if (fd.get() < 0) return -errno;
++    int result = checkFile(fd.get(), kSysfsMagic);
++    if (result) return result;
++    size_t used = 0;
++    while (used < capacity) {
++        ssize_t count;
++        do { count = read(fd.get(), buffer + used, capacity - used); }
++        while (count < 0 && errno == EINTR);
++        if (count < 0) return -errno;
++        if (count == 0) {
++            if (used == 0 || memchr(buffer, '\0', used)) return -EPROTO;
++            buffer[used] = '\0';
++            return static_cast<int>(used);
++        }
++        used += static_cast<size_t>(count);
++    }
++    return -EOVERFLOW;
++}
++
++int checkActive() {
++    for (const char* path : {kPassive, kTrackingPassive}) {
++        char value[9];
++        const int size = readSysfs(path, value, sizeof(value) - 1);
++        if (size < 0) return size;
++        // param_get_bool in this kernel emits exactly Y\n or N\n. In passive
++        // mode ctrl writes silently succeed, so accepting it would be fake I/O.
++        if (size != 2 || value[1] != '\n') return -EPROTO;
++        if (value[0] == 'Y') return -EOPNOTSUPP;
++        if (value[0] != 'N') return -EPROTO;
++    }
++    return 0;
++}
++
++int deviceIdentity(dev_t* identity) {
++    char value[33];
++    const int size = readSysfs(kDeviceId, value, sizeof(value) - 1);
++    if (size < 0) return size;
++    unsigned int numbers[2] = {};
++    unsigned int part = 0;
++    bool digit = false;
++    for (int i = 0; i < size; ++i) {
++        const char c = value[i];
++        if (c >= '0' && c <= '9') {
++            if (numbers[part] > (UINT_MAX - static_cast<unsigned int>(c - '0')) / 10)
++                return -EPROTO;
++            numbers[part] = numbers[part] * 10 + static_cast<unsigned int>(c - '0');
++            digit = true;
++        } else if (c == ':' && part == 0 && digit) {
++            part = 1;
++            digit = false;
++        } else if (c == '\n' && i == size - 1 && part == 1 && digit) {
++            const dev_t dev = makedev(numbers[0], numbers[1]);
++            // Misc devices have major 10; also reject dev_t truncation.
++            if (numbers[0] != 10 || major(dev) != numbers[0] || minor(dev) != numbers[1])
++                return -ENODEV;
++            *identity = dev;
++            return 0;
++        } else {
++            return -EPROTO;
++        }
++    }
++    return -EPROTO;
++}
++
++int duplicateInetSocket(int fd) {
++    int copy;
++    do { copy = fcntl(fd, F_DUPFD_CLOEXEC, 3); } while (copy < 0 && errno == EINTR);
++    if (copy < 0) return -errno;
++    Fd stable(copy);
++    int value = 0;
++    socklen_t length = sizeof(value);
++    if (getsockopt(copy, SOL_SOCKET, SO_DOMAIN, &value, &length)) return -errno;
++    if (length != sizeof(value)) return -EPROTO;
++    if (value != AF_INET && value != AF_INET6) return -EAFNOSUPPORT;
++    length = sizeof(value);
++    if (getsockopt(copy, SOL_SOCKET, SO_PROTOCOL, &value, &length)) return -errno;
++    if (length != sizeof(value)) return -EPROTO;
++    if (value != IPPROTO_TCP && value != IPPROTO_UDP) return -EPROTONOSUPPORT;
++    return stable.release();
++}
++}  // namespace
++
++QtaguidTransport::~QtaguidTransport() {
++    std::lock_guard<std::mutex> lock(mMutex);
++    closeLocked();
++}
++
++void QtaguidTransport::closeLocked() {
++    if (mControl >= 0) { close(mControl); mControl = -1; }
++    if (mDevice >= 0) { close(mDevice); mDevice = -1; }
++}
++
++int QtaguidTransport::start() {
++    std::lock_guard<std::mutex> lock(mMutex);
++    if (mDevice >= 0 || mControl >= 0) return -EALREADY;
++    int result = checkActive();
++    if (result) return result;
++    dev_t identity {};
++    result = deviceIdentity(&identity);
++    if (result) return result;
++    Fd device(openFile(kDevice, O_RDONLY));
++    if (device.get() < 0) return -errno;
++    struct stat st {};
++    if (fstat(device.get(), &st)) return -errno;
++    if (!S_ISCHR(st.st_mode) || st.st_rdev != identity) return -ENODEV;
++    // Mandatory private kernel ABI. Old kernels return ENOTTY, never presumed
++    // compatible: process-owned tags would disappear on a Netd restart.
++    int ack;
++    do { ack = ioctl(device.get(), QTAGUID_SOCKET_OWNED_SESSION, 0UL); }
++    while (ack < 0 && errno == EINTR);
++    if (ack < 0) return -errno;
++    if (ack != 0) return -EPROTO;
++    Fd control(openFile(kControl, O_WRONLY));
++    if (control.get() < 0) return -errno;
++    result = checkFile(control.get(), kProcMagic);
++    if (result) return result;
++    mDevice = device.release();
++    mControl = control.release();
++    return 0;  // I/O session opened, NOT complete backend readiness.
++}
++
++int QtaguidTransport::tagSocket(int fd, uint32_t tag, uid_t uid) {
++    std::lock_guard<std::mutex> lock(mMutex);
++    if (uid > static_cast<uid_t>(INT_MAX)) return -EINVAL;
++    return commandLocked(fd, tag, uid, false);
++}
++
++int QtaguidTransport::untagSocket(int fd) {
++    std::lock_guard<std::mutex> lock(mMutex);
++    return commandLocked(fd, 0, 0, true);
++}
++
++int QtaguidTransport::commandLocked(int fd, uint32_t tag, uid_t uid, bool untag) {
++    if (mDevice < 0 || mControl < 0) return -ENOTCONN;
++    const int result = checkActive();
++    if (result) { closeLocked(); return result; }
++    const int copy = duplicateInetSocket(fd);
++    if (copy < 0) return copy;
++    Fd stable(copy);  // Pin the file through write; never act on a reused fd.
++    char command[96];
++    const int length = untag
++            ? snprintf(command, sizeof(command), "u %d", copy)
++            : snprintf(command, sizeof(command), "t %d %" PRIu64 " %" PRIu32,
++                       copy, static_cast<uint64_t>(tag) << 32, static_cast<uint32_t>(uid));
++    if (length < 0 || static_cast<size_t>(length) >= sizeof(command)) return -EOVERFLOW;
++    ssize_t count;
++    do { count = write(mControl, command, static_cast<size_t>(length)); }
++    while (count < 0 && errno == EINTR);
++    if (count < 0) return -errno;
++    if (count != length) {
++        // A proc command must be one complete write. Never send a suffix as a
++        // second command or acknowledge uncertain state. Drop our session.
++        closeLocked();
++        return -EIO;
++    }
++    return 0;
++}
++}  // namespace android::net::gta3xlwifi
++
++namespace android::net::gta3xlwifi {
++void QtaguidTransport::stop() {
++    std::lock_guard<std::mutex> lock(mMutex);
++    closeLocked();
++}
++bool QtaguidTransport::connected() const {
++    std::lock_guard<std::mutex> lock(mMutex);
++    return mDevice >= 0 && mControl >= 0;
++}
++}  // namespace android::net::gta3xlwifi
+--- /dev/null
++++ b/Gta3xlwifiQtaguidTransport.h
+@@ -0,0 +1,41 @@
++/* SPDX-License-Identifier: Apache-2.0 */
++#pragma once
++
++#include <cstdint>
++#include <mutex>
++#include <sys/types.h>
++#include "Gta3xlwifiSocketTagger.h"
++
++namespace android::net::gta3xlwifi {
++
++// Trusted low-level I/O only, NOT a public tagSocket policy endpoint or backend
++// readiness proof. The owner must authorize charge UID/CLAT, enforce tag budgets,
++// and validate the entire backend before publishing any state/callback.
++// One instance owns the process's sole /dev/xt_qtaguid session. Never silently
++// reuse another owner's session on EBUSY. Requires the private socket-owned
++// kernel ioctl: legacy process-owned cleanup loses live tags on Netd restart.
++// Tags are deliberately not owned by this session after the ioctl succeeds;
++// explicit untag/UID deletion/final socket release retire them. Opening this
++// transport does not reconstruct authorization or firewall state after restart.
++class QtaguidTransport final : public SocketTagger {
++  public:
++    QtaguidTransport() = default;
++    ~QtaguidTransport() override;
++    QtaguidTransport(const QtaguidTransport&) = delete;
++    QtaguidTransport& operator=(const QtaguidTransport&) = delete;
++
++    int start();
++    void stop();
++    bool connected() const override;
++    int tagSocket(int socketFd, uint32_t tag, uid_t chargeUid) override;
++    int untagSocket(int socketFd) override;
++
++  private:
++    int commandLocked(int socketFd, uint32_t tag, uid_t chargeUid, bool untag);
++    void closeLocked();
++    mutable std::mutex mMutex;
++    int mDevice = -1;
++    int mControl = -1;
++};
++
++}  // namespace android::net::gta3xlwifi
+--- /dev/null
++++ b/Gta3xlwifiQtaguidProtocol.h
+@@ -0,0 +1,15 @@
++/* SPDX-License-Identifier: GPL-2.0 WITH Linux-syscall-note */
++#ifndef _UAPI_XT_QTAGUID_SOCK_H
++#define _UAPI_XT_QTAGUID_SOCK_H
++
++#include <linux/ioctl.h>
++
++/* Private, opt-in gta3xlwifi ABI. No argument, same command on 32/64 bit.
++ * Requires initial-namespace root plus CAP_NET_ADMIN and an empty own session.
++ * New/retagged sockets then own their tags until explicit untag, UID deletion
++ * or inet_release, not until the tagging daemon's process/session exits.
++ * This does not authorize a caller or implement accounting budgets/readiness.
++ */
++#define QTAGUID_SOCKET_OWNED_SESSION _IO('q', 0x51)
++
++#endif

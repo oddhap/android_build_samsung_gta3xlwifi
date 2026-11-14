@@ -1,0 +1,13 @@
+passed_cases=29
+passed_cases=960; actual command-builder differential with fatal UBSan
+passed_cases=99
+passed_cases=71
+PASS: 1243 locked projects, 17 exact reviewed patches; no external alternates
+PASS: 1243 locked projects, 17 exact reviewed patches; no external alternates
+Traceback (most recent call last):
+  File "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/compile-held-provider24.py", line 133, in <module>
+    main_target='out/soong/.intermediates/system/netd/server/netd/android_arm64_armv8-a_cfi/obj/system/netd/server/main.o';bind(T/main_target);main_compile=compile_actual(main_target,'main')
+  File "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/compile-held-provider24.py", line 115, in compile_actual
+    assert '-flto' in command and '-fsanitize=cfi' in command and command[-1].endswith('/'+name+'.cpp');bind(T/command[0])
+AssertionError
+Sat Nov 14 13:59:42 UTC 2026

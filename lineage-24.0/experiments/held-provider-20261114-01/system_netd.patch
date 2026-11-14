@@ -1,0 +1,158 @@
+--- a/server/Gta3xlwifiSocketPolicyProjection.cpp
++++ b/server/Gta3xlwifiSocketPolicyProjection.cpp
+@@ -460,3 +460,28 @@
+   return result > 0 ? quarantine(-EPROTO) : result;
+ }
+ }  // namespace android::net::gta3xlwifi
++
++namespace android::net::gta3xlwifi {
++int SocketPolicyProjection::verifyHeldProviderStartup() {
++  std::lock_guard<std::mutex> lock(mMutex);
++  if (!mStarted) return -ENOTCONN;
++  if (!mAccountingEnabled) return -EOPNOTSUPP;
++  if (mCommit) return -EALREADY;
++  bool held = false;
++  int result = mLease.isHeld(&held);
++  if (!result && !held) result = -EBUSY;
++  if (!result) result = mLease.requirePolicyPrimitives();
++  if (!result) result = mLease.requireRuntimePolicy();
++  if (!result) result = mLease.requireIfaceAccountingPrimitives();
++  if (!result) result = mLease.requirePacketAccountingPrimitives();
++  if (!result) result = verifyHooks();
++  if (!result) result = mAccounting.verifyProducers();
++  if (!result) result = mSocket.verifyPrepared();
++  if (!result) result = mMeter.verifyPrepared();
++  NetpolicyLease::PacketState state;
++  NetpolicyLease::PacketSnapshot counters;
++  if (!result) result = mLease.readPacketState(&state);
++  if (!result) result = mLease.readActivePacketStats(state.activeEpoch, &counters);
++  return result ? quarantine(result) : 0;
++}
++}  // namespace android::net::gta3xlwifi
+--- a/server/Gta3xlwifiSocketPolicyProjection.h
++++ b/server/Gta3xlwifiSocketPolicyProjection.h
+@@ -45,6 +45,9 @@
+   // Acquire and verify the accounting lease BEFORE Controllers rebuild roots.
+   // No firewall operation or publication; startWithAccounting finishes later.
+   int prepareForControllerStartup();
++  // Real held/unpublished accounting/guards/counter protocol verification.
++  // Called by explicit private provider initialization, never global Ready.
++  int verifyHeldProviderStartup();
+   int start(HookMode mode = HookMode::VerifyOnly);
+   // Explicit source-factory startup after the last generic bandwidth reset.
+   // Requires real iface producers/DROP correction and UID/app packet primitives,
+--- /dev/null
++++ b/server/Gta3xlwifiHeldProvider.cpp
+@@ -0,0 +1,44 @@
++// SPDX-License-Identifier: Apache-2.0
++#include "Gta3xlwifiHeldProvider.h"
++#include "Controllers.h"
++#include "Gta3xlwifiQtaguidTransport.h"
++#include "Gta3xlwifiSocketPolicyProjection.h"
++#include "NetdUpdatablePublic.h"
++#include <cerrno>
++#include <climits>
++namespace android::net::gta3xlwifi {
++namespace {
++QtaguidTransport transport;
++SocketPolicyProjection* owner = nullptr;
++int initialize() {
++    if (!owner) return -ENOTCONN;
++    int result = owner->verifyHeldProviderStartup();
++    if (!result) result = transport.start();
++    if (!result) result = owner->verifyHeldProviderStartup();
++    return result;
++}
++int tag(int fd, uint32_t value, uid_t chargeUid, uid_t realUid) {
++    if (chargeUid > INT_MAX || realUid > INT_MAX) return -EINVAL;
++    return owner ? owner->tagSocket(transport, fd, value, chargeUid, realUid) : -ENOTCONN;
++}
++int untag(int fd) {
++    return owner ? owner->untagSocket(transport, fd) : -ENOTCONN;
++}
++}  // namespace
++int initializeHeldProvider(Controllers& controllers) {
++    // Main-thread only, before Netlink/Binder listeners. Successful publication
++    // of callbacks fixes owner/transport identity for the process lifetime.
++    if (owner) return -EALREADY;
++    owner = controllers.gta3xlwifiPolicy();
++    if (!owner) return -EOPNOTSUPP;
++    const NetdGta3xlwifiCallbacks callbacks{1, sizeof(NetdGta3xlwifiCallbacks),
++                                         initialize, tag, untag};
++    const int result = libnetd_updatable_init_gta3xlwifi(&callbacks);
++    if (result) {
++        transport.stop();
++        owner->stop();
++        owner = nullptr;
++    }
++    return result;
++}
++}  // namespace android::net::gta3xlwifi
+--- /dev/null
++++ b/server/Gta3xlwifiHeldProvider.h
+@@ -0,0 +1,6 @@
++// SPDX-License-Identifier: Apache-2.0
++#pragma once
++namespace android::net { class Controllers; }
++namespace android::net::gta3xlwifi {
++int initializeHeldProvider(Controllers& controllers);
++}
+--- a/server/main.cpp
++++ b/server/main.cpp
+@@ -41,6 +41,8 @@
+ #include <processgroup/processgroup.h>
+ 
+ #include "Controllers.h"
++#include "Gta3xlwifiHeldProvider.h"
++#include <android-base/properties.h>
+ #include "FwmarkServer.h"
+ #include "MDnsService.h"
+ #include "NFLogListener.h"
+@@ -139,17 +141,21 @@
+         setCloseOnExec(sock);
+     }
+ 
+-    std::string cg2_path;
+-    if (!CgroupGetControllerPath(CGROUPV2_HIERARCHY_NAME, &cg2_path)) {
+-        ALOGE("Failed to find cgroup v2 root %s", strerror(errno));
+-        exit(1);
+-    }
+-
+-    if (libnetd_updatable_init(cg2_path.c_str())) {
+-        ALOGE("libnetd_updatable_init failed");
+-        exit(1);
+-    }
+-    gLog.info("libnetd_updatable_init success");
++    const bool legacy = android::base::GetBoolProperty("ro.gta3xlwifi.legacy_networking", false);
++    if (!legacy) {
++        std::string cg2_path;
++        if (!CgroupGetControllerPath(CGROUPV2_HIERARCHY_NAME, &cg2_path)) {
++            ALOGE("Failed to find cgroup v2 root %s", strerror(errno));
++            exit(1);
++        }
++
++        if (libnetd_updatable_init(cg2_path.c_str())) {
++            ALOGE("libnetd_updatable_init failed");
++            exit(1);
++        }
++        gLog.info("libnetd_updatable_init success");
++
++    }
+ 
+     NetlinkManager *nm = NetlinkManager::Instance();
+     if (nm == nullptr) {
+@@ -160,6 +166,14 @@
+ 
+     gCtls = new android::net::Controllers();
+     gCtls->init();
++    if (legacy) {
++        const int result = android::net::gta3xlwifi::initializeHeldProvider(*gCtls);
++        if (result) {
++            ALOGE("Private held provider initialization failed: %d", result);
++            exit(1);
++        }
++        gLog.info("Private transport initialized; complete framework policy still required");
++    }
+ 
+     if (nm->start()) {
+         ALOGE("Unable to start NetlinkManager (%s)", strerror(errno));
