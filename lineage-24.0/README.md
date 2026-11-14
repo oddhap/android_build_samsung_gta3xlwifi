@@ -32,6 +32,16 @@ checks are separate from Android execution. Optional GPU BPF accounting still
 reports unavailable, rather than invented counters. Existing safety/installer
 and strict SELinux checks remain enforced.
 
+## Raw Java permission receiver — November 14
+
+The inactive receiver now handles complete identities, raw permissions, exact SDK
+UID expansion and serialized revocation/removal under the backend's shared lock.
+It preserves observed INTERNET-only zero conversion and invalidates failed input
+through a required sink. Current actual module/API compilation and1243/17 audits
+pass; host fixtures pass2258 cases, including all1024 raw combinations. See
+java-permission-collector-20261114-01. Actual observer registration, native backend
+sink and BpfNetMaps routing are still required; no networking Ready is claimed.
+
 ## DEFAULT installation identity refresh — November 14
 
 The inactive DEFAULT install path now refreshes actual package identity while

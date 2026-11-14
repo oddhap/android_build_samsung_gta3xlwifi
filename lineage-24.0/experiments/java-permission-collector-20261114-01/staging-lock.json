@@ -1,0 +1,16 @@
+{
+  "inactive": true,
+  "project": "packages/modules/Connectivity",
+  "prerequisites": [
+    "policy-client-20261114-01",
+    "permission-install-identity-20261114-01 and its initial/lifecycle dependencies"
+  ],
+  "files": {
+    "service/src/com/android/server/Gta3xlwifiPermissionCollector.java": {
+      "original_sha256": null,
+      "candidate_sha256": "e31fdce99589127c362ecc3235b2077be45e011bfcb9ec02bfd99f535e9052be"
+    }
+  },
+  "actual_observer_registration_and_backend_routing": false,
+  "selected_source_changed": false
+}

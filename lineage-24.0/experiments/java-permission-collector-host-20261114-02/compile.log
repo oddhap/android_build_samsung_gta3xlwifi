@@ -1,0 +1,3 @@
+warning: unknown enum constant Client.SYSTEM_SERVER
+  reason: class file for android.annotation.SystemApi$Client not found
+1 warning

@@ -1,0 +1,10 @@
+PASS: 1243 locked projects, 17 exact reviewed patches; no external alternates
+PASS: 1243 locked projects, 17 exact reviewed patches; no external alternates
+PASS: actual permission consumer and client compiled with current module/API classes; four new classes
+Traceback (most recent call last):
+  File "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/test-permission-collector24.py", line 27, in <module>
+    put('android/os/UserHandle.java','package android.os; public class UserHandle { public static final int PER_USER_RANGE=100000;\n'+extract(us,'public static boolean isApp(')+'\n'+extract(us,'public static int getAppId(')+'\n}')
+  File "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/test-permission-collector24.py", line 18, in extract
+    start=text.index(signature);body=text.index('{',start);depth=1;i=body+1
+ValueError: substring not found
+Sat Nov 14 16:30:03 UTC 2026
