@@ -32,6 +32,17 @@ checks are separate from Android execution. Optional GPU BPF accounting still
 reports unavailable, rather than invented counters. Existing safety/installer
 and strict SELinux checks remain enforced.
 
+## Complete policy Binder transport — November 14
+
+The inactive native service now accepts bounded ordered chunks for all ten policy
+sections, validates complete state before the sole owner's generation commit,
+and holds traffic on client death. Every RPC requires system UID1000. The OEM
+getter preserves existing ordinals; actual AIDL compatibility, C++/Java generation,
+Java stubs, full netd/OEM DSO CFI build/link and1243/17 audits pass. Host fixtures
+pass25,709 assertions including partial input, permissions, capacity, session/death
+and HOLD faults. See policy-frame-20261114-01. Java source collection/routing,
+reconnect/query lifecycle and Soong composition remain; this is not a test ROM.
+
 ## Ordered initial framework permission snapshot — November 14
 
 The inactive permission-service proposal now serializes the initial snapshot and

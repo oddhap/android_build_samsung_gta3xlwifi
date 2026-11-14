@@ -1,0 +1,49 @@
+{
+  "inactive": true,
+  "project": "system/netd",
+  "files": {
+    "server/Gta3xlwifiPolicyFrame.h": {
+      "original_sha256": null,
+      "candidate_sha256": "73d57aefeb74c5f476e55ae6795c4c3c9a77aec841ecadd8883af39c02229aa4"
+    },
+    "server/Gta3xlwifiPolicyFrame.cpp": {
+      "original_sha256": null,
+      "candidate_sha256": "00da57d905d3dbb6fbfa4a86c3170830a3e6033af0bdccf1a2939da032c3fc99"
+    },
+    "server/Gta3xlwifiNetpolicyService.h": {
+      "original_sha256": null,
+      "candidate_sha256": "ef0322b41681cf92ff87e97ae2f7da0f09f61e70647603cce6d1a67dae775cf7"
+    },
+    "server/Gta3xlwifiNetpolicyService.cpp": {
+      "original_sha256": null,
+      "candidate_sha256": "653be544b095dde9ec95f62ffcb7bad290862850c692bb1201df9f203545a598"
+    },
+    "server/binder/com/android/internal/net/IGta3xlwifiNetpolicy.aidl": {
+      "original_sha256": null,
+      "candidate_sha256": "432b43dfe85b6b398919e5da0a201a2f000b236c50cd438178af3d691d504047"
+    },
+    "server/Gta3xlwifiSocketPolicyProjection.h": {
+      "original_sha256": "7554450c2defa525c2e5fade17fb1a18202a1255ad546ffe04838bc0583b292a",
+      "candidate_sha256": "a2dda73036324ce68d2a3ae45059577f593e3dafb7844cc7ab30c6ff4dd615bf"
+    },
+    "server/Gta3xlwifiSocketPolicyProjection.cpp": {
+      "original_sha256": "1c51c263365d110e7894e6a70cae50a6e01deedfbb4477822202ab0e26a6898b",
+      "candidate_sha256": "267cb4141c155a0b7608aa15c65c232d88bd2d1bad065f6f48056e48390b9ff5"
+    },
+    "server/OemNetdListener.h": {
+      "original_sha256": "a2771a42d7fecfdd636379b55848e8d9691b75cee6abcb260d54df188ed5b643",
+      "candidate_sha256": "85b3da6bceb573df82e7497a4fb823990e78436d2fede823596fa8b51bf9e9b6"
+    },
+    "server/OemNetdListener.cpp": {
+      "original_sha256": "3af829cbfc4e52649296dfbe40a7684f113a6c3baf462e1c15ed2ea7b0aff06e",
+      "candidate_sha256": "30b1293a07afb530774326b9674b6e1c580d5953b30a917e0331859a5719e6f4"
+    },
+    "server/binder/com/android/internal/net/IOemNetd.aidl": {
+      "original_sha256": "5359bee4b2c771a39d60742360acd857cc5bd018750b7c7a2609bfde47ee09c8",
+      "candidate_sha256": "3f22e755a08e6afce88ece96020f69d51fa7491271c0c25e62d6d6df374de1eb"
+    }
+  },
+  "prerequisite": "held-provider-20261114-01 plus its complete dependency chain",
+  "selected_source_changed": false,
+  "Soong_composition_pending": true
+}

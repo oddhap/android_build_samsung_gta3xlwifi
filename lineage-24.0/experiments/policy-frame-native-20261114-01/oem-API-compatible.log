@@ -1,0 +1,4 @@
+ERROR: /srv/android/artifacts/lineage-24.0-arm64/policy-frame-native-20261114-01/api-new/com/android/internal/net/IOemNetd.aidl: Couldn't find import for class com.android.internal.net.IGta3xlwifiNetpolicy. Searched here:
+ - /srv/android/artifacts/lineage-24.0-arm64/policy-frame-native-20261114-01/api-new/
+ERROR: /srv/android/artifacts/lineage-24.0-arm64/policy-frame-native-20261114-01/api-new/com/android/internal/net/IOemNetd.aidl:39.1-48: Failed to resolve 'com.android.internal.net.IGta3xlwifiNetpolicy'
+ERROR: /srv/android/artifacts/lineage-24.0-arm64/policy-frame-native-20261114-01/api-new/com/android/internal/net/IOemNetd.aidl: Failed to read.

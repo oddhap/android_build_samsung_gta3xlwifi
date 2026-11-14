@@ -1,0 +1,433 @@
+--- /dev/null
++++ b/server/Gta3xlwifiPolicyFrame.h
+@@ -0,0 +1,28 @@
++// SPDX-License-Identifier: Apache-2.0
++#pragma once
++#include <array>
++#include "Gta3xlwifiSocketPolicyProjection.h"
++namespace android::net::gta3xlwifi {
++// Bounded ordered IPC staging. All sections are explicitly declared, including
++// empty ones. Nothing changes the owner/kernel until a complete frame compiles.
++class PolicyFrame final {
++ public:
++  enum Section : uint32_t {
++    Users, KnownUids, RawPermissions, ChainConfiguration, ChainMembership,
++    IngressOwners, DiscardAddresses, LocalNetworks, LocalHosts, LegacyBlockedUids,
++    SectionCount
++  };
++  static constexpr uint32_t ChunkWords = 4096;
++  static constexpr uint32_t MaxWords = 1000000;
++  int begin(const std::vector<int32_t>& wordCounts, uint32_t runtimeFlags,
++            bool loopbackPermission, bool uidMigration, bool dataSaver);
++  int append(uint32_t section, uint32_t offset, const std::vector<int32_t>& words);
++  int compile(SocketPolicyProjection::State* output) const;
++  void clear();
++ private:
++  bool mBegun = false, mLoopback = false, mDataSaver = false;
++  uint32_t mFlags = 0;
++  std::array<size_t, SectionCount> mCounts{};
++  std::array<std::vector<int32_t>, SectionCount> mWords;
++};
++}  // namespace android::net::gta3xlwifi
+--- /dev/null
++++ b/server/Gta3xlwifiPolicyFrame.cpp
+@@ -0,0 +1,120 @@
++// SPDX-License-Identifier: Apache-2.0
++#include "Gta3xlwifiPolicyFrame.h"
++#include <cerrno>
++#include <set>
++namespace android::net::gta3xlwifi {
++namespace {
++constexpr std::array<uint32_t, PolicyFrame::SectionCount> Width{1,1,2,2,2,4,6,8,8,1};
++constexpr std::array<uint32_t, PolicyFrame::SectionCount> Limit{
++    65536,65536,131072,24,480000,80000,600,8000,8000,1000};
++bool boolean(int32_t value) { return value == 0 || value == 1; }
++void addressWord(uint32_t word, uint8_t* out) {
++  // Explicit network byte order, independent of host/Parcel CPU byte order.
++  for (unsigned n=0;n<4;++n) out[n] = word >> (24-8*n);
++}
++}
++void PolicyFrame::clear() {
++  mBegun = false;
++  mCounts.fill(0);
++  for (auto& section : mWords) std::vector<int32_t>().swap(section);
++}
++int PolicyFrame::begin(const std::vector<int32_t>& counts, uint32_t flags,
++                       bool loopback, bool migration, bool dataSaver) {
++  if (mBegun) return -EBUSY;
++  if (!migration) return -EOPNOTSUPP; // Actual A17 canonical full-UID mode required.
++  if (counts.size()!=SectionCount || (flags & ~7u)) return -EINVAL;
++  uint32_t total = 0;
++  for (size_t i=0;i<SectionCount;++i) {
++    if (counts[i]<0 || static_cast<uint32_t>(counts[i])>Limit[i] ||
++        counts[i]%Width[i]) return -EINVAL;
++    total += counts[i];
++  }
++  if (total>MaxWords) return -E2BIG;
++  // Every actual chain, including disabled chains, must be supplied explicitly.
++  if (counts[ChainConfiguration]!=24) return -EPROTO;
++  for (size_t i=0;i<SectionCount;++i) mCounts[i]=counts[i];
++  mFlags=flags; mLoopback=loopback; mDataSaver=dataSaver; mBegun=true;
++  return 0;
++}
++int PolicyFrame::append(uint32_t section, uint32_t offset,
++                        const std::vector<int32_t>& words) {
++  if (!mBegun) return -ENOTCONN;
++  if (section>=SectionCount || words.empty() || words.size()>ChunkWords) return -EINVAL;
++  auto& destination=mWords[section];
++  if (offset!=destination.size()) return -ESTALE;
++  if (words.size()>mCounts[section]-destination.size()) return -E2BIG;
++  destination.insert(destination.end(),words.begin(),words.end());
++  return 0;
++}
++int PolicyFrame::compile(SocketPolicyProjection::State* output) const {
++  if (!output) return -EINVAL;
++  if (!mBegun) return -ENOTCONN;
++  for (size_t i=0;i<SectionCount;++i) if (mWords[i].size()!=mCounts[i]) return -EAGAIN;
++  SocketPolicyProjection::State next;
++  PermissionBootstrap::Snapshot permissions;
++  permissions.users=mWords[Users]; permissions.knownUids=mWords[KnownUids];
++  permissions.loopbackPermissionEnabled=mLoopback;
++  const auto& raw=mWords[RawPermissions];
++  for (size_t i=0;i<raw.size();i+=2) permissions.observed.push_back({raw[i],static_cast<uint32_t>(raw[i+1])});
++  int result=PermissionBootstrap::compile(permissions,&next.permissions);
++  if (result) return result;
++  std::set<int32_t> chains;
++  const auto& config=mWords[ChainConfiguration];
++  for (size_t i=0;i<config.size();i+=2) {
++    if (!boolean(config[i+1]) || !chains.insert(config[i]).second) return -EINVAL;
++    if ((result=next.policy.setChainEnabled(config[i],config[i+1]))) return result;
++  }
++  for (const auto& chain:UidPolicy::chains()) if (!chains.count(chain.id)) return -EPROTO;
++  std::set<std::pair<int32_t,int32_t>> memberships;
++  const auto& members=mWords[ChainMembership];
++  for (size_t i=0;i<members.size();i+=2) {
++    if (!memberships.emplace(members[i],members[i+1]).second) return -EINVAL;
++  }
++  for (const auto& chain:UidPolicy::chains()) {
++    std::vector<int32_t> uids;
++    for (const auto& member:memberships) if (member.first==chain.id) uids.push_back(member.second);
++    if ((result=next.policy.replaceUidChain(chain.id,uids))) return result;
++  }
++  for (const auto& member:memberships) if (!chains.count(member.first)) return -EINVAL;
++  next.policy.setDataSaver(mDataSaver);
++  std::set<int32_t> owners;
++  const auto& ingress=mWords[IngressOwners];
++  for (size_t i=0;i<ingress.size();i+=4) {
++    if (!boolean(ingress[i+1]) || !boolean(ingress[i+3]) ||
++        (!ingress[i+1] && ingress[i+2]) || !owners.insert(ingress[i]).second) return -EINVAL;
++    if (ingress[i+1] && (result=next.ingress.setIif(ingress[i],static_cast<uint32_t>(ingress[i+2])))) return result;
++    if ((result=next.ingress.setLockdown(ingress[i],ingress[i+3]))) return result;
++  }
++  std::set<IngressPolicy::Address> discards;
++  const auto& discard=mWords[DiscardAddresses];
++  for (size_t i=0;i<discard.size();i+=6) {
++    IngressPolicy::Address address{};
++    for (unsigned n=0;n<4;++n) addressWord(discard[i+n],address.data()+4*n);
++    if (!discards.insert(address).second) return -EINVAL;
++    if ((result=next.ingress.setDiscard(address,static_cast<uint32_t>(discard[i+4]),static_cast<uint32_t>(discard[i+5])))) return result;
++  }
++  for (auto section:{LocalNetworks,LocalHosts}) {
++    std::vector<LocalNetworkState::Entry> entries;
++    const auto& words=mWords[section];
++    for (size_t i=0;i<words.size();i+=8) {
++      if (words[i]<0 || !boolean(words[i+7])) return -EINVAL;
++      LocalNetworkState::Entry entry{static_cast<uint32_t>(words[i]),{},words[i+7]!=0};
++      for (unsigned n=0;n<6;++n) addressWord(words[i+1+n],entry.key.data()+4*n);
++      entries.push_back(entry);
++    }
++    // replace validates duplicate canonical prefixes rather than overwriting.
++    std::vector<LocalNetworkState::Entry> network,host;
++    if ((result=next.local.snapshot(&network,&host))) return result;
++    if (section==LocalNetworks) network=std::move(entries); else host=std::move(entries);
++    if ((result=next.local.replace(network,host))) return result;
++  }
++  next.runtime.supplied=true; next.runtime.flags=mFlags;
++  for (int32_t uid:mWords[LegacyBlockedUids]) {
++    if (uid<0 || (!next.runtime.legacyBlockedUids.empty() &&
++        next.runtime.legacyBlockedUids.back()>=static_cast<uint32_t>(uid))) return -EINVAL;
++    next.runtime.legacyBlockedUids.push_back(uid);
++  }
++  *output=std::move(next);
++  return 0;
++}
++}  // namespace android::net::gta3xlwifi
+--- /dev/null
++++ b/server/Gta3xlwifiNetpolicyService.h
+@@ -0,0 +1,32 @@
++// SPDX-License-Identifier: Apache-2.0
++#pragma once
++#include <binder/IBinder.h>
++#include "com/android/internal/net/BnGta3xlwifiNetpolicy.h"
++#include "Gta3xlwifiPolicyFrame.h"
++namespace android::net::gta3xlwifi {
++class NetpolicyService final : public ::com::android::internal::net::BnGta3xlwifiNetpolicy {
++ public:
++  explicit NetpolicyService(SocketPolicyProjection& owner) : mOwner(owner) {}
++  ::android::binder::Status openSession(const ::android::sp<::android::IBinder>& client,
++                                        int32_t version, int64_t* session) override;
++  ::android::binder::Status beginFrame(int64_t session, int64_t expectedGeneration,
++      const std::vector<int32_t>& wordCounts, int32_t runtimeFlags,
++      bool loopback, bool migration, bool dataSaver) override;
++  ::android::binder::Status appendFrame(int64_t session, int32_t section, int32_t offset,
++                                        const std::vector<int32_t>& words) override;
++  ::android::binder::Status commitFrame(int64_t session, int64_t* generation) override;
++  ::android::binder::Status abandonFrame(int64_t session) override;
++ private:
++  class ClientDeath;
++  void clientDied(int64_t session);
++  static bool authorized();
++  int validateSession(int64_t session) const;
++  SocketPolicyProjection& mOwner;
++  std::mutex mMutex;
++  ::android::sp<::android::IBinder> mClient;
++  ::android::sp<::android::IBinder::DeathRecipient> mDeath;
++  int64_t mSession = 0, mSerial = 0;
++  uint64_t mExpected = 0;
++  PolicyFrame mFrame;
++};
++}  // namespace android::net::gta3xlwifi
+--- /dev/null
++++ b/server/Gta3xlwifiNetpolicyService.cpp
+@@ -0,0 +1,113 @@
++// SPDX-License-Identifier: Apache-2.0
++#include "Gta3xlwifiNetpolicyService.h"
++#include <binder/IPCThreadState.h>
++#include <cerrno>
++#include <climits>
++namespace android::net::gta3xlwifi {
++namespace {
++using ::android::binder::Status;
++Status status(int result) {
++  return result ? Status::fromServiceSpecificError(result < 0 ? -result : EPROTO) : Status::ok();
++}
++Status denied() { return Status::fromExceptionCode(Status::EX_SECURITY); }
++}
++class NetpolicyService::ClientDeath final : public IBinder::DeathRecipient {
++ public:
++  ClientDeath(const wp<NetpolicyService>& service,int64_t session)
++      : mService(service),mSession(session) {}
++  void binderDied(const wp<IBinder>&) override {
++    if (auto service=mService.promote()) service->clientDied(mSession);
++  }
++ private:
++  wp<NetpolicyService> mService;
++  int64_t mSession;
++};
++bool NetpolicyService::authorized() {
++  // Full UID, not appId; root, network-stack and secondary-user system IDs are
++  // not implicit policy owners. Checked on every RPC, not just handle lookup.
++  return IPCThreadState::self()->getCallingUid()==1000;
++}
++int NetpolicyService::validateSession(int64_t session) const {
++  return mClient && session>0 && session==mSession ? 0 : -ESTALE;
++}
++Status NetpolicyService::openSession(const sp<IBinder>& client,int32_t version,int64_t* output) {
++  if (!authorized()) return denied();
++  if (!client || !output || version!=1) return status(-EINVAL);
++  std::lock_guard lock(mMutex);
++  if (mClient) {
++    if (mClient!=client) return status(-EBUSY);
++    *output=mSession;
++    return Status::ok();
++  }
++  if (mSerial==INT64_MAX) return status(-EOVERFLOW);
++  int result=mOwner.verifyHeldProviderStartup();
++  if (result) return status(result);
++  const int64_t session=++mSerial;
++  auto death=sp<ClientDeath>::make(wp<NetpolicyService>::fromExisting(this),session);
++  if (client->linkToDeath(death)!=OK) return status(-EPIPE);
++  mClient=client; mDeath=death; mSession=session;
++  *output=session;
++  return Status::ok();
++}
++Status NetpolicyService::beginFrame(int64_t session,int64_t expected,
++    const std::vector<int32_t>& counts,int32_t flags,bool loopback,bool migration,bool dataSaver) {
++  if (!authorized()) return denied();
++  std::lock_guard lock(mMutex);
++  int result=validateSession(session);
++  if (result) return status(result);
++  if (expected<0) return status(-EINVAL);
++  SocketPolicyProjection::State current; uint64_t generation=0;
++  result=mOwner.snapshot(&current,&generation);
++  if (result && result!=-EAGAIN) return status(result);
++  if (static_cast<uint64_t>(expected)!=generation) return status(-ESTALE);
++  result=mFrame.begin(counts,static_cast<uint32_t>(flags),loopback,migration,dataSaver);
++  if (!result) mExpected=generation;
++  return status(result);
++}
++Status NetpolicyService::appendFrame(int64_t session,int32_t section,int32_t offset,
++                                     const std::vector<int32_t>& words) {
++  if (!authorized()) return denied();
++  std::lock_guard lock(mMutex);
++  int result=validateSession(session);
++  if (result) return status(result);
++  if (section<0 || offset<0) return status(-EINVAL);
++  return status(mFrame.append(section,offset,words));
++}
++Status NetpolicyService::commitFrame(int64_t session,int64_t* output) {
++  if (!authorized()) return denied();
++  if (!output) return status(-EINVAL);
++  std::lock_guard lock(mMutex);
++  int result=validateSession(session);
++  if (result) return status(result);
++  SocketPolicyProjection::State next;
++  result=mFrame.compile(&next);
++  if (result) return status(result);
++  uint64_t generation=0;
++  result=mOwner.replaceWithGeneration(next,mExpected,&generation);
++  // An uncertain kernel commit must never be retried implicitly. Explicit new
++  // state collection/lease recovery is required; no old frame remains staged.
++  mFrame.clear();
++  if (result) return status(result);
++  if (generation>INT64_MAX) {
++    mOwner.suspendFrameworkClient();
++    return status(-EOVERFLOW);
++  }
++  *output=static_cast<int64_t>(generation);
++  return Status::ok();
++}
++Status NetpolicyService::abandonFrame(int64_t session) {
++  if (!authorized()) return denied();
++  std::lock_guard lock(mMutex);
++  int result=validateSession(session);
++  if (result) return status(result);
++  mFrame.clear();
++  return Status::ok();
++}
++void NetpolicyService::clientDied(int64_t session) {
++  std::lock_guard lock(mMutex);
++  if (validateSession(session)) return; // Stale death cannot close a newer owner.
++  mFrame.clear();
++  mOwner.suspendFrameworkClient(); // Failure closes the real lease and holds too.
++  mClient.clear(); mDeath.clear(); mSession=0;
++}
++}  // namespace android::net::gta3xlwifi
+--- /dev/null
++++ b/server/binder/com/android/internal/net/IGta3xlwifiNetpolicy.aidl
+@@ -0,0 +1,19 @@
++/* SPDX-License-Identifier: Apache-2.0 */
++package com.android.internal.net;
++/**
++ * Private gta3xlwifi complete policy transport, separate from frozen INetd.
++ * Protocol 1. Every call requires the system UID, including transferred handles.
++ * A session or completed transport is not a networking readiness signal.
++ * Sections/word encoding are defined by Gta3xlwifiPolicyFrame.h/.cpp.
++ * Chunks have at most 4096 ints; the complete image is bounded independently.
++ * @hide
++ */
++interface IGta3xlwifiNetpolicy {
++    long openSession(IBinder client, int protocolVersion);
++    void beginFrame(long session, long expectedGeneration, in int[] wordCounts,
++            int runtimeFlags, boolean loopbackPermissionEnabled,
++            boolean uidMigrationEnabled, boolean dataSaverEnabled);
++    void appendFrame(long session, int section, int offset, in int[] words);
++    long commitFrame(long session);
++    void abandonFrame(long session);
++}
+--- a/server/Gta3xlwifiSocketPolicyProjection.h
++++ b/server/Gta3xlwifiSocketPolicyProjection.h
+@@ -65,6 +65,12 @@
+   // expectedGeneration=0 is explicit first commit after start. Stale updates
+   // fail before kernel I/O. Readers see one complete committed state or EAGAIN.
+   int replace(const State& state, uint64_t expectedGeneration);
++  // Same commit mutex returns the exact committed generation for Binder CAS.
++  int replaceWithGeneration(const State& state, uint64_t expectedGeneration,
++                            uint64_t* committedGeneration);
++  // Client death withdraws publication while retaining the verified producer
++  // lease for a complete explicit framework resnapshot. Uncertain HOLD closes it.
++  int suspendFrameworkClient();
+   int snapshot(State* output, uint64_t* generation);
+   int removeUid(int32_t uid);
+   int setUidRule(int32_t chain, int32_t uid, int32_t rule);
+--- a/server/Gta3xlwifiSocketPolicyProjection.cpp
++++ b/server/Gta3xlwifiSocketPolicyProjection.cpp
+@@ -94,10 +94,23 @@
+   quarantine(0);
+ }
+ int SocketPolicyProjection::replace(const State& value, uint64_t expected) {
++  return replaceWithGeneration(value, expected, nullptr);
++}
++int SocketPolicyProjection::replaceWithGeneration(const State& value,
++    uint64_t expected, uint64_t* committedGeneration) {
+   std::lock_guard<std::mutex> lock(mMutex);
+   if (!mStarted) return -ENOTCONN;
+   if (expected != (mCommit ? mCommit->generation : 0)) return -ESTALE;
+-  return applyLocked(value);
++  int result = applyLocked(value);
++  if (!result && committedGeneration) *committedGeneration = mCommit->generation;
++  return result;
++}
++int SocketPolicyProjection::suspendFrameworkClient() {
++  std::lock_guard<std::mutex> lock(mMutex);
++  mCommit.reset();
++  if (!mStarted) return -ENOTCONN;
++  int result = mLease.hold();
++  return result ? quarantine(result) : 0;
+ }
+ int SocketPolicyProjection::snapshot(State* output, uint64_t* generation) {
+   if (!output || !generation) return -EINVAL;
+--- a/server/OemNetdListener.h
++++ b/server/OemNetdListener.h
+@@ -42,6 +42,9 @@
+     ::android::binder::Status registerOemUnsolicitedEventListener(
+             const ::android::sp<IOemNetdUnsolicitedEventListener>& listener) override;
+ 
++    ::android::binder::Status getGta3xlwifiNetpolicy(
++        ::android::sp<IGta3xlwifiNetpolicy>* service) override;
++
+   private:
+     std::mutex mOemUnsolicitedMutex;
+ 
+--- a/server/OemNetdListener.cpp
++++ b/server/OemNetdListener.cpp
+@@ -17,6 +17,10 @@
+ #define LOG_TAG "OemNetd"
+ 
+ #include "OemNetdListener.h"
++#include "Controllers.h"
++#include "Gta3xlwifiNetpolicyService.h"
++#include <binder/IPCThreadState.h>
++#include <cerrno>
+ 
+ namespace com {
+ namespace android {
+@@ -28,6 +32,21 @@
+     static ::android::sp<OemNetdListener> listener = ::android::sp<OemNetdListener>::make();
+     static ::android::sp<::android::IBinder> sIBinder = ::android::IInterface::asBinder(listener);
+     return sIBinder;
++}
++
++::android::binder::Status OemNetdListener::getGta3xlwifiNetpolicy(
++        ::android::sp<IGta3xlwifiNetpolicy>* output) {
++    using ::android::binder::Status;
++    if (::android::IPCThreadState::self()->getCallingUid() != 1000)
++        return Status::fromExceptionCode(Status::EX_SECURITY);
++    auto* owner = ::android::net::gCtls ? ::android::net::gCtls->gta3xlwifiPolicy() : nullptr;
++    if (!owner) return Status::fromServiceSpecificError(EOPNOTSUPP);
++    // Created only after Controllers/mainline held startup, before framework
++    // policy publication. Singleton identity lasts for this netd process.
++    static const auto service =
++        ::android::sp<::android::net::gta3xlwifi::NetpolicyService>::make(*owner);
++    *output = service;
++    return Status::ok();
+ }
+ 
+ ::android::binder::Status OemNetdListener::isAlive(bool* alive) {
+--- a/server/binder/com/android/internal/net/IOemNetd.aidl
++++ b/server/binder/com/android/internal/net/IOemNetd.aidl
+@@ -17,6 +17,7 @@
+ package com.android.internal.net;
+ 
+ import com.android.internal.net.IOemNetdUnsolicitedEventListener;
++import com.android.internal.net.IGta3xlwifiNetpolicy;
+ 
+ /** @hide */
+ interface IOemNetd {
+@@ -31,4 +32,6 @@
+     * @param listener oem unsolicited event listener to register
+     */
+     void registerOemUnsolicitedEventListener(IOemNetdUnsolicitedEventListener listener);
++    /** Private transport only. Handle lookup never grants networking readiness. */
++    IGta3xlwifiNetpolicy getGta3xlwifiNetpolicy();
+ }
