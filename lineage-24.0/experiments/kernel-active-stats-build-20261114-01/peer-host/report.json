@@ -1,0 +1,38 @@
+{
+  "passed": true,
+  "scope": "Check the actual tuple-to-creator helper against kernel lookup/ref contracts.\n\nReal peer and creator-reader/full-socket/request-conversion C bodies. Lookup,\nobjects, namespaces and reference effects are fixtures; no actual socket search,\npacket eligibility, permission policy, BPF map or readiness is executed.\n",
+  "passed_cases": 8,
+  "tuple_identity_reference_comparisons": 672,
+  "stderr": "",
+  "command": [
+    "cc",
+    "-std=gnu11",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-O1",
+    "-g",
+    "-fsanitize=undefined",
+    "-fno-sanitize-recover=all",
+    "-I/srv/android/artifacts/lineage-24.0-arm64/kernel-active-stats-build-20261114-01/peer-host/include",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-active-stats-build-20261114-01/peer-host/test.c",
+    "-o",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-active-stats-build-20261114-01/peer-host/test"
+  ],
+  "inputs_sha256": {
+    "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/test-kernel-socket-peer24.py": "75380dee9472fd84126fb08689b993d3a7ac2ad9cbc9025e105eec173d8ca93e",
+    "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/test-kernel-qtaguid-socket-owned.py": "59516300b405af46c972b264353c3766b5c18cf882b04ac8ba9db6f70f436459",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-active-stats-20261114-01/src/net/netfilter/gta3xlwifi_socket_peer.c": "6ec29146f0ee5e4a62af31dbd78ce0c0820e44fd008b633a6fb2209daff3bb11",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-active-stats-20261114-01/src/include/net/gta3xlwifi_socket_peer.h": "fa98dcced9f1c6594b059b6c37ad2d484ced15325fd76679a92aea5d512109e7",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-socket-creator-read-20261106-01/src/net/core/sock.c": "51890194fac13bd6b6bc0a7c3822d956d42515cb2ce78bebc60140acf13f335a",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-socket-creator-read-20261106-01/src/include/net/sock.h": "ff6e9934fde08a827c73d0dbac8c2a798b5923ac1944dc3b35bb74b51a56f729",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-socket-creator-read-20261106-01/src/include/net/inet_sock.h": "14d2ba2a3a88f1c2affac13ec112aaa8cf4bd17a35651872ad1c5707d44fa781",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-socket-creator-read-20261106-01/src/include/net/request_sock.h": "738a7aee28de10ef30359082dbadd3234ce3c150b0ed659038c97408b681cb27",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-socket-creator-read-20261106-01/src/include/net/tcp_states.h": "e459e1d08c17f5f38fc530eabd45134a4ec4eb2be5db2bd3741551eb109d4c30",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-active-stats-build-20261114-01/peer-host/include/net/gta3xlwifi_socket_peer.h": "fa98dcced9f1c6594b059b6c37ad2d484ced15325fd76679a92aea5d512109e7",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-active-stats-build-20261114-01/peer-host/tcp_states.h": "e459e1d08c17f5f38fc530eabd45134a4ec4eb2be5db2bd3741551eb109d4c30",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-active-stats-build-20261114-01/peer-host/test.c": "fc301843c7cd31a9057283aa8205256f43474cc60495874280f1c8ae6eabc62c"
+  },
+  "hardware_tested": false,
+  "flash_ready": false
+}

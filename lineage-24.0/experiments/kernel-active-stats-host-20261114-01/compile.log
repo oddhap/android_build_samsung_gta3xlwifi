@@ -1,0 +1,8 @@
+/srv/android/artifacts/lineage-24.0-arm64/kernel-active-stats-host-20261114-01/test.c: In function ‘main’:
+/srv/android/artifacts/lineage-24.0-arm64/kernel-active-stats-host-20261114-01/test.c:536:2: error: this ‘for’ clause does not guard... [-Werror=misleading-indentation]
+  536 |  for(unsigned i=0;i<8;i++)assert(!pthread_join(threads[i],NULL));q=req(3,1,rows,5000);T(!io(GTA3XLWIFI_STATS_READ,&q)&&q.count==8&&q.sequence==80000&&!q.lost_updates&&allocs==frees);
+      |  ^~~
+/srv/android/artifacts/lineage-24.0-arm64/kernel-active-stats-host-20261114-01/test.c:536:66: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the ‘for’
+  536 |  for(unsigned i=0;i<8;i++)assert(!pthread_join(threads[i],NULL));q=req(3,1,rows,5000);T(!io(GTA3XLWIFI_STATS_READ,&q)&&q.count==8&&q.sequence==80000&&!q.lost_updates&&allocs==frees);
+      |                                                                  ^
+cc1: all warnings being treated as errors

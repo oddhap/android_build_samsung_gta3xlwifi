@@ -1,0 +1,41 @@
+{
+  "passed": true,
+  "actual_ARM64_producer_reachability": {
+    "gta3xlwifi_receive_policy": [
+      "__rcu_read_lock",
+      "__rcu_read_unlock",
+      "__stack_chk_fail",
+      "_raw_spin_lock_bh",
+      "_raw_spin_unlock_bh",
+      "get_sock_stat_nl",
+      "gta3xlwifi_lna_blocked",
+      "gta3xlwifi_netpolicy_held",
+      "gta3xlwifi_packet_stats_lost",
+      "gta3xlwifi_packet_stats_record",
+      "gta3xlwifi_parse_packet",
+      "gta3xlwifi_receive_policy",
+      "gta3xlwifi_socket_accounting",
+      "gta3xlwifi_socket_table_policy_meta",
+      "printk"
+    ],
+    "gta3xlwifi_egress_policy": [
+      "__rcu_read_lock",
+      "__rcu_read_unlock",
+      "__stack_chk_fail",
+      "_raw_spin_lock_bh",
+      "_raw_spin_unlock_bh",
+      "get_sock_stat_nl",
+      "gta3xlwifi_egress_policy",
+      "gta3xlwifi_lna_blocked",
+      "gta3xlwifi_loopback_blocked",
+      "gta3xlwifi_netpolicy_held",
+      "gta3xlwifi_packet_stats_lost",
+      "gta3xlwifi_packet_stats_record",
+      "gta3xlwifi_parse_packet",
+      "gta3xlwifi_socket_accounting",
+      "gta3xlwifi_socket_table_policy_meta",
+      "printk"
+    ]
+  },
+  "scope": "Compiled UID/app producer paths only; no native admission or global Ready."
+}

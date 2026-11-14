@@ -1,0 +1,113 @@
+{
+  "passed": true,
+  "scope": "Check exact packet producer capability delta, unchanged accounting and four product configs.\n\nA compiled-source primitive, never a BPF object, installed-rule or Ready claim.\nActual ARM64 producer reachability remains a mandatory full-kernel build check.\n",
+  "passed_cases": 8,
+  "config_variants": [
+    {
+      "flags": [],
+      "command": [
+        "cc",
+        "-std=gnu11",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-O1",
+        "-g",
+        "-fsanitize=undefined",
+        "-fno-sanitize-recover=all",
+        "/srv/android/artifacts/lineage-24.0-arm64/kernel-active-stats-build-20261114-01/packet-capability-host/test.c",
+        "-o",
+        "/srv/android/artifacts/lineage-24.0-arm64/kernel-active-stats-build-20261114-01/packet-capability-host/test-0"
+      ],
+      "passed_cases": 2
+    },
+    {
+      "flags": [
+        "-DCONFIG_INET=1"
+      ],
+      "command": [
+        "cc",
+        "-std=gnu11",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-DCONFIG_INET=1",
+        "-O1",
+        "-g",
+        "-fsanitize=undefined",
+        "-fno-sanitize-recover=all",
+        "/srv/android/artifacts/lineage-24.0-arm64/kernel-active-stats-build-20261114-01/packet-capability-host/test.c",
+        "-o",
+        "/srv/android/artifacts/lineage-24.0-arm64/kernel-active-stats-build-20261114-01/packet-capability-host/test-1"
+      ],
+      "passed_cases": 2
+    },
+    {
+      "flags": [
+        "-DCONFIG_IPV6=1"
+      ],
+      "command": [
+        "cc",
+        "-std=gnu11",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-DCONFIG_IPV6=1",
+        "-O1",
+        "-g",
+        "-fsanitize=undefined",
+        "-fno-sanitize-recover=all",
+        "/srv/android/artifacts/lineage-24.0-arm64/kernel-active-stats-build-20261114-01/packet-capability-host/test.c",
+        "-o",
+        "/srv/android/artifacts/lineage-24.0-arm64/kernel-active-stats-build-20261114-01/packet-capability-host/test-2"
+      ],
+      "passed_cases": 2
+    },
+    {
+      "flags": [
+        "-DCONFIG_INET=1",
+        "-DCONFIG_IPV6=1",
+        "-DBOTH_ENABLED=1"
+      ],
+      "command": [
+        "cc",
+        "-std=gnu11",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-DCONFIG_INET=1",
+        "-DCONFIG_IPV6=1",
+        "-DBOTH_ENABLED=1",
+        "-O1",
+        "-g",
+        "-fsanitize=undefined",
+        "-fno-sanitize-recover=all",
+        "/srv/android/artifacts/lineage-24.0-arm64/kernel-active-stats-build-20261114-01/packet-capability-host/test.c",
+        "-o",
+        "/srv/android/artifacts/lineage-24.0-arm64/kernel-active-stats-build-20261114-01/packet-capability-host/test-3"
+      ],
+      "passed_cases": 2
+    }
+  ],
+  "only_exact_getter_header_dispatch_delta": true,
+  "packet_and_accounting_bodies_identical": true,
+  "actual_product_builtin_dual_stack_config_checked": true,
+  "inputs_sha256": {
+    "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/test-kernel-packet-capability24.py": "113a4679f747dc4372dbaaed23814d00ca236f4592ba465d61480941059f46df",
+    "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/test-kernel-qtaguid-socket-owned.py": "59516300b405af46c972b264353c3766b5c18cf882b04ac8ba9db6f70f436459",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-packet-capability-20261113-01/src/net/netfilter/gta3xlwifi_packet_stats.c": "359a4152a78fa8f9c71bc833bbbb838b4dadbdc763995083e04c1cd613c8e24f",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-packet-hooks-20261113-02/src/net/netfilter/gta3xlwifi_packet_stats.c": "17230f8b2f5237244a1ac59be73f38000a075aa81dc81ceb8f652b7772071502",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-packet-capability-20261113-01/src/include/uapi/linux/netfilter/gta3xlwifi_packet_stats.h": "6c74850ea0ec6294db4b1a456485eb45975b3d8bb11db08a4d578f6637209350",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-packet-hooks-20261113-02/src/include/uapi/linux/netfilter/gta3xlwifi_packet_stats.h": "a44d03ddee8cfdfea4e1ccc55033c1161e6b43e2b882a1075857f25b3bdc65cb",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-packet-capability-20261113-01/src/net/netfilter/xt_qtaguid.c": "54f363931d7929ff68cf6796cea4a47664e9268f36663734a94b6a0fedb84d6d",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-packet-hooks-20261113-02/src/net/netfilter/xt_qtaguid.c": "54f363931d7929ff68cf6796cea4a47664e9268f36663734a94b6a0fedb84d6d",
+    "/srv/android/artifacts/kernel-dt2w/kernel.config": "fac42e3bbf996bb9502bb1031c91b1950986ad3586d0f33cad869a6fd0b3acea",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-active-stats-build-20261114-01/packet-capability-host/test.c": "567a7158f05ddc2bfe1d7b68c516f3c8220d3369cb433ce6caf50549b611f015",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-packet-capability-20261113-01/src/net/netfilter/gta3xlwifi_netpolicy.c": "40d42c689d11fa9b73469a14fe6c253b4ee025673adb95bc17a20b6dfe40eea4",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-packet-hooks-20261113-02/src/net/netfilter/gta3xlwifi_netpolicy.c": "3b32ad9b993d35ea75adfd5780b1e603e07a1953ce2584903b3b195d8915fd4a",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-packet-capability-20261113-01/src/include/net/gta3xlwifi_packet_stats.h": "7404538d469cef4f702665c5a92f7e1ae01c7cb3e2ab4fd190a8c09aaa5f93fa",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-packet-hooks-20261113-02/src/include/net/gta3xlwifi_packet_stats.h": "fdf7aec15f705dfd6780f71d109b9d8d69c297a061ec25b238189c65d0e2734d"
+  },
+  "hardware_tested": false,
+  "flash_ready": false
+}

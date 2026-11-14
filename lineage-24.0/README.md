@@ -32,6 +32,33 @@ checks are separate from Android execution. Optional GPU BPF accounting still
 reports unavailable, rather than invented counters. Existing safety/installer
 and strict SELinux checks remain enforced.
 
+## Active statistics for tagging budgets — November 14
+
+The isolated kernel can now snapshot the real active packet-statistics bank
+without swapping, clearing or acknowledging it. The existing READ ioctl/layout
+is preserved; kind3 requires the exact current epoch and returns one locked
+snapshot of sorted rows, loss and sequence. A distinct private compiled feature
+bit protects the new reader. No SELinux assertion/grant or policycap changes.
+
+The sole native owner reads the active rows under its existing mutex/descriptor,
+returning actual total and per-chargeUID row counts. Errors withdraw published
+state; invalid arguments preserve it. This supplies the data needed for tagging
+budgets, not permission to tag or network readiness. Kernel tests pass 5,396 cases,
+9,830,400 actual A17 GSO comparisons and two 80,000-update concurrency runs. Native
+owner tests pass 3,250 cases. A complete matching Image/modules build and complete
+netd CFI link pass, with ARM32/64 wire checks and full kernel/protected/Android
+revision audits. See kernel-active-stats-20261114-01 and
+active-stats-owner-20261114-01 for the exact staged proposals and evidence.
+
+The actual generated and compiled Java accessor confirms UID migration enabled
+in this checkout. The actual A17 tagging-budget guard passes 81 boundary cases:
+limits500 perUID and4500 total, strict greater-than rejection. Flags are unchanged.
+The selected Image/latest21-MTP-vendor/DTBO and every strict runtime policy input
+and binary hash are rechecked unchanged in active-stats-final-inputs-20261114-01.
+Authorized socket tagging and genuine mainline provider startup still need wiring,
+followed by Java/Binder frames, statistics/event lifecycle and installation gates.
+No flash-ready ROM or device execution is claimed.
+
 ## Sole owner in Controllers startup — November 14
 
 The isolated Controllers candidate now acquires and verifies the single real

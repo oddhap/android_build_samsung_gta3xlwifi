@@ -1,0 +1,1 @@
+test: /srv/android/artifacts/lineage-24.0-arm64/kernel-active-stats-host-20261114-02/test.c:534: main: Assertion `!io((((2U|1U) << (((0+8)+8)+14)) | ((('g')) << (0+8)) | (((0x5c)) << 0) | ((((sizeof(struct gta3xlwifi_packet_stats_transfer)))) << ((0+8)+8))),&q)&&q.count<=8&&!q.lost_updates' failed.

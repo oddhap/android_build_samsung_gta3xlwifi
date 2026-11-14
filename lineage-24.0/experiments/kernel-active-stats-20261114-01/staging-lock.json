@@ -1,0 +1,32 @@
+{
+  "scope": "Real non-consuming active stats snapshot through existing READ command, explicit compiled capability bit15; not tagging or Ready.",
+  "prerequisites": [
+    "kernel-runtime-policy-20261113-01"
+  ],
+  "patch_sha256": "b05e45ae31472d1c1976a584a8a85e05433e6544b3c1ea26951775c8421a53b3",
+  "files": [
+    {
+      "path": "include/uapi/linux/netfilter/gta3xlwifi_packet_stats.h",
+      "before_sha256": "6c74850ea0ec6294db4b1a456485eb45975b3d8bb11db08a4d578f6637209350",
+      "candidate_sha256": "fa5c8a4f9b25279596feac7d5c8d145bc29b53c4e45fc3a7b15376d80a813472"
+    },
+    {
+      "path": "net/netfilter/gta3xlwifi_packet_stats.c",
+      "before_sha256": "359a4152a78fa8f9c71bc833bbbb838b4dadbdc763995083e04c1cd613c8e24f",
+      "candidate_sha256": "8733aaebe27f2ff78be999c1456e1b2f99d0e2aa00d83eb385593c4cf1af036d"
+    }
+  ],
+  "supported_runtime_capability_bits": [
+    0,
+    1,
+    2,
+    3,
+    5,
+    9,
+    12
+  ],
+  "unknown_active_capabilities_rejected": true,
+  "android_prebuilt_promoted": false,
+  "hardware_tested": false,
+  "flash_ready": false
+}

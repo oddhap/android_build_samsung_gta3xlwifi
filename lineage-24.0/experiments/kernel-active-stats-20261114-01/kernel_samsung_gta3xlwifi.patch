@@ -1,0 +1,77 @@
+--- a/include/uapi/linux/netfilter/gta3xlwifi_packet_stats.h
++++ b/include/uapi/linux/netfilter/gta3xlwifi_packet_stats.h
+@@ -11,6 +11,9 @@
+ #define GTA3XLWIFI_UID_CAP_PACKET_STATS_STORE (1U << 12)
+ /* Compiled dual-stack actual packet producers, separate from storage. */
+ #define GTA3XLWIFI_UID_CAP_PACKET_STATS_HOOKS (1U << 13)
++/* Compiled non-consuming active-bank snapshot, not global backend readiness. */
++#define GTA3XLWIFI_UID_CAP_ACTIVE_PACKET_STATS (1U << 15)
++#define GTA3XLWIFI_STATS_ACTIVE 3U
+ #define GTA3XLWIFI_STATS_BANK_A 0U
+ #define GTA3XLWIFI_STATS_BANK_B 1U
+ #define GTA3XLWIFI_STATS_APP_UID 2U
+@@ -33,6 +36,10 @@
+ /* Non-consuming one-call snapshot: capacity5000 for frozen bank,10000 for app.
+  * Input reserved/lost_updates/sequence must0. count0+entries0 probes only.
+  * Frozen bank requires pending and exact epoch. APP_UID input epoch must0.
++ * ACTIVE selects the actual active bank under stats_lock, requires its exact
++ * nonzero epoch, and never swaps, ACKs, clears or marks a bank pending.
++ * Read counters/row count/loss/sequence belong to one locked snapshot. As with
++ * A17's active map iteration, new packets can arrive after that snapshot.
+  * Loss counts real failed update attempts, not estimated lost packets.
+  */
+ struct gta3xlwifi_packet_stats_transfer {
+--- a/net/netfilter/gta3xlwifi_packet_stats.c
++++ b/net/netfilter/gta3xlwifi_packet_stats.c
+@@ -82,7 +82,7 @@
+ u32 gta3xlwifi_packet_stats_features(void)
+ {
+ #if defined(CONFIG_INET) && defined(CONFIG_IPV6)
+-    return GTA3XLWIFI_UID_CAP_PACKET_STATS_STORE;
++    return GTA3XLWIFI_UID_CAP_PACKET_STATS_STORE | GTA3XLWIFI_UID_CAP_ACTIVE_PACKET_STATS;
+ #else
+     return 0;
+ #endif
+@@ -178,29 +178,32 @@
+ static long stats_read(unsigned long arg)
+ {
+     struct gta3xlwifi_packet_stats_transfer request,answer;
+-    void *rows=NULL;u32 limit,actual,i;size_t size;bool app;int result=0;
++    void *rows=NULL;u32 limit,actual,i,bank;size_t size;bool app,live;int result=0;
+     if(copy_from_user(&request,(void __user *)arg,sizeof(request)))return -EFAULT;
+-    if(request.version!=GTA3XLWIFI_PACKET_STATS_VERSION||request.kind>GTA3XLWIFI_STATS_APP_UID||
++    if(request.version!=GTA3XLWIFI_PACKET_STATS_VERSION||request.kind>GTA3XLWIFI_STATS_ACTIVE||
+        request.reserved||request.lost_updates||request.sequence|| (!!request.count!=!!request.entries))return -EINVAL;
+     app=request.kind==GTA3XLWIFI_STATS_APP_UID;
++    live=request.kind==GTA3XLWIFI_STATS_ACTIVE;
++    if(live&&!request.epoch)return -EINVAL;
+     if(app&&request.epoch)return -EINVAL;
+     limit=app?GTA3XLWIFI_APP_STATS_MAX:GTA3XLWIFI_PACKET_STATS_MAX;
+     size=app?sizeof(struct gta3xlwifi_app_stats_entry):sizeof(struct gta3xlwifi_packet_stats_entry);
+     if(request.count>limit)return -EINVAL;
+     if(request.count){rows=vzalloc(request.count*size);if(!rows)return -ENOMEM;}
+     answer=request;spin_lock_bh(&stats_lock);
+-    if(!app&&request.kind==stats_active)result=-EBUSY;
+-    else if(!app&&!stats_banks[request.kind].pending)result=-ENODATA;
+-    else if(!app&&request.epoch!=stats_bank_epoch[request.kind])result=-ESTALE;
++    bank=live?stats_active:request.kind;
++    if(!app&&!live&&bank==stats_active)result=-EBUSY;
++    else if(!app&&!live&&!stats_banks[bank].pending)result=-ENODATA;
++    else if(!app&&request.epoch!=stats_bank_epoch[bank])result=-ESTALE;
+     if(!result){
+-        actual=app?app_count:stats_banks[request.kind].count;
+-        answer.count=actual;answer.epoch=app?0:stats_bank_epoch[request.kind];
+-        answer.lost_updates=app?app_lost:stats_banks[request.kind].lost;
+-        answer.sequence=app?app_sequence:stats_banks[request.kind].sequence;
++        actual=app?app_count:stats_banks[bank].count;
++        answer.count=actual;answer.epoch=app?0:stats_bank_epoch[bank];
++        answer.lost_updates=app?app_lost:stats_banks[bank].lost;
++        answer.sequence=app?app_sequence:stats_banks[bank].sequence;
+         if(request.count&&request.count<actual)result=-ENOSPC;
+         else if(request.count){
+             if(app)for(i=0;i<actual;++i)((struct gta3xlwifi_app_stats_entry *)rows)[i]=app_rows[i].entry;
+-            else for(i=0;i<actual;++i)((struct gta3xlwifi_packet_stats_entry *)rows)[i]=stats_banks[request.kind].rows[i].entry;
++            else for(i=0;i<actual;++i)((struct gta3xlwifi_packet_stats_entry *)rows)[i]=stats_banks[bank].rows[i].entry;
+         }
+     }
+     spin_unlock_bh(&stats_lock);

@@ -1,0 +1,127 @@
+Compiled from "Flags.java"
+public final class com.android.tethering.flags.Flags {
+  public static final java.lang.String FLAG_COLLECT_BETA_METRICS;
+
+  public static final java.lang.String FLAG_ENABLE_INCALL_SERVICE_API;
+
+  public static final java.lang.String FLAG_ENABLE_MULTI_PROXY_SYSTEM;
+
+  public static final java.lang.String FLAG_ENCRYPTED_CLIENT_HELLO_DNS;
+
+  public static final java.lang.String FLAG_L4S_DEVELOPER_OPTION;
+
+  public static final java.lang.String FLAG_LOOPBACK_ACCESS_METRICS;
+
+  public static final java.lang.String FLAG_NET_CAPABILITY_PRIORITIZE_UNIFIED_COMMUNICATIONS;
+
+  public static final java.lang.String FLAG_NETLINK_NO_TIMEOUT;
+
+  public static final java.lang.String FLAG_NETSTATS_PER_QUERY_FLAGS;
+
+  public static final java.lang.String FLAG_NETSTATS_USE_SINCE_BOOT_COLLECTION;
+
+  public static final java.lang.String FLAG_NSD_DUAL_QUERY_FOR_UNICAST_RESPONSE;
+
+  public static final java.lang.String FLAG_NSD_MDNS_SCAN_OFFLOAD;
+
+  public static final java.lang.String FLAG_NSD_QUERY_WITH_KNOWN_ANSWER;
+
+  public static final java.lang.String FLAG_NSD_SERVICE_PICKER;
+
+  public static final java.lang.String FLAG_NSD_USE_NETWORK_CALLBACK_FOR_LOCAL_NETWORKS;
+
+  public static final java.lang.String FLAG_PERMISSION_MAP_UID_MIGRATION;
+
+  public static final java.lang.String FLAG_SHOW_ENTITLEMENT_UI_TO_REQUESTERS;
+
+  public com.android.tethering.flags.Flags();
+    Code:
+       0: aload_0
+       1: invokespecial #1                  // Method java/lang/Object."<init>":()V
+       4: return
+
+  public static boolean collectBetaMetrics();
+    Code:
+       0: iconst_0
+       1: ireturn
+
+  public static boolean enableIncallServiceApi();
+    Code:
+       0: iconst_1
+       1: ireturn
+
+  public static boolean enableMultiProxySystem();
+    Code:
+       0: iconst_0
+       1: ireturn
+
+  public static boolean encryptedClientHelloDns();
+    Code:
+       0: iconst_1
+       1: ireturn
+
+  public static boolean l4sDeveloperOption();
+    Code:
+       0: iconst_1
+       1: ireturn
+
+  public static boolean loopbackAccessMetrics();
+    Code:
+       0: iconst_1
+       1: ireturn
+
+  public static boolean netCapabilityPrioritizeUnifiedCommunications();
+    Code:
+       0: iconst_1
+       1: ireturn
+
+  public static boolean netlinkNoTimeout();
+    Code:
+       0: iconst_0
+       1: ireturn
+
+  public static boolean netstatsPerQueryFlags();
+    Code:
+       0: iconst_1
+       1: ireturn
+
+  public static boolean netstatsUseSinceBootCollection();
+    Code:
+       0: iconst_0
+       1: ireturn
+
+  public static boolean nsdDualQueryForUnicastResponse();
+    Code:
+       0: iconst_0
+       1: ireturn
+
+  public static boolean nsdMdnsScanOffload();
+    Code:
+       0: iconst_1
+       1: ireturn
+
+  public static boolean nsdQueryWithKnownAnswer();
+    Code:
+       0: iconst_1
+       1: ireturn
+
+  public static boolean nsdServicePicker();
+    Code:
+       0: iconst_1
+       1: ireturn
+
+  public static boolean nsdUseNetworkCallbackForLocalNetworks();
+    Code:
+       0: iconst_1
+       1: ireturn
+
+  public static boolean permissionMapUidMigration();
+    Code:
+       0: iconst_1
+       1: ireturn
+
+  public static boolean showEntitlementUiToRequesters();
+    Code:
+       0: iconst_1
+       1: ireturn
+}
