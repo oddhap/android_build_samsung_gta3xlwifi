@@ -1,0 +1,21 @@
+frameworks/base/services/permission/java/com/android/server/permission/access/appfunction/AppFunctionAccessPregrant.kt:130:28: warning: Java type mismatch: inferred type is 'Array<(out) File!>?', but 'Array<out File!>' was expected.
+                    addAll(directory.listFiles())
+                           ^^^^^^^^^^^^^^^^^^^^^
+frameworks/base/services/permission/java/com/android/server/permission/access/appfunction/AppFunctionAccessPregrant.kt:134:28: warning: Java type mismatch: inferred type is 'Array<(out) File!>?', but 'Array<out File!>' was expected.
+                    addAll(directory.listFiles())
+                           ^^^^^^^^^^^^^^^^^^^^^
+frameworks/base/services/permission/java/com/android/server/permission/access/appfunction/AppFunctionAccessPregrant.kt:138:28: warning: Java type mismatch: inferred type is 'Array<(out) File!>?', but 'Array<out File!>' was expected.
+                    addAll(directory.listFiles())
+                           ^^^^^^^^^^^^^^^^^^^^^
+frameworks/base/services/permission/java/com/android/server/permission/access/appfunction/AppFunctionAccessPregrant.kt:142:28: warning: Java type mismatch: inferred type is 'Array<(out) File!>?', but 'Array<out File!>' was expected.
+                    addAll(directory.listFiles())
+                           ^^^^^^^^^^^^^^^^^^^^^
+frameworks/base/services/permission/java/com/android/server/permission/access/appfunction/AppFunctionAccessPregrant.kt:146:28: warning: Java type mismatch: inferred type is 'Array<(out) File!>?', but 'Array<out File!>' was expected.
+                    addAll(directory.listFiles())
+                           ^^^^^^^^^^^^^^^^^^^^^
+frameworks/base/services/permission/java/com/android/server/permission/access/appfunction/AppFunctionAccessPregrant.kt:150:28: warning: Java type mismatch: inferred type is 'Array<(out) File!>?', but 'Array<out File!>' was expected.
+                    addAll(directory.listFiles())
+                           ^^^^^^^^^^^^^^^^^^^^^
+frameworks/base/services/permission/java/com/android/server/permission/access/permission/AppIdPermissionUpgrade.kt:592:37: warning: 'static field PROCESS_OUTGOING_CALLS: String' is deprecated. Deprecated in Java.
+                Manifest.permission.PROCESS_OUTGOING_CALLS,
+                                    ^^^^^^^^^^^^^^^^^^^^^^

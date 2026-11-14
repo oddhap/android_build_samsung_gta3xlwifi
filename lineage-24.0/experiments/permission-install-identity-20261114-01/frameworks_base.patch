@@ -1,0 +1,39 @@
+--- a/services/permission/java/com/android/server/permission/access/permission/PermissionService.kt
++++ b/services/permission/java/com/android/server/permission/access/permission/PermissionService.kt
+@@ -2522,6 +2522,7 @@
+             //  old permission subsystem still depends on this method being called to set up the
+             //  permission state for the first time (which we are doing in onPackageAdded() or
+             //  onStorageVolumeMounted() now).
++            service.refreshPackageIdentityStateIfInitialized()
+             return
+         }
+ 
+--- a/services/permission/java/com/android/server/permission/access/AccessCheckingService.kt
++++ b/services/permission/java/com/android/server/permission/access/AccessCheckingService.kt
+@@ -213,6 +213,26 @@
+                     packageName,
+                     appId,
+                 )
++            }
++        }
++    }
++
++    // DEFAULT install parameters deliberately skip permission-policy changes,
++    // including restricted-permission exemption clearing. Installed UID identity
++    // can still change. Refresh only the actual external package snapshot so its
++    // synchronous metadata observer sees that change. Cold initialization takes
++    // its own complete PackageManager snapshot before any consumer can register.
++    internal fun refreshPackageIdentityStateIfInitialized() {
++        if (!::state.isInitialized) return
++        // Match the existing package callbacks: never query PackageManager while
++        // holding the permission-state lock (PackageManager also calls into us).
++        val (packageStates, disabledSystemPackageStates) = packageManagerLocal.allPackageStates
++        val knownPackages = packageManagerInternal.knownPackages
++        mutateState {
++            newState.mutateExternalState().apply {
++                setPackageStates(packageStates)
++                setDisabledSystemPackageStates(disabledSystemPackageStates)
++                setKnownPackages(knownPackages)
+             }
+         }
+     }

@@ -1,0 +1,17 @@
+{
+  "inactive": true,
+  "project": "frameworks/base",
+  "files": {
+    "services/permission/java/com/android/server/permission/access/permission/PermissionService.kt": {
+      "original_sha256": "f8a4ccbc0bb0c4c14831a29965c43ad703d539fd6148bed623b2da2047ae8e48",
+      "candidate_sha256": "06abdba853252d6683826bed96cb7f5971cd91be56ed9c1ce62ac5de5c525955"
+    },
+    "services/permission/java/com/android/server/permission/access/AccessCheckingService.kt": {
+      "original_sha256": "95110730392b2df5a074241733c82c864d7458b389cc643e921eaa6233521a4c",
+      "candidate_sha256": "5e4498d82f32aa5340f6d65c0bd698df8f214e1b143edd848e03909d2be22756"
+    }
+  },
+  "prerequisite": "permission-lifecycle-20261114-01",
+  "selected_source_changed": false,
+  "API_signature_changed_from_prerequisite": false
+}

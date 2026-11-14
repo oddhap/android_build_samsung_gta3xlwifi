@@ -1,0 +1,28 @@
+{
+  "passed": true,
+  "scope": "Execute actual DEFAULT branch and identity-only helper with cold/PM/state fixtures.\n\nSource-body lifecycle evidence, not PackageManager/Android boot execution.\n",
+  "passed_cases": 13,
+  "original_nonDEFAULT_permission_logic_unchanged": true,
+  "cold_start_guard_before_PM_fields": true,
+  "no_PM_query_under_state_lock": true,
+  "no_grants_or_restricted_exemption_changes": true,
+  "inputs_sha256": {
+    "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/test-permission-install-identity24.py": "e145cff184cb1a211138791b46fb2943376188f2d0947c79b08ab392c5ffb0e1",
+    "/srv/android/ports/lineage-24.0-arm64/permission-install-identity24-20261114-01/AccessCheckingService.kt": "5e4498d82f32aa5340f6d65c0bd698df8f214e1b143edd848e03909d2be22756",
+    "/srv/android/ports/lineage-24.0-arm64/permission-install-identity24-20261114-01/PermissionService.kt": "06abdba853252d6683826bed96cb7f5971cd91be56ed9c1ce62ac5de5c525955",
+    "/srv/android/ports/lineage-24.0-arm64/permission-lifecycle24-20261114-01/PermissionService.kt": "f8a4ccbc0bb0c4c14831a29965c43ad703d539fd6148bed623b2da2047ae8e48",
+    "/srv/android/artifacts/lineage-24.0-arm64/permission-install-identity-native-20261114-01/report.json": "30ec518b189fa7e89ebe23e7be345a3e189f86d57a51a191b641d698758acc9a",
+    "/srv/android/src/lineage-24.0-arm64/frameworks/base/services/core/java/com/android/server/pm/InstallPackageHelper.java": "f9c83556d2ffc4f47dafd3a0db4d44eb288e5ba26bc7269c46db51bb45777fe3",
+    "/srv/android/artifacts/lineage-24.0-arm64/permission-install-identity-host-20261114-01/Test.kt": "e39e48ff77af3b4e940c402fd87cd71b456af2898a6959c4c58ff6bb7fb756b8"
+  },
+  "command": [
+    "/srv/android/src/lineage-24.0-arm64/external/kotlinc/bin/kotlinc",
+    "-jvm-target",
+    "21",
+    "/srv/android/artifacts/lineage-24.0-arm64/permission-install-identity-host-20261114-01/Test.kt",
+    "-d",
+    "/srv/android/artifacts/lineage-24.0-arm64/permission-install-identity-host-20261114-01/test.jar"
+  ],
+  "framework_runtime_tested": false,
+  "flash_ready": false
+}

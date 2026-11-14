@@ -1,0 +1,3 @@
+passed_cases=96 ordered_races=50 duplicate_races=25 old_race_reproduced=true
+PASS: generated API exact; complete server API compatible; removed-method control rejected
+Sat Nov 14 16:18:33 UTC 2026
