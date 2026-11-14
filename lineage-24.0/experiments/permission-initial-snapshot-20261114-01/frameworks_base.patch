@@ -1,0 +1,104 @@
+--- a/services/permission/java/com/android/server/permission/access/AccessCheckingService.kt
++++ b/services/permission/java/com/android/server/permission/access/AccessCheckingService.kt
+@@ -301,6 +301,11 @@
+                     getKnownPackageNames(KnownPackages.PACKAGE_RECENTS, UserHandle.USER_SYSTEM)
+             }
+ 
++    // Registration's initial snapshot and callback must be ordered with every
++    // mutation callback. This does not mutate or persist permission state.
++    internal fun <T> withPermissionStateLock(action: () -> T): T =
++        synchronized(stateLock) { action() }
++
+     @OptIn(ExperimentalContracts::class)
+     internal inline fun <T> getState(action: GetStateScope.() -> T): T {
+         contract { callsInPlace(action, InvocationKind.EXACTLY_ONCE) }
+--- a/services/permission/java/com/android/server/permission/access/permission/PermissionService.kt
++++ b/services/permission/java/com/android/server/permission/access/permission/PermissionService.kt
+@@ -2583,7 +2583,6 @@
+             "Too many permissions, max of $MAX_ALLOWED_BPF_PERMISSIONS allowed, provided " +
+                 "${permissionNames.size}"
+         }
+-        require(bpfMap !in bpfMapPermissionNames) { "BPF map already registered" }
+         require(
+             permissionNames.allIndexed { _, permissionName ->
+                 permissionName in ALLOWED_BPF_PERMISSIONS
+@@ -2593,12 +2592,41 @@
+                 "allowed for BPF map registration"
+         }
+ 
+-        synchronized(bpfMapPermissionNamesLock) {
+-            bpfMapPermissionNames =
+-                ArrayMap(bpfMapPermissionNames).apply { this[bpfMap] = permissionNames }
+-        }
+-        val uidsPermissionBits = getBpfMapUidsPermissionBits(permissionNames)
+-        bpfMap.setUidsPermissionBits(uidsPermissionBits)
++        service.withPermissionStateLock {
++            synchronized(bpfMapPermissionNamesLock) {
++                require(bpfMap !in bpfMapPermissionNames) { "BPF map already registered" }
++                bpfMapPermissionNames =
++                    ArrayMap(bpfMapPermissionNames).apply { this[bpfMap] = permissionNames }
++            }
++            try {
++                // The same lock protects mutation publication and its synchronous
++                // callbacks. A newer revocation cannot precede an older initial
++                // snapshot and then be overwritten by it.
++                val uidsPermissionBits = getBpfMapUidsPermissionBits(permissionNames)
++                service.getState {
++                    val userIds = IntArray(state.userStates.size)
++                    val knownUids = MutableIntSet()
++                    state.userStates.forEachIndexed { index, userId, _ ->
++                        userIds[index] = userId
++                        state.externalState.packageStates.forEach { (_, packageState) ->
++                            if (!packageState.isApex &&
++                                packageState.getUserStateOrDefault(userId).isInstalled) {
++                                knownUids += UserHandle.getUid(userId, packageState.appId)
++                            }
++                        }
++                    }
++                    val knownPackageUids = IntArray(knownUids.size)
++                    knownUids.forEachIndexed { index, uid -> knownPackageUids[index] = uid }
++                    bpfMap.setInitialUidPermissions(userIds, knownPackageUids, uidsPermissionBits)
++                }
++            } catch (failure: Throwable) {
++                synchronized(bpfMapPermissionNamesLock) {
++                    bpfMapPermissionNames =
++                        ArrayMap(bpfMapPermissionNames).apply { this -= bpfMap }
++                }
++                throw failure
++            }
++        }
+     }
+ 
+     private fun getBpfMapUidsPermissionBits(permissionNames: List<String>) =
+--- a/services/core/java/com/android/server/permission/PermissionBpfMap.java
++++ b/services/core/java/com/android/server/permission/PermissionBpfMap.java
+@@ -50,6 +50,19 @@
+     void setUidsPermissionBits(@NonNull SparseIntArray uidsPermissionBits);
+ 
+     /**
++     * Deliver one complete initial permission snapshot, ordered before later
++     * mutation callbacks. User IDs and installed package UIDs come from the same
++     * immutable permission-service state as the raw permission bits. Known UIDs
++     * include packages with zero permission bits, which the sparse raw map omits.
++     * Implementations must not call back into permission-state mutation here.
++     * Existing map implementations retain their original initial update behavior.
++     */
++    default void setInitialUidPermissions(@NonNull int[] userIds,
++            @NonNull int[] knownPackageUids, @NonNull SparseIntArray uidsPermissionBits) {
++        setUidsPermissionBits(uidsPermissionBits);
++    }
++
++    /**
+      * Remove the permission states of all UIDs associated with an app ID from the BPF map.
+      *
+      * @param appId the app ID to remove
+--- a/services/api/current.txt
++++ b/services/api/current.txt
+@@ -71,6 +71,7 @@
+   @FlaggedApi("android.permission.flags.access_local_network_permission_enabled") public interface PermissionBpfMap {
+     method public void removeAppId(int);
+     method public void removeUser(int);
++    method public default void setInitialUidPermissions(@NonNull int[], @NonNull int[], @NonNull android.util.SparseIntArray);
+     method public void setUidsPermissionBits(@NonNull android.util.SparseIntArray);
+   }
+ 

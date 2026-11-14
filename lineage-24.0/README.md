@@ -32,6 +32,18 @@ checks are separate from Android execution. Optional GPU BPF accounting still
 reports unavailable, rather than invented counters. Existing safety/installer
 and strict SELinux checks remain enforced.
 
+## Ordered initial framework permission snapshot — November 14
+
+The inactive permission-service proposal now serializes the initial snapshot and
+callback with live mutations. Same-state users and installed package UIDs include
+zero-permission packages. Actual 71-source Kotlin compilation preserves the exact
+155-class inventory; 81 host cases reproduce the old race and validate ordering,
+metadata, duplicate registration, failure cleanup and old consumers. Actual
+metalava generates the exact interface signatures, accepts full server API
+compatibility and rejects a removed-method negative control. Original compiler
+flags and all existing APIs remain. See permission-initial-snapshot-20261114-01.
+No IPC/network readiness or selected source change is claimed.
+
 ## Atomic tagging and held mainline provider — November 14
 
 The isolated native stack now performs tagging permission checks, real active

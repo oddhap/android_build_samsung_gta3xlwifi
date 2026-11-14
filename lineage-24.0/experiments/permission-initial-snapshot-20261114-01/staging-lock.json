@@ -1,0 +1,24 @@
+{
+  "inactive": true,
+  "project": "frameworks/base",
+  "files": {
+    "services/permission/java/com/android/server/permission/access/AccessCheckingService.kt": {
+      "original_sha256": "a264e39e47db543fd82bcea332bad03c0c13951e37cf74c67fe96e6210ea23d0",
+      "candidate_sha256": "95110730392b2df5a074241733c82c864d7458b389cc643e921eaa6233521a4c"
+    },
+    "services/permission/java/com/android/server/permission/access/permission/PermissionService.kt": {
+      "original_sha256": "ee4cacdeb9ec6e3a1a0d00d1c7b4b98d61c0d1e8dfbc45446b4429ae11dedc03",
+      "candidate_sha256": "98673bd9ee1691f14a5fde22a27fdc74bb100dae8af25eebb95b29cd48174bb9"
+    },
+    "services/core/java/com/android/server/permission/PermissionBpfMap.java": {
+      "original_sha256": "58eb82e57b908d76df6d5ecb64e23f1d0e9ca26cc5aa6cedfb52b0878ce3c884",
+      "candidate_sha256": "e4ebdf421aae00cc5ecc3c838b67aa096af0d0448fddc107a15f93df07295c54"
+    },
+    "services/api/current.txt": {
+      "original_sha256": "b2ac4f33c15eb3961dadfc2a1a9810f8a5b8b1cffe0b209810a921c9ed6ae100",
+      "candidate_sha256": "958cadb5c974eb447fc555af20f54db59b80ae3e4ad044aaa5154436343c0a44"
+    }
+  },
+  "prerequisite_selected_snapshot": "port-20261106-04",
+  "selected_source_changed": false
+}

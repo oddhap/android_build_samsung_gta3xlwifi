@@ -1,0 +1,12 @@
+// Signature format: 2.0
+package com.android.server.permission {
+
+  @FlaggedApi("android.permission.flags.access_local_network_permission_enabled") public interface PermissionBpfMap {
+    method public void removeAppId(int);
+    method public void removeUser(int);
+    method public default void setInitialUidPermissions(@NonNull int[], @NonNull int[], @NonNull android.util.SparseIntArray);
+    method public void setUidsPermissionBits(@NonNull android.util.SparseIntArray);
+  }
+
+}
+

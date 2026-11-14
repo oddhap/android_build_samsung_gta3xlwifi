@@ -1,0 +1,18 @@
+/srv/android/artifacts/lineage-24.0-arm64/permission-initial-snapshot-host-20261114-01/Test.kt:39:29: error: unresolved reference 'allIndexed'.
+            permissionNames.allIndexed { _, permissionName ->
+                            ^^^^^^^^^^
+/srv/android/artifacts/lineage-24.0-arm64/permission-initial-snapshot-host-20261114-01/Test.kt:39:42: error: cannot infer type for this parameter. Specify it explicitly.
+            permissionNames.allIndexed { _, permissionName ->
+                                         ^
+/srv/android/artifacts/lineage-24.0-arm64/permission-initial-snapshot-host-20261114-01/Test.kt:39:45: error: cannot infer type for this parameter. Specify it explicitly.
+            permissionNames.allIndexed { _, permissionName ->
+                                            ^^^^^^^^^^^^^^
+/srv/android/artifacts/lineage-24.0-arm64/permission-initial-snapshot-host-20261114-01/Test.kt:91:29: error: unresolved reference 'allIndexed'.
+            permissionNames.allIndexed { _, permissionName ->
+                            ^^^^^^^^^^
+/srv/android/artifacts/lineage-24.0-arm64/permission-initial-snapshot-host-20261114-01/Test.kt:91:42: error: cannot infer type for this parameter. Specify it explicitly.
+            permissionNames.allIndexed { _, permissionName ->
+                                         ^
+/srv/android/artifacts/lineage-24.0-arm64/permission-initial-snapshot-host-20261114-01/Test.kt:91:45: error: cannot infer type for this parameter. Specify it explicitly.
+            permissionNames.allIndexed { _, permissionName ->
+                                            ^^^^^^^^^^^^^^
