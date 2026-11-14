@@ -1,0 +1,17 @@
+{
+  "inactive": true,
+  "project": "frameworks/base",
+  "files": {
+    "services/permission/java/com/android/server/permission/access/permission/PermissionService.kt": {
+      "original_sha256": "98673bd9ee1691f14a5fde22a27fdc74bb100dae8af25eebb95b29cd48174bb9",
+      "candidate_sha256": "f8a4ccbc0bb0c4c14831a29965c43ad703d539fd6148bed623b2da2047ae8e48"
+    },
+    "services/core/java/com/android/server/permission/PermissionBpfMap.java": {
+      "original_sha256": "e4ebdf421aae00cc5ecc3c838b67aa096af0d0448fddc107a15f93df07295c54",
+      "candidate_sha256": "f9b21d46a506843cafbd2a4974c62817a9e6abeaf33b7ddf2712a7456009bca7"
+    }
+  },
+  "prerequisite": "permission-initial-snapshot-20261114-01",
+  "selected_source_changed": false,
+  "API_signature_changed_from_prerequisite": false
+}

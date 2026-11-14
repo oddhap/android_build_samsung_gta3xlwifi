@@ -32,6 +32,17 @@ checks are separate from Android execution. Optional GPU BPF accounting still
 reports unavailable, rather than invented counters. Existing safety/installer
 and strict SELinux checks remain enforced.
 
+## Permission identity lifecycle — November 14
+
+The inactive permission-service proposal now sends complete same-state frames on
+user/installed-UID identity changes before UID deltas, including zero-permission
+packages. Per-consumer epochs, isolated callback arrays and unregister fences
+pass96 host cases. Actual71-source compilation preserves155 classes; API and
+1243/17 audits pass. See permission-lifecycle-20261114-01. PackageManager DEFAULT
+install-path state refresh still needs auditing; Java receiver/routing is pending.
+Selected Image/latest21-MTP vendor/DTBO and both strict policy profiles are rehashed
+unchanged in policy-client-final-inputs-20261114-01. No flash candidate exists.
+
 ## Java policy transport lifecycle — November 14
 
 The inactive actual Java client now uses the private Binder route for immutable
