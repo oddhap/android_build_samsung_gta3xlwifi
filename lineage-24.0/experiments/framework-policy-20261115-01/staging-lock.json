@@ -1,0 +1,29 @@
+{
+  "inactive": true,
+  "project": "packages/modules/Connectivity",
+  "prerequisites": [
+    "policy-client-20261114-01",
+    "permission-install-identity-20261114-01",
+    "java-permission-collector-20261114-01"
+  ],
+  "files": {
+    "service/src/com/android/server/BpfNetMaps.java": {
+      "original_sha256": "c78a90ae6352cdee00fc65a7dbd899e9f041456e8388dd5e72cab6064be47dfd",
+      "candidate_sha256": "16a43951ba24e52bcf1ea37990689aa0e38140d7868324cab4b00c2f5060b518"
+    },
+    "service/src/com/android/server/connectivity/PermissionMonitor.java": {
+      "original_sha256": "7f95ea34858411647d3a6a9f689c0a8ad505c24ad69e3c28c41c398b52c6572c",
+      "candidate_sha256": "207d29b1416d03c62426fea5ad2caac3bbfa8b95f3b3be9732817dd168846d03"
+    },
+    "service/src/com/android/server/Gta3xlwifiNetpolicyClient.java": {
+      "original_sha256": "04d68fd6760bce4d0cf8f47f3ed45d71d804c36a156ad9fe764acc82dc120b42",
+      "candidate_sha256": "203a844c182fc3f465dd5841439fbd252e150ef2924adfbf607e4711724d42fa"
+    },
+    "service/src/com/android/server/Gta3xlwifiNetpolicyBackend.java": {
+      "original_sha256": null,
+      "candidate_sha256": "62a21c554c396909d12b472322002e80050af4fc7583237f26f9cbed70763183"
+    }
+  },
+  "selected_source_changed": false,
+  "statistics_events_boot_and_Soong_still_pending": true
+}

@@ -1,0 +1,1060 @@
+--- a/service/src/com/android/server/BpfNetMaps.java
++++ b/service/src/com/android/server/BpfNetMaps.java
+@@ -172,6 +172,39 @@
+     private static final String TAG = "BpfNetMaps";
+     private final INetd mNetd;
+     private final Dependencies mDeps;
++    private final Gta3xlwifiNetpolicyBackend mGta;
++    private static Gta3xlwifiNetpolicyBackend sGta;
++
++    private static synchronized Gta3xlwifiNetpolicyBackend privateBackend(
++            Context context, INetd netd, Dependencies deps) {
++        if (!deps.isGta3xlwifiNetworking()) return null;
++        if (!deps.isPermissionMapUidMigrationEnabled()
++                || !deps.isAccessLocalNetworkPermissionEnabled()
++                || deps.isBetaMetricsEnabled() || deps.isL4sProgramLoaded()) {
++            throw new ServiceSpecificException(EOPNOTSUPP, "Unsupported actual private mode");
++        }
++        if (sGta != null && (sGta.loopbackChecks != deps.isLoopbackChecksEnabled()
++                || sGta.loopbackMetrics != deps.isLoopbackAccessMetricsEnabled())) {
++            throw new ServiceSpecificException(EOPNOTSUPP, "Private modes changed in process");
++        }
++        if (sGta == null) {
++            try {
++                sGta = deps.createGta3xlwifiBackend(context, netd);
++            } catch (RemoteException failure) {
++                throw new IllegalStateException("Private netd is unavailable", failure);
++            }
++        }
++        return sGta;
++    }
++
++    public boolean usesGta3xlwifiNetworking() { return mGta != null; }
++
++    public com.android.server.permission.PermissionBpfMap gta3xlwifiPermissionReceiver(
++            boolean actualLoopbackPermission) {
++        if (mGta == null) throw new IllegalStateException("Private backend not selected");
++        return mGta.permissionReceiver(actualLoopbackPermission);
++    }
++
+     // Use legacy netd for releases before T.
+     private static boolean sInitialized = false;
+ 
+@@ -242,6 +275,8 @@
+      * value is process stable.
+      */
+     public boolean isUidMigrationEnabled() {
++        if (mGta != null) return true;
++
+         return sPermissionMapUidMigrationEnabled;
+     }
+ 
+@@ -250,6 +285,8 @@
+      * value is process stable.
+      */
+     public boolean isLoopbackAccessMetricsEnabled() {
++        if (mGta != null) return mGta.loopbackMetrics;
++
+         return sLoopbackAccessMetricsEnabled;
+     }
+ 
+@@ -258,6 +295,8 @@
+      * flag value is process stable.
+      */
+     public boolean isLoopbackChecksEnabled() {
++        if (mGta != null) return mGta.loopbackChecks;
++
+         return sLoopbackChecksEnabled;
+     }
+ 
+@@ -266,6 +305,8 @@
+      * value is process stable.
+      */
+     public boolean isLocalNetMetricsEnabled() {
++        if (mGta != null) return false;
++
+         return sBetaMetricsEnabled;
+     }
+ 
+@@ -273,6 +314,8 @@
+      * Get android.permission.flags.Flags#accessLocalNetworkPermissionEnabled()
+      */
+     public boolean isAccessLocalNetworkPermissionEnabled() {
++        if (mGta != null) return mGta.permissionPropagation;
++
+         return mDeps.isAccessLocalNetworkPermissionEnabled();
+     }
+ 
+@@ -280,6 +323,8 @@
+      * Enable new permission propagation API when uid migration is enabled
+      */
+     public boolean isPermissionPropagationEnabled() {
++        if (mGta != null) return mGta.permissionPropagation;
++
+         return sPermissionMapUidMigrationEnabled && mDeps.isAccessLocalNetworkPermissionEnabled();
+     }
+ 
+@@ -834,6 +879,21 @@
+      */
+     @VisibleForTesting
+     public static class Dependencies {
++        /** The same explicit read-only product gate used by native netd. */
++        public boolean isGta3xlwifiNetworking() {
++            return android.os.SystemProperties.getBoolean("ro.gta3xlwifi.legacy_networking", false);
++        }
++
++        public Gta3xlwifiNetpolicyBackend createGta3xlwifiBackend(Context context, INetd supplied)
++                throws RemoteException {
++            INetd netd = supplied != null ? supplied : INetd.Stub.asInterface(
++                    (android.os.IBinder) context.getSystemService(Context.NETD_SERVICE));
++            return Gta3xlwifiNetpolicyBackend.connect(Objects.requireNonNull(netd),
++                    isPermissionMapUidMigrationEnabled(), isLoopbackChecksEnabled(),
++                    isLoopbackAccessMetricsEnabled(), isAccessLocalNetworkPermissionEnabled(),
++                    isBetaMetricsEnabled(), isL4sProgramLoaded());
++        }
++
+         /**
+          * Get interface index.
+          */
+@@ -973,10 +1033,11 @@
+     public BpfNetMaps(final Context context, final INetd netd, final Dependencies deps,
+             @NonNull final  InterfaceTracker interfaceTracker) {
+         Objects.requireNonNull(interfaceTracker);
+-        ensureInitialized(context, deps);
+         mNetd = netd;
+         mDeps = deps;
+         mInterfaceTracker = interfaceTracker;
++        mGta = privateBackend(context, netd, deps);
++        if (mGta == null) ensureInitialized(context, deps);
+     }
+ 
+     private void maybeThrow(final int err, final String msg) {
+@@ -1081,6 +1142,8 @@
+      */
+     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
+     public void setChildChain(final int childChain, final boolean enable) {
++        if (mGta != null) { mGta.setChain(childChain, enable); return; }
++
+         throwIfPreT("setChildChain is not available on pre-T devices");
+ 
+         final long match = getMatchByFirewallChain(childChain);
+@@ -1108,6 +1171,8 @@
+     @Deprecated
+     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
+     public boolean isChainEnabled(final int childChain) {
++        if (mGta != null) return mGta.chainEnabled(childChain);
++
+         return BpfNetMapsUtils.isChainEnabled(sConfigurationMap, childChain);
+     }
+ 
+@@ -1130,6 +1195,8 @@
+      */
+     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
+     public void replaceUidChain(final int chain, final int[] uids) {
++        if (mGta != null) { mGta.replaceChain(chain, uids); return; }
++
+         throwIfPreT("replaceUidChain is not available on pre-T devices");
+ 
+         final long match;
+@@ -1178,6 +1245,8 @@
+      */
+     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
+     public void setUidRule(final int childChain, final int uid, final int firewallRule) {
++        if (mGta != null) { mGta.setRule(childChain, uid, firewallRule); return; }
++
+         throwIfPreT("setUidRule is not available on pre-T devices");
+ 
+         final long match = getMatchByFirewallChain(childChain);
+@@ -1204,11 +1273,15 @@
+      */
+     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
+     public int getUidRule(final int childChain, final int uid) {
++        if (mGta != null) return mGta.rule(childChain, uid);
++
+         return BpfNetMapsUtils.getUidRule(sUidOwnerMap, childChain, uid);
+     }
+ 
+     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
+     private Set<Integer> getUidsMatchEnabled(final int childChain) throws ErrnoException {
++        if (mGta != null) return mGta.matching(childChain);
++
+         final long match = getMatchByFirewallChain(childChain);
+         Set<Integer> uids = new ArraySet<>();
+         synchronized (sUidOwnerMap) {
+@@ -1304,6 +1377,7 @@
+                         "Failed to get index of interface " + ifName);
+             }
+         }
++        if (mGta != null) { mGta.setIif(uids, ifIndex, true); return; }
+         for (final int uid : uids) {
+             try {
+                 addRule(uid, IIF_MATCH, ifIndex, "addUidInterfaceRules");
+@@ -1325,6 +1399,8 @@
+      *                                  cause of the failure.
+      */
+     public void removeUidInterfaceRules(final int[] uids) throws RemoteException {
++        if (mGta != null) { mGta.setIif(uids, 0, false); return; }
++
+         if (!SdkLevel.isAtLeastT()) {
+             mNetd.firewallRemoveUidInterfaceRules(uids);
+             return;
+@@ -1349,6 +1425,8 @@
+      */
+     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
+     public void updateUidLockdownRule(final int uid, final boolean add) {
++        if (mGta != null) { mGta.lockdown(uid, add); return; }
++
+         throwIfPreT("updateUidLockdownRule is not available on pre-T devices");
+ 
+         if (add) {
+@@ -1367,6 +1445,8 @@
+      */
+     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
+     public void swapActiveStatsMap() {
++        if (mGta != null) { mGta.unsupported("packet statistics SWAP lifecycle"); return; }
++
+         throwIfPreT("swapActiveStatsMap is not available on pre-T devices");
+ 
+         try {
+@@ -1428,6 +1508,8 @@
+      * @throws RemoteException when netd has crashed.
+      */
+     public void setNetPermForUids(final int permissions, final int[] uids) throws RemoteException {
++        if (mGta != null) { mGta.unsupported("legacy appId permission mode"); return; }
++
+         if (!SdkLevel.isAtLeastT()) {
+             logAndSendNetPermToNetd(permissions, uids);
+             return;
+@@ -1508,6 +1590,8 @@
+      * @throws RemoteException when netd has crashed.
+      */
+     public void setPermListForUids(final SparseIntArray permissionsUids) throws RemoteException {
++        if (mGta != null) { mGta.unsupported("legacy traffic permission mode"); return; }
++
+         throwIfUidMigrationIsDisabled(
+             "setPermListForUids is not available when flag permission_map_uid_migration" +
+             " is disabled");
+@@ -1544,6 +1628,8 @@
+      */
+     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
+     public void setChunkPermListForUids(final SparseIntArray permissionsUids) {
++        if (mGta != null) { mGta.unsupported("canonical permission writer while raw propagation owns state"); return; }
++
+         throwIfUidMigrationIsDisabled(
+             "setChunkPermListForUids is not available when flag permission_map_uid_migration" +
+             " is disabled");
+@@ -1680,6 +1766,8 @@
+      */
+     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
+     public void removePermissionsForAppId(int appId) {
++        if (mGta != null) { mGta.unsupported("legacy removeAppId callback"); return; }
++
+         throwIfUidMigrationIsDisabled(
+             "removePermissionsForAppId is not available when flag permission_map_uid_migration" +
+             " is disabled");
+@@ -1703,6 +1791,8 @@
+      */
+     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
+     public void removePermissionsForUserId(int userId) {
++        if (mGta != null) { mGta.unsupported("legacy removeUser callback"); return; }
++
+         throwIfUidMigrationIsDisabled(
+             "removePermissionsForUserId is not available when flag permission_map_uid_migration" +
+             " is disabled");
+@@ -1779,6 +1869,7 @@
+         final LocalNetAccessKey localNetAccessKey = new LocalNetAccessKey(lpmBitlen, ifIndex,
+                 address, protocol, remotePort);
+ 
++        if (mGta != null) { mGta.local(localNetAccessKey, false, isAllowed); return; }
+         synchronized (sLocalNetAccessLock) {
+             incrementLnpGenerationId(true);
+             updateLocalNetAccessMap(localNetAccessKey, isAllowed);
+@@ -1812,6 +1903,7 @@
+         final LocalNetAccessKey localNetAccessKey = new LocalNetAccessKey(lpmBitlen, ifIndex,
+                 address, protocol, remotePort);
+ 
++        if (mGta != null) { mGta.local(localNetAccessKey, false, null); return; }
+         synchronized (sLocalNetAccessLock) {
+             incrementLnpGenerationId(true);
+             try {
+@@ -1851,6 +1943,7 @@
+         }
+         final LocalNetAccessKey localNetAccessKey = new LocalNetAccessKey(lpmBitlen, ifIndex,
+                 address, protocol, remotePort);
++        if (mGta != null) { return mGta.localAllowed(localNetAccessKey); }
+         try {
+             Bool value;
+             synchronized (sLocalNetAccessLock) {
+@@ -1870,6 +1963,8 @@
+      * @param enabled The new status for L4S. Must be true or false.
+      */
+     public void setL4sEnabled(boolean enabled) {
++        if (mGta != null) { mGta.unsupported("L4S BPF program"); return; }
++
+         throwIfL4sNotSupported();
+ 
+         try {
+@@ -1885,6 +1980,8 @@
+      * @return The current L4S enabled status.
+      */
+     public boolean isL4sEnabled() {
++        if (mGta != null) { mGta.unsupported("L4S BPF program"); }
++
+         throwIfL4sNotSupported();
+ 
+         try {
+@@ -1901,6 +1998,8 @@
+      */
+     @RequiresApi(Build.VERSION_CODES.CUR_DEVELOPMENT)
+     public void addUidToLocalNetBlockMap(final int uid) {
++        if (mGta != null) { mGta.blockLocalUid(uid, true); return; }
++
+         throwIfPre25Q2("addUidToLocalNetBlockMap is not available on pre-B devices");
+         try {
+             sLocalNetBlockedUidMap.updateEntry(new U32(uid), new Bool(true));
+@@ -1915,6 +2014,8 @@
+      */
+     @RequiresApi(Build.VERSION_CODES.CUR_DEVELOPMENT)
+     public boolean isUidBlockedFromUsingLocalNetwork(final int uid) {
++        if (mGta != null) return mGta.localUidBlocked(uid);
++
+         throwIfPre25Q2("isUidBlockedFromUsingLocalNetwork is not available on pre-B devices");
+         try {
+             final Bool value = sLocalNetBlockedUidMap.getValue(new U32(uid));
+@@ -1932,6 +2033,8 @@
+      */
+     @RequiresApi(Build.VERSION_CODES.CUR_DEVELOPMENT)
+     public void removeUidFromLocalNetBlockMap(final int uid) {
++        if (mGta != null) { mGta.blockLocalUid(uid, false); return; }
++
+         throwIfPre25Q2("removeUidFromLocalNetBlockMap is not available on pre-B devices");
+         try {
+             sLocalNetBlockedUidMap.deleteEntry(new U32(uid));
+@@ -1954,6 +2057,7 @@
+         }
+ 
+         final LocalNetUidHostAllowlistKey key = new LocalNetUidHostAllowlistKey(uid, ifIndex);
++        if (mGta != null) { mGta.local(key, true, true); return; }
+         synchronized (sLocalNetAccessLock) {
+             incrementLnpGenerationId(true);
+             updateLocalNetUidHostAllowlistMap(key, true);
+@@ -1975,6 +2079,7 @@
+         }
+ 
+         final LocalNetUidHostAllowlistKey key = new LocalNetUidHostAllowlistKey(uid, ifIndex);
++        if (mGta != null) { mGta.local(key, true, null); return; }
+         try {
+             synchronized (sLocalNetAccessLock) {
+                 incrementLnpGenerationId(true);
+@@ -1996,6 +2101,7 @@
+         throwIfPre25Q2("addLocalNetUidHostAccess is not available on pre-B devices");
+         final LocalNetUidHostAllowlistKey key = new LocalNetUidHostAllowlistKey(
+                 uid, ifIndex, address);
++        if (mGta != null) { mGta.local(key, true, true); return; }
+         synchronized (sLocalNetAccessLock) {
+             incrementLnpGenerationId(true);
+             updateLocalNetUidHostAllowlistMap(key, true);
+@@ -2008,6 +2114,8 @@
+      */
+     @RequiresApi(Build.VERSION_CODES.BAKLAVA)
+     public void removeLocalNetHostAllowlistForInterface(final int ifIndex) {
++        if (mGta != null) { mGta.removeHostInterface(ifIndex); return; }
++
+         throwIfPre25Q2("removeLocalNetHostAllowlistForInterface is not available on pre-B devices");
+         synchronized (sLocalNetAccessLock) {
+             incrementLnpGenerationId(true);
+@@ -2065,6 +2173,8 @@
+     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
+     @VisibleForTesting
+     public int getChunkPermForUid(final int uid) {
++        if (mGta != null) return mGta.permissions(uid);
++
+         throwIfUidMigrationIsDisabled(
+             "getChunkPermForUid is not available when flag" +
+             " permission_map_uid_migration is disabled");
+@@ -2094,6 +2204,8 @@
+      */
+     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
+     public void setDataSaverEnabled(boolean enable) {
++        if (mGta != null) { mGta.dataSaver(enable); return; }
++
+         throwIfPreT("setDataSaverEnabled is not available on pre-T devices");
+ 
+         try {
+@@ -2120,6 +2232,7 @@
+                     + "(" + iface + ")");
+             return;
+         }
++        if (mGta != null) { mGta.setDiscard(address, ifIndex); return; }
+         try {
+             sIngressDiscardMap.updateEntry(new IngressDiscardKey(address),
+                     new IngressDiscardValue(ifIndex, ifIndex));
+@@ -2136,6 +2249,8 @@
+      */
+     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
+     public void removeIngressDiscardRule(final InetAddress address) {
++        if (mGta != null) { mGta.removeDiscard(address); return; }
++
+         throwIfPreT("removeIngressDiscardRule is not available on pre-T devices");
+         try {
+             sIngressDiscardMap.deleteEntry(new IngressDiscardKey(address));
+@@ -2152,6 +2267,8 @@
+      */
+     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
+     public int getUidNetworkingBlockedReasons(final int uid) {
++        if (mGta != null) return mGta.blockedReasons(uid);
++
+         return BpfNetMapsUtils.getUidNetworkingBlockedReasons(uid,
+                 sConfigurationMap, sUidOwnerMap, sDataSaverEnabledMap);
+     }
+@@ -2183,6 +2300,11 @@
+      */
+     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
+     public boolean isUidNetworkingBlocked(final int uid, boolean isNetworkMetered) {
++        if (mGta != null) {
++            int reasons = mGta.blockedReasons(uid);
++            return (isNetworkMetered ? reasons : reasons & ~BLOCKED_METERED_REASON_MASK) != 0;
++        }
++
+         return BpfNetMapsUtils.isUidNetworkingBlocked(uid, isNetworkMetered,
+                 sConfigurationMap, sUidOwnerMap, sDataSaverEnabledMap);
+     }
+@@ -2218,6 +2340,8 @@
+     /** Callback for StatsManager#setPullAtomCallback */
+     @VisibleForTesting
+     public int pullBpfMapInfoAtom(final int atomTag, final List<StatsEvent> data) {
++        if (mGta != null) return StatsManager.PULL_SKIP; // There are no BPF maps to count.
++
+         if (atomTag != NETWORK_BPF_MAP_INFO) {
+             Log.e(TAG, "Unexpected atom tag: " + atomTag);
+             return StatsManager.PULL_SKIP;
+@@ -2460,6 +2584,8 @@
+     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
+     public void dump(final IndentingPrintWriter pw, final FileDescriptor fd, boolean verbose)
+             throws IOException, ServiceSpecificException {
++        if (mGta != null) { mGta.dump(pw); return; }
++
+         if (!SdkLevel.isAtLeastT()) {
+             throw new ServiceSpecificException(
+                     EOPNOTSUPP, "dumpsys connectivity trafficcontroller dump not available on pre-T"
+--- a/service/src/com/android/server/connectivity/PermissionMonitor.java
++++ b/service/src/com/android/server/connectivity/PermissionMonitor.java
+@@ -384,6 +384,12 @@
+         /**
+          * @see com.android.server.permission.PermissionManagerLocal#registerBpfMap
+          */
++        public void registerGta3xlwifiPermissionReceiver(
++                PermissionBpfMap receiver, List<String> permissionNames) {
++            LocalManagerRegistry.getManager(PermissionManagerLocal.class)
++                    .registerBpfMap(receiver, permissionNames);
++        }
++
+         public void registerBpfMap(
+                 Consumer<SparseIntArray> setUidsPermissionBits,
+                 Consumer<Integer> removeAppId,
+@@ -484,7 +490,11 @@
+             mPackageManager.addOnPermissionsChangeListener(mPermissionChangeListener);
+         }
+ 
+-        if (mBpfNetMaps.isPermissionPropagationEnabled()) {
++        if (mBpfNetMaps.usesGta3xlwifiNetworking()) {
++            mDeps.registerGta3xlwifiPermissionReceiver(
++                    mBpfNetMaps.gta3xlwifiPermissionReceiver(mIsLoopbackPermissionEnabled),
++                    PERMISSIONS);
++        } else if (mBpfNetMaps.isPermissionPropagationEnabled()) {
+             mDeps.registerBpfMap(
+                     (SparseIntArray uidsPermissionBits) -> { /* setUidsPermissionBits */
+                         long startTimeNanos = SystemClock.elapsedRealtimeNanos();
+--- a/service/src/com/android/server/Gta3xlwifiNetpolicyClient.java
++++ b/service/src/com/android/server/Gta3xlwifiNetpolicyClient.java
+@@ -147,6 +147,15 @@
+         }
+     }
+ 
++    /** Actual current owner generation for committed-state queries. */
++    public long generation() throws RemoteException {
++        synchronized (mLock) {
++            requireLive();
++            if (mSession == 0) throw new IllegalStateException("Policy session not started");
++            return mRemote.readGeneration(mSession);
++        }
++    }
++
+     public boolean needsCompleteResnapshot() {
+         synchronized (mLock) { return mUncertain || mDead || mSession == 0; }
+     }
+--- /dev/null
++++ b/service/src/com/android/server/Gta3xlwifiNetpolicyBackend.java
+@@ -0,0 +1,572 @@
++/* SPDX-License-Identifier: Apache-2.0 */
++package com.android.server;
++
++import static android.net.ConnectivityManager.*;
++import static android.system.OsConstants.*;
++
++import android.net.BpfNetMapsUtils;
++import android.net.INetd;
++import android.os.RemoteException;
++import android.os.ServiceSpecificException;
++import android.util.IndentingPrintWriter;
++
++import com.android.net.module.util.Struct;
++import com.android.net.module.util.bpf.IngressDiscardKey;
++import com.android.server.permission.PermissionBpfMap;
++
++import java.net.InetAddress;
++import java.nio.ByteBuffer;
++import java.nio.ByteOrder;
++import java.util.*;
++import java.util.function.Consumer;
++
++/** Complete policy owner client; successful policy publication is not global networking Ready. */
++public final class Gta3xlwifiNetpolicyBackend {
++    public interface Transport {
++        long publish(Gta3xlwifiNetpolicyClient.Frame frame) throws RemoteException;
++
++        long generation() throws RemoteException;
++
++        void close() throws RemoteException;
++    }
++
++    public static Gta3xlwifiNetpolicyBackend connect(
++            INetd netd,
++            boolean migration,
++            boolean loopbackChecks,
++            boolean loopbackMetrics,
++            boolean permissionPropagation,
++            boolean betaMetrics,
++            boolean l4sLoaded)
++            throws RemoteException {
++        if (!migration || !permissionPropagation || betaMetrics || l4sLoaded) {
++            throw error(EOPNOTSUPP, "Unsupported actual private backend mode");
++        }
++        final Gta3xlwifiNetpolicyClient client = Gta3xlwifiNetpolicyClient.lookup(netd);
++        try {
++            client.start();
++            return new Gta3xlwifiNetpolicyBackend(
++                    new Transport() {
++                        public long publish(Gta3xlwifiNetpolicyClient.Frame frame)
++                                throws RemoteException {
++                            return client.publishCompleteSnapshot(frame);
++                        }
++
++                        public long generation() throws RemoteException {
++                            return client.generation();
++                        }
++
++                        public void close() throws RemoteException {
++                            client.close();
++                        }
++                    },
++                    loopbackChecks,
++                    loopbackMetrics,
++                    permissionPropagation);
++        } catch (RemoteException | RuntimeException failure) {
++            try {
++                client.close();
++            } catch (RemoteException | RuntimeException cleanup) {
++                if (cleanup != failure) failure.addSuppressed(cleanup);
++            }
++            throw failure;
++        }
++    }
++
++    private final Object mLock = new Object();
++    private final Transport mTransport;
++    public final boolean loopbackChecks, loopbackMetrics, permissionPropagation;
++    private final Gta3xlwifiPermissionCollector mCollector;
++    private Gta3xlwifiPermissionCollector.Snapshot mPermissions;
++    private State mState = new State();
++    private long mGeneration;
++    private boolean mInvalid;
++
++    private static final class Owner {
++        boolean hasIif, lockdown;
++        int iif;
++
++        Owner() {}
++
++        Owner(Owner source) {
++            hasIif = source.hasIif;
++            lockdown = source.lockdown;
++            iif = source.iif;
++        }
++    }
++
++    private static final class Prefix implements Comparable<Prefix> {
++        final int bits;
++        final byte[] bytes;
++
++        Prefix(Struct key) {
++            byte[] wire = key.writeToBytes();
++            if (wire.length != 28) throw error(EINVAL, "Invalid LNA key size");
++            bits = ByteBuffer.wrap(wire).order(ByteOrder.nativeOrder()).getInt();
++            if (bits < 0 || bits > 192) throw error(EINVAL, "Invalid LNA prefix");
++            bytes = Arrays.copyOfRange(wire, 4, 28);
++            for (int bit = bits; bit < 192; bit++) bytes[bit / 8] &= ~(1 << (7 - bit % 8));
++        }
++
++        public int compareTo(Prefix other) {
++            int comparison = Integer.compare(bits, other.bits);
++            return comparison != 0 ? comparison : Arrays.compareUnsigned(bytes, other.bytes);
++        }
++
++        boolean matches(Prefix query) {
++            if (bits > query.bits) return false;
++            for (int bit = 0; bit < bits; bit++)
++                if (((bytes[bit / 8] ^ query.bytes[bit / 8]) & (1 << (7 - bit % 8))) != 0)
++                    return false;
++            return true;
++        }
++
++        int ifindex() {
++            return ByteBuffer.wrap(bytes).order(ByteOrder.nativeOrder()).getInt(4);
++        }
++    }
++
++    private static final class State {
++        final boolean[] enabled = new boolean[13];
++        final TreeMap<Integer, TreeSet<Integer>> members = new TreeMap<>();
++        final TreeMap<Integer, Owner> ingress = new TreeMap<>();
++        final TreeMap<String, int[]> discard = new TreeMap<>();
++        final TreeMap<Prefix, Boolean> network = new TreeMap<>(), host = new TreeMap<>();
++        final TreeSet<Integer> blocked = new TreeSet<>();
++        boolean dataSaver;
++
++        State() {
++            for (int chain = 1; chain <= 12; chain++) members.put(chain, new TreeSet<>());
++        }
++
++        State(State old) {
++            System.arraycopy(old.enabled, 0, enabled, 0, enabled.length);
++            for (var e : old.members.entrySet())
++                members.put(e.getKey(), new TreeSet<>(e.getValue()));
++            for (var e : old.ingress.entrySet()) ingress.put(e.getKey(), new Owner(e.getValue()));
++            for (var e : old.discard.entrySet()) discard.put(e.getKey(), e.getValue().clone());
++            network.putAll(old.network);
++            host.putAll(old.host);
++            blocked.addAll(old.blocked);
++            dataSaver = old.dataSaver;
++        }
++    }
++
++    public Gta3xlwifiNetpolicyBackend(
++            Transport transport, boolean checks, boolean metrics, boolean propagation) {
++        mTransport = Objects.requireNonNull(transport);
++        if (!propagation) throw error(EOPNOTSUPP, "Complete permission propagation required");
++        loopbackChecks = checks;
++        loopbackMetrics = metrics;
++        permissionPropagation = propagation;
++        mCollector =
++                new Gta3xlwifiPermissionCollector(
++                        mLock,
++                        new Gta3xlwifiPermissionCollector.Sink() {
++                            public void accept(Gta3xlwifiPermissionCollector.Snapshot input) {
++                                requireLive();
++                                publish(mState, input);
++                                mPermissions = input;
++                            }
++
++                            public void invalidate(Throwable failure) {
++                                Gta3xlwifiNetpolicyBackend.this.invalidate(failure);
++                            }
++                        });
++    }
++
++    private static ServiceSpecificException error(int code, String message) {
++        return new ServiceSpecificException(code, message);
++    }
++
++    private static void uid(int value) {
++        if (value < 0) throw error(EINVAL, "Invalid UID");
++    }
++
++    private static void chain(int value) {
++        BpfNetMapsUtils.getMatchByFirewallChain(value);
++    }
++
++    private void requireLive() {
++        if (mInvalid) throw error(ENOTCONN, "Private policy requires complete recovery");
++    }
++
++    private void invalidate(Throwable failure) {
++        mInvalid = true;
++        mGeneration = 0;
++        mPermissions = null;
++        try {
++            mTransport.close();
++        } catch (RemoteException | RuntimeException cleanup) {
++            if (cleanup != failure) failure.addSuppressed(cleanup);
++        }
++    }
++
++    private void published() {
++        requireLive();
++        if (mGeneration == 0) throw error(EAGAIN, "Complete initial permissions not committed");
++        try {
++            if (mTransport.generation() != mGeneration) {
++                var failure = error(ESTALE, "Native publication changed");
++                invalidate(failure);
++                throw failure;
++            }
++        } catch (RemoteException failure) {
++            invalidate(failure);
++            throw error(ENOTCONN, "Native generation unavailable");
++        } catch (RuntimeException failure) {
++            if (!mInvalid) invalidate(failure);
++            throw failure;
++        }
++    }
++
++    public PermissionBpfMap permissionReceiver(boolean actualLoopbackPermission) {
++        synchronized (mLock) {
++            requireLive();
++            if (actualLoopbackPermission != loopbackChecks)
++                throw error(EOPNOTSUPP, "Framework loopback modes disagree");
++            return mCollector;
++        }
++    }
++
++    private static int[] words(Collection<Integer> values) {
++        return values.stream().mapToInt(Integer::intValue).toArray();
++    }
++
++    private static void append(List<Integer> words, int... fields) {
++        for (int field : fields) words.add(field);
++    }
++
++    private static int[] prefixWords(TreeMap<Prefix, Boolean> entries) {
++        List<Integer> words = new ArrayList<>();
++        for (var e : entries.entrySet()) {
++            append(words, e.getKey().bits);
++            ByteBuffer bytes = ByteBuffer.wrap(e.getKey().bytes).order(ByteOrder.BIG_ENDIAN);
++            for (int i = 0; i < 6; i++) append(words, bytes.getInt());
++            append(words, e.getValue() ? 1 : 0);
++        }
++        return words(words);
++    }
++
++    private Gta3xlwifiNetpolicyClient.Frame frame(
++            State state, Gta3xlwifiPermissionCollector.Snapshot permissions) {
++        TreeSet<Integer> owners = new TreeSet<>(state.ingress.keySet());
++        List<Integer> configuration = new ArrayList<>(),
++                members = new ArrayList<>(),
++                ingress = new ArrayList<>(),
++                discard = new ArrayList<>();
++        for (int c = 1; c <= 12; c++) {
++            append(configuration, c, state.enabled[c] ? 1 : 0);
++            for (int u : state.members.get(c)) {
++                owners.add(u);
++                append(members, c, u);
++            }
++        }
++        if (owners.size() > 20000
++                || state.discard.size() > 100
++                || state.network.size() > 1000
++                || state.host.size() > 1000
++                || state.blocked.size() > 1000)
++            throw error(ENOSPC, "Native policy capacity exceeded");
++        for (var e : state.ingress.entrySet())
++            append(
++                    ingress,
++                    e.getKey(),
++                    e.getValue().hasIif ? 1 : 0,
++                    e.getValue().iif,
++                    e.getValue().lockdown ? 1 : 0);
++        for (int[] entry : state.discard.values()) append(discard, entry);
++        int flags =
++                (loopbackChecks ? 1 : 0)
++                        | (loopbackMetrics ? 2 : 0)
++                        | (permissionPropagation ? 4 : 0);
++        return new Gta3xlwifiNetpolicyClient.Frame(
++                new int[][] {
++                    permissions.users(),
++                    permissions.knownUids(),
++                    permissions.rawPermissionWords(),
++                    words(configuration),
++                    words(members),
++                    words(ingress),
++                    words(discard),
++                    prefixWords(state.network),
++                    prefixWords(state.host),
++                    words(state.blocked)
++                },
++                flags,
++                loopbackChecks,
++                true,
++                state.dataSaver);
++    }
++
++    private void publish(State state, Gta3xlwifiPermissionCollector.Snapshot permissions) {
++        var candidate = frame(state, permissions);
++        try {
++            long generation = mTransport.publish(candidate);
++            if (generation <= 0 || generation <= mGeneration)
++                throw error(EPROTO, "Invalid native policy generation");
++            mGeneration = generation;
++        } catch (RemoteException | RuntimeException failure) {
++            invalidate(failure);
++            if (failure instanceof RuntimeException) throw (RuntimeException) failure;
++            throw error(ENOTCONN, "Policy commit failed");
++        }
++    }
++
++    private static void capacity(State state) {
++        TreeSet<Integer> owners = new TreeSet<>(state.ingress.keySet());
++        for (var members : state.members.values()) owners.addAll(members);
++        if (owners.size() > 20000
++                || state.discard.size() > 100
++                || state.network.size() > 1000
++                || state.host.size() > 1000
++                || state.blocked.size() > 1000) {
++            throw error(ENOSPC, "Native policy capacity exceeded");
++        }
++    }
++
++    private void update(Consumer<State> action) {
++        synchronized (mLock) {
++            requireLive();
++            State next = new State(mState);
++            action.accept(next);
++            capacity(next);
++            if (mPermissions != null) publish(next, mPermissions);
++            mState = next;
++        }
++    }
++
++    public void setChain(int c, boolean enabled) {
++        chain(c);
++        update(s -> s.enabled[c] = enabled);
++    }
++
++    public boolean chainEnabled(int c) {
++        chain(c);
++        synchronized (mLock) {
++            published();
++            return mState.enabled[c];
++        }
++    }
++
++    public void replaceChain(int c, int[] uids) {
++        chain(c);
++        TreeSet<Integer> next = new TreeSet<>();
++        for (int u : uids) {
++            uid(u);
++            next.add(u);
++        }
++        update(s -> s.members.put(c, next));
++    }
++
++    public void setRule(int c, int u, int rule) {
++        chain(c);
++        uid(u);
++        if (rule < 0 || rule > 2) throw error(EINVAL, "Invalid UID rule");
++        boolean add =
++                (rule == FIREWALL_RULE_ALLOW && BpfNetMapsUtils.isFirewallAllowList(c))
++                        || (rule == FIREWALL_RULE_DENY && !BpfNetMapsUtils.isFirewallAllowList(c));
++        update(
++                s -> {
++                    if (add) s.members.get(c).add(u);
++                    else s.members.get(c).remove(u);
++                });
++    }
++
++    public int rule(int c, int u) {
++        chain(c);
++        uid(u);
++        synchronized (mLock) {
++            published();
++            return mState.members.get(c).contains(u) == BpfNetMapsUtils.isFirewallAllowList(c)
++                    ? FIREWALL_RULE_ALLOW
++                    : FIREWALL_RULE_DENY;
++        }
++    }
++
++    public Set<Integer> matching(int c) {
++        chain(c);
++        synchronized (mLock) {
++            published();
++            return new TreeSet<>(mState.members.get(c));
++        }
++    }
++
++    public void dataSaver(boolean enabled) {
++        update(s -> s.dataSaver = enabled);
++    }
++
++    private static void prune(State state, int uid, Owner owner) {
++        if (!owner.hasIif && !owner.lockdown) state.ingress.remove(uid);
++        else state.ingress.put(uid, owner);
++    }
++
++    public void setIif(int[] uids, int index, boolean add) {
++        if (index < 0) throw error(EINVAL, "Invalid interface");
++        for (int u : uids) uid(u);
++        update(
++                s -> {
++                    for (int u : uids) {
++                        Owner owner = s.ingress.computeIfAbsent(u, k -> new Owner());
++                        owner.hasIif = add;
++                        owner.iif = add ? index : 0;
++                        prune(s, u, owner);
++                    }
++                });
++    }
++
++    public void lockdown(int u, boolean enabled) {
++        uid(u);
++        update(
++                s -> {
++                    Owner owner = s.ingress.computeIfAbsent(u, k -> new Owner());
++                    owner.lockdown = enabled;
++                    prune(s, u, owner);
++                });
++    }
++
++    private static int[] discard(InetAddress address, int first, int second) {
++        byte[] bytes = new IngressDiscardKey(address).writeToBytes();
++        if (bytes.length != 16 || first < 0 || second < 0)
++            throw error(EINVAL, "Invalid discard key");
++        ByteBuffer buffer = ByteBuffer.wrap(bytes).order(ByteOrder.BIG_ENDIAN);
++        int a = buffer.getInt(0), b = buffer.getInt(4), c = buffer.getInt(8), d = buffer.getInt(12);
++        if (a == 0 && b == 0 && d == 0 && (c == 0 || c == 65535)) {
++            throw error(EINVAL, "Unassigned discard address");
++        }
++        return new int[] {
++            buffer.getInt(), buffer.getInt(), buffer.getInt(), buffer.getInt(), first, second
++        };
++    }
++
++    private static String addressKey(InetAddress address) {
++        return Arrays.toString(Arrays.copyOf(discard(address, 0, 0), 4));
++    }
++
++    public void setDiscard(InetAddress address, int index) {
++        if (index <= 0) throw error(EINVAL, "Invalid discard interface");
++        int[] value = discard(address, index, index);
++        update(s -> s.discard.put(addressKey(address), value));
++    }
++
++    public void removeDiscard(InetAddress address) {
++        String key = addressKey(address);
++        update(s -> s.discard.remove(key));
++    }
++
++    public void local(Struct key, boolean host, Boolean allowed) {
++        Prefix prefix = new Prefix(key);
++        update(
++                s -> {
++                    var table = host ? s.host : s.network;
++                    if (allowed == null) table.remove(prefix);
++                    else table.put(prefix, allowed);
++                });
++    }
++
++    public boolean localAllowed(Struct key) {
++        Prefix query = new Prefix(key);
++        synchronized (mLock) {
++            published();
++            boolean allowed = true;
++            for (var e : mState.network.entrySet())
++                if (e.getKey().matches(query)) allowed = e.getValue();
++            return allowed;
++        }
++    }
++
++    public void removeHostInterface(int index) {
++        update(s -> s.host.keySet().removeIf(k -> k.ifindex() == index));
++    }
++
++    public void blockLocalUid(int u, boolean blocked) {
++        uid(u);
++        update(
++                s -> {
++                    if (blocked) s.blocked.add(u);
++                    else s.blocked.remove(u);
++                });
++    }
++
++    public boolean localUidBlocked(int u) {
++        uid(u);
++        synchronized (mLock) {
++            published();
++            return mState.blocked.contains(u);
++        }
++    }
++
++    public int permissions(int u) {
++        uid(u);
++        synchronized (mLock) {
++            published();
++            int[] raw = mPermissions.rawPermissionWords();
++            for (int i = 0; i < raw.length; i += 2) if (raw[i] == u) return convert(raw[i + 1]);
++            for (int known : mPermissions.knownUids()) if (known == u) return 4;
++            return 0;
++        }
++    }
++
++    private int convert(int raw) {
++        int mask = 0;
++        if ((raw & ((1 << 0) | (1 << 8))) != 0) mask |= 1;
++        if ((raw & (1 << 1)) != 0) mask |= 2;
++        if ((raw & (1 << 2)) == 0) mask |= 4;
++        if (loopbackChecks) {
++            if ((raw & (1 << 3)) != 0) mask |= 8;
++            if ((raw & (1 << 4)) != 0) mask |= 16;
++            if ((raw & (1 << 5)) != 0) mask |= 32;
++            if ((raw & ((1 << 6) | (1 << 7))) != 0) mask |= 64;
++        }
++        return mask;
++    }
++
++    public int blockedReasons(int u) {
++        uid(u);
++        synchronized (mLock) {
++            published();
++            if (u % 100000 < 10000) return BLOCKED_REASON_NONE;
++            int result = 0;
++            int[] reasons = {
++                0,
++                BLOCKED_REASON_DOZE,
++                BLOCKED_REASON_APP_STANDBY,
++                BLOCKED_REASON_BATTERY_SAVER,
++                BLOCKED_REASON_RESTRICTED_MODE,
++                BLOCKED_REASON_LOW_POWER_STANDBY,
++                BLOCKED_REASON_APP_BACKGROUND,
++                BLOCKED_REASON_OEM_DENY,
++                BLOCKED_REASON_OEM_DENY,
++                BLOCKED_REASON_OEM_DENY
++            };
++            for (int c = 1; c <= 9; c++)
++                if (mState.enabled[c]
++                        && mState.members.get(c).contains(u)
++                                != BpfNetMapsUtils.isFirewallAllowList(c)) result |= reasons[c];
++            if (mState.dataSaver && !mState.members.get(10).contains(u))
++                result |= BLOCKED_METERED_REASON_DATA_SAVER;
++            if (mState.members.get(11).contains(u))
++                result |= BLOCKED_METERED_REASON_USER_RESTRICTED;
++            if (mState.members.get(12).contains(u)) result |= BLOCKED_METERED_REASON_ADMIN_DISABLED;
++            return result;
++        }
++    }
++
++    public void unsupported(String operation) {
++        throw error(EOPNOTSUPP, "Private backend requires explicit implementation: " + operation);
++    }
++
++    public void dump(IndentingPrintWriter writer) {
++        synchronized (mLock) {
++            writer.println(
++                    "Private gta3xlwifi policy: generation="
++                            + mGeneration
++                            + " invalid="
++                            + mInvalid
++                            + " permissions="
++                            + (mPermissions != null));
++            writer.println(
++                    "Kernel packet statistics/event delivery is separate from policy publication.");
++        }
++    }
++}

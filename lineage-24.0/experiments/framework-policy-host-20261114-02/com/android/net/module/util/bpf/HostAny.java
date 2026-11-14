@@ -1,0 +1,1 @@
+package com.android.net.module.util.bpf;class HostAny {static java.net.InetAddress address(){try{return java.net.InetAddress.getByAddress(new byte[16]);}catch(Exception e){throw new AssertionError(e);}}}

@@ -1,0 +1,1 @@
+package com.android.net.module.util;public interface IBpfMap<K,V>{V getValue(K key)throws android.system.ErrnoException;}

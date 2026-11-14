@@ -1,0 +1,1 @@
+package android.net; public class MacAddress {private byte[]b;public static MacAddress fromBytes(byte[]b){MacAddress a=new MacAddress();a.b=b.clone();return a;}public byte[]toByteArray(){return b.clone();}}

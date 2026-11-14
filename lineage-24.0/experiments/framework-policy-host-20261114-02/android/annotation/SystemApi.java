@@ -1,0 +1,1 @@
+package android.annotation;public @interface SystemApi{enum Client{PRIVILEGED_APPS,MODULE_LIBRARIES,SYSTEM_SERVER}Client client() default Client.PRIVILEGED_APPS;}

@@ -1,0 +1,25 @@
+/srv/android/artifacts/lineage-24.0-arm64/framework-policy-host-20261114-01/com/android/net/module/util/Struct.java:852: error: cannot find symbol
+    public static class Bool extends LegacyStruct {
+                                     ^
+  symbol:   class LegacyStruct
+  location: class Struct
+warning: unknown enum constant Client.SYSTEM_SERVER
+  reason: class file for android.annotation.SystemApi$Client not found
+/srv/android/artifacts/lineage-24.0-arm64/framework-policy-host-20261114-01/com/android/net/module/util/Struct.java:604: error: cannot find symbol
+                    inetAddress = InetAddressUtils.v4MappedV6Address((Inet4Address) value);
+                                  ^
+  symbol:   variable InetAddressUtils
+  location: class Struct
+/srv/android/artifacts/lineage-24.0-arm64/framework-policy-host-20261114-01/com/android/net/module/util/Struct.java:838: error: cannot find symbol
+                sb.append("0x").append(HexDump.toHexString((byte[]) value));
+                                       ^
+  symbol:   variable HexDump
+  location: class Struct
+/srv/android/artifacts/lineage-24.0-arm64/framework-policy-host-20261114-01/Test.java:12: error: reference to Field is ambiguous
+ static Object field(Object object,String name)throws Exception{Field f=object.getClass().getDeclaredField(name);f.setAccessible(true);return f.get(object);}
+                                                                ^
+  both class java.lang.reflect.Field in java.lang.reflect and class com.android.net.module.util.Struct.Field in Struct match
+Note: /srv/android/artifacts/lineage-24.0-arm64/framework-policy-host-20261114-01/com/android/net/module/util/Struct.java uses unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+4 errors
+1 warning

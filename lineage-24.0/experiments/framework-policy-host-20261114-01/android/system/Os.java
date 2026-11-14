@@ -1,0 +1,1 @@
+package android.system; public class Os {public static String strerror(int e){return Integer.toString(e);}}

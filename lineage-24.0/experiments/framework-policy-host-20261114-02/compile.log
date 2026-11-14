@@ -1,0 +1,2 @@
+Note: /srv/android/artifacts/lineage-24.0-arm64/framework-policy-host-20261114-02/com/android/net/module/util/Struct.java uses unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.

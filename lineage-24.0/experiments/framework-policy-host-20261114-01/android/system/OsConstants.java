@@ -1,0 +1,1 @@
+package android.system; public class OsConstants {public static final int EINVAL=22,ENODEV=19,EAGAIN=11,ENOSPC=28,EOPNOTSUPP=95,ENOTCONN=107,ESTALE=116,EPROTO=71;}

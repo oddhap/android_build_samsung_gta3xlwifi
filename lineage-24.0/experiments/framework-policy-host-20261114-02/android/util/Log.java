@@ -1,0 +1,1 @@
+package android.util;public class Log{public static void wtf(String t,String m,Throwable e){throw new AssertionError(m,e);}}

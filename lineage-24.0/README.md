@@ -32,6 +32,18 @@ checks are separate from Android execution. Optional GPU BPF accounting still
 reports unavailable, rather than invented counters. Existing safety/installer
 and strict SELinux checks remain enforced.
 
+## Actual framework policy routing — November 15
+
+The inactive BpfNetMaps branch now chooses the real shared owner before BPF map
+initialization. PermissionMonitor registers the actual raw/identity receiver.
+Early policy is buffered while held; complete frames route ordinary/metered,
+IIF/VPN/discard/LNA/permission state with actual runtime flags. Queries verify the
+native generation. Five actual Java sources compile against current module/API
+classes;1243/17 audits pass. Actual A17 query/Struct oracles pass219573 Java checks;
+2111 emitted frames pass the actual native parser and270348 comparisons. See
+framework-policy-20261115-01. DNS, stats/events/CLAT, boot/restart and real Soong/APEX
+composition remain; this is not a flash candidate or hardware networking proof.
+
 ## Raw Java permission receiver — November 14
 
 The inactive receiver now handles complete identities, raw permissions, exact SDK
