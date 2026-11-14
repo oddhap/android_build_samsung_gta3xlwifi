@@ -1,0 +1,32 @@
+{
+  "inactive": true,
+  "prerequisite": "policy-frame-20261114-01 and all its dependencies",
+  "files": {
+    "system/netd/server/Gta3xlwifiSocketPolicyProjection.h": {
+      "original_sha256": "a2dda73036324ce68d2a3ae45059577f593e3dafb7844cc7ab30c6ff4dd615bf",
+      "candidate_sha256": "0d74298469dc22168d505a797016e555a27550087b006b3c0bf3122b3a7563e2"
+    },
+    "system/netd/server/Gta3xlwifiSocketPolicyProjection.cpp": {
+      "original_sha256": "267cb4141c155a0b7608aa15c65c232d88bd2d1bad065f6f48056e48390b9ff5",
+      "candidate_sha256": "1051070d1b66e11f4949b678ffe0b8229827962ba56936f0b60c45f5de075a26"
+    },
+    "system/netd/server/Gta3xlwifiNetpolicyService.h": {
+      "original_sha256": "ef0322b41681cf92ff87e97ae2f7da0f09f61e70647603cce6d1a67dae775cf7",
+      "candidate_sha256": "75ece89bc358114cf21ca9b3a1898e11853879db3c58b38e711fc52dc150beb8"
+    },
+    "system/netd/server/Gta3xlwifiNetpolicyService.cpp": {
+      "original_sha256": "653be544b095dde9ec95f62ffcb7bad290862850c692bb1201df9f203545a598",
+      "candidate_sha256": "ff0285810d9ea9e3d303e1ddd755fc6df3f6f8d91071e3d665da18c9a7afca20"
+    },
+    "system/netd/server/binder/com/android/internal/net/IGta3xlwifiNetpolicy.aidl": {
+      "original_sha256": "432b43dfe85b6b398919e5da0a201a2f000b236c50cd438178af3d691d504047",
+      "candidate_sha256": "faa94e701b05679177f81d0e69989c24ad749403ea4e425d1932e467591be17a"
+    },
+    "packages/modules/Connectivity/service/src/com/android/server/Gta3xlwifiNetpolicyClient.java": {
+      "original_sha256": null,
+      "candidate_sha256": "04d68fd6760bce4d0cf8f47f3ed45d71d804c36a156ad9fe764acc82dc120b42"
+    }
+  },
+  "selected_source_changed": false,
+  "Soong_composition_pending": true
+}

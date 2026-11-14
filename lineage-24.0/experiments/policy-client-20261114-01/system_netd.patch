@@ -1,0 +1,94 @@
+--- a/server/Gta3xlwifiSocketPolicyProjection.h
++++ b/server/Gta3xlwifiSocketPolicyProjection.h
+@@ -71,6 +71,7 @@
+   // Client death withdraws publication while retaining the verified producer
+   // lease for a complete explicit framework resnapshot. Uncertain HOLD closes it.
+   int suspendFrameworkClient();
++  int frameworkGeneration(uint64_t* generation);
+   int snapshot(State* output, uint64_t* generation);
+   int removeUid(int32_t uid);
+   int setUidRule(int32_t chain, int32_t uid, int32_t rule);
+--- a/server/Gta3xlwifiSocketPolicyProjection.cpp
++++ b/server/Gta3xlwifiSocketPolicyProjection.cpp
+@@ -111,6 +111,13 @@
+   if (!mStarted) return -ENOTCONN;
+   int result = mLease.hold();
+   return result ? quarantine(result) : 0;
++}
++int SocketPolicyProjection::frameworkGeneration(uint64_t* generation) {
++  if (!generation) return -EINVAL;
++  std::lock_guard<std::mutex> lock(mMutex);
++  if (!mStarted) return -ENOTCONN;
++  *generation = mCommit ? mCommit->generation : 0;
++  return 0;
+ }
+ int SocketPolicyProjection::snapshot(State* output, uint64_t* generation) {
+   if (!output || !generation) return -EINVAL;
+--- a/server/Gta3xlwifiNetpolicyService.h
++++ b/server/Gta3xlwifiNetpolicyService.h
+@@ -16,6 +16,8 @@
+                                         const std::vector<int32_t>& words) override;
+   ::android::binder::Status commitFrame(int64_t session, int64_t* generation) override;
+   ::android::binder::Status abandonFrame(int64_t session) override;
++  ::android::binder::Status readGeneration(int64_t session, int64_t* generation) override;
++  ::android::binder::Status closeSession(const ::android::sp<::android::IBinder>& client) override;
+  private:
+   class ClientDeath;
+   void clientDied(int64_t session);
+--- a/server/Gta3xlwifiNetpolicyService.cpp
++++ b/server/Gta3xlwifiNetpolicyService.cpp
+@@ -56,9 +56,9 @@
+   int result=validateSession(session);
+   if (result) return status(result);
+   if (expected<0) return status(-EINVAL);
+-  SocketPolicyProjection::State current; uint64_t generation=0;
+-  result=mOwner.snapshot(&current,&generation);
+-  if (result && result!=-EAGAIN) return status(result);
++  uint64_t generation=0;
++  result=mOwner.frameworkGeneration(&generation);
++  if (result) return status(result);
+   if (static_cast<uint64_t>(expected)!=generation) return status(-ESTALE);
+   result=mFrame.begin(counts,static_cast<uint32_t>(flags),loopback,migration,dataSaver);
+   if (!result) mExpected=generation;
+@@ -103,6 +103,30 @@
+   mFrame.clear();
+   return Status::ok();
+ }
++Status NetpolicyService::readGeneration(int64_t session,int64_t* output) {
++  if (!authorized()) return denied();
++  if (!output) return status(-EINVAL);
++  std::lock_guard lock(mMutex);
++  int result=validateSession(session);
++  if (result) return status(result);
++  uint64_t generation=0;
++  result=mOwner.frameworkGeneration(&generation);
++  if (result) return status(result);
++  if (generation>INT64_MAX) return status(-EOVERFLOW);
++  *output=static_cast<int64_t>(generation);
++  return Status::ok();
++}
++Status NetpolicyService::closeSession(const sp<IBinder>& client) {
++  if (!authorized()) return denied();
++  std::lock_guard lock(mMutex);
++  if (!client || !mClient || client!=mClient) return status(-ESTALE);
++  mFrame.clear();
++  int result=mOwner.suspendFrameworkClient();
++  // Death may already be queued: its session check still rejects a later owner.
++  mClient->unlinkToDeath(mDeath);
++  mClient.clear(); mDeath.clear(); mSession=0;
++  return status(result);
++}
+ void NetpolicyService::clientDied(int64_t session) {
+   std::lock_guard lock(mMutex);
+   if (validateSession(session)) return; // Stale death cannot close a newer owner.
+--- a/server/binder/com/android/internal/net/IGta3xlwifiNetpolicy.aidl
++++ b/server/binder/com/android/internal/net/IGta3xlwifiNetpolicy.aidl
+@@ -16,4 +16,8 @@
+     void appendFrame(long session, int section, int offset, in int[] words);
+     long commitFrame(long session);
+     void abandonFrame(long session);
++    /** Committed generation or zero for verified held/unpublished state. */
++    long readGeneration(long session);
++    /** Explicit retirement, including an interrupted open with unknown session. */
++    void closeSession(IBinder client);
+ }

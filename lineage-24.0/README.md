@@ -32,6 +32,17 @@ checks are separate from Android execution. Optional GPU BPF accounting still
 reports unavailable, rather than invented counters. Existing safety/installer
 and strict SELinux checks remain enforced.
 
+## Java policy transport lifecycle — November 14
+
+The inactive actual Java client now uses the private Binder route for immutable
+complete frames, exact generation CAS and bounded chunks. Failed publication
+retires the token through real HOLD; uncertain cleanup remains explicitly
+retryable. No automatic commit retry or connection-as-Ready behavior is added.
+Actual original Connectivity classpaths, AIDL compatibility and complete native
+CFI build/link pass; owner/service host tests pass25,856 assertions and Java
+lifecycle/serialization fixtures580. See policy-client-20261114-01. Actual framework
+state collection/routing and Soong source composition remain unfinished.
+
 ## Complete policy Binder transport — November 14
 
 The inactive native service now accepts bounded ordered chunks for all ten policy

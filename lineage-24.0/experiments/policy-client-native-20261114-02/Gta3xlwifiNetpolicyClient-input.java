@@ -1,0 +1,178 @@
+/* SPDX-License-Identifier: Apache-2.0 */
+package com.android.server;
+
+import android.net.INetd;
+import android.os.Binder;
+import android.os.IBinder;
+import android.os.RemoteException;
+import android.os.ServiceSpecificException;
+import static android.system.OsConstants.ESTALE;
+import com.android.internal.net.IGta3xlwifiNetpolicy;
+import com.android.internal.net.IOemNetd;
+import java.util.Arrays;
+import java.util.Objects;
+
+/**
+ * Private complete-policy transport. The caller must collect every section from
+ * current framework state, including raw permissions and actual runtime flags.
+ * A connected client is not networking Ready. No BPF map or readiness is faked.
+ * @hide
+ */
+public final class Gta3xlwifiNetpolicyClient implements AutoCloseable {
+    private static final int CHUNK_WORDS = 4096;
+    private final Object mLock = new Object();
+    private final IGta3xlwifiNetpolicy mRemote;
+    private final IBinder mToken = new Binder();
+    private final IBinder.DeathRecipient mDeath = this::binderDied;
+    private boolean mLinked;
+    private boolean mDead;
+    private boolean mClosed;
+    private boolean mUncertain = true;
+    private long mSession;
+
+    /** Ten explicit immutable sections; empty sections still have declared zero counts. */
+    public static final class Frame {
+        private static final int[] WIDTH = {1, 1, 2, 2, 2, 4, 6, 8, 8, 1};
+        private static final int[] LIMIT = {
+            65536, 65536, 131072, 24, 480000, 80000, 600, 8000, 8000, 1000
+        };
+        private final int[][] mWords;
+        private final int[] mCounts;
+        private final int mRuntimeFlags;
+        private final boolean mLoopbackPermission;
+        private final boolean mUidMigration;
+        private final boolean mDataSaver;
+
+        public Frame(int[][] sections, int runtimeFlags, boolean loopbackPermission,
+                boolean uidMigration, boolean dataSaver) {
+            Objects.requireNonNull(sections);
+            if (sections.length != 10 || (runtimeFlags & ~7) != 0 || !uidMigration) {
+                throw new IllegalArgumentException("Unsupported complete policy schema or mode");
+            }
+            mWords = new int[10][];
+            mCounts = new int[10];
+            long total = 0;
+            for (int i = 0; i < 10; ++i) {
+                int[] words = Objects.requireNonNull(sections[i]);
+                if (words.length > LIMIT[i] || words.length % WIDTH[i] != 0) {
+                    throw new IllegalArgumentException("Invalid section length: " + i);
+                }
+                mWords[i] = words.clone();
+                mCounts[i] = words.length;
+                total += words.length;
+            }
+            if (total > 1000000 || mCounts[3] != 24) {
+                throw new IllegalArgumentException("Incomplete chain image or oversized frame");
+            }
+            mRuntimeFlags = runtimeFlags;
+            mLoopbackPermission = loopbackPermission;
+            mUidMigration = uidMigration;
+            mDataSaver = dataSaver;
+        }
+    }
+
+    /** Lookup only. Call start separately while retaining this client for recovery/close. */
+    public static Gta3xlwifiNetpolicyClient lookup(INetd netd) throws RemoteException {
+        IOemNetd oem = IOemNetd.Stub.asInterface(Objects.requireNonNull(netd).getOemNetd());
+        if (oem == null) throw new IllegalStateException("Missing OEM netd transport");
+        return new Gta3xlwifiNetpolicyClient(
+                Objects.requireNonNull(oem.getGta3xlwifiNetpolicy()));
+    }
+
+    public Gta3xlwifiNetpolicyClient(IGta3xlwifiNetpolicy remote) {
+        mRemote = Objects.requireNonNull(remote);
+    }
+
+    /** Idempotent token handshake only; a lost open reply can retry the same token. */
+    public void start() throws RemoteException {
+        synchronized (mLock) {
+            requireLive();
+            if (mSession != 0) return;
+            if (!mLinked) {
+                mRemote.asBinder().linkToDeath(mDeath, 0);
+                mLinked = true;
+            }
+            long session = mRemote.openSession(mToken, 1);
+            if (session <= 0) throw new IllegalStateException("Invalid policy session");
+            mSession = session;
+        }
+    }
+
+    /**
+     * Explicit complete, freshly collected state. No operation is automatically
+     * retried after an exception, including commit. The next call must supply a
+     * fresh complete snapshot; never infer a successful commit from connection.
+     */
+    public long publishCompleteSnapshot(Frame frame) throws RemoteException {
+        Objects.requireNonNull(frame);
+        synchronized (mLock) {
+            requireLive();
+            if (mSession == 0) throw new IllegalStateException("Policy session not started");
+            try {
+                long previous = mRemote.readGeneration(mSession);
+                if (previous < 0) throw new IllegalStateException("Invalid policy generation");
+                // Explicitly discard any partial prior transfer before starting a NEW
+                // full image. This is not retrying an uncertain kernel transaction.
+                mRemote.abandonFrame(mSession);
+                mRemote.beginFrame(mSession, previous, frame.mCounts.clone(),
+                        frame.mRuntimeFlags, frame.mLoopbackPermission,
+                        frame.mUidMigration, frame.mDataSaver);
+                for (int section = 0; section < frame.mWords.length; ++section) {
+                    int[] words = frame.mWords[section];
+                    for (int offset = 0; offset < words.length; offset += CHUNK_WORDS) {
+                        mRemote.appendFrame(mSession, section, offset,
+                                Arrays.copyOfRange(words, offset,
+                                        Math.min(offset + CHUNK_WORDS, words.length)));
+                    }
+                }
+                long generation = mRemote.commitFrame(mSession);
+                if (generation <= previous) {
+                    throw new IllegalStateException("Non-advancing policy generation");
+                }
+                mUncertain = false;
+                return generation;
+            } catch (RemoteException | RuntimeException failure) {
+                mUncertain = true;
+                throw failure;
+            }
+        }
+    }
+
+    public boolean needsCompleteResnapshot() {
+        synchronized (mLock) { return mUncertain || mDead || mSession == 0; }
+    }
+
+    private void requireLive() {
+        if (mDead || mClosed) throw new IllegalStateException("Policy transport is closed");
+    }
+
+    private void binderDied() {
+        synchronized (mLock) {
+            mDead = true;
+            mUncertain = true;
+            mSession = 0;
+        }
+    }
+
+    /** Explicit token retirement also works if the initial open reply was lost. */
+    @Override
+    public void close() throws RemoteException {
+        synchronized (mLock) {
+            if (mClosed && !mLinked) return;
+            mClosed = true;
+            mSession = 0;
+            mUncertain = true;
+            try {
+                if (!mDead && mLinked) mRemote.closeSession(mToken);
+            } catch (ServiceSpecificException failure) {
+                // An interrupted successful close is safe to retire explicitly.
+                // A different/new token can never be closed by this request.
+                if (failure.errorCode != ESTALE) throw failure;
+            }
+            // On any other failure, retain the token/death link for an explicit
+            // close retry. Publication stays forbidden once closing has begun.
+            if (mLinked) mRemote.asBinder().unlinkToDeath(mDeath, 0);
+            mLinked = false;
+        }
+    }
+}
