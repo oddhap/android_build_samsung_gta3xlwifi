@@ -32,6 +32,35 @@ checks are separate from Android execution. Optional GPU BPF accounting still
 reports unavailable, rather than invented counters. Existing safety/installer
 and strict SELinux checks remain enforced.
 
+## Sole owner in Controllers startup — November 14
+
+The isolated Controllers candidate now acquires and verifies the single real
+accounting lease before root-chain rebuilding. Existing atomic root guards are
+retained. A checked bandwidth-only parent reset replaces the BPF-dependent
+factory startup on the explicit private-backend path. The same descriptor then
+installs and verifies the real accounting, socket and metered programs. The gate
+remains held and all policy unpublished until a complete framework snapshot is
+committed. The stock path and class layouts are preserved; a non-null owner
+pointer is not a readiness signal.
+
+The actual owner/transport passes 3,186 fixture checks, including both sides of
+six acquisition and seventy completion I/O fault points. Actual Controllers init
+and bandwidth-reset bodies pass 29 order/failure cases; the actual root-builder
+differential passes 960. All sixteen actual Android 17 ARM64 CFI sources compile,
+and the complete netd binary links with two replacement platform objects and
+fourteen private objects in the original eighteen-member archive. Dynamic
+library dependencies remain unchanged. ARM32/64 wire checks and full
+1,243-project/17-patch before/after audits pass. See
+controller-owner-20261114-01 and controller-owner-native-20261114-01.
+
+This does not yet make the process runnable on the legacy kernel: the earlier
+mainline libnetd_updatable initialization still requires its genuine replacement
+provider, and Java/Binder initial-frame and delta routing are unfinished. Real
+statistics persistence/ACK, tags/events and final installation/encryption checks
+remain. Selected sources/kernel/latest21-MTP-vendor/DTBO are unchanged, rechecked
+in controller-owner-final-inputs-20261114-01. No new ioctl/SELinux grants, startup
+execution, flash candidate or hardware validation is claimed.
+
 ## Explicit runtime network modes checkpoint — November 14
 
 The isolated kernel now implements Android 17's independent loopback checks and

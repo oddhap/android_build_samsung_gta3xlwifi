@@ -1,0 +1,33 @@
+/srv/android/artifacts/lineage-24.0-arm64/controller-startup-host-20261114-03/test.cpp: In member function ‘void android::net::Controllers::init()’:
+/srv/android/artifacts/lineage-24.0-arm64/controller-startup-host-20261114-03/test.cpp:108:46: error: expected ‘)’ before ‘PRId64’
+  108 |     gLog.info("Enabling bandwidth control: %" PRId64 "us", s.getTimeAndResetUs());
+      |              ~                               ^~~~~~~
+      |                                              )
+/srv/android/artifacts/lineage-24.0-arm64/controller-startup-host-20261114-03/test.cpp:10:1: note: ‘PRId64’ is defined in header ‘<cinttypes>’; did you forget to ‘#include <cinttypes>’?
+    9 | #include <vector>
+  +++ |+#include <cinttypes>
+   10 | struct Exit{int code;};
+/srv/android/artifacts/lineage-24.0-arm64/controller-startup-host-20261114-03/test.cpp:123:48: error: expected ‘)’ before ‘PRId64’
+  123 |     gLog.info("Initializing RouteController: %" PRId64 "us", s.getTimeAndResetUs());
+      |              ~                                 ^~~~~~~
+      |                                                )
+/srv/android/artifacts/lineage-24.0-arm64/controller-startup-host-20261114-03/test.cpp:123:49: note: ‘PRId64’ is defined in header ‘<cinttypes>’; did you forget to ‘#include <cinttypes>’?
+  123 |     gLog.info("Initializing RouteController: %" PRId64 "us", s.getTimeAndResetUs());
+      |                                                 ^~~~~~
+/srv/android/artifacts/lineage-24.0-arm64/controller-startup-host-20261114-03/test.cpp:125:16: error: ‘Status’ is not a member of ‘android::net::netdutils’; did you mean ‘android::net::Status’?
+  125 |     netdutils::Status xStatus = XfrmController::Init();
+      |                ^~~~~~
+/srv/android/artifacts/lineage-24.0-arm64/controller-startup-host-20261114-03/test.cpp:60:8: note: ‘android::net::Status’ declared here
+   60 | struct Status{int value;};bool isOk(Status s){return s.value==0;}
+      |        ^~~~~~
+/srv/android/artifacts/lineage-24.0-arm64/controller-startup-host-20261114-03/test.cpp:126:15: error: ‘xStatus’ was not declared in this scope; did you mean ‘Status’?
+  126 |     if (!isOk(xStatus)) {
+      |               ^~~~~~~
+      |               Status
+/srv/android/artifacts/lineage-24.0-arm64/controller-startup-host-20261114-03/test.cpp:130:47: error: expected ‘)’ before ‘PRId64’
+  130 |     gLog.info("Initializing XfrmController: %" PRId64 "us", s.getTimeAndResetUs());
+      |              ~                                ^~~~~~~
+      |                                               )
+/srv/android/artifacts/lineage-24.0-arm64/controller-startup-host-20261114-03/test.cpp:130:48: note: ‘PRId64’ is defined in header ‘<cinttypes>’; did you forget to ‘#include <cinttypes>’?
+  130 |     gLog.info("Initializing XfrmController: %" PRId64 "us", s.getTimeAndResetUs());
+      |                                                ^~~~~~

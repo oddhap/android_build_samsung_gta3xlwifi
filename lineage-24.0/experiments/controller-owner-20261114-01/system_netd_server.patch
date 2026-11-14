@@ -1,0 +1,229 @@
+--- a/Gta3xlwifiSocketPolicyProjection.cpp
++++ b/Gta3xlwifiSocketPolicyProjection.cpp
+@@ -27,6 +27,7 @@
+ }  // namespace
+ int SocketPolicyProjection::quarantine(int error) {
+   mCommit.reset();
++  mControllerLeasePrepared = false;
+   mStarted = false;
+   mAccountingEnabled = false;
+   mLease.stop();
+@@ -35,6 +36,7 @@
+ int SocketPolicyProjection::start(HookMode mode) {
+   std::lock_guard<std::mutex> lock(mMutex);
+   if (mStarted) return -EALREADY;
++  if (mControllerLeasePrepared) return -EBUSY;
+   int r = mLease.start();
+   if (r) return r;
+   r = mLease.requirePolicyPrimitives();
+@@ -47,17 +49,34 @@
+   mStarted = true;
+   return 0;  // Still held/unpublished.
+ }
+-int SocketPolicyProjection::startWithAccounting(
+-    const AccountingRoots::Program& program, HookMode mode) {
+-  std::lock_guard<std::mutex> lock(mMutex);
+-  if (mStarted) return -EALREADY;
+-  if (!AccountingRoots::validProgram(program)) return -EINVAL;
++int SocketPolicyProjection::acquireAccountingLeaseLocked() {
+   int r = mLease.start();
+-  if (r) return r;
+-  r = mLease.requirePolicyPrimitives();
++  if (!r) r = mLease.requirePolicyPrimitives();
+   if (!r) r = mLease.requireRuntimePolicy();
+   if (!r) r = mLease.requireIfaceAccountingPrimitives();
+   if (!r) r = mLease.requirePacketAccountingPrimitives();
++  if (r) return quarantine(r);
++  mControllerLeasePrepared = true;
++  return 0;
++}
++int SocketPolicyProjection::prepareForControllerStartup() {
++  std::lock_guard<std::mutex> lock(mMutex);
++  if (mStarted || mControllerLeasePrepared) return -EALREADY;
++  return acquireAccountingLeaseLocked();
++}
++int SocketPolicyProjection::startWithAccounting(
++    const AccountingRoots::Program& program, HookMode mode) {
++  std::lock_guard<std::mutex> lock(mMutex);
++  if (mStarted) return -EALREADY;
++  if (!AccountingRoots::validProgram(program)) return -EINVAL;
++  int r = 0;
++  if (!mControllerLeasePrepared) {
++    r = acquireAccountingLeaseLocked();
++  } else {
++    bool held = false;
++    r = mLease.isHeld(&held);
++    if (!r && !held) r = -EBUSY;
++  }
+   if (!r) r = prepareHooks(mode);
+   if (!r) r = mAccounting.prepare(program);
+   if (!r) r = mSocket.prepare();
+@@ -65,6 +84,7 @@
+   if (!r) r = mAccounting.verifyProducers();
+   if (!r) r = verifyHooks();
+   if (r) return quarantine(r);
++  mControllerLeasePrepared = false;
+   mAccountingEnabled = true;
+   mStarted = true;
+   return 0;  // Held, iface producers and UID/app primitives verified; no policy/Ready yet.
+--- a/Gta3xlwifiSocketPolicyProjection.h
++++ b/Gta3xlwifiSocketPolicyProjection.h
+@@ -41,6 +41,9 @@
+         mSocketWriter(kernel, CheckedUidChains::Table::Socket),
+         mFilterWriter(kernel) {}
+   ~SocketPolicyProjection() { stop(); }
++  // Acquire and verify the accounting lease BEFORE Controllers rebuild roots.
++  // No firewall operation or publication; startWithAccounting finishes later.
++  int prepareForControllerStartup();
+   int start(HookMode mode = HookMode::VerifyOnly);
+   // Explicit source-factory startup after the last generic bandwidth reset.
+   // Requires real iface producers/DROP correction and UID/app packet primitives,
+@@ -103,6 +106,7 @@
+     NetpolicyLease::RuntimeImage runtime;
+     uint64_t generation = 0;
+   };
++  int acquireAccountingLeaseLocked();
+   int packetAccountingAvailableLocked() const;
+   int applyLocked(State value);
+   int update(const std::function<int(State&)>& mutation);
+@@ -116,6 +120,7 @@
+   AccountingRoots mAccounting;
+   CheckedUidChains mSocketWriter, mFilterWriter;
+   std::mutex mMutex;
++  bool mControllerLeasePrepared = false;
+   bool mStarted = false;
+   bool mAccountingEnabled = false;
+   uint64_t mGeneration = 0;
+--- a/BandwidthController.cpp
++++ b/BandwidthController.cpp
+@@ -816,3 +816,17 @@
+         return " -j RETURN";
+     }
+ }
++
++// Called only by Controllers after acquiring the private held owner lease.
++// Preserve old per-interface user chains as the stock flush command does; none
++// is replayed or reattached. AccountingRoots validates all owned parents in both
++// families before installing source-bound producers and metered bridges.
++int BandwidthController::prepareGta3xlwifiBandwidthControl() {
++    const int result = iptablesRestoreFunction(V4V6, Join(IPT_FLUSH_COMMANDS, '\n'), nullptr);
++    if (result) return result;
++    mSharedQuotaIfaces.clear();
++    mQuotaIfaces.clear();
++    mGlobalAlertBytes = 0;
++    mSharedQuotaBytes = 0;
++    return 0;
++}
+--- a/BandwidthController.h
++++ b/BandwidthController.h
+@@ -24,6 +24,8 @@
+ #include <mutex>
+ 
+ #include "NetdConstants.h"
++
++namespace android::net { class Controllers; }
+ 
+ class BandwidthController {
+ public:
+@@ -72,6 +74,10 @@
+     enum IptOp { IptOpInsert, IptOpDelete };
+ 
+   private:
++    friend class android::net::Controllers;
++    // Reset only stock bandwidth-owned parents under the prepared owner lease.
++    // The owner installs and verifies real producers afterwards.
++    int prepareGta3xlwifiBandwidthControl();
+     struct QuotaInfo {
+         int64_t quota;
+         int64_t alert;
+--- a/Controllers.cpp
++++ b/Controllers.cpp
+@@ -30,6 +30,7 @@
+ 
+ #include "ConnmarkFlags.h"
+ #include "Controllers.h"
++#include "Gta3xlwifiSocketPolicyProjection.h"
+ #include "IdletimerController.h"
+ #include "NetworkController.h"
+ #include "RouteController.h"
+@@ -51,6 +52,9 @@
+ netdutils::Log gUnsolicitedLog("netdUnsolicited");
+ 
+ namespace {
++// Created on main-thread startup before Binder publication. The pointer is then
++// immutable for the process lifetime; no second lease or global Ready flag.
++std::unique_ptr<gta3xlwifi::SocketPolicyProjection> gta3xlwifiPolicyOwner;
+ 
+ static constexpr char CONNMARK_MANGLE_INPUT[] = "connmark_mangle_INPUT";
+ static constexpr char CONNMARK_MANGLE_OUTPUT[] = "connmark_mangle_OUTPUT";
+@@ -332,14 +336,33 @@
+     return res;
+ }
+ 
++gta3xlwifi::SocketPolicyProjection* Controllers::gta3xlwifiPolicy() const {
++    return gta3xlwifiPolicyOwner.get();
++}
++
+ void Controllers::init() {
++    const bool legacy = android::base::GetBoolProperty("ro.gta3xlwifi.legacy_networking", false);
++    if (legacy) {
++        if (gta3xlwifiPolicyOwner) {
++            gLog.error("Private policy owner already initialized");
++            exit(5);
++        }
++        gta3xlwifiPolicyOwner = std::make_unique<gta3xlwifi::SocketPolicyProjection>(
++                iptablesRestoreCtrl);
++        if (int ret = gta3xlwifiPolicyOwner->prepareForControllerStartup()) {
++            gLog.error("Failed to acquire held private policy lease (%s)", strerror(-ret));
++            exit(5);
++        }
++    }
+     if (initIptablesRules()) {
+         gLog.error("Failed to initialize iptables rules");
+         exit(1);
+     }
+     Stopwatch s;
+ 
+-    if (int ret = bandwidthCtrl.enableBandwidthControl()) {
++    const int bandwidthResult = legacy ? bandwidthCtrl.prepareGta3xlwifiBandwidthControl()
++                                       : bandwidthCtrl.enableBandwidthControl();
++    if (int ret = bandwidthResult) {
+         gLog.error("Failed to initialize BandwidthController (%s)", strerror(-ret));
+         // A failure to init almost definitely means that iptables failed to load
+         // our static ruleset, which then basically means network accounting will not work.
+@@ -350,6 +373,15 @@
+     }
+     gLog.info("Enabling bandwidth control: %" PRId64 "us", s.getTimeAndResetUs());
+ 
++    if (legacy) {
++        const auto program = BandwidthController::makeGta3xlwifiAccountingCommands();
++        if (int ret = gta3xlwifiPolicyOwner->startWithAccounting(program)) {
++            gLog.error("Failed to verify held private accounting startup (%s)", strerror(-ret));
++            exit(6);
++        }
++        // Remains held and unpublished until a complete explicit framework frame.
++    }
++
+     if (int ret = RouteController::Init(NetworkController::LOCAL_NET_ID)) {
+         gLog.error("Failed to initialize RouteController (%s)", strerror(-ret));
+         exit(3);
+--- a/Controllers.h
++++ b/Controllers.h
+@@ -34,6 +34,8 @@
+ namespace android {
+ namespace net {
+ 
++namespace gta3xlwifi { class SocketPolicyProjection; }
++
+ class Controllers {
+   public:
+     Controllers();
+@@ -51,6 +53,8 @@
+     TcpSocketMonitor tcpSocketMonitor;
+ 
+     void init();
++    // Sole process owner, null on the stock path; non-null is NOT readiness.
++    gta3xlwifi::SocketPolicyProjection* gta3xlwifiPolicy() const;
+ 
+   private:
+     friend class ControllersTest;

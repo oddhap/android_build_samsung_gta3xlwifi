@@ -1,0 +1,5 @@
+passed_cases=960; actual command-builder differential with fatal UBSan
+PASS: 1243 locked projects, 17 exact reviewed patches; no external alternates
+PASS: 1243 locked projects, 17 exact reviewed patches; no external alternates
+PASS: actual full Android17 netd CFI linked with Controllers and five-state owner; production files unchanged
+Sat Nov 14 09:18:55 UTC 2026
