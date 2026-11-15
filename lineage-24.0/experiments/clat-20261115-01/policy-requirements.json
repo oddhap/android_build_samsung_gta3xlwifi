@@ -1,0 +1,19 @@
+{
+  "passed": true,
+  "profiles": [
+    {
+      "profile": "production",
+      "report_sha256": "73de41d2f3a091bf4b09107fd49df7e8dfb349a69df815f2bf0f357e1d9387de",
+      "required_rights_already_present": true,
+      "unused_clatd_getopt_still_denied": true
+    },
+    {
+      "profile": "debug",
+      "report_sha256": "955cdbc9611e95a4862ee6aa47700dfd0fe1d755b4df024c918b32fb2b6d2bcc",
+      "required_rights_already_present": true,
+      "unused_clatd_getopt_still_denied": true
+    }
+  ],
+  "policy_changed": false,
+  "hardware_tested": false
+}

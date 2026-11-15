@@ -1,0 +1,368 @@
+--- a/system/netd/server/Gta3xlwifiHeldProvider.cpp
++++ b/system/netd/server/Gta3xlwifiHeldProvider.cpp
+@@ -71,3 +71,10 @@
+     return 0;
+ }
+ }  // namespace android::net::gta3xlwifi
++
++namespace android::net::gta3xlwifi {
++int tagClatSocketFromProvider(SocketPolicyProjection& expectedOwner,int fd) {
++    if(!owner||owner!=&expectedOwner)return -ENOTCONN;
++    return owner->tagClatSocket(transport,fd);
++}
++}  // namespace android::net::gta3xlwifi
+--- a/system/netd/server/Gta3xlwifiHeldProvider.h
++++ b/system/netd/server/Gta3xlwifiHeldProvider.h
+@@ -5,6 +5,7 @@
+ namespace android::net::gta3xlwifi {
+ class SocketPolicyProjection;
+ int initializeHeldProvider(Controllers& controllers);
++int tagClatSocketFromProvider(SocketPolicyProjection& expectedOwner,int fd);
+ // Existing process-lifetime owner/transport only, never a second private session.
+ int removeUidAccountingFromProvider(SocketPolicyProjection& expectedOwner, int32_t uid,
+                                    uint64_t generation, uint64_t activeEpoch);
+--- a/system/netd/server/Gta3xlwifiNetpolicyService.cpp
++++ b/system/netd/server/Gta3xlwifiNetpolicyService.cpp
+@@ -320,3 +320,13 @@
+   *output=std::move(next);return Status::ok();
+ }
+ }  // namespace android::net::gta3xlwifi
++
++namespace android::net::gta3xlwifi {
++Status NetpolicyService::tagClatSocket(int64_t session,const ::android::os::ParcelFileDescriptor& socket) {
++  if(!authorized())return denied();
++  std::lock_guard lock(mMutex);
++  int result=validateSession(session);if(result)return status(result);
++  if(socket.get()<0)return status(-EINVAL);
++  return status(tagClatSocketFromProvider(mOwner,socket.get()));
++}
++}  // namespace android::net::gta3xlwifi
+--- a/system/netd/server/Gta3xlwifiNetpolicyService.h
++++ b/system/netd/server/Gta3xlwifiNetpolicyService.h
+@@ -1,6 +1,7 @@
+ // SPDX-License-Identifier: Apache-2.0
+ #pragma once
+ #include <binder/IBinder.h>
++#include <binder/ParcelFileDescriptor.h>
+ #include "com/android/internal/net/BnGta3xlwifiNetpolicy.h"
+ #include "Gta3xlwifiPolicyFrame.h"
+ namespace android::net::gta3xlwifi {
+@@ -34,6 +35,8 @@
+       const ::android::sp<::android::IBinder>& client) override;
+   ::android::binder::Status pollLoopbackEvents(int64_t session,
+       std::vector<int64_t>* output) override;
++  ::android::binder::Status tagClatSocket(int64_t session,
++      const ::android::os::ParcelFileDescriptor& socket) override;
+  private:
+   class ClientDeath;
+   void clientDied(int64_t session);
+--- a/system/netd/server/Gta3xlwifiQtaguidTransport.cpp
++++ b/system/netd/server/Gta3xlwifiQtaguidTransport.cpp
+@@ -124,7 +124,7 @@
+     return -EPROTO;
+ }
+ 
+-int duplicateInetSocket(int fd) {
++int duplicateInetSocket(int fd, bool clat) {
+     int copy;
+     do { copy = fcntl(fd, F_DUPFD_CLOEXEC, 3); } while (copy < 0 && errno == EINTR);
+     if (copy < 0) return -errno;
+@@ -133,11 +133,19 @@
+     socklen_t length = sizeof(value);
+     if (getsockopt(copy, SOL_SOCKET, SO_DOMAIN, &value, &length)) return -errno;
+     if (length != sizeof(value)) return -EPROTO;
+-    if (value != AF_INET && value != AF_INET6) return -EAFNOSUPPORT;
++    if (clat ? value != AF_INET6 : (value != AF_INET && value != AF_INET6))
++        return -EAFNOSUPPORT;
+     length = sizeof(value);
+     if (getsockopt(copy, SOL_SOCKET, SO_PROTOCOL, &value, &length)) return -errno;
+     if (length != sizeof(value)) return -EPROTO;
+-    if (value != IPPROTO_TCP && value != IPPROTO_UDP) return -EPROTONOSUPPORT;
++    if (clat ? value != IPPROTO_RAW : (value != IPPROTO_TCP && value != IPPROTO_UDP))
++        return -EPROTONOSUPPORT;
++    if (clat) {
++        length = sizeof(value);
++        if (getsockopt(copy, SOL_SOCKET, SO_TYPE, &value, &length)) return -errno;
++        if (length != sizeof(value)) return -EPROTO;
++        if (value != SOCK_RAW) return -EPROTOTYPE;
++    }
+     return stable.release();
+ }
+ }  // namespace
+@@ -209,11 +217,12 @@
+     return 0;
+ }
+ 
+-int QtaguidTransport::commandLocked(int fd, uint32_t tag, uid_t uid, bool untag) {
++int QtaguidTransport::commandLocked(int fd, uint32_t tag, uid_t uid, bool untag, bool clat) {
++    if (clat && (untag || tag || uid != 1029)) return -EINVAL;
+     if (mDevice < 0 || mControl < 0) return -ENOTCONN;
+     const int result = checkActive();
+     if (result) { closeLocked(); return result; }
+-    const int copy = duplicateInetSocket(fd);
++    const int copy = duplicateInetSocket(fd, clat);
+     if (copy < 0) return copy;
+     Fd stable(copy);  // Pin the file through write; never act on a reused fd.
+     char command[96];
+@@ -246,3 +255,10 @@
+     return mDevice >= 0 && mControl >= 0;
+ }
+ }  // namespace android::net::gta3xlwifi
++
++namespace android::net::gta3xlwifi {
++int QtaguidTransport::tagClatSocket(int fd) {
++    std::lock_guard<std::mutex> lock(mMutex);
++    return commandLocked(fd,0,1029,false,true);
++}
++}  // namespace android::net::gta3xlwifi
+--- a/system/netd/server/Gta3xlwifiQtaguidTransport.h
++++ b/system/netd/server/Gta3xlwifiQtaguidTransport.h
+@@ -29,11 +29,12 @@
+     bool connected() const override;
+     int tagSocket(int socketFd, uint32_t tag, uid_t chargeUid) override;
+     int untagSocket(int socketFd) override;
++    int tagClatSocket(int socketFd) override;
+     // Trusted owner only: one complete d0UID command, no socket-FD interpretation.
+     int deleteUidTags(uint32_t uid);
+ 
+   private:
+-    int commandLocked(int socketFd, uint32_t tag, uid_t chargeUid, bool untag);
++    int commandLocked(int socketFd, uint32_t tag, uid_t chargeUid, bool untag, bool clat = false);
+     void closeLocked();
+     mutable std::mutex mMutex;
+     int mDevice = -1;
+--- a/system/netd/server/Gta3xlwifiSocketPolicyProjection.cpp
++++ b/system/netd/server/Gta3xlwifiSocketPolicyProjection.cpp
+@@ -616,3 +616,17 @@
+   return quarantine(-ECONNABORTED);
+ }
+ }  // namespace android::net::gta3xlwifi
++
++namespace android::net::gta3xlwifi {
++int SocketPolicyProjection::tagClatSocket(SocketTagger& transport,int fd) {
++  if(fd<0)return -EINVAL;
++  std::lock_guard<std::mutex> lock(mMutex);
++  int result=packetAccountingAvailableLocked();if(result)return result;
++  if(!transport.connected())return quarantine(-ENOTCONN);
++  // CLAT rows are deliberately excluded by the real CLAT accounting path.
++  // Ordinary tagSocket still denies1029 and retains its exact normal budgets.
++  result=transport.tagClatSocket(fd);
++  if(!transport.connected())return quarantine(result<0?result:-EPROTO);
++  return result>0?quarantine(-EPROTO):result;
++}
++}  // namespace android::net::gta3xlwifi
+--- a/system/netd/server/Gta3xlwifiSocketPolicyProjection.h
++++ b/system/netd/server/Gta3xlwifiSocketPolicyProjection.h
+@@ -108,6 +108,8 @@
+   int tagSocket(SocketTagger& transport, int fd, uint32_t tag,
+                 int32_t chargeUid, int32_t realUid);
+   int untagSocket(SocketTagger& transport, int fd);
++  // Trusted provider only; Binder enforces fullUID1000/current session.
++  int tagClatSocket(SocketTagger& transport,int fd);
+   int readPacketState(NetpolicyLease::PacketState* output);
+   int readFrozenPacketStats(uint32_t bank, uint64_t epoch,
+                             NetpolicyLease::PacketSnapshot* output);
+--- a/system/netd/server/Gta3xlwifiSocketTagger.h
++++ b/system/netd/server/Gta3xlwifiSocketTagger.h
+@@ -1,6 +1,7 @@
+ // SPDX-License-Identifier: Apache-2.0
+ #pragma once
+ #include <cstdint>
++#include <cerrno>
+ #include <sys/types.h>
+ namespace android::net::gta3xlwifi {
+ // Trusted native transport dependency. No authorization/readiness implied by
+@@ -12,5 +13,7 @@
+   virtual bool connected() const = 0;
+   virtual int tagSocket(int fd, uint32_t tag, uid_t uid) = 0;
+   virtual int untagSocket(int fd) = 0;
++  // Dedicated trusted CLAT operation; older explicit fixtures fail unavailable.
++  virtual int tagClatSocket(int fd) { (void)fd; return -EOPNOTSUPP; }
+ };
+ }  // namespace android::net::gta3xlwifi
+--- a/system/netd/server/binder/com/android/internal/net/IGta3xlwifiNetpolicy.aidl
++++ b/system/netd/server/binder/com/android/internal/net/IGta3xlwifiNetpolicy.aidl
+@@ -1,5 +1,6 @@
+ /* SPDX-License-Identifier: Apache-2.0 */
+ package com.android.internal.net;
++import android.os.ParcelFileDescriptor;
+ /**
+  * Private gta3xlwifi complete policy transport, separate from frozen INetd.
+  * Protocol 1. Every call requires the system UID, including transferred handles.
+@@ -48,4 +49,8 @@
+      * boottimeNs,sequence,eventLost for each record. Unsigned64 bits retained.
+      */
+     long[] pollLoopbackEvents(long session);
++    /** Privileged exact AF_INET6/SOCK_RAW/IPPROTO_RAW CLAT FD, tag0/UID1029 only.
++     * Tags are socket-owned; final real FD close retires them. No cookie emulation.
++     */
++    void tagClatSocket(long session,in ParcelFileDescriptor socket);
+ }
+--- a/packages/modules/Connectivity/service/src/com/android/server/BpfNetMaps.java
++++ b/packages/modules/Connectivity/service/src/com/android/server/BpfNetMaps.java
+@@ -217,6 +217,13 @@
+         mGta.completeStatsAdmission();
+     }
+ 
++    /** Capture the existing owner only; CLAT must never create a second session. */
++    public static synchronized Gta3xlwifiStatsAccess gta3xlwifiClatAccess() {
++        if(!android.os.SystemProperties.getBoolean("ro.gta3xlwifi.legacy_networking",false))return null;
++        if(sGta==null)throw new IllegalStateException("Private owner not initialized for CLAT");
++        return sGta.statsAccess();
++    }
++
+     public boolean usesGta3xlwifiNetworking() { return mGta != null; }
+ 
+     /** Capture the real shared-session stats handle before the factory lock. */
+--- a/packages/modules/Connectivity/service/src/com/android/server/Gta3xlwifiStatsAccess.java
++++ b/packages/modules/Connectivity/service/src/com/android/server/Gta3xlwifiStatsAccess.java
+@@ -163,6 +163,16 @@
+ 
+     IOException abortLoopbackConsumer(String message) { return fail(message); }
+ 
++    /** Existing shared-session privileged CLAT FD; never the ordinary tag API. */
++    public void tagClatSocket(android.os.ParcelFileDescriptor socket) throws IOException {
++        Objects.requireNonNull(socket);requireActiveHandle();
++        try{mRemote.tagClatSocket(mSession,socket);}
++        catch(RemoteException|RuntimeException error){
++            IOException failure=fail("CLAT socket tagging uncertain; close the caller FD");
++            failure.addSuppressed(error);throw failure;
++        }
++    }
++
+     private void requireActiveHandle() throws IOException {
+         if(mInvalidated.get())throw new IOException("Statistics handle is retired");
+     }
+--- a/packages/modules/Connectivity/service/src/com/android/server/connectivity/ClatCoordinator.java
++++ b/packages/modules/Connectivity/service/src/com/android/server/connectivity/ClatCoordinator.java
+@@ -127,6 +127,7 @@
+ 
+     @NonNull
+     private final INetd mNetd;
++    @Nullable private final com.android.server.Gta3xlwifiStatsAccess mGtaStats;
+     @NonNull
+     private final Dependencies mDeps;
+     @Nullable
+@@ -144,6 +145,11 @@
+      */
+     @VisibleForTesting
+     public abstract static class Dependencies {
++        /** Existing process owner only, no second policy/transport session. */
++        public com.android.server.Gta3xlwifiStatsAccess getGta3xlwifiClatAccess() {
++            return com.android.server.BpfNetMaps.gta3xlwifiClatAccess();
++        }
++
+         /**
+           * Get netd.
+           */
+@@ -329,11 +335,11 @@
+         @NonNull
+         public final Inet6Address pfx96;
+         public final int pid;
+-        public final long cookie;
++        @Nullable public final Long cookie;
+ 
+         ClatdTracker(@NonNull String iface, int ifIndex, @NonNull String v4iface,
+                 int v4ifIndex, @NonNull Inet4Address v4, @NonNull Inet6Address v6,
+-                @NonNull Inet6Address pfx96, int pid, long cookie) {
++                @NonNull Inet6Address pfx96, int pid, @Nullable Long cookie) {
+             this.iface = iface;
+             this.ifIndex = ifIndex;
+             this.v4iface = v4iface;
+@@ -357,7 +363,7 @@
+                     && Objects.equals(this.v6, that.v6)
+                     && Objects.equals(this.pfx96, that.pfx96)
+                     && this.pid == that.pid
+-                    && this.cookie == that.cookie;
++                    && Objects.equals(this.cookie,that.cookie);
+         }
+ 
+         @Override
+@@ -370,7 +376,7 @@
+                     + ", v6: " + v6
+                     + ", pfx96: " + pfx96
+                     + ", pid: " + pid
+-                    + ", cookie: " + cookie;
++                    + (cookie==null ? ", private socket lifetime (no cookie)" : ", cookie: " + cookie);
+         }
+     };
+ 
+@@ -398,9 +404,15 @@
+     public ClatCoordinator(@NonNull Dependencies deps) {
+         mDeps = deps;
+         mNetd = mDeps.getNetd();
+-        mIngressMap = mDeps.getBpfIngress6Map();
+-        mEgressMap = mDeps.getBpfEgress4Map();
+-        mCookieTagMap = mDeps.getBpfCookieTagMap();
++        mGtaStats=mDeps.getGta3xlwifiClatAccess();
++        if(mGtaStats==null){
++            mIngressMap = mDeps.getBpfIngress6Map();
++            mEgressMap = mDeps.getBpfEgress4Map();
++            mCookieTagMap = mDeps.getBpfCookieTagMap();
++        }else{
++            // Actual userspace clatd; no unavailable BPF map/offload/cookie API.
++            mIngressMap=null;mEgressMap=null;mCookieTagMap=null;
++        }
+     }
+ 
+     // Note that this may only be called on a brand new v4-* interface,
+@@ -590,7 +602,8 @@
+         ParcelFileDescriptor readSock6 = null;
+         ParcelFileDescriptor writeSock6 = null;
+ 
+-        long cookie = 0;
++        Long cookie = null;
++        int spawnedPid=0;
+         boolean isSocketTagged = false;
+ 
+         try {
+@@ -628,9 +641,15 @@
+             // Start translating packets to the new prefix.
+             mDeps.addAnycastSetsockopt(writeSock6.getFileDescriptor(), v6Str, ifIndex);
+             // Tag socket as AID_CLAT to avoid duplicated CLAT data usage accounting.
+-            cookie = mDeps.getSocketCookie(writeSock6.getFileDescriptor());
+-            tagSocketAsClat(cookie);
+-            isSocketTagged = true;
++            if(mGtaStats!=null){
++                // Exact privileged IPv6 RAW FD; tag survives daemon lifetime,
++                // and real final socket close retires it without a BPF cookie.
++                mGtaStats.tagClatSocket(writeSock6);
++            }else{
++                cookie = mDeps.getSocketCookie(writeSock6.getFileDescriptor());
++                tagSocketAsClat(cookie);
++                isSocketTagged = true;
++            }
+             // Update our packet socket filter to reflect the new 464xlat IP address.
+             mDeps.configurePacketSocket(readSock6.getFileDescriptor(), v6Str, ifIndex);
+ 
+@@ -663,6 +682,8 @@
+             final int pid = mDeps.startClatd(tunFd.getFileDescriptor(),
+                     readSock6.getFileDescriptor(), writeSock6.getFileDescriptor(), iface, pfx96Str,
+                     v4Str, v6Str);
++            spawnedPid=pid;
++            if(mGtaStats!=null&&pid<=0)throw new IOException("Invalid private clatd PID");
+             // The file descriptors have been duplicated (dup2) to clatd in native_startClatd().
+             // Close these file descriptor stubs in finally block.
+ 
+@@ -676,6 +697,10 @@
+             return v6Str;
+         } catch (IOException | RemoteException | ServiceSpecificException | ClassCastException
+                  | IllegalArgumentException | NullPointerException e) {
++            if(mGtaStats!=null&&spawnedPid>0){
++                try{mDeps.stopClatd(spawnedPid);}
++                catch(IOException cleanup){e.addSuppressed(cleanup);}
++            }
+             if (isSocketTagged) {
+                 try {
+                     untagSocket(cookie);
+@@ -756,7 +781,9 @@
+ 
+         maybeStopBpf(mClatdTracker);
+         mDeps.stopClatd(mClatdTracker.pid);
+-        untagSocket(mClatdTracker.cookie);
++        if(mGtaStats==null)untagSocket(mClatdTracker.cookie);
++        // Private path: stopClatd waited for the actual child's exit, so its
++        // final raw-socket FD closes. The parent retained no extra descriptor.
+ 
+         Log.i(TAG, "clatd on " + mClatdTracker.iface + " stopped");
+         mClatdTracker = null;

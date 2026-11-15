@@ -1,0 +1,4 @@
+class ReadyMethods{int stockStarts;Object mHandler=new Object();class Maps{boolean metrics,privateRoute;int starts;boolean isLoopbackAccessMetricsEnabled(){return metrics;}boolean startGta3xlwifiLoopbackEventConsumer(Object h){starts++;return privateRoute;}}class Poller{void nativeInitLoopbackEventConsumer(){stockStarts++;}}Maps maps=new Maps(),mBpfNetMaps=maps;Poller BpfEventPoller=new Poller();void run(){if (mBpfNetMaps.isLoopbackAccessMetricsEnabled()
+                && !mBpfNetMaps.startGta3xlwifiLoopbackEventConsumer(mHandler)) {
+            BpfEventPoller.nativeInitLoopbackEventConsumer();
+        }}}

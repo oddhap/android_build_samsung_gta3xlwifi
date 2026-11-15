@@ -1,0 +1,1 @@
+package android.net;public class InetAddresses{public static java.net.InetAddress parseNumericAddress(String a){try{if(!a.matches("[0-9a-fA-F:.]+"))throw new IllegalArgumentException();return java.net.InetAddress.getByName(a);}catch(Exception e){throw new IllegalArgumentException(e);}}}

@@ -1,0 +1,2 @@
+PASS: 2340 transport/fixture assertions; real IPv4/IPv6 TCP/UDP and FD-reuse checks; mocked driver I/O only
+clat_transport_cases=242 total_cases=2582

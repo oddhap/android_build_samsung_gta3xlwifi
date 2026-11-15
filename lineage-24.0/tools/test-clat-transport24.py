@@ -1,0 +1,21 @@
+#!/usr/bin/env python3
+# SPDX-License-Identifier: Apache-2.0
+"""Actual qtaguid CLAT transport. Real socket/dup/FD-reuse, explicit raw getsockopt/driver fixtures."""
+import argparse,fcntl,hashlib,json,os,re,subprocess
+from pathlib import Path
+p=argparse.ArgumentParser(description=__doc__)
+for n in ['source','reference-host','native-report','output']:p.add_argument('--'+n,type=Path,required=True)
+a=p.parse_args();S=a.source.resolve();R=a.reference_host.resolve();O=a.output.resolve();assert not O.exists()
+lock=Path('/srv/android/logs/lineage-24.0-arm64/build.lock').open('a');fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB);O.mkdir(parents=True)
+sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest();r=json.loads((R/'report.json').read_text());n=json.loads(a.native_report.read_text());assert r['passed'] and r['passed_cases']==2339 and n['passed'] and n['sixteen_AIDL_ordinals_verified']
+for f,h in r['inputs_sha256'].items():assert sha(Path(f))==h
+for f in S.rglob('*'):
+ if f.is_file():assert sha(f)==n['inputs_sha256'][str(f)]
+v=(R/'test.cpp').read_text().replace('int main()','static int previous_clat_transport()',1).replace('extern "C" int __wrap_getsockopt(', 'extern "C" int baseGetSockopt(',1);pos=v.rindex('}');v=v[:pos]+'return 0;\n'+v[pos:];v='static bool fakeRawType=false;\n'+v
+v+='extern "C" int __wrap_getsockopt(int fd,int level,int opt,void* val,socklen_t* length){int r=baseGetSockopt(fd,level,opt,val,length);if(fakeRawType&&r==0&&opt==SO_TYPE)*static_cast<int*>(val)=SOCK_RAW;return r;}\nint main(){CHECK(previous_clat_transport()==0);int begin=checks;\n reset();{QtaguidTransport t;CHECK(t.tagClatSocket(-1)==-ENOTCONN);CHECK(t.start()==0);int fd=sock(AF_INET6,SOCK_DGRAM);int before=writes;CHECK(t.tagClatSocket(fd)==-EPROTONOSUPPORT&&writes==before&&t.connected());protocol=IPPROTO_RAW;CHECK(t.tagClatSocket(fd)==-EPROTOTYPE&&writes==before);fakeRawType=true;\n CHECK(t.tagClatSocket(fd)==0);char c=0;int stable=-1;unsigned long long tag=1;unsigned uid=0;CHECK(sscanf(commands.back().c_str(),"%c %d %llu %u",&c,&stable,&tag,&uid)==4);CHECK(c==\'t\'&&tag==0&&uid==1029&&stable!=fd);CHECK(fcntl(stable,F_GETFD)==-1&&errno==EBADF);\n before=writes;CHECK(t.tagSocket(fd,0,1029)==-EPROTONOSUPPORT&&writes==before);CHECK(t.untagSocket(fd)==-EPROTONOSUPPORT&&writes==before);\n int v4=sock(AF_INET,SOCK_DGRAM);CHECK(t.tagClatSocket(v4)==-EAFNOSUPPORT&&writes==before);close(v4);CHECK(t.tagClatSocket(-1)==-EBADF&&writes==before);badLength=true;CHECK(t.tagClatSocket(fd)==-EPROTO&&writes==before);badLength=false;\n struct stat st{};CHECK(fstat(fd,&st)==0);expectedInode=st.st_ino;raceOriginal=fd;CHECK(t.tagClatSocket(fd)==0&&replacement==fd);close(replacement);replacement=-1;expectedInode=0;\n fd=sock(AF_INET6,SOCK_DGRAM);shortWrite=true;before=writes;CHECK(t.tagClatSocket(fd)==-EIO&&writes==before+1&&!t.connected());before=writes;CHECK(t.tagClatSocket(fd)==-ENOTCONN&&writes==before);close(fd);fakeRawType=false;protocol=0;}\n CHECK(files.empty()&&openedDevice==0);std::cout<<"clat_transport_cases="<<checks-begin<<" total_cases="<<checks<<"\\n";return 0;\n}\n'
+(O/'test.cpp').write_text(v)
+old=next(Path(v).parent for v in r['command'] if v.endswith('/Gta3xlwifiQtaguidTransport.cpp'));cmd=[v.replace(str(R),str(O)).replace(str(old),str(S)) for v in r['command']]
+x=subprocess.run(cmd,capture_output=True,text=True);(O/'compile.log').write_text(x.stdout+x.stderr);assert x.returncode==0,x.stderr[-12000:]
+x=subprocess.run([str(O/'test')],capture_output=True,text=True,timeout=90,env={**os.environ,'UBSAN_OPTIONS':'halt_on_error=1'});(O/'test.log').write_text(x.stdout+x.stderr);assert x.returncode==0 and not x.stderr,(x.returncode,x.stdout,x.stderr);m=re.search(r'clat_transport_cases=(\d+) total_cases=(\d+)\n$',x.stdout);assert m
+inputs=[Path(__file__),R/'report.json',R/'test.cpp',a.native_report,O/'test.cpp',S/'Gta3xlwifiQtaguidTransport.cpp',S/'Gta3xlwifiQtaguidTransport.h',S/'Gta3xlwifiSocketTagger.h',S/'Gta3xlwifiQtaguidProtocol.h']
+(O/'report.json').write_text(json.dumps({'passed':True,'scope':__doc__,'passed_cases':int(m[2]),'clat_transport_cases':int(m[1]),'raw_socket_type_and_protocol_are_explicit_fixtures':True,'real_fd_pin_and_reuse':True,'command':cmd,'inputs_sha256':{str(p):sha(p) for p in inputs},'hardware_tested':False,'flash_ready':False},indent=2)+'\n');print(x.stdout.strip())

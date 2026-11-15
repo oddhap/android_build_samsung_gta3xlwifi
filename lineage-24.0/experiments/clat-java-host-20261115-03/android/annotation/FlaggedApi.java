@@ -1,0 +1,1 @@
+package android.annotation;public @interface FlaggedApi{String value();}

@@ -1,0 +1,1 @@
+package android.net;public class IpPrefix{private final java.net.InetAddress address;private final int prefix;public IpPrefix(String s){String[]v=s.split("/");address=InetAddresses.parseNumericAddress(v[0]);prefix=Integer.parseInt(v[1]);}public java.net.InetAddress getAddress(){return address;}public int getPrefixLength(){return prefix;}}

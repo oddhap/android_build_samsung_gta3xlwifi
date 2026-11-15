@@ -1,0 +1,35 @@
+{
+  "passed": true,
+  "scope": "Actual built qtaguid CLAT tag0/UID1029 lifetime functions with explicit kernel primitives.\n\nThe final socket release call is a fixture boundary, not an actual socket close\ninside a running Android kernel. Complete built source hashes are checked twice.\n",
+  "passed_cases": 46245,
+  "clat_kernel_cases": 291,
+  "complete_built_source_files_verified_before_after": 60366,
+  "actual_INET_and_INET6_final_release_hooks_checked": true,
+  "inputs_sha256": {
+    "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/test-clat-kernel24.py": "a575781fbc9191da556eb8c002c600affb84a15aef53bb10e38d36b11a4bc1ee",
+    "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/test-kernel-qtaguid-socket-owned.py": "59516300b405af46c972b264353c3766b5c18cf882b04ac8ba9db6f70f436459",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-uid-receipt-20261115-01/src/net/netfilter/xt_qtaguid.c": "3cdb0568f130cfd9228987fb7ba466dd4d6a1e46b6f67b5e9b68c7e6043aa4c8",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-uid-receipt-20261115-01/src/include/uapi/linux/netfilter/xt_qtaguid_sock.h": "9096f41f971a71018f49f155d3577204678e7298a0e44728e644361332f98387",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-uid-receipt-20261115-01/src/net/ipv4/af_inet.c": "4180d3a17dce7b7c1c2f59352eedf723f90bb382f54eaf2f1602255edc9f2c1d",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-uid-receipt-20261115-01/src/net/ipv6/af_inet6.c": "0dc5926b15e3775a0f1d8f4a961e866e4846cfe63fad3f7f99aaf88fa6c0d3db",
+    "/srv/android/artifacts/lineage-24.0-arm64/clat-kernel-host-20261115-03/test.c": "0ed1f6b5455591aec3d1a53471b7f3ab583b192bf98ed47fa87a3ff870b56158",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-uid-receipt-build-20261115-01/report.json": "91dada7c3b6927287025f7f90c88630a5a04ece2b8170b77d9a5da3a726d57d7",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-uid-receipt-build-20261115-01/source-after.json": "96410b0174364d0ef3e875cad6c8dd029364c58f64d4300cd4f8e9bd11b5736f",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-uid-receipt-build-20261115-01/Image": "7ece8d6fd70870811abfe5fd9f947311506f97233491b4016cde441de3578aec"
+  },
+  "command": [
+    "cc",
+    "-std=gnu11",
+    "-Wall",
+    "-Werror",
+    "-O1",
+    "-g",
+    "-fsanitize=address,undefined",
+    "-fno-omit-frame-pointer",
+    "/srv/android/artifacts/lineage-24.0-arm64/clat-kernel-host-20261115-03/test.c",
+    "-o",
+    "/srv/android/artifacts/lineage-24.0-arm64/clat-kernel-host-20261115-03/test"
+  ],
+  "hardware_tested": false,
+  "flash_ready": false
+}

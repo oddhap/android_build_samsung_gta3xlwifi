@@ -1,0 +1,1 @@
+package android.net;public class InterfaceConfigurationParcel{public String ifName,ipv4Addr,hwAddr;public int prefixLength;public String[]flags;}

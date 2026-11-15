@@ -1,0 +1,1 @@
+package com.android.net.module.util;import android.content.Context;public class DeviceConfigUtils{public static boolean isTetheringFeatureNotChickenedOut(Context c,String n){throw new UnsupportedOperationException("Config boundary");}public static int getDeviceConfigPropertyInt(String ns,String n,int d){throw new UnsupportedOperationException("Config boundary");}}

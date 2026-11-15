@@ -1,0 +1,2 @@
+PASS: 45954 assertions, extracted production tag/untag/session/ioctl/ref helpers; fixture kernel primitives, NOT kernel execution
+clat_kernel_cases=291 total_cases=46245

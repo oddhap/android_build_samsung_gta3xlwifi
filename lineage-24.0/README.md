@@ -32,6 +32,24 @@ checks are separate from Android execution. Optional GPU BPF accounting still
 reports unavailable, rather than invented counters. Existing safety/installer
 and strict SELinux checks remain enforced.
 
+## Privileged userspace CLAT integration — November 15
+
+Inactive clat-20261115-01 adds dedicated fullUID1000/session-bound raw-FD RPC16
+on the existing provider. Exact IPv6/RAW/IPPROTO_RAW validation precedes tag0/
+UID1029; ordinary1029 tagging remains denied. Actual ClatCoordinator uses real
+userspace clatd and socket-owned final-FD cleanup without private BPF maps/cookie/
+offload. Stock paths are preserved. Full CFI netd/OEM,16 AIDL ordinals and15 actual
+Java sources pass; Java compilation now binds the original Soong Android core
+modules.1243/17 and60366 kernel-source checks pass. Host checks pass2582 transport,
+26622 owner,46245 kernel-function cases; prior Java suites replay and56 new CLAT
+cases pass. Explicit raw/driver/Binder/process/API fixtures are not device tests.
+Existing strict production/debug policies permit required borrowed-FD rights;
+no policy change is needed. See experiments/clat-20261115-01.
+
+No selected source/snapshot/kernel/vendor/policy is changed. Final Soong/APEX/
+jarjar composition, explicit input selection, full ROM build and installation/
+encryption/partition checks remain. No flash-ready package exists.
+
 ## Genuine loopback event delivery — November 15
 
 Inactive loopback-rpc-20261115-01 exposes the existing real kernel consuming
