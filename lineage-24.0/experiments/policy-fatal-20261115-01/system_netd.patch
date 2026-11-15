@@ -1,0 +1,86 @@
+--- /dev/null
++++ b/system/netd/server/Gta3xlwifiPolicyFatal.h
+@@ -0,0 +1,7 @@
++// SPDX-License-Identifier: Apache-2.0
++#pragma once
++namespace android::net::gta3xlwifi {
++using PolicyFatalHandler = void (*)(int error);
++// Main-thread startup only; idempotent same handler, no replacement/removal.
++int setPolicyFatalHandler(PolicyFatalHandler handler);
++}
+--- a/system/netd/server/Gta3xlwifiSocketPolicyProjection.cpp
++++ b/system/netd/server/Gta3xlwifiSocketPolicyProjection.cpp
+@@ -1,5 +1,7 @@
+ // SPDX-License-Identifier: Apache-2.0
+ #include <cerrno>
++#include <atomic>
++#include "Gta3xlwifiPolicyFatal.h"
+ #include <set>
+ #include <sstream>
+ #include <utility>
+@@ -8,6 +10,20 @@
+ #include "Gta3xlwifiOrdinaryDispatch.h"
+ #include "Gta3xlwifiSocketPolicyProjection.h"
+ namespace android::net::gta3xlwifi {
++// Fatal owner recovery: no handler is installed by standalone fixtures.
++namespace {
++std::atomic<PolicyFatalHandler> policyFatalHandler{nullptr};
++void dispatchPolicyFatal(int error) {
++  if (auto handler=policyFatalHandler.load(std::memory_order_acquire)) handler(error);
++}
++}
++int setPolicyFatalHandler(PolicyFatalHandler handler) {
++  if(!handler)return -EINVAL;
++  PolicyFatalHandler expected=nullptr;
++  if(policyFatalHandler.compare_exchange_strong(expected,handler,
++      std::memory_order_acq_rel,std::memory_order_acquire)||expected==handler)return 0;
++  return -EALREADY;
++}
+ #include "projection-guards.inc"
+ namespace {
+ std::vector<std::string> chainNames(
+@@ -31,6 +47,9 @@
+   mStarted = false;
+   mAccountingEnabled = false;
+   mLease.stop();
++  // The real barrier/descriptor is held/closed before process recovery. Normal
++  // stop(0) and ordinary successful client suspension never request restart.
++  if(error)dispatchPolicyFatal(error);
+   return error;
+ }
+ int SocketPolicyProjection::start(HookMode mode) {
+--- a/system/netd/server/Controllers.cpp
++++ b/system/netd/server/Controllers.cpp
+@@ -15,6 +15,8 @@
+  */
+ 
+ #include <cinttypes>
++#include <unistd.h>
++#include "Gta3xlwifiPolicyFatal.h"
+ #include <cstring>
+ #include <regex>
+ #include <set>
+@@ -52,6 +54,12 @@
+ netdutils::Log gUnsolicitedLog("netdUnsolicited");
+ 
+ namespace {
++// init's existing netd onrestart restarts zygote and zygote_secondary. A fresh
++// daemon re-verifies HOLD/producers; framework must publish a fresh full frame.
++[[noreturn]] void privatePolicyFatal(int error) {
++    ALOGE("Private policy owner quarantined (%d); restarting netd via init",error);
++    _exit(1);
++}
+ // Created on main-thread startup before Binder publication. The pointer is then
+ // immutable for the process lifetime; no second lease or global Ready flag.
+ std::unique_ptr<gta3xlwifi::SocketPolicyProjection> gta3xlwifiPolicyOwner;
+@@ -347,6 +355,10 @@
+             gLog.error("Private policy owner already initialized");
+             exit(5);
+         }
++        if (gta3xlwifi::setPolicyFatalHandler(privatePolicyFatal)) {
++            ALOGE("Private policy fatal handler cannot be registered");
++            exit(5);
++        }
+         gta3xlwifiPolicyOwner = std::make_unique<gta3xlwifi::SocketPolicyProjection>(
+                 iptablesRestoreCtrl);
+         if (int ret = gta3xlwifiPolicyOwner->prepareForControllerStartup()) {

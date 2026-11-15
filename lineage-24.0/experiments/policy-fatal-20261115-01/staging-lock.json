@@ -1,0 +1,23 @@
+{
+  "inactive": true,
+  "prerequisites": [
+    "stats-lifecycle-20261115-01"
+  ],
+  "files": {
+    "system/netd/server/Gta3xlwifiPolicyFatal.h": {
+      "original_sha256": null,
+      "candidate_sha256": "1e83456c3673fe211f5180b2db0c218a9c1e44260e5bf1ab8c875071e5b40dd7"
+    },
+    "system/netd/server/Gta3xlwifiSocketPolicyProjection.cpp": {
+      "original_sha256": "e8bf8cfde1eb162c4e58a69c7d8e028419c68c0490345b693948da23dd33f0ac",
+      "candidate_sha256": "749db1c2a2f6776eba7aefc19886d351d30d20cd3f77b7497c1bf4186cde422b"
+    },
+    "system/netd/server/Controllers.cpp": {
+      "original_sha256": "90a86755ce9270ed526b1174fb7c8846dd95b460c01a86ba8fcc41defd4058e5",
+      "candidate_sha256": "47d0d70a010a1c89d556bbf158815b476a6272d45c8cc2e1d353bd745205f896"
+    }
+  },
+  "selected_source_changed": false,
+  "hardware_tested": false,
+  "flash_ready": false
+}
