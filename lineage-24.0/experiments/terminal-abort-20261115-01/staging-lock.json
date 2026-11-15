@@ -1,0 +1,43 @@
+{
+  "inactive": true,
+  "prerequisites": [
+    "uid-receipt-client-20261115-01"
+  ],
+  "files": {
+    "system/netd/server/Gta3xlwifiNetpolicyService.cpp": {
+      "original_sha256": "e63626540413b15e30c7fa4ce73c7f6f311a67921338ce52e5dd9d2a8b95c6df",
+      "candidate_sha256": "7c10e2112b3a70808c59982bbe595aabdca32045c2616442f13d434f28f52b41"
+    },
+    "system/netd/server/Gta3xlwifiNetpolicyService.h": {
+      "original_sha256": "e096c97926573901efaf277b9be1ab7c4dd6eb2d1050b9bb1e650358c3c3d9e2",
+      "candidate_sha256": "eedf5e50869bdf42e9d94103dae1b02b735d901a167105629a3bd84401ec0b77"
+    },
+    "system/netd/server/Gta3xlwifiSocketPolicyProjection.cpp": {
+      "original_sha256": "82196b1316aa56e82966955d612796060e461b5b12f54afff420c0696bdeff3d",
+      "candidate_sha256": "2ca885ac8718669a9ebbd949dcae3d665698c068f70c587104fd53f595e1c013"
+    },
+    "system/netd/server/Gta3xlwifiSocketPolicyProjection.h": {
+      "original_sha256": "a2b8850835eb5ba3494c3c74651166af5de685b1ada0771006951eba27470d25",
+      "candidate_sha256": "e2eaa5a613b1cae18c08f87e17fc7ed943cf3406bfed804a61e9cacf9b005d1f"
+    },
+    "system/netd/server/binder/com/android/internal/net/IGta3xlwifiNetpolicy.aidl": {
+      "original_sha256": "f613a6b0ebb74ce220bb01423b0b9bf6d64eadbb9b145db13ae8f27d7a9e80a3",
+      "candidate_sha256": "e95339ca32fd28b786a27a554d5a51b6802a0c512e9b37c403fe28550486cbe7"
+    },
+    "packages/modules/Connectivity/service/src/com/android/server/Gta3xlwifiNetpolicyBackend.java": {
+      "original_sha256": "5cc4b8201f0623f3dc6776e222e8982d925a0d60babad2ff1b9dd8dd859b32af",
+      "candidate_sha256": "6c0a108353de435a3c3fbf3e855becdb1ac87a481e9d819d2355b524c3274792"
+    },
+    "packages/modules/Connectivity/service/src/com/android/server/Gta3xlwifiNetpolicyClient.java": {
+      "original_sha256": "43c02b6ce196119f3d903963064c85735b6707f62580e53c7586c4dcb9d4276b",
+      "candidate_sha256": "5ecd0d6fd8465d7791141665f34703641218236be1c398e624d56bbb60a32448"
+    },
+    "packages/modules/Connectivity/service/src/com/android/server/Gta3xlwifiStatsAccess.java": {
+      "original_sha256": "83c5bd982b1dad3bfdd85ed467fc2582685e6eef760dbbe480956428740b1e44",
+      "candidate_sha256": "869c48d0aab49974e97b46be2e2da434273999ecca3308eb4c0e452eef92777c"
+    }
+  },
+  "selected_source_changed": false,
+  "hardware_tested": false,
+  "flash_ready": false
+}

@@ -1,0 +1,256 @@
+--- a/system/netd/server/Gta3xlwifiNetpolicyService.cpp
++++ b/system/netd/server/Gta3xlwifiNetpolicyService.cpp
+@@ -292,3 +292,13 @@
+       static_cast<uint64_t>(generation),static_cast<uint64_t>(epoch),static_cast<uint64_t>(nonce)));
+ }
+ }  // namespace android::net::gta3xlwifi
++
++namespace android::net::gta3xlwifi {
++Status NetpolicyService::abortSession(int64_t session,const sp<IBinder>& client) {
++  if(!authorized())return denied();
++  std::lock_guard lock(mMutex);
++  int result=validateSession(session);if(result)return status(result);
++  if(!client||client!=mClient)return status(-ESTALE);
++  return status(mOwner.abortFrameworkClient());
++}
++}  // namespace android::net::gta3xlwifi
+--- a/system/netd/server/Gta3xlwifiNetpolicyService.h
++++ b/system/netd/server/Gta3xlwifiNetpolicyService.h
+@@ -30,6 +30,8 @@
+       int64_t expectedGeneration, int64_t expectedActiveEpoch) override;
+   ::android::binder::Status removeUidAccountingOnce(int64_t session,int32_t uid,
+       int64_t expectedGeneration,int64_t expectedActiveEpoch,int64_t nonce) override;
++  ::android::binder::Status abortSession(int64_t session,
++      const ::android::sp<::android::IBinder>& client) override;
+  private:
+   class ClientDeath;
+   void clientDied(int64_t session);
+--- a/system/netd/server/Gta3xlwifiSocketPolicyProjection.cpp
++++ b/system/netd/server/Gta3xlwifiSocketPolicyProjection.cpp
+@@ -607,3 +607,12 @@
+   return result?quarantine(result):0;
+ }
+ }  // namespace android::net::gta3xlwifi
++
++namespace android::net::gta3xlwifi {
++int SocketPolicyProjection::abortFrameworkClient() {
++  std::lock_guard<std::mutex> lock(mMutex);
++  // quarantine withdraws publication and closes the real held lease before the
++  // production Controllers handler terminates this daemon via _exit(1).
++  return quarantine(-ECONNABORTED);
++}
++}  // namespace android::net::gta3xlwifi
+--- a/system/netd/server/Gta3xlwifiSocketPolicyProjection.h
++++ b/system/netd/server/Gta3xlwifiSocketPolicyProjection.h
+@@ -71,6 +71,7 @@
+   // Client death withdraws publication while retaining the verified producer
+   // lease for a complete explicit framework resnapshot. Uncertain HOLD closes it.
+   int suspendFrameworkClient();
++  int abortFrameworkClient();
+   int frameworkGeneration(uint64_t* generation);
+   int isNetworkingBlocked(int32_t uid, bool metered);
+   int snapshot(State* output, uint64_t* generation);
+--- a/system/netd/server/binder/com/android/internal/net/IGta3xlwifiNetpolicy.aidl
++++ b/system/netd/server/binder/com/android/internal/net/IGta3xlwifiNetpolicy.aidl
+@@ -41,4 +41,6 @@
+     /** Durable caller nonce; completed duplicate returns cached result, never new deletion. */
+     void removeUidAccountingOnce(long session,int uid,long expectedGeneration,
+             long expectedActiveEpoch,long nonce);
++    /** Terminal current-client failure only; exact session AND token, never normal close. */
++    void abortSession(long session,IBinder client);
+ }
+--- a/packages/modules/Connectivity/service/src/com/android/server/Gta3xlwifiNetpolicyBackend.java
++++ b/packages/modules/Connectivity/service/src/com/android/server/Gta3xlwifiNetpolicyBackend.java
+@@ -28,6 +28,7 @@
+         long generation() throws RemoteException;
+ 
+         void close() throws RemoteException;
++        default void abort() throws RemoteException { close(); }
+ 
+         default Gta3xlwifiStatsAccess statsAccess() {
+             throw new UnsupportedOperationException("No real private stats transport");
+@@ -64,6 +65,9 @@
+                             return client.statsAccess();
+                         }
+ 
++                        public void abort() throws RemoteException {
++                            client.abortCurrentSession();
++                        }
+                         public void close() throws RemoteException {
+                             client.close();
+                         }
+@@ -212,7 +216,7 @@
+         mGeneration = 0;
+         mPermissions = null;
+         try {
+-            mTransport.close();
++            mTransport.abort();
+         } catch (RemoteException | RuntimeException cleanup) {
+             if (cleanup != failure) failure.addSuppressed(cleanup);
+         }
+--- a/packages/modules/Connectivity/service/src/com/android/server/Gta3xlwifiNetpolicyClient.java
++++ b/packages/modules/Connectivity/service/src/com/android/server/Gta3xlwifiNetpolicyClient.java
+@@ -149,7 +149,7 @@
+                 // is unavailable, retain the token/link for explicit cleanup retry;
+                 // daemon death also closes its lease. Never retry the commit here.
+                 try {
+-                    close();
++                    abortCurrentSession();
+                 } catch (RemoteException | RuntimeException retirementFailure) {
+                     failure.addSuppressed(retirementFailure);
+                 }
+@@ -180,6 +180,38 @@
+             mDead = true;
+             mUncertain = true;
+             mSession = 0;
++        }
++    }
++
++    /** Terminal uncertainty only; ordinary AutoCloseable.close remains nonfatal. */
++    public void abortCurrentSession() throws RemoteException {
++        synchronized(mLock) {
++            mStatsInvalidated.set(true);
++            Exception failure=null;
++            boolean mayClose=true;
++            if(!mDead&&mLinked&&mSession>0) {
++                try { mRemote.abortSession(mSession,mToken); }
++                catch(ServiceSpecificException stale) {
++                    if(stale.errorCode==ESTALE)mayClose=false;
++                    failure=stale;
++                }
++                catch(RemoteException|RuntimeException error) { failure=error; }
++            }
++            try {
++                if(mayClose)close();
++                else {
++                    // An exact stale-session rejection must not fall through to
++                    // token-only close and withdraw a newer reused-token owner.
++                    mClosed=true;mUncertain=true;mSession=0;
++                    if(mLinked)mRemote.asBinder().unlinkToDeath(mDeath,0);
++                    mLinked=false;
++                }
++            }
++            catch(RemoteException|RuntimeException error) {
++                if(failure==null)failure=error;else failure.addSuppressed(error);
++            }
++            if(failure instanceof RemoteException)throw (RemoteException)failure;
++            if(failure instanceof RuntimeException)throw (RuntimeException)failure;
+         }
+     }
+ 
+--- a/packages/modules/Connectivity/service/src/com/android/server/Gta3xlwifiStatsAccess.java
++++ b/packages/modules/Connectivity/service/src/com/android/server/Gta3xlwifiStatsAccess.java
+@@ -5,6 +5,8 @@
+ import android.os.RemoteException;
+ import android.os.ServiceSpecificException;
+ import static android.system.OsConstants.EAGAIN;
++import static android.system.OsConstants.ESTALE;
++import static android.system.OsConstants.EBUSY;
+ import com.android.internal.net.IGta3xlwifiNetpolicy;
+ import java.io.IOException;
+ import java.util.Arrays;
+@@ -91,17 +93,52 @@
+     private IOException fail(String message) {
+         mInvalidated.set(true);
+         IOException failure = new IOException(message);
++        boolean mayClose=true;
++        try {
++            // Exact current session+token only. Production abort closes HOLD then
++            // exits netd so init restarts the framework and its durable consumers.
++            mRemote.abortSession(mSession,mToken);
++        } catch (ServiceSpecificException stale) {
++            if(stale.errorCode==ESTALE)mayClose=false;
++            failure.addSuppressed(stale);
++        } catch (Exception abortFailure) {
++            failure.addSuppressed(abortFailure);
++        }
+         try {
+             // No Java policy lock is acquired here. Native withdrawal is required
+             // for malformed/uncertain transport, not a cached Java readiness flag.
+-            mRemote.closeSession(mToken);
++            if(mayClose)mRemote.closeSession(mToken);
+         } catch (Exception closeFailure) {
+             failure.addSuppressed(closeFailure);
+         }
+         return failure;
+     }
+ 
++    private void requireActiveHandle() throws IOException {
++        if(mInvalidated.get())throw new IOException("Statistics handle is retired");
++    }
++    /** Pure native query; no Java client/policy lock is acquired. */
++    public long generation() throws IOException {
++        requireActiveHandle();
++        try {
++            long value=mRemote.readGeneration(mSession);
++            if(value<0)throw fail("Invalid native generation");
++            return value;
++        } catch(RemoteException|RuntimeException error) {
++            IOException failure=fail("Native statistics session unavailable");
++            failure.addSuppressed(error);throw failure;
++        }
++    }
++    public static final class UidCleanupRejectedException extends IOException {
++        public final int errorCode;
++        public final long currentGeneration;
++        private UidCleanupRejectedException(int code,long generation) {
++            super("UID cleanup fence rejected without mutation: "+code);
++            errorCode=code;currentGeneration=generation;
++        }
++    }
+     private long[] read(int kind, int bank, long epoch) throws IOException {
++        requireActiveHandle();
+         final long[] words;
+         try {
+             words = mRemote.readStats(mSession, kind, bank, epoch);
+@@ -210,6 +247,7 @@
+ 
+     /** Exact one-shot CAS. A lost reply requires explicit state/recovery. */
+     public long[] swap(int activeBank, long activeEpoch) throws IOException {
++        requireActiveHandle();
+         if (activeBank < 0 || activeBank > 1 || activeEpoch == 0 || activeEpoch == -1) {
+             throw new IllegalArgumentException();
+         }
+@@ -229,6 +267,7 @@
+ 
+     /** Explicit acceptance after persistence/deduplication; no automatic ACK. */
+     public void acknowledge(int bank, long epoch) throws IOException {
++        requireActiveHandle();
+         if (bank < 0 || bank > 1 || epoch == 0) throw new IllegalArgumentException();
+         try {
+             mRemote.acknowledgeStats(mSession, bank, epoch);
+@@ -240,6 +279,7 @@
+     }
+ 
+     public void setCounterset(int uid, int counterset) throws IOException {
++        requireActiveHandle();
+         if (uid < 0 || counterset < 0 || counterset > 1) throw new IllegalArgumentException();
+         try {
+             mRemote.setStatsCounterset(mSession, uid, counterset);
+@@ -251,6 +291,7 @@
+     }
+     /** Exact fences must come from the caller's durable UID-removal transaction. */
+     public void removeUidAccounting(int uid, long generation, long activeEpoch) throws IOException {
++        requireActiveHandle();
+         if (uid < 0 || generation < 0 || activeEpoch == 0) throw new IllegalArgumentException();
+         try {
+             mRemote.removeUidAccounting(mSession, uid, generation, activeEpoch);
+@@ -279,8 +320,18 @@
+     /** Persist this complete intent before calling; never invent/reuse another nonce. */
+     public void removeUidAccountingOnce(int uid,long generation,long activeEpoch,long nonce)
+             throws IOException {
++        requireActiveHandle();
+         if(uid<0||generation<0||activeEpoch==0||nonce==0)throw new IllegalArgumentException();
+         try { mRemote.removeUidAccountingOnce(mSession,uid,generation,activeEpoch,nonce); }
++        catch(ServiceSpecificException rejected) {
++            if(rejected.errorCode==ESTALE||rejected.errorCode==EBUSY) {
++                // Confirm the session is still live. A stale session is terminal;
++                // a live, rejected generation/epoch fence did not run deletion.
++                throw new UidCleanupRejectedException(rejected.errorCode,generation());
++            }
++            IOException error=fail("UID receipt mutation rejected");
++            error.addSuppressed(rejected);throw error;
++        }
+         catch(RemoteException|RuntimeException failure) {
+             IOException error=fail("UID receipt mutation uncertain; inspect durable intent");
+             error.addSuppressed(failure);throw error;

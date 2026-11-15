@@ -1,0 +1,4 @@
+libsepol.policydb_index_others: security:  1 users, 4 roles, 4012 types, 0 bools
+libsepol.policydb_index_others: security: 1 sens, 1024 cats
+libsepol.policydb_index_others: security:  108 classes, 78531 rules, 0 cond rules
+genfs=/devices/virtual/misc/gta3xlwifi_netpolicy/dev context=u:object_r:sysfs_gta3xlwifi_netpolicy:s0

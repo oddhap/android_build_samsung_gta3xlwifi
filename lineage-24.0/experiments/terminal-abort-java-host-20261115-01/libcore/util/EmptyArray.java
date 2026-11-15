@@ -1,0 +1,1 @@
+package libcore.util;public class EmptyArray{public static final String[]STRING={};public static final int[]INT={};public static final long[]LONG={};}
