@@ -1,0 +1,198 @@
+--- a/service/src/com/android/server/Gta3xlwifiStatsJournal.java
++++ b/service/src/com/android/server/Gta3xlwifiStatsJournal.java
+@@ -35,7 +35,7 @@
+  */
+ public final class Gta3xlwifiStatsJournal {
+     private static final int MAGIC = 0x47323453;
+-    private static final int VERSION = 1;
++    private static final int VERSION = 2;
+     public static final int MAX_PAYLOAD = 4 * 1024 * 1024;
+     private static final int MAX_FILE = MAX_PAYLOAD + 256;
+ 
+@@ -64,10 +64,15 @@
+     }
+ 
+     public static final class Record {
++        public final String bootId;
++        /** null means metadata only: no native statistics have been accepted. */
+         public final Receipt receipt;
++        public final long revision;
+         private final byte[] mPayload;
+-        private Record(Receipt receipt, byte[] payload) {
++        private Record(String bootId, Receipt receipt, long revision, byte[] payload) {
++            this.bootId = bootId;
+             this.receipt = receipt;
++            this.revision = revision;
+             mPayload = payload.clone();
+         }
+         public byte[] payload() { return mPayload.clone(); }
+@@ -120,7 +125,7 @@
+     public Record loadCurrentBoot() throws IOException {
+         requireOwner();
+         Record record = readRecord();
+-        return record != null && mBootId.equals(record.receipt.bootId) ? record : null;
++        return record != null && mBootId.equals(record.bootId) ? record : null;
+     }
+ 
+     private Record readRecord() throws IOException {
+@@ -141,7 +146,7 @@
+             throw new IllegalArgumentException("Wrong boot or oversized consumer state");
+         }
+         Record previous = readRecord();
+-        if (previous != null && mBootId.equals(previous.receipt.bootId)) {
++        if (previous != null && previous.receipt != null && mBootId.equals(previous.bootId)) {
+             if (previous.receipt.matches(receipt)) {
+                 if (!Arrays.equals(previous.mPayload, completeState)) {
+                     throw new IOException("Conflicting accepted-epoch replay");
+@@ -152,7 +157,39 @@
+                 throw new IOException("Stale accepted epoch");
+             }
+         }
+-        byte[] encoded = encode(receipt, completeState);
++        return writeRecord(receipt, nextRevision(previous), completeState);
++    }
++
++    private long nextRevision(Record previous) throws IOException {
++        if (previous == null || !mBootId.equals(previous.bootId)) return 1;
++        if (previous.revision == Long.MAX_VALUE) throw new IOException("State revision exhausted");
++        return previous.revision + 1;
++    }
++
++    /**
++     * Explicit CAS for metadata/UID lifecycle changes to complete consumer state.
++     * A metadata-only record before the first poll has NO native receipt. After
++     * acceptance this retains its receipt, so later restore cannot undo cleanup.
++     * An uncertain write requires reload/reconciliation, never automatic replay.
++     */
++    public Record updateState(Record expected, byte[] completeState) throws IOException {
++        requireOwner();
++        Objects.requireNonNull(completeState);
++        if (completeState.length > MAX_PAYLOAD) throw new IllegalArgumentException("State size");
++        Record current = readRecord();
++        if (current != null && !mBootId.equals(current.bootId)) current = null;
++        if (expected == null ? current != null : current == null
++                || !mBootId.equals(expected.bootId) || current.revision != expected.revision) {
++            throw new IOException("Consumer-state compare-and-set is stale");
++        }
++        if (current != null && Arrays.equals(current.mPayload, completeState)) return current;
++        return writeRecord(current == null ? null : current.receipt,
++                nextRevision(current), completeState);
++    }
++
++    private Record writeRecord(Receipt receipt, long revision, byte[] completeState)
++            throws IOException {
++        byte[] encoded = encode(mBootId, receipt, revision, completeState);
+         mStore.writeDurably(encoded.clone());
+         byte[] readback = mStore.read();
+         if (!Arrays.equals(encoded, readback)) {
+@@ -169,14 +206,18 @@
+         }
+     }
+ 
+-    private static byte[] encode(Receipt receipt, byte[] payload) throws IOException {
++    private static byte[] encode(String bootId, Receipt receipt, long revision, byte[] payload) throws IOException {
+         ByteArrayOutputStream body = new ByteArrayOutputStream();
+         DataOutputStream out = new DataOutputStream(body);
+         out.writeInt(MAGIC);
+         out.writeInt(VERSION);
+-        out.writeUTF(receipt.bootId);
+-        out.writeInt(receipt.bank);
+-        out.writeLong(receipt.epoch);
++        out.writeUTF(bootId);
++        out.writeLong(revision);
++        out.writeBoolean(receipt != null);
++        if (receipt != null) {
++            out.writeInt(receipt.bank);
++            out.writeLong(receipt.epoch);
++        }
+         out.writeInt(payload.length);
+         out.write(payload);
+         out.flush();
+@@ -196,9 +237,16 @@
+         if (in.readInt() != MAGIC || in.readInt() != VERSION) {
+             throw new IOException("Journal version");
+         }
++        final String bootId;
+         final Receipt receipt;
++        final long revision;
+         try {
+-            receipt = new Receipt(in.readUTF(), in.readInt(), in.readLong());
++            bootId = canonicalBoot(in.readUTF());
++            revision = in.readLong();
++            if (revision <= 0) throw new IOException("Journal state revision");
++            int present = in.readUnsignedByte();
++            if (present > 1) throw new IOException("Journal receipt presence");
++            receipt = present == 0 ? null : new Receipt(bootId, in.readInt(), in.readLong());
+         } catch (IllegalArgumentException failure) {
+             throw new IOException("Journal receipt", failure);
+         }
+@@ -208,7 +256,7 @@
+         }
+         byte[] payload = new byte[length];
+         in.readFully(payload);
+-        return new Record(receipt, payload);
++        return new Record(bootId, receipt, revision, payload);
+     }
+ 
+     /** Device runtime read only: no build-host identity or property substitute. */
+--- a/service/src/com/android/server/Gta3xlwifiStatsPoller.java
++++ b/service/src/com/android/server/Gta3xlwifiStatsPoller.java
+@@ -31,6 +31,7 @@
+     private final Gta3xlwifiStatsAccess mStats;
+     private final Gta3xlwifiStatsJournal mJournal;
+     private Gta3xlwifiStatsJournal.Receipt mLastAccepted;
++    private long mLastRevision;
+ 
+     public Gta3xlwifiStatsPoller(Object ownerLock, Gta3xlwifiStatsAccess stats,
+             Gta3xlwifiStatsJournal journal) {
+@@ -45,12 +46,20 @@
+         }
+         Objects.requireNonNull(consumer);
+         Gta3xlwifiStatsJournal.Record previous = mJournal.loadCurrentBoot();
+-        if (mLastAccepted != null && (previous == null
++        if (mLastRevision != 0 && previous == null) {
++            throw new IOException("Consumer-state journal disappeared");
++        }
++        if (previous != null && previous.revision < mLastRevision) {
++            throw new IOException("Consumer-state journal revision regressed");
++        }
++        if (mLastAccepted != null && (previous == null || previous.receipt == null
+                 || Long.compareUnsigned(previous.receipt.epoch, mLastAccepted.epoch) < 0
+                 || (previous.receipt.epoch == mLastAccepted.epoch
+                     && !previous.receipt.matches(mLastAccepted)))) {
+             throw new IOException("Accepted statistics baseline disappeared or regressed");
+         }
++        if (previous != null) mLastRevision = previous.revision;
++        Gta3xlwifiStatsJournal.Receipt previousReceipt = previous == null ? null : previous.receipt;
+         final Gta3xlwifiStatsAccess.State state = mStats.readState();
+         int bank;
+         long epoch;
+@@ -61,7 +70,7 @@
+             epoch = state.words()[7 + bank];
+         } else {
+             // Missing/gapped history must never be replaced with invented zero.
+-            long expected = previous == null ? 1 : previous.receipt.epoch + 1;
++            long expected = previousReceipt == null ? 1 : previousReceipt.epoch + 1;
+             if (expected == 0 || state.activeEpoch != expected) {
+                 throw new IOException("Missing statistics acceptance history");
+             }
+@@ -70,9 +79,9 @@
+             epoch = transition[3];
+         }
+         Gta3xlwifiStatsJournal.Receipt receipt = mJournal.receipt(bank, epoch);
+-        boolean recovered = previous != null && previous.receipt.matches(receipt);
++        boolean recovered = previousReceipt != null && previousReceipt.matches(receipt);
+         if (!recovered) {
+-            long expected = previous == null ? 1 : previous.receipt.epoch + 1;
++            long expected = previousReceipt == null ? 1 : previousReceipt.epoch + 1;
+             if (expected == 0 || epoch != expected) {
+                 throw new IOException("Frozen statistics epoch is stale or has a gap");
+             }
+@@ -89,6 +98,7 @@
+             accepted = mJournal.accept(receipt, complete);
+         }
+         mLastAccepted = accepted.receipt;
++        mLastRevision = accepted.revision;
+         consumer.restore(accepted.payload());
+         // Journal durability and successful consumer installation precede ACK.
+         // A lost ACK reply retains the journal for explicit session recovery.

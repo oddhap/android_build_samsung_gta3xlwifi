@@ -1,0 +1,21 @@
+{
+  "inactive": true,
+  "prerequisites": [
+    "iface-names-20261115-01"
+  ],
+  "journal_schema": 2,
+  "files": {
+    "service/src/com/android/server/Gta3xlwifiStatsJournal.java": {
+      "original_sha256": "12e8d7ae730de302582d988147ff285816f14927a595028d9dbb341ded7e2df6",
+      "candidate_sha256": "95e5cccd2493c451039f48e18303d58f232aef5309ab7bfbfd07a030b4c3dc3b"
+    },
+    "service/src/com/android/server/Gta3xlwifiStatsPoller.java": {
+      "original_sha256": "cbad3ad2715d1cd17deee078a98b97f1c0f58211dc99e11a0e2827e5fd647967",
+      "candidate_sha256": "743d8c13b6f5eada51a3a126444c9f58c5db4daba9e72836f95b18e79ccf45d6"
+    }
+  },
+  "selected_source_changed": false,
+  "complete_actual_factory_serializer_and_consumers_pending": true,
+  "hardware_tested": false,
+  "flash_ready": false
+}

@@ -32,6 +32,15 @@ checks are separate from Android execution. Optional GPU BPF accounting still
 reports unavailable, rather than invented counters. Existing safety/installer
 and strict SELinux checks remain enforced.
 
+## Durable statistics consumer lifecycle — November 15
+
+Inactive journal schema2 now supports metadata before native acceptance and
+explicit revision-CAS amendments that retain the real receipt through UID cleanup.
+The poller rejects missing/regressed metadata and preserves cleanup on restore.
+Actual four-source SDK compilation and1243/17 audits pass. Host journal checks
+pass312; poll fixtures replay1467 client checks and pass61 flows. See
+stats-lifecycle-20261115-01. Actual factory/service serialization/routing remain.
+
 ## Kernel-lifetime interface-name history — November 15
 
 Isolated real ifindex/name history now survives removals and daemon lifetimes.
