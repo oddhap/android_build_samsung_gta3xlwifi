@@ -1,0 +1,1112 @@
+{
+  "scope": "Select an explicitly hash-verified source composition and capture a new exact snapshot.\n\nNo kernel/prebuilt/policy/device source, signing material or user data is changed.\nBackups and the complete parent snapshot remain available for source rollback.\n",
+  "parent": "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/snapshots/port-20261106-04",
+  "files": {
+    "system/netd/server/BandwidthController.cpp": {
+      "project": "system/netd",
+      "path": "server/BandwidthController.cpp",
+      "before_sha256": "dbe9330c18ad702b780aeac7ca7b1771897815edc3ec01418248f9175fa5b961",
+      "after_sha256": "60ca778700cd570ec69772fe1eb7c39feeac13a97fe712f96c633f1383127756",
+      "provenance": {
+        "origin": "work/clat-coordinator24-20261115-01/BandwidthController.cpp",
+        "sha256": "60ca778700cd570ec69772fe1eb7c39feeac13a97fe712f96c633f1383127756"
+      }
+    },
+    "system/netd/server/BandwidthController.h": {
+      "project": "system/netd",
+      "path": "server/BandwidthController.h",
+      "before_sha256": "52228f81b8fc4aa3900498db2df9d397bb71cf92e59f4d2b4a79049f66119ed8",
+      "after_sha256": "0be152e4b24d4456df81225d5f460e6694e703128c3cfbf483c13dbf889a2af0",
+      "provenance": {
+        "origin": "work/clat-coordinator24-20261115-01/BandwidthController.h",
+        "sha256": "0be152e4b24d4456df81225d5f460e6694e703128c3cfbf483c13dbf889a2af0"
+      }
+    },
+    "system/netd/server/Controllers.cpp": {
+      "project": "system/netd",
+      "path": "server/Controllers.cpp",
+      "before_sha256": "f1f69f181e5dca6dd061b04c9dfc5633aac3c36c4eaac6d7294ba67bd17d6b84",
+      "after_sha256": "47d0d70a010a1c89d556bbf158815b476a6272d45c8cc2e1d353bd745205f896",
+      "provenance": {
+        "origin": "work/clat-coordinator24-20261115-01/Controllers.cpp",
+        "sha256": "47d0d70a010a1c89d556bbf158815b476a6272d45c8cc2e1d353bd745205f896"
+      }
+    },
+    "system/netd/server/Controllers.h": {
+      "project": "system/netd",
+      "path": "server/Controllers.h",
+      "before_sha256": "f7414ca45ecb12fac6f5b7b0b41d57cac913349d74c90f6e909d9f4aae9e9d94",
+      "after_sha256": "024d8353878ab644982e3e89111e224bac7f1ed6740ae05e683fe33efe92c6c3",
+      "provenance": {
+        "origin": "work/clat-coordinator24-20261115-01/Controllers.h",
+        "sha256": "024d8353878ab644982e3e89111e224bac7f1ed6740ae05e683fe33efe92c6c3"
+      }
+    },
+    "packages/modules/Connectivity/bpf/dns_helper/DnsBpfHelper.cpp": {
+      "project": "packages/modules/Connectivity",
+      "path": "bpf/dns_helper/DnsBpfHelper.cpp",
+      "before_sha256": "d4c090ad069e183b003ae2219986129c5eaf03d466a8b8e680d0805c09960fe7",
+      "after_sha256": "3c28560720996fb894f5d7bc467e30b68077bf42eb46e7d34977479dfa16ede2",
+      "provenance": {
+        "origin": "work/clat-coordinator24-20261115-01/DnsBpfHelper.cpp",
+        "sha256": "3c28560720996fb894f5d7bc467e30b68077bf42eb46e7d34977479dfa16ede2"
+      }
+    },
+    "packages/modules/DnsResolver/DnsProxyListener.cpp": {
+      "project": "packages/modules/DnsResolver",
+      "path": "DnsProxyListener.cpp",
+      "before_sha256": "99fc93e7ed485a8c244cbcd4614ae27ab8a83a5150b4ae70393ed8ff4df8527b",
+      "after_sha256": "70b54e374970a4db08b146e9fba1c7644888916f514a8b7c3a8ff8b424f45a48",
+      "provenance": {
+        "origin": "work/clat-coordinator24-20261115-01/DnsProxyListener.cpp",
+        "sha256": "70b54e374970a4db08b146e9fba1c7644888916f514a8b7c3a8ff8b424f45a48"
+      }
+    },
+    "system/netd/server/Gta3xlwifiAccountingRoots.cpp": {
+      "project": "system/netd",
+      "path": "server/Gta3xlwifiAccountingRoots.cpp",
+      "before_sha256": null,
+      "after_sha256": "8f13fa8f07b5a687c83cdc55cd7968009a05452fc35baa7b88c3504d00d15738",
+      "provenance": {
+        "origin": "work/clat-coordinator24-20261115-01/Gta3xlwifiAccountingRoots.cpp",
+        "sha256": "8f13fa8f07b5a687c83cdc55cd7968009a05452fc35baa7b88c3504d00d15738"
+      }
+    },
+    "system/netd/server/Gta3xlwifiAccountingRoots.h": {
+      "project": "system/netd",
+      "path": "server/Gta3xlwifiAccountingRoots.h",
+      "before_sha256": null,
+      "after_sha256": "e4f9ffe64bdeb19b1c9075f1cb869334d63be124a3694a847a8ab6e10adf7857",
+      "provenance": {
+        "origin": "work/clat-coordinator24-20261115-01/Gta3xlwifiAccountingRoots.h",
+        "sha256": "e4f9ffe64bdeb19b1c9075f1cb869334d63be124a3694a847a8ab6e10adf7857"
+      }
+    },
+    "system/netd/server/Gta3xlwifiCheckedUidChains.cpp": {
+      "project": "system/netd",
+      "path": "server/Gta3xlwifiCheckedUidChains.cpp",
+      "before_sha256": null,
+      "after_sha256": "01fec53b90fe6d8527dcc1bf808db0bf0dbf82c7c1a59e73d7b04aa722b02967",
+      "provenance": {
+        "origin": "work/clat-coordinator24-20261115-01/Gta3xlwifiCheckedUidChains.cpp",
+        "sha256": "01fec53b90fe6d8527dcc1bf808db0bf0dbf82c7c1a59e73d7b04aa722b02967"
+      }
+    },
+    "system/netd/server/Gta3xlwifiCheckedUidChains.h": {
+      "project": "system/netd",
+      "path": "server/Gta3xlwifiCheckedUidChains.h",
+      "before_sha256": null,
+      "after_sha256": "c1bd4d386c54698c15575988f3a2d7d26c2dafbdbb99780851f7be482e172e3b",
+      "provenance": {
+        "origin": "work/clat-coordinator24-20261115-01/Gta3xlwifiCheckedUidChains.h",
+        "sha256": "c1bd4d386c54698c15575988f3a2d7d26c2dafbdbb99780851f7be482e172e3b"
+      }
+    },
+    "system/netd/server/Gta3xlwifiDnsPolicy.h": {
+      "project": "system/netd",
+      "path": "server/Gta3xlwifiDnsPolicy.h",
+      "before_sha256": null,
+      "after_sha256": "84810aad39d1aae02f1041894cd03aea55671219f475aec06455507d35ee2997",
+      "provenance": {
+        "origin": "work/clat-coordinator24-20261115-01/Gta3xlwifiDnsPolicy.h",
+        "sha256": "84810aad39d1aae02f1041894cd03aea55671219f475aec06455507d35ee2997"
+      }
+    },
+    "system/netd/server/Gta3xlwifiHeldProvider.cpp": {
+      "project": "system/netd",
+      "path": "server/Gta3xlwifiHeldProvider.cpp",
+      "before_sha256": null,
+      "after_sha256": "fb1577f84a95ee519ee9a589e8bb8bc3d7eeb4f31055ea4692577d71ccd8a528",
+      "provenance": {
+        "origin": "work/clat-coordinator24-20261115-01/Gta3xlwifiHeldProvider.cpp",
+        "sha256": "fb1577f84a95ee519ee9a589e8bb8bc3d7eeb4f31055ea4692577d71ccd8a528"
+      }
+    },
+    "system/netd/server/Gta3xlwifiHeldProvider.h": {
+      "project": "system/netd",
+      "path": "server/Gta3xlwifiHeldProvider.h",
+      "before_sha256": null,
+      "after_sha256": "357fe87c63ea60dccfd41186c2bf6cd0d724f34753b0536bf2faa7f4498730d6",
+      "provenance": {
+        "origin": "work/clat-coordinator24-20261115-01/Gta3xlwifiHeldProvider.h",
+        "sha256": "357fe87c63ea60dccfd41186c2bf6cd0d724f34753b0536bf2faa7f4498730d6"
+      }
+    },
+    "system/netd/server/Gta3xlwifiIngressPolicy.cpp": {
+      "project": "system/netd",
+      "path": "server/Gta3xlwifiIngressPolicy.cpp",
+      "before_sha256": null,
+      "after_sha256": "7461f8484dada4417700b85a046d4d6e157344be476b726c7376f9af443d0454",
+      "provenance": {
+        "origin": "work/clat-coordinator24-20261115-01/Gta3xlwifiIngressPolicy.cpp",
+        "sha256": "7461f8484dada4417700b85a046d4d6e157344be476b726c7376f9af443d0454"
+      }
+    },
+    "system/netd/server/Gta3xlwifiIngressPolicy.h": {
+      "project": "system/netd",
+      "path": "server/Gta3xlwifiIngressPolicy.h",
+      "before_sha256": null,
+      "after_sha256": "40bbb1909b82220ee779eede5b4ce5923358519f2bfea7a46d9d4a0268a0c82b",
+      "provenance": {
+        "origin": "work/clat-coordinator24-20261115-01/Gta3xlwifiIngressPolicy.h",
+        "sha256": "40bbb1909b82220ee779eede5b4ce5923358519f2bfea7a46d9d4a0268a0c82b"
+      }
+    },
+    "system/netd/server/Gta3xlwifiLocalNetworkState.cpp": {
+      "project": "system/netd",
+      "path": "server/Gta3xlwifiLocalNetworkState.cpp",
+      "before_sha256": null,
+      "after_sha256": "f10d18a3bd69f270161e1970c481b1cc390cca5bf7fe2c0cb9081fd002a6f333",
+      "provenance": {
+        "origin": "work/clat-coordinator24-20261115-01/Gta3xlwifiLocalNetworkState.cpp",
+        "sha256": "f10d18a3bd69f270161e1970c481b1cc390cca5bf7fe2c0cb9081fd002a6f333"
+      }
+    },
+    "system/netd/server/Gta3xlwifiLocalNetworkState.h": {
+      "project": "system/netd",
+      "path": "server/Gta3xlwifiLocalNetworkState.h",
+      "before_sha256": null,
+      "after_sha256": "c4f57c2d9b4a6163f71682b3b8817d147329621b149c0be2104ac7e6b96b1ecc",
+      "provenance": {
+        "origin": "work/clat-coordinator24-20261115-01/Gta3xlwifiLocalNetworkState.h",
+        "sha256": "c4f57c2d9b4a6163f71682b3b8817d147329621b149c0be2104ac7e6b96b1ecc"
+      }
+    },
+    "system/netd/server/Gta3xlwifiMeteredChainProgram.cpp": {
+      "project": "system/netd",
+      "path": "server/Gta3xlwifiMeteredChainProgram.cpp",
+      "before_sha256": null,
+      "after_sha256": "187b81def0be32268ecd59c059df71b29a667864817a42d9eeae46bd356dd886",
+      "provenance": {
+        "origin": "work/clat-coordinator24-20261115-01/Gta3xlwifiMeteredChainProgram.cpp",
+        "sha256": "187b81def0be32268ecd59c059df71b29a667864817a42d9eeae46bd356dd886"
+      }
+    },
+    "system/netd/server/Gta3xlwifiMeteredChainProgram.h": {
+      "project": "system/netd",
+      "path": "server/Gta3xlwifiMeteredChainProgram.h",
+      "before_sha256": null,
+      "after_sha256": "642872e7b45e23aeddb899f3d2b2133d5b59ff4188642e714d8366229c85f1ce",
+      "provenance": {
+        "origin": "work/clat-coordinator24-20261115-01/Gta3xlwifiMeteredChainProgram.h",
+        "sha256": "642872e7b45e23aeddb899f3d2b2133d5b59ff4188642e714d8366229c85f1ce"
+      }
+    },
+    "system/netd/server/Gta3xlwifiMeteredRoots.cpp": {
+      "project": "system/netd",
+      "path": "server/Gta3xlwifiMeteredRoots.cpp",
+      "before_sha256": null,
+      "after_sha256": "cac2f043da0a3b020f7249ee1198fc2d68a9ba34bb60f150d60bafa36081dcd1",
+      "provenance": {
+        "origin": "work/clat-coordinator24-20261115-01/Gta3xlwifiMeteredRoots.cpp",
+        "sha256": "cac2f043da0a3b020f7249ee1198fc2d68a9ba34bb60f150d60bafa36081dcd1"
+      }
+    },
+    "system/netd/server/Gta3xlwifiMeteredRoots.h": {
+      "project": "system/netd",
+      "path": "server/Gta3xlwifiMeteredRoots.h",
+      "before_sha256": null,
+      "after_sha256": "ec3fd6684dda5e49d65327323a9b5bba16c33d0382c9ef498c0dcbd87bfb3bd5",
+      "provenance": {
+        "origin": "work/clat-coordinator24-20261115-01/Gta3xlwifiMeteredRoots.h",
+        "sha256": "ec3fd6684dda5e49d65327323a9b5bba16c33d0382c9ef498c0dcbd87bfb3bd5"
+      }
+    },
+    "system/netd/server/Gta3xlwifiNetpolicyLease.cpp": {
+      "project": "system/netd",
+      "path": "server/Gta3xlwifiNetpolicyLease.cpp",
+      "before_sha256": null,
+      "after_sha256": "aa27cbe0ae292b28c78a76facb2aff93265f46fbbeda6785a56d8fd7281f50eb",
+      "provenance": {
+        "origin": "work/clat-coordinator24-20261115-01/Gta3xlwifiNetpolicyLease.cpp",
+        "sha256": "aa27cbe0ae292b28c78a76facb2aff93265f46fbbeda6785a56d8fd7281f50eb"
+      }
+    },
+    "system/netd/server/Gta3xlwifiNetpolicyLease.h": {
+      "project": "system/netd",
+      "path": "server/Gta3xlwifiNetpolicyLease.h",
+      "before_sha256": null,
+      "after_sha256": "35958aca445d98ce8e09e5573937f27711613ee8281373f77873011202bcfdd4",
+      "provenance": {
+        "origin": "work/clat-coordinator24-20261115-01/Gta3xlwifiNetpolicyLease.h",
+        "sha256": "35958aca445d98ce8e09e5573937f27711613ee8281373f77873011202bcfdd4"
+      }
+    },
+    "system/netd/server/Gta3xlwifiNetpolicyService.cpp": {
+      "project": "system/netd",
+      "path": "server/Gta3xlwifiNetpolicyService.cpp",
+      "before_sha256": null,
+      "after_sha256": "6de1503e36176a87d455ff8d2b182ccac8abfce1c7bca6f577fe4b05c4362dd7",
+      "provenance": {
+        "origin": "work/clat-coordinator24-20261115-01/Gta3xlwifiNetpolicyService.cpp",
+        "sha256": "6de1503e36176a87d455ff8d2b182ccac8abfce1c7bca6f577fe4b05c4362dd7"
+      }
+    },
+    "system/netd/server/Gta3xlwifiNetpolicyService.h": {
+      "project": "system/netd",
+      "path": "server/Gta3xlwifiNetpolicyService.h",
+      "before_sha256": null,
+      "after_sha256": "47601a0331ff263fed92fa35daf7f8219415c4561ef40d85ec31db88c3c1dfb6",
+      "provenance": {
+        "origin": "work/clat-coordinator24-20261115-01/Gta3xlwifiNetpolicyService.h",
+        "sha256": "47601a0331ff263fed92fa35daf7f8219415c4561ef40d85ec31db88c3c1dfb6"
+      }
+    },
+    "system/netd/server/Gta3xlwifiOrdinaryDispatch.cpp": {
+      "project": "system/netd",
+      "path": "server/Gta3xlwifiOrdinaryDispatch.cpp",
+      "before_sha256": null,
+      "after_sha256": "917927b0e66b78a3087e50c04e963b04813a7a4041e40dce6d9094119f9459c3",
+      "provenance": {
+        "origin": "work/clat-coordinator24-20261115-01/Gta3xlwifiOrdinaryDispatch.cpp",
+        "sha256": "917927b0e66b78a3087e50c04e963b04813a7a4041e40dce6d9094119f9459c3"
+      }
+    },
+    "system/netd/server/Gta3xlwifiOrdinaryDispatch.h": {
+      "project": "system/netd",
+      "path": "server/Gta3xlwifiOrdinaryDispatch.h",
+      "before_sha256": null,
+      "after_sha256": "6e71c153ab368713437b4b4c2ea3ee246b7f35490f94cc87d23e18f7515547c5",
+      "provenance": {
+        "origin": "work/clat-coordinator24-20261115-01/Gta3xlwifiOrdinaryDispatch.h",
+        "sha256": "6e71c153ab368713437b4b4c2ea3ee246b7f35490f94cc87d23e18f7515547c5"
+      }
+    },
+    "system/netd/server/Gta3xlwifiPermissionBootstrap.cpp": {
+      "project": "system/netd",
+      "path": "server/Gta3xlwifiPermissionBootstrap.cpp",
+      "before_sha256": null,
+      "after_sha256": "6f2339469319d9e476e0883c21ccbb9eb48735ecf91c97483086518b84105065",
+      "provenance": {
+        "origin": "work/clat-coordinator24-20261115-01/Gta3xlwifiPermissionBootstrap.cpp",
+        "sha256": "6f2339469319d9e476e0883c21ccbb9eb48735ecf91c97483086518b84105065"
+      }
+    },
+    "system/netd/server/Gta3xlwifiPermissionBootstrap.h": {
+      "project": "system/netd",
+      "path": "server/Gta3xlwifiPermissionBootstrap.h",
+      "before_sha256": null,
+      "after_sha256": "a0e16f3df5814baf8a626eb5a4144b86e249ca8fa6eb925b6e0645196128dd13",
+      "provenance": {
+        "origin": "work/clat-coordinator24-20261115-01/Gta3xlwifiPermissionBootstrap.h",
+        "sha256": "a0e16f3df5814baf8a626eb5a4144b86e249ca8fa6eb925b6e0645196128dd13"
+      }
+    },
+    "system/netd/server/Gta3xlwifiPolicyFatal.h": {
+      "project": "system/netd",
+      "path": "server/Gta3xlwifiPolicyFatal.h",
+      "before_sha256": null,
+      "after_sha256": "1e83456c3673fe211f5180b2db0c218a9c1e44260e5bf1ab8c875071e5b40dd7",
+      "provenance": {
+        "origin": "work/clat-coordinator24-20261115-01/Gta3xlwifiPolicyFatal.h",
+        "sha256": "1e83456c3673fe211f5180b2db0c218a9c1e44260e5bf1ab8c875071e5b40dd7"
+      }
+    },
+    "system/netd/server/Gta3xlwifiPolicyFrame.cpp": {
+      "project": "system/netd",
+      "path": "server/Gta3xlwifiPolicyFrame.cpp",
+      "before_sha256": null,
+      "after_sha256": "00da57d905d3dbb6fbfa4a86c3170830a3e6033af0bdccf1a2939da032c3fc99",
+      "provenance": {
+        "origin": "work/clat-coordinator24-20261115-01/Gta3xlwifiPolicyFrame.cpp",
+        "sha256": "00da57d905d3dbb6fbfa4a86c3170830a3e6033af0bdccf1a2939da032c3fc99"
+      }
+    },
+    "system/netd/server/Gta3xlwifiPolicyFrame.h": {
+      "project": "system/netd",
+      "path": "server/Gta3xlwifiPolicyFrame.h",
+      "before_sha256": null,
+      "after_sha256": "73d57aefeb74c5f476e55ae6795c4c3c9a77aec841ecadd8883af39c02229aa4",
+      "provenance": {
+        "origin": "work/clat-coordinator24-20261115-01/Gta3xlwifiPolicyFrame.h",
+        "sha256": "73d57aefeb74c5f476e55ae6795c4c3c9a77aec841ecadd8883af39c02229aa4"
+      }
+    },
+    "system/netd/server/Gta3xlwifiQtaguidProtocol.h": {
+      "project": "system/netd",
+      "path": "server/Gta3xlwifiQtaguidProtocol.h",
+      "before_sha256": null,
+      "after_sha256": "9096f41f971a71018f49f155d3577204678e7298a0e44728e644361332f98387",
+      "provenance": {
+        "origin": "work/clat-coordinator24-20261115-01/Gta3xlwifiQtaguidProtocol.h",
+        "sha256": "9096f41f971a71018f49f155d3577204678e7298a0e44728e644361332f98387"
+      }
+    },
+    "system/netd/server/Gta3xlwifiQtaguidTransport.cpp": {
+      "project": "system/netd",
+      "path": "server/Gta3xlwifiQtaguidTransport.cpp",
+      "before_sha256": null,
+      "after_sha256": "aa53fbfe0a2be9800e25ef671ca39ba9b9a8b780cac55c7a545aa53871c53683",
+      "provenance": {
+        "origin": "work/clat-coordinator24-20261115-01/Gta3xlwifiQtaguidTransport.cpp",
+        "sha256": "aa53fbfe0a2be9800e25ef671ca39ba9b9a8b780cac55c7a545aa53871c53683"
+      }
+    },
+    "system/netd/server/Gta3xlwifiQtaguidTransport.h": {
+      "project": "system/netd",
+      "path": "server/Gta3xlwifiQtaguidTransport.h",
+      "before_sha256": null,
+      "after_sha256": "0b1c6c39fd5014b1935aa9f92ec3bdbd8ec0741430e5a6f8a06fa30577414276",
+      "provenance": {
+        "origin": "work/clat-coordinator24-20261115-01/Gta3xlwifiQtaguidTransport.h",
+        "sha256": "0b1c6c39fd5014b1935aa9f92ec3bdbd8ec0741430e5a6f8a06fa30577414276"
+      }
+    },
+    "system/netd/server/Gta3xlwifiSocketPolicyProjection.cpp": {
+      "project": "system/netd",
+      "path": "server/Gta3xlwifiSocketPolicyProjection.cpp",
+      "before_sha256": null,
+      "after_sha256": "afa2cdfeffd7a9d5b48b704708a1e18782ac14a308a9c67cd7ba5dab0c195ff1",
+      "provenance": {
+        "origin": "work/clat-coordinator24-20261115-01/Gta3xlwifiSocketPolicyProjection.cpp",
+        "sha256": "afa2cdfeffd7a9d5b48b704708a1e18782ac14a308a9c67cd7ba5dab0c195ff1"
+      }
+    },
+    "system/netd/server/Gta3xlwifiSocketPolicyProjection.h": {
+      "project": "system/netd",
+      "path": "server/Gta3xlwifiSocketPolicyProjection.h",
+      "before_sha256": null,
+      "after_sha256": "36b0a5d1b1bd2d4177ea25aec54dbbabf5e89e54cbc111ef041f5ea8a1f99bad",
+      "provenance": {
+        "origin": "work/clat-coordinator24-20261115-01/Gta3xlwifiSocketPolicyProjection.h",
+        "sha256": "36b0a5d1b1bd2d4177ea25aec54dbbabf5e89e54cbc111ef041f5ea8a1f99bad"
+      }
+    },
+    "system/netd/server/Gta3xlwifiSocketRoots.cpp": {
+      "project": "system/netd",
+      "path": "server/Gta3xlwifiSocketRoots.cpp",
+      "before_sha256": null,
+      "after_sha256": "c7cf0e7c413b67ac26d2e66536b2a472b7683a9ee3eb3c3a7ac6f5ff622eb6b5",
+      "provenance": {
+        "origin": "work/clat-coordinator24-20261115-01/Gta3xlwifiSocketRoots.cpp",
+        "sha256": "c7cf0e7c413b67ac26d2e66536b2a472b7683a9ee3eb3c3a7ac6f5ff622eb6b5"
+      }
+    },
+    "system/netd/server/Gta3xlwifiSocketRoots.h": {
+      "project": "system/netd",
+      "path": "server/Gta3xlwifiSocketRoots.h",
+      "before_sha256": null,
+      "after_sha256": "a60a36a3315db218493423e80611d6c568638e0a7e5313277a35793f42205ebd",
+      "provenance": {
+        "origin": "work/clat-coordinator24-20261115-01/Gta3xlwifiSocketRoots.h",
+        "sha256": "a60a36a3315db218493423e80611d6c568638e0a7e5313277a35793f42205ebd"
+      }
+    },
+    "system/netd/server/Gta3xlwifiSocketTagger.h": {
+      "project": "system/netd",
+      "path": "server/Gta3xlwifiSocketTagger.h",
+      "before_sha256": null,
+      "after_sha256": "6b7f94f56350fa43ae0782358727d1a8722dac1d567caf4f1cad7d181723d94c",
+      "provenance": {
+        "origin": "work/clat-coordinator24-20261115-01/Gta3xlwifiSocketTagger.h",
+        "sha256": "6b7f94f56350fa43ae0782358727d1a8722dac1d567caf4f1cad7d181723d94c"
+      }
+    },
+    "system/netd/server/Gta3xlwifiUidChainProgram.cpp": {
+      "project": "system/netd",
+      "path": "server/Gta3xlwifiUidChainProgram.cpp",
+      "before_sha256": null,
+      "after_sha256": "b8936793c49b2cc0abee3cf2e6f27c82a171a582006a956a8ab2954ff380ffee",
+      "provenance": {
+        "origin": "work/clat-coordinator24-20261115-01/Gta3xlwifiUidChainProgram.cpp",
+        "sha256": "b8936793c49b2cc0abee3cf2e6f27c82a171a582006a956a8ab2954ff380ffee"
+      }
+    },
+    "system/netd/server/Gta3xlwifiUidChainProgram.h": {
+      "project": "system/netd",
+      "path": "server/Gta3xlwifiUidChainProgram.h",
+      "before_sha256": null,
+      "after_sha256": "e6bd4a71fbd289f8bdc2a917649f03fea323d136584f0dccb3acba00e49b33a8",
+      "provenance": {
+        "origin": "work/clat-coordinator24-20261115-01/Gta3xlwifiUidChainProgram.h",
+        "sha256": "e6bd4a71fbd289f8bdc2a917649f03fea323d136584f0dccb3acba00e49b33a8"
+      }
+    },
+    "system/netd/server/Gta3xlwifiUidPermissionState.cpp": {
+      "project": "system/netd",
+      "path": "server/Gta3xlwifiUidPermissionState.cpp",
+      "before_sha256": null,
+      "after_sha256": "cb075c44670ba172d32239ef33e164da79ba77ee6da2df045d74c55897cc84c0",
+      "provenance": {
+        "origin": "work/clat-coordinator24-20261115-01/Gta3xlwifiUidPermissionState.cpp",
+        "sha256": "cb075c44670ba172d32239ef33e164da79ba77ee6da2df045d74c55897cc84c0"
+      }
+    },
+    "system/netd/server/Gta3xlwifiUidPermissionState.h": {
+      "project": "system/netd",
+      "path": "server/Gta3xlwifiUidPermissionState.h",
+      "before_sha256": null,
+      "after_sha256": "2309fee4cb9938d273dd094b7fe21e5f778b7de9ee57244572cbfeb66a7b84f4",
+      "provenance": {
+        "origin": "work/clat-coordinator24-20261115-01/Gta3xlwifiUidPermissionState.h",
+        "sha256": "2309fee4cb9938d273dd094b7fe21e5f778b7de9ee57244572cbfeb66a7b84f4"
+      }
+    },
+    "system/netd/server/Gta3xlwifiUidPolicy.cpp": {
+      "project": "system/netd",
+      "path": "server/Gta3xlwifiUidPolicy.cpp",
+      "before_sha256": null,
+      "after_sha256": "9f98afdf5ea0750b6a1215d1ecb46250aa7c62a6fb9a84e23300f112bfd2d239",
+      "provenance": {
+        "origin": "work/clat-coordinator24-20261115-01/Gta3xlwifiUidPolicy.cpp",
+        "sha256": "9f98afdf5ea0750b6a1215d1ecb46250aa7c62a6fb9a84e23300f112bfd2d239"
+      }
+    },
+    "system/netd/server/Gta3xlwifiUidPolicy.h": {
+      "project": "system/netd",
+      "path": "server/Gta3xlwifiUidPolicy.h",
+      "before_sha256": null,
+      "after_sha256": "254fae0c2fa1fd65e18e340149ef740b8a89fc7f4620e58ae22e0296815febb2",
+      "provenance": {
+        "origin": "work/clat-coordinator24-20261115-01/Gta3xlwifiUidPolicy.h",
+        "sha256": "254fae0c2fa1fd65e18e340149ef740b8a89fc7f4620e58ae22e0296815febb2"
+      }
+    },
+    "packages/modules/Connectivity/bpf/dns_helper/LegacyDnsPolicy.h": {
+      "project": "packages/modules/Connectivity",
+      "path": "bpf/dns_helper/LegacyDnsPolicy.h",
+      "before_sha256": null,
+      "after_sha256": "323a330006561505e78670a3da9eda5cf6f056707fe2beec2fc3c2165aff1709",
+      "provenance": {
+        "origin": "work/clat-coordinator24-20261115-01/LegacyDnsPolicy.h",
+        "sha256": "323a330006561505e78670a3da9eda5cf6f056707fe2beec2fc3c2165aff1709"
+      }
+    },
+    "packages/modules/Connectivity/bpf/netd/NetdUpdatable.cpp": {
+      "project": "packages/modules/Connectivity",
+      "path": "bpf/netd/NetdUpdatable.cpp",
+      "before_sha256": "f3f79b5e10b848539b4e00fb01056a049fa62a3552e7de0be75e9465f9af5d28",
+      "after_sha256": "b7df3501419a3335f682bb2a78791f17bb682a7f15f621f569d0df17f685bcf5",
+      "provenance": {
+        "origin": "work/clat-coordinator24-20261115-01/NetdUpdatable.cpp",
+        "sha256": "b7df3501419a3335f682bb2a78791f17bb682a7f15f621f569d0df17f685bcf5"
+      }
+    },
+    "packages/modules/Connectivity/bpf/netd/include/NetdUpdatablePublic.h": {
+      "project": "packages/modules/Connectivity",
+      "path": "bpf/netd/include/NetdUpdatablePublic.h",
+      "before_sha256": "12188419dc8eed5edc6f0546bc59a30bb81575ed1a8cd61cae900d14b5d0d27b",
+      "after_sha256": "c78caf54cedf724e57a0df83629b4c04549490f51f32bd9e482358969e1e492d",
+      "provenance": {
+        "origin": "work/clat-coordinator24-20261115-01/NetdUpdatablePublic.h",
+        "sha256": "c78caf54cedf724e57a0df83629b4c04549490f51f32bd9e482358969e1e492d"
+      }
+    },
+    "system/netd/server/OemNetdListener.cpp": {
+      "project": "system/netd",
+      "path": "server/OemNetdListener.cpp",
+      "before_sha256": "3af829cbfc4e52649296dfbe40a7684f113a6c3baf462e1c15ed2ea7b0aff06e",
+      "after_sha256": "30b1293a07afb530774326b9674b6e1c580d5953b30a917e0331859a5719e6f4",
+      "provenance": {
+        "origin": "work/clat-coordinator24-20261115-01/OemNetdListener.cpp",
+        "sha256": "30b1293a07afb530774326b9674b6e1c580d5953b30a917e0331859a5719e6f4"
+      }
+    },
+    "system/netd/server/OemNetdListener.h": {
+      "project": "system/netd",
+      "path": "server/OemNetdListener.h",
+      "before_sha256": "a2771a42d7fecfdd636379b55848e8d9691b75cee6abcb260d54df188ed5b643",
+      "after_sha256": "85b3da6bceb573df82e7497a4fb823990e78436d2fede823596fa8b51bf9e9b6",
+      "provenance": {
+        "origin": "work/clat-coordinator24-20261115-01/OemNetdListener.h",
+        "sha256": "85b3da6bceb573df82e7497a4fb823990e78436d2fede823596fa8b51bf9e9b6"
+      }
+    },
+    "system/netd/server/binder/com/android/internal/net/IGta3xlwifiNetpolicy.aidl": {
+      "project": "system/netd",
+      "path": "server/binder/com/android/internal/net/IGta3xlwifiNetpolicy.aidl",
+      "before_sha256": null,
+      "after_sha256": "519d3767bdb8e0d11246cfa144c9dfeec7bcdd1363caa56f6a1430d6f668ebef",
+      "provenance": {
+        "origin": "work/clat-coordinator24-20261115-01/binder/com/android/internal/net/IGta3xlwifiNetpolicy.aidl",
+        "sha256": "519d3767bdb8e0d11246cfa144c9dfeec7bcdd1363caa56f6a1430d6f668ebef"
+      }
+    },
+    "system/netd/server/binder/com/android/internal/net/IOemNetd.aidl": {
+      "project": "system/netd",
+      "path": "server/binder/com/android/internal/net/IOemNetd.aidl",
+      "before_sha256": "5359bee4b2c771a39d60742360acd857cc5bd018750b7c7a2609bfde47ee09c8",
+      "after_sha256": "3f22e755a08e6afce88ece96020f69d51fa7491271c0c25e62d6d6df374de1eb",
+      "provenance": {
+        "origin": "work/clat-coordinator24-20261115-01/binder/com/android/internal/net/IOemNetd.aidl",
+        "sha256": "3f22e755a08e6afce88ece96020f69d51fa7491271c0c25e62d6d6df374de1eb"
+      }
+    },
+    "packages/modules/Connectivity/service/src/com/android/server/BpfNetMaps.java": {
+      "project": "packages/modules/Connectivity",
+      "path": "service/src/com/android/server/BpfNetMaps.java",
+      "before_sha256": "c78a90ae6352cdee00fc65a7dbd899e9f041456e8388dd5e72cab6064be47dfd",
+      "after_sha256": "39230902c3eb61f7152ccd8e1cd30fcd52f71df6b8781ab0e8faedf8cd6e0498",
+      "provenance": {
+        "origin": "work/clat-coordinator24-20261115-01/java/com/android/server/BpfNetMaps.java",
+        "sha256": "39230902c3eb61f7152ccd8e1cd30fcd52f71df6b8781ab0e8faedf8cd6e0498"
+      }
+    },
+    "packages/modules/Connectivity/service/src/com/android/server/ConnectivityService.java": {
+      "project": "packages/modules/Connectivity",
+      "path": "service/src/com/android/server/ConnectivityService.java",
+      "before_sha256": "b4edccbfaa22a9f97dce4310f2efa38a753ce9bda86c400069fc73e743bb485c",
+      "after_sha256": "8ea0e7f93a5fc75d4375a4e534f2d255f12eba3685e4574c181e33843e6bb621",
+      "provenance": {
+        "origin": "work/clat-coordinator24-20261115-01/java/com/android/server/ConnectivityService.java",
+        "sha256": "8ea0e7f93a5fc75d4375a4e534f2d255f12eba3685e4574c181e33843e6bb621"
+      }
+    },
+    "packages/modules/Connectivity/service/src/com/android/server/Gta3xlwifiLoopbackEventPoller.java": {
+      "project": "packages/modules/Connectivity",
+      "path": "service/src/com/android/server/Gta3xlwifiLoopbackEventPoller.java",
+      "before_sha256": null,
+      "after_sha256": "538dc8122e1a282f0bb4ed6fdff3c72e083587bf944225bdcaea4a07571b7e3d",
+      "provenance": {
+        "origin": "work/clat-coordinator24-20261115-01/java/com/android/server/Gta3xlwifiLoopbackEventPoller.java",
+        "sha256": "538dc8122e1a282f0bb4ed6fdff3c72e083587bf944225bdcaea4a07571b7e3d"
+      }
+    },
+    "packages/modules/Connectivity/service/src/com/android/server/Gta3xlwifiNetpolicyBackend.java": {
+      "project": "packages/modules/Connectivity",
+      "path": "service/src/com/android/server/Gta3xlwifiNetpolicyBackend.java",
+      "before_sha256": null,
+      "after_sha256": "f8b4114d7aa088f0be851be620a6bc351cd97c0ada16d90efdc5b10b581ef0d8",
+      "provenance": {
+        "origin": "work/clat-coordinator24-20261115-01/java/com/android/server/Gta3xlwifiNetpolicyBackend.java",
+        "sha256": "f8b4114d7aa088f0be851be620a6bc351cd97c0ada16d90efdc5b10b581ef0d8"
+      }
+    },
+    "packages/modules/Connectivity/service/src/com/android/server/Gta3xlwifiNetpolicyClient.java": {
+      "project": "packages/modules/Connectivity",
+      "path": "service/src/com/android/server/Gta3xlwifiNetpolicyClient.java",
+      "before_sha256": null,
+      "after_sha256": "d398fea3051ec1b8c2b0cc5247189cbd6cc83cc147ccdef92be9d46486272af5",
+      "provenance": {
+        "origin": "work/clat-coordinator24-20261115-01/java/com/android/server/Gta3xlwifiNetpolicyClient.java",
+        "sha256": "d398fea3051ec1b8c2b0cc5247189cbd6cc83cc147ccdef92be9d46486272af5"
+      }
+    },
+    "packages/modules/Connectivity/service/src/com/android/server/Gta3xlwifiPermissionCollector.java": {
+      "project": "packages/modules/Connectivity",
+      "path": "service/src/com/android/server/Gta3xlwifiPermissionCollector.java",
+      "before_sha256": null,
+      "after_sha256": "e31fdce99589127c362ecc3235b2077be45e011bfcb9ec02bfd99f535e9052be",
+      "provenance": {
+        "origin": "work/clat-coordinator24-20261115-01/java/com/android/server/Gta3xlwifiPermissionCollector.java",
+        "sha256": "e31fdce99589127c362ecc3235b2077be45e011bfcb9ec02bfd99f535e9052be"
+      }
+    },
+    "packages/modules/Connectivity/service/src/com/android/server/Gta3xlwifiStatsAccess.java": {
+      "project": "packages/modules/Connectivity",
+      "path": "service/src/com/android/server/Gta3xlwifiStatsAccess.java",
+      "before_sha256": null,
+      "after_sha256": "fd33f8e4dc70dc5221ed4ee7b71d7a04ee7f31366eff5db73831c710dbc75cdf",
+      "provenance": {
+        "origin": "work/clat-coordinator24-20261115-01/java/com/android/server/Gta3xlwifiStatsAccess.java",
+        "sha256": "fd33f8e4dc70dc5221ed4ee7b71d7a04ee7f31366eff5db73831c710dbc75cdf"
+      }
+    },
+    "packages/modules/Connectivity/service/src/com/android/server/Gta3xlwifiStatsConsumer.java": {
+      "project": "packages/modules/Connectivity",
+      "path": "service/src/com/android/server/Gta3xlwifiStatsConsumer.java",
+      "before_sha256": null,
+      "after_sha256": "713abd60e76af4faeb7eee0dd0046d97c58b3226b2e8f626b813eb0a7ffa4b3c",
+      "provenance": {
+        "origin": "work/clat-coordinator24-20261115-01/java/com/android/server/Gta3xlwifiStatsConsumer.java",
+        "sha256": "713abd60e76af4faeb7eee0dd0046d97c58b3226b2e8f626b813eb0a7ffa4b3c"
+      }
+    },
+    "packages/modules/Connectivity/service/src/com/android/server/Gta3xlwifiStatsJournal.java": {
+      "project": "packages/modules/Connectivity",
+      "path": "service/src/com/android/server/Gta3xlwifiStatsJournal.java",
+      "before_sha256": null,
+      "after_sha256": "95e5cccd2493c451039f48e18303d58f232aef5309ab7bfbfd07a030b4c3dc3b",
+      "provenance": {
+        "origin": "work/clat-coordinator24-20261115-01/java/com/android/server/Gta3xlwifiStatsJournal.java",
+        "sha256": "95e5cccd2493c451039f48e18303d58f232aef5309ab7bfbfd07a030b4c3dc3b"
+      }
+    },
+    "packages/modules/Connectivity/service/src/com/android/server/Gta3xlwifiStatsPoller.java": {
+      "project": "packages/modules/Connectivity",
+      "path": "service/src/com/android/server/Gta3xlwifiStatsPoller.java",
+      "before_sha256": null,
+      "after_sha256": "743d8c13b6f5eada51a3a126444c9f58c5db4daba9e72836f95b18e79ccf45d6",
+      "provenance": {
+        "origin": "work/clat-coordinator24-20261115-01/java/com/android/server/Gta3xlwifiStatsPoller.java",
+        "sha256": "743d8c13b6f5eada51a3a126444c9f58c5db4daba9e72836f95b18e79ccf45d6"
+      }
+    },
+    "packages/modules/Connectivity/service/src/com/android/server/Gta3xlwifiTrafficStats.java": {
+      "project": "packages/modules/Connectivity",
+      "path": "service/src/com/android/server/Gta3xlwifiTrafficStats.java",
+      "before_sha256": null,
+      "after_sha256": "8137a7b83b12184ea7d22feb5221abcd556ece646a943ad1c75a45bf5bf566ba",
+      "provenance": {
+        "origin": "work/clat-coordinator24-20261115-01/java/com/android/server/Gta3xlwifiTrafficStats.java",
+        "sha256": "8137a7b83b12184ea7d22feb5221abcd556ece646a943ad1c75a45bf5bf566ba"
+      }
+    },
+    "packages/modules/Connectivity/service/src/com/android/server/connectivity/ClatCoordinator.java": {
+      "project": "packages/modules/Connectivity",
+      "path": "service/src/com/android/server/connectivity/ClatCoordinator.java",
+      "before_sha256": "5e52be551afeabc7e63af1771ff3b395122e7dbda3037011c800f6080901fca2",
+      "after_sha256": "a430d16f14614246c98de7e01adef1ac8cbdc1f96f7b1a5dd284787b72c23eaf",
+      "provenance": {
+        "origin": "work/clat-coordinator24-20261115-01/java/com/android/server/connectivity/ClatCoordinator.java",
+        "sha256": "a430d16f14614246c98de7e01adef1ac8cbdc1f96f7b1a5dd284787b72c23eaf"
+      }
+    },
+    "packages/modules/Connectivity/service/src/com/android/server/connectivity/PermissionMonitor.java": {
+      "project": "packages/modules/Connectivity",
+      "path": "service/src/com/android/server/connectivity/PermissionMonitor.java",
+      "before_sha256": "7f95ea34858411647d3a6a9f689c0a8ad505c24ad69e3c28c41c398b52c6572c",
+      "after_sha256": "207d29b1416d03c62426fea5ad2caac3bbfa8b95f3b3be9732817dd168846d03",
+      "provenance": {
+        "origin": "work/clat-coordinator24-20261115-01/java/com/android/server/connectivity/PermissionMonitor.java",
+        "sha256": "207d29b1416d03c62426fea5ad2caac3bbfa8b95f3b3be9732817dd168846d03"
+      }
+    },
+    "packages/modules/Connectivity/service-t/src/com/android/server/net/NetworkStatsFactory.java": {
+      "project": "packages/modules/Connectivity",
+      "path": "service-t/src/com/android/server/net/NetworkStatsFactory.java",
+      "before_sha256": "432c61b3fa0225975db124c259eff3571842ac53861d0812e6a8b8ca2b36fa43",
+      "after_sha256": "250625597dca1dfa9ffeb8259d2675299db7c137b1cce737e4bf0b715df2408b",
+      "provenance": {
+        "origin": "work/clat-coordinator24-20261115-01/java/com/android/server/net/NetworkStatsFactory.java",
+        "sha256": "250625597dca1dfa9ffeb8259d2675299db7c137b1cce737e4bf0b715df2408b"
+      }
+    },
+    "packages/modules/Connectivity/service-t/src/com/android/server/net/NetworkStatsService.java": {
+      "project": "packages/modules/Connectivity",
+      "path": "service-t/src/com/android/server/net/NetworkStatsService.java",
+      "before_sha256": "b016b652245d3fb6525818a8e3ecc71e5fe26e20ff2b8a97cf532837616550cf",
+      "after_sha256": "7ed8596510b4da8e2e0d0f390b453c7f1e1d859f6c30e5a2950f941a0bba0d1a",
+      "provenance": {
+        "origin": "work/clat-coordinator24-20261115-01/java/com/android/server/net/NetworkStatsService.java",
+        "sha256": "7ed8596510b4da8e2e0d0f390b453c7f1e1d859f6c30e5a2950f941a0bba0d1a"
+      }
+    },
+    "packages/modules/DnsResolver/libnetd_resolv.map.txt": {
+      "project": "packages/modules/DnsResolver",
+      "path": "libnetd_resolv.map.txt",
+      "before_sha256": "b6ff1b7a6b47c9532fe3739008e9f63722efc35e1179747ea9e7de447b5c1820",
+      "after_sha256": "2888828cf4b479675636f0eeb3e01ac52da4a3a176a7abf6d325aa2cff6f05ce",
+      "provenance": {
+        "origin": "work/clat-coordinator24-20261115-01/libnetd_resolv.map.txt",
+        "sha256": "2888828cf4b479675636f0eeb3e01ac52da4a3a176a7abf6d325aa2cff6f05ce"
+      }
+    },
+    "packages/modules/Connectivity/bpf/netd/libnetd_updatable.map.txt": {
+      "project": "packages/modules/Connectivity",
+      "path": "bpf/netd/libnetd_updatable.map.txt",
+      "before_sha256": "999af600447d588d654f61da146e3246bd60f714f2ecd70f0d821b75c1a10ca5",
+      "after_sha256": "34b0f98bb08aa80f08863e31d7ef1cd281f1334d2ca8b2ea249a2d9b07a9842f",
+      "provenance": {
+        "origin": "work/clat-coordinator24-20261115-01/libnetd_updatable.map.txt",
+        "sha256": "34b0f98bb08aa80f08863e31d7ef1cd281f1334d2ca8b2ea249a2d9b07a9842f"
+      }
+    },
+    "system/netd/server/linux/netfilter/gta3xlwifi_iface_stats.h": {
+      "project": "system/netd",
+      "path": "server/linux/netfilter/gta3xlwifi_iface_stats.h",
+      "before_sha256": null,
+      "after_sha256": "01b61957960c62eba92a20b7738b9f9d4352ee0da262e2b918eebf83f91837b7",
+      "provenance": {
+        "origin": "work/clat-coordinator24-20261115-01/linux/netfilter/gta3xlwifi_iface_stats.h",
+        "sha256": "01b61957960c62eba92a20b7738b9f9d4352ee0da262e2b918eebf83f91837b7"
+      }
+    },
+    "system/netd/server/linux/netfilter/gta3xlwifi_ingress.h": {
+      "project": "system/netd",
+      "path": "server/linux/netfilter/gta3xlwifi_ingress.h",
+      "before_sha256": null,
+      "after_sha256": "5d04d156089975356fedf9a870ac8737dd7ac8a1333c6f17977c9c65beaa2260",
+      "provenance": {
+        "origin": "work/clat-coordinator24-20261115-01/linux/netfilter/gta3xlwifi_ingress.h",
+        "sha256": "5d04d156089975356fedf9a870ac8737dd7ac8a1333c6f17977c9c65beaa2260"
+      }
+    },
+    "system/netd/server/linux/netfilter/gta3xlwifi_local_network.h": {
+      "project": "system/netd",
+      "path": "server/linux/netfilter/gta3xlwifi_local_network.h",
+      "before_sha256": null,
+      "after_sha256": "78d66f9b5c834c56d035ea108c4323c849186df3c98d3fb3a48c3de53797b7be",
+      "provenance": {
+        "origin": "work/clat-coordinator24-20261115-01/linux/netfilter/gta3xlwifi_local_network.h",
+        "sha256": "78d66f9b5c834c56d035ea108c4323c849186df3c98d3fb3a48c3de53797b7be"
+      }
+    },
+    "system/netd/server/linux/netfilter/gta3xlwifi_loopback.h": {
+      "project": "system/netd",
+      "path": "server/linux/netfilter/gta3xlwifi_loopback.h",
+      "before_sha256": null,
+      "after_sha256": "81c17681a2b846b98daefbbd36b609c22dc429a1aaf3c6af7b4540af6c524604",
+      "provenance": {
+        "origin": "work/clat-coordinator24-20261115-01/linux/netfilter/gta3xlwifi_loopback.h",
+        "sha256": "81c17681a2b846b98daefbbd36b609c22dc429a1aaf3c6af7b4540af6c524604"
+      }
+    },
+    "system/netd/server/linux/netfilter/gta3xlwifi_netpolicy.h": {
+      "project": "system/netd",
+      "path": "server/linux/netfilter/gta3xlwifi_netpolicy.h",
+      "before_sha256": null,
+      "after_sha256": "fd53c8c287840054ac9234efdabd88302140d95fc1488c57080de499a835d54c",
+      "provenance": {
+        "origin": "work/clat-coordinator24-20261115-01/linux/netfilter/gta3xlwifi_netpolicy.h",
+        "sha256": "fd53c8c287840054ac9234efdabd88302140d95fc1488c57080de499a835d54c"
+      }
+    },
+    "system/netd/server/linux/netfilter/gta3xlwifi_packet_stats.h": {
+      "project": "system/netd",
+      "path": "server/linux/netfilter/gta3xlwifi_packet_stats.h",
+      "before_sha256": null,
+      "after_sha256": "961e2595a035625999414036e824734befa1a5d2a35d5ebdc57f230a3073bb03",
+      "provenance": {
+        "origin": "work/clat-coordinator24-20261115-01/linux/netfilter/gta3xlwifi_packet_stats.h",
+        "sha256": "961e2595a035625999414036e824734befa1a5d2a35d5ebdc57f230a3073bb03"
+      }
+    },
+    "system/netd/server/linux/netfilter/gta3xlwifi_runtime_policy.h": {
+      "project": "system/netd",
+      "path": "server/linux/netfilter/gta3xlwifi_runtime_policy.h",
+      "before_sha256": null,
+      "after_sha256": "2562f685fc4d4a236732c1200a7a2c6c3671a8920392bbe62eb6952f36b18101",
+      "provenance": {
+        "origin": "work/clat-coordinator24-20261115-01/linux/netfilter/gta3xlwifi_runtime_policy.h",
+        "sha256": "2562f685fc4d4a236732c1200a7a2c6c3671a8920392bbe62eb6952f36b18101"
+      }
+    },
+    "system/netd/server/linux/netfilter/gta3xlwifi_socket_tables.h": {
+      "project": "system/netd",
+      "path": "server/linux/netfilter/gta3xlwifi_socket_tables.h",
+      "before_sha256": null,
+      "after_sha256": "6873b2d1ce429749d447c0406354b5f5d2c1a3783ca8dfa967d43a95721052d6",
+      "provenance": {
+        "origin": "work/clat-coordinator24-20261115-01/linux/netfilter/gta3xlwifi_socket_tables.h",
+        "sha256": "6873b2d1ce429749d447c0406354b5f5d2c1a3783ca8dfa967d43a95721052d6"
+      }
+    },
+    "system/netd/server/linux/netfilter/gta3xlwifi_uid_permissions.h": {
+      "project": "system/netd",
+      "path": "server/linux/netfilter/gta3xlwifi_uid_permissions.h",
+      "before_sha256": null,
+      "after_sha256": "92d572695e88845aebb03c20474c804f56cd4c39c9b22dc01c355c0d81123945",
+      "provenance": {
+        "origin": "work/clat-coordinator24-20261115-01/linux/netfilter/gta3xlwifi_uid_permissions.h",
+        "sha256": "92d572695e88845aebb03c20474c804f56cd4c39c9b22dc01c355c0d81123945"
+      }
+    },
+    "packages/modules/Connectivity/bpf/loader/Android.bp": {
+      "project": "packages/modules/Connectivity",
+      "path": "bpf/loader/Android.bp",
+      "before_sha256": "f1a04495e7d762d93f05b4fa3b46df960cce237ea2570dc0b55526fc8fc8e1e6",
+      "after_sha256": "11f6afbc9de70aa5ee9db7a334c57674df18a27b072b4b66120e20a589f16957",
+      "provenance": {
+        "origin": "work/clat-coordinator24-20261115-01/loader.Android.bp",
+        "sha256": "11f6afbc9de70aa5ee9db7a334c57674df18a27b072b4b66120e20a589f16957"
+      }
+    },
+    "system/netd/server/main.cpp": {
+      "project": "system/netd",
+      "path": "server/main.cpp",
+      "before_sha256": "8eb0beb43bc035a45dc5bbc89af188374127c7e31c31c207ad7bee5d80801222",
+      "after_sha256": "ed0a78ad134607d03d2fbd5d0a523a4f331bc23f2fbaa79f0a17ae9d9d2b14f5",
+      "provenance": {
+        "origin": "work/clat-coordinator24-20261115-01/main.cpp",
+        "sha256": "ed0a78ad134607d03d2fbd5d0a523a4f331bc23f2fbaa79f0a17ae9d9d2b14f5"
+      }
+    },
+    "packages/modules/Connectivity/bpf/loader/netbpfload.gta3xlwifi.rc": {
+      "project": "packages/modules/Connectivity",
+      "path": "bpf/loader/netbpfload.gta3xlwifi.rc",
+      "before_sha256": null,
+      "after_sha256": "b1763140748f5f41234f2999b73881bf08ee663a85cca44ebc41bae3d8ed6bf8",
+      "provenance": {
+        "origin": "work/clat-coordinator24-20261115-01/netbpfload.gta3xlwifi.rc",
+        "sha256": "b1763140748f5f41234f2999b73881bf08ee663a85cca44ebc41bae3d8ed6bf8"
+      }
+    },
+    "system/netd/server/projection-guards.inc": {
+      "project": "system/netd",
+      "path": "server/projection-guards.inc",
+      "before_sha256": null,
+      "after_sha256": "09b4d36ba5c78053f1fc0713621ca40405c214016c7f5a8b69e3459587d4ba7e",
+      "provenance": {
+        "origin": "work/clat-coordinator24-20261115-01/projection-guards.inc",
+        "sha256": "09b4d36ba5c78053f1fc0713621ca40405c214016c7f5a8b69e3459587d4ba7e"
+      }
+    },
+    "packages/modules/Connectivity/bpf/dns_helper/Gta3xlwifiDnsPolicy.h": {
+      "project": "packages/modules/Connectivity",
+      "path": "bpf/dns_helper/Gta3xlwifiDnsPolicy.h",
+      "before_sha256": null,
+      "after_sha256": "84810aad39d1aae02f1041894cd03aea55671219f475aec06455507d35ee2997",
+      "provenance": {
+        "origin": "work/clat-coordinator24-20261115-01/Gta3xlwifiDnsPolicy.h",
+        "sha256": "84810aad39d1aae02f1041894cd03aea55671219f475aec06455507d35ee2997"
+      }
+    },
+    "packages/modules/DnsResolver/Gta3xlwifiDnsPolicy.h": {
+      "project": "packages/modules/DnsResolver",
+      "path": "Gta3xlwifiDnsPolicy.h",
+      "before_sha256": null,
+      "after_sha256": "84810aad39d1aae02f1041894cd03aea55671219f475aec06455507d35ee2997",
+      "provenance": {
+        "origin": "work/clat-coordinator24-20261115-01/Gta3xlwifiDnsPolicy.h",
+        "sha256": "84810aad39d1aae02f1041894cd03aea55671219f475aec06455507d35ee2997"
+      }
+    },
+    "external/iptables/extensions/libxt_gta3xlwifi_appid.c": {
+      "project": "external/iptables",
+      "path": "extensions/libxt_gta3xlwifi_appid.c",
+      "before_sha256": null,
+      "after_sha256": "4e3f868d52d72f707692163d1a002e6775f0ad88c4d851d6923ee152fc89ea33",
+      "provenance": {
+        "origin": "work/xtables-iface-stats24-20261113-01/extensions/libxt_gta3xlwifi_appid.c",
+        "sha256": "4e3f868d52d72f707692163d1a002e6775f0ad88c4d851d6923ee152fc89ea33"
+      }
+    },
+    "external/iptables/extensions/libxt_gta3xlwifi_bad_iif.c": {
+      "project": "external/iptables",
+      "path": "extensions/libxt_gta3xlwifi_bad_iif.c",
+      "before_sha256": null,
+      "after_sha256": "cf474fd00d5d38a6b0eb7322f2faeaee1d89336e69c4d9791aa4754d01d4b17d",
+      "provenance": {
+        "origin": "work/xtables-iface-stats24-20261113-01/extensions/libxt_gta3xlwifi_bad_iif.c",
+        "sha256": "cf474fd00d5d38a6b0eb7322f2faeaee1d89336e69c4d9791aa4754d01d4b17d"
+      }
+    },
+    "external/iptables/extensions/libxt_gta3xlwifi_guard.c": {
+      "project": "external/iptables",
+      "path": "extensions/libxt_gta3xlwifi_guard.c",
+      "before_sha256": null,
+      "after_sha256": "a976d9215ae167143e3e5d9f023a90cff5e1eddcab8bc06514cf589c486aebc1",
+      "provenance": {
+        "origin": "work/xtables-iface-stats24-20261113-01/extensions/libxt_gta3xlwifi_guard.c",
+        "sha256": "a976d9215ae167143e3e5d9f023a90cff5e1eddcab8bc06514cf589c486aebc1"
+      }
+    },
+    "external/iptables/extensions/libxt_gta3xlwifi_iface_stats.c": {
+      "project": "external/iptables",
+      "path": "extensions/libxt_gta3xlwifi_iface_stats.c",
+      "before_sha256": null,
+      "after_sha256": "821efda7fd55e024524619e8d736469394c32b492cb32c5742e56f76b90ed50f",
+      "provenance": {
+        "origin": "work/xtables-iface-stats24-20261113-01/extensions/libxt_gta3xlwifi_iface_stats.c",
+        "sha256": "821efda7fd55e024524619e8d736469394c32b492cb32c5742e56f76b90ed50f"
+      }
+    },
+    "external/iptables/extensions/libxt_gta3xlwifi_ingress_discard.c": {
+      "project": "external/iptables",
+      "path": "extensions/libxt_gta3xlwifi_ingress_discard.c",
+      "before_sha256": null,
+      "after_sha256": "7c6ac6f8d9a84eeb49a07e8da33a41441db6aa1b26db5953551ad70c592781ce",
+      "provenance": {
+        "origin": "work/xtables-iface-stats24-20261113-01/extensions/libxt_gta3xlwifi_ingress_discard.c",
+        "sha256": "7c6ac6f8d9a84eeb49a07e8da33a41441db6aa1b26db5953551ad70c592781ce"
+      }
+    },
+    "external/iptables/extensions/libxt_gta3xlwifi_lna.c": {
+      "project": "external/iptables",
+      "path": "extensions/libxt_gta3xlwifi_lna.c",
+      "before_sha256": null,
+      "after_sha256": "058609232c024fd193cbcf04ee9bb4e7b020b2b9735f96563774e5486c76cea1",
+      "provenance": {
+        "origin": "work/xtables-iface-stats24-20261113-01/extensions/libxt_gta3xlwifi_lna.c",
+        "sha256": "058609232c024fd193cbcf04ee9bb4e7b020b2b9735f96563774e5486c76cea1"
+      }
+    },
+    "external/iptables/extensions/libxt_gta3xlwifi_non_loopback.c": {
+      "project": "external/iptables",
+      "path": "extensions/libxt_gta3xlwifi_non_loopback.c",
+      "before_sha256": null,
+      "after_sha256": "838319e160e31d3efb877831620f7a512eaf2000099e65feacf71bbf07599d4d",
+      "provenance": {
+        "origin": "work/xtables-iface-stats24-20261113-01/extensions/libxt_gta3xlwifi_non_loopback.c",
+        "sha256": "838319e160e31d3efb877831620f7a512eaf2000099e65feacf71bbf07599d4d"
+      }
+    },
+    "external/iptables/extensions/libxt_gta3xlwifi_owner_skip.c": {
+      "project": "external/iptables",
+      "path": "extensions/libxt_gta3xlwifi_owner_skip.c",
+      "before_sha256": null,
+      "after_sha256": "43b765027343f0309910d5daec90d92133b61e081edae9fd6ccfa72f09ed1f4e",
+      "provenance": {
+        "origin": "work/xtables-iface-stats24-20261113-01/extensions/libxt_gta3xlwifi_owner_skip.c",
+        "sha256": "43b765027343f0309910d5daec90d92133b61e081edae9fd6ccfa72f09ed1f4e"
+      }
+    },
+    "external/iptables/extensions/libxt_gta3xlwifi_raw_appid.c": {
+      "project": "external/iptables",
+      "path": "extensions/libxt_gta3xlwifi_raw_appid.c",
+      "before_sha256": null,
+      "after_sha256": "aa42d0f3b582d6490ea49ae341de8efeb253a2dc4cc2687397242db625038db1",
+      "provenance": {
+        "origin": "work/xtables-iface-stats24-20261113-01/extensions/libxt_gta3xlwifi_raw_appid.c",
+        "sha256": "aa42d0f3b582d6490ea49ae341de8efeb253a2dc4cc2687397242db625038db1"
+      }
+    },
+    "external/iptables/extensions/libxt_gta3xlwifi_raw_uid.c": {
+      "project": "external/iptables",
+      "path": "extensions/libxt_gta3xlwifi_raw_uid.c",
+      "before_sha256": null,
+      "after_sha256": "fdf8d7a1ab9ea62ebc076121ce8f043a2fb0a4a18a524b9b85a1906e9506a936",
+      "provenance": {
+        "origin": "work/xtables-iface-stats24-20261113-01/extensions/libxt_gta3xlwifi_raw_uid.c",
+        "sha256": "fdf8d7a1ab9ea62ebc076121ce8f043a2fb0a4a18a524b9b85a1906e9506a936"
+      }
+    },
+    "external/iptables/include/linux/netfilter/gta3xlwifi_appid.h": {
+      "project": "external/iptables",
+      "path": "include/linux/netfilter/gta3xlwifi_appid.h",
+      "before_sha256": null,
+      "after_sha256": "0d06023da8290add60e73c90679328af285431609bca34260453d7055810067e",
+      "provenance": {
+        "origin": "work/xtables-iface-stats24-20261113-01/include/linux/netfilter/gta3xlwifi_appid.h",
+        "sha256": "0d06023da8290add60e73c90679328af285431609bca34260453d7055810067e"
+      }
+    },
+    "external/iptables/include/linux/netfilter/gta3xlwifi_iface_stats.h": {
+      "project": "external/iptables",
+      "path": "include/linux/netfilter/gta3xlwifi_iface_stats.h",
+      "before_sha256": null,
+      "after_sha256": "949ed6e347715c339267b45b7705a65de0ccf8840fbf8ab4bb7198dbc044d967",
+      "provenance": {
+        "origin": "work/xtables-iface-stats24-20261113-01/include/linux/netfilter/gta3xlwifi_iface_stats.h",
+        "sha256": "949ed6e347715c339267b45b7705a65de0ccf8840fbf8ab4bb7198dbc044d967"
+      }
+    },
+    "external/iptables/include/linux/netfilter/gta3xlwifi_ingress.h": {
+      "project": "external/iptables",
+      "path": "include/linux/netfilter/gta3xlwifi_ingress.h",
+      "before_sha256": null,
+      "after_sha256": "5d04d156089975356fedf9a870ac8737dd7ac8a1333c6f17977c9c65beaa2260",
+      "provenance": {
+        "origin": "work/xtables-iface-stats24-20261113-01/include/linux/netfilter/gta3xlwifi_ingress.h",
+        "sha256": "5d04d156089975356fedf9a870ac8737dd7ac8a1333c6f17977c9c65beaa2260"
+      }
+    },
+    "external/iptables/include/linux/netfilter/gta3xlwifi_local_network.h": {
+      "project": "external/iptables",
+      "path": "include/linux/netfilter/gta3xlwifi_local_network.h",
+      "before_sha256": null,
+      "after_sha256": "78d66f9b5c834c56d035ea108c4323c849186df3c98d3fb3a48c3de53797b7be",
+      "provenance": {
+        "origin": "work/xtables-iface-stats24-20261113-01/include/linux/netfilter/gta3xlwifi_local_network.h",
+        "sha256": "78d66f9b5c834c56d035ea108c4323c849186df3c98d3fb3a48c3de53797b7be"
+      }
+    },
+    "external/iptables/include/linux/netfilter/gta3xlwifi_netpolicy.h": {
+      "project": "external/iptables",
+      "path": "include/linux/netfilter/gta3xlwifi_netpolicy.h",
+      "before_sha256": null,
+      "after_sha256": "fd53c8c287840054ac9234efdabd88302140d95fc1488c57080de499a835d54c",
+      "provenance": {
+        "origin": "work/xtables-iface-stats24-20261113-01/include/linux/netfilter/gta3xlwifi_netpolicy.h",
+        "sha256": "fd53c8c287840054ac9234efdabd88302140d95fc1488c57080de499a835d54c"
+      }
+    },
+    "external/iptables/include/linux/netfilter/gta3xlwifi_owner_skip.h": {
+      "project": "external/iptables",
+      "path": "include/linux/netfilter/gta3xlwifi_owner_skip.h",
+      "before_sha256": null,
+      "after_sha256": "966dc6938d9c2e7bf172083f10b6f380a6f8795432901ff456a2822b5cf30796",
+      "provenance": {
+        "origin": "work/xtables-iface-stats24-20261113-01/include/linux/netfilter/gta3xlwifi_owner_skip.h",
+        "sha256": "966dc6938d9c2e7bf172083f10b6f380a6f8795432901ff456a2822b5cf30796"
+      }
+    },
+    "external/iptables/include/linux/netfilter/gta3xlwifi_socket_uid.h": {
+      "project": "external/iptables",
+      "path": "include/linux/netfilter/gta3xlwifi_socket_uid.h",
+      "before_sha256": null,
+      "after_sha256": "a91a730ca2eb53a0397a7bcd8b8d8b32fb9612908a70a279a1d9c0c02acbcffb",
+      "provenance": {
+        "origin": "work/xtables-iface-stats24-20261113-01/include/linux/netfilter/gta3xlwifi_socket_uid.h",
+        "sha256": "a91a730ca2eb53a0397a7bcd8b8d8b32fb9612908a70a279a1d9c0c02acbcffb"
+      }
+    },
+    "frameworks/base/services/core/java/com/android/server/permission/PermissionBpfMap.java": {
+      "project": "frameworks/base",
+      "path": "services/core/java/com/android/server/permission/PermissionBpfMap.java",
+      "before_sha256": "58eb82e57b908d76df6d5ecb64e23f1d0e9ca26cc5aa6cedfb52b0878ce3c884",
+      "after_sha256": "f9b21d46a506843cafbd2a4974c62817a9e6abeaf33b7ddf2712a7456009bca7",
+      "provenance": {
+        "origin": "work/permission-install-identity24-20261114-01/PermissionBpfMap.java",
+        "sha256": "f9b21d46a506843cafbd2a4974c62817a9e6abeaf33b7ddf2712a7456009bca7"
+      }
+    },
+    "frameworks/base/services/permission/java/com/android/server/permission/access/permission/PermissionService.kt": {
+      "project": "frameworks/base",
+      "path": "services/permission/java/com/android/server/permission/access/permission/PermissionService.kt",
+      "before_sha256": "ee4cacdeb9ec6e3a1a0d00d1c7b4b98d61c0d1e8dfbc45446b4429ae11dedc03",
+      "after_sha256": "06abdba853252d6683826bed96cb7f5971cd91be56ed9c1ce62ac5de5c525955",
+      "provenance": {
+        "origin": "work/permission-install-identity24-20261114-01/PermissionService.kt",
+        "sha256": "06abdba853252d6683826bed96cb7f5971cd91be56ed9c1ce62ac5de5c525955"
+      }
+    },
+    "frameworks/base/services/permission/java/com/android/server/permission/access/AccessCheckingService.kt": {
+      "project": "frameworks/base",
+      "path": "services/permission/java/com/android/server/permission/access/AccessCheckingService.kt",
+      "before_sha256": "a264e39e47db543fd82bcea332bad03c0c13951e37cf74c67fe96e6210ea23d0",
+      "after_sha256": "5e4498d82f32aa5340f6d65c0bd698df8f214e1b143edd848e03909d2be22756",
+      "provenance": {
+        "origin": "work/permission-install-identity24-20261114-01/AccessCheckingService.kt",
+        "sha256": "5e4498d82f32aa5340f6d65c0bd698df8f214e1b143edd848e03909d2be22756"
+      }
+    },
+    "frameworks/base/services/api/current.txt": {
+      "project": "frameworks/base",
+      "path": "services/api/current.txt",
+      "before_sha256": "b2ac4f33c15eb3961dadfc2a1a9810f8a5b8b1cffe0b209810a921c9ed6ae100",
+      "after_sha256": "958cadb5c974eb447fc555af20f54db59b80ae3e4ad044aaa5154436343c0a44",
+      "provenance": {
+        "origin": "work/permission-install-identity24-20261114-01/current.txt",
+        "sha256": "958cadb5c974eb447fc555af20f54db59b80ae3e4ad044aaa5154436343c0a44"
+      }
+    },
+    "system/netd/server/Android.bp": {
+      "project": "system/netd",
+      "path": "server/Android.bp",
+      "before_sha256": "4177df88b02389011ab0a822821bc6f340d5511e982dd61e34e6de5669645d21",
+      "after_sha256": "bc76425855c835fb60df621df891dbaa47289727a0e8366c8c9f67717a16ebb6",
+      "provenance": {
+        "origin": "work/source-composition24-20261115-01/baseline/system/netd/server/Android.bp",
+        "composed": true,
+        "sha256": "bc76425855c835fb60df621df891dbaa47289727a0e8366c8c9f67717a16ebb6"
+      }
+    },
+    "packages/modules/Connectivity/service/Android.bp": {
+      "project": "packages/modules/Connectivity",
+      "path": "service/Android.bp",
+      "before_sha256": "f118cc0ac04460b290d84248c511539ec245999be73901fd6d59df1b3eae888f",
+      "after_sha256": "afbae02cef83fc44444d36c4d0bb6d3d62a6f4a50c905984b1279098dc1c4964",
+      "provenance": {
+        "origin": "work/source-composition24-20261115-01/baseline/packages/modules/Connectivity/service/Android.bp",
+        "composed": true,
+        "sha256": "afbae02cef83fc44444d36c4d0bb6d3d62a6f4a50c905984b1279098dc1c4964"
+      }
+    },
+    "packages/modules/Connectivity/service/jarjar-excludes.txt": {
+      "project": "packages/modules/Connectivity",
+      "path": "service/jarjar-excludes.txt",
+      "before_sha256": "1e65d9b49fdb82d26297b9def92310c8f85513111d3cf66404769c75328a102b",
+      "after_sha256": "b64e1af817ce44411eb4ca623ca87c6781c1e11a6eeeb345362ab4f9be494c05",
+      "provenance": {
+        "origin": "integration/lineage-24.0/experiments/private-aidl-jarjar-20261115-02/jarjar-excludes.txt",
+        "sha256": "b64e1af817ce44411eb4ca623ca87c6781c1e11a6eeeb345362ab4f9be494c05"
+      }
+    }
+  },
+  "proof_reports_sha256": {
+    "/srv/android/artifacts/lineage-24.0-arm64/clat-coordinator-native-20261115-02/report.json": "8f07e5181d18288f340982a2a4f956e2d4d4e7c3ffefe9a5efba334a44d39cb9",
+    "/srv/android/artifacts/lineage-24.0-arm64/permission-install-identity-native-20261114-01/report.json": "30ec518b189fa7e89ebe23e7be345a3e189f86d57a51a191b641d698758acc9a",
+    "/srv/android/artifacts/lineage-24.0-arm64/permission-install-identity-api-20261114-01/report.json": "5de3326188e5fed8d0a2e7f210ba8448259d5d41c2df6a64dc4c3fc7caae6b9f",
+    "/srv/android/artifacts/lineage-24.0-arm64/xtables-iface-stats-native-20261113-01/report.json": "95bd2d79039e00859c532c8328c2efcbecefa1cf5c1ad4d8f8088f0738f0c39b",
+    "/srv/android/artifacts/lineage-24.0-arm64/private-aidl-jarjar-20261115-02/report.json": "c0abbc5655d52632f4e8abbb3bb83e695079ab99881108af1878d1bc907f80cb"
+  },
+  "prebuilts": {
+    "Image": "33c1a0d1b9e2696decd53fbedfc2231385b74464f4058a54b93ff06ff7c72553",
+    "vendor.img": "a847a527931d61e5702b8a025210c84eb88a37ef1e60df93b6393a16dae9183a",
+    "dtbo.img": "b9041c37713a745290d9a0203423436b6caa7a1307ced79b6963b4f1f0271c4b"
+  },
+  "policy_changed": false,
+  "flash_ready": false
+}

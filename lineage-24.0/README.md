@@ -14,7 +14,11 @@ The initial 23.2 port patches compiled successfully on Android 17 in
 `native-policy-20261101-01` (exit 0, followed by full source audit). Selected
 ARM/ARM64 ELF outputs are recorded in the reports; this is build/link evidence.
 
-Active snapshot **port-20261106-04** locks 1,243 projects and **17 exact patches**.
+Active snapshot **port-20261115-01** locks 1,243 projects and **20 exact patches**.
+It selects109 individually verified network/permission/iptables/source/module
+inputs over preserved parent port-20261106-04. Actual Soong graph generation
+passes; targeted native/APEX Java/permission module compilation is in progress.
+Kernel/vendor/DTBO prebuilts, device HEAD and policy selection remain unchanged.
 It includes the device-scoped legacy v1 fscrypt keyring source integration;
 actual init/vold module compilation and multilib keyutils checks have passed, as recorded below.
 It adds a source backport of policy 30.0 compatibility data and generator modules,

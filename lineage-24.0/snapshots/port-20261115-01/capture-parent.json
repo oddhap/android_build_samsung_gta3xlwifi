@@ -1,0 +1,14 @@
+{
+  "parent_snapshot": "port-20261106-04",
+  "parent_manifest_sha256": "31f142b6c2e5f04f14ed9cdecb3cd6b13716508b428ad8c86d3d3332d6a24594",
+  "parent_lock_sha256": "fd66f864c411f7318618787055de13394f656fb783dc5eda866eb90a7032f037",
+  "composition_selection_sha256": "b43b601099e7e447c4ba4fca705e2941c81ecc7498ebc7851031f50d9eedb413",
+  "proof_reports_sha256": {
+    "/srv/android/artifacts/lineage-24.0-arm64/clat-coordinator-native-20261115-02/report.json": "8f07e5181d18288f340982a2a4f956e2d4d4e7c3ffefe9a5efba334a44d39cb9",
+    "/srv/android/artifacts/lineage-24.0-arm64/permission-install-identity-native-20261114-01/report.json": "30ec518b189fa7e89ebe23e7be345a3e189f86d57a51a191b641d698758acc9a",
+    "/srv/android/artifacts/lineage-24.0-arm64/permission-install-identity-api-20261114-01/report.json": "5de3326188e5fed8d0a2e7f210ba8448259d5d41c2df6a64dc4c3fc7caae6b9f",
+    "/srv/android/artifacts/lineage-24.0-arm64/xtables-iface-stats-native-20261113-01/report.json": "95bd2d79039e00859c532c8328c2efcbecefa1cf5c1ad4d8f8088f0738f0c39b",
+    "/srv/android/artifacts/lineage-24.0-arm64/private-aidl-jarjar-20261115-02/report.json": "c0abbc5655d52632f4e8abbb3bb83e695079ab99881108af1878d1bc907f80cb"
+  },
+  "kernel_prebuilts_and_policy_unchanged": true
+}
