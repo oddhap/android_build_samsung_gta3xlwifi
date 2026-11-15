@@ -1,0 +1,14 @@
+passed_cases=1065 start_fault_points=29 replace_fault_points=109
+passed_cases=2378 start_fault_points=75 replace_fault_points=121
+owner_api_cases=293 total_cases=2671
+runtime_owner_cases=57 total_cases=2728
+controller_owner_cases=474 prepare_fault_points=6 finish_fault_points=70 total_cases=3202
+active_owner_cases=63 budget_fault_points=5 total_cases=3265
+tagging_owner_cases=19446 oracle_comparisons=7680 total_cases=22711
+held_provider_owner_cases=328 verification_fault_points=33 total_cases=23039
+policy_frame_service_cases=2829 total_cases=25868
+dns_owner_cases=193 prior_plus_new_cases=26061 concurrent_reads=200
+stats_rpc_cases=133 total_cases=26194
+iface_name_cases=101 total_cases=26295
+fatal_cases=34 total_cases=26329
+held_counterset_cases=10 total_cases=26339

@@ -1,0 +1,28 @@
+{
+  "inactive": true,
+  "prerequisites": [
+    "stats-factory-20261115-01"
+  ],
+  "files": {
+    "packages/modules/Connectivity/service/src/com/android/server/Gta3xlwifiTrafficStats.java": {
+      "original_sha256": null,
+      "candidate_sha256": "8137a7b83b12184ea7d22feb5221abcd556ece646a943ad1c75a45bf5bf566ba"
+    },
+    "packages/modules/Connectivity/service-t/src/com/android/server/net/NetworkStatsFactory.java": {
+      "original_sha256": "a3bbb1680a5dac6a0bf08fac1cceaac0eefe33678c3a8b9cafd2c2aab9e7753d",
+      "candidate_sha256": "dfa01bcfe41a71b6f700e35d71d6130da617bf50a023df690cc2b62b19025d10"
+    },
+    "packages/modules/Connectivity/service-t/src/com/android/server/net/NetworkStatsService.java": {
+      "original_sha256": "beb736f38d18e160a8c7d39038e2d5d8e6c324c37e51b93ca6860637fdec0712",
+      "candidate_sha256": "9bb3028ba19b89d2973f96be50ce464f2207bdd4e166b167503eaf1d851333bd"
+    },
+    "system/netd/server/Gta3xlwifiSocketPolicyProjection.cpp": {
+      "original_sha256": "749db1c2a2f6776eba7aefc19886d351d30d20cd3f77b7497c1bf4186cde422b",
+      "candidate_sha256": "8e96975ea2101b816c7c11fda942f2ed3295accbce8199c99d6ced5c84f255e7"
+    }
+  },
+  "selected_source_changed": false,
+  "NetworkStatsService_BPF_initialization_listener_and_UID_cleanup_pending": true,
+  "hardware_tested": false,
+  "flash_ready": false
+}

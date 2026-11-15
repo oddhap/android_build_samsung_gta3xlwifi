@@ -1,0 +1,201 @@
+--- /dev/null
++++ b/packages/modules/Connectivity/service/src/com/android/server/Gta3xlwifiTrafficStats.java
+@@ -0,0 +1,66 @@
++/* SPDX-License-Identifier: Apache-2.0 */
++package com.android.server;
++
++import android.net.NetworkStats;
++import java.io.IOException;
++import java.util.HashMap;
++import java.util.Map;
++import java.util.Objects;
++
++/** Nonconsuming real packet counters for existing TrafficStats service APIs. @hide */
++public final class Gta3xlwifiTrafficStats {
++    private final Gta3xlwifiStatsAccess mStats;
++    public Gta3xlwifiTrafficStats(Gta3xlwifiStatsAccess stats) {
++        mStats = Objects.requireNonNull(stats);
++    }
++    /** A complete, lossless table proves absent UID counters are zero, as A17 ENOENT does. */
++    public NetworkStats.Entry uid(int uid) throws IOException {
++        if (uid < 0) throw new IOException("Invalid UID");
++        Gta3xlwifiStatsAccess.Snapshot apps = mStats.readApps(); apps.requireLossless();
++        NetworkStats.Entry out = empty(null, uid);
++        for (int i = 0; i < apps.count; ++i) {
++            long[] row = apps.row(i);
++            if (row[0] == uid) { add(out, row); break; }
++        }
++        return out;
++    }
++    /** null is the same real all-interface wildcard as bpfGetIfaceStatsInternal. */
++    public NetworkStats.Entry iface(String iface) throws IOException {
++        Gta3xlwifiStatsAccess.Snapshot interfaces = mStats.readInterfaces();
++        interfaces.requireLossless();
++        Map<Long, String> names = null;
++        if (iface != null) {
++            Gta3xlwifiStatsAccess.Snapshot history = mStats.readInterfaceNames();
++            history.requireLossless(); names = new HashMap<>();
++            for (int i = 0; i < history.count; ++i) {
++                names.put(history.row(i)[0], history.interfaceName(i));
++            }
++        }
++        NetworkStats.Entry out = empty(iface, NetworkStats.UID_ALL);
++        for (int i = 0; i < interfaces.count; ++i) {
++            long[] row = interfaces.row(i);
++            if (iface != null) {
++                String actual = names.get(row[0]);
++                if (actual == null) throw new IOException("Incomplete interface-name history");
++                if (!iface.equals(actual)) continue;
++            }
++            add(out, row);
++        }
++        return out;
++    }
++    private static NetworkStats.Entry empty(String iface, int uid) {
++        return new NetworkStats.Entry(iface, uid, NetworkStats.SET_ALL, 0,
++                0, 0, 0, 0, 0, 0, 0, 0);
++    }
++    private static void add(NetworkStats.Entry entry, long[] row) throws IOException {
++        for (int i = 1; i < 5; ++i) {
++            if (row[i] < 0) throw new IOException("Unsigned TrafficStats counter exceeds signed range");
++        }
++        try {
++            entry.rxPackets = Math.addExact(entry.rxPackets, row[1]);
++            entry.rxBytes = Math.addExact(entry.rxBytes, row[2]);
++            entry.txPackets = Math.addExact(entry.txPackets, row[3]);
++            entry.txBytes = Math.addExact(entry.txBytes, row[4]);
++        } catch (ArithmeticException overflow) { throw new IOException("TrafficStats sum overflow", overflow); }
++    }
++}
+--- a/packages/modules/Connectivity/service-t/src/com/android/server/net/NetworkStatsFactory.java
++++ b/packages/modules/Connectivity/service-t/src/com/android/server/net/NetworkStatsFactory.java
+@@ -255,6 +255,9 @@
+                 CONFIG_PER_UID_TAG_THROTTLING_THRESHOLD, DEFAULT_TAGS_PER_UID_THRESHOLD);
+     }
+ 
++    /** Existing captured handle; no client/policy lock is acquired here. */
++    public Gta3xlwifiStatsAccess gta3xlwifiStatsAccess() { return mGtaStatsAccess; }
++
+     /** Called by the owning service with its actual selected protected statistics directory. */
+     public void initializePrivateStats(File directory) {
+         if (!mLegacyStats) return;
+--- a/packages/modules/Connectivity/service-t/src/com/android/server/net/NetworkStatsService.java
++++ b/packages/modules/Connectivity/service-t/src/com/android/server/net/NetworkStatsService.java
+@@ -89,6 +89,8 @@
+ import static com.android.tethering.flags.Flags.FLAG_NETSTATS_USE_SINCE_BOOT_COLLECTION;
+ 
+ import android.annotation.NonNull;
++import com.android.server.Gta3xlwifiStatsAccess;
++import com.android.server.Gta3xlwifiTrafficStats;
+ import android.annotation.Nullable;
+ import android.annotation.TargetApi;
+ import android.app.AlarmManager;
+@@ -462,6 +464,8 @@
+      * mActiveUidCounterSet to avoid accessing kernel too frequently.
+      */
+     private SparseIntArray mActiveUidCounterSet = new SparseIntArray();
++    private final Gta3xlwifiStatsAccess mGtaStats;
++    private final Gta3xlwifiTrafficStats mGtaTrafficStats;
+     private final IBpfMap<S32, U8> mUidCounterSetMap;
+     private final IBpfMap<S64, CookieTagMapValue> mCookieTagMap;
+     private final IBpfMap<StatsMapKey, StatsMapValue> mStatsMapA;
+@@ -671,6 +675,8 @@
+         }
+ 
+         mStatsFactory.initializePrivateStats(mStatsDir);
++        mGtaStats = mStatsFactory.gta3xlwifiStatsAccess();
++        mGtaTrafficStats = mGtaStats == null ? null : new Gta3xlwifiTrafficStats(mGtaStats);
+ 
+         final HandlerThread handlerThread = mDeps.makeHandlerThread();
+         handlerThread.start();
+@@ -2051,6 +2057,13 @@
+     }
+ 
+     private void setKernelCounterSet(int uid, int set) {
++        if (mGtaStats != null) {
++            try { mGtaStats.setCounterset(uid, set); }
++            catch (IOException failure) {
++                throw new IllegalStateException("Private counterset update failed", failure);
++            }
++            return;
++        }
+         if (mUidCounterSetMap == null) {
+             Log.wtf(TAG, "Fail to set UidCounterSet: Null bpf map");
+             return;
+@@ -2080,8 +2093,14 @@
+             final int set = uidForeground ? SET_FOREGROUND : SET_DEFAULT;
+             final int oldSet = mActiveUidCounterSet.get(uid, SET_DEFAULT);
+             if (oldSet != set) {
+-                mActiveUidCounterSet.put(uid, set);
+-                setKernelCounterSet(uid, set);
++                if (mGtaStats != null) {
++                    // Publish the cached private set only after genuine kernel success.
++                    setKernelCounterSet(uid, set);
++                    mActiveUidCounterSet.put(uid, set);
++                } else {
++                    mActiveUidCounterSet.put(uid, set);
++                    setKernelCounterSet(uid, set);
++                }
+             }
+         }
+     }
+@@ -2191,6 +2210,15 @@
+             mStatsObservers.unregister(request, callingUid);
+         } finally {
+             Binder.restoreCallingIdentity(token);
++        }
++    }
++
++    private NetworkStats.Entry privateTrafficStats(boolean uidQuery, int uid, String iface) {
++        try { return uidQuery ? mGtaTrafficStats.uid(uid) : mGtaTrafficStats.iface(iface); }
++        catch (IOException failure) {
++            Log.w(TAG, "Private TrafficStats counters unavailable", failure);
++            // Existing nullable binder result signals unsupported/unavailable, never invented zero.
++            return null;
+         }
+     }
+ 
+@@ -2215,12 +2243,14 @@
+         if (callingUid != android.os.Process.SYSTEM_UID && callingUid != uid) {
+             return null;
+         }
+-        return getStatsResultFromEntryOrNull(mDeps.nativeGetUidStat(uid));
++        return getStatsResultFromEntryOrNull(mGtaTrafficStats == null
++                ? mDeps.nativeGetUidStat(uid) : privateTrafficStats(true, uid, null));
+     }
+ 
+     @Nullable
+     private NetworkStats.Entry getIfaceStatsInternal(@NonNull String iface) {
+-        final NetworkStats.Entry entry = mDeps.nativeGetIfaceStat(iface);
++        final NetworkStats.Entry entry = mGtaTrafficStats == null
++                ? mDeps.nativeGetIfaceStat(iface) : privateTrafficStats(false, 0, iface);
+         if (entry == null) {
+             return null;
+         }
+@@ -2247,7 +2277,8 @@
+ 
+     @Nullable
+     private NetworkStats.Entry getTotalStatsInternal() {
+-        final NetworkStats.Entry entry = mDeps.nativeGetTotalStat();
++        final NetworkStats.Entry entry = mGtaTrafficStats == null
++                ? mDeps.nativeGetTotalStat() : privateTrafficStats(false, 0, null);
+         if (entry == null) {
+             return null;
+         }
+--- a/system/netd/server/Gta3xlwifiSocketPolicyProjection.cpp
++++ b/system/netd/server/Gta3xlwifiSocketPolicyProjection.cpp
+@@ -399,9 +399,11 @@
+ int SocketPolicyProjection::setPacketCounterset(int32_t uid, uint32_t counterset) {
+   if (uid < 0 || counterset > 1) return -EINVAL;
+   std::lock_guard<std::mutex> lock(mMutex);
+-  int result = packetAccountingAvailableLocked();
+-  if (result) return result;
+-  result = mLease.setPacketCounterset(static_cast<uint32_t>(uid), counterset);
++  // Counterset metadata may be set after real producers were verified while
++  // HOLD still blocks traffic. It neither publishes policy nor releases HOLD.
++  if (!mStarted) return -EAGAIN;
++  if (!mAccountingEnabled) return -EOPNOTSUPP;
++  int result = mLease.setPacketCounterset(static_cast<uint32_t>(uid), counterset);
+   return result ? quarantine(result) : 0;
+ }
+ int SocketPolicyProjection::deleteUidPacketStats(int32_t uid) {
