@@ -32,6 +32,27 @@ checks are separate from Android execution. Optional GPU BPF accounting still
 reports unavailable, rather than invented counters. Existing safety/installer
 and strict SELinux checks remain enforced.
 
+## Fenced UID cleanup and kernel receipts — November 15
+
+Inactive UID cleanup now uses the existing native provider/transport, fullUID1000
+session checks and generation/epoch fences. Its12-method AIDL/CFI/Java compile and
+1243/17 audits pass; owner/transport/kernel-function host checks pass26401/3006/
+46488. Java replays prior suites and passes7 new cleanup cases. See
+uid-cleanup-20261115-01 (9fab004). Durable NSS routing remains pending.
+
+A subsequent isolated kernel fixes the missing interface-name opcode in both
+ioctl routing guards, using one shared exact operation list. It also retains
+nonce-keyed UID cleanup PREPARED/COMPLETE receipts across daemon lifetimes;
+completed duplicate requests preserve new records for a reused UID. Host checks
+pass5454 with9830400 A17 GSO comparisons and two80000-update concurrency cases.
+Actual ARM32/64 UAPI compilation, full Image/modules/Gator and complete source/
+Android audits pass. See kernel-uid-receipt-20261115-01. No hardware validation.
+
+Native receipt integration, durable factory intent/startup admission and explicit
+strict policy for ioctl6763 are still required. HOLD does not imply unchanged
+counters: dropped ingress is genuinely counted. No blind UID replay is allowed.
+Selected source/prebuilts/policy remain unchanged; no flash-ready ROM exists.
+
 ## Actual factory and TrafficStats routing — November 15
 
 Inactive candidate `traffic-stats24-20261115-01` contains complete durable factory
