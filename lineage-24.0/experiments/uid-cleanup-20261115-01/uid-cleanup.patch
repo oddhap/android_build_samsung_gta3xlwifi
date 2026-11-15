@@ -1,0 +1,190 @@
+--- a/system/netd/server/Gta3xlwifiHeldProvider.cpp
++++ b/system/netd/server/Gta3xlwifiHeldProvider.cpp
+@@ -26,6 +26,9 @@
+     if (uid > INT_MAX) return -EINVAL;
+     return owner ? owner->isNetworkingBlocked(uid, metered) : -ENOTCONN;
+ }
++int deleteTags(uint32_t uid) {
++    return transport.deleteUidTags(uid);
++}
+ int untag(int fd) {
+     return owner ? owner->untagSocket(transport, fd) : -ENOTCONN;
+ }
+@@ -47,6 +50,11 @@
+     }
+     return result;
+ }
++int removeUidAccountingFromProvider(SocketPolicyProjection& expectedOwner, int32_t uid,
++        uint64_t generation, uint64_t activeEpoch) {
++    if (!owner || owner != &expectedOwner) return -ENOTCONN;
++    return owner->removeUidAccounting(uid, generation, activeEpoch, deleteTags);
++}
+ int checkHeldProviderStartup(Controllers& controllers) {
+     const int result = initializeHeldProvider(controllers);
+     if (result) return result;
+--- a/system/netd/server/Gta3xlwifiHeldProvider.h
++++ b/system/netd/server/Gta3xlwifiHeldProvider.h
+@@ -1,8 +1,13 @@
+ // SPDX-License-Identifier: Apache-2.0
+ #pragma once
++#include <cstdint>
+ namespace android::net { class Controllers; }
+ namespace android::net::gta3xlwifi {
++class SocketPolicyProjection;
+ int initializeHeldProvider(Controllers& controllers);
++// Existing process-lifetime owner/transport only, never a second private session.
++int removeUidAccountingFromProvider(SocketPolicyProjection& expectedOwner, int32_t uid,
++                                   uint64_t generation, uint64_t activeEpoch);
+ // Dedicated netd1shot process only: verify real startup and close while held.
+ // Callbacks are process-lifetime registrations; this must not run in the daemon.
+ int checkHeldProviderStartup(Controllers& controllers);
+--- a/system/netd/server/Gta3xlwifiNetpolicyService.cpp
++++ b/system/netd/server/Gta3xlwifiNetpolicyService.cpp
+@@ -1,3 +1,4 @@
++#include "Gta3xlwifiHeldProvider.h"
+ // SPDX-License-Identifier: Apache-2.0
+ #include "Gta3xlwifiNetpolicyService.h"
+ #include <binder/IPCThreadState.h>
+@@ -262,3 +263,16 @@
+   return status(mOwner.setPacketCounterset(uid, counterset));
+ }
+ }  // namespace android::net::gta3xlwifi
++
++namespace android::net::gta3xlwifi {
++Status NetpolicyService::removeUidAccounting(int64_t session, int32_t uid,
++        int64_t expectedGeneration, int64_t expectedActiveEpoch) {
++  if (!authorized()) return denied();
++  if (uid < 0 || expectedGeneration < 0 || !expectedActiveEpoch) return status(-EINVAL);
++  std::lock_guard lock(mMutex);
++  int result = validateSession(session);
++  if (result) return status(result);
++  return status(removeUidAccountingFromProvider(mOwner, uid,
++      static_cast<uint64_t>(expectedGeneration), static_cast<uint64_t>(expectedActiveEpoch)));
++}
++}  // namespace android::net::gta3xlwifi
+--- a/system/netd/server/Gta3xlwifiNetpolicyService.h
++++ b/system/netd/server/Gta3xlwifiNetpolicyService.h
+@@ -26,6 +26,8 @@
+       int64_t epoch) override;
+   ::android::binder::Status setStatsCounterset(int64_t session, int32_t uid,
+       int32_t counterset) override;
++  ::android::binder::Status removeUidAccounting(int64_t session, int32_t uid,
++      int64_t expectedGeneration, int64_t expectedActiveEpoch) override;
+  private:
+   class ClientDeath;
+   void clientDied(int64_t session);
+--- a/system/netd/server/Gta3xlwifiQtaguidTransport.cpp
++++ b/system/netd/server/Gta3xlwifiQtaguidTransport.cpp
+@@ -192,6 +192,23 @@
+     return commandLocked(fd, 0, 0, true);
+ }
+ 
++int QtaguidTransport::deleteUidTags(uint32_t uid) {
++    if (uid > static_cast<uint32_t>(INT_MAX)) return -EINVAL;
++    std::lock_guard<std::mutex> lock(mMutex);
++    if (mDevice < 0 || mControl < 0) return -ENOTCONN;
++    int result = checkActive();
++    if (result) { closeLocked(); return result; }
++    char command[48];
++    const int length = snprintf(command, sizeof(command), "d 0 %" PRIu32, uid);
++    if (length < 0 || static_cast<size_t>(length) >= sizeof(command)) return -EOVERFLOW;
++    ssize_t count;
++    do { count = write(mControl, command, static_cast<size_t>(length)); }
++    while (count < 0 && errno == EINTR);
++    if (count < 0) { result = errno ? -errno : -EIO; closeLocked(); return result; }
++    if (count != length) { closeLocked(); return -EIO; }
++    return 0;
++}
++
+ int QtaguidTransport::commandLocked(int fd, uint32_t tag, uid_t uid, bool untag) {
+     if (mDevice < 0 || mControl < 0) return -ENOTCONN;
+     const int result = checkActive();
+--- a/system/netd/server/Gta3xlwifiQtaguidTransport.h
++++ b/system/netd/server/Gta3xlwifiQtaguidTransport.h
+@@ -29,6 +29,8 @@
+     bool connected() const override;
+     int tagSocket(int socketFd, uint32_t tag, uid_t chargeUid) override;
+     int untagSocket(int socketFd) override;
++    // Trusted owner only: one complete d0UID command, no socket-FD interpretation.
++    int deleteUidTags(uint32_t uid);
+ 
+   private:
+     int commandLocked(int socketFd, uint32_t tag, uid_t chargeUid, bool untag);
+--- a/system/netd/server/Gta3xlwifiSocketPolicyProjection.cpp
++++ b/system/netd/server/Gta3xlwifiSocketPolicyProjection.cpp
+@@ -406,6 +406,30 @@
+   int result = mLease.setPacketCounterset(static_cast<uint32_t>(uid), counterset);
+   return result ? quarantine(result) : 0;
+ }
++int SocketPolicyProjection::removeUidAccounting(int32_t uid, uint64_t expectedGeneration,
++        uint64_t expectedActiveEpoch, UidTagDeleter deleteTags) {
++  if (uid < 0 || !expectedActiveEpoch || !deleteTags) return -EINVAL;
++  std::lock_guard<std::mutex> lock(mMutex);
++  if (!mStarted) return -EAGAIN;
++  if (!mAccountingEnabled) return -EOPNOTSUPP;
++  if ((mCommit ? mCommit->generation : 0) != expectedGeneration) return -ESTALE;
++  if (!mCommit) {
++    bool held = false;
++    int result = mLease.isHeld(&held);
++    if (result) return quarantine(result);
++    if (!held) return quarantine(-EUCLEAN);
++  }
++  NetpolicyLease::PacketState state;
++  int result = mLease.readPacketState(&state);
++  if (result) return quarantine(result);
++  if (state.activeEpoch != expectedActiveEpoch) return -ESTALE;
++  if (state.pendingMask) return -EBUSY;
++  result = deleteTags(static_cast<uint32_t>(uid));
++  if (result) return quarantine(result < 0 ? result : -EPROTO);
++  result = mLease.deleteUidPacketStats(static_cast<uint32_t>(uid));
++  return result ? quarantine(result) : 0;
++}
++
+ int SocketPolicyProjection::deleteUidPacketStats(int32_t uid) {
+   if (uid < 0) return -EINVAL;
+   std::lock_guard<std::mutex> lock(mMutex);
+--- a/system/netd/server/Gta3xlwifiSocketPolicyProjection.h
++++ b/system/netd/server/Gta3xlwifiSocketPolicyProjection.h
+@@ -117,6 +117,12 @@
+   int setPacketCounterset(int32_t uid, uint32_t counterset);
+   // Final poll/ACK and separate socket-tag cleanup remain caller obligations.
+   int deleteUidPacketStats(int32_t uid);
++  // Native-only trusted transport dependency; never accepted from Binder input.
++  using UidTagDeleter = int (*)(uint32_t uid);
++  // Exact policy/active-epoch fence, no pending bank, socket tags before counters.
++  // Startup generation0 requires genuine HOLD; this does not release it.
++  int removeUidAccounting(int32_t uid, uint64_t expectedGeneration,
++                          uint64_t expectedActiveEpoch, UidTagDeleter deleteTags);
+   int readIfaceStats(NetpolicyLease::IfaceSnapshot* output);
+   int readIfaceNames(NetpolicyLease::IfaceNamesSnapshot* output);
+   int readLoopbackEvents(NetpolicyLease::LoopbackBatch* output);
+--- a/system/netd/server/binder/com/android/internal/net/IGta3xlwifiNetpolicy.aidl
++++ b/system/netd/server/binder/com/android/internal/net/IGta3xlwifiNetpolicy.aidl
+@@ -33,4 +33,9 @@
+     /** Explicit receipt AFTER accepted/persisted data; native ACK is idempotent. */
+     void acknowledgeStats(long session, int bank, long epoch);
+     void setStatsCounterset(long session, int uid, int counterset);
++    /** Explicit UID/socket removal with exact owner generation/active stats epoch.
++     * No pending bank may exist. Not automatically retried after an uncertain reply.
++     */
++    void removeUidAccounting(long session, int uid, long expectedGeneration,
++            long expectedActiveEpoch);
+ }
+--- a/packages/modules/Connectivity/service/src/com/android/server/Gta3xlwifiStatsAccess.java
++++ b/packages/modules/Connectivity/service/src/com/android/server/Gta3xlwifiStatsAccess.java
+@@ -249,4 +249,15 @@
+             throw error;
+         }
+     }
++    /** Exact fences must come from the caller's durable UID-removal transaction. */
++    public void removeUidAccounting(int uid, long generation, long activeEpoch) throws IOException {
++        if (uid < 0 || generation < 0 || activeEpoch == 0) throw new IllegalArgumentException();
++        try {
++            mRemote.removeUidAccounting(mSession, uid, generation, activeEpoch);
++        } catch (RemoteException | RuntimeException failure) {
++            IOException error = fail("UID removal uncertain; explicit recovery required");
++            error.addSuppressed(failure);
++            throw error;
++        }
++    }
+ }

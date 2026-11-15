@@ -1,0 +1,2 @@
+PASS: 2339 transport/fixture assertions; real IPv4/IPv6 TCP/UDP and FD-reuse checks; mocked driver I/O only
+uid_cleanup_transport_checks=667 total_checks=3006

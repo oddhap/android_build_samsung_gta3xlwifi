@@ -1,0 +1,2 @@
+PASS: 45954 assertions, extracted production tag/untag/session/ioctl/ref helpers; fixture kernel primitives, NOT kernel execution
+kernel_uid_cleanup_checks=534 total_checks=46488
