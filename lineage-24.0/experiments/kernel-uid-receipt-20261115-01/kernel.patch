@@ -1,0 +1,214 @@
+--- a/include/uapi/linux/netfilter/gta3xlwifi_packet_stats.h
++++ b/include/uapi/linux/netfilter/gta3xlwifi_packet_stats.h
+@@ -79,4 +79,28 @@
+ #define GTA3XLWIFI_STATS_SWAP _IOWR('g',0x5d,struct gta3xlwifi_packet_stats_swap)
+ #define GTA3XLWIFI_STATS_ACK _IOW('g',0x5e,struct gta3xlwifi_packet_stats_ack)
+ #define GTA3XLWIFI_STATS_EDIT _IOW('g',0x5f,struct gta3xlwifi_packet_stats_edit)
++/* Kernel-lifetime receipt only, NOT networking/BPF readiness. */
++#define GTA3XLWIFI_UID_CAP_UID_CLEANUP_RECEIPT (1U << 17)
++#define GTA3XLWIFI_UID_CLEANUP_READ 0U
++#define GTA3XLWIFI_UID_CLEANUP_BEGIN 1U
++#define GTA3XLWIFI_UID_CLEANUP_COMMIT 2U
++#define GTA3XLWIFI_UID_CLEANUP_NONE 0U
++#define GTA3XLWIFI_UID_CLEANUP_PREPARED 1U
++#define GTA3XLWIFI_UID_CLEANUP_COMPLETE 2U
++/* All reserved words and input phase must0. READ input identity fields must0.
++ * BEGIN is an exact epoch/no-pending-bank CAS with strictly increasing nonce.
++ * Same completed identity returns cached COMPLETE without mutation; a repeated
++ * PREPARED identity returns EINPROGRESS, never permission to replay socket I/O.
++ * COMMIT atomically removes packet/app/counterset data and records COMPLETE.
++ * A user-copy failure may follow a real commit: inspect READ, never infer rollback.
++ * Only one outstanding removal exists; retain the last receipt through daemon
++ * death, and never release the private gate while PREPARED. Native code must
++ * perform real socket-tag deletion between BEGIN and COMMIT.
++ */
++struct gta3xlwifi_uid_cleanup {
++    __u32 version, operation, phase, uid;
++    __aligned_u64 nonce, generation, active_epoch;
++    __u32 reserved[6];
++};
++#define GTA3XLWIFI_UID_CLEANUP _IOWR('g', 0x63, struct gta3xlwifi_uid_cleanup)
+ #endif
+--- a/include/net/gta3xlwifi_packet_stats.h
++++ b/include/net/gta3xlwifi_packet_stats.h
+@@ -13,5 +13,6 @@
+ void gta3xlwifi_packet_stats_lost(void);
+ u32 gta3xlwifi_packet_stats_features(void);
+ u32 gta3xlwifi_packet_hooks_features(void);
++bool gta3xlwifi_packet_stats_cleanup_pending(void);
+ long gta3xlwifi_packet_stats_ioctl(unsigned int cmd,unsigned long arg);
+ #endif
+--- a/net/netfilter/gta3xlwifi_packet_stats.c
++++ b/net/netfilter/gta3xlwifi_packet_stats.c
+@@ -35,6 +35,7 @@
+ /* Keep large stores in BSS rather than embedding zero arrays in Image data. */
+ static u64 stats_bank_epoch[2] = { 1, 0 };
+ static u32 stats_active;
++static struct gta3xlwifi_uid_cleanup uid_cleanup_receipt;
+ static u64 stats_epoch = 1, stats_total_lost;
+ static u32 app_heads[1U << APP_HASH_BITS], app_count;
+ static struct app_row app_rows[GTA3XLWIFI_APP_STATS_MAX];
+@@ -82,7 +83,7 @@
+ u32 gta3xlwifi_packet_stats_features(void)
+ {
+ #if defined(CONFIG_INET) && defined(CONFIG_IPV6)
+-    return GTA3XLWIFI_UID_CAP_PACKET_STATS_STORE | GTA3XLWIFI_UID_CAP_ACTIVE_PACKET_STATS;
++    return GTA3XLWIFI_UID_CAP_PACKET_STATS_STORE | GTA3XLWIFI_UID_CAP_ACTIVE_PACKET_STATS | GTA3XLWIFI_UID_CAP_UID_CLEANUP_RECEIPT;
+ #else
+     return 0;
+ #endif
+@@ -221,7 +222,8 @@
+     if(request.version!=GTA3XLWIFI_PACKET_STATS_VERSION||request.active_bank>1||
+        !request.active_epoch||request.inactive_bank||request.reserved||request.inactive_epoch)return -EINVAL;
+     spin_lock_bh(&stats_lock);next=1U-stats_active;answer=request;
+-    if(request.active_bank!=stats_active||request.active_epoch!=stats_epoch)result=-ESTALE;
++    if(uid_cleanup_receipt.phase==GTA3XLWIFI_UID_CLEANUP_PREPARED)result=-EBUSY;
++    else if(request.active_bank!=stats_active||request.active_epoch!=stats_epoch)result=-ESTALE;
+     else if(stats_banks[next].pending)result=-EBUSY;
+     else if(stats_epoch==~(u64)0)result=-EOVERFLOW;
+     else{
+@@ -286,6 +288,54 @@
+     for(i=0;i<n;++i){u32 h=hash_32(app_rows[i].entry.uid,APP_HASH_BITS);app_rows[i].next=app_heads[h];app_heads[h]=i+1;}
+     ++app_sequence;set_counterset(uid,0);
+ }
++static bool cleanup_same(const struct gta3xlwifi_uid_cleanup *a,
++                         const struct gta3xlwifi_uid_cleanup *b)
++{
++    return a->uid==b->uid && a->nonce==b->nonce && a->generation==b->generation &&
++           a->active_epoch==b->active_epoch;
++}
++bool gta3xlwifi_packet_stats_cleanup_pending(void)
++{
++    bool pending;
++    spin_lock_bh(&stats_lock);
++    pending=uid_cleanup_receipt.phase==GTA3XLWIFI_UID_CLEANUP_PREPARED;
++    spin_unlock_bh(&stats_lock);
++    return pending;
++}
++EXPORT_SYMBOL_GPL(gta3xlwifi_packet_stats_cleanup_pending);
++static long stats_cleanup(unsigned long arg)
++{
++    struct gta3xlwifi_uid_cleanup request,answer;u32 i;int result=0;
++    if(copy_from_user(&request,(void __user *)arg,sizeof(request)))return -EFAULT;
++    if(request.version!=GTA3XLWIFI_PACKET_STATS_VERSION || request.phase ||
++       request.operation>GTA3XLWIFI_UID_CLEANUP_COMMIT)return -EINVAL;
++    for(i=0;i<ARRAY_SIZE(request.reserved);++i)if(request.reserved[i])return -EINVAL;
++    if(request.operation==GTA3XLWIFI_UID_CLEANUP_READ){
++        if(request.uid||request.nonce||request.generation||request.active_epoch)return -EINVAL;
++    }else if(request.uid>0x7fffffffU||!request.nonce||!request.active_epoch)return -EINVAL;
++    spin_lock_bh(&stats_lock);
++    if(request.operation==GTA3XLWIFI_UID_CLEANUP_BEGIN){
++        if(uid_cleanup_receipt.phase && request.nonce==uid_cleanup_receipt.nonce){
++            if(!cleanup_same(&request,&uid_cleanup_receipt))result=-ESTALE;
++            else if(uid_cleanup_receipt.phase==GTA3XLWIFI_UID_CLEANUP_PREPARED)result=-EINPROGRESS;
++            /* COMPLETE is a cached result; never delete a reused UID again. */
++        }else if(uid_cleanup_receipt.phase==GTA3XLWIFI_UID_CLEANUP_PREPARED)result=-EBUSY;
++        else if(request.nonce<=uid_cleanup_receipt.nonce)result=-ESTALE;
++        else if(request.active_epoch!=stats_epoch)result=-ESTALE;
++        else if(stats_banks[0].pending||stats_banks[1].pending)result=-EBUSY;
++        else{uid_cleanup_receipt=request;uid_cleanup_receipt.phase=GTA3XLWIFI_UID_CLEANUP_PREPARED;}
++    }else if(request.operation==GTA3XLWIFI_UID_CLEANUP_COMMIT){
++        if(!uid_cleanup_receipt.phase||!cleanup_same(&request,&uid_cleanup_receipt))result=-ESTALE;
++        else if(uid_cleanup_receipt.phase==GTA3XLWIFI_UID_CLEANUP_COMPLETE){ /* Cached, no mutation. */ }
++        else if(request.active_epoch!=stats_epoch||stats_banks[0].pending||stats_banks[1].pending)result=-EBUSY;
++        else{stats_remove_uid(request.uid);uid_cleanup_receipt.phase=GTA3XLWIFI_UID_CLEANUP_COMPLETE;}
++    }
++    answer=uid_cleanup_receipt;answer.version=GTA3XLWIFI_PACKET_STATS_VERSION;
++    answer.operation=request.operation;
++    spin_unlock_bh(&stats_lock);
++    if(!result&&copy_to_user((void __user *)arg,&answer,sizeof(answer)))result=-EFAULT;
++    return result;
++}
+ static long stats_edit(unsigned long arg)
+ {
+     struct gta3xlwifi_packet_stats_edit request;int result=0;
+@@ -296,16 +346,17 @@
+     else return -EINVAL;
+     spin_lock_bh(&stats_lock);
+     if(request.operation==GTA3XLWIFI_STATS_SET_COUNTERSET)result=set_counterset(request.uid,request.counterset);
+-    else if(stats_banks[0].pending||stats_banks[1].pending)result=-EBUSY;
++    else if(uid_cleanup_receipt.phase==GTA3XLWIFI_UID_CLEANUP_PREPARED||stats_banks[0].pending||stats_banks[1].pending)result=-EBUSY;
+     else stats_remove_uid(request.uid);
+     spin_unlock_bh(&stats_lock);return result;
+ }
+ long gta3xlwifi_packet_stats_ioctl(unsigned int cmd,unsigned long arg)
+ {
+     if(cmd!=GTA3XLWIFI_STATS_GET_STATE&&cmd!=GTA3XLWIFI_STATS_READ&&cmd!=GTA3XLWIFI_STATS_SWAP&&
+-       cmd!=GTA3XLWIFI_STATS_ACK&&cmd!=GTA3XLWIFI_STATS_EDIT)return -ENOTTY;
++       cmd!=GTA3XLWIFI_STATS_ACK&&cmd!=GTA3XLWIFI_STATS_EDIT&&cmd!=GTA3XLWIFI_UID_CLEANUP)return -ENOTTY;
+     if(!arg)return -EFAULT;
+     if(!gta3xlwifi_packet_stats_features())return -EOPNOTSUPP;
++    if(cmd==GTA3XLWIFI_UID_CLEANUP)return stats_cleanup(arg);
+     switch(cmd){
+     case GTA3XLWIFI_STATS_GET_STATE:return stats_state(arg);
+     case GTA3XLWIFI_STATS_READ:return stats_read(arg);
+--- a/net/netfilter/gta3xlwifi_netpolicy.c
++++ b/net/netfilter/gta3xlwifi_netpolicy.c
+@@ -128,13 +128,35 @@
+ /* Separate exact dispatch prevents new operations falling through the old
+  * RELEASE branch. Same owner/TGID/root/init-namespace checks apply to every op.
+  */
++/* One exact operation list for both public dispatch and authenticated routing. */
++static bool netpolicy_image_command(unsigned int cmd)
++{
++    switch(cmd){
++    case GTA3XLWIFI_UID_FEATURES:
++    case GTA3XLWIFI_UID_SET_IMAGE:
++    case GTA3XLWIFI_UID_GET_IMAGE:
++    case GTA3XLWIFI_LNA_SET_IMAGE:
++    case GTA3XLWIFI_LNA_GET_IMAGE:
++    case GTA3XLWIFI_LOOPBACK_GET_EVENTS:
++    case GTA3XLWIFI_IFACE_STATS_GET:
++    case GTA3XLWIFI_IFACE_NAMES_GET:
++    case GTA3XLWIFI_STATS_GET_STATE:
++    case GTA3XLWIFI_STATS_READ:
++    case GTA3XLWIFI_STATS_SWAP:
++    case GTA3XLWIFI_STATS_ACK:
++    case GTA3XLWIFI_STATS_EDIT:
++    case GTA3XLWIFI_UID_CLEANUP:
++    case GTA3XLWIFI_RUNTIME_GET:
++    case GTA3XLWIFI_RUNTIME_SET:
++        return true;
++    default:return false;
++    }
++}
+ static long netpolicy_image_ioctl(struct file *file, unsigned int cmd,
+                                   unsigned long arg)
+ {
+ 	long ret;
+-	if (cmd != GTA3XLWIFI_UID_FEATURES && cmd != GTA3XLWIFI_UID_SET_IMAGE &&
+-	    cmd != GTA3XLWIFI_UID_GET_IMAGE && cmd != GTA3XLWIFI_LNA_SET_IMAGE &&
+-	    cmd != GTA3XLWIFI_LNA_GET_IMAGE && cmd != GTA3XLWIFI_LOOPBACK_GET_EVENTS && cmd != GTA3XLWIFI_IFACE_STATS_GET && cmd != GTA3XLWIFI_STATS_GET_STATE && cmd != GTA3XLWIFI_STATS_READ && cmd != GTA3XLWIFI_STATS_SWAP && cmd != GTA3XLWIFI_STATS_ACK && cmd != GTA3XLWIFI_STATS_EDIT && cmd != GTA3XLWIFI_RUNTIME_GET && cmd != GTA3XLWIFI_RUNTIME_SET)
++	if (!netpolicy_image_command(cmd))
+ 		return -ENOTTY;
+ 	if (cmd == GTA3XLWIFI_UID_FEATURES && arg)
+ 		return -EINVAL;
+@@ -157,7 +179,7 @@
+ 		ret = -EBUSY;
+ 	else if (cmd == GTA3XLWIFI_RUNTIME_GET || cmd == GTA3XLWIFI_RUNTIME_SET)
+ 		ret = gta3xlwifi_runtime_ioctl(cmd, arg);
+-	else if (cmd == GTA3XLWIFI_STATS_GET_STATE || cmd == GTA3XLWIFI_STATS_READ || cmd == GTA3XLWIFI_STATS_SWAP || cmd == GTA3XLWIFI_STATS_ACK || cmd == GTA3XLWIFI_STATS_EDIT)
++	else if (cmd == GTA3XLWIFI_STATS_GET_STATE || cmd == GTA3XLWIFI_STATS_READ || cmd == GTA3XLWIFI_STATS_SWAP || cmd == GTA3XLWIFI_STATS_ACK || cmd == GTA3XLWIFI_STATS_EDIT || cmd == GTA3XLWIFI_UID_CLEANUP)
+ 		ret = gta3xlwifi_packet_stats_ioctl(cmd, arg);
+ 	else if (cmd == GTA3XLWIFI_IFACE_STATS_GET || cmd == GTA3XLWIFI_IFACE_NAMES_GET)
+ 		ret = gta3xlwifi_iface_stats_ioctl(cmd, arg);
+@@ -176,9 +198,7 @@
+ {
+ 	long ret = 0;
+ 
+-	if (cmd == GTA3XLWIFI_UID_FEATURES || cmd == GTA3XLWIFI_UID_SET_IMAGE ||
+-	    cmd == GTA3XLWIFI_UID_GET_IMAGE || cmd == GTA3XLWIFI_LNA_SET_IMAGE ||
+-	    cmd == GTA3XLWIFI_LNA_GET_IMAGE || cmd == GTA3XLWIFI_LOOPBACK_GET_EVENTS || cmd == GTA3XLWIFI_IFACE_STATS_GET || cmd == GTA3XLWIFI_STATS_GET_STATE || cmd == GTA3XLWIFI_STATS_READ || cmd == GTA3XLWIFI_STATS_SWAP || cmd == GTA3XLWIFI_STATS_ACK || cmd == GTA3XLWIFI_STATS_EDIT || cmd == GTA3XLWIFI_RUNTIME_GET || cmd == GTA3XLWIFI_RUNTIME_SET)
++	if (netpolicy_image_command(cmd))
+ 		return netpolicy_image_ioctl(file, cmd, arg);
+ 	if (cmd != GTA3XLWIFI_NETPOLICY_ABI &&
+ 	    cmd != GTA3XLWIFI_NETPOLICY_HOLD &&
+@@ -202,6 +222,8 @@
+ 	} else if (cmd == GTA3XLWIFI_NETPOLICY_HOLD) {
+ 		WRITE_ONCE(netpolicy_held, true);
+ 		synchronize_net();
++	} else if (gta3xlwifi_packet_stats_cleanup_pending()) {
++		ret = -EBUSY;
+ 	} else if (!gta3xlwifi_runtime_configured()) {
+ 		ret = -EAGAIN;
+ 	} else if (READ_ONCE(netpolicy_held)) {

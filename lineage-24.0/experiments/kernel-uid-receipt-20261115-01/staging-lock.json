@@ -1,0 +1,20 @@
+{
+  "baseline": "kernel-iface-names-20261115-01",
+  "original_sha256": {
+    "include/uapi/linux/netfilter/gta3xlwifi_packet_stats.h": "fa5c8a4f9b25279596feac7d5c8d145bc29b53c4e45fc3a7b15376d80a813472",
+    "include/net/gta3xlwifi_packet_stats.h": "7404538d469cef4f702665c5a92f7e1ae01c7cb3e2ab4fd190a8c09aaa5f93fa",
+    "net/netfilter/gta3xlwifi_packet_stats.c": "8733aaebe27f2ff78be999c1456e1b2f99d0e2aa00d83eb385593c4cf1af036d",
+    "net/netfilter/gta3xlwifi_netpolicy.c": "53fd3a930d23ed8e0ca734701b808dbc4c315abb8e4017c707c3279bab264503"
+  },
+  "inactive": true,
+  "selected_source_or_prebuilt_changed": false,
+  "candidate_sha256": {
+    "include/uapi/linux/netfilter/gta3xlwifi_packet_stats.h": "961e2595a035625999414036e824734befa1a5d2a35d5ebdc57f230a3073bb03",
+    "include/net/gta3xlwifi_packet_stats.h": "863039cee96f968b338adb10c5d1a7398c2b577a27e2767607b2b97db8d318a7",
+    "net/netfilter/gta3xlwifi_packet_stats.c": "6c300ca41c53ca90f73cec50e1b7b32a7d7f468a482b86687d6306c5c0ac1c23",
+    "net/netfilter/gta3xlwifi_netpolicy.c": "7608d9dbb105c22d04310b442db84f8c07e6b7af94795680a8414d37f78380b5"
+  },
+  "native_nonce_client_and_journal_integration_pending": true,
+  "hardware_tested": false,
+  "flash_ready": false
+}

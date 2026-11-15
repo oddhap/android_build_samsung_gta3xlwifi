@@ -1,0 +1,63 @@
+{
+  "passed": true,
+  "scope": "Actual kernel UID receipts, deduplication, full ioctl routing and prior GSO/storage.\n\nKernel socket/copy/credential boundaries are explicit fixtures. Actual pthread\nlocks exercise the retained producer/read tests. No hardware or networking Ready.\n",
+  "passed_cases": 5454,
+  "uid_receipt_cases": 61,
+  "prior_5392_checks_and_9830400_GSO_comparisons_replayed": true,
+  "actual_outer_ioctl_and_name_dispatch_executed": true,
+  "historical_unused_runner_changes": {
+    "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/test-kernel-active-stats24.py": {
+      "expected": "1db1bc308e113f0a40d6022dc71704b78ee39aa011d68ad9bb366fa5b4bd03b3",
+      "current": "bd5c7a7e9ec54024552bbb1fa3ed0fbc911d2e41a62f26e875760bdd1e69989d"
+    }
+  },
+  "cached_completed_nonce_preserves_reused_UID_data": true,
+  "prepared_receipt_blocks_release_and_swap": true,
+  "inputs_sha256": {
+    "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/test-kernel-uid-receipt24.py": "c3fe182c18ed8ae5765824918d9ead0bc68098e52d5f2a0c3063c639a4aec6a4",
+    "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/test-kernel-qtaguid-socket-owned.py": "59516300b405af46c972b264353c3766b5c18cf882b04ac8ba9db6f70f436459",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-active-stats-host-20261114-03/report.json": "9fde60968e6ec4918cbc3cbc10a60ec9788b6aa72ccdf9c080922f1a313e85ba",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-active-stats-host-20261114-03/test.c": "88efe27e8a4eb619dfbb12f423ecf3e4a5bd1531e46defe0ce9146211d2d46db",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-uid-receipt-host-20261115-04/test.c": "052f52a4696a85ae17a8d73a65029e9e42500ba2edf3a1d7adf9dca2fa3f1c58",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-uid-receipt24-20261115-01/baseline.json": "1e9e4743ecb977da2eab53e15b1b2a07558e689900afc33ab11984bc2420a8a3",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-uid-receipt24-20261115-01/include/uapi/linux/netfilter/gta3xlwifi_packet_stats.h": "961e2595a035625999414036e824734befa1a5d2a35d5ebdc57f230a3073bb03",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-uid-receipt24-20261115-01/include/uapi/linux/netfilter/gta3xlwifi_packet_stats.h.reference": "fa5c8a4f9b25279596feac7d5c8d145bc29b53c4e45fc3a7b15376d80a813472",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-uid-receipt24-20261115-01/include/net/gta3xlwifi_packet_stats.h": "863039cee96f968b338adb10c5d1a7398c2b577a27e2767607b2b97db8d318a7",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-uid-receipt24-20261115-01/include/net/gta3xlwifi_packet_stats.h.reference": "7404538d469cef4f702665c5a92f7e1ae01c7cb3e2ab4fd190a8c09aaa5f93fa",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-uid-receipt24-20261115-01/net/netfilter/gta3xlwifi_packet_stats.c.reference": "8733aaebe27f2ff78be999c1456e1b2f99d0e2aa00d83eb385593c4cf1af036d",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-uid-receipt24-20261115-01/net/netfilter/gta3xlwifi_packet_stats.c": "6c300ca41c53ca90f73cec50e1b7b32a7d7f468a482b86687d6306c5c0ac1c23",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-uid-receipt24-20261115-01/net/netfilter/gta3xlwifi_netpolicy.c.reference": "53fd3a930d23ed8e0ca734701b808dbc4c315abb8e4017c707c3279bab264503",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-uid-receipt24-20261115-01/net/netfilter/gta3xlwifi_netpolicy.c": "7608d9dbb105c22d04310b442db84f8c07e6b7af94795680a8414d37f78380b5",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-uid-receipt-host-20261115-04/include/linux/netfilter/gta3xlwifi_socket_uid.h": "a91a730ca2eb53a0397a7bcd8b8d8b32fb9612908a70a279a1d9c0c02acbcffb",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-uid-receipt-host-20261115-04/include/linux/netfilter/gta3xlwifi_ingress.h": "5d04d156089975356fedf9a870ac8737dd7ac8a1333c6f17977c9c65beaa2260",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-uid-receipt-host-20261115-04/include/linux/netfilter/gta3xlwifi_netpolicy.h": "fd53c8c287840054ac9234efdabd88302140d95fc1488c57080de499a835d54c",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-uid-receipt-host-20261115-04/include/linux/netfilter/gta3xlwifi_local_network.h": "78d66f9b5c834c56d035ea108c4323c849186df3c98d3fb3a48c3de53797b7be",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-uid-receipt-host-20261115-04/include/linux/netfilter/gta3xlwifi_packet_stats.h": "961e2595a035625999414036e824734befa1a5d2a35d5ebdc57f230a3073bb03",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-uid-receipt-host-20261115-04/include/linux/netfilter/gta3xlwifi_iface_stats.h": "01b61957960c62eba92a20b7738b9f9d4352ee0da262e2b918eebf83f91837b7",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-uid-receipt-host-20261115-04/include/linux/netfilter/gta3xlwifi_owner_skip.h": "966dc6938d9c2e7bf172083f10b6f380a6f8795432901ff456a2822b5cf30796",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-uid-receipt-host-20261115-04/include/linux/netfilter/gta3xlwifi_uid_permissions.h": "92d572695e88845aebb03c20474c804f56cd4c39c9b22dc01c355c0d81123945",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-uid-receipt-host-20261115-04/include/linux/netfilter/gta3xlwifi_appid.h": "0d06023da8290add60e73c90679328af285431609bca34260453d7055810067e",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-uid-receipt-host-20261115-04/include/linux/netfilter/gta3xlwifi_socket_tables.h": "6873b2d1ce429749d447c0406354b5f5d2c1a3783ca8dfa967d43a95721052d6",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-uid-receipt-host-20261115-04/include/linux/netfilter/gta3xlwifi_loopback.h": "81c17681a2b846b98daefbbd36b609c22dc429a1aaf3c6af7b4540af6c524604",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-uid-receipt-host-20261115-04/include/linux/netfilter/gta3xlwifi_runtime_policy.h": "2562f685fc4d4a236732c1200a7a2c6c3671a8920392bbe62eb6952f36b18101"
+  },
+  "command": [
+    "cc",
+    "-std=gnu11",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-Wno-unused-parameter",
+    "-O1",
+    "-g",
+    "-fsanitize=undefined",
+    "-fno-sanitize-recover=all",
+    "-pthread",
+    "-I/srv/android/artifacts/lineage-24.0-arm64/kernel-uid-receipt-host-20261115-04/include",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-uid-receipt-host-20261115-04/test.c",
+    "-o",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-uid-receipt-host-20261115-04/test"
+  ],
+  "hardware_tested": false,
+  "flash_ready": false
+}
