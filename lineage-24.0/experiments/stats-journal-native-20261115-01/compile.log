@@ -1,0 +1,6 @@
+/srv/android/ports/lineage-24.0-arm64/stats-journal24-20261115-01/java/com/android/server/Gta3xlwifiStatsJournal.java:266: error: cannot find symbol
+                fd = Os.open(mFile.getParent(), OsConstants.O_RDONLY | OsConstants.O_DIRECTORY
+                                                                                  ^
+  symbol:   variable O_DIRECTORY
+  location: class OsConstants
+1 error

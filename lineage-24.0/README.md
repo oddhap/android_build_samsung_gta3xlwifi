@@ -32,6 +32,15 @@ checks are separate from Android execution. Optional GPU BPF accounting still
 reports unavailable, rather than invented counters. Existing safety/installer
 and strict SELinux checks remain enforced.
 
+## Durable statistics acceptance — November 15
+
+An inactive journal now binds complete consumer state to genuine runtime boot
+UUID and frozen bank/epoch. Explicit FD/directory sync, exact readback, integrity,
+stale/conflicting replay and uncertain-write recovery are enforced. Actual SDK
+compilation and1243/17 audits pass; host fixtures pass271 checks. See
+stats-journal-20261115-01. Actual factory serialization/routing/lifecycle remain;
+this primitive alone does not authorize ACK or establish flash readiness.
+
 ## Actual statistics transport — November 15
 
 The inactive private Binder protocol appends genuine bounded statistics reads,

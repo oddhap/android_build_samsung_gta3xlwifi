@@ -1,0 +1,41 @@
+{
+  "passed": true,
+  "scope": "Actual acceptance journal with fault stores, real temp files and OS/AtomicFile fixtures.\n\nAndroid syscall/AtomicFile boundaries are explicit fixtures, not device power-loss\nor IPC execution. Production source is separately compiled against actual SDK.\n",
+  "passed_cases": 271,
+  "max_payload_bytes": 4194304,
+  "corruption_truncation_stale_conflicting_and_unsigned_epoch_replay_checks": true,
+  "uncertain_write_before_and_after_recovery": true,
+  "actual_file_output_FD_sync_with_OS_AtomicFile_fixtures": true,
+  "rename_sync_and_close_failures_not_silenced": true,
+  "boot_identity_from_explicit_proc_fixture_not_host_proc": true,
+  "inputs_sha256": {
+    "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/test-stats-journal24.py": "7cf889a8cbab18f866d3e2172688b3136fbc410aa7b0367e7a011385e4a2b1bf",
+    "/srv/android/ports/lineage-24.0-arm64/stats-journal24-20261115-02/java/com/android/server/Gta3xlwifiStatsJournal.java": "12e8d7ae730de302582d988147ff285816f14927a595028d9dbb341ded7e2df6",
+    "/srv/android/artifacts/lineage-24.0-arm64/stats-journal-native-20261115-02/report.json": "fe3a78672def9a48af9524900731839716162ff68ad85ea4e4faaff5bbdd594d",
+    "/srv/android/artifacts/lineage-24.0-arm64/stats-journal-host-20261115-03/Test.java": "e80513afce86f9e044a62fdddaecec8236e8b0a1d7060c6382e4322ceb628cd8",
+    "/srv/android/artifacts/lineage-24.0-arm64/stats-journal-host-20261115-03/android/system/ErrnoException.java": "3fb979f924036ff0a6bed7405ae3a251baa9efea6a6467378ee1108d21e49323",
+    "/srv/android/artifacts/lineage-24.0-arm64/stats-journal-host-20261115-03/android/system/Os.java": "fcef8582f962531bfb62493d09e1500acb5c22c00d8b5ece7769775bbd650ae8",
+    "/srv/android/artifacts/lineage-24.0-arm64/stats-journal-host-20261115-03/android/system/OsConstants.java": "d56ee95b65c1eee9965ca17e2406c00bfdc20964cd46715c3acdf20c182f18a3",
+    "/srv/android/artifacts/lineage-24.0-arm64/stats-journal-host-20261115-03/android/system/StructStat.java": "72cda99d04135b5ddb4104a7c61e1788930c27f707586073f0ea37978fba4bd6",
+    "/srv/android/artifacts/lineage-24.0-arm64/stats-journal-host-20261115-03/android/util/AtomicFile.java": "e064ea72d5d792d4499161e3ed77f467148709bbf3f2cb681f6c3048c80cb3fc"
+  },
+  "command": [
+    "/srv/android/src/lineage-24.0-arm64/prebuilts/jdk/jdk21/linux-x86/bin/javac",
+    "-source",
+    "21",
+    "-target",
+    "21",
+    "-d",
+    "/srv/android/artifacts/lineage-24.0-arm64/stats-journal-host-20261115-03/classes",
+    "/srv/android/ports/lineage-24.0-arm64/stats-journal24-20261115-02/java/com/android/server/Gta3xlwifiStatsJournal.java",
+    "/srv/android/artifacts/lineage-24.0-arm64/stats-journal-host-20261115-03/Test.java",
+    "/srv/android/artifacts/lineage-24.0-arm64/stats-journal-host-20261115-03/android/system/ErrnoException.java",
+    "/srv/android/artifacts/lineage-24.0-arm64/stats-journal-host-20261115-03/android/system/Os.java",
+    "/srv/android/artifacts/lineage-24.0-arm64/stats-journal-host-20261115-03/android/system/OsConstants.java",
+    "/srv/android/artifacts/lineage-24.0-arm64/stats-journal-host-20261115-03/android/system/StructStat.java",
+    "/srv/android/artifacts/lineage-24.0-arm64/stats-journal-host-20261115-03/android/util/AtomicFile.java"
+  ],
+  "factory_poll_pipeline_implemented": false,
+  "hardware_tested": false,
+  "flash_ready": false
+}

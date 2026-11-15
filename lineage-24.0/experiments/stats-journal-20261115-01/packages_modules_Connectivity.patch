@@ -1,0 +1,328 @@
+--- /dev/null
++++ b/service/src/com/android/server/Gta3xlwifiStatsJournal.java
+@@ -0,0 +1,325 @@
++/* SPDX-License-Identifier: Apache-2.0 */
++package com.android.server;
++
++import android.system.ErrnoException;
++import android.system.Os;
++import android.system.OsConstants;
++import android.system.StructStat;
++import android.util.AtomicFile;
++import java.io.ByteArrayInputStream;
++import java.io.ByteArrayOutputStream;
++import java.io.DataInputStream;
++import java.io.DataOutputStream;
++import java.io.File;
++import java.io.FileInputStream;
++import java.io.FileNotFoundException;
++import java.io.FileOutputStream;
++import java.io.IOException;
++import java.nio.charset.StandardCharsets;
++import java.nio.file.Files;
++import java.nio.file.LinkOption;
++import java.security.MessageDigest;
++import java.security.NoSuchAlgorithmException;
++import java.util.Arrays;
++import java.util.Objects;
++import java.util.UUID;
++
++/**
++ * Durable acceptance journal for the private frozen statistics bank. The caller
++ * supplies the COMPLETE cumulative consumer state, not merely the current delta.
++ * It must restore that state, deduplicate by receipt, then ACK through StatsAccess.
++ * This class never performs ACK, SWAP, policy publication or a fabricated reset.
++ * All public I/O uses the caller's existing factory lock, acquiring no new Java
++ * service lock. Missing and corrupt/inaccessible journals are distinct outcomes.
++ * @hide
++ */
++public final class Gta3xlwifiStatsJournal {
++    private static final int MAGIC = 0x47323453;
++    private static final int VERSION = 1;
++    public static final int MAX_PAYLOAD = 4 * 1024 * 1024;
++    private static final int MAX_FILE = MAX_PAYLOAD + 256;
++
++    public interface BootSource { String current() throws IOException; }
++    public interface Store {
++        /** null ONLY when definitively absent. Errors must propagate. */
++        byte[] read() throws IOException;
++        /** Successful return requires data+directory durability and exact readback. */
++        void writeDurably(byte[] data) throws IOException;
++    }
++
++    public static final class Receipt {
++        public final String bootId;
++        public final int bank;
++        public final long epoch;
++        public Receipt(String bootId, int bank, long epoch) {
++            this.bootId = canonicalBoot(bootId);
++            if (bank < 0 || bank > 1 || epoch == 0) throw new IllegalArgumentException();
++            this.bank = bank;
++            this.epoch = epoch;
++        }
++        public boolean matches(Receipt other) {
++            return other != null && bank == other.bank && epoch == other.epoch
++                    && bootId.equals(other.bootId);
++        }
++    }
++
++    public static final class Record {
++        public final Receipt receipt;
++        private final byte[] mPayload;
++        private Record(Receipt receipt, byte[] payload) {
++            this.receipt = receipt;
++            mPayload = payload.clone();
++        }
++        public byte[] payload() { return mPayload.clone(); }
++    }
++
++    private final Object mOwnerLock;
++    private final BootSource mBootSource;
++    private final Store mStore;
++    private final String mBootId;
++
++    public Gta3xlwifiStatsJournal(Object ownerLock, File file) throws IOException {
++        this(ownerLock, Gta3xlwifiStatsJournal::readKernelBootId, new FileStore(file));
++    }
++
++    public Gta3xlwifiStatsJournal(Object ownerLock, BootSource bootSource, Store store)
++            throws IOException {
++        mOwnerLock = Objects.requireNonNull(ownerLock);
++        mBootSource = Objects.requireNonNull(bootSource);
++        mStore = Objects.requireNonNull(store);
++        try {
++            mBootId = canonicalBoot(mBootSource.current());
++        } catch (IllegalArgumentException failure) {
++            throw new IOException("Invalid genuine kernel boot identity", failure);
++        }
++    }
++
++    private static String canonicalBoot(String text) {
++        if (text == null) throw new IllegalArgumentException("Missing boot UUID");
++        UUID uuid = UUID.fromString(text);
++        if (!uuid.toString().equals(text) || uuid.version() != 4 || uuid.variant() != 2) {
++            throw new IllegalArgumentException("Noncanonical kernel boot UUID");
++        }
++        return text;
++    }
++
++    private void requireOwner() throws IOException {
++        if (!Thread.holdsLock(mOwnerLock)) {
++            throw new IllegalStateException("Factory data lock must already be held");
++        }
++        if (!mBootId.equals(mBootSource.current())) {
++            throw new IOException("Kernel boot identity changed during this process");
++        }
++    }
++
++    public Receipt receipt(int bank, long epoch) {
++        return new Receipt(mBootId, bank, epoch);
++    }
++
++    /** A prior-boot file is retained, but must not seed this boot's counters. */
++    public Record loadCurrentBoot() throws IOException {
++        requireOwner();
++        Record record = readRecord();
++        return record != null && mBootId.equals(record.receipt.bootId) ? record : null;
++    }
++
++    private Record readRecord() throws IOException {
++        byte[] raw = mStore.read();
++        return raw == null ? null : decode(raw);
++    }
++
++    /**
++     * Idempotent exact receipt/data acceptance. Stale or conflicting replays fail.
++     * A write exception is uncertain: reload the actual journal before recovery;
++     * never ACK or blindly recompute/append this delta following an exception.
++     */
++    public Record accept(Receipt receipt, byte[] completeState) throws IOException {
++        requireOwner();
++        Objects.requireNonNull(receipt);
++        Objects.requireNonNull(completeState);
++        if (!mBootId.equals(receipt.bootId) || completeState.length > MAX_PAYLOAD) {
++            throw new IllegalArgumentException("Wrong boot or oversized consumer state");
++        }
++        Record previous = readRecord();
++        if (previous != null && mBootId.equals(previous.receipt.bootId)) {
++            if (previous.receipt.matches(receipt)) {
++                if (!Arrays.equals(previous.mPayload, completeState)) {
++                    throw new IOException("Conflicting accepted-epoch replay");
++                }
++                return previous;
++            }
++            if (Long.compareUnsigned(receipt.epoch, previous.receipt.epoch) <= 0) {
++                throw new IOException("Stale accepted epoch");
++            }
++        }
++        byte[] encoded = encode(receipt, completeState);
++        mStore.writeDurably(encoded.clone());
++        byte[] readback = mStore.read();
++        if (!Arrays.equals(encoded, readback)) {
++            throw new IOException("Accepted statistics journal readback differs");
++        }
++        return decode(readback);
++    }
++
++    private static byte[] digest(byte[] data) {
++        try {
++            return MessageDigest.getInstance("SHA-256").digest(data);
++        } catch (NoSuchAlgorithmException impossible) {
++            throw new AssertionError(impossible);
++        }
++    }
++
++    private static byte[] encode(Receipt receipt, byte[] payload) throws IOException {
++        ByteArrayOutputStream body = new ByteArrayOutputStream();
++        DataOutputStream out = new DataOutputStream(body);
++        out.writeInt(MAGIC);
++        out.writeInt(VERSION);
++        out.writeUTF(receipt.bootId);
++        out.writeInt(receipt.bank);
++        out.writeLong(receipt.epoch);
++        out.writeInt(payload.length);
++        out.write(payload);
++        out.flush();
++        byte[] prefix = body.toByteArray();
++        body.write(digest(prefix));
++        return body.toByteArray();
++    }
++
++    private static Record decode(byte[] bytes) throws IOException {
++        if (bytes.length < 32 || bytes.length > MAX_FILE) throw new IOException("Journal size");
++        byte[] body = Arrays.copyOf(bytes, bytes.length - 32);
++        if (!MessageDigest.isEqual(digest(body),
++                Arrays.copyOfRange(bytes, body.length, bytes.length))) {
++            throw new IOException("Journal checksum");
++        }
++        DataInputStream in = new DataInputStream(new ByteArrayInputStream(body));
++        if (in.readInt() != MAGIC || in.readInt() != VERSION) {
++            throw new IOException("Journal version");
++        }
++        final Receipt receipt;
++        try {
++            receipt = new Receipt(in.readUTF(), in.readInt(), in.readLong());
++        } catch (IllegalArgumentException failure) {
++            throw new IOException("Journal receipt", failure);
++        }
++        int length = in.readInt();
++        if (length < 0 || length > MAX_PAYLOAD || in.available() != length) {
++            throw new IOException("Journal payload length");
++        }
++        byte[] payload = new byte[length];
++        in.readFully(payload);
++        return new Record(receipt, payload);
++    }
++
++    /** Device runtime read only: no build-host identity or property substitute. */
++    public static String readKernelBootId() throws IOException {
++        final java.io.FileDescriptor fd;
++        try {
++            fd = Os.open("/proc/sys/kernel/random/boot_id",
++                    OsConstants.O_RDONLY | OsConstants.O_CLOEXEC | OsConstants.O_NOFOLLOW, 0);
++        } catch (ErrnoException failure) {
++            throw new IOException("Cannot open kernel boot identity", failure);
++        }
++        try (FileInputStream input = new FileInputStream(fd)) {
++            StructStat st = Os.fstat(fd);
++            if (!OsConstants.S_ISREG(st.st_mode) || st.st_uid != 0) {
++                throw new IOException("Kernel boot identity is not a root-owned proc file");
++            }
++            byte[] data = boundedRead(input, 38);
++            if (data.length != 37 || data[36] != '\n') throw new IOException("Boot UUID length");
++            try {
++                return canonicalBoot(new String(data, 0, 36, StandardCharsets.US_ASCII));
++            } catch (IllegalArgumentException failure) {
++                throw new IOException("Kernel boot UUID format", failure);
++            }
++        } catch (ErrnoException failure) {
++            throw new IOException("Cannot stat kernel boot identity", failure);
++        }
++    }
++
++    private static byte[] boundedRead(FileInputStream input, int maximum) throws IOException {
++        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
++        byte[] buffer = new byte[8192];
++        int total = 0;
++        while (total < maximum) {
++            int count = input.read(buffer, 0, Math.min(buffer.length, maximum - total));
++            if (count < 0) return bytes.toByteArray();
++            if (count == 0) throw new IOException("No read progress");
++            bytes.write(buffer, 0, count);
++            total += count;
++        }
++        // maximum is a rejection bound, never accept silently truncated input.
++        throw new IOException("Input exceeds journal/boot-identity bound");
++    }
++
++    /** Actual AtomicFile path with explicit failure visibility and directory sync. */
++    public static final class FileStore implements Store {
++        private final File mFile;
++        private final AtomicFile mAtomic;
++        public FileStore(File file) {
++            mFile = Objects.requireNonNull(file).getAbsoluteFile();
++            mAtomic = new AtomicFile(mFile);
++        }
++        private void syncDirectory() throws IOException {
++            java.io.FileDescriptor fd = null;
++            IOException failure = null;
++            try {
++                fd = Os.open(mFile.getParent(), OsConstants.O_RDONLY
++                        | OsConstants.O_CLOEXEC | OsConstants.O_NOFOLLOW, 0);
++                if (!OsConstants.S_ISDIR(Os.fstat(fd).st_mode)) {
++                    throw new IOException("Statistics parent is not a directory");
++                }
++                Os.fsync(fd);
++            } catch (ErrnoException error) {
++                failure = new IOException("Statistics directory sync failed", error);
++            } catch (IOException error) {
++                failure = error;
++            } finally {
++                if (fd != null) {
++                    try { Os.close(fd); } catch (ErrnoException error) {
++                        if (failure == null) {
++                            failure = new IOException("Statistics directory close failed", error);
++                        } else {
++                            failure.addSuppressed(error);
++                        }
++                    }
++                }
++            }
++            if (failure != null) throw failure;
++        }
++        @Override public byte[] read() throws IOException {
++            try (FileInputStream input = mAtomic.openRead()) {
++                byte[] result = boundedRead(input, MAX_FILE);
++                // Also resolves a prior uncertain rename before reporting receipt.
++                syncDirectory();
++                return result;
++            } catch (FileNotFoundException failure) {
++                if (Files.notExists(mFile.toPath(), LinkOption.NOFOLLOW_LINKS)
++                        && Files.notExists(new File(mFile + ".bak").toPath(),
++                                LinkOption.NOFOLLOW_LINKS)) return null;
++                throw failure;
++            }
++        }
++        @Override public void writeDurably(byte[] data) throws IOException {
++            if (data.length >= MAX_FILE) throw new IOException("Journal too large");
++            FileOutputStream output = mAtomic.startWrite();
++            boolean finishCalled = false;
++            try {
++                output.write(data);
++                output.flush();
++                // AtomicFile.finishWrite logs some failures instead of throwing.
++                // Require an explicit successful data sync before it may rename.
++                output.getFD().sync();
++                finishCalled = true;
++                mAtomic.finishWrite(output);
++                syncDirectory();
++                if (!Arrays.equals(data, read())) throw new IOException("Atomic rename/readback failed");
++            } catch (IOException | RuntimeException failure) {
++                if (!finishCalled) mAtomic.failWrite(output);
++                // After finishWrite the base may be committed: retain it for
++                // explicit receipt-based recovery; never delete or retry here.
++                throw failure;
++            }
++        }
++    }
++}
