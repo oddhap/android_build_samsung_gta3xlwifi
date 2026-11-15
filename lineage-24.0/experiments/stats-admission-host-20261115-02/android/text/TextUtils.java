@@ -1,0 +1,1 @@
+package android.text;public class TextUtils{public static boolean equals(CharSequence a,CharSequence b){return java.util.Objects.equals(a,b);}}

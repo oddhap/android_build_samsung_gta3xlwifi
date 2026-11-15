@@ -32,26 +32,32 @@ checks are separate from Android execution. Optional GPU BPF accounting still
 reports unavailable, rather than invented counters. Existing safety/installer
 and strict SELinux checks remain enforced.
 
-## Fenced UID cleanup and kernel receipts — November 15
+## Durable UID cleanup and recovery — November 15
 
-Inactive UID cleanup now uses the existing native provider/transport, fullUID1000
-session checks and generation/epoch fences. Its12-method AIDL/CFI/Java compile and
-1243/17 audits pass; owner/transport/kernel-function host checks pass26401/3006/
-46488. Java replays prior suites and passes7 new cleanup cases. See
-uid-cleanup-20261115-01 (9fab004). Durable NSS routing remains pending.
+Inactive stats-removal-20261115-02 adds complete-state durable UID intents before
+native RPC13, confirms actual kernel COMPLETE before clearing local statistics,
+and gates first policy publication on real journal validation. Exact cached
+completion preserves counters created for a reused UID; ambiguous/PREPARED
+requests are not replayed. NSS skips private BPF maps/listener construction and
+retires recorder/cache state per confirmed UID, including partial batch failure.
+All12 actual Java sources compile against A17 SDK classpaths and1243/17 audits
+pass. Host checks replay prior suites, pass62 durable transaction cases and18
+backend/factory/NSS routing cases. Explicit platform/kernel/store fixtures are
+not physical Android execution. See experiments/stats-removal-20261115-02.
 
-A subsequent isolated kernel fixes the missing interface-name opcode in both
-ioctl routing guards, using one shared exact operation list. It also retains
-nonce-keyed UID cleanup PREPARED/COMPLETE receipts across daemon lifetimes;
-completed duplicate requests preserve new records for a reused UID. Host checks
-pass5454 with9830400 A17 GSO comparisons and two80000-update concurrency cases.
-Actual ARM32/64 UAPI compilation, full Image/modules/Gator and complete source/
-Android audits pass. See kernel-uid-receipt-20261115-01. No hardware validation.
+Published f62e1d5 validates terminal-abort14:26528 native assertions, full CFI
+netd/OEM/Java compilation and15 additional Java checks. Exact session+token abort
+cannot withdraw a newer owner, even with a reused token. Normal close is nonfatal.
+Strict receipt-policy production/debug probes preserve5918/5881 assertions and
+constraints and pass17 permissions/labels/20 positive ioctl contradictions plus
+negative674f/6764 neighbors. Only netd ioctl6763 is newly granted.
 
-Native receipt integration, durable factory intent/startup admission and explicit
-strict policy for ioctl6763 are still required. HOLD does not imply unchanged
-counters: dropped ingress is genuinely counted. No blind UID replay is allowed.
-Selected source/prebuilts/policy remain unchanged; no flash-ready ROM exists.
+The isolated receipt kernel7ece8d6f retains PREPARED/COMPLETE across daemon
+lifetimes and fixes both ioctl routing guards. Full Image/modules/Gator and
+source/Android audits pass; host checks pass5454 with9830400 A17 GSO comparisons
+and two80000-update concurrency cases. HOLD still counts dropped ingress.
+Selected TOP, snapshot, kernel/vendor prebuilts and policy remain unchanged.
+No flash-ready ROM exists.
 
 ## Actual factory and TrafficStats routing — November 15
 

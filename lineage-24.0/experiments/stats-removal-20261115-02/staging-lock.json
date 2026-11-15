@@ -1,0 +1,35 @@
+{
+  "inactive": true,
+  "prerequisites": [
+    "terminal-abort-20261115-01"
+  ],
+  "files": {
+    "packages/modules/Connectivity/service/src/com/android/server/BpfNetMaps.java": {
+      "original_sha256": "5d882914bd4d87866dcf9c33a6bc9a9e368d7e3d43b08e32ed71baadbbbde1e0",
+      "candidate_sha256": "3538c32e4576b2ca34aa7327171b3899598a3066f18b86ac32363fa3f2319b92"
+    },
+    "packages/modules/Connectivity/service/src/com/android/server/Gta3xlwifiNetpolicyBackend.java": {
+      "original_sha256": "6c0a108353de435a3c3fbf3e855becdb1ac87a481e9d819d2355b524c3274792",
+      "candidate_sha256": "f8b4114d7aa088f0be851be620a6bc351cd97c0ada16d90efdc5b10b581ef0d8"
+    },
+    "packages/modules/Connectivity/service/src/com/android/server/Gta3xlwifiNetpolicyClient.java": {
+      "original_sha256": "5ecd0d6fd8465d7791141665f34703641218236be1c398e624d56bbb60a32448",
+      "candidate_sha256": "d398fea3051ec1b8c2b0cc5247189cbd6cc83cc147ccdef92be9d46486272af5"
+    },
+    "packages/modules/Connectivity/service/src/com/android/server/Gta3xlwifiStatsConsumer.java": {
+      "original_sha256": "e0f5fa02e29347dcffcdc2b4676175f63e738831c6cd986a3bc3c09d62216d7b",
+      "candidate_sha256": "713abd60e76af4faeb7eee0dd0046d97c58b3226b2e8f626b813eb0a7ffa4b3c"
+    },
+    "packages/modules/Connectivity/service-t/src/com/android/server/net/NetworkStatsFactory.java": {
+      "original_sha256": "dfa01bcfe41a71b6f700e35d71d6130da617bf50a023df690cc2b62b19025d10",
+      "candidate_sha256": "250625597dca1dfa9ffeb8259d2675299db7c137b1cce737e4bf0b715df2408b"
+    },
+    "packages/modules/Connectivity/service-t/src/com/android/server/net/NetworkStatsService.java": {
+      "original_sha256": "9bb3028ba19b89d2973f96be50ce464f2207bdd4e166b167503eaf1d851333bd",
+      "candidate_sha256": "7ed8596510b4da8e2e0d0f390b453c7f1e1d859f6c30e5a2950f941a0bba0d1a"
+    }
+  },
+  "selected_source_changed": false,
+  "hardware_tested": false,
+  "flash_ready": false
+}

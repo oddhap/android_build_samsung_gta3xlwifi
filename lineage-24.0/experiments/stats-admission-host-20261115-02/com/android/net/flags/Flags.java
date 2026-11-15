@@ -1,0 +1,1 @@
+package com.android.net.flags;public class Flags{public static final String FLAG_NETSTATS_ADD_ENTRIES="fixture";}

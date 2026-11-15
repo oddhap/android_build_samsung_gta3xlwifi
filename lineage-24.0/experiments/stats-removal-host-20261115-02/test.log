@@ -1,0 +1,9 @@
+passed_cases=1467
+poll_cases=61
+consumer_cases=327
+factory_cases=12
+traffic_cases=26
+uid_cleanup_java_cases=7
+uid_receipt_java_cases=29
+terminal_abort_java_cases=15
+durable_removal_cases=62

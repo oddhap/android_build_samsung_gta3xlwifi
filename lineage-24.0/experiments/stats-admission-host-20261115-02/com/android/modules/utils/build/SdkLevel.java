@@ -1,0 +1,1 @@
+package com.android.modules.utils.build; public class SdkLevel {public static boolean isAtLeastV(){return true;} public static boolean enabled=true; public static boolean isAtLeastT(){return enabled;} }
