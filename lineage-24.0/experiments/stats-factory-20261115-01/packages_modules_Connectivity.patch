@@ -1,0 +1,529 @@
+--- a/service/src/com/android/server/BpfNetMaps.java
++++ b/service/src/com/android/server/BpfNetMaps.java
+@@ -199,6 +199,12 @@
+ 
+     public boolean usesGta3xlwifiNetworking() { return mGta != null; }
+ 
++    /** Capture the real shared-session stats handle before the factory lock. */
++    public Gta3xlwifiStatsAccess gta3xlwifiStatsAccess() {
++        if (mGta == null) throw new IllegalStateException("Private backend not selected");
++        return mGta.statsAccess();
++    }
++
+     public com.android.server.permission.PermissionBpfMap gta3xlwifiPermissionReceiver(
+             boolean actualLoopbackPermission) {
+         if (mGta == null) throw new IllegalStateException("Private backend not selected");
+--- a/service/src/com/android/server/Gta3xlwifiNetpolicyBackend.java
++++ b/service/src/com/android/server/Gta3xlwifiNetpolicyBackend.java
+@@ -28,6 +28,10 @@
+         long generation() throws RemoteException;
+ 
+         void close() throws RemoteException;
++
++        default Gta3xlwifiStatsAccess statsAccess() {
++            throw new UnsupportedOperationException("No real private stats transport");
++        }
+     }
+ 
+     public static Gta3xlwifiNetpolicyBackend connect(
+@@ -54,6 +58,10 @@
+ 
+                         public long generation() throws RemoteException {
+                             return client.generation();
++                        }
++
++                        public Gta3xlwifiStatsAccess statsAccess() {
++                            return client.statsAccess();
+                         }
+ 
+                         public void close() throws RemoteException {
+@@ -185,6 +193,14 @@
+ 
+     private static void chain(int value) {
+         BpfNetMapsUtils.getMatchByFirewallChain(value);
++    }
++
++    /** Capture BEFORE acquiring the factory data lock; early HOLD is allowed. */
++    public Gta3xlwifiStatsAccess statsAccess() {
++        synchronized (mLock) {
++            requireLive();
++            return mTransport.statsAccess();
++        }
+     }
+ 
+     private void requireLive() {
+--- /dev/null
++++ b/service/src/com/android/server/Gta3xlwifiStatsConsumer.java
+@@ -0,0 +1,311 @@
++/* SPDX-License-Identifier: Apache-2.0 */
++package com.android.server;
++
++import android.net.NetworkStats;
++import android.net.UnderlyingNetworkInfo;
++import android.os.SystemClock;
++import java.io.*;
++import java.util.*;
++
++/** Complete private factory state, using the existing factory data lock only. @hide */
++public final class Gta3xlwifiStatsConsumer implements Gta3xlwifiStatsPoller.Consumer {
++    private static final int MAGIC = 0x47534332, VERSION = 1;
++    private static final int MAX_ROWS = 20000, MAX_METADATA = 1000;
++    private static final int MAX_BYTES = 4 * 1024 * 1024;
++    private final Object mLock;
++    private final Gta3xlwifiStatsAccess mStats;
++    private final Gta3xlwifiStatsJournal mJournal;
++    private final Gta3xlwifiStatsPoller mPoller;
++    private final boolean mThrottle;
++    private final int mThreshold;
++    private State mState;
++    private long mRevision;
++
++    private static final class State {
++        NetworkStats raw = new NetworkStats(0, 0);
++        NetworkStats adjusted = new NetworkStats(0, 0);
++        final TreeMap<Integer, TreeSet<Integer>> tags = new TreeMap<>();
++        final TreeMap<String, String> stacked = new TreeMap<>();
++        UnderlyingNetworkInfo[] vpns = new UnderlyingNetworkInfo[0];
++        State copy() {
++            State copy = new State();
++            copy.raw = raw.clone(); copy.adjusted = adjusted.clone();
++            tags.forEach((uid, set) -> copy.tags.put(uid, new TreeSet<>(set)));
++            copy.stacked.putAll(stacked); copy.vpns = vpns.clone();
++            return copy;
++        }
++    }
++    public Gta3xlwifiStatsConsumer(Object lock, Gta3xlwifiStatsAccess stats,
++            Gta3xlwifiStatsJournal journal, boolean throttle, int threshold) {
++        mLock = Objects.requireNonNull(lock); mStats = Objects.requireNonNull(stats);
++        mJournal = Objects.requireNonNull(journal); mThrottle = throttle;
++        if (threshold < 0 || threshold > MAX_ROWS) throw new IllegalArgumentException("Tag threshold");
++        mThreshold = threshold; mPoller = new Gta3xlwifiStatsPoller(lock, stats, journal);
++    }
++    private void requireLock() {
++        if (!Thread.holdsLock(mLock)) throw new IllegalStateException("Factory data lock required");
++    }
++    private Gta3xlwifiStatsJournal.Record load() throws IOException {
++        requireLock();
++        Gta3xlwifiStatsJournal.Record r = mJournal.loadCurrentBoot();
++        if ((r == null && mRevision != 0) || (r != null && r.revision < mRevision)) {
++            throw new IOException("Factory state disappeared or regressed");
++        }
++        restore(r == null ? null : r.payload());
++        if (r != null) mRevision = r.revision;
++        return r;
++    }
++    private void amend(Gta3xlwifiStatsJournal.Record expected, State next) throws IOException {
++        Gta3xlwifiStatsJournal.Record r = mJournal.updateState(expected, encode(next));
++        restore(r.payload()); mRevision = r.revision;
++    }
++    @Override public void restore(byte[] complete) throws IOException {
++        requireLock();
++        // Decode and validate every field before publishing any part of the state.
++        mState = complete == null ? new State() : decode(complete);
++    }
++    @Override public byte[] prepare(Gta3xlwifiStatsAccess.Snapshot frozen) throws IOException {
++        requireLock();
++        if (mState == null || frozen.kind != 1) throw new IOException("Missing frozen baseline");
++        frozen.requireLossless();
++        Map<Long, String> names = names(mStats.readInterfaceNames());
++        State next = mState.copy();
++        NetworkStats diff = new NetworkStats(SystemClock.elapsedRealtime(), frozen.count);
++        for (int i = 0; i < frozen.count; ++i) {
++            long[] row = frozen.row(i);
++            String iface = names.get(row[3]);
++            if (iface == null) throw new IOException("Missing real interface history: " + row[3]);
++            NetworkStats.Entry entry = new NetworkStats.Entry(iface, (int) row[0],
++                    (int) row[2], (int) row[1], 0, 0, 0,
++                    counter(row[5]), counter(row[4]), counter(row[7]), counter(row[6]), 0);
++            checkedCombine(diff, entry);
++            // Match the actual A17 BpfNetworkStats.cpp tagged-to-tag0 aggregation.
++            if (entry.tag != 0) { entry.tag = 0; checkedCombine(diff, entry); }
++        }
++        NetworkStats filtered = new NetworkStats(diff.getElapsedRealtime(), diff.size());
++        for (int i = 0; i < diff.size(); ++i) {
++            NetworkStats.Entry entry = diff.getValues(i, null);
++            if (mThrottle && entry.tag != 0) {
++                TreeSet<Integer> tags = next.tags.computeIfAbsent(entry.uid, k -> new TreeSet<>());
++                if (!tags.contains(entry.tag) && tags.size() >= mThreshold) continue;
++                tags.add(entry.tag);
++            }
++            checkedCombine(filtered, entry);
++        }
++        merge(next.raw, filtered);
++        // Keep the current A17 order: raw accumulation, then464xlat, then VPN/debug filtering.
++        checkClatRange(filtered);
++        filtered.apply464xlatAdjustments(next.stacked);
++        for (UnderlyingNetworkInfo vpn : next.vpns) {
++            checkVpnRange(filtered);
++            filtered.migrateTun(vpn.getOwnerUid(), vpn.getInterface(), vpn.getUnderlyingInterfaces());
++            filtered.filterDebugEntries();
++        }
++        merge(next.adjusted, filtered);
++        return encode(next);
++    }
++    public NetworkStats readDetail(int uid, String[] ifaces, int tag) throws IOException {
++        requireLock();
++        // load also detects loss of metadata-only state before the first receipt.
++        load();
++        Gta3xlwifiStatsPoller.Result result = mPoller.poll(this);
++        mRevision = result.accepted.revision;
++        return mState.adjusted.filteredClone(uid, ifaces, tag);
++    }
++    public NetworkStats readSummary() throws IOException {
++        requireLock();
++        Gta3xlwifiStatsAccess.Snapshot interfaces = mStats.readInterfaces();
++        interfaces.requireLossless();
++        Map<Long, String> names = names(mStats.readInterfaceNames());
++        NetworkStats out = new NetworkStats(SystemClock.elapsedRealtime(), interfaces.count);
++        for (int i = 0; i < interfaces.count; ++i) {
++            long[] row = interfaces.row(i); String iface = names.get(row[0]);
++            if (iface == null) throw new IOException("Missing interface summary history");
++            checkedCombine(out, new NetworkStats.Entry(iface, NetworkStats.UID_ALL,
++                    NetworkStats.SET_ALL, 0, 0, 0, 0, counter(row[2]), counter(row[1]),
++                    counter(row[4]), counter(row[3]), 0));
++        }
++        return out;
++    }
++    public void noteStackedIface(String stacked, String base) throws IOException {
++        Gta3xlwifiStatsJournal.Record r = load();
++        if (stacked == null || base == null) return;
++        name(stacked); name(base); State next = mState.copy();
++        String prior = next.stacked.put(stacked, base);
++        if (prior != null && !prior.equals(base)) throw new IOException("Stacked interface reassigned");
++        amend(r, next);
++    }
++    public void updateUnderlyingNetworkInfos(UnderlyingNetworkInfo[] vpns) throws IOException {
++        Gta3xlwifiStatsJournal.Record r = load(); State next = mState.copy();
++        next.vpns = Objects.requireNonNull(vpns).clone(); amend(r, next);
++    }
++    public void removeUids(int[] uids) throws IOException {
++        Gta3xlwifiStatsJournal.Record r = load(); State next = mState.copy();
++        for (int uid : uids) {
++            if (uid < 0) throw new IOException("Negative removal UID"); next.tags.remove(uid);
++        }
++        next.raw.removeUids(uids); next.adjusted.removeUids(uids); amend(r, next);
++    }
++    public void apply464xlatAdjustments(NetworkStats base, NetworkStats stacked) throws IOException {
++        load(); NetworkStats.apply464xlatAdjustments(base, stacked, mState.stacked);
++    }
++    public void dump(PrintWriter out) throws IOException {
++        load();
++        out.println("Private frozen-bank statistics: durable revision=" + mRevision
++                + " rawRows=" + mState.raw.size() + " adjustedRows=" + mState.adjusted.size());
++        out.println("Distinct tagged UIDs=" + mState.tags.size()
++                + " stackedInterfaces=" + mState.stacked.size() + " VPNs=" + mState.vpns.length);
++    }
++    private static void checkClatRange(NetworkStats stats) throws IOException {
++        try {
++            for (int i = 0; i < stats.size(); ++i) {
++                NetworkStats.Entry e = stats.getValues(i, null);
++                if (e.iface.startsWith("v4-")) {
++                    Math.addExact(e.rxBytes, Math.multiplyExact(e.rxPackets, 20));
++                    Math.addExact(e.txBytes, Math.multiplyExact(e.txPackets, 20));
++                }
++            }
++        } catch (ArithmeticException overflow) { throw new IOException("464xlat counter overflow", overflow); }
++    }
++    private static void checkVpnRange(NetworkStats stats) throws IOException {
++        // A17's unchanged VPN algorithm has unchecked aggregate/debug additions.
++        // Reserve headroom for its transient copies; fail explicitly above range.
++        long[] total = new long[5];
++        for (int i = 0; i < stats.size(); ++i) {
++            NetworkStats.Entry e = stats.getValues(i, null);
++            long[] values = {e.rxBytes, e.rxPackets, e.txBytes, e.txPackets, e.operations};
++            for (int c = 0; c < values.length; ++c) {
++                if (values[c] < 0 || values[c] > Long.MAX_VALUE / 4 - total[c]) {
++                    throw new IOException("VPN adjustment exceeds supported counter range");
++                }
++                total[c] += values[c];
++            }
++        }
++    }
++    private static Map<Long, String> names(Gta3xlwifiStatsAccess.Snapshot names) throws IOException {
++        if (names.kind != 4) throw new IOException("Wrong interface-name schema");
++        names.requireLossless(); Map<Long, String> out = new HashMap<>();
++        for (int i = 0; i < names.count; ++i) out.put(names.row(i)[0], names.interfaceName(i));
++        return out;
++    }
++    private static long counter(long value) throws IOException {
++        if (value < 0) throw new IOException("Unsigned counter exceeds NetworkStats range");
++        return value;
++    }
++    private static void checkedCombine(NetworkStats stats, NetworkStats.Entry entry) throws IOException {
++        try {
++            counter(entry.rxBytes); counter(entry.rxPackets); counter(entry.txBytes);
++            counter(entry.txPackets); counter(entry.operations);
++            int index = stats.findIndex(entry.iface, entry.uid, entry.set, entry.tag,
++                    entry.metered, entry.roaming, entry.defaultNetwork);
++            if (index >= 0) {
++                NetworkStats.Entry old = stats.getValues(index, null);
++                Math.addExact(old.rxBytes, entry.rxBytes); Math.addExact(old.rxPackets, entry.rxPackets);
++                Math.addExact(old.txBytes, entry.txBytes); Math.addExact(old.txPackets, entry.txPackets);
++                Math.addExact(old.operations, entry.operations);
++            } else if (stats.size() >= MAX_ROWS) throw new IOException("Factory row capacity exceeded");
++            stats.combineValues(entry);
++        } catch (ArithmeticException overflow) { throw new IOException("NetworkStats counter overflow", overflow); }
++    }
++    private static void merge(NetworkStats total, NetworkStats delta) throws IOException {
++        for (int i = 0; i < delta.size(); ++i) checkedCombine(total, delta.getValues(i, null));
++        total.setElapsedRealtime(delta.getElapsedRealtime());
++    }
++    private static int count(int value, int max) throws IOException {
++        if (value < 0 || value > max) throw new IOException("Invalid factory count"); return value;
++    }
++    private static String name(String value) throws IOException {
++        if (value == null || value.length() < 1 || value.length() > 15
++                || value.equals(".") || value.equals("..")) throw new IOException("Invalid interface name");
++        for (char c : value.toCharArray()) if (c <= 32 || c >= 127 || c == '/' || c == ':') {
++            throw new IOException("Invalid interface byte");
++        }
++        return value;
++    }
++    private static void writeStats(DataOutputStream out, NetworkStats stats) throws IOException {
++        if (stats.getElapsedRealtime() < 0) throw new IOException("Invalid elapsed time");
++        out.writeLong(stats.getElapsedRealtime()); out.writeInt(count(stats.size(), MAX_ROWS));
++        for (int i = 0; i < stats.size(); ++i) {
++            NetworkStats.Entry e = stats.getValues(i, null); out.writeUTF(name(e.iface));
++            if (e.uid < 0 || e.set < 0 || e.set > 1 || e.metered != 0 || e.roaming != 0
++                    || e.defaultNetwork != 0) throw new IOException("Invalid persisted row identity");
++            out.writeInt(e.uid); out.writeInt(e.set); out.writeInt(e.tag);
++            out.writeLong(counter(e.rxBytes)); out.writeLong(counter(e.rxPackets));
++            out.writeLong(counter(e.txBytes)); out.writeLong(counter(e.txPackets));
++            out.writeLong(counter(e.operations));
++        }
++    }
++    private static NetworkStats readStats(DataInputStream in) throws IOException {
++        long elapsed = counter(in.readLong()); int rows = count(in.readInt(), MAX_ROWS);
++        NetworkStats stats = new NetworkStats(elapsed, rows);
++        for (int i = 0; i < rows; ++i) {
++            String iface = name(in.readUTF()); int uid = in.readInt(), set = in.readInt(), tag = in.readInt();
++            if (uid < 0 || set < 0 || set > 1) throw new IOException("Invalid row key");
++            NetworkStats.Entry e = new NetworkStats.Entry(iface, uid, set, tag, 0, 0, 0,
++                    counter(in.readLong()), counter(in.readLong()), counter(in.readLong()),
++                    counter(in.readLong()), counter(in.readLong()));
++            if (stats.findIndex(iface, uid, set, tag, 0, 0, 0) >= 0) throw new IOException("Duplicate row");
++            stats.combineValues(e);
++        }
++        return stats;
++    }
++    private byte[] encode(State state) throws IOException {
++        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
++        try (DataOutputStream out = new DataOutputStream(bytes)) {
++            out.writeInt(MAGIC); out.writeInt(VERSION); out.writeBoolean(mThrottle); out.writeInt(mThreshold);
++            writeStats(out, state.raw); writeStats(out, state.adjusted);
++            out.writeInt(count(state.tags.size(), MAX_ROWS));
++            for (Map.Entry<Integer, TreeSet<Integer>> tags : state.tags.entrySet()) {
++                if (tags.getKey() < 0) throw new IOException("Invalid tag UID");
++                out.writeInt(tags.getKey()); out.writeInt(count(tags.getValue().size(), mThreshold));
++                for (int tag : tags.getValue()) { if (tag == 0) throw new IOException("Invalid zero tag"); out.writeInt(tag); }
++            }
++            out.writeInt(count(state.stacked.size(), MAX_METADATA));
++            for (Map.Entry<String, String> pair : state.stacked.entrySet()) {
++                out.writeUTF(name(pair.getKey())); out.writeUTF(name(pair.getValue()));
++            }
++            out.writeInt(count(state.vpns.length, MAX_METADATA));
++            for (UnderlyingNetworkInfo vpn : state.vpns) {
++                if (vpn == null || vpn.getOwnerUid() < 0) throw new IOException("Invalid VPN owner");
++                out.writeInt(vpn.getOwnerUid()); out.writeUTF(name(vpn.getInterface()));
++                out.writeInt(count(vpn.getUnderlyingInterfaces().size(), MAX_METADATA));
++                Set<String> seen = new HashSet<>();
++                for (String iface : vpn.getUnderlyingInterfaces()) {
++                    if (!seen.add(name(iface))) throw new IOException("Duplicate VPN interface"); out.writeUTF(iface);
++                }
++            }
++        }
++        if (bytes.size() > MAX_BYTES) throw new IOException("Complete factory state exceeds journal capacity");
++        return bytes.toByteArray();
++    }
++    private State decode(byte[] complete) throws IOException {
++        if (complete.length > MAX_BYTES) throw new IOException("Oversized factory state");
++        try (DataInputStream in = new DataInputStream(new ByteArrayInputStream(complete))) {
++            if (in.readInt() != MAGIC || in.readInt() != VERSION || in.readBoolean() != mThrottle
++                    || in.readInt() != mThreshold) throw new IOException("Factory schema/configuration mismatch");
++            State state = new State(); state.raw = readStats(in); state.adjusted = readStats(in);
++            int uids = count(in.readInt(), MAX_ROWS);
++            for (int i = 0; i < uids; ++i) {
++                int uid = in.readInt(), tags = count(in.readInt(), mThreshold);
++                if (uid < 0 || state.tags.containsKey(uid)) throw new IOException("Duplicate/invalid tag UID");
++                TreeSet<Integer> set = new TreeSet<>();
++                for (int t = 0; t < tags; ++t) { int tag = in.readInt(); if (tag == 0 || !set.add(tag)) throw new IOException("Duplicate/zero tag"); }
++                state.tags.put(uid, set);
++            }
++            int stacked = count(in.readInt(), MAX_METADATA);
++            for (int i = 0; i < stacked; ++i) {
++                if (state.stacked.put(name(in.readUTF()), name(in.readUTF())) != null) throw new IOException("Duplicate stacked interface");
++            }
++            int vpns = count(in.readInt(), MAX_METADATA); state.vpns = new UnderlyingNetworkInfo[vpns];
++            for (int i = 0; i < vpns; ++i) {
++                int uid = in.readInt(); String iface = name(in.readUTF());
++                if (uid < 0) throw new IOException("Invalid VPN UID");
++                int n = count(in.readInt(), MAX_METADATA); List<String> underlying = new ArrayList<>();
++                for (int t = 0; t < n; ++t) { String item = name(in.readUTF()); if (underlying.contains(item)) throw new IOException("Duplicate VPN interface"); underlying.add(item); }
++                state.vpns[i] = new UnderlyingNetworkInfo(uid, iface, underlying);
++            }
++            if (in.available() != 0) throw new IOException("Trailing factory state");
++            return state;
++        } catch (RuntimeException bad) { throw new IOException("Malformed complete factory state", bad); }
++    }
++}
+--- a/service-t/src/com/android/server/net/NetworkStatsFactory.java
++++ b/service-t/src/com/android/server/net/NetworkStatsFactory.java
+@@ -42,6 +42,10 @@
+ import com.android.server.connectivity.InterfaceTracker;
+ 
+ import java.io.IOException;
++import java.io.File;
++import com.android.server.Gta3xlwifiStatsAccess;
++import com.android.server.Gta3xlwifiStatsConsumer;
++import com.android.server.Gta3xlwifiStatsJournal;
+ import java.net.ProtocolException;
+ import java.util.ArrayList;
+ import java.util.Collections;
+@@ -68,6 +72,9 @@
+     @Nullable
+     private final BpfNetMaps mBpfNetMaps;
+     private final boolean mLegacyStats;
++    private final Gta3xlwifiStatsAccess mGtaStatsAccess;
++    @GuardedBy("mPersistentDataLock")
++    private Gta3xlwifiStatsConsumer mGtaStats;
+ 
+     /**
+      * Guards persistent data access in this class
+@@ -178,6 +185,13 @@
+ 
+     /** Informs the factory of a new stacked interface. */
+     public void noteStackedIface(String stackedIface, String baseIface) {
++        if (mLegacyStats) {
++            synchronized (mPersistentDataLock) {
++                try { privateStats().noteStackedIface(stackedIface, baseIface); }
++                catch (IOException failure) { throw new IllegalStateException("Stacked metadata unavailable", failure); }
++            }
++            return;
++        }
+         if (stackedIface != null && baseIface != null) {
+             mStackedIfaces.put(stackedIface, baseIface);
+         }
+@@ -193,6 +207,13 @@
+      * @param vpnArray The snapshot of the currently-running VPNs.
+      */
+     public void updateUnderlyingNetworkInfos(UnderlyingNetworkInfo[] vpnArray) {
++        if (mLegacyStats) {
++            synchronized (mPersistentDataLock) {
++                try { privateStats().updateUnderlyingNetworkInfos(vpnArray); }
++                catch (IOException failure) { throw new IllegalStateException("VPN metadata unavailable", failure); }
++            }
++            return;
++        }
+         mUnderlyingNetworkInfos = vpnArray.clone();
+     }
+ 
+@@ -201,6 +222,13 @@
+      * @see NetworkStats#apply464xlatAdjustments(NetworkStats, NetworkStats, Map)
+      */
+     public void apply464xlatAdjustments(NetworkStats baseTraffic, NetworkStats stackedTraffic) {
++        if (mLegacyStats) {
++            synchronized (mPersistentDataLock) {
++                try { privateStats().apply464xlatAdjustments(baseTraffic, stackedTraffic); }
++                catch (IOException failure) { throw new IllegalStateException("CLAT metadata unavailable", failure); }
++            }
++            return;
++        }
+         NetworkStats.apply464xlatAdjustments(baseTraffic, stackedTraffic, mStackedIfaces);
+     }
+ 
+@@ -211,7 +239,10 @@
+     @VisibleForTesting
+     public NetworkStatsFactory(@NonNull Context ctx, Dependencies deps) {
+         mLegacyStats = deps.isLegacyNetworking();
+-        mBpfNetMaps = mLegacyStats ? null : deps.createBpfNetMaps(ctx);
++        // Capture shared native session outside the persistent-data lock.
++        BpfNetMaps maps = deps.createBpfNetMaps(ctx);
++        mGtaStatsAccess = mLegacyStats ? maps.gta3xlwifiStatsAccess() : null;
++        mBpfNetMaps = mLegacyStats ? null : maps;
+         synchronized (mPersistentDataLock) {
+             mPersistSnapshot = new NetworkStats(SystemClock.elapsedRealtime(), -1);
+             mTunAnd464xlatAdjustedStats = new NetworkStats(SystemClock.elapsedRealtime(), -1);
+@@ -224,12 +255,38 @@
+                 CONFIG_PER_UID_TAG_THROTTLING_THRESHOLD, DEFAULT_TAGS_PER_UID_THRESHOLD);
+     }
+ 
++    /** Called by the owning service with its actual selected protected statistics directory. */
++    public void initializePrivateStats(File directory) {
++        if (!mLegacyStats) return;
++        synchronized (mPersistentDataLock) {
++            if (mGtaStats != null) throw new IllegalStateException("Private statistics already initialized");
++            if (!directory.isDirectory()) throw new IllegalStateException("Missing statistics directory");
++            try {
++                Gta3xlwifiStatsJournal journal = new Gta3xlwifiStatsJournal(mPersistentDataLock,
++                        new File(directory, "gta3xlwifi-packet-state"));
++                mGtaStats = new Gta3xlwifiStatsConsumer(mPersistentDataLock, mGtaStatsAccess,
++                        journal, mSupportPerUidTagThrottling, mPerUidTagThrottlingThreshold);
++            } catch (IOException failure) {
++                throw new IllegalStateException("Cannot open private statistics journal", failure);
++            }
++        }
++    }
++
++    @GuardedBy("mPersistentDataLock")
++    private Gta3xlwifiStatsConsumer privateStats() throws IOException {
++        if (mGtaStats == null) throw new IOException("Private statistics not initialized");
++        return mGtaStats;
++    }
++
+     /**
+      * Parse and return interface-level summary {@link NetworkStats}. Designed
+      * to return only IP layer traffic. Values monotonically increase since
+      * device boot, and may include details about inactive interfaces.
+      */
+     public NetworkStats readNetworkStatsSummaryXt() throws IOException {
++        if (mLegacyStats) {
++            synchronized (mPersistentDataLock) { return privateStats().readSummary(); }
++        }
+         return mDeps.getNetworkStatsDev();
+     }
+ 
+@@ -264,6 +321,7 @@
+         // In order to prevent deadlocks, anything protected by this lock MUST NOT call out to other
+         // code that will acquire other locks within the system server. See b/134244752.
+         synchronized (mPersistentDataLock) {
++            if (mLegacyStats) return privateStats().readDetail(limitUid, limitIfaces, limitTag);
+             // Take a reference. If this gets swapped out, we still have the old reference.
+             final UnderlyingNetworkInfo[] vpnArray = mUnderlyingNetworkInfos;
+ 
+@@ -355,6 +413,11 @@
+      */
+     public void removeUidsLocked(int[] uids) {
+         synchronized (mPersistentDataLock) {
++            if (mLegacyStats) {
++                try { privateStats().removeUids(uids); }
++                catch (IOException failure) { throw new IllegalStateException("UID cleanup not durable", failure); }
++                return;
++            }
+             mPersistSnapshot.removeUids(uids);
+             mLegacySnapshot.removeUids(uids);
+             mTunAnd464xlatAdjustedStats.removeUids(uids);
+@@ -412,6 +475,13 @@
+      * Dump the contents of NetworkStatsFactory.
+      */
+     public void dump(IndentingPrintWriter pw) {
++        if (mLegacyStats) {
++            synchronized (mPersistentDataLock) {
++                try { privateStats().dump(pw); }
++                catch (IOException failure) { pw.println("Private statistics unavailable: " + failure); }
++            }
++            return;
++        }
+         dumpUidTagSets(pw);
+     }
+ 
+--- a/service-t/src/com/android/server/net/NetworkStatsService.java
++++ b/service-t/src/com/android/server/net/NetworkStatsService.java
+@@ -670,6 +670,8 @@
+             throw new IllegalStateException("Persist data directory does not exist: " + mStatsDir);
+         }
+ 
++        mStatsFactory.initializePrivateStats(mStatsDir);
++
+         final HandlerThread handlerThread = mDeps.makeHandlerThread();
+         handlerThread.start();
+         mHandler = new NetworkStatsHandler(handlerThread.getLooper());

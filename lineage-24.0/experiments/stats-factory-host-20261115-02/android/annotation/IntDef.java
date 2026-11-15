@@ -1,0 +1,1 @@
+package android.annotation;public @interface IntDef{String[] prefix() default {}; long[] value() default {}; boolean flag() default false;}

@@ -1,0 +1,1 @@
+package com.android.internal.net; public interface IOemNetd { IGta3xlwifiNetpolicy getGta3xlwifiNetpolicy() throws android.os.RemoteException; class Stub { public static IOemNetd asInterface(android.os.IBinder b){return (IOemNetd)b;} } }

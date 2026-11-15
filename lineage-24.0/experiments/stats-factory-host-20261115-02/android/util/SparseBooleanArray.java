@@ -1,0 +1,1 @@
+package android.util;public class SparseBooleanArray{private final java.util.TreeMap<Integer,Boolean>m=new java.util.TreeMap<>();public void put(int k,boolean v){m.put(k,v);}public boolean get(int k){return m.getOrDefault(k,false);}public int size(){return m.size();}public int keyAt(int i){return new java.util.ArrayList<>(m.keySet()).get(i);}}
