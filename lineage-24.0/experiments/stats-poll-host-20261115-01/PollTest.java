@@ -1,0 +1,37 @@
+
+import com.android.server.*;
+import com.android.server.Gta3xlwifiStatsJournal.*;
+import java.io.*;import java.nio.*;import java.util.*;
+public class PollTest{
+ static int cases;static void check(boolean value){if(!value)throw new AssertionError("poll case "+cases);++cases;}
+ interface Action{void run()throws Exception;}
+ static void rejected(Action a)throws Exception{try{a.run();throw new AssertionError("missing IO failure");}catch(IOException expected){++cases;}}
+ static final String BOOT="00112233-4455-4677-8899-aabbccddeeff";
+ static class Memory implements Store{byte[]bytes;int writes;boolean before,after,readFault;List<String>events;Memory(List<String>e){events=e;}public byte[]read()throws IOException{if(readFault)throw new IOException("read");return bytes==null?null:bytes.clone();}public void writeDurably(byte[]value)throws IOException{writes++;events.add("write");if(before){before=false;throw new IOException("before");}bytes=value.clone();if(after){after=false;throw new IOException("after");}}}
+ static class Consumer implements Gta3xlwifiStatsPoller.Consumer{long total;int prepares,restores,failRestoreAt;boolean failPrepare;List<String>events;Consumer(List<String>e){events=e;}public void restore(byte[]value)throws IOException{restores++;if(restores==failRestoreAt)throw new IOException("install");if(value!=null&&value.length!=8)throw new IOException("consumer state");long next=value==null?0:ByteBuffer.wrap(value).getLong();total=next;events.add("restore="+total);}public byte[]prepare(Gta3xlwifiStatsAccess.Snapshot frozen)throws IOException{prepares++;events.add("prepare");if(failPrepare){failPrepare=false;throw new IOException("prepare");}long sum=total;for(int i=0;i<frozen.count;i++){long bytes=frozen.row(i)[5];if(bytes<0)throw new IOException("unsigned counter overflow");try{sum=Math.addExact(sum,bytes);}catch(ArithmeticException e){throw new IOException(e);}}return ByteBuffer.allocate(8).putLong(sum).array();}}
+ static class Remote extends Test.StatsRemote{
+  int activeBank,pending,swapsCommitted,acksCommitted;long epoch=1,nextDelta=10,nextLoss;long[]epochs={1,0},frozen;List<String>events;Remote(List<String>e){events=e;}
+  public long[]readStats(long session,int kind,int bank,long expected)throws android.os.RemoteException{validate(session);if(held)throw new android.os.ServiceSpecificException(11);if(kind==0)return new long[]{1,0,activeBank,epoch,pending,(pending&1)!=0?1:0,(pending&2)!=0?1:0,epochs[0],epochs[1],0,0,0,0,0,0};if(kind!=1||frozen==null||bank!=(int)frozen[2]||expected!=frozen[3]||(pending&(1<<bank))==0)throw new android.os.ServiceSpecificException(61);return frozen.clone();}
+  public long[]swapStats(long session,int bank,long expected)throws android.os.RemoteException{validate(session);swaps++;events.add("swap-attempt");point("swap-before");if(pending!=0||bank!=activeBank||expected!=epoch)throw new android.os.ServiceSpecificException(116);int old=activeBank;long oldEpoch=epoch;pending=1<<old;frozen=nextDelta==0?new long[]{1,1,old,oldEpoch,oldEpoch,nextLoss,0}:new long[]{1,1,old,oldEpoch,oldEpoch,nextLoss,1,10001,0,0,17,1,nextDelta,0,0};nextDelta=0;activeBank=1-activeBank;epoch++;epochs[activeBank]=epoch;swapsCommitted++;point("swap-after");return new long[]{activeBank,epoch,old,oldEpoch};}
+  public void acknowledgeStats(long session,int bank,long expected)throws android.os.RemoteException{validate(session);acks++;events.add("ack-attempt");point("ack-before");if(frozen==null||bank!=(int)frozen[2]||expected!=frozen[3])throw new android.os.ServiceSpecificException(116);pending=0;acksCommitted++;point("ack-after");}
+ }
+ static class Fixture{Object lock=new Object();List<String>events=new ArrayList<>();Memory store=new Memory(events);Remote remote=new Remote(events);Consumer consumer=new Consumer(events);Gta3xlwifiNetpolicyClient client;Gta3xlwifiStatsJournal journal;Gta3xlwifiStatsPoller poller;
+ Fixture()throws Exception{client=Test.live(remote);journal=new Gta3xlwifiStatsJournal(lock,()->BOOT,store);poller=new Gta3xlwifiStatsPoller(lock,client.statsAccess(),journal);}
+ void recoverSession()throws Exception{client=Test.live(remote);poller=new Gta3xlwifiStatsPoller(lock,client.statsAccess(),journal);}
+ }
+ public static void main(String[]args)throws Exception{
+  Test.previousClientTests(args);check(Test.cases==1467);
+  {var f=new Fixture();synchronized(f.lock){var a=f.poller.poll(f.consumer);check(!a.recoveredAcceptance&&f.consumer.total==10&&f.remote.acksCommitted==1&&f.store.writes==1);check(f.events.indexOf("write")<f.events.indexOf("restore=10")&&f.events.indexOf("restore=10")<f.events.indexOf("ack-attempt"));f.remote.nextDelta=20;f.poller.poll(f.consumer);check(f.consumer.total==30&&f.consumer.prepares==2&&f.remote.swapsCommitted==2&&f.remote.acksCommitted==2);}
+   try{f.poller.poll(f.consumer);throw new AssertionError();}catch(IllegalStateException expected){++cases;}f.client.close();}
+  for(boolean after:new boolean[]{false,true}){var f=new Fixture();f.store.before=!after;f.store.after=after;synchronized(f.lock){rejected(()->f.poller.poll(f.consumer));check(f.remote.pending!=0&&f.remote.acks==0&&f.store.writes==1);var result=f.poller.poll(f.consumer);check(result.recoveredAcceptance==after&&f.consumer.total==10&&f.remote.swapsCommitted==1&&f.remote.acksCommitted==1);check(f.consumer.prepares==(after?1:2));}f.client.close();}
+  {var f=new Fixture();f.consumer.failRestoreAt=2;synchronized(f.lock){rejected(()->f.poller.poll(f.consumer));check(f.store.writes==1&&f.remote.acks==0);check(f.poller.poll(f.consumer).recoveredAcceptance&&f.consumer.prepares==1&&f.consumer.total==10&&f.remote.acksCommitted==1);}f.client.close();}
+  {var f=new Fixture();f.consumer.failPrepare=true;synchronized(f.lock){rejected(()->f.poller.poll(f.consumer));check(f.store.writes==0&&f.remote.pending!=0&&f.remote.acks==0);f.poller.poll(f.consumer);check(f.consumer.total==10&&f.consumer.prepares==2&&f.remote.swapsCommitted==1);}f.client.close();}
+  for(String fault:new String[]{"swap-before","swap-after","ack-before","ack-after"}){var f=new Fixture();f.remote.fault=fault;synchronized(f.lock){rejected(()->f.poller.poll(f.consumer));check(f.client.needsCompleteResnapshot()&&f.remote.held);var old=f.client;f.recoverSession();f.poller.poll(f.consumer);check(f.consumer.total==10);if(fault.startsWith("swap"))check(f.remote.swapsCommitted==1&&f.remote.acksCommitted==1);else check(f.remote.acksCommitted==(fault.equals("ack-after")?2:1));old.close();check(!f.remote.held);}
+   f.client.close();}
+  {var f=new Fixture();f.remote.nextLoss=1;synchronized(f.lock){rejected(()->f.poller.poll(f.consumer));check(f.remote.acks==0&&f.store.writes==0&&f.consumer.prepares==0&&f.remote.pending!=0);}f.client.close();}
+  {var f=new Fixture();f.store.readFault=true;synchronized(f.lock){rejected(()->f.poller.poll(f.consumer));check(f.remote.swaps==0&&f.remote.acks==0);}f.client.close();}
+  {var f=new Fixture();f.remote.epoch=5;f.remote.epochs[0]=5;synchronized(f.lock){rejected(()->f.poller.poll(f.consumer));check(f.remote.swaps==0&&f.remote.acks==0&&f.store.writes==0);}f.client.close();}
+  {var f=new Fixture();synchronized(f.lock){f.poller.poll(f.consumer);byte[]saved=f.store.bytes;f.store.bytes=null;rejected(()->f.poller.poll(f.consumer));check(f.consumer.total==10&&f.remote.swaps==1&&f.remote.acks==1);f.store.bytes=saved;f.remote.nextDelta=20;f.poller.poll(f.consumer);check(f.consumer.total==30);}f.client.close();}
+  System.out.println("poll_cases="+cases);
+ }
+}

@@ -32,6 +32,15 @@ checks are separate from Android execution. Optional GPU BPF accounting still
 reports unavailable, rather than invented counters. Existing safety/installer
 and strict SELinux checks remain enforced.
 
+## Frozen-bank poll transaction — November 15
+
+The inactive poller now orders real SWAP/read, complete-state restoration,
+durable acceptance/installation and final ACK, with receipt-based recovery.
+Actual four-source SDK compilation and1243/17 audits pass. Host fixtures replay
+1467 client cases and pass48 poll-flow cases including uncertain mutations,
+journal/consumer faults and no invented empty baseline. See stats-poll-20261115-01.
+Actual factory/service consumer routing and lifecycle remain; no ROM is ready.
+
 ## Durable statistics acceptance — November 15
 
 An inactive journal now binds complete consumer state to genuine runtime boot

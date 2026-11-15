@@ -1,0 +1,101 @@
+--- /dev/null
++++ b/service/src/com/android/server/Gta3xlwifiStatsPoller.java
+@@ -0,0 +1,98 @@
++/* SPDX-License-Identifier: Apache-2.0 */
++package com.android.server;
++
++import java.io.IOException;
++import java.util.Objects;
++
++/**
++ * Frozen-bank acceptance transaction on the caller's EXISTING factory lock.
++ * Capture StatsAccess before entering that lock. Consumer state includes all
++ * cumulative counters/adjustments and must restore/prepare atomically without
++ * acquiring other system-server locks. No syscall/RPC is automatically retried.
++ * Actual NetworkStatsFactory routing and its complete serializer are separate.
++ * @hide
++ */
++public final class Gta3xlwifiStatsPoller {
++    public interface Consumer {
++        /** null denotes a genuinely empty first-boot baseline only. */
++        void restore(byte[] completeState) throws IOException;
++        /** Produce complete next state without mutating published consumer state. */
++        byte[] prepare(Gta3xlwifiStatsAccess.Snapshot frozen) throws IOException;
++    }
++    public static final class Result {
++        public final Gta3xlwifiStatsJournal.Record accepted;
++        public final boolean recoveredAcceptance;
++        private Result(Gta3xlwifiStatsJournal.Record accepted, boolean recovered) {
++            this.accepted = accepted;
++            recoveredAcceptance = recovered;
++        }
++    }
++    private final Object mOwnerLock;
++    private final Gta3xlwifiStatsAccess mStats;
++    private final Gta3xlwifiStatsJournal mJournal;
++    private Gta3xlwifiStatsJournal.Receipt mLastAccepted;
++
++    public Gta3xlwifiStatsPoller(Object ownerLock, Gta3xlwifiStatsAccess stats,
++            Gta3xlwifiStatsJournal journal) {
++        mOwnerLock = Objects.requireNonNull(ownerLock);
++        mStats = Objects.requireNonNull(stats);
++        mJournal = Objects.requireNonNull(journal);
++    }
++
++    public Result poll(Consumer consumer) throws IOException {
++        if (!Thread.holdsLock(mOwnerLock)) {
++            throw new IllegalStateException("Factory data lock must already be held");
++        }
++        Objects.requireNonNull(consumer);
++        Gta3xlwifiStatsJournal.Record previous = mJournal.loadCurrentBoot();
++        if (mLastAccepted != null && (previous == null
++                || Long.compareUnsigned(previous.receipt.epoch, mLastAccepted.epoch) < 0
++                || (previous.receipt.epoch == mLastAccepted.epoch
++                    && !previous.receipt.matches(mLastAccepted)))) {
++            throw new IOException("Accepted statistics baseline disappeared or regressed");
++        }
++        final Gta3xlwifiStatsAccess.State state = mStats.readState();
++        int bank;
++        long epoch;
++        if (state.pendingMask != 0) {
++            // readState rejects an active/pending collision. With two banks,
++            // exactly the inactive bank may be pending.
++            bank = 1 - state.activeBank;
++            epoch = state.words()[7 + bank];
++        } else {
++            // Missing/gapped history must never be replaced with invented zero.
++            long expected = previous == null ? 1 : previous.receipt.epoch + 1;
++            if (expected == 0 || state.activeEpoch != expected) {
++                throw new IOException("Missing statistics acceptance history");
++            }
++            long[] transition = mStats.swap(state.activeBank, state.activeEpoch);
++            bank = (int) transition[2];
++            epoch = transition[3];
++        }
++        Gta3xlwifiStatsJournal.Receipt receipt = mJournal.receipt(bank, epoch);
++        boolean recovered = previous != null && previous.receipt.matches(receipt);
++        if (!recovered) {
++            long expected = previous == null ? 1 : previous.receipt.epoch + 1;
++            if (expected == 0 || epoch != expected) {
++                throw new IOException("Frozen statistics epoch is stale or has a gap");
++            }
++        }
++        Gta3xlwifiStatsAccess.Snapshot frozen = mStats.readFrozen(bank, epoch);
++        frozen.requireLossless();
++        // Rebuild from committed state before considering any incremental data.
++        consumer.restore(previous == null ? null : previous.payload());
++        final Gta3xlwifiStatsJournal.Record accepted;
++        if (recovered) {
++            accepted = previous; // Never append the already-accepted delta twice.
++        } else {
++            byte[] complete = Objects.requireNonNull(consumer.prepare(frozen));
++            accepted = mJournal.accept(receipt, complete);
++        }
++        mLastAccepted = accepted.receipt;
++        consumer.restore(accepted.payload());
++        // Journal durability and successful consumer installation precede ACK.
++        // A lost ACK reply retains the journal for explicit session recovery.
++        mStats.acknowledge(bank, epoch);
++        return new Result(accepted, recovered);
++    }
++}

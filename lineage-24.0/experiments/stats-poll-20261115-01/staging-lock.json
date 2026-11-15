@@ -1,0 +1,16 @@
+{
+  "inactive": true,
+  "prerequisites": [
+    "stats-journal-20261115-01"
+  ],
+  "files": {
+    "service/src/com/android/server/Gta3xlwifiStatsPoller.java": {
+      "original_sha256": null,
+      "candidate_sha256": "cbad3ad2715d1cd17deee078a98b97f1c0f58211dc99e11a0e2827e5fd647967"
+    }
+  },
+  "selected_source_changed": false,
+  "complete_consumer_state_serializer_poll_and_lifecycle_still_pending": true,
+  "hardware_tested": false,
+  "flash_ready": false
+}
