@@ -32,6 +32,24 @@ checks are separate from Android execution. Optional GPU BPF accounting still
 reports unavailable, rather than invented counters. Existing safety/installer
 and strict SELinux checks remain enforced.
 
+## Actual factory and TrafficStats routing — November 15
+
+Inactive candidate `traffic-stats24-20261115-01` contains complete durable factory
+state and real shared-session UID/iface/total TrafficStats consumers. All12 actual
+Java sources, Controllers/owner/lease/service CFI netd/OEM, unchanged11 AIDL
+ordinals and ARM32/64 UAPI compile/link;1243/17 before/after audits pass. Native
+regressions pass26339 assertions. Host tests replay1467 client cases,61 poll flows,
+326 consumer and12 actual factory assertions, then26 TrafficStats/privacy checks.
+These include genuine A17 NetworkStats/VPN/464xlat code and explicit host platform
+boundaries; hardware behavior is untested. See stats-factory-20261115-01 and
+traffic-stats-20261115-01. Native fatal-quarantine recovery is recorded in
+policy-fatal-20261115-01. Commits36a3505,48ec5e0 and412b4ed preserve these deltas.
+
+Selected TOP, snapshot, policy and prebuilts remain unchanged. Service map/listener
+initialization and complete UID/socket cleanup still require porting, followed
+by loopback events, CLAT raw sockets, final source/Soong/APEX composition, full
+product build and installation/encryption checks. No flash-ready package exists.
+
 ## Durable statistics consumer lifecycle — November 15
 
 Inactive journal schema2 now supports metadata before native acceptance and
