@@ -1,0 +1,144 @@
+--- a/server/Gta3xlwifiNetpolicyLease.h
++++ b/server/Gta3xlwifiNetpolicyLease.h
+@@ -87,6 +87,13 @@
+     // One non-consuming actual snapshot, no metadata/data race or fake totals.
+     // Loss is returned explicitly. Caller must not describe lossy data as complete.
+     int readIfaceStats(IfaceSnapshot* output);
++    struct IfaceName { uint32_t ifindex; std::array<char,16> name; };
++    struct IfaceNamesSnapshot {
++        std::vector<IfaceName> entries;
++        uint64_t lostUpdates=0,sequence=0;
++    };
++    int readIfaceNames(IfaceNamesSnapshot* output);
++
+     // Requires actual storage AND compiled dual-stack UID/app producers.
+     // No rule installation, gate release or global readiness is implied.
+     int requirePacketAccountingPrimitives();
+--- a/server/Gta3xlwifiNetpolicyLease.cpp
++++ b/server/Gta3xlwifiNetpolicyLease.cpp
+@@ -821,3 +821,43 @@
+     *output=std::move(next);return 0;
+ }
+ }  // namespace android::net::gta3xlwifi
++
++namespace android::net::gta3xlwifi {
++int NetpolicyLease::readIfaceNames(IfaceNamesSnapshot* output) {
++    if(!output)return -EINVAL;
++    std::lock_guard<std::mutex> lock(mMutex);
++    if(mFd<0)return -ENOTCONN;
++    int features;
++    do{features=ioctl(mFd,GTA3XLWIFI_UID_FEATURES,0UL);}while(features<0&&errno==EINTR);
++    if(features<0)return imageErrorLocked(errno?-errno:-EIO);
++    if(!(features&GTA3XLWIFI_UID_CAP_IFACE_NAMES))return imageErrorLocked(-EOPNOTSUPP);
++    std::vector<gta3xlwifi_iface_name_entry> rows(GTA3XLWIFI_IFACE_STATS_MAX);
++    gta3xlwifi_iface_names_transfer value{};
++    int result;
++    do{
++        value={};value.version=GTA3XLWIFI_IFACE_NAMES_VERSION;value.count=rows.size();
++        value.entries=reinterpret_cast<uintptr_t>(rows.data());
++        result=ioctl(mFd,GTA3XLWIFI_IFACE_NAMES_GET,reinterpret_cast<unsigned long>(&value));
++    }while(result<0&&errno==EINTR);
++    if(result)return imageErrorLocked(result<0?(errno?-errno:-EIO):-EPROTO);
++    if(value.version!=1||value.count>rows.size()||
++       value.entries!=reinterpret_cast<uintptr_t>(rows.data()))return imageErrorLocked(-EPROTO);
++    IfaceNamesSnapshot next;next.lostUpdates=value.lost_updates;next.sequence=value.update_sequence;
++    for(size_t i=0;i<value.count;++i){
++        const auto&r=rows[i];const size_t length=strnlen(r.name,sizeof(r.name));
++        if(!r.ifindex||r.ifindex>INT_MAX||(i&&rows[i-1].ifindex>=r.ifindex)||
++           !length||length==sizeof(r.name)||(length==1&&r.name[0]=='.')||
++           (length==2&&r.name[0]=='.'&&r.name[1]=='.'))return imageErrorLocked(-EPROTO);
++        for(size_t j=0;j<length;++j){
++            const unsigned char c=r.name[j];
++            // Product interfaces use ASCII. Unsupported bytes fail explicitly,
++            // never become a fabricated replacement-character interface name.
++            if(c<33||c>126||c=='/'||c==':')return imageErrorLocked(-EPROTO);
++        }
++        for(size_t j=length;j<sizeof(r.name);++j)if(r.name[j])return imageErrorLocked(-EPROTO);
++        IfaceName entry{};entry.ifindex=r.ifindex;memcpy(entry.name.data(),r.name,16);
++        next.entries.push_back(entry);
++    }
++    *output=std::move(next);return 0;
++}
++} // namespace android::net::gta3xlwifi
+--- a/server/Gta3xlwifiSocketPolicyProjection.h
++++ b/server/Gta3xlwifiSocketPolicyProjection.h
+@@ -118,6 +118,7 @@
+   // Final poll/ACK and separate socket-tag cleanup remain caller obligations.
+   int deleteUidPacketStats(int32_t uid);
+   int readIfaceStats(NetpolicyLease::IfaceSnapshot* output);
++  int readIfaceNames(NetpolicyLease::IfaceNamesSnapshot* output);
+   int readLoopbackEvents(NetpolicyLease::LoopbackBatch* output);
+ 
+  private:
+--- a/server/Gta3xlwifiSocketPolicyProjection.cpp
++++ b/server/Gta3xlwifiSocketPolicyProjection.cpp
+@@ -511,3 +511,13 @@
+   return result ? quarantine(result) : 0;
+ }
+ }  // namespace android::net::gta3xlwifi
++
++namespace android::net::gta3xlwifi {
++int SocketPolicyProjection::readIfaceNames(NetpolicyLease::IfaceNamesSnapshot* output) {
++  if(!output)return -EINVAL;
++  std::lock_guard<std::mutex> lock(mMutex);
++  if(!mCommit)return -EAGAIN;
++  int result=mLease.readIfaceNames(output);
++  return result?quarantine(result):0;
++}
++}
+--- a/server/Gta3xlwifiNetpolicyService.cpp
++++ b/server/Gta3xlwifiNetpolicyService.cpp
+@@ -152,7 +152,7 @@
+ Status NetpolicyService::readStats(int64_t session, int32_t kind, int32_t bank,
+     int64_t epoch, std::vector<int64_t>* output) {
+   if (!authorized()) return denied();
+-  if (!output || kind < 0 || kind > 3 || bank < 0 || bank > 1 ||
++  if (!output || kind < 0 || kind > 4 || bank < 0 || bank > 1 ||
+       (kind == 1 ? epoch == 0 : (bank != 0 || epoch != 0))) return status(-EINVAL);
+   std::lock_guard lock(mMutex);
+   int result = validateSession(session);
+@@ -193,7 +193,7 @@
+         counters(next, row.rxPackets, row.rxBytes, row.txPackets, row.txBytes);
+       }
+     }
+-  } else {
++  } else if (kind == 3) {
+     NetpolicyLease::IfaceSnapshot value;
+     result = mOwner.readIfaceStats(&value);
+     if (!result && value.entries.size() > 1000) result = -EOVERFLOW;
+@@ -203,6 +203,24 @@
+       for (const auto& row : value.entries) {
+         next.push_back(row.ifindex);
+         counters(next, row.rxPackets, row.rxBytes, row.txPackets, row.txBytes);
++      }
++    }
++  }
++  if (!result && kind == 4) {
++    NetpolicyLease::IfaceNamesSnapshot value;
++    result = mOwner.readIfaceNames(&value);
++    if (!result && value.entries.size() > 1000) result = -EOVERFLOW;
++    if (!result) {
++      next.insert(next.end(), {statsWord(value.sequence), statsWord(value.lostUpdates),
++                               static_cast<int64_t>(value.entries.size())});
++      for (const auto& row : value.entries) {
++        next.push_back(row.ifindex);
++        for (unsigned group=0;group<4;++group) {
++          uint32_t word=0;
++          for (unsigned byte=0;byte<4;++byte)
++            word=(word<<8)|static_cast<unsigned char>(row.name[group*4+byte]);
++          next.push_back(word);
++        }
+       }
+     }
+   }
+--- a/server/binder/com/android/internal/net/IGta3xlwifiNetpolicy.aidl
++++ b/server/binder/com/android/internal/net/IGta3xlwifiNetpolicy.aidl
+@@ -22,7 +22,7 @@
+     void closeSession(IBinder client);
+     /**
+      * Genuine bounded stats. Kind0=state,1=frozen-bank,2=cumulative-app,
+-     * 3=cumulative-interface. Schema/layout is documented with the service.
++     * 3=cumulative-interface,4=kernel interface-name history. Schema/layout is documented with the service.
+      * Unsigned64 counters retain their exact bits in long. No read consumes.
+      * Caller must inspect actual loss, persist/deduplicate before ACK and never
+      * automatically retry an uncertain SWAP. Connection is not stats readiness.

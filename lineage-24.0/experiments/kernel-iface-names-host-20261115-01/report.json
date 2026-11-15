@@ -1,0 +1,43 @@
+{
+  "passed": true,
+  "scope": "Actual kernel interface-name registry/read ABI with explicit notifier/usercopy fixtures.\n\nUses pthread locks for actual source's spinlock regions. Kernel build, real\nnotifier dispatch and Android consumers remain separate validation requirements.\n",
+  "passed_cases": 4061,
+  "concurrent_snapshots": 1000,
+  "registry_capacity": 1000,
+  "real_source_body_and_UAPI": true,
+  "notifier_replay_rename_unregister_reuse_namespace_loss_and_copy_faults": true,
+  "inputs_sha256": {
+    "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/test-kernel-iface-names24.py": "a0148b56e5cecb944994b66b82641f6f86ab402fa5bb8693f17534d02898300b",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-iface-names-host-20261115-01/test.c": "f03ed68b68a6d08d23ef548ef0144c0c020e006ecd755d488aa33df8089c77d2",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-iface-names24-20261115-01/baseline.json": "aaef84a83e8f731872208e9054013e0b0ced1255bc7918379ecb57a1258722b7",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-iface-names24-20261115-01/include/uapi/linux/netfilter/gta3xlwifi_iface_stats.h": "01b61957960c62eba92a20b7738b9f9d4352ee0da262e2b918eebf83f91837b7",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-iface-names24-20261115-01/include/uapi/linux/netfilter/gta3xlwifi_iface_stats.h.reference": "6f35482ced56487d7982956c6a48b4840f7207133d43f45338dcb634710c43f3",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-iface-names24-20261115-01/include/net/gta3xlwifi_iface_stats.h": "4e594dda69a8871622a1c7543018e39c2a3ad94c307c258e96c640d0c9f502a3",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-iface-names24-20261115-01/include/net/gta3xlwifi_iface_stats.h.reference": "910191ab92f3195747a6bd78c11bd9e1a8d6afb970c7c68ddef0023f11ab04f8",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-iface-names24-20261115-01/net/netfilter/gta3xlwifi_iface_stats.c": "d0623cf0d7382d225e6baf63c25245fc765d9276bf4d514b6913c9664cf78e6b",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-iface-names24-20261115-01/net/netfilter/gta3xlwifi_netpolicy.c.reference": "c4c4a9738b3d156fccc70c62369878070ba88b62b87a011e799a279bdd98ba4f",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-iface-names24-20261115-01/net/netfilter/xt_qtaguid.c.reference": "54f363931d7929ff68cf6796cea4a47664e9268f36663734a94b6a0fedb84d6d",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-iface-names24-20261115-01/net/netfilter/xt_qtaguid.c": "3cdb0568f130cfd9228987fb7ba466dd4d6a1e46b6f67b5e9b68c7e6043aa4c8",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-iface-names24-20261115-01/net/netfilter/gta3xlwifi_netpolicy.c": "53fd3a930d23ed8e0ca734701b808dbc4c315abb8e4017c707c3279bab264503",
+    "/srv/android/ports/lineage-24.0-arm64/kernel-iface-names24-20261115-01/net/netfilter/gta3xlwifi_iface_stats.c.reference": "4083eb6c211487c001e538797b283c703147f51b660221297dc17513cb61b646"
+  },
+  "command": [
+    "cc",
+    "-std=gnu11",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-O1",
+    "-g",
+    "-fsanitize=undefined",
+    "-fno-sanitize-recover=all",
+    "-pthread",
+    "-I/srv/android/artifacts/lineage-24.0-arm64/kernel-iface-names-host-20261115-01/include",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-iface-names-host-20261115-01/test.c",
+    "-o",
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-iface-names-host-20261115-01/test"
+  ],
+  "actual_kernel_builded": false,
+  "hardware_tested": false,
+  "flash_ready": false
+}

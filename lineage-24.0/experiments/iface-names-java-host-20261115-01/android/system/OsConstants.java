@@ -1,0 +1,1 @@
+package android.system; public class OsConstants { public static final int ESTALE=116,EAGAIN=11; }

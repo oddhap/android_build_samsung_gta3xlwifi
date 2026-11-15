@@ -32,6 +32,16 @@ checks are separate from Android execution. Optional GPU BPF accounting still
 reports unavailable, rather than invented counters. Existing safety/installer
 and strict SELinux checks remain enforced.
 
+## Kernel-lifetime interface-name history — November 15
+
+Isolated real ifindex/name history now survives removals and daemon lifetimes.
+Full Image/modules, Gator118/KUTF43 ABI,60366/60366/60331 source audits and1243/17
+Android audits pass; host checks pass4061. Authenticated native/Java routing,
+CFI netd/OEM and ARM32/64 UAPI pass; owner/Java host checks pass26286/1924.
+Both strict policy profiles preserve5918/5881 assertions and pass permission,
+label and19 ioctl boundary probes. See iface-names-20261115-01. No selected
+kernel/policy/source promotion or flash package is claimed.
+
 ## Frozen-bank poll transaction — November 15
 
 The inactive poller now orders real SWAP/read, complete-state restoration,

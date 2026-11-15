@@ -1,0 +1,9 @@
+{
+  "passed": true,
+  "actual_Image_all_modules_and_Gator_built": true,
+  "actual_notifier_registration_relocation_and_initcall": true,
+  "complete_source_protected_baseline_Android_audits": true,
+  "selected_prebuilts_changed": false,
+  "hardware_tested": false,
+  "flash_ready": false
+}

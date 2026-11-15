@@ -1,0 +1,2 @@
+# Exact kernel-lifetime interface-name snapshot on the existing private device.
+allowxperm netd gta3xlwifi_netpolicy_device:chr_file ioctl { 0x6762 };

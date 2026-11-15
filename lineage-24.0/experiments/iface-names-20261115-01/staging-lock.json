@@ -1,0 +1,67 @@
+{
+  "inactive": true,
+  "prerequisites": [
+    "stats-poll-20261115-01",
+    "kernel-active-stats-20261114-01",
+    "runtime-policy-production-20261114-01",
+    "runtime-policy-debug-20261114-01"
+  ],
+  "files": {
+    "kernel/samsung/gta3xlwifi/net/netfilter/xt_qtaguid.c": {
+      "original_sha256": "54f363931d7929ff68cf6796cea4a47664e9268f36663734a94b6a0fedb84d6d",
+      "candidate_sha256": "3cdb0568f130cfd9228987fb7ba466dd4d6a1e46b6f67b5e9b68c7e6043aa4c8"
+    },
+    "kernel/samsung/gta3xlwifi/net/netfilter/gta3xlwifi_iface_stats.c": {
+      "original_sha256": "4083eb6c211487c001e538797b283c703147f51b660221297dc17513cb61b646",
+      "candidate_sha256": "d0623cf0d7382d225e6baf63c25245fc765d9276bf4d514b6913c9664cf78e6b"
+    },
+    "kernel/samsung/gta3xlwifi/net/netfilter/gta3xlwifi_netpolicy.c": {
+      "original_sha256": "c4c4a9738b3d156fccc70c62369878070ba88b62b87a011e799a279bdd98ba4f",
+      "candidate_sha256": "53fd3a930d23ed8e0ca734701b808dbc4c315abb8e4017c707c3279bab264503"
+    },
+    "kernel/samsung/gta3xlwifi/include/uapi/linux/netfilter/gta3xlwifi_iface_stats.h": {
+      "original_sha256": "6f35482ced56487d7982956c6a48b4840f7207133d43f45338dcb634710c43f3",
+      "candidate_sha256": "01b61957960c62eba92a20b7738b9f9d4352ee0da262e2b918eebf83f91837b7"
+    },
+    "kernel/samsung/gta3xlwifi/include/net/gta3xlwifi_iface_stats.h": {
+      "original_sha256": "910191ab92f3195747a6bd78c11bd9e1a8d6afb970c7c68ddef0023f11ab04f8",
+      "candidate_sha256": "4e594dda69a8871622a1c7543018e39c2a3ad94c307c258e96c640d0c9f502a3"
+    },
+    "system/netd/server/Gta3xlwifiNetpolicyLease.h": {
+      "original_sha256": "ba24682f560065d5fa1b095c818a75c6e1f1d5485df6871e6021fae49efd6155",
+      "candidate_sha256": "49a2bed78f59ee0f4417e6a71e917433f2d1df582ccce2ec5aafa0d4d5948f7a"
+    },
+    "system/netd/server/Gta3xlwifiNetpolicyLease.cpp": {
+      "original_sha256": "69d3f081afb8dd87a89715eae77c4e138ff96f983123474ee5dccd49de70d3cd",
+      "candidate_sha256": "22b5240fb8efaab2a70a8f52884d862eb899a900d7449479af961c3dcfbfd7a6"
+    },
+    "system/netd/server/Gta3xlwifiSocketPolicyProjection.h": {
+      "original_sha256": "3a0b9f5a5478fa03d283598ccb4052e58b7468d67dc5d8aa67cbe12185d508f7",
+      "candidate_sha256": "da09e4916255ce31b30f9672a5f805b504a33633a5b20967997cd0e85fabc249"
+    },
+    "system/netd/server/Gta3xlwifiSocketPolicyProjection.cpp": {
+      "original_sha256": "c72ba3cb4668c424e7e03a5b350afa945e8ada455478b91269618d2a3960edd5",
+      "candidate_sha256": "e8bf8cfde1eb162c4e58a69c7d8e028419c68c0490345b693948da23dd33f0ac"
+    },
+    "system/netd/server/Gta3xlwifiNetpolicyService.cpp": {
+      "original_sha256": "0d66250c6052acae98ca9b78cdd2423d683584befe56e37f559cd8da680f3b9e",
+      "candidate_sha256": "224fc8022d09fbb8181d86102314f5045c2602999771d2bd2d6b447e16c12807"
+    },
+    "system/netd/server/binder/com/android/internal/net/IGta3xlwifiNetpolicy.aidl": {
+      "original_sha256": "f4c6a7f6160b7fa85bdb4a7190516cd22b0b6cd62999574454242313bd0bab6c",
+      "candidate_sha256": "502092cc84748a88f179bb6a692bf79e479b38ae9565e8721a5f296d277b1004"
+    },
+    "packages/modules/Connectivity/service/src/com/android/server/Gta3xlwifiStatsAccess.java": {
+      "original_sha256": "5315c05040675570163bd5bad27d0389890bbc7d197c5d2f589b41302a0d7cac",
+      "candidate_sha256": "c154f2ae4ba7195d5ac20ffa36545274859f07f36d0707ee3a42a777bd2e3b47"
+    }
+  },
+  "selected_source_or_prebuilts_changed": false,
+  "ioctl_low16": 26466,
+  "ioctl_request": 3223349090,
+  "capability_bit": 65536,
+  "interface_names_init_net_only": true,
+  "ASCII_names_only_in_native_Java_transport_explicit_error_otherwise": true,
+  "hardware_tested": false,
+  "flash_ready": false
+}

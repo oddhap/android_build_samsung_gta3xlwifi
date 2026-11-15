@@ -1,0 +1,64 @@
+--- a/service/src/com/android/server/Gta3xlwifiStatsAccess.java
++++ b/service/src/com/android/server/Gta3xlwifiStatsAccess.java
+@@ -8,6 +8,7 @@
+ import com.android.internal.net.IGta3xlwifiNetpolicy;
+ import java.io.IOException;
+ import java.util.Arrays;
++import java.nio.charset.StandardCharsets;
+ import java.util.Objects;
+ import java.util.concurrent.atomic.AtomicBoolean;
+ 
+@@ -60,6 +61,11 @@
+         public long[] row(int index) {
+             if (index < 0 || index >= count) throw new IndexOutOfBoundsException(index);
+             return Arrays.copyOfRange(mRows, index * width, (index + 1) * width);
++        }
++
++        public String interfaceName(int index) {
++            if (kind != 4) throw new IllegalStateException("Not an interface-name table");
++            return decodeName(row(index));
+         }
+ 
+         /** Consumers must not describe counters with real loss as complete. */
+@@ -160,6 +166,14 @@
+             if (previous != null && Arrays.compare(previous, key) >= 0) {
+                 throw fail("Unordered or duplicate stats key");
+             }
++            if (kind == 4) {
++                try {
++                    if (key[0] == 0 || key[0] > Integer.MAX_VALUE) throw new IllegalArgumentException();
++                    decodeName(Arrays.copyOfRange(w, header+n*width, header+(n+1)*width));
++                } catch (IllegalArgumentException failure) {
++                    throw fail("Invalid native interface name");
++                }
++            }
+             previous = key;
+         }
+         int offset = kind == 1 ? 4 : 2;
+@@ -171,6 +185,26 @@
+         if (bank < 0 || bank > 1 || epoch == 0) throw new IllegalArgumentException();
+         return snapshot(1, bank, epoch);
+     }
++    private static String decodeName(long[] row) {
++        byte[] bytes = new byte[16];
++        for (int group=0;group<4;++group) {
++            long word=row[group+1];
++            if (!bounded(word,0xffffffffL)) throw new IllegalArgumentException();
++            for (int i=0;i<4;++i) bytes[group*4+i]=(byte)(word >>> (24-8*i));
++        }
++        int length=0;
++        while (length<16 && bytes[length]!=0) {
++            int c=bytes[length]&255;
++            if (c<33||c>126||c=='/'||c==':') throw new IllegalArgumentException();
++            ++length;
++        }
++        if (length==0||length==16) throw new IllegalArgumentException();
++        for (int i=length;i<16;++i) if(bytes[i]!=0) throw new IllegalArgumentException();
++        String name=new String(bytes,0,length,StandardCharsets.US_ASCII);
++        if(name.equals(".")||name.equals("..")) throw new IllegalArgumentException();
++        return name;
++    }
++    public Snapshot readInterfaceNames() throws IOException { return snapshot(4, 0, 0); }
+     public Snapshot readApps() throws IOException { return snapshot(2, 0, 0); }
+     public Snapshot readInterfaces() throws IOException { return snapshot(3, 0, 0); }
+ 

@@ -1,0 +1,170 @@
+--- a/net/netfilter/xt_qtaguid.c
++++ b/net/netfilter/xt_qtaguid.c
+@@ -3516,7 +3516,7 @@
+ u32 gta3xlwifi_iface_stats_features(void)
+ {
+     return READ_ONCE(gta3xlwifi_iface_registered)?
+-        GTA3XLWIFI_UID_CAP_IFACE_STATS|gta3xlwifi_iface_egress_features():0;
++        GTA3XLWIFI_UID_CAP_IFACE_STATS|gta3xlwifi_iface_egress_features()|gta3xlwifi_iface_names_features():0;
+ }
+ EXPORT_SYMBOL_GPL(gta3xlwifi_iface_stats_features);
+ static bool gta3xlwifi_iface_mt(const struct sk_buff *skb,struct xt_action_param *par)
+--- a/net/netfilter/gta3xlwifi_iface_stats.c
++++ b/net/netfilter/gta3xlwifi_iface_stats.c
+@@ -9,6 +9,9 @@
+ #include <linux/ip.h>
+ #include <linux/ipv6.h>
+ #include <linux/module.h>
++#include <linux/netdevice.h>
++#include <linux/notifier.h>
++#include <net/net_namespace.h>
+ #include <linux/netdevice.h>
+ #include <linux/rcupdate.h>
+ #include <net/gta3xlwifi_receive.h>
+@@ -97,12 +100,105 @@
+     const struct gta3xlwifi_iface_stats_entry *x=a,*y=b;
+     return x->ifindex<y->ifindex?-1:x->ifindex>y->ifindex?1:0;
+ }
++/* Names never live in userspace caches or depend on a daemon's lifetime.
++ * Registration replays existing devices under RTNL. Retain removed ifindices;
++ * an actual later register/rename for the same index replaces its current name.
++ */
++static DEFINE_SPINLOCK(iface_names_lock);
++static struct gta3xlwifi_iface_name_entry iface_names_rows[GTA3XLWIFI_IFACE_STATS_MAX];
++static u32 iface_names_count;
++static u64 iface_names_lost,iface_names_sequence;
++static bool iface_names_registered;
++u32 gta3xlwifi_iface_names_features(void)
++{
++    return READ_ONCE(iface_names_registered)?GTA3XLWIFI_UID_CAP_IFACE_NAMES:0;
++}
++EXPORT_SYMBOL_GPL(gta3xlwifi_iface_names_features);
++static int iface_names_notify(struct notifier_block *block,unsigned long event,void *data)
++{
++    struct net_device *device=netdev_notifier_info_to_dev(data);
++    struct gta3xlwifi_iface_name_entry *row=NULL;
++    u32 i;
++    (void)block;
++    if((event!=NETDEV_REGISTER&&event!=NETDEV_CHANGENAME)||
++       dev_net(device)!=&init_net)return NOTIFY_DONE;
++    spin_lock_bh(&iface_names_lock);
++    if(device->ifindex<=0||!device->name[0]||
++       strnlen(device->name,IFNAMSIZ)==IFNAMSIZ){
++        if(iface_names_lost!=~(u64)0)++iface_names_lost;
++        ++iface_names_sequence;
++        spin_unlock_bh(&iface_names_lock);return NOTIFY_DONE;
++    }
++    for(i=0;i<iface_names_count;++i)
++        if(iface_names_rows[i].ifindex==(u32)device->ifindex){row=&iface_names_rows[i];break;}
++    if(!row){
++        if(iface_names_count==GTA3XLWIFI_IFACE_STATS_MAX){
++            if(iface_names_lost!=~(u64)0)++iface_names_lost;
++            ++iface_names_sequence;
++            spin_unlock_bh(&iface_names_lock);return NOTIFY_DONE;
++        }
++        row=&iface_names_rows[iface_names_count++];row->ifindex=device->ifindex;
++    }
++    memset(row->name,0,sizeof(row->name));
++    strlcpy(row->name,device->name,sizeof(row->name));
++    ++iface_names_sequence;
++    spin_unlock_bh(&iface_names_lock);return NOTIFY_DONE;
++}
++static struct notifier_block iface_names_notifier={.notifier_call=iface_names_notify};
++static int __init iface_names_init(void)
++{
++    int result;
++    BUILD_BUG_ON(sizeof(iface_names_rows[0].name)!=IFNAMSIZ);
++    result=register_netdevice_notifier(&iface_names_notifier);
++    if(!result)WRITE_ONCE(iface_names_registered,true);
++    return result;
++}
++static void __exit iface_names_exit(void)
++{
++    WRITE_ONCE(iface_names_registered,false);
++    unregister_netdevice_notifier(&iface_names_notifier);
++}
++module_init(iface_names_init);
++module_exit(iface_names_exit);
++static int iface_name_compare(const void *left,const void *right)
++{
++    const struct gta3xlwifi_iface_name_entry *a=left,*b=right;
++    return a->ifindex<b->ifindex?-1:a->ifindex>b->ifindex?1:0;
++}
++static long iface_names_ioctl(unsigned long arg)
++{
++    struct gta3xlwifi_iface_names_transfer request,answer;
++    struct gta3xlwifi_iface_name_entry *rows=NULL;
++    int result=0;
++    if(!arg)return -EFAULT;
++    if(!(gta3xlwifi_iface_stats_features()&GTA3XLWIFI_UID_CAP_IFACE_NAMES))return -EOPNOTSUPP;
++    if(copy_from_user(&request,(void __user *)arg,sizeof(request)))return -EFAULT;
++    if(request.version!=GTA3XLWIFI_IFACE_NAMES_VERSION||
++       request.count>GTA3XLWIFI_IFACE_STATS_MAX||
++       (!!request.count!=!!request.entries)||request.lost_updates||request.update_sequence)return -EINVAL;
++    if(request.count){rows=vzalloc(request.count*sizeof(*rows));if(!rows)return -ENOMEM;}
++    answer=request;
++    spin_lock_bh(&iface_names_lock);
++    answer.count=iface_names_count;answer.lost_updates=iface_names_lost;
++    answer.update_sequence=iface_names_sequence;
++    if(request.count&&request.count<answer.count)result=-ENOSPC;
++    else if(request.count)memcpy(rows,iface_names_rows,answer.count*sizeof(*rows));
++    spin_unlock_bh(&iface_names_lock);
++    if(!result&&request.count){
++        sort(rows,answer.count,sizeof(*rows),iface_name_compare,NULL);
++        if(copy_to_user((void __user *)(unsigned long)request.entries,rows,
++                        answer.count*sizeof(*rows)))result=-EFAULT;
++    }
++    if(!result&&copy_to_user((void __user *)arg,&answer,sizeof(answer)))result=-EFAULT;
++    vfree(rows);return result;
++}
+ long gta3xlwifi_iface_stats_ioctl(unsigned int cmd,unsigned long arg)
+ {
+     struct gta3xlwifi_iface_stats_transfer request,answer;
+     struct gta3xlwifi_iface_stats_entry *rows=NULL;
+     u32 i;
+     int result=0;
++    if(cmd==GTA3XLWIFI_IFACE_NAMES_GET)return iface_names_ioctl(arg);
+     if(cmd!=GTA3XLWIFI_IFACE_STATS_GET)return -ENOTTY;
+     if(!arg)return -EFAULT;
+     if(!gta3xlwifi_iface_stats_features())return -EOPNOTSUPP;
+--- a/net/netfilter/gta3xlwifi_netpolicy.c
++++ b/net/netfilter/gta3xlwifi_netpolicy.c
+@@ -159,7 +159,7 @@
+ 		ret = gta3xlwifi_runtime_ioctl(cmd, arg);
+ 	else if (cmd == GTA3XLWIFI_STATS_GET_STATE || cmd == GTA3XLWIFI_STATS_READ || cmd == GTA3XLWIFI_STATS_SWAP || cmd == GTA3XLWIFI_STATS_ACK || cmd == GTA3XLWIFI_STATS_EDIT)
+ 		ret = gta3xlwifi_packet_stats_ioctl(cmd, arg);
+-	else if (cmd == GTA3XLWIFI_IFACE_STATS_GET)
++	else if (cmd == GTA3XLWIFI_IFACE_STATS_GET || cmd == GTA3XLWIFI_IFACE_NAMES_GET)
+ 		ret = gta3xlwifi_iface_stats_ioctl(cmd, arg);
+ 	else if (cmd == GTA3XLWIFI_LOOPBACK_GET_EVENTS)
+ 		ret = gta3xlwifi_loopback_ioctl(cmd, arg);
+--- a/include/uapi/linux/netfilter/gta3xlwifi_iface_stats.h
++++ b/include/uapi/linux/netfilter/gta3xlwifi_iface_stats.h
+@@ -24,4 +24,17 @@
+     __aligned_u64 entries, lost_updates, update_sequence;
+ };
+ #define GTA3XLWIFI_IFACE_STATS_GET _IOWR('g',0x5a,struct gta3xlwifi_iface_stats_transfer)
++/* Genuine kernel-lifetime interface-name history, append-only private ABI.
++ * NETDEV_REGISTER/CHANGENAME update the current name for an ifindex; unregister
++ * retains it, as the A17 persistent iface-index/name map. No packet counters or
++ * BPF-loaded/whole-network readiness signal is invented by this history.
++ */
++#define GTA3XLWIFI_UID_CAP_IFACE_NAMES (1U << 16)
++#define GTA3XLWIFI_IFACE_NAMES_VERSION 1U
++struct gta3xlwifi_iface_name_entry { __u32 ifindex; char name[16]; };
++struct gta3xlwifi_iface_names_transfer {
++    __u32 version, count;
++    __aligned_u64 entries, lost_updates, update_sequence;
++};
++#define GTA3XLWIFI_IFACE_NAMES_GET _IOWR('g',0x62,struct gta3xlwifi_iface_names_transfer)
+ #endif
+--- a/include/net/gta3xlwifi_iface_stats.h
++++ b/include/net/gta3xlwifi_iface_stats.h
+@@ -18,6 +18,7 @@
+ }
+ #endif
+ u32 gta3xlwifi_iface_stats_features(void);
++u32 gta3xlwifi_iface_names_features(void);
+ u32 gta3xlwifi_iface_egress_features(void);
+ int gta3xlwifi_iface_account(const struct sk_buff *skb,u32 ifindex,bool output,bool undo);
+ void gta3xlwifi_iface_lost(void);
