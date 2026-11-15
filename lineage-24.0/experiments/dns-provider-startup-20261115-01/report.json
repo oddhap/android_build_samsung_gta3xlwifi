@@ -1,0 +1,38 @@
+{
+  "passed": true,
+  "scope": "Actual held-provider adapter and main startup fragment with boundary fixtures.\n\nController/transport/library/Netlink dependencies are fixtures. Main/DNS/oneshot\nsource outside explicit initialization changes remains identical to the baseline.\n",
+  "passed_cases": 23,
+  "original_main_DNS_oneshot_outside_initialization_unchanged": true,
+  "actual_private_init_before_Netlink_and_Binder": true,
+  "DNS_registration_after_held_library_before_listeners": true,
+  "failed_DNS_registration_stops_owner_and_transport": true,
+  "failed_init_closes_transport_and_owner": true,
+  "inputs_sha256": {
+    "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/test-dns-provider-startup24.py": "084fcf37f58afa9b0192e23c5da5451b829198001966ef897369d9922cbcd030",
+    "/srv/android/artifacts/lineage-24.0-arm64/dns-provider-startup-20261115-01/test.cpp": "9232ab13171468cd56c170ba539c0f1013fe47fedd8319464872f994cbee45d9",
+    "/srv/android/ports/lineage-24.0-arm64/dns-owner24-20261115-01/main.cpp": "bf497381c7ece57d0df5092f7193e52221be6e2565a308ab471dc2dfa4cfeccf",
+    "/srv/android/ports/lineage-24.0-arm64/dns-owner24-20261115-01/main.cpp.reference": "8eb0beb43bc035a45dc5bbc89af188374127c7e31c31c207ad7bee5d80801222",
+    "/srv/android/ports/lineage-24.0-arm64/dns-owner24-20261115-01/Gta3xlwifiHeldProvider.cpp": "6a29d05bedb440f018deba083f16048435a9f0ce711d287b8b6860b52a9ef7b8",
+    "/srv/android/ports/lineage-24.0-arm64/dns-owner24-20261115-01/Gta3xlwifiHeldProvider.h": "dd0cf415c7afcc5a0b4b44182f0825a71ef6c6ab011ba1caa99fe2219a37261d",
+    "/srv/android/ports/lineage-24.0-arm64/dns-owner24-20261115-01/NetdUpdatablePublic.h": "c78caf54cedf724e57a0df83629b4c04549490f51f32bd9e482358969e1e492d",
+    "/srv/android/ports/lineage-24.0-arm64/dns-owner24-20261115-01/Gta3xlwifiDnsPolicy.h": "84810aad39d1aae02f1041894cd03aea55671219f475aec06455507d35ee2997"
+  },
+  "command": [
+    "c++",
+    "-std=c++20",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-O1",
+    "-g",
+    "-fsanitize=undefined",
+    "-fno-sanitize-recover=all",
+    "-I/srv/android/ports/lineage-24.0-arm64/dns-owner24-20261115-01",
+    "/srv/android/artifacts/lineage-24.0-arm64/dns-provider-startup-20261115-01/test.cpp",
+    "-o",
+    "/srv/android/artifacts/lineage-24.0-arm64/dns-provider-startup-20261115-01/test"
+  ],
+  "stderr": "",
+  "hardware_tested": false,
+  "flash_ready": false
+}

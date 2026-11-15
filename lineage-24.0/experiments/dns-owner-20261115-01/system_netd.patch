@@ -1,0 +1,56 @@
+--- a/server/Gta3xlwifiSocketPolicyProjection.h
++++ b/server/Gta3xlwifiSocketPolicyProjection.h
+@@ -72,6 +72,7 @@
+   // lease for a complete explicit framework resnapshot. Uncertain HOLD closes it.
+   int suspendFrameworkClient();
+   int frameworkGeneration(uint64_t* generation);
++  int isNetworkingBlocked(int32_t uid, bool metered);
+   int snapshot(State* output, uint64_t* generation);
+   int removeUid(int32_t uid);
+   int setUidRule(int32_t chain, int32_t uid, int32_t rule);
+--- a/server/Gta3xlwifiSocketPolicyProjection.cpp
++++ b/server/Gta3xlwifiSocketPolicyProjection.cpp
+@@ -118,6 +118,12 @@
+   if (!mStarted) return -ENOTCONN;
+   *generation = mCommit ? mCommit->generation : 0;
+   return 0;
++}
++int SocketPolicyProjection::isNetworkingBlocked(int32_t uid, bool metered) {
++  if (uid < 0) return -EINVAL;
++  std::lock_guard<std::mutex> lock(mMutex);
++  if (!mCommit) return -EAGAIN;
++  return mCommit->value.policy.isNetworkingBlocked(uid, metered);
+ }
+ int SocketPolicyProjection::snapshot(State* output, uint64_t* generation) {
+   if (!output || !generation) return -EINVAL;
+--- a/server/Gta3xlwifiHeldProvider.cpp
++++ b/server/Gta3xlwifiHeldProvider.cpp
+@@ -4,6 +4,7 @@
+ #include "Gta3xlwifiQtaguidTransport.h"
+ #include "Gta3xlwifiSocketPolicyProjection.h"
+ #include "NetdUpdatablePublic.h"
++#include "Gta3xlwifiDnsPolicy.h"
+ #include <cerrno>
+ #include <climits>
+ namespace android::net::gta3xlwifi {
+@@ -21,6 +22,10 @@
+     if (chargeUid > INT_MAX || realUid > INT_MAX) return -EINVAL;
+     return owner ? owner->tagSocket(transport, fd, value, chargeUid, realUid) : -ENOTCONN;
+ }
++int blocked(uid_t uid, bool metered) {
++    if (uid > INT_MAX) return -EINVAL;
++    return owner ? owner->isNetworkingBlocked(uid, metered) : -ENOTCONN;
++}
+ int untag(int fd) {
+     return owner ? owner->untagSocket(transport, fd) : -ENOTCONN;
+ }
+@@ -33,7 +38,8 @@
+     if (!owner) return -EOPNOTSUPP;
+     const NetdGta3xlwifiCallbacks callbacks{1, sizeof(NetdGta3xlwifiCallbacks),
+                                          initialize, tag, untag};
+-    const int result = libnetd_updatable_init_gta3xlwifi(&callbacks);
++    int result = libnetd_updatable_init_gta3xlwifi(&callbacks);
++    if (!result) result = resolv_set_gta3xlwifi_policy(blocked);
+     if (result) {
+         transport.stop();
+         owner->stop();

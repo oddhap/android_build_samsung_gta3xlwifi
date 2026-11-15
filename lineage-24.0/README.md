@@ -32,6 +32,16 @@ checks are separate from Android execution. Optional GPU BPF accounting still
 reports unavailable, rather than invented counters. Existing safety/installer
 and strict SELinux checks remain enforced.
 
+## Sole-owner DNS routing — November 15
+
+The inactive DNS path now reads the same committed native policy as packet rules,
+through the actual helper instance inside libnetd_resolv. Actual CFI resolver/netd
+links, append-only export and1243/17 audits pass. Owner/DNS host checks pass26040;
+actual provider/main startup cases pass23, including registration failure before
+listeners. No callback registration is treated as networking Ready. See
+dns-owner-20261115-01. Stats/events/CLAT, private boot admission, Soong composition
+and full integration/installation checks remain.
+
 ## Actual framework policy routing — November 15
 
 The inactive BpfNetMaps branch now chooses the real shared owner before BPF map

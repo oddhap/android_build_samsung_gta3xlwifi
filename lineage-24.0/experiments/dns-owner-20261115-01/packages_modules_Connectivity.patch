@@ -1,0 +1,113 @@
+--- a/bpf/dns_helper/DnsBpfHelper.cpp
++++ b/bpf/dns_helper/DnsBpfHelper.cpp
+@@ -17,6 +17,8 @@
+ #define LOG_TAG "DnsBpfHelper"
+ 
+ #include "DnsBpfHelper.h"
++#include "Gta3xlwifiDnsPolicy.h"
++#include "LegacyDnsPolicy.h"
+ 
+ #include <android-base/logging.h>
+ #include <android-base/properties.h>
+@@ -32,6 +34,8 @@
+       return result.error();                                                                       \
+     }                                                                                              \
+   } while (0)
++
++static LegacyDnsPolicy sLegacyDnsPolicy;
+ 
+ // copied from BpfHandler.cpp
+ static bool mainlineNetBpfLoadDone() {
+@@ -56,6 +60,11 @@
+ }
+ 
+ base::Result<void> DnsBpfHelper::init() {
++  if (base::GetBoolProperty("ro.gta3xlwifi.legacy_networking", false)) {
++    if (!sLegacyDnsPolicy.registered()) return base::Error(ENOTCONN) << "No held owner callback";
++    return {};  // Verified held transport only. Query remains EAGAIN until commit.
++  }
++
+   if (!android::modules::sdklevel::IsAtLeastT()) {
+     LOG(INFO) << "performing Android S mainline NetBpfload magic!";
+     if (!mainlineNetBpfLoadDone()) {
+@@ -79,6 +88,12 @@
+ }
+ 
+ base::Result<bool> DnsBpfHelper::isUidNetworkingBlocked(uid_t uid, bool metered) {
++  if (base::GetBoolProperty("ro.gta3xlwifi.legacy_networking", false)) {
++    const int decision = sLegacyDnsPolicy.evaluate(uid, metered);
++    if (decision < 0) return base::Error(-decision) << "Private policy unavailable";
++    return decision == 1;
++  }
++
+   if (is_system_uid(uid)) return false;
+   if (!mConfigurationMap.isValid() || !mUidOwnerMap.isValid()) {
+     LOG(ERROR) << __func__
+@@ -119,3 +134,8 @@
+ 
+ }  // namespace net
+ }  // namespace android
++
++extern "C" int ADnsHelper_setLegacyCallbackV2(int (*callback)(uid_t, bool)) {
++  if (!android::base::GetBoolProperty("ro.gta3xlwifi.legacy_networking", false)) return -EOPNOTSUPP;
++  return android::net::sLegacyDnsPolicy.setCallback(callback);
++}
+--- /dev/null
++++ b/bpf/dns_helper/LegacyDnsPolicy.h
+@@ -0,0 +1,36 @@
++// SPDX-License-Identifier: Apache-2.0
++#pragma once
++#include <atomic>
++#include <cerrno>
++#include <sys/types.h>
++
++namespace android::net {
++// Private device-port extension, not an Android SDK API. Errors are never an
++// allow decision. The policy owner must register only after its real firewall
++// state is initialized; subsequent policy updates are synchronized by that owner.
++class LegacyDnsPolicy {
++ public:
++  using Callback = int (*)(uid_t, bool);  // 0 allow, 1 block, negative errno.
++
++  int setCallback(Callback callback) {
++    if (!callback) return -EINVAL;
++    Callback expected = nullptr;
++    if (mCallback.compare_exchange_strong(expected, callback, std::memory_order_acq_rel,
++                                         std::memory_order_acquire)) return 0;
++    return expected == callback ? 0 : -EALREADY;
++  }
++
++  bool registered() const { return mCallback.load(std::memory_order_acquire) != nullptr; }
++
++  int evaluate(uid_t uid, bool metered) const {
++    Callback callback = mCallback.load(std::memory_order_acquire);
++    if (!callback) return -ENOTCONN;
++    const int result = callback(uid, metered);
++    // Bound errno before any caller negates it; reject malformed bool/status values.
++    return result < -4095 || result > 1 ? -EPROTO : result;
++  }
++
++ private:
++  std::atomic<Callback> mCallback{nullptr};
++};
++}  // namespace android::net
+--- /dev/null
++++ b/bpf/dns_helper/include/Gta3xlwifiDnsPolicy.h
+@@ -0,0 +1,17 @@
++// SPDX-License-Identifier: Apache-2.0
++#pragma once
++#include <stdbool.h>
++#include <sys/types.h>
++#ifdef __cplusplus
++extern "C" {
++#endif
++// Local port extension, deliberately distinct from the older bool callback ABI.
++// Register only after real held firewall/producer verification.
++// Registration is transport presence, never policy or networking Ready.
++int ADnsHelper_setLegacyCallbackV2(int (*callback)(uid_t uid, bool metered));
++// Explicit resolver DSO wrapper: native netd must register the helper instance
++// actually linked into the resolver, never a second static-library copy.
++__attribute__((visibility("default"))) int resolv_set_gta3xlwifi_policy(int (*callback)(uid_t uid, bool metered));
++#ifdef __cplusplus
++}
++#endif

@@ -1,0 +1,44 @@
+{
+  "inactive": true,
+  "prerequisites": [
+    "policy-client-20261114-01"
+  ],
+  "files": {
+    "system/netd/server/Gta3xlwifiSocketPolicyProjection.h": {
+      "original_sha256": "0d74298469dc22168d505a797016e555a27550087b006b3c0bf3122b3a7563e2",
+      "candidate_sha256": "3a0b9f5a5478fa03d283598ccb4052e58b7468d67dc5d8aa67cbe12185d508f7"
+    },
+    "system/netd/server/Gta3xlwifiSocketPolicyProjection.cpp": {
+      "original_sha256": "1051070d1b66e11f4949b678ffe0b8229827962ba56936f0b60c45f5de075a26",
+      "candidate_sha256": "c72ba3cb4668c424e7e03a5b350afa945e8ada455478b91269618d2a3960edd5"
+    },
+    "system/netd/server/Gta3xlwifiHeldProvider.cpp": {
+      "original_sha256": "f8b66abbc9fa22db14cc350618733f1486296002d5f8710ae92bd65337e3e209",
+      "candidate_sha256": "6a29d05bedb440f018deba083f16048435a9f0ce711d287b8b6860b52a9ef7b8"
+    },
+    "packages/modules/Connectivity/bpf/dns_helper/DnsBpfHelper.cpp": {
+      "original_sha256": "d4c090ad069e183b003ae2219986129c5eaf03d466a8b8e680d0805c09960fe7",
+      "candidate_sha256": "3c28560720996fb894f5d7bc467e30b68077bf42eb46e7d34977479dfa16ede2"
+    },
+    "packages/modules/Connectivity/bpf/dns_helper/LegacyDnsPolicy.h": {
+      "original_sha256": null,
+      "candidate_sha256": "323a330006561505e78670a3da9eda5cf6f056707fe2beec2fc3c2165aff1709"
+    },
+    "packages/modules/Connectivity/bpf/dns_helper/include/Gta3xlwifiDnsPolicy.h": {
+      "original_sha256": null,
+      "candidate_sha256": "84810aad39d1aae02f1041894cd03aea55671219f475aec06455507d35ee2997"
+    },
+    "packages/modules/DnsResolver/DnsProxyListener.cpp": {
+      "original_sha256": "99fc93e7ed485a8c244cbcd4614ae27ab8a83a5150b4ae70393ed8ff4df8527b",
+      "candidate_sha256": "70b54e374970a4db08b146e9fba1c7644888916f514a8b7c3a8ff8b424f45a48"
+    },
+    "packages/modules/DnsResolver/libnetd_resolv.map.txt": {
+      "original_sha256": "b6ff1b7a6b47c9532fe3739008e9f63722efc35e1179747ea9e7de447b5c1820",
+      "candidate_sha256": "2888828cf4b479675636f0eeb3e01ac52da4a3a176a7abf6d325aa2cff6f05ce"
+    }
+  },
+  "selected_source_changed": false,
+  "Soong_header_dependencies_pending": true,
+  "hardware_tested": false,
+  "flash_ready": false
+}
