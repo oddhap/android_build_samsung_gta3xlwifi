@@ -1,0 +1,1 @@
+package android.util;public class StatsLog{public static final java.util.List<StatsEvent>events=new java.util.ArrayList<>();public static void write(StatsEvent event){events.add(event);}}

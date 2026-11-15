@@ -1,0 +1,27 @@
+{
+  "inactive": true,
+  "prerequisites": [
+    "stats-removal-20261115-02"
+  ],
+  "files": {
+    "system/netd/server/Gta3xlwifiNetpolicyService.cpp": {
+      "original_sha256": "7c10e2112b3a70808c59982bbe595aabdca32045c2616442f13d434f28f52b41",
+      "candidate_sha256": "bcd7c4798b7b75ff86a27fb989d058fee2165de04f788916e4ddef74b5834351"
+    },
+    "system/netd/server/Gta3xlwifiNetpolicyService.h": {
+      "original_sha256": "eedf5e50869bdf42e9d94103dae1b02b735d901a167105629a3bd84401ec0b77",
+      "candidate_sha256": "3f0812bfedd13328154620797f38e15635b99a60995357af338bbd9ae6473a82"
+    },
+    "system/netd/server/binder/com/android/internal/net/IGta3xlwifiNetpolicy.aidl": {
+      "original_sha256": "e95339ca32fd28b786a27a554d5a51b6802a0c512e9b37c403fe28550486cbe7",
+      "candidate_sha256": "ca17fff882a0ddaf46619d276072d9c14d255fc50b9e782d808a6177d8cce27a"
+    },
+    "packages/modules/Connectivity/service/src/com/android/server/Gta3xlwifiStatsAccess.java": {
+      "original_sha256": "869c48d0aab49974e97b46be2e2da434273999ecca3308eb4c0e452eef92777c",
+      "candidate_sha256": "31b535f533aa35bae0a2c1abc55925472c08f559190e57e981802c10aaf2f847"
+    }
+  },
+  "selected_source_changed": false,
+  "hardware_tested": false,
+  "flash_ready": false
+}

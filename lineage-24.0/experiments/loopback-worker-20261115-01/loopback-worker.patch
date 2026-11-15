@@ -1,0 +1,122 @@
+--- a/packages/modules/Connectivity/service/src/com/android/server/BpfNetMaps.java
++++ b/packages/modules/Connectivity/service/src/com/android/server/BpfNetMaps.java
+@@ -198,6 +198,20 @@
+     }
+ 
+     /** Complete real durable-consumer admission before the first private frame. */
++    private static Gta3xlwifiLoopbackEventPoller sGtaLoopbackPoller;
++    /** Returns false for stock devices; never opens a private BPF ring buffer. */
++    public boolean startGta3xlwifiLoopbackEventConsumer(android.os.Handler handler) {
++        if(mGta==null)return false;
++        synchronized(BpfNetMaps.class){
++            if(!mGta.loopbackMetrics)throw new IllegalStateException("Private loopback metrics disabled");
++            if(sGtaLoopbackPoller==null){
++                sGtaLoopbackPoller=new Gta3xlwifiLoopbackEventPoller(mGta.statsAccess(),handler);
++                sGtaLoopbackPoller.start();
++            }
++        }
++        return true;
++    }
++
+     public void completeGta3xlwifiStatsAdmission() {
+         if(mGta==null)throw new IllegalStateException("Private backend not selected");
+         mGta.completeStatsAdmission();
+--- a/packages/modules/Connectivity/service/src/com/android/server/ConnectivityService.java
++++ b/packages/modules/Connectivity/service/src/com/android/server/ConnectivityService.java
+@@ -5082,7 +5082,8 @@
+             mSatisfiedByLocalNetworkMetrics.start();
+         }
+ 
+-        if (mBpfNetMaps.isLoopbackAccessMetricsEnabled()) {
++        if (mBpfNetMaps.isLoopbackAccessMetricsEnabled()
++                && !mBpfNetMaps.startGta3xlwifiLoopbackEventConsumer(mHandler)) {
+             BpfEventPoller.nativeInitLoopbackEventConsumer();
+         }
+ 
+--- /dev/null
++++ b/packages/modules/Connectivity/service/src/com/android/server/Gta3xlwifiLoopbackEventPoller.java
+@@ -0,0 +1,73 @@
++/* SPDX-License-Identifier: Apache-2.0 */
++package com.android.server;
++
++import android.os.Handler;
++import android.os.ServiceSpecificException;
++import android.system.OsConstants;
++import android.util.Log;
++import android.util.StatsEvent;
++import android.util.StatsLog;
++import java.io.IOException;
++import java.util.Objects;
++
++/** Real private kernel events to the existing A17 statsd atom. @hide */
++public final class Gta3xlwifiLoopbackEventPoller {
++    private static final String TAG="GtaLoopbackEvents";
++    private static final long POLL_MS=100;
++    // Pinned connectivity_extension_atoms.proto and generated native statslog:
++    // atom1216, sender/receiver UID annotations, allowed1/blocked2.
++    private static final int LOOPBACK_USAGE_REPORTED=1216;
++    private static final byte ANNOTATION_IS_UID=1;
++    public interface Scheduler { boolean postDelayed(Runnable task,long delay); }
++    public interface Reporter { void report(Gta3xlwifiStatsAccess.LoopbackEvent event); }
++    private final Gta3xlwifiStatsAccess mStats;
++    private final Scheduler mScheduler;
++    private final Reporter mReporter;
++    private boolean mStarted,mStopped;
++    private long mLastLoss;
++    public Gta3xlwifiLoopbackEventPoller(Gta3xlwifiStatsAccess stats,Handler handler) {
++        this(stats,Objects.requireNonNull(handler)::postDelayed,Gta3xlwifiLoopbackEventPoller::report);
++    }
++    public Gta3xlwifiLoopbackEventPoller(Gta3xlwifiStatsAccess stats,Scheduler scheduler,Reporter reporter) {
++        mStats=Objects.requireNonNull(stats);mScheduler=Objects.requireNonNull(scheduler);
++        mReporter=Objects.requireNonNull(reporter);
++    }
++    /** Single owning handler, one bounded batch per turn; no concurrent consumes. */
++    public void start() {
++        if(mStarted)throw new IllegalStateException("Loopback consumer already started");
++        mStarted=true;schedule();
++    }
++    private void schedule() {
++        if(!mScheduler.postDelayed(this::poll,POLL_MS)) {
++            mStopped=true;throw new IllegalStateException("Cannot schedule real loopback consumer",
++                    mStats.abortLoopbackConsumer("Loopback handler rejected delivery"));
++        }
++    }
++    private void poll() {
++        if(mStopped)return;
++        try {
++            Gta3xlwifiStatsAccess.LoopbackBatch batch=mStats.pollLoopbackEvents();
++            for(int i=0;i<batch.size();i++)mReporter.report(batch.event(i));
++            if(batch.lostEvents!=mLastLoss)Log.w(TAG,"Kernel loopback lost-events total="
++                    +Long.toUnsignedString(batch.lostEvents));
++            mLastLoss=batch.lostEvents;
++        }catch(IOException failure) {
++            if(failure.getCause() instanceof ServiceSpecificException
++                    &&((ServiceSpecificException)failure.getCause()).errorCode==OsConstants.EAGAIN) {
++                schedule();return; // Proven native HOLD before consumption only.
++            }
++            mStopped=true;Log.e(TAG,"Loopback consume failed; owner recovery required",failure);return;
++        }catch(RuntimeException failure) {
++            mStopped=true;Log.e(TAG,"Loopback reporting failed; no event replay",
++                    mStats.abortLoopbackConsumer("Loopback reporter failed: "+failure));return;
++        }
++        schedule();
++    }
++    private static void report(Gta3xlwifiStatsAccess.LoopbackEvent event) {
++        StatsEvent.Builder builder=StatsEvent.newBuilder().setAtomId(LOOPBACK_USAGE_REPORTED);
++        builder.writeInt(event.senderUid).addBooleanAnnotation(ANNOTATION_IS_UID,true);
++        builder.writeInt(event.receiverUid).addBooleanAnnotation(ANNOTATION_IS_UID,true);
++        builder.writeInt(event.result==0?1:2);
++        builder.usePooledBuffer();StatsLog.write(builder.build());
++    }
++}
+--- a/packages/modules/Connectivity/service/src/com/android/server/Gta3xlwifiStatsAccess.java
++++ b/packages/modules/Connectivity/service/src/com/android/server/Gta3xlwifiStatsAccess.java
+@@ -161,6 +161,8 @@
+         }
+     }
+ 
++    IOException abortLoopbackConsumer(String message) { return fail(message); }
++
+     private void requireActiveHandle() throws IOException {
+         if(mInvalidated.get())throw new IOException("Statistics handle is retired");
+     }

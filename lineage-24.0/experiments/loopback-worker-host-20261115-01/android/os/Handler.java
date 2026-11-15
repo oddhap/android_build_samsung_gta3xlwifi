@@ -1,0 +1,1 @@
+package android.os;public class Handler{public final java.util.ArrayDeque<Runnable>tasks=new java.util.ArrayDeque<>();public boolean postDelayed(Runnable r,long delay){if(delay!=100)throw new AssertionError();tasks.add(r);return true;}public void runOne(){tasks.remove().run();}}

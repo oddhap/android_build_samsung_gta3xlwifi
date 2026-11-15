@@ -1,0 +1,103 @@
+--- a/system/netd/server/Gta3xlwifiNetpolicyService.cpp
++++ b/system/netd/server/Gta3xlwifiNetpolicyService.cpp
+@@ -302,3 +302,21 @@
+   return status(mOwner.abortFrameworkClient());
+ }
+ }  // namespace android::net::gta3xlwifi
++
++namespace android::net::gta3xlwifi {
++Status NetpolicyService::pollLoopbackEvents(int64_t session,std::vector<int64_t>* output) {
++  if(!authorized())return denied();
++  if(!output)return status(-EINVAL);
++  std::lock_guard lock(mMutex);
++  int result=validateSession(session);if(result)return status(result);
++  // Reserve the maximum reply BEFORE the destructive kernel read. An uncertain
++  // Binder delivery is not retried; the framework aborts its exact owner.
++  std::vector<int64_t> next;next.reserve(4+512*6);
++  NetpolicyLease::LoopbackBatch batch;
++  result=mOwner.readLoopbackEvents(&batch);if(result)return status(result);
++  next.insert(next.end(),{1,6,statsWord(batch.lostEvents),static_cast<int64_t>(batch.events.size())});
++  for(const auto& e:batch.events)next.insert(next.end(),{e.senderUid,e.receiverUid,e.result,
++      statsWord(e.boottimeNs),statsWord(e.sequence),statsWord(e.lostEvents)});
++  *output=std::move(next);return Status::ok();
++}
++}  // namespace android::net::gta3xlwifi
+--- a/system/netd/server/Gta3xlwifiNetpolicyService.h
++++ b/system/netd/server/Gta3xlwifiNetpolicyService.h
+@@ -32,6 +32,8 @@
+       int64_t expectedGeneration,int64_t expectedActiveEpoch,int64_t nonce) override;
+   ::android::binder::Status abortSession(int64_t session,
+       const ::android::sp<::android::IBinder>& client) override;
++  ::android::binder::Status pollLoopbackEvents(int64_t session,
++      std::vector<int64_t>* output) override;
+  private:
+   class ClientDeath;
+   void clientDied(int64_t session);
+--- a/system/netd/server/binder/com/android/internal/net/IGta3xlwifiNetpolicy.aidl
++++ b/system/netd/server/binder/com/android/internal/net/IGta3xlwifiNetpolicy.aidl
+@@ -43,4 +43,9 @@
+             long expectedActiveEpoch,long nonce);
+     /** Terminal current-client failure only; exact session AND token, never normal close. */
+     void abortSession(long session,IBinder client);
++    /** Consuming real packet events, maximum512. Never retry an uncertain call.
++     * Schema: [1,6,totalLost,count], then senderUid,receiverUid,result,
++     * boottimeNs,sequence,eventLost for each record. Unsigned64 bits retained.
++     */
++    long[] pollLoopbackEvents(long session);
+ }
+--- a/packages/modules/Connectivity/service/src/com/android/server/Gta3xlwifiStatsAccess.java
++++ b/packages/modules/Connectivity/service/src/com/android/server/Gta3xlwifiStatsAccess.java
+@@ -114,6 +114,53 @@
+         return failure;
+     }
+ 
++    public static final class LoopbackEvent {
++        public final int senderUid,receiverUid,result;
++        public final long boottimeNs,sequence,lostEvents;
++        private LoopbackEvent(long[] w,int p){senderUid=(int)w[p];receiverUid=(int)w[p+1];
++            result=(int)w[p+2];boottimeNs=w[p+3];sequence=w[p+4];lostEvents=w[p+5];}
++    }
++    public static final class LoopbackBatch {
++        public final long lostEvents;
++        private final LoopbackEvent[] mEvents;
++        private LoopbackBatch(long lost,LoopbackEvent[] events){lostEvents=lost;mEvents=events;}
++        public int size(){return mEvents.length;}
++        public LoopbackEvent event(int i){return mEvents[i];}
++    }
++    private final Object mLoopbackLock=new Object();
++    private long mLastLoopbackSequence,mLastLoopbackLoss,mLastLoopbackEventLoss;
++    /** Dedicated consuming API. Serializes stream state, never policy/factory locks. */
++    public LoopbackBatch pollLoopbackEvents() throws IOException {
++        synchronized(mLoopbackLock){
++            requireActiveHandle();final long[] w;
++            try{w=mRemote.pollLoopbackEvents(mSession);}
++            catch(ServiceSpecificException e){
++                // Native EAGAIN is proven pre-consumption HOLD; not a fake batch.
++                if(e.errorCode==EAGAIN)throw new IOException("Loopback owner held",e);
++                IOException f=fail("Loopback consume failed");f.addSuppressed(e);throw f;
++            }catch(RemoteException|RuntimeException e){
++                IOException f=fail("Loopback consume uncertain; no retry");f.addSuppressed(e);throw f;
++            }
++            if(w==null||w.length<4||w[0]!=1||w[1]!=6||w[3]<0||w[3]>512
++                    ||w.length!=4+w[3]*6||Long.compareUnsigned(w[2],mLastLoopbackLoss)<0)
++                throw fail("Invalid loopback batch schema/loss");
++            LoopbackEvent[] events=new LoopbackEvent[(int)w[3]];
++            long sequence=mLastLoopbackSequence,loss=mLastLoopbackEventLoss;
++            for(int i=0;i<events.length;i++){
++                int p=4+i*6;long next=w[p+4],nextLoss=w[p+5];
++                if(w[p]<0||w[p]>0xffffffffL||w[p+1]<0||w[p+1]>0xffffffffL
++                        ||w[p]==w[p+1]||w[p+2]<0||w[p+2]>1||next==0
++                        ||(sequence!=0&&(sequence==-1L||next!=sequence+1))
++                        ||Long.compareUnsigned(nextLoss,loss)<0
++                        ||Long.compareUnsigned(nextLoss,w[2])>0)
++                    throw fail("Invalid loopback record/sequence/loss");
++                events[i]=new LoopbackEvent(w,p);sequence=next;loss=nextLoss;
++            }
++            mLastLoopbackSequence=sequence;mLastLoopbackLoss=w[2];mLastLoopbackEventLoss=loss;
++            return new LoopbackBatch(w[2],events);
++        }
++    }
++
+     private void requireActiveHandle() throws IOException {
+         if(mInvalidated.get())throw new IOException("Statistics handle is retired");
+     }

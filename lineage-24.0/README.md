@@ -32,6 +32,26 @@ checks are separate from Android execution. Optional GPU BPF accounting still
 reports unavailable, rather than invented counters. Existing safety/installer
 and strict SELinux checks remain enforced.
 
+## Genuine loopback event delivery — November 15
+
+Inactive loopback-rpc-20261115-01 exposes the existing real kernel consuming
+stream through append-only RPC15, fullUID1000/current-session checks and bounded
+unsigned sequence/loss validation. Actual CFI netd/OEM,12 Java sources,15 AIDL
+ordinals/API compatibility, ARM32/64 and1243/17 audits pass. Host checks pass26592
+native and87 new Java cases, including uncertain consume without retry.
+
+Inactive loopback-worker-20261115-01 connects the real shared-session stream to
+one Android handler worker and existing A17 statsd atom1216 with exact UID field
+annotations and result enums. Actual ConnectivityService skips the BPF event
+listener only for the private backend. All14 actual Java sources compile with
+native prerequisite hashes and1243/17 audits; prior suites replay and36 new worker
+checks pass. Actual proto/generated native encoding are bound; host API/syscall
+fixtures do not establish physical device behavior. See the two experiments.
+
+Selected source/snapshot/kernel/vendor/policy remain unchanged. CLAT, final
+Soong/APEX/jarjar composition, explicit input selection, full ROM build and
+installation checks remain. No flash-ready package exists.
+
 ## Durable UID cleanup and recovery — November 15
 
 Inactive stats-removal-20261115-02 adds complete-state durable UID intents before

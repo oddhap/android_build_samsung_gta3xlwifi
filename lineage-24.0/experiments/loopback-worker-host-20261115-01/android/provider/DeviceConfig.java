@@ -1,0 +1,1 @@
+package android.provider;public class DeviceConfig{public static final String NAMESPACE_TETHERING="tethering";}

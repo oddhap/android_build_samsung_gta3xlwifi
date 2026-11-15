@@ -1,0 +1,1 @@
+package com.android.net.module.util;public class CollectionUtils{public static <T>boolean contains(T[]a,T v){if(a==null)return false;for(T x:a)if(java.util.Objects.equals(x,v))return true;return false;}public static boolean contains(int[]a,int v){for(int x:a)if(x==v)return true;return false;}}

@@ -1,0 +1,1 @@
+package android.os; public interface IBinder { interface DeathRecipient { void binderDied(); } void linkToDeath(DeathRecipient d,int flags) throws RemoteException; boolean unlinkToDeath(DeathRecipient d,int flags); }

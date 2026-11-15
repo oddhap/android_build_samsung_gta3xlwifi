@@ -1,0 +1,1 @@
+package android.util; public class Pair<A,B> {public final A first;public final B second;public Pair(A a,B b){first=a;second=b;}public static <A,B> Pair<A,B> create(A a,B b){return new Pair<>(a,b);}}

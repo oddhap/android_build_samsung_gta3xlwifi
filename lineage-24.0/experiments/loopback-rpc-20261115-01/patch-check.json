@@ -1,0 +1,7 @@
+{
+  "passed": true,
+  "files": 4,
+  "exact_baseline_and_applied_candidate_hashes_checked": true,
+  "patch_sha256": "6877dde997329088c513408489d74806ede03006e50175f96ebb0bb9334d3da9",
+  "selected_source_changed": false
+}

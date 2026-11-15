@@ -1,0 +1,1 @@
+package android.os; public class ServiceSpecificException extends RuntimeException {public final int errorCode;public ServiceSpecificException(int c){errorCode=c;}public ServiceSpecificException(int c,String m){super(m);errorCode=c;}}
