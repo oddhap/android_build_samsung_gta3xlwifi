@@ -1,0 +1,4 @@
+Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+Note: /srv/android/ports/lineage-24.0-arm64/uid-receipt-client24-20261115-01/java/com/android/server/net/NetworkStatsService.java uses unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.

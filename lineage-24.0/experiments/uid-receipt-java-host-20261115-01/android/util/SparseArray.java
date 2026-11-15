@@ -1,0 +1,1 @@
+package android.util;public class SparseArray<T>{java.util.TreeMap<Integer,T>m=new java.util.TreeMap<>();public T get(int k){return m.get(k);}public void put(int k,T v){m.put(k,v);}public int size(){return m.size();}public int keyAt(int i){return new java.util.ArrayList<>(m.keySet()).get(i);}public T valueAt(int i){return new java.util.ArrayList<>(m.values()).get(i);}}

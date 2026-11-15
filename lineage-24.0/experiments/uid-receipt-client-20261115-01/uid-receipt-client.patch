@@ -1,0 +1,302 @@
+--- a/system/netd/server/Gta3xlwifiHeldProvider.cpp
++++ b/system/netd/server/Gta3xlwifiHeldProvider.cpp
+@@ -55,6 +55,11 @@
+     if (!owner || owner != &expectedOwner) return -ENOTCONN;
+     return owner->removeUidAccounting(uid, generation, activeEpoch, deleteTags);
+ }
++int removeUidAccountingOnceFromProvider(SocketPolicyProjection& expectedOwner,int32_t uid,
++        uint64_t generation,uint64_t activeEpoch,uint64_t nonce) {
++    if(!owner||owner!=&expectedOwner)return -ENOTCONN;
++    return owner->removeUidAccountingOnce(uid,generation,activeEpoch,nonce,deleteTags);
++}
+ int checkHeldProviderStartup(Controllers& controllers) {
+     const int result = initializeHeldProvider(controllers);
+     if (result) return result;
+--- a/system/netd/server/Gta3xlwifiHeldProvider.h
++++ b/system/netd/server/Gta3xlwifiHeldProvider.h
+@@ -8,6 +8,8 @@
+ // Existing process-lifetime owner/transport only, never a second private session.
+ int removeUidAccountingFromProvider(SocketPolicyProjection& expectedOwner, int32_t uid,
+                                    uint64_t generation, uint64_t activeEpoch);
++int removeUidAccountingOnceFromProvider(SocketPolicyProjection& expectedOwner,int32_t uid,
++        uint64_t generation,uint64_t activeEpoch,uint64_t nonce);
+ // Dedicated netd1shot process only: verify real startup and close while held.
+ // Callbacks are process-lifetime registrations; this must not run in the daemon.
+ int checkHeldProviderStartup(Controllers& controllers);
+--- a/system/netd/server/Gta3xlwifiNetpolicyLease.cpp
++++ b/system/netd/server/Gta3xlwifiNetpolicyLease.cpp
+@@ -861,3 +861,50 @@
+     *output=std::move(next);return 0;
+ }
+ } // namespace android::net::gta3xlwifi
++
++namespace android::net::gta3xlwifi {
++int NetpolicyLease::uidCleanupLocked(uint32_t operation,uint32_t uid,uint64_t generation,
++        uint64_t epoch,uint64_t nonce,UidCleanupReceipt* output) {
++    if(!output||operation>GTA3XLWIFI_UID_CLEANUP_COMMIT)return -EINVAL;
++    if(operation==GTA3XLWIFI_UID_CLEANUP_READ){
++        if(uid||generation||epoch||nonce)return -EINVAL;
++    }else if(uid>INT32_MAX||generation>INT64_MAX||!epoch||!nonce)return -EINVAL;
++    if(mFd<0)return -ENOTCONN;
++    int features;
++    do{features=ioctl(mFd,GTA3XLWIFI_UID_FEATURES,0UL);}while(features<0&&errno==EINTR);
++    if(features<0)return imageErrorLocked(errno?-errno:-EIO);
++    constexpr int required=GTA3XLWIFI_UID_CAP_PACKET_STATS_STORE|GTA3XLWIFI_UID_CAP_UID_CLEANUP_RECEIPT;
++    if((features&required)!=required)return imageErrorLocked(-EOPNOTSUPP);
++    gta3xlwifi_uid_cleanup value{};
++    auto input=[&]{value={};value.version=1;value.operation=operation;value.uid=uid;
++                   value.nonce=nonce;value.generation=generation;value.active_epoch=epoch;};
++    int result;
++    do{input();result=ioctl(mFd,GTA3XLWIFI_UID_CLEANUP,reinterpret_cast<unsigned long>(&value));}
++    while(operation==GTA3XLWIFI_UID_CLEANUP_READ&&result<0&&errno==EINTR);
++    if(result)return imageErrorLocked(result<0?(errno?-errno:-EIO):-EPROTO);
++    if(value.version!=1||value.operation!=operation||value.phase>GTA3XLWIFI_UID_CLEANUP_COMPLETE||
++       value.uid>INT32_MAX||value.generation>INT64_MAX)return imageErrorLocked(-EPROTO);
++    for(auto reserved:value.reserved)if(reserved)return imageErrorLocked(-EPROTO);
++    if(value.phase==GTA3XLWIFI_UID_CLEANUP_NONE){
++        if(value.uid||value.nonce||value.generation||value.active_epoch||operation!=GTA3XLWIFI_UID_CLEANUP_READ)
++            return imageErrorLocked(-EPROTO);
++    }else if(!value.nonce||!value.active_epoch)return imageErrorLocked(-EPROTO);
++    if(operation!=GTA3XLWIFI_UID_CLEANUP_READ&&
++       (value.uid!=uid||value.nonce!=nonce||value.generation!=generation||value.active_epoch!=epoch))
++        return imageErrorLocked(-EPROTO);
++    if(operation==GTA3XLWIFI_UID_CLEANUP_COMMIT&&value.phase!=GTA3XLWIFI_UID_CLEANUP_COMPLETE)
++        return imageErrorLocked(-EPROTO);
++    *output={value.phase,value.uid,value.nonce,value.generation,value.active_epoch};return 0;
++}
++int NetpolicyLease::readUidCleanup(UidCleanupReceipt* output){
++    std::lock_guard<std::mutex> lock(mMutex);return uidCleanupLocked(GTA3XLWIFI_UID_CLEANUP_READ,0,0,0,0,output);
++}
++int NetpolicyLease::beginUidCleanup(uint32_t uid,uint64_t generation,uint64_t epoch,uint64_t nonce,
++        UidCleanupReceipt* output){
++    std::lock_guard<std::mutex> lock(mMutex);return uidCleanupLocked(GTA3XLWIFI_UID_CLEANUP_BEGIN,uid,generation,epoch,nonce,output);
++}
++int NetpolicyLease::commitUidCleanup(uint32_t uid,uint64_t generation,uint64_t epoch,uint64_t nonce,
++        UidCleanupReceipt* output){
++    std::lock_guard<std::mutex> lock(mMutex);return uidCleanupLocked(GTA3XLWIFI_UID_CLEANUP_COMMIT,uid,generation,epoch,nonce,output);
++}
++}  // namespace android::net::gta3xlwifi
+--- a/system/netd/server/Gta3xlwifiNetpolicyLease.h
++++ b/system/netd/server/Gta3xlwifiNetpolicyLease.h
+@@ -141,6 +141,15 @@
+     // Statistics/counterset only. Caller must separately remove socket tags and
+     // perform the final poll/ACK first; pending banks intentionally reject this.
+     int deleteUidPacketStats(uint32_t uid);
++    struct UidCleanupReceipt {
++        uint32_t phase=0,uid=0;
++        uint64_t nonce=0,generation=0,activeEpoch=0;
++    };
++    int readUidCleanup(UidCleanupReceipt* output);
++    int beginUidCleanup(uint32_t uid,uint64_t generation,uint64_t epoch,uint64_t nonce,
++                        UidCleanupReceipt* output);
++    int commitUidCleanup(uint32_t uid,uint64_t generation,uint64_t epoch,uint64_t nonce,
++                         UidCleanupReceipt* output);
+     struct RuntimeImage {
+         uint64_t revision=0;
+         uint32_t flags=0;
+@@ -163,6 +172,8 @@
+     int runtimeFeaturesLocked();
+     int runtimeReadLocked(RuntimeImage* output);
+     int packetStorageLocked();
++    int uidCleanupLocked(uint32_t operation,uint32_t uid,uint64_t generation,
++                         uint64_t epoch,uint64_t nonce,UidCleanupReceipt* output);
+     int packetCommandLocked(unsigned long request,void* argument,bool retry);
+     int loopbackFeaturesLocked();
+     int eventCommandLocked(void* argument);
+--- a/system/netd/server/Gta3xlwifiNetpolicyService.cpp
++++ b/system/netd/server/Gta3xlwifiNetpolicyService.cpp
+@@ -153,13 +153,18 @@
+ Status NetpolicyService::readStats(int64_t session, int32_t kind, int32_t bank,
+     int64_t epoch, std::vector<int64_t>* output) {
+   if (!authorized()) return denied();
+-  if (!output || kind < 0 || kind > 4 || bank < 0 || bank > 1 ||
++  if (!output || kind < 0 || kind > 5 || bank < 0 || bank > 1 ||
+       (kind == 1 ? epoch == 0 : (bank != 0 || epoch != 0))) return status(-EINVAL);
+   std::lock_guard lock(mMutex);
+   int result = validateSession(session);
+   if (result) return status(result);
+   std::vector<int64_t> next{1, kind};
+-  if (kind == 0) {
++  if (kind == 5) {
++    NetpolicyLease::UidCleanupReceipt value;
++    result=mOwner.readUidCleanup(&value);
++    if(!result)next.insert(next.end(),{value.phase,value.uid,statsWord(value.nonce),
++                                      statsWord(value.generation),statsWord(value.activeEpoch)});
++  } else if (kind == 0) {
+     NetpolicyLease::PacketState value;
+     result = mOwner.readPacketState(&value);
+     if (!result) next.insert(next.end(), {
+@@ -276,3 +281,14 @@
+       static_cast<uint64_t>(expectedGeneration), static_cast<uint64_t>(expectedActiveEpoch)));
+ }
+ }  // namespace android::net::gta3xlwifi
++
++namespace android::net::gta3xlwifi {
++Status NetpolicyService::removeUidAccountingOnce(int64_t session,int32_t uid,
++        int64_t generation,int64_t epoch,int64_t nonce) {
++  if(!authorized())return denied();
++  if(uid<0||generation<0||!epoch||!nonce)return status(-EINVAL);
++  std::lock_guard lock(mMutex);int result=validateSession(session);if(result)return status(result);
++  return status(removeUidAccountingOnceFromProvider(mOwner,uid,
++      static_cast<uint64_t>(generation),static_cast<uint64_t>(epoch),static_cast<uint64_t>(nonce)));
++}
++}  // namespace android::net::gta3xlwifi
+--- a/system/netd/server/Gta3xlwifiNetpolicyService.h
++++ b/system/netd/server/Gta3xlwifiNetpolicyService.h
+@@ -28,6 +28,8 @@
+       int32_t counterset) override;
+   ::android::binder::Status removeUidAccounting(int64_t session, int32_t uid,
+       int64_t expectedGeneration, int64_t expectedActiveEpoch) override;
++  ::android::binder::Status removeUidAccountingOnce(int64_t session,int32_t uid,
++      int64_t expectedGeneration,int64_t expectedActiveEpoch,int64_t nonce) override;
+  private:
+   class ClientDeath;
+   void clientDied(int64_t session);
+--- a/system/netd/server/Gta3xlwifiSocketPolicyProjection.cpp
++++ b/system/netd/server/Gta3xlwifiSocketPolicyProjection.cpp
+@@ -1,5 +1,6 @@
+ // SPDX-License-Identifier: Apache-2.0
+ #include <cerrno>
++#include <linux/netfilter/gta3xlwifi_packet_stats.h>
+ #include <atomic>
+ #include "Gta3xlwifiPolicyFatal.h"
+ #include <set>
+@@ -566,3 +567,43 @@
+   return result?quarantine(result):0;
+ }
+ }
++
++namespace android::net::gta3xlwifi {
++int SocketPolicyProjection::readUidCleanup(NetpolicyLease::UidCleanupReceipt* output) {
++  if(!output)return -EINVAL;
++  std::lock_guard<std::mutex> lock(mMutex);
++  if(!mStarted)return -EAGAIN;
++  if(!mAccountingEnabled)return -EOPNOTSUPP;
++  if(!mCommit){bool held=false;int r=mLease.isHeld(&held);if(r)return quarantine(r);
++              if(!held)return quarantine(-EUCLEAN);}
++  int result=mLease.readUidCleanup(output);return result?quarantine(result):0;
++}
++int SocketPolicyProjection::removeUidAccountingOnce(int32_t uid,uint64_t generation,
++        uint64_t epoch,uint64_t nonce,UidTagDeleter deleteTags) {
++  if(uid<0||!epoch||!nonce||!deleteTags)return -EINVAL;
++  std::lock_guard<std::mutex> lock(mMutex);
++  if(!mStarted)return -EAGAIN;
++  if(!mAccountingEnabled)return -EOPNOTSUPP;
++  if(!mCommit){bool held=false;int r=mLease.isHeld(&held);if(r)return quarantine(r);
++              if(!held)return quarantine(-EUCLEAN);}
++  NetpolicyLease::UidCleanupReceipt receipt;
++  int result=mLease.readUidCleanup(&receipt);if(result)return quarantine(result);
++  if(receipt.phase==GTA3XLWIFI_UID_CLEANUP_COMPLETE&&receipt.nonce==nonce){
++    return receipt.uid==static_cast<uint32_t>(uid)&&receipt.generation==generation&&
++           receipt.activeEpoch==epoch?0:-ESTALE;
++  }
++  if(receipt.phase==GTA3XLWIFI_UID_CLEANUP_PREPARED)return quarantine(-EINPROGRESS);
++  if(receipt.nonce>=nonce||(mCommit?mCommit->generation:0)!=generation)return -ESTALE;
++  NetpolicyLease::PacketState state;
++  result=mLease.readPacketState(&state);if(result)return quarantine(result);
++  if(state.activeEpoch!=epoch)return -ESTALE;
++  if(state.pendingMask)return -EBUSY;
++  result=mLease.beginUidCleanup(uid,generation,epoch,nonce,&receipt);
++  if(result)return quarantine(result);
++  if(receipt.phase==GTA3XLWIFI_UID_CLEANUP_COMPLETE)return 0;
++  if(receipt.phase!=GTA3XLWIFI_UID_CLEANUP_PREPARED)return quarantine(-EPROTO);
++  result=deleteTags(uid);if(result)return quarantine(result<0?result:-EPROTO);
++  result=mLease.commitUidCleanup(uid,generation,epoch,nonce,&receipt);
++  return result?quarantine(result):0;
++}
++}  // namespace android::net::gta3xlwifi
+--- a/system/netd/server/Gta3xlwifiSocketPolicyProjection.h
++++ b/system/netd/server/Gta3xlwifiSocketPolicyProjection.h
+@@ -121,6 +121,9 @@
+   using UidTagDeleter = int (*)(uint32_t uid);
+   // Exact policy/active-epoch fence, no pending bank, socket tags before counters.
+   // Startup generation0 requires genuine HOLD; this does not release it.
++  int readUidCleanup(NetpolicyLease::UidCleanupReceipt* output);
++  int removeUidAccountingOnce(int32_t uid,uint64_t expectedGeneration,
++      uint64_t expectedActiveEpoch,uint64_t nonce,UidTagDeleter deleteTags);
+   int removeUidAccounting(int32_t uid, uint64_t expectedGeneration,
+                           uint64_t expectedActiveEpoch, UidTagDeleter deleteTags);
+   int readIfaceStats(NetpolicyLease::IfaceSnapshot* output);
+--- a/system/netd/server/binder/com/android/internal/net/IGta3xlwifiNetpolicy.aidl
++++ b/system/netd/server/binder/com/android/internal/net/IGta3xlwifiNetpolicy.aidl
+@@ -22,7 +22,7 @@
+     void closeSession(IBinder client);
+     /**
+      * Genuine bounded stats. Kind0=state,1=frozen-bank,2=cumulative-app,
+-     * 3=cumulative-interface,4=kernel interface-name history. Schema/layout is documented with the service.
++     * 3=cumulative-interface,4=kernel interface-name history,5=UID cleanup receipt metadata. Schema/layout is documented with the service.
+      * Unsigned64 counters retain their exact bits in long. No read consumes.
+      * Caller must inspect actual loss, persist/deduplicate before ACK and never
+      * automatically retry an uncertain SWAP. Connection is not stats readiness.
+@@ -38,4 +38,7 @@
+      */
+     void removeUidAccounting(long session, int uid, long expectedGeneration,
+             long expectedActiveEpoch);
++    /** Durable caller nonce; completed duplicate returns cached result, never new deletion. */
++    void removeUidAccountingOnce(long session,int uid,long expectedGeneration,
++            long expectedActiveEpoch,long nonce);
+ }
+--- a/packages/modules/Connectivity/service/src/com/android/server/Gta3xlwifiStatsAccess.java
++++ b/packages/modules/Connectivity/service/src/com/android/server/Gta3xlwifiStatsAccess.java
+@@ -260,4 +260,30 @@
+             throw error;
+         }
+     }
++    /** Genuine kernel-lifetime metadata, not a networking-ready signal. */
++    public static final class UidCleanupReceipt {
++        public final int phase,uid;
++        public final long nonce,generation,activeEpoch;
++        private UidCleanupReceipt(long[] w) {
++            phase=(int)w[2];uid=(int)w[3];nonce=w[4];generation=w[5];activeEpoch=w[6];
++        }
++    }
++    public UidCleanupReceipt readUidCleanup() throws IOException {
++        long[] w=read(5,0,0);
++        if(w.length!=7||!bounded(w[2],2)||!bounded(w[3],Integer.MAX_VALUE)||w[5]<0
++                ||(w[2]==0?(w[3]!=0||w[4]!=0||w[5]!=0||w[6]!=0):(w[4]==0||w[6]==0))) {
++            throw fail("Invalid UID cleanup receipt");
++        }
++        return new UidCleanupReceipt(w);
++    }
++    /** Persist this complete intent before calling; never invent/reuse another nonce. */
++    public void removeUidAccountingOnce(int uid,long generation,long activeEpoch,long nonce)
++            throws IOException {
++        if(uid<0||generation<0||activeEpoch==0||nonce==0)throw new IllegalArgumentException();
++        try { mRemote.removeUidAccountingOnce(mSession,uid,generation,activeEpoch,nonce); }
++        catch(RemoteException|RuntimeException failure) {
++            IOException error=fail("UID receipt mutation uncertain; inspect durable intent");
++            error.addSuppressed(failure);throw error;
++        }
++    }
+ }
+--- a/system/netd/server/linux/netfilter/gta3xlwifi_packet_stats.h
++++ b/system/netd/server/linux/netfilter/gta3xlwifi_packet_stats.h
+@@ -79,4 +79,28 @@
+ #define GTA3XLWIFI_STATS_SWAP _IOWR('g',0x5d,struct gta3xlwifi_packet_stats_swap)
+ #define GTA3XLWIFI_STATS_ACK _IOW('g',0x5e,struct gta3xlwifi_packet_stats_ack)
+ #define GTA3XLWIFI_STATS_EDIT _IOW('g',0x5f,struct gta3xlwifi_packet_stats_edit)
++/* Kernel-lifetime receipt only, NOT networking/BPF readiness. */
++#define GTA3XLWIFI_UID_CAP_UID_CLEANUP_RECEIPT (1U << 17)
++#define GTA3XLWIFI_UID_CLEANUP_READ 0U
++#define GTA3XLWIFI_UID_CLEANUP_BEGIN 1U
++#define GTA3XLWIFI_UID_CLEANUP_COMMIT 2U
++#define GTA3XLWIFI_UID_CLEANUP_NONE 0U
++#define GTA3XLWIFI_UID_CLEANUP_PREPARED 1U
++#define GTA3XLWIFI_UID_CLEANUP_COMPLETE 2U
++/* All reserved words and input phase must0. READ input identity fields must0.
++ * BEGIN is an exact epoch/no-pending-bank CAS with strictly increasing nonce.
++ * Same completed identity returns cached COMPLETE without mutation; a repeated
++ * PREPARED identity returns EINPROGRESS, never permission to replay socket I/O.
++ * COMMIT atomically removes packet/app/counterset data and records COMPLETE.
++ * A user-copy failure may follow a real commit: inspect READ, never infer rollback.
++ * Only one outstanding removal exists; retain the last receipt through daemon
++ * death, and never release the private gate while PREPARED. Native code must
++ * perform real socket-tag deletion between BEGIN and COMMIT.
++ */
++struct gta3xlwifi_uid_cleanup {
++    __u32 version, operation, phase, uid;
++    __aligned_u64 nonce, generation, active_epoch;
++    __u32 reserved[6];
++};
++#define GTA3XLWIFI_UID_CLEANUP _IOWR('g', 0x63, struct gta3xlwifi_uid_cleanup)
+ #endif

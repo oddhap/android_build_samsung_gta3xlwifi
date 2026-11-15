@@ -1,0 +1,57 @@
+{
+  "inactive": true,
+  "prerequisites": [
+    "uid-cleanup-20261115-01",
+    "kernel-uid-receipt-20261115-01"
+  ],
+  "files": {
+    "system/netd/server/Gta3xlwifiHeldProvider.cpp": {
+      "original_sha256": "20f9095a5fbadfd9e79234b01a2cdd570f9f2f106605ea0c975aa6f44ed31bb8",
+      "candidate_sha256": "c719362f13c842cceac4a7b855ecc1f7c16290c58bf8033788d07f515af807a0"
+    },
+    "system/netd/server/Gta3xlwifiHeldProvider.h": {
+      "original_sha256": "83245e9febe065f7091bfd6f0bc7acd6e3178cb7f24f7a237d87d362c76bdb17",
+      "candidate_sha256": "a51956efc37b62448c9b0f71e47bfb1dc1c1dbe649928c7e52ade82b9a085eb7"
+    },
+    "system/netd/server/Gta3xlwifiNetpolicyLease.cpp": {
+      "original_sha256": "22b5240fb8efaab2a70a8f52884d862eb899a900d7449479af961c3dcfbfd7a6",
+      "candidate_sha256": "aa27cbe0ae292b28c78a76facb2aff93265f46fbbeda6785a56d8fd7281f50eb"
+    },
+    "system/netd/server/Gta3xlwifiNetpolicyLease.h": {
+      "original_sha256": "49a2bed78f59ee0f4417e6a71e917433f2d1df582ccce2ec5aafa0d4d5948f7a",
+      "candidate_sha256": "35958aca445d98ce8e09e5573937f27711613ee8281373f77873011202bcfdd4"
+    },
+    "system/netd/server/Gta3xlwifiNetpolicyService.cpp": {
+      "original_sha256": "a1db6d27882fc4f83bb86cdc36173b24691634c1f18077e90f0b6cfd31e8fcaa",
+      "candidate_sha256": "e63626540413b15e30c7fa4ce73c7f6f311a67921338ce52e5dd9d2a8b95c6df"
+    },
+    "system/netd/server/Gta3xlwifiNetpolicyService.h": {
+      "original_sha256": "2d05ce5f97e2d6eed156dd50f8f8f2a6742b2b9ba835b248a6d91c193dfc02e2",
+      "candidate_sha256": "e096c97926573901efaf277b9be1ab7c4dd6eb2d1050b9bb1e650358c3c3d9e2"
+    },
+    "system/netd/server/Gta3xlwifiSocketPolicyProjection.cpp": {
+      "original_sha256": "ac410259d661ef32b90459b5a9089f7c00d630c4e4c5526af165ce01e6156df2",
+      "candidate_sha256": "82196b1316aa56e82966955d612796060e461b5b12f54afff420c0696bdeff3d"
+    },
+    "system/netd/server/Gta3xlwifiSocketPolicyProjection.h": {
+      "original_sha256": "e258285fd94c709a24642ea326812ad8b85d68e0dfc3da7258ac6e8ccd4662a2",
+      "candidate_sha256": "a2b8850835eb5ba3494c3c74651166af5de685b1ada0771006951eba27470d25"
+    },
+    "system/netd/server/binder/com/android/internal/net/IGta3xlwifiNetpolicy.aidl": {
+      "original_sha256": "780f0f5e7a628433e2f6cd879d887c99ae13ef6c6fefc607d89b3e8435513621",
+      "candidate_sha256": "f613a6b0ebb74ce220bb01423b0b9bf6d64eadbb9b145db13ae8f27d7a9e80a3"
+    },
+    "packages/modules/Connectivity/service/src/com/android/server/Gta3xlwifiStatsAccess.java": {
+      "original_sha256": "b38098c6415f725e7af2b98f4197ad1b25d966b12a7b48f8e68e5f0ea53c1ba1",
+      "candidate_sha256": "83c5bd982b1dad3bfdd85ed467fc2582685e6eef760dbbe480956428740b1e44"
+    },
+    "system/netd/server/linux/netfilter/gta3xlwifi_packet_stats.h": {
+      "original_sha256": "fa5c8a4f9b25279596feac7d5c8d145bc29b53c4e45fc3a7b15376d80a813472",
+      "candidate_sha256": "961e2595a035625999414036e824734befa1a5d2a35d5ebdc57f230a3073bb03"
+    }
+  },
+  "selected_source_changed": false,
+  "durable_NSS_intent_startup_admission_and_strict_policy_pending": true,
+  "hardware_tested": false,
+  "flash_ready": false
+}
