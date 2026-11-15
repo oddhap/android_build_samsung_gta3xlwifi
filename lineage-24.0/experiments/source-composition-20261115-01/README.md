@@ -23,8 +23,9 @@ the ten extensions using the actual registry generator.
 network-composition-build-20261115-01 runs actual m -j12 netd iptables
 libnetd_resolv libnetd_updatable service-connectivity services.permission. Soong
 Android.bp graph analysis/generation has passed. Make/Kati and actual module
-compilation are still in progress at this checkpoint; consult final log/exit and
-after-audit before claiming success. No flash-ready ROM exists.
+compilation now complete exit0, including R8, native header ABI checks, permission
+Kotlin and current server API checking. All1243/20 after-audits pass. Installed
+post-R8 DEX/native outputs are separately verified in network-composition-outputs02. No flash-ready ROM exists.
 
 The selected kernel and policy are intentionally unchanged pending their explicit
 reviewed source/input selection and full product validation. Historical isolated

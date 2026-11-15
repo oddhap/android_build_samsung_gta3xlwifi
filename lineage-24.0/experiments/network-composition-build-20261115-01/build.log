@@ -1,0 +1,556 @@
+PASS: 1243 locked projects, 20 exact reviewed patches; no external alternates
+Looking for dependencies in device/samsung/gta3xlwifi
+device/samsung/gta3xlwifi has no additional dependencies.
+
+============================================
+PLATFORM_VERSION_CODENAME=REL
+PLATFORM_VERSION=17
+LINEAGE_VERSION=24.0-20261115-UNOFFICIAL-gta3xlwifi
+PRODUCT_SOURCE_ROOT_DIRS=-kernel/platform -prebuilts/misc/protobuf_vendorcompat
+TARGET_PRODUCT=lineage_gta3xlwifi
+TARGET_BUILD_VARIANT=userdebug
+TARGET_ARCH=arm64
+TARGET_ARCH_VARIANT=armv8-a
+TARGET_CPU_VARIANT=generic
+TARGET_2ND_ARCH=arm
+TARGET_2ND_ARCH_VARIANT=armv8-a
+TARGET_2ND_CPU_VARIANT=generic
+HOST_OS=linux
+HOST_OS_EXTRA=Linux-5.15.0-203-generic-x86_64-Ubuntu-22.04.5-LTS
+HOST_CROSS_OS=windows
+BUILD_ID=CP2A.260605.016
+OUT_DIR=out
+SOONG_ONLY=false
+SOONG_INCREMENTAL_ANALYSIS=false
+============================================
+Running product configuration...
+============================================
+PLATFORM_VERSION_CODENAME=REL
+PLATFORM_VERSION=17
+LINEAGE_VERSION=24.0-20261115-UNOFFICIAL-gta3xlwifi
+PRODUCT_SOURCE_ROOT_DIRS=-kernel/platform -prebuilts/misc/protobuf_vendorcompat
+TARGET_PRODUCT=lineage_gta3xlwifi
+TARGET_BUILD_VARIANT=userdebug
+TARGET_ARCH=arm64
+TARGET_ARCH_VARIANT=armv8-a
+TARGET_CPU_VARIANT=generic
+TARGET_2ND_ARCH=arm
+TARGET_2ND_ARCH_VARIANT=armv8-a
+TARGET_2ND_CPU_VARIANT=generic
+HOST_OS=linux
+HOST_OS_EXTRA=Linux-5.15.0-203-generic-x86_64-Ubuntu-22.04.5-LTS
+HOST_CROSS_OS=windows
+BUILD_ID=CP2A.260605.016
+OUT_DIR=out
+SOONG_ONLY=false
+SOONG_INCREMENTAL_ANALYSIS=true
+============================================
+[100% 1/1] bootstrap blueprint
+Running globs...
+
+Globs changed, rerunning soong...
+One culprit glob (may be more): external/iptables/extensions/libxt_*.c (excluding 5 other patterns)
+ninja: 
+ninja: SISO_EXPERIMENTS=fallback-on-exec-error enabled
+SISO_EXPERIMENTS=ignore-missing-out-in-depfile enabled
+
+ninja: ignore missing out error in depfile 
+
+[100% 2/2] analyzing Android.bp files and generating ninja file at out/soong/build.lineage_gta3xlwifi.ninja
+ninja: 4m44.53s Build Succeeded: 1 steps - 0.00/s
+
+out/soong/release-config/release_config-lineage_gta3xlwifi-aosp_current.vars was modified, regenerating...
+Adding CUSTOM_LOCALES [ast_ES ckb_IQ ckb_IR gd_GB cy_GB fur_IT nn_NO] to PRODUCT_LOCALES [en_US en_US af_ZA am_ET ar_EG ar_XB as_IN az_AZ be_BY bg_BG bn_BD bs_BA ca_ES cs_CZ da_DK de_DE el_GR en_AU en_CA en_GB en_IN en_XA es_ES es_US et_EE eu_ES fa_IR fi_FI fr_CA fr_FR gl_ES gu_IN hi_IN hr_HR hu_HU hy_AM in_ID is_IS it_IT iw_IL ja_JP ka_GE kk_KZ km_KH kn_IN ko_KR ky_KG lo_LA lt_LT lv_LV mk_MK ml_IN mn_MN mr_IN ms_MY my_MM nb_NO ne_NP nl_NL or_IN pa_IN pl_PL pt_BR pt_PT ro_RO ru_RU si_LK sk_SK sl_SI sq_AL sr_Latn_RS sr_RS sv_SE sw_TZ ta_IN te_IN th_TH tl_PH tr_TR uk_UA ur_PK uz_UZ vi_VN zh_CN zh_HK zh_TW zu_ZA en_XC]
+out/soong/release-config/release_config-lineage_gta3xlwifi-aosp_current.vars was modified, regenerating...
+[100% 3/3] initializing Make module parser
+Adding CUSTOM_LOCALES [ast_ES ckb_IQ ckb_IR gd_GB cy_GB fur_IT nn_NO] to PRODUCT_LOCALES [en_US en_US af_ZA am_ET ar_EG ar_XB as_IN az_AZ be_BY bg_BG bn_BD bs_BA ca_ES cs_CZ da_DK de_DE el_GR en_AU en_CA en_GB en_IN en_XA es_ES es_US et_EE eu_ES fa_IR fi_FI fr_CA fr_FR gl_ES gu_IN hi_IN hr_HR hu_HU hy_AM in_ID is_IS it_IT iw_IL ja_JP ka_GE kk_KZ km_KH kn_IN ko_KR ky_KG lo_LA lt_LT lv_LV mk_MK ml_IN mn_MN mr_IN ms_MY my_MM nb_NO ne_NP nl_NL or_IN pa_IN pl_PL pt_BR pt_PT ro_RO ru_RU si_LK sk_SK sl_SI sq_AL sr_Latn_RS sr_RS sv_SE sw_TZ ta_IN te_IN th_TH tl_PH tr_TR uk_UA ur_PK uz_UZ vi_VN zh_CN zh_HK zh_TW zu_ZA en_XC]
+[ 33% 4/12] including out/soong/installs-lineage_gta3xlwifi.mk
+[ 41% 5/12] including out/soong/Android-lineage_gta3xlwifi.mk
+[ 50% 6/12] including build/make/target/board/android-info.mk
+[ 58% 7/12] including bootable/deprecated-ota/updater/Android.mk
+[ 66% 8/12] including hardware/broadcom/wlan/bcmdhd/Android.mk
+[ 75% 9/12] including hardware/qcom/Android.mk
+[ 83% 10/12] including hardware/synaptics/wlan/synadhd/Android.mk
+[ 91% 11/12] including kernel/samsung/gta3xlwifi/sound/soc/codecs/tas2562/Android.mk
+[100% 12/12] including out/soong/late-lineage_gta3xlwifi.mk
+[100% 13/13] finishing Make module rules
+[100% 14/14] finishing Make module rules: Adding module dependencies
+[100% 15/15] finishing Make packaging rules
+[ 44% 16/36] including build/make/core/tasks/art.mk
+[ 47% 17/36] including build/make/core/tasks/build_custom_images.mk
+[ 50% 18/36] including build/make/core/tasks/dex_preopt_check.mk
+[ 52% 19/36] including build/make/core/tasks/find-shareduid-violation.mk
+[ 55% 20/36] including build/make/core/tasks/fontchain_lint.mk
+[ 58% 21/36] including build/make/core/tasks/host_init_verifier.mk
+[ 61% 22/36] including build/make/core/tasks/meta-lic.mk
+[ 63% 23/36] including build/make/core/tasks/module-info.mk
+[ 66% 24/36] including build/make/core/tasks/oem_image.mk
+[ 69% 25/36] including build/make/core/tasks/offline-sdk-docs.mk
+[ 72% 26/36] including build/make/core/tasks/platform_availability_check.mk
+[ 75% 27/36] including build/make/core/tasks/sdv.mk
+[ 77% 28/36] including build/make/core/tasks/vendor_module_check.mk
+[ 80% 29/36] including build/make/core/tasks/with-license.mk
+[ 83% 30/36] including vendor/lineage/build/tasks/bacon.mk
+[ 86% 31/36] including vendor/lineage/build/tasks/build-manifest_xml.mk
+[ 88% 32/36] including vendor/lineage/build/tasks/dt_image.mk
+[ 91% 33/36] including vendor/lineage/build/tasks/generate_lineage_sdk_coverage.mk
+[ 94% 34/36] including vendor/lineage/build/tasks/kernel.mk
+vendor/lineage/build/tasks/kernel.mk:234: warning: **********************************************************
+vendor/lineage/build/tasks/kernel.mk:235: warning: * Kernel source found and configuration was defined,     *
+vendor/lineage/build/tasks/kernel.mk:236: warning: * but prebuilt kernel is being forced.                   *
+vendor/lineage/build/tasks/kernel.mk:237: warning: * While this is likely intentional,                      *
+vendor/lineage/build/tasks/kernel.mk:238: warning: * it is NOT SUPPORTED WHATSOEVER.                        *
+vendor/lineage/build/tasks/kernel.mk:239: warning: * Generated kernel headers may not align with            *
+vendor/lineage/build/tasks/kernel.mk:240: warning: * the ABI of kernel you're including.                    *
+vendor/lineage/build/tasks/kernel.mk:241: warning: * Please unset TARGET_FORCE_PREBUILT_KERNEL              *
+vendor/lineage/build/tasks/kernel.mk:242: warning: * to build the kernel from source.                       *
+vendor/lineage/build/tasks/kernel.mk:243: warning: **********************************************************
+[ 97% 35/36] including device/generic/goldfish/build/tasks/combine_initramfs.mk
+[100% 36/36] finishing Make packaging rules
+[100% 37/37] finishing Make packaging rules: Adding phony targets
+[100% 38/38] finishing Make packaging rules: Checking licensing and SBOM
+[100% 39/39] writing make module actions
+19:33:17 Removed file that is no longer installed:  out/target/product/gta3xlwifi/system/etc/init/netbpfload.rc
+No need to regenerate ninja file
+Starting ninja...
+ninja: 
+ninja: SISO_EXPERIMENTS=allow-unexpected-rsp-remove enabled
+SISO_EXPERIMENTS=ignore-missing-out-in-depfile enabled
+SISO_EXPERIMENTS=oom-score-adj enabled
+
+ninja: ignore missing out error in depfile 
+
+[  0% 40/14543] Install: out/target/product/gta3xlwifi/system/etc/init/netbpfload.gta3xlwifi.rc
+[  0% 41/9880] create out/soong/.intermediates/system/netd/server/oemnetd_aidl_interface-cpp-source/gen/timestamp
+[  0% 42/9407] AIDL metadata: out/soong/.intermediates/system/tools/aidl/build/aidl_metadata_json/metadata_oemnetd_aidl_interface
+[  0% 43/7763] //external/iptables/extensions:libext_init raw genrule.sbox.textproto
+[  0% 44/5378] //external/iptables/extensions:libext_srcs raw genrule_1.sbox.textproto
+[  5% 45/778] //external/iptables/extensions:libext_srcs raw genrule_0.sbox.textproto
+[  8% 46/519] AIDL cpp system/netd/server/binder/com/android/internal/net/IGta3xlwifiNetpolicy.aidl
+[  9% 47/519] AIDL cpp system/netd/server/binder/com/android/internal/net/IOemNetd.aidl
+[  9% 48/519] //packages/modules/Connectivity/bpf/netd:libnetd_updatable generate stubs libnetd_updatable.map.txt[arm]
+[  9% 49/519] Joining JSON objects into array out/soong/.intermediates/system/tools/aidl/build/aidl_metadata_json/aidl_metadata.json
+[  9% 50/519] //packages/modules/DnsResolver:libnetd_resolv generate stubs libnetd_resolv.map.txt
+[  9% 51/519] //packages/modules/Connectivity/bpf/netd:libnetd_updatable generate stubs libnetd_updatable.map.txt
+[ 10% 52/519] //system/netd/server:gta3xlwifi-netpolicy-aidl-java aidl[common]
+[ 10% 53/519] //system/netd/server:gta3xlwifi-netpolicy-aidl-java aidl[common apex31]
+[ 10% 54/519] AIDL cpp system/netd/server/binder/com/android/internal/net/IOemNetdUnsolicitedEventListener.aidl
+[ 10% 55/504] //system/tools/aidl/metadata:aidl_metadata_in_cpp generate metadata.cpp[linux_glibc]
+[ 11% 56/504] //external/iptables/extensions:libext_init generate initext.c
+[ 11% 57/504] //external/iptables/extensions:libext_srcs generate 1
+[ 11% 58/504] //external/iptables/extensions:libext_srcs generate 0
+[ 11% 59/504] //packages/modules/DnsResolver:libnetd_resolv clang stub.c
+[ 11% 60/504] //packages/modules/Connectivity/bpf/netd:libnetd_updatable clang stub.c
+[ 12% 61/504] //packages/modules/DnsResolver:libnetd_resolv generate stubs libnetd_resolv.map.txt[arm]
+[ 12% 62/504] //external/iptables/extensions:libext_srcs merge shards
+[ 12% 63/504] //external/iptables/extensions:libext clang initext.c
+[ 12% 64/504] //external/iptables/extensions:libext clang gensrcs/external/iptables/extensions/libxt_CHECKSUM.c
+[ 12% 65/504] //external/iptables/extensions:libext clang gensrcs/external/iptables/extensions/libxt_udp.c
+[ 13% 66/504] //external/iptables/extensions:libext clang gensrcs/external/iptables/extensions/libxt_LED.c
+[ 13% 67/504] //system/netd/server:oemnetd_aidl_interface-cpp clang++ com/android/internal/net/IOemNetd.cpp
+[ 13% 68/504] //external/iptables/extensions:libext clang gensrcs/external/iptables/extensions/libxt_connmark.c
+[ 13% 69/504] //system/netd/server:oemnetd_aidl_interface-cpp clang++ com/android/internal/net/IGta3xlwifiNetpolicy.cpp
+[ 13% 70/504] //packages/modules/Connectivity/service:service-remoteauth-jarjar-gen generate service_remoteauth_jarjar_rules.txt[common]
+[ 14% 71/504] //packages/modules/Connectivity/bpf/netd:libnetd_updatable clang++ NetdUpdatable.cpp
+[ 14% 72/504] //system/tools/aidl/metadata:libaidlmetadata clang++ metadata.cpp[linux_glibc]
+[ 14% 73/504] //external/iptables/extensions:libext clang gensrcs/external/iptables/extensions/libxt_mark.c
+[ 14% 74/504] //external/iptables/extensions:libext clang gensrcs/external/iptables/extensions/libxt_physdev.c
+[ 14% 75/504] //external/iptables/extensions:libext clang gensrcs/external/iptables/extensions/libxt_gta3xlwifi_ingress_discard.c
+[ 15% 76/504] //external/iptables/extensions:libext clang gensrcs/external/iptables/extensions/libxt_quota.c
+[ 15% 77/504] //packages/modules/Connectivity/bpf/netd:libnetd_updatable clang++ NetdUpdatable.cpp[arm]
+[ 15% 78/504] //external/iptables/extensions:libext clang gensrcs/external/iptables/extensions/libxt_length.c
+[ 15% 79/504] //external/iptables/extensions:libext clang gensrcs/external/iptables/extensions/libxt_u32.c
+[ 15% 80/504] //packages/modules/Connectivity/bpf/netd:libnetd_updatable clang++ BpfHandler.cpp
+[ 16% 81/504] //external/iptables/extensions:libext clang gensrcs/external/iptables/extensions/libxt_CONNSECMARK.c
+[ 16% 82/504] //external/iptables/extensions:libext clang gensrcs/external/iptables/extensions/libxt_gta3xlwifi_non_loopback.c
+[ 16% 83/504] //packages/modules/Connectivity/bpf/netd:libnetd_updatable clang++ NetdUpdatable.cpp[apex31]
+[ 16% 84/504] //packages/modules/Connectivity/bpf/dns_helper:libdns_helper clang++ DnsBpfHelper.cpp[apex31]
+[ 16% 85/504] //system/tools/aidl/metadata:libaidlmetadata static link libaidlmetadata.a[linux_glibc]
+[ 17% 86/504] //packages/modules/Connectivity/bpf/netd:libnetd_updatable clang++ BpfHandler.cpp[arm]
+[ 17% 87/504] //external/iptables/extensions:libext clang gensrcs/external/iptables/extensions/libxt_NFLOG.c
+[ 17% 88/504] //external/iptables/extensions:libext clang gensrcs/external/iptables/extensions/libxt_CLASSIFY.c
+[ 17% 89/504] //external/iptables/extensions:libext clang gensrcs/external/iptables/extensions/libxt_tcpmss.c
+[ 17% 90/504] //external/iptables/extensions:libext clang gensrcs/external/iptables/extensions/libxt_gta3xlwifi_appid.c
+[ 18% 91/504] //external/iptables/extensions:libext clang gensrcs/external/iptables/extensions/libxt_tcp.c
+[ 18% 92/504] //external/iptables/extensions:libext clang gensrcs/external/iptables/extensions/libxt_pkttype.c
+[ 18% 93/504] //external/iptables/extensions:libext clang gensrcs/external/iptables/extensions/libxt_hashlimit.c
+[ 18% 94/504] //external/iptables/extensions:libext clang gensrcs/external/iptables/extensions/libxt_addrtype.c
+[ 18% 95/504] //external/iptables/extensions:libext clang gensrcs/external/iptables/extensions/libxt_IDLETIMER.c
+[ 19% 96/504] //external/iptables/extensions:libext clang gensrcs/external/iptables/extensions/libxt_nfacct.c
+[ 19% 97/504] //external/iptables/extensions:libext clang gensrcs/external/iptables/extensions/libxt_gta3xlwifi_bad_iif.c
+[ 19% 98/504] //external/iptables/extensions:libext clang gensrcs/external/iptables/extensions/libxt_NFQUEUE.c
+[ 19% 99/504] //external/iptables/extensions:libext clang gensrcs/external/iptables/extensions/libxt_NAT.c
+[ 19% 100/504] //external/iptables/extensions:libext clang gensrcs/external/iptables/extensions/libxt_quota2.c
+[ 20% 101/504] //external/iptables/extensions:libext clang gensrcs/external/iptables/extensions/libxt_SECMARK.c
+[ 20% 102/504] //external/iptables/extensions:libext clang gensrcs/external/iptables/extensions/libxt_gta3xlwifi_iface_stats.c
+[ 20% 103/504] //external/iptables/extensions:libext clang gensrcs/external/iptables/extensions/libxt_mac.c
+[ 20% 104/504] //external/iptables/extensions:libext clang gensrcs/external/iptables/extensions/libxt_CT.c
+[ 20% 105/504] //external/iptables/extensions:libext clang gensrcs/external/iptables/extensions/libxt_CONNMARK.c
+[ 21% 106/504] //external/iptables/extensions:libext clang gensrcs/external/iptables/extensions/libxt_ecn.c
+[ 21% 107/504] //external/iptables/extensions:libext clang gensrcs/external/iptables/extensions/libxt_socket.c
+[ 21% 108/504] //external/iptables/extensions:libext clang gensrcs/external/iptables/extensions/libxt_comment.c
+[ 21% 109/504] //external/iptables/extensions:libext clang gensrcs/external/iptables/extensions/libxt_time.c
+[ 21% 110/504] //external/iptables/extensions:libext clang gensrcs/external/iptables/extensions/libxt_cpu.c
+[ 22% 111/504] //external/iptables/extensions:libext clang gensrcs/external/iptables/extensions/libxt_tos.c
+[ 22% 112/504] //external/iptables/extensions:libext clang gensrcs/external/iptables/extensions/libxt_connlimit.c
+[ 22% 113/504] //external/iptables/extensions:libext clang gensrcs/external/iptables/extensions/libxt_gta3xlwifi_guard.c
+[ 22% 114/504] //external/iptables/extensions:libext clang gensrcs/external/iptables/extensions/libxt_TRACE.c
+[ 22% 115/504] //external/iptables/extensions:libext clang gensrcs/external/iptables/extensions/libxt_gta3xlwifi_raw_appid.c
+[ 23% 116/504] //external/iptables/extensions:libext clang gensrcs/external/iptables/extensions/libxt_iprange.c
+[ 23% 117/504] //external/iptables/extensions:libext clang gensrcs/external/iptables/extensions/libxt_MARK.c
+[ 23% 118/504] //external/iptables/extensions:libext clang gensrcs/external/iptables/extensions/libxt_ipcomp.c
+[ 23% 119/504] //external/iptables/extensions:libext clang gensrcs/external/iptables/extensions/libxt_SET.c
+[ 23% 120/504] //external/iptables/extensions:libext clang gensrcs/external/iptables/extensions/libxt_HMARK.c
+[ 24% 121/504] //external/iptables/extensions:libext clang gensrcs/external/iptables/extensions/libxt_statistic.c
+[ 24% 122/504] //external/iptables/extensions:libext clang gensrcs/external/iptables/extensions/libxt_recent.c
+[ 24% 123/504] //external/iptables/extensions:libext clang gensrcs/external/iptables/extensions/libxt_TPROXY.c
+[ 24% 124/504] //external/iptables/extensions:libext clang gensrcs/external/iptables/extensions/libxt_rpfilter.c
+[ 24% 125/504] //external/iptables/extensions:libext clang gensrcs/external/iptables/extensions/libxt_standard.c
+[ 25% 126/504] //external/iptables/extensions:libext clang gensrcs/external/iptables/extensions/libxt_TCPMSS.c
+[ 25% 127/504] //external/iptables/extensions:libext clang gensrcs/external/iptables/extensions/libxt_SYNPROXY.c
+[ 25% 128/504] //external/iptables/extensions:libext clang gensrcs/external/iptables/extensions/libxt_esp.c
+[ 25% 129/504] //external/iptables/extensions:libext clang gensrcs/external/iptables/extensions/libxt_DSCP.c
+[ 25% 130/504] //external/iptables/extensions:libext clang gensrcs/external/iptables/extensions/libxt_TEE.c
+[ 25% 131/504] //external/iptables/extensions:libext clang gensrcs/external/iptables/extensions/libxt_gta3xlwifi_raw_uid.c
+[ 26% 132/504] //external/iptables/extensions:libext clang gensrcs/external/iptables/extensions/libxt_rateest.c
+[ 26% 133/504] //external/iptables/extensions:libext clang gensrcs/external/iptables/extensions/libxt_set.c
+[ 26% 134/504] //external/iptables/extensions:libext clang gensrcs/external/iptables/extensions/libxt_dscp.c
+[ 26% 135/504] //external/iptables/extensions:libext clang gensrcs/external/iptables/extensions/libxt_multiport.c
+[ 26% 136/504] //external/iptables/extensions:libext clang gensrcs/external/iptables/extensions/libxt_limit.c
+[ 27% 137/504] //external/iptables/extensions:libext clang gensrcs/external/iptables/extensions/libxt_connbytes.c
+[ 27% 138/504] //external/iptables/extensions:libext clang gensrcs/external/iptables/extensions/libxt_conntrack.c
+[ 27% 139/504] //external/iptables/extensions:libext clang gensrcs/external/iptables/extensions/libxt_policy.c
+[ 27% 140/504] //external/iptables/extensions:libext clang gensrcs/external/iptables/extensions/libxt_cluster.c
+[ 27% 141/504] //external/iptables/extensions:libext clang gensrcs/external/iptables/extensions/libxt_RATEEST.c
+[ 28% 142/504] //external/iptables/extensions:libext clang gensrcs/external/iptables/extensions/libxt_gta3xlwifi_owner_skip.c
+[ 28% 143/504] //external/iptables/extensions:libext clang gensrcs/external/iptables/extensions/libxt_sctp.c
+[ 28% 144/504] //external/iptables/extensions:libext clang gensrcs/external/iptables/extensions/libxt_AUDIT.c
+[ 28% 145/504] //external/iptables/extensions:libext clang gensrcs/external/iptables/extensions/libxt_string.c
+[ 28% 146/504] //external/iptables/extensions:libext clang gensrcs/external/iptables/extensions/libxt_gta3xlwifi_lna.c
+[ 29% 147/504] //external/iptables/extensions:libext clang gensrcs/external/iptables/extensions/libxt_devgroup.c
+[ 29% 148/504] //external/iptables/extensions:libext clang gensrcs/external/iptables/extensions/libxt_helper.c
+[ 29% 149/504] //external/iptables/extensions:libext clang gensrcs/external/iptables/extensions/libxt_LOG.c
+[ 29% 150/504] //external/iptables/extensions:libext clang gensrcs/external/iptables/extensions/libxt_osf.c
+[ 29% 151/504] //external/iptables/extensions:libext clang gensrcs/external/iptables/extensions/libxt_TOS.c
+[ 30% 152/504] //external/iptables/extensions:libext clang gensrcs/external/iptables/extensions/libxt_owner.c
+[ 30% 153/504] //external/iptables/extensions:libext clang gensrcs/external/iptables/extensions/libxt_bpf.c
+[ 30% 154/504] //packages/modules/Connectivity/bpf/netd:libnetd_updatable clang stub.c[arm]
+[ 30% 155/504] //system/netd/server:libnetd_server clang++ Gta3xlwifiUidPolicy.cpp
+[ 30% 156/504] //system/netd/server:libnetd_server clang++ StrictController.cpp
+[ 31% 157/504] //system/netd/server:libnetd_server clang++ WakeupController.cpp
+[ 31% 158/504] //system/netd/server:libnetd_server clang++ IdletimerController.cpp
+[ 31% 159/504] //external/iptables/extensions:libext static link libext.a
+[ 31% 160/504] //packages/modules/Connectivity/bpf/dns_helper:libdns_helper static link libdns_helper.a[apex31]
+[ 31% 161/504] //system/netd/server:libnetd_server clang++ NetlinkManager.cpp
+[ 32% 162/504] //system/netd/server:libnetd_server clang++ Gta3xlwifiOrdinaryDispatch.cpp
+[ 32% 163/504] //system/netd/server:libnetd_server clang++ Gta3xlwifiQtaguidTransport.cpp
+[ 32% 164/504] //system/netd/server:libnetd_server clang++ XfrmController.cpp
+[ 32% 165/504] //system/netd/server:libnetd_server clang++ Gta3xlwifiUidPermissionState.cpp
+[ 32% 166/504] //system/netd/server:libnetd_server clang++ Gta3xlwifiCheckedUidChains.cpp
+[ 33% 167/504] //system/netd/server:libnetd_server clang++ Gta3xlwifiMeteredRoots.cpp
+[ 33% 168/504] //system/netd/server:libnetd_server clang++ RouteController.cpp
+[ 33% 169/504] //system/netd/server:libnetd_server clang++ UidRanges.cpp
+[ 33% 170/504] //packages/modules/DnsResolver:libnetd_resolv link libnetd_resolv.so
+[ 33% 171/504] //packages/modules/Connectivity/bpf/netd:libnetd_updatable link libnetd_updatable.so
+[ 34% 172/504] //system/netd/server:oemnetd_aidl_interface-cpp link oemnetd_aidl_interface-cpp.so
+[ 34% 173/504] //system/netd/server:libnetd_server clang++ NetdConstants.cpp
+[ 34% 174/504] //system/netd/server:libnetd_server clang++ IptablesRestoreController.cpp
+[ 34% 175/504] //system/netd/server:libnetd_server clang++ FirewallController.cpp
+[ 34% 176/504] //system/netd/server:libnetd_server clang++ InterfaceController.cpp
+[ 35% 177/504] //system/libvintf:assemble_vintf link assemble_vintf[linux_glibc]
+[ 35% 178/504] //system/netd/server:libnetd_server clang++ NFLogListener.cpp
+[ 35% 179/504] //system/netd/server:libnetd_server clang++ NetlinkCommands.cpp
+[ 35% 180/504] //system/netd/server:libnetd_server clang++ BandwidthController.cpp
+[ 35% 181/504] //system/netd/server:libnetd_server clang++ Controllers.cpp
+[ 36% 182/504] //system/netd/server:libnetd_server clang++ TetherController.cpp
+[ 36% 183/504] //system/netd/server:libnetd_server clang++ Gta3xlwifiLocalNetworkState.cpp
+[ 36% 184/504] //system/netd/server:oemnetd_aidl_interface-cpp strip oemnetd_aidl_interface-cpp.so
+[ 36% 185/504] //packages/modules/DnsResolver:libnetd_resolv clang stub.c[arm]
+[ 36% 186/504] //system/netd/server:libnetd_server clang++ Gta3xlwifiMeteredChainProgram.cpp
+[ 37% 187/504] //system/netd/server:libnetd_server clang++ Gta3xlwifiIngressPolicy.cpp
+[ 37% 188/504] //system/netd/server:libnetd_server clang++ Gta3xlwifiUidChainProgram.cpp
+[ 37% 189/504] //system/netd/server:libnetd_server clang++ SockDiag.cpp
+[ 37% 190/504] //system/netd/server:libnetd_server clang++ Gta3xlwifiPermissionBootstrap.cpp
+[ 37% 191/504] //packages/modules/DnsResolver:stats_proto protoc stats.proto
+[ 38% 192/503] //system/netd/server:libnetd_server clang++ Gta3xlwifiNetpolicyLease.cpp
+[ 38% 193/503] Install: out/host/linux-x86/bin/assemble_vintf
+[ 38% 194/502] //system/netd/server:libnetd_server clang++ Gta3xlwifiHeldProvider.cpp
+[ 38% 195/502] //system/netd/server:libnetd_server clang++ Gta3xlwifiSocketPolicyProjection.cpp
+[ 39% 196/502] //packages/modules/Connectivity/bpf/netd:libnetd_updatable link libnetd_updatable.so[apex31]
+[ 39% 197/502] //system/netd/server:libnetd_server clang++ Gta3xlwifiPolicyFrame.cpp
+[ 39% 198/502] //system/netd/server:libnetd_server clang++ Gta3xlwifiSocketRoots.cpp
+[ 39% 199/502] //packages/modules/Connectivity/bpf/netd:libnetd_updatable link libnetd_updatable.so[arm]
+[ 39% 200/502] //system/netd/server:libnetd_server clang++ Gta3xlwifiNetpolicyService.cpp
+[ 40% 201/502] //packages/modules/DnsResolver:libnetd_resolv generate toc libnetd_resolv.so
+[ 40% 202/502] //packages/modules/DnsResolver:libnetd_resolv copy libnetd_resolv.so
+[ 40% 203/502] //packages/modules/Connectivity/bpf/netd:libnetd_updatable generate toc libnetd_updatable.so
+[ 40% 204/502] //packages/modules/Connectivity/bpf/netd:libnetd_updatable copy libnetd_updatable.so
+[ 40% 205/502] //system/netd/server:oemnetd_aidl_interface-cpp copy oemnetd_aidl_interface-cpp.so
+[ 41% 206/502] //system/netd/server:libnetd_server clang++ Gta3xlwifiAccountingRoots.cpp
+[ 41% 207/502] //system/netd/server:libnetd_server clang++ TcpSocketMonitor.cpp
+[ 41% 208/502] //packages/modules/DnsResolver:libnetd_resolv link libnetd_resolv.so[arm]
+[ 41% 209/502] //packages/modules/DnsResolver:stats_proto protoc stats.proto[arm]
+[ 41% 210/501] //external/iptables/iptables:iptables link iptables
+[ 42% 211/501] //system/netd/server:oemnetd_aidl_interface-cpp generate toc oemnetd_aidl_interface-cpp.so
+[ 42% 212/501] //system/netd/server:libnetd_server static link libnetd_server.a
+[ 42% 213/501] //packages/modules/Connectivity/bpf/netd:libnetd_updatable copy libnetd_updatable.so[arm]
+[ 42% 214/501] //external/iptables/iptables:iptables strip iptables
+[ 42% 215/501] //system/netd/server:netd clang++ FwmarkServer.cpp
+[ 43% 216/501] //system/netd/server:netd clang++ NetlinkHandler.cpp
+[ 43% 217/501] //system/netd/server:netd clang++ NetdNativeService.cpp
+[ 43% 218/501] //system/netd/server:netd clang++ NetdHwService.cpp
+[ 43% 219/501] //system/netd/server:netd clang++ NetdHwAidlService.cpp
+[ 43% 220/501] //system/netd/server:netd clang++ OemNetdListener.cpp
+[ 44% 221/501] //system/netd/server:netd clang++ main.cpp
+[ 44% 222/501] //system/netd/server:netd clang++ NetworkController.cpp
+[ 44% 223/501] //packages/modules/DnsResolver:libnetd_resolv clang++ DnsProxyListener.cpp[apex31]
+[ 44% 224/501] //packages/modules/DnsResolver:libnetd_resolv clang++ Dns64Configuration.cpp
+[ 44% 225/501] //packages/modules/DnsResolver:libnetd_resolv clang++ getaddrinfo.cpp[arm]
+[ 45% 226/501] //packages/modules/DnsResolver:libnetd_resolv clang++ res_mkquery.cpp
+[ 45% 227/501] //packages/modules/DnsResolver:libnetd_resolv clang++ res_send.cpp
+[ 45% 228/501] //packages/modules/DnsResolver:libnetd_resolv clang++ DnsTlsQueryMap.cpp[arm]
+[ 45% 229/501] //packages/modules/DnsResolver:libnetd_resolv clang++ res_debug.cpp[arm]
+[ 45% 230/501] //packages/modules/DnsResolver:libnetd_resolv clang++ res_mkquery.cpp[arm]
+[ 46% 231/501] //packages/modules/DnsResolver:libnetd_resolv clang++ res_comp.cpp[arm]
+[ 46% 232/501] //packages/modules/DnsResolver:libnetd_resolv clang++ gethnamaddr.cpp
+[ 46% 233/501] //packages/modules/DnsResolver:libnetd_resolv clang++ DnsTlsTransport.cpp[arm]
+[ 46% 234/501] //frameworks/base/api:android-non-updatable.stubs.system_server.from-text metalava merged text[common]
+[ 46% 235/501] //packages/modules/DnsResolver:libnetd_resolv clang++ ResolverController.cpp[arm]
+[ 47% 236/501] //packages/modules/DnsResolver:libnetd_resolv clang++ DnsTlsDispatcher.cpp[arm]
+[ 47% 237/501] //packages/modules/DnsResolver:libnetd_resolv clang++ res_stats.cpp[arm]
+[ 47% 238/501] //packages/modules/DnsResolver:libnetd_resolv clang++ DnsTlsSessionCache.cpp[arm]
+[ 47% 239/501] //packages/modules/DnsResolver:libnetd_resolv clang++ Experiments.cpp[arm]
+[ 47% 240/501] //packages/modules/DnsResolver:libnetd_resolv clang++ DnsStats.cpp[arm]
+[ 48% 241/501] //packages/modules/DnsResolver:libnetd_resolv clang++ DnsProxyListener.cpp
+[ 48% 242/501] //packages/modules/DnsResolver:libnetd_resolv clang++ DnsTlsServer.cpp[arm]
+[ 48% 243/501] //packages/modules/DnsResolver:libnetd_resolv clang++ ResolverEventReporter.cpp[arm]
+[ 48% 244/501] //packages/modules/DnsResolver:libnetd_resolv clang++ util.cpp
+[ 48% 245/501] //packages/modules/DnsResolver:libnetd_resolv clang++ DnsTlsSocket.cpp[arm]
+[ 49% 246/501] //packages/modules/DnsResolver:libnetd_resolv clang++ PrivateDnsConfiguration.cpp[arm]
+[ 49% 247/501] //packages/modules/DnsResolver:libnetd_resolv clang++ res_query.cpp[arm]
+[ 49% 248/501] //packages/modules/DnsResolver:libnetd_resolv clang++ DnsResolverService.cpp[arm]
+[ 49% 249/501] //system/netd/server:netd link netd
+[ 49% 250/501] //packages/modules/Connectivity/bpf/dns_helper:libdns_helper header-abi-dumper DnsBpfHelper.cpp[apex31]
+[ 50% 251/501] //packages/modules/DnsResolver:libnetd_resolv clang++ dns_proxy_cxx_bridge.rs.cpp[arm]
+[ 50% 252/501] //packages/modules/DnsResolver:libnetd_resolv clang++ util.cpp[arm]
+[ 50% 253/501] //packages/modules/DnsResolver:libnetd_resolv copy libnetd_resolv.so[arm]
+[ 50% 254/501] //packages/modules/DnsResolver:libnetd_resolv clang++ DnsProxy.cpp[arm]
+[ 50% 255/501] //packages/modules/DnsResolver:libnetd_resolv clang++ res_cache.cpp[arm]
+[ 51% 256/501] //packages/modules/DnsResolver:libnetd_resolv clang++ addrlabel.cpp[arm]
+[ 51% 257/501] //packages/modules/DnsResolver:libnetd_resolv clang++ DnsResolver.cpp[arm]
+[ 51% 258/501] //packages/modules/DnsResolver:libnetd_resolv header-abi-dumper DnsProxyListener.cpp[apex31]
+[ 51% 259/501] //packages/modules/DnsResolver:libnetd_resolv clang++ res_send.cpp[arm]
+[ 51% 260/501] //packages/modules/DnsResolver:libnetd_resolv clang++ res_comp.cpp
+[ 52% 261/501] //packages/modules/DnsResolver:libnetd_resolv clang++ Dns64Configuration.cpp[arm]
+[ 52% 262/501] //packages/modules/DnsResolver:libnetd_resolv clang++ DnsProxyListener.cpp[arm]
+[ 52% 263/501] //packages/modules/DnsResolver:libnetd_resolv clang++ res_debug.cpp
+[ 52% 264/501] run assemble_vintf
+[ 52% 265/501] //packages/modules/DnsResolver:libnetd_resolv clang++ sethostent.cpp[arm]
+[ 53% 266/501] //packages/modules/DnsResolver:libnetd_resolv clang++ DnsStats.cpp
+[ 53% 267/501] //packages/modules/Connectivity/bpf/netd:libnetd_updatable header-abi-dumper NetdUpdatable.cpp[apex31]
+[ 53% 268/501] //packages/modules/DnsResolver:libnetd_resolv link libnetd_resolv.so[apex31]
+[ 53% 269/501] //packages/modules/Connectivity/bpf/netd:libnetd_updatable strip libnetd_updatable.so[apex31]
+[ 53% 270/501] //packages/modules/DnsResolver:libnetd_resolv clang++ rust/src/dns_proxy/net_context_client.cpp
+[ 54% 271/501] //frameworks/base/api:android-non-updatable.stubs.system_server.from-text javac0[common]
+[ 54% 272/501] //packages/modules/DnsResolver:libnetd_resolv strip libnetd_resolv.so[apex31]
+[ 54% 273/501] //packages/modules/DnsResolver:libnetd_resolv clang++ DnsTlsDispatcher.cpp
+[ 54% 274/501] //packages/modules/DnsResolver:libnetd_resolv clang++ DnsResolverService.cpp
+[ 54% 275/501] //frameworks/base/api:android-non-updatable.stubs.system_server.from-text merge jar files[common]
+[ 55% 276/501] //packages/modules/DnsResolver:libnetd_resolv clang++ rust/src/dns_proxy/net_context_client.cpp[arm]
+[ 55% 277/501] //packages/modules/DnsResolver:libnetd_resolv clang++ DnsTlsTransport.cpp
+[ 55% 278/501] //packages/modules/DnsResolver:libnetd_resolv clang++ DnsTlsQueryMap.cpp
+[ 55% 279/501] //packages/modules/DnsResolver:libnetd_resolv clang++ dns_proxy_cxx_bridge.rs.cpp
+[ 55% 280/501] //packages/modules/DnsResolver:libnetd_resolv clang++ DnsQueryLog.cpp
+[ 56% 281/501] //art/libartservice/service:art-statslog-art-java turbine[common]
+[ 56% 282/501] //packages/modules/Permission/service:service-permission-shared turbine[common]
+[ 56% 283/500] //packages/modules/Permission/service:service-permission-statsd turbine[common]
+[ 56% 284/499] //packages/modules/DnsResolver:libnetd_resolv clang++ DnsProxy.cpp
+[ 57% 285/498] //art/libartservice/service:service-art-proto-java turbine[common]
+[ 57% 286/498] //packages/modules/DnsResolver:libnetd_resolv clang++ res_cache.cpp
+[ 57% 287/497] //packages/modules/DnsResolver:libnetd_resolv clang++ ResolverEventReporter.cpp
+[ 57% 288/497] //packages/modules/DnsResolver:libnetd_resolv clang++ DnsTlsSessionCache.cpp
+[ 58% 289/497] //packages/modules/Permission/service:service-permission-proto-stream turbine[common]
+[ 58% 290/497] //packages/modules/DnsResolver:libnetd_resolv clang++ ResolverController.cpp
+[ 58% 291/496] //frameworks/base/api:android_system_server_stubs_current for turbine[common]
+[ 58% 292/496] //frameworks/libs/modules-utils/java/com/android/modules/utils/pm:modules-utils-package-state turbine[common]
+[ 59% 293/495] //packages/modules/CrashRecovery/service:crashrecovery-statslog turbine[common]
+[ 59% 294/494] //packages/modules/AdServices/sdksandbox/service:sdksandbox-statsd turbine[common]
+[ 59% 295/494] //system/netd/server:gta3xlwifi-netpolicy-aidl-java turbine[common]
+[ 60% 296/493] //packages/modules/Connectivity/networksecurity/service:conscrypt-flatbuffers-java turbine[common]
+[ 60% 297/493] //packages/modules/Connectivity/networksecurity/service:conscrypt-flatbuffers-java turbine[common apex31]
+[ 60% 298/491] //packages/modules/Connectivity/networksecurity/service:conscrypt-flatbuffers-java javac[common]
+[ 61% 299/489] //system/netd/server:gta3xlwifi-netpolicy-aidl-java javac[common]
+[ 61% 300/488] //system/netd/server:gta3xlwifi-netpolicy-aidl-java turbine[common apex31]
+[ 61% 301/488] //packages/modules/Connectivity/nearby/service:service-nearby-pre-jarjar turbine[common]
+[ 61% 302/488] //packages/modules/DnsResolver:libnetd_resolv clang++ res_query.cpp
+[ 62% 303/487] //system/netd/server:gta3xlwifi-netpolicy-aidl-java javac[common apex31]
+[ 62% 304/487] //packages/modules/Connectivity/networksecurity/service:conscrypt-flatbuffers-java javac[common apex31]
+[ 62% 305/487] //packages/modules/Connectivity/nearby/service:service-nearby-pre-jarjar javac[common]
+[ 63% 306/485] //packages/modules/DnsResolver:libnetd_resolv clang++ PrivateDnsConfiguration.cpp
+[ 63% 307/485] //packages/modules/Connectivity/service:service-nearby-jarjar-gen generate service_nearby_jarjar_rules.txt[common]
+[ 63% 308/485] //packages/modules/Connectivity/nearby/service:service-nearby-pre-jarjar javac[common apex31]
+[ 63% 309/485] //packages/modules/RemoteKeyProvisioning/system-server:service-rkp.stubs.system_server.from-text metalava merged text[common]
+[ 63% 310/485] //packages/modules/CrashRecovery/service:service-crashrecovery.stubs.system_server.from-text metalava merged text[common]
+[ 64% 311/485] //external/google-smali/dexlib2:smali-dexlib2-device turbine[common]
+[ 64% 312/484] //packages/modules/DnsResolver:libnetd_resolv clang++ DnsTlsServer.cpp
+[ 64% 313/484] //packages/modules/Telephony/telecom/service:service-telecom.stubs.system_server.from-text metalava merged text[common]
+[ 64% 314/484] //packages/modules/DnsResolver:libnetd_resolv clang++ addrlabel.cpp
+[ 65% 315/484] //packages/modules/Connectivity/service:service-connectivity-pre-jarjar turbine apt[common apex31]
+[ 65% 316/484] //packages/modules/Connectivity/service:service-connectivity-pre-jarjar turbine apt[common]
+[ 65% 317/484] //packages/modules/RemoteKeyProvisioning/system-server:service-rkp.stubs.system_server.from-text javac0[common]
+[ 65% 318/484] //packages/modules/CrashRecovery/service:service-crashrecovery.stubs.system_server.from-text javac0[common]
+[ 65% 319/484] //art/libartservice/service:service-art.stubs.system_server.from-text metalava merged text[common]
+[ 66% 320/484] //packages/modules/RemoteKeyProvisioning/system-server:service-rkp.stubs.system_server.from-text merge jar files[common]
+[ 66% 321/484] //packages/modules/CrashRecovery/service:service-crashrecovery.stubs.system_server.from-text merge jar files[common]
+[ 66% 322/484] //frameworks/base/api:android_system_server_stubs_current for javac[common]
+[ 66% 323/484] //packages/modules/Telephony/telecom/service:service-telecom.stubs.system_server.from-text javac0[common]
+[ 66% 324/484] //art/libartservice/service:service-art.stubs.system_server.from-text javac0[common]
+[ 67% 325/484] //packages/modules/Telephony/telecom/service:service-telecom.stubs.system_server.from-text merge jar files[common]
+[ 67% 326/484] //packages/modules/Connectivity/service:service-connectivity-pre-jarjar turbine[common]
+[ 67% 327/484] //packages/modules/DnsResolver:libnetd_resolv clang++ Experiments.cpp
+[ 67% 328/484] //packages/modules/Permission/service:service-permission.stubs.system_server.from-text metalava merged text[common]
+[ 67% 329/484] //art/libartservice/service:service-art.stubs.system_server.from-text merge jar files[common]
+[ 68% 330/484] //packages/modules/DnsResolver:libnetd_resolv clang++ res_stats.cpp
+[ 68% 331/484] //packages/modules/Connectivity/thread/service:service-thread-pre-jarjar turbine[common]
+[ 68% 332/484] //packages/modules/DnsResolver:libnetd_resolv clang++ DnsQueryLog.cpp[arm]
+[ 68% 333/483] //packages/modules/Permission/service:service-permission.stubs.system_server.from-text javac0[common]
+[ 69% 334/483] //packages/modules/Connectivity/networksecurity/service:service-networksecurity-pre-jarjar turbine apt[common]
+[ 69% 335/483] //packages/modules/Connectivity/Vcn/service-b:service-connectivity-b-pre-jarjar turbine apt[common]
+[ 69% 336/483] //packages/modules/Permission/service:service-permission.stubs.system_server.from-text merge jar files[common]
+[ 69% 337/483] //packages/modules/DnsResolver:libnetd_resolv clang++ getaddrinfo.cpp
+[ 69% 338/483] //packages/modules/DnsResolver:libnetd_resolv clang++ sethostent.cpp
+[ 70% 339/483] //packages/modules/Connectivity/networksecurity/service:service-networksecurity-pre-jarjar turbine[common]
+[ 70% 340/482] //packages/modules/AdServices/sdksandbox/service:service-sdksandbox.stubs.system_server.from-text metalava merged text[common]
+[ 70% 341/482] //packages/modules/Connectivity/Vcn/service-b:service-connectivity-b-pre-jarjar turbine apt[common apex31]
+[ 70% 342/482] //packages/modules/Connectivity/networksecurity/service:service-networksecurity-pre-jarjar turbine apt[common apex31]
+[ 71% 343/482] //packages/modules/AdServices/sdksandbox/service:service-sdksandbox.stubs.system_server.from-text javac0[common]
+[ 71% 344/482] //packages/modules/Connectivity/networksecurity/service:service-networksecurity-pre-jarjar javac[common]
+[ 71% 345/481] //packages/modules/AdServices/sdksandbox/service:service-sdksandbox.stubs.system_server.from-text merge jar files[common]
+[ 71% 346/481] //packages/modules/DnsResolver:libnetd_resolv clang++ DnsTlsSocket.cpp
+[ 72% 347/481] //packages/modules/Connectivity/service:service-connectivity-pre-jarjar javac[common]
+[ 72% 348/481] //packages/modules/Connectivity/service:service-connectivity-pre-jarjar javac[common apex31]
+[ 72% 349/481] //packages/modules/Connectivity/service-t:service-connectivity-tiramisu-pre-jarjar turbine apt[common]
+[ 72% 350/481] //packages/modules/Connectivity/thread/service:service-thread-pre-jarjar javac[common]
+[ 73% 351/480] //packages/modules/Connectivity/thread/service:service-thread-pre-jarjar javac[common apex31]
+[ 73% 352/480] //packages/modules/Connectivity/service:service-connectivity-pre-jarjar for turbine[common]
+[ 73% 353/480] //packages/modules/Connectivity/service:service-networksecurity-jarjar-gen generate service_ct_jarjar_rules.txt[common]
+[ 73% 354/480] Install: out/target/product/gta3xlwifi/system/etc/vintf/manifest/android.system.net.netd-service.xml
+[ 73% 355/480] //packages/modules/Connectivity/Vcn/service-b:service-connectivity-b-pre-jarjar javac[common]
+[ 74% 356/480] //packages/modules/Connectivity/service:service-thread-jarjar-gen generate service_thread_jarjar_rules.txt[common]
+[ 74% 357/479] //packages/modules/Connectivity/service-t:service-connectivity-tiramisu-pre-jarjar turbine apt[common apex31]
+[ 74% 358/479] //packages/modules/DnsResolver:libnetd_resolv clang++ gethnamaddr.cpp[arm]
+[ 74% 359/479] //packages/modules/DnsResolver:libnetd_resolv clang++ DnsResolver.cpp
+[ 75% 360/479] //packages/modules/Connectivity/networksecurity/service:service-networksecurity-pre-jarjar javac[common apex31]
+[ 75% 361/479] //packages/modules/Connectivity/bpf/netd:libnetd_updatable header-abi-linker libnetd_updatable.so.apex.lsdump[apex31]
+[ 75% 362/479] //packages/modules/DnsResolver:libnetd_resolv static link libnetd_resolv.a[arm]
+[ 75% 363/479] //packages/modules/DnsResolver:libnetd_resolv static link libnetd_resolv.a
+[ 75% 364/479] //packages/modules/Connectivity/Vcn/service-b:service-connectivity-b-pre-jarjar javac[common apex31]
+[ 76% 365/479] Install: out/target/product/gta3xlwifi/system/lib64/oemnetd_aidl_interface-cpp.so
+[ 76% 366/479] //packages/modules/Connectivity/service:service-connectivity-pre-jarjar for javac[common]
+[ 76% 367/479] //system/netd/server:netd strip netd
+[ 76% 368/479] //packages/modules/Connectivity/service-t:service-connectivity-tiramisu-pre-jarjar javac[common]
+[ 77% 369/479] cp out/target/product/gta3xlwifi/symbols/system/bin/iptables
+[ 77% 370/479] //packages/modules/Connectivity/service-t:service-connectivity-tiramisu-pre-jarjar for javac[common]
+[ 77% 371/479] //packages/modules/DnsResolver:libnetd_resolv copy libnetd_resolv.so[apex31]
+[ 77% 372/479] //packages/modules/Connectivity/service:service-connectivity-jarjar-gen generate service_connectivity_jarjar_rules.txt[common]
+[ 77% 373/479] //packages/modules/Connectivity/service-t:service-connectivity-tiramisu-pre-jarjar javac[common apex31]
+[ 78% 374/479] //packages/modules/Connectivity/service:connectivity-jarjar-rules generate connectivity-jarjar-rules.txt[common]
+[ 78% 375/479] //packages/modules/Connectivity/service:service-connectivity for javac[common apex31]
+[ 78% 376/479] cp out/target/product/gta3xlwifi/symbols/apex/com.android.tethering/lib64/libnetd_resolv.so
+[ 78% 377/479] //packages/modules/Telephony/telecom/service:service-telecom.stubs.source.system_server metalava merged[common]
+[ 78% 378/479] target Prebuilt: libnetd_updatable_32 (out/target/product/gta3xlwifi/obj_arm/SHARED_LIBRARIES/libnetd_updatable_intermediates/libnetd_updatable.so)
+[ 79% 379/478] //packages/modules/Connectivity/bpf/netd:libnetd_updatable static link libnetd_updatable.a
+[ 79% 380/478] target Prebuilt: libnetd_updatable (out/target/product/gta3xlwifi/obj/SHARED_LIBRARIES/libnetd_updatable_intermediates/libnetd_updatable.so)
+[ 79% 381/478] //packages/modules/Telephony/telecom/service:service-telecom.stubs.source metalava merged[common]
+[ 79% 382/478] Install: out/target/product/gta3xlwifi/system/bin/iptables
+[ 80% 383/477] //packages/modules/Connectivity/bpf/netd:libnetd_updatable static link libnetd_updatable.a[arm]
+[ 80% 384/477] target Prebuilt: libnetd_resolv_32 (out/target/product/gta3xlwifi/obj_arm/SHARED_LIBRARIES/libnetd_resolv_intermediates/libnetd_resolv.so)
+[ 80% 385/477] //packages/modules/Connectivity/bpf/netd:libnetd_updatable copy libnetd_updatable.so[apex31]
+[ 80% 386/477] target Prebuilt: libnetd_resolv (out/target/product/gta3xlwifi/obj/SHARED_LIBRARIES/libnetd_resolv_intermediates/libnetd_resolv.so)
+[ 81% 387/477] //packages/modules/AdServices/sdksandbox/service:service-sdksandbox.stubs.source metalava merged[common]
+[ 81% 388/477] //packages/modules/CrashRecovery/service:service-crashrecovery.stubs.source.system_server metalava merged[common]
+[ 81% 389/476] //packages/modules/Connectivity/bpf/netd:libnetd_updatable generate toc libnetd_updatable.so[arm]
+[ 82% 390/475] //packages/modules/DnsResolver:libnetd_resolv generate toc libnetd_resolv.so[arm]
+[ 82% 391/475] //packages/modules/RemoteKeyProvisioning/system-server:service-rkp.stubs.source metalava merged[common]
+[ 82% 392/475] cp out/target/product/gta3xlwifi/symbols/system/bin/netd
+[ 82% 393/474] cp out/target/product/gta3xlwifi/symbols/apex/com.android.tethering/lib64/libnetd_updatable.so
+[ 83% 394/474] Symlink: out/target/product/gta3xlwifi/system/bin/iptables-save
+[ 83% 395/474] //packages/modules/AdServices/sdksandbox/service:service-sdksandbox.stubs.source.system_server metalava merged[common]
+[ 83% 396/474] target Prebuilt: libnetd_updatable.com.android.tethering (out/target/product/gta3xlwifi/obj/SHARED_LIBRARIES/libnetd_updatable.com.android.tethering_intermediates/libnetd_updatable.so)
+[ 83% 397/473] target Prebuilt: netd (out/target/product/gta3xlwifi/obj/EXECUTABLES/netd_intermediates/netd)
+[ 84% 398/473] target Prebuilt: libnetd_resolv.com.android.tethering (out/target/product/gta3xlwifi/obj/SHARED_LIBRARIES/libnetd_resolv.com.android.tethering_intermediates/libnetd_resolv.so)
+[ 84% 399/473] target Prebuilt: iptables (out/target/product/gta3xlwifi/obj/EXECUTABLES/iptables_intermediates/iptables)
+[ 84% 400/473] Install: out/target/product/gta3xlwifi/system/bin/netd
+[ 84% 401/473] target Prebuilt: libnetd_resolv_32 (out/target/product/gta3xlwifi/obj_arm/STATIC_LIBRARIES/libnetd_resolv_intermediates/libnetd_resolv.a)
+[ 84% 402/473] //packages/modules/Permission/service:service-permission.stubs.source metalava merged[common]
+[ 85% 403/473] Symlink: out/target/product/gta3xlwifi/system/bin/ip6tables-restore
+[ 85% 404/472] Symlink: out/target/product/gta3xlwifi/system/bin/ip6tables-save
+[ 85% 405/472] Install: out/target/product/gta3xlwifi/apex/com.android.tethering/lib64/libnetd_updatable.so
+[ 86% 406/472] Symlink: out/target/product/gta3xlwifi/system/bin/ip6tables
+[ 86% 407/470] target Prebuilt: libnetd_updatable (out/target/product/gta3xlwifi/obj/STATIC_LIBRARIES/libnetd_updatable_intermediates/libnetd_updatable.a)
+[ 86% 408/470] Copy: out/target/product/gta3xlwifi/obj/SHARED_LIBRARIES/libnetd_updatable_intermediates/libnetd_updatable.so.toc
+[ 87% 409/470] Install: out/target/product/gta3xlwifi/apex/com.android.tethering/lib64/libnetd_resolv.so
+[ 87% 410/469] target Prebuilt: libnetd_resolv (out/target/product/gta3xlwifi/obj/STATIC_LIBRARIES/libnetd_resolv_intermediates/libnetd_resolv.a)
+[ 88% 411/467] Copy: out/target/product/gta3xlwifi/obj_arm/SHARED_LIBRARIES/libnetd_updatable_intermediates/libnetd_updatable.so.toc
+[ 88% 412/467] Copy: out/target/product/gta3xlwifi/obj/SHARED_LIBRARIES/libnetd_resolv_intermediates/libnetd_resolv.so.toc
+[ 88% 413/467] Symlink: out/target/product/gta3xlwifi/system/bin/iptables-restore
+[ 88% 414/466] //packages/modules/Connectivity/bpf/netd:libnetd_updatable header-abi-diff libnetd_updatable.so.apex36.abidiff[apex31]
+[ 89% 415/466] Copy: out/target/product/gta3xlwifi/obj_arm/SHARED_LIBRARIES/libnetd_resolv_intermediates/libnetd_resolv.so.toc
+[ 89% 416/466] target Prebuilt: libnetd_updatable_32 (out/target/product/gta3xlwifi/obj_arm/STATIC_LIBRARIES/libnetd_updatable_intermediates/libnetd_updatable.a)
+[ 89% 417/464] out/host/linux-x86/bin/symbols_map -elf out/target/product/gta3xlwifi/symbols/system/bin/netd -write_if_changed out/target/product/gta3xlwifi/obj/PACKAGING/elf_symbol_mapping_intermediates/system/bin/netd.textproto
+[ 90% 418/462] out/host/linux-x86/bin/symbols_map -elf out/target/product/gta3xlwifi/symbols/system/bin/iptables -write_if_changed out/target/product/gta3xlwifi/obj/PACKAGING/elf_symbol_mapping_intermediates/system/bin/iptables.textproto
+[ 91% 419/459] //packages/modules/DnsResolver:libnetd_resolv header-abi-linker libnetd_resolv.so.apex.lsdump[apex31]
+[ 92% 420/456] //packages/modules/DnsResolver:libnetd_resolv header-abi-diff libnetd_resolv.so.apex36.abidiff[apex31]
+[ 92% 421/456] //packages/modules/Permission/service:service-permission.stubs.source.system_server metalava merged[common]
+[ 92% 422/456] //art/libartservice/service:service-art.stubs.source metalava merged[common]
+[ 92% 423/455] //packages/modules/Connectivity/service:service-connectivity jarjar[common apex31]
+[ 93% 424/454] //packages/modules/CrashRecovery/service:service-crashrecovery.stubs.source metalava merged[common]
+[ 93% 425/454] //packages/modules/RemoteKeyProvisioning/system-server:service-rkp.stubs.source.system_server metalava merged[common]
+[ 94% 426/453] //art/libartservice/service:service-art.stubs.source.system_server metalava merged[common]
+[ 94% 427/452] //frameworks/base/services/core:services.core.unboosted turbine[common]
+[ 94% 428/451] //frameworks/base/services/core:services.core.unboosted for turbine[common]
+[ 95% 429/451] //frameworks/base/services/core:services.core.unboosted jarjar[common]
+[ 95% 430/451] //frameworks/base/services/core:services.core.unboosted jarjar[common]
+[ 95% 431/451] //packages/modules/Connectivity/service:service-connectivity r8[common apex31]
+[ 95% 432/451] //packages/modules/Connectivity/service:service-connectivity align[common apex31]
+[ 96% 433/451] Copy: out/target/product/gta3xlwifi/obj/JAVA_LIBRARIES/service-connectivity.com.android.tethering_intermediates/javalib.jar
+[ 96% 434/451] Install: out/target/product/gta3xlwifi/apex/com.android.tethering/javalib/service-connectivity.jar
+[ 96% 435/451] verify depfile
+[ 97% 436/448] //frameworks/base/services/permission:services.permission-pre-jarjar kapt stubs[common]
+[ 97% 437/448] //frameworks/base/services/permission:services.permission-pre-jarjar turbine apt[common]
+[ 97% 438/448] //frameworks/base/services/permission:services.permission-pre-jarjar kotlinc[common]
+stderr:
+frameworks/base/services/permission/java/com/android/server/permission/access/appfunction/AppFunctionAccessPregrant.kt:130:28: warning: Java type mismatch: inferred type is 'Array<(out) File!>?', but 'Array<out File!>' was expected.
+                    addAll(directory.listFiles())
+                           ^^^^^^^^^^^^^^^^^^^^^
+frameworks/base/services/permission/java/com/android/server/permission/access/appfunction/AppFunctionAccessPregrant.kt:134:28: warning: Java type mismatch: inferred type is 'Array<(out) File!>?', but 'Array<out File!>' was expected.
+                    addAll(directory.listFiles())
+                           ^^^^^^^^^^^^^^^^^^^^^
+frameworks/base/services/permission/java/com/android/server/permission/access/appfunction/AppFunctionAccessPregrant.kt:138:28: warning: Java type mismatch: inferred type is 'Array<(out) File!>?', but 'Array<out File!>' was expected.
+                    addAll(directory.listFiles())
+                           ^^^^^^^^^^^^^^^^^^^^^
+frameworks/base/services/permission/java/com/android/server/permission/access/appfunction/AppFunctionAccessPregrant.kt:142:28: warning: Java type mismatch: inferred type is 'Array<(out) File!>?', but 'Array<out File!>' was expected.
+                    addAll(directory.listFiles())
+                           ^^^^^^^^^^^^^^^^^^^^^
+frameworks/base/services/permission/java/com/android/server/permission/access/appfunction/AppFunctionAccessPregrant.kt:146:28: warning: Java type mismatch: inferred type is 'Array<(out) File!>?', but 'Array<out File!>' was expected.
+                    addAll(directory.listFiles())
+                           ^^^^^^^^^^^^^^^^^^^^^
+frameworks/base/services/permission/java/com/android/server/permission/access/appfunction/AppFunctionAccessPregrant.kt:150:28: warning: Java type mismatch: inferred type is 'Array<(out) File!>?', but 'Array<out File!>' was expected.
+                    addAll(directory.listFiles())
+                           ^^^^^^^^^^^^^^^^^^^^^
+frameworks/base/services/permission/java/com/android/server/permission/access/permission/AppIdPermissionUpgrade.kt:592:37: warning: 'static field PROCESS_OUTGOING_CALLS: String' is deprecated. Deprecated in Java.
+                Manifest.permission.PROCESS_OUTGOING_CALLS,
+                                    ^^^^^^^^^^^^^^^^^^^^^^
+[ 97% 439/448] //frameworks/base/services/permission:services.permission-pre-jarjar javac[common]
+[ 98% 440/448] //frameworks/base/services/permission:services.permission-pre-jarjar jarjar[common]
+[ 98% 441/447] //frameworks/base/services/permission:services.permission for javac[common]
+[ 98% 442/447] //frameworks/base/services/permission:services.permission jarjar[common]
+[ 99% 443/447] Copy: out/target/product/gta3xlwifi/obj/JAVA_LIBRARIES/services.permission_intermediates/javalib.jar
+[ 99% 444/447] //frameworks/base/services:services-non-updatable-stubs metalava merged[common]
+[100% 445/445] //frameworks/base/services:services-non-updatable-stubs check current API[common]
+ninja: 9m42.95s Build Succeeded: 406 steps - 0.70/s
+
+
+#### build completed successfully (21:02 (mm:ss)) ####
+
+PASS: 1243 locked projects, 20 exact reviewed patches; no external alternates

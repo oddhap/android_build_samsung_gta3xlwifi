@@ -1,0 +1,6 @@
+netd
+iptables
+libnetd_resolv
+libnetd_updatable
+service-connectivity
+services.permission

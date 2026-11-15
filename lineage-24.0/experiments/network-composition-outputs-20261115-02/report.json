@@ -1,0 +1,86 @@
+{
+  "passed": true,
+  "scope": "Verify selected module build outputs, actual post-R8 DEX Binder identities and ELF ABIs.\n\nNo Android service/kernel/device execution or complete ROM validation is claimed.\n",
+  "actual_module_build_exit": 0,
+  "source_projects": 1243,
+  "exact_patches": 20,
+  "selected_sources": 109,
+  "ELF_outputs": [
+    {
+      "path": "system/bin/netd",
+      "ELF_bits": 64,
+      "machine": 183,
+      "sha256": "3829c5e3c3ed3f994e81db2bef2f6295ea2cd9763ad4e6b76f55188fa3e8ac6f"
+    },
+    {
+      "path": "system/bin/iptables",
+      "ELF_bits": 64,
+      "machine": 183,
+      "sha256": "456868e0942e3fb23056c4439567eecb7a064499e5625e740bf943b75238a3a6"
+    },
+    {
+      "path": "apex/com.android.tethering/lib64/libnetd_updatable.so",
+      "ELF_bits": 64,
+      "machine": 183,
+      "sha256": "ed29bcf271f993ee9090e2ac1e1a2f11aba85bcc4cabf45a7025cad5ade5604d"
+    },
+    {
+      "path": "apex/com.android.tethering/lib64/libnetd_resolv.so",
+      "ELF_bits": 64,
+      "machine": 183,
+      "sha256": "fb1b57104abc8530c9fc8a17f115a772ecad2f97e0123945100d6f91a3a04ca9"
+    }
+  ],
+  "post_R8_DEX": [
+    {
+      "name": "classes.dex",
+      "sha256": "8ca0c634a3384ac70f20b3ca809e4fbe989f2b8801e2f5dbc1323da74017e9be",
+      "class_count": 2164
+    }
+  ],
+  "post_R8_Binder_identities": [
+    {
+      "interface": "IGta3xlwifiNetpolicy",
+      "post_R8_descriptor": "com.android.internal.net.IGta3xlwifiNetpolicy",
+      "original_class_retained": true
+    },
+    {
+      "interface": "IOemNetd",
+      "post_R8_descriptor": "com.android.internal.net.IOemNetd",
+      "original_class_retained": true
+    },
+    {
+      "interface": "IOemNetdUnsolicitedEventListener",
+      "unused_listener_removed_by_R8": true
+    }
+  ],
+  "actual_Soong_AIDL_min31_sixteen_ordinals": true,
+  "actual_iptables_registry_all_ten_matches": true,
+  "services_permission_module_JAR_built": true,
+  "selected_prebuilts_unchanged": true,
+  "inputs_sha256": {
+    "/srv/android/artifacts/lineage-24.0-arm64/network-composition-build-20261115-01/source-before.json": "ba2c344907402f5b2c99f2601c2d65d20521c6d80a452c53165e2aa08521c1ab",
+    "/srv/android/artifacts/lineage-24.0-arm64/network-composition-build-20261115-01/source-after.json": "17de164b7af4131199143251cd877592165a0be05f60e5debb4e8866df0ede45",
+    "/srv/android/src/lineage-24.0-arm64/device/samsung/gta3xlwifi/prebuilt/Image": "33c1a0d1b9e2696decd53fbedfc2231385b74464f4058a54b93ff06ff7c72553",
+    "/srv/android/src/lineage-24.0-arm64/device/samsung/gta3xlwifi/prebuilt/vendor.img": "a847a527931d61e5702b8a025210c84eb88a37ef1e60df93b6393a16dae9183a",
+    "/srv/android/src/lineage-24.0-arm64/device/samsung/gta3xlwifi/prebuilt/dtbo.img": "b9041c37713a745290d9a0203423436b6caa7a1307ced79b6963b4f1f0271c4b",
+    "/srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/system/bin/netd": "3829c5e3c3ed3f994e81db2bef2f6295ea2cd9763ad4e6b76f55188fa3e8ac6f",
+    "/srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/system/bin/iptables": "456868e0942e3fb23056c4439567eecb7a064499e5625e740bf943b75238a3a6",
+    "/srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/apex/com.android.tethering/lib64/libnetd_updatable.so": "ed29bcf271f993ee9090e2ac1e1a2f11aba85bcc4cabf45a7025cad5ade5604d",
+    "/srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/apex/com.android.tethering/lib64/libnetd_resolv.so": "fb1b57104abc8530c9fc8a17f115a772ecad2f97e0123945100d6f91a3a04ca9",
+    "/srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/apex/com.android.tethering/javalib/service-connectivity.jar": "e903ed1ba09be03893ac845d2aaf4c66367ec4fff5e0fa7cf3fe1d112a81b5da",
+    "/srv/android/src/lineage-24.0-arm64/out/soong/.intermediates/system/netd/server/gta3xlwifi-netpolicy-aidl-java/android_common_apex31/javac/gta3xlwifi-netpolicy-aidl-java.jar": "219a3f608aca2c1959b5e9165c329e4de758ddba2972fbca82aa66ef714e5e85",
+    "/srv/android/src/lineage-24.0-arm64/prebuilts/jdk/jdk21/linux-x86/bin/javap": "1092ec926f284417f617bf7fb1d9b5d7933d778aac5f99f5293341930e128aaf",
+    "/srv/android/src/lineage-24.0-arm64/out/soong/.intermediates/external/iptables/extensions/libext_init/gen/initext.c": "ea868451f9c3292179b2e3ea2cfde7ba4c0310089c8ee515b5ca762255aa2645",
+    "/srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/JAVA_LIBRARIES/services.permission_intermediates/javalib.jar": "ca3c051aff61c1b527b1ab7d92c984ccaba796713a4a4e7b60d7488c99b17621",
+    "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/verify-network-composition24.py": "334b313bc885aa7871871c42fb59e95811804a32c29edb6049eb61932b50d743",
+    "/srv/android/artifacts/lineage-24.0-arm64/source-composition-20261115-01/selection.json": "b43b601099e7e447c4ba4fca705e2941c81ecc7498ebc7851031f50d9eedb413",
+    "/srv/android/logs/lineage-24.0-arm64/network-composition-build-20261115-01.log": "f7467ccf84d8b5e41090e3a081f5743a6fa771311b19fde1edcb965fa6006314",
+    "/srv/android/logs/lineage-24.0-arm64/network-composition-build-20261115-01.exit": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/snapshots/port-20261115-01/source-lock.json": "4d37b55b0b0b49bc6e8c27ff63855a8671833615b3bec8f3beb0db9a6ac588c1",
+    "/srv/android/artifacts/lineage-24.0-arm64/network-composition-build-20261115-01/targets.txt": "5d517994b84ab3bcb64d4a1d3ee8dd480ab2bd9e012c1a5524c787017f3582ed"
+  },
+  "hardware_tested": false,
+  "full_ROM_built": false,
+  "flash_ready": false
+}

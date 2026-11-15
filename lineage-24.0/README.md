@@ -17,7 +17,10 @@ ARM/ARM64 ELF outputs are recorded in the reports; this is build/link evidence.
 Active snapshot **port-20261115-01** locks 1,243 projects and **20 exact patches**.
 It selects109 individually verified network/permission/iptables/source/module
 inputs over preserved parent port-20261106-04. Actual Soong graph generation
-passes; targeted native/APEX Java/permission module compilation is in progress.
+passes; actual native/APEX Java/permission module compilation completes exit0.
+Post-R8 DEX identities, actual min31 AIDL16 ordinals, all ten iptables registry
+entries and installed native ELF outputs pass verification. See network-composition
+-build-20261115-01 and network-composition-outputs-20261115-02.
 Kernel/vendor/DTBO prebuilts, device HEAD and policy selection remain unchanged.
 It includes the device-scoped legacy v1 fscrypt keyring source integration;
 actual init/vold module compilation and multilib keyutils checks have passed, as recorded below.
