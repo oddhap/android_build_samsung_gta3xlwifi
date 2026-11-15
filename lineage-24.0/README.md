@@ -32,6 +32,15 @@ checks are separate from Android execution. Optional GPU BPF accounting still
 reports unavailable, rather than invented counters. Existing safety/installer
 and strict SELinux checks remain enforced.
 
+## Private held boot preflight — November 15
+
+An inactive product-selected init action now invokes actual private netd1shot
+verification and then netd without inventing a BPF-loaded property. Actual CFI
+main/provider/full netd, init verifier and1243/17 audits pass. Startup fixtures
+pass38 cases; owner/DNS regressions pass26050, including distinct owners over
+retained rule images. See private-boot-20261115-01. Full Soong graph/source
+integration and device boot remain unvalidated; no flash candidate exists.
+
 ## Sole-owner DNS routing — November 15
 
 The inactive DNS path now reads the same committed native policy as packet rules,

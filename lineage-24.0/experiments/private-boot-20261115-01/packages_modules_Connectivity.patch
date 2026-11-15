@@ -1,0 +1,27 @@
+--- a/bpf/loader/Android.bp
++++ b/bpf/loader/Android.bp
+@@ -35,7 +35,11 @@
+     // modules, unless we add something like `system_ext_specific: true` like in hwservicemanager.
+     installed_location: "bin/ethtool",
+ 
+-    init_rc: ["netbpfload.rc"],
++    // Select at build time. Other products retain the exact stock boot action.
++    init_rc: select(soong_config_variable("gta3xlwifi", "legacy_networking"), {
++        "true": ["netbpfload.gta3xlwifi.rc"],
++        default: ["netbpfload.rc"],
++    }),
+     required: ["bpfloader"],
+     product_variables: {
+         debuggable: {
+--- /dev/null
++++ b/bpf/loader/netbpfload.gta3xlwifi.rc
+@@ -0,0 +1,9 @@
++# SM-T510 private networking: no eBPF programs/maps are claimed to be loaded.
++# This file is selected only by the gta3xlwifi legacy_networking build variable.
++# The immutable runtime flag is checked again by netd1shot and the actual daemon.
++# netd1shot retains its critical reboot_on_failure behavior from stock netd.rc.
++# It verifies the genuine held kernel/producer/tagging/resolver path, then closes
++# its owner lease with the traffic barrier still held. It never releases policy.
++on load-bpf-programs
++    exec_start netd1shot
++    start netd

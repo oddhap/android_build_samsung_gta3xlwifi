@@ -1,0 +1,43 @@
+--- a/server/main.cpp
++++ b/server/main.cpp
+@@ -125,6 +125,13 @@
+ int main(const int argc, const char* argv[]) {
+     if ((argc == 2) && !strcmp(argv[1], "oneshot")) {
+         setenv("NETD_ONESHOT", "1", 1);
++        if (android::base::GetBoolProperty("ro.gta3xlwifi.legacy_networking", false)) {
++            android::net::Controllers controllers;
++            controllers.init();
++            const int result = android::net::gta3xlwifi::checkHeldProviderStartup(controllers);
++            if (result) ALOGE("Private held preflight failed: %d", result);
++            return result ? 1 : 0;
++        }
+         return libnetd_updatable_init("/sys/fs/cgroup");
+     }
+ 
+--- a/server/Gta3xlwifiHeldProvider.cpp
++++ b/server/Gta3xlwifiHeldProvider.cpp
+@@ -47,4 +47,14 @@
+     }
+     return result;
+ }
++int checkHeldProviderStartup(Controllers& controllers) {
++    const int result = initializeHeldProvider(controllers);
++    if (result) return result;
++    // initializeHeldProvider has verified HOLD on both sides of transport start.
++    // No framework policy has been published; closing the lease rearms HOLD.
++    transport.stop();
++    owner->stop();
++    owner = nullptr;
++    return 0;
++}
+ }  // namespace android::net::gta3xlwifi
+--- a/server/Gta3xlwifiHeldProvider.h
++++ b/server/Gta3xlwifiHeldProvider.h
+@@ -3,4 +3,7 @@
+ namespace android::net { class Controllers; }
+ namespace android::net::gta3xlwifi {
+ int initializeHeldProvider(Controllers& controllers);
++// Dedicated netd1shot process only: verify real startup and close while held.
++// Callbacks are process-lifetime registrations; this must not run in the daemon.
++int checkHeldProviderStartup(Controllers& controllers);
+ }

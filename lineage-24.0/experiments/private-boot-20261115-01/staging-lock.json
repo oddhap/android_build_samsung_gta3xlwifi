@@ -1,0 +1,32 @@
+{
+  "inactive": true,
+  "prerequisites": [
+    "dns-owner-20261115-01"
+  ],
+  "files": {
+    "system/netd/server/main.cpp": {
+      "original_sha256": "bf497381c7ece57d0df5092f7193e52221be6e2565a308ab471dc2dfa4cfeccf",
+      "candidate_sha256": "ed0a78ad134607d03d2fbd5d0a523a4f331bc23f2fbaa79f0a17ae9d9d2b14f5"
+    },
+    "system/netd/server/Gta3xlwifiHeldProvider.cpp": {
+      "original_sha256": "6a29d05bedb440f018deba083f16048435a9f0ce711d287b8b6860b52a9ef7b8",
+      "candidate_sha256": "0772334621ee6bc6c6b86e41b1104d130531315d0ad01add4478bd59ecf18436"
+    },
+    "system/netd/server/Gta3xlwifiHeldProvider.h": {
+      "original_sha256": "dd0cf415c7afcc5a0b4b44182f0825a71ef6c6ab011ba1caa99fe2219a37261d",
+      "candidate_sha256": "ad0b5b5d9742e220b476cbf994bb6cb519fcea4c661bae22af1257c489c8bdce"
+    },
+    "packages/modules/Connectivity/bpf/loader/Android.bp": {
+      "original_sha256": "f1a04495e7d762d93f05b4fa3b46df960cce237ea2570dc0b55526fc8fc8e1e6",
+      "candidate_sha256": "11f6afbc9de70aa5ee9db7a334c57674df18a27b072b4b66120e20a589f16957"
+    },
+    "packages/modules/Connectivity/bpf/loader/netbpfload.gta3xlwifi.rc": {
+      "original_sha256": null,
+      "candidate_sha256": "b1763140748f5f41234f2999b73881bf08ee663a85cca44ebc41bae3d8ed6bf8"
+    }
+  },
+  "selected_source_changed": false,
+  "full_Soong_graph_and_device_boot_pending": true,
+  "hardware_tested": false,
+  "flash_ready": false
+}

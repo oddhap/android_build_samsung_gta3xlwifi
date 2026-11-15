@@ -1,0 +1,39 @@
+{
+  "passed": true,
+  "scope": "Actual held-provider adapter and main startup fragment with boundary fixtures.\n\nController/transport/library/Netlink dependencies are fixtures. Main/DNS/oneshot\nsource outside explicit initialization changes remains identical to the baseline.\n",
+  "passed_cases": 38,
+  "original_main_DNS_oneshot_outside_initialization_unchanged": true,
+  "actual_private_init_before_Netlink_and_Binder": true,
+  "actual_private_oneshot_no_listeners_closes_held_owner": true,
+  "DNS_registration_after_held_library_before_listeners": true,
+  "failed_DNS_registration_stops_owner_and_transport": true,
+  "failed_init_closes_transport_and_owner": true,
+  "inputs_sha256": {
+    "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/test-private-boot24.py": "85c52b068c5e640b48aa3ab776b86c766f878e8c06abcee1adf074b7c325d8d0",
+    "/srv/android/artifacts/lineage-24.0-arm64/private-boot-host-20261115-01/test.cpp": "e2b4b0f218c7a778e0e778871865e8c16ce2b016e134e86ff4544e79ce9fd1e1",
+    "/srv/android/ports/lineage-24.0-arm64/private-boot24-20261115-01/main.cpp": "ed0a78ad134607d03d2fbd5d0a523a4f331bc23f2fbaa79f0a17ae9d9d2b14f5",
+    "/srv/android/ports/lineage-24.0-arm64/private-boot24-20261115-01/main.cpp.reference": "8eb0beb43bc035a45dc5bbc89af188374127c7e31c31c207ad7bee5d80801222",
+    "/srv/android/ports/lineage-24.0-arm64/private-boot24-20261115-01/Gta3xlwifiHeldProvider.cpp": "0772334621ee6bc6c6b86e41b1104d130531315d0ad01add4478bd59ecf18436",
+    "/srv/android/ports/lineage-24.0-arm64/private-boot24-20261115-01/Gta3xlwifiHeldProvider.h": "ad0b5b5d9742e220b476cbf994bb6cb519fcea4c661bae22af1257c489c8bdce",
+    "/srv/android/ports/lineage-24.0-arm64/private-boot24-20261115-01/NetdUpdatablePublic.h": "c78caf54cedf724e57a0df83629b4c04549490f51f32bd9e482358969e1e492d",
+    "/srv/android/ports/lineage-24.0-arm64/private-boot24-20261115-01/Gta3xlwifiDnsPolicy.h": "84810aad39d1aae02f1041894cd03aea55671219f475aec06455507d35ee2997"
+  },
+  "command": [
+    "c++",
+    "-std=c++20",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-O1",
+    "-g",
+    "-fsanitize=undefined",
+    "-fno-sanitize-recover=all",
+    "-I/srv/android/ports/lineage-24.0-arm64/private-boot24-20261115-01",
+    "/srv/android/artifacts/lineage-24.0-arm64/private-boot-host-20261115-01/test.cpp",
+    "-o",
+    "/srv/android/artifacts/lineage-24.0-arm64/private-boot-host-20261115-01/test"
+  ],
+  "stderr": "",
+  "hardware_tested": false,
+  "flash_ready": false
+}
