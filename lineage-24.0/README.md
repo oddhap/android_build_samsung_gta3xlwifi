@@ -32,6 +32,16 @@ checks are separate from Android execution. Optional GPU BPF accounting still
 reports unavailable, rather than invented counters. Existing safety/installer
 and strict SELinux checks remain enforced.
 
+## Actual statistics transport — November 15
+
+The inactive private Binder protocol appends genuine bounded statistics reads,
+SWAP/ACK and counterset controls, all authenticated and session checked. Actual
+AIDL compatibility/11 ordinals, CFI OEM/netd links, two final Java clients and
+1243/17 audits pass. Owner/service host checks pass26184; Java lifecycle/decoder
+checks pass1467, including full tables and lock independence. See
+stats-rpc-20261115-01. Actual Android poll/persistence/boot-epoch deduplication and
+consumer routing remain unfinished; no selected source or flash package changes.
+
 ## Private held boot preflight — November 15
 
 An inactive product-selected init action now invokes actual private netd1shot

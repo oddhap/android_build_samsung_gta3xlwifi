@@ -1,0 +1,22 @@
+/srv/android/ports/lineage-24.0-arm64/stats-rpc24-20261115-01/java/com/android/server/Gta3xlwifiNetpolicyClient.java:4: error: cannot find symbol
+import android.net.INetd;
+                  ^
+  symbol:   class INetd
+  location: package android.net
+/srv/android/ports/lineage-24.0-arm64/stats-rpc24-20261115-01/java/com/android/server/Gta3xlwifiNetpolicyClient.java:9: error: package android.system does not exist
+import static android.system.OsConstants.ESTALE;
+                            ^
+/srv/android/ports/lineage-24.0-arm64/stats-rpc24-20261115-01/java/com/android/server/Gta3xlwifiNetpolicyClient.java:9: error: static import only from classes and interfaces
+import static android.system.OsConstants.ESTALE;
+^
+/srv/android/ports/lineage-24.0-arm64/stats-rpc24-20261115-01/java/com/android/server/Gta3xlwifiNetpolicyClient.java:75: error: cannot find symbol
+    public static Gta3xlwifiNetpolicyClient lookup(INetd netd) throws RemoteException {
+                                                   ^
+  symbol:   class INetd
+  location: class Gta3xlwifiNetpolicyClient
+/srv/android/ports/lineage-24.0-arm64/stats-rpc24-20261115-01/java/com/android/server/Gta3xlwifiNetpolicyClient.java:197: error: cannot find symbol
+                if (failure.errorCode != ESTALE) throw failure;
+                                         ^
+  symbol:   variable ESTALE
+  location: class Gta3xlwifiNetpolicyClient
+5 errors

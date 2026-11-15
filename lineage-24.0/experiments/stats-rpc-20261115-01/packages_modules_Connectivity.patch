@@ -1,0 +1,269 @@
+--- a/service/src/com/android/server/Gta3xlwifiNetpolicyClient.java
++++ b/service/src/com/android/server/Gta3xlwifiNetpolicyClient.java
+@@ -11,6 +11,7 @@
+ import com.android.internal.net.IOemNetd;
+ import java.util.Arrays;
+ import java.util.Objects;
++import java.util.concurrent.atomic.AtomicBoolean;
+ 
+ /**
+  * Private complete-policy transport. The caller must collect every section from
+@@ -29,6 +30,7 @@
+     private boolean mClosed;
+     private boolean mUncertain = true;
+     private long mSession;
++    private final AtomicBoolean mStatsInvalidated = new AtomicBoolean();
+ 
+     /** Ten explicit immutable sections; empty sections still have declared zero counts. */
+     public static final class Frame {
+@@ -95,6 +97,15 @@
+             long session = mRemote.openSession(mToken, 1);
+             if (session <= 0) throw new IllegalStateException("Invalid policy session");
+             mSession = session;
++        }
++    }
++
++    /** Capture before taking the NetworkStatsFactory persistent-data lock. */
++    public Gta3xlwifiStatsAccess statsAccess() {
++        synchronized (mLock) {
++            requireLive();
++            if (mSession == 0) throw new IllegalStateException("Policy session not started");
++            return new Gta3xlwifiStatsAccess(mRemote, mSession, mToken, mStatsInvalidated);
+         }
+     }
+ 
+@@ -157,11 +168,11 @@
+     }
+ 
+     public boolean needsCompleteResnapshot() {
+-        synchronized (mLock) { return mUncertain || mDead || mSession == 0; }
++        synchronized (mLock) { return mUncertain || mDead || mSession == 0 || mStatsInvalidated.get(); }
+     }
+ 
+     private void requireLive() {
+-        if (mDead || mClosed) throw new IllegalStateException("Policy transport is closed");
++        if (mDead || mClosed || mStatsInvalidated.get()) throw new IllegalStateException("Policy transport is closed");
+     }
+ 
+     private void binderDied() {
+--- /dev/null
++++ b/service/src/com/android/server/Gta3xlwifiStatsAccess.java
+@@ -0,0 +1,218 @@
++/* SPDX-License-Identifier: Apache-2.0 */
++package com.android.server;
++
++import android.os.IBinder;
++import android.os.RemoteException;
++import android.os.ServiceSpecificException;
++import static android.system.OsConstants.EAGAIN;
++import com.android.internal.net.IGta3xlwifiNetpolicy;
++import java.io.IOException;
++import java.util.Arrays;
++import java.util.Objects;
++import java.util.concurrent.atomic.AtomicBoolean;
++
++/**
++ * Real stats RPCs on an existing policy session. Capture this handle before
++ * NetworkStatsFactory's data lock: calls never acquire the Java policy/client
++ * locks. Native session/owner checks still apply to every operation. No read
++ * consumes data; SWAP is never retried, and ACK requires caller persistence and
++ * boot/epoch deduplication. This is not a complete poll/persistence pipeline.
++ * @hide
++ */
++public final class Gta3xlwifiStatsAccess {
++    private final IGta3xlwifiNetpolicy mRemote;
++    private final long mSession;
++    private final IBinder mToken;
++    private final AtomicBoolean mInvalidated;
++
++    Gta3xlwifiStatsAccess(IGta3xlwifiNetpolicy remote, long session, IBinder token,
++            AtomicBoolean invalidated) {
++        mRemote = Objects.requireNonNull(remote);
++        mToken = Objects.requireNonNull(token);
++        mInvalidated = Objects.requireNonNull(invalidated);
++        if (session <= 0) throw new IllegalArgumentException("Invalid stats session");
++        mSession = session;
++    }
++
++    /** Exact unsigned64 bits are retained. Loss/sequence are not invented. */
++    public static final class Snapshot {
++        public final int kind;
++        public final int bank;
++        public final long epoch;
++        public final long sequence;
++        public final long lostUpdates;
++        public final int count;
++        public final int width;
++        private final long[] mRows;
++
++        private Snapshot(int kind, int bank, long epoch, long sequence, long loss,
++                int count, int width, long[] rows) {
++            this.kind = kind;
++            this.bank = bank;
++            this.epoch = epoch;
++            this.sequence = sequence;
++            lostUpdates = loss;
++            this.count = count;
++            this.width = width;
++            mRows = rows.clone();
++        }
++
++        public long[] row(int index) {
++            if (index < 0 || index >= count) throw new IndexOutOfBoundsException(index);
++            return Arrays.copyOfRange(mRows, index * width, (index + 1) * width);
++        }
++
++        /** Consumers must not describe counters with real loss as complete. */
++        public void requireLossless() throws IOException {
++            if (lostUpdates != 0) throw new IOException("Kernel statistics report lost updates");
++        }
++    }
++
++    public static final class State {
++        public final int activeBank;
++        public final long activeEpoch;
++        public final int pendingMask;
++        private final long[] mWords;
++        private State(long[] words) {
++            mWords = words.clone();
++            activeBank = (int) words[2];
++            activeEpoch = words[3];
++            pendingMask = (int) words[4];
++        }
++        public long[] words() { return mWords.clone(); }
++    }
++
++    private IOException fail(String message) {
++        mInvalidated.set(true);
++        IOException failure = new IOException(message);
++        try {
++            // No Java policy lock is acquired here. Native withdrawal is required
++            // for malformed/uncertain transport, not a cached Java readiness flag.
++            mRemote.closeSession(mToken);
++        } catch (Exception closeFailure) {
++            failure.addSuppressed(closeFailure);
++        }
++        return failure;
++    }
++
++    private long[] read(int kind, int bank, long epoch) throws IOException {
++        final long[] words;
++        try {
++            words = mRemote.readStats(mSession, kind, bank, epoch);
++        } catch (ServiceSpecificException failure) {
++            // Early polling may encounter genuine HOLD before initial policy.
++            // That is unavailable data, not permission to retire its producer.
++            if (failure.errorCode == EAGAIN) throw new IOException("Stats owner held", failure);
++            IOException result = fail("Stats read failed");
++            result.addSuppressed(failure);
++            throw result;
++        } catch (RemoteException | RuntimeException failure) {
++            IOException result = fail("Stats read unavailable");
++            result.addSuppressed(failure);
++            throw result;
++        }
++        if (words == null || words.length < 2 || words[0] != 1 || words[1] != kind
++                || words.length > 50005) throw fail("Invalid stats schema");
++        return words;
++    }
++
++    private static boolean bounded(long word, long maximum) {
++        return word >= 0 && word <= maximum;
++    }
++
++    public State readState() throws IOException {
++        long[] w = read(0, 0, 0);
++        if (w.length != 15 || !bounded(w[2], 1) || w[3] == 0 || !bounded(w[4], 3)
++                || !bounded(w[5], 5000) || !bounded(w[6], 5000)
++                || !bounded(w[11], 10000) || !bounded(w[12], 20000)
++                || (w[4] & (1L << w[2])) != 0 || w[7 + (int) w[2]] != w[3]
++                || (w[4] != 0 && w[8 - (int) w[2]] == 0)) {
++            throw fail("Invalid stats state");
++        }
++        return new State(w);
++    }
++
++    private Snapshot snapshot(int kind, int bank, long epoch) throws IOException {
++        long[] w = read(kind, bank, epoch);
++        int header = kind == 1 ? 7 : 5;
++        int width = kind == 1 ? 8 : 5;
++        int maximum = kind == 1 ? 5000 : kind == 2 ? 10000 : 1000;
++        if (w.length < header || !bounded(w[header - 1], maximum)) {
++            throw fail("Invalid stats row count");
++        }
++        int count = (int) w[header - 1];
++        if (w.length != header + count * width
++                || (kind == 1 && (w[2] != bank || w[3] != epoch))) {
++            throw fail("Invalid stats snapshot identity/length");
++        }
++        long[] previous = null;
++        for (int n = 0; n < count; ++n) {
++            long[] key = Arrays.copyOfRange(w, header + n * width,
++                    header + n * width + (kind == 1 ? 4 : 1));
++            if (kind == 1) {
++                if (!bounded(key[0], Integer.MAX_VALUE) || !bounded(key[1], 0xffffffffL)
++                        || !bounded(key[2], 1) || !bounded(key[3], 0xffffffffL)) {
++                    throw fail("Invalid packet stats key");
++                }
++            } else if (!bounded(key[0], kind == 2 ? Integer.MAX_VALUE : 0xffffffffL)) {
++                throw fail("Invalid stats key");
++            }
++            if (previous != null && Arrays.compare(previous, key) >= 0) {
++                throw fail("Unordered or duplicate stats key");
++            }
++            previous = key;
++        }
++        int offset = kind == 1 ? 4 : 2;
++        return new Snapshot(kind, bank, epoch, w[offset], w[offset + 1], count, width,
++                Arrays.copyOfRange(w, header, w.length));
++    }
++
++    public Snapshot readFrozen(int bank, long epoch) throws IOException {
++        if (bank < 0 || bank > 1 || epoch == 0) throw new IllegalArgumentException();
++        return snapshot(1, bank, epoch);
++    }
++    public Snapshot readApps() throws IOException { return snapshot(2, 0, 0); }
++    public Snapshot readInterfaces() throws IOException { return snapshot(3, 0, 0); }
++
++    /** Exact one-shot CAS. A lost reply requires explicit state/recovery. */
++    public long[] swap(int activeBank, long activeEpoch) throws IOException {
++        if (activeBank < 0 || activeBank > 1 || activeEpoch == 0 || activeEpoch == -1) {
++            throw new IllegalArgumentException();
++        }
++        final long[] result;
++        try {
++            result = mRemote.swapStats(mSession, activeBank, activeEpoch);
++        } catch (RemoteException | RuntimeException failure) {
++            IOException error = fail("Stats SWAP uncertain; do not retry");
++            error.addSuppressed(failure);
++            throw error;
++        }
++        if (result == null || result.length != 4 || result[0] != 1 - activeBank
++                || result[1] != activeEpoch + 1 || result[2] != activeBank
++                || result[3] != activeEpoch) throw fail("Invalid SWAP receipt");
++        return result.clone();
++    }
++
++    /** Explicit acceptance after persistence/deduplication; no automatic ACK. */
++    public void acknowledge(int bank, long epoch) throws IOException {
++        if (bank < 0 || bank > 1 || epoch == 0) throw new IllegalArgumentException();
++        try {
++            mRemote.acknowledgeStats(mSession, bank, epoch);
++        } catch (RemoteException | RuntimeException failure) {
++            IOException error = fail("Stats ACK uncertain; explicit recovery required");
++            error.addSuppressed(failure);
++            throw error;
++        }
++    }
++
++    public void setCounterset(int uid, int counterset) throws IOException {
++        if (uid < 0 || counterset < 0 || counterset > 1) throw new IllegalArgumentException();
++        try {
++            mRemote.setStatsCounterset(mSession, uid, counterset);
++        } catch (RemoteException | RuntimeException failure) {
++            IOException error = fail("Counterset mutation failed; do not retry");
++            error.addSuppressed(failure);
++            throw error;
++        }
++    }
++}

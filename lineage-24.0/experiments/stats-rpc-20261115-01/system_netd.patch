@@ -1,0 +1,160 @@
+--- a/server/Gta3xlwifiNetpolicyService.h
++++ b/server/Gta3xlwifiNetpolicyService.h
+@@ -18,6 +18,14 @@
+   ::android::binder::Status abandonFrame(int64_t session) override;
+   ::android::binder::Status readGeneration(int64_t session, int64_t* generation) override;
+   ::android::binder::Status closeSession(const ::android::sp<::android::IBinder>& client) override;
++  ::android::binder::Status readStats(int64_t session, int32_t kind,
++      int32_t bank, int64_t epoch, std::vector<int64_t>* output) override;
++  ::android::binder::Status swapStats(int64_t session, int32_t bank,
++      int64_t epoch, std::vector<int64_t>* output) override;
++  ::android::binder::Status acknowledgeStats(int64_t session, int32_t bank,
++      int64_t epoch) override;
++  ::android::binder::Status setStatsCounterset(int64_t session, int32_t uid,
++      int32_t counterset) override;
+  private:
+   class ClientDeath;
+   void clientDied(int64_t session);
+--- a/server/Gta3xlwifiNetpolicyService.cpp
++++ b/server/Gta3xlwifiNetpolicyService.cpp
+@@ -3,6 +3,7 @@
+ #include <binder/IPCThreadState.h>
+ #include <cerrno>
+ #include <climits>
++#include <cstring>
+ namespace android::net::gta3xlwifi {
+ namespace {
+ using ::android::binder::Status;
+@@ -134,4 +135,112 @@
+   mOwner.suspendFrameworkClient(); // Failure closes the real lease and holds too.
+   mClient.clear(); mDeath.clear(); mSession=0;
+ }
++namespace {
++// AIDL long transports the actual unsigned counter bits, including bit63.
++int64_t statsWord(uint64_t value) {
++  int64_t output;
++  static_assert(sizeof(output) == sizeof(value));
++  memcpy(&output, &value, sizeof(output));
++  return output;
++}
++void counters(std::vector<int64_t>& words, uint64_t rxPackets, uint64_t rxBytes,
++              uint64_t txPackets, uint64_t txBytes) {
++  words.insert(words.end(), {statsWord(rxPackets), statsWord(rxBytes),
++                            statsWord(txPackets), statsWord(txBytes)});
++}
++}
++Status NetpolicyService::readStats(int64_t session, int32_t kind, int32_t bank,
++    int64_t epoch, std::vector<int64_t>* output) {
++  if (!authorized()) return denied();
++  if (!output || kind < 0 || kind > 3 || bank < 0 || bank > 1 ||
++      (kind == 1 ? epoch == 0 : (bank != 0 || epoch != 0))) return status(-EINVAL);
++  std::lock_guard lock(mMutex);
++  int result = validateSession(session);
++  if (result) return status(result);
++  std::vector<int64_t> next{1, kind};
++  if (kind == 0) {
++    NetpolicyLease::PacketState value;
++    result = mOwner.readPacketState(&value);
++    if (!result) next.insert(next.end(), {
++        value.activeBank, statsWord(value.activeEpoch), value.pendingMask,
++        value.bankCount[0], value.bankCount[1],
++        statsWord(value.bankEpoch[0]), statsWord(value.bankEpoch[1]),
++        statsWord(value.bankLost[0]), statsWord(value.bankLost[1]),
++        value.appCount, value.countersetCount, statsWord(value.appLost),
++        statsWord(value.totalStatsLost)});
++  } else if (kind == 1) {
++    NetpolicyLease::PacketSnapshot value;
++    result = mOwner.readFrozenPacketStats(bank, static_cast<uint64_t>(epoch), &value);
++    if (!result && value.entries.size() > 5000) result = -EOVERFLOW;
++    if (!result) {
++      next.insert(next.end(), {bank, statsWord(value.epoch), statsWord(value.sequence),
++                               statsWord(value.lostUpdates),
++                               static_cast<int64_t>(value.entries.size())});
++      for (const auto& row : value.entries) {
++        next.insert(next.end(), {row.uid, row.tag, row.counterset, row.ifindex});
++        counters(next, row.rxPackets, row.rxBytes, row.txPackets, row.txBytes);
++      }
++    }
++  } else if (kind == 2) {
++    NetpolicyLease::AppSnapshot value;
++    result = mOwner.readAppStats(&value);
++    if (!result && value.entries.size() > 10000) result = -EOVERFLOW;
++    if (!result) {
++      next.insert(next.end(), {statsWord(value.sequence), statsWord(value.lostUpdates),
++                               static_cast<int64_t>(value.entries.size())});
++      for (const auto& row : value.entries) {
++        next.push_back(row.uid);
++        counters(next, row.rxPackets, row.rxBytes, row.txPackets, row.txBytes);
++      }
++    }
++  } else {
++    NetpolicyLease::IfaceSnapshot value;
++    result = mOwner.readIfaceStats(&value);
++    if (!result && value.entries.size() > 1000) result = -EOVERFLOW;
++    if (!result) {
++      next.insert(next.end(), {statsWord(value.updateSequence), statsWord(value.lostUpdates),
++                               static_cast<int64_t>(value.entries.size())});
++      for (const auto& row : value.entries) {
++        next.push_back(row.ifindex);
++        counters(next, row.rxPackets, row.rxBytes, row.txPackets, row.txBytes);
++      }
++    }
++  }
++  if (result) return status(result);
++  // At most400040 payload bytes, below Binder's transaction buffer. Reads are
++  // non-consuming; a failed Binder delivery never causes ACK or loss of rows.
++  if (next.size() > 50005) return status(-EOVERFLOW);
++  *output = std::move(next);
++  return Status::ok();
++}
++Status NetpolicyService::swapStats(int64_t session, int32_t bank, int64_t epoch,
++    std::vector<int64_t>* output) {
++  if (!authorized()) return denied();
++  if (!output || bank < 0 || bank > 1 || !epoch) return status(-EINVAL);
++  std::lock_guard lock(mMutex);
++  int result = validateSession(session);
++  if (result) return status(result);
++  NetpolicyLease::BankTransition value;
++  result = mOwner.swapPacketStats(bank, static_cast<uint64_t>(epoch), &value);
++  if (result) return status(result);
++  *output = {value.activeBank, statsWord(value.activeEpoch),
++             value.inactiveBank, statsWord(value.inactiveEpoch)};
++  return Status::ok();
++}
++Status NetpolicyService::acknowledgeStats(int64_t session, int32_t bank, int64_t epoch) {
++  if (!authorized()) return denied();
++  if (bank < 0 || bank > 1 || !epoch) return status(-EINVAL);
++  std::lock_guard lock(mMutex);
++  int result = validateSession(session);
++  if (result) return status(result);
++  return status(mOwner.acknowledgePacketStats(bank, static_cast<uint64_t>(epoch)));
++}
++Status NetpolicyService::setStatsCounterset(int64_t session, int32_t uid, int32_t counterset) {
++  if (!authorized()) return denied();
++  if (uid < 0 || counterset < 0 || counterset > 1) return status(-EINVAL);
++  std::lock_guard lock(mMutex);
++  int result = validateSession(session);
++  if (result) return status(result);
++  return status(mOwner.setPacketCounterset(uid, counterset));
++}
+ }  // namespace android::net::gta3xlwifi
+--- a/server/binder/com/android/internal/net/IGta3xlwifiNetpolicy.aidl
++++ b/server/binder/com/android/internal/net/IGta3xlwifiNetpolicy.aidl
+@@ -20,4 +20,17 @@
+     long readGeneration(long session);
+     /** Explicit retirement, including an interrupted open with unknown session. */
+     void closeSession(IBinder client);
++    /**
++     * Genuine bounded stats. Kind0=state,1=frozen-bank,2=cumulative-app,
++     * 3=cumulative-interface. Schema/layout is documented with the service.
++     * Unsigned64 counters retain their exact bits in long. No read consumes.
++     * Caller must inspect actual loss, persist/deduplicate before ACK and never
++     * automatically retry an uncertain SWAP. Connection is not stats readiness.
++     */
++    long[] readStats(long session, int kind, int bank, long epoch);
++    /** Four words: active bank/epoch, frozen bank/epoch. */
++    long[] swapStats(long session, int expectedActiveBank, long expectedActiveEpoch);
++    /** Explicit receipt AFTER accepted/persisted data; native ACK is idempotent. */
++    void acknowledgeStats(long session, int bank, long epoch);
++    void setStatsCounterset(long session, int uid, int counterset);
+ }
