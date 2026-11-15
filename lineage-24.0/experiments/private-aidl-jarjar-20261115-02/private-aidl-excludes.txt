@@ -1,0 +1,3 @@
+# Native netd Binder descriptors and nested Java implementations must retain
+# their original names across Connectivity's generated service jarjar rules.
+com\.android\.internal\.net\.(IGta3xlwifiNetpolicy|IOemNetd|IOemNetdUnsolicitedEventListener)(\$.*)?

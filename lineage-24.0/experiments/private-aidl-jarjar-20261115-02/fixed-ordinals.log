@@ -1,0 +1,23 @@
+Compiled from "IGta3xlwifiNetpolicy.java"
+public abstract class com.android.internal.net.IGta3xlwifiNetpolicy$Stub extends android.os.Binder implements com.android.internal.net.IGta3xlwifiNetpolicy {
+  static final int TRANSACTION_openSession = 1;
+  static final int TRANSACTION_beginFrame = 2;
+  static final int TRANSACTION_appendFrame = 3;
+  static final int TRANSACTION_commitFrame = 4;
+  static final int TRANSACTION_abandonFrame = 5;
+  static final int TRANSACTION_readGeneration = 6;
+  static final int TRANSACTION_closeSession = 7;
+  static final int TRANSACTION_readStats = 8;
+  static final int TRANSACTION_swapStats = 9;
+  static final int TRANSACTION_acknowledgeStats = 10;
+  static final int TRANSACTION_setStatsCounterset = 11;
+  static final int TRANSACTION_removeUidAccounting = 12;
+  static final int TRANSACTION_removeUidAccountingOnce = 13;
+  static final int TRANSACTION_abortSession = 14;
+  static final int TRANSACTION_pollLoopbackEvents = 15;
+  static final int TRANSACTION_tagClatSocket = 16;
+  public com.android.internal.net.IGta3xlwifiNetpolicy$Stub();
+  public static com.android.internal.net.IGta3xlwifiNetpolicy asInterface(android.os.IBinder);
+  public android.os.IBinder asBinder();
+  public boolean onTransact(int, android.os.Parcel, android.os.Parcel, int) throws android.os.RemoteException;
+}

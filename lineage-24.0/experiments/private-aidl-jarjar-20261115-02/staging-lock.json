@@ -1,0 +1,8 @@
+{
+  "inactive": true,
+  "original_sha256": "1e65d9b49fdb82d26297b9def92310c8f85513111d3cf66404769c75328a102b",
+  "candidate_sha256": "b64e1af817ce44411eb4ca623ca87c6781c1e11a6eeeb345362ab4f9be494c05",
+  "selected_source_changed": false,
+  "hardware_tested": false,
+  "flash_ready": false
+}

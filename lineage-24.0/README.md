@@ -32,6 +32,16 @@ checks are separate from Android execution. Optional GPU BPF accounting still
 reports unavailable, rather than invented counters. Existing safety/installer
 and strict SELinux checks remain enforced.
 
+## Native Binder identity after packaging — November 15
+
+Actual A17 jarjar renamed all three private OEM Binder descriptors, breaking
+agreement with native netd. Inactive private-aidl-jarjar-20261115-02 preserves
+only these interface/nested-class names through the existing exclusion mechanism.
+A fresh15-source compile, actual generator/jarjar transforms and javap verify all
+three native descriptor matches and16 ordinals after packaging, with1243/17
+audits. This remains an isolated contract proof; final Soong/APEX source/module
+composition and the full product build are still required.
+
 ## Privileged userspace CLAT integration — November 15
 
 Inactive clat-20261115-01 adds dedicated fullUID1000/session-bound raw-FD RPC16

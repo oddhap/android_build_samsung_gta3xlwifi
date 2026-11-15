@@ -1,0 +1,7 @@
+Compiled from "IOemNetd.java"
+public interface android.net.connectivity.com.android.internal.net.IOemNetd extends android.os.IInterface {
+  public static final java.lang.String DESCRIPTOR = "android.net.connectivity.com.android.internal.net.IOemNetd";
+  public abstract boolean isAlive() throws android.os.RemoteException;
+  public abstract void registerOemUnsolicitedEventListener(android.net.connectivity.com.android.internal.net.IOemNetdUnsolicitedEventListener) throws android.os.RemoteException;
+  public abstract android.net.connectivity.com.android.internal.net.IGta3xlwifiNetpolicy getGta3xlwifiNetpolicy() throws android.os.RemoteException;
+}

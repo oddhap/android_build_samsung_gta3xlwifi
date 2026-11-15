@@ -1,0 +1,5 @@
+Compiled from "IOemNetdUnsolicitedEventListener.java"
+public interface android.net.connectivity.com.android.internal.net.IOemNetdUnsolicitedEventListener extends android.os.IInterface {
+  public static final java.lang.String DESCRIPTOR = "android.net.connectivity.com.android.internal.net.IOemNetdUnsolicitedEventListener";
+  public abstract void onRegistered() throws android.os.RemoteException;
+}

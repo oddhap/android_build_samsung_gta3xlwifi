@@ -1,0 +1,20 @@
+Compiled from "IGta3xlwifiNetpolicy.java"
+public interface com.android.internal.net.IGta3xlwifiNetpolicy extends android.os.IInterface {
+  public static final java.lang.String DESCRIPTOR = "com.android.internal.net.IGta3xlwifiNetpolicy";
+  public abstract long openSession(android.os.IBinder, int) throws android.os.RemoteException;
+  public abstract void beginFrame(long, long, int[], int, boolean, boolean, boolean) throws android.os.RemoteException;
+  public abstract void appendFrame(long, int, int, int[]) throws android.os.RemoteException;
+  public abstract long commitFrame(long) throws android.os.RemoteException;
+  public abstract void abandonFrame(long) throws android.os.RemoteException;
+  public abstract long readGeneration(long) throws android.os.RemoteException;
+  public abstract void closeSession(android.os.IBinder) throws android.os.RemoteException;
+  public abstract long[] readStats(long, int, int, long) throws android.os.RemoteException;
+  public abstract long[] swapStats(long, int, long) throws android.os.RemoteException;
+  public abstract void acknowledgeStats(long, int, long) throws android.os.RemoteException;
+  public abstract void setStatsCounterset(long, int, int) throws android.os.RemoteException;
+  public abstract void removeUidAccounting(long, int, long, long) throws android.os.RemoteException;
+  public abstract void removeUidAccountingOnce(long, int, long, long, long) throws android.os.RemoteException;
+  public abstract void abortSession(long, android.os.IBinder) throws android.os.RemoteException;
+  public abstract long[] pollLoopbackEvents(long) throws android.os.RemoteException;
+  public abstract void tagClatSocket(long, android.os.ParcelFileDescriptor) throws android.os.RemoteException;
+}

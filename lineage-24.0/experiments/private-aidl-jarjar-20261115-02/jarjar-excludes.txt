@@ -1,0 +1,8 @@
+# Classes loaded by SystemServer via their hardcoded name, so they can't be jarjared
+com\.android\.server\.ConnectivityServiceInitializer(\$.+)?
+com\.android\.server\.ConnectivityServiceInitializerB(\$.+)?
+com\.android\.server\.NetworkStatsServiceInitializer(\$.+)?
+
+# Native netd Binder descriptors and nested Java implementations must retain
+# their original names across Connectivity's generated service jarjar rules.
+com\.android\.internal\.net\.(IGta3xlwifiNetpolicy|IOemNetd|IOemNetdUnsolicitedEventListener)(\$.*)?
