@@ -1,0 +1,27 @@
+{
+  "passed": true,
+  "scope": "Physical bootloop evidence and observed kernel-mounted SAR stage mismatch. This is diagnosis, not a successful replacement boot.",
+  "last_kmsg_sha256": "b2e2cccc3283fc828f8671e7397418f81469b86f54e38e980f2a970720392a06",
+  "last_kmsg_bytes": 2097152,
+  "observed_panics": [
+    "<0>[    1.868670]  [6:           init:    1] Kernel panic - not syncing: Attempted to kill init task group! exitcode=0x00000009",
+    "<0>[    1.863864]  [7:           init:    1] Kernel panic - not syncing: Attempted to kill init task group! exitcode=0x00000009",
+    "<0>[    1.872841]  [7:           init:    1] Kernel panic - not syncing: Attempted to kill init task group! exitcode=0x00000009",
+    "<0>[    1.845763]  [7:           init:    1] Kernel panic - not syncing: Attempted to kill init task group! exitcode=0x00000009"
+  ],
+  "installed_root_init_symlink": "/system/bin/init",
+  "installed_init_PT_INTERP": "/system/bin/bootstrap/linker64",
+  "actual_dependency_list_exit": 0,
+  "unrecognized_argument_probe_fatal_signal": 6,
+  "normal_A17_main_requires_phase_argument": true,
+  "linker_help_exit": 0,
+  "source_selection_sha256": "0b866ef90e4d225385165f16e87b3a28df3f64a3b7c3b4c08ffa565601952ea7",
+  "source_sha256": {
+    "system/core/init/Android.bp": "aa5b946239cd8ea037d547684a43847d6e304323685d99df029ad5b2871b2099",
+    "system/core/rootdir/create_root_structure.mk": "dd3fc1a417d576c3e668401429dab4e5c555d52bef25e54499c4dfd86db88cff",
+    "device/samsung/gta3xlwifi/device.mk": "4284c367a55347c1216563f7f16ec11adb14ad0f48395d9509680aa933bac03d"
+  },
+  "selected_kernel_vendor_dtbo_changed": false,
+  "policy_changed": false,
+  "flash_ready": false
+}

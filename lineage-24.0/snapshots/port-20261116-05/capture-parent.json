@@ -1,0 +1,10 @@
+{
+  "parent_snapshot": "port-20261116-04",
+  "parent_manifest_sha256": "31f142b6c2e5f04f14ed9cdecb3cd6b13716508b428ad8c86d3d3332d6a24594",
+  "parent_lock_sha256": "2ce2c0a83fd961b935b017e8712bd86a8a38d3c06b11a4a28b28d9f4d6673103",
+  "composition_selection_sha256": "fbe39bd61c3b839f01ad4c83312c528236e8b5593886a950d26e2b386a15eea1",
+  "proof_reports_sha256": {
+    "/srv/android/artifacts/lineage-24.0-arm64/firststage-sar-diagnosis-20261116-01/report.json": "3107d36030a70ff7d9d3382d4f779625d45486611d2dd1a78933becd5ed9ddec"
+  },
+  "kernel_and_vendor_prebuilts_unchanged": true
+}

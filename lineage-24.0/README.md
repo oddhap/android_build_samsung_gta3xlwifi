@@ -2,7 +2,7 @@
 
 Active development target: LineageOS 24.0 / Android 17, ARM64 with ARM32 apps,
 `gta3xlwifi`, physical non-A/B partitions. This is an unfinished source-built
-device port. The first physical test installation has completed; boot testing is in progress.
+device port. The first physical test installation has completed; its first Android17 boot failed and is being repaired.
 
 **Current candidate invalidation and replacement (November16):** the previous
 OTA `aa681b3199d1072948e6cc9c835019513c34c96545fd414639dc4366fe4cbc58`
@@ -30,9 +30,20 @@ and the owner-authorized clean userdata format completed. Boot/vendor readbacks
 match the exact new payload; the complete recovery readback is unchanged.
 The old TWRP wrapper logged a missing sideload path after minadbd had completed;
 this is recorded separately from the successful updater and actual readbacks.
-First Android17 boot is being monitored. Private device reports,
+First Android17 boot physically bootlooped; see the current diagnosis below. Private device reports,
 rollback images and ROM binaries are not published. Older candidate and approval
 statements below are historical and superseded by this notice.
+
+**Current boot blocker:** snapshot04 installed successfully and readbacks passed,
+but the physical device bootloops. Persisted last_kmsg shows repeated PID1 deaths
+before USB/ADB. The actual SAR ROOT/init points directly to Android17 dynamic
+second-stage init, whose main requires a stage argument. Bootstrap linker and
+actual init dependency listing pass in read-only recovery tests. Snapshot05 now
+selects a device-only static current-platform first stage and root-link/product
+composition. It reuses existing A17 mounting/SELinux handoff code unchanged.
+All1,243 projects/21 exact patches are audited; kernel/vendor/policy/FBE inputs
+are unchanged. A complete new build and fresh package checks are in progress.
+Neither snapshot04 nor the untested05 composition is a working-ROM claim.
 
 The official manifest was inspected at
 `b51a0c449a3279ca55fb6d4d91d2143e42e2fff5` (`android-17.0.0_r1`).
