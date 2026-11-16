@@ -4,7 +4,7 @@ Active development target: LineageOS 24.0 / Android 17, ARM64 with ARM32 apps,
 `gta3xlwifi`, physical non-A/B partitions. This is an unfinished source-built
 device port. The first physical test installation has completed; its first Android17 boot failed and is being repaired.
 
-**Current replacement: snapshot11, build/package work only.** The owner deferred
+**Current replacement: snapshot11 built and verified; physical testing deferred.** The owner deferred
 further physical testing. The tablet remains in preserved TWRP; no more flashing,
 reboots or formats are planned before the owner returns.
 
@@ -17,8 +17,12 @@ lease is held; it preserves foreign rules and verifies all six actual root image
 A regression replays actual Controllers choices/caller and real guard/startup
 code: original missing-OUTPUT failure reproduced, fixed six-root verification,
 held failure injection and nonduplication pass. Other policy, kernel, vendor,
-crypto and boot-failure assertions remain unchanged. Full audited build and
-fresh package checks are running. A CE policy EINVAL message in the physical
+crypto and boot-failure assertions remain unchanged. The full audited build, all fresh product checks, VINTF with 39 factory APEX
+packages, signed CMS/CRC and every OTA block stream pass. The downloaded archive
+hash and exact physically tested installer binary identities also match.
+The unflashed candidate SHA256 is
+`ba33d249da112b669065c38fadeaabe7a05d278902b02a809654f4dc2fcad67f`
+(1,041,177,297 bytes). A CE policy EINVAL message in the physical
 log still requires follow-up; user0 EXIT0 is not full encryption validation.
 
 **Newest physical diagnosis:** snapshot09 starts LMKD using the actual in-kernel

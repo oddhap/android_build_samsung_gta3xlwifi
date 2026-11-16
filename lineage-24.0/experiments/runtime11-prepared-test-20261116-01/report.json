@@ -1,0 +1,14 @@
+{
+  "scope": "Complete signed development OTA prepared for the next owner-attended physical test. No snapshot11 installation, reboot or data format performed.",
+  "source_snapshot": "port-20261116-11",
+  "ota_sha256": "ba33d249da112b669065c38fadeaabe7a05d278902b02a809654f4dc2fcad67f",
+  "ota_bytes": 1041177297,
+  "local_signed_archive_transport_hash_verified": true,
+  "installer_helper_and_updater_byte_identical_to_physically_tested_versions": true,
+  "expected_critical_files_manifest_sha256": "084ac28bef469bf1ee23f1e21b97111585f1b20abe46bda628a1c6c459506dc3",
+  "physical_test_deferred_by_owner": true,
+  "physical_prewrite_guards_still_required": true,
+  "Android17_boot_network_and_full_FBE_proven": false,
+  "release_signed": false,
+  "flash_ready_working_ROM_claim": false
+}

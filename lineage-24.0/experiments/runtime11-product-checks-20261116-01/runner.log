@@ -1,0 +1,10 @@
+Selected artifact checks PASS; this is NOT flash-readiness approval.
+Warning: releasetools script should be invoked as hermetic Python executable -- build and run `test-installer-hooks24` directly.
+PASS 6 actual package installer-hook cases
+PASS packaged ext4 feature compatibility: 4 images
+PASS actual static first stage and SAR root composition
+PASS actual immutable-root cpuacct mountpoint and descriptor
+PASS actual rebuilt vold and byte-identical FBE fstab
+PASS genuine API metadata, no loader/readiness and actual kernel capability binding
+PASS actual rebuilt netd, null-global regression binding and unchanged boot-failure guard
+PASS actual rebuilt netd, held six-root guard regression binding and unchanged boot-failure guard
