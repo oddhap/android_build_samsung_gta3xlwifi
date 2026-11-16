@@ -1,0 +1,23 @@
+{
+  "scope": "Select an explicitly hash-verified source composition and capture a new exact snapshot.\n\nSelect the real cpuacct mountpoint in the immutable system root.\nNo SELinux source, network source, vendor image or kernel input is modified.\nNo vendor image, kernel, signing material or user data is changed.\nBackups and the complete parent snapshot remain available for source rollback.\n",
+  "parent": "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/snapshots/port-20261116-05",
+  "files": {
+    "device/samsung/gta3xlwifi/BoardConfig.mk": {
+      "project": "device/samsung/gta3xlwifi",
+      "path": "BoardConfig.mk",
+      "before_sha256": "c096ce0ed4cfb7391d1954fad6e05236b09efc5e102e2a64585817d6c4d67c63",
+      "after_sha256": "650ac56b9ba50efcd36966ebc924bcb227ddbe471e007713b63ce2d8bfdd5a89"
+    }
+  },
+  "proof_reports_sha256": {
+    "/srv/android/artifacts/lineage-24.0-arm64/acct-root-diagnosis-20261116-01/report.json": "332ef932398ad79fba634957162609afac0dfd5988385aae48f021d2d54ac881"
+  },
+  "prebuilts": {
+    "Image": "7ece8d6fd70870811abfe5fd9f947311506f97233491b4016cde441de3578aec",
+    "vendor.img": "2b40b8c71ce02b432ae25c9664f8460ebefc5c0955226b2fdb74ed16c2d11353",
+    "dtbo.img": "b9041c37713a745290d9a0203423436b6caa7a1307ced79b6963b4f1f0271c4b"
+  },
+  "policy_source_changed": false,
+  "vendor_and_kernel_selection_changed": false,
+  "flash_ready": false
+}

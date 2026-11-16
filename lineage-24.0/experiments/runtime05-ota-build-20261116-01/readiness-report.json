@@ -1,0 +1,72 @@
+{
+  "technical_package_checks_passed": true,
+  "ota_filename": "lineage-24.0-20261116-UNOFFICIAL-gta3xlwifi-test.zip",
+  "ota_bytes": 1041016604,
+  "ota_sha256": "f7bcec63d47b2b6d54c09733518c62d5ea7551e2a0b24dca2dca6559e4fb7863",
+  "target_files_sha256": "3c94c3c0c2106ce99ef137fac9a2e1d2ab7f92cb249eae15af3a5a1a1c3efda8",
+  "ROM_source_snapshot": "port-20261116-05",
+  "packaging_tool_source_snapshot": "port-20261116-05",
+  "project_count": 1243,
+  "exact_patch_count": 21,
+  "proof_reports_sha256": {
+    "geometry": {
+      "path": "/srv/android/artifacts/lineage-24.0-arm64/runtime05-product-checks-20261116-01/geometry-policy.json",
+      "sha256": "68e0341e23727159d3314eb5a7277c27371f9d7a4a031abaf4c00dfdce5b04cc"
+    },
+    "hooks": {
+      "path": "/srv/android/artifacts/lineage-24.0-arm64/runtime05-product-checks-20261116-01/hooks/report.json",
+      "sha256": "bf082fc84ff5647bb19424d8f464c26cd5b6dcabf977e1c9d9541bcbaae7fa79"
+    },
+    "ext4": {
+      "path": "/srv/android/artifacts/lineage-24.0-arm64/runtime05-product-checks-20261116-01/ext4/report.json",
+      "sha256": "d4fc6bbb0b24b0dc338002516d28ecc0056588f477e8dded063cfb6f56f4a6b3"
+    },
+    "strict": {
+      "path": "/srv/android/artifacts/lineage-24.0-arm64/policy-composition-strict-20261116-01/strict/report.json",
+      "sha256": "7e3f15b12c7a3d36d7c1e1618011ec8ba2fcd89e4dba0ec4b579105264a5474f"
+    },
+    "assertions": {
+      "path": "/srv/android/artifacts/lineage-24.0-arm64/policy-composition-strict-20261116-01/assertions.json",
+      "sha256": "1065f842f9ced3356a8a38605490bb1f720adb9d03a2c8fe95a6cd826aed2402"
+    },
+    "vendor": {
+      "path": "/srv/android/artifacts/lineage-24.0-arm64/vendor-composition-20261116-01/report.json",
+      "sha256": "a3682df43b78626ea4603a560dc5e1168949f7a74281aa68854e479b6638ea97"
+    },
+    "container": {
+      "path": "/srv/android/artifacts/lineage-24.0-arm64/runtime05-ota-container-20261116-01/report.json",
+      "sha256": "35c449ae8838ba937622679475dcea43598145eb47293ce949053d31fa61fa2c"
+    },
+    "blocks": {
+      "path": "/srv/android/artifacts/lineage-24.0-arm64/runtime05-ota-blocks-20261116-01/report.json",
+      "sha256": "f0359a9341f1fcc5df28174f5f92e3bb1e3a719a3b02652f35fd2f86c8da598d"
+    },
+    "vintf": {
+      "path": "/srv/android/artifacts/lineage-24.0-arm64/runtime05-vintf-20261116-01/vintf/report.json",
+      "sha256": "55aecde523563c583ab7eb1cb71e8b131ed7a4462c4e11edea4f253c536446ea"
+    },
+    "firststage": {
+      "path": "/srv/android/artifacts/lineage-24.0-arm64/runtime05-product-checks-20261116-01/firststage.json",
+      "sha256": "5438cd0846fb7f806695186908137a752ee3d7775f9354730ce1d2d8f626b2c3"
+    }
+  },
+  "standard_public_AOSP_development_signature": true,
+  "release_signed": false,
+  "partition_writes": [
+    "system",
+    "product",
+    "vendor",
+    "boot"
+  ],
+  "recovery_partition_written_by_installer": false,
+  "userdata_wipe_or_repartition": false,
+  "prewrite_recovery_guard": "Recognized exact recovery payload and Android17/2026-10 header required; no automatic header change",
+  "remaining_prerequisites": [
+    "Fresh signed ZIP must match physically tested installer binaries",
+    "Existing recovery must satisfy both prewrite guards at actual installation",
+    "Android17 boot, network and encryption require physical test"
+  ],
+  "Android17_boot_network_FBE_hardware_tested": false,
+  "flash_ready": false,
+  "owner_device_or_private_keys_accessed_by_package_checks": false
+}

@@ -1,0 +1,6 @@
+{
+  "reason": "Runner was initially given a report filename instead of its output directory; normalize artifact location without changing any report bytes or source inputs.",
+  "original_output": "original-selection-output",
+  "report_sha256": "fdad7a9de2860eef91b3c79cf4948d40b106e7f41f589df1902a4d11cafef4b5",
+  "source_inputs_modified": false
+}

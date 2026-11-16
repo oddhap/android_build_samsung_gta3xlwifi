@@ -45,6 +45,16 @@ All1,243 projects/21 exact patches are audited; kernel/vendor/policy/FBE inputs
 are unchanged. A complete new build and fresh package checks are in progress.
 Neither snapshot04 nor the untested05 composition is a working-ROM claim.
 
+**Latest physical progress:** snapshot05 installed with updaterRC0 and physical
+static-stage link/hash verification. It reaches first-stage init, loads current
+SELinux policy and enters second stage. The next real blocker is missing /acct
+on immutable system root: real cpuacct setup fails and prevents ueventd/bootstrap
+apexd process groups from being created. Snapshot06 adds only the existing
+BOARD_ROOT_EXTRA_FOLDERS acct entry. A new actual target-files check requires the
+directory and unchanged real controller contract; no policy/kernel/vendor change,
+no fake successful mount and no encryption disablement. The replacement build
+is running. The tablet remains in preserved TWRP with new crash logs secured.
+
 The official manifest was inspected at
 `b51a0c449a3279ca55fb6d4d91d2143e42e2fff5` (`android-17.0.0_r1`).
 The official `aosp_current` release alias resolves to `cp2a` in the inspected

@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "scope": "Actual snapshot05 reaches current first stage and SELinux; missing immutable-root /acct prevents real cpuacct setup and service creation.",
+  "last_kmsg_sha256": "ea321cfc75d3cbbfb7f7945fecf8bc760a80576c1c5fa3dad756a9d1bf0424b5",
+  "first_stage_and_SELinux_reached": true,
+  "missing_read_only_root_acct_fatal_to_cgroup_setup": true,
+  "vendor_init_flat_path_loaded": true,
+  "source_sha256": {
+    "device/samsung/gta3xlwifi/BoardConfig.mk": "650ac56b9ba50efcd36966ebc924bcb227ddbe471e007713b63ce2d8bfdd5a89"
+  },
+  "policy_kernel_vendor_changes": false,
+  "device_boot_proven": false
+}

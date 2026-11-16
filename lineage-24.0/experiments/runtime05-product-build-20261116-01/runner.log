@@ -1,0 +1,644 @@
+PASS: 1243 locked projects, 21 exact reviewed patches; no external alternates
+Looking for dependencies in device/samsung/gta3xlwifi
+device/samsung/gta3xlwifi has no additional dependencies.
+
+============================================
+PLATFORM_VERSION_CODENAME=REL
+PLATFORM_VERSION=17
+LINEAGE_VERSION=24.0-20261116-UNOFFICIAL-gta3xlwifi
+PRODUCT_SOURCE_ROOT_DIRS=-kernel/platform -prebuilts/misc/protobuf_vendorcompat
+TARGET_PRODUCT=lineage_gta3xlwifi
+TARGET_BUILD_VARIANT=userdebug
+TARGET_ARCH=arm64
+TARGET_ARCH_VARIANT=armv8-a
+TARGET_CPU_VARIANT=generic
+TARGET_2ND_ARCH=arm
+TARGET_2ND_ARCH_VARIANT=armv8-a
+TARGET_2ND_CPU_VARIANT=generic
+HOST_OS=linux
+HOST_OS_EXTRA=Linux-5.15.0-203-generic-x86_64-Ubuntu-22.04.5-LTS
+HOST_CROSS_OS=windows
+BUILD_ID=CP2A.260605.016
+OUT_DIR=out
+SOONG_ONLY=false
+SOONG_INCREMENTAL_ANALYSIS=false
+============================================
+Running product configuration...
+============================================
+PLATFORM_VERSION_CODENAME=REL
+PLATFORM_VERSION=17
+LINEAGE_VERSION=24.0-20261116-UNOFFICIAL-gta3xlwifi
+PRODUCT_SOURCE_ROOT_DIRS=-kernel/platform -prebuilts/misc/protobuf_vendorcompat
+TARGET_PRODUCT=lineage_gta3xlwifi
+TARGET_BUILD_VARIANT=userdebug
+TARGET_ARCH=arm64
+TARGET_ARCH_VARIANT=armv8-a
+TARGET_CPU_VARIANT=generic
+TARGET_2ND_ARCH=arm
+TARGET_2ND_ARCH_VARIANT=armv8-a
+TARGET_2ND_CPU_VARIANT=generic
+HOST_OS=linux
+HOST_OS_EXTRA=Linux-5.15.0-203-generic-x86_64-Ubuntu-22.04.5-LTS
+HOST_CROSS_OS=windows
+BUILD_ID=CP2A.260605.016
+OUT_DIR=out
+SOONG_ONLY=false
+SOONG_INCREMENTAL_ANALYSIS=true
+============================================
+[100% 1/1] bootstrap blueprint
+Running globs...
+ninja: 
+ninja: SISO_EXPERIMENTS=fallback-on-exec-error enabled
+SISO_EXPERIMENTS=ignore-missing-out-in-depfile enabled
+
+ninja: ignore missing out error in depfile 
+
+[100% 2/2] analyzing Android.bp files and generating ninja file at out/soong/build.lineage_gta3xlwifi.ninja
+ninja: 4m51.57s Build Succeeded: 1 steps - 0.00/s
+
+out/soong/release-config/release_config-lineage_gta3xlwifi-aosp_current.vars was modified, regenerating...
+Adding CUSTOM_LOCALES [ast_ES ckb_IQ ckb_IR gd_GB cy_GB fur_IT nn_NO] to PRODUCT_LOCALES [en_US en_US af_ZA am_ET ar_EG ar_XB as_IN az_AZ be_BY bg_BG bn_BD bs_BA ca_ES cs_CZ da_DK de_DE el_GR en_AU en_CA en_GB en_IN en_XA es_ES es_US et_EE eu_ES fa_IR fi_FI fr_CA fr_FR gl_ES gu_IN hi_IN hr_HR hu_HU hy_AM in_ID is_IS it_IT iw_IL ja_JP ka_GE kk_KZ km_KH kn_IN ko_KR ky_KG lo_LA lt_LT lv_LV mk_MK ml_IN mn_MN mr_IN ms_MY my_MM nb_NO ne_NP nl_NL or_IN pa_IN pl_PL pt_BR pt_PT ro_RO ru_RU si_LK sk_SK sl_SI sq_AL sr_Latn_RS sr_RS sv_SE sw_TZ ta_IN te_IN th_TH tl_PH tr_TR uk_UA ur_PK uz_UZ vi_VN zh_CN zh_HK zh_TW zu_ZA en_XC]
+out/soong/release-config/release_config-lineage_gta3xlwifi-aosp_current.vars was modified, regenerating...
+[100% 3/3] initializing Make module parser
+Adding CUSTOM_LOCALES [ast_ES ckb_IQ ckb_IR gd_GB cy_GB fur_IT nn_NO] to PRODUCT_LOCALES [en_US en_US af_ZA am_ET ar_EG ar_XB as_IN az_AZ be_BY bg_BG bn_BD bs_BA ca_ES cs_CZ da_DK de_DE el_GR en_AU en_CA en_GB en_IN en_XA es_ES es_US et_EE eu_ES fa_IR fi_FI fr_CA fr_FR gl_ES gu_IN hi_IN hr_HR hu_HU hy_AM in_ID is_IS it_IT iw_IL ja_JP ka_GE kk_KZ km_KH kn_IN ko_KR ky_KG lo_LA lt_LT lv_LV mk_MK ml_IN mn_MN mr_IN ms_MY my_MM nb_NO ne_NP nl_NL or_IN pa_IN pl_PL pt_BR pt_PT ro_RO ru_RU si_LK sk_SK sl_SI sq_AL sr_Latn_RS sr_RS sv_SE sw_TZ ta_IN te_IN th_TH tl_PH tr_TR uk_UA ur_PK uz_UZ vi_VN zh_CN zh_HK zh_TW zu_ZA en_XC]
+[ 33% 4/12] including out/soong/installs-lineage_gta3xlwifi.mk
+[ 41% 5/12] including out/soong/Android-lineage_gta3xlwifi.mk
+[ 50% 6/12] including build/make/target/board/android-info.mk
+[ 58% 7/12] including bootable/deprecated-ota/updater/Android.mk
+[ 66% 8/12] including hardware/broadcom/wlan/bcmdhd/Android.mk
+[ 75% 9/12] including hardware/qcom/Android.mk
+[ 83% 10/12] including hardware/synaptics/wlan/synadhd/Android.mk
+[ 91% 11/12] including kernel/samsung/gta3xlwifi/sound/soc/codecs/tas2562/Android.mk
+[100% 12/12] including out/soong/late-lineage_gta3xlwifi.mk
+[100% 13/13] finishing Make module rules
+[100% 14/14] finishing Make module rules: Adding module dependencies
+[100% 15/15] finishing Make packaging rules
+[ 44% 16/36] including build/make/core/tasks/art.mk
+[ 47% 17/36] including build/make/core/tasks/build_custom_images.mk
+[ 50% 18/36] including build/make/core/tasks/dex_preopt_check.mk
+[ 52% 19/36] including build/make/core/tasks/find-shareduid-violation.mk
+[ 55% 20/36] including build/make/core/tasks/fontchain_lint.mk
+[ 58% 21/36] including build/make/core/tasks/host_init_verifier.mk
+[ 61% 22/36] including build/make/core/tasks/meta-lic.mk
+[ 63% 23/36] including build/make/core/tasks/module-info.mk
+[ 66% 24/36] including build/make/core/tasks/oem_image.mk
+[ 69% 25/36] including build/make/core/tasks/offline-sdk-docs.mk
+[ 72% 26/36] including build/make/core/tasks/platform_availability_check.mk
+[ 75% 27/36] including build/make/core/tasks/sdv.mk
+[ 77% 28/36] including build/make/core/tasks/vendor_module_check.mk
+[ 80% 29/36] including build/make/core/tasks/with-license.mk
+[ 83% 30/36] including vendor/lineage/build/tasks/bacon.mk
+[ 86% 31/36] including vendor/lineage/build/tasks/build-manifest_xml.mk
+[ 88% 32/36] including vendor/lineage/build/tasks/dt_image.mk
+[ 91% 33/36] including vendor/lineage/build/tasks/generate_lineage_sdk_coverage.mk
+[ 94% 34/36] including vendor/lineage/build/tasks/kernel.mk
+vendor/lineage/build/tasks/kernel.mk:234: warning: **********************************************************
+vendor/lineage/build/tasks/kernel.mk:235: warning: * Kernel source found and configuration was defined,     *
+vendor/lineage/build/tasks/kernel.mk:236: warning: * but prebuilt kernel is being forced.                   *
+vendor/lineage/build/tasks/kernel.mk:237: warning: * While this is likely intentional,                      *
+vendor/lineage/build/tasks/kernel.mk:238: warning: * it is NOT SUPPORTED WHATSOEVER.                        *
+vendor/lineage/build/tasks/kernel.mk:239: warning: * Generated kernel headers may not align with            *
+vendor/lineage/build/tasks/kernel.mk:240: warning: * the ABI of kernel you're including.                    *
+vendor/lineage/build/tasks/kernel.mk:241: warning: * Please unset TARGET_FORCE_PREBUILT_KERNEL              *
+vendor/lineage/build/tasks/kernel.mk:242: warning: * to build the kernel from source.                       *
+vendor/lineage/build/tasks/kernel.mk:243: warning: **********************************************************
+[ 97% 35/36] including device/generic/goldfish/build/tasks/combine_initramfs.mk
+[100% 36/36] finishing Make packaging rules
+[100% 37/37] finishing Make packaging rules: Adding phony targets
+[100% 38/38] finishing Make packaging rules: Checking licensing and SBOM
+[100% 39/39] writing make module actions
+No need to regenerate ninja file
+Starting ninja...
+ninja: 
+ninja: SISO_EXPERIMENTS=allow-unexpected-rsp-remove enabled
+SISO_EXPERIMENTS=ignore-missing-out-in-depfile enabled
+SISO_EXPERIMENTS=oom-score-adj enabled
+
+ninja: ignore missing out error in depfile 
+
+[  0% 40/28819] //system/core/init:gta3xlwifi_first_stage_init raw librustlibs.a.soong_deps
+[  0% 41/22811] //system/core/init:gta3xlwifi_first_stage_init merge aconfig files
+[  8% 42/519] //build/soong:product_config building product_config.json
+stderr:
+Duplicate key 'BoardPlatform' with identical values found.
+Duplicate key 'ProductModel' with identical values found.
+[  8% 43/519] //system/core/init:gta3xlwifi_first_stage_init raw librustlibs.rs
+[  8% 44/519] //build/soong:system_ext-build.prop generating build.prop[common]
+[  8% 45/519] //build/soong:product-build.prop generating build.prop[common]
+[  8% 46/519] //build/soong:system-build.prop generating build.prop[common]
+[  9% 47/519] //build/soong:odm-build.prop generating build.prop[common]
+[  9% 48/519] Install: out/target/product/gta3xlwifi/product/etc/build.prop
+[  9% 49/519] Install: out/target/product/gta3xlwifi/system/build.prop
+[  9% 50/519] Install: out/target/product/gta3xlwifi/vendor/odm/etc/build.prop
+[  9% 51/519] Install: out/target/product/gta3xlwifi/system/system_ext/etc/build.prop
+[ 10% 52/519] //system/unwinding/libunwindstack:libunwindstack_no_dex clang++ DwarfOp.cpp
+[ 10% 53/519] //system/unwinding/libunwindstack:libunwindstack_no_dex clang++ Demangle.cpp
+[ 10% 54/519] //system/unwinding/libunwindstack:libunwindstack_no_dex clang++ Elf.cpp
+[ 10% 55/519] //system/unwinding/libunwindstack:libunwindstack_no_dex clang++ MemoryMte.cpp
+[ 10% 56/519] //system/unwinding/libunwindstack:libunwindstack_no_dex clang++ DwarfMemory.cpp
+[ 10% 57/519] //system/unwinding/libunwindstack:libunwindstack_no_dex clang++ DwarfCfa.cpp
+[ 11% 58/519] //system/unwinding/libunwindstack:libunwindstack_no_dex clang++ RegsRiscv64.cpp
+[ 11% 59/519] //system/unwinding/libunwindstack:libunwindstack_no_dex clang++ RegsX86.cpp
+[ 11% 60/519] //system/unwinding/libunwindstack:libunwindstack_no_dex clang++ RegsArm64.cpp
+[ 11% 61/519] //system/unwinding/libunwindstack:libunwindstack_no_dex clang++ DexFiles.cpp
+[ 11% 62/519] //system/unwinding/libunwindstack:libunwindstack_no_dex clang++ DwarfEhFrameWithHdr.cpp
+[ 12% 63/519] //system/unwinding/libunwindstack:libunwindstack_no_dex clang++ ArmExidx.cpp
+[ 12% 64/519] //system/unwinding/libunwindstack:libunwindstack_no_dex clang++ Regs.cpp
+[ 12% 65/519] //system/unwinding/libunwindstack:libunwindstack_no_dex clang++ DwarfSection.cpp
+[ 12% 66/519] raw product_packages.txt
+[ 12% 67/519] //system/unwinding/libunwindstack:libunwindstack_no_dex clang++ RegsX86_64.cpp
+[ 13% 68/519] //system/unwinding/libunwindstack:libunwindstack_no_dex clang++ ElfInterfaceArm.cpp
+[ 13% 69/519] //system/unwinding/libunwindstack:libunwindstack_no_dex clang++ RegsArm.cpp
+[ 13% 70/519] //system/unwinding/libunwindstack:libunwindstack_no_dex clang++ LogAndroid.cpp
+[ 13% 71/519] //system/unwinding/libunwindstack:libunwindstack_no_dex clang++ JitDebug.cpp
+[ 13% 72/519] //system/unwinding/libunwindstack:libunwindstack_no_dex clang++ ElfInterface.cpp
+[ 14% 73/519] build out/soong/compliance-metadata/lineage_gta3xlwifi/make_metadata.csv
+[ 14% 74/519] //system/unwinding/libunwindstack:libunwindstack_no_dex clang++ MemoryXz.cpp
+[ 14% 75/519] build out/soong/compliance-metadata/lineage_gta3xlwifi/make_modules.csv
+[ 14% 76/519] //system/unwinding/libunwindstack:libunwindstack_no_dex clang++ Symbols.cpp
+[ 14% 77/519] Install: out/target/product/gta3xlwifi/root/init.environ.rc
+[ 15% 78/519] //system/unwinding/libunwindstack:libunwindstack_no_dex clang++ ThreadUnwinder.cpp
+[ 15% 79/519] //system/unwinding/libunwindstack:libunwindstack_no_dex clang++ AndroidUnwinder.cpp
+[ 15% 80/519] //system/unwinding/libunwindstack:libunwindstack_no_dex clang++ MapInfo.cpp
+[ 15% 81/519] //system/core/init:gta3xlwifi_first_stage_init clang++ first_stage_main.cpp
+[ 15% 82/519] Target recovery buildinfo: out/target/product/gta3xlwifi/recovery/root/prop.default
+[ 15% 83/519] //system/unwinding/libunwindstack:libunwindstack_no_dex clang++ ThreadEntry.cpp
+[ 16% 84/519] out/host/linux-x86/bin/release-config-internal --top . --quiet `prebuilts/build-tools/path/linux-x86/cat out/soong/release-config/args-lineage_gta3xlwifi.txt` --out_dir out/soong/.intermediates/build/soong/aconfig/build_flags/my_release_config/android_common --container
+[ 16% 85/519] //system/unwinding/libunwindstack:libunwindstack_no_dex clang++ Unwinder.cpp
+[ 16% 86/511] //system/unwinding/libunwindstack:libunwindstack_no_dex clang++ Global.cpp
+[ 17% 87/511] //system/unwinding/libunwindstack:libunwindstack_no_dex clang++ Maps.cpp
+[ 17% 88/511] //system/unwinding/libunwindstack:libunwindstack_no_dex clang++ Memory.cpp
+[ 17% 89/511] //packages/apps/Aperture/lens_launcher:ApertureLensLauncher dexpreopt product_packages[common]
+[ 17% 90/511] //system/core/init:gta3xlwifi_first_stage_init clang++ first_stage_console.cpp
+[ 17% 91/507] //system/core/init:gta3xlwifi_first_stage_init clang++ block_dev_initializer.cpp
+[ 18% 92/507] //system/core/init:gta3xlwifi_first_stage_init clang++ switch_root.cpp
+[ 18% 93/507] //system/core/init:gta3xlwifi_first_stage_init clang++ devices.cpp
+[ 18% 94/507] //system/core/init:gta3xlwifi_first_stage_init clang++ selabel.cpp
+[ 18% 95/507] //system/core/init:gta3xlwifi_first_stage_init clang++ reboot_utils.cpp
+[ 18% 96/507] //system/core/init:gta3xlwifi_first_stage_init clang++ ota_utils.cpp
+[ 19% 97/507] //system/core/init:gta3xlwifi_first_stage_init clang++ service_utils.cpp
+[ 19% 98/507] //packages/apps/Seedvault/contactsbackup:LocalContactsBackup dexpreopt product_packages[common]
+[ 19% 99/507] //packages/apps/Settings:Settings dexpreopt product_packages[common]
+[ 19% 100/503] //packages/modules/NetworkStack:NetworkStack dexpreopt product_packages[common]
+[ 20% 101/500] //frameworks/base/packages/SystemUI:SystemUI dexpreopt product_packages[common]
+[ 20% 102/497] //packages/apps/DeskClock:DeskClock dexpreopt product_packages[common]
+[ 20% 103/494] //frameworks/base/packages/SimAppDialog:SimAppDialog dexpreopt product_packages[common]
+[ 21% 104/491] //packages/services/Telecomm:TelecomShim dexpreopt product_packages[common]
+[ 21% 105/488] //frameworks/base/packages/services/CameraExtensionsProxy:CameraExtensionsProxy dexpreopt product_packages[common]
+[ 21% 106/485] //frameworks/base/packages/services/PacProcessor:PacProcessor dexpreopt product_packages[common]
+[ 22% 107/482] //frameworks/base/packages/ExtShared:ExtShared dexpreopt product_packages[common]
+[ 22% 108/479] //packages/apps/ThemePicker:ThemePicker dexpreopt product_packages[common]
+[ 22% 109/476] //packages/modules/CaptivePortalLogin:CaptivePortalLogin dexpreopt product_packages[common]
+[ 23% 110/473] //packages/apps/EyeDropper:EyeDropper dexpreopt product_packages[common]
+[ 23% 111/470] //frameworks/base/cmds/uiautomator/cmds/uiautomator:uiautomator dexpreopt product_packages[common]
+[ 23% 112/470] //system/core/init:gta3xlwifi_first_stage_init clang++ uevent_listener.cpp
+[ 24% 113/462] //system/core/init:gta3xlwifi_first_stage_init clang++ util.cpp
+[ 24% 114/462] //system/unwinding/libunwindstack:libunwindstack_no_dex static link libunwindstack_no_dex.a
+[ 24% 115/462] //packages/apps/SettingsIntelligence:SettingsIntelligence dexpreopt product_packages[common]
+[ 25% 116/462] //packages/apps/MusicFX:MusicFX dexpreopt product_packages[common]
+[ 25% 117/462] //packages/providers/UserDictionaryProvider:UserDictionaryProvider dexpreopt product_packages[common]
+[ 25% 118/456] //frameworks/base/packages/SettingsProvider:SettingsProvider dexpreopt product_packages[common]
+[ 26% 119/453] //packages/apps/AvatarPicker:AvatarPicker dexpreopt product_packages[common]
+[ 26% 120/450] //packages/apps/PrivateSpace:PrivateSpace dexpreopt product_packages[common]
+[ 27% 121/447] //frameworks/base/packages/WAPPushManager:WAPPushManager dexpreopt product_packages[common]
+[ 27% 122/447] //packages/apps/SetupWizard/app:LineageSetupWizard dexpreopt product_packages[common]
+[ 27% 123/441] //frameworks/base/packages/FusedLocation:FusedLocation dexpreopt product_packages[common]
+[ 28% 124/438] //frameworks/base/packages/VpnDialogs:VpnDialogs dexpreopt product_packages[common]
+[ 28% 125/435] //frameworks/base/packages/StatementService:StatementService dexpreopt product_packages[common]
+[ 29% 126/432] //frameworks/base/packages/SystemUI/accessibility/accessibilitymenu:AccessibilityMenu dexpreopt product_packages[common]
+[ 29% 127/429] //packages/apps/Updater/app:Updater dexpreopt product_packages[common]
+[ 30% 128/426] //frameworks/base/packages/SoundPicker:SoundPicker dexpreopt product_packages[common]
+[ 30% 129/423] //frameworks/base/packages/SharedStorageBackup:SharedStorageBackup dexpreopt product_packages[common]
+[ 30% 130/423] //packages/apps/SimpleSettingsConfig:SimpleSettingsConfig dexpreopt product_packages[common]
+[ 30% 131/423] //packages/apps/Etar/app:Etar dexpreopt product_packages[common]
+[ 31% 132/423] //frameworks/base/packages/CompanionDeviceManager:CompanionDeviceManager dexpreopt product_packages[common]
+[ 31% 133/423] //packages/providers/DownloadProvider:DownloadProvider dexpreopt product_packages[common]
+[ 32% 134/408] //frameworks/base/packages/WallpaperBackup:WallpaperBackup dexpreopt product_packages[common]
+[ 33% 135/405] //lineage-sdk/packages/LineageSettingsProvider:LineageSettingsProvider dexpreopt product_packages[common]
+[ 33% 136/402] //frameworks/base/packages/InputDevices:InputDevices dexpreopt product_packages[common]
+[ 34% 137/399] //packages/apps/EmergencyInfo:EmergencyInfo dexpreopt product_packages[common]
+[ 34% 138/396] //packages/apps/LineageParts:LineageParts dexpreopt product_packages[common]
+[ 35% 139/393] //packages/providers/ContactsProvider:ContactsProvider dexpreopt product_packages[common]
+[ 35% 140/390] //frameworks/base/packages/LocalTransport:LocalTransport dexpreopt product_packages[common]
+[ 36% 141/387] //packages/providers/TelephonyProvider:TelephonyProvider dexpreopt product_packages[common]
+[ 36% 142/384] //packages/services/Telephony:TeleService dexpreopt product_packages[common]
+[ 37% 143/381] //packages/providers/BlockedNumberProvider:BlockedNumberProvider dexpreopt product_packages[common]
+[ 38% 144/378] //packages/apps/CertInstaller:CertInstaller dexpreopt product_packages[common]
+[ 38% 145/375] //packages/wallpapers/LivePicker:LiveWallpapersPicker dexpreopt product_packages[common]
+[ 39% 146/372] //packages/apps/Profiles:Profiles dexpreopt product_packages[common]
+[ 39% 147/369] //packages/apps/Twelve/app:Twelve dexpreopt product_packages[common]
+[ 40% 148/369] //packages/apps/Canvas/app:Canvas dexpreopt product_packages[common]
+[ 40% 149/369] //packages/apps/ExactCalculator:ExactCalculator dexpreopt product_packages[common]
+[ 40% 150/369] //packages/apps/QuickAccessWallet:QuickAccessWallet dexpreopt product_packages[common]
+[ 41% 151/366] //packages/apps/Jelly/app:Jelly dexpreopt product_packages[common]
+[ 42% 152/354] //packages/apps/Recorder/app:Recorder dexpreopt product_packages[common]
+[ 43% 153/351] //packages/apps/KeyChain:KeyChain dexpreopt product_packages[common]
+[ 44% 154/348] //packages/providers/BookmarkProvider:BookmarkProvider dexpreopt product_packages[common]
+[ 44% 155/345] //packages/providers/CalendarProvider:CalendarProvider dexpreopt product_packages[common]
+[ 45% 156/342] //frameworks/base/packages/Shell:Shell dexpreopt product_packages[common]
+[ 46% 157/339] //packages/screensavers/PhotoTable:PhotoTable dexpreopt product_packages[common]
+[ 46% 158/339] //packages/services/BuiltInPrintService:BuiltInPrintService dexpreopt product_packages[common]
+[ 46% 159/339] //packages/apps/HTMLViewer:HTMLViewer dexpreopt product_packages[common]
+[ 48% 160/330] //packages/services/DeviceAsWebcam/impl:DeviceAsWebcam dexpreopt product_packages[common]
+[ 49% 161/327] //packages/apps/DocumentsUI:DocumentsUI dexpreopt product_packages[common]
+[ 50% 162/324] //packages/providers/DownloadProvider/ui:DownloadProviderUi dexpreopt product_packages[common]
+[ 50% 163/324] //frameworks/base/packages/PrintSpooler:PrintSpooler dexpreopt product_packages[common]
+[ 50% 164/324] //packages/apps/Aperture/app:Aperture dexpreopt product_packages[common]
+[ 50% 165/324] //frameworks/base/packages/CredentialManager:CredentialManager dexpreopt product_packages[common]
+[ 53% 166/312] //packages/apps/Launcher3:Launcher3QuickStep dexpreopt product_packages[common]
+[ 54% 167/307] //frameworks/base/test-runner:android.test.runner.impl dexpreopt product_packages[common]
+[ 54% 168/307] //frameworks/base/packages/services/Proxy:ProxyHandler dexpreopt product_packages[common]
+[ 56% 169/299] //packages/apps/Glimpse/app:Glimpse dexpreopt product_packages[common]
+[ 57% 170/296] //packages/apps/ManagedProvisioning:ManagedProvisioning dexpreopt product_packages[common]
+[ 58% 171/293] //frameworks/base/packages/DynamicSystemInstallationService:DynamicSystemInstallationService dexpreopt product_packages[common]
+[ 59% 172/290] //frameworks/base/packages/PackageInstaller:PackageInstaller dexpreopt product_packages[common]
+[ 60% 173/287] //packages/apps/DeviceDiagnostics/app/src/main:DeviceDiagnostics dexpreopt product_packages[common]
+[ 60% 174/287] //packages/services/Mtp:MtpService dexpreopt product_packages[common]
+[ 61% 175/285] //frameworks/base/packages/EasterEgg:EasterEgg dexpreopt product_packages[common]
+[ 63% 176/278] //packages/inputmethods/LatinIME/java:LatinIME dexpreopt product_packages[common]
+[ 64% 177/275] //packages/apps/SimpleDeviceConfig:SimpleDeviceConfig dexpreopt product_packages[common]
+[ 64% 178/275] //frameworks/base/packages/ExternalStorageProvider:ExternalStorageProvider dexpreopt product_packages[common]
+[ 65% 179/275] //packages/apps/Seedvault:Seedvault dexpreopt product_packages[common]
+[ 65% 180/275] //external/chromium-webview:webview dexpreopt product_packages[common]
+[ 68% 181/263] //frameworks/base/packages/PrintRecommendationService:PrintRecommendationService dexpreopt product_packages[common]
+[ 70% 182/260] //packages/apps/Camelot/app:Camelot dexpreopt product_packages[common]
+[ 70% 183/260] //frameworks/base/media/packages/BluetoothMidiService:BluetoothMidiService dexpreopt product_packages[common]
+[ 70% 184/260] //packages/apps/ContactsPicker:ContactsPicker dexpreopt product_packages[common]
+[ 71% 185/260] //packages/apps/SecureElement:SecureElement dexpreopt product_packages[common]
+[ 75% 186/248] //packages/providers/ContactsKeysProvider:E2eeContactKeysProvider dexpreopt product_packages[common]
+[ 76% 187/245] //packages/apps/StorageManager:StorageManager dexpreopt product_packages[common]
+[ 77% 188/242] //packages/modules/IntentResolver:IntentResolver dexpreopt product_packages[common]
+[ 79% 189/239] //packages/screensavers/Basic:BasicDreams dexpreopt product_packages[common]
+[ 80% 190/236] //frameworks/base/packages/BackupRestoreConfirmation:BackupRestoreConfirmation dexpreopt product_packages[common]
+[ 81% 191/233] //packages/services/Mms:MmsService dexpreopt product_packages[common]
+[ 83% 192/230] //build/soong:system_dlkm-build.prop generating build.prop[common]
+[ 85% 193/227] Install: out/target/product/gta3xlwifi/system/system_dlkm/etc/build.prop
+[ 85% 194/227] //system/core/init:gta3xlwifi_first_stage_init clang++ first_stage_mount.cpp
+[ 85% 195/227] //system/core/init:gta3xlwifi_first_stage_init clang++ first_stage_init.cpp
+[ 86% 196/227] //system/core/init:gta3xlwifi_first_stage_init clang++ snapuserd_transition.cpp
+[ 86% 197/227] //system/core/init:gta3xlwifi_first_stage_init clang++ first_stage_mount_android.cpp
+[ 87% 198/227] Installed file list: out/target/product/gta3xlwifi/installed-files-root.txt
+[ 87% 199/227] build out/target/product/gta3xlwifi/obj/PACKAGING/recovery_intermediates/ramdisk_files-timestamp
+[ 88% 200/227] raw modules.csv
+[ 88% 201/227] ----- Making uncompressed recovery ramdisk ------
+[ 88% 202/227] build out/target/product/gta3xlwifi/obj/FLAGS/system/aconfig_flags.pb
+[ 89% 203/227] Copy: out/target/product/gta3xlwifi/system/etc/aconfig_flags.pb
+[ 89% 204/227] build out/target/product/gta3xlwifi/obj/FLAGS/system/package.map
+[ 90% 205/227] build out/target/product/gta3xlwifi/obj/FLAGS/system/flag.val
+[ 90% 206/227] build out/target/product/gta3xlwifi/obj/FLAGS/system/flag.info
+[ 91% 207/227] build out/target/product/gta3xlwifi/obj/FLAGS/system/flag.map
+[ 91% 208/227] Copy: out/target/product/gta3xlwifi/system/etc/aconfig/flag.info
+[ 92% 209/227] Copy: out/target/product/gta3xlwifi/system/etc/aconfig/flag.val
+[ 92% 210/227] Copy: out/target/product/gta3xlwifi/system/etc/aconfig/package.map
+[ 92% 211/227] Copy: out/target/product/gta3xlwifi/system/etc/aconfig/flag.map
+[ 93% 212/227] ----- Making compressed recovery ramdisk ------
+[ 93% 213/227] rm -rf out/soong/compliance-metadata/lineage_gta3xlwifi/compliance-metadata.db && cat out/soong/compliance-metadata/lineage_gta3xlwifi/compliance-metadata.db.rsp | tr ' ' '\n' | while read -r file || [ -n "$file" ]; do out/host/linux-x86/bin/sqlite3_noicu out/soong/compliance-metadata/lineage_gta3xlwifi/compliance-metadata.db ".import --csv ${file} $(basename ${file} .csv)"; done
+[ 94% 214/227] build out/target/product/gta3xlwifi/recovery.img
+[ 94% 215/227] //system/core/init:gta3xlwifi_first_stage_init rustc generated_rust_staticlib/librustlibs.rs
+[ 95% 216/227] rm -rf out/soong/.intermediates/build/soong/compliance/notice_xml_product/android_arm64_armv8-a/NOTICE.xml.gz && out/host/linux-x86/bin/gen_notice_xml --output_file out/soong/.intermediates/build/soong/compliance/notice_xml_product/android_arm64_armv8-a/NOTICE.xml.gz --metadata out/soong/compliance-metadata/lineage_gta3xlwifi/compliance-metadata.db --partition product --product_out out/target/product/gta3xlwifi --soong_out out/soong
+[ 95% 217/227] Install: out/target/product/gta3xlwifi/product/etc/NOTICE.xml.gz
+[ 96% 218/227] Creating linker config: out/target/product/gta3xlwifi/product/etc/linker.config.pb
+[ 96% 219/227] rm -rf out/soong/.intermediates/build/soong/compliance/notice_xml_system/android_arm64_armv8-a/NOTICE.xml.gz && out/host/linux-x86/bin/gen_notice_xml --output_file out/soong/.intermediates/build/soong/compliance/notice_xml_system/android_arm64_armv8-a/NOTICE.xml.gz --metadata out/soong/compliance-metadata/lineage_gta3xlwifi/compliance-metadata.db --partition system --product_out out/target/product/gta3xlwifi --soong_out out/soong
+[ 96% 220/227] Install: out/target/product/gta3xlwifi/system/etc/NOTICE.xml.gz
+[ 97% 221/227] //system/core/init:gta3xlwifi_first_stage_init link gta3xlwifi_first_stage_init
+[ 97% 222/227] //system/core/init:gta3xlwifi_first_stage_init strip gta3xlwifi_first_stage_init
+[ 98% 223/227] Install: out/target/product/gta3xlwifi/system/bin/gta3xlwifi_first_stage_init
+[ 98% 224/227] Creating linker config: out/target/product/gta3xlwifi/system/etc/linker.config.pb
+[ 99% 225/227] Building target files: out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files.zip.list
+stderr:
+2026-11-16 14:31:23 - common.py - WARNING : Failed to read SYSTEM/etc/build.prop
+2026-11-16 14:31:23 - common.py - WARNING : Failed to read VENDOR/etc/build.prop
+2026-11-16 14:31:23 - common.py - WARNING : Failed to read VENDOR/build.prop
+2026-11-16 14:31:23 - common.py - WARNING : Failed to read build.prop for partition vendor
+2026-11-16 14:31:23 - common.py - WARNING : Failed to read SYSTEM_EXT/etc/build.prop
+2026-11-16 14:31:23 - common.py - WARNING : Failed to read SYSTEM_EXT/build.prop
+2026-11-16 14:31:23 - common.py - WARNING : Failed to read build.prop for partition system_ext
+2026-11-16 14:31:23 - common.py - WARNING : Failed to read ODM/etc/build.prop
+2026-11-16 14:31:23 - common.py - WARNING : Failed to read ODM/build.prop
+2026-11-16 14:31:23 - common.py - WARNING : Failed to read build.prop for partition odm
+2026-11-16 14:31:23 - common.py - WARNING : Failed to read VENDOR_DLKM/etc/build.prop
+2026-11-16 14:31:23 - common.py - WARNING : Failed to read VENDOR_DLKM/build.prop
+2026-11-16 14:31:23 - common.py - WARNING : Failed to read build.prop for partition vendor_dlkm
+2026-11-16 14:31:23 - common.py - WARNING : Failed to read ODM_DLKM/etc/build.prop
+2026-11-16 14:31:23 - common.py - WARNING : Failed to read ODM_DLKM/build.prop
+2026-11-16 14:31:23 - common.py - WARNING : Failed to read build.prop for partition odm_dlkm
+2026-11-16 14:31:23 - common.py - WARNING : Failed to read SYSTEM_DLKM/etc/build.prop
+2026-11-16 14:31:23 - common.py - WARNING : Failed to read SYSTEM_DLKM/build.prop
+2026-11-16 14:31:23 - common.py - WARNING : Failed to read build.prop for partition system_dlkm
+2026-11-16 14:31:23 - common.py - WARNING : Failed to read IMAGES/boot.img
+2026-11-16 14:31:23 - common.py - WARNING : Failed to read IMAGES/init_boot.img
+2026-11-16 14:31:23 - common.py - WARNING : Can't find META/ab_partitions.txt
+2026-11-16 14:31:30 - common.py - WARNING : Failed to read SYSTEM/etc/build.prop
+2026-11-16 14:31:30 - common.py - WARNING : Failed to read VENDOR/etc/build.prop
+2026-11-16 14:31:30 - common.py - WARNING : Failed to read VENDOR/build.prop
+2026-11-16 14:31:30 - common.py - WARNING : Failed to read build.prop for partition vendor
+2026-11-16 14:31:30 - common.py - WARNING : Failed to read SYSTEM_EXT/etc/build.prop
+2026-11-16 14:31:30 - common.py - WARNING : Failed to read SYSTEM_EXT/build.prop
+2026-11-16 14:31:30 - common.py - WARNING : Failed to read build.prop for partition system_ext
+2026-11-16 14:31:30 - common.py - WARNING : Failed to read ODM/etc/build.prop
+2026-11-16 14:31:30 - common.py - WARNING : Failed to read ODM/build.prop
+2026-11-16 14:31:30 - common.py - WARNING : Failed to read build.prop for partition odm
+2026-11-16 14:31:30 - common.py - WARNING : Failed to read VENDOR_DLKM/etc/build.prop
+2026-11-16 14:31:30 - common.py - WARNING : Failed to read VENDOR_DLKM/build.prop
+2026-11-16 14:31:30 - common.py - WARNING : Failed to read build.prop for partition vendor_dlkm
+2026-11-16 14:31:30 - common.py - WARNING : Failed to read ODM_DLKM/etc/build.prop
+2026-11-16 14:31:30 - common.py - WARNING : Failed to read ODM_DLKM/build.prop
+2026-11-16 14:31:30 - common.py - WARNING : Failed to read build.prop for partition odm_dlkm
+2026-11-16 14:31:30 - common.py - WARNING : Failed to read SYSTEM_DLKM/etc/build.prop
+2026-11-16 14:31:30 - common.py - WARNING : Failed to read SYSTEM_DLKM/build.prop
+2026-11-16 14:31:30 - common.py - WARNING : Failed to read build.prop for partition system_dlkm
+2026-11-16 14:31:30 - common.py - WARNING : Failed to read IMAGES/boot.img
+2026-11-16 14:31:30 - common.py - WARNING : Failed to read IMAGES/init_boot.img
+2026-11-16 14:31:30 - common.py - WARNING : Can't find META/ab_partitions.txt
+2026-11-16 14:31:30 - add_img_to_target_files.py - INFO    : 
+
+++++ boot  ++++
+
+
+2026-11-16 14:31:30 - common.py - INFO    : using prebuilt boot.img from BOOTABLE_IMAGES...
+2026-11-16 14:31:30 - add_img_to_target_files.py - INFO    : 
+
+++++ recovery  ++++
+
+
+2026-11-16 14:31:30 - common.py - INFO    : using prebuilt recovery.img from BOOTABLE_IMAGES...
+2026-11-16 14:31:30 - add_img_to_target_files.py - INFO    : 
+
+++++ recovery (two-step image)  ++++
+
+
+2026-11-16 14:31:30 - common.py - INFO    : building image from target_files RECOVERY...
+2026-11-16 14:31:30 - common.py - INFO    :   Running: "/srv/android/src/lineage-24.0-arm64/out/host/linux-x86/bin/mkbootfs -f /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/META/recovery_filesystem_config.txt /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/RECOVERY/RAMDISK"
+2026-11-16 14:31:30 - common.py - INFO    :   Running: "gzip"
+2026-11-16 14:31:31 - common.py - INFO    :   Running: "out/host/linux-x86/bin/mkbootimg --kernel /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/RECOVERY/kernel --cmdline androidboot.hardware=exynos7904 androidboot.selinux=enforcing --base 0x10000000 --pagesize 2048 --header_version 1 --kernel_offset 0x00008000 --ramdisk_offset 0x01000000 --tags_offset 0x00000100 --board SRPSA25A005RU --os_version 17 --os_patch_level 2026-10-01 --ramdisk /srv/android/src/lineage-24.0-arm64/out/soong/.temp/tmpi463g_zg --output /srv/android/src/lineage-24.0-arm64/out/soong/.temp/tmpmwcrh6yd --recovery_dtbo /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/RECOVERY/recovery_dtbo"
+2026-11-16 14:31:32 - common.py - INFO    : 
+2026-11-16 14:31:32 - add_img_to_target_files.py - INFO    : 
+
+++++ system  ++++
+
+
+2026-11-16 14:31:32 - add_img_to_target_files.py - INFO    : creating system.img...
+2026-11-16 14:31:32 - add_img_to_target_files.py - INFO    : 
+
+++++ vendor  ++++
+
+
+2026-11-16 14:31:32 - add_img_to_target_files.py - INFO    : 
+
+++++ product  ++++
+
+
+2026-11-16 14:31:32 - add_img_to_target_files.py - INFO    : vendor.img already exists; no need to rebuild...
+2026-11-16 14:31:32 - add_img_to_target_files.py - INFO    : creating product.img...
+2026-11-16 14:31:32 - build_image.py - INFO    : Using fingerprint  for partition product
+2026-11-16 14:31:32 - common.py - INFO    :   Running: "/srv/android/src/lineage-24.0-arm64/out/host/linux-x86/bin/mkuserimg_mke2fs -s /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/PRODUCT /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/IMAGES/product.img ext4 product 327155712 -j 0 -T 1230768000 -C /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/META/product_filesystem_config.txt -L product -M 0 -U 453968ff-b43c-54b7-a506-a6a88682c128 -S 14597608-12ce-579d-8813-28dbbf688d99 --inode_size 256 /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/META/file_contexts.bin"
+2026-11-16 14:31:35 - common.py - INFO    : 14:31:33 mkuserimg_mke2fs.py INFO: Env: {'MKE2FS_CONFIG': '/srv/android/src/lineage-24.0-arm64/out/soong/.temp/tmpz39_yp9f', 'E2FSPROGS_FAKE_TIME': '1230768000'}
+14:31:33 mkuserimg_mke2fs.py INFO: Running: /srv/android/src/lineage-24.0-arm64/out/host/linux-x86/bin/mke2fs -O ^has_journal -L product -I 256 -M /product -m 0 -U 453968ff-b43c-54b7-a506-a6a88682c128 -E android_sparse,hash_seed=14597608-12ce-579d-8813-28dbbf688d99 -t ext4 -b 4096 /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/IMAGES/product.img 79872
+14:31:33 mkuserimg_mke2fs.py INFO: Env: {'E2FSPROGS_FAKE_TIME': '1230768000'}
+14:31:33 mkuserimg_mke2fs.py INFO: Running: /srv/android/src/lineage-24.0-arm64/out/host/linux-x86/bin/e2fsdroid -T 1230768000 -C /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/META/product_filesystem_config.txt -S /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/META/file_contexts.bin -f /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/PRODUCT -a /product /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/IMAGES/product.img
+mke2fs 1.47.2 (1-Jan-2025)
+Creating filesystem with 79872 4k blocks and 79872 inodes
+Filesystem UUID: 453968ff-b43c-54b7-a506-a6a88682c128
+Superblock backups stored on blocks: 
+	32768
+
+Allocating group tables: 0/3   done                            
+Writing inode tables: 0/3   done                            
+Writing superblocks and filesystem accounting information: 0/3   done
+
+
+loaded 532 fs_config entries
+Created filesystem with 542/79872 inodes and 49996/79872 blocks
+2026-11-16 14:31:35 - common.py - INFO    :   Running: "/srv/android/src/lineage-24.0-arm64/out/host/linux-x86/bin/simg2img /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/IMAGES/product.img /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/IMAGES/unsparse_product.img"
+2026-11-16 14:31:35 - build_image.py - INFO    : Using fingerprint  for partition /
+2026-11-16 14:31:35 - common.py - INFO    :   Running: "/srv/android/src/lineage-24.0-arm64/out/host/linux-x86/bin/mkuserimg_mke2fs -s /srv/android/src/lineage-24.0-arm64/out/soong/.temp/tmpbry7rckv /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/IMAGES/system.img ext4 / 3196059648 -j 0 -T 1230768000 -C /srv/android/src/lineage-24.0-arm64/out/soong/.temp/merged_fs_configmngnmn7v.txt -L / -M 0 -U d392d8bb-6c67-58f7-b0b2-091ad46c5bc2 -S baea5dae-7c08-5576-9e9b-a8d3c3d94800 --inode_size 256 /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/META/file_contexts.bin"
+2026-11-16 14:31:35 - common.py - INFO    : 
+2026-11-16 14:31:35 - common.py - INFO    :   Running: "/srv/android/src/lineage-24.0-arm64/out/host/linux-x86/bin/e2fsck -f -n /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/IMAGES/unsparse_product.img"
+2026-11-16 14:31:38 - common.py - INFO    : e2fsck 1.47.2 (1-Jan-2025)
+Pass 1: Checking inodes, blocks, and sizes
+Pass 2: Checking directory structure
+Pass 3: Checking directory connectivity
+Pass 4: Checking reference counts
+Pass 5: Checking group summary information
+product: 542/79872 files (0.4% non-contiguous), 49996/79872 blocks
+2026-11-16 14:31:38 - sparse_img.py - INFO    : Total of 79872 4096-byte output blocks in 9 input chunks.
+2026-11-16 14:32:13 - common.py - INFO    : 14:31:35 mkuserimg_mke2fs.py INFO: Env: {'MKE2FS_CONFIG': '/srv/android/src/lineage-24.0-arm64/out/soong/.temp/tmpy85ukz1m', 'E2FSPROGS_FAKE_TIME': '1230768000'}
+14:31:35 mkuserimg_mke2fs.py INFO: Running: /srv/android/src/lineage-24.0-arm64/out/host/linux-x86/bin/mke2fs -O ^has_journal -L / -I 256 -M / -m 0 -U d392d8bb-6c67-58f7-b0b2-091ad46c5bc2 -E android_sparse,hash_seed=baea5dae-7c08-5576-9e9b-a8d3c3d94800 -t ext4 -b 4096 /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/IMAGES/system.img 780288
+14:31:36 mkuserimg_mke2fs.py INFO: Env: {'E2FSPROGS_FAKE_TIME': '1230768000'}
+14:31:36 mkuserimg_mke2fs.py INFO: Running: /srv/android/src/lineage-24.0-arm64/out/host/linux-x86/bin/e2fsdroid -T 1230768000 -C /srv/android/src/lineage-24.0-arm64/out/soong/.temp/merged_fs_configmngnmn7v.txt -S /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/META/file_contexts.bin -f /srv/android/src/lineage-24.0-arm64/out/soong/.temp/tmpbry7rckv -a / /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/IMAGES/system.img
+mke2fs 1.47.2 (1-Jan-2025)
+Creating filesystem with 780288 4k blocks and 195072 inodes
+Filesystem UUID: d392d8bb-6c67-58f7-b0b2-091ad46c5bc2
+Superblock backups stored on blocks: 
+	32768, 98304, 163840, 229376, 294912
+
+Allocating group tables:  0/24     done                            
+Writing inode tables:  0/24     done                            
+Writing superblocks and filesystem accounting information:  0/24     done
+
+
+loaded 7017 fs_config entries
+Created filesystem with 7026/195072 inodes and 469443/780288 blocks
+2026-11-16 14:32:13 - common.py - INFO    :   Running: "/srv/android/src/lineage-24.0-arm64/out/host/linux-x86/bin/simg2img /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/IMAGES/system.img /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/IMAGES/unsparse_system.img"
+2026-11-16 14:32:15 - common.py - INFO    : 
+2026-11-16 14:32:15 - common.py - INFO    :   Running: "/srv/android/src/lineage-24.0-arm64/out/host/linux-x86/bin/e2fsck -f -n /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/IMAGES/unsparse_system.img"
+2026-11-16 14:32:51 - common.py - INFO    : e2fsck 1.47.2 (1-Jan-2025)
+Pass 1: Checking inodes, blocks, and sizes
+Pass 2: Checking directory structure
+Pass 3: Checking directory connectivity
+Pass 4: Checking reference counts
+Pass 5: Checking group summary information
+/: 7026/195072 files (0.3% non-contiguous), 469443/780288 blocks
+2026-11-16 14:32:51 - sparse_img.py - INFO    : Total of 780288 4096-byte output blocks in 48 input chunks.
+2026-11-16 14:32:51 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer info --print-type /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.adbd.capex"
+2026-11-16 14:32:53 - common.py - INFO    : COMPRESSED
+2026-11-16 14:32:53 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer decompress --input /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.adbd.capex --output /srv/android/src/lineage-24.0-arm64/out/soong/.temp/decompressed-6v0_rk1u.apex"
+2026-11-16 14:32:53 - common.py - INFO    : 
+2026-11-16 14:32:53 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer info --print-type /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.adservices.capex"
+2026-11-16 14:32:54 - common.py - INFO    : COMPRESSED
+2026-11-16 14:32:54 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer decompress --input /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.adservices.capex --output /srv/android/src/lineage-24.0-arm64/out/soong/.temp/decompressed-2xxkce70.apex"
+2026-11-16 14:32:54 - common.py - INFO    : 
+2026-11-16 14:32:54 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer info --print-type /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.apex.cts.shim.apex"
+2026-11-16 14:32:54 - common.py - INFO    : UNCOMPRESSED
+2026-11-16 14:32:54 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer info --print-type /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.appsearch.capex"
+2026-11-16 14:32:54 - common.py - INFO    : COMPRESSED
+2026-11-16 14:32:54 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer decompress --input /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.appsearch.capex --output /srv/android/src/lineage-24.0-arm64/out/soong/.temp/decompressed-req93_5w.apex"
+2026-11-16 14:32:54 - common.py - INFO    : 
+2026-11-16 14:32:54 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer info --print-type /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.art.capex"
+2026-11-16 14:32:54 - common.py - INFO    : COMPRESSED
+2026-11-16 14:32:54 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer decompress --input /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.art.capex --output /srv/android/src/lineage-24.0-arm64/out/soong/.temp/decompressed-qlir5e8u.apex"
+2026-11-16 14:32:55 - common.py - INFO    : 
+2026-11-16 14:32:55 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer info --print-type /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.bt.capex"
+2026-11-16 14:32:55 - common.py - INFO    : COMPRESSED
+2026-11-16 14:32:55 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer decompress --input /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.bt.capex --output /srv/android/src/lineage-24.0-arm64/out/soong/.temp/decompressed-_dra_yxf.apex"
+2026-11-16 14:32:55 - common.py - INFO    : 
+2026-11-16 14:32:55 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer info --print-type /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.configinfrastructure.capex"
+2026-11-16 14:32:55 - common.py - INFO    : COMPRESSED
+2026-11-16 14:32:55 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer decompress --input /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.configinfrastructure.capex --output /srv/android/src/lineage-24.0-arm64/out/soong/.temp/decompressed-nff4exys.apex"
+2026-11-16 14:32:56 - common.py - INFO    : 
+2026-11-16 14:32:56 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer info --print-type /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.conscrypt.capex"
+2026-11-16 14:32:56 - common.py - INFO    : COMPRESSED
+2026-11-16 14:32:56 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer decompress --input /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.conscrypt.capex --output /srv/android/src/lineage-24.0-arm64/out/soong/.temp/decompressed-sz9z78ts.apex"
+2026-11-16 14:32:56 - common.py - INFO    : 
+2026-11-16 14:32:56 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer info --print-type /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.crashrecovery.capex"
+2026-11-16 14:32:56 - common.py - INFO    : COMPRESSED
+2026-11-16 14:32:56 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer decompress --input /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.crashrecovery.capex --output /srv/android/src/lineage-24.0-arm64/out/soong/.temp/decompressed-r99lgji3.apex"
+2026-11-16 14:32:56 - common.py - INFO    : 
+2026-11-16 14:32:56 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer info --print-type /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.devicelock.apex"
+2026-11-16 14:32:56 - common.py - INFO    : UNCOMPRESSED
+2026-11-16 14:32:56 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer info --print-type /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.extservices.capex"
+2026-11-16 14:32:56 - common.py - INFO    : COMPRESSED
+2026-11-16 14:32:56 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer decompress --input /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.extservices.capex --output /srv/android/src/lineage-24.0-arm64/out/soong/.temp/decompressed-8at8pscy.apex"
+2026-11-16 14:32:57 - common.py - INFO    : 
+2026-11-16 14:32:57 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer info --print-type /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.healthfitness.apex"
+2026-11-16 14:32:57 - common.py - INFO    : UNCOMPRESSED
+2026-11-16 14:32:57 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer info --print-type /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.i18n.apex"
+2026-11-16 14:32:57 - common.py - INFO    : UNCOMPRESSED
+2026-11-16 14:32:57 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer info --print-type /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.ipsec.capex"
+2026-11-16 14:32:57 - common.py - INFO    : COMPRESSED
+2026-11-16 14:32:57 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer decompress --input /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.ipsec.capex --output /srv/android/src/lineage-24.0-arm64/out/soong/.temp/decompressed-zxn48suk.apex"
+2026-11-16 14:32:57 - common.py - INFO    : 
+2026-11-16 14:32:57 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer info --print-type /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.media.capex"
+2026-11-16 14:32:57 - common.py - INFO    : COMPRESSED
+2026-11-16 14:32:57 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer decompress --input /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.media.capex --output /srv/android/src/lineage-24.0-arm64/out/soong/.temp/decompressed-dwzfmuor.apex"
+2026-11-16 14:32:58 - common.py - INFO    : 
+2026-11-16 14:32:58 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer info --print-type /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.media.swcodec.capex"
+2026-11-16 14:32:58 - common.py - INFO    : COMPRESSED
+2026-11-16 14:32:58 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer decompress --input /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.media.swcodec.capex --output /srv/android/src/lineage-24.0-arm64/out/soong/.temp/decompressed-0_cnmb4d.apex"
+2026-11-16 14:32:58 - common.py - INFO    : 
+2026-11-16 14:32:58 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer info --print-type /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.mediaprovider.capex"
+2026-11-16 14:32:58 - common.py - INFO    : COMPRESSED
+2026-11-16 14:32:58 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer decompress --input /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.mediaprovider.capex --output /srv/android/src/lineage-24.0-arm64/out/soong/.temp/decompressed-ljefazpt.apex"
+2026-11-16 14:32:59 - common.py - INFO    : 
+2026-11-16 14:32:59 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer info --print-type /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.neuralnetworks.capex"
+2026-11-16 14:32:59 - common.py - INFO    : COMPRESSED
+2026-11-16 14:32:59 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer decompress --input /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.neuralnetworks.capex --output /srv/android/src/lineage-24.0-arm64/out/soong/.temp/decompressed-hl4y4w0b.apex"
+2026-11-16 14:32:59 - common.py - INFO    : 
+2026-11-16 14:32:59 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer info --print-type /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.nfcservices.capex"
+2026-11-16 14:32:59 - common.py - INFO    : COMPRESSED
+2026-11-16 14:32:59 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer decompress --input /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.nfcservices.capex --output /srv/android/src/lineage-24.0-arm64/out/soong/.temp/decompressed-ux651mpf.apex"
+2026-11-16 14:32:59 - common.py - INFO    : 
+2026-11-16 14:32:59 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer info --print-type /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.npumanager.capex"
+2026-11-16 14:32:59 - common.py - INFO    : COMPRESSED
+2026-11-16 14:32:59 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer decompress --input /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.npumanager.capex --output /srv/android/src/lineage-24.0-arm64/out/soong/.temp/decompressed-498t1xjp.apex"
+2026-11-16 14:33:00 - common.py - INFO    : 
+2026-11-16 14:33:00 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer info --print-type /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.ondevicepersonalization.capex"
+2026-11-16 14:33:00 - common.py - INFO    : COMPRESSED
+2026-11-16 14:33:00 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer decompress --input /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.ondevicepersonalization.capex --output /srv/android/src/lineage-24.0-arm64/out/soong/.temp/decompressed-2_g2rqw4.apex"
+2026-11-16 14:33:00 - common.py - INFO    : 
+2026-11-16 14:33:00 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer info --print-type /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.os.statsd.apex"
+2026-11-16 14:33:00 - common.py - INFO    : UNCOMPRESSED
+2026-11-16 14:33:00 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer info --print-type /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.permission.capex"
+2026-11-16 14:33:00 - common.py - INFO    : COMPRESSED
+2026-11-16 14:33:00 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer decompress --input /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.permission.capex --output /srv/android/src/lineage-24.0-arm64/out/soong/.temp/decompressed-11b0v_yn.apex"
+2026-11-16 14:33:00 - common.py - INFO    : 
+2026-11-16 14:33:00 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer info --print-type /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.profiling.capex"
+2026-11-16 14:33:01 - common.py - INFO    : COMPRESSED
+2026-11-16 14:33:01 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer decompress --input /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.profiling.capex --output /srv/android/src/lineage-24.0-arm64/out/soong/.temp/decompressed-f80b_iaf.apex"
+2026-11-16 14:33:01 - common.py - INFO    : 
+2026-11-16 14:33:01 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer info --print-type /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.resolv.capex"
+2026-11-16 14:33:01 - common.py - INFO    : COMPRESSED
+2026-11-16 14:33:01 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer decompress --input /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.resolv.capex --output /srv/android/src/lineage-24.0-arm64/out/soong/.temp/decompressed-2v_ahncy.apex"
+2026-11-16 14:33:01 - common.py - INFO    : 
+2026-11-16 14:33:01 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer info --print-type /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.rkpd.apex"
+2026-11-16 14:33:01 - common.py - INFO    : UNCOMPRESSED
+2026-11-16 14:33:01 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer info --print-type /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.runtime.apex"
+2026-11-16 14:33:01 - common.py - INFO    : UNCOMPRESSED
+2026-11-16 14:33:01 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer info --print-type /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.scheduling.capex"
+2026-11-16 14:33:01 - common.py - INFO    : COMPRESSED
+2026-11-16 14:33:01 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer decompress --input /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.scheduling.capex --output /srv/android/src/lineage-24.0-arm64/out/soong/.temp/decompressed-v8c2l_5o.apex"
+2026-11-16 14:33:02 - common.py - INFO    : 
+2026-11-16 14:33:02 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer info --print-type /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.sdkext.apex"
+2026-11-16 14:33:02 - common.py - INFO    : UNCOMPRESSED
+2026-11-16 14:33:02 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer info --print-type /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.telephonycore.capex"
+2026-11-16 14:33:02 - common.py - INFO    : COMPRESSED
+2026-11-16 14:33:02 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer decompress --input /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.telephonycore.capex --output /srv/android/src/lineage-24.0-arm64/out/soong/.temp/decompressed-n_xmea2q.apex"
+2026-11-16 14:33:02 - common.py - INFO    : 
+2026-11-16 14:33:02 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer info --print-type /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.tethering.capex"
+2026-11-16 14:33:02 - common.py - INFO    : COMPRESSED
+2026-11-16 14:33:02 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer decompress --input /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.tethering.capex --output /srv/android/src/lineage-24.0-arm64/out/soong/.temp/decompressed-5f3a374l.apex"
+2026-11-16 14:33:02 - common.py - INFO    : 
+2026-11-16 14:33:02 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer info --print-type /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.tzdata.apex"
+2026-11-16 14:33:03 - common.py - INFO    : UNCOMPRESSED
+2026-11-16 14:33:03 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer info --print-type /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.uprobestats.capex"
+2026-11-16 14:33:03 - common.py - INFO    : COMPRESSED
+2026-11-16 14:33:03 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer decompress --input /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.uprobestats.capex --output /srv/android/src/lineage-24.0-arm64/out/soong/.temp/decompressed-fkrq82np.apex"
+2026-11-16 14:33:03 - common.py - INFO    : 
+2026-11-16 14:33:03 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer info --print-type /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.uwb.capex"
+2026-11-16 14:33:03 - common.py - INFO    : COMPRESSED
+2026-11-16 14:33:03 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer decompress --input /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.uwb.capex --output /srv/android/src/lineage-24.0-arm64/out/soong/.temp/decompressed-kudbd_wv.apex"
+2026-11-16 14:33:03 - common.py - INFO    : 
+2026-11-16 14:33:03 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer info --print-type /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.virt.apex"
+2026-11-16 14:33:03 - common.py - INFO    : UNCOMPRESSED
+2026-11-16 14:33:03 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer info --print-type /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.webapp.capex"
+2026-11-16 14:33:03 - common.py - INFO    : COMPRESSED
+2026-11-16 14:33:03 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer decompress --input /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.webapp.capex --output /srv/android/src/lineage-24.0-arm64/out/soong/.temp/decompressed-qp57a440.apex"
+2026-11-16 14:33:04 - common.py - INFO    : 
+2026-11-16 14:33:04 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer info --print-type /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.wifi.capex"
+2026-11-16 14:33:04 - common.py - INFO    : COMPRESSED
+2026-11-16 14:33:04 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer decompress --input /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.wifi.capex --output /srv/android/src/lineage-24.0-arm64/out/soong/.temp/decompressed-re_exs5q.apex"
+2026-11-16 14:33:04 - common.py - INFO    : 
+2026-11-16 14:33:04 - apex_utils.py - INFO    : No APEX directory at path: /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM_EXT/apex
+2026-11-16 14:33:04 - apex_utils.py - INFO    : No APEX directory at path: /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/PRODUCT/apex
+2026-11-16 14:33:04 - apex_utils.py - INFO    : No APEX directory at path: /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/VENDOR/apex
+2026-11-16 14:33:04 - apex_utils.py - INFO    : No APEX directory at path: /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/ODM/apex
+2026-11-16 14:33:04 - add_img_to_target_files.py - INFO    : 
+
+++++ userdata  ++++
+
+
+2026-11-16 14:33:04 - add_img_to_target_files.py - INFO    : 
+
+++++ cache  ++++
+
+
+2026-11-16 14:33:04 - add_img_to_target_files.py - INFO    : creating cache.img...
+2026-11-16 14:33:04 - build_image.py - INFO    : Using fingerprint  for partition cache
+2026-11-16 14:33:04 - common.py - INFO    :   Running: "/srv/android/src/lineage-24.0-arm64/out/host/linux-x86/bin/mkuserimg_mke2fs -s /srv/android/src/lineage-24.0-arm64/out/soong/.temp/tmp104m07gq /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/IMAGES/cache.img ext4 cache 159383552 -T 1230768000 -L cache -U 22b74bf8-ed3e-5458-bc6a-53779012d742 -S 6b67350b-020f-5fa7-bb3d-2c2a2fcdec10 --inode_size 256 /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/META/file_contexts.bin"
+2026-11-16 14:33:06 - common.py - INFO    : 14:33:04 mkuserimg_mke2fs.py INFO: Env: {'MKE2FS_CONFIG': '/srv/android/src/lineage-24.0-arm64/out/soong/.temp/tmpcdq3qo2a', 'E2FSPROGS_FAKE_TIME': '1230768000'}
+14:33:04 mkuserimg_mke2fs.py INFO: Running: /srv/android/src/lineage-24.0-arm64/out/host/linux-x86/bin/mke2fs -L cache -I 256 -M /cache -U 22b74bf8-ed3e-5458-bc6a-53779012d742 -E android_sparse,hash_seed=6b67350b-020f-5fa7-bb3d-2c2a2fcdec10 -t ext4 -b 4096 /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/IMAGES/cache.img 38912
+14:33:05 mkuserimg_mke2fs.py INFO: Env: {'E2FSPROGS_FAKE_TIME': '1230768000'}
+14:33:05 mkuserimg_mke2fs.py INFO: Running: /srv/android/src/lineage-24.0-arm64/out/host/linux-x86/bin/e2fsdroid -T 1230768000 -S /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/META/file_contexts.bin -f /srv/android/src/lineage-24.0-arm64/out/soong/.temp/tmp104m07gq -a /cache /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/IMAGES/cache.img
+mke2fs 1.47.2 (1-Jan-2025)
+Creating filesystem with 38912 4k blocks and 38912 inodes
+Filesystem UUID: 22b74bf8-ed3e-5458-bc6a-53779012d742
+Superblock backups stored on blocks: 
+	32768
+
+Allocating group tables: 0/2   done                            
+Writing inode tables: 0/2   done                            
+Creating journal (4096 blocks): done
+Writing superblocks and filesystem accounting information: 0/2   done
+
+
+Created filesystem with 11/38912 inodes and 6541/38912 blocks
+2026-11-16 14:33:06 - common.py - INFO    :   Running: "/srv/android/src/lineage-24.0-arm64/out/host/linux-x86/bin/simg2img /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/IMAGES/cache.img /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/IMAGES/unsparse_cache.img"
+2026-11-16 14:33:06 - common.py - INFO    : 
+2026-11-16 14:33:06 - common.py - INFO    :   Running: "/srv/android/src/lineage-24.0-arm64/out/host/linux-x86/bin/e2fsck -f -n /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/IMAGES/unsparse_cache.img"
+2026-11-16 14:33:08 - common.py - INFO    : e2fsck 1.47.2 (1-Jan-2025)
+Pass 1: Checking inodes, blocks, and sizes
+Pass 2: Checking directory structure
+Pass 3: Checking directory connectivity
+Pass 4: Checking reference counts
+Pass 5: Checking group summary information
+cache: 11/38912 files (0.0% non-contiguous), 6541/38912 blocks
+2026-11-16 14:33:08 - sparse_img.py - INFO    : Total of 38912 4096-byte output blocks in 6 input chunks.
+2026-11-16 14:33:08 - common.py - INFO    :   cache size (155) is 0.00% of limit (159383552)
+2026-11-16 14:33:08 - add_img_to_target_files.py - INFO    : 
+
+++++ dtbo  ++++
+
+
+2026-11-16 14:33:08 - add_img_to_target_files.py - INFO    : 
+
+++++ radio  ++++
+
+
+2026-11-16 14:33:08 - add_img_to_target_files.py - INFO    : done. added image to target files out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files
+[ 99% 226/227] Packaging target files: out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files.zip
+ninja: 13m47.84s Build Succeeded: 187 steps - 0.23/s
+
+
+#### build completed successfully (23:40 (mm:ss)) ####
+
+PASS: 1243 locked projects, 21 exact reviewed patches; no external alternates

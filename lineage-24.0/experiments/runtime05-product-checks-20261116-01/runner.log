@@ -1,0 +1,5 @@
+Selected artifact checks PASS; this is NOT flash-readiness approval.
+Warning: releasetools script should be invoked as hermetic Python executable -- build and run `test-installer-hooks24` directly.
+PASS 6 actual package installer-hook cases
+PASS packaged ext4 feature compatibility: 4 images
+PASS actual static first stage and SAR root composition
