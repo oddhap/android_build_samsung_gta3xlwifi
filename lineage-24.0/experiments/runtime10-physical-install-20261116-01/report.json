@@ -55,5 +55,7 @@
     "runtime10-root-readback.log": "8c4cdd2f232e690451abe754a76cfc7e5a5f5a4be578e4379b301488c4163067",
     "runtime10-recovery-after-install.log": "6cb98646ad7f7e9b640c14f3af99e5cbbe5dcbb7a7945da1e9dafc716872bc03",
     "runtime10-sideload.log": "f89c93d010ca3a0e3d7fc2d84f5ffb2b5006f72558da91d173ede78b8c7957ca"
-  }
+  },
+  "owner_reports_Samsung_logo_then_reboot": true,
+  "new_boot_logs_pending": true
 }

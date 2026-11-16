@@ -17,7 +17,7 @@ bypassed. Snapshot10 full audited product build, all product checks, VINTF with 
 APEX packages, signed ZIP/CMS/CRC and all block streams pass. Fresh physical
 preflight guards pass; installation completed with updaterRC0. Physical boot,
 vendor, unchanged recovery and all eight critical files including new netd match.
-Normal Android startup is being observed.
+The owner reports Samsung logo then reboot; fresh snapshot10 crash logs are pending.
 No normal Android17 boot, working networking or complete FBE claim is made.
 
 **Latest status (November16, supersedes historical notices below):** snapshot07
