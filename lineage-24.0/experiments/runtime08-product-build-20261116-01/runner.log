@@ -1,0 +1,217 @@
+PASS: 1243 locked projects, 21 exact reviewed patches; no external alternates
+Looking for dependencies in device/samsung/gta3xlwifi
+device/samsung/gta3xlwifi has no additional dependencies.
+
+============================================
+PLATFORM_VERSION_CODENAME=REL
+PLATFORM_VERSION=17
+LINEAGE_VERSION=24.0-20261116-UNOFFICIAL-gta3xlwifi
+PRODUCT_SOURCE_ROOT_DIRS=-kernel/platform -prebuilts/misc/protobuf_vendorcompat
+TARGET_PRODUCT=lineage_gta3xlwifi
+TARGET_BUILD_VARIANT=userdebug
+TARGET_ARCH=arm64
+TARGET_ARCH_VARIANT=armv8-a
+TARGET_CPU_VARIANT=generic
+TARGET_2ND_ARCH=arm
+TARGET_2ND_ARCH_VARIANT=armv8-a
+TARGET_2ND_CPU_VARIANT=generic
+HOST_OS=linux
+HOST_OS_EXTRA=Linux-5.15.0-203-generic-x86_64-Ubuntu-22.04.5-LTS
+HOST_CROSS_OS=windows
+BUILD_ID=CP2A.260605.016
+OUT_DIR=out
+SOONG_ONLY=false
+SOONG_INCREMENTAL_ANALYSIS=false
+============================================
+Running product configuration...
+============================================
+PLATFORM_VERSION_CODENAME=REL
+PLATFORM_VERSION=17
+LINEAGE_VERSION=24.0-20261116-UNOFFICIAL-gta3xlwifi
+PRODUCT_SOURCE_ROOT_DIRS=-kernel/platform -prebuilts/misc/protobuf_vendorcompat
+TARGET_PRODUCT=lineage_gta3xlwifi
+TARGET_BUILD_VARIANT=userdebug
+TARGET_ARCH=arm64
+TARGET_ARCH_VARIANT=armv8-a
+TARGET_CPU_VARIANT=generic
+TARGET_2ND_ARCH=arm
+TARGET_2ND_ARCH_VARIANT=armv8-a
+TARGET_2ND_CPU_VARIANT=generic
+HOST_OS=linux
+HOST_OS_EXTRA=Linux-5.15.0-203-generic-x86_64-Ubuntu-22.04.5-LTS
+HOST_CROSS_OS=windows
+BUILD_ID=CP2A.260605.016
+OUT_DIR=out
+SOONG_ONLY=false
+SOONG_INCREMENTAL_ANALYSIS=true
+============================================
+[100% 1/1] bootstrap blueprint
+Running globs...
+ninja: 
+ninja: SISO_EXPERIMENTS=fallback-on-exec-error enabled
+SISO_EXPERIMENTS=ignore-missing-out-in-depfile enabled
+
+ninja: ignore missing out error in depfile 
+
+[100% 2/2] analyzing Android.bp files and generating ninja file at out/soong/build.lineage_gta3xlwifi.ninja
+ninja: 3m46.71s Build Succeeded: 1 steps - 0.00/s
+
+out/soong/release-config/release_config-lineage_gta3xlwifi-aosp_current.vars was modified, regenerating...
+Adding CUSTOM_LOCALES [ast_ES ckb_IQ ckb_IR gd_GB cy_GB fur_IT nn_NO] to PRODUCT_LOCALES [en_US en_US af_ZA am_ET ar_EG ar_XB as_IN az_AZ be_BY bg_BG bn_BD bs_BA ca_ES cs_CZ da_DK de_DE el_GR en_AU en_CA en_GB en_IN en_XA es_ES es_US et_EE eu_ES fa_IR fi_FI fr_CA fr_FR gl_ES gu_IN hi_IN hr_HR hu_HU hy_AM in_ID is_IS it_IT iw_IL ja_JP ka_GE kk_KZ km_KH kn_IN ko_KR ky_KG lo_LA lt_LT lv_LV mk_MK ml_IN mn_MN mr_IN ms_MY my_MM nb_NO ne_NP nl_NL or_IN pa_IN pl_PL pt_BR pt_PT ro_RO ru_RU si_LK sk_SK sl_SI sq_AL sr_Latn_RS sr_RS sv_SE sw_TZ ta_IN te_IN th_TH tl_PH tr_TR uk_UA ur_PK uz_UZ vi_VN zh_CN zh_HK zh_TW zu_ZA en_XC]
+out/soong/release-config/release_config-lineage_gta3xlwifi-aosp_current.vars was modified, regenerating...
+[100% 3/3] initializing Make module parser
+Adding CUSTOM_LOCALES [ast_ES ckb_IQ ckb_IR gd_GB cy_GB fur_IT nn_NO] to PRODUCT_LOCALES [en_US en_US af_ZA am_ET ar_EG ar_XB as_IN az_AZ be_BY bg_BG bn_BD bs_BA ca_ES cs_CZ da_DK de_DE el_GR en_AU en_CA en_GB en_IN en_XA es_ES es_US et_EE eu_ES fa_IR fi_FI fr_CA fr_FR gl_ES gu_IN hi_IN hr_HR hu_HU hy_AM in_ID is_IS it_IT iw_IL ja_JP ka_GE kk_KZ km_KH kn_IN ko_KR ky_KG lo_LA lt_LT lv_LV mk_MK ml_IN mn_MN mr_IN ms_MY my_MM nb_NO ne_NP nl_NL or_IN pa_IN pl_PL pt_BR pt_PT ro_RO ru_RU si_LK sk_SK sl_SI sq_AL sr_Latn_RS sr_RS sv_SE sw_TZ ta_IN te_IN th_TH tl_PH tr_TR uk_UA ur_PK uz_UZ vi_VN zh_CN zh_HK zh_TW zu_ZA en_XC]
+[ 33% 4/12] including out/soong/installs-lineage_gta3xlwifi.mk
+[ 41% 5/12] including out/soong/Android-lineage_gta3xlwifi.mk
+[ 50% 6/12] including build/make/target/board/android-info.mk
+[ 58% 7/12] including bootable/deprecated-ota/updater/Android.mk
+[ 66% 8/12] including hardware/broadcom/wlan/bcmdhd/Android.mk
+[ 75% 9/12] including hardware/qcom/Android.mk
+[ 83% 10/12] including hardware/synaptics/wlan/synadhd/Android.mk
+[ 91% 11/12] including kernel/samsung/gta3xlwifi/sound/soc/codecs/tas2562/Android.mk
+[100% 12/12] including out/soong/late-lineage_gta3xlwifi.mk
+[100% 13/13] finishing Make module rules
+[100% 14/14] finishing Make module rules: Adding module dependencies
+[100% 15/15] finishing Make packaging rules
+[ 44% 16/36] including build/make/core/tasks/art.mk
+[ 47% 17/36] including build/make/core/tasks/build_custom_images.mk
+[ 50% 18/36] including build/make/core/tasks/dex_preopt_check.mk
+[ 52% 19/36] including build/make/core/tasks/find-shareduid-violation.mk
+[ 55% 20/36] including build/make/core/tasks/fontchain_lint.mk
+[ 58% 21/36] including build/make/core/tasks/host_init_verifier.mk
+[ 61% 22/36] including build/make/core/tasks/meta-lic.mk
+[ 63% 23/36] including build/make/core/tasks/module-info.mk
+[ 66% 24/36] including build/make/core/tasks/oem_image.mk
+[ 69% 25/36] including build/make/core/tasks/offline-sdk-docs.mk
+[ 72% 26/36] including build/make/core/tasks/platform_availability_check.mk
+[ 75% 27/36] including build/make/core/tasks/sdv.mk
+[ 77% 28/36] including build/make/core/tasks/vendor_module_check.mk
+[ 80% 29/36] including build/make/core/tasks/with-license.mk
+[ 83% 30/36] including vendor/lineage/build/tasks/bacon.mk
+[ 86% 31/36] including vendor/lineage/build/tasks/build-manifest_xml.mk
+[ 88% 32/36] including vendor/lineage/build/tasks/dt_image.mk
+[ 91% 33/36] including vendor/lineage/build/tasks/generate_lineage_sdk_coverage.mk
+[ 94% 34/36] including vendor/lineage/build/tasks/kernel.mk
+vendor/lineage/build/tasks/kernel.mk:234: warning: **********************************************************
+vendor/lineage/build/tasks/kernel.mk:235: warning: * Kernel source found and configuration was defined,     *
+vendor/lineage/build/tasks/kernel.mk:236: warning: * but prebuilt kernel is being forced.                   *
+vendor/lineage/build/tasks/kernel.mk:237: warning: * While this is likely intentional,                      *
+vendor/lineage/build/tasks/kernel.mk:238: warning: * it is NOT SUPPORTED WHATSOEVER.                        *
+vendor/lineage/build/tasks/kernel.mk:239: warning: * Generated kernel headers may not align with            *
+vendor/lineage/build/tasks/kernel.mk:240: warning: * the ABI of kernel you're including.                    *
+vendor/lineage/build/tasks/kernel.mk:241: warning: * Please unset TARGET_FORCE_PREBUILT_KERNEL              *
+vendor/lineage/build/tasks/kernel.mk:242: warning: * to build the kernel from source.                       *
+vendor/lineage/build/tasks/kernel.mk:243: warning: **********************************************************
+[ 97% 35/36] including device/generic/goldfish/build/tasks/combine_initramfs.mk
+[100% 36/36] finishing Make packaging rules
+[100% 37/37] finishing Make packaging rules: Adding phony targets
+[100% 38/38] finishing Make packaging rules: Checking licensing and SBOM
+[100% 39/39] writing make module actions
+No need to regenerate ninja file
+Starting ninja...
+ninja: 
+ninja: SISO_EXPERIMENTS=allow-unexpected-rsp-remove enabled
+SISO_EXPERIMENTS=ignore-missing-out-in-depfile enabled
+SISO_EXPERIMENTS=oom-score-adj enabled
+
+ninja: ignore missing out error in depfile 
+
+[  0% 40/7323] //packages/modules/Connectivity/staticlibs/native/bpfmapjni:libnet_utils_device_common_bpfjni clang++ com_android_net_module_util_Bpf.cpp[apex31]
+[  6% 41/619] //packages/modules/Connectivity/staticlibs/native/tcutils:libtcutils clang++ tcutils.cpp[apex31]
+[  6% 42/619] //packages/modules/Connectivity/staticlibs/native/tcutils:libtcutils clang++ tcutils.cpp[apex31]
+[  6% 43/619] //packages/modules/Connectivity/staticlibs/native/bpfmapjni:libnet_utils_device_common_bpfjni clang++ com_android_net_module_util_Bpf.cpp[apex31]
+[  7% 44/619] //packages/modules/UprobeStats/daemon/ffi/bpf:libuprobestats_bpf_cc clang++ bpf.cpp[apex36]
+[  7% 45/619] //packages/modules/Connectivity/service-t/native/libs/libnetworkstats:libnetworkstats clang++ Gta3xlwifiLegacyStats.cpp[apex31]
+[  7% 46/619] //frameworks/native/libs/cputimeinstate:libtimeinstate clang++ cputimeinstate.cpp
+[  7% 47/619] //packages/modules/Connectivity/service-t/native/libs/libnetworkstats:libnetworkstats clang++ BpfNetworkStats.cpp[apex31]
+[  7% 48/619] //packages/modules/Connectivity/staticlibs/native/serviceconnectivityjni:libserviceconnectivityjni clang++ com_android_net_module_util_ServiceConnectivityJni.cpp[apex31]
+[  7% 49/619] //frameworks/native/libs/cputimeinstate:libtimeinstate clang++ cputimeinstate.cpp[arm]
+[  8% 50/619] //system/memory/libmeminfo:libmeminfo clang++ sysmeminfo.cpp
+[  8% 51/619] //packages/modules/Connectivity/staticlibs/native/bpfmapjni:libnet_utils_device_common_bpfjni static link libnet_utils_device_common_bpfjni.a[apex31]
+[  8% 52/619] //packages/modules/Connectivity/bpf/dns_helper:libdns_helper clang++ DnsHelper.cpp[apex31]
+[  8% 53/619] //packages/modules/Connectivity/service-t/native/libs/libnetworkstats:libnetworkstats clang++ NetworkTracePoller.cpp[apex31]
+[  8% 54/619] //packages/modules/Connectivity/service-t/native/libs/libnetworkstats:libnetworkstats clang++ NetworkTraceHandler.cpp[apex31]
+[  8% 55/619] //system/memory/libmeminfo:libmeminfo clang++ sysmeminfo.cpp[arm]
+[  9% 56/619] //packages/modules/Connectivity/service/native/libs/libeventpolling:libeventpolling clang++ LocalNetEventHandler.cpp[apex31]
+[  9% 57/619] //packages/modules/Connectivity/framework:libframework-connectivity-jni clang++ jni/android_net_NetworkUtils.cpp[apex31]
+[  9% 58/619] //packages/modules/Connectivity/service/native/libs/libeventpolling:libeventpolling clang++ LoopbackEventHandler.cpp[apex31]
+[  9% 59/619] //packages/modules/Connectivity/bpf/dns_helper:libdns_helper clang++ DnsBpfHelper.cpp[apex31]
+[  9% 60/619] //system/bpf/loader:libbpf_android clang++ Loader.cpp
+[  9% 61/619] //packages/modules/Connectivity/framework:libframework-connectivity-jni clang++ jni/android_net_NetworkUtils.cpp[arm apex31]
+[ 10% 62/619] //packages/modules/Connectivity/bpf/dns_helper:libdns_helper static link libdns_helper.a[apex31]
+[ 10% 63/619] //packages/modules/Connectivity/service:libservice-connectivity clang++ jni/com_android_server_net_NetworkStatsService.cpp[apex31]
+[ 10% 64/619] //packages/modules/Connectivity/service:libservice-connectivity clang++ jni/com_android_server_connectivity_BpfEventPoller.cpp[apex31]
+[ 10% 65/619] //frameworks/native/libs/cputimeinstate:libtimeinstate link libtimeinstate.so[arm]
+[ 10% 66/619] //system/memory/libmeminfo:libmeminfo link libmeminfo.so[arm]
+[ 10% 67/619] //packages/modules/Connectivity/bpf/netd:libnetd_updatable clang++ BpfHandler.cpp[apex31]
+[ 10% 68/619] //packages/modules/DnsResolver:libnetd_resolv clang++ DnsProxy.cpp[apex31]
+[ 11% 69/619] //packages/modules/UprobeStats/daemon/ffi/bpf:libuprobestats_bpf_cc link libuprobestats_bpf_cc.so[apex36]
+[ 11% 70/619] //packages/modules/Connectivity/service/native/libs/libeventpolling:libeventpolling static link libeventpolling.a[apex31]
+[ 11% 71/619] //system/bpf/loader:libbpf_android link libbpf_android.so
+[ 11% 72/619] //frameworks/native/libs/cputimeinstate:libtimeinstate link libtimeinstate.so
+[ 11% 73/619] //packages/modules/Connectivity/staticlibs/native/serviceconnectivityjni:libserviceconnectivityjni static link libserviceconnectivityjni.a[apex31]
+[ 11% 74/619] //system/memory/libmeminfo:libmeminfo strip libmeminfo.so[arm]
+[ 12% 75/619] //frameworks/native/libs/cputimeinstate:libtimeinstate strip libtimeinstate.so[arm]
+[ 12% 76/619] //packages/modules/Connectivity/staticlibs/native/bpfmapjni:libnet_utils_device_common_bpfjni static link libnet_utils_device_common_bpfjni.a[apex31]
+[ 12% 77/619] //system/memory/libmeminfo:libmeminfo copy libmeminfo.so[arm]
+[ 12% 78/619] //packages/modules/UprobeStats/daemon/ffi/bpf:libuprobestats_bpf_cc strip libuprobestats_bpf_cc.so[apex36]
+[ 12% 79/619] //packages/modules/Connectivity/bpf/netd:libnetd_updatable clang++ NetdUpdatable.cpp[apex31]
+[ 12% 80/619] //frameworks/native/libs/cputimeinstate:libtimeinstate copy libtimeinstate.so[arm]
+[ 13% 81/619] //packages/modules/Connectivity/Tethering:libcom_android_networkstack_tethering_util_jni link libcom_android_networkstack_tethering_util_jni.so[apex31]
+[ 13% 82/619] //packages/modules/UprobeStats/daemon/ffi/bpf:libuprobestats_bpf_cc copy libuprobestats_bpf_cc.so[apex36]
+[ 13% 83/619] //frameworks/native/libs/cputimeinstate:libtimeinstate strip libtimeinstate.so
+[ 13% 84/619] //system/memory/libmeminfo:libmeminfo link libmeminfo.so
+[ 13% 85/619] //packages/modules/Connectivity/Tethering:libcom_android_networkstack_tethering_util_jni strip libcom_android_networkstack_tethering_util_jni.so[apex31]
+[ 13% 86/619] //packages/modules/Connectivity/service:libservice-connectivity clang++ jni/com_android_server_connectivity_LocalNetEventListener.cpp[apex31]
+[ 14% 87/619] //packages/modules/Connectivity/Tethering:libcom_android_networkstack_tethering_util_jni copy libcom_android_networkstack_tethering_util_jni.so[apex31]
+[ 14% 88/619] //packages/modules/Connectivity/service:libservice-connectivity clang++ jni/com_android_server_connectivity_ClatCoordinator.cpp[apex31]
+[ 14% 89/619] //frameworks/native/libs/cputimeinstate:libtimeinstate copy libtimeinstate.so
+[ 14% 90/619] //packages/modules/Connectivity/service:libandroid_net_connectivity_com_android_net_module_util_jni link libandroid_net_connectivity_com_android_net_module_util_jni.so[apex31]
+[ 14% 91/619] //packages/modules/Connectivity/framework:libframework-connectivity-jni link libframework-connectivity-jni.so[apex31]
+[ 14% 92/619] //system/memory/libmeminfo:libmeminfo strip libmeminfo.so
+[ 15% 93/619] //frameworks/native/libs/cputimeinstate:libtimeinstate generate toc libtimeinstate.so[arm]
+[ 15% 94/619] //system/memory/libmeminfo:libmeminfo copy libmeminfo.so
+[ 15% 95/615] //system/memory/libmeminfo:libmeminfo generate toc libmeminfo.so[arm]
+[ 15% 96/615] //packages/modules/UprobeStats/daemon/ffi/bpf:libuprobestats_bpf_cc generate toc libuprobestats_bpf_cc.so[apex36]
+[ 15% 97/615] //frameworks/native/libs/cputimeinstate:libtimeinstate generate toc libtimeinstate.so
+[ 18% 98/537] //packages/modules/Connectivity/bpf/netd:libnetd_updatable link libnetd_updatable.so[apex31]
+[ 18% 99/534] //packages/modules/Connectivity/framework:libframework-connectivity-jni link libframework-connectivity-jni.so[arm apex31]
+[ 18% 100/534] //system/memory/libmeminfo:libmeminfo generate toc libmeminfo.so
+[ 18% 101/534] //packages/modules/Connectivity/Tethering:TetheringNext zip jni libs[common apex31]
+[ 27% 102/372] //system/bpf/loader:libbpf_android strip libbpf_android.so
+[ 27% 103/372] //packages/modules/Connectivity/bpf/netd:libnetd_updatable strip libnetd_updatable.so[apex31]
+[ 27% 104/372] //packages/modules/Connectivity/framework:libframework-connectivity-jni strip libframework-connectivity-jni.so[arm apex31]
+[ 28% 105/372] //system/bpf/loader:libbpf_android copy libbpf_android.so
+[ 28% 106/371] out/host/linux-x86/bin/merge_zips out/soong/.intermediates/packages/modules/Connectivity/Tethering/TetheringNext/android_common_apex31/TetheringNext-unsigned.apk out/soong/.intermediates/packages/modules/Connectivity/Tethering/TetheringNext/android_common_apex31/aligned/TetheringNext.jar out/soong/.intermediates/packages/modules/Connectivity/Tethering/TetheringNext/android_common_apex31/package-res.apk out/soong/.intermediates/packages/modules/Connectivity/Tethering/TetheringNext/android_common_apex31/jnilibs.zip
+[ 28% 107/371] //packages/modules/Connectivity/service:libservice-connectivity clang++ jni/com_android_server_net_NetworkStatsFactory.cpp[apex31]
+[ 29% 108/371] //system/bpf/loader:libbpf_android generate toc libbpf_android.so
+[ 29% 109/371] //packages/modules/Connectivity/framework:libframework-connectivity-jni strip libframework-connectivity-jni.so[apex31]
+[ 29% 110/371] Install: out/target/product/gta3xlwifi/system/lib/libmeminfo.so
+[ 29% 111/371] Install: out/target/product/gta3xlwifi/system/lib/libtimeinstate.so
+[ 30% 112/371] //packages/modules/Connectivity/service:libandroid_net_connectivity_com_android_net_module_util_jni strip libandroid_net_connectivity_com_android_net_module_util_jni.so[apex31]
+[ 32% 113/347] //packages/modules/Connectivity/framework:libframework-connectivity-jni copy libframework-connectivity-jni.so[apex31]
+[ 32% 114/347] //packages/modules/Connectivity/framework:libframework-connectivity-jni copy libframework-connectivity-jni.so[arm apex31]
+[ 33% 115/347] //packages/modules/Connectivity/service:libandroid_net_connectivity_com_android_net_module_util_jni copy libandroid_net_connectivity_com_android_net_module_util_jni.so[apex31]
+[ 33% 116/347] //packages/modules/Connectivity/bpf/loader:netbpfload clang++ NetBpfLoad.cpp[apex31]
+FAILED: out/soong/.intermediates/packages/modules/Connectivity/bpf/loader/netbpfload/android_arm64_armv8-a_apex31/obj/packages/modules/Connectivity/bpf/loader/NetBpfLoad.o
+PWD=/proc/self/cwd /usr/bin/ccache prebuilts/clang/host/linux-x86/clang-r596125/bin/clang++ -c -nostdlibinc -D__ANDROID_APEX__  -Werror=implicit-function-declaration -fstack-clash-protection -D__BIONIC_DEPRECATED_PAGE_SIZE_MACRO -O2 -Wall -Wextra -Wpointer-arith -Wunguarded-availability -Werror=bool-operation -Werror=date-time -Werror=format-security -Werror=int-conversion -Werror=multichar -Werror=pragma-pack -Werror=pragma-pack-suspicious-include -Werror=sizeof-array-div -Werror=sizeof-pointer-memaccess -Werror=string-plus-int -Werror=unreachable-code-loop-increment -Wno-error=deprecated-declarations -Wno-c23-extensions -Wno-c99-designator -Wno-gnu-folding-constant -Wno-inconsistent-missing-override -Wno-error=reorder-init-list -Wno-reorder-init-list -Wno-sign-compare -Wno-unused -DANDROID -DNDEBUG -UDEBUG -D__compiler_offsetof=__builtin_offsetof -D__ANDROID_UNAVAILABLE_SYMBOLS_ARE_WEAK__ -faddrsig -fdebug-default-version=5 -fcolor-diagnostics -ffp-contract=off -fno-exceptions -fno-strict-aliasing -fmessage-length=0 -gsimple-template-names -gz=zstd -no-canonical-prefixes -fdebug-prefix-map=/proc/self/cwd= -ftrivial-auto-var-init=zero -Wno-unused-command-line-argument -g -ffunction-sections -fdata-sections -fno-short-enums -funwind-tables -Wa,--noexecstack -D_FORTIFY_SOURCE=3 -fstack-protector-strong -Werror=non-virtual-dtor -Werror=address -Werror=sequence-point -march=armv8-a  -fstack-protector-strong -mbranch-protection=standard -target aarch64-linux-android31 -DANDROID_STRICT -fPIE -Wimplicit-fallthrough -D_LIBCPP_ENABLE_THREAD_SAFETY_ANNOTATIONS -Wno-gnu-include-next -fvisibility-inlines-hidden  -Ipackages/modules/Connectivity/bpf/loader -D__LIBLOG_API__=10000 -D__LIBC_API__=10000 -D__LIBM_API__=10000 -D__LIBDL_API__=10000 -Ipackages/modules/Connectivity/bpf/headers/include -Ipackages/modules/Connectivity/bpf/syscall_wrappers/include -Ipackages/modules/Connectivity/bpf/progs/include -Iout/soong/.intermediates/packages/modules/Connectivity/common/libtetheringflags/android_arm64_armv8-a_static_apex31/gen/include -Isystem/libbase/include -Iexternal/fmtlib/include -Isystem/logging/liblog/include -Iexternal/libbpf/include/uapi -Iout/soong/.intermediates/external/libbpf/libbpf_headers/gen -Iprebuilts/clang/host/linux-x86/clang-r596125/android_libc++/platform/aarch64/include/c++/v1 -Iprebuilts/clang/host/linux-x86/clang-r596125/include/c++/v1 -Ibionic/libc/async_safe/include -Ibionic/libc/system_properties/include -Isystem/core/property_service/libpropertyinfoparser/include -isystem bionic/libc/include -isystem bionic/libc/kernel/uapi/asm-arm64 -isystem bionic/libc/kernel/uapi -isystem bionic/libc/kernel/android/scsi -isystem bionic/libc/kernel/android/uapi -Wall -Werror -Werror=conditional-uninitialized -Werror=implicit-fallthrough -Werror=sometimes-uninitialized -Wextra -Wnullable-to-nonnull-conversion -Wshadow -Wsign-compare -Wtautological-unsigned-zero-compare -Wthread-safety -Wuninitialized -Wunused-parameter -Wformat -Wformat-signedness -fsanitize-ignorelist=build/soong/cc/config/integer_overflow_blocklist.txt -fsanitize=unsigned-integer-overflow,signed-integer-overflow -fsanitize-trap=all -fsanitize-minimal-runtime -fno-sanitize-trap=integer,undefined -fno-sanitize-recover=integer,undefined -fno-sanitize=implicit-integer-sign-change -fno-sanitize=unsigned-shift-base -flto=thin -fsplit-lto-unit -std=gnu++20 -fno-rtti -Isystem/core/include -Isystem/logging/liblog/include -Isystem/media/audio/include -Ihardware/libhardware/include -Ihardware/libhardware_legacy/include -Ihardware/ril/include -Iframeworks/native/include -Iframeworks/native/opengl/include -Iframeworks/av/include  -Werror=address-of-temporary -Werror=dangling -Werror=format-insufficient-args -Werror=fortify-source -Werror=incompatible-function-pointer-types -Werror=int-in-bool-context -Werror=int-to-pointer-cast -Werror=null-dereference -Werror=return-type -Werror=xor-used-as-pow -Wno-missing-field-initializers -Wno-packed-non-pod -Wno-error=tautological-constant-compare -Wno-implicit-int-float-conversion -Wno-tautological-overlap-compare -Wno-deprecated-copy -Wno-zero-as-null-pointer-constant -Wno-deprecated-anon-enum-enum-conversion -Wno-deprecated-enum-enum-conversion -Wno-error=pessimizing-move -Wno-non-c-typedef-for-linkage -Wno-align-mismatch -Wno-error=unused-but-set-parameter -Wno-error=deprecated -Wno-error=invalid-offsetof -Wno-nontrivial-memcall -Wno-invalid-specialization -Wno-unterminated-string-initialization -Wno-implicit-int-conversion-on-negation -Wno-default-const-init-field-unsafe -Wno-default-const-init-var-unsafe -Wno-preferred-type-bitfield-enum-conversion -Wno-implicit-enum-enum-cast -Wno-character-conversion -Wno-error=uninitialized-const-pointer -Wno-incompatible-pointer-types -Wno-c2y-extensions -Wno-vla-cxx-extension -Wno-cast-function-type-mismatch  -MD -MF out/soong/.intermediates/packages/modules/Connectivity/bpf/loader/netbpfload/android_arm64_armv8-a_apex31/obj/packages/modules/Connectivity/bpf/loader/NetBpfLoad.o.d -o out/soong/.intermediates/packages/modules/Connectivity/bpf/loader/netbpfload/android_arm64_armv8-a_apex31/obj/packages/modules/Connectivity/bpf/loader/NetBpfLoad.o packages/modules/Connectivity/bpf/loader/NetBpfLoad.cpp
+stderr:
+In file included from packages/modules/Connectivity/bpf/loader/NetBpfLoad.cpp:66:
+In file included from packages/modules/Connectivity/bpf/headers/include/bpf/BpfUtils.h:33:
+packages/modules/Connectivity/bpf/headers/include/bpf/KernelUtils.h:92:49: error: result of comparison of unsigned expression >= 0 is always true [-Werror,-Wtautological-unsigned-zero-compare]
+   92 |     if (k <= minSupportedKernelVer && kernelVer >= minSupportedKernelVer) return true;
+      |                                       ~~~~~~~~~ ^  ~~~~~~~~~~~~~~~~~~~~~
+1 error generated.
+FAILED: ninja: 
+5m43.07s Build Failure: 77 done, 1 failed, 231 remaining - 0.22/s
+ 1 steps failed: exit=1
+
+warning: ninja: see ./out/siso_output for full command line and output
+ or ./out/siso.INFO
+use ./out/siso_failed_commands.sh to re-run failed commands
+
+16:32:50 ninja failed with: exit status 1
+
+#### failed to build some targets (14:39 (mm:ss)) ####
+
+PASS: 1243 locked projects, 21 exact reviewed patches; no external alternates

@@ -4,6 +4,23 @@ Active development target: LineageOS 24.0 / Android 17, ARM64 with ARM32 apps,
 `gta3xlwifi`, physical non-A/B partitions. This is an unfinished source-built
 device port. The first physical test installation has completed; its first Android17 boot failed and is being repaired.
 
+**Latest status (November16, supersedes historical notices below):** snapshot07
+installed successfully and reached actual file-encryption initialization (EXIT0),
+but normal boot fails when LMKD reads absent platform API version metadata.
+Snapshot08 adds genuine upstream version-comment data without a loader service
+or readiness actions, and removes false kernel capability assumptions on Linux4.4.
+Its full build exposed an APEX zero-minimum compiler warning treated as an error.
+The complete after-audit passed; that failed build was never installed.
+
+Snapshot09 simplifies the predicate to the actual cached kernel version comparison
+in every compilation mode. The full production-Clang header regression reproduces
+the snapshot08 APEX failure and passes both modes with the fix. The unchanged
+metadata parser still aborts on missing/malformed metadata or invalid SDK values.
+Full source selection audits and a replacement product build are being prepared.
+The tablet is in preserved TWRP. There is no successful normal Android17 boot,
+network or complete user-encryption validation yet. Enforcement, assertions,
+real capability checks and all installation guards remain required.
+
 **Current candidate invalidation and replacement (November16):** the previous
 OTA `aa681b3199d1072948e6cc9c835019513c34c96545fd414639dc4366fe4cbc58`
 must not be installed. Its static installer actually aborted in the preserved

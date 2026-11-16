@@ -1,0 +1,23 @@
+{
+  "scope": "Select an explicitly hash-verified source composition and capture a new exact snapshot.\n\nUse actual kernel comparisons in all platform/APEX compilation modes.\nNo SELinux policy, vendor image or kernel input is modified; no BPF readiness is set.\nNo vendor image, kernel, signing material or user data is changed.\nBackups and the complete parent snapshot remain available for source rollback.\n",
+  "parent": "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/snapshots/port-20261116-08",
+  "files": {
+    "packages/modules/Connectivity/bpf/headers/include/bpf/KernelUtils.h": {
+      "project": "packages/modules/Connectivity",
+      "path": "bpf/headers/include/bpf/KernelUtils.h",
+      "before_sha256": "9c8f75941a9f8eb6d54a8d24ba31eae15e62157a943becc2cb9e0d8175551b3f",
+      "after_sha256": "0a285881ce2bdfcd937682ccd1677fc1826028ce3fc5a113a4e01e5798314b02"
+    }
+  },
+  "proof_reports_sha256": {
+    "/srv/android/artifacts/lineage-24.0-arm64/bpf-kernel-actual-host-20261116-01/report.json": "034f7d9a89053c822db3890aad372c40906957bcb11a423dbf85f6042daa1217"
+  },
+  "prebuilts": {
+    "Image": "7ece8d6fd70870811abfe5fd9f947311506f97233491b4016cde441de3578aec",
+    "vendor.img": "2b40b8c71ce02b432ae25c9664f8460ebefc5c0955226b2fdb74ed16c2d11353",
+    "dtbo.img": "b9041c37713a745290d9a0203423436b6caa7a1307ced79b6963b4f1f0271c4b"
+  },
+  "policy_source_changed": false,
+  "vendor_and_kernel_selection_changed": false,
+  "flash_ready": false
+}

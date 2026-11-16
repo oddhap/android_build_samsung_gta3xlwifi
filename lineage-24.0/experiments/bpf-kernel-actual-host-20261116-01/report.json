@@ -1,0 +1,144 @@
+{
+  "passed": true,
+  "scope": "Exercise actual platform metadata parser and kernel predicate with explicit host property/version fixtures.\n\nNo BPF syscall, loader, property-area mutation or device operation is performed.\nThe installed candidate is only genuine upstream version-comment data. Missing or\nmalformed metadata must still abort; capability tests must not invent support.\n",
+  "metadata_tests": [
+    {
+      "mode": "rel",
+      "both_original_and_comments_only_result": "3700"
+    },
+    {
+      "mode": "dev",
+      "both_original_and_comments_only_result": "3701"
+    },
+    {
+      "mode": "pre36",
+      "both_original_and_comments_only_result": "3500"
+    },
+    {
+      "mode": "missing",
+      "expected_SIGABRT": true
+    },
+    {
+      "mode": "invalid-sdk",
+      "expected_SIGABRT": true
+    },
+    {
+      "mode": "malformed",
+      "expected_SIGABRT": true
+    }
+  ],
+  "parser_source_sha256": "b4238050b865463cf194fcb8ae6fe606e2c1c5808dd53786f4d27e4e36c3ed80",
+  "parser_actual_function_sha256": "c4e84a405fc96686a770de825913f15817171cd1225451b5576dd32999d404e1",
+  "metadata_first_line_identical_to_upstream": true,
+  "metadata_comments_only": true,
+  "BPF_readiness_not_set": true,
+  "kernel_tests": {
+    "baseline": {
+      "checks_passed": 31290,
+      "kernel4_4_claims_ring_buffer5_8": false,
+      "actual_function_sha256": "78b332d77e6d5002ad353e00b65ad6079d73f8819233848165de30babc6cab7d"
+    },
+    "files": {
+      "checks_passed": 55125,
+      "kernel4_4_claims_ring_buffer5_8": false,
+      "actual_function_sha256": "c87e2e3fdb4a505b34c39436b805f6fb198739783114fa71e3cdcd16317a2210"
+    }
+  },
+  "full_header_tests": [
+    {
+      "kind": "baseline",
+      "variant": "platform",
+      "command": [
+        "/srv/android/src/lineage-24.0-arm64/prebuilts/clang/host/linux-x86/clang-r596125/bin/clang++",
+        "-std=gnu++20",
+        "-O2",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-Wtautological-unsigned-zero-compare",
+        "-D__ANDROID_API__=10000",
+        "-I/srv/android/artifacts/lineage-24.0-arm64/bpf-kernel-actual-host-20261116-01/include",
+        "/srv/android/artifacts/lineage-24.0-arm64/bpf-kernel-actual-host-20261116-01/baseline-platform.cpp",
+        "-o",
+        "/srv/android/artifacts/lineage-24.0-arm64/bpf-kernel-actual-host-20261116-01/baseline-platform"
+      ],
+      "exit": 0,
+      "expected_failure": false,
+      "stderr": ""
+    },
+    {
+      "kind": "baseline",
+      "variant": "apex",
+      "command": [
+        "/srv/android/src/lineage-24.0-arm64/prebuilts/clang/host/linux-x86/clang-r596125/bin/clang++",
+        "-D__ANDROID_APEX__",
+        "-std=gnu++20",
+        "-O2",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-Wtautological-unsigned-zero-compare",
+        "-D__ANDROID_API__=10000",
+        "-I/srv/android/artifacts/lineage-24.0-arm64/bpf-kernel-actual-host-20261116-01/include",
+        "/srv/android/artifacts/lineage-24.0-arm64/bpf-kernel-actual-host-20261116-01/baseline-apex.cpp",
+        "-o",
+        "/srv/android/artifacts/lineage-24.0-arm64/bpf-kernel-actual-host-20261116-01/baseline-apex"
+      ],
+      "exit": 1,
+      "expected_failure": true,
+      "stderr": "In file included from /srv/android/artifacts/lineage-24.0-arm64/bpf-kernel-actual-host-20261116-01/baseline-apex.cpp:1:\n/srv/android/ports/lineage-24.0-arm64/bpf-kernel-actual24-20261116-01/baseline/packages/modules/Connectivity/bpf/headers/include/bpf/KernelUtils.h:92:49: error: result of comparison of unsigned expression >= 0 is always true [-Werror,-Wtautological-unsigned-zero-compare]\n   92 |     if (k <= minSupportedKernelVer && kernelVer >= minSupportedKernelVer) return true;\n      |                                       ~~~~~~~~~ ^  ~~~~~~~~~~~~~~~~~~~~~\n1 error generated.\n"
+    },
+    {
+      "kind": "files",
+      "variant": "platform",
+      "command": [
+        "/srv/android/src/lineage-24.0-arm64/prebuilts/clang/host/linux-x86/clang-r596125/bin/clang++",
+        "-std=gnu++20",
+        "-O2",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-Wtautological-unsigned-zero-compare",
+        "-D__ANDROID_API__=10000",
+        "-I/srv/android/artifacts/lineage-24.0-arm64/bpf-kernel-actual-host-20261116-01/include",
+        "/srv/android/artifacts/lineage-24.0-arm64/bpf-kernel-actual-host-20261116-01/files-platform.cpp",
+        "-o",
+        "/srv/android/artifacts/lineage-24.0-arm64/bpf-kernel-actual-host-20261116-01/files-platform"
+      ],
+      "exit": 0,
+      "expected_failure": false,
+      "stderr": ""
+    },
+    {
+      "kind": "files",
+      "variant": "apex",
+      "command": [
+        "/srv/android/src/lineage-24.0-arm64/prebuilts/clang/host/linux-x86/clang-r596125/bin/clang++",
+        "-D__ANDROID_APEX__",
+        "-std=gnu++20",
+        "-O2",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-Wtautological-unsigned-zero-compare",
+        "-D__ANDROID_API__=10000",
+        "-I/srv/android/artifacts/lineage-24.0-arm64/bpf-kernel-actual-host-20261116-01/include",
+        "/srv/android/artifacts/lineage-24.0-arm64/bpf-kernel-actual-host-20261116-01/files-apex.cpp",
+        "-o",
+        "/srv/android/artifacts/lineage-24.0-arm64/bpf-kernel-actual-host-20261116-01/files-apex"
+      ],
+      "exit": 0,
+      "expected_failure": false,
+      "stderr": ""
+    }
+  ],
+  "APEX_zero_minimum_compile_regression_proven": true,
+  "source_sha256": {
+    "packages/modules/Connectivity/bpf/headers/include/bpf/KernelUtils.h": "0a285881ce2bdfcd937682ccd1677fc1826028ce3fc5a113a4e01e5798314b02",
+    "device/samsung/gta3xlwifi/device.mk": "32d8eb35aca496a6ae4893fbf9cd5e18b920e80807ea8e56e620e16a0fb2cacf",
+    "device/samsung/gta3xlwifi/configs/netbpfload-version.rc": "f4c1474bb171c4cbd4780878d48ab4111184f036e162873d38c55422e59957ee"
+  },
+  "upstream_metadata_source_sha256": "14c576d0d33894504202743e0a1ea28d16f964a72c6ac1924f78ef371736b05d",
+  "actual_Android_LMKD_execution_proven": false,
+  "flash_ready": false
+}
