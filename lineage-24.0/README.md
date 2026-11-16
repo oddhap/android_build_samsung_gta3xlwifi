@@ -16,8 +16,11 @@ Snapshot09 simplifies the predicate to the actual cached kernel version comparis
 in every compilation mode. The full production-Clang header regression reproduces
 the snapshot08 APEX failure and passes both modes with the fix. The unchanged
 metadata parser still aborts on missing/malformed metadata or invalid SDK values.
-Full source selection audits and a replacement product build are being prepared.
-The tablet is in preserved TWRP. There is no successful normal Android17 boot,
+Full source selection audits, the complete product build, all target-file checks,
+39 factory-APEX VINTF checks, signed OTA integrity and all block streams pass.
+Snapshot09 installed with updaterRC0 and all seven critical file readbacks,
+boot/vendor hashes and preserved recovery verified. Userdata was retained.
+The owner reports Samsung logo followed by reboot; fresh crash logs are pending. There is no successful normal Android17 boot,
 network or complete user-encryption validation yet. Enforcement, assertions,
 real capability checks and all installation guards remain required.
 

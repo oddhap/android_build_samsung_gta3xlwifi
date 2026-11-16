@@ -1,0 +1,123 @@
+{
+  "scope": "Diagnostic package geometry, input identity and selected ELF checks only",
+  "archive": "/srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files.zip",
+  "archive_sha256": "f73b4b5f97351ccb8db45d5d0a9664b96942bfd6f84d80edfafae3ee8793221b",
+  "source_after_audit_sha256": "1707f21ad893bba19103973822269ac12c3d42efd3627d66794d5a32eb6b46c0",
+  "images": {
+    "boot.img": {
+      "bytes": 25503760,
+      "expanded_bytes": 25503760,
+      "sha256": "6027da30a0696db4c946c9984e39491b7ee30d61b83577ccd001b58db0f3d13f",
+      "sparse": false,
+      "kernel_sha256": "7ece8d6fd70870811abfe5fd9f947311506f97233491b4016cde441de3578aec",
+      "os_version_word": 570425770
+    },
+    "recovery.img": {
+      "bytes": 39800848,
+      "expanded_bytes": 39800848,
+      "sha256": "4107ac89bc2ba6ba87d6a26426e39ff62ebf4595b40378383909c3429e4cc574",
+      "sparse": false,
+      "kernel_sha256": "7ece8d6fd70870811abfe5fd9f947311506f97233491b4016cde441de3578aec",
+      "os_version_word": 570425770
+    },
+    "system.img": {
+      "bytes": 1874588252,
+      "expanded_bytes": 3196059648,
+      "sha256": "781af825603b500a488ab503950007ab85b46eb375a75f5900dc8f1e1bd0efd7",
+      "sparse": true
+    },
+    "vendor.img": {
+      "bytes": 266144536,
+      "expanded_bytes": 343932928,
+      "sha256": "2b40b8c71ce02b432ae25c9664f8460ebefc5c0955226b2fdb74ed16c2d11353",
+      "sparse": true
+    },
+    "product.img": {
+      "bytes": 184467592,
+      "expanded_bytes": 327155712,
+      "sha256": "05d17b3aa3e10e1d99a6a1d21741ac049730b13713fc6cb17d4f2f204fdb0f0b",
+      "sparse": true
+    },
+    "cache.img": {
+      "bytes": 57444,
+      "expanded_bytes": 159383552,
+      "sha256": "706b1d26bc8150fdbe17c3c6305823a6baef0eb66bcd1cc31a2171bc0fc152a6",
+      "sparse": true
+    },
+    "dtbo.img": {
+      "bytes": 163252,
+      "expanded_bytes": 163252,
+      "sha256": "b9041c37713a745290d9a0203423436b6caa7a1307ced79b6963b4f1f0271c4b",
+      "sparse": false
+    }
+  },
+  "elfs": {
+    "SYSTEM/lib/libaudiohal@4.0.so": {
+      "bits": 32,
+      "sha256": "228e92e67960cd7e31a5efa0b80cd671ec96ded3cc43ed3de5b206e1b95065aa"
+    },
+    "SYSTEM/lib/libprocessgroup.so": {
+      "bits": 32,
+      "sha256": "3c14ed16129789dc159abe78c34144c752c11ac61a037e94d146eaaafb47c3ab"
+    },
+    "SYSTEM/lib/libmeminfo.so": {
+      "bits": 32,
+      "sha256": "c6130cf06c9837894644e2a58b7150ef444f640c573bf63bc17eb4632bcf131f"
+    },
+    "SYSTEM/lib/libfs_mgr.so": {
+      "bits": 32,
+      "sha256": "4b9975354358744569b531d49ad9e72d97a4120ac69eea227219b9114ef840e3"
+    },
+    "SYSTEM/lib64/libaudiohal@4.0.so": {
+      "bits": 64,
+      "sha256": "1b41b6fee0ea6cee28b458dd8efb6bc1c7bfb634362ebf4b16267c9cd0fd824c"
+    },
+    "SYSTEM/lib64/libprocessgroup.so": {
+      "bits": 64,
+      "sha256": "9ee5b315009c6916a933fe592cab79697055535f8740a83314a9c69dca77e982"
+    },
+    "SYSTEM/lib64/libmeminfo.so": {
+      "bits": 64,
+      "sha256": "7cfc80eda0ef0f60ecb31dc2d98219aa662ad144ae7b0666a3f9d833700955ba"
+    },
+    "SYSTEM/lib64/libfs_mgr.so": {
+      "bits": 64,
+      "sha256": "0e13aec42c707dfe6feddec2a1e8e761e7e2fb7711561f242e30879d9b7cad14"
+    }
+  },
+  "build_exit_file_sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+  "source_lock_sha256": "e6e015373f8f7a7e10c9d988cebbd48aeb7c8e2c955c005e33082217ce71b359",
+  "input_audits_sha256": {
+    "inputs-before.json": "58b3da243070d2d6d17251051e0ab1daa8745bcf27507eb20f1c6465b734d567",
+    "inputs-after.json": "58b3da243070d2d6d17251051e0ab1daa8745bcf27507eb20f1c6465b734d567"
+  },
+  "hardware_tested": false,
+  "flash_ready": false,
+  "installer_or_security_approved": false,
+  "observed_at_utc": "2026-11-16T16:58:05.406595+00:00",
+  "ota_layout": {
+    "physical_non_ab": true,
+    "allow_non_ab": true,
+    "dynamic_partitions": false,
+    "recovery_replacement_resources_absent": true,
+    "recovery_preservation_declared": true
+  },
+  "android_release": "17",
+  "security_patch": "2026-10-01",
+  "strict_policy_members": {
+    "SYSTEM/etc/selinux/plat_sepolicy.cil": "d6d1869cd2c9bf7c3c1f86f671177f01f23d76bb82daa1d5ee5a59e5d34b1084",
+    "SYSTEM/etc/selinux/mapping/30.0.cil": "61f3a8e8be06ce66629cc6f27083c9a45ad8c65877069fe176ca12f51d447c6e",
+    "SYSTEM/etc/selinux/mapping/30.0.compat.cil": "7b45f6b5fbf65c4e32b453f505b7d6bc3e65c9e8a0ca6bed1d007b7b6ad5ee21",
+    "SYSTEM/system_ext/etc/selinux/system_ext_sepolicy.cil": "a632c4270686412d2c38044e345ea102c144ee01f902cd87737b75a582cdc050",
+    "SYSTEM/system_ext/etc/selinux/mapping/30.0.cil": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "SYSTEM/system_ext/etc/selinux/mapping/30.0.compat.cil": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "PRODUCT/etc/selinux/product_sepolicy.cil": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+    "PRODUCT/etc/selinux/mapping/30.0.cil": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "runtime_input_selection_sha256": "e9ee2e055ece050a82fb784dc63d5d46909e8f05eaa872432f14f45aa13bbc15",
+  "strict_policy_report_sha256": "7e3f15b12c7a3d36d7c1e1618011ec8ba2fcd89e4dba0ec4b579105264a5474f",
+  "vendor_composition_report_sha256": "a3682df43b78626ea4603a560dc5e1168949f7a74281aa68854e479b6638ea97",
+  "selected_zip_entries_crc_checked": true,
+  "whole_archive_crc_checked": false,
+  "artifact_checks_passed": true
+}

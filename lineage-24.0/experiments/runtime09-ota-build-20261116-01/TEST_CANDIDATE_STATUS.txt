@@ -1,0 +1,1 @@
+GUARDED TEST CANDIDATE. Requires successful package checks and existing recognized recovery with exactly matching Android17 OS/SPL. Header matching is NOT FBE/runtime proof. Owner authorized this physical test; package verification must finish before installation.
