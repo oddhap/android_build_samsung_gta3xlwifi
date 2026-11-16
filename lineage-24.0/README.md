@@ -14,14 +14,16 @@ The initial 23.2 port patches compiled successfully on Android 17 in
 `native-policy-20261101-01` (exit 0, followed by full source audit). Selected
 ARM/ARM64 ELF outputs are recorded in the reports; this is build/link evidence.
 
-Active snapshot **port-20261115-01** locks 1,243 projects and **20 exact patches**.
-It selects109 individually verified network/permission/iptables/source/module
-inputs over preserved parent port-20261106-04. Actual Soong graph generation
-passes; actual native/APEX Java/permission module compilation completes exit0.
-Post-R8 DEX identities, actual min31 AIDL16 ordinals, all ten iptables registry
-entries and installed native ELF outputs pass verification. See network-composition
--build-20261115-01 and network-composition-outputs-20261115-02.
-Kernel/vendor/DTBO prebuilts, device HEAD and policy selection remain unchanged.
+Active snapshot **port-20261116-01** locks 1,243 projects and **21 exact patches**.
+It retains the successful networking composition from port-20261115-01 and adds
+explicit source policy tightening and device-specific network inode permissions.
+The fresh policy build and subsequent strict actual-vendor/context validation
+are in progress; this snapshot is not a flash approval. Kernel/vendor/DTBO
+prebuilts and device HEAD remain unchanged. See policy-source-selection-20261116-01.
+The previous network module build completed exit 0, including post-R8 Binder
+identities, min31 AIDL16 ordinals, ten actual iptables registry entries and
+installed native ELF outputs. See network-composition-build-20261115-01 and
+network-composition-outputs-20261115-02.
 It includes the device-scoped legacy v1 fscrypt keyring source integration;
 actual init/vold module compilation and multilib keyutils checks have passed, as recorded below.
 It adds a source backport of policy 30.0 compatibility data and generator modules,

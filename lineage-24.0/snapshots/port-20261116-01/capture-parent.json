@@ -1,0 +1,8 @@
+{
+  "parent_snapshot": "port-20261115-01",
+  "parent_manifest_sha256": "31f142b6c2e5f04f14ed9cdecb3cd6b13716508b428ad8c86d3d3332d6a24594",
+  "parent_lock_sha256": "4d37b55b0b0b49bc6e8c27ff63855a8671833615b3bec8f3beb0db9a6ac588c1",
+  "composition_selection_sha256": "649f2ce0b87f068af53dc2fb3115c6e446ef5162f937cc58afcf9434501eb421",
+  "proof_reports_sha256": {},
+  "kernel_and_vendor_prebuilts_unchanged": true
+}

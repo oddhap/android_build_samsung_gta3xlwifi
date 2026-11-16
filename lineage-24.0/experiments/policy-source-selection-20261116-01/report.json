@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "scope": "Select an explicitly hash-verified source composition and capture a new exact snapshot.\n\nSelect explicit source-level policy tightening and device-specific access rules.\nNo vendor image, kernel, signing material or user data is changed.\nBackups and the complete parent snapshot remain available for source rollback.\n",
+  "files_selected": 11,
+  "project_count": 1243,
+  "reviewed_patches": 21,
+  "snapshot": "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/snapshots/port-20261116-01",
+  "selection_sha256": "649f2ce0b87f068af53dc2fb3115c6e446ef5162f937cc58afcf9434501eb421",
+  "kernel_and_vendor_prebuilts_unchanged": true,
+  "hardware_tested": false,
+  "flash_ready": false
+}

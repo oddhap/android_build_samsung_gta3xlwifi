@@ -1,0 +1,81 @@
+{
+  "scope": "Select an explicitly hash-verified source composition and capture a new exact snapshot.\n\nSelect explicit source-level policy tightening and device-specific access rules.\nNo vendor image, kernel, signing material or user data is changed.\nBackups and the complete parent snapshot remain available for source rollback.\n",
+  "parent": "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/snapshots/port-20261115-01",
+  "files": {
+    "device/lineage/sepolicy/common/private/backuptool.te": {
+      "project": "device/lineage/sepolicy",
+      "path": "common/private/backuptool.te",
+      "before_sha256": "6ca72b5bf144227a2fd7088013ca34fb4369f51148f2e22a584186b2854a4133",
+      "after_sha256": "aed3be1f5cf90975519b2d7cdb75ed9ac9f767c1a35e7793644e73876947a185"
+    },
+    "device/samsung/gta3xlwifi/BoardConfig.mk": {
+      "project": "device/samsung/gta3xlwifi",
+      "path": "BoardConfig.mk",
+      "before_sha256": "1100d715889d0c7ae87c2dc1bc0641e3cc6deea9b87111dbb249a7405da4cd4a",
+      "after_sha256": "c096ce0ed4cfb7391d1954fad6e05236b09efc5e102e2a64585817d6c4d67c63"
+    },
+    "device/samsung/gta3xlwifi/rootdir/ueventd.exynos7904.rc": {
+      "project": "device/samsung/gta3xlwifi",
+      "path": "rootdir/ueventd.exynos7904.rc",
+      "before_sha256": "1dc43d6fb0e426baea6f8a8a940dd92ac97dab9675c788dcee680ced92a1668d",
+      "after_sha256": "adf6d31425d8250019614849a8d0fe77bdca7d3a53df89ddfbd1464f5e243b8d"
+    },
+    "device/samsung/gta3xlwifi/sepolicy/private/file_contexts": {
+      "project": "device/samsung/gta3xlwifi",
+      "path": "sepolicy/private/file_contexts",
+      "before_sha256": "e9692b3349b4f114980504dc0d4c4c9a3cded9d6a3c2955939a59b7339a1df57",
+      "after_sha256": "463b970d17027aee0d86d9b0baa414b5e37860cb44ea7d0ee33b0ed591b873e8"
+    },
+    "device/samsung/gta3xlwifi/sepolicy/private/genfs_contexts": {
+      "project": "device/samsung/gta3xlwifi",
+      "path": "sepolicy/private/genfs_contexts",
+      "before_sha256": "d7281e1a68e45e0bbb2c35539a135fb37d9584d891938fc8f201a57ebda0b14c",
+      "after_sha256": "7d8deed06886f7eeb3d8a65fc85cd65e24ded7cf282abbed1af1958d47be2401"
+    },
+    "device/samsung/gta3xlwifi/sepolicy/private/gta3xlwifi_network.te": {
+      "project": "device/samsung/gta3xlwifi",
+      "path": "sepolicy/private/gta3xlwifi_network.te",
+      "before_sha256": "16ca23b4d2ce8d5dec4d454d0a4ab43d88500047af0c21068723311017642191",
+      "after_sha256": "b1e41286c9b4f659632f6df48461f79452fc62386b006e0f23afaf1130584c15"
+    },
+    "system/sepolicy/private/compat/30.0/30.0.compat.cil": {
+      "project": "system/sepolicy",
+      "path": "private/compat/30.0/30.0.compat.cil",
+      "before_sha256": "2b40198379e1bb65ca2af156b25562381273144d94c5ae223b5ed9905d7437cc",
+      "after_sha256": "7b45f6b5fbf65c4e32b453f505b7d6bc3e65c9e8a0ca6bed1d007b7b6ad5ee21"
+    },
+    "system/sepolicy/private/hal_health.te": {
+      "project": "system/sepolicy",
+      "path": "private/hal_health.te",
+      "before_sha256": "dc25f9ad74e643d69d5647f8f0b64f8e809e661d579fc2a5878c839ba98a6fb6",
+      "after_sha256": "f902032d60caa91eba22251e7571b2a995a353e1da030349080a7f8b8609523c"
+    },
+    "system/sepolicy/private/llkd.te": {
+      "project": "system/sepolicy",
+      "path": "private/llkd.te",
+      "before_sha256": "a247542f3f49e0723e14082961b5097391e75bdf20533380d12f9eac99a015d5",
+      "after_sha256": "3499e0ce3da0aa07de412f2315ac362cf56c7d4797c2d97e0d6292c74dee2d82"
+    },
+    "system/sepolicy/private/su.te": {
+      "project": "system/sepolicy",
+      "path": "private/su.te",
+      "before_sha256": "d85c7002685b51fa978cff435ad563b048890353e7898a2536289943cd9953ac",
+      "after_sha256": "c21b0906d57505e7a9fd12b3d37483db6a45c04d659bc304c1568a5ca0381914"
+    },
+    "system/sepolicy/public/te_macros": {
+      "project": "system/sepolicy",
+      "path": "public/te_macros",
+      "before_sha256": "9825ba9b9bd742070683f21ad636e930ec24c73e3ec9dcb22b85e2dcb9b0367d",
+      "after_sha256": "8c10d9e208f26f8a1d3003e81be0fc6a63c537d6609a2390ec6430bb66904b0d"
+    }
+  },
+  "proof_reports_sha256": {},
+  "prebuilts": {
+    "Image": "33c1a0d1b9e2696decd53fbedfc2231385b74464f4058a54b93ff06ff7c72553",
+    "vendor.img": "a847a527931d61e5702b8a025210c84eb88a37ef1e60df93b6393a16dae9183a",
+    "dtbo.img": "b9041c37713a745290d9a0203423436b6caa7a1307ced79b6963b4f1f0271c4b"
+  },
+  "policy_source_changed": true,
+  "vendor_and_kernel_selection_changed": false,
+  "flash_ready": false
+}

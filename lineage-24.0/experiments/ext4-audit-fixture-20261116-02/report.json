@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "checks": [
+    "payload bytes",
+    "nondefault inode mode/uid/gid",
+    "binary SELinux label",
+    "complete binary xattr including changed final byte",
+    "symlink target without following",
+    "all unrelated entries unchanged"
+  ]
+}
