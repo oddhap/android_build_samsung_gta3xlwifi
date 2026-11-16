@@ -65,6 +65,19 @@ metadata flag semantics. UBSan reproduces the original actual function failure;
 seven fixed-entry cases pass. A new complete product build is running. Successful
 normal boot or FBE is not claimed; no encryption or policy bypass is introduced.
 
+**Current LMKD blocker:** snapshot07 advances past the vold null dereference;
+the actual file-encryption initialization command exits0. Full CE/user boot is
+not yet proven. LMKD aborts in libmemevents global initialization because the
+unchanged platform API-version parser requires netbpfload.rc, while this port
+excludes the incompatible BPF loading service. Snapshot08 installs only the
+byte-identical upstream version-comment line plus an explanatory comment: no
+actions, service or BPF-ready property. Kernel capability comparisons now verify
+the actual cached kernel meets the assumed platform minimum before relying on
+that minimum; older kernels use the actual version comparison. Host tests retain
+all parser aborts and supported-kernel results, and eliminate the4.4->5.8 false
+positive. Kernel/FBE/vendor/SELinux inputs are unchanged; stock LMKD's real
+in-kernel LMK path remains. A new full build is running. No BPF readiness is faked.
+
 The official manifest was inspected at
 `b51a0c449a3279ca55fb6d4d91d2143e42e2fff5` (`android-17.0.0_r1`).
 The official `aosp_current` release alias resolves to `cp2a` in the inspected

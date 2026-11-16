@@ -1,0 +1,196 @@
+PASS: 1243 locked projects, 21 exact reviewed patches; no external alternates
+2026-11-16 15:46:22 - common.py - WARNING : Failed to read SYSTEM/etc/build.prop
+2026-11-16 15:46:22 - common.py - WARNING : Failed to read VENDOR/etc/build.prop
+2026-11-16 15:46:22 - common.py - WARNING : Failed to read VENDOR/build.prop
+2026-11-16 15:46:22 - common.py - WARNING : Failed to read build.prop for partition vendor
+2026-11-16 15:46:22 - common.py - WARNING : Failed to read SYSTEM_EXT/etc/build.prop
+2026-11-16 15:46:22 - common.py - WARNING : Failed to read SYSTEM_EXT/build.prop
+2026-11-16 15:46:22 - common.py - WARNING : Failed to read build.prop for partition system_ext
+2026-11-16 15:46:22 - common.py - WARNING : Failed to read ODM/etc/build.prop
+2026-11-16 15:46:22 - common.py - WARNING : Failed to read ODM/build.prop
+2026-11-16 15:46:22 - common.py - WARNING : Failed to read build.prop for partition odm
+2026-11-16 15:46:22 - common.py - WARNING : Failed to read VENDOR_DLKM/etc/build.prop
+2026-11-16 15:46:22 - common.py - WARNING : Failed to read VENDOR_DLKM/build.prop
+2026-11-16 15:46:22 - common.py - WARNING : Failed to read build.prop for partition vendor_dlkm
+2026-11-16 15:46:22 - common.py - WARNING : Failed to read ODM_DLKM/etc/build.prop
+2026-11-16 15:46:22 - common.py - WARNING : Failed to read ODM_DLKM/build.prop
+2026-11-16 15:46:22 - common.py - WARNING : Failed to read build.prop for partition odm_dlkm
+2026-11-16 15:46:22 - common.py - WARNING : Failed to read SYSTEM_DLKM/etc/build.prop
+2026-11-16 15:46:22 - common.py - WARNING : Failed to read SYSTEM_DLKM/build.prop
+2026-11-16 15:46:22 - common.py - WARNING : Failed to read build.prop for partition system_dlkm
+2026-11-16 15:46:22 - common.py - INFO    :   Running: "/srv/android/src/lineage-24.0-arm64/out/host/linux-x86/bin/unpack_bootimg --boot_img /tmp/boot.imgm72kjewl --out /tmp/boot_snsil6w1.img"
+2026-11-16 15:46:22 - common.py - INFO    : boot magic: ANDROID!
+kernel_size: 25501304
+kernel load address: 0x10008000
+ramdisk size: 0
+ramdisk load address: 0x00000000
+second bootloader size: 0
+second bootloader load address: 0x00000000
+kernel tags load address: 0x10000100
+page size: 2048
+os version: 17.0.0
+os patch level: 2026-10
+boot image header version: 1
+product name: SRPSA25A005KU
+command line args: androidboot.hardware=exynos7904 androidboot.selinux=enforcing
+additional command line args: 
+recovery dtbo size: 0
+recovery dtbo offset: 0x0000000000000000
+boot header size: 1648
+2026-11-16 15:46:22 - common.py - INFO    :   Running: "gzip -d"
+
+gzip: stdin: unexpected end of file
+2026-11-16 15:46:22 - common.py - INFO    :   Running: "/srv/android/src/lineage-24.0-arm64/out/host/linux-x86/bin/toybox cpio -F /tmp/boot_snsil6w1.img/uncompressed_ramdisk -i" @ /tmp/extracted_ramdiskk2bqn8_3
+2026-11-16 15:46:22 - common.py - INFO    : cpio: empty archive
+2026-11-16 15:46:22 - common.py - WARNING : Unable to get boot image build props: Failed to run command '['toybox', 'cpio', '-F', '/tmp/boot_snsil6w1.img/uncompressed_ramdisk', '-i']' (exit code 1):
+cpio: empty archive
+
+2026-11-16 15:46:23 - common.py - WARNING : Failed to read IMAGES/init_boot.img
+2026-11-16 15:46:23 - common.py - WARNING : Can't find META/ab_partitions.txt
+2026-11-16 15:46:23 - ota_from_target_files.py - INFO    : Target build does not support ublk, disabling ublk
+2026-11-16 15:46:23 - ota_from_target_files.py - INFO    : --- target info ---
+2026-11-16 15:46:23 - common.py - INFO    : allow_non_ab              = (str) true
+2026-11-16 15:46:23 - common.py - INFO    : avb_avbtool               = (str) avbtool
+2026-11-16 15:46:23 - common.py - INFO    : avb_product_add_hashtree_footer_args = (str) 
+2026-11-16 15:46:23 - common.py - INFO    : avb_product_hashtree_enable = (str) false
+2026-11-16 15:46:23 - common.py - INFO    : avb_system_add_hashtree_footer_args = (str) 
+2026-11-16 15:46:23 - common.py - INFO    : avb_system_hashtree_enable = (str) false
+2026-11-16 15:46:23 - common.py - INFO    : blockimgdiff_versions     = (str) 3,4
+2026-11-16 15:46:23 - common.py - INFO    : blocksize                 = (int) 131072
+2026-11-16 15:46:23 - common.py - INFO    : board_non_ab_ota_disable_compression = (str) true
+2026-11-16 15:46:23 - common.py - INFO    : board_uses_vendorimage    = (str) true
+2026-11-16 15:46:23 - common.py - INFO    : boot.build.prop           = (PartitionBuildProps) <common.PartitionBuildProps object at 0x7f24c2cc8050>
+2026-11-16 15:46:23 - common.py - INFO    : boot_images               = (str) boot.img
+2026-11-16 15:46:23 - common.py - INFO    : boot_size                 = (int) 33554432
+2026-11-16 15:46:23 - common.py - INFO    : build.prop                = (PartitionBuildProps) <common.PartitionBuildProps object at 0x7f24c35802f0>
+2026-11-16 15:46:23 - common.py - INFO    : building_cache_image      = (str) true
+2026-11-16 15:46:23 - common.py - INFO    : building_oem_image        = (str) 
+2026-11-16 15:46:23 - common.py - INFO    : building_product_image    = (str) true
+2026-11-16 15:46:23 - common.py - INFO    : building_system_image     = (str) true
+2026-11-16 15:46:23 - common.py - INFO    : cache_fs_type             = (str) ext4
+2026-11-16 15:46:23 - common.py - INFO    : cache_selinux_fc          = (str) out/target/product/gta3xlwifi/obj/ETC/file_contexts.bin_intermediates/file_contexts.bin
+2026-11-16 15:46:23 - common.py - INFO    : cache_size                = (int) 159383552
+2026-11-16 15:46:23 - common.py - INFO    : default_system_dev_certificate = (str) build/make/target/product/security/testkey
+2026-11-16 15:46:23 - common.py - INFO    : erofs_sparse_flag         = (str) -s
+2026-11-16 15:46:23 - common.py - INFO    : ext_mkuserimg             = (str) mkuserimg_mke2fs
+2026-11-16 15:46:23 - common.py - INFO    : extfs_sparse_flag         = (str) -s
+2026-11-16 15:46:23 - common.py - INFO    : extra_recovery_keys       = (str) vendor/lineage/build/target/product/security/lineage
+2026-11-16 15:46:23 - common.py - INFO    : f2fs_sparse_flag          = (str) -S
+2026-11-16 15:46:23 - common.py - INFO    : fs_type                   = (str) ext4
+2026-11-16 15:46:23 - common.py - INFO    : fstab                     = (dict) {'/boot': <common.LoadRecoveryFSTab.<locals>.Partition object at 0x7f24c3623cb0>, '/recovery': <common.LoadRecoveryFSTab.<locals>.Partition object at 0x7f24c34f3610>, '/misc': <common.LoadRecoveryFSTab.<locals>.Partition object at 0x7f24c34f3750>, '/system': <common.LoadRecoveryFSTab.<locals>.Partition object at 0x7f24c352d810>, '/vendor': <common.LoadRecoveryFSTab.<locals>.Partition object at 0x7f24c352da70>, '/product': <common.LoadRecoveryFSTab.<locals>.Partition object at 0x7f24c34db530>, '/cache': <common.LoadRecoveryFSTab.<locals>.Partition object at 0x7f24c365ee00>, '/data': <common.LoadRecoveryFSTab.<locals>.Partition object at 0x7f24c365fce0>}
+2026-11-16 15:46:23 - common.py - INFO    : fstab_version             = (int) 2
+2026-11-16 15:46:23 - common.py - INFO    : full_recovery_image       = (str) true
+2026-11-16 15:46:23 - common.py - INFO    : gta3xlwifi_preserve_recovery = (str) true
+2026-11-16 15:46:23 - common.py - INFO    : has_dtbo                  = (str) true
+2026-11-16 15:46:23 - common.py - INFO    : include_recovery_dtbo     = (str) true
+2026-11-16 15:46:23 - common.py - INFO    : init_boot.build.prop      = (PartitionBuildProps) <common.PartitionBuildProps object at 0x7f24c2cc8250>
+2026-11-16 15:46:23 - common.py - INFO    : lpmake                    = (str) lpmake
+2026-11-16 15:46:23 - common.py - INFO    : mkbootimg_args            = (str) --header_version 1 --kernel_offset 0x00008000 --ramdisk_offset 0x01000000 --tags_offset 0x00000100 --board SRPSA25A005KU
+2026-11-16 15:46:23 - common.py - INFO    : mkbootimg_init_args       = (str) 
+2026-11-16 15:46:23 - common.py - INFO    : mkbootimg_version_args    = (str) --os_version 17 --os_patch_level 2026-10-01
+2026-11-16 15:46:23 - common.py - INFO    : odm.build.prop            = (PartitionBuildProps) <common.PartitionBuildProps object at 0x7f24c352f6f0>
+2026-11-16 15:46:23 - common.py - INFO    : odm_dlkm.build.prop       = (PartitionBuildProps) <common.PartitionBuildProps object at 0x7f24c365fac0>
+2026-11-16 15:46:23 - common.py - INFO    : oem_selinux_fc            = (str) out/target/product/gta3xlwifi/obj/ETC/file_contexts.bin_intermediates/file_contexts.bin
+2026-11-16 15:46:23 - common.py - INFO    : ota_override_device       = (str) gta3xlwifi
+2026-11-16 15:46:23 - common.py - INFO    : product.build.prop        = (PartitionBuildProps) <common.PartitionBuildProps object at 0x7f24c34f39d0>
+2026-11-16 15:46:23 - common.py - INFO    : product_fs_type           = (str) ext4
+2026-11-16 15:46:23 - common.py - INFO    : product_selinux_fc        = (str) out/target/product/gta3xlwifi/obj/ETC/file_contexts.bin_intermediates/file_contexts.bin
+2026-11-16 15:46:23 - common.py - INFO    : product_size              = (str) 327155712
+2026-11-16 15:46:23 - common.py - INFO    : recovery_api_version      = (int) 3
+2026-11-16 15:46:23 - common.py - INFO    : recovery_mkbootimg_args   = (str) --header_version 1 --kernel_offset 0x00008000 --ramdisk_offset 0x01000000 --tags_offset 0x00000100 --board SRPSA25A005RU
+2026-11-16 15:46:23 - common.py - INFO    : recovery_mount_options    = (str) ext4=max_batch_time=0,commit=1,data=ordered,barrier=1,errors=panic,nodelalloc
+2026-11-16 15:46:23 - common.py - INFO    : recovery_size             = (int) 47185920
+2026-11-16 15:46:23 - common.py - INFO    : root_dir                  = (str) out/target/product/gta3xlwifi/root
+2026-11-16 15:46:23 - common.py - INFO    : super_metadata_device     = (str) 
+2026-11-16 15:46:23 - common.py - INFO    : system.build.prop         = (PartitionBuildProps) <common.PartitionBuildProps object at 0x7f24c35802f0>
+2026-11-16 15:46:23 - common.py - INFO    : system_dlkm.build.prop    = (PartitionBuildProps) <common.PartitionBuildProps object at 0x7f24c365fdf0>
+2026-11-16 15:46:23 - common.py - INFO    : system_ext.build.prop     = (PartitionBuildProps) <common.PartitionBuildProps object at 0x7f24c352f360>
+2026-11-16 15:46:23 - common.py - INFO    : system_fs_type            = (str) ext4
+2026-11-16 15:46:23 - common.py - INFO    : system_selinux_fc         = (str) out/target/product/gta3xlwifi/obj/ETC/file_contexts.bin_intermediates/file_contexts.bin
+2026-11-16 15:46:23 - common.py - INFO    : system_size               = (int) 3196059648
+2026-11-16 15:46:23 - common.py - INFO    : tool_extensions           = (str) device/samsung/gta3xlwifi
+2026-11-16 15:46:23 - common.py - INFO    : vendor.build.prop         = (PartitionBuildProps) <common.PartitionBuildProps object at 0x7f24c34f3890>
+2026-11-16 15:46:23 - common.py - INFO    : vendor_dlkm.build.prop    = (PartitionBuildProps) <common.PartitionBuildProps object at 0x7f24c34db410>
+2026-11-16 15:46:23 - common.py - INFO    : vintf_enforce             = (str) true
+2026-11-16 15:46:23 - common.py - INFO    : vintf_include_empty_vendor_sku = (str) true
+2026-11-16 15:46:23 - common.py - INFO    : virtual_ab_cow_version    = (str) 2
+2026-11-16 15:46:23 - common.py - INFO    :   Running: "openssl pkcs8 -in build/make/target/product/security/testkey.pk8 -inform DER -nocrypt"
+2026-11-16 15:46:23 - non_ab_ota.py - INFO    : unzipping target target-files...
+2026-11-16 15:46:35 - non_ab_ota.py - INFO    : (using device-specific extensions from target_files)
+2026-11-16 15:46:35 - common.py - INFO    : loaded device-specific extensions from /tmp/targetfiles-6u1land6/META/releasetools.py
+2026-11-16 15:46:35 - sparse_img.py - INFO    : Total of 780288 4096-byte output blocks in 48 input chunks.
+2026-11-16 15:46:35 - blockimgdiff.py - INFO    : Finding transfers...
+2026-11-16 15:46:38 - blockimgdiff.py - INFO    : Generating digraph...
+2026-11-16 15:46:38 - blockimgdiff.py - INFO    : Finding vertex sequence...
+2026-11-16 15:46:38 - blockimgdiff.py - INFO    : Reversing backward edges...
+2026-11-16 15:46:38 - blockimgdiff.py - INFO    :   0/0 dependencies (0.00%) were violated; 0 source blocks stashed.
+2026-11-16 15:46:38 - blockimgdiff.py - INFO    : Improving vertex order...
+2026-11-16 15:46:38 - blockimgdiff.py - INFO    : Revising stash size...
+2026-11-16 15:46:38 - blockimgdiff.py - INFO    :   Total 0 blocks (0 bytes) are packed as new blocks due to insufficient cache size. Maximum blocks stashed simultaneously: 0
+2026-11-16 15:46:38 - blockimgdiff.py - INFO    : Revising stash size...
+2026-11-16 15:46:38 - blockimgdiff.py - INFO    :   Total 0 blocks (0 bytes) are packed as new blocks due to insufficient cache size. Maximum blocks stashed simultaneously: 0
+2026-11-16 15:46:41 - blockimgdiff.py - INFO    : Reticulating splines...
+2026-11-16 15:46:44 - blockimgdiff.py - INFO    : 1874579456 1874579456 (100.00%)     new __DATA 0-443 512-32770 33280-65536 66046-98306 98816-131072 131582-163842 164352-196608 197118-229378 229888-262144 262654-294914 295424-327680 328190-360448 360958-393216 393726-425984 426494-458752 459262-464853 753664
+2026-11-16 15:46:44 - blockimgdiff.py - INFO    : max stashed blocks: 0  (0 bytes), limit: 127506841 bytes (0.00%)
+
+2026-11-16 15:46:44 - blockimgdiff.py - INFO    :   Imgdiff Stats Report  
+2026-11-16 15:46:44 - blockimgdiff.py - INFO    : ========================
+
+2026-11-16 15:46:44 - sparse_img.py - INFO    : Total of 79872 4096-byte output blocks in 9 input chunks.
+2026-11-16 15:46:44 - blockimgdiff.py - INFO    : Finding transfers...
+2026-11-16 15:46:44 - blockimgdiff.py - INFO    : Generating digraph...
+2026-11-16 15:46:44 - blockimgdiff.py - INFO    : Finding vertex sequence...
+2026-11-16 15:46:44 - blockimgdiff.py - INFO    : Reversing backward edges...
+2026-11-16 15:46:44 - blockimgdiff.py - INFO    :   0/0 dependencies (0.00%) were violated; 0 source blocks stashed.
+2026-11-16 15:46:44 - blockimgdiff.py - INFO    : Improving vertex order...
+2026-11-16 15:46:44 - blockimgdiff.py - INFO    : Revising stash size...
+2026-11-16 15:46:44 - blockimgdiff.py - INFO    :   Total 0 blocks (0 bytes) are packed as new blocks due to insufficient cache size. Maximum blocks stashed simultaneously: 0
+2026-11-16 15:46:44 - blockimgdiff.py - INFO    : Revising stash size...
+2026-11-16 15:46:44 - blockimgdiff.py - INFO    :   Total 0 blocks (0 bytes) are packed as new blocks due to insufficient cache size. Maximum blocks stashed simultaneously: 0
+2026-11-16 15:46:45 - blockimgdiff.py - INFO    : Reticulating splines...
+2026-11-16 15:46:45 - blockimgdiff.py - INFO    :  184467456  184467456 (100.00%)     new __DATA 0-37 1668-32770 34436-48329 65536
+2026-11-16 15:46:45 - blockimgdiff.py - INFO    : max stashed blocks: 0  (0 bytes), limit: 127506841 bytes (0.00%)
+
+2026-11-16 15:46:45 - blockimgdiff.py - INFO    :   Imgdiff Stats Report  
+2026-11-16 15:46:45 - blockimgdiff.py - INFO    : ========================
+
+2026-11-16 15:46:47 - sparse_img.py - INFO    : Total of 83968 4096-byte output blocks in 201 input chunks.
+2026-11-16 15:46:47 - blockimgdiff.py - INFO    : Finding transfers...
+2026-11-16 15:46:47 - blockimgdiff.py - INFO    : Generating digraph...
+2026-11-16 15:46:47 - blockimgdiff.py - INFO    : Finding vertex sequence...
+2026-11-16 15:46:47 - blockimgdiff.py - INFO    : Reversing backward edges...
+2026-11-16 15:46:47 - blockimgdiff.py - INFO    :   0/0 dependencies (0.00%) were violated; 0 source blocks stashed.
+2026-11-16 15:46:47 - blockimgdiff.py - INFO    : Improving vertex order...
+2026-11-16 15:46:47 - blockimgdiff.py - INFO    : Revising stash size...
+2026-11-16 15:46:47 - blockimgdiff.py - INFO    :   Total 0 blocks (0 bytes) are packed as new blocks due to insufficient cache size. Maximum blocks stashed simultaneously: 0
+2026-11-16 15:46:47 - blockimgdiff.py - INFO    : Revising stash size...
+2026-11-16 15:46:47 - blockimgdiff.py - INFO    :   Total 0 blocks (0 bytes) are packed as new blocks due to insufficient cache size. Maximum blocks stashed simultaneously: 0
+2026-11-16 15:46:48 - blockimgdiff.py - INFO    : Reticulating splines...
+2026-11-16 15:46:48 - blockimgdiff.py - INFO    :  343932928  343932928 (100.00%)     new __DATA 0-83967
+2026-11-16 15:46:48 - blockimgdiff.py - INFO    : max stashed blocks: 0  (0 bytes), limit: 127506841 bytes (0.00%)
+
+2026-11-16 15:46:48 - blockimgdiff.py - INFO    :   Imgdiff Stats Report  
+2026-11-16 15:46:48 - blockimgdiff.py - INFO    : ========================
+
+2026-11-16 15:46:48 - common.py - INFO    : using prebuilt recovery.img from IMAGES...
+2026-11-16 15:46:48 - common.py - INFO    :   recovery size (39800848) is 84.35% of limit (47185920)
+2026-11-16 15:46:50 - common.py - INFO    :   Running: "/srv/android/src/lineage-24.0-arm64/out/host/linux-x86/bin/brotli --quality=6 --output=/tmp/tmpvcecz4qm/system.new.dat.br /tmp/tmpvcecz4qm/system.new.dat"
+2026-11-16 15:49:09 - common.py - INFO    : 
+2026-11-16 15:49:11 - common.py - INFO    :   Running: "/srv/android/src/lineage-24.0-arm64/out/host/linux-x86/bin/brotli --quality=6 --output=/tmp/tmp3vslz251/product.new.dat.br /tmp/tmp3vslz251/product.new.dat"
+2026-11-16 15:49:24 - common.py - INFO    : 
+2026-11-16 15:49:24 - common.py - INFO    :   Running: "/srv/android/src/lineage-24.0-arm64/out/host/linux-x86/bin/brotli --quality=6 --output=/tmp/tmp46bkfqi1/vendor.new.dat.br /tmp/tmp46bkfqi1/vendor.new.dat"
+2026-11-16 15:49:44 - common.py - INFO    : 
+2026-11-16 15:49:44 - common.py - INFO    : using prebuilt boot.img from IMAGES...
+2026-11-16 15:49:44 - common.py - INFO    :   boot size (25503760) is 76.01% of limit (33554432)
+2026-11-16 15:49:46 - common.py - INFO    :   Running: "/srv/android/src/lineage-24.0-arm64/out/host/linux-x86/bin/zip2zip -i /tmp/tmpa0rlouce.zip -o /tmp/tmpinf09fon -x META-INF/com/android/metadata -x META-INF/com/android/metadata.pb"
+2026-11-16 15:49:49 - common.py - INFO    : 
+2026-11-16 15:49:49 - common.py - INFO    :   Running: "java -Xmx4096m -Djava.library.path=out/host/linux-x86/lib64 -jar out/host/linux-x86/framework/signapk.jar -w build/make/target/product/security/testkey.x509.pem build/make/target/product/security/testkey.pk8 /tmp/tmpa0rlouce.zip /tmp/tmpi7niawm6.zip"
+2026-11-16 15:49:58 - common.py - INFO    :   Running: "/srv/android/src/lineage-24.0-arm64/out/host/linux-x86/bin/zip2zip -i /tmp/tmpi7niawm6.zip -o /tmp/tmp3nifzos1 -x META-INF/com/android/metadata -x META-INF/com/android/metadata.pb"
+2026-11-16 15:50:01 - common.py - INFO    : 
+2026-11-16 15:50:01 - ota_utils.py - INFO    : Signing the output file /srv/android/artifacts/lineage-24.0-arm64/runtime07-ota-build-20261116-01/lineage-24.0-20261116-UNOFFICIAL-gta3xlwifi-test.zip with key build/make/target/product/security/testkey
+2026-11-16 15:50:01 - common.py - INFO    :   Running: "java -Xmx4096m -Djava.library.path=out/host/linux-x86/lib64 -jar out/host/linux-x86/framework/signapk.jar -w build/make/target/product/security/testkey.x509.pem build/make/target/product/security/testkey.pk8 /tmp/tmpi7niawm6.zip /srv/android/artifacts/lineage-24.0-arm64/runtime07-ota-build-20261116-01/lineage-24.0-20261116-UNOFFICIAL-gta3xlwifi-test.zip"
+2026-11-16 15:50:08 - ota_from_target_files.py - INFO    : done. /srv/android/artifacts/lineage-24.0-arm64/runtime07-ota-build-20261116-01/lineage-24.0-20261116-UNOFFICIAL-gta3xlwifi-test.zip
+Compressing system.new.dat with brotli
+Compressing product.new.dat with brotli
+Compressing vendor.new.dat with brotli
+PASS: 1243 locked projects, 21 exact reviewed patches; no external alternates

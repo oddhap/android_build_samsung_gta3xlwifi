@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "scope": "Select an explicitly hash-verified source composition and capture a new exact snapshot.\n\nInstall genuine comments-only platform version data and compare actual kernel capabilities.\nNo SELinux policy, vendor image or kernel input is modified; BPF readiness is never set.\nNo vendor image, kernel, signing material or user data is changed.\nBackups and the complete parent snapshot remain available for source rollback.\n",
+  "files_selected": 3,
+  "project_count": 1243,
+  "reviewed_patches": 21,
+  "snapshot": "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/snapshots/port-20261116-08",
+  "selection_sha256": "8018e95344f9c75e8553a420ce4176465e45031dee9aadcca074100bfd4cf154",
+  "kernel_and_vendor_prebuilts_unchanged": true,
+  "hardware_tested": false,
+  "flash_ready": false
+}

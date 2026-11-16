@@ -1,0 +1,7 @@
+package_extract_file("recovery-header-sync", "/tmp/gta3xlwifi_recovery_header_sync");
+set_metadata("/tmp/gta3xlwifi_recovery_header_sync", "uid", 0, "gid", 0, "mode", 0755);
+assert(run_program("/tmp/gta3xlwifi_recovery_header_sync", "--preflight", "0x220001aa") == "0" || abort("Recovery identity or OS/SPL preflight failed. Installation stopped before image writes."));
+package_extract_file("vendor-unmounted-check.sh", "/tmp/vendor-unmounted-check.sh");
+assert(run_program("/sbin/sh", "/tmp/vendor-unmounted-check.sh") == "0" || abort("Vendor is mounted or its state cannot be verified. Stop recovery crypto services and unmount vendor."));
+assert(run_program("/tmp/gta3xlwifi_recovery_header_sync", "--preflight", "0x220001aa") == "0" || abort("Read-only recovery recheck failed."));
+ui_print("Recovery remains unchanged. Android 17 FBE must be tested separately.");
