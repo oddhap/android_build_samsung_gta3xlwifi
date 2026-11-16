@@ -1,0 +1,10 @@
+{
+  "parent_snapshot": "port-20261116-01",
+  "parent_manifest_sha256": "31f142b6c2e5f04f14ed9cdecb3cd6b13716508b428ad8c86d3d3332d6a24594",
+  "parent_lock_sha256": "f7f255d46b5515510e1060827785a0831fe8a5aab0d62a6c50a02c96fde42989",
+  "composition_selection_sha256": "7ae78c76b3696df3790afb939c208ccd5d260fcb64d59550caf9752fd1b82b85",
+  "proof_reports_sha256": {
+    "/srv/android/artifacts/lineage-24.0-arm64/readonly-recovery-preflight-20261116-02/report.json": "df48bd642ffb54010550775b070ccd68aa41cc60a7156ff197a5c13d363b05e8"
+  },
+  "kernel_and_vendor_prebuilts_unchanged": true
+}

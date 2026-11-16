@@ -73,6 +73,8 @@ def main():
     source = json.loads(audit.read_text())
     require(source['passed'] and source['manifest_sha256'] == digest(snapshot/'port-manifest.xml'),
             'Missing/mismatched successful source after-audit')
+    expected_source=json.loads((snapshot/'port-audit.json').read_text())
+    require(source['projects']==expected_source['projects'] and source['reviewed_patch_count']==expected_source['reviewed_patch_count'], 'Source patch inventory differs from the exact selected snapshot')
     selection=json.loads(args.input_selection.read_text())
     require(selection['passed'] and selection['original_rollback_copies_verified'], 'Missing explicit runtime selection')
     for f in [args.strict_report,args.vendor_report]:
@@ -98,6 +100,8 @@ def main():
               'archive': str(archive), 'archive_sha256': digest(archive),
               'source_after_audit_sha256': digest(audit), 'images': {}, 'elfs': {},
               'build_exit_file_sha256': digest(args.build_exit),
+              'source_lock_sha256':digest(snapshot/'source-lock.json'),
+              'input_audits_sha256':{name:digest(audit.parent/name) for name in ['inputs-before.json','inputs-after.json']},
               'hardware_tested': False, 'flash_ready': False,
               'installer_or_security_approved': False,
               'observed_at_utc': datetime.datetime.now(datetime.timezone.utc).isoformat()}

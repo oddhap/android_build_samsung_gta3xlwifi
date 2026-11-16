@@ -14,19 +14,41 @@ The initial 23.2 port patches compiled successfully on Android 17 in
 `native-policy-20261101-01` (exit 0, followed by full source audit). Selected
 ARM/ARM64 ELF outputs are recorded in the reports; this is build/link evidence.
 
-Active snapshot **port-20261116-01** locks 1,243 projects and **21 exact patches**.
-It retains the successful networking composition from port-20261115-01 and adds
-explicit source policy tightening and device-specific network inode permissions.
-The actual fresh policy build, strict vendor link,20 context checks and all5,881
-exact assertion/constraint records pass. No platform input override or permissive
-domain is used. The explicitly selected runtime pair is now kernel7ece8d6f and
-derived vendor2b40b8c7, with original rollback bytes preserved and DTBO/device HEAD
-unchanged. Complete ext4 comparison retains every original non-metadata byte
-and inode security attribute. Only seven explicit metadata paths differ; the
-MTP implementation is unchanged. The full target-files product build is running.
-No flash approval or installation package exists. See policy-source-selection,
-policy-composition-build/strict, vendor-composition and runtime-input-selection
-20261116-01 experiments.
+Active work snapshot **port-20261116-03** locks1,243 projects and21 exact patches.
+The ROM payload was fully built from **port-20261116-02**;03 changes only the host
+OTA resource validator. Both component revisions and complete audits are retained.
+
+A guarded full non-A/B test OTA now exists. It is1,038,375,996 bytes, SHA-256
+`aa681b3199d1072948e6cc9c835019513c34c96545fd414639dc4366fe4cbc58`.
+The actual product builds, strict platform/vendor link without input overrides
+or -N,20 context checks and all5,881 exact assertions/constraints pass. No
+permissive domain is introduced. Kernel7ece8d6f and derived vendor2b40b8c7 are
+explicitly selected; original rollback bytes, DTBO and device HEAD are retained.
+All non-metadata vendor contents/security attributes match the original MTP
+vendor. Only seven reviewed metadata paths change.
+
+Actual package geometry, both ABI libraries, policy/cache identities, independent
+whole-file CMS signature verification, full ZIP CRC and all system/product/vendor
+new-data streams pass. The actual new-data hashes and every cared target block
+are checked; explicit zeroing of sparse read-ahead holes is validated separately.
+Fresh actual-vendor VINTF with39 factory APEX packages and all four ext4 feature
+checks pass. See test-ota-build-20261116-02/readiness-report.json and its bound
+experiment reports. The signed binary remains private; no signing key is published.
+
+The installer includes a static ARM32 read-only recovery probe and static updater.
+Twelve probe cases, six actual packaged hook cases and38 recovery-resource
+contract cases pass. Unknown/mismatched recovery is rejected before image writes.
+Only system, product, vendor and boot are written; no wipe, repartition or recovery
+write is generated. The unused recovery.img carried by the standard packager is
+byte-bound to the diagnostic target image and has no Edify reference. Generic
+products retain their normal recovery-patch requirement; the SM-T510 preservation
+contract requires replacement resources to be absent.
+
+This candidate still requires a verified current userdata backup and a recognized
+recovery whose OS/SPL header actually matches17/2026-10. No automatic header change
+is performed. Header matching is not Android17 FBE proof. No Android17 hardware
+boot/network/FBE test or flashing authorization is claimed. This remains a guarded
+test candidate, rather than unconditional flash-readiness approval.
 The previous network module build completed exit 0, including post-R8 Binder
 identities, min31 AIDL16 ordinals, ten actual iptables registry entries and
 installed native ELF outputs. See network-composition-build-20261115-01 and
@@ -37,13 +59,14 @@ It adds a source backport of policy 30.0 compatibility data and generator module
 with the frozen API30 source copied verbatim from the pinned prior platform.
 The framework advertises 30.0 only for gta3xlwifi. Device inputs are separately
 pinned by commit. Dedicated compatibility compilation and structural tests passed;
-strict actual-vendor policy is not approved. A diagnostic full build has succeeded;
-installation remains blocked.
+the current strict vendor policy and full product now compile successfully.
+Recovery/FBE preparation remains separate from host validation.
 
 The cgroup port retains cpuacct v1 process groups, mounts real supported v1
 controllers, skips v2 subtrees only for this product, loads product profiles last,
-and returns `EOPNOTSUPP` for the new clone-into-v2 API. Its Android 17 zygote
-callers and runtime behavior require further investigation. Host cleanup/path
+and returns `EOPNOTSUPP` for the new clone-into-v2 API. The current Java/native zygote callers were reviewed: they use the legacy
+process-group API, and native zygote actually uses fork. Live cgroup mounting,
+profile application and cleanup still require device testing. Host cleanup/path
 checks are separate from Android execution. Optional GPU BPF accounting still
 reports unavailable, rather than invented counters. Existing safety/installer
 and strict SELinux checks remain enforced.

@@ -1,0 +1,27 @@
+assert(getprop("ro.product.device") == "gta3xlwifi" || getprop("ro.build.product") == "gta3xlwifi" || abort("E3004: This package is for device: gta3xlwifi; this device is " + getprop("ro.product.device") + "."););
+ui_print("Target: samsung/lineage_gta3xlwifi/gta3xlwifi:17/CP2A.260605.016/eng.builde:userdebug/test-keys");
+package_extract_file("recovery-header-sync", "/tmp/gta3xlwifi_recovery_header_sync");
+set_metadata("/tmp/gta3xlwifi_recovery_header_sync", "uid", 0, "gid", 0, "mode", 0755);
+assert(run_program("/tmp/gta3xlwifi_recovery_header_sync", "--preflight", "0x220001aa") == "0" || abort("Recovery identity or OS/SPL preflight failed. Installation stopped before image writes."));
+package_extract_file("vendor-unmounted-check.sh", "/tmp/vendor-unmounted-check.sh");
+assert(run_program("/sbin/sh", "/tmp/vendor-unmounted-check.sh") == "0" || abort("Vendor is mounted or its state cannot be verified. Stop recovery crypto services and unmount vendor."));
+package_extract_dir("install", "/tmp/install");
+set_metadata_recursive("/tmp/install", "uid", 0, "gid", 0, "dmode", 0755, "fmode", 0644);
+set_metadata_recursive("/tmp/install/bin", "uid", 0, "gid", 0, "dmode", 0755, "fmode", 0755);
+ui_print("Patching system image unconditionally...");
+show_progress(0.700000, 0);
+block_image_update("/dev/block/platform/13500000.dwmmc0/by-name/system", package_extract_file("system.transfer.list"), "system.new.dat.br", "system.patch.dat") ||
+  abort("E1001: Failed to update system image.");
+ui_print("Patching product image unconditionally...");
+show_progress(0.100000, 0);
+block_image_update("/dev/block/platform/13500000.dwmmc0/by-name/product", package_extract_file("product.transfer.list"), "product.new.dat.br", "product.patch.dat") ||
+  abort("E2001: Failed to update product image.");
+ui_print("Patching vendor image unconditionally...");
+show_progress(0.100000, 0);
+block_image_update("/dev/block/platform/13500000.dwmmc0/by-name/vendor", package_extract_file("vendor.transfer.list"), "vendor.new.dat.br", "vendor.patch.dat") ||
+  abort("E2001: Failed to update vendor image.");
+package_extract_file("boot.img", "/dev/block/platform/13500000.dwmmc0/by-name/boot");
+show_progress(0.100000, 10);
+assert(run_program("/tmp/gta3xlwifi_recovery_header_sync", "--preflight", "0x220001aa") == "0" || abort("Read-only recovery recheck failed."));
+ui_print("Recovery remains unchanged. Android 17 FBE must be tested separately.");
+set_progress(1.000000);

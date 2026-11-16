@@ -1,0 +1,111 @@
+{
+  "passed": true,
+  "scope": "Host-test the actual read-only installer probe against a preserved public TWRP image.\n\nMatching metadata is a header-contract fixture, not Android17 decryption proof.\nNo physical partition, userdata, original recovery or signing material is changed.\n",
+  "actual_candidate_source_sha256": "5aced3c99a33c8275562e989e2004dd3389cacc2c980e4386e917c6b101ad4fe",
+  "original_public_recovery_sha256": "e6dcc17e478de9d1d3f1c398fd10c9bc9d7ac80e546f18f58cd20d52766485b4",
+  "actual_target_header_word": 570425770,
+  "compiler_command": [
+    "g++",
+    "-std=c++17",
+    "-O2",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-Wno-deprecated-declarations",
+    "-DRECOVERY_HEADER_SYNC_HOST_TEST",
+    "/srv/android/ports/lineage-24.0-arm64/install-preflight24-20261116-01/files/device/samsung/gta3xlwifi/recovery-header-sync/recovery_header_sync.cpp",
+    "-lcrypto",
+    "-o",
+    "/srv/android/artifacts/lineage-24.0-arm64/readonly-recovery-preflight-20261116-02/preflight"
+  ],
+  "cases": [
+    {
+      "case": "published Android14 recovery refuses Android17 target",
+      "exit_code": 1,
+      "partition_bytes_unchanged": true,
+      "stdout": "",
+      "stderr": "Read-only recovery preflight failed: Recovery OS/SPL does not match this Android 17 target; no recovery change is performed\n"
+    },
+    {
+      "case": "Android14 with current target SPL still refuses Android17",
+      "exit_code": 1,
+      "partition_bytes_unchanged": true,
+      "stdout": "",
+      "stderr": "Read-only recovery preflight failed: Recovery OS/SPL does not match this Android 17 target; no recovery change is performed\n"
+    },
+    {
+      "case": "known payload with exactly matching target header",
+      "exit_code": 0,
+      "partition_bytes_unchanged": true,
+      "stdout": "Recognized recovery and target OS/SPL match; partition remains unchanged. This is not FBE runtime proof.\n",
+      "stderr": ""
+    },
+    {
+      "case": "apply mode removed",
+      "exit_code": 1,
+      "partition_bytes_unchanged": true,
+      "stdout": "",
+      "stderr": "Read-only recovery preflight failed: Only read-only preflight is supported\n"
+    },
+    {
+      "case": "Android14 target rejected",
+      "exit_code": 1,
+      "partition_bytes_unchanged": true,
+      "stdout": "",
+      "stderr": "Read-only recovery preflight failed: Target must use the actual Android 17 boot-header version\n"
+    },
+    {
+      "case": "target patch mismatch",
+      "exit_code": 1,
+      "partition_bytes_unchanged": true,
+      "stdout": "",
+      "stderr": "Read-only recovery preflight failed: Recovery OS/SPL does not match this Android 17 target; no recovery change is performed\n"
+    },
+    {
+      "case": "invalid month rejected",
+      "exit_code": 1,
+      "partition_bytes_unchanged": true,
+      "stdout": "",
+      "stderr": "Read-only recovery preflight failed: Invalid recovery patch level\n"
+    },
+    {
+      "case": "malformed number rejected",
+      "exit_code": 1,
+      "partition_bytes_unchanged": true,
+      "stdout": "",
+      "stderr": "Read-only recovery preflight failed: Invalid target OS word\n"
+    },
+    {
+      "case": "trailing target argument rejected",
+      "exit_code": 1,
+      "partition_bytes_unchanged": true,
+      "stdout": "",
+      "stderr": "Read-only recovery preflight failed: Invalid target OS word\n"
+    },
+    {
+      "case": "status symlink rejected without writes",
+      "exit_code": 1,
+      "partition_bytes_unchanged": true,
+      "stdout": "",
+      "stderr": "Read-only recovery preflight failed: Cannot create temporary recovery status\n"
+    },
+    {
+      "case": "unknown recovery payload rejected",
+      "exit_code": 1,
+      "partition_bytes_unchanged": true,
+      "stdout": "",
+      "stderr": "Read-only recovery preflight failed: Unrecognized recovery: installation is blocked\n"
+    },
+    {
+      "case": "wrong partition geometry rejected",
+      "exit_code": 1,
+      "partition_bytes_unchanged": true,
+      "stdout": "",
+      "stderr": "Read-only recovery preflight failed: Unexpected RECOVERY partition size\n"
+    }
+  ],
+  "original_recovery_unchanged": true,
+  "device_touched": false,
+  "Android17_FBE_validated": false,
+  "flash_ready": false
+}

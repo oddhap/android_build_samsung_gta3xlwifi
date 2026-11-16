@@ -1,0 +1,1 @@
+Full product target-files only. Android 17 installer/FBE/Keymaster/rollback validation remains. NOT AN INSTALLABLE OTA; DO NOT FLASH.

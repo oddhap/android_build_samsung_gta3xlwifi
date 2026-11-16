@@ -1,0 +1,10 @@
+{
+  "parent_snapshot": "port-20261116-02",
+  "parent_manifest_sha256": "31f142b6c2e5f04f14ed9cdecb3cd6b13716508b428ad8c86d3d3332d6a24594",
+  "parent_lock_sha256": "60b93828bc6c02af36e657bfcedf5cd802fc61a1960ac570a463f809a7343207",
+  "composition_selection_sha256": "86bd04e94ae0cd4c6e880a11cd1ac0742efc88a0fe212c3928e67eee52a99ae1",
+  "proof_reports_sha256": {
+    "/srv/android/artifacts/lineage-24.0-arm64/recovery-resource-gate-host-20261116-01/report.json": "334f64cdaf858c71b51c6c4bf67130b0ce24154ae5a51d92baafe5372c612bdf"
+  },
+  "kernel_and_vendor_prebuilts_unchanged": true
+}
