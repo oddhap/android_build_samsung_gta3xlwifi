@@ -1,0 +1,188 @@
+PASS: 1243 locked projects, 21 exact reviewed patches; no external alternates
+Looking for dependencies in device/samsung/gta3xlwifi
+device/samsung/gta3xlwifi has no additional dependencies.
+
+============================================
+PLATFORM_VERSION_CODENAME=REL
+PLATFORM_VERSION=17
+LINEAGE_VERSION=24.0-20261116-UNOFFICIAL-gta3xlwifi
+PRODUCT_SOURCE_ROOT_DIRS=-kernel/platform -prebuilts/misc/protobuf_vendorcompat
+TARGET_PRODUCT=lineage_gta3xlwifi
+TARGET_BUILD_VARIANT=userdebug
+TARGET_ARCH=arm64
+TARGET_ARCH_VARIANT=armv8-a
+TARGET_CPU_VARIANT=generic
+TARGET_2ND_ARCH=arm
+TARGET_2ND_ARCH_VARIANT=armv8-a
+TARGET_2ND_CPU_VARIANT=generic
+HOST_OS=linux
+HOST_OS_EXTRA=Linux-5.15.0-203-generic-x86_64-Ubuntu-22.04.5-LTS
+HOST_CROSS_OS=windows
+BUILD_ID=CP2A.260605.016
+OUT_DIR=out
+SOONG_ONLY=false
+SOONG_INCREMENTAL_ANALYSIS=false
+============================================
+Running product configuration...
+============================================
+PLATFORM_VERSION_CODENAME=REL
+PLATFORM_VERSION=17
+LINEAGE_VERSION=24.0-20261116-UNOFFICIAL-gta3xlwifi
+PRODUCT_SOURCE_ROOT_DIRS=-kernel/platform -prebuilts/misc/protobuf_vendorcompat
+TARGET_PRODUCT=lineage_gta3xlwifi
+TARGET_BUILD_VARIANT=userdebug
+TARGET_ARCH=arm64
+TARGET_ARCH_VARIANT=armv8-a
+TARGET_CPU_VARIANT=generic
+TARGET_2ND_ARCH=arm
+TARGET_2ND_ARCH_VARIANT=armv8-a
+TARGET_2ND_CPU_VARIANT=generic
+HOST_OS=linux
+HOST_OS_EXTRA=Linux-5.15.0-203-generic-x86_64-Ubuntu-22.04.5-LTS
+HOST_CROSS_OS=windows
+BUILD_ID=CP2A.260605.016
+OUT_DIR=out
+SOONG_ONLY=false
+SOONG_INCREMENTAL_ANALYSIS=true
+============================================
+[100% 1/1] bootstrap blueprint
+Running globs...
+ninja: 
+ninja: SISO_EXPERIMENTS=fallback-on-exec-error enabled
+SISO_EXPERIMENTS=ignore-missing-out-in-depfile enabled
+
+ninja: ignore missing out error in depfile 
+
+ninja:  0.43s Build Succeeded: 0 steps - 0.00/s
+
+out/soong/release-config/release_config-lineage_gta3xlwifi-aosp_current.vars was modified, regenerating...
+Adding CUSTOM_LOCALES [ast_ES ckb_IQ ckb_IR gd_GB cy_GB fur_IT nn_NO] to PRODUCT_LOCALES [en_US en_US af_ZA am_ET ar_EG ar_XB as_IN az_AZ be_BY bg_BG bn_BD bs_BA ca_ES cs_CZ da_DK de_DE el_GR en_AU en_CA en_GB en_IN en_XA es_ES es_US et_EE eu_ES fa_IR fi_FI fr_CA fr_FR gl_ES gu_IN hi_IN hr_HR hu_HU hy_AM in_ID is_IS it_IT iw_IL ja_JP ka_GE kk_KZ km_KH kn_IN ko_KR ky_KG lo_LA lt_LT lv_LV mk_MK ml_IN mn_MN mr_IN ms_MY my_MM nb_NO ne_NP nl_NL or_IN pa_IN pl_PL pt_BR pt_PT ro_RO ru_RU si_LK sk_SK sl_SI sq_AL sr_Latn_RS sr_RS sv_SE sw_TZ ta_IN te_IN th_TH tl_PH tr_TR uk_UA ur_PK uz_UZ vi_VN zh_CN zh_HK zh_TW zu_ZA en_XC]
+out/soong/release-config/release_config-lineage_gta3xlwifi-aosp_current.vars was modified, regenerating...
+[100% 2/2] initializing Make module parser
+Adding CUSTOM_LOCALES [ast_ES ckb_IQ ckb_IR gd_GB cy_GB fur_IT nn_NO] to PRODUCT_LOCALES [en_US en_US af_ZA am_ET ar_EG ar_XB as_IN az_AZ be_BY bg_BG bn_BD bs_BA ca_ES cs_CZ da_DK de_DE el_GR en_AU en_CA en_GB en_IN en_XA es_ES es_US et_EE eu_ES fa_IR fi_FI fr_CA fr_FR gl_ES gu_IN hi_IN hr_HR hu_HU hy_AM in_ID is_IS it_IT iw_IL ja_JP ka_GE kk_KZ km_KH kn_IN ko_KR ky_KG lo_LA lt_LT lv_LV mk_MK ml_IN mn_MN mr_IN ms_MY my_MM nb_NO ne_NP nl_NL or_IN pa_IN pl_PL pt_BR pt_PT ro_RO ru_RU si_LK sk_SK sl_SI sq_AL sr_Latn_RS sr_RS sv_SE sw_TZ ta_IN te_IN th_TH tl_PH tr_TR uk_UA ur_PK uz_UZ vi_VN zh_CN zh_HK zh_TW zu_ZA en_XC]
+[ 27% 3/11] including out/soong/installs-lineage_gta3xlwifi.mk
+[ 36% 4/11] including out/soong/Android-lineage_gta3xlwifi.mk
+[ 45% 5/11] including build/make/target/board/android-info.mk
+[ 54% 6/11] including bootable/deprecated-ota/updater/Android.mk
+[ 63% 7/11] including hardware/broadcom/wlan/bcmdhd/Android.mk
+[ 72% 8/11] including hardware/qcom/Android.mk
+[ 81% 9/11] including hardware/synaptics/wlan/synadhd/Android.mk
+[ 90% 10/11] including kernel/samsung/gta3xlwifi/sound/soc/codecs/tas2562/Android.mk
+[100% 11/11] including out/soong/late-lineage_gta3xlwifi.mk
+[100% 12/12] finishing Make module rules
+[100% 13/13] finishing Make module rules: Adding module dependencies
+[100% 14/14] finishing Make packaging rules
+[ 42% 15/35] including build/make/core/tasks/art.mk
+[ 45% 16/35] including build/make/core/tasks/build_custom_images.mk
+[ 48% 17/35] including build/make/core/tasks/dex_preopt_check.mk
+[ 51% 18/35] including build/make/core/tasks/find-shareduid-violation.mk
+[ 54% 19/35] including build/make/core/tasks/fontchain_lint.mk
+[ 57% 20/35] including build/make/core/tasks/host_init_verifier.mk
+[ 60% 21/35] including build/make/core/tasks/meta-lic.mk
+[ 62% 22/35] including build/make/core/tasks/module-info.mk
+[ 65% 23/35] including build/make/core/tasks/oem_image.mk
+[ 68% 24/35] including build/make/core/tasks/offline-sdk-docs.mk
+[ 71% 25/35] including build/make/core/tasks/platform_availability_check.mk
+[ 74% 26/35] including build/make/core/tasks/sdv.mk
+[ 77% 27/35] including build/make/core/tasks/vendor_module_check.mk
+[ 80% 28/35] including build/make/core/tasks/with-license.mk
+[ 82% 29/35] including vendor/lineage/build/tasks/bacon.mk
+[ 85% 30/35] including vendor/lineage/build/tasks/build-manifest_xml.mk
+[ 88% 31/35] including vendor/lineage/build/tasks/dt_image.mk
+[ 91% 32/35] including vendor/lineage/build/tasks/generate_lineage_sdk_coverage.mk
+[ 94% 33/35] including vendor/lineage/build/tasks/kernel.mk
+vendor/lineage/build/tasks/kernel.mk:234: warning: **********************************************************
+vendor/lineage/build/tasks/kernel.mk:235: warning: * Kernel source found and configuration was defined,     *
+vendor/lineage/build/tasks/kernel.mk:236: warning: * but prebuilt kernel is being forced.                   *
+vendor/lineage/build/tasks/kernel.mk:237: warning: * While this is likely intentional,                      *
+vendor/lineage/build/tasks/kernel.mk:238: warning: * it is NOT SUPPORTED WHATSOEVER.                        *
+vendor/lineage/build/tasks/kernel.mk:239: warning: * Generated kernel headers may not align with            *
+vendor/lineage/build/tasks/kernel.mk:240: warning: * the ABI of kernel you're including.                    *
+vendor/lineage/build/tasks/kernel.mk:241: warning: * Please unset TARGET_FORCE_PREBUILT_KERNEL              *
+vendor/lineage/build/tasks/kernel.mk:242: warning: * to build the kernel from source.                       *
+vendor/lineage/build/tasks/kernel.mk:243: warning: **********************************************************
+[ 97% 34/35] including device/generic/goldfish/build/tasks/combine_initramfs.mk
+[100% 35/35] finishing Make packaging rules
+[100% 36/36] finishing Make packaging rules: Adding phony targets
+[100% 37/37] finishing Make packaging rules: Checking licensing and SBOM
+[100% 38/38] writing make module actions
+No need to regenerate ninja file
+Starting ninja...
+ninja: 
+ninja: SISO_EXPERIMENTS=allow-unexpected-rsp-remove enabled
+SISO_EXPERIMENTS=ignore-missing-out-in-depfile enabled
+SISO_EXPERIMENTS=oom-score-adj enabled
+
+ninja: ignore missing out error in depfile 
+
+[ 31% 39/124] //bionic/libc:libc_openbsd clang upstream-openbsd/lib/libc/crypt/arc4random.c[arm]
+[ 34% 40/115] //bionic/libc:libc_openbsd clang upstream-openbsd/lib/libc/crypt/arc4random.c[arm]
+[ 35% 41/115] //bionic/libc:libc_openbsd clang upstream-openbsd/lib/libc/crypt/arc4random.c[arm apex10000]
+[ 36% 42/115] //bionic/libc:libc_openbsd clang upstream-openbsd/lib/libc/crypt/arc4random.c[apex10000]
+[ 37% 43/115] //bionic/libc:libc_openbsd clang upstream-openbsd/lib/libc/crypt/arc4random.c
+[ 38% 44/115] //bionic/libc:libc_common_shared static link libc_common_shared.a[arm]
+[ 39% 45/115] //bionic/libc:libc static link libc.a[arm]
+[ 40% 46/115] //bionic/libc:libc_common_shared static link libc_common_shared.a[apex10000]
+[ 40% 47/115] //bionic/libc:libc_common_shared static link libc_common_shared.a[arm apex10000]
+[ 41% 48/115] target Prebuilt: libc_32 (out/target/product/gta3xlwifi/obj_arm/STATIC_LIBRARIES/libc_intermediates/libc.a)
+[ 42% 49/115] //bionic/libc:libicu4x_bionic clippy bionic/icu4x.rs[arm apex10000]
+[ 43% 50/114] //bionic/libc:libicu4x_bionic clippy bionic/icu4x.rs[arm]
+[ 44% 51/114] //bionic/libc:libicu4x_bionic clippy bionic/icu4x.rs
+[ 45% 52/114] //bionic/libc:libicu4x_bionic clippy bionic/icu4x.rs[apex10000]
+[ 46% 53/114] //bionic/libc:libicu4x_bionic rustc bionic/icu4x.rs[apex10000]
+[ 47% 54/114] //bionic/libc:libicu4x_bionic rustc bionic/icu4x.rs
+[ 48% 55/114] //bionic/libc:libc static link libc.a
+[ 49% 56/114] //bionic/libc:libicu4x_bionic rustc bionic/icu4x.rs[arm]
+[ 50% 57/114] //bionic/libc:libicu4x_bionic rustc bionic/icu4x.rs[arm apex10000]
+[ 50% 58/114] target Prebuilt: libc (out/target/product/gta3xlwifi/obj/STATIC_LIBRARIES/libc_intermediates/libc.a)
+[ 51% 59/114] //bionic/libc:libc_openbsd header-abi-dumper upstream-openbsd/lib/libc/crypt/arc4random.c[arm apex10000]
+[ 53% 60/113] //bionic/libc:libc_openbsd header-abi-dumper upstream-openbsd/lib/libc/crypt/arc4random.c[apex10000]
+[ 53% 61/113] //bionic/libc:libc rustc generated_rust_staticlib/librustlibs.rs[apex10000]
+[ 54% 62/113] //bionic/libc:libstatic_rustlibs_for_make rustc generated_rust_staticlib/librustlibs.rs
+[ 55% 63/113] //bionic/libc:libstatic_rustlibs_for_make static link libstatic_rustlibs_for_make.a
+[ 56% 64/113] target Prebuilt: libstatic_rustlibs_for_make (out/target/product/gta3xlwifi/obj/STATIC_LIBRARIES/libstatic_rustlibs_for_make_intermediates/libstatic_rustlibs_for_make.a)
+[ 57% 65/113] //bionic/libc:libc rustc generated_rust_staticlib/librustlibs.rs[arm]
+[ 58% 66/113] //device/samsung/gta3xlwifi/recovery-header-sync:gta3xlwifi_recovery_header_sync rustc generated_rust_staticlib/librustlibs.rs[arm]
+[ 59% 67/113] //bionic/libc:libc rustc generated_rust_staticlib/librustlibs.rs[arm apex10000]
+[ 60% 68/113] //device/samsung/gta3xlwifi/recovery-header-sync:gta3xlwifi_recovery_header_sync link gta3xlwifi_recovery_header_sync[arm]
+[ 61% 69/113] cp out/target/product/gta3xlwifi/symbols/system/bin/gta3xlwifi_recovery_header_sync
+[ 61% 70/113] //bionic/libc:libc link libc.so[apex10000]
+[ 62% 71/113] cp out/target/product/gta3xlwifi/symbols/apex/com.android.runtime/lib64/bionic/libc.so
+[ 63% 72/113] //bionic/libc:libc link libc.so[arm]
+[ 64% 73/113] //bionic/libc:libc strip libc.so[apex10000]
+[ 65% 74/113] //bionic/libc:libc copy libc.so[apex10000]
+[ 66% 75/113] //bionic/libc:libc strip libc.so[arm]
+[ 67% 76/113] target Prebuilt: libc.com.android.runtime (out/target/product/gta3xlwifi/obj/SHARED_LIBRARIES/libc.com.android.runtime_intermediates/libc.so)
+[ 68% 77/113] Install: out/target/product/gta3xlwifi/apex/com.android.runtime/lib64/bionic/libc.so
+[ 69% 78/113] //bionic/libc:libc copy libc.so[arm]
+[ 70% 79/112] Install: out/target/product/gta3xlwifi/system/lib/bootstrap/libc.so
+[ 71% 80/112] out/host/linux-x86/bin/symbols_map -elf out/target/product/gta3xlwifi/symbols/system/bin/gta3xlwifi_recovery_header_sync -write_if_changed out/target/product/gta3xlwifi/obj/PACKAGING/elf_symbol_mapping_intermediates/system/bin/gta3xlwifi_recovery_header_sync.textproto
+[ 72% 81/111] //bionic/libc:libc link libc.so[arm apex10000]
+[ 74% 82/110] cp out/target/product/gta3xlwifi/symbols/apex/com.android.runtime/lib/bionic/libc.so
+[ 75% 83/110] //bionic/libc:libc strip libc.so[arm apex10000]
+[ 76% 84/110] //bionic/libc:libc copy libc.so[arm apex10000]
+[ 77% 85/110] Install: out/target/product/gta3xlwifi/apex/com.android.runtime/lib/bionic/libc.so
+[ 78% 86/110] target Prebuilt: libc.com.android.runtime_32 (out/target/product/gta3xlwifi/obj_arm/SHARED_LIBRARIES/libc.com.android.runtime_intermediates/libc.so)
+[ 79% 87/110] //device/samsung/gta3xlwifi/recovery-header-sync:gta3xlwifi_recovery_header_sync strip gta3xlwifi_recovery_header_sync[arm]
+[ 82% 88/107] Install: out/target/product/gta3xlwifi/system/bin/gta3xlwifi_recovery_header_sync
+[ 83% 89/107] target Prebuilt: gta3xlwifi_recovery_header_sync_32 (out/target/product/gta3xlwifi/obj_arm/EXECUTABLES/gta3xlwifi_recovery_header_sync_intermediates/gta3xlwifi_recovery_header_sync)
+[ 84% 90/107] //bionic/libc:libc header-abi-linker libc.so.llndk.lsdump[arm apex10000]
+[ 86% 91/105] //bionic/libc:libc header-abi-linker libc.so.llndk.lsdump[apex10000]
+[ 87% 92/105] //bionic/libc:libc header-abi-linker libc.so.apex.lsdump[apex10000]
+[ 88% 93/105] //bionic/libc:libc header-abi-linker libc.so.apex.lsdump[arm apex10000]
+[ 89% 94/105] //bionic/libc:libc header-abi-diff libc.so.llndk.abidiff[arm apex10000]
+[ 90% 95/105] //bionic/libc:libc header-abi-diff libc.so.llndk.abidiff[apex10000]
+[ 91% 96/105] //bionic/libc:libc header-abi-diff libc.so.llndk202504.abidiff[apex10000]
+[ 92% 97/105] //bionic/libc:libc header-abi-diff libc.so.llndk202504.abidiff[arm apex10000]
+[ 93% 98/105] //bionic/libc:libc header-abi-diff libc.so.apex36.abidiff[arm apex10000]
+[ 94% 99/105] //bionic/libc:libc header-abi-diff libc.so.apex36.abidiff[apex10000]
+[ 95% 100/105] target StaticExecutable: updater (out/target/product/gta3xlwifi/obj/EXECUTABLES/updater_intermediates/LINKED/updater)
+[ 96% 101/105] Copy symbols with mapping: out/target/product/gta3xlwifi/symbols/system/bin/updater
+[ 97% 102/105] target Strip: updater (out/target/product/gta3xlwifi/obj/EXECUTABLES/updater_intermediates/updater)
+[ 98% 103/105] Install: out/target/product/gta3xlwifi/system/bin/updater
+ninja: 1m12.45s Build Succeeded: 65 steps - 0.90/s
+
+
+#### build completed successfully (05:04 (mm:ss)) ####
+
+PASS: 1243 locked projects, 21 exact reviewed patches; no external alternates

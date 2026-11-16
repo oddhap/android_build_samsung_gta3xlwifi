@@ -1,0 +1,29 @@
+{
+  "observed_at_utc": "2026-11-16T13:24:04.377666+00:00",
+  "environment": "existing TWRP 3.7.1_12 / Linux 4.4",
+  "source_snapshot": "port-20261116-04",
+  "binaries_sha256": {
+    "gta3xlwifi_recovery_header_sync": "fe097d4df9a7288f3a995c834d02cbd129abe8b951f3b629bba2925c470ffa39",
+    "updater": "d2b545247386f84a4a3c5f31033146aeaf8f231fba65c6cdfd0da904e2006a2c"
+  },
+  "preflight": {
+    "arguments": [
+      "--preflight",
+      "0x220001aa"
+    ],
+    "exit": 0,
+    "output": "Recognized recovery and target OS/SPL match; partition remains unchanged. This is not FBE runtime proof."
+  },
+  "updater_invalid_args": {
+    "arguments": [
+      "--help"
+    ],
+    "exit": 1,
+    "output": "unexpected number of arguments: 2"
+  },
+  "selinux": "Enforcing",
+  "battery_percent": 100,
+  "rom_partitions_written": false,
+  "passed": true,
+  "scope": "Actual startup/preflight on preserved Linux4.4 recovery; no ROM image installation or Android17 runtime claim."
+}

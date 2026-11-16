@@ -1,0 +1,93 @@
+{
+  "passed": true,
+  "scope": "Run actual modified OpenBSD C bodies with real kernel entropy and explicit syscall fault fixtures.",
+  "source_sha256": {
+    "/srv/android/ports/lineage-24.0-arm64/arc4random24-20261116-01/files/bionic/libc/upstream-openbsd/lib/libc/crypt/arc4random.c": "d9d47e27539849f9e2ae91e2181499600a24a6ac38e1890ca5bbc30b2f2e21f9",
+    "/srv/android/ports/lineage-24.0-arm64/arc4random24-20261116-01/files/bionic/libc/upstream-openbsd/android/include/arc4random.h": "cac3c6a73ae82f1ca91251b52b00e2ebe44e34f2dedab61976f2a290e9e09992",
+    "/srv/android/ports/lineage-24.0-arm64/arc4random24-20261116-01/chacha_private.h": "290d89badf5fc6a1c5c6bfb611e8a0af3b0a99d68c96bb6506434c008384c6a7"
+  },
+  "tests": [
+    {
+      "mode": "native",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "stdout": "PASS mode=native sizes=10 threads=8x128 forks=32 kernel_entropy_calls=0\n",
+      "stderr": ""
+    },
+    {
+      "mode": "legacy",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "stdout": "PASS mode=legacy sizes=10 threads=8x128 forks=32 kernel_entropy_calls=6443\n",
+      "stderr": ""
+    },
+    {
+      "mode": "short",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "stdout": "PASS mode=short sizes=10 threads=8x128 forks=32 kernel_entropy_calls=170845\n",
+      "stderr": ""
+    },
+    {
+      "mode": "eintr",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "stdout": "PASS mode=eintr sizes=10 threads=8x128 forks=32 kernel_entropy_calls=6446\n",
+      "stderr": ""
+    },
+    {
+      "mode": "entropy-eio",
+      "exit_code": -6,
+      "expected_exit_code": -6,
+      "stdout": "",
+      "stderr": "arc4random kernel entropy failed: Input/output error"
+    },
+    {
+      "mode": "entropy-zero",
+      "exit_code": -6,
+      "expected_exit_code": -6,
+      "stdout": "",
+      "stderr": "arc4random kernel entropy failed: Invalid argument"
+    },
+    {
+      "mode": "probe-denied",
+      "exit_code": -6,
+      "expected_exit_code": -6,
+      "stdout": "",
+      "stderr": "arc4random fork-wipe probe failed: Operation not permitted"
+    },
+    {
+      "mode": "map-oom",
+      "exit_code": -6,
+      "expected_exit_code": -6,
+      "stdout": "",
+      "stderr": "arc4random feature allocation failed: Cannot allocate memory"
+    }
+  ],
+  "compile_command": [
+    "gcc",
+    "-std=gnu11",
+    "-O2",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-D_GNU_SOURCE",
+    "-DPR_SET_VMA=0x53564d41",
+    "-DPR_SET_VMA_ANON_NAME=0",
+    "-DDEF_WEAK(x)=",
+    "-Darc4random=tested_arc4random",
+    "-Darc4random_buf=tested_arc4random_buf",
+    "-Dgetrandom=fixture_getrandom",
+    "-Dmadvise=fixture_madvise",
+    "-Dmmap=fixture_mmap",
+    "-I/srv/android/artifacts/lineage-24.0-arm64/arc4random-kernel-host-20261116-02/include",
+    "-c",
+    "/srv/android/ports/lineage-24.0-arm64/arc4random24-20261116-01/files/bionic/libc/upstream-openbsd/lib/libc/crypt/arc4random.c",
+    "-o",
+    "/srv/android/artifacts/lineage-24.0-arm64/arc4random-kernel-host-20261116-02/arc.o"
+  ],
+  "real_kernel_getrandom_used": true,
+  "short_EINTR_fork_thread_and_fail_closed_checked": true,
+  "actual_Android_TWRP_execution_proven": false,
+  "flash_ready": false
+}

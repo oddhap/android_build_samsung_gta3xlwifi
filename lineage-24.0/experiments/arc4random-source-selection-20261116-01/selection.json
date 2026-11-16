@@ -1,0 +1,29 @@
+{
+  "scope": "Select an explicitly hash-verified source composition and capture a new exact snapshot.\n\nSelect real blocking kernel entropy for kernels without fork-wipe support.\nNo SELinux source, network source, vendor image or kernel input is modified.\nNo vendor image, kernel, signing material or user data is changed.\nBackups and the complete parent snapshot remain available for source rollback.\n",
+  "parent": "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/snapshots/port-20261116-03",
+  "files": {
+    "bionic/libc/upstream-openbsd/android/include/arc4random.h": {
+      "project": "bionic",
+      "path": "libc/upstream-openbsd/android/include/arc4random.h",
+      "before_sha256": "85a8fa9d9e95e2811fccfa588a81f452bdb4d0398113fc27e86bdfed8e44eab5",
+      "after_sha256": "cac3c6a73ae82f1ca91251b52b00e2ebe44e34f2dedab61976f2a290e9e09992"
+    },
+    "bionic/libc/upstream-openbsd/lib/libc/crypt/arc4random.c": {
+      "project": "bionic",
+      "path": "libc/upstream-openbsd/lib/libc/crypt/arc4random.c",
+      "before_sha256": "fec36e00592721727f08953015b72864328b0192d5d223bd9c802c6a331ca4a2",
+      "after_sha256": "d9d47e27539849f9e2ae91e2181499600a24a6ac38e1890ca5bbc30b2f2e21f9"
+    }
+  },
+  "proof_reports_sha256": {
+    "/srv/android/artifacts/lineage-24.0-arm64/arc4random-kernel-host-20261116-02/report.json": "0c6a84a8ac9638c11730757dfad32f06accc1497add29d0e26c8d32c1252b96c"
+  },
+  "prebuilts": {
+    "Image": "7ece8d6fd70870811abfe5fd9f947311506f97233491b4016cde441de3578aec",
+    "vendor.img": "2b40b8c71ce02b432ae25c9664f8460ebefc5c0955226b2fdb74ed16c2d11353",
+    "dtbo.img": "b9041c37713a745290d9a0203423436b6caa7a1307ced79b6963b4f1f0271c4b"
+  },
+  "policy_source_changed": false,
+  "vendor_and_kernel_selection_changed": false,
+  "flash_ready": false
+}

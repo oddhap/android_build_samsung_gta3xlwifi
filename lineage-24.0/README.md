@@ -4,6 +4,31 @@ Active development target: LineageOS 24.0 / Android 17, ARM64 with ARM32 apps,
 `gta3xlwifi`, physical non-A/B partitions. This is an unfinished source-built
 device port. No installation candidate is approved.
 
+**Current candidate invalidation and replacement (November16):** the previous
+OTA `aa681b3199d1072948e6cc9c835019513c34c96545fd414639dc4366fe4cbc58`
+must not be installed. Its static installer actually aborted in the preserved
+Linux4.4 TWRP before preflight because upstream Bionic required MADV_WIPEONFORK.
+The same missing syscall feature affects the selected ROM kernel.
+
+Active snapshot is now **port-20261116-04** (1,243 projects /21 exact patches).
+Two reviewed Bionic sources use blocking kernel getrandom for every requested
+byte only when a genuine serialized MADV_WIPEONFORK probe returns EINVAL.
+No userspace entropy/cache is inherited across fork; entropy, allocation and
+other probe errors remain fatal. Supported kernels retain the original generator.
+Eight host modes pass, including fork/threads and explicit syscall failures.
+Actual new libc and ARM32/ARM64 static installer builds pass. On the physical
+preserved TWRP, the new read-only recovery preflight passes and updater reaches
+its normal argument rejection without abort. SELinux remains Enforcing.
+A complete replacement ROM/package and fresh package checks are in progress.
+These results do not establish Android17 boot, networking or encryption behavior.
+
+The owner has explicitly authorized the physical test flash and userdata deletion.
+Only the reviewed recovery OS-header byte was adjusted; the full partition was
+read back and verified against the expected bytes. Existing TWRP kernel/ramdisk
+are preserved. No ROM partition has yet been flashed. Private device reports,
+rollback images and ROM binaries are not published. Older candidate and approval
+statements below are historical and superseded by this notice.
+
 The official manifest was inspected at
 `b51a0c449a3279ca55fb6d4d91d2143e42e2fff5` (`android-17.0.0_r1`).
 The official `aosp_current` release alias resolves to `cp2a` in the inspected

@@ -1,0 +1,3 @@
+libc
+gta3xlwifi_recovery_header_sync
+updater

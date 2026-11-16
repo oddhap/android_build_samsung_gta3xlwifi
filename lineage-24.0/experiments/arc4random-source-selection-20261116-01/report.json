@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "scope": "Select an explicitly hash-verified source composition and capture a new exact snapshot.\n\nSelect real blocking kernel entropy for kernels without fork-wipe support.\nNo SELinux source, network source, vendor image or kernel input is modified.\nNo vendor image, kernel, signing material or user data is changed.\nBackups and the complete parent snapshot remain available for source rollback.\n",
+  "files_selected": 2,
+  "project_count": 1243,
+  "reviewed_patches": 21,
+  "snapshot": "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/snapshots/port-20261116-04",
+  "selection_sha256": "2dffd567f631101547ca12d81167887d0e702f20d72324f970b8faff6f99d1a6",
+  "kernel_and_vendor_prebuilts_unchanged": true,
+  "hardware_tested": false,
+  "flash_ready": false
+}

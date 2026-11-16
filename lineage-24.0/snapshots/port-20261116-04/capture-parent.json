@@ -1,0 +1,10 @@
+{
+  "parent_snapshot": "port-20261116-03",
+  "parent_manifest_sha256": "31f142b6c2e5f04f14ed9cdecb3cd6b13716508b428ad8c86d3d3332d6a24594",
+  "parent_lock_sha256": "297060d9f4d7edf63967bc568f5767279aed0c1b965746db14a7a4617d4c1e83",
+  "composition_selection_sha256": "2dffd567f631101547ca12d81167887d0e702f20d72324f970b8faff6f99d1a6",
+  "proof_reports_sha256": {
+    "/srv/android/artifacts/lineage-24.0-arm64/arc4random-kernel-host-20261116-02/report.json": "0c6a84a8ac9638c11730757dfad32f06accc1497add29d0e26c8d32c1252b96c"
+  },
+  "kernel_and_vendor_prebuilts_unchanged": true
+}
