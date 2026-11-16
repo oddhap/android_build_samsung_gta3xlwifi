@@ -1,0 +1,23 @@
+{
+  "scope": "Select an explicitly hash-verified source composition and capture a new exact snapshot.\n\nInitialize the global Controllers owner before the oneshot restore callbacks.\nNo SELinux policy, vendor image or kernel input is modified; no BPF readiness is set.\nNo vendor image, kernel, signing material or user data is changed.\nBackups and the complete parent snapshot remain available for source rollback.\n",
+  "parent": "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/snapshots/port-20261116-09",
+  "files": {
+    "system/netd/server/main.cpp": {
+      "project": "system/netd",
+      "path": "server/main.cpp",
+      "before_sha256": "ed0a78ad134607d03d2fbd5d0a523a4f331bc23f2fbaa79f0a17ae9d9d2b14f5",
+      "after_sha256": "270205819732580d42e26f74ec47320e324c6499b72828309edd37fb201d3125"
+    }
+  },
+  "proof_reports_sha256": {
+    "/srv/android/artifacts/lineage-24.0-arm64/netd-oneshot-global-host-20261116-01/report.json": "99b04ee1cbe938a5aa8bd6bb5f42c5d55a3d0a55874494ac1be67cbc0bc81e35"
+  },
+  "prebuilts": {
+    "Image": "7ece8d6fd70870811abfe5fd9f947311506f97233491b4016cde441de3578aec",
+    "vendor.img": "2b40b8c71ce02b432ae25c9664f8460ebefc5c0955226b2fdb74ed16c2d11353",
+    "dtbo.img": "b9041c37713a745290d9a0203423436b6caa7a1307ced79b6963b4f1f0271c4b"
+  },
+  "policy_source_changed": false,
+  "vendor_and_kernel_selection_changed": false,
+  "flash_ready": false
+}

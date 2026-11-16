@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "scope": "Select an explicitly hash-verified source composition and capture a new exact snapshot.\n\nInitialize the global Controllers owner before the oneshot restore callbacks.\nNo SELinux policy, vendor image or kernel input is modified; no BPF readiness is set.\nNo vendor image, kernel, signing material or user data is changed.\nBackups and the complete parent snapshot remain available for source rollback.\n",
+  "files_selected": 1,
+  "project_count": 1243,
+  "reviewed_patches": 21,
+  "snapshot": "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/snapshots/port-20261116-10",
+  "selection_sha256": "d0342f3fffac47163cd0ee7f5fe1f2e0f461091d8d5a035fe9f57593cadb2d7d",
+  "kernel_and_vendor_prebuilts_unchanged": true,
+  "hardware_tested": false,
+  "flash_ready": false
+}

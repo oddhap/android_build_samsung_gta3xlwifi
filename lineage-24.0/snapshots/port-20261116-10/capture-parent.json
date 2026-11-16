@@ -1,0 +1,10 @@
+{
+  "parent_snapshot": "port-20261116-09",
+  "parent_manifest_sha256": "31f142b6c2e5f04f14ed9cdecb3cd6b13716508b428ad8c86d3d3332d6a24594",
+  "parent_lock_sha256": "e6e015373f8f7a7e10c9d988cebbd48aeb7c8e2c955c005e33082217ce71b359",
+  "composition_selection_sha256": "d0342f3fffac47163cd0ee7f5fe1f2e0f461091d8d5a035fe9f57593cadb2d7d",
+  "proof_reports_sha256": {
+    "/srv/android/artifacts/lineage-24.0-arm64/netd-oneshot-global-host-20261116-01/report.json": "99b04ee1cbe938a5aa8bd6bb5f42c5d55a3d0a55874494ac1be67cbc0bc81e35"
+  },
+  "kernel_and_vendor_prebuilts_unchanged": true
+}

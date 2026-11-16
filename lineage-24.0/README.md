@@ -4,6 +4,17 @@ Active development target: LineageOS 24.0 / Android 17, ARM64 with ARM32 apps,
 `gta3xlwifi`, physical non-A/B partitions. This is an unfinished source-built
 device port. The first physical test installation has completed; its first Android17 boot failed and is being repaired.
 
+**Newest physical diagnosis:** snapshot09 starts LMKD using the actual in-kernel
+low-memory-killer interface and again completes file-crypto initialization.
+Its next blocker is a real netd oneshot SIGSEGV: the test path constructs a local
+Controllers instance, while the unmodified restore helpers dereference the unset
+global gCtls. Matching physical tombstone/build-ID and symbolization identify
+NetdConstants.cpp:39 from main.cpp:130. The boot failure guard correctly reboots.
+Snapshot10 initializes the global instance before those callbacks, matching normal
+netd lifetime. UBSan reproduces the original bug; fixed identity and all fixture
+failure paths pass. No provider checks, policy, crypto or networking readiness are
+bypassed. Full audited replacement build and package checks are in progress.
+
 **Latest status (November16, supersedes historical notices below):** snapshot07
 installed successfully and reached actual file-encryption initialization (EXIT0),
 but normal boot fails when LMKD reads absent platform API version metadata.

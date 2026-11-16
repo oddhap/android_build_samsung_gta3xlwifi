@@ -1,0 +1,65 @@
+{
+  "passed": true,
+  "scope": "Reproduce the real oneshot null-global bug with actual main branch/restore helpers.\n\nControllers and property/provider/restore execution are explicit host fixtures;\nthis checks initialization identity and failure propagation, not Android networking.\nThe real provider checks, kernel HOLD, policy and boot failure guard are unchanged.\n",
+  "original_null_global_reproduced": true,
+  "fixed_global_identity_and_failure_propagation_passed": true,
+  "source_sha256": {
+    "system/netd/server/main.cpp": "270205819732580d42e26f74ec47320e324c6499b72828309edd37fb201d3125"
+  },
+  "unchanged_restore_helpers_sha256": "1c42cde569cd55cac18dfccc09f0db1baf2dedcb5c9f59b157b3cbe10ee56fce",
+  "unchanged_controllers_source_sha256": "47d0d70a010a1c89d556bbf158815b476a6272d45c8cc2e1d353bd745205f896",
+  "actual_restore_helpers_sha256": "1776bf62184bb9514e47b6142d261591068ea8306052daeb6abee8199c258b52",
+  "cases": [
+    {
+      "kind": "baseline",
+      "mode": "legacy-ok",
+      "exit": 1,
+      "stdout": "",
+      "stderr": "/srv/android/artifacts/lineage-24.0-arm64/netd-oneshot-global-host-20261116-01/baseline.cpp:24:33: runtime error: member access within null pointer of type 'struct Controllers'\n",
+      "actual_branch_sha256": "8de1d7c97f9e7c86cea93e401f6c01864f6982156964363e3c5fd08b527a6c36"
+    },
+    {
+      "kind": "files",
+      "mode": "legacy-ok",
+      "exit": 0,
+      "stdout": "exit=0 init=1 restore=1 provider=1 stock=0\n",
+      "stderr": "",
+      "actual_branch_sha256": "f6d4f1b0d3142beb5cdf8f82424ed9f6a854ad267bb4b1f72bb59921a1a67e35"
+    },
+    {
+      "kind": "files",
+      "mode": "provider-error",
+      "exit": 0,
+      "stdout": "exit=1 init=1 restore=1 provider=1 stock=0\n",
+      "stderr": "",
+      "actual_branch_sha256": "f6d4f1b0d3142beb5cdf8f82424ed9f6a854ad267bb4b1f72bb59921a1a67e35"
+    },
+    {
+      "kind": "files",
+      "mode": "stock-ok",
+      "exit": 0,
+      "stdout": "exit=0 init=0 restore=0 provider=0 stock=1\n",
+      "stderr": "",
+      "actual_branch_sha256": "f6d4f1b0d3142beb5cdf8f82424ed9f6a854ad267bb4b1f72bb59921a1a67e35"
+    },
+    {
+      "kind": "files",
+      "mode": "stock-error",
+      "exit": 0,
+      "stdout": "exit=-1 init=0 restore=0 provider=0 stock=1\n",
+      "stderr": "",
+      "actual_branch_sha256": "f6d4f1b0d3142beb5cdf8f82424ed9f6a854ad267bb4b1f72bb59921a1a67e35"
+    },
+    {
+      "kind": "files",
+      "mode": "restore-error",
+      "exit": 23,
+      "stdout": "",
+      "stderr": "",
+      "actual_branch_sha256": "f6d4f1b0d3142beb5cdf8f82424ed9f6a854ad267bb4b1f72bb59921a1a67e35"
+    }
+  ],
+  "real_Android_networking_not_executed": true,
+  "policy_kernel_crypto_and_boot_failure_guards_changed": false,
+  "flash_ready": false
+}

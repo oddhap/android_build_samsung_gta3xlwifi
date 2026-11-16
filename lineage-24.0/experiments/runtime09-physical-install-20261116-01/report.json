@@ -54,5 +54,23 @@
     "runtime09-sideload.log": "30366e6e22979c49d7b6ec6661740e8c6c6481a9869d55e891c8acba03c48f1e"
   },
   "owner_reports_Samsung_logo_then_reboot": true,
-  "new_boot_logs_pending": true
+  "new_boot_logs_pending": false,
+  "real_in_kernel_LMKD_startup_logged": true,
+  "enablefilecrypto_exit": 0,
+  "netd_crash": {
+    "signal": 11,
+    "fault_address": "0x370",
+    "binary": "/system/bin/netd oneshot",
+    "build_id": "9f2a4469352f996785119ad0180109cd",
+    "relative_pc": "0x82fa8",
+    "source": "system/netd/server/NetdConstants.cpp:39",
+    "caller": "system/netd/server/main.cpp:130",
+    "cause": "oneshot local Controllers never initializes the gCtls global used by the restore helpers"
+  },
+  "netd_failure_guard_reboot_preserved": true,
+  "private_crash_evidence_sha256": {
+    "last_kmsg": "29c1a7cf6633f76bc08a217e199e1ef436987ee6fc3f5f539de2e242ad18c260",
+    "pstore/pmsg-ramoops-0": "03247a9d9cdda7229f90ab9382c1376e896f64ca55706931231611387aa8aed4",
+    "netd-tombstone_07.txt": "10fad14a58dd9b9f27524139c68a4da164b2fd48893d72bda399212345cf57cf"
+  }
 }
