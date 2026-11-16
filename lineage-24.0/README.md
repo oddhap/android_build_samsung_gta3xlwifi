@@ -13,7 +13,12 @@ NetdConstants.cpp:39 from main.cpp:130. The boot failure guard correctly reboots
 Snapshot10 initializes the global instance before those callbacks, matching normal
 netd lifetime. UBSan reproduces the original bug; fixed identity and all fixture
 failure paths pass. No provider checks, policy, crypto or networking readiness are
-bypassed. Full audited replacement build and package checks are in progress.
+bypassed. Snapshot10 full audited product build, all product checks, VINTF with 39 factory
+APEX packages, signed ZIP/CMS/CRC and all block streams pass. Fresh physical
+preflight guards pass; installation completed with updaterRC0. Physical boot,
+vendor, unchanged recovery and all eight critical files including new netd match.
+Normal Android startup is being observed.
+No normal Android17 boot, working networking or complete FBE claim is made.
 
 **Latest status (November16, supersedes historical notices below):** snapshot07
 installed successfully and reached actual file-encryption initialization (EXIT0),

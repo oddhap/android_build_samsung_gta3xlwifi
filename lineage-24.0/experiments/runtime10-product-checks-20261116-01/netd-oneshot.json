@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "scope": "Bind rebuilt actual netd to the oneshot null-global regression and unchanged networking guards.",
+  "archive_sha256": "897305ae42900f8324e8307d7eedbc3cb8d61650e717bdfbf4ba87c87b4b6896",
+  "actual_netd_sha256": "e3aff4261d9770aa8ea076d37a1d31083d6b748cb050d351d7a79df9313813da",
+  "reference_netd_sha256": "3829c5e3c3ed3f994e81db2bef2f6295ea2cd9763ad4e6b76f55188fa3e8ac6f",
+  "netd_init_rc_sha256": "51039198c9ec69111b1f7f1c8257ae12ee0a677c14599a87416c5b24b112948b",
+  "host_regression_report_sha256": "99b04ee1cbe938a5aa8bd6bb5f42c5d55a3d0a55874494ac1be67cbc0bc81e35",
+  "real_provider_and_boot_failure_guard_retained": true,
+  "hardware_boot_or_networking_proven": false,
+  "flash_ready": false
+}

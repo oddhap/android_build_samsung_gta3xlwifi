@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "scope": "Require genuine comments-only API metadata and source-bound actual-kernel comparisons, never loader readiness.",
+  "archive_sha256": "897305ae42900f8324e8307d7eedbc3cb8d61650e717bdfbf4ba87c87b4b6896",
+  "actual_version_rc_sha256": "f4c1474bb171c4cbd4780878d48ab4111184f036e162873d38c55422e59957ee",
+  "actual_version_first_line": "# 2026 2 37 0 0 # 26q2 sdk/api level 37.0 - Android 17 Cinnamon Bun QPR0",
+  "comments_only_no_actions_or_services": true,
+  "no_kernel_version_override_in_build_props": true,
+  "BPF_program_readiness_not_set": true,
+  "host_regression_report_sha256": "034f7d9a89053c822db3890aad372c40906957bcb11a423dbf85f6042daa1217",
+  "supported_kernel_comparisons_preserved": true,
+  "actual_Android_LMKD_execution_proven": false,
+  "flash_ready": false
+}

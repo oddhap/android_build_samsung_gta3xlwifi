@@ -1,0 +1,59 @@
+{
+  "passed": true,
+  "scope": "Owner-authorized actual TWRP installation and readback; not a successful Android boot claim. Raw device logs and backup images stay private.",
+  "source_snapshot": "port-20261116-10",
+  "ota_sha256": "e7279068f93cb96f4b315ca4d2abf283024ea651d3b93ecff78394e57bc77c0e",
+  "ota_bytes": 1041177253,
+  "standard_public_development_signature": true,
+  "physical_prewrite_guards_passed": true,
+  "updater_exit": 0,
+  "boot_prefix_sha256": "6027da30a0696db4c946c9984e39491b7ee30d61b83577ccd001b58db0f3d13f",
+  "vendor_entire_partition_sha256": "7f9250bd0157d2847554a24b20995b8e492042165605743a7dc1883068df3ce7",
+  "recovery_entire_partition_sha256": "053125e1716778c78b03108dd34457a2d390167dea117774c7cdd5cdea1a5a12",
+  "physical_files": {
+    "SYSTEM/lib64/libmemevents.so": {
+      "sha256": "8b4f4227663bf1629609eee89f2e473a0e64369578808df7be5607b8dee3dd46",
+      "bytes": 44448
+    },
+    "SYSTEM/lib/libmemevents.so": {
+      "sha256": "8b8c43425fe5ae85c8c9e6e8fe785e68c04160e3ee4d747cac48e52ba14dab00",
+      "bytes": 29344
+    },
+    "SYSTEM/bin/lmkd": {
+      "sha256": "852fd2473382a8f00245ea25e179e800ac0578c952c116e275eaf7e99c0183b0",
+      "bytes": 99800
+    },
+    "SYSTEM/bin/netd": {
+      "sha256": "e3aff4261d9770aa8ea076d37a1d31083d6b748cb050d351d7a79df9313813da",
+      "bytes": 759248,
+      "previous_snapshot09_sha256": "3829c5e3c3ed3f994e81db2bef2f6295ea2cd9763ad4e6b76f55188fa3e8ac6f"
+    },
+    "SYSTEM/bin/vold": {
+      "sha256": "0cfb53996ca815b0bc8179e30979ff39897c8d376420e808d0d83ce94d20cdea",
+      "bytes": 1045824
+    },
+    "SYSTEM/bin/gta3xlwifi_first_stage_init": {
+      "sha256": "17aef32ba433a81c98ac72a4c7155ca924977b5668a47364357d2fab9e4c404c",
+      "bytes": 3323024
+    },
+    "SYSTEM/etc/init/netbpfload.rc": {
+      "sha256": "f4c1474bb171c4cbd4780878d48ab4111184f036e162873d38c55422e59957ee",
+      "bytes": 159
+    },
+    "ROOT/fstab.exynos7904": {
+      "sha256": "ae87c90434eb2cfe64bd04ec52ec4d7da8019d12395b9a67c8515975b48b3742",
+      "bytes": 1103
+    }
+  },
+  "userdata_format_performed": false,
+  "SELinux_Enforcing": true,
+  "system_unmounted_before_boot": true,
+  "Android17_normal_boot_confirmed": false,
+  "Android17_network_FBE_validation_completed": false,
+  "private_evidence_sha256": {
+    "runtime10-readback.log": "b843877dbaf4c216b987d65dc98b985831b8c5cb2819aea1a138111ec30d7a35",
+    "runtime10-root-readback.log": "8c4cdd2f232e690451abe754a76cfc7e5a5f5a4be578e4379b301488c4163067",
+    "runtime10-recovery-after-install.log": "6cb98646ad7f7e9b640c14f3af99e5cbbe5dcbb7a7945da1e9dafc716872bc03",
+    "runtime10-sideload.log": "f89c93d010ca3a0e3d7fc2d84f5ffb2b5006f72558da91d173ede78b8c7957ca"
+  }
+}
