@@ -45,7 +45,7 @@
       "bytes": 1103
     }
   },
-  "userdata_format_performed": false,
+  "userdata_format_performed": true,
   "SELinux_Enforcing": true,
   "system_unmounted_before_boot": true,
   "Android17_normal_boot_confirmed": false,
@@ -57,5 +57,25 @@
     "runtime10-sideload.log": "f89c93d010ca3a0e3d7fc2d84f5ffb2b5006f72558da91d173ede78b8c7957ca"
   },
   "owner_reports_Samsung_logo_then_reboot": true,
-  "new_boot_logs_pending": true
+  "new_boot_logs_pending": false,
+  "first_boot_failure": {
+    "stage": "vdc cryptfs init_user0",
+    "exit": 25,
+    "missing_key_metadata": "existing DE0 directory lacks version and all key files",
+    "automatic_recovery_wipe_refused": true,
+    "secondary_shutdown_failure": "DECON register access after shutdown causes external-abort IRQ panic",
+    "netd1shot_execution_not_reached_in_captured_sequence": true
+  },
+  "first_boot_raw_evidence_sha256": {
+    "last_kmsg": "cb24e609ae3ca3d72d48625c2772d4ca3357eb1a8dbabce7bbc54cf93b6c131e",
+    "pstore/pmsg-ramoops-0": "32b1871bc09a10c665bc8e2ceef88c2d1322e0f79ae2b7b98f006555c942cb56",
+    "recovery.log": "548f62e18099101e2f87e8c40c84a1387106c89b4bf7befe81e715735abce215"
+  },
+  "owner_authorized_clean_data_retest": {
+    "format_tools_exit": 0,
+    "DE0_directory_absent_after_format": true,
+    "ROM_source_and_binary_unchanged": true,
+    "boot_and_FBE_outcome_pending": true
+  },
+  "userdata_format_during_OTA": false
 }

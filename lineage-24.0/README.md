@@ -17,7 +17,12 @@ bypassed. Snapshot10 full audited product build, all product checks, VINTF with 
 APEX packages, signed ZIP/CMS/CRC and all block streams pass. Fresh physical
 preflight guards pass; installation completed with updaterRC0. Physical boot,
 vendor, unchanged recovery and all eight critical files including new netd match.
-The owner reports Samsung logo then reboot; fresh snapshot10 crash logs are pending.
+Fresh snapshot10 logs identify an earlier user0 FBE initialization failure: an
+existing DE0 directory has no version or key files. The automatic recovery-wipe
+guard refuses data deletion. A secondary DECON shutdown IRQ fault follows the
+fatal reboot. The captured sequence does not reach the netd self-test. An
+owner-authorized clean-userdata retest of the identical ROM is now in progress;
+no acceptance of missing keys or encryption bypass was added.
 No normal Android17 boot, working networking or complete FBE claim is made.
 
 **Latest status (November16, supersedes historical notices below):** snapshot07

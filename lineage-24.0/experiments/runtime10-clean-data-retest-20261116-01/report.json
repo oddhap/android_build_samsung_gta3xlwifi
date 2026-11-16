@@ -1,0 +1,19 @@
+{
+  "scope": "Explicitly owner-authorized clean userdata initialization test of the identical installed snapshot10 ROM, after a verified empty DE0 key directory blocked user0. No key contents were read or copied.",
+  "ROM_source_snapshot": "port-20261116-10",
+  "ota_sha256": "e7279068f93cb96f4b315ca4d2abf283024ea651d3b93ecff78394e57bc77c0e",
+  "physical_netd_sha256_before_format": "e3aff4261d9770aa8ea076d37a1d31083d6b748cb050d351d7a79df9313813da",
+  "userdata_format_owner_authorized": true,
+  "mke2fs_exit": 0,
+  "e2fsdroid_exit": 0,
+  "only_userdata_formatted": true,
+  "DE0_directory_absent_after_format": true,
+  "SELinux_Enforcing": true,
+  "encryption_and_boot_failure_guards_unchanged": true,
+  "ROM_source_or_binary_changed": false,
+  "normal_Android_boot_and_full_FBE_proven": false,
+  "evidence_sha256": {
+    "runtime10-clean-format-data.log": "52612c8a7f133d585799e2dea8aea7eadf1537fda0cb72de40f5f17d89720728",
+    "runtime10-clean-recovery-after-format.log": "f438ade1958c63cb126cea9e6d2c80e32152b768ec01f5ed974af4fec1169f9a"
+  }
+}
