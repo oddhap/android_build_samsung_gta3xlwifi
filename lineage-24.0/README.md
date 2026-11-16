@@ -4,6 +4,23 @@ Active development target: LineageOS 24.0 / Android 17, ARM64 with ARM32 apps,
 `gta3xlwifi`, physical non-A/B partitions. This is an unfinished source-built
 device port. The first physical test installation has completed; its first Android17 boot failed and is being repaired.
 
+**Current replacement: snapshot11, build/package work only.** The owner deferred
+further physical testing. The tablet remains in preserved TWRP; no more flashing,
+reboots or formats are planned before the owner returns.
+
+A clean-data snapshot10 test creates persistent DE0 key files and init_user0
+exits0. The netd null-global crash is gone. Netd now fails closed with EPROTO:
+exclusive INPUT/FORWARD construction installs guards, nonexclusive OUTPUT does
+not, but the production caller uses the default VerifyOnly startup mode.
+Snapshot11 explicitly selects the existing InstallMissing path while the kernel
+lease is held; it preserves foreign rules and verifies all six actual root images.
+A regression replays actual Controllers choices/caller and real guard/startup
+code: original missing-OUTPUT failure reproduced, fixed six-root verification,
+held failure injection and nonduplication pass. Other policy, kernel, vendor,
+crypto and boot-failure assertions remain unchanged. Full audited build and
+fresh package checks are running. A CE policy EINVAL message in the physical
+log still requires follow-up; user0 EXIT0 is not full encryption validation.
+
 **Newest physical diagnosis:** snapshot09 starts LMKD using the actual in-kernel
 low-memory-killer interface and again completes file-crypto initialization.
 Its next blocker is a real netd oneshot SIGSEGV: the test path constructs a local

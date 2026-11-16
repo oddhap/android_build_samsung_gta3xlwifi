@@ -1,0 +1,30 @@
+{
+  "passed": true,
+  "scope": "Replay actual Controllers root choices and startup caller against real guard code.\n\nProperties, lease, rule execution and other startup components are host fixtures.\nThis proves the missing OUTPUT guard/default-mode bug and strict guarded startup\nordering; it does not prove Android networking, kernel packet behavior or Ready.\n",
+  "missing_output_guard_reproduced": true,
+  "fixed_installs_and_verifies_all_six_guard_roots": true,
+  "failure_injection_keeps_held_and_unstarted": true,
+  "foreign_root_rules_preserved_and_existing_guards_not_duplicated": true,
+  "source_sha256": {
+    "system/netd/server/Controllers.cpp": "40337ab9069948728e098e413d15dd0d0efa0b72b1ec1c888086cda5ee771609"
+  },
+  "unchanged_projection_source_sha256": "afa2cdfeffd7a9d5b48b704708a1e18782ac14a308a9c67cd7ba5dab0c195ff1",
+  "unchanged_guard_implementation_sha256": "09b4d36ba5c78053f1fc0713621ca40405c214016c7f5a8b69e3459587d4ba7e",
+  "cases": [
+    {
+      "kind": "baseline",
+      "actual_call": "gta3xlwifiPolicyOwner->startWithAccounting(program)",
+      "stdout": "original_missing_OUTPUT_guard_EPROTO\n",
+      "stderr": ""
+    },
+    {
+      "kind": "files",
+      "actual_call": "gta3xlwifiPolicyOwner->startWithAccounting(\n                    program, P::HookMode::InstallMissing)",
+      "stdout": "fixed_all_six_roots_held start_fault_points=25\n",
+      "stderr": ""
+    }
+  ],
+  "policy_kernel_crypto_and_boot_failure_guards_changed": false,
+  "hardware_networking_or_Ready_proven": false,
+  "flash_ready": false
+}

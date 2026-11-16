@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "scope": "Select an explicitly hash-verified source composition and capture a new exact snapshot.\n\nInstall missing initial OUTPUT guards through the existing held six-root verification path.\nNo SELinux policy, vendor image or kernel input is modified; no BPF readiness is set.\nNo vendor image, kernel, signing material or user data is changed.\nBackups and the complete parent snapshot remain available for source rollback.\n",
+  "files_selected": 1,
+  "project_count": 1243,
+  "reviewed_patches": 21,
+  "snapshot": "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/snapshots/port-20261116-11",
+  "selection_sha256": "24c7071ac4f30a8fb2e2186186ceecb2cc07e9782028fd0c330d4f4bc453aa3f",
+  "kernel_and_vendor_prebuilts_unchanged": true,
+  "hardware_tested": false,
+  "flash_ready": false
+}

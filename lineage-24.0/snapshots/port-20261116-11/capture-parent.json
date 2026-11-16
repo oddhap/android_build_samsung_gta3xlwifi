@@ -1,0 +1,10 @@
+{
+  "parent_snapshot": "port-20261116-10",
+  "parent_manifest_sha256": "31f142b6c2e5f04f14ed9cdecb3cd6b13716508b428ad8c86d3d3332d6a24594",
+  "parent_lock_sha256": "53745b69e9fefd695301ff1f5a409e91e72db7f51be1abbc816d58fdcaa18cab",
+  "composition_selection_sha256": "24c7071ac4f30a8fb2e2186186ceecb2cc07e9782028fd0c330d4f4bc453aa3f",
+  "proof_reports_sha256": {
+    "/srv/android/artifacts/lineage-24.0-arm64/netd-first-guards-host-20261116-01/report.json": "dfa056e623302bc3d4d7a880cdbbffe4f1bba7dd0cfadc7d07c60d1340103238"
+  },
+  "kernel_and_vendor_prebuilts_unchanged": true
+}

@@ -15,5 +15,22 @@
   "evidence_sha256": {
     "runtime10-clean-format-data.log": "52612c8a7f133d585799e2dea8aea7eadf1537fda0cb72de40f5f17d89720728",
     "runtime10-clean-recovery-after-format.log": "f438ade1958c63cb126cea9e6d2c80e32152b768ec01f5ed974af4fec1169f9a"
-  }
+  },
+  "user0_initialization_exit": 0,
+  "real_DE_key_metadata_present_after_boot": {
+    "version_bytes": 1,
+    "encrypted_key_bytes": 92,
+    "keymaster_key_blob_bytes": 542,
+    "secdiscardable_bytes": 16384
+  },
+  "netd_oneshot_null_global_crash_absent": true,
+  "netd_oneshot_exit": 1,
+  "network_failure": "Held startup verifies missing OUTPUT guard and quarantines with EPROTO; first-boot call mode fix is being built",
+  "CE_policy_EINVAL_requires_followup": true,
+  "new_boot_evidence_sha256": {
+    "last_kmsg": "f666a22d547a5837dccd57932f1588c4303ddecaa42f950bd81732e2dcadec23",
+    "pstore/pmsg-ramoops-0": "f64ba8dd7e3243f5f7d88e3eb77cb2b71ed0da4057148a53257c8e81b941e5cd",
+    "recovery.log": "1ea137b9fcbdc0bbd5893e608bf7baa6c3f2df5e4827d11f0c3f98d8df0ea70a"
+  },
+  "next_physical_testing_deferred_by_owner": true
 }
