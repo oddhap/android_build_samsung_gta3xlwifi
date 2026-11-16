@@ -1,0 +1,8 @@
+{
+  "selection_report_sha256": "82a80990c4092fde05641b4ac4b8bd2d497a45db8171fd883b012151f1d8aee5",
+  "prebuilts": {
+    "Image": "7ece8d6fd70870811abfe5fd9f947311506f97233491b4016cde441de3578aec",
+    "vendor.img": "2b40b8c71ce02b432ae25c9664f8460ebefc5c0955226b2fdb74ed16c2d11353",
+    "dtbo.img": "b9041c37713a745290d9a0203423436b6caa7a1307ced79b6963b4f1f0271c4b"
+  }
+}
