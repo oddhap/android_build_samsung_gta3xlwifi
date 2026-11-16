@@ -55,6 +55,16 @@ directory and unchanged real controller contract; no policy/kernel/vendor change
 no fake successful mount and no encryption disablement. The replacement build
 is running. The tablet remains in preserved TWRP with new crash logs secured.
 
+**Current encryption blocker:** snapshot06 passes all package checks and installs
+with physical /acct directory/context and kernel/vendor/recovery readbacks. The
+new physical boot reaches real cgroups, ueventd, bootstrap APEX, vold and keystore;
+audit records remain permissive=0. Vold then SIGSEGVs in the wrapped metadata-key
+predicate, which dereferences an absent /metadata fstab entry. Snapshot07 changes
+only this null check, preserving all actual file-encryption settings and existing
+metadata flag semantics. UBSan reproduces the original actual function failure;
+seven fixed-entry cases pass. A new complete product build is running. Successful
+normal boot or FBE is not claimed; no encryption or policy bypass is introduced.
+
 The official manifest was inspected at
 `b51a0c449a3279ca55fb6d4d91d2143e42e2fff5` (`android-17.0.0_r1`).
 The official `aosp_current` release alias resolves to `cp2a` in the inspected

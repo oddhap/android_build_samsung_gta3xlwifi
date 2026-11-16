@@ -1,0 +1,5 @@
+PASS actual OTA container, signature, CRC, identities and pre-write guards
+PASS actual system OTA block stream 1874579456 bytes
+PASS actual product OTA block stream 184467456 bytes
+PASS actual vendor OTA block stream 343932928 bytes
+PASS technical replacement test-OTA proofs; physical ROM boot remains

@@ -1,0 +1,23 @@
+{
+  "scope": "Select an explicitly hash-verified source composition and capture a new exact snapshot.\n\nFix absent-metadata predicate without disabling userdata file encryption.\nNo SELinux source, network source, vendor image or kernel input is modified.\nNo vendor image, kernel, signing material or user data is changed.\nBackups and the complete parent snapshot remain available for source rollback.\n",
+  "parent": "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/snapshots/port-20261116-06",
+  "files": {
+    "system/vold/FsCrypt.cpp": {
+      "project": "system/vold",
+      "path": "FsCrypt.cpp",
+      "before_sha256": "6d99279ad6d08dc86d6055b75227b98df26185ffec4b27aa3381478f127bfa9b",
+      "after_sha256": "7387c901a9e92580c50e83397aebf184120d4c06b9c486ec8665a72cbeb2d5f6"
+    }
+  },
+  "proof_reports_sha256": {
+    "/srv/android/artifacts/lineage-24.0-arm64/metadata-null-host-20261116-01/report.json": "f6516b0113200720fe3b0685d5d1b1bc889a9a3b3f85cc6df121b7056dd90daa"
+  },
+  "prebuilts": {
+    "Image": "7ece8d6fd70870811abfe5fd9f947311506f97233491b4016cde441de3578aec",
+    "vendor.img": "2b40b8c71ce02b432ae25c9664f8460ebefc5c0955226b2fdb74ed16c2d11353",
+    "dtbo.img": "b9041c37713a745290d9a0203423436b6caa7a1307ced79b6963b4f1f0271c4b"
+  },
+  "policy_source_changed": false,
+  "vendor_and_kernel_selection_changed": false,
+  "flash_ready": false
+}
