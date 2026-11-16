@@ -1,0 +1,16 @@
+{
+  "selection": "Explicit Android 11 platform behavior replacement with Android 17, preserving legacy symbols and Samsung assertions.",
+  "files_sha256": {
+    "etc/selinux/plat_pub_versioned.cil": "5478939b47a7980cd4abe373a0825d812c8f103f65d9d2dd8883781f39b20a6f",
+    "etc/selinux/plat_sepolicy_vers.txt": "166983be04e2ab397fc7a70bb60a516b1cfd42a5ec6dd356df01ae63a8500ec0",
+    "etc/selinux/vendor_file_contexts": "0dcf14fc0299035adbffd2a6cba5221843ca7c47c84748ac42f5d245fd2f2065",
+    "etc/selinux/vendor_hwservice_contexts": "49c313c04575e51a76e6e0e8e2b32e39010033f3ab7e836ed5fc8d053defdf9c",
+    "etc/selinux/vendor_property_contexts": "8379234e5ee1ffb7548eed1b49fb2545a20b055240ef3308729c9e57d3d1b17d",
+    "etc/selinux/vendor_seapp_contexts": "09723917f8fd99101e876158075cdee7592406f22e8ef5f946d161e73f7e375b",
+    "etc/selinux/vendor_sepolicy.cil": "7455615956ed1d316bae5b609fa24e759036478117915f497674ab74e170e161",
+    "etc/selinux/vendor_service_contexts": "5dc71762ea75986ef6bd2ce282f6920ec6cddc509b511bc940e6bc280c3ff3ec",
+    "etc/selinux/vndservice_contexts": "94b336be8f83c49349fea3f22bc5b99f73ce726de79ded31bbeee04d9690708f"
+  },
+  "source_platform_overrides": false,
+  "image_selection_changed": false
+}

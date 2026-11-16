@@ -37,7 +37,8 @@ for part,root in roots.items():
 # A17 system ueventd imports vendor/etc/ueventd.rc. This explicit import reaches
 # the existing Samsung device rules and the exact 0400 root/root lease rule.
 assert '/etc/ueventd.rc' not in before,'Review existing vendor rules before composing'
-ueventd=staged/'ueventd.rc';ueventd.write_text('# Android 17 Samsung device node configuration.\nimport /ueventd.exynos7904.rc\n');changes['/etc/ueventd.rc']=ueventd
+assert '/ueventd.rc' in before and before['/ueventd.rc']['type']=='regular'
+ueventd=staged/'ueventd.rc';ueventd.write_text('# Android 17 Samsung device node configuration.\nimport /vendor/ueventd.rc\nimport /ueventd.exynos7904.rc\n');changes['/etc/ueventd.rc']=ueventd
 rc=T/'device/samsung/gta3xlwifi/rootdir/ueventd.exynos7904.rc';assert '/dev/gta3xlwifi_netpolicy 0400 root root' in rc.read_text()
 commands=[];label=staged/'selinux-label';label.write_bytes(b'u:object_r:vendor_configs_file:s0\0')
 for i,(dest,src) in enumerate(changes.items()):

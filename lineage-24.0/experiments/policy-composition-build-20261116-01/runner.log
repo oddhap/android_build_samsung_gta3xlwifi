@@ -1,0 +1,688 @@
+PASS: 1243 locked projects, 21 exact reviewed patches; no external alternates
+Looking for dependencies in device/samsung/gta3xlwifi
+device/samsung/gta3xlwifi has no additional dependencies.
+
+============================================
+PLATFORM_VERSION_CODENAME=REL
+PLATFORM_VERSION=17
+LINEAGE_VERSION=24.0-20261116-UNOFFICIAL-gta3xlwifi
+PRODUCT_SOURCE_ROOT_DIRS=-kernel/platform -prebuilts/misc/protobuf_vendorcompat
+TARGET_PRODUCT=lineage_gta3xlwifi
+TARGET_BUILD_VARIANT=userdebug
+TARGET_ARCH=arm64
+TARGET_ARCH_VARIANT=armv8-a
+TARGET_CPU_VARIANT=generic
+TARGET_2ND_ARCH=arm
+TARGET_2ND_ARCH_VARIANT=armv8-a
+TARGET_2ND_CPU_VARIANT=generic
+HOST_OS=linux
+HOST_OS_EXTRA=Linux-5.15.0-203-generic-x86_64-Ubuntu-22.04.5-LTS
+HOST_CROSS_OS=windows
+BUILD_ID=CP2A.260605.016
+OUT_DIR=out
+SOONG_ONLY=false
+SOONG_INCREMENTAL_ANALYSIS=false
+============================================
+Running product configuration...
+============================================
+PLATFORM_VERSION_CODENAME=REL
+PLATFORM_VERSION=17
+LINEAGE_VERSION=24.0-20261116-UNOFFICIAL-gta3xlwifi
+PRODUCT_SOURCE_ROOT_DIRS=-kernel/platform -prebuilts/misc/protobuf_vendorcompat
+TARGET_PRODUCT=lineage_gta3xlwifi
+TARGET_BUILD_VARIANT=userdebug
+TARGET_ARCH=arm64
+TARGET_ARCH_VARIANT=armv8-a
+TARGET_CPU_VARIANT=generic
+TARGET_2ND_ARCH=arm
+TARGET_2ND_ARCH_VARIANT=armv8-a
+TARGET_2ND_CPU_VARIANT=generic
+HOST_OS=linux
+HOST_OS_EXTRA=Linux-5.15.0-203-generic-x86_64-Ubuntu-22.04.5-LTS
+HOST_CROSS_OS=windows
+BUILD_ID=CP2A.260605.016
+OUT_DIR=out
+SOONG_ONLY=false
+SOONG_INCREMENTAL_ANALYSIS=true
+============================================
+[100% 1/1] bootstrap blueprint
+Running globs...
+ninja: 
+ninja: SISO_EXPERIMENTS=fallback-on-exec-error enabled
+SISO_EXPERIMENTS=ignore-missing-out-in-depfile enabled
+
+ninja: ignore missing out error in depfile 
+
+[100% 2/2] analyzing Android.bp files and generating ninja file at out/soong/build.lineage_gta3xlwifi.ninja
+ninja: 3m34.85s Build Succeeded: 1 steps - 0.00/s
+
+out/soong/release-config/release_config-lineage_gta3xlwifi-aosp_current.vars was modified, regenerating...
+Adding CUSTOM_LOCALES [ast_ES ckb_IQ ckb_IR gd_GB cy_GB fur_IT nn_NO] to PRODUCT_LOCALES [en_US en_US af_ZA am_ET ar_EG ar_XB as_IN az_AZ be_BY bg_BG bn_BD bs_BA ca_ES cs_CZ da_DK de_DE el_GR en_AU en_CA en_GB en_IN en_XA es_ES es_US et_EE eu_ES fa_IR fi_FI fr_CA fr_FR gl_ES gu_IN hi_IN hr_HR hu_HU hy_AM in_ID is_IS it_IT iw_IL ja_JP ka_GE kk_KZ km_KH kn_IN ko_KR ky_KG lo_LA lt_LT lv_LV mk_MK ml_IN mn_MN mr_IN ms_MY my_MM nb_NO ne_NP nl_NL or_IN pa_IN pl_PL pt_BR pt_PT ro_RO ru_RU si_LK sk_SK sl_SI sq_AL sr_Latn_RS sr_RS sv_SE sw_TZ ta_IN te_IN th_TH tl_PH tr_TR uk_UA ur_PK uz_UZ vi_VN zh_CN zh_HK zh_TW zu_ZA en_XC]
+out/soong/release-config/release_config-lineage_gta3xlwifi-aosp_current.vars was modified, regenerating...
+[100% 3/3] initializing Make module parser
+Adding CUSTOM_LOCALES [ast_ES ckb_IQ ckb_IR gd_GB cy_GB fur_IT nn_NO] to PRODUCT_LOCALES [en_US en_US af_ZA am_ET ar_EG ar_XB as_IN az_AZ be_BY bg_BG bn_BD bs_BA ca_ES cs_CZ da_DK de_DE el_GR en_AU en_CA en_GB en_IN en_XA es_ES es_US et_EE eu_ES fa_IR fi_FI fr_CA fr_FR gl_ES gu_IN hi_IN hr_HR hu_HU hy_AM in_ID is_IS it_IT iw_IL ja_JP ka_GE kk_KZ km_KH kn_IN ko_KR ky_KG lo_LA lt_LT lv_LV mk_MK ml_IN mn_MN mr_IN ms_MY my_MM nb_NO ne_NP nl_NL or_IN pa_IN pl_PL pt_BR pt_PT ro_RO ru_RU si_LK sk_SK sl_SI sq_AL sr_Latn_RS sr_RS sv_SE sw_TZ ta_IN te_IN th_TH tl_PH tr_TR uk_UA ur_PK uz_UZ vi_VN zh_CN zh_HK zh_TW zu_ZA en_XC]
+[ 33% 4/12] including out/soong/installs-lineage_gta3xlwifi.mk
+[ 41% 5/12] including out/soong/Android-lineage_gta3xlwifi.mk
+[ 50% 6/12] including build/make/target/board/android-info.mk
+[ 58% 7/12] including bootable/deprecated-ota/updater/Android.mk
+[ 66% 8/12] including hardware/broadcom/wlan/bcmdhd/Android.mk
+[ 75% 9/12] including hardware/qcom/Android.mk
+[ 83% 10/12] including hardware/synaptics/wlan/synadhd/Android.mk
+[ 91% 11/12] including kernel/samsung/gta3xlwifi/sound/soc/codecs/tas2562/Android.mk
+[100% 12/12] including out/soong/late-lineage_gta3xlwifi.mk
+[100% 13/13] finishing Make module rules
+[100% 14/14] finishing Make module rules: Adding module dependencies
+[100% 15/15] finishing Make packaging rules
+[ 44% 16/36] including build/make/core/tasks/art.mk
+[ 47% 17/36] including build/make/core/tasks/build_custom_images.mk
+[ 50% 18/36] including build/make/core/tasks/dex_preopt_check.mk
+[ 52% 19/36] including build/make/core/tasks/find-shareduid-violation.mk
+[ 55% 20/36] including build/make/core/tasks/fontchain_lint.mk
+[ 58% 21/36] including build/make/core/tasks/host_init_verifier.mk
+[ 61% 22/36] including build/make/core/tasks/meta-lic.mk
+[ 63% 23/36] including build/make/core/tasks/module-info.mk
+[ 66% 24/36] including build/make/core/tasks/oem_image.mk
+[ 69% 25/36] including build/make/core/tasks/offline-sdk-docs.mk
+[ 72% 26/36] including build/make/core/tasks/platform_availability_check.mk
+[ 75% 27/36] including build/make/core/tasks/sdv.mk
+[ 77% 28/36] including build/make/core/tasks/vendor_module_check.mk
+[ 80% 29/36] including build/make/core/tasks/with-license.mk
+[ 83% 30/36] including vendor/lineage/build/tasks/bacon.mk
+[ 86% 31/36] including vendor/lineage/build/tasks/build-manifest_xml.mk
+[ 88% 32/36] including vendor/lineage/build/tasks/dt_image.mk
+[ 91% 33/36] including vendor/lineage/build/tasks/generate_lineage_sdk_coverage.mk
+[ 94% 34/36] including vendor/lineage/build/tasks/kernel.mk
+vendor/lineage/build/tasks/kernel.mk:234: warning: **********************************************************
+vendor/lineage/build/tasks/kernel.mk:235: warning: * Kernel source found and configuration was defined,     *
+vendor/lineage/build/tasks/kernel.mk:236: warning: * but prebuilt kernel is being forced.                   *
+vendor/lineage/build/tasks/kernel.mk:237: warning: * While this is likely intentional,                      *
+vendor/lineage/build/tasks/kernel.mk:238: warning: * it is NOT SUPPORTED WHATSOEVER.                        *
+vendor/lineage/build/tasks/kernel.mk:239: warning: * Generated kernel headers may not align with            *
+vendor/lineage/build/tasks/kernel.mk:240: warning: * the ABI of kernel you're including.                    *
+vendor/lineage/build/tasks/kernel.mk:241: warning: * Please unset TARGET_FORCE_PREBUILT_KERNEL              *
+vendor/lineage/build/tasks/kernel.mk:242: warning: * to build the kernel from source.                       *
+vendor/lineage/build/tasks/kernel.mk:243: warning: **********************************************************
+[ 97% 35/36] including device/generic/goldfish/build/tasks/combine_initramfs.mk
+[100% 36/36] finishing Make packaging rules
+[100% 37/37] finishing Make packaging rules: Adding phony targets
+[100% 38/38] finishing Make packaging rules: Checking licensing and SBOM
+[100% 39/39] writing make module actions
+No need to regenerate ninja file
+Starting ninja...
+ninja: 
+ninja: SISO_EXPERIMENTS=allow-unexpected-rsp-remove enabled
+SISO_EXPERIMENTS=ignore-missing-out-in-depfile enabled
+SISO_EXPERIMENTS=oom-score-adj enabled
+
+ninja: ignore missing out error in depfile 
+
+[  8% 40/450] //system/sepolicy:sepolicy_neverallows.sepolicy_analyze.conf raw fb4ce38b9b3962006b428c90ee41d005b599897e14d891a2fe26d1edc6d695f9.sh[common]
+[  9% 41/427] //system/sepolicy/contexts:system_ext_hwservice_contexts building contexts: system_ext_hwservice_contexts[common]
+[ 10% 42/391] //system/sepolicy/contexts:system_ext_property_contexts building contexts: system_ext_property_contexts[common]
+[ 10% 43/391] //system/sepolicy/prebuilts/api/34.0:34.0_reqd_policy_mask.conf Transform policy to conf: 34.0_reqd_policy_mask.conf[common]
+[ 11% 44/391] //system/sepolicy/prebuilts/api/30.0:30.0_reqd_policy_mask.conf Transform policy to conf: 30.0_reqd_policy_mask.conf[common]
+[ 11% 45/391] //system/sepolicy:reqd_policy_mask.conf Transform policy to conf: reqd_policy_mask.conf[common]
+[ 11% 46/391] //system/sepolicy/prebuilts/api/202404:202404_reqd_policy_mask.conf Transform policy to conf: 202404_reqd_policy_mask.conf[common]
+[ 12% 47/391] //system/sepolicy/prebuilts/api/202404:202404_product_pub_policy.conf Transform policy to conf: 202404_product_pub_policy.conf[common]
+[ 12% 48/391] //system/sepolicy:reqd_policy_mask.cil Building cil for reqd_policy_mask.cil[common]
+[ 12% 49/391] //system/sepolicy:plat_pub_policy.conf Transform policy to conf: plat_pub_policy.conf[common]
+[ 12% 50/391] //system/sepolicy:pub_policy.conf Transform policy to conf: pub_policy.conf[common]
+[ 13% 51/391] //system/sepolicy:system_ext_pub_policy.conf Transform policy to conf: system_ext_pub_policy.conf[common]
+[ 13% 52/391] //system/sepolicy/prebuilts/api/31.0:31.0_reqd_policy_mask.conf Transform policy to conf: 31.0_reqd_policy_mask.conf[common]
+[ 13% 53/391] //system/sepolicy/prebuilts/api/33.0:33.0_reqd_policy_mask.conf Transform policy to conf: 33.0_reqd_policy_mask.conf[common]
+[ 13% 54/391] //system/sepolicy/prebuilts/api/202504:202504_reqd_policy_mask.conf Transform policy to conf: 202504_reqd_policy_mask.conf[common]
+[ 14% 55/391] //system/sepolicy/prebuilts/api/33.0:33.0_product_pub_policy.conf Transform policy to conf: 33.0_product_pub_policy.conf[common]
+[ 14% 56/391] //system/sepolicy/prebuilts/api/32.0:32.0_reqd_policy_mask.conf Transform policy to conf: 32.0_reqd_policy_mask.conf[common]
+[ 14% 57/391] //system/sepolicy/prebuilts/api/202504:202504_reqd_policy_mask.cil Building cil for 202504_reqd_policy_mask.cil[common]
+[ 14% 58/391] //system/sepolicy/prebuilts/api/202404:202404_reqd_policy_mask.cil Building cil for 202404_reqd_policy_mask.cil[common]
+[ 15% 59/391] //system/sepolicy/prebuilts/api/32.0:32.0_reqd_policy_mask.cil Building cil for 32.0_reqd_policy_mask.cil[common]
+[ 15% 60/391] //system/sepolicy/prebuilts/api/34.0:34.0_product_pub_policy.conf Transform policy to conf: 34.0_product_pub_policy.conf[common]
+[ 15% 61/391] //system/sepolicy/prebuilts/api/34.0:34.0_plat_pub_policy.conf Transform policy to conf: 34.0_plat_pub_policy.conf[common]
+[ 15% 62/391] //system/sepolicy:odm_sepolicy.conf Transform policy to conf: odm_sepolicy.conf[common]
+[ 16% 63/391] //system/sepolicy:vendor_sepolicy.conf Transform policy to conf: vendor_sepolicy.conf[common]
+[ 16% 64/391] //system/sepolicy/prebuilts/api/33.0:33.0_reqd_policy_mask.cil Building cil for 33.0_reqd_policy_mask.cil[common]
+[ 16% 65/391] //system/sepolicy/prebuilts/api/31.0:31.0_reqd_policy_mask.cil Building cil for 31.0_reqd_policy_mask.cil[common]
+[ 16% 66/391] //system/sepolicy/prebuilts/api/34.0:34.0_reqd_policy_mask.cil Building cil for 34.0_reqd_policy_mask.cil[common]
+[ 17% 67/391] //system/sepolicy/prebuilts/api/30.0:30.0_product_pub_policy.conf Transform policy to conf: 30.0_product_pub_policy.conf[common]
+[ 17% 68/391] //system/sepolicy/prebuilts/api/30.0:30.0_reqd_policy_mask.cil Building cil for 30.0_reqd_policy_mask.cil[common]
+[ 17% 69/391] //system/sepolicy/contexts:vendor_service_contexts building contexts: vendor_service_contexts[common]
+[ 17% 70/391] //system/sepolicy/prebuilts/api/202504:202504_product_pub_policy.conf Transform policy to conf: 202504_product_pub_policy.conf[common]
+[ 18% 71/391] //system/sepolicy/prebuilts/api/32.0:32.0_product_pub_policy.conf Transform policy to conf: 32.0_product_pub_policy.conf[common]
+[ 18% 72/391] //system/sepolicy/prebuilts/api/202604:202604_reqd_policy_mask.conf Transform policy to conf: 202604_reqd_policy_mask.conf[common]
+[ 18% 73/391] //system/sepolicy:plat_sepolicy.conf Transform policy to conf: plat_sepolicy.conf[common]
+[ 18% 74/391] //system/sepolicy/prebuilts/api/31.0:31.0_product_pub_policy.conf Transform policy to conf: 31.0_product_pub_policy.conf[common]
+[ 19% 75/391] //system/sepolicy:sepolicy_neverallows.checkpolicy.conf Transform policy to conf: sepolicy_neverallows.checkpolicy.conf[common]
+[ 19% 76/391] //system/sepolicy:system_ext_sepolicy.conf Transform policy to conf: system_ext_sepolicy.conf[common]
+[ 19% 77/391] //system/sepolicy:product_sepolicy.conf Transform policy to conf: product_sepolicy.conf[common]
+[ 19% 78/391] //system/sepolicy/contexts:plat_hwservice_contexts building contexts: plat_hwservice_contexts[common]
+[ 20% 79/391] //system/sepolicy/contexts:odm_hwservice_contexts building contexts: odm_hwservice_contexts[common]
+[ 20% 80/391] //system/sepolicy/contexts:product_hwservice_contexts building contexts: product_hwservice_contexts[common]
+[ 20% 81/391] //system/sepolicy/contexts:odm_property_contexts building contexts: odm_property_contexts[common]
+[ 20% 82/391] //system/sepolicy/contexts:odm_service_contexts building contexts: odm_service_contexts[common]
+[ 21% 83/391] //system/sepolicy/contexts:vndservice_contexts building contexts: vndservice_contexts[common]
+[ 21% 84/391] //system/sepolicy:plat_pub_policy.cil Building cil for plat_pub_policy.cil[common]
+[ 21% 85/391] //system/sepolicy:pub_policy.cil Building cil for pub_policy.cil[common]
+[ 21% 86/391] //system/sepolicy/prebuilts/api/202504:202504_product_pub_policy.cil Building cil for 202504_product_pub_policy.cil[common]
+[ 22% 87/391] //system/sepolicy/contexts:system_ext_file_contexts building contexts: system_ext_file_contexts[common]
+[ 22% 88/391] //system/sepolicy:system_ext_pub_policy.cil Building cil for system_ext_pub_policy.cil[common]
+[ 22% 89/391] //system/sepolicy/contexts:plat_property_contexts building contexts: plat_property_contexts[common]
+[ 23% 90/391] //system/sepolicy:vendor_sepolicy.unversioned.cil Building cil for vendor_sepolicy.unversioned.cil[common]
+stderr:
+system/sepolicy/vendor/hal_vm_capabilities_default.te:10:WARNING 'omitting avrule with no permission set' at token ';' on line 18750:
+allow hal_vm_capabilities_default crosvm_vendor:fd use;
+neverallow hal_vm_capabilities_default crosvm_vendor:fd ~use;
+[ 23% 91/391] //system/sepolicy/contexts:product_file_contexts building contexts: product_file_contexts[common]
+[ 23% 92/391] //system/sepolicy/contexts:plat_service_contexts building contexts: plat_service_contexts[common]
+[ 23% 93/391] //system/sepolicy:plat_mapping_file Versioning mapping file plat_mapping_file[common]
+[ 24% 94/391] //system/sepolicy/contexts:vendor_property_contexts building contexts: vendor_property_contexts[common]
+[ 24% 95/391] //system/sepolicy/contexts:system_ext_service_contexts building contexts: system_ext_service_contexts[common]
+[ 24% 96/391] //system/sepolicy:sepolicy_neverallows.sepolicy_analyze.conf Transform policy to conf: sepolicy_neverallows.sepolicy_analyze.conf[common]
+[ 24% 97/391] //system/sepolicy/prebuilts/api/30.0:30.0_product_pub_policy.cil Building cil for 30.0_product_pub_policy.cil[common]
+[ 25% 98/391] //system/sepolicy/prebuilts/api/31.0:31.0_product_pub_policy.cil Building cil for 31.0_product_pub_policy.cil[common]
+[ 25% 99/391] //system/sepolicy/contexts:product_service_contexts building contexts: product_service_contexts[common]
+[ 25% 100/391] //system/sepolicy/contexts:vendor_hwservice_contexts building contexts: vendor_hwservice_contexts[common]
+[ 25% 101/391] //system/sepolicy/contexts:product_property_contexts building contexts: product_property_contexts[common]
+[ 26% 102/391] //system/sepolicy/prebuilts/api/32.0:32.0_product_pub_policy.cil Building cil for 32.0_product_pub_policy.cil[common]
+[ 26% 103/391] //system/sepolicy/contexts:product_service_contexts copy product_service_contexts[common]
+[ 26% 104/391] //system/sepolicy:system_ext_mapping_file Versioning mapping file system_ext_mapping_file[common]
+[ 26% 105/391] //system/sepolicy/contexts:vendor_hwservice_contexts copy vendor_hwservice_contexts[common]
+[ 27% 106/391] //system/sepolicy/prebuilts/api/202404:202404_product_pub_policy.cil Building cil for 202404_product_pub_policy.cil[common]
+[ 27% 107/391] //system/sepolicy/prebuilts/api/34.0:34.0_product_pub_policy.cil Building cil for 34.0_product_pub_policy.cil[common]
+[ 27% 108/391] //system/sepolicy/contexts:vendor_service_contexts copy vendor_service_contexts[common]
+[ 27% 109/391] //system/sepolicy/contexts:system_ext_hwservice_contexts copy system_ext_hwservice_contexts[common]
+[ 28% 110/391] //system/sepolicy/contexts:product_property_contexts copy product_property_contexts[common]
+[ 28% 111/391] //system/sepolicy/contexts:plat_service_contexts copy plat_service_contexts[common]
+[ 28% 112/391] //system/sepolicy/contexts:system_ext_seapp_contexts building contexts: system_ext_seapp_contexts[common]
+[ 28% 113/391] //system/sepolicy/contexts:plat_hwservice_contexts copy plat_hwservice_contexts[common]
+[ 29% 114/391] //system/sepolicy/prebuilts/api/202604:202604_reqd_policy_mask.cil Building cil for 202604_reqd_policy_mask.cil[common]
+[ 29% 115/391] //system/sepolicy/contexts:system_ext_property_contexts copy system_ext_property_contexts[common]
+[ 29% 116/391] //system/sepolicy/contexts:product_hwservice_contexts copy product_hwservice_contexts[common]
+[ 29% 117/391] //system/sepolicy/contexts:odm_seapp_contexts building contexts: odm_seapp_contexts[common]
+[ 30% 118/391] //system/sepolicy:base_plat_pub_policy_for_freeze_test.conf Transform policy to conf: base_plat_pub_policy_for_freeze_test.conf[common]
+[ 30% 119/391] //system/sepolicy/compat:30.0.compat.cil Combining compat cil for 30.0.compat.cil[common]
+[ 30% 120/391] //system/sepolicy:product_mapping_file Versioning mapping file product_mapping_file[common]
+[ 30% 121/391] //system/sepolicy/contexts:vndservice_contexts copy vndservice_contexts[common]
+[ 31% 122/391] //system/sepolicy/contexts:odm_property_contexts copy odm_property_contexts[common]
+[ 31% 123/391] //system/sepolicy:plat_pub_versioned.cil Versioning mapping file plat_pub_versioned.cil[common]
+[ 31% 124/391] //system/sepolicy/contexts:odm_service_contexts copy odm_service_contexts[common]
+[ 31% 125/391] //system/sepolicy/contexts:odm_hwservice_contexts copy odm_hwservice_contexts[common]
+[ 32% 126/391] //system/sepolicy/contexts:plat_file_contexts building contexts: plat_file_contexts[common]
+[ 32% 127/391] //system/sepolicy/contexts:system_ext_file_contexts copy system_ext_file_contexts[common]
+[ 32% 128/391] //system/sepolicy/contexts:vendor_file_contexts building contexts: vendor_file_contexts[common]
+[ 32% 129/391] //system/sepolicy/contexts:vendor_property_contexts copy vendor_property_contexts[common]
+[ 33% 130/391] //system/sepolicy/contexts:odm_file_contexts building contexts: odm_file_contexts[common]
+[ 33% 131/391] //system/sepolicy/contexts:plat_property_contexts copy plat_property_contexts[common]
+[ 33% 132/391] //system/sepolicy/contexts:product_file_contexts copy product_file_contexts[common]
+[ 34% 133/391] //system/sepolicy/contexts:vendor_file_contexts copy vendor_file_contexts[common]
+[ 34% 134/391] //system/sepolicy/contexts:odm_file_contexts copy odm_file_contexts[common]
+[ 34% 135/391] //system/sepolicy/contexts:system_ext_service_contexts copy system_ext_service_contexts[common]
+[ 34% 136/391] //system/sepolicy/contexts:vendor_seapp_contexts building contexts: vendor_seapp_contexts[common]
+[ 35% 137/391] //system/sepolicy/contexts:product_seapp_contexts building contexts: product_seapp_contexts[common]
+[ 35% 138/391] //system/sepolicy/prebuilts/api/33.0:33.0_plat_pub_policy.conf Transform policy to conf: 33.0_plat_pub_policy.conf[common]
+[ 35% 139/391] //system/sepolicy/contexts:plat_seapp_contexts building contexts: plat_seapp_contexts[common]
+[ 35% 140/391] //system/sepolicy/prebuilts/api/33.0:33.0_product_pub_policy.cil Building cil for 33.0_product_pub_policy.cil[common]
+[ 36% 141/391] //system/sepolicy/prebuilts/api/202504:202504_plat_pub_policy.conf Transform policy to conf: 202504_plat_pub_policy.conf[common]
+[ 36% 142/391] //system/sepolicy/contexts:system_ext_tee_service_contexts building contexts: system_ext_tee_service_contexts[common]
+[ 36% 143/391] //system/sepolicy/contexts:product_keystore2_key_contexts building contexts: product_keystore2_key_contexts[common]
+[ 36% 144/391] //system/sepolicy/prebuilts/api/202504:202504_plat_pub_versioned.cil Versioning mapping file 202504_plat_pub_versioned.cil[common]
+[ 37% 145/391] //system/sepolicy/contexts:vendor_tee_service_contexts building contexts: vendor_tee_service_contexts[common]
+[ 37% 146/391] //system/sepolicy/contexts:vendor_keystore2_key_contexts building contexts: vendor_keystore2_key_contexts[common]
+[ 37% 147/391] //system/sepolicy:base_plat_pub_policy.conf Transform policy to conf: base_plat_pub_policy.conf[common]
+[ 37% 148/391] //system/sepolicy/prebuilts/api/202604:202604_plat_pub_policy.conf Transform policy to conf: 202604_plat_pub_policy.conf[common]
+[ 38% 149/391] //system/sepolicy/contexts:plat_file_contexts copy plat_file_contexts[common]
+[ 38% 150/391] //system/sepolicy/contexts:system_ext_keystore2_key_contexts building contexts: system_ext_keystore2_key_contexts[common]
+[ 38% 151/391] //system/sepolicy/contexts:merged_hwservice_contexts building contexts: merged_hwservice_contexts[common]
+[ 38% 152/391] //system/sepolicy/prebuilts/api/202404:202404_plat_pub_policy.conf Transform policy to conf: 202404_plat_pub_policy.conf[common]
+[ 39% 153/391] //system/sepolicy/contexts:product_tee_service_contexts building contexts: product_tee_service_contexts[common]
+[ 39% 154/391] //system/sepolicy/contexts:merged_service_contexts building contexts: merged_service_contexts[common]
+[ 39% 155/391] //system/sepolicy/prebuilts/api/31.0:31.0_plat_pub_policy.conf Transform policy to conf: 31.0_plat_pub_policy.conf[common]
+[ 39% 156/391] //system/sepolicy/prebuilts/api/32.0:32.0_plat_pub_policy.conf Transform policy to conf: 32.0_plat_pub_policy.conf[common]
+[ 40% 157/391] //system/sepolicy:base_plat_pub_policy_for_freeze_test.cil Building cil for base_plat_pub_policy_for_freeze_test.cil[common]
+[ 40% 158/391] //system/sepolicy/contexts:merged_service_contexts copy merged_service_contexts[common]
+[ 40% 159/391] //system/sepolicy:odm_sepolicy.unversioned.cil Building cil for odm_sepolicy.unversioned.cil[common]
+stderr:
+system/sepolicy/vendor/hal_vm_capabilities_default.te:10:WARNING 'omitting avrule with no permission set' at token ';' on line 18750:
+allow hal_vm_capabilities_default crosvm_vendor:fd use;
+neverallow hal_vm_capabilities_default crosvm_vendor:fd ~use;
+[ 40% 160/391] //system/sepolicy/prebuilts/api/202604:202604_plat_pub_policy.cil Building cil for 202604_plat_pub_policy.cil[common]
+[ 41% 161/391] //system/sepolicy/prebuilts/api/32.0:32.0_plat_pub_versioned.cil Versioning mapping file 32.0_plat_pub_versioned.cil[common]
+[ 41% 162/391] //system/sepolicy/prebuilts/api/30.0:30.0_plat_pub_versioned.cil Versioning mapping file 30.0_plat_pub_versioned.cil[common]
+[ 41% 163/391] //system/sepolicy/prebuilts/api/34.0:34.0_plat_pub_versioned.cil Versioning mapping file 34.0_plat_pub_versioned.cil[common]
+[ 41% 164/391] //system/sepolicy/prebuilts/api/202404:202404_plat_pub_versioned.cil Versioning mapping file 202404_plat_pub_versioned.cil[common]
+[ 42% 165/391] //system/sepolicy/contexts:plat_tee_service_contexts building contexts: plat_tee_service_contexts[common]
+[ 42% 166/391] //system/sepolicy/prebuilts/api/31.0:31.0_plat_pub_versioned.cil Versioning mapping file 31.0_plat_pub_versioned.cil[common]
+[ 42% 167/391] //system/sepolicy/contexts:product_keystore2_key_contexts copy product_keystore2_key_contexts[common]
+[ 42% 168/391] //system/sepolicy/prebuilts/api/33.0:33.0_plat_pub_policy.cil Building cil for 33.0_plat_pub_policy.cil[common]
+[ 43% 169/391] //system/sepolicy/contexts:plat_keystore2_key_contexts building contexts: plat_keystore2_key_contexts[common]
+[ 43% 170/391] //system/sepolicy/prebuilts/api/32.0:32.0_plat_pub_policy.cil Building cil for 32.0_plat_pub_policy.cil[common]
+[ 43% 171/391] //system/sepolicy/contexts:system_ext_tee_service_contexts copy system_ext_tee_service_contexts[common]
+[ 43% 172/391] //system/sepolicy/prebuilts/api/34.0:34.0_plat_pub_policy.cil Building cil for 34.0_plat_pub_policy.cil[common]
+[ 44% 173/391] //system/sepolicy/contexts:product_tee_service_contexts copy product_tee_service_contexts[common]
+[ 44% 174/391] //system/sepolicy/prebuilts/api/31.0:31.0_plat_pub_policy.cil Building cil for 31.0_plat_pub_policy.cil[common]
+[ 44% 175/391] //system/sepolicy/contexts:system_ext_keystore2_key_contexts copy system_ext_keystore2_key_contexts[common]
+[ 45% 176/391] //system/sepolicy/contexts:vendor_tee_service_contexts copy vendor_tee_service_contexts[common]
+[ 45% 177/391] //system/sepolicy/contexts:vendor_keystore2_key_contexts copy vendor_keystore2_key_contexts[common]
+[ 45% 178/391] //system/sepolicy:userdebug_plat_sepolicy.conf Transform policy to conf: userdebug_plat_sepolicy.conf[common]
+[ 45% 179/391] //system/sepolicy/prebuilts/api/33.0:33.0_plat_pub_versioned.cil Versioning mapping file 33.0_plat_pub_versioned.cil[common]
+[ 46% 180/391] //system/sepolicy/contexts:merged_hwservice_contexts copy merged_hwservice_contexts[common]
+[ 46% 181/391] //system/sepolicy/prebuilts/api/202504:202504_plat_pub_policy.cil Building cil for 202504_plat_pub_policy.cil[common]
+[ 46% 182/391] Install: out/target/product/gta3xlwifi/vendor/etc/selinux/vendor_hwservice_contexts
+[ 46% 183/391] Install: out/target/product/gta3xlwifi/system/system_ext/etc/selinux/mapping/202604.cil
+[ 47% 184/391] Install: out/target/product/gta3xlwifi/vendor/etc/selinux/vndservice_contexts
+[ 47% 185/391] Install: out/target/product/gta3xlwifi/vendor/odm/etc/selinux/odm_service_contexts
+[ 47% 186/391] Install: out/target/product/gta3xlwifi/system/system_ext/etc/selinux/system_ext_property_contexts
+[ 47% 187/391] Install: out/target/product/gta3xlwifi/system/system_ext/etc/selinux/system_ext_hwservice_contexts
+[ 48% 188/391] //system/sepolicy:base_plat_pub_policy.cil Building cil for base_plat_pub_policy.cil[common]
+[ 48% 189/391] Install: out/target/product/gta3xlwifi/product/etc/selinux/product_file_contexts
+[ 48% 190/391] Install: out/target/product/gta3xlwifi/product/etc/selinux/product_service_contexts
+[ 48% 191/391] Install: out/target/product/gta3xlwifi/system/system_ext/etc/selinux/system_ext_service_contexts
+[ 49% 192/391] Install: out/target/product/gta3xlwifi/system/system_ext/etc/selinux/system_ext_file_contexts
+[ 49% 193/391] //system/sepolicy/prebuilts/api/202404:202404_plat_pub_policy.cil Building cil for 202404_plat_pub_policy.cil[common]
+[ 49% 194/391] //system/sepolicy:se_freeze_test sepolicy_freeze_test[common]
+[ 49% 195/391] //system/sepolicy/contexts:fuzzer_bindings_test running service:fuzzer bindings test: fuzzer_bindings_test[common]
+[ 50% 196/391] //system/sepolicy/mac_permissions:system_ext_mac_permissions.xml build system_ext_mac_permissions.xml[common]
+[ 50% 197/391] //system/sepolicy/mac_permissions:product_mac_permissions.xml build product_mac_permissions.xml[common]
+[ 50% 198/391] //system/sepolicy/mac_permissions:odm_mac_permissions.xml build odm_mac_permissions.xml[common]
+[ 50% 199/391] Fake: out/target/product/gta3xlwifi/obj/FAKE/se_freeze_test_intermediates/se_freeze_test-timestamp
+[ 51% 200/391] Fake: out/target/product/gta3xlwifi/obj/FAKE/fuzzer_bindings_test_intermediates/fuzzer_bindings_test-timestamp
+[ 51% 201/391] Install: out/target/product/gta3xlwifi/system/system_ext/etc/selinux/system_ext_mac_permissions.xml
+[ 51% 202/391] Install: out/target/product/gta3xlwifi/vendor/odm/etc/selinux/odm_mac_permissions.xml
+[ 51% 203/391] //system/sepolicy/mac_permissions:vendor_mac_permissions.xml build vendor_mac_permissions.xml[common]
+[ 52% 204/391] Install: out/target/product/gta3xlwifi/product/etc/selinux/product_mac_permissions.xml
+[ 52% 205/391] Install: out/target/product/gta3xlwifi/vendor/etc/selinux/vendor_property_contexts
+[ 52% 206/391] Install: out/target/product/gta3xlwifi/vendor/etc/selinux/vendor_mac_permissions.xml
+[ 52% 207/391] Install: out/target/product/gta3xlwifi/vendor/odm/etc/selinux/odm_property_contexts
+[ 53% 208/391] Install: out/target/product/gta3xlwifi/vendor/etc/selinux/vendor_service_contexts
+[ 53% 209/391] Install: out/target/product/gta3xlwifi/vendor/etc/selinux/plat_pub_versioned.cil
+[ 53% 210/391] Install: out/target/product/gta3xlwifi/vendor/odm/etc/selinux/odm_file_contexts
+[ 53% 211/391] Install: out/target/product/gta3xlwifi/product/etc/selinux/mapping/202604.cil
+[ 54% 212/391] Install: out/target/product/gta3xlwifi/product/etc/selinux/product_hwservice_contexts
+[ 54% 213/391] Install: out/target/product/gta3xlwifi/product/etc/selinux/product_property_contexts
+[ 54% 214/391] //system/sepolicy/contexts:plat_keystore2_key_contexts copy plat_keystore2_key_contexts[common]
+[ 54% 215/391] //system/sepolicy/mac_permissions:plat_mac_permissions.xml build plat_mac_permissions.xml[common]
+[ 55% 216/391] Install: out/target/product/gta3xlwifi/product/etc/selinux/product_keystore2_key_contexts
+[ 55% 217/391] Install: out/target/product/gta3xlwifi/vendor/etc/selinux/vendor_keystore2_key_contexts
+[ 55% 218/391] //system/sepolicy/contexts:plat_tee_service_contexts copy plat_tee_service_contexts[common]
+[ 56% 219/391] Install: out/target/product/gta3xlwifi/vendor/odm/etc/selinux/odm_hwservice_contexts
+[ 56% 220/391] Install: out/target/product/gta3xlwifi/system/system_ext/etc/selinux/system_ext_tee_service_contexts
+[ 56% 221/391] Install: out/target/product/gta3xlwifi/product/etc/selinux/product_tee_service_contexts
+[ 56% 222/391] Install: out/target/product/gta3xlwifi/vendor/etc/selinux/vendor_file_contexts
+[ 57% 223/391] Install: out/target/product/gta3xlwifi/vendor/etc/selinux/vendor_tee_service_contexts
+[ 57% 224/391] Install: out/target/product/gta3xlwifi/system/system_ext/etc/selinux/system_ext_keystore2_key_contexts
+[ 57% 225/391] Install: out/target/product/gta3xlwifi/system/etc/selinux/mapping/202604.cil
+[ 57% 226/391] Install: out/target/product/gta3xlwifi/system/etc/selinux/plat_file_contexts
+[ 58% 227/391] Install: out/target/product/gta3xlwifi/system/etc/selinux/plat_service_contexts
+[ 58% 228/391] Install: out/target/product/gta3xlwifi/system/etc/selinux/plat_hwservice_contexts
+[ 58% 229/391] Install: out/target/product/gta3xlwifi/system/etc/selinux/plat_mac_permissions.xml
+[ 58% 230/391] Install: out/target/product/gta3xlwifi/system/etc/selinux/plat_tee_service_contexts
+[ 59% 231/391] Install: out/target/product/gta3xlwifi/system/etc/selinux/plat_keystore2_key_contexts
+[ 59% 232/391] Install: out/target/product/gta3xlwifi/fake_packages/se_freeze_test-timestamp
+[ 59% 233/391] Install: out/target/product/gta3xlwifi/fake_packages/fuzzer_bindings_test-timestamp
+[ 59% 234/391] Install: out/target/product/gta3xlwifi/system/etc/selinux/mapping/30.0.compat.cil
+[ 60% 235/391] target Prebuilt: 30.0.compat.cil (out/target/product/gta3xlwifi/obj/ETC/30.0.compat.cil_intermediates/30.0.compat.cil)
+[ 60% 236/391] Install: out/target/product/gta3xlwifi/system/etc/selinux/plat_property_contexts
+[ 60% 237/389] //system/sepolicy/treble_sepolicy_tests_for_release:treble_sepolicy_tests_202604 generate treble_sepolicy_tests_202604[common]
+[ 61% 238/389] //system/sepolicy/treble_sepolicy_tests_for_release:treble_sepolicy_tests_202504 generate treble_sepolicy_tests_202504[common]
+[ 61% 239/389] //system/sepolicy:sepolicy_neverallows Neverallow check: sepolicy_neverallows[common]
+stderr:
+system/sepolicy/vendor/hal_vm_capabilities_default.te:10:WARNING 'omitting avrule with no permission set' at token ';' on line 103408:
+neverallow hal_vm_capabilities_default crosvm_vendor:fd ~use;
+allow hal_vm_capabilities_default crosvm_vendor:fd use;
+[ 61% 240/389] //system/sepolicy/treble_sepolicy_tests_for_release:treble_sepolicy_tests_32.0 generate treble_sepolicy_tests_32.0[common]
+[ 61% 241/389] //system/sepolicy/treble_sepolicy_tests_for_release:treble_sepolicy_tests_31.0 generate treble_sepolicy_tests_31.0[common]
+[ 62% 242/389] //system/sepolicy/treble_sepolicy_tests_for_release:treble_sepolicy_tests_33.0 generate treble_sepolicy_tests_33.0[common]
+[ 62% 243/389] //system/sepolicy/treble_sepolicy_tests_for_release:treble_sepolicy_tests_34.0 generate treble_sepolicy_tests_34.0[common]
+[ 62% 244/389] //system/sepolicy/treble_sepolicy_tests_for_release:treble_sepolicy_tests_202404 generate treble_sepolicy_tests_202404[common]
+[ 62% 245/389] //system/sepolicy:sepolicy_neverallows Neverallow check: sepolicy_neverallows[common]
+[ 63% 246/389] Fake: out/target/product/gta3xlwifi/obj/FAKE/sepolicy_neverallows_intermediates/sepolicy_neverallows-timestamp
+[ 63% 247/389] Install: out/target/product/gta3xlwifi/fake_packages/sepolicy_neverallows-timestamp
+[ 63% 248/389] //system/sepolicy:plat_sepolicy.cil Building cil for plat_sepolicy.cil[common]
+stderr:
+Parsing out/soong/.intermediates/system/sepolicy/plat_sepolicy.cil/android_common/plat_sepolicy.cil
+Building AST from Parse Tree
+Destroying Parse Tree
+Resolving AST
+Qualifying Names
+Compile post process
+Building policy binary
+Checking Neverallows
+Checking User Bounds
+Checking Role Bounds
+Checking Type Bounds
+[ 64% 249/389] Install: out/target/product/gta3xlwifi/system/etc/selinux/plat_sepolicy.cil
+[ 64% 250/389] //system/sepolicy:plat_sepolicy_and_mapping.sha256_gen generate plat_sepolicy_and_mapping.sha256[common]
+[ 64% 251/389] cp out/soong/.intermediates/system/sepolicy/precompiled_sepolicy.plat_sepolicy_and_mapping.sha256/android_vendor_arm64_armv8-a/precompiled_sepolicy.plat_sepolicy_and_mapping.sha256
+[ 64% 252/389] cp out/soong/.intermediates/system/sepolicy/plat_sepolicy_and_mapping.sha256/android_arm64_armv8-a/plat_sepolicy_and_mapping.sha256
+[ 65% 253/389] Install: out/target/product/gta3xlwifi/vendor/etc/selinux/precompiled_sepolicy.plat_sepolicy_and_mapping.sha256
+[ 65% 254/389] Install: out/target/product/gta3xlwifi/system/etc/selinux/plat_sepolicy_and_mapping.sha256
+[ 65% 255/389] //system/sepolicy:userdebug_plat_sepolicy.cil Building cil for userdebug_plat_sepolicy.cil[common]
+stderr:
+Parsing out/soong/.intermediates/system/sepolicy/userdebug_plat_sepolicy.cil/android_common/userdebug_plat_sepolicy.cil
+Building AST from Parse Tree
+Destroying Parse Tree
+Resolving AST
+Qualifying Names
+Compile post process
+Building policy binary
+Checking Neverallows
+Checking User Bounds
+Checking Role Bounds
+Checking Type Bounds
+[ 65% 256/389] Install: out/target/product/gta3xlwifi/debug_ramdisk/userdebug_plat_sepolicy.cil
+[ 66% 257/389] //system/sepolicy/contexts:plat_precompiled_sepolicy Compiling cil files for plat_precompiled_sepolicy[common]
+[ 66% 258/389] //system/sepolicy/contexts:plat_seapp_contexts Building seapp_contexts: plat_seapp_contexts[common]
+[ 66% 259/389] //system/sepolicy/contexts:plat_seapp_contexts copy plat_seapp_contexts[common]
+[ 66% 260/389] Install: out/target/product/gta3xlwifi/system/etc/selinux/plat_seapp_contexts
+[ 67% 261/389] //system/sepolicy:system_ext_sepolicy.cil Building cil for system_ext_sepolicy.cil[common]
+stderr:
+Parsing out/soong/.intermediates/system/sepolicy/plat_sepolicy.cil/android_common/plat_sepolicy.cil
+Parsing out/soong/.intermediates/system/sepolicy/system_ext_sepolicy.cil/android_common/gta3xlwifi/system_ext_sepolicy.cil
+Building AST from Parse Tree
+Destroying Parse Tree
+Resolving AST
+Qualifying Names
+Compile post process
+Building policy binary
+Checking Neverallows
+Checking User Bounds
+Checking Role Bounds
+Checking Type Bounds
+[ 67% 262/389] Install: out/target/product/gta3xlwifi/system/system_ext/etc/selinux/system_ext_sepolicy.cil
+[ 67% 263/389] //system/sepolicy:system_ext_sepolicy_and_mapping.sha256_gen generate system_ext_sepolicy_and_mapping.sha256[common]
+[ 67% 264/389] cp out/soong/.intermediates/system/sepolicy/precompiled_sepolicy.system_ext_sepolicy_and_mapping.sha256/android_vendor_arm64_armv8-a/precompiled_sepolicy.system_ext_sepolicy_and_mapping.sha256
+[ 68% 265/389] cp out/soong/.intermediates/system/sepolicy/system_ext_sepolicy_and_mapping.sha256/android_arm64_armv8-a/system_ext_sepolicy_and_mapping.sha256
+[ 68% 266/389] Install: out/target/product/gta3xlwifi/vendor/etc/selinux/precompiled_sepolicy.system_ext_sepolicy_and_mapping.sha256
+[ 68% 267/389] Install: out/target/product/gta3xlwifi/system/system_ext/etc/selinux/system_ext_sepolicy_and_mapping.sha256
+[ 68% 268/389] //system/sepolicy:product_sepolicy.cil Building cil for product_sepolicy.cil[common]
+stderr:
+Parsing out/soong/.intermediates/system/sepolicy/plat_sepolicy.cil/android_common/plat_sepolicy.cil
+Parsing out/soong/.intermediates/system/sepolicy/system_ext_sepolicy.cil/android_common/gta3xlwifi/system_ext_sepolicy.cil
+Parsing out/soong/.intermediates/system/sepolicy/product_sepolicy.cil/android_common/gta3xlwifi/product_sepolicy.cil
+Building AST from Parse Tree
+Destroying Parse Tree
+Resolving AST
+Qualifying Names
+Compile post process
+Building policy binary
+Checking Neverallows
+Checking User Bounds
+Checking Role Bounds
+Checking Type Bounds
+[ 69% 269/389] Install: out/target/product/gta3xlwifi/product/etc/selinux/product_sepolicy.cil
+[ 69% 270/389] //system/sepolicy:product_sepolicy_and_mapping.sha256_gen generate product_sepolicy_and_mapping.sha256[common]
+[ 69% 271/389] cp out/soong/.intermediates/system/sepolicy/product_sepolicy_and_mapping.sha256/android_arm64_armv8-a/product_sepolicy_and_mapping.sha256
+[ 69% 272/389] cp out/soong/.intermediates/system/sepolicy/precompiled_sepolicy.product_sepolicy_and_mapping.sha256/android_vendor_arm64_armv8-a/precompiled_sepolicy.product_sepolicy_and_mapping.sha256
+[ 70% 273/389] Install: out/target/product/gta3xlwifi/product/etc/selinux/product_sepolicy_and_mapping.sha256
+[ 70% 274/389] Install: out/target/product/gta3xlwifi/vendor/etc/selinux/precompiled_sepolicy.product_sepolicy_and_mapping.sha256
+[ 70% 275/389] //system/sepolicy/compat:30.0_compat_test Compiling cil files for 30.0_compat_test[common]
+[ 70% 276/389] //system/sepolicy/compat:202504_compat_test Compiling cil files for 202504_compat_test[common]
+[ 71% 277/389] //system/sepolicy/compat:34.0_compat_test Compiling cil files for 34.0_compat_test[common]
+[ 71% 278/389] //system/sepolicy/compat:32.0_compat_test Compiling cil files for 32.0_compat_test[common]
+[ 71% 279/389] //system/sepolicy/compat:31.0_compat_test Compiling cil files for 31.0_compat_test[common]
+[ 71% 280/389] //system/sepolicy/compat:202404_compat_test Compiling cil files for 202404_compat_test[common]
+[ 72% 281/389] //system/sepolicy/compat:33.0_compat_test Compiling cil files for 33.0_compat_test[common]
+[ 72% 282/389] //system/sepolicy/compat:sepolicy_compat_test compat test timestamp for: sepolicy_compat_test[common]
+[ 72% 283/389] Fake: out/target/product/gta3xlwifi/obj/FAKE/sepolicy_compat_test_intermediates/sepolicy_compat_test-timestamp
+[ 73% 284/389] Install: out/target/product/gta3xlwifi/fake_packages/sepolicy_compat_test-timestamp
+[ 73% 285/389] //system/sepolicy:vendor_sepolicy.cil Versioning mapping file vendor_sepolicy.cil[common]
+stderr:
+Parsing out/soong/.intermediates/system/sepolicy/plat_sepolicy.cil/android_common/plat_sepolicy.cil
+Parsing out/soong/.intermediates/system/sepolicy/system_ext_sepolicy.cil/android_common/gta3xlwifi/system_ext_sepolicy.cil
+Parsing out/soong/.intermediates/system/sepolicy/product_sepolicy.cil/android_common/gta3xlwifi/product_sepolicy.cil
+Parsing out/soong/.intermediates/system/sepolicy/plat_pub_versioned.cil/android_common/gta3xlwifi/plat_pub_versioned.cil
+Parsing out/soong/.intermediates/system/sepolicy/plat_mapping_file/android_common/202604.cil
+Parsing out/soong/.intermediates/system/sepolicy/vendor_sepolicy.cil/android_common/gta3xlwifi/vendor_sepolicy.cil
+Building AST from Parse Tree
+Destroying Parse Tree
+Resolving AST
+Qualifying Names
+Compile post process
+Building policy binary
+[ 73% 286/389] Install: out/target/product/gta3xlwifi/vendor/etc/selinux/vendor_sepolicy.cil
+[ 73% 287/389] //system/sepolicy:odm_sepolicy.cil Versioning mapping file odm_sepolicy.cil[common]
+stderr:
+Parsing out/soong/.intermediates/system/sepolicy/plat_sepolicy.cil/android_common/plat_sepolicy.cil
+Parsing out/soong/.intermediates/system/sepolicy/system_ext_sepolicy.cil/android_common/gta3xlwifi/system_ext_sepolicy.cil
+Parsing out/soong/.intermediates/system/sepolicy/product_sepolicy.cil/android_common/gta3xlwifi/product_sepolicy.cil
+Parsing out/soong/.intermediates/system/sepolicy/plat_pub_versioned.cil/android_common/gta3xlwifi/plat_pub_versioned.cil
+Parsing out/soong/.intermediates/system/sepolicy/plat_mapping_file/android_common/202604.cil
+Parsing out/soong/.intermediates/system/sepolicy/vendor_sepolicy.cil/android_common/gta3xlwifi/vendor_sepolicy.cil
+Parsing out/soong/.intermediates/system/sepolicy/odm_sepolicy.cil/android_common/gta3xlwifi/odm_sepolicy.cil
+Building AST from Parse Tree
+Destroying Parse Tree
+Resolving AST
+Qualifying Names
+Compile post process
+Building policy binary
+[ 74% 288/389] Install: out/target/product/gta3xlwifi/vendor/odm/etc/selinux/odm_sepolicy.cil
+[ 74% 289/389] //system/sepolicy:precompiled_sepolicy Compiling cil files for precompiled_sepolicy[common]
+[ 74% 290/389] //system/sepolicy/contexts:vendor_seapp_contexts Building seapp_contexts: vendor_seapp_contexts[common]
+[ 74% 291/389] //system/sepolicy/contexts:system_ext_seapp_contexts Building seapp_contexts: system_ext_seapp_contexts[common]
+[ 75% 292/389] //system/sepolicy/contexts:vendor_hwservice_contexts_test running contexts test: vendor_hwservice_contexts_test[common]
+[ 75% 293/389] //system/sepolicy/contexts:product_service_contexts_test running contexts test: product_service_contexts_test[common]
+[ 75% 294/389] //system/sepolicy/contexts:plat_hwservice_contexts_test running contexts test: plat_hwservice_contexts_test[common]
+[ 75% 295/389] //system/sepolicy/contexts:odm_file_contexts_test running contexts test: odm_file_contexts_test[common]
+[ 76% 296/389] //system/sepolicy/contexts:vendor_service_contexts_test running contexts test: vendor_service_contexts_test[common]
+[ 76% 297/389] //system/sepolicy/contexts:odm_service_contexts_test running contexts test: odm_service_contexts_test[common]
+[ 76% 298/389] //system/sepolicy/contexts:odm_hwservice_contexts_test running contexts test: odm_hwservice_contexts_test[common]
+[ 76% 299/389] //system/sepolicy/contexts:product_hwservice_contexts_test running contexts test: product_hwservice_contexts_test[common]
+[ 77% 300/389] //system/sepolicy/contexts:system_ext_hwservice_contexts_test running contexts test: system_ext_hwservice_contexts_test[common]
+[ 77% 301/389] //system/sepolicy/contexts:system_ext_service_contexts_test running contexts test: system_ext_service_contexts_test[common]
+[ 77% 302/389] //system/sepolicy/contexts:plat_file_contexts_test running contexts test: plat_file_contexts_test[common]
+[ 77% 303/389] //system/sepolicy/contexts:product_seapp_contexts Building seapp_contexts: product_seapp_contexts[common]
+[ 78% 304/389] //system/sepolicy/contexts:system_ext_file_contexts_test running contexts test: system_ext_file_contexts_test[common]
+[ 78% 305/389] //system/sepolicy/contexts:vndservice_contexts_test running contexts test: vndservice_contexts_test[common]
+[ 78% 306/389] Fake: out/target/product/gta3xlwifi/obj/FAKE/odm_service_contexts_test_intermediates/odm_service_contexts_test-timestamp
+[ 78% 307/389] //system/sepolicy/contexts:odm_seapp_contexts Building seapp_contexts: odm_seapp_contexts[common]
+[ 79% 308/389] //system/sepolicy/contexts:product_seapp_contexts copy product_seapp_contexts[common]
+[ 79% 309/389] Fake: out/target/product/gta3xlwifi/obj/FAKE/vndservice_contexts_test_intermediates/vndservice_contexts_test-timestamp
+[ 79% 310/389] Fake: out/target/product/gta3xlwifi/obj/FAKE/system_ext_file_contexts_test_intermediates/system_ext_file_contexts_test-timestamp
+[ 79% 311/389] Fake: out/target/product/gta3xlwifi/obj/FAKE/vendor_hwservice_contexts_test_intermediates/vendor_hwservice_contexts_test-timestamp
+[ 80% 312/389] //system/sepolicy/contexts:odm_seapp_contexts copy odm_seapp_contexts[common]
+[ 80% 313/389] Fake: out/target/product/gta3xlwifi/obj/FAKE/odm_hwservice_contexts_test_intermediates/odm_hwservice_contexts_test-timestamp
+[ 80% 314/389] //system/sepolicy/contexts:vendor_seapp_contexts copy vendor_seapp_contexts[common]
+[ 80% 315/389] Fake: out/target/product/gta3xlwifi/obj/FAKE/product_service_contexts_test_intermediates/product_service_contexts_test-timestamp
+[ 81% 316/389] Fake: out/target/product/gta3xlwifi/obj/FAKE/vendor_service_contexts_test_intermediates/vendor_service_contexts_test-timestamp
+[ 81% 317/389] //system/sepolicy/contexts:system_ext_seapp_contexts copy system_ext_seapp_contexts[common]
+[ 81% 318/389] //system/sepolicy/contexts:product_file_contexts_test running contexts test: product_file_contexts_test[common]
+[ 82% 319/389] Fake: out/target/product/gta3xlwifi/obj/FAKE/system_ext_service_contexts_test_intermediates/system_ext_service_contexts_test-timestamp
+[ 82% 320/389] Fake: out/target/product/gta3xlwifi/obj/FAKE/odm_file_contexts_test_intermediates/odm_file_contexts_test-timestamp
+[ 82% 321/389] //system/sepolicy/contexts:vendor_file_contexts_test running contexts test: vendor_file_contexts_test[common]
+[ 82% 322/389] Fake: out/target/product/gta3xlwifi/obj/FAKE/system_ext_hwservice_contexts_test_intermediates/system_ext_hwservice_contexts_test-timestamp
+[ 83% 323/389] Fake: out/target/product/gta3xlwifi/obj/FAKE/product_hwservice_contexts_test_intermediates/product_hwservice_contexts_test-timestamp
+[ 83% 324/389] Fake: out/target/product/gta3xlwifi/obj/FAKE/product_file_contexts_test_intermediates/product_file_contexts_test-timestamp
+[ 83% 325/389] Fake: out/target/product/gta3xlwifi/obj/FAKE/vendor_file_contexts_test_intermediates/vendor_file_contexts_test-timestamp
+[ 83% 326/389] Install: out/target/product/gta3xlwifi/fake_packages/odm_file_contexts_test-timestamp
+[ 84% 327/389] Install: out/target/product/gta3xlwifi/fake_packages/vendor_hwservice_contexts_test-timestamp
+[ 84% 328/389] Install: out/target/product/gta3xlwifi/fake_packages/product_hwservice_contexts_test-timestamp
+[ 84% 329/389] Install: out/target/product/gta3xlwifi/fake_packages/product_file_contexts_test-timestamp
+[ 84% 330/389] Install: out/target/product/gta3xlwifi/fake_packages/vendor_file_contexts_test-timestamp
+[ 85% 331/389] Install: out/target/product/gta3xlwifi/fake_packages/system_ext_hwservice_contexts_test-timestamp
+[ 85% 332/389] Fake: out/target/product/gta3xlwifi/obj/FAKE/selinux_policy_system_ext_intermediates/selinux_policy_system_ext-timestamp
+[ 85% 333/389] //system/sepolicy/contexts:plat_service_contexts_test running contexts test: plat_service_contexts_test[common]
+[ 85% 334/389] Fake: out/target/product/gta3xlwifi/obj/FAKE/selinux_policy_odm_intermediates/selinux_policy_odm-timestamp
+[ 86% 335/389] Install: out/target/product/gta3xlwifi/fake_packages/product_service_contexts_test-timestamp
+[ 86% 336/389] Install: out/target/product/gta3xlwifi/fake_packages/odm_hwservice_contexts_test-timestamp
+[ 86% 337/389] //system/sepolicy/contexts:merged_service_contexts_test running contexts test: merged_service_contexts_test[common]
+[ 86% 338/389] Install: out/target/product/gta3xlwifi/vendor/odm/etc/selinux/odm_seapp_contexts
+[ 87% 339/389] Fake: out/target/product/gta3xlwifi/obj/FAKE/plat_service_contexts_test_intermediates/plat_service_contexts_test-timestamp
+[ 87% 340/389] Install: out/target/product/gta3xlwifi/fake_packages/system_ext_service_contexts_test-timestamp
+[ 87% 341/389] Install: out/target/product/gta3xlwifi/vendor/etc/selinux/vendor_seapp_contexts
+[ 87% 342/389] Fake: out/target/product/gta3xlwifi/obj/FAKE/plat_file_contexts_test_intermediates/plat_file_contexts_test-timestamp
+[ 88% 343/389] Fake: out/target/product/gta3xlwifi/obj/FAKE/plat_hwservice_contexts_test_intermediates/plat_hwservice_contexts_test-timestamp
+[ 88% 344/389] Install: out/target/product/gta3xlwifi/fake_packages/odm_service_contexts_test-timestamp
+[ 88% 345/389] Install: out/target/product/gta3xlwifi/fake_packages/vndservice_contexts_test-timestamp
+[ 88% 346/389] Install: out/target/product/gta3xlwifi/vendor/etc/selinux/precompiled_sepolicy
+[ 89% 347/389] Fake: out/target/product/gta3xlwifi/obj/FAKE/selinux_policy_product_intermediates/selinux_policy_product-timestamp
+[ 89% 348/389] Install: out/target/product/gta3xlwifi/fake_packages/system_ext_file_contexts_test-timestamp
+[ 89% 349/389] Fake: out/target/product/gta3xlwifi/obj/FAKE/selinux_policy_vendor_intermediates/selinux_policy_vendor-timestamp
+[ 89% 350/389] //system/sepolicy/contexts:merged_hwservice_contexts_test running contexts test: merged_hwservice_contexts_test[common]
+[ 90% 351/389] Install: out/target/product/gta3xlwifi/product/etc/selinux/product_seapp_contexts
+[ 90% 352/389] Install: out/target/product/gta3xlwifi/system/system_ext/etc/selinux/system_ext_seapp_contexts
+[ 90% 353/389] Fake: out/target/product/gta3xlwifi/obj/FAKE/selinux_policy_nonsystem_intermediates/selinux_policy_nonsystem-timestamp
+[ 91% 354/389] Install: out/target/product/gta3xlwifi/fake_packages/vendor_service_contexts_test-timestamp
+[ 91% 355/389] Install: out/target/product/gta3xlwifi/fake_packages/plat_hwservice_contexts_test-timestamp
+[ 91% 356/389] Install: out/target/product/gta3xlwifi/fake_packages/plat_file_contexts_test-timestamp
+[ 91% 357/389] Install: out/target/product/gta3xlwifi/fake_packages/plat_service_contexts_test-timestamp
+[ 92% 358/389] Fake: out/target/product/gta3xlwifi/obj/FAKE/merged_service_contexts_test_intermediates/merged_service_contexts_test-timestamp
+[ 92% 359/389] Fake: out/target/product/gta3xlwifi/obj/FAKE/merged_hwservice_contexts_test_intermediates/merged_hwservice_contexts_test-timestamp
+[ 92% 360/389] Install: out/target/product/gta3xlwifi/fake_packages/merged_service_contexts_test-timestamp
+[ 92% 361/389] Install: out/target/product/gta3xlwifi/fake_packages/merged_hwservice_contexts_test-timestamp
+[ 93% 362/389] //system/sepolicy/contexts:product_property_contexts_test running contexts test: product_property_contexts_test[common]
+[ 93% 363/389] //system/sepolicy/contexts:odm_property_contexts_test running contexts test: odm_property_contexts_test[common]
+[ 93% 364/389] //system/sepolicy/contexts:system_ext_property_contexts_test running contexts test: system_ext_property_contexts_test[common]
+[ 93% 365/389] //system/sepolicy/contexts:plat_property_contexts_test running contexts test: plat_property_contexts_test[common]
+[ 94% 366/389] //system/sepolicy/contexts:vendor_property_contexts_test running contexts test: vendor_property_contexts_test[common]
+[ 94% 367/389] Fake: out/target/product/gta3xlwifi/obj/FAKE/product_property_contexts_test_intermediates/product_property_contexts_test-timestamp
+[ 94% 368/389] Fake: out/target/product/gta3xlwifi/obj/FAKE/odm_property_contexts_test_intermediates/odm_property_contexts_test-timestamp
+[ 94% 369/389] Fake: out/target/product/gta3xlwifi/obj/FAKE/vendor_property_contexts_test_intermediates/vendor_property_contexts_test-timestamp
+[ 95% 370/389] Fake: out/target/product/gta3xlwifi/obj/FAKE/system_ext_property_contexts_test_intermediates/system_ext_property_contexts_test-timestamp
+[ 95% 371/389] Fake: out/target/product/gta3xlwifi/obj/FAKE/plat_property_contexts_test_intermediates/plat_property_contexts_test-timestamp
+[ 95% 372/389] Install: out/target/product/gta3xlwifi/fake_packages/product_property_contexts_test-timestamp
+[ 95% 373/389] Install: out/target/product/gta3xlwifi/fake_packages/plat_property_contexts_test-timestamp
+[ 96% 374/389] Install: out/target/product/gta3xlwifi/fake_packages/system_ext_property_contexts_test-timestamp
+[ 96% 375/389] Install: out/target/product/gta3xlwifi/fake_packages/odm_property_contexts_test-timestamp
+[ 96% 376/389] Install: out/target/product/gta3xlwifi/fake_packages/vendor_property_contexts_test-timestamp
+[ 96% 377/389] Install: out/target/product/gta3xlwifi/fake_packages/selinux_policy_product-timestamp
+[ 97% 378/389] Install: out/target/product/gta3xlwifi/fake_packages/selinux_policy_system_ext-timestamp
+[ 97% 379/389] Install: out/target/product/gta3xlwifi/fake_packages/selinux_policy_odm-timestamp
+[ 97% 380/389] Install: out/target/product/gta3xlwifi/fake_packages/selinux_policy_vendor-timestamp
+[ 97% 381/389] Install: out/target/product/gta3xlwifi/fake_packages/selinux_policy_nonsystem-timestamp
+[ 98% 382/389] //system/sepolicy:sepolicy_dev_type_test generate sepolicy_dev_type_test[common]
+[ 98% 383/389] //system/sepolicy:sepolicy_test generate sepolicy_test[common]
+stdout:
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+"isolated_compute_allowed_property_type" does not exist
+[ 98% 384/389] Fake: out/target/product/gta3xlwifi/obj/FAKE/selinux_policy_system_intermediates/selinux_policy_system-timestamp
+[ 98% 385/389] Fake: out/target/product/gta3xlwifi/obj/FAKE/selinux_policy_intermediates/selinux_policy-timestamp
+[ 99% 386/389] Install: out/target/product/gta3xlwifi/fake_packages/selinux_policy_system-timestamp
+[ 99% 387/389] Install: out/target/product/gta3xlwifi/fake_packages/selinux_policy-timestamp
+ninja: 7m33.24s Build Succeeded: 348 steps - 0.77/s
+
+
+#### build completed successfully (18:02 (mm:ss)) ####
+
+PASS: 1243 locked projects, 21 exact reviewed patches; no external alternates

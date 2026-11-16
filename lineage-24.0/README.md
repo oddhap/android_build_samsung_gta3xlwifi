@@ -17,9 +17,16 @@ ARM/ARM64 ELF outputs are recorded in the reports; this is build/link evidence.
 Active snapshot **port-20261116-01** locks 1,243 projects and **21 exact patches**.
 It retains the successful networking composition from port-20261115-01 and adds
 explicit source policy tightening and device-specific network inode permissions.
-The fresh policy build and subsequent strict actual-vendor/context validation
-are in progress; this snapshot is not a flash approval. Kernel/vendor/DTBO
-prebuilts and device HEAD remain unchanged. See policy-source-selection-20261116-01.
+The actual fresh policy build, strict vendor link,20 context checks and all5,881
+exact assertion/constraint records pass. No platform input override or permissive
+domain is used. The explicitly selected runtime pair is now kernel7ece8d6f and
+derived vendor2b40b8c7, with original rollback bytes preserved and DTBO/device HEAD
+unchanged. Complete ext4 comparison retains every original non-metadata byte
+and inode security attribute. Only seven explicit metadata paths differ; the
+MTP implementation is unchanged. The full target-files product build is running.
+No flash approval or installation package exists. See policy-source-selection,
+policy-composition-build/strict, vendor-composition and runtime-input-selection
+20261116-01 experiments.
 The previous network module build completed exit 0, including post-R8 Binder
 identities, min31 AIDL16 ordinals, ten actual iptables registry entries and
 installed native ELF outputs. See network-composition-build-20261115-01 and

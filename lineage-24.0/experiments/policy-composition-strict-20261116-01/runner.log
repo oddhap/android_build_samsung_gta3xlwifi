@@ -1,0 +1,5 @@
+PASS: 1243 locked projects, 21 exact reviewed patches; no external alternates
+strict: exit 0
+
+Context checks: 20 passed: True
+PASS: 1243 locked projects, 21 exact reviewed patches; no external alternates
