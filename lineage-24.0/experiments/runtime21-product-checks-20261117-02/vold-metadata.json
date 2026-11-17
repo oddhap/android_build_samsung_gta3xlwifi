@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "scope": "Bind the actual replacement vold to the null-predicate regression and unchanged FBE fstab.",
+  "archive_sha256": "86789c810acc38b426079ac124c33a1567a4fc2082a54b1d208a4b17c75e11fc",
+  "new_vold_sha256": "0cfb53996ca815b0bc8179e30979ff39897c8d376420e808d0d83ce94d20cdea",
+  "previous_vold_sha256": "2972a6a89254786c3e36cbf34eafe076db46cb12352769011010d90b021278ca",
+  "new_vold_matches_build_output": true,
+  "host_regression_report_sha256": "f6516b0113200720fe3b0685d5d1b1bc889a9a3b3f85cc6df121b7056dd90daa",
+  "actual_fstab_sha256": "ae87c90434eb2cfe64bd04ec52ec4d7da8019d12395b9a67c8515975b48b3742",
+  "fstab_byte_identical_and_file_encryption_retained": true,
+  "hardware_FBE_proven": false,
+  "flash_ready": false
+}

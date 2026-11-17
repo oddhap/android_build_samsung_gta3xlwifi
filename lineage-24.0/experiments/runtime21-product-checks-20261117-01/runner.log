@@ -1,0 +1,20 @@
+Selected artifact checks PASS; this is NOT flash-readiness approval.
+Context checks: 20 passed: True
+PASS actual combined context lookup and exact HAL server memberships
+Warning: releasetools script should be invoked as hermetic Python executable -- build and run `test-installer-hooks24` directly.
+PASS 7 actual package installer-hook cases
+PASS packaged ext4 feature compatibility: 4 images
+PASS actual static first stage and SAR root composition
+PASS actual immutable-root cpuacct mountpoint and descriptor
+PASS actual rebuilt vold and byte-identical FBE fstab
+PASS genuine API metadata, no loader/readiness and actual kernel capability binding
+PASS actual rebuilt netd, null-global regression binding and unchanged boot-failure guard
+PASS actual rebuilt netd, held six-root guard regression binding and unchanged boot-failure guard
+PASS actual dual-ABI rebuilt libui, production legacy flag and retained mandatory HAL loading
+PASS packaged exact ION context and strict scoped graphics-client permission proofs
+PASS packaged early USB ADB requests, init parser, secure authentication and unchanged USB ownership
+PASS real packaged metadata mountpoint/bootstrap/tables, true protection flag, fresh contexts and byte-identical strict policy/cache
+Traceback (most recent call last):
+  File "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/check-clat-bootstrap-target24.py", line 27, in <module>
+    path=prod/'system/bin'/Path(name).name;assert h==sha(path) and h!=hashlib.sha256(old.read(name)).hexdigest();files[name]=h
+AssertionError

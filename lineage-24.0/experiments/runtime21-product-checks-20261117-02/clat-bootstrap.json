@@ -1,0 +1,19 @@
+{
+  "passed": true,
+  "scope": "Bind rebuilt packaged JNI/aconfigd to exact source regressions and immutable userspace CLAT selection.",
+  "archive_sha256": "86789c810acc38b426079ac124c33a1567a4fc2082a54b1d208a4b17c75e11fc",
+  "actual_files_sha256": {
+    "SYSTEM/bin/aconfigd-system": "02e9da4a0e23d72a92667586704f38b00dcb569f5fa88651aa0569fd0892b55c",
+    "SYSTEM/lib64/libaconfigd_rust.dylib.so": "c7fb3aa6f9bc62109ba9702d7121af574334ac308f9e5b43b76a3daf12ae20e0",
+    "APEX/lib64/libservice-connectivity.so": "3ff6ca6f1918c35e26b66f8cdaf8b55002eb416de90a2f9999a163c09dadd6e0"
+  },
+  "host_report_sha256": "29085a81b533778b2ed4ec57f4e24fda11f01bb9fbf04885c8afdce5ab17e1b7",
+  "existing_Java_userspace_CLAT_regression_sha256": "4f9eea7deb9479e6732b6d2db31b673a7db316d0dea97131c80784f81192fe83",
+  "userspace_CLAT_source_sha256": "a430d16f14614246c98de7e01adef1ac8cbdc1f96f7b1a5dd284787b72c23eaf",
+  "backend_owner_source_sha256": "39230902c3eb61f7152ccd8e1cd30fcd52f71df6b8781ab0e8faedf8cd6e0498",
+  "new_JNI_ELF_notes": "Displaying notes found in: .note.android.ident\n  Owner                Data size \tDescription\n  Android              0x00000004\tNT_VERSION (version)\n   description data: 25 00 00 00 \n\nDisplaying notes found in: .note.android.pad_segment\n  Owner                Data size \tDescription\n  Android              0x00000004\tUnknown note type: (0x00000005)\n   description data: 01 00 00 00 \n\nDisplaying notes found in: .note.gnu.build-id\n  Owner                Data size \tDescription\n  GNU                  0x00000010\tNT_GNU_BUILD_ID (unique build ID bitstring)\n    Build ID: 3734bdcf9d470922b787b98001043a4e",
+  "daemon_uses_rebuilt_shared_Rust_library": true,
+  "BPF_readiness_synthesized": false,
+  "hardware_boot_or_network_proven": false,
+  "flash_ready": false
+}

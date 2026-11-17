@@ -1,0 +1,2407 @@
+{
+  "passed": true,
+  "scope": "Compare every actual OTA new/zero block operation to its pinned sparse target image.\n\nFull OTA only: no source-dependent moves, patches or stashes. Erases may affect\nonly uncared sparse blocks. No device is opened and no update is executed.\n",
+  "ota_sha256": "94397d62a7ce5fd8f3ddbd97c70372c948749810e986124b285927a0a03cd073",
+  "target_files_sha256": "86789c810acc38b426079ac124c33a1567a4fc2082a54b1d208a4b17c75e11fc",
+  "brotli_tool_sha256": "fe6af3a023afec304eb00761180ea1d68a92beebb2d8f657591b6f644521561b",
+  "source_sparse_parser_sha256": "af34daf2114e78f6946fc477e013f0ce89239e0a64d66f515e114cb259556c25",
+  "images": {
+    "system": {
+      "new_blocks": 457665,
+      "zero_blocks": 8730,
+      "explicit_uncared_read_ahead_zero_blocks": 8730,
+      "erase_blocks": 313893,
+      "physical_image_blocks": 780288,
+      "decompressed_new_data_bytes": 1874595840,
+      "actual_and_expected_new_data_sha256": "32c6f0b2940274a2b02abaa918c3f807f8b33e9f8d8cebca9a30d0f156c8cb34",
+      "all_cared_target_blocks_covered": true,
+      "erases_only_uncared_blocks": true,
+      "no_overlap_or_source_dependencies": true,
+      "commands": [
+        {
+          "operation": "erase",
+          "blocks": 313893
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 961
+        },
+        {
+          "operation": "zero",
+          "blocks": 1024
+        },
+        {
+          "operation": "zero",
+          "blocks": 1024
+        },
+        {
+          "operation": "zero",
+          "blocks": 1024
+        },
+        {
+          "operation": "zero",
+          "blocks": 1024
+        },
+        {
+          "operation": "zero",
+          "blocks": 1024
+        },
+        {
+          "operation": "zero",
+          "blocks": 1024
+        },
+        {
+          "operation": "zero",
+          "blocks": 1024
+        },
+        {
+          "operation": "zero",
+          "blocks": 1024
+        },
+        {
+          "operation": "zero",
+          "blocks": 538
+        }
+      ]
+    },
+    "product": {
+      "new_blocks": 45036,
+      "zero_blocks": 3584,
+      "explicit_uncared_read_ahead_zero_blocks": 3584,
+      "erase_blocks": 31252,
+      "physical_image_blocks": 79872,
+      "decompressed_new_data_bytes": 184467456,
+      "actual_and_expected_new_data_sha256": "4b41ed24605b56806534b7fc60701f75ec4a58142f13fab9ee2de566913be8ad",
+      "all_cared_target_blocks_covered": true,
+      "erases_only_uncared_blocks": true,
+      "no_overlap_or_source_dependencies": true,
+      "commands": [
+        {
+          "operation": "erase",
+          "blocks": 31252
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1004
+        },
+        {
+          "operation": "zero",
+          "blocks": 1024
+        },
+        {
+          "operation": "zero",
+          "blocks": 1024
+        },
+        {
+          "operation": "zero",
+          "blocks": 1024
+        },
+        {
+          "operation": "zero",
+          "blocks": 512
+        }
+      ]
+    },
+    "vendor": {
+      "new_blocks": 83968,
+      "zero_blocks": 0,
+      "explicit_uncared_read_ahead_zero_blocks": 0,
+      "erase_blocks": 0,
+      "physical_image_blocks": 83968,
+      "decompressed_new_data_bytes": 343932928,
+      "actual_and_expected_new_data_sha256": "a64acb1a8d764bfca74287e4002321b9438f38e8242c30a05aae57249e705fea",
+      "all_cared_target_blocks_covered": true,
+      "erases_only_uncared_blocks": true,
+      "no_overlap_or_source_dependencies": true,
+      "commands": [
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        },
+        {
+          "operation": "new",
+          "blocks": 1024
+        }
+      ]
+    }
+  },
+  "device_touched": false,
+  "Android17_FBE_validated": false,
+  "flash_ready": false
+}

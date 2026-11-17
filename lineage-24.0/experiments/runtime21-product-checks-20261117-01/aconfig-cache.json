@@ -1,0 +1,70 @@
+{
+  "passed": true,
+  "scope": "Bind real packaged metadata storage, flag values and unchanged strict policy to the new bootstrap.",
+  "archive_sha256": "86789c810acc38b426079ac124c33a1567a4fc2082a54b1d208a4b17c75e11fc",
+  "root_metadata_directory_present": true,
+  "root_metadata_not_group_or_world_writable": true,
+  "packaged_bootstrap_sha256": "5e20ec86b99787f6b043848640ea51d22f0f59f446f744cdbf054308a4505106",
+  "builtin_aconfig_tables": {
+    "SYSTEM/etc/aconfig/flag.info": {
+      "bytes": 1984,
+      "sha256": "0e1815c3102c6072151ee116b3066a27ca8aec404b1eca59da53ca76fa08b7b0"
+    },
+    "SYSTEM/etc/aconfig/flag.map": {
+      "bytes": 114178,
+      "sha256": "6571eca9294e99525773fb9e18e2074c3b7666486fbdf3b770ea2d45524c2ff1"
+    },
+    "SYSTEM/etc/aconfig/flag.val": {
+      "bytes": 1984,
+      "sha256": "769f16f780823bd3c0d51494ab13ed5ec8ef2b3a5aa7df5cdfe05c245a6ecc82"
+    },
+    "SYSTEM/etc/aconfig/package.map": {
+      "bytes": 10531,
+      "sha256": "aa771dc60008ebe5fcfa71e33e7ba691c5f4a9cfb71facb3c4a9a839b0da1dcb"
+    },
+    "SYSTEM/system_ext/etc/aconfig/flag.info": {
+      "bytes": 180,
+      "sha256": "969414c5cf7a60a212cc432aaa56175f722ddae837a3f1bccdc61d0f2ff864d1"
+    },
+    "SYSTEM/system_ext/etc/aconfig/flag.map": {
+      "bytes": 8460,
+      "sha256": "4dfd763c5f132101335ba217ecad06eef7e92157ed0513e84bfa5512c44fe804"
+    },
+    "SYSTEM/system_ext/etc/aconfig/flag.val": {
+      "bytes": 180,
+      "sha256": "2bd91bece3ae7d959b7a093863e6824d3799653d5f5cc3b726bd17ac520a6c81"
+    },
+    "SYSTEM/system_ext/etc/aconfig/package.map": {
+      "bytes": 656,
+      "sha256": "cf2ffc053de68f3cee81ef7191ad1838be43bf9948d5cd4cd5fd2d3bebd11dfd"
+    },
+    "PRODUCT/etc/aconfig/flag.info": {
+      "bytes": 28,
+      "sha256": "d4bad440524871031ab00a7de2f2172924883588eaafe9f0657575bd8bc86b08"
+    },
+    "PRODUCT/etc/aconfig/flag.map": {
+      "bytes": 60,
+      "sha256": "5f9dc16bda34923cdcb012bcba1c0ed75546c62c87ec5e68d9a84dc2da09cce1"
+    },
+    "PRODUCT/etc/aconfig/flag.val": {
+      "bytes": 28,
+      "sha256": "7d54232b1b9fe7e24bbd2c24b0c5d980e12cea6101c104f84759248af423c943"
+    },
+    "PRODUCT/etc/aconfig/package.map": {
+      "bytes": 60,
+      "sha256": "e059b3a6ceac887373e35c41cad90e11299b1559e1888b7250af2d82e8f19f38"
+    }
+  },
+  "builtin_flag_table_bytes": 138329,
+  "actual_security_flag": "android.security.aapm_feature_disable_insecure_wifi_autojoin true READ_ONLY system",
+  "fresh_actual_contexts_report_sha256": "1df4aa0fee45386e38e291dcbaf91349fd504da43122b7fb91347b21d18e4f40",
+  "strict_CIL_inputs_byte_identical": true,
+  "strict_policy_sha256": "3f268a4dab65c317c7eb8ed2d2511e0c6e7943cb87aada877ef2d4795334d7ae",
+  "vendor_cache_reused_after_exact_identity_checks": true,
+  "userdata_fstab_byte_identical": true,
+  "partitions_formatted_or_resized": false,
+  "flag_services_or_values_disabled": false,
+  "host_proof_sha256": "c0ec7c13222a6aea6ff05f53044830f56e3349a3f0c5791b37e33519e6277182",
+  "hardware_metadata_backend_proven": false,
+  "flash_ready": false
+}

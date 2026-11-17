@@ -4,11 +4,18 @@ Active development target: LineageOS 24.0 / Android 17, ARM64 with ARM32 apps,
 `gta3xlwifi`, physical non-A/B partitions. This is an unfinished source-built
 device port. The first physical test installation has completed; its first Android17 boot failed and is being repaired.
 
-**Snapshot21 full product build is running.** All1,243 projects and22 exact
-patches match the reviewed source snapshot. The two source corrections pass79
-native permission/backend cases and197 Rust bootstrap cases, reproducing both
-original failures first. The full build and all product/package checks must pass
-before another authorized physical test. Kernel, vendor and policy stay unchanged.
+**Snapshot21 passes the full build and all package checks; physical installation
+is in progress.** All1,243 projects /22 exact patches match before and after the
+build. Product checks02, fresh contexts, rebuilt native JNI and dynamic Rust
+implementation, 39-APEX VINTF, CMS/signature/CRC and all actual OTA block streams
+pass. The original failed product check01 incorrectly required a changed daemon
+executable; its actual implementation is in a rebuilt shared Rust library.
+That failure remains recorded; checks02 verify the real DT_NEEDED dependency,
+changed packaged library and JNI extracted from the actual compressed APEX.
+The local archive is1,041,046,636 bytes, SHA256
+`94397d62a7ce5fd8f3ddbd97c70372c948749810e986124b285927a0a03cd073`.
+Fresh physical prewrite guards pass; existing DE0 keys, userdata, kernel, vendor,
+policy and TWRP are retained. Installation readbacks and normal boot are pending.
 
 **Latest physical status (November17): snapshot20 reaches genuine flag storage,
 then aborts during native CLAT registration.** Authenticated early Android17 ADB,
