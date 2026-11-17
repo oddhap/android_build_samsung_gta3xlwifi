@@ -34,6 +34,9 @@ with zipfile.ZipFile(a.archive) as z:
   assert out.read('recovery-header-sync')==helper
   assert out.read('vendor-unmounted-check.sh')==m._VENDOR_MOUNT_GUARD
  results.append('actual packaged helper and source hooks produce two read-only guards')
+ (O/'IMAGES').mkdir();(O/'IMAGES/vendor.img').write_bytes(z.read('IMAGES/vendor.img'))
+ image=m._hybrid_vendor(z,str(O));assert image.blocksize*image.total_blocks==343932928;image.simg_f.close()
+ results.append('actual packaged vendor accepted with exact digest and real sparse geometry')
  def reject(label,changes):
   info=types.SimpleNamespace(input_zip=Override(z,changes),target_zip=None)
   try:m._target(info)

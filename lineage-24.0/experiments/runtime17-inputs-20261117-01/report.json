@@ -1,0 +1,35 @@
+{
+  "passed": true,
+  "scope": "Explicitly select the audited kernel/vendor pair, retaining immutable rollback copies.\n\nRequires fresh source-built strict policy/context/assertion proofs and complete\nvendor image equality checks. No device operations, recovery changes or signing.\n",
+  "source_snapshot": "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/snapshots/port-20261117-17",
+  "before": {
+    "Image": "33c1a0d1b9e2696decd53fbedfc2231385b74464f4058a54b93ff06ff7c72553",
+    "vendor.img": "a847a527931d61e5702b8a025210c84eb88a37ef1e60df93b6393a16dae9183a",
+    "dtbo.img": "b9041c37713a745290d9a0203423436b6caa7a1307ced79b6963b4f1f0271c4b"
+  },
+  "after": {
+    "Image": "7ece8d6fd70870811abfe5fd9f947311506f97233491b4016cde441de3578aec",
+    "vendor.img": "012661c7746a4fc65464b972a625e1fc348dc45b6a98829ea8378234fc72c377",
+    "dtbo.img": "b9041c37713a745290d9a0203423436b6caa7a1307ced79b6963b4f1f0271c4b"
+  },
+  "proofs_sha256": {
+    "/srv/android/artifacts/lineage-24.0-arm64/kernel-uid-receipt-build-20261115-01/report.json": "91dada7c3b6927287025f7f90c88630a5a04ece2b8170b77d9a5da3a726d57d7",
+    "/srv/android/artifacts/lineage-24.0-arm64/ion-vendor-composition-20261117-01/report.json": "ba72e26e5cc87e0d900382231db9196e40f8ee9fd9f294ea0f3a060340da1cba",
+    "/srv/android/artifacts/lineage-24.0-arm64/ion-policy-strict-20261117-02/strict/report.json": "42ef5bcd61881c6ce95e6143fddc00786caae2f4b1d2edf58d1d12f4f9304223",
+    "/srv/android/artifacts/lineage-24.0-arm64/ion-policy-strict-20261117-02/contexts/report.json": "56971b08c365dcd92a5bba4462bb1e7b044add4187e4495b6a8934908fce9460",
+    "/srv/android/artifacts/lineage-24.0-arm64/ion-policy-strict-20261117-02/assertions.json": "bbc7ab8a8d48ba8a168d4549fcbc4cb742b34b70561e5a7d2eb2a43c8100a687"
+  },
+  "flash_ready": false,
+  "original_rollback_copies_verified": true,
+  "hardware_tested": false,
+  "inherited_runtime_selection_sha256": "d9b2461eb94bc30b3f55ce4afe181be8240ff5af804530746e835200bba9035e",
+  "runtime_prebuilts_changed": false,
+  "source_transition_scope": "Bind the strict ION cache to an OTA-only reviewed vendor identity delta.",
+  "source_delta_selection_sha256": "378783e4c40ccda7d252776622b8eee72280095e44963bf3e14195ff45dd7877",
+  "source_audit_sha256": "2cf90c662bf7bf92b5ac55b97a14129536049ba6a0748cc509851fad32726904",
+  "previous_selected_prebuilts": {
+    "Image": "7ece8d6fd70870811abfe5fd9f947311506f97233491b4016cde441de3578aec",
+    "vendor.img": "2b40b8c71ce02b432ae25c9664f8460ebefc5c0955226b2fdb74ed16c2d11353",
+    "dtbo.img": "b9041c37713a745290d9a0203423436b6caa7a1307ced79b6963b4f1f0271c4b"
+  }
+}

@@ -4,6 +4,17 @@ Active development target: LineageOS 24.0 / Android 17, ARM64 with ARM32 apps,
 `gta3xlwifi`, physical non-A/B partitions. This is an unfinished source-built
 device port. The first physical test installation has completed; its first Android17 boot failed and is being repaired.
 
+**Current candidate: snapshot17 (November17), correcting the exact OTA vendor binding.**
+The complete snapshot16 build, source audits, every product check including ION
+and early authenticated ADB, and 39-APEX VINTF pass. OTA generation correctly
+rejects its stale vendor digest pin after the reviewed policy-cache update.
+Snapshot17 changes only that digest to the already verified vendor image;
+the strict guard and geometry checks remain intact. A test reproduces the actual
+old rejection, accepts the reviewed image through AOSP's real sparse parser, and
+rejects tampered bytes. Product hook tests now include the positive real vendor
+case. The complete snapshot17 build and package checks are running. No snapshot16
+installation occurred, and userdata and recovery remain intact.
+
 **Current source candidate: snapshot16 (November17), building the complete ROM.**
 The actual corrected ION policy build and strict vendor link pass, retaining all
 5,881 assertion/constraint records, with 20 context checks, 36 effective permission

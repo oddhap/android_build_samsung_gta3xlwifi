@@ -1,0 +1,12 @@
+{
+  "files": {
+    "device/samsung/gta3xlwifi/releasetools.py": {
+      "before": "1403a2b7ef6bc312c29a25437bf8490aeaad29e635236986e263ae82999c5576",
+      "after": "6628ffc4fe1df3b939eda5bf32031b041e2bb7d099bc9d6ee2fb5d6ce3cd0fa0"
+    }
+  },
+  "scope": "Update the exact OTA vendor identity to the already strictly audited ION cache.",
+  "vendor_report_sha256": "ba72e26e5cc87e0d900382231db9196e40f8ee9fd9f294ea0f3a060340da1cba",
+  "expected_vendor_sparse_sha256": "012661c7746a4fc65464b972a625e1fc348dc45b6a98829ea8378234fc72c377",
+  "guard_removed": false
+}

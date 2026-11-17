@@ -1,0 +1,10 @@
+{
+  "parent_snapshot": "port-20261117-16",
+  "parent_manifest_sha256": "31f142b6c2e5f04f14ed9cdecb3cd6b13716508b428ad8c86d3d3332d6a24594",
+  "parent_lock_sha256": "651001b92394dfeb5ab48270f66c0cdd6d9ef5fb0f61ebf96d630a24c4786949",
+  "composition_selection_sha256": "378783e4c40ccda7d252776622b8eee72280095e44963bf3e14195ff45dd7877",
+  "proof_reports_sha256": {
+    "/srv/android/artifacts/lineage-24.0-arm64/vendor-ota-binding-host-20261117-01/report.json": "0b159a707081f7ece8d1c3f71c3b97de4ddb9d9acfe4a0d2d20d8dc3840237d0"
+  },
+  "kernel_and_vendor_prebuilts_unchanged": true
+}
