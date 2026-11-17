@@ -1,2 +1,0 @@
-libMcClient.so 32
-libOpenCL.so
