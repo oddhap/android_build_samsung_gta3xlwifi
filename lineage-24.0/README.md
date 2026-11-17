@@ -4,6 +4,14 @@ Active development target: LineageOS 24.0 / Android 17, ARM64 with ARM32 apps,
 `gta3xlwifi`, physical non-A/B partitions. This is an unfinished source-built
 device port. The first physical test installation has completed; its first Android17 boot failed and is being repaired.
 
+**Snapshot17 complete build and package checks pass (November17).**
+All 1,243 source projects /21 exact patches, seven actual installer-hook cases,
+strict ION/label/ADB checks, 39-APEX VINTF, signed container/CRC and all three actual
+block streams pass. The downloaded test archive is 1,041,028,373 bytes, SHA256
+`2de7de50b8124d2992f7bc2e0f01096015c8c150817cc9f68aaeecc03ff8efa0`.
+Physical preflight and installation readbacks are required for this new image.
+No normal Android17 boot, working network or full FBE validation is claimed.
+
 **Current candidate: snapshot17 (November17), correcting the exact OTA vendor binding.**
 The complete snapshot16 build, source audits, every product check including ION
 and early authenticated ADB, and 39-APEX VINTF pass. OTA generation correctly
