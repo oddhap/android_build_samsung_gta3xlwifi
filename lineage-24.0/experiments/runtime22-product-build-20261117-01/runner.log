@@ -1,0 +1,1170 @@
+PASS: 1243 locked projects, 22 exact reviewed patches; no external alternates
+Looking for dependencies in device/samsung/gta3xlwifi
+device/samsung/gta3xlwifi has no additional dependencies.
+
+============================================
+PLATFORM_VERSION_CODENAME=REL
+PLATFORM_VERSION=17
+LINEAGE_VERSION=24.0-20261117-UNOFFICIAL-gta3xlwifi
+PRODUCT_SOURCE_ROOT_DIRS=-kernel/platform -prebuilts/misc/protobuf_vendorcompat
+TARGET_PRODUCT=lineage_gta3xlwifi
+TARGET_BUILD_VARIANT=userdebug
+TARGET_ARCH=arm64
+TARGET_ARCH_VARIANT=armv8-a
+TARGET_CPU_VARIANT=generic
+TARGET_2ND_ARCH=arm
+TARGET_2ND_ARCH_VARIANT=armv8-a
+TARGET_2ND_CPU_VARIANT=generic
+HOST_OS=linux
+HOST_OS_EXTRA=Linux-5.15.0-203-generic-x86_64-Ubuntu-22.04.5-LTS
+HOST_CROSS_OS=windows
+BUILD_ID=CP2A.260605.016
+OUT_DIR=out
+SOONG_ONLY=false
+SOONG_INCREMENTAL_ANALYSIS=false
+============================================
+Running product configuration...
+============================================
+PLATFORM_VERSION_CODENAME=REL
+PLATFORM_VERSION=17
+LINEAGE_VERSION=24.0-20261117-UNOFFICIAL-gta3xlwifi
+PRODUCT_SOURCE_ROOT_DIRS=-kernel/platform -prebuilts/misc/protobuf_vendorcompat
+TARGET_PRODUCT=lineage_gta3xlwifi
+TARGET_BUILD_VARIANT=userdebug
+TARGET_ARCH=arm64
+TARGET_ARCH_VARIANT=armv8-a
+TARGET_CPU_VARIANT=generic
+TARGET_2ND_ARCH=arm
+TARGET_2ND_ARCH_VARIANT=armv8-a
+TARGET_2ND_CPU_VARIANT=generic
+HOST_OS=linux
+HOST_OS_EXTRA=Linux-5.15.0-203-generic-x86_64-Ubuntu-22.04.5-LTS
+HOST_CROSS_OS=windows
+BUILD_ID=CP2A.260605.016
+OUT_DIR=out
+SOONG_ONLY=false
+SOONG_INCREMENTAL_ANALYSIS=true
+============================================
+[100% 1/1] bootstrap blueprint
+Running globs...
+ninja: 
+ninja: SISO_EXPERIMENTS=fallback-on-exec-error enabled
+SISO_EXPERIMENTS=ignore-missing-out-in-depfile enabled
+
+ninja: ignore missing out error in depfile 
+
+ninja:  0.48s Build Succeeded: 0 steps - 0.00/s
+
+out/soong/release-config/release_config-lineage_gta3xlwifi-aosp_current.vars was modified, regenerating...
+Adding CUSTOM_LOCALES [ast_ES ckb_IQ ckb_IR gd_GB cy_GB fur_IT nn_NO] to PRODUCT_LOCALES [en_US en_US af_ZA am_ET ar_EG ar_XB as_IN az_AZ be_BY bg_BG bn_BD bs_BA ca_ES cs_CZ da_DK de_DE el_GR en_AU en_CA en_GB en_IN en_XA es_ES es_US et_EE eu_ES fa_IR fi_FI fr_CA fr_FR gl_ES gu_IN hi_IN hr_HR hu_HU hy_AM in_ID is_IS it_IT iw_IL ja_JP ka_GE kk_KZ km_KH kn_IN ko_KR ky_KG lo_LA lt_LT lv_LV mk_MK ml_IN mn_MN mr_IN ms_MY my_MM nb_NO ne_NP nl_NL or_IN pa_IN pl_PL pt_BR pt_PT ro_RO ru_RU si_LK sk_SK sl_SI sq_AL sr_Latn_RS sr_RS sv_SE sw_TZ ta_IN te_IN th_TH tl_PH tr_TR uk_UA ur_PK uz_UZ vi_VN zh_CN zh_HK zh_TW zu_ZA en_XC]
+out/soong/release-config/release_config-lineage_gta3xlwifi-aosp_current.vars was modified, regenerating...
+[100% 2/2] initializing Make module parser
+Adding CUSTOM_LOCALES [ast_ES ckb_IQ ckb_IR gd_GB cy_GB fur_IT nn_NO] to PRODUCT_LOCALES [en_US en_US af_ZA am_ET ar_EG ar_XB as_IN az_AZ be_BY bg_BG bn_BD bs_BA ca_ES cs_CZ da_DK de_DE el_GR en_AU en_CA en_GB en_IN en_XA es_ES es_US et_EE eu_ES fa_IR fi_FI fr_CA fr_FR gl_ES gu_IN hi_IN hr_HR hu_HU hy_AM in_ID is_IS it_IT iw_IL ja_JP ka_GE kk_KZ km_KH kn_IN ko_KR ky_KG lo_LA lt_LT lv_LV mk_MK ml_IN mn_MN mr_IN ms_MY my_MM nb_NO ne_NP nl_NL or_IN pa_IN pl_PL pt_BR pt_PT ro_RO ru_RU si_LK sk_SK sl_SI sq_AL sr_Latn_RS sr_RS sv_SE sw_TZ ta_IN te_IN th_TH tl_PH tr_TR uk_UA ur_PK uz_UZ vi_VN zh_CN zh_HK zh_TW zu_ZA en_XC]
+[ 27% 3/11] including out/soong/installs-lineage_gta3xlwifi.mk
+[ 36% 4/11] including out/soong/Android-lineage_gta3xlwifi.mk
+[ 45% 5/11] including build/make/target/board/android-info.mk
+[ 54% 6/11] including bootable/deprecated-ota/updater/Android.mk
+[ 63% 7/11] including hardware/broadcom/wlan/bcmdhd/Android.mk
+[ 72% 8/11] including hardware/qcom/Android.mk
+[ 81% 9/11] including hardware/synaptics/wlan/synadhd/Android.mk
+[ 90% 10/11] including kernel/samsung/gta3xlwifi/sound/soc/codecs/tas2562/Android.mk
+[100% 11/11] including out/soong/late-lineage_gta3xlwifi.mk
+[100% 12/12] finishing Make module rules
+[100% 13/13] finishing Make module rules: Adding module dependencies
+[100% 14/14] finishing Make packaging rules
+[ 42% 15/35] including build/make/core/tasks/art.mk
+[ 45% 16/35] including build/make/core/tasks/build_custom_images.mk
+[ 48% 17/35] including build/make/core/tasks/dex_preopt_check.mk
+[ 51% 18/35] including build/make/core/tasks/find-shareduid-violation.mk
+[ 54% 19/35] including build/make/core/tasks/fontchain_lint.mk
+[ 57% 20/35] including build/make/core/tasks/host_init_verifier.mk
+[ 60% 21/35] including build/make/core/tasks/meta-lic.mk
+[ 62% 22/35] including build/make/core/tasks/module-info.mk
+[ 65% 23/35] including build/make/core/tasks/oem_image.mk
+[ 68% 24/35] including build/make/core/tasks/offline-sdk-docs.mk
+[ 71% 25/35] including build/make/core/tasks/platform_availability_check.mk
+[ 74% 26/35] including build/make/core/tasks/sdv.mk
+[ 77% 27/35] including build/make/core/tasks/vendor_module_check.mk
+[ 80% 28/35] including build/make/core/tasks/with-license.mk
+[ 82% 29/35] including vendor/lineage/build/tasks/bacon.mk
+[ 85% 30/35] including vendor/lineage/build/tasks/build-manifest_xml.mk
+[ 88% 31/35] including vendor/lineage/build/tasks/dt_image.mk
+[ 91% 32/35] including vendor/lineage/build/tasks/generate_lineage_sdk_coverage.mk
+[ 94% 33/35] including vendor/lineage/build/tasks/kernel.mk
+vendor/lineage/build/tasks/kernel.mk:234: warning: **********************************************************
+vendor/lineage/build/tasks/kernel.mk:235: warning: * Kernel source found and configuration was defined,     *
+vendor/lineage/build/tasks/kernel.mk:236: warning: * but prebuilt kernel is being forced.                   *
+vendor/lineage/build/tasks/kernel.mk:237: warning: * While this is likely intentional,                      *
+vendor/lineage/build/tasks/kernel.mk:238: warning: * it is NOT SUPPORTED WHATSOEVER.                        *
+vendor/lineage/build/tasks/kernel.mk:239: warning: * Generated kernel headers may not align with            *
+vendor/lineage/build/tasks/kernel.mk:240: warning: * the ABI of kernel you're including.                    *
+vendor/lineage/build/tasks/kernel.mk:241: warning: * Please unset TARGET_FORCE_PREBUILT_KERNEL              *
+vendor/lineage/build/tasks/kernel.mk:242: warning: * to build the kernel from source.                       *
+vendor/lineage/build/tasks/kernel.mk:243: warning: **********************************************************
+[ 97% 34/35] including device/generic/goldfish/build/tasks/combine_initramfs.mk
+[100% 35/35] finishing Make packaging rules
+[100% 36/36] finishing Make packaging rules: Adding phony targets
+[100% 37/37] finishing Make packaging rules: Checking licensing and SBOM
+[100% 38/38] writing make module actions
+No need to regenerate ninja file
+Starting ninja...
+ninja: 
+ninja: SISO_EXPERIMENTS=allow-unexpected-rsp-remove enabled
+SISO_EXPERIMENTS=ignore-missing-out-in-depfile enabled
+SISO_EXPERIMENTS=oom-score-adj enabled
+
+ninja: ignore missing out error in depfile 
+
+[  0% 39/20174] out/host/linux-x86/bin/release-config-internal --top . --quiet `prebuilts/build-tools/path/linux-x86/cat out/soong/release-config/args-lineage_gta3xlwifi.txt` --out_dir out/soong/.intermediates/build/soong/aconfig/build_flags/my_release_config/android_common --container
+[  0% 40/8947] //build/soong:system_ext-build.prop generating build.prop[common]
+[  4% 41/866] //build/soong:product-build.prop generating build.prop[common]
+[  4% 42/866] //build/soong:system-build.prop generating build.prop[common]
+[  4% 43/866] Install: out/target/product/gta3xlwifi/product/etc/build.prop
+[  5% 44/866] Install: out/target/product/gta3xlwifi/system/build.prop
+[  5% 45/866] //build/soong:odm-build.prop generating build.prop[common]
+[  5% 46/866] //build/soong:system_dlkm-build.prop generating build.prop[common]
+[  5% 47/866] Install: out/target/product/gta3xlwifi/vendor/odm/etc/build.prop
+[  5% 48/866] Install: out/target/product/gta3xlwifi/system/system_dlkm/etc/build.prop
+[  5% 49/866] Install: out/target/product/gta3xlwifi/system/system_ext/etc/build.prop
+[  5% 50/866] Target recovery buildinfo: out/target/product/gta3xlwifi/recovery/root/prop.default
+[  5% 51/866] build out/target/product/gta3xlwifi/obj/PACKAGING/recovery_intermediates/ramdisk_files-timestamp
+[  6% 52/866] ----- Making uncompressed recovery ramdisk ------
+[  6% 53/866] ----- Making compressed recovery ramdisk ------
+[  6% 54/866] build out/target/product/gta3xlwifi/recovery.img
+[  6% 55/866] //packages/modules/Connectivity/service:service-connectivity-pre-jarjar turbine apt[common apex31]
+[  6% 56/866] //packages/modules/Connectivity/service:service-connectivity-pre-jarjar turbine apt[common]
+[  6% 57/866] //packages/modules/Connectivity/service:service-connectivity-pre-jarjar turbine[common]
+[  6% 58/866] //packages/modules/Connectivity/service:service-connectivity-pre-jarjar javac[common]
+[  7% 59/841] //packages/modules/Connectivity/service:service-connectivity-pre-jarjar javac[common apex31]
+[  7% 60/841] //packages/modules/Connectivity/service:service-connectivity-pre-jarjar for javac[common]
+[  7% 61/841] //packages/modules/Connectivity/service:service-connectivity for javac[common]
+[  7% 62/841] //packages/modules/Connectivity/service:service-connectivity for javac[common apex31]
+[  7% 63/841] //packages/modules/Connectivity/service:service-connectivity-jarjar-gen generate service_connectivity_jarjar_rules.txt[common]
+[  7% 64/841] //packages/modules/Connectivity/service:connectivity-jarjar-rules generate connectivity-jarjar-rules.txt[common]
+[  7% 65/841] rm -rf out/soong/.intermediates/build/soong/compliance/notice_xml_product/android_arm64_armv8-a/NOTICE.xml.gz && out/host/linux-x86/bin/gen_notice_xml --output_file out/soong/.intermediates/build/soong/compliance/notice_xml_product/android_arm64_armv8-a/NOTICE.xml.gz --metadata out/soong/compliance-metadata/lineage_gta3xlwifi/compliance-metadata.db --partition product --product_out out/target/product/gta3xlwifi --soong_out out/soong
+[  7% 66/841] Install: out/target/product/gta3xlwifi/product/etc/NOTICE.xml.gz
+[  7% 67/841] rm -rf out/soong/.intermediates/build/soong/compliance/notice_xml_system/android_arm64_armv8-a/NOTICE.xml.gz && out/host/linux-x86/bin/gen_notice_xml --output_file out/soong/.intermediates/build/soong/compliance/notice_xml_system/android_arm64_armv8-a/NOTICE.xml.gz --metadata out/soong/compliance-metadata/lineage_gta3xlwifi/compliance-metadata.db --partition system --product_out out/target/product/gta3xlwifi --soong_out out/soong
+[  8% 68/841] Install: out/target/product/gta3xlwifi/system/etc/NOTICE.xml.gz
+[  8% 69/841] //packages/modules/Connectivity/service:service-connectivity jarjar[common apex31]
+[  8% 70/841] //packages/modules/Connectivity/service:service-connectivity jarjar[common]
+[  8% 71/841] out/host/linux-x86/bin/tracereferences --map-diagnostics:MissingDefinitionsDiagnostic error none --keep-rules --output out/soong/.intermediates/packages/modules/Connectivity/framework/framework-connectivity.impl/android_common_apex31/proguard/trace_references.flags --target out/soong/.intermediates/packages/modules/Connectivity/framework/framework-connectivity.impl/android_common_apex31/package-check/framework-connectivity.jar --source out/soong/.intermediates/packages/modules/Connectivity/service/service-connectivity/android_common/jarjar/service-connectivity.jar --lib out/soong/.intermediates/frameworks/base/api/android-non-updatable.stubs.module_lib.from-text/android_common/android-non-updatable.stubs.module_lib.from-text/android-non-updatable.stubs.module_lib.from-text.jar --lib out/soong/.intermediates/libcore/art.module.public.api.stubs.module_lib.from-text/android_common/art.module.public.api.stubs.module_lib.from-text/art.module.public.api.stubs.module_lib.from-text.jar --lib out/soong/.intermediates/external/icu/android_icu4j/i18n.module.public.api.stubs.from-text/android_common/i18n.module.public.api.stubs.from-text/i18n.module.public.api.stubs.from-text.jar --lib out/soong/.intermediates/libcore/core-lambda-stubs/android_common/jarjar/turbine/core-lambda-stubs.jar --lib out/soong/.intermediates/prebuilts/sdk/current/androidx/m2repository/androidx/annotation/annotation-jvm/1.10.0/androidx.annotation_annotation/android_common/combined/androidx.annotation_annotation.jar --lib out/soong/.intermediates/frameworks/libs/modules-utils/java/framework-annotations-lib/android_common/turbine-combined/framework-annotations-lib.jar --lib out/soong/.intermediates/tools/platform-compat/java/android/compat/annotation/app-compat-annotations/android_common/turbine-combined/app-compat-annotations.jar --lib out/soong/.intermediates/packages/modules/Connectivity/framework-t/framework-connectivity-t.stubs.module_lib/android_common/turbine-combined/framework-connectivity-t.stubs.module_lib.jar --lib out/soong/.intermediates/packages/modules/StatsD/framework/framework-statsd.stubs.module_lib/android_common/turbine-combined/framework-statsd.stubs.module_lib.jar --lib out/soong/.intermediates/packages/modules/Telephony/telecom/framework/framework-telecom.stubs.module_lib/android_common/turbine-combined/framework-telecom.stubs.module_lib.jar --lib out/soong/.intermediates/tools/platform-compat/java/android/compat/annotation/unsupportedappusage/android_common/turbine-combined/unsupportedappusage.jar --lib out/soong/.intermediates/frameworks/base/location/framework-location.stubs.module_lib/android_common/turbine-combined/framework-location.stubs.module_lib.jar --lib out/soong/.intermediates/packages/modules/Connectivity/Tethering/common/TetheringLib/framework-tethering.impl/android_common/jarjar/turbine/framework-tethering.jar --lib out/soong/.intermediates/packages/modules/Wifi/framework/framework-wifi.stubs.module_lib/android_common/turbine-combined/framework-wifi.stubs.module_lib.jar
+[  8% 72/841] out/host/linux-x86/bin/tracereferences --map-diagnostics:MissingDefinitionsDiagnostic error none --keep-rules --output out/soong/.intermediates/packages/modules/Connectivity/framework/framework-connectivity.impl/android_common/proguard/trace_references.flags --target out/soong/.intermediates/packages/modules/Connectivity/framework/framework-connectivity.impl/android_common/package-check/framework-connectivity.jar --source out/soong/.intermediates/packages/modules/Connectivity/service/service-connectivity/android_common/jarjar/service-connectivity.jar --lib out/soong/.intermediates/frameworks/base/api/android-non-updatable.stubs.module_lib.from-text/android_common/android-non-updatable.stubs.module_lib.from-text/android-non-updatable.stubs.module_lib.from-text.jar --lib out/soong/.intermediates/libcore/art.module.public.api.stubs.module_lib.from-text/android_common/art.module.public.api.stubs.module_lib.from-text/art.module.public.api.stubs.module_lib.from-text.jar --lib out/soong/.intermediates/external/icu/android_icu4j/i18n.module.public.api.stubs.from-text/android_common/i18n.module.public.api.stubs.from-text/i18n.module.public.api.stubs.from-text.jar --lib out/soong/.intermediates/libcore/core-lambda-stubs/android_common/jarjar/turbine/core-lambda-stubs.jar --lib out/soong/.intermediates/prebuilts/sdk/current/androidx/m2repository/androidx/annotation/annotation-jvm/1.10.0/androidx.annotation_annotation/android_common/combined/androidx.annotation_annotation.jar --lib out/soong/.intermediates/frameworks/libs/modules-utils/java/framework-annotations-lib/android_common/turbine-combined/framework-annotations-lib.jar --lib out/soong/.intermediates/tools/platform-compat/java/android/compat/annotation/app-compat-annotations/android_common/turbine-combined/app-compat-annotations.jar --lib out/soong/.intermediates/packages/modules/Connectivity/framework-t/framework-connectivity-t.stubs.module_lib/android_common/turbine-combined/framework-connectivity-t.stubs.module_lib.jar --lib out/soong/.intermediates/packages/modules/StatsD/framework/framework-statsd.stubs.module_lib/android_common/turbine-combined/framework-statsd.stubs.module_lib.jar --lib out/soong/.intermediates/packages/modules/Telephony/telecom/framework/framework-telecom.stubs.module_lib/android_common/turbine-combined/framework-telecom.stubs.module_lib.jar --lib out/soong/.intermediates/tools/platform-compat/java/android/compat/annotation/unsupportedappusage/android_common/turbine-combined/unsupportedappusage.jar --lib out/soong/.intermediates/frameworks/base/location/framework-location.stubs.module_lib/android_common/turbine-combined/framework-location.stubs.module_lib.jar --lib out/soong/.intermediates/packages/modules/Connectivity/Tethering/common/TetheringLib/framework-tethering.impl/android_common/jarjar/turbine/framework-tethering.jar --lib out/soong/.intermediates/packages/modules/Wifi/framework/framework-wifi.stubs.module_lib/android_common/turbine-combined/framework-wifi.stubs.module_lib.jar
+[  8% 73/841] //packages/modules/Connectivity/framework:framework-connectivity.impl r8[common]
+[  8% 74/841] //packages/modules/Connectivity/framework:framework-connectivity.impl r8[common apex31]
+[  8% 75/841] verify depfile
+[  9% 76/841] verify depfile
+[  9% 77/841] //packages/modules/Connectivity/framework:framework-connectivity.impl align[common apex31]
+[  9% 78/841] //packages/modules/Connectivity/framework:framework-connectivity.impl align[common]
+[  9% 79/841] //packages/modules/Connectivity/framework:connectivity-platform-compat-config Extract compat/compat_config.xml and install it[common]
+[  9% 80/841] Install: out/target/product/gta3xlwifi/apex/com.android.tethering/etc/compatconfig/connectivity-platform-compat-config.xml
+[  9% 81/841] //packages/modules/Connectivity/Tethering/apex:com.android.tethering-bootclasspath-fragment modular hiddenapi stub flags[common com.android.tethering]
+[  9% 82/827] //packages/modules/Connectivity/service:service-connectivity r8[common apex31]
+[ 10% 83/827] //packages/modules/Connectivity/service:service-connectivity align[common apex31]
+[ 10% 84/827] verify depfile
+[ 10% 85/827] Install: out/target/product/gta3xlwifi/apex/com.android.tethering/javalib/service-connectivity.jar
+[ 10% 86/827] //packages/modules/Connectivity/Tethering/apex:com.android.tethering-bootclasspath-fragment hiddenapi encode dex[common com.android.tethering]
+[ 10% 87/827] //packages/modules/Connectivity/Tethering/apex:com.android.tethering-bootclasspath-fragment align[common com.android.tethering]
+[ 10% 88/827] Install: out/target/product/gta3xlwifi/apex/com.android.tethering/javalib/framework-connectivity.jar
+[ 10% 89/827] cp out/soong/dexpreopt_arm64/dex_mainlinejars_input/framework-connectivity.jar
+[ 10% 90/827] //packages/modules/Connectivity/Tethering/apex:com.android.tethering-bootclasspath-fragment profile boot jars com.android.tethering-bootclasspath-fragment[common com.android.tethering]
+[ 11% 91/827] cp out/soong/.intermediates/packages/modules/Connectivity/Tethering/apex/com.android.tethering/android_common_scs_cfi_com.android.tethering/boot_image_profile/etc/boot-image.prof
+[ 11% 92/827] Install: out/target/product/gta3xlwifi/apex/com.android.tethering/etc/boot-image.prof
+[ 11% 93/827] //frameworks/base/boot:platform-bootclasspath monolithic hidden API stub flags[common]
+[ 12% 94/780] //build/soong:dex_bootjars dexpreopt boot jars arm[common]
+[ 12% 95/780] Install: out/target/product/gta3xlwifi/system/framework/arm/boot-framework-graphics.oat
+[ 12% 96/780] Install: out/target/product/gta3xlwifi/system/framework/arm/boot-framework-ondeviceintelligence-platform.oat
+[ 12% 97/780] Install: out/target/product/gta3xlwifi/system/framework/arm/boot-telephony-common.oat
+[ 12% 98/780] Install: out/target/product/gta3xlwifi/system/framework/arm/boot-framework-location.oat
+[ 12% 99/780] Install: out/target/product/gta3xlwifi/system/framework/arm/boot-ims-common.art
+[ 12% 100/780] Install: out/target/product/gta3xlwifi/system/framework/arm/boot-okhttp.oat
+[ 12% 101/780] Install: out/target/product/gta3xlwifi/system/framework/arm/boot-ext.oat
+[ 13% 102/780] Install: out/target/product/gta3xlwifi/system/framework/arm/boot-core-libart.art
+[ 13% 103/780] Install: out/target/product/gta3xlwifi/system/framework/arm/boot-telephony-common.art
+[ 13% 104/780] Install: out/target/product/gta3xlwifi/system/framework/arm/boot-core-icu4j.oat
+[ 13% 105/780] Install: out/target/product/gta3xlwifi/system/framework/arm/boot-apache-xml.oat
+[ 13% 106/780] Install: out/target/product/gta3xlwifi/system/framework/arm/boot-voip-common.oat
+[ 13% 107/780] Install: out/target/product/gta3xlwifi/system/framework/arm/boot-bouncycastle.oat
+[ 13% 108/780] Install: out/target/product/gta3xlwifi/system/framework/arm/boot-voip-common.art
+[ 13% 109/780] Install: out/target/product/gta3xlwifi/system/framework/arm/boot-framework-ondeviceintelligence-platform.art
+[ 14% 110/780] Install: out/target/product/gta3xlwifi/system/framework/arm/boot-bouncycastle.art
+[ 14% 111/780] Install: out/target/product/gta3xlwifi/system/framework/arm/boot-apache-xml.art
+[ 14% 112/780] Install: out/target/product/gta3xlwifi/system/framework/arm/boot-framework-location.art
+[ 14% 113/780] Install: out/target/product/gta3xlwifi/system/framework/arm/boot-ims-common.oat
+[ 14% 114/780] Install: out/target/product/gta3xlwifi/system/framework/arm/boot-core-libart.oat
+[ 14% 115/780] Install: out/target/product/gta3xlwifi/system/framework/arm/boot-framework-graphics.art
+[ 14% 116/780] Install: out/target/product/gta3xlwifi/system/framework/arm/boot-ext.art
+[ 15% 117/780] Install: out/target/product/gta3xlwifi/system/framework/arm/boot-okhttp.art
+[ 15% 118/780] Install: out/target/product/gta3xlwifi/system/framework/arm/boot.art
+[ 15% 119/780] Install: out/target/product/gta3xlwifi/system/framework/arm/boot-core-icu4j.art
+[ 15% 120/780] Install: out/target/product/gta3xlwifi/system/framework/arm/boot-framework.art
+[ 15% 121/780] Install: out/target/product/gta3xlwifi/system/framework/arm/boot.oat
+[ 15% 122/780] Install: out/target/product/gta3xlwifi/system/framework/arm/boot-framework.oat
+[ 15% 123/780] //build/soong:dex_bootjars dexpreopt boot jars arm64[common]
+[ 15% 124/780] Install: out/target/product/gta3xlwifi/system/framework/boot-okhttp.vdex
+[ 16% 125/780] Install: out/target/product/gta3xlwifi/system/framework/boot-ims-common.vdex
+[ 16% 126/780] Install: out/target/product/gta3xlwifi/system/framework/boot-framework-graphics.vdex
+[ 16% 127/780] Install: out/target/product/gta3xlwifi/system/framework/boot-framework.vdex
+[ 16% 128/780] Install: out/target/product/gta3xlwifi/system/framework/boot-ext.vdex
+[ 16% 129/780] Install: out/target/product/gta3xlwifi/system/framework/boot-voip-common.vdex
+[ 16% 130/780] Install: out/target/product/gta3xlwifi/system/framework/boot-bouncycastle.vdex
+[ 16% 131/780] Install: out/target/product/gta3xlwifi/system/framework/arm64/boot-okhttp.oat
+[ 16% 132/780] Install: out/target/product/gta3xlwifi/system/framework/boot-core-libart.vdex
+[ 17% 133/780] Install: out/target/product/gta3xlwifi/system/framework/boot.vdex
+[ 17% 134/780] Install: out/target/product/gta3xlwifi/system/framework/boot-framework-location.vdex
+[ 17% 135/780] Install: out/target/product/gta3xlwifi/system/framework/boot-core-icu4j.vdex
+[ 17% 136/780] Install: out/target/product/gta3xlwifi/system/framework/boot-framework-ondeviceintelligence-platform.vdex
+[ 17% 137/780] Install: out/target/product/gta3xlwifi/system/framework/boot-telephony-common.vdex
+[ 17% 138/780] Install: out/target/product/gta3xlwifi/system/framework/boot-apache-xml.vdex
+[ 17% 139/780] Symlink: out/target/product/gta3xlwifi/system/framework/arm/boot.vdex
+[ 17% 140/780] Symlink: out/target/product/gta3xlwifi/system/framework/arm/boot-core-icu4j.vdex
+[ 18% 141/780] Symlink: out/target/product/gta3xlwifi/system/framework/arm/boot-framework-location.vdex
+[ 18% 142/780] Symlink: out/target/product/gta3xlwifi/system/framework/arm/boot-apache-xml.vdex
+[ 18% 143/780] Symlink: out/target/product/gta3xlwifi/system/framework/arm/boot-telephony-common.vdex
+[ 18% 144/780] Symlink: out/target/product/gta3xlwifi/system/framework/arm/boot-framework-ondeviceintelligence-platform.vdex
+[ 18% 145/780] Install: out/target/product/gta3xlwifi/system/framework/arm64/boot-framework-ondeviceintelligence-platform.art
+[ 18% 146/780] Install: out/target/product/gta3xlwifi/system/framework/arm64/boot-framework-location.art
+[ 18% 147/780] Install: out/target/product/gta3xlwifi/system/framework/arm64/boot-ext.art
+[ 18% 148/780] Install: out/target/product/gta3xlwifi/system/framework/arm64/boot-bouncycastle.art
+[ 19% 149/780] Install: out/target/product/gta3xlwifi/system/framework/arm64/boot-core-libart.art
+[ 19% 150/780] Symlink: out/target/product/gta3xlwifi/system/framework/arm64/boot-telephony-common.vdex
+[ 19% 151/780] Symlink: out/target/product/gta3xlwifi/system/framework/arm64/boot-framework-ondeviceintelligence-platform.vdex
+[ 19% 152/780] Symlink: out/target/product/gta3xlwifi/system/framework/arm64/boot.vdex
+[ 19% 153/780] Symlink: out/target/product/gta3xlwifi/system/framework/arm64/boot-apache-xml.vdex
+[ 19% 154/780] Symlink: out/target/product/gta3xlwifi/system/framework/arm/boot-bouncycastle.vdex
+[ 19% 155/780] Symlink: out/target/product/gta3xlwifi/system/framework/arm64/boot-framework-location.vdex
+[ 20% 156/780] Symlink: out/target/product/gta3xlwifi/system/framework/arm64/boot-ext.vdex
+[ 20% 157/780] Symlink: out/target/product/gta3xlwifi/system/framework/arm/boot-core-libart.vdex
+[ 20% 158/780] Symlink: out/target/product/gta3xlwifi/system/framework/arm64/boot-core-icu4j.vdex
+[ 20% 159/780] Symlink: out/target/product/gta3xlwifi/system/framework/arm64/boot-framework.vdex
+[ 20% 160/780] Symlink: out/target/product/gta3xlwifi/system/framework/arm/boot-framework-graphics.vdex
+[ 20% 161/780] Symlink: out/target/product/gta3xlwifi/system/framework/arm64/boot-ims-common.vdex
+[ 20% 162/780] Symlink: out/target/product/gta3xlwifi/system/framework/arm/boot-ims-common.vdex
+[ 20% 163/780] Symlink: out/target/product/gta3xlwifi/system/framework/arm64/boot-okhttp.vdex
+[ 21% 164/780] Install: out/target/product/gta3xlwifi/system/framework/arm64/boot-ims-common.art
+[ 21% 165/780] Install: out/target/product/gta3xlwifi/system/framework/arm64/boot-okhttp.art
+[ 21% 166/780] Install: out/target/product/gta3xlwifi/system/framework/arm64/boot-framework-graphics.art
+[ 21% 167/780] Install: out/target/product/gta3xlwifi/system/framework/arm64/boot-apache-xml.oat
+[ 21% 168/780] Install: out/target/product/gta3xlwifi/system/framework/arm64/boot-ims-common.oat
+[ 21% 169/780] Install: out/target/product/gta3xlwifi/system/framework/arm64/boot-telephony-common.art
+[ 21% 170/780] Install: out/target/product/gta3xlwifi/system/framework/arm64/boot-core-icu4j.art
+[ 21% 171/780] Install: out/target/product/gta3xlwifi/system/framework/arm64/boot-voip-common.art
+[ 22% 172/780] Symlink: out/target/product/gta3xlwifi/system/framework/arm/boot-okhttp.vdex
+[ 22% 173/780] Install: out/target/product/gta3xlwifi/system/framework/arm64/boot-bouncycastle.oat
+[ 22% 174/780] Install: out/target/product/gta3xlwifi/system/framework/arm64/boot-apache-xml.art
+[ 22% 175/780] Install: out/target/product/gta3xlwifi/system/framework/arm64/boot-telephony-common.oat
+[ 22% 176/780] Symlink: out/target/product/gta3xlwifi/system/framework/arm64/boot-voip-common.vdex
+[ 22% 177/780] Install: out/target/product/gta3xlwifi/system/framework/arm64/boot-framework-location.oat
+[ 22% 178/780] Install: out/target/product/gta3xlwifi/system/framework/arm64/boot-framework.art
+[ 22% 179/780] Install: out/target/product/gta3xlwifi/system/framework/arm64/boot-core-libart.oat
+[ 23% 180/780] Symlink: out/target/product/gta3xlwifi/system/framework/arm64/boot-framework-graphics.vdex
+[ 23% 181/780] Install: out/target/product/gta3xlwifi/system/framework/arm64/boot-core-icu4j.oat
+[ 23% 182/780] Install: out/target/product/gta3xlwifi/system/framework/arm64/boot-framework-graphics.oat
+[ 23% 183/780] Symlink: out/target/product/gta3xlwifi/system/framework/arm/boot-voip-common.vdex
+[ 23% 184/780] Install: out/target/product/gta3xlwifi/system/framework/arm64/boot-framework-ondeviceintelligence-platform.oat
+[ 23% 185/780] Symlink: out/target/product/gta3xlwifi/system/framework/arm64/boot-bouncycastle.vdex
+[ 23% 186/780] Install: out/target/product/gta3xlwifi/system/framework/arm64/boot-ext.oat
+[ 23% 187/780] Symlink: out/target/product/gta3xlwifi/system/framework/arm64/boot-core-libart.vdex
+[ 24% 188/780] Install: out/target/product/gta3xlwifi/system/framework/arm64/boot-voip-common.oat
+[ 24% 189/780] Symlink: out/target/product/gta3xlwifi/system/framework/arm/boot-framework.vdex
+[ 24% 190/780] Install: out/target/product/gta3xlwifi/system/framework/arm64/boot.art
+[ 24% 191/780] Symlink: out/target/product/gta3xlwifi/system/framework/arm/boot-ext.vdex
+[ 24% 192/780] Install: out/target/product/gta3xlwifi/system/framework/arm64/boot.oat
+[ 24% 193/780] Install: out/target/product/gta3xlwifi/system/framework/arm64/boot-framework.oat
+[ 24% 194/780] //build/soong:dex_bootjars dexpreopt mainline jars arm[common]
+[ 25% 195/780] Install: out/target/product/gta3xlwifi/system/framework/arm/boot-framework-adservices.oat
+[ 25% 196/780] Install: out/target/product/gta3xlwifi/system/framework/arm/boot-framework-adservices.art
+[ 25% 197/780] //build/soong:dex_bootjars dexpreopt mainline jars arm64[common]
+[ 25% 198/780] //packages/modules/RemoteKeyProvisioning/system-server:service-rkp.impl dexpreopt[common apex33]
+[ 25% 199/780] //frameworks/base/packages/services/PacProcessor:PacProcessor dexpreopt[common]
+[ 25% 200/780] //packages/modules/CrashRecovery/service:service-crashrecovery.impl dexpreopt[common apex36]
+[ 25% 201/780] //packages/providers/DownloadProvider/ui:DownloadProviderUi dexpreopt[common]
+[ 25% 202/780] //frameworks/base/packages/PrintRecommendationService:PrintRecommendationService dexpreopt[common]
+[ 26% 203/780] //packages/modules/AppSearch/service:service-appsearch dexpreopt[common apex33]
+[ 26% 204/780] //frameworks/base/packages/FusedLocation:FusedLocation dexpreopt[common]
+[ 26% 205/780] //art/libartservice/service:service-art.impl dexpreopt[common apex31]
+[ 26% 206/780] //system/libhidl/transport/base/1.0:android.hidl.base-V1.0-java dexpreopt[common]
+[ 26% 207/780] //packages/apps/SetupWizard/app:LineageSetupWizard dexpreopt[common]
+[ 26% 208/780] //frameworks/base/test-runner:android.test.runner.impl dexpreopt[common]
+[ 26% 209/780] //packages/apps/StorageManager:StorageManager dexpreopt[common]
+[ 26% 210/780] Install: out/target/product/gta3xlwifi/apex/com.android.appsearch/javalib/service-appsearch.jar.prof
+[ 27% 211/780] Install: out/target/product/gta3xlwifi/apex/com.android.art.debug/javalib/service-art.jar.prof
+[ 27% 212/780] Install: out/target/product/gta3xlwifi/apex/com.android.art.testing/javalib/service-art.jar.prof
+[ 27% 213/780] Install: out/target/product/gta3xlwifi/apex/com.android.art/javalib/service-art.jar.prof
+[ 27% 214/780] Install: out/target/product/gta3xlwifi/system/framework/boot-framework-adservices.vdex
+[ 27% 215/780] //packages/modules/AdServices/adservices/service:service-adservices.impl dexpreopt[common apex33]
+[ 27% 216/780] //frameworks/base/libs/WindowManager/Jetpack:androidx.window.sidecar dexpreopt[common]
+[ 27% 217/780] //packages/modules/OnDevicePersonalization/systemservice:service-ondevicepersonalization.impl dexpreopt[common apex33]
+[ 27% 218/780] //packages/modules/DeviceLock/service:service-devicelock dexpreopt[common apex34]
+[ 28% 219/780] //packages/modules/Telephony/telecom/service:service-telecom.impl dexpreopt[common apex36]
+[ 28% 220/780] //packages/modules/Connectivity/service:service-connectivity dexpreopt[common apex31]
+[ 28% 221/780] //packages/modules/Profiling/anomaly-detector/service:service-anomaly-detector.impl dexpreopt[common apex36]
+[ 28% 222/780] //packages/modules/Media/apex/service:service-media-s.impl dexpreopt[common apex31]
+[ 28% 223/780] //packages/apps/Seedvault/contactsbackup:LocalContactsBackup dexpreopt[common]
+[ 28% 224/780] Install: out/target/product/gta3xlwifi/apex/com.android.telephonycore/javalib/service-telecom.jar.prof
+[ 28% 225/780] Install: out/target/product/gta3xlwifi/apex/com.android.tethering/javalib/service-connectivity.jar.prof
+[ 28% 226/780] //packages/modules/Virtualization/libs/service-virtualization:service-virtualization dexpreopt[common apex10000_p]
+[ 29% 227/780] //packages/modules/ConfigInfrastructure/service:service-configinfrastructure.impl dexpreopt[common apex34]
+[ 29% 228/780] //packages/modules/Uwb/service:service-uwb dexpreopt[common apex33]
+[ 29% 229/780] //packages/modules/Bluetooth/service:service-bluetooth dexpreopt[common apex36]
+[ 29% 230/780] //packages/modules/UprobeStats/service:service-uprobestats-bridge dexpreopt[common apex36]
+[ 29% 231/780] //packages/modules/AppSearch:com.android.appsearch apex[common]
+[ 29% 232/780] //packages/modules/StatsD/service:service-statsd dexpreopt[common apex31]
+[ 29% 233/780] //packages/modules/AppSearch:com.android.appsearch signapk[common]
+[ 30% 234/780] //packages/modules/AdServices/sdksandbox/service:service-sdksandbox.impl dexpreopt[common apex33]
+[ 30% 235/780] //packages/modules/NpuManager/service:service-npumanager dexpreopt[common apex36]
+[ 30% 236/780] Install: out/target/product/gta3xlwifi/system/framework/oat/arm64/apex@com.android.os.statsd@javalib@service-statsd.jar@classes.odex
+[ 30% 237/780] Install: out/target/product/gta3xlwifi/system/framework/oat/arm64/apex@com.android.adservices@javalib@service-sdksandbox.jar@classes.odex
+[ 30% 238/780] Install: out/target/product/gta3xlwifi/system/framework/oat/arm64/apex@com.android.npumanager@javalib@service-npumanager.jar@classes.vdex
+[ 30% 239/780] Install: out/target/product/gta3xlwifi/system/framework/oat/arm64/apex@com.android.npumanager@javalib@service-npumanager.jar@classes.odex
+[ 30% 240/780] Install: out/target/product/gta3xlwifi/system/framework/oat/arm64/apex@com.android.adservices@javalib@service-sdksandbox.jar@classes.vdex
+[ 30% 241/779] //packages/modules/Scheduling/service:service-scheduling dexpreopt[common apex31]
+[ 31% 242/779] //packages/modules/Permission/service:service-permission.impl dexpreopt[common apex31]
+[ 31% 243/779] //packages/modules/Wifi/service:service-wifi dexpreopt[common apex31]
+[ 31% 244/779] Install: out/target/product/gta3xlwifi/system/framework/oat/arm64/apex@com.android.scheduling@javalib@service-scheduling.jar@classes.vdex
+[ 31% 245/779] Install: out/target/product/gta3xlwifi/system/framework/oat/arm64/apex@com.android.permission@javalib@service-permission.jar@classes.odex
+[ 31% 246/779] Install: out/target/product/gta3xlwifi/system/framework/oat/arm64/apex@com.android.wifi@javalib@service-wifi.jar@classes.odex
+[ 31% 247/779] Install: out/target/product/gta3xlwifi/system/framework/oat/arm64/apex@com.android.wifi@javalib@service-wifi.jar@classes.vdex
+[ 31% 248/779] Install: out/target/product/gta3xlwifi/system/framework/oat/arm64/apex@com.android.permission@javalib@service-permission.jar@classes.vdex
+[ 32% 249/778] Install: out/target/product/gta3xlwifi/system/framework/oat/arm64/apex@com.android.scheduling@javalib@service-scheduling.jar@classes.odex
+[ 32% 250/777] Install: out/target/product/gta3xlwifi/system/framework/oat/arm64/apex@com.android.os.statsd@javalib@service-statsd.jar@classes.vdex
+[ 32% 251/776] Install: out/target/product/gta3xlwifi/system/framework/oat/arm64/apex@com.android.uprobestats@javalib@service-uprobestats-bridge.jar@classes.odex
+[ 32% 252/775] Install: out/target/product/gta3xlwifi/system/framework/oat/arm64/apex@com.android.bt@javalib@service-bluetooth.jar@classes.odex
+[ 32% 253/775] Install: out/target/product/gta3xlwifi/system/framework/oat/arm64/apex@com.android.uwb@javalib@service-uwb.jar@classes.odex
+[ 32% 254/775] Install: out/target/product/gta3xlwifi/system/framework/oat/arm64/apex@com.android.configinfrastructure@javalib@service-configinfrastructure.jar@classes.vdex
+[ 32% 255/775] Install: out/target/product/gta3xlwifi/system/framework/oat/arm64/apex@com.android.virt@javalib@service-virtualization.jar@classes.vdex
+[ 33% 256/775] Install: out/target/product/gta3xlwifi/system/framework/oat/arm64/apex@com.android.tethering@javalib@service-connectivity.jar@classes.art
+[ 33% 257/775] Install: out/target/product/gta3xlwifi/system/framework/oat/arm64/apex@com.android.tethering@javalib@service-connectivity.jar@classes.odex
+[ 33% 258/775] Install: out/target/product/gta3xlwifi/system/framework/oat/arm64/apex@com.android.telephonycore@javalib@service-telecom.jar@classes.vdex
+[ 33% 259/775] Install: out/target/product/gta3xlwifi/system/framework/oat/arm64/apex@com.android.telephonycore@javalib@service-telecom.jar@classes.odex
+[ 33% 260/775] Install: out/target/product/gta3xlwifi/system/system_ext/app/LocalContactsBackup/oat/arm64/LocalContactsBackup.odex
+[ 33% 261/775] //packages/modules/AppSearch:com.android.appsearch Generate unsigned compressed APEX file[common]
+[ 33% 262/775] Install: out/target/product/gta3xlwifi/system/framework/oat/arm64/apex@com.android.profiling@javalib@service-anomaly-detector.jar@classes.vdex
+[ 33% 263/775] Install: out/target/product/gta3xlwifi/system/framework/oat/arm64/apex@com.android.appsearch@javalib@service-appsearch.jar@classes.art
+[ 34% 264/775] Install: out/target/product/gta3xlwifi/system/framework/oat/arm64/apex@com.android.media@javalib@service-media-s.jar@classes.odex
+[ 34% 265/775] //packages/modules/Profiling/service:service-profiling dexpreopt[common apex36]
+[ 34% 266/775] //packages/modules/Uwb/ranging/service:service-ranging dexpreopt[common apex33]
+[ 34% 267/775] Install: out/target/product/gta3xlwifi/system/framework/oat/arm64/apex@com.android.devicelock@javalib@service-devicelock.jar@classes.odex
+[ 34% 268/775] Install: out/target/product/gta3xlwifi/system/framework/oat/arm64/apex@com.android.ondevicepersonalization@javalib@service-ondevicepersonalization.jar@classes.odex
+[ 34% 269/775] Install: out/target/product/gta3xlwifi/system/framework/oat/arm64/apex@com.android.profiling@javalib@service-profiling.jar@classes.odex
+[ 34% 270/775] Install: out/target/product/gta3xlwifi/system/framework/oat/arm64/apex@com.android.profiling@javalib@service-profiling.jar@classes.vdex
+[ 34% 271/775] Install: out/target/product/gta3xlwifi/system/framework/oat/arm64/apex@com.android.uwb@javalib@service-ranging.jar@classes.vdex
+[ 35% 272/775] Install: out/target/product/gta3xlwifi/system/framework/oat/arm64/apex@com.android.uwb@javalib@service-ranging.jar@classes.odex
+[ 35% 273/775] //packages/modules/AppSearch:com.android.appsearch sign compressedApex[common]
+[ 35% 274/775] //packages/modules/Telephony/apex:com.android.telephonycore apex[common]
+[ 35% 275/775] Install: out/target/product/gta3xlwifi/system/framework/oat/arm64/apex@com.android.adservices@javalib@service-adservices.jar@classes.odex
+[ 35% 276/775] //packages/modules/HealthFitness/service:service-healthfitness.impl dexpreopt[common apex34]
+[ 35% 277/775] //packages/modules/Telephony/apex:com.android.telephonycore signapk[common]
+[ 35% 278/775] Symlink: out/target/product/gta3xlwifi/system/framework/arm64/boot-framework-adservices.vdex
+[ 36% 279/775] //packages/apps/Aperture/lens_launcher:ApertureLensLauncher dexpreopt[common]
+[ 36% 280/775] Install: out/target/product/gta3xlwifi/system/framework/oat/arm64/apex@com.android.healthfitness@javalib@service-healthfitness.jar@classes.vdex
+[ 36% 281/775] Symlink: out/target/product/gta3xlwifi/system/framework/arm/boot-framework-adservices.vdex
+[ 36% 282/775] Install: out/target/product/gta3xlwifi/product/app/ApertureLensLauncher/oat/arm64/ApertureLensLauncher.odex
+[ 36% 283/775] Install: out/target/product/gta3xlwifi/product/app/ApertureLensLauncher/oat/arm64/ApertureLensLauncher.vdex
+[ 36% 284/775] //packages/modules/Telephony/apex:com.android.telephonycore Generate unsigned compressed APEX file[common]
+[ 36% 285/774] //frameworks/base/packages/BackupRestoreConfirmation:BackupRestoreConfirmation dexpreopt[common]
+[ 36% 286/774] Install: out/target/product/gta3xlwifi/system/framework/oat/arm64/apex@com.android.healthfitness@javalib@service-healthfitness.jar@classes.odex
+[ 37% 287/774] //packages/providers/ContactsProvider:ContactsProvider dexpreopt[common]
+[ 37% 288/773] //frameworks/base/packages/SystemUI/accessibility/accessibilitymenu:AccessibilityMenu dexpreopt[common]
+[ 37% 289/773] //packages/modules/IntentResolver:IntentResolver dexpreopt[common]
+[ 37% 290/773] //packages/modules/Telephony/apex:com.android.telephonycore sign compressedApex[common]
+[ 37% 291/773] //packages/apps/Aperture/app:Aperture dexpreopt[common]
+[ 37% 292/773] //frameworks/base/cmds/abx:abx dexpreopt[common]
+[ 37% 293/773] //art/build/apex:com.android.art apex[common]
+[ 38% 294/773] //packages/modules/NetworkStack:NetworkStack dexpreopt[common]
+[ 38% 295/773] //frameworks/base/obex:javax.obex.impl dexpreopt[common]
+[ 38% 296/773] //packages/modules/Connectivity/Tethering/apex:com.android.tethering apex[common]
+[ 38% 297/773] //frameworks/base/cmds/bmgr/cmds/bmgr:bmgr dexpreopt[common]
+[ 38% 298/773] //art/build/apex:com.android.art signapk[common]
+[ 38% 299/773] Install: out/target/product/gta3xlwifi/system/framework/oat/arm64/apex@com.android.ondevicepersonalization@javalib@service-ondevicepersonalization.jar@classes.vdex
+[ 38% 300/773] //packages/modules/Connectivity/Tethering/apex:com.android.tethering signapk[common]
+[ 38% 301/772] //art/build/apex:com.android.art Generate unsigned compressed APEX file[common]
+[ 39% 302/772] //packages/apps/EyeDropper:EyeDropper dexpreopt[common]
+[ 39% 303/772] //frameworks/base/packages/SoundPicker:SoundPicker dexpreopt[common]
+[ 39% 304/772] //packages/apps/KeyChain:KeyChain dexpreopt[common]
+[ 39% 305/772] Install: out/target/product/gta3xlwifi/system/framework/oat/arm64/apex@com.android.crashrecovery@javalib@service-crashrecovery.jar@classes.odex
+[ 39% 306/772] Install: out/target/product/gta3xlwifi/system/framework/oat/arm64/apex@com.android.crashrecovery@javalib@service-crashrecovery.jar@classes.vdex
+[ 39% 307/772] //packages/modules/Connectivity/Tethering/apex:com.android.tethering Generate unsigned compressed APEX file[common]
+[ 39% 308/771] //packages/services/Mtp:MtpService dexpreopt[common]
+[ 40% 309/771] //packages/screensavers/Basic:BasicDreams dexpreopt[common]
+[ 40% 310/771] //packages/apps/QuickAccessWallet:QuickAccessWallet dexpreopt[common]
+[ 40% 311/771] //packages/services/BuiltInPrintService:BuiltInPrintService dexpreopt[common]
+[ 40% 312/771] //frameworks/base/packages/DynamicSystemInstallationService:DynamicSystemInstallationService dexpreopt[common]
+[ 40% 313/771] //packages/services/Telephony:TeleService dexpreopt[common]
+[ 40% 314/771] //packages/apps/SimpleSettingsConfig:SimpleSettingsConfig dexpreopt[common]
+[ 40% 315/771] //frameworks/base/cmds/appwidget:appwidget dexpreopt[common]
+[ 40% 316/771] //frameworks/base/packages/ExtShared:ExtShared dexpreopt[common]
+[ 41% 317/771] //art/build/apex:com.android.art sign compressedApex[common]
+[ 41% 318/771] //frameworks/base/media/lib/signer:com.android.mediadrm.signer.impl dexpreopt[common]
+[ 41% 319/771] //frameworks/base/packages/CompanionDeviceManager:CompanionDeviceManager dexpreopt[common]
+[ 41% 320/771] //frameworks/base/test-mock:android.test.mock.impl dexpreopt[common]
+[ 41% 321/771] //packages/modules/Connectivity/Tethering/apex:com.android.tethering sign compressedApex[common]
+[ 41% 322/771] //frameworks/base/cmds/bu:bu dexpreopt[common]
+[ 41% 323/771] Install: out/target/product/gta3xlwifi/system/framework/oat/arm64/apex@com.android.art@javalib@service-art.jar@classes.vdex
+[ 42% 324/771] //packages/providers/TelephonyProvider:TelephonyProvider dexpreopt[common]
+[ 42% 325/771] Install: out/target/product/gta3xlwifi/system/framework/oat/arm64/apex@com.android.rkpd@javalib@service-rkp.jar@classes.odex
+[ 42% 326/771] //packages/apps/Profiles:Profiles dexpreopt[common]
+[ 42% 327/771] //packages/apps/ManagedProvisioning:ManagedProvisioning dexpreopt[common]
+[ 42% 328/771] //frameworks/base/packages/services/Proxy:ProxyHandler dexpreopt[common]
+[ 42% 329/771] //packages/providers/CalendarProvider:CalendarProvider dexpreopt[common]
+[ 42% 330/771] //packages/services/Mms:MmsService dexpreopt[common]
+[ 42% 331/771] Install: out/target/product/gta3xlwifi/system/framework/oat/arm64/apex@com.android.appsearch@javalib@service-appsearch.jar@classes.vdex
+[ 43% 332/771] //frameworks/base/test-base:android.test.base.impl dexpreopt[common]
+[ 43% 333/771] Install: out/target/product/gta3xlwifi/system/framework/oat/arm64/apex@com.android.devicelock@javalib@service-devicelock.jar@classes.vdex
+[ 43% 334/771] //packages/apps/Jelly/app:Jelly dexpreopt[common]
+[ 43% 335/770] //frameworks/base/packages/SettingsProvider:SettingsProvider dexpreopt[common]
+[ 43% 336/770] //external/chromium-webview:webview dexpreopt[common]
+[ 43% 337/770] //frameworks/base/packages/LocalTransport:LocalTransport dexpreopt[common]
+[ 43% 338/770] //packages/screensavers/PhotoTable:PhotoTable dexpreopt[common]
+[ 44% 339/770] Install: out/target/product/gta3xlwifi/system/framework/oat/arm64/apex@com.android.appsearch@javalib@service-appsearch.jar@classes.odex
+[ 44% 340/770] //packages/providers/DownloadProvider:DownloadProvider dexpreopt[common]
+[ 44% 341/770] //frameworks/base/packages/PrintSpooler:PrintSpooler dexpreopt[common]
+[ 44% 342/770] //packages/apps/DeviceDiagnostics/app/src/main:DeviceDiagnostics dexpreopt[common]
+[ 44% 343/770] Install: out/target/product/gta3xlwifi/system/framework/oat/arm64/apex@com.android.media@javalib@service-media-s.jar@classes.vdex
+[ 44% 344/770] Install: out/target/product/gta3xlwifi/system/framework/oat/arm64/apex@com.android.profiling@javalib@service-anomaly-detector.jar@classes.odex
+[ 44% 345/769] Install: out/target/product/gta3xlwifi/system/framework/oat/arm64/apex@com.android.configinfrastructure@javalib@service-configinfrastructure.jar@classes.odex
+[ 45% 346/768] //frameworks/base/libs/WindowManager/Jetpack:androidx.window.extensions dexpreopt[common]
+[ 45% 347/767] Install: out/target/product/gta3xlwifi/system/framework/oat/arm64/apex@com.android.art@javalib@service-art.jar@classes.art
+[ 45% 348/767] //packages/apps/SettingsIntelligence:SettingsIntelligence dexpreopt[common]
+[ 45% 349/767] //frameworks/base/media/lib/remotedisplay:com.android.media.remotedisplay.impl dexpreopt[common]
+[ 45% 350/767] Install: out/target/product/gta3xlwifi/system/framework/oat/arm64/apex@com.android.adservices@javalib@service-adservices.jar@classes.vdex
+[ 45% 351/767] //frameworks/base/cmds/uinput:uinput dexpreopt[common]
+[ 45% 352/766] //packages/apps/Launcher3:Launcher3QuickStep dexpreopt[common]
+[ 46% 353/766] //frameworks/base/packages/WallpaperBackup:WallpaperBackup dexpreopt[common]
+[ 46% 354/766] Install: out/target/product/gta3xlwifi/system/framework/oat/arm64/apex@com.android.art@javalib@service-art.jar@classes.odex
+[ 46% 355/766] //packages/apps/Canvas/app:Canvas dexpreopt[common]
+[ 46% 356/766] //packages/apps/Seedvault:Seedvault dexpreopt[common]
+[ 46% 357/766] Install: out/target/product/gta3xlwifi/system/framework/oat/arm64/apex@com.android.uprobestats@javalib@service-uprobestats-bridge.jar@classes.vdex
+[ 46% 358/766] Install: out/target/product/gta3xlwifi/system/framework/oat/arm64/apex@com.android.tethering@javalib@service-connectivity.jar@classes.vdex
+[ 46% 359/765] Install: out/target/product/gta3xlwifi/system/framework/oat/arm64/apex@com.android.telephonycore@javalib@service-telecom.jar@classes.art
+[ 47% 360/765] Install: out/target/product/gta3xlwifi/system/framework/oat/arm64/apex@com.android.rkpd@javalib@service-rkp.jar@classes.vdex
+[ 47% 361/765] //packages/apps/DocumentsUI:DocumentsUI dexpreopt[common]
+[ 47% 362/764] //packages/apps/SecureElement:SecureElement dexpreopt[common]
+[ 47% 363/764] //frameworks/base/packages/EasterEgg:EasterEgg dexpreopt[common]
+[ 47% 364/764] //frameworks/base/cmds/am:am dexpreopt[common]
+[ 47% 365/764] //packages/apps/LineageParts:LineageParts dexpreopt[common]
+[ 47% 366/764] //frameworks/base/cmds/uiautomator/cmds/uiautomator:uiautomator dexpreopt[common]
+[ 48% 367/764] //packages/modules/CaptivePortalLogin:CaptivePortalLogin dexpreopt[common]
+[ 48% 368/764] Install: out/target/product/gta3xlwifi/system/system_ext/app/LocalContactsBackup/oat/arm64/LocalContactsBackup.vdex
+[ 48% 369/763] //packages/services/DeviceAsWebcam/impl:DeviceAsWebcam dexpreopt[common]
+[ 48% 370/763] //frameworks/base/packages/SimAppDialog:SimAppDialog dexpreopt[common]
+[ 48% 371/763] //packages/apps/PrivateSpace:PrivateSpace dexpreopt[common]
+[ 48% 372/763] //packages/services/Telecomm:TelecomShim dexpreopt[common]
+[ 48% 373/763] //packages/apps/Recorder/app:Recorder dexpreopt[common]
+[ 49% 374/763] //frameworks/base/cmds/requestsync:requestsync dexpreopt[common]
+[ 49% 375/763] //packages/providers/ContactsKeysProvider:E2eeContactKeysProvider dexpreopt[common]
+[ 49% 376/763] //packages/apps/Glimpse/app:Glimpse dexpreopt[common]
+[ 49% 377/763] //frameworks/libs/gsma_services/satellite_client:SatelliteClient dexpreopt[common]
+[ 49% 378/763] //packages/apps/ExactCalculator:ExactCalculator dexpreopt[common]
+[ 49% 379/763] //packages/apps/HTMLViewer:HTMLViewer dexpreopt[common]
+[ 49% 380/763] //packages/providers/BlockedNumberProvider:BlockedNumberProvider dexpreopt[common]
+[ 49% 381/763] //external/apache-http:org.apache.http.legacy.impl dexpreopt[common]
+[ 50% 382/763] //frameworks/base/packages/VpnDialogs:VpnDialogs dexpreopt[common]
+[ 50% 383/763] //packages/apps/CertInstaller:CertInstaller dexpreopt[common]
+[ 50% 384/763] //packages/apps/ContactsPicker:ContactsPicker dexpreopt[common]
+[ 50% 385/763] //system/libhidl/transport/manager/1.0:android.hidl.manager-V1.0-java dexpreopt[common]
+[ 50% 386/763] //packages/apps/Twelve/app:Twelve dexpreopt[common]
+[ 50% 387/763] //frameworks/base/packages/Shell:Shell dexpreopt[common]
+[ 50% 388/763] //frameworks/base/packages/WAPPushManager:WAPPushManager dexpreopt[common]
+[ 50% 389/763] //packages/apps/Updater/app:Updater dexpreopt[common]
+[ 51% 390/763] Install: out/target/product/gta3xlwifi/system/framework/oat/arm64/apex@com.android.bt@javalib@service-bluetooth.jar@classes.vdex
+[ 51% 391/763] Install: out/target/product/gta3xlwifi/system/framework/oat/arm64/apex@com.android.virt@javalib@service-virtualization.jar@classes.odex
+[ 51% 392/763] //lineage-sdk/packages/LineageSettingsProvider:LineageSettingsProvider dexpreopt[common]
+[ 51% 393/761] //packages/wallpapers/LivePicker:LiveWallpapersPicker dexpreopt[common]
+[ 51% 394/761] //frameworks/base/cmds/hid:hid dexpreopt[common]
+[ 51% 395/761] //frameworks/base/packages/services/CameraExtensionsProxy:CameraExtensionsProxy dexpreopt[common]
+[ 52% 396/761] //packages/apps/AvatarPicker:AvatarPicker dexpreopt[common]
+[ 52% 397/761] //packages/providers/UserDictionaryProvider:UserDictionaryProvider dexpreopt[common]
+[ 52% 398/761] Install: out/target/product/gta3xlwifi/system/framework/arm64/boot-framework-adservices.oat
+[ 52% 399/761] //frameworks/base/media/packages/BluetoothMidiService:BluetoothMidiService dexpreopt[common]
+[ 52% 400/761] //packages/apps/DeskClock:DeskClock dexpreopt[common]
+[ 52% 401/761] //packages/apps/SimpleDeviceConfig:SimpleDeviceConfig dexpreopt[common]
+[ 52% 402/761] //frameworks/base/packages/ExternalStorageProvider:ExternalStorageProvider dexpreopt[common]
+[ 52% 403/761] //packages/apps/Camelot/app:Camelot dexpreopt[common]
+[ 53% 404/761] //frameworks/base/packages/InputDevices:InputDevices dexpreopt[common]
+[ 53% 405/761] //frameworks/base/cmds/content:content dexpreopt[common]
+[ 53% 406/761] Install: out/target/product/gta3xlwifi/system/framework/oat/arm64/apex@com.android.uwb@javalib@service-uwb.jar@classes.vdex
+[ 53% 407/761] //packages/inputmethods/LatinIME/java:LatinIME dexpreopt[common]
+[ 53% 408/760] //frameworks/base/packages/StatementService:StatementService dexpreopt[common]
+[ 53% 409/760] Install: out/target/product/gta3xlwifi/system/framework/arm64/boot-framework-adservices.art
+[ 53% 410/760] //frameworks/base/packages/PackageInstaller:PackageInstaller dexpreopt[common]
+[ 54% 411/755] //frameworks/base/libs/usb:com.android.future.usb.accessory.impl dexpreopt[common]
+[ 54% 412/755] //frameworks/base/cmds/vr:vr dexpreopt[common]
+[ 54% 413/755] //packages/providers/BookmarkProvider:BookmarkProvider dexpreopt[common]
+[ 54% 414/755] //frameworks/base/cmds/sm:sm dexpreopt[common]
+[ 54% 415/755] //frameworks/base/packages/SharedStorageBackup:SharedStorageBackup dexpreopt[common]
+[ 55% 416/755] //frameworks/base/cmds/telecom:telecom dexpreopt[common]
+[ 55% 417/755] //frameworks/base/packages/SystemUI:SystemUI dexpreopt[common]
+[ 55% 418/755] //frameworks/base/cmds/incident_helper:incident-helper-cmd dexpreopt[common]
+[ 55% 419/755] Install: out/target/product/gta3xlwifi/system/app/WallpaperBackup/oat/arm64/WallpaperBackup.odex
+[ 55% 420/755] Install: out/target/product/gta3xlwifi/system/system_ext/priv-app/SystemUI/oat/arm64/SystemUI.vdex
+[ 55% 421/755] Install: out/target/product/gta3xlwifi/system/framework/oat/arm/incident-helper-cmd.odex
+[ 55% 422/755] Install: out/target/product/gta3xlwifi/system/framework/oat/arm64/incident-helper-cmd.odex
+[ 56% 423/755] Install: out/target/product/gta3xlwifi/system/framework/oat/arm64/incident-helper-cmd.vdex
+[ 56% 424/755] Install: out/target/product/gta3xlwifi/system/framework/oat/arm/incident-helper-cmd.vdex
+[ 56% 425/755] Install: out/target/product/gta3xlwifi/system/system_ext/priv-app/SystemUI/oat/arm64/SystemUI.odex
+[ 56% 426/755] Install: out/target/product/gta3xlwifi/system/framework/oat/arm64/telecom.odex
+[ 56% 427/755] Install: out/target/product/gta3xlwifi/system/framework/oat/arm64/telecom.vdex
+[ 56% 428/755] Install: out/target/product/gta3xlwifi/system/framework/oat/arm/telecom.vdex
+[ 56% 429/755] Install: out/target/product/gta3xlwifi/system/priv-app/SharedStorageBackup/oat/arm64/SharedStorageBackup.vdex
+[ 56% 430/755] Install: out/target/product/gta3xlwifi/system/priv-app/SharedStorageBackup/oat/arm64/SharedStorageBackup.odex
+[ 57% 431/755] Install: out/target/product/gta3xlwifi/system/framework/oat/arm64/sm.vdex
+[ 57% 432/755] Install: out/target/product/gta3xlwifi/system/framework/oat/arm/sm.odex
+[ 57% 433/755] Install: out/target/product/gta3xlwifi/system/app/BookmarkProvider/oat/arm64/BookmarkProvider.vdex
+[ 57% 434/755] Install: out/target/product/gta3xlwifi/system/framework/oat/arm64/vr.odex
+[ 57% 435/755] Install: out/target/product/gta3xlwifi/system/framework/oat/arm64/com.android.future.usb.accessory.odex
+[ 57% 436/755] //packages/apps/MusicFX:MusicFX dexpreopt[common]
+[ 57% 437/755] Install: out/target/product/gta3xlwifi/system/framework/oat/arm64/com.android.future.usb.accessory.vdex
+[ 58% 438/755] Install: out/target/product/gta3xlwifi/system/framework/oat/arm/vr.vdex
+[ 58% 439/755] Install: out/target/product/gta3xlwifi/system/framework/oat/arm/com.android.future.usb.accessory.odex
+[ 58% 440/755] Install: out/target/product/gta3xlwifi/system/priv-app/MusicFX/oat/arm64/MusicFX.odex
+[ 58% 441/755] Install: out/target/product/gta3xlwifi/system/priv-app/MusicFX/oat/arm64/MusicFX.vdex
+[ 58% 442/755] Install: out/target/product/gta3xlwifi/system/priv-app/PackageInstaller/oat/arm64/PackageInstaller.odex
+[ 58% 443/755] Install: out/target/product/gta3xlwifi/system/framework/oat/arm/vr.odex
+[ 58% 444/755] Install: out/target/product/gta3xlwifi/system/framework/oat/arm/com.android.future.usb.accessory.vdex
+[ 58% 445/755] Install: out/target/product/gta3xlwifi/system/priv-app/PackageInstaller/oat/arm64/PackageInstaller.vdex
+[ 59% 446/755] Install: out/target/product/gta3xlwifi/system/framework/oat/arm/content.vdex
+[ 59% 447/755] Install: out/target/product/gta3xlwifi/system/priv-app/InputDevices/oat/arm64/InputDevices.odex
+[ 59% 448/755] Install: out/target/product/gta3xlwifi/system/priv-app/ExternalStorageProvider/oat/arm64/ExternalStorageProvider.vdex
+[ 59% 449/755] Install: out/target/product/gta3xlwifi/system/system_ext/priv-app/SimpleDeviceConfig/oat/arm64/SimpleDeviceConfig.odex
+[ 59% 450/755] Install: out/target/product/gta3xlwifi/product/app/Camelot/oat/arm64/Camelot.vdex
+[ 59% 451/755] Install: out/target/product/gta3xlwifi/system/app/BluetoothMidiService/oat/arm64/BluetoothMidiService.odex
+[ 59% 452/755] Install: out/target/product/gta3xlwifi/system/system_ext/priv-app/AvatarPicker/oat/arm64/AvatarPicker.odex
+[ 60% 453/755] Install: out/target/product/gta3xlwifi/system/app/CameraExtensionsProxy/oat/arm64/CameraExtensionsProxy.vdex
+[ 60% 454/755] Install: out/target/product/gta3xlwifi/system/framework/oat/arm/hid.vdex
+[ 60% 455/755] Install: out/target/product/gta3xlwifi/system/framework/oat/arm/android.test.mock.odex
+[ 60% 456/755] Install: out/target/product/gta3xlwifi/system/priv-app/LiveWallpapersPicker/oat/arm64/LiveWallpapersPicker.vdex
+[ 60% 457/755] Install: out/target/product/gta3xlwifi/system/framework/oat/arm/hid.odex
+[ 60% 458/755] Install: out/target/product/gta3xlwifi/system/priv-app/LiveWallpapersPicker/oat/arm64/LiveWallpapersPicker.odex
+[ 60% 459/755] Install: out/target/product/gta3xlwifi/system/priv-app/Shell/oat/arm64/Shell.odex
+[ 60% 460/755] Install: out/target/product/gta3xlwifi/product/app/DeskClock/oat/arm64/DeskClock.odex
+[ 61% 461/755] Install: out/target/product/gta3xlwifi/system/framework/oat/arm64/android.hidl.manager-V1.0-java.vdex
+[ 61% 462/755] Install: out/target/product/gta3xlwifi/system/priv-app/SoundPicker/oat/arm64/SoundPicker.vdex
+[ 61% 463/755] Install: out/target/product/gta3xlwifi/system/priv-app/ContactsProvider/oat/arm64/ContactsProvider.vdex
+[ 61% 464/755] Install: out/target/product/gta3xlwifi/system/priv-app/ContactsPicker/oat/arm64/ContactsPicker.vdex
+[ 61% 465/755] Install: out/target/product/gta3xlwifi/system/app/CertInstaller/oat/arm64/CertInstaller.vdex
+[ 61% 466/755] Install: out/target/product/gta3xlwifi/system/priv-app/VpnDialogs/oat/arm64/VpnDialogs.vdex
+[ 61% 467/755] Install: out/target/product/gta3xlwifi/system/system_ext/framework/oat/arm64/androidx.window.sidecar.odex
+[ 61% 468/755] Install: out/target/product/gta3xlwifi/system/framework/oat/arm/org.apache.http.legacy.odex
+[ 62% 469/755] Install: out/target/product/gta3xlwifi/system/system_ext/priv-app/StorageManager/oat/arm64/StorageManager.odex
+[ 62% 470/755] Install: out/target/product/gta3xlwifi/system/framework/oat/arm/org.apache.http.legacy.vdex
+[ 62% 471/755] Install: out/target/product/gta3xlwifi/system/priv-app/BlockedNumberProvider/oat/arm64/BlockedNumberProvider.vdex
+[ 62% 472/755] Install: out/target/product/gta3xlwifi/system/app/HTMLViewer/oat/arm64/HTMLViewer.odex
+[ 62% 473/755] Install: out/target/product/gta3xlwifi/product/app/Twelve/oat/arm64/Twelve.odex
+[ 62% 474/755] Install: out/target/product/gta3xlwifi/system/priv-app/DownloadProviderUi/oat/arm64/DownloadProviderUi.odex
+[ 62% 475/755] Install: out/target/product/gta3xlwifi/system/system_ext/framework/oat/arm64/SatelliteClient.vdex
+[ 63% 476/755] Install: out/target/product/gta3xlwifi/system/system_ext/framework/oat/arm/SatelliteClient.odex
+[ 63% 477/755] Install: out/target/product/gta3xlwifi/system/system_ext/framework/oat/arm64/SatelliteClient.odex
+[ 63% 478/755] Install: out/target/product/gta3xlwifi/product/app/Glimpse/oat/arm64/Glimpse.vdex
+[ 63% 479/755] Install: out/target/product/gta3xlwifi/system/priv-app/E2eeContactKeysProvider/oat/arm64/E2eeContactKeysProvider.odex
+[ 63% 480/755] Install: out/target/product/gta3xlwifi/system/framework/oat/arm64/hid.odex
+[ 63% 481/755] Install: out/target/product/gta3xlwifi/system/framework/oat/arm64/requestsync.vdex
+[ 63% 482/755] Install: out/target/product/gta3xlwifi/system/framework/oat/arm/requestsync.vdex
+[ 63% 483/755] Install: out/target/product/gta3xlwifi/system/priv-app/TelecomShim/oat/arm64/TelecomShim.odex
+[ 64% 484/755] Install: out/target/product/gta3xlwifi/product/app/Recorder/oat/arm64/Recorder.vdex
+[ 64% 485/755] Install: out/target/product/gta3xlwifi/system/priv-app/TelecomShim/oat/arm64/TelecomShim.vdex
+[ 64% 486/755] Install: out/target/product/gta3xlwifi/system/app/SimAppDialog/oat/arm64/SimAppDialog.odex
+[ 64% 487/755] Install: out/target/product/gta3xlwifi/system/priv-app/DeviceAsWebcam/oat/arm64/DeviceAsWebcam.vdex
+[ 64% 488/755] Install: out/target/product/gta3xlwifi/system/app/PrintRecommendationService/oat/arm64/PrintRecommendationService.vdex
+[ 64% 489/755] Install: out/target/product/gta3xlwifi/system/app/CaptivePortalLogin/oat/arm64/CaptivePortalLogin.odex
+[ 64% 490/755] Install: out/target/product/gta3xlwifi/system/framework/oat/arm/uiautomator.odex
+[ 65% 491/755] Install: out/target/product/gta3xlwifi/system/app/CaptivePortalLogin/oat/arm64/CaptivePortalLogin.vdex
+[ 65% 492/755] Install: out/target/product/gta3xlwifi/system/framework/oat/arm64/uiautomator.vdex
+[ 65% 493/755] Install: out/target/product/gta3xlwifi/system/framework/oat/arm/uiautomator.vdex
+[ 65% 494/755] Install: out/target/product/gta3xlwifi/system/framework/oat/arm/am.vdex
+[ 65% 495/755] Install: out/target/product/gta3xlwifi/system/framework/oat/arm64/am.vdex
+[ 65% 496/755] Install: out/target/product/gta3xlwifi/system/framework/oat/arm64/am.odex
+[ 65% 497/755] Install: out/target/product/gta3xlwifi/system/app/EasterEgg/oat/arm64/EasterEgg.vdex
+[ 65% 498/755] Install: out/target/product/gta3xlwifi/system/app/SecureElement/oat/arm64/SecureElement.vdex
+[ 66% 499/755] Install: out/target/product/gta3xlwifi/system/priv-app/DocumentsUI/oat/arm64/DocumentsUI.odex
+[ 66% 500/755] Install: out/target/product/gta3xlwifi/system/framework/oat/arm64/uinput.odex
+[ 66% 501/755] Install: out/target/product/gta3xlwifi/system/framework/oat/arm/uinput.odex
+[ 66% 502/755] Install: out/target/product/gta3xlwifi/system/framework/oat/arm64/uinput.vdex
+[ 66% 503/755] Install: out/target/product/gta3xlwifi/system/framework/oat/arm64/com.android.media.remotedisplay.odex
+[ 66% 504/755] Install: out/target/product/gta3xlwifi/system/framework/oat/arm64/com.android.media.remotedisplay.vdex
+[ 66% 505/755] Install: out/target/product/gta3xlwifi/product/priv-app/SettingsIntelligence/oat/arm64/SettingsIntelligence.odex
+[ 67% 506/755] Install: out/target/product/gta3xlwifi/system/system_ext/framework/oat/arm64/androidx.window.extensions.vdex
+[ 67% 507/755] Install: out/target/product/gta3xlwifi/system/system_ext/framework/oat/arm/androidx.window.extensions.vdex
+[ 67% 508/755] Install: out/target/product/gta3xlwifi/system/app/PhotoTable/oat/arm64/PhotoTable.vdex
+[ 67% 509/755] Install: out/target/product/gta3xlwifi/system/priv-app/LocalTransport/oat/arm64/LocalTransport.vdex
+[ 67% 510/755] Install: out/target/product/gta3xlwifi/system/app/webview/oat/arm64/webview.vdex
+[ 67% 511/755] Install: out/target/product/gta3xlwifi/system/priv-app/SettingsProvider/oat/arm64/SettingsProvider.vdex
+[ 67% 512/755] Install: out/target/product/gta3xlwifi/product/app/Jelly/oat/arm64/Jelly.vdex
+[ 67% 513/755] Install: out/target/product/gta3xlwifi/system/framework/oat/arm64/android.test.base.vdex
+[ 68% 514/755] Install: out/target/product/gta3xlwifi/system/framework/oat/arm/android.test.base.vdex
+[ 68% 515/755] Install: out/target/product/gta3xlwifi/system/priv-app/CalendarProvider/oat/arm64/CalendarProvider.vdex
+[ 68% 516/755] Install: out/target/product/gta3xlwifi/system/priv-app/ProxyHandler/oat/arm64/ProxyHandler.odex
+[ 68% 517/755] Install: out/target/product/gta3xlwifi/system/priv-app/ManagedProvisioning/oat/arm64/ManagedProvisioning.vdex
+[ 68% 518/755] Install: out/target/product/gta3xlwifi/system/system_ext/app/Profiles/oat/arm64/Profiles.vdex
+[ 68% 519/755] Install: out/target/product/gta3xlwifi/system/framework/oat/arm/bu.odex
+[ 68% 520/755] Install: out/target/product/gta3xlwifi/system/framework/oat/arm/bu.vdex
+[ 69% 521/755] Install: out/target/product/gta3xlwifi/system/framework/oat/arm/android.test.mock.vdex
+[ 69% 522/755] Install: out/target/product/gta3xlwifi/system/framework/oat/arm64/android.test.mock.vdex
+[ 69% 523/755] Install: out/target/product/gta3xlwifi/system/app/CompanionDeviceManager/oat/arm64/CompanionDeviceManager.vdex
+[ 69% 524/755] Install: out/target/product/gta3xlwifi/system/framework/oat/arm/com.android.mediadrm.signer.odex
+[ 69% 525/755] Install: out/target/product/gta3xlwifi/system/framework/oat/arm/com.android.mediadrm.signer.vdex
+[ 69% 526/755] Install: out/target/product/gta3xlwifi/system/framework/oat/arm64/com.android.mediadrm.signer.vdex
+[ 69% 527/755] Install: out/target/product/gta3xlwifi/system/framework/oat/arm/appwidget.odex
+[ 69% 528/755] Install: out/target/product/gta3xlwifi/system/framework/oat/arm64/appwidget.odex
+[ 70% 529/755] Install: out/target/product/gta3xlwifi/system/framework/oat/arm/appwidget.vdex
+[ 70% 530/755] Install: out/target/product/gta3xlwifi/system/system_ext/app/SimpleSettingsConfig/oat/arm64/SimpleSettingsConfig.odex
+[ 70% 531/755] Install: out/target/product/gta3xlwifi/system/priv-app/TeleService/oat/arm64/TeleService.odex
+[ 70% 532/755] Install: out/target/product/gta3xlwifi/system/priv-app/DynamicSystemInstallationService/oat/arm64/DynamicSystemInstallationService.vdex
+[ 70% 533/755] Install: out/target/product/gta3xlwifi/system/priv-app/BuiltInPrintService/oat/arm64/BuiltInPrintService.odex
+[ 70% 534/755] Install: out/target/product/gta3xlwifi/system/system_ext/priv-app/QuickAccessWallet/oat/arm64/QuickAccessWallet.vdex
+[ 70% 535/755] Install: out/target/product/gta3xlwifi/system/app/BasicDreams/oat/arm64/BasicDreams.vdex
+[ 70% 536/755] Install: out/target/product/gta3xlwifi/system/priv-app/MtpService/oat/arm64/MtpService.odex
+[ 71% 537/755] Install: out/target/product/gta3xlwifi/system/priv-app/EyeDropper/oat/arm64/EyeDropper.odex
+[ 71% 538/755] Install: out/target/product/gta3xlwifi/system/system_ext/priv-app/AvatarPicker/oat/arm64/AvatarPicker.vdex
+[ 71% 539/755] Install: out/target/product/gta3xlwifi/system/priv-app/MmsService/oat/arm64/MmsService.vdex
+[ 71% 540/755] Install: out/target/product/gta3xlwifi/system/priv-app/UserDictionaryProvider/oat/arm64/UserDictionaryProvider.vdex
+[ 71% 541/755] Install: out/target/product/gta3xlwifi/product/app/DeskClock/oat/arm64/DeskClock.vdex
+[ 71% 542/755] Install: out/target/product/gta3xlwifi/system/priv-app/BackupRestoreConfirmation/oat/arm64/BackupRestoreConfirmation.odex
+[ 71% 543/755] Install: out/target/product/gta3xlwifi/system/framework/oat/arm64/bmgr.vdex
+[ 72% 544/755] Install: out/target/product/gta3xlwifi/system/framework/oat/arm/bmgr.odex
+[ 72% 545/755] Install: out/target/product/gta3xlwifi/system/framework/oat/arm/bmgr.vdex
+[ 72% 546/755] Install: out/target/product/gta3xlwifi/system/framework/oat/arm/javax.obex.vdex
+[ 72% 547/755] Install: out/target/product/gta3xlwifi/system/framework/oat/arm64/javax.obex.odex
+[ 72% 548/755] Install: out/target/product/gta3xlwifi/system/framework/oat/arm64/javax.obex.vdex
+[ 72% 549/755] Install: out/target/product/gta3xlwifi/system/priv-app/NetworkStack/oat/arm64/NetworkStack.vdex
+[ 72% 550/755] Install: out/target/product/gta3xlwifi/system/priv-app/NetworkStack/oat/arm64/NetworkStack.odex
+[ 72% 551/755] Install: out/target/product/gta3xlwifi/system/framework/oat/arm64/abx.odex
+[ 73% 552/755] Install: out/target/product/gta3xlwifi/system/framework/oat/arm/abx.vdex
+[ 73% 553/755] Install: out/target/product/gta3xlwifi/product/app/Aperture/oat/arm64/Aperture.vdex
+[ 73% 554/755] Install: out/target/product/gta3xlwifi/system/priv-app/ContactsProvider/oat/arm64/ContactsProvider.odex
+[ 73% 555/755] Install: out/target/product/gta3xlwifi/system/system_ext/app/SimpleSettingsConfig/oat/arm64/SimpleSettingsConfig.vdex
+[ 73% 556/755] Install: out/target/product/gta3xlwifi/system/system_ext/priv-app/StorageManager/oat/arm64/StorageManager.vdex
+[ 73% 557/755] Install: out/target/product/gta3xlwifi/system/framework/oat/arm64/android.test.runner.vdex
+[ 73% 558/755] Install: out/target/product/gta3xlwifi/system/framework/oat/arm/android.test.runner.odex
+[ 74% 559/755] Install: out/target/product/gta3xlwifi/system/framework/oat/arm/android.test.runner.vdex
+[ 74% 560/755] Install: out/target/product/gta3xlwifi/system/system_ext/app/AccessibilityMenu/oat/arm64/AccessibilityMenu.vdex
+[ 74% 561/755] Install: out/target/product/gta3xlwifi/system/system_ext/priv-app/LineageSetupWizard/oat/arm64/LineageSetupWizard.odex
+[ 74% 562/755] Install: out/target/product/gta3xlwifi/system/framework/oat/arm/android.hidl.base-V1.0-java.odex
+[ 74% 563/755] Install: out/target/product/gta3xlwifi/system/framework/oat/arm64/android.hidl.base-V1.0-java.vdex
+[ 74% 564/755] Install: out/target/product/gta3xlwifi/system/framework/oat/arm64/android.hidl.base-V1.0-java.odex
+[ 74% 565/755] Install: out/target/product/gta3xlwifi/system/framework/oat/arm64/android.test.runner.odex
+[ 74% 566/755] Install: out/target/product/gta3xlwifi/system/priv-app/FusedLocation/oat/arm64/FusedLocation.vdex
+[ 75% 567/755] Install: out/target/product/gta3xlwifi/system/priv-app/FusedLocation/oat/arm64/FusedLocation.odex
+[ 75% 568/755] Install: out/target/product/gta3xlwifi/system/framework/oat/arm64/bmgr.odex
+[ 75% 569/755] Install: out/target/product/gta3xlwifi/system/framework/oat/arm/telecom.odex
+[ 75% 570/755] Install: out/target/product/gta3xlwifi/system/app/KeyChain/oat/arm64/KeyChain.odex
+[ 75% 571/755] Install: out/target/product/gta3xlwifi/system/priv-app/DownloadProviderUi/oat/arm64/DownloadProviderUi.vdex
+[ 75% 572/755] Install: out/target/product/gta3xlwifi/system/framework/oat/arm64/sm.odex
+[ 75% 573/755] Install: out/target/product/gta3xlwifi/system/app/PacProcessor/oat/arm64/PacProcessor.vdex
+[ 76% 574/755] Install: out/target/product/gta3xlwifi/system/priv-app/IntentResolver/oat/arm64/IntentResolver.vdex
+[ 76% 575/755] Install: out/target/product/gta3xlwifi/system/system_ext/app/AccessibilityMenu/oat/arm64/AccessibilityMenu.odex
+[ 76% 576/755] Install: out/target/product/gta3xlwifi/system/system_ext/framework/oat/arm64/androidx.window.sidecar.vdex
+[ 76% 577/755] Install: out/target/product/gta3xlwifi/system/priv-app/ExternalStorageProvider/oat/arm64/ExternalStorageProvider.odex
+[ 76% 578/755] Install: out/target/product/gta3xlwifi/system/system_ext/framework/oat/arm/androidx.window.sidecar.vdex
+[ 76% 579/755] Install: out/target/product/gta3xlwifi/system/priv-app/BackupRestoreConfirmation/oat/arm64/BackupRestoreConfirmation.vdex
+[ 76% 580/755] Install: out/target/product/gta3xlwifi/system/framework/oat/arm/content.odex
+[ 76% 581/755] Install: out/target/product/gta3xlwifi/system/system_ext/priv-app/StatementService/oat/arm64/StatementService.odex
+[ 77% 582/755] Install: out/target/product/gta3xlwifi/system/priv-app/EyeDropper/oat/arm64/EyeDropper.vdex
+[ 77% 583/755] Install: out/target/product/gta3xlwifi/system/framework/oat/arm64/abx.vdex
+[ 77% 584/755] Install: out/target/product/gta3xlwifi/product/app/LatinIME/oat/arm64/LatinIME.odex
+[ 77% 585/755] Install: out/target/product/gta3xlwifi/product/app/Aperture/oat/arm64/Aperture.odex
+[ 77% 586/755] Install: out/target/product/gta3xlwifi/system/system_ext/priv-app/StatementService/oat/arm64/StatementService.vdex
+[ 77% 587/755] Install: out/target/product/gta3xlwifi/product/app/LatinIME/oat/arm64/LatinIME.vdex
+[ 77% 588/755] Install: out/target/product/gta3xlwifi/system/framework/oat/arm/android.hidl.manager-V1.0-java.odex
+[ 78% 589/755] Install: out/target/product/gta3xlwifi/product/app/Camelot/oat/arm64/Camelot.odex
+[ 78% 590/755] Install: out/target/product/gta3xlwifi/system/framework/oat/arm64/org.apache.http.legacy.vdex
+[ 78% 591/755] Install: out/target/product/gta3xlwifi/system/framework/org.apache.http.legacy.jar.prof
+[ 78% 592/755] Install: out/target/product/gta3xlwifi/system/system_ext/framework/oat/arm/androidx.window.sidecar.odex
+[ 78% 593/755] Install: out/target/product/gta3xlwifi/system/app/CameraExtensionsProxy/oat/arm64/CameraExtensionsProxy.odex
+[ 78% 594/755] Install: out/target/product/gta3xlwifi/system/system_ext/priv-app/LineageSettingsProvider/oat/arm64/LineageSettingsProvider.vdex
+[ 78% 595/755] Install: out/target/product/gta3xlwifi/system/framework/oat/arm/requestsync.odex
+[ 78% 596/755] Install: out/target/product/gta3xlwifi/system/system_ext/priv-app/Updater/oat/arm64/Updater.odex
+[ 79% 597/755] Install: out/target/product/gta3xlwifi/system/system_ext/app/WAPPushManager/oat/arm64/WAPPushManager.odex
+[ 79% 598/755] Install: out/target/product/gta3xlwifi/product/app/Twelve/oat/arm64/Twelve.vdex
+[ 79% 599/755] Install: out/target/product/gta3xlwifi/system/system_ext/priv-app/Seedvault/oat/arm64/Seedvault.odex
+[ 79% 600/755] Install: out/target/product/gta3xlwifi/system/priv-app/BlockedNumberProvider/oat/arm64/BlockedNumberProvider.odex
+[ 79% 601/755] Install: out/target/product/gta3xlwifi/system/app/HTMLViewer/oat/arm64/HTMLViewer.vdex
+[ 79% 602/755] Install: out/target/product/gta3xlwifi/system/system_ext/framework/oat/arm/SatelliteClient.vdex
+[ 79% 603/755] Install: out/target/product/gta3xlwifi/product/app/Glimpse/oat/arm64/Glimpse.odex
+[ 80% 604/755] Install: out/target/product/gta3xlwifi/product/app/Recorder/oat/arm64/Recorder.odex
+[ 80% 605/755] Install: out/target/product/gta3xlwifi/system/priv-app/PrivateSpace/oat/arm64/PrivateSpace.vdex
+[ 80% 606/755] Install: out/target/product/gta3xlwifi/system/app/SimAppDialog/oat/arm64/SimAppDialog.vdex
+[ 80% 607/755] Install: out/target/product/gta3xlwifi/system/priv-app/DeviceAsWebcam/oat/arm64/DeviceAsWebcam.odex
+[ 80% 608/755] Install: out/target/product/gta3xlwifi/system/system_ext/priv-app/LineageParts/oat/arm64/LineageParts.odex
+[ 80% 609/755] Install: out/target/product/gta3xlwifi/product/app/ExactCalculator/oat/arm64/ExactCalculator.vdex
+[ 80% 610/755] Install: out/target/product/gta3xlwifi/system/framework/oat/arm/am.odex
+[ 80% 611/755] Install: out/target/product/gta3xlwifi/system/priv-app/DocumentsUI/oat/arm64/DocumentsUI.vdex
+[ 81% 612/755] Install: out/target/product/gta3xlwifi/system/app/SecureElement/oat/arm64/SecureElement.odex
+[ 81% 613/755] Install: out/target/product/gta3xlwifi/system/app/WallpaperBackup/oat/arm64/WallpaperBackup.vdex
+[ 81% 614/755] Install: out/target/product/gta3xlwifi/system/apex/com.android.tethering.capex
+[ 81% 615/755] Install: out/target/product/gta3xlwifi/system/apex/com.android.art.capex
+[ 81% 616/755] Install: out/target/product/gta3xlwifi/product/app/Canvas/oat/arm64/Canvas.odex
+[ 81% 617/755] Install: out/target/product/gta3xlwifi/product/priv-app/SettingsIntelligence/oat/arm64/SettingsIntelligence.vdex
+[ 81% 618/755] Install: out/target/product/gta3xlwifi/system/system_ext/framework/oat/arm64/androidx.window.extensions.odex
+[ 81% 619/755] Install: out/target/product/gta3xlwifi/system/priv-app/DeviceDiagnostics/oat/arm64/DeviceDiagnostics.odex
+[ 82% 620/755] Install: out/target/product/gta3xlwifi/system/priv-app/DeviceDiagnostics/oat/arm64/DeviceDiagnostics.vdex
+[ 82% 621/755] Install: out/target/product/gta3xlwifi/system/priv-app/DownloadProvider/oat/arm64/DownloadProvider.odex
+[ 82% 622/755] Install: out/target/product/gta3xlwifi/system/priv-app/DownloadProvider/oat/arm64/DownloadProvider.vdex
+[ 82% 623/755] Install: out/target/product/gta3xlwifi/system/app/PhotoTable/oat/arm64/PhotoTable.odex
+[ 82% 624/755] Install: out/target/product/gta3xlwifi/system/priv-app/LocalTransport/oat/arm64/LocalTransport.odex
+[ 82% 625/755] Install: out/target/product/gta3xlwifi/system/framework/oat/arm/android.test.base.odex
+[ 82% 626/755] Install: out/target/product/gta3xlwifi/system/framework/oat/arm64/android.test.base.odex
+[ 83% 627/755] Install: out/target/product/gta3xlwifi/system/priv-app/CalendarProvider/oat/arm64/CalendarProvider.odex
+[ 83% 628/755] Install: out/target/product/gta3xlwifi/system/priv-app/ProxyHandler/oat/arm64/ProxyHandler.vdex
+[ 83% 629/755] Install: out/target/product/gta3xlwifi/system/priv-app/TelephonyProvider/oat/arm64/TelephonyProvider.vdex
+[ 83% 630/755] Install: out/target/product/gta3xlwifi/system/priv-app/TelephonyProvider/oat/arm64/TelephonyProvider.odex
+[ 83% 631/755] Install: out/target/product/gta3xlwifi/system/framework/oat/arm64/bu.odex
+[ 83% 632/755] Install: out/target/product/gta3xlwifi/system/framework/oat/arm64/android.test.mock.odex
+[ 83% 633/755] Install: out/target/product/gta3xlwifi/system/app/ExtShared/oat/arm64/ExtShared.odex
+[ 83% 634/755] Install: out/target/product/gta3xlwifi/system/framework/oat/arm64/appwidget.vdex
+[ 84% 635/755] Install: out/target/product/gta3xlwifi/system/priv-app/DynamicSystemInstallationService/oat/arm64/DynamicSystemInstallationService.odex
+[ 84% 636/755] Install: out/target/product/gta3xlwifi/system/priv-app/BuiltInPrintService/oat/arm64/BuiltInPrintService.vdex
+[ 84% 637/755] Install: out/target/product/gta3xlwifi/system/priv-app/MtpService/oat/arm64/MtpService.vdex
+[ 84% 638/755] Install: out/target/product/gta3xlwifi/system/framework/oat/arm/android.hidl.base-V1.0-java.vdex
+[ 84% 639/755] Install: out/target/product/gta3xlwifi/system/app/KeyChain/oat/arm64/KeyChain.vdex
+[ 84% 640/755] Install: out/target/product/gta3xlwifi/system/system_ext/priv-app/LineageSetupWizard/oat/arm64/LineageSetupWizard.vdex
+[ 84% 641/755] Install: out/target/product/gta3xlwifi/system/priv-app/IntentResolver/oat/arm64/IntentResolver.odex
+[ 85% 642/755] Install: out/target/product/gta3xlwifi/system/framework/oat/arm/abx.odex
+[ 85% 643/755] Install: out/target/product/gta3xlwifi/system/framework/oat/arm/javax.obex.odex
+[ 85% 644/755] Install: out/target/product/gta3xlwifi/system/app/PacProcessor/oat/arm64/PacProcessor.odex
+[ 85% 645/755] Install: out/target/product/gta3xlwifi/system/app/PrintRecommendationService/oat/arm64/PrintRecommendationService.odex
+[ 85% 646/755] Install: out/target/product/gta3xlwifi/system/app/CompanionDeviceManager/oat/arm64/CompanionDeviceManager.odex
+[ 85% 647/755] Install: out/target/product/gta3xlwifi/system/system_ext/priv-app/QuickAccessWallet/oat/arm64/QuickAccessWallet.odex
+[ 85% 648/755] Install: out/target/product/gta3xlwifi/system/priv-app/SoundPicker/oat/arm64/SoundPicker.odex
+[ 85% 649/755] Install: out/target/product/gta3xlwifi/system/framework/oat/arm64/content.vdex
+[ 86% 650/755] Install: out/target/product/gta3xlwifi/system/framework/oat/arm/android.hidl.manager-V1.0-java.vdex
+[ 86% 651/755] Install: out/target/product/gta3xlwifi/system/priv-app/InputDevices/oat/arm64/InputDevices.vdex
+[ 86% 652/755] Install: out/target/product/gta3xlwifi/system/system_ext/priv-app/SimpleDeviceConfig/oat/arm64/SimpleDeviceConfig.vdex
+[ 86% 653/755] Install: out/target/product/gta3xlwifi/system/priv-app/UserDictionaryProvider/oat/arm64/UserDictionaryProvider.odex
+[ 86% 654/755] Install: out/target/product/gta3xlwifi/system/system_ext/priv-app/LineageSettingsProvider/oat/arm64/LineageSettingsProvider.odex
+[ 86% 655/755] Install: out/target/product/gta3xlwifi/system/system_ext/priv-app/Updater/oat/arm64/Updater.vdex
+[ 86% 656/755] Install: out/target/product/gta3xlwifi/system/framework/oat/arm64/android.hidl.manager-V1.0-java.odex
+[ 87% 657/755] Install: out/target/product/gta3xlwifi/product/app/ExactCalculator/oat/arm64/ExactCalculator.odex
+[ 87% 658/755] Install: out/target/product/gta3xlwifi/system/framework/oat/arm64/org.apache.http.legacy.odex
+[ 87% 659/755] Install: out/target/product/gta3xlwifi/system/framework/oat/arm64/requestsync.odex
+[ 87% 660/755] Install: out/target/product/gta3xlwifi/system/priv-app/PrivateSpace/oat/arm64/PrivateSpace.odex
+[ 87% 661/755] Install: out/target/product/gta3xlwifi/system/system_ext/priv-app/LineageParts/oat/arm64/LineageParts.vdex
+[ 87% 662/755] Install: out/target/product/gta3xlwifi/system/app/EasterEgg/oat/arm64/EasterEgg.odex
+[ 87% 663/755] Install: out/target/product/gta3xlwifi/product/app/Canvas/oat/arm64/Canvas.vdex
+[ 87% 664/755] Install: out/target/product/gta3xlwifi/system/framework/oat/arm/com.android.media.remotedisplay.vdex
+[ 88% 665/755] Install: out/target/product/gta3xlwifi/system/apex/com.android.telephonycore.capex
+[ 88% 666/755] Install: out/target/product/gta3xlwifi/system/system_ext/framework/oat/arm/androidx.window.extensions.odex
+[ 88% 667/755] Install: out/target/product/gta3xlwifi/system/app/PrintSpooler/oat/arm64/PrintSpooler.odex
+[ 88% 668/755] Install: out/target/product/gta3xlwifi/product/app/Jelly/oat/arm64/Jelly.odex
+[ 88% 669/755] Install: out/target/product/gta3xlwifi/system/priv-app/MmsService/oat/arm64/MmsService.odex
+[ 88% 670/755] Install: out/target/product/gta3xlwifi/system/apex/com.android.appsearch.capex
+[ 88% 671/755] Install: out/target/product/gta3xlwifi/system/framework/oat/arm64/bu.vdex
+[ 89% 672/755] Install: out/target/product/gta3xlwifi/system/system_ext/app/Profiles/oat/arm64/Profiles.odex
+[ 89% 673/755] Install: out/target/product/gta3xlwifi/system/app/BasicDreams/oat/arm64/BasicDreams.odex
+[ 89% 674/755] Install: out/target/product/gta3xlwifi/system/framework/oat/arm64/com.android.mediadrm.signer.odex
+[ 89% 675/755] Install: out/target/product/gta3xlwifi/system/priv-app/TeleService/oat/arm64/TeleService.vdex
+[ 89% 676/755] Install: out/target/product/gta3xlwifi/system/app/ExtShared/oat/arm64/ExtShared.vdex
+[ 89% 677/755] Install: out/target/product/gta3xlwifi/system/app/webview/oat/arm64/webview.odex
+[ 89% 678/755] Install: out/target/product/gta3xlwifi/system/priv-app/ManagedProvisioning/oat/arm64/ManagedProvisioning.odex
+[ 89% 679/755] Install: out/target/product/gta3xlwifi/system/priv-app/SettingsProvider/oat/arm64/SettingsProvider.odex
+[ 90% 680/755] Install: out/target/product/gta3xlwifi/system/framework/oat/arm64/vr.vdex
+[ 90% 681/755] Install: out/target/product/gta3xlwifi/system/framework/oat/arm64/content.odex
+[ 90% 682/755] Install: out/target/product/gta3xlwifi/system/framework/oat/arm64/hid.vdex
+[ 90% 683/755] Install: out/target/product/gta3xlwifi/system/priv-app/Shell/oat/arm64/Shell.vdex
+[ 90% 684/755] Install: out/target/product/gta3xlwifi/system/priv-app/VpnDialogs/oat/arm64/VpnDialogs.odex
+[ 90% 685/755] Install: out/target/product/gta3xlwifi/system/priv-app/E2eeContactKeysProvider/oat/arm64/E2eeContactKeysProvider.vdex
+[ 90% 686/755] Install: out/target/product/gta3xlwifi/system/framework/oat/arm64/uiautomator.odex
+[ 90% 687/755] Install: out/target/product/gta3xlwifi/system/system_ext/priv-app/Launcher3QuickStep/oat/arm64/Launcher3QuickStep.vdex
+[ 91% 688/755] Install: out/target/product/gta3xlwifi/system/framework/oat/arm/uinput.vdex
+[ 91% 689/755] Install: out/target/product/gta3xlwifi/system/app/PrintSpooler/oat/arm64/PrintSpooler.vdex
+[ 91% 690/755] Install: out/target/product/gta3xlwifi/system/framework/oat/arm/com.android.media.remotedisplay.odex
+[ 91% 691/755] Install: out/target/product/gta3xlwifi/system/framework/oat/arm/sm.vdex
+[ 91% 692/755] Install: out/target/product/gta3xlwifi/system/priv-app/ContactsPicker/oat/arm64/ContactsPicker.odex
+[ 91% 693/755] Install: out/target/product/gta3xlwifi/system/system_ext/priv-app/Seedvault/oat/arm64/Seedvault.vdex
+[ 91% 694/755] Install: out/target/product/gta3xlwifi/system/app/CertInstaller/oat/arm64/CertInstaller.odex
+[ 92% 695/755] Install: out/target/product/gta3xlwifi/system/app/BluetoothMidiService/oat/arm64/BluetoothMidiService.vdex
+[ 92% 696/755] Install: out/target/product/gta3xlwifi/system/system_ext/app/WAPPushManager/oat/arm64/WAPPushManager.vdex
+[ 92% 697/755] Install: out/target/product/gta3xlwifi/system/app/BookmarkProvider/oat/arm64/BookmarkProvider.odex
+[ 92% 698/755] Install: out/target/product/gta3xlwifi/system/system_ext/priv-app/Launcher3QuickStep/oat/arm64/Launcher3QuickStep.odex
+[ 92% 699/755] //frameworks/base/cmds/svc:svc dexpreopt[common]
+[ 92% 700/755] //development/cmds/monkey:monkey dexpreopt[common]
+[ 92% 701/755] Install: out/target/product/gta3xlwifi/system/framework/oat/arm/svc.vdex
+[ 92% 702/755] Install: out/target/product/gta3xlwifi/system/framework/oat/arm64/svc.vdex
+[ 93% 703/755] Install: out/target/product/gta3xlwifi/system/framework/oat/arm64/monkey.vdex
+[ 93% 704/755] Install: out/target/product/gta3xlwifi/system/framework/oat/arm/monkey.vdex
+[ 93% 705/755] Install: out/target/product/gta3xlwifi/system/framework/oat/arm64/svc.odex
+[ 93% 706/755] Install: out/target/product/gta3xlwifi/system/framework/oat/arm/svc.odex
+[ 93% 707/755] Install: out/target/product/gta3xlwifi/system/framework/oat/arm64/monkey.odex
+[ 93% 708/755] Install: out/target/product/gta3xlwifi/system/framework/oat/arm/monkey.odex
+[ 93% 709/755] run apex_linkerconfig_validation
+[ 94% 710/755] run apex_sepolicy_tests
+[ 94% 711/755] //frameworks/base/packages/CredentialManager:CredentialManager dexpreopt[common]
+[ 94% 712/755] //lineage-sdk:org.lineageos.platform dexpreopt[common]
+[ 94% 713/755] Install: out/target/product/gta3xlwifi/system/priv-app/CredentialManager/oat/arm64/CredentialManager.odex
+[ 94% 714/755] Install: out/target/product/gta3xlwifi/system/priv-app/CredentialManager/oat/arm64/CredentialManager.art
+[ 94% 715/755] Install: out/target/product/gta3xlwifi/system/priv-app/CredentialManager/CredentialManager.apk.prof
+[ 94% 716/755] Install: out/target/product/gta3xlwifi/system/framework/oat/arm64/org.lineageos.platform.vdex
+[ 94% 717/755] Install: out/target/product/gta3xlwifi/system/framework/oat/arm64/org.lineageos.platform.odex
+[ 95% 718/755] Install: out/target/product/gta3xlwifi/system/priv-app/CredentialManager/oat/arm64/CredentialManager.vdex
+[ 95% 719/755] //packages/apps/Etar/app:Etar dexpreopt[common]
+[ 95% 720/755] run apex_linkerconfig_validation
+[ 95% 721/755] Install: out/target/product/gta3xlwifi/product/app/Etar/oat/arm64/Etar.vdex
+[ 95% 722/755] Install: out/target/product/gta3xlwifi/product/app/Etar/oat/arm64/Etar.odex
+[ 95% 723/755] //packages/apps/EmergencyInfo:EmergencyInfo dexpreopt[common]
+[ 95% 724/755] Creating linker config: out/target/product/gta3xlwifi/product/etc/linker.config.pb
+[ 96% 725/755] Install: out/target/product/gta3xlwifi/system/system_ext/priv-app/EmergencyInfo/oat/arm64/EmergencyInfo.odex
+[ 96% 726/755] Install: out/target/product/gta3xlwifi/system/system_ext/priv-app/EmergencyInfo/oat/arm64/EmergencyInfo.vdex
+[ 96% 727/755] //packages/apps/Settings:Settings dexpreopt[common]
+[ 96% 728/755] run host_apex_verifier
+[ 96% 729/755] Install: out/target/product/gta3xlwifi/system/system_ext/priv-app/Settings/oat/arm64/Settings.vdex
+[ 96% 730/755] Install: out/target/product/gta3xlwifi/system/system_ext/priv-app/Settings/oat/arm64/Settings.odex
+[ 96% 731/755] run apex_linkerconfig_validation
+[ 96% 732/755] run apex_sepolicy_tests
+[ 97% 733/755] run apex_linkerconfig_validation
+[ 97% 734/755] run apex_sepolicy_tests
+[ 97% 735/755] run apex_sepolicy_tests
+[ 97% 736/755] //frameworks/base/location/lib:com.android.location.provider.impl dexpreopt[common]
+[ 97% 737/755] Install: out/target/product/gta3xlwifi/system/framework/oat/arm/com.android.location.provider.vdex
+[ 97% 738/755] Install: out/target/product/gta3xlwifi/system/framework/oat/arm64/com.android.location.provider.odex
+[ 97% 739/755] Install: out/target/product/gta3xlwifi/system/framework/oat/arm64/com.android.location.provider.vdex
+[ 98% 740/755] Install: out/target/product/gta3xlwifi/system/framework/oat/arm/com.android.location.provider.odex
+[ 98% 741/755] run host_apex_verifier
+[ 98% 742/755] //packages/apps/ThemePicker:ThemePicker dexpreopt[common]
+[ 98% 743/755] Install: out/target/product/gta3xlwifi/system/system_ext/priv-app/ThemePicker/oat/arm64/ThemePicker.odex
+[ 98% 744/755] Install: out/target/product/gta3xlwifi/system/system_ext/priv-app/ThemePicker/oat/arm64/ThemePicker.vdex
+[ 98% 745/755] run host_apex_verifier
+[ 98% 746/755] run host_apex_verifier
+[ 98% 747/755] //frameworks/base/services:services dexpreopt[common]
+[ 99% 748/755] Install: out/target/product/gta3xlwifi/system/framework/services.jar.prof
+[ 99% 749/755] Install: out/target/product/gta3xlwifi/system/framework/oat/arm64/services.vdex
+[ 99% 750/755] Install: out/target/product/gta3xlwifi/system/framework/oat/arm64/services.art
+[ 99% 751/755] Install: out/target/product/gta3xlwifi/system/framework/oat/arm64/services.odex
+[ 99% 752/755] Creating linker config: out/target/product/gta3xlwifi/system/etc/linker.config.pb
+18:58:37 ninja may be stuck, check /srv/android/src/lineage-24.0-arm64/out/soong.log for list of running processes.
+[ 99% 753/755] Building target files: out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files.zip.list
+stderr:
+2026-11-17 18:56:02 - common.py - WARNING : Failed to read SYSTEM/etc/build.prop
+2026-11-17 18:56:02 - common.py - WARNING : Failed to read VENDOR/etc/build.prop
+2026-11-17 18:56:02 - common.py - WARNING : Failed to read VENDOR/build.prop
+2026-11-17 18:56:02 - common.py - WARNING : Failed to read build.prop for partition vendor
+2026-11-17 18:56:02 - common.py - WARNING : Failed to read SYSTEM_EXT/etc/build.prop
+2026-11-17 18:56:02 - common.py - WARNING : Failed to read SYSTEM_EXT/build.prop
+2026-11-17 18:56:02 - common.py - WARNING : Failed to read build.prop for partition system_ext
+2026-11-17 18:56:02 - common.py - WARNING : Failed to read ODM/etc/build.prop
+2026-11-17 18:56:02 - common.py - WARNING : Failed to read ODM/build.prop
+2026-11-17 18:56:02 - common.py - WARNING : Failed to read build.prop for partition odm
+2026-11-17 18:56:02 - common.py - WARNING : Failed to read VENDOR_DLKM/etc/build.prop
+2026-11-17 18:56:02 - common.py - WARNING : Failed to read VENDOR_DLKM/build.prop
+2026-11-17 18:56:02 - common.py - WARNING : Failed to read build.prop for partition vendor_dlkm
+2026-11-17 18:56:02 - common.py - WARNING : Failed to read ODM_DLKM/etc/build.prop
+2026-11-17 18:56:02 - common.py - WARNING : Failed to read ODM_DLKM/build.prop
+2026-11-17 18:56:02 - common.py - WARNING : Failed to read build.prop for partition odm_dlkm
+2026-11-17 18:56:02 - common.py - WARNING : Failed to read SYSTEM_DLKM/etc/build.prop
+2026-11-17 18:56:02 - common.py - WARNING : Failed to read SYSTEM_DLKM/build.prop
+2026-11-17 18:56:02 - common.py - WARNING : Failed to read build.prop for partition system_dlkm
+2026-11-17 18:56:02 - common.py - WARNING : Failed to read IMAGES/boot.img
+2026-11-17 18:56:02 - common.py - WARNING : Failed to read IMAGES/init_boot.img
+2026-11-17 18:56:02 - common.py - WARNING : Can't find META/ab_partitions.txt
+2026-11-17 18:56:05 - common.py - WARNING : Failed to read SYSTEM/etc/build.prop
+2026-11-17 18:56:05 - common.py - WARNING : Failed to read VENDOR/etc/build.prop
+2026-11-17 18:56:05 - common.py - WARNING : Failed to read VENDOR/build.prop
+2026-11-17 18:56:05 - common.py - WARNING : Failed to read build.prop for partition vendor
+2026-11-17 18:56:05 - common.py - WARNING : Failed to read SYSTEM_EXT/etc/build.prop
+2026-11-17 18:56:05 - common.py - WARNING : Failed to read SYSTEM_EXT/build.prop
+2026-11-17 18:56:05 - common.py - WARNING : Failed to read build.prop for partition system_ext
+2026-11-17 18:56:05 - common.py - WARNING : Failed to read ODM/etc/build.prop
+2026-11-17 18:56:05 - common.py - WARNING : Failed to read ODM/build.prop
+2026-11-17 18:56:05 - common.py - WARNING : Failed to read build.prop for partition odm
+2026-11-17 18:56:05 - common.py - WARNING : Failed to read VENDOR_DLKM/etc/build.prop
+2026-11-17 18:56:05 - common.py - WARNING : Failed to read VENDOR_DLKM/build.prop
+2026-11-17 18:56:05 - common.py - WARNING : Failed to read build.prop for partition vendor_dlkm
+2026-11-17 18:56:05 - common.py - WARNING : Failed to read ODM_DLKM/etc/build.prop
+2026-11-17 18:56:05 - common.py - WARNING : Failed to read ODM_DLKM/build.prop
+2026-11-17 18:56:05 - common.py - WARNING : Failed to read build.prop for partition odm_dlkm
+2026-11-17 18:56:05 - common.py - WARNING : Failed to read SYSTEM_DLKM/etc/build.prop
+2026-11-17 18:56:05 - common.py - WARNING : Failed to read SYSTEM_DLKM/build.prop
+2026-11-17 18:56:05 - common.py - WARNING : Failed to read build.prop for partition system_dlkm
+2026-11-17 18:56:05 - common.py - WARNING : Failed to read IMAGES/boot.img
+2026-11-17 18:56:05 - common.py - WARNING : Failed to read IMAGES/init_boot.img
+2026-11-17 18:56:05 - common.py - WARNING : Can't find META/ab_partitions.txt
+2026-11-17 18:56:05 - add_img_to_target_files.py - INFO    : 
+
+++++ boot  ++++
+
+
+2026-11-17 18:56:05 - common.py - INFO    : using prebuilt boot.img from BOOTABLE_IMAGES...
+2026-11-17 18:56:05 - add_img_to_target_files.py - INFO    : 
+
+++++ recovery  ++++
+
+
+2026-11-17 18:56:05 - common.py - INFO    : using prebuilt recovery.img from BOOTABLE_IMAGES...
+2026-11-17 18:56:05 - add_img_to_target_files.py - INFO    : 
+
+++++ recovery (two-step image)  ++++
+
+
+2026-11-17 18:56:05 - common.py - INFO    : building image from target_files RECOVERY...
+2026-11-17 18:56:05 - common.py - INFO    :   Running: "/srv/android/src/lineage-24.0-arm64/out/host/linux-x86/bin/mkbootfs -f /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/META/recovery_filesystem_config.txt /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/RECOVERY/RAMDISK"
+2026-11-17 18:56:05 - common.py - INFO    :   Running: "gzip"
+2026-11-17 18:56:07 - common.py - INFO    :   Running: "out/host/linux-x86/bin/mkbootimg --kernel /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/RECOVERY/kernel --cmdline androidboot.hardware=exynos7904 androidboot.selinux=enforcing --base 0x10000000 --pagesize 2048 --header_version 1 --kernel_offset 0x00008000 --ramdisk_offset 0x01000000 --tags_offset 0x00000100 --board SRPSA25A005RU --os_version 17 --os_patch_level 2026-10-01 --ramdisk /srv/android/src/lineage-24.0-arm64/out/soong/.temp/tmpokribf7v --output /srv/android/src/lineage-24.0-arm64/out/soong/.temp/tmp9_yl9xaf --recovery_dtbo /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/RECOVERY/recovery_dtbo"
+2026-11-17 18:56:09 - common.py - INFO    : 
+2026-11-17 18:56:09 - add_img_to_target_files.py - INFO    : 
+
+++++ system  ++++
+
+
+2026-11-17 18:56:09 - add_img_to_target_files.py - INFO    : creating system.img...
+2026-11-17 18:56:09 - add_img_to_target_files.py - INFO    : 
+
+++++ vendor  ++++
+
+
+2026-11-17 18:56:09 - add_img_to_target_files.py - INFO    : vendor.img already exists; no need to rebuild...
+2026-11-17 18:56:09 - add_img_to_target_files.py - INFO    : 
+
+++++ product  ++++
+
+
+2026-11-17 18:56:09 - add_img_to_target_files.py - INFO    : creating product.img...
+2026-11-17 18:56:09 - build_image.py - INFO    : Using fingerprint  for partition product
+2026-11-17 18:56:09 - common.py - INFO    :   Running: "/srv/android/src/lineage-24.0-arm64/out/host/linux-x86/bin/mkuserimg_mke2fs -s /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/PRODUCT /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/IMAGES/product.img ext4 product 327155712 -j 0 -T 1230768000 -C /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/META/product_filesystem_config.txt -L product -M 0 -U 453968ff-b43c-54b7-a506-a6a88682c128 -S 14597608-12ce-579d-8813-28dbbf688d99 --inode_size 256 /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/META/file_contexts.bin"
+2026-11-17 18:56:12 - build_image.py - INFO    : Using fingerprint  for partition /
+2026-11-17 18:56:12 - common.py - INFO    :   Running: "/srv/android/src/lineage-24.0-arm64/out/host/linux-x86/bin/mkuserimg_mke2fs -s /srv/android/src/lineage-24.0-arm64/out/soong/.temp/tmpvf_le9us /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/IMAGES/system.img ext4 / 3196059648 -j 0 -T 1230768000 -C /srv/android/src/lineage-24.0-arm64/out/soong/.temp/merged_fs_config0d7entvm.txt -L / -M 0 -U d392d8bb-6c67-58f7-b0b2-091ad46c5bc2 -S baea5dae-7c08-5576-9e9b-a8d3c3d94800 --inode_size 256 /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/META/file_contexts.bin"
+2026-11-17 18:56:15 - common.py - INFO    : 18:56:09 mkuserimg_mke2fs.py INFO: Env: {'MKE2FS_CONFIG': '/srv/android/src/lineage-24.0-arm64/out/soong/.temp/tmpfmea54m4', 'E2FSPROGS_FAKE_TIME': '1230768000'}
+18:56:09 mkuserimg_mke2fs.py INFO: Running: /srv/android/src/lineage-24.0-arm64/out/host/linux-x86/bin/mke2fs -O ^has_journal -L product -I 256 -M /product -m 0 -U 453968ff-b43c-54b7-a506-a6a88682c128 -E android_sparse,hash_seed=14597608-12ce-579d-8813-28dbbf688d99 -t ext4 -b 4096 /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/IMAGES/product.img 79872
+18:56:10 mkuserimg_mke2fs.py INFO: Env: {'E2FSPROGS_FAKE_TIME': '1230768000'}
+18:56:10 mkuserimg_mke2fs.py INFO: Running: /srv/android/src/lineage-24.0-arm64/out/host/linux-x86/bin/e2fsdroid -T 1230768000 -C /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/META/product_filesystem_config.txt -S /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/META/file_contexts.bin -f /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/PRODUCT -a /product /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/IMAGES/product.img
+mke2fs 1.47.2 (1-Jan-2025)
+Creating filesystem with 79872 4k blocks and 79872 inodes
+Filesystem UUID: 453968ff-b43c-54b7-a506-a6a88682c128
+Superblock backups stored on blocks: 
+	32768
+
+Allocating group tables: 0/3   done                            
+Writing inode tables: 0/3   done                            
+Writing superblocks and filesystem accounting information: 0/3   done
+
+
+loaded 532 fs_config entries
+Created filesystem with 542/79872 inodes and 49996/79872 blocks
+2026-11-17 18:56:15 - common.py - INFO    :   Running: "/srv/android/src/lineage-24.0-arm64/out/host/linux-x86/bin/simg2img /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/IMAGES/product.img /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/IMAGES/unsparse_product.img"
+2026-11-17 18:56:15 - common.py - INFO    : 
+2026-11-17 18:56:15 - common.py - INFO    :   Running: "/srv/android/src/lineage-24.0-arm64/out/host/linux-x86/bin/e2fsck -f -n /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/IMAGES/unsparse_product.img"
+2026-11-17 18:56:20 - common.py - INFO    : e2fsck 1.47.2 (1-Jan-2025)
+Pass 1: Checking inodes, blocks, and sizes
+Pass 2: Checking directory structure
+Pass 3: Checking directory connectivity
+Pass 4: Checking reference counts
+Pass 5: Checking group summary information
+product: 542/79872 files (0.4% non-contiguous), 49996/79872 blocks
+2026-11-17 18:56:20 - sparse_img.py - INFO    : Total of 79872 4096-byte output blocks in 9 input chunks.
+2026-11-17 18:57:33 - common.py - INFO    : 18:56:12 mkuserimg_mke2fs.py INFO: Env: {'MKE2FS_CONFIG': '/srv/android/src/lineage-24.0-arm64/out/soong/.temp/tmpjk8o6n0n', 'E2FSPROGS_FAKE_TIME': '1230768000'}
+18:56:12 mkuserimg_mke2fs.py INFO: Running: /srv/android/src/lineage-24.0-arm64/out/host/linux-x86/bin/mke2fs -O ^has_journal -L / -I 256 -M / -m 0 -U d392d8bb-6c67-58f7-b0b2-091ad46c5bc2 -E android_sparse,hash_seed=baea5dae-7c08-5576-9e9b-a8d3c3d94800 -t ext4 -b 4096 /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/IMAGES/system.img 780288
+18:56:14 mkuserimg_mke2fs.py INFO: Env: {'E2FSPROGS_FAKE_TIME': '1230768000'}
+18:56:14 mkuserimg_mke2fs.py INFO: Running: /srv/android/src/lineage-24.0-arm64/out/host/linux-x86/bin/e2fsdroid -T 1230768000 -C /srv/android/src/lineage-24.0-arm64/out/soong/.temp/merged_fs_config0d7entvm.txt -S /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/META/file_contexts.bin -f /srv/android/src/lineage-24.0-arm64/out/soong/.temp/tmpvf_le9us -a / /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/IMAGES/system.img
+mke2fs 1.47.2 (1-Jan-2025)
+Creating filesystem with 780288 4k blocks and 195072 inodes
+Filesystem UUID: d392d8bb-6c67-58f7-b0b2-091ad46c5bc2
+Superblock backups stored on blocks: 
+	32768, 98304, 163840, 229376, 294912
+
+Allocating group tables:  0/24     done                            
+Writing inode tables:  0/24     done                            
+Writing superblocks and filesystem accounting information:  0/24     done
+
+
+loaded 7020 fs_config entries
+Created filesystem with 7029/195072 inodes and 469448/780288 blocks
+2026-11-17 18:57:33 - common.py - INFO    :   Running: "/srv/android/src/lineage-24.0-arm64/out/host/linux-x86/bin/simg2img /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/IMAGES/system.img /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/IMAGES/unsparse_system.img"
+2026-11-17 18:57:35 - common.py - INFO    : 
+2026-11-17 18:57:35 - common.py - INFO    :   Running: "/srv/android/src/lineage-24.0-arm64/out/host/linux-x86/bin/e2fsck -f -n /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/IMAGES/unsparse_system.img"
+2026-11-17 18:58:25 - common.py - INFO    : e2fsck 1.47.2 (1-Jan-2025)
+Pass 1: Checking inodes, blocks, and sizes
+Pass 2: Checking directory structure
+Pass 3: Checking directory connectivity
+Pass 4: Checking reference counts
+Pass 5: Checking group summary information
+/: 7029/195072 files (0.3% non-contiguous), 469448/780288 blocks
+2026-11-17 18:58:25 - sparse_img.py - INFO    : Total of 780288 4096-byte output blocks in 48 input chunks.
+2026-11-17 18:58:25 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer info --print-type /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.adbd.capex"
+2026-11-17 18:58:26 - common.py - INFO    : COMPRESSED
+2026-11-17 18:58:26 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer decompress --input /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.adbd.capex --output /srv/android/src/lineage-24.0-arm64/out/soong/.temp/decompressed-2uxk7zq1.apex"
+2026-11-17 18:58:26 - common.py - INFO    : 
+2026-11-17 18:58:26 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer info --print-type /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.adservices.capex"
+2026-11-17 18:58:26 - common.py - INFO    : COMPRESSED
+2026-11-17 18:58:26 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer decompress --input /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.adservices.capex --output /srv/android/src/lineage-24.0-arm64/out/soong/.temp/decompressed-0vjo70i9.apex"
+2026-11-17 18:58:26 - common.py - INFO    : 
+2026-11-17 18:58:26 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer info --print-type /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.apex.cts.shim.apex"
+2026-11-17 18:58:26 - common.py - INFO    : UNCOMPRESSED
+2026-11-17 18:58:26 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer info --print-type /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.appsearch.capex"
+2026-11-17 18:58:26 - common.py - INFO    : COMPRESSED
+2026-11-17 18:58:26 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer decompress --input /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.appsearch.capex --output /srv/android/src/lineage-24.0-arm64/out/soong/.temp/decompressed-133znt1q.apex"
+2026-11-17 18:58:27 - common.py - INFO    : 
+2026-11-17 18:58:27 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer info --print-type /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.art.capex"
+2026-11-17 18:58:27 - common.py - INFO    : COMPRESSED
+2026-11-17 18:58:27 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer decompress --input /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.art.capex --output /srv/android/src/lineage-24.0-arm64/out/soong/.temp/decompressed-a92cetqr.apex"
+2026-11-17 18:58:27 - common.py - INFO    : 
+2026-11-17 18:58:27 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer info --print-type /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.bt.capex"
+2026-11-17 18:58:27 - common.py - INFO    : COMPRESSED
+2026-11-17 18:58:27 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer decompress --input /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.bt.capex --output /srv/android/src/lineage-24.0-arm64/out/soong/.temp/decompressed-wd37vmad.apex"
+2026-11-17 18:58:28 - common.py - INFO    : 
+2026-11-17 18:58:28 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer info --print-type /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.configinfrastructure.capex"
+2026-11-17 18:58:28 - common.py - INFO    : COMPRESSED
+2026-11-17 18:58:28 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer decompress --input /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.configinfrastructure.capex --output /srv/android/src/lineage-24.0-arm64/out/soong/.temp/decompressed-fgb6m8qk.apex"
+2026-11-17 18:58:28 - common.py - INFO    : 
+2026-11-17 18:58:28 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer info --print-type /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.conscrypt.capex"
+2026-11-17 18:58:28 - common.py - INFO    : COMPRESSED
+2026-11-17 18:58:28 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer decompress --input /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.conscrypt.capex --output /srv/android/src/lineage-24.0-arm64/out/soong/.temp/decompressed-6h_lbyii.apex"
+2026-11-17 18:58:28 - common.py - INFO    : 
+2026-11-17 18:58:28 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer info --print-type /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.crashrecovery.capex"
+2026-11-17 18:58:29 - common.py - INFO    : COMPRESSED
+2026-11-17 18:58:29 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer decompress --input /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.crashrecovery.capex --output /srv/android/src/lineage-24.0-arm64/out/soong/.temp/decompressed-p59hz1ql.apex"
+2026-11-17 18:58:29 - common.py - INFO    : 
+2026-11-17 18:58:29 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer info --print-type /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.devicelock.apex"
+2026-11-17 18:58:29 - common.py - INFO    : UNCOMPRESSED
+2026-11-17 18:58:29 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer info --print-type /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.extservices.capex"
+2026-11-17 18:58:29 - common.py - INFO    : COMPRESSED
+2026-11-17 18:58:29 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer decompress --input /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.extservices.capex --output /srv/android/src/lineage-24.0-arm64/out/soong/.temp/decompressed-bea2tf8f.apex"
+2026-11-17 18:58:29 - common.py - INFO    : 
+2026-11-17 18:58:29 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer info --print-type /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.healthfitness.apex"
+2026-11-17 18:58:29 - common.py - INFO    : UNCOMPRESSED
+2026-11-17 18:58:29 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer info --print-type /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.i18n.apex"
+2026-11-17 18:58:30 - common.py - INFO    : UNCOMPRESSED
+2026-11-17 18:58:30 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer info --print-type /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.ipsec.capex"
+2026-11-17 18:58:30 - common.py - INFO    : COMPRESSED
+2026-11-17 18:58:30 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer decompress --input /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.ipsec.capex --output /srv/android/src/lineage-24.0-arm64/out/soong/.temp/decompressed-p1i4lb7l.apex"
+2026-11-17 18:58:30 - common.py - INFO    : 
+2026-11-17 18:58:30 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer info --print-type /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.media.capex"
+2026-11-17 18:58:30 - common.py - INFO    : COMPRESSED
+2026-11-17 18:58:30 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer decompress --input /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.media.capex --output /srv/android/src/lineage-24.0-arm64/out/soong/.temp/decompressed-fqefocqx.apex"
+2026-11-17 18:58:30 - common.py - INFO    : 
+2026-11-17 18:58:30 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer info --print-type /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.media.swcodec.capex"
+2026-11-17 18:58:30 - common.py - INFO    : COMPRESSED
+2026-11-17 18:58:30 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer decompress --input /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.media.swcodec.capex --output /srv/android/src/lineage-24.0-arm64/out/soong/.temp/decompressed-ordy62n0.apex"
+2026-11-17 18:58:31 - common.py - INFO    : 
+2026-11-17 18:58:31 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer info --print-type /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.mediaprovider.capex"
+2026-11-17 18:58:31 - common.py - INFO    : COMPRESSED
+2026-11-17 18:58:31 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer decompress --input /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.mediaprovider.capex --output /srv/android/src/lineage-24.0-arm64/out/soong/.temp/decompressed-6er5t9sk.apex"
+2026-11-17 18:58:31 - common.py - INFO    : 
+2026-11-17 18:58:31 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer info --print-type /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.neuralnetworks.capex"
+2026-11-17 18:58:31 - common.py - INFO    : COMPRESSED
+2026-11-17 18:58:31 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer decompress --input /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.neuralnetworks.capex --output /srv/android/src/lineage-24.0-arm64/out/soong/.temp/decompressed-rms62u5z.apex"
+2026-11-17 18:58:31 - common.py - INFO    : 
+2026-11-17 18:58:31 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer info --print-type /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.nfcservices.capex"
+2026-11-17 18:58:32 - common.py - INFO    : COMPRESSED
+2026-11-17 18:58:32 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer decompress --input /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.nfcservices.capex --output /srv/android/src/lineage-24.0-arm64/out/soong/.temp/decompressed-38kfv_a_.apex"
+2026-11-17 18:58:32 - common.py - INFO    : 
+2026-11-17 18:58:32 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer info --print-type /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.npumanager.capex"
+2026-11-17 18:58:32 - common.py - INFO    : COMPRESSED
+2026-11-17 18:58:32 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer decompress --input /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.npumanager.capex --output /srv/android/src/lineage-24.0-arm64/out/soong/.temp/decompressed-ydc_4znf.apex"
+2026-11-17 18:58:32 - common.py - INFO    : 
+2026-11-17 18:58:32 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer info --print-type /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.ondevicepersonalization.capex"
+2026-11-17 18:58:32 - common.py - INFO    : COMPRESSED
+2026-11-17 18:58:32 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer decompress --input /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.ondevicepersonalization.capex --output /srv/android/src/lineage-24.0-arm64/out/soong/.temp/decompressed-4kpl3l8l.apex"
+2026-11-17 18:58:33 - common.py - INFO    : 
+2026-11-17 18:58:33 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer info --print-type /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.os.statsd.apex"
+2026-11-17 18:58:33 - common.py - INFO    : UNCOMPRESSED
+2026-11-17 18:58:33 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer info --print-type /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.permission.capex"
+2026-11-17 18:58:33 - common.py - INFO    : COMPRESSED
+2026-11-17 18:58:33 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer decompress --input /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.permission.capex --output /srv/android/src/lineage-24.0-arm64/out/soong/.temp/decompressed-82k6d_4f.apex"
+2026-11-17 18:58:33 - common.py - INFO    : 
+2026-11-17 18:58:33 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer info --print-type /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.profiling.capex"
+2026-11-17 18:58:33 - common.py - INFO    : COMPRESSED
+2026-11-17 18:58:33 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer decompress --input /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.profiling.capex --output /srv/android/src/lineage-24.0-arm64/out/soong/.temp/decompressed-qnf6i3z0.apex"
+2026-11-17 18:58:33 - common.py - INFO    : 
+2026-11-17 18:58:33 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer info --print-type /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.resolv.capex"
+2026-11-17 18:58:34 - common.py - INFO    : COMPRESSED
+2026-11-17 18:58:34 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer decompress --input /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.resolv.capex --output /srv/android/src/lineage-24.0-arm64/out/soong/.temp/decompressed-_c_7h96t.apex"
+2026-11-17 18:58:34 - common.py - INFO    : 
+2026-11-17 18:58:34 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer info --print-type /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.rkpd.apex"
+2026-11-17 18:58:34 - common.py - INFO    : UNCOMPRESSED
+2026-11-17 18:58:34 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer info --print-type /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.runtime.apex"
+2026-11-17 18:58:34 - common.py - INFO    : UNCOMPRESSED
+2026-11-17 18:58:34 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer info --print-type /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.scheduling.capex"
+2026-11-17 18:58:34 - common.py - INFO    : COMPRESSED
+2026-11-17 18:58:34 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer decompress --input /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.scheduling.capex --output /srv/android/src/lineage-24.0-arm64/out/soong/.temp/decompressed-pd5ba8rh.apex"
+2026-11-17 18:58:34 - common.py - INFO    : 
+2026-11-17 18:58:34 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer info --print-type /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.sdkext.apex"
+2026-11-17 18:58:34 - common.py - INFO    : UNCOMPRESSED
+2026-11-17 18:58:34 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer info --print-type /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.telephonycore.capex"
+2026-11-17 18:58:35 - common.py - INFO    : COMPRESSED
+2026-11-17 18:58:35 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer decompress --input /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.telephonycore.capex --output /srv/android/src/lineage-24.0-arm64/out/soong/.temp/decompressed-zwxf9z0x.apex"
+2026-11-17 18:58:35 - common.py - INFO    : 
+2026-11-17 18:58:35 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer info --print-type /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.tethering.capex"
+2026-11-17 18:58:35 - common.py - INFO    : COMPRESSED
+2026-11-17 18:58:35 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer decompress --input /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.tethering.capex --output /srv/android/src/lineage-24.0-arm64/out/soong/.temp/decompressed-kiz9f0je.apex"
+2026-11-17 18:58:35 - common.py - INFO    : 
+2026-11-17 18:58:35 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer info --print-type /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.tzdata.apex"
+2026-11-17 18:58:35 - common.py - INFO    : UNCOMPRESSED
+2026-11-17 18:58:35 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer info --print-type /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.uprobestats.capex"
+2026-11-17 18:58:36 - common.py - INFO    : COMPRESSED
+2026-11-17 18:58:36 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer decompress --input /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.uprobestats.capex --output /srv/android/src/lineage-24.0-arm64/out/soong/.temp/decompressed-eac2thq_.apex"
+2026-11-17 18:58:36 - common.py - INFO    : 
+2026-11-17 18:58:36 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer info --print-type /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.uwb.capex"
+2026-11-17 18:58:36 - common.py - INFO    : COMPRESSED
+2026-11-17 18:58:36 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer decompress --input /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.uwb.capex --output /srv/android/src/lineage-24.0-arm64/out/soong/.temp/decompressed-l52pyx0c.apex"
+2026-11-17 18:58:36 - common.py - INFO    : 
+2026-11-17 18:58:36 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer info --print-type /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.virt.apex"
+2026-11-17 18:58:36 - common.py - INFO    : UNCOMPRESSED
+2026-11-17 18:58:36 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer info --print-type /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.webapp.capex"
+2026-11-17 18:58:36 - common.py - INFO    : COMPRESSED
+2026-11-17 18:58:36 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer decompress --input /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.webapp.capex --output /srv/android/src/lineage-24.0-arm64/out/soong/.temp/decompressed-bf94ht4t.apex"
+2026-11-17 18:58:37 - common.py - INFO    : 
+2026-11-17 18:58:37 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer info --print-type /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.wifi.capex"
+2026-11-17 18:58:37 - common.py - INFO    : COMPRESSED
+2026-11-17 18:58:37 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer decompress --input /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.wifi.capex --output /srv/android/src/lineage-24.0-arm64/out/soong/.temp/decompressed-xpudnc0l.apex"
+2026-11-17 18:58:37 - common.py - INFO    : 
+2026-11-17 18:58:37 - apex_utils.py - INFO    : No APEX directory at path: /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM_EXT/apex
+2026-11-17 18:58:37 - apex_utils.py - INFO    : No APEX directory at path: /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/PRODUCT/apex
+2026-11-17 18:58:37 - apex_utils.py - INFO    : No APEX directory at path: /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/VENDOR/apex
+2026-11-17 18:58:37 - apex_utils.py - INFO    : No APEX directory at path: /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/ODM/apex
+2026-11-17 18:58:37 - add_img_to_target_files.py - INFO    : 
+
+++++ userdata  ++++
+
+
+2026-11-17 18:58:37 - add_img_to_target_files.py - INFO    : 
+
+++++ cache  ++++
+
+
+2026-11-17 18:58:37 - add_img_to_target_files.py - INFO    : creating cache.img...
+2026-11-17 18:58:37 - build_image.py - INFO    : Using fingerprint  for partition cache
+2026-11-17 18:58:37 - common.py - INFO    :   Running: "/srv/android/src/lineage-24.0-arm64/out/host/linux-x86/bin/mkuserimg_mke2fs -s /srv/android/src/lineage-24.0-arm64/out/soong/.temp/tmpvlmt8uwf /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/IMAGES/cache.img ext4 cache 159383552 -T 1230768000 -L cache -U 22b74bf8-ed3e-5458-bc6a-53779012d742 -S 6b67350b-020f-5fa7-bb3d-2c2a2fcdec10 --inode_size 256 /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/META/file_contexts.bin"
+2026-11-17 18:58:37 - common.py - INFO    : 18:58:37 mkuserimg_mke2fs.py INFO: Env: {'MKE2FS_CONFIG': '/srv/android/src/lineage-24.0-arm64/out/soong/.temp/tmpn51_p919', 'E2FSPROGS_FAKE_TIME': '1230768000'}
+18:58:37 mkuserimg_mke2fs.py INFO: Running: /srv/android/src/lineage-24.0-arm64/out/host/linux-x86/bin/mke2fs -L cache -I 256 -M /cache -U 22b74bf8-ed3e-5458-bc6a-53779012d742 -E android_sparse,hash_seed=6b67350b-020f-5fa7-bb3d-2c2a2fcdec10 -t ext4 -b 4096 /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/IMAGES/cache.img 38912
+18:58:37 mkuserimg_mke2fs.py INFO: Env: {'E2FSPROGS_FAKE_TIME': '1230768000'}
+18:58:37 mkuserimg_mke2fs.py INFO: Running: /srv/android/src/lineage-24.0-arm64/out/host/linux-x86/bin/e2fsdroid -T 1230768000 -S /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/META/file_contexts.bin -f /srv/android/src/lineage-24.0-arm64/out/soong/.temp/tmpvlmt8uwf -a /cache /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/IMAGES/cache.img
+mke2fs 1.47.2 (1-Jan-2025)
+Creating filesystem with 38912 4k blocks and 38912 inodes
+Filesystem UUID: 22b74bf8-ed3e-5458-bc6a-53779012d742
+Superblock backups stored on blocks: 
+	32768
+
+Allocating group tables: 0/2   done                            
+Writing inode tables: 0/2   done                            
+Creating journal (4096 blocks): done
+Writing superblocks and filesystem accounting information: 0/2   done
+
+
+Created filesystem with 11/38912 inodes and 6541/38912 blocks
+2026-11-17 18:58:37 - common.py - INFO    :   Running: "/srv/android/src/lineage-24.0-arm64/out/host/linux-x86/bin/simg2img /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/IMAGES/cache.img /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/IMAGES/unsparse_cache.img"
+2026-11-17 18:58:37 - common.py - INFO    : 
+2026-11-17 18:58:37 - common.py - INFO    :   Running: "/srv/android/src/lineage-24.0-arm64/out/host/linux-x86/bin/e2fsck -f -n /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/IMAGES/unsparse_cache.img"
+2026-11-17 18:58:37 - common.py - INFO    : e2fsck 1.47.2 (1-Jan-2025)
+Pass 1: Checking inodes, blocks, and sizes
+Pass 2: Checking directory structure
+Pass 3: Checking directory connectivity
+Pass 4: Checking reference counts
+Pass 5: Checking group summary information
+cache: 11/38912 files (0.0% non-contiguous), 6541/38912 blocks
+2026-11-17 18:58:37 - sparse_img.py - INFO    : Total of 38912 4096-byte output blocks in 6 input chunks.
+2026-11-17 18:58:37 - common.py - INFO    :   cache size (155) is 0.00% of limit (159383552)
+2026-11-17 18:58:37 - add_img_to_target_files.py - INFO    : 
+
+++++ dtbo  ++++
+
+
+2026-11-17 18:58:37 - add_img_to_target_files.py - INFO    : 
+
+++++ radio  ++++
+
+
+2026-11-17 18:58:37 - add_img_to_target_files.py - INFO    : done. added image to target files out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files
+[ 99% 754/755] Packaging target files: out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files.zip
+ninja: 10m46.85s Build Succeeded: 716 steps - 1.11/s
+
+
+#### build completed successfully (14:42 (mm:ss)) ####
+
+PASS: 1243 locked projects, 22 exact reviewed patches; no external alternates

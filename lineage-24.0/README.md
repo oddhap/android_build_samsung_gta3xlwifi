@@ -4,19 +4,25 @@ Active development target: LineageOS 24.0 / Android 17, ARM64 with ARM32 apps,
 `gta3xlwifi`, physical non-A/B partitions. This is an unfinished source-built
 device port. The first physical test installation has completed; its first Android17 boot failed and is being repaired.
 
-**Snapshot22 full build is running after the next physical diagnosis.**
+**Snapshot22 full build and all package checks pass.** Complete1,243-project /
+22-patch before/after audits, product checks including actual constructor
+bytecode and service JAR extracted from the real CAPEX payload, fresh contexts,
+39-APEX VINTF, CMS/signature/CRC and all three OTA block streams pass. The archive
+is1,041,046,682 bytes, SHA256
+`373327541ed3f44ac86e4768b771a47e099fa597d12b64ec28784aec3390a2d0`.
+Physical preflight, installation/readbacks and normal boot remain pending.
+
 Snapshot21 is installed/read back and fixes CLAT JNI registration and optional
-aconfig container handling: netstats starts and real post-fs flag initialization
-exits0. It then aborts constructing the BPF-only local-network note-op listener.
-Snapshot22 confines that listener to its supported backend. Current upstream
-packet code produces these observations only on kernel >=5.10; this kernel4.4
-legacy backend has no such observation stream. Local-network permission flags
-and the existing real enforcement implementation stay unchanged. No fake FD,
-event or BPF readiness is supplied. Local-network note-op observation is explicitly
-unavailable, a known limitation. Sixteen actual constructor-selection cases and64
-AOSP packet reporting/enforcement control-flow cases pass. One Java source file
-changes; full1,243-project/22-patch audits pass. The device is back in preserved
-TWRP. Normal boot, real networking and complete CE/FBE remain unverified.
+aconfig container handling: netstats starts and genuine post-fs flag init exits0.
+It then aborts constructing the BPF-only local-network note-op observer.
+Snapshot22 confines that observer to its supported backend. Current upstream
+packet code produces these observations only on kernel >=5.10; kernel4.4's
+legacy backend has no such stream. Permission flags and real enforcement
+implementation stay unchanged; no fake FD, event or BPF readiness is supplied.
+Local-network note-op observation is explicitly unavailable, a known limitation.
+Sixteen actual constructor-selection cases and64 AOSP packet control-flow cases
+pass. The device is in preserved TWRP. Normal boot, actual networking and complete
+CE/FBE are still unverified.
 
 **Snapshot21 passes the full build and all package checks; physical installation
 is in progress.** All1,243 projects /22 exact patches match before and after the
