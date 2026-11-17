@@ -21,10 +21,14 @@ with zipfile.ZipFile(a.archive) as z,zipfile.ZipFile(oldroot) as old:
  # APEX output is built by the target-files dependency graph; verify that the
  # packaged APEX is byte-identical to the installed APEX containing this JNI.
  apex=prod/'system/apex/com.android.tethering.capex';assert hashlib.sha256(z.read('SYSTEM/apex/com.android.tethering.capex')).hexdigest()==sha(apex)
- for name in ['SYSTEM/bin/aconfigd-system']:
+ for name in ['SYSTEM/bin/aconfigd-system','SYSTEM/lib64/libaconfigd_rust.dylib.so']:
   if name not in z.namelist():continue
   data=z.read(name);h=hashlib.sha256(data).hexdigest()
-  path=prod/'system/bin'/Path(name).name;assert h==sha(path) and h!=hashlib.sha256(old.read(name)).hexdigest();files[name]=h
+  path=prod/'system'/name[len('SYSTEM/'):];assert h==sha(path)
+  previous=hashlib.sha256(old.read(name)).hexdigest()
+  if name.endswith('libaconfigd_rust.dylib.so'):assert h!=previous
+  else:assert h==previous  # implementation is in the dynamically linked library
+  files[name]=h
  assert 'SYSTEM/bin/aconfigd-system' in files
  with tempfile.TemporaryDirectory(prefix='clat-apex-',dir=a.output.parent) as td:
   tmp=Path(td)
@@ -35,12 +39,14 @@ with zipfile.ZipFile(a.archive) as z,zipfile.ZipFile(oldroot) as old:
   result=subprocess.run([str(tool),'-R','dump /lib64/libservice-connectivity.so '+str(dest),str(image)],capture_output=True,text=True,check=True)
   assert dest.exists() and sha(dest)==sha(jni),(result.stdout,result.stderr)
 
-for f in [jni,daemon]:
+for f in [jni,daemon,prod/'system/lib64/libaconfigd_rust.dylib.so']:
  data=f.read_bytes();assert data.startswith(b'\x7fELF\x02\x01\x01')
+needed=subprocess.run(['readelf','-d',str(daemon)],capture_output=True,text=True,check=True).stdout
+assert 'Shared library: [libaconfigd_rust.dylib.so]' in needed
 assert b'ro.gta3xlwifi.legacy_networking' in jni.read_bytes()
 files['APEX/lib64/libservice-connectivity.so']=sha(jni)
 assert 'clatd' in '\n'.join(p.name for p in (prod/'apex/com.android.tethering/bin/for-system').iterdir())
 # Compare known failing physical BuildId, without publishing the private tombstone.
 elf=subprocess.run(['readelf','-n',str(jni)],capture_output=True,text=True,check=True).stdout
 assert '47de4be5bebe3135b31ddaef31404de2' not in elf and 'Build ID:' in elf
-a.output.write_text(json.dumps(dict(passed=True,scope=__doc__,archive_sha256=g['archive_sha256'],actual_files_sha256=files,host_report_sha256=sha(proof),existing_Java_userspace_CLAT_regression_sha256=sha(oldjava),userspace_CLAT_source_sha256=sha(java),backend_owner_source_sha256=sha(owner),new_JNI_ELF_notes=elf.strip(),BPF_readiness_synthesized=False,hardware_boot_or_network_proven=False,flash_ready=False),indent=2)+'\n');print('PASS rebuilt JNI/flag daemon, genuine userspace selection and unchanged Java CLAT regression binding')
+a.output.write_text(json.dumps(dict(passed=True,scope=__doc__,archive_sha256=g['archive_sha256'],actual_files_sha256=files,host_report_sha256=sha(proof),existing_Java_userspace_CLAT_regression_sha256=sha(oldjava),userspace_CLAT_source_sha256=sha(java),backend_owner_source_sha256=sha(owner),new_JNI_ELF_notes=elf.strip(),daemon_uses_rebuilt_shared_Rust_library=True,BPF_readiness_synthesized=False,hardware_boot_or_network_proven=False,flash_ready=False),indent=2)+'\n');print('PASS rebuilt JNI/flag daemon, genuine userspace selection and unchanged Java CLAT regression binding')

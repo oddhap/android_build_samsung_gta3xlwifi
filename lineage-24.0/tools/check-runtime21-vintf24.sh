@@ -13,7 +13,7 @@ O=$A/$label
 mkdir "$O"
 exec >"$L/$label.log" 2>&1
 trap 'rc=$?; printf "%s\n" "$rc" >"$L/$label.exit"; exit "$rc"' EXIT
-hash=$(python3 - "$A/runtime21-product-checks-20261117-01/geometry-policy.json" <<'PY'
+hash=$(python3 - "$A/runtime21-product-checks-20261117-02/geometry-policy.json" <<'PY'
 import json,sys
 r=json.load(open(sys.argv[1]));assert r['artifact_checks_passed'];print(r['archive_sha256'])
 PY

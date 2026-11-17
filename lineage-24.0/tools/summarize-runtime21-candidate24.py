@@ -10,19 +10,19 @@ def sha(p):
  with p.open('rb') as f:
   for b in iter(lambda:f.read(1024*1024),b''):h.update(b)
  return h.hexdigest()
-paths={'geometry':A/'runtime21-product-checks-20261117-01/geometry-policy.json','hooks':A/'runtime21-product-checks-20261117-01/hooks/report.json','ext4':A/'runtime21-product-checks-20261117-01/ext4/report.json','strict':A/'legacy-shm-policy-strict-20261117-01/strict/report.json','assertions':A/'legacy-shm-policy-strict-20261117-01/assertions.json','vendor':A/'legacy-shm-vendor-composition-20261117-01/report.json','container':A/'runtime21-ota-container-20261117-01/report.json','blocks':A/'runtime21-ota-blocks-20261117-01/report.json','vintf':A/'runtime21-vintf-20261117-01/vintf/report.json'}
-paths['firststage']=A/'runtime21-product-checks-20261117-01/firststage.json'
-paths['cpuacct-root']=A/'runtime21-product-checks-20261117-01/cpuacct-root.json'
-paths['vold-metadata']=A/'runtime21-product-checks-20261117-01/vold-metadata.json'
-paths['bpf-version']=A/'runtime21-product-checks-20261117-01/bpf-version.json'
-paths['netd-oneshot']=A/'runtime21-product-checks-20261117-01/netd-oneshot.json'
-paths['netd-first-guards']=A/'runtime21-product-checks-20261117-01/netd-first-guards.json'
-paths['legacy-gralloc']=A/'runtime21-product-checks-20261117-01/legacy-gralloc.json'
-paths['ion']=A/'runtime21-product-checks-20261117-01/ion.json'
-paths['early-adb']=A/'runtime21-product-checks-20261117-01/early-adb.json'
-paths['aconfig-cache']=A/'runtime21-product-checks-20261117-01/aconfig-cache.json'
-paths['fresh-contexts']=A/'runtime21-product-checks-20261117-01/contexts/report.json'
-paths['clat-bootstrap']=A/'runtime21-product-checks-20261117-01/clat-bootstrap.json'
+paths={'geometry':A/'runtime21-product-checks-20261117-02/geometry-policy.json','hooks':A/'runtime21-product-checks-20261117-02/hooks/report.json','ext4':A/'runtime21-product-checks-20261117-02/ext4/report.json','strict':A/'legacy-shm-policy-strict-20261117-01/strict/report.json','assertions':A/'legacy-shm-policy-strict-20261117-01/assertions.json','vendor':A/'legacy-shm-vendor-composition-20261117-01/report.json','container':A/'runtime21-ota-container-20261117-01/report.json','blocks':A/'runtime21-ota-blocks-20261117-01/report.json','vintf':A/'runtime21-vintf-20261117-01/vintf/report.json'}
+paths['firststage']=A/'runtime21-product-checks-20261117-02/firststage.json'
+paths['cpuacct-root']=A/'runtime21-product-checks-20261117-02/cpuacct-root.json'
+paths['vold-metadata']=A/'runtime21-product-checks-20261117-02/vold-metadata.json'
+paths['bpf-version']=A/'runtime21-product-checks-20261117-02/bpf-version.json'
+paths['netd-oneshot']=A/'runtime21-product-checks-20261117-02/netd-oneshot.json'
+paths['netd-first-guards']=A/'runtime21-product-checks-20261117-02/netd-first-guards.json'
+paths['legacy-gralloc']=A/'runtime21-product-checks-20261117-02/legacy-gralloc.json'
+paths['ion']=A/'runtime21-product-checks-20261117-02/ion.json'
+paths['early-adb']=A/'runtime21-product-checks-20261117-02/early-adb.json'
+paths['aconfig-cache']=A/'runtime21-product-checks-20261117-02/aconfig-cache.json'
+paths['fresh-contexts']=A/'runtime21-product-checks-20261117-02/contexts/report.json'
+paths['clat-bootstrap']=A/'runtime21-product-checks-20261117-02/clat-bootstrap.json'
 r={k:json.loads(p.read_text()) for k,p in paths.items()}
 assert r['clat-bootstrap']['passed']
 assert r['aconfig-cache']['passed'] and r['fresh-contexts']['passed']
@@ -35,7 +35,7 @@ assert r['bpf-version']['passed']
 assert r['vold-metadata']['passed']
 assert r['cpuacct-root']['passed']
 assert r['firststage']['passed']
-for name in ['runtime21-product-build-20261117-01','runtime21-product-checks-20261117-01','ota-tools-build-20261116-01','runtime21-ota-build-20261117-01','runtime21-vintf-20261117-01']:
+for name in ['runtime21-product-build-20261117-01','runtime21-product-checks-20261117-02','ota-tools-build-20261116-01','runtime21-ota-build-20261117-01','runtime21-vintf-20261117-01']:
  assert (L/(name+'.exit')).read_text().strip()=='0'
 for k in ['hooks','ext4','assertions','vendor','container','blocks']:assert r[k]['passed']
 assert r['geometry']['artifact_checks_passed'] and r['strict']['passed_strict'] and not r['strict']['explicit_input_overrides']
