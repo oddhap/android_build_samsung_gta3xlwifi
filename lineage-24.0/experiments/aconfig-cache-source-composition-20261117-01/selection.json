@@ -1,0 +1,44 @@
+{
+  "files": {
+    "device/samsung/gta3xlwifi/BoardConfig.mk": {
+      "before": "ed0c70917b8032e348aa0469b0d0b7c23d1674a219063c4ba03b24b675703442",
+      "after": "ece7f0815d05ebdffb2833251ba439cd2a64323685c689b4f764c822203ff29b"
+    },
+    "device/samsung/gta3xlwifi/rootdir/init.exynos7904.rc": {
+      "before": "17b56bafc0d86e86f70f1db8dac3a06faa583296092b06d4f62c234bbf71c1ca",
+      "after": "5e20ec86b99787f6b043848640ea51d22f0f59f446f744cdbf054308a4505106"
+    },
+    "device/samsung/gta3xlwifi/sepolicy/private/file_contexts": {
+      "before": "b81dd4524714b6d86b356771ec5fb26cb4b0c8769b6b563ee3b39ca88c801e7d",
+      "after": "736531da797aa37586cc7b82eabcb80d000b2c5437a7a7c558e4e8f1c31704f7"
+    }
+  },
+  "scope": "Provide genuine metadata storage from a dedicated existing cache directory.\nThe vendor mounts cache on fs. Root hardware-init is imported before service rc\nfiles, so its post-fs bind precedes aconfigd's supported post-fs retry. Existing\ncache contents and userdata remain intact; flag values/services stay unchanged.\n",
+  "canonical_metadata_contexts_sha256": "2288d333f5a7a4c8ff20f348c2ab78626c4b819b8d547ce118ef5f0dbec9b77a",
+  "canonical_metadata_rules": [
+    "/metadata(/.*)?           u:object_r:metadata_file:s0",
+    "/metadata/apex(/.*)?      u:object_r:apex_metadata_file:s0",
+    "/metadata/vold(/.*)?      u:object_r:vold_metadata_file:s0",
+    "/metadata/gsi(/.*)?       u:object_r:gsi_metadata_file:s0",
+    "/metadata/gsi/dsu/active  u:object_r:gsi_public_metadata_file:s0",
+    "/metadata/gsi/dsu/booted  u:object_r:gsi_public_metadata_file:s0",
+    "/metadata/gsi/dsu/lp_names  u:object_r:gsi_public_metadata_file:s0",
+    "/metadata/gsi/dsu/[^/]+/metadata_encryption_dir u:object_r:gsi_public_metadata_file:s0",
+    "/metadata/gsi/ota(/.*)?   u:object_r:ota_metadata_file:s0",
+    "/metadata/password_slots(/.*)?    u:object_r:password_slot_metadata_file:s0",
+    "/metadata/ota(/.*)?       u:object_r:ota_metadata_file:s0",
+    "/metadata/bootstat(/.*)?  u:object_r:metadata_bootstat_file:s0",
+    "/metadata/staged-install(/.*)?    u:object_r:staged_install_file:s0",
+    "/metadata/watchdog(/.*)?    u:object_r:watchdog_metadata_file:s0",
+    "/metadata/repair-mode(/.*)?    u:object_r:repair_mode_metadata_file:s0",
+    "/metadata/aconfig(/.*)?    u:object_r:aconfig_storage_metadata_file:s0",
+    "/metadata/aconfig/flags(/.*)?    u:object_r:aconfig_storage_flags_metadata_file:s0",
+    "/metadata/tradeinmode(/.*)?    u:object_r:tradeinmode_metadata_file:s0",
+    "/metadata/prefetch(/.*)?    u:object_r:prefetch_metadata_file:s0",
+    "/metadata/libprocessgroup(/.*)?    u:object_r:libprocessgroup_metadata_file:s0"
+  ],
+  "compiled_policy_rules_changed": false,
+  "flag_values_or_services_disabled": false,
+  "partition_layout_changed": false,
+  "cache_formatted": false
+}

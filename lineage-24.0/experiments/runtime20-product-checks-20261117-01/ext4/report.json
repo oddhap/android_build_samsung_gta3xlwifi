@@ -1,0 +1,55 @@
+{
+  "passed": true,
+  "scope": "Check actual packaged ext4 feature bits against the selected Samsung kernel.\n\nUses the source-bound AOSP sparse parser. Read-only partitions may contain\nunknown ro-compat bits, as the kernel permits; cache must be writable. Does not\nprove live mounts, encryption, filesystem contents or Android execution.\n",
+  "archive_sha256": "73729d82484e349934cf23399761bfcaaaf473cb848e33755af316d2f634458c",
+  "kernel_ext4_header_sha256": "d7ff82a2a6835dfbbb794a4c2bbcef09eff1ad641703d0f4de09f782618bbe67",
+  "source_sparse_parser_sha256": "af34daf2114e78f6946fc477e013f0ce89239e0a64d66f515e114cb259556c25",
+  "kernel_supported_masks": {
+    "INCOMPAT": "0x1a3d6",
+    "RO_COMPAT": "0x77f"
+  },
+  "images": {
+    "system.img": {
+      "image_sha256": "8800d0533190d807c83c63cc142f59779e452194625507e706a05bc26bb17b9f",
+      "compat": "0x28",
+      "incompat": "0x42",
+      "ro_compat": "0x7b",
+      "unknown_incompat": "0x0",
+      "unknown_ro_compat": "0x0",
+      "expected_readonly": true,
+      "superblock_sha256": "ae76698a3f824daa4696400acb669b1a3b082a8e90be51261355f46c71131a12"
+    },
+    "product.img": {
+      "image_sha256": "16457e5c118c2c4921a74ffb8c03183a6dcbce488e7ff5de432fa5846a2f6ac5",
+      "compat": "0x28",
+      "incompat": "0x42",
+      "ro_compat": "0x7b",
+      "unknown_incompat": "0x0",
+      "unknown_ro_compat": "0x0",
+      "expected_readonly": true,
+      "superblock_sha256": "6d138f2a0cd6522227c0a5e7b44cfe84eefb51ceeefca027ca10256ccca0cc68"
+    },
+    "vendor.img": {
+      "image_sha256": "1ef561b7f4699f7480dbb93b128f1dcd1cf2fa01dd9bccebb37b4f0df74bebd4",
+      "compat": "0x28",
+      "incompat": "0x242",
+      "ro_compat": "0x7b",
+      "unknown_incompat": "0x0",
+      "unknown_ro_compat": "0x0",
+      "expected_readonly": true,
+      "superblock_sha256": "c9236e3897b6d8a0ab7a1cc38def8de10c31c38dd359b3a51a2e034d352db124"
+    },
+    "cache.img": {
+      "image_sha256": "706b1d26bc8150fdbe17c3c6305823a6baef0eb66bcd1cc31a2171bc0fc152a6",
+      "compat": "0x2c",
+      "incompat": "0x42",
+      "ro_compat": "0x7b",
+      "unknown_incompat": "0x0",
+      "unknown_ro_compat": "0x0",
+      "expected_readonly": false,
+      "superblock_sha256": "ea4c50458ac1fee24380bbf1b0c79319f4e89f4cff3b05d3ed2804f05f68fac4"
+    }
+  },
+  "hardware_tested": false,
+  "flash_ready": false
+}

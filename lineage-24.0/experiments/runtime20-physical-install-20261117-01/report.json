@@ -1,0 +1,88 @@
+{
+  "passed": true,
+  "scope": "Owner-authorized snapshot20 installation and physical readbacks only; normal boot and actual metadata backend remain pending. Raw device evidence stays private.",
+  "source_snapshot": "port-20261117-20",
+  "ota_sha256": "d5ec56af9a4ee2c12bfb7995fdd93f3709bfd73d6dabb155c71cc86026614810",
+  "ota_bytes": 1041038809,
+  "host_sideload_exit": 0,
+  "updater_exit": 0,
+  "physical_prewrite_guards_passed": true,
+  "boot_prefix_sha256": "6027da30a0696db4c946c9984e39491b7ee30d61b83577ccd001b58db0f3d13f",
+  "vendor_entire_partition_sha256": "a64acb1a8d764bfca74287e4002321b9438f38e8242c30a05aae57249e705fea",
+  "recovery_entire_partition_sha256": "053125e1716778c78b03108dd34457a2d390167dea117774c7cdd5cdea1a5a12",
+  "physical_files": {
+    "SYSTEM/lib64/libui.so": {
+      "sha256": "4460b5bedf5e8bd9ed32ae8ef3ab1296a6bfd8c93f8ae67f26785f31a01baeab",
+      "bytes": 432424
+    },
+    "SYSTEM/lib/libui.so": {
+      "sha256": "3e56134922169b0e7faec591115be8c98ca5af3d91ede4fb88c799ed74771095",
+      "bytes": 312488
+    },
+    "SYSTEM/lib64/libmemevents.so": {
+      "sha256": "8b4f4227663bf1629609eee89f2e473a0e64369578808df7be5607b8dee3dd46",
+      "bytes": 44448
+    },
+    "SYSTEM/lib/libmemevents.so": {
+      "sha256": "8b8c43425fe5ae85c8c9e6e8fe785e68c04160e3ee4d747cac48e52ba14dab00",
+      "bytes": 29344
+    },
+    "SYSTEM/bin/lmkd": {
+      "sha256": "852fd2473382a8f00245ea25e179e800ac0578c952c116e275eaf7e99c0183b0",
+      "bytes": 99800
+    },
+    "SYSTEM/bin/netd": {
+      "sha256": "9d3cd879821c34da4f18eb64893439deb1ef522113cf4486a4d20ea4beeeca55",
+      "bytes": 759248,
+      "previous_snapshot10_sha256": "e3aff4261d9770aa8ea076d37a1d31083d6b748cb050d351d7a79df9313813da"
+    },
+    "SYSTEM/bin/vold": {
+      "sha256": "0cfb53996ca815b0bc8179e30979ff39897c8d376420e808d0d83ce94d20cdea",
+      "bytes": 1045824
+    },
+    "SYSTEM/bin/gta3xlwifi_first_stage_init": {
+      "sha256": "17aef32ba433a81c98ac72a4c7155ca924977b5668a47364357d2fab9e4c404c",
+      "bytes": 3323024
+    },
+    "SYSTEM/etc/init/netbpfload.rc": {
+      "sha256": "f4c1474bb171c4cbd4780878d48ab4111184f036e162873d38c55422e59957ee",
+      "bytes": 159
+    },
+    "ROOT/fstab.exynos7904": {
+      "sha256": "ae87c90434eb2cfe64bd04ec52ec4d7da8019d12395b9a67c8515975b48b3742",
+      "bytes": 1103
+    },
+    "SYSTEM/system_ext/etc/selinux/system_ext_file_contexts": {
+      "sha256": "3a6ae9b1c0dfd0a9e742c2f36235f3113670c5793fc9ae20354cc010a7d58e8e",
+      "bytes": 2645
+    },
+    "SYSTEM/system_ext/etc/selinux/system_ext_sepolicy.cil": {
+      "sha256": "abb7dda4d2f6f3ecb59d2a33ad9564c3e26f38a673b3f34f85b35d236dc1ca26",
+      "bytes": 135515
+    },
+    "PRODUCT/etc/init/init.gta3xlwifi.compat.rc": {
+      "sha256": "4bca643b3ed8439d1c15c793d0669c14e34830bbf46011db92619b3737042ca9",
+      "bytes": 1243
+    },
+    "ROOT/init.exynos7904.rc": {
+      "sha256": "5e20ec86b99787f6b043848640ea51d22f0f59f446f744cdbf054308a4505106",
+      "bytes": 1195
+    }
+  },
+  "SELinux_Enforcing": true,
+  "userdata_format_performed": false,
+  "system_and_product_unmounted_before_boot": true,
+  "readonly_metadata_mountpoint_label_verified": true,
+  "Android17_normal_boot_confirmed": false,
+  "Android17_network_graphics_full_FBE_validated": false,
+  "authentication_disabled": false,
+  "private_evidence_sha256": {
+    "runtime20-recovery-after-install.log": "37cde939852f51e74728fa4ee28bf6736ddf1b95369fae933e06857cfb8555b1",
+    "runtime20-readback.log": "e8c832254a61159294262925402e3205a68ae6e1d22e2d55d656370a40e675ae",
+    "runtime20-root-readback.log": "fc96c9a9274c37937df2b74f7b74f012639970820611b086d4f5ee376c59095f",
+    "runtime20-product-readback.log": "f70c934f59647309fa1f379eb0497000db1879cdf9590faaae75ca1457597548",
+    "runtime20-metadata-root-readback.log": "7b0dcb440cde0b1fb77a4e63063328aa3c5adbdc158f3f2c87d27a0a1f68603f",
+    "runtime20-sideload.log": "7428a5571b4d2b6adde9ee9bb6bb4215498d8cad6006be4285ec513586ecb691",
+    "runtime20-recovery-preparation.log": "f12f1d1588ad95a88610160a84c314992bec4cf5596faf6ce7951458439423ab"
+  }
+}

@@ -4,6 +4,19 @@ Active development target: LineageOS 24.0 / Android 17, ARM64 with ARM32 apps,
 `gta3xlwifi`, physical non-A/B partitions. This is an unfinished source-built
 device port. The first physical test installation has completed; its first Android17 boot failed and is being repaired.
 
+**Snapshot20 passes all build/package checks and is being installed (November17).**
+Snapshot19 displays the boot animation and resolves the previous ION/ashmem
+failures, then AdvancedProtection stops because genuine aconfig storage is absent.
+The protection flag exists and is true; no flag or service is disabled.
+Snapshot20 provides a real labeled metadata view from a dedicated new directory
+on the existing cache filesystem, before aconfigd's supported post-fs retry.
+Existing cache content, userdata, partitions and recovery are retained. Compiled
+CIL inputs, kernel and vendor are byte-identical; fresh context/bootstrap checks,
+51 additional policy queries, all prior product checks, 39-APEX VINTF, signature,
+CRC and actual block streams pass. The downloaded archive is1,041,038,809 bytes,
+SHA256 `d5ec56af9a4ee2c12bfb7995fdd93f3709bfd73d6dabb155c71cc86026614810`.
+Physical installation/readbacks and normal Android17 boot remain pending.
+
 **Snapshot19 full build and all package checks pass; physical installation is in progress.**
 All1,243 source projects /21 exact patches, seven actual installer hook cases,
 strict policy/context checks and93 effective permission cases, 39-APEX VINTF,

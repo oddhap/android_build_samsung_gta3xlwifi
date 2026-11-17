@@ -1,0 +1,102 @@
+{
+  "passed": true,
+  "scope": "Owner-authorized snapshot19 installation and physical readbacks only; Android17 boot/graphics/network/full FBE remain unproven. Raw device evidence remains private.",
+  "source_snapshot": "port-20261117-19",
+  "ota_sha256": "6a0f8bdb7804b78df6ba93fbb3315cdb77fd1abbc5a6e9993f89b1fa495d2060",
+  "ota_bytes": 1041032878,
+  "host_sideload_exit": 0,
+  "updater_exit": 0,
+  "physical_prewrite_guards_passed": true,
+  "boot_prefix_sha256": "6027da30a0696db4c946c9984e39491b7ee30d61b83577ccd001b58db0f3d13f",
+  "vendor_entire_partition_sha256": "a64acb1a8d764bfca74287e4002321b9438f38e8242c30a05aae57249e705fea",
+  "recovery_entire_partition_sha256": "053125e1716778c78b03108dd34457a2d390167dea117774c7cdd5cdea1a5a12",
+  "physical_files": {
+    "SYSTEM/lib64/libui.so": {
+      "sha256": "4460b5bedf5e8bd9ed32ae8ef3ab1296a6bfd8c93f8ae67f26785f31a01baeab",
+      "bytes": 432424
+    },
+    "SYSTEM/lib/libui.so": {
+      "sha256": "3e56134922169b0e7faec591115be8c98ca5af3d91ede4fb88c799ed74771095",
+      "bytes": 312488
+    },
+    "SYSTEM/lib64/libmemevents.so": {
+      "sha256": "8b4f4227663bf1629609eee89f2e473a0e64369578808df7be5607b8dee3dd46",
+      "bytes": 44448
+    },
+    "SYSTEM/lib/libmemevents.so": {
+      "sha256": "8b8c43425fe5ae85c8c9e6e8fe785e68c04160e3ee4d747cac48e52ba14dab00",
+      "bytes": 29344
+    },
+    "SYSTEM/bin/lmkd": {
+      "sha256": "852fd2473382a8f00245ea25e179e800ac0578c952c116e275eaf7e99c0183b0",
+      "bytes": 99800
+    },
+    "SYSTEM/bin/netd": {
+      "sha256": "9d3cd879821c34da4f18eb64893439deb1ef522113cf4486a4d20ea4beeeca55",
+      "bytes": 759248,
+      "previous_snapshot10_sha256": "e3aff4261d9770aa8ea076d37a1d31083d6b748cb050d351d7a79df9313813da"
+    },
+    "SYSTEM/bin/vold": {
+      "sha256": "0cfb53996ca815b0bc8179e30979ff39897c8d376420e808d0d83ce94d20cdea",
+      "bytes": 1045824
+    },
+    "SYSTEM/bin/gta3xlwifi_first_stage_init": {
+      "sha256": "17aef32ba433a81c98ac72a4c7155ca924977b5668a47364357d2fab9e4c404c",
+      "bytes": 3323024
+    },
+    "SYSTEM/etc/init/netbpfload.rc": {
+      "sha256": "f4c1474bb171c4cbd4780878d48ab4111184f036e162873d38c55422e59957ee",
+      "bytes": 159
+    },
+    "ROOT/fstab.exynos7904": {
+      "sha256": "ae87c90434eb2cfe64bd04ec52ec4d7da8019d12395b9a67c8515975b48b3742",
+      "bytes": 1103
+    },
+    "SYSTEM/system_ext/etc/selinux/system_ext_file_contexts": {
+      "sha256": "2cba8719cf9ee91195864b57d9e045cc106a15c3a20f5d263c84208c3f8b5577",
+      "bytes": 963
+    },
+    "SYSTEM/system_ext/etc/selinux/system_ext_sepolicy.cil": {
+      "sha256": "abb7dda4d2f6f3ecb59d2a33ad9564c3e26f38a673b3f34f85b35d236dc1ca26",
+      "bytes": 135515
+    },
+    "PRODUCT/etc/init/init.gta3xlwifi.compat.rc": {
+      "sha256": "4bca643b3ed8439d1c15c793d0669c14e34830bbf46011db92619b3737042ca9",
+      "bytes": 1243
+    }
+  },
+  "SELinux_Enforcing": true,
+  "userdata_format_performed": false,
+  "system_and_product_unmounted_before_boot": true,
+  "Android17_normal_boot_confirmed": false,
+  "Android17_network_graphics_full_FBE_validated": false,
+  "authenticated_early_USB_ADB_configured": true,
+  "authentication_disabled": false,
+  "private_evidence_sha256": {
+    "runtime19-recovery-after-install.log": "b75c63a4ce8df632807e4e8025f20f62567904ebf745af8566c79e86956109d8",
+    "runtime19-readback.log": "e8c832254a61159294262925402e3205a68ae6e1d22e2d55d656370a40e675ae",
+    "runtime19-root-readback.log": "d99885f677b61946ae062444b1f316382e2e2c550ba4a2e20fefca97a0b2e330",
+    "runtime19-product-readback.log": "638e6d580dbd7b07568afb4abe65c0bd6428831e5ee032ab36bec3e2a735b481",
+    "runtime19-sideload.log": "b1f56b62a8182e32220e471261bbdb4cef5aa2d9f14b1da44a2ad55339652042",
+    "runtime19-recovery-preparation.log": "f12f1d1588ad95a88610160a84c314992bec4cf5596faf6ce7951458439423ab",
+    "properties.txt": "c8ca48246d5bf41f1ffc0d453eb637759cfeac0db6c6c33715cebbe753889c37",
+    "recovery-reboot-request.json": "2c92bb775df7cb274e6f1402afc20f433ac21248dbd167c3dae9fa6f5b0f4043",
+    "failure-properties.txt": "b43bfc2a633f46030ccacfde9effa4dfd40c3beebf68cca68b0bc04e7d10e2a1",
+    "logcat-snapshot-before-recovery.txt": "6d2a3dd0db43a1c0ca39849919c5f3da4262ca60c2163160b6976a1e665b2bac",
+    "logcat-live-0.txt": "dae641a372857bd608b8b07a42df2bcb78e20dbb26f30b0097d55c17bf96e3e2",
+    "transport.json": "0cf62abe39ccb266a2faff997e8e20adb771a53acf872f67f9c05cc584372fb4"
+  },
+  "authenticated_Android17_ADB_connection_proven": true,
+  "observed_Android17_Enforcing": true,
+  "physical_ro_adb_secure": 1,
+  "physical_ro_debuggable": 0,
+  "owner_observed_boot_animation": true,
+  "previous_ion_open_and_ashmem_create_failures_absent": true,
+  "boot_failure": {
+    "fatal": "AdvancedProtectionService constructor fails: Invalid feature flag android.security.aapm_feature_disable_insecure_wifi_autojoin",
+    "cause": "aconfigd cannot initialize /metadata/aconfig because /metadata is absent",
+    "actual_security_flag_in_compiled_package": "true READ_ONLY system",
+    "cache_mounted_and_available": true,
+    "existing_TWRP_returned_via_authenticated_ADB": true
+  }
+}

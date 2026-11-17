@@ -1,0 +1,1 @@
+android.security.aapm_feature_disable_insecure_wifi_autojoin true READ_ONLY system

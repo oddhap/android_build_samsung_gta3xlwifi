@@ -1,0 +1,51 @@
+{
+  "passed": true,
+  "scope": "Validate a genuine, ordered cache-backed metadata store against current policy.\nNo flag, service, kernel capability, policy allowance or partition is substituted.\n",
+  "source_sha256": {
+    "device/samsung/gta3xlwifi/BoardConfig.mk": "ece7f0815d05ebdffb2833251ba439cd2a64323685c689b4f764c822203ff29b",
+    "device/samsung/gta3xlwifi/rootdir/init.exynos7904.rc": "5e20ec86b99787f6b043848640ea51d22f0f59f446f744cdbf054308a4505106",
+    "device/samsung/gta3xlwifi/sepolicy/private/file_contexts": "736531da797aa37586cc7b82eabcb80d000b2c5437a7a7c558e4e8f1c31704f7"
+  },
+  "actual_init_parser_exit": 0,
+  "root_import_precedes_service_config_parse": true,
+  "supported_aconfig_post_fs_retry_retained": true,
+  "actual_security_flag": "android.security.aapm_feature_disable_insecure_wifi_autojoin true READ_ONLY system",
+  "actual_metadata_label_lookups": [
+    {
+      "path": "/cache/gta3xlwifi_metadata",
+      "label": "u:object_r:metadata_file:s0"
+    },
+    {
+      "path": "/cache/gta3xlwifi_metadata/aconfig/maps/system.package.map",
+      "label": "u:object_r:aconfig_storage_metadata_file:s0"
+    },
+    {
+      "path": "/cache/gta3xlwifi_metadata/aconfig/flags/system.val",
+      "label": "u:object_r:aconfig_storage_flags_metadata_file:s0"
+    },
+    {
+      "path": "/cache/gta3xlwifi_metadata_other",
+      "label": "u:object_r:cache_file:s0"
+    },
+    {
+      "path": "/cache/recovery",
+      "label": "u:object_r:cache_recovery_file:s0"
+    }
+  ],
+  "all_canonical_metadata_rules_mirrored": true,
+  "compiled_policy_rules_changed": false,
+  "existing_partition_and_userdata_preserved": true,
+  "flag_values_or_services_disabled": false,
+  "inputs_sha256": {
+    "/srv/android/src/lineage-24.0-arm64/system/core/init/init.cpp": "18192dcca819ef4a990e976156eb3ab42645f4cbbb970591f1131d6e3ab37318",
+    "/srv/android/src/lineage-24.0-arm64/system/core/rootdir/init.rc": "fbb9c80c87f31fd728c0657f30b38c68a5c02d5e066d2003dc7a1eaecfe49b3d",
+    "/srv/android/src/lineage-24.0-arm64/system/core/rootdir/create_root_structure.mk": "dd3fc1a417d576c3e668401429dab4e5c555d52bef25e54499c4dfd86db88cff",
+    "/srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/system/etc/init/aconfigd.rc": "78d6bb311aa7126384da4b59780d4a87d9b321c4fd211d04e1339fbd8975447b",
+    "/srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/system/etc/aconfig_flags.pb": "6f5461b5a124dd65c5a3242b56f822dd5a5a69e418bacfa7ebc5f99fb20bac59",
+    "/srv/android/src/lineage-24.0-arm64/out/host/linux-x86/bin/aconfig": "32c20ca002cbf29c6b4141e4749ed8281ffd73db3f240e3afa06bd6b4557101e",
+    "/srv/android/src/lineage-24.0-arm64/out/host/linux-x86/bin/host_init_verifier": "a54512026489d4f7517a4696f295fd7d5c7941346baa6898b9c3709964d1b05c",
+    "/srv/android/artifacts/lineage-24.0-arm64/legacy-shm-policy-strict-20261117-01/strict/strict.policy": "3f268a4dab65c317c7eb8ed2d2511e0c6e7943cb87aada877ef2d4795334d7ae"
+  },
+  "hardware_backend_proven": false,
+  "flash_ready": false
+}

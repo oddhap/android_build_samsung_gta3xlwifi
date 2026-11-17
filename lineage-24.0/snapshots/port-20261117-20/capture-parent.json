@@ -1,0 +1,11 @@
+{
+  "parent_snapshot": "port-20261117-19",
+  "parent_manifest_sha256": "31f142b6c2e5f04f14ed9cdecb3cd6b13716508b428ad8c86d3d3332d6a24594",
+  "parent_lock_sha256": "2e0f5938cb8b2dae1582998b18b4554d2a83ed07bd1bce0a7520a90dfc9edd86",
+  "composition_selection_sha256": "5c161c4caa9ba0345402bcd4edc3cdb1a63a64f43676753e0ce239f48ff5ab6a",
+  "proof_reports_sha256": {
+    "/srv/android/artifacts/lineage-24.0-arm64/aconfig-cache-host-20261117-03/report.json": "c0ec7c13222a6aea6ff05f53044830f56e3349a3f0c5791b37e33519e6277182",
+    "/srv/android/artifacts/lineage-24.0-arm64/aconfig-cache-permissions-20261117-03/report.json": "325d9c0447cd77d58800a9b851109815757d15cc79fa5f3d6a14f6a0887ce167"
+  },
+  "kernel_and_vendor_prebuilts_unchanged": true
+}

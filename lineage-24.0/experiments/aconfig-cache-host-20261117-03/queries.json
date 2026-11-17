@@ -1,0 +1,359 @@
+[
+  {
+    "source": "u:r:init:s0",
+    "target": "u:object_r:metadata_file:s0",
+    "class": "dir",
+    "permission": "mounton",
+    "expected": "allow"
+  },
+  {
+    "source": "u:r:init:s0",
+    "target": "u:object_r:metadata_file:s0",
+    "class": "dir",
+    "permission": "create",
+    "expected": "allow"
+  },
+  {
+    "source": "u:r:init:s0",
+    "target": "u:object_r:metadata_file:s0",
+    "class": "dir",
+    "permission": "search",
+    "expected": "allow"
+  },
+  {
+    "source": "u:r:init:s0",
+    "target": "u:object_r:metadata_file:s0",
+    "class": "dir",
+    "permission": "setattr",
+    "expected": "allow"
+  },
+  {
+    "source": "u:r:init:s0",
+    "target": "u:object_r:cache_file:s0",
+    "class": "dir",
+    "permission": "search",
+    "expected": "allow"
+  },
+  {
+    "source": "u:r:init:s0",
+    "target": "u:object_r:cache_file:s0",
+    "class": "dir",
+    "permission": "add_name",
+    "expected": "allow"
+  },
+  {
+    "source": "u:r:init:s0",
+    "target": "u:object_r:labeledfs:s0",
+    "class": "filesystem",
+    "permission": "mount",
+    "expected": "allow"
+  },
+  {
+    "source": "u:r:aconfigd:s0",
+    "target": "u:object_r:aconfig_storage_metadata_file:s0",
+    "class": "dir",
+    "permission": "search",
+    "expected": "allow"
+  },
+  {
+    "source": "u:r:aconfigd:s0",
+    "target": "u:object_r:aconfig_storage_metadata_file:s0",
+    "class": "dir",
+    "permission": "create",
+    "expected": "allow"
+  },
+  {
+    "source": "u:r:aconfigd:s0",
+    "target": "u:object_r:aconfig_storage_metadata_file:s0",
+    "class": "dir",
+    "permission": "add_name",
+    "expected": "allow"
+  },
+  {
+    "source": "u:r:aconfigd:s0",
+    "target": "u:object_r:aconfig_storage_metadata_file:s0",
+    "class": "file",
+    "permission": "open",
+    "expected": "allow"
+  },
+  {
+    "source": "u:r:aconfigd:s0",
+    "target": "u:object_r:aconfig_storage_metadata_file:s0",
+    "class": "file",
+    "permission": "create",
+    "expected": "allow"
+  },
+  {
+    "source": "u:r:aconfigd:s0",
+    "target": "u:object_r:aconfig_storage_metadata_file:s0",
+    "class": "file",
+    "permission": "write",
+    "expected": "allow"
+  },
+  {
+    "source": "u:r:aconfigd:s0",
+    "target": "u:object_r:aconfig_storage_metadata_file:s0",
+    "class": "file",
+    "permission": "read",
+    "expected": "allow"
+  },
+  {
+    "source": "u:r:aconfigd:s0",
+    "target": "u:object_r:aconfig_storage_metadata_file:s0",
+    "class": "file",
+    "permission": "map",
+    "expected": "allow"
+  },
+  {
+    "source": "u:r:aconfigd:s0",
+    "target": "u:object_r:aconfig_storage_flags_metadata_file:s0",
+    "class": "dir",
+    "permission": "search",
+    "expected": "allow"
+  },
+  {
+    "source": "u:r:aconfigd:s0",
+    "target": "u:object_r:aconfig_storage_flags_metadata_file:s0",
+    "class": "dir",
+    "permission": "create",
+    "expected": "allow"
+  },
+  {
+    "source": "u:r:aconfigd:s0",
+    "target": "u:object_r:aconfig_storage_flags_metadata_file:s0",
+    "class": "dir",
+    "permission": "add_name",
+    "expected": "allow"
+  },
+  {
+    "source": "u:r:aconfigd:s0",
+    "target": "u:object_r:aconfig_storage_flags_metadata_file:s0",
+    "class": "file",
+    "permission": "open",
+    "expected": "allow"
+  },
+  {
+    "source": "u:r:aconfigd:s0",
+    "target": "u:object_r:aconfig_storage_flags_metadata_file:s0",
+    "class": "file",
+    "permission": "create",
+    "expected": "allow"
+  },
+  {
+    "source": "u:r:aconfigd:s0",
+    "target": "u:object_r:aconfig_storage_flags_metadata_file:s0",
+    "class": "file",
+    "permission": "write",
+    "expected": "allow"
+  },
+  {
+    "source": "u:r:aconfigd:s0",
+    "target": "u:object_r:aconfig_storage_flags_metadata_file:s0",
+    "class": "file",
+    "permission": "read",
+    "expected": "allow"
+  },
+  {
+    "source": "u:r:aconfigd:s0",
+    "target": "u:object_r:aconfig_storage_flags_metadata_file:s0",
+    "class": "file",
+    "permission": "map",
+    "expected": "allow"
+  },
+  {
+    "source": "u:r:aconfigd_mainline:s0",
+    "target": "u:object_r:aconfig_storage_metadata_file:s0",
+    "class": "dir",
+    "permission": "search",
+    "expected": "allow"
+  },
+  {
+    "source": "u:r:aconfigd_mainline:s0",
+    "target": "u:object_r:aconfig_storage_metadata_file:s0",
+    "class": "dir",
+    "permission": "create",
+    "expected": "allow"
+  },
+  {
+    "source": "u:r:aconfigd_mainline:s0",
+    "target": "u:object_r:aconfig_storage_metadata_file:s0",
+    "class": "dir",
+    "permission": "add_name",
+    "expected": "allow"
+  },
+  {
+    "source": "u:r:aconfigd_mainline:s0",
+    "target": "u:object_r:aconfig_storage_metadata_file:s0",
+    "class": "file",
+    "permission": "open",
+    "expected": "allow"
+  },
+  {
+    "source": "u:r:aconfigd_mainline:s0",
+    "target": "u:object_r:aconfig_storage_metadata_file:s0",
+    "class": "file",
+    "permission": "create",
+    "expected": "allow"
+  },
+  {
+    "source": "u:r:aconfigd_mainline:s0",
+    "target": "u:object_r:aconfig_storage_metadata_file:s0",
+    "class": "file",
+    "permission": "write",
+    "expected": "allow"
+  },
+  {
+    "source": "u:r:aconfigd_mainline:s0",
+    "target": "u:object_r:aconfig_storage_metadata_file:s0",
+    "class": "file",
+    "permission": "read",
+    "expected": "allow"
+  },
+  {
+    "source": "u:r:aconfigd_mainline:s0",
+    "target": "u:object_r:aconfig_storage_metadata_file:s0",
+    "class": "file",
+    "permission": "map",
+    "expected": "allow"
+  },
+  {
+    "source": "u:r:aconfigd_mainline:s0",
+    "target": "u:object_r:aconfig_storage_flags_metadata_file:s0",
+    "class": "dir",
+    "permission": "search",
+    "expected": "allow"
+  },
+  {
+    "source": "u:r:aconfigd_mainline:s0",
+    "target": "u:object_r:aconfig_storage_flags_metadata_file:s0",
+    "class": "dir",
+    "permission": "create",
+    "expected": "allow"
+  },
+  {
+    "source": "u:r:aconfigd_mainline:s0",
+    "target": "u:object_r:aconfig_storage_flags_metadata_file:s0",
+    "class": "dir",
+    "permission": "add_name",
+    "expected": "allow"
+  },
+  {
+    "source": "u:r:aconfigd_mainline:s0",
+    "target": "u:object_r:aconfig_storage_flags_metadata_file:s0",
+    "class": "file",
+    "permission": "open",
+    "expected": "allow"
+  },
+  {
+    "source": "u:r:aconfigd_mainline:s0",
+    "target": "u:object_r:aconfig_storage_flags_metadata_file:s0",
+    "class": "file",
+    "permission": "create",
+    "expected": "allow"
+  },
+  {
+    "source": "u:r:aconfigd_mainline:s0",
+    "target": "u:object_r:aconfig_storage_flags_metadata_file:s0",
+    "class": "file",
+    "permission": "write",
+    "expected": "allow"
+  },
+  {
+    "source": "u:r:aconfigd_mainline:s0",
+    "target": "u:object_r:aconfig_storage_flags_metadata_file:s0",
+    "class": "file",
+    "permission": "read",
+    "expected": "allow"
+  },
+  {
+    "source": "u:r:aconfigd_mainline:s0",
+    "target": "u:object_r:aconfig_storage_flags_metadata_file:s0",
+    "class": "file",
+    "permission": "map",
+    "expected": "allow"
+  },
+  {
+    "source": "u:r:system_server:s0",
+    "target": "u:object_r:aconfig_storage_metadata_file:s0",
+    "class": "file",
+    "permission": "open",
+    "expected": "allow"
+  },
+  {
+    "source": "u:r:system_server:s0",
+    "target": "u:object_r:aconfig_storage_metadata_file:s0",
+    "class": "file",
+    "permission": "read",
+    "expected": "allow"
+  },
+  {
+    "source": "u:r:system_server:s0",
+    "target": "u:object_r:aconfig_storage_metadata_file:s0",
+    "class": "file",
+    "permission": "map",
+    "expected": "allow"
+  },
+  {
+    "source": "u:r:system_server:s0",
+    "target": "u:object_r:aconfig_storage_metadata_file:s0",
+    "class": "file",
+    "permission": "write",
+    "expected": "deny"
+  },
+  {
+    "source": "u:r:system_server:s0",
+    "target": "u:object_r:aconfig_storage_flags_metadata_file:s0",
+    "class": "dir",
+    "permission": "search",
+    "expected": "deny"
+  },
+  {
+    "source": "u:r:system_server:s0",
+    "target": "u:object_r:aconfig_storage_flags_metadata_file:s0",
+    "class": "file",
+    "permission": "read",
+    "expected": "deny"
+  },
+  {
+    "source": "u:r:untrusted_app:s0",
+    "target": "u:object_r:aconfig_storage_metadata_file:s0",
+    "class": "file",
+    "permission": "open",
+    "expected": "allow"
+  },
+  {
+    "source": "u:r:untrusted_app:s0",
+    "target": "u:object_r:aconfig_storage_metadata_file:s0",
+    "class": "file",
+    "permission": "read",
+    "expected": "allow"
+  },
+  {
+    "source": "u:r:untrusted_app:s0",
+    "target": "u:object_r:aconfig_storage_metadata_file:s0",
+    "class": "file",
+    "permission": "map",
+    "expected": "allow"
+  },
+  {
+    "source": "u:r:untrusted_app:s0",
+    "target": "u:object_r:aconfig_storage_metadata_file:s0",
+    "class": "file",
+    "permission": "write",
+    "expected": "deny"
+  },
+  {
+    "source": "u:r:untrusted_app:s0",
+    "target": "u:object_r:aconfig_storage_flags_metadata_file:s0",
+    "class": "dir",
+    "permission": "search",
+    "expected": "deny"
+  },
+  {
+    "source": "u:r:untrusted_app:s0",
+    "target": "u:object_r:aconfig_storage_flags_metadata_file:s0",
+    "class": "file",
+    "permission": "read",
+    "expected": "deny"
+  }
+]
