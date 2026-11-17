@@ -1,0 +1,10 @@
+{
+  "parent_snapshot": "port-20261117-14",
+  "parent_manifest_sha256": "31f142b6c2e5f04f14ed9cdecb3cd6b13716508b428ad8c86d3d3332d6a24594",
+  "parent_lock_sha256": "c052108d0fab227a54917c6a38e0919dc173893ae83084bb80a0d36d4af11cc3",
+  "composition_selection_sha256": "f535f1de7e20d7c453a840924b91a3d2056cb607301554b196bf73c8d90eedc7",
+  "proof_reports_sha256": {
+    "/srv/android/artifacts/lineage-24.0-arm64/ion-compat-access-20261117-02/report.json": "98887c853fcb59746ba660e98cda43152239236db6d7becb061fcb102b3d0bd3"
+  },
+  "kernel_and_vendor_prebuilts_unchanged": true
+}

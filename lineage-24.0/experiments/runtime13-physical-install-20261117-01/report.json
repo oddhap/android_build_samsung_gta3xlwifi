@@ -61,6 +61,31 @@
     "runtime13-recovery-after-install.log": "d38afa1891231deaaea6f6db894d6897c81cbceb935dba2ab68d4a42c979ca24",
     "runtime13-readback.log": "b843877dbaf4c216b987d65dc98b985831b8c5cb2819aea1a138111ec30d7a35",
     "runtime13-root-readback.log": "015b3d3b440911847e90b95c9820ced359da164d5ffa6b370681883c64f144fc",
-    "runtime13-sideload.log": "0f2841990794e53b9fec74dd2fad55e1420d7b96cc2f0127363b50ad4eae4170"
+    "runtime13-sideload.log": "0f2841990794e53b9fec74dd2fad55e1420d7b96cc2f0127363b50ad4eae4170",
+    "runtime13-boot-diagnostics/last_kmsg.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "runtime13-boot-diagnostics/recovery-dmesg.txt": "ddaf971c983279e8b7273eb67d265e56687dac569cb3b1294f93f7f91142f008",
+    "runtime13-boot-diagnostics/last_kmsg": "b9b576736da3ad1a2b53cc75db20a837cf2963ee269be668f866fb04e0ed8947",
+    "runtime13-boot-diagnostics/captured-at.json": "6fa71ab88ff441856bcaf0eec2e79b11430691264631602dc14dab35096c2edc",
+    "runtime13-boot-diagnostics/recovery-state.txt.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "runtime13-boot-diagnostics/recovery.log": "0e4509d59f6574d1b0a5a61e3eb0a83bd8b51c92a88ec1fa405b9bef69387914",
+    "runtime13-boot-diagnostics/recovery-dmesg.txt.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "runtime13-boot-diagnostics/recovery-state.txt": "27d30bb5dc04034145018c4e4e32a4bcad5c5c28a017f8ddbc846c54af456e3b",
+    "runtime13-boot-diagnostics/renderengine-tombstone_31.txt": "5b1b5272945a85b778c4b69b9746ae8801afcb080b3b7963f507d9f321c05b9b",
+    "runtime13-boot-diagnostics/pstore/pmsg-ramoops-0": "e7ef8ddc43b9a111d2270183f163de43f282d585d5a34137919a7daf0ed39e16"
+  },
+  "boot_failure": {
+    "owner_observation": "Samsung logo or reboot; no Android UI",
+    "surfaceflinger_abort": "output buffer not gpu writeable",
+    "thread": "RenderEngine",
+    "matched_surfaceflinger_build_id": "9f853eaae408729689234d547166e503",
+    "Mali_allocator_error": "ion_open failed with Permission denied",
+    "Android_ion_node_label": "u:object_r:device:s0",
+    "denied_graphics_clients": [
+      "hal_graphics_allocator_default",
+      "hal_graphics_composer_default",
+      "surfaceflinger"
+    ],
+    "legacy_mapper_missing_abort_resolved": true,
+    "raw_logs_remain_private": true
   }
 }

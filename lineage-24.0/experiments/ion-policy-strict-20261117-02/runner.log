@@ -1,0 +1,6 @@
+PASS: 1243 locked projects, 21 exact reviewed patches; no external alternates
+strict: exit 0
+
+Context checks: 20 passed: True
+PASS: 5881 exact assertion/constraint records retained; strict compile and enforcing domains
+PASS: 1243 locked projects, 21 exact reviewed patches; no external alternates

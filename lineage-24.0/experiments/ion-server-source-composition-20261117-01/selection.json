@@ -1,0 +1,9 @@
+{
+  "files": {
+    "device/samsung/gta3xlwifi/sepolicy/private/gta3xlwifi_ion.te": {
+      "before": "8f1bddc75f76d9217e0b35c0b747f3c73400060de935bb8d4b134763080a4f9b",
+      "after": "4f1b4e954e7c2afee4af6fb4a076b2e93366224dc56b4f5e9f021d4007308c1b"
+    }
+  },
+  "scope": "Use the public server attributes visible to system_ext. Actual retained vendor memberships are exactly the same two concrete graphics services; clients remain excluded."
+}

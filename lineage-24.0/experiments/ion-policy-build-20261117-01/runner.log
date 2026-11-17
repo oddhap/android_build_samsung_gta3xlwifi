@@ -1,0 +1,150 @@
+PASS: 1243 locked projects, 21 exact reviewed patches; no external alternates
+Looking for dependencies in device/samsung/gta3xlwifi
+device/samsung/gta3xlwifi has no additional dependencies.
+
+============================================
+PLATFORM_VERSION_CODENAME=REL
+PLATFORM_VERSION=17
+LINEAGE_VERSION=24.0-20261117-UNOFFICIAL-gta3xlwifi
+PRODUCT_SOURCE_ROOT_DIRS=-kernel/platform -prebuilts/misc/protobuf_vendorcompat
+TARGET_PRODUCT=lineage_gta3xlwifi
+TARGET_BUILD_VARIANT=userdebug
+TARGET_ARCH=arm64
+TARGET_ARCH_VARIANT=armv8-a
+TARGET_CPU_VARIANT=generic
+TARGET_2ND_ARCH=arm
+TARGET_2ND_ARCH_VARIANT=armv8-a
+TARGET_2ND_CPU_VARIANT=generic
+HOST_OS=linux
+HOST_OS_EXTRA=Linux-5.15.0-203-generic-x86_64-Ubuntu-22.04.5-LTS
+HOST_CROSS_OS=windows
+BUILD_ID=CP2A.260605.016
+OUT_DIR=out
+SOONG_ONLY=false
+SOONG_INCREMENTAL_ANALYSIS=false
+============================================
+Running product configuration...
+============================================
+PLATFORM_VERSION_CODENAME=REL
+PLATFORM_VERSION=17
+LINEAGE_VERSION=24.0-20261117-UNOFFICIAL-gta3xlwifi
+PRODUCT_SOURCE_ROOT_DIRS=-kernel/platform -prebuilts/misc/protobuf_vendorcompat
+TARGET_PRODUCT=lineage_gta3xlwifi
+TARGET_BUILD_VARIANT=userdebug
+TARGET_ARCH=arm64
+TARGET_ARCH_VARIANT=armv8-a
+TARGET_CPU_VARIANT=generic
+TARGET_2ND_ARCH=arm
+TARGET_2ND_ARCH_VARIANT=armv8-a
+TARGET_2ND_CPU_VARIANT=generic
+HOST_OS=linux
+HOST_OS_EXTRA=Linux-5.15.0-203-generic-x86_64-Ubuntu-22.04.5-LTS
+HOST_CROSS_OS=windows
+BUILD_ID=CP2A.260605.016
+OUT_DIR=out
+SOONG_ONLY=false
+SOONG_INCREMENTAL_ANALYSIS=true
+============================================
+[100% 1/1] bootstrap blueprint
+Running globs...
+
+Globs changed, rerunning soong...
+One culprit glob (may be more): device/samsung/gta3xlwifi/sepolicy/private/*.te
+ninja: 
+ninja: SISO_EXPERIMENTS=fallback-on-exec-error enabled
+SISO_EXPERIMENTS=ignore-missing-out-in-depfile enabled
+
+ninja: ignore missing out error in depfile 
+
+[100% 2/2] analyzing Android.bp files and generating ninja file at out/soong/build.lineage_gta3xlwifi.ninja
+ninja: 3m51.26s Build Succeeded: 1 steps - 0.00/s
+
+out/soong/release-config/release_config-lineage_gta3xlwifi-aosp_current.vars was modified, regenerating...
+Adding CUSTOM_LOCALES [ast_ES ckb_IQ ckb_IR gd_GB cy_GB fur_IT nn_NO] to PRODUCT_LOCALES [en_US en_US af_ZA am_ET ar_EG ar_XB as_IN az_AZ be_BY bg_BG bn_BD bs_BA ca_ES cs_CZ da_DK de_DE el_GR en_AU en_CA en_GB en_IN en_XA es_ES es_US et_EE eu_ES fa_IR fi_FI fr_CA fr_FR gl_ES gu_IN hi_IN hr_HR hu_HU hy_AM in_ID is_IS it_IT iw_IL ja_JP ka_GE kk_KZ km_KH kn_IN ko_KR ky_KG lo_LA lt_LT lv_LV mk_MK ml_IN mn_MN mr_IN ms_MY my_MM nb_NO ne_NP nl_NL or_IN pa_IN pl_PL pt_BR pt_PT ro_RO ru_RU si_LK sk_SK sl_SI sq_AL sr_Latn_RS sr_RS sv_SE sw_TZ ta_IN te_IN th_TH tl_PH tr_TR uk_UA ur_PK uz_UZ vi_VN zh_CN zh_HK zh_TW zu_ZA en_XC]
+out/soong/release-config/release_config-lineage_gta3xlwifi-aosp_current.vars was modified, regenerating...
+[100% 3/3] initializing Make module parser
+Adding CUSTOM_LOCALES [ast_ES ckb_IQ ckb_IR gd_GB cy_GB fur_IT nn_NO] to PRODUCT_LOCALES [en_US en_US af_ZA am_ET ar_EG ar_XB as_IN az_AZ be_BY bg_BG bn_BD bs_BA ca_ES cs_CZ da_DK de_DE el_GR en_AU en_CA en_GB en_IN en_XA es_ES es_US et_EE eu_ES fa_IR fi_FI fr_CA fr_FR gl_ES gu_IN hi_IN hr_HR hu_HU hy_AM in_ID is_IS it_IT iw_IL ja_JP ka_GE kk_KZ km_KH kn_IN ko_KR ky_KG lo_LA lt_LT lv_LV mk_MK ml_IN mn_MN mr_IN ms_MY my_MM nb_NO ne_NP nl_NL or_IN pa_IN pl_PL pt_BR pt_PT ro_RO ru_RU si_LK sk_SK sl_SI sq_AL sr_Latn_RS sr_RS sv_SE sw_TZ ta_IN te_IN th_TH tl_PH tr_TR uk_UA ur_PK uz_UZ vi_VN zh_CN zh_HK zh_TW zu_ZA en_XC]
+[ 33% 4/12] including out/soong/installs-lineage_gta3xlwifi.mk
+[ 41% 5/12] including out/soong/Android-lineage_gta3xlwifi.mk
+[ 50% 6/12] including build/make/target/board/android-info.mk
+[ 58% 7/12] including bootable/deprecated-ota/updater/Android.mk
+[ 66% 8/12] including hardware/broadcom/wlan/bcmdhd/Android.mk
+[ 75% 9/12] including hardware/qcom/Android.mk
+[ 83% 10/12] including hardware/synaptics/wlan/synadhd/Android.mk
+[ 91% 11/12] including kernel/samsung/gta3xlwifi/sound/soc/codecs/tas2562/Android.mk
+[100% 12/12] including out/soong/late-lineage_gta3xlwifi.mk
+[100% 13/13] finishing Make module rules
+[100% 14/14] finishing Make module rules: Adding module dependencies
+[100% 15/15] finishing Make packaging rules
+[ 44% 16/36] including build/make/core/tasks/art.mk
+[ 47% 17/36] including build/make/core/tasks/build_custom_images.mk
+[ 50% 18/36] including build/make/core/tasks/dex_preopt_check.mk
+[ 52% 19/36] including build/make/core/tasks/find-shareduid-violation.mk
+[ 55% 20/36] including build/make/core/tasks/fontchain_lint.mk
+[ 58% 21/36] including build/make/core/tasks/host_init_verifier.mk
+[ 61% 22/36] including build/make/core/tasks/meta-lic.mk
+[ 63% 23/36] including build/make/core/tasks/module-info.mk
+[ 66% 24/36] including build/make/core/tasks/oem_image.mk
+[ 69% 25/36] including build/make/core/tasks/offline-sdk-docs.mk
+[ 72% 26/36] including build/make/core/tasks/platform_availability_check.mk
+[ 75% 27/36] including build/make/core/tasks/sdv.mk
+[ 77% 28/36] including build/make/core/tasks/vendor_module_check.mk
+[ 80% 29/36] including build/make/core/tasks/with-license.mk
+[ 83% 30/36] including vendor/lineage/build/tasks/bacon.mk
+[ 86% 31/36] including vendor/lineage/build/tasks/build-manifest_xml.mk
+[ 88% 32/36] including vendor/lineage/build/tasks/dt_image.mk
+[ 91% 33/36] including vendor/lineage/build/tasks/generate_lineage_sdk_coverage.mk
+[ 94% 34/36] including vendor/lineage/build/tasks/kernel.mk
+vendor/lineage/build/tasks/kernel.mk:234: warning: **********************************************************
+vendor/lineage/build/tasks/kernel.mk:235: warning: * Kernel source found and configuration was defined,     *
+vendor/lineage/build/tasks/kernel.mk:236: warning: * but prebuilt kernel is being forced.                   *
+vendor/lineage/build/tasks/kernel.mk:237: warning: * While this is likely intentional,                      *
+vendor/lineage/build/tasks/kernel.mk:238: warning: * it is NOT SUPPORTED WHATSOEVER.                        *
+vendor/lineage/build/tasks/kernel.mk:239: warning: * Generated kernel headers may not align with            *
+vendor/lineage/build/tasks/kernel.mk:240: warning: * the ABI of kernel you're including.                    *
+vendor/lineage/build/tasks/kernel.mk:241: warning: * Please unset TARGET_FORCE_PREBUILT_KERNEL              *
+vendor/lineage/build/tasks/kernel.mk:242: warning: * to build the kernel from source.                       *
+vendor/lineage/build/tasks/kernel.mk:243: warning: **********************************************************
+[ 97% 35/36] including device/generic/goldfish/build/tasks/combine_initramfs.mk
+[100% 36/36] finishing Make packaging rules
+[100% 37/37] finishing Make packaging rules: Adding phony targets
+[100% 38/38] finishing Make packaging rules: Checking licensing and SBOM
+[100% 39/39] writing make module actions
+No need to regenerate ninja file
+Starting ninja...
+ninja: 
+ninja: SISO_EXPERIMENTS=allow-unexpected-rsp-remove enabled
+SISO_EXPERIMENTS=ignore-missing-out-in-depfile enabled
+SISO_EXPERIMENTS=oom-score-adj enabled
+
+ninja: ignore missing out error in depfile 
+
+[  5% 40/786] //system/sepolicy:sepolicy_neverallows.sepolicy_analyze.conf raw fb4ce38b9b3962006b428c90ee41d005b599897e14d891a2fe26d1edc6d695f9.sh[common]
+[ 18% 41/217] //system/sepolicy/contexts:system_ext_file_contexts building contexts: system_ext_file_contexts[common]
+[ 23% 42/180] //system/sepolicy/contexts:system_ext_file_contexts copy system_ext_file_contexts[common]
+[ 23% 43/180] Install: out/target/product/gta3xlwifi/system/system_ext/etc/selinux/system_ext_file_contexts
+[ 24% 44/180] //system/sepolicy:product_sepolicy.conf Transform policy to conf: product_sepolicy.conf[common]
+[ 25% 45/180] //system/sepolicy:system_ext_sepolicy.conf Transform policy to conf: system_ext_sepolicy.conf[common]
+[ 25% 46/180] //system/sepolicy:sepolicy_neverallows.sepolicy_analyze.conf Transform policy to conf: sepolicy_neverallows.sepolicy_analyze.conf[common]
+[ 26% 47/180] //system/sepolicy:sepolicy_neverallows.checkpolicy.conf Transform policy to conf: sepolicy_neverallows.checkpolicy.conf[common]
+[ 26% 48/180] //system/sepolicy:system_ext_sepolicy.cil Building cil for system_ext_sepolicy.cil[common]
+FAILED: out/soong/.intermediates/system/sepolicy/system_ext_sepolicy.cil/android_common/gta3xlwifi/system_ext_sepolicy.cil
+out/host/linux-x86/bin/checkpolicy -C -M -L -c 30 -o out/soong/.intermediates/system/sepolicy/system_ext_sepolicy.cil/android_common/gta3xlwifi/system_ext_sepolicy.cil out/soong/.intermediates/system/sepolicy/system_ext_sepolicy.conf/android_common/gta3xlwifi/system_ext_sepolicy.conf && out/host/linux-x86/bin/build_sepolicy filter_out -f out/soong/.intermediates/system/sepolicy/plat_sepolicy.cil/android_common/plat_sepolicy.cil -t out/soong/.intermediates/system/sepolicy/system_ext_sepolicy.cil/android_common/gta3xlwifi/system_ext_sepolicy.cil && out/host/linux-x86/bin/secilc -v -m -M true -G -c 30 out/soong/.intermediates/system/sepolicy/plat_sepolicy.cil/android_common/plat_sepolicy.cil out/soong/.intermediates/system/sepolicy/system_ext_sepolicy.cil/android_common/gta3xlwifi/system_ext_sepolicy.cil -o /dev/null -f /dev/null -v # hash of input list: 2466633fccdf019b651aeef0038ddd3f3d687f550513f7eaded80b5d599efe4d
+stderr:
+device/samsung/gta3xlwifi/sepolicy/private/gta3xlwifi_ion.te:4:ERROR 'unknown type hal_graphics_allocator_default' at token ';' on line 99563:
+# Keep current Android17 and Samsung assertions and enforcement intact.
+allow { hal_graphics_allocator_default hal_graphics_composer_default surfaceflinger } ion_device:chr_file { getattr open read ioctl lock map watch watch_reads };
+checkpolicy:  error(s) encountered while parsing configuration
+FAILED: ninja: 
+5m32.54s Build Failure: 9 done, 1 failed, 132 remaining - 0.03/s
+ 1 steps failed: exit=1
+
+warning: ninja: see ./out/siso_output for full command line and output
+ or ./out/siso.INFO
+use ./out/siso_failed_commands.sh to re-run failed commands
+
+09:15:56 ninja failed with: exit status 1
+
+#### failed to build some targets (14:49 (mm:ss)) ####
+
+PASS: 1243 locked projects, 21 exact reviewed patches; no external alternates

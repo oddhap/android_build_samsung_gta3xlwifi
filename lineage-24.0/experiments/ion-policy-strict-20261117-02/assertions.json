@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "baseline_report_sha256": "fc1ab7009b45691fb69c49b1f72065fa2d4ee9280062e6681c17537f862705a7",
+  "candidate_report_sha256": "42ef5bcd61881c6ce95e6143fddc00786caae2f4b1d2edf58d1d12f4f9304223",
+  "baseline_assertions_and_constraints": 5881,
+  "candidate_assertions_and_constraints": 5881,
+  "removed": {},
+  "added": {},
+  "permissive_domains": [],
+  "new_platform_input_overrides": false,
+  "attribute_semantic_equivalence_claimed": false,
+  "hardware_tested": false,
+  "flash_ready": false
+}

@@ -1,0 +1,12 @@
+{
+  "files": {
+    "device/samsung/gta3xlwifi/rootdir/init.gta3xlwifi.compat.rc": {
+      "before": "c29642fcdf350c09bf0b7393098731146fbaf56fc21a84e516daaf8c4f310dac",
+      "after": "4bca643b3ed8439d1c15c793d0669c14e34830bbf46011db92619b3737042ca9"
+    }
+  },
+  "scope": "Stage early USB ADB for the development test ROM; retain secure key authentication.",
+  "authentication_disabled": false,
+  "tcp_listener_enabled": false,
+  "SELinux_changed": false
+}

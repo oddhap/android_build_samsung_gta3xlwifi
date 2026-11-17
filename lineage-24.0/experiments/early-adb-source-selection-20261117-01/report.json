@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "scope": "Select an explicitly hash-verified source composition and capture a new exact snapshot.\n\nEnable the retained authenticated USB ADB transport before framework UI.\nNo SELinux, vendor, authentication, network listener or kernel behavior is replaced.\nNo vendor image, kernel, signing material or user data is changed.\nBackups and the complete parent snapshot remain available for source rollback.\n",
+  "files_selected": 1,
+  "project_count": 1243,
+  "reviewed_patches": 21,
+  "snapshot": "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/snapshots/port-20261117-16",
+  "selection_sha256": "3972f6f4a61f4afce1faf3bebc9327095c8a6ee1a384c87047cce490ad5ff2cd",
+  "kernel_and_vendor_prebuilts_unchanged": true,
+  "hardware_tested": false,
+  "flash_ready": false
+}

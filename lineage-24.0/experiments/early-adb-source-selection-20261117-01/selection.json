@@ -1,0 +1,21 @@
+{
+  "scope": "Select an explicitly hash-verified source composition and capture a new exact snapshot.\n\nEnable the retained authenticated USB ADB transport before framework UI.\nNo SELinux, vendor, authentication, network listener or kernel behavior is replaced.\nNo vendor image, kernel, signing material or user data is changed.\nBackups and the complete parent snapshot remain available for source rollback.\n",
+  "parent": "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/snapshots/port-20261117-15",
+  "files": {
+    "device/samsung/gta3xlwifi/rootdir/init.gta3xlwifi.compat.rc": {
+      "project": "device/samsung/gta3xlwifi",
+      "path": "rootdir/init.gta3xlwifi.compat.rc",
+      "before_sha256": "c29642fcdf350c09bf0b7393098731146fbaf56fc21a84e516daaf8c4f310dac",
+      "after_sha256": "4bca643b3ed8439d1c15c793d0669c14e34830bbf46011db92619b3737042ca9"
+    }
+  },
+  "proof_reports_sha256": {},
+  "prebuilts": {
+    "Image": "7ece8d6fd70870811abfe5fd9f947311506f97233491b4016cde441de3578aec",
+    "vendor.img": "012661c7746a4fc65464b972a625e1fc348dc45b6a98829ea8378234fc72c377",
+    "dtbo.img": "b9041c37713a745290d9a0203423436b6caa7a1307ced79b6963b4f1f0271c4b"
+  },
+  "policy_source_changed": false,
+  "vendor_and_kernel_selection_changed": false,
+  "flash_ready": false
+}

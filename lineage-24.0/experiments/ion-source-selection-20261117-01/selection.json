@@ -1,0 +1,29 @@
+{
+  "scope": "Select an explicitly hash-verified source composition and capture a new exact snapshot.\n\nSelect the exact ION character-device label and legacy read interface for three\nconcrete Samsung graphics clients, retaining all current and vendor assertions.\nNo vendor image, kernel, signing material or user data is changed.\nBackups and the complete parent snapshot remain available for source rollback.\n",
+  "parent": "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/snapshots/port-20261117-13",
+  "files": {
+    "device/samsung/gta3xlwifi/sepolicy/private/file_contexts": {
+      "project": "device/samsung/gta3xlwifi",
+      "path": "sepolicy/private/file_contexts",
+      "before_sha256": "463b970d17027aee0d86d9b0baa414b5e37860cb44ea7d0ee33b0ed591b873e8",
+      "after_sha256": "b81dd4524714b6d86b356771ec5fb26cb4b0c8769b6b563ee3b39ca88c801e7d"
+    },
+    "device/samsung/gta3xlwifi/sepolicy/private/gta3xlwifi_ion.te": {
+      "project": "device/samsung/gta3xlwifi",
+      "path": "sepolicy/private/gta3xlwifi_ion.te",
+      "before_sha256": null,
+      "after_sha256": "8f1bddc75f76d9217e0b35c0b747f3c73400060de935bb8d4b134763080a4f9b"
+    }
+  },
+  "proof_reports_sha256": {
+    "/srv/android/artifacts/lineage-24.0-arm64/ion-compat-access-20261117-01/report.json": "e369a8ce20217cb537338e8f4499ad5d238b81b3f019bfb970b981795ed764c9"
+  },
+  "prebuilts": {
+    "Image": "7ece8d6fd70870811abfe5fd9f947311506f97233491b4016cde441de3578aec",
+    "vendor.img": "2b40b8c71ce02b432ae25c9664f8460ebefc5c0955226b2fdb74ed16c2d11353",
+    "dtbo.img": "b9041c37713a745290d9a0203423436b6caa7a1307ced79b6963b4f1f0271c4b"
+  },
+  "policy_source_changed": true,
+  "vendor_and_kernel_selection_changed": false,
+  "flash_ready": false
+}

@@ -4,6 +4,31 @@ Active development target: LineageOS 24.0 / Android 17, ARM64 with ARM32 apps,
 `gta3xlwifi`, physical non-A/B partitions. This is an unfinished source-built
 device port. The first physical test installation has completed; its first Android17 boot failed and is being repaired.
 
+**Current source candidate: snapshot16 (November17), building the complete ROM.**
+The actual corrected ION policy build and strict vendor link pass, retaining all
+5,881 assertion/constraint records, with 20 context checks, 36 effective permission
+queries and actual combined file-label lookups. A fresh vendor cache composition
+preserves every other Lineage21 MTP vendor file and security metadata. Snapshot16
+also enables the existing authenticated USB ADB transport from init, before UI is
+available. It retains `ro.adb.secure=1`, `ro.debuggable=0`, the vendor's sole configfs
+ownership and the existing SELinux policy. No TCP listener is added. The actual
+init parser accepts the configuration. The full build and package checks must
+finish before another physical test; no successful Android17 boot is claimed.
+
+**Latest physical diagnosis (November17): snapshot13 loads the genuine legacy
+mapper, then graphics allocation fails because `/dev/ion` is labeled `device`
+and the three graphics clients lack the retained legacy ION read interface.**
+The clean RenderEngine tombstone and Mali allocator error are retained privately;
+public installation evidence records their hashes. Snapshot14 proposed an exact
+character-device label and scoped read access for the three concrete graphics
+clients. An isolated strict compile and 36 actual policy permission queries pass,
+including denials for generic device nodes; eight actual label lookups pass.
+The first actual source build rejected private vendor type names in system_ext.
+Snapshot15 uses the public HAL server attributes, verified to contain exactly the
+same two retained vendor services. The corrected isolated compile and all 36
+queries pass; the actual source policy build and fresh checks are in progress.
+No normal boot, functioning graphics, networking or complete FBE is claimed.
+
 **Current status (November17): snapshot11 reaches graphics startup; snapshot13 installed and read back.**
 Actual snapshot11 installation/readbacks passed and normal netd/zygote start.
 SurfaceFlinger repeatedly aborts with `gralloc-mapper is missing` (matched physical

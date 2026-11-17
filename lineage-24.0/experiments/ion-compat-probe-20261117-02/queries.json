@@ -1,0 +1,254 @@
+[
+  {
+    "source": "u:r:hal_graphics_allocator_default:s0",
+    "target": "u:object_r:ion_device:s0",
+    "class": "chr_file",
+    "permission": "getattr",
+    "expected": "allow"
+  },
+  {
+    "source": "u:r:hal_graphics_allocator_default:s0",
+    "target": "u:object_r:ion_device:s0",
+    "class": "chr_file",
+    "permission": "open",
+    "expected": "allow"
+  },
+  {
+    "source": "u:r:hal_graphics_allocator_default:s0",
+    "target": "u:object_r:ion_device:s0",
+    "class": "chr_file",
+    "permission": "read",
+    "expected": "allow"
+  },
+  {
+    "source": "u:r:hal_graphics_allocator_default:s0",
+    "target": "u:object_r:ion_device:s0",
+    "class": "chr_file",
+    "permission": "ioctl",
+    "expected": "allow"
+  },
+  {
+    "source": "u:r:hal_graphics_allocator_default:s0",
+    "target": "u:object_r:ion_device:s0",
+    "class": "chr_file",
+    "permission": "map",
+    "expected": "allow"
+  },
+  {
+    "source": "u:r:hal_graphics_allocator_default:s0",
+    "target": "u:object_r:ion_device:s0",
+    "class": "chr_file",
+    "permission": "write",
+    "expected": "observe"
+  },
+  {
+    "source": "u:r:hal_graphics_allocator_default:s0",
+    "target": "u:object_r:device:s0",
+    "class": "chr_file",
+    "permission": "getattr",
+    "expected": "deny"
+  },
+  {
+    "source": "u:r:hal_graphics_allocator_default:s0",
+    "target": "u:object_r:device:s0",
+    "class": "chr_file",
+    "permission": "open",
+    "expected": "deny"
+  },
+  {
+    "source": "u:r:hal_graphics_allocator_default:s0",
+    "target": "u:object_r:device:s0",
+    "class": "chr_file",
+    "permission": "read",
+    "expected": "deny"
+  },
+  {
+    "source": "u:r:hal_graphics_allocator_default:s0",
+    "target": "u:object_r:device:s0",
+    "class": "chr_file",
+    "permission": "ioctl",
+    "expected": "deny"
+  },
+  {
+    "source": "u:r:hal_graphics_allocator_default:s0",
+    "target": "u:object_r:device:s0",
+    "class": "chr_file",
+    "permission": "map",
+    "expected": "deny"
+  },
+  {
+    "source": "u:r:hal_graphics_allocator_default:s0",
+    "target": "u:object_r:device:s0",
+    "class": "chr_file",
+    "permission": "write",
+    "expected": "deny"
+  },
+  {
+    "source": "u:r:hal_graphics_composer_default:s0",
+    "target": "u:object_r:ion_device:s0",
+    "class": "chr_file",
+    "permission": "getattr",
+    "expected": "allow"
+  },
+  {
+    "source": "u:r:hal_graphics_composer_default:s0",
+    "target": "u:object_r:ion_device:s0",
+    "class": "chr_file",
+    "permission": "open",
+    "expected": "allow"
+  },
+  {
+    "source": "u:r:hal_graphics_composer_default:s0",
+    "target": "u:object_r:ion_device:s0",
+    "class": "chr_file",
+    "permission": "read",
+    "expected": "allow"
+  },
+  {
+    "source": "u:r:hal_graphics_composer_default:s0",
+    "target": "u:object_r:ion_device:s0",
+    "class": "chr_file",
+    "permission": "ioctl",
+    "expected": "allow"
+  },
+  {
+    "source": "u:r:hal_graphics_composer_default:s0",
+    "target": "u:object_r:ion_device:s0",
+    "class": "chr_file",
+    "permission": "map",
+    "expected": "allow"
+  },
+  {
+    "source": "u:r:hal_graphics_composer_default:s0",
+    "target": "u:object_r:ion_device:s0",
+    "class": "chr_file",
+    "permission": "write",
+    "expected": "observe"
+  },
+  {
+    "source": "u:r:hal_graphics_composer_default:s0",
+    "target": "u:object_r:device:s0",
+    "class": "chr_file",
+    "permission": "getattr",
+    "expected": "deny"
+  },
+  {
+    "source": "u:r:hal_graphics_composer_default:s0",
+    "target": "u:object_r:device:s0",
+    "class": "chr_file",
+    "permission": "open",
+    "expected": "deny"
+  },
+  {
+    "source": "u:r:hal_graphics_composer_default:s0",
+    "target": "u:object_r:device:s0",
+    "class": "chr_file",
+    "permission": "read",
+    "expected": "deny"
+  },
+  {
+    "source": "u:r:hal_graphics_composer_default:s0",
+    "target": "u:object_r:device:s0",
+    "class": "chr_file",
+    "permission": "ioctl",
+    "expected": "deny"
+  },
+  {
+    "source": "u:r:hal_graphics_composer_default:s0",
+    "target": "u:object_r:device:s0",
+    "class": "chr_file",
+    "permission": "map",
+    "expected": "deny"
+  },
+  {
+    "source": "u:r:hal_graphics_composer_default:s0",
+    "target": "u:object_r:device:s0",
+    "class": "chr_file",
+    "permission": "write",
+    "expected": "deny"
+  },
+  {
+    "source": "u:r:surfaceflinger:s0",
+    "target": "u:object_r:ion_device:s0",
+    "class": "chr_file",
+    "permission": "getattr",
+    "expected": "allow"
+  },
+  {
+    "source": "u:r:surfaceflinger:s0",
+    "target": "u:object_r:ion_device:s0",
+    "class": "chr_file",
+    "permission": "open",
+    "expected": "allow"
+  },
+  {
+    "source": "u:r:surfaceflinger:s0",
+    "target": "u:object_r:ion_device:s0",
+    "class": "chr_file",
+    "permission": "read",
+    "expected": "allow"
+  },
+  {
+    "source": "u:r:surfaceflinger:s0",
+    "target": "u:object_r:ion_device:s0",
+    "class": "chr_file",
+    "permission": "ioctl",
+    "expected": "allow"
+  },
+  {
+    "source": "u:r:surfaceflinger:s0",
+    "target": "u:object_r:ion_device:s0",
+    "class": "chr_file",
+    "permission": "map",
+    "expected": "allow"
+  },
+  {
+    "source": "u:r:surfaceflinger:s0",
+    "target": "u:object_r:ion_device:s0",
+    "class": "chr_file",
+    "permission": "write",
+    "expected": "observe"
+  },
+  {
+    "source": "u:r:surfaceflinger:s0",
+    "target": "u:object_r:device:s0",
+    "class": "chr_file",
+    "permission": "getattr",
+    "expected": "deny"
+  },
+  {
+    "source": "u:r:surfaceflinger:s0",
+    "target": "u:object_r:device:s0",
+    "class": "chr_file",
+    "permission": "open",
+    "expected": "deny"
+  },
+  {
+    "source": "u:r:surfaceflinger:s0",
+    "target": "u:object_r:device:s0",
+    "class": "chr_file",
+    "permission": "read",
+    "expected": "deny"
+  },
+  {
+    "source": "u:r:surfaceflinger:s0",
+    "target": "u:object_r:device:s0",
+    "class": "chr_file",
+    "permission": "ioctl",
+    "expected": "deny"
+  },
+  {
+    "source": "u:r:surfaceflinger:s0",
+    "target": "u:object_r:device:s0",
+    "class": "chr_file",
+    "permission": "map",
+    "expected": "deny"
+  },
+  {
+    "source": "u:r:surfaceflinger:s0",
+    "target": "u:object_r:device:s0",
+    "class": "chr_file",
+    "permission": "write",
+    "expected": "deny"
+  }
+]

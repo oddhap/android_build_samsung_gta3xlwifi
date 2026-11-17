@@ -1,0 +1,128 @@
+[
+  {
+    "project": "bionic",
+    "revision": "ff3bb041547924ac1a7504e4b3bd3ea18169ca2f",
+    "patch": "bionic.patch",
+    "sha256": "8da675e6fdaa882f963e453d43dd4b50dea60566e40956b55ca1a4e9d74a3cd0"
+  },
+  {
+    "project": "build/make",
+    "revision": "90d006387398ae6899145e6531a304500cfa0f70",
+    "patch": "build_make.patch",
+    "sha256": "2da6097228b30016f54ca1ca9237a1548036d94093fe759af2af1fafe942ede7"
+  },
+  {
+    "project": "device/lineage/sepolicy",
+    "revision": "a29110ed8d2933c8f0da9c6ff613c4b68b7e4ad8",
+    "patch": "device_lineage_sepolicy.patch",
+    "sha256": "eb327ec19fe1ab8bc9c0a98c860cff4a56e638d26e2148b5ae1092678ac04585"
+  },
+  {
+    "project": "device/samsung/gta3xlwifi",
+    "revision": "87313db641d21e298faf99425dca9c8fd95d83df",
+    "patch": "device_samsung_gta3xlwifi.patch",
+    "sha256": "3ac105c2000ebfd9e77391ba9eec248f95cde1eb0cfc35721304cc8c9f6f00da"
+  },
+  {
+    "project": "external/boringssl",
+    "revision": "0cd1f6a94b670e6b61af95a06e71e690ae8e3262",
+    "patch": "external_boringssl.patch",
+    "sha256": "e231c00760a8de6be3dc95f35faf74593a34ce8b3485336d6fadef75771291be"
+  },
+  {
+    "project": "external/chromium-webview/patches",
+    "revision": "ef69054c74f7d8306446969136c806738169f1e1",
+    "patch": "external_chromium-webview_patches.patch",
+    "sha256": "dc954cadd9fe02a55c84ece2de1a2db57dcd07bc268f0c75722d214618d47cf8"
+  },
+  {
+    "project": "external/iptables",
+    "revision": "df1a07fd3d0c157a71a4c157cc728062a01032b2",
+    "patch": "external_iptables.patch",
+    "sha256": "3da7b83d277e3365531cd1145c56b9ee3d25531bdc76b4194b7eab0e4b95cbce"
+  },
+  {
+    "project": "frameworks/av",
+    "revision": "937eb9047ec2f88620f1f6a4d9e407f6c869d91a",
+    "patch": "frameworks_av.patch",
+    "sha256": "473a6d88eab497214c6e2851690712c9569dc7bd366f06bcae1700786f95db96"
+  },
+  {
+    "project": "frameworks/base",
+    "revision": "03e13d72d00d80eeba4465893dfad669e3ad3ce6",
+    "patch": "frameworks_base.patch",
+    "sha256": "84299ca17679031c13eae5cd9949b82f1849756e1bee3c5fc0a9d8c58af60d06"
+  },
+  {
+    "project": "frameworks/native",
+    "revision": "46018f54b42489de960c62c3db9de131abce43ea",
+    "patch": "frameworks_native.patch",
+    "sha256": "3d2ce918b6a5bde8e778ddbc8034ae3d4bd1fe58233e1129831d6ad571e2c4f8"
+  },
+  {
+    "project": "packages/apps/Backgrounds",
+    "revision": "b087d2df6601aa25939e654028321bb59857d12e",
+    "patch": "packages_apps_Backgrounds.patch",
+    "sha256": "68e7108d136794b5858c7f1d3ee184fb7b6065c68d875b2b009b0a28df978fc5"
+  },
+  {
+    "project": "packages/modules/Connectivity",
+    "revision": "7c04d866538e6f689823b769fb5c1e614ca0e295",
+    "patch": "packages_modules_Connectivity.patch",
+    "sha256": "8391a31102a2f1f19496bff2bd5eb1ac5bb6fe5406dcef23c1e59305d30aeb16"
+  },
+  {
+    "project": "packages/modules/DnsResolver",
+    "revision": "0aeaf9d222ec761b9e0443a01c7a06590b9d1b4f",
+    "patch": "packages_modules_DnsResolver.patch",
+    "sha256": "a008a9d614dbd5086a46b321f210010becc8c53cf9653db1d6e8bfa8b74e763e"
+  },
+  {
+    "project": "packages/modules/vndk",
+    "revision": "bcab18ef7ad195c3452e78b2eaf9bf7e4998c171",
+    "patch": "packages_modules_vndk.patch",
+    "sha256": "3f1e7ffa3932c430eccc50863170c83583d80c0171a4b447a9b68e4faafcd7ba"
+  },
+  {
+    "project": "packages/screensavers/PhotoTable",
+    "revision": "f3451a4cc5403f9b6f66d4864c21c19676704932",
+    "patch": "packages_screensavers_PhotoTable.patch",
+    "sha256": "133ae7c59a1d2286c07316d9b5976b1d8dd4acdf39c0052c1536cdf9add105cd"
+  },
+  {
+    "project": "system/core",
+    "revision": "65d661b1a536701e8b118be4e9728d7b5ca727c9",
+    "patch": "system_core.patch",
+    "sha256": "39d9d16843839e2b87c82d6789a67671500d13f0ce67d4c07f48f7802dcffebb"
+  },
+  {
+    "project": "system/fs/fs_mgr",
+    "revision": "f58ab8cf7115da90ba4db660cfdbf027de8fc872",
+    "patch": "system_fs_fs_mgr.patch",
+    "sha256": "2e7356d7f084a54cbba6f4b958f41f0fc0dd6b5deadd8db2dd8099116603fec1"
+  },
+  {
+    "project": "system/memory/libmeminfo",
+    "revision": "d59c960b1fb93377bf68664918031ea5fe709f89",
+    "patch": "system_memory_libmeminfo.patch",
+    "sha256": "1880571a9b1bd45ac4cae776b64b06b1035979ad5c5bf00000e1c92a8380b7f5"
+  },
+  {
+    "project": "system/netd",
+    "revision": "fb7e47052620fd1139522e2b3d1343c8680f7c0f",
+    "patch": "system_netd.patch",
+    "sha256": "5250cfafa05ff12b086a878a45f02f8ddcf212fdbf7fe5f718e622c2a974a736"
+  },
+  {
+    "project": "system/sepolicy",
+    "revision": "d61fd80832f558d52de026097d30d695634e8b0f",
+    "patch": "system_sepolicy.patch",
+    "sha256": "d48fafa939d80b22ee69e8620d0ed78e3c1567eefb4b833d8fbe849945bba771"
+  },
+  {
+    "project": "system/vold",
+    "revision": "11d8982f824d52e8122c7aa732207ba66b8f23c8",
+    "patch": "system_vold.patch",
+    "sha256": "dc44caf79c8f7d63f27765091d427a9e4edb74413df033380e5f96f12fcc2f2e"
+  }
+]

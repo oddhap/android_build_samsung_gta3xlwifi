@@ -1,0 +1,50 @@
+[
+  {
+    "file": "/srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/system/etc/selinux/plat_file_contexts",
+    "path": "/dev/ion",
+    "mode": 8192,
+    "label": "u:object_r:device:s0"
+  },
+  {
+    "file": "/srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/system/etc/selinux/plat_file_contexts",
+    "path": "/dev/ion",
+    "mode": 32768,
+    "label": "u:object_r:device:s0"
+  },
+  {
+    "file": "/srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/system/etc/selinux/plat_file_contexts",
+    "path": "/dev/ion_other",
+    "mode": 8192,
+    "label": "u:object_r:device:s0"
+  },
+  {
+    "file": "/srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/system/etc/selinux/plat_file_contexts",
+    "path": "/dev/ion/child",
+    "mode": 8192,
+    "label": "u:object_r:device:s0"
+  },
+  {
+    "file": "/srv/android/artifacts/lineage-24.0-arm64/ion-compat-probe-20261117-01/file_contexts",
+    "path": "/dev/ion",
+    "mode": 8192,
+    "label": "u:object_r:ion_device:s0"
+  },
+  {
+    "file": "/srv/android/artifacts/lineage-24.0-arm64/ion-compat-probe-20261117-01/file_contexts",
+    "path": "/dev/ion",
+    "mode": 32768,
+    "label": "u:object_r:device:s0"
+  },
+  {
+    "file": "/srv/android/artifacts/lineage-24.0-arm64/ion-compat-probe-20261117-01/file_contexts",
+    "path": "/dev/ion_other",
+    "mode": 8192,
+    "label": "u:object_r:device:s0"
+  },
+  {
+    "file": "/srv/android/artifacts/lineage-24.0-arm64/ion-compat-probe-20261117-01/file_contexts",
+    "path": "/dev/ion/child",
+    "mode": 8192,
+    "label": "u:object_r:device:s0"
+  }
+]

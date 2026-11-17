@@ -1,0 +1,78 @@
+diff --git a/DnsProxyListener.cpp b/DnsProxyListener.cpp
+index f55d2c5df3d2fd83ff56efbc579bd28f70e19608..62a6801cf099329a22df026e89d0ca4f99a393b4 100644
+--- a/DnsProxyListener.cpp
++++ b/DnsProxyListener.cpp
+@@ -15,6 +15,7 @@
+  */
+ 
+ #include "DnsProxyListener.h"
++#include "Gta3xlwifiDnsPolicy.h"
+ 
+ #include <arpa/inet.h>
+ #include <dirent.h>
+@@ -687,7 +688,8 @@ extern "C" int ADnsHelper_isUidNetworkingBlocked(uid_t, bool);
+ 
+ bool isUidNetworkingBlocked(uid_t uid, unsigned netId) {
+     static const bool hasBPF = isAtLeastT();  // Related BPF maps were only mainlined from T.
+-    if (!hasBPF) return false;
++    const bool privateBackend = android::base::GetBoolProperty("ro.gta3xlwifi.legacy_networking", false);
++    if (!privateBackend && !hasBPF) return false;
+ 
+     // The enforceDnsUid is an OEM feature that sets DNS packet with AID_DNS instead of the
+     // application's UID. Its DNS packets are not subject to certain network restriction features.
+@@ -696,7 +698,10 @@ bool isUidNetworkingBlocked(uid_t uid, unsigned netId) {
+     // Feature flag that can disable the feature.
+     if (!Experiments::getInstance()->getFlag("fail_fast_on_uid_network_blocking", 1)) return false;
+ 
+-    return ADnsHelper_isUidNetworkingBlocked(uid, resolv_is_metered_network(netId)) == 1;
++    const int decision = ADnsHelper_isUidNetworkingBlocked(uid, resolv_is_metered_network(netId));
++    // Preserve upstream OEM/experiment fast-fail controls above. On the private
++    // path missing/unpublished/failed policy is never converted into allow.
++    return privateBackend ? decision != 0 : decision == 1;
+ }
+ 
+ }  // namespace
+@@ -1548,3 +1553,8 @@ std::string DnsProxyListener::GetHostByAddrHandler::threadName() {
+ 
+ }  // namespace net
+ }  // namespace android
++
++extern "C" int ADnsHelper_setLegacyCallbackV2(int (*callback)(uid_t, bool));
++extern "C" int resolv_set_gta3xlwifi_policy(int (*callback)(uid_t, bool)) {
++    return ADnsHelper_setLegacyCallbackV2(callback);
++}
+diff --git a/Gta3xlwifiDnsPolicy.h b/Gta3xlwifiDnsPolicy.h
+new file mode 100644
+index 0000000000000000000000000000000000000000..b8cb82d448e5f175ce8b559cefb947d6705341c0
+--- /dev/null
++++ b/Gta3xlwifiDnsPolicy.h
+@@ -0,0 +1,17 @@
++// SPDX-License-Identifier: Apache-2.0
++#pragma once
++#include <stdbool.h>
++#include <sys/types.h>
++#ifdef __cplusplus
++extern "C" {
++#endif
++// Local port extension, deliberately distinct from the older bool callback ABI.
++// Register only after real held firewall/producer verification.
++// Registration is transport presence, never policy or networking Ready.
++int ADnsHelper_setLegacyCallbackV2(int (*callback)(uid_t uid, bool metered));
++// Explicit resolver DSO wrapper: native netd must register the helper instance
++// actually linked into the resolver, never a second static-library copy.
++__attribute__((visibility("default"))) int resolv_set_gta3xlwifi_policy(int (*callback)(uid_t uid, bool metered));
++#ifdef __cplusplus
++}
++#endif
+diff --git a/libnetd_resolv.map.txt b/libnetd_resolv.map.txt
+index c23d9f62f29a41d72d9bb2ab848e7e94baa4be9f..3b8cd33e9aff5e38c5ea6ba9c02bb0a85956b3e3 100644
+--- a/libnetd_resolv.map.txt
++++ b/libnetd_resolv.map.txt
+@@ -20,6 +20,7 @@
+ 
+ LIBNETD_RESOLV {
+   global:
++    resolv_set_gta3xlwifi_policy; # apex
+     resolv_has_nameservers; # apex
+     resolv_init; # apex
+     resolv_gethostbyaddr_from_cache; # apex

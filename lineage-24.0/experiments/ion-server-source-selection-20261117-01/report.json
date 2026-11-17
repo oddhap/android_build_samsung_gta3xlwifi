@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "scope": "Select an explicitly hash-verified source composition and capture a new exact snapshot.\n\nSelect the exact ION character-device label and legacy read interface for three\nconcrete Samsung graphics clients, retaining all current and vendor assertions.\nNo vendor image, kernel, signing material or user data is changed.\nBackups and the complete parent snapshot remain available for source rollback.\n",
+  "files_selected": 1,
+  "project_count": 1243,
+  "reviewed_patches": 21,
+  "snapshot": "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/snapshots/port-20261117-15",
+  "selection_sha256": "f535f1de7e20d7c453a840924b91a3d2056cb607301554b196bf73c8d90eedc7",
+  "kernel_and_vendor_prebuilts_unchanged": true,
+  "hardware_tested": false,
+  "flash_ready": false
+}
