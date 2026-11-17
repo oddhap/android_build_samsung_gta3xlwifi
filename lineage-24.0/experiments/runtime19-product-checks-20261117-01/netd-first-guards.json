@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "scope": "Bind rebuilt actual netd to the held first-boot guard regression and unchanged networking guards.",
+  "archive_sha256": "3c7d4ae6474c3ed89a900917cee5ddefd00544a8a49e1c5c215b0b018c954646",
+  "actual_netd_sha256": "9d3cd879821c34da4f18eb64893439deb1ef522113cf4486a4d20ea4beeeca55",
+  "reference_netd_sha256": "e3aff4261d9770aa8ea076d37a1d31083d6b748cb050d351d7a79df9313813da",
+  "netd_init_rc_sha256": "51039198c9ec69111b1f7f1c8257ae12ee0a677c14599a87416c5b24b112948b",
+  "host_regression_report_sha256": "dfa056e623302bc3d4d7a880cdbbffe4f1bba7dd0cfadc7d07c60d1340103238",
+  "real_provider_and_boot_failure_guard_retained": true,
+  "hardware_boot_or_networking_proven": false,
+  "flash_ready": false
+}

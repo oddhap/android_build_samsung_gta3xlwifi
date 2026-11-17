@@ -4,6 +4,15 @@ Active development target: LineageOS 24.0 / Android 17, ARM64 with ARM32 apps,
 `gta3xlwifi`, physical non-A/B partitions. This is an unfinished source-built
 device port. The first physical test installation has completed; its first Android17 boot failed and is being repaired.
 
+**Snapshot19 full build and all package checks pass; physical installation is in progress.**
+All1,243 source projects /21 exact patches, seven actual installer hook cases,
+strict policy/context checks and93 effective permission cases, 39-APEX VINTF,
+signed container/CRC and all three block streams pass. The downloaded archive is
+1,041,032,878 bytes, SHA256
+`6a0f8bdb7804b78df6ba93fbb3315cdb77fd1abbc5a6e9993f89b1fa495d2060`.
+Fresh physical preflight passes with enforcement and persistent DE0 metadata
+retained. Installation readbacks and normal Android17 boot remain pending.
+
 **Snapshot19 full ROM build is running after the complete strict policy checks pass.**
 The actual source policy build, strict Samsung link and source audits pass,
 retaining all5,881 assertions/constraints. All20 context checks and93 effective
