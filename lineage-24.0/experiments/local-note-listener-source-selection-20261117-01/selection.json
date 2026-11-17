@@ -1,0 +1,24 @@
+{
+  "scope": "Select the verified backend-specific observation-listener source with full parent and new revision audits.\nPreserve policy, kernel, vendor, flags and userdata; keep source rollback inputs.\n",
+  "parent": "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/snapshots/port-20261117-21",
+  "files": {
+    "packages/modules/Connectivity/service/src/com/android/server/ConnectivityService.java": {
+      "project": "packages/modules/Connectivity",
+      "path": "service/src/com/android/server/ConnectivityService.java",
+      "before_sha256": "8ea0e7f93a5fc75d4375a4e534f2d255f12eba3685e4574c181e33843e6bb621",
+      "after_sha256": "52f8b9207a09573139ea0bebcd1005b9182064f3906cb0ff43c663c8a1238ed2"
+    }
+  },
+  "proof_reports_sha256": {
+    "/srv/android/artifacts/lineage-24.0-arm64/local-note-listener-host-20261117-01/report.json": "99cf3137f304c301a97ef6d4649d698806668c4b5e2fee2e68858c6d0fb77cae"
+  },
+  "prebuilts": {
+    "Image": "7ece8d6fd70870811abfe5fd9f947311506f97233491b4016cde441de3578aec",
+    "vendor.img": "1ef561b7f4699f7480dbb93b128f1dcd1cf2fa01dd9bccebb37b4f0df74bebd4",
+    "dtbo.img": "b9041c37713a745290d9a0203423436b6caa7a1307ced79b6963b4f1f0271c4b"
+  },
+  "policy_source_changed": false,
+  "compiled_CIL_rules_changed": false,
+  "vendor_and_kernel_selection_changed": false,
+  "flash_ready": false
+}

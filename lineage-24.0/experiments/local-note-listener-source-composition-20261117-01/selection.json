@@ -1,0 +1,13 @@
+{
+  "scope": "Select the BPF-only local-network observation listener only for its backend.\n\nThe existing legacy backend enforces real local-network permissions but has no\nBPF note-op stream. Current AOSP produces that stream only on kernel >=5.10.\nKeep permission propagation and all modern listener behavior unchanged; expose\nthe unavailable optional observation feature honestly, without fabricated FDs.\n",
+  "files": {
+    "packages/modules/Connectivity/service/src/com/android/server/ConnectivityService.java": {
+      "before": "8ea0e7f93a5fc75d4375a4e534f2d255f12eba3685e4574c181e33843e6bb621",
+      "after": "52f8b9207a09573139ea0bebcd1005b9182064f3906cb0ff43c663c8a1238ed2"
+    }
+  },
+  "permission_flags_changed": false,
+  "enforcement_changed": false,
+  "BPF_readiness_synthesized": false,
+  "legacy_local_network_note_ops_available": false
+}

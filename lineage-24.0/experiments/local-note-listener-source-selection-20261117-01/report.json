@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "scope": "Select the verified backend-specific observation-listener source with full parent and new revision audits.\nPreserve policy, kernel, vendor, flags and userdata; keep source rollback inputs.\n",
+  "files_selected": 1,
+  "project_count": 1243,
+  "reviewed_patches": 22,
+  "snapshot": "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/snapshots/port-20261117-22",
+  "selection_sha256": "ef02ff2bc55ea882fb13a18243499d93194baa89e928f84f331f21f98aab67ac",
+  "kernel_and_vendor_prebuilts_unchanged": true,
+  "hardware_tested": false,
+  "flash_ready": false
+}
