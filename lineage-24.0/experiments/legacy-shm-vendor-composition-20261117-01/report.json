@@ -1,0 +1,26 @@
+{
+  "passed": true,
+  "scope": "Compose an isolated vendor image from explicitly selected, strictly linked metadata.\n\nThe original Lineage 21 MTP vendor image remains immutable. Only the two reviewed\nCIL inputs, matching strict precompiled policy/hash sidecars, and a ueventd import\nare changed. All other contents and inode security metadata must compare equal.\nThis does not select Android prebuilts or authorize installation.\n",
+  "original_vendor_sha256": "a847a527931d61e5702b8a025210c84eb88a37ef1e60df93b6393a16dae9183a",
+  "strict_report_sha256": "5863292c6cdf2277cef1369de11ca5ec9d1c135b9ca7f1cf9d786d9010011a08",
+  "strict_policy_sha256": "3f268a4dab65c317c7eb8ed2d2511e0c6e7943cb87aada877ef2d4795334d7ae",
+  "vendor_sparse_sha256": "1ef561b7f4699f7480dbb93b128f1dcd1cf2fa01dd9bccebb37b4f0df74bebd4",
+  "vendor_raw_sha256": "a64acb1a8d764bfca74287e4002321b9438f38e8242c30a05aae57249e705fea",
+  "raw_bytes": 343932928,
+  "entries_before": 1075,
+  "entries_after": 1076,
+  "changed_paths": {
+    "/etc/selinux/plat_pub_versioned.cil": "5478939b47a7980cd4abe373a0825d812c8f103f65d9d2dd8883781f39b20a6f",
+    "/etc/selinux/vendor_sepolicy.cil": "7455615956ed1d316bae5b609fa24e759036478117915f497674ab74e170e161",
+    "/etc/selinux/precompiled_sepolicy": "3f268a4dab65c317c7eb8ed2d2511e0c6e7943cb87aada877ef2d4795334d7ae",
+    "/etc/selinux/precompiled_sepolicy.plat_sepolicy_and_mapping.sha256": "b7acfebc6dd52e66727ba57ef3f0acff5002852464d922efeb3c3bc496b80554",
+    "/etc/selinux/precompiled_sepolicy.system_ext_sepolicy_and_mapping.sha256": "18d1c773e772fc200a7863b2984a82dbe9ec9be10304c480a4586c6ec08e65e8",
+    "/etc/selinux/precompiled_sepolicy.product_sepolicy_and_mapping.sha256": "c94f4b432da8b59c46dc555a91b033ff28fca1e2b5a1ecdadf56fd59f96e2c1e",
+    "/etc/ueventd.rc": "1547146ab03a1ad2ac3daeeb99891c77809ac46f42ce3f8611f2334abb033ac5"
+  },
+  "all_other_contents_and_security_metadata_identical": true,
+  "original_vendor_unchanged": true,
+  "android_input_selected": false,
+  "hardware_tested": false,
+  "flash_ready": false
+}

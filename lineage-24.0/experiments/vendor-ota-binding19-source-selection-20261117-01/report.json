@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "scope": "Select an explicitly hash-verified source composition and capture a new exact snapshot.\n\nBind the retained strict OTA vendor guard to the explicitly reviewed ION cache.\nNo comparison is removed, and no policy, kernel, authentication or runtime file is changed.\nNo vendor image, kernel, signing material or user data is changed.\nBackups and the complete parent snapshot remain available for source rollback.\n",
+  "files_selected": 1,
+  "project_count": 1243,
+  "reviewed_patches": 21,
+  "snapshot": "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/snapshots/port-20261117-19",
+  "selection_sha256": "db8c9013acf21acd64cb61598a7ef08a739ee8490668fa5f045afd630b77d4d1",
+  "kernel_and_vendor_prebuilts_unchanged": true,
+  "hardware_tested": false,
+  "flash_ready": false
+}

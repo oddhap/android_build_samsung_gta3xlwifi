@@ -4,6 +4,14 @@ Active development target: LineageOS 24.0 / Android 17, ARM64 with ARM32 apps,
 `gta3xlwifi`, physical non-A/B partitions. This is an unfinished source-built
 device port. The first physical test installation has completed; its first Android17 boot failed and is being repaired.
 
+**Snapshot19 full ROM build is running after the complete strict policy checks pass.**
+The actual source policy build, strict Samsung link and source audits pass,
+retaining all5,881 assertions/constraints. All20 context checks and93 effective
+permission queries pass. The fresh vendor cache preserves every other original
+entry and its security metadata. Its exact digest is already bound in the OTA
+guard and tested against actual accepted/tampered images before ROM packaging.
+The device is in preserved TWRP; the next physical boot has not occurred yet.
+
 **Snapshot17 proves early authenticated Android17 ADB works; next policy fix is building.**
 SELinux remains Enforcing, `/dev/ion` has its correct label, and SurfaceFlinger runs.
 Live logs identify bootanim's missing ION read access and system_server aborting in
