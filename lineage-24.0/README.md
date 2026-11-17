@@ -4,6 +4,26 @@ Active development target: LineageOS 24.0 / Android 17, ARM64 with ARM32 apps,
 `gta3xlwifi`, physical non-A/B partitions. This is an unfinished source-built
 device port. The first physical test installation has completed; its first Android17 boot failed and is being repaired.
 
+**Snapshot17 proves early authenticated Android17 ADB works; next policy fix is building.**
+SELinux remains Enforcing, `/dev/ion` has its correct label, and SurfaceFlinger runs.
+Live logs identify bootanim's missing ION read access and system_server aborting in
+ApplicationSharedMemory because libcutils ashmem open is denied. The actual retained
+vendor API is28 and the kernel lacks the memfd_class capability file. An isolated
+strict candidate adds the observed bootanim access and Android17's upstream
+old-vendor libcutils ashmem open rule. All 26 effective permission queries pass,
+including continued denial of direct ashmem-device access and generic device
+access. Snapshot18 builds that explicit source adaptation. No forced memfd or
+fake vendor API is introduced. The device returned to preserved TWRP via ADB;
+userdata and enforcement remain intact. Normal Android17 boot is still unproven.
+
+**Snapshot17 is physically installed and all readbacks pass (November17).**
+Actual sideload/updater exits0. Boot, the fresh vendor policy cache, all13 critical
+files including ION contexts/policy and early USB ADB init actions, and the intact
+preserved TWRP match. System/product were read back with read-only mounts and
+unmounted before normal boot. Userdata and DE0 keys were retained; no format was
+performed. Normal boot is now being monitored with live authenticated ADB logging.
+No successful Android17 boot, hardware graphics/network or complete FBE is claimed.
+
 **Snapshot17 complete build and package checks pass (November17).**
 All 1,243 source projects /21 exact patches, seven actual installer-hook cases,
 strict ION/label/ADB checks, 39-APEX VINTF, signed container/CRC and all three actual

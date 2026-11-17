@@ -1,0 +1,10 @@
+{
+  "parent_snapshot": "port-20261117-17",
+  "parent_manifest_sha256": "31f142b6c2e5f04f14ed9cdecb3cd6b13716508b428ad8c86d3d3332d6a24594",
+  "parent_lock_sha256": "3cb535a7d87a426b21f6b1278c8c3661cb08a50afa78682b63cab94048151afa",
+  "composition_selection_sha256": "78f680186fed38ca6b2997fcc86b4db7c8d1bfda02ca6b32eb7e7084aa8809a3",
+  "proof_reports_sha256": {
+    "/srv/android/artifacts/lineage-24.0-arm64/legacy-shm-access-20261117-01/report.json": "0a87c8c9ee5e108408cff17e805600dc59d570d6cfa613402de3ad9ee5bd89f3"
+  },
+  "kernel_and_vendor_prebuilts_unchanged": true
+}

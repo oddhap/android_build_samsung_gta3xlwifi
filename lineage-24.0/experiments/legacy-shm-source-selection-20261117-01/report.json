@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "scope": "Select an explicitly hash-verified source composition and capture a new exact snapshot.\n\nRestore the upstream old-vendor libcutils ashmem open interface and observed\nbootanim ION read access. Direct ashmem_device and all current/vendor assertions remain.\nNo vendor image, kernel, signing material or user data is changed.\nBackups and the complete parent snapshot remain available for source rollback.\n",
+  "files_selected": 2,
+  "project_count": 1243,
+  "reviewed_patches": 21,
+  "snapshot": "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/snapshots/port-20261117-18",
+  "selection_sha256": "78f680186fed38ca6b2997fcc86b4db7c8d1bfda02ca6b32eb7e7084aa8809a3",
+  "kernel_and_vendor_prebuilts_unchanged": true,
+  "hardware_tested": false,
+  "flash_ready": false
+}

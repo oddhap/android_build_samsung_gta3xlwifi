@@ -1,0 +1,184 @@
+[
+  {
+    "source": "u:r:bootanim:s0",
+    "target": "u:object_r:ashmem_libcutils_device:s0",
+    "class": "chr_file",
+    "permission": "open",
+    "expected": "allow"
+  },
+  {
+    "source": "u:r:bootanim:s0",
+    "target": "u:object_r:ashmem_device:s0",
+    "class": "chr_file",
+    "permission": "open",
+    "expected": "deny"
+  },
+  {
+    "source": "u:r:bootanim:s0",
+    "target": "u:object_r:device:s0",
+    "class": "chr_file",
+    "permission": "open",
+    "expected": "deny"
+  },
+  {
+    "source": "u:r:system_server:s0",
+    "target": "u:object_r:ashmem_libcutils_device:s0",
+    "class": "chr_file",
+    "permission": "open",
+    "expected": "allow"
+  },
+  {
+    "source": "u:r:system_server:s0",
+    "target": "u:object_r:ashmem_device:s0",
+    "class": "chr_file",
+    "permission": "open",
+    "expected": "deny"
+  },
+  {
+    "source": "u:r:system_server:s0",
+    "target": "u:object_r:device:s0",
+    "class": "chr_file",
+    "permission": "open",
+    "expected": "deny"
+  },
+  {
+    "source": "u:r:zygote:s0",
+    "target": "u:object_r:ashmem_libcutils_device:s0",
+    "class": "chr_file",
+    "permission": "open",
+    "expected": "allow"
+  },
+  {
+    "source": "u:r:zygote:s0",
+    "target": "u:object_r:ashmem_device:s0",
+    "class": "chr_file",
+    "permission": "open",
+    "expected": "deny"
+  },
+  {
+    "source": "u:r:zygote:s0",
+    "target": "u:object_r:device:s0",
+    "class": "chr_file",
+    "permission": "open",
+    "expected": "deny"
+  },
+  {
+    "source": "u:r:audioserver:s0",
+    "target": "u:object_r:ashmem_libcutils_device:s0",
+    "class": "chr_file",
+    "permission": "open",
+    "expected": "allow"
+  },
+  {
+    "source": "u:r:audioserver:s0",
+    "target": "u:object_r:ashmem_device:s0",
+    "class": "chr_file",
+    "permission": "open",
+    "expected": "deny"
+  },
+  {
+    "source": "u:r:audioserver:s0",
+    "target": "u:object_r:device:s0",
+    "class": "chr_file",
+    "permission": "open",
+    "expected": "deny"
+  },
+  {
+    "source": "u:r:platform_app:s0",
+    "target": "u:object_r:ashmem_libcutils_device:s0",
+    "class": "chr_file",
+    "permission": "open",
+    "expected": "allow"
+  },
+  {
+    "source": "u:r:platform_app:s0",
+    "target": "u:object_r:ashmem_device:s0",
+    "class": "chr_file",
+    "permission": "open",
+    "expected": "deny"
+  },
+  {
+    "source": "u:r:platform_app:s0",
+    "target": "u:object_r:device:s0",
+    "class": "chr_file",
+    "permission": "open",
+    "expected": "deny"
+  },
+  {
+    "source": "u:r:priv_app:s0",
+    "target": "u:object_r:ashmem_libcutils_device:s0",
+    "class": "chr_file",
+    "permission": "open",
+    "expected": "allow"
+  },
+  {
+    "source": "u:r:priv_app:s0",
+    "target": "u:object_r:ashmem_device:s0",
+    "class": "chr_file",
+    "permission": "open",
+    "expected": "deny"
+  },
+  {
+    "source": "u:r:priv_app:s0",
+    "target": "u:object_r:device:s0",
+    "class": "chr_file",
+    "permission": "open",
+    "expected": "deny"
+  },
+  {
+    "source": "u:r:untrusted_app:s0",
+    "target": "u:object_r:ashmem_libcutils_device:s0",
+    "class": "chr_file",
+    "permission": "open",
+    "expected": "allow"
+  },
+  {
+    "source": "u:r:untrusted_app:s0",
+    "target": "u:object_r:ashmem_device:s0",
+    "class": "chr_file",
+    "permission": "open",
+    "expected": "deny"
+  },
+  {
+    "source": "u:r:untrusted_app:s0",
+    "target": "u:object_r:device:s0",
+    "class": "chr_file",
+    "permission": "open",
+    "expected": "deny"
+  },
+  {
+    "source": "u:r:bootanim:s0",
+    "target": "u:object_r:ion_device:s0",
+    "class": "chr_file",
+    "permission": "getattr",
+    "expected": "allow"
+  },
+  {
+    "source": "u:r:bootanim:s0",
+    "target": "u:object_r:ion_device:s0",
+    "class": "chr_file",
+    "permission": "open",
+    "expected": "allow"
+  },
+  {
+    "source": "u:r:bootanim:s0",
+    "target": "u:object_r:ion_device:s0",
+    "class": "chr_file",
+    "permission": "read",
+    "expected": "allow"
+  },
+  {
+    "source": "u:r:bootanim:s0",
+    "target": "u:object_r:ion_device:s0",
+    "class": "chr_file",
+    "permission": "ioctl",
+    "expected": "allow"
+  },
+  {
+    "source": "u:r:bootanim:s0",
+    "target": "u:object_r:ion_device:s0",
+    "class": "chr_file",
+    "permission": "map",
+    "expected": "allow"
+  }
+]

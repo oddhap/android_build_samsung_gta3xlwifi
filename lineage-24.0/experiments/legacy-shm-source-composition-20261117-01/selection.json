@@ -1,0 +1,15 @@
+{
+  "files": {
+    "device/samsung/gta3xlwifi/sepolicy/private/gta3xlwifi_ion.te": {
+      "before": "4f1b4e954e7c2afee4af6fb4a076b2e93366224dc56b4f5e9f021d4007308c1b",
+      "after": "20649bc710eb3d3919d951ff7d0b1f7e6f06227e506c5e81fde80062a0d3d88a"
+    },
+    "device/samsung/gta3xlwifi/sepolicy/private/gta3xlwifi_legacy_ashmem.te": {
+      "before": null,
+      "after": "0ae409056aabb2be8c1137c529aa64752ed46581d8f6740b0f5e4d7c3ee00e29"
+    }
+  },
+  "scope": "Restore the upstream old-vendor libcutils ashmem interface and observed bootanim ION access.\nThe direct legacy /dev/ashmem open restriction remains enforced. No memfd\ncapability, vendor API, property or networking readiness is fabricated.\n",
+  "upstream_old_vendor_rule_sha256": "1de0df7f630d6456a193b7acd8501092950f2f8cb375c33fc5cb51a9c0f3d072",
+  "direct_ashmem_device_restrictions_changed": false
+}

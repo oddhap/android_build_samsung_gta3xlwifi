@@ -1,0 +1,107 @@
+{
+  "passed": true,
+  "scope": "Owner-authorized snapshot17 installation and physical readbacks only; Android17 boot/graphics/network/full FBE remain unproven. Raw device evidence remains private.",
+  "source_snapshot": "port-20261117-17",
+  "ota_sha256": "2de7de50b8124d2992f7bc2e0f01096015c8c150817cc9f68aaeecc03ff8efa0",
+  "ota_bytes": 1041028373,
+  "host_sideload_exit": 0,
+  "updater_exit": 0,
+  "physical_prewrite_guards_passed": true,
+  "boot_prefix_sha256": "6027da30a0696db4c946c9984e39491b7ee30d61b83577ccd001b58db0f3d13f",
+  "vendor_entire_partition_sha256": "5d72d9f1878bf29e78adc3e333d81566f380f880987ab99640f356eaedb81941",
+  "recovery_entire_partition_sha256": "053125e1716778c78b03108dd34457a2d390167dea117774c7cdd5cdea1a5a12",
+  "physical_files": {
+    "SYSTEM/lib64/libui.so": {
+      "sha256": "4460b5bedf5e8bd9ed32ae8ef3ab1296a6bfd8c93f8ae67f26785f31a01baeab",
+      "bytes": 432424
+    },
+    "SYSTEM/lib/libui.so": {
+      "sha256": "3e56134922169b0e7faec591115be8c98ca5af3d91ede4fb88c799ed74771095",
+      "bytes": 312488
+    },
+    "SYSTEM/lib64/libmemevents.so": {
+      "sha256": "8b4f4227663bf1629609eee89f2e473a0e64369578808df7be5607b8dee3dd46",
+      "bytes": 44448
+    },
+    "SYSTEM/lib/libmemevents.so": {
+      "sha256": "8b8c43425fe5ae85c8c9e6e8fe785e68c04160e3ee4d747cac48e52ba14dab00",
+      "bytes": 29344
+    },
+    "SYSTEM/bin/lmkd": {
+      "sha256": "852fd2473382a8f00245ea25e179e800ac0578c952c116e275eaf7e99c0183b0",
+      "bytes": 99800
+    },
+    "SYSTEM/bin/netd": {
+      "sha256": "9d3cd879821c34da4f18eb64893439deb1ef522113cf4486a4d20ea4beeeca55",
+      "bytes": 759248,
+      "previous_snapshot10_sha256": "e3aff4261d9770aa8ea076d37a1d31083d6b748cb050d351d7a79df9313813da"
+    },
+    "SYSTEM/bin/vold": {
+      "sha256": "0cfb53996ca815b0bc8179e30979ff39897c8d376420e808d0d83ce94d20cdea",
+      "bytes": 1045824
+    },
+    "SYSTEM/bin/gta3xlwifi_first_stage_init": {
+      "sha256": "17aef32ba433a81c98ac72a4c7155ca924977b5668a47364357d2fab9e4c404c",
+      "bytes": 3323024
+    },
+    "SYSTEM/etc/init/netbpfload.rc": {
+      "sha256": "f4c1474bb171c4cbd4780878d48ab4111184f036e162873d38c55422e59957ee",
+      "bytes": 159
+    },
+    "ROOT/fstab.exynos7904": {
+      "sha256": "ae87c90434eb2cfe64bd04ec52ec4d7da8019d12395b9a67c8515975b48b3742",
+      "bytes": 1103
+    },
+    "SYSTEM/system_ext/etc/selinux/system_ext_file_contexts": {
+      "sha256": "2cba8719cf9ee91195864b57d9e045cc106a15c3a20f5d263c84208c3f8b5577",
+      "bytes": 963
+    },
+    "SYSTEM/system_ext/etc/selinux/system_ext_sepolicy.cil": {
+      "sha256": "40c55a96d8e4e2bfb06ca0e30ef18ca14f2adb981d055cf8b19e0f74ec5d91f3",
+      "bytes": 135277
+    },
+    "PRODUCT/etc/init/init.gta3xlwifi.compat.rc": {
+      "sha256": "4bca643b3ed8439d1c15c793d0669c14e34830bbf46011db92619b3737042ca9",
+      "bytes": 1243
+    }
+  },
+  "SELinux_Enforcing": true,
+  "userdata_format_performed": false,
+  "system_and_product_unmounted_before_boot": true,
+  "Android17_normal_boot_confirmed": false,
+  "Android17_network_graphics_full_FBE_validated": false,
+  "authenticated_early_USB_ADB_configured": true,
+  "authentication_disabled": false,
+  "private_evidence_sha256": {
+    "runtime17-recovery-after-install.log": "ada01ec66a091989700aca188d1547a8b62934fa53118795d98c1e75a43f9160",
+    "runtime17-readback.log": "76bc7f034277db9b7897bdffdd65f288b2e27c899dfec010974645ae7ee4c2cb",
+    "runtime17-root-readback.log": "54b6c63a54e2d2c551d1acfd56ddae6ac39e63e88f241d0e1dbc5e79785bafce",
+    "runtime17-product-readback.log": "e6bb95d0a3ab202c2b340b61e7561f1da421a24ef13716eeaeeb1e8285ce75a7",
+    "runtime17-sideload.log": "e8d0a3f7c9e0fd60a59080489998f51a12972b59a2fdd21ab02e3dc67212d604",
+    "runtime17-recovery-preparation.log": "f12f1d1588ad95a88610160a84c314992bec4cf5596faf6ce7951458439423ab",
+    "properties.txt": "c8ca48246d5bf41f1ffc0d453eb637759cfeac0db6c6c33715cebbe753889c37",
+    "recovery-reboot-request.json": "69658a6e44f8416c6cb7a057e7b0cecf76a4ef58f6b91fe058cc46d5ed574241",
+    "failure-properties.txt": "18015058aaa310ea3cb8523f043eac07f47bc4a8f56c866d194c6057d82fe108",
+    "logcat-snapshot-before-recovery.txt": "0ac612725037e1005adab34e6b2c6b2e2263e4ab2f0b2f9582cc2c441cf30a98",
+    "logcat-live-0.txt": "1e0bf2a2c2852238ef72441a4a83e127b553c45866334523a257e4ee29f742f4",
+    "transport.json": "354dc883a30faf33ce536a81d2adbbf3be4d48f12e5a58711fb3188d0306daac"
+  },
+  "authenticated_Android17_ADB_connection_proven": true,
+  "observed_Android17_Enforcing": true,
+  "ion_label_correction_physically_proven": true,
+  "SurfaceFlinger_continuous_running_observed": true,
+  "boot_failure": {
+    "bootanim": "ION read denied on correctly labeled ion_device",
+    "system_server": "ApplicationSharedMemory.nativeCreate: Failed to create ashmem: Permission denied",
+    "system_server_source": "SystemServer.run:990",
+    "affected_ashmem_API_clients": [
+      "system_server",
+      "zygote",
+      "audioserver"
+    ],
+    "actual_vendor_API_level": 28,
+    "memfd_class_capability_file_present": false,
+    "sys_use_memfd_forced": false,
+    "existing_TWRP_returned_via_authenticated_ADB": true
+  }
+}

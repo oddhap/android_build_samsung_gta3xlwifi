@@ -1,0 +1,29 @@
+libsepol.policydb_index_others: security:  1 users, 4 roles, 4021 types, 0 bools
+libsepol.policydb_index_others: security: 1 sens, 1024 cats
+libsepol.policydb_index_others: security:  108 classes, 82602 rules, 0 cond rules
+0 1
+1 0
+2 0
+3 1
+4 0
+5 0
+6 1
+7 0
+8 0
+9 1
+10 0
+11 0
+12 1
+13 0
+14 0
+15 1
+16 0
+17 0
+18 1
+19 0
+20 0
+21 1
+22 1
+23 1
+24 1
+25 1
