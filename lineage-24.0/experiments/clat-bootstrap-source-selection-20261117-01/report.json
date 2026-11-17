@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "scope": "Select verified CLAT backend/bootstrap sources with full parent and new revision audits.\nPreserve policy, kernel, vendor, flags and userdata; keep source rollback inputs.\n",
+  "files_selected": 2,
+  "project_count": 1243,
+  "reviewed_patches": 22,
+  "snapshot": "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/snapshots/port-20261117-21",
+  "selection_sha256": "08f9b6f96e12a9621b1d0d6170fcfa8b8fd27ea96c068fbc5ce1d63609cdd98b",
+  "kernel_and_vendor_prebuilts_unchanged": true,
+  "hardware_tested": false,
+  "flash_ready": false
+}

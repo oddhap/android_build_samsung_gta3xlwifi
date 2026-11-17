@@ -1,0 +1,24 @@
+{
+  "passed": true,
+  "scope": "Execute exact native CLAT verification and Rust flag-bootstrap bodies with explicit host boundaries.\n\nFilesystem permissions/BPF syscalls/properties and storage-manager operations are\nfixtures; production control flow is extracted unchanged. This is not device or\npacket-translation validation. Both original failures must be reproduced first.\n",
+  "source_sha256": {
+    "packages/modules/Connectivity/service/jni/com_android_server_connectivity_ClatCoordinator.cpp": "c2300eccf1717a6057e4ec29c34405fc6020e37d30c3735bd797fe6ed088cecd",
+    "packages/modules/ConfigInfrastructure/aconfigd/src/aconfigd.rs": "f91b29d1f626e9786562e88ba833afe65170e27184793254fa2b9fc299e74926"
+  },
+  "inputs_sha256": {
+    "/srv/android/artifacts/lineage-24.0-arm64/clat-bootstrap-source-composition-20261117-01/baseline/packages/modules/Connectivity/service/jni/com_android_server_connectivity_ClatCoordinator.cpp": "04ebfc6d205b4e3413ed10a6cec5657404d82c6c9fc60d86d0c8bdbc42f20647",
+    "/srv/android/artifacts/lineage-24.0-arm64/clat-bootstrap-source-composition-20261117-01/files/packages/modules/Connectivity/service/jni/com_android_server_connectivity_ClatCoordinator.cpp": "c2300eccf1717a6057e4ec29c34405fc6020e37d30c3735bd797fe6ed088cecd",
+    "/srv/android/src/lineage-24.0-arm64/prebuilts/rust-toolchain/linux-x86/1.93.1/bin/rustc": "ae9a00cb9f8af573e88027ee8c598842b5df68c029948e954cde7fae89db7b7d",
+    "/srv/android/artifacts/lineage-24.0-arm64/clat-bootstrap-source-composition-20261117-01/baseline/packages/modules/ConfigInfrastructure/aconfigd/src/aconfigd.rs": "94f1e94a1e72768d7fb61914877d78b45045f9f4cd9597631136320392a3454a",
+    "/srv/android/artifacts/lineage-24.0-arm64/clat-bootstrap-source-composition-20261117-01/files/packages/modules/ConfigInfrastructure/aconfigd/src/aconfigd.rs": "f91b29d1f626e9786562e88ba833afe65170e27184793254fa2b9fc299e74926",
+    "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/tools/test-clat-bootstrap24.py": "e18c6d774818eb9d409e0489679587f37622ef68442e5e9bbd3546d48935ccfe"
+  },
+  "original_native_abort_reproduced": true,
+  "original_optional_vendor_failure_reproduced": true,
+  "native_verification_cases": 79,
+  "flag_bootstrap_cases": 197,
+  "BPF_readiness_synthesized": false,
+  "common_daemon_permission_checks_retained": true,
+  "modern_BPF_checks_retained": true,
+  "hardware_tested": false
+}

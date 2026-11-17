@@ -4,6 +4,23 @@ Active development target: LineageOS 24.0 / Android 17, ARM64 with ARM32 apps,
 `gta3xlwifi`, physical non-A/B partitions. This is an unfinished source-built
 device port. The first physical test installation has completed; its first Android17 boot failed and is being repaired.
 
+**Snapshot21 full product build is running.** All1,243 projects and22 exact
+patches match the reviewed source snapshot. The two source corrections pass79
+native permission/backend cases and197 Rust bootstrap cases, reproducing both
+original failures first. The full build and all product/package checks must pass
+before another authorized physical test. Kernel, vendor and policy stay unchanged.
+
+**Latest physical status (November17): snapshot20 reaches genuine flag storage,
+then aborts during native CLAT registration.** Authenticated early Android17 ADB,
+SELinux Enforcing, the real cache-backed metadata mount and platform/mainline
+flag files are confirmed. AdvancedProtection starts successfully. The next blocker
+is an unconditional BPF permission verification in libservice-connectivity while
+this device selects the existing userspace CLAT/accounting backend. The repair
+must retain shared daemon checks and all modern BPF checks for their backend.
+A separate optional-vendor aconfig override-loop error is also being corrected.
+The device is back in preserved TWRP; normal boot, network and complete FBE remain
+unverified. Historical candidate notices below describe earlier stages.
+
 **Snapshot20 passes all build/package checks and is being installed (November17).**
 Snapshot19 displays the boot animation and resolves the previous ION/ashmem
 failures, then AdvancedProtection stops because genuine aconfig storage is absent.

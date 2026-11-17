@@ -1,6 +1,6 @@
 {
   "passed": true,
-  "scope": "Owner-authorized snapshot20 installation and physical readbacks only; normal boot and actual metadata backend remain pending. Raw device evidence stays private.",
+  "scope": "Owner-authorized snapshot20 installation/readbacks and subsequent private normal-boot diagnosis. No successful normal boot is claimed.",
   "source_snapshot": "port-20261117-20",
   "ota_sha256": "d5ec56af9a4ee2c12bfb7995fdd93f3709bfd73d6dabb155c71cc86026614810",
   "ota_bytes": 1041038809,
@@ -83,6 +83,18 @@
     "runtime20-product-readback.log": "f70c934f59647309fa1f379eb0497000db1879cdf9590faaae75ca1457597548",
     "runtime20-metadata-root-readback.log": "7b0dcb440cde0b1fb77a4e63063328aa3c5adbdc158f3f2c87d27a0a1f68603f",
     "runtime20-sideload.log": "7428a5571b4d2b6adde9ee9bb6bb4215498d8cad6006be4285ec513586ecb691",
-    "runtime20-recovery-preparation.log": "f12f1d1588ad95a88610160a84c314992bec4cf5596faf6ce7951458439423ab"
-  }
+    "runtime20-recovery-preparation.log": "f12f1d1588ad95a88610160a84c314992bec4cf5596faf6ce7951458439423ab",
+    "runtime20-normal-boot/logcat-snapshot-before-recovery.txt": "19875d2a6feceba7a77df84854b8c835093add0f5f2d0dc2a8c45f77d30b634a",
+    "runtime20-boot-diagnostics/system-server-tombstone_06.txt": "e9ca559a3a6356d9a9bc6f4749aca2b6594c4244a7936de7c172c7ab87116ccd"
+  },
+  "real_cache_backed_metadata_mount_confirmed": true,
+  "genuine_platform_and_mainline_aconfig_files_created": true,
+  "AdvancedProtectionService_started": true,
+  "authenticated_early_Android17_ADB_confirmed": true,
+  "ro_adb_secure": "1",
+  "ro_debuggable": "0",
+  "next_fatal": "system_server SIGABRT during native ClatCoordinator JNI registration: unconditional verification of BPF objects on the explicitly selected userspace CLAT backend",
+  "failing_native_build_id": "47de4be5bebe3135b31ddaef31404de2",
+  "optional_vendor_flag_override_error_also_observed": true,
+  "device_returned_to_preserved_TWRP_via_authenticated_ADB": true
 }

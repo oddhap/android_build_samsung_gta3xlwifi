@@ -1,0 +1,10 @@
+{
+  "parent_snapshot": "port-20261117-20",
+  "parent_manifest_sha256": "31f142b6c2e5f04f14ed9cdecb3cd6b13716508b428ad8c86d3d3332d6a24594",
+  "parent_lock_sha256": "3d5c775989d79f7125659399b3948df1b1b2abfac4d8118651adfbc5b9ddd4c0",
+  "composition_selection_sha256": "08f9b6f96e12a9621b1d0d6170fcfa8b8fd27ea96c068fbc5ce1d63609cdd98b",
+  "proof_reports_sha256": {
+    "/srv/android/artifacts/lineage-24.0-arm64/clat-bootstrap-host-20261117-01/report.json": "29085a81b533778b2ed4ec57f4e24fda11f01bb9fbf04885c8afdce5ab17e1b7"
+  },
+  "kernel_and_vendor_prebuilts_unchanged": true
+}

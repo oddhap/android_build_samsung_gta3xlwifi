@@ -1,0 +1,30 @@
+{
+  "scope": "Select verified CLAT backend/bootstrap sources with full parent and new revision audits.\nPreserve policy, kernel, vendor, flags and userdata; keep source rollback inputs.\n",
+  "parent": "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/snapshots/port-20261117-20",
+  "files": {
+    "packages/modules/Connectivity/service/jni/com_android_server_connectivity_ClatCoordinator.cpp": {
+      "project": "packages/modules/Connectivity",
+      "path": "service/jni/com_android_server_connectivity_ClatCoordinator.cpp",
+      "before_sha256": "04ebfc6d205b4e3413ed10a6cec5657404d82c6c9fc60d86d0c8bdbc42f20647",
+      "after_sha256": "c2300eccf1717a6057e4ec29c34405fc6020e37d30c3735bd797fe6ed088cecd"
+    },
+    "packages/modules/ConfigInfrastructure/aconfigd/src/aconfigd.rs": {
+      "project": "packages/modules/ConfigInfrastructure",
+      "path": "aconfigd/src/aconfigd.rs",
+      "before_sha256": "94f1e94a1e72768d7fb61914877d78b45045f9f4cd9597631136320392a3454a",
+      "after_sha256": "f91b29d1f626e9786562e88ba833afe65170e27184793254fa2b9fc299e74926"
+    }
+  },
+  "proof_reports_sha256": {
+    "/srv/android/artifacts/lineage-24.0-arm64/clat-bootstrap-host-20261117-01/report.json": "29085a81b533778b2ed4ec57f4e24fda11f01bb9fbf04885c8afdce5ab17e1b7"
+  },
+  "prebuilts": {
+    "Image": "7ece8d6fd70870811abfe5fd9f947311506f97233491b4016cde441de3578aec",
+    "vendor.img": "1ef561b7f4699f7480dbb93b128f1dcd1cf2fa01dd9bccebb37b4f0df74bebd4",
+    "dtbo.img": "b9041c37713a745290d9a0203423436b6caa7a1307ced79b6963b4f1f0271c4b"
+  },
+  "policy_source_changed": false,
+  "compiled_CIL_rules_changed": false,
+  "vendor_and_kernel_selection_changed": false,
+  "flash_ready": false
+}

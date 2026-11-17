@@ -1,0 +1,16 @@
+{
+  "files": {
+    "packages/modules/Connectivity/service/jni/com_android_server_connectivity_ClatCoordinator.cpp": {
+      "before": "04ebfc6d205b4e3413ed10a6cec5657404d82c6c9fc60d86d0c8bdbc42f20647",
+      "after": "c2300eccf1717a6057e4ec29c34405fc6020e37d30c3735bd797fe6ed088cecd"
+    },
+    "packages/modules/ConfigInfrastructure/aconfigd/src/aconfigd.rs": {
+      "before": "94f1e94a1e72768d7fb61914877d78b45045f9f4cd9597631136320392a3454a",
+      "after": "f91b29d1f626e9786562e88ba833afe65170e27184793254fa2b9fc299e74926"
+    }
+  },
+  "scope": "Stage native selection of the existing userspace CLAT backend and optional flag containers.\n\nNo BPF readiness, map or capability is synthesized. Common daemon permission\nchecks still fail closed; modern BPF checks are unchanged for the BPF backend.\nOnly containers successfully initialized from genuine flag files get overrides.\n",
+  "compiled_policy_rules_changed": false,
+  "flag_values_or_services_disabled": false,
+  "BPF_readiness_synthesized": false
+}
