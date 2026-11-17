@@ -5,7 +5,7 @@
 Local-network permission enforcement and flags remain unchanged. The legacy
 backend does not supply BPF note-op observations; no events/readiness are faked.
 """
-import argparse,hashlib,json,subprocess,zipfile
+import argparse,hashlib,json,subprocess,zipfile,io,tempfile
 from pathlib import Path
 p=argparse.ArgumentParser()
 for n in ['top','archive','geometry','output']:p.add_argument('--'+n,type=Path,required=True)
@@ -32,4 +32,13 @@ with zipfile.ZipFile(a.archive) as z,zipfile.ZipFile(A/'runtime21-ota-build-2026
 # The graph assembles this exact compiled service into the verified CAPEX;
 # retain the actual post-R8 JAR digest and all native/permission source hashes.
 post=prod/'apex/com.android.tethering/javalib/service-connectivity.jar';assert post.is_file()
-a.output.write_text(json.dumps(dict(passed=True,scope=__doc__,archive_sha256=g['archive_sha256'],host_report_sha256=sha(proof),actual_compiled_JAR_sha256=sha(jar),actual_packaged_service_JAR_sha256=sha(post),actual_CAPEX_sha256=h,constructor_bytecode=window,unchanged_permission_and_upstream_sources_sha256=unchanged,local_network_permission_flags_changed=False,enforcement_changed=False,legacy_local_network_note_ops_available=False,BPF_readiness_synthesized=False,hardware_boot_or_network_proven=False,flash_ready=False),indent=2)+'\n');print('PASS actual constructor bytecode, changed service CAPEX and retained permission enforcement; legacy note-op observations unavailable')
+with tempfile.TemporaryDirectory(prefix='local-note-apex-',dir=a.output.parent) as td:
+ tmp=Path(td)
+ with zipfile.ZipFile(a.archive) as z,zipfile.ZipFile(io.BytesIO(z.read(apex))) as capex:
+  with zipfile.ZipFile(io.BytesIO(capex.read('original_apex'))) as ap:
+   image=tmp/'payload.img';image.write_bytes(ap.read('apex_payload.img'))
+ dest=tmp/'service.jar';tool=T/'out/host/linux-x86/bin/debugfs_static'
+ result=subprocess.run([str(tool),'-R','dump /javalib/service-connectivity.jar '+str(dest),str(image)],capture_output=True,text=True,check=True)
+ assert dest.exists() and sha(dest)==sha(post),(result.stdout,result.stderr)
+
+a.output.write_text(json.dumps(dict(passed=True,scope=__doc__,archive_sha256=g['archive_sha256'],host_report_sha256=sha(proof),actual_compiled_JAR_sha256=sha(jar),actual_packaged_service_JAR_sha256=sha(post),actual_CAPEX_sha256=h,actual_CAPEX_payload_JAR_verified=True,constructor_bytecode=window,unchanged_permission_and_upstream_sources_sha256=unchanged,local_network_permission_flags_changed=False,enforcement_changed=False,legacy_local_network_note_ops_available=False,BPF_readiness_synthesized=False,hardware_boot_or_network_proven=False,flash_ready=False),indent=2)+'\n');print('PASS actual constructor bytecode, changed service CAPEX and retained permission enforcement; legacy note-op observations unavailable')
