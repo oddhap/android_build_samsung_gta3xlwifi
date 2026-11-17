@@ -1,0 +1,1014 @@
+PASS: 1243 locked projects, 21 exact reviewed patches; no external alternates
+Looking for dependencies in device/samsung/gta3xlwifi
+device/samsung/gta3xlwifi has no additional dependencies.
+
+============================================
+PLATFORM_VERSION_CODENAME=REL
+PLATFORM_VERSION=17
+LINEAGE_VERSION=24.0-20261117-UNOFFICIAL-gta3xlwifi
+PRODUCT_SOURCE_ROOT_DIRS=-kernel/platform -prebuilts/misc/protobuf_vendorcompat
+TARGET_PRODUCT=lineage_gta3xlwifi
+TARGET_BUILD_VARIANT=userdebug
+TARGET_ARCH=arm64
+TARGET_ARCH_VARIANT=armv8-a
+TARGET_CPU_VARIANT=generic
+TARGET_2ND_ARCH=arm
+TARGET_2ND_ARCH_VARIANT=armv8-a
+TARGET_2ND_CPU_VARIANT=generic
+HOST_OS=linux
+HOST_OS_EXTRA=Linux-5.15.0-203-generic-x86_64-Ubuntu-22.04.5-LTS
+HOST_CROSS_OS=windows
+BUILD_ID=CP2A.260605.016
+OUT_DIR=out
+SOONG_ONLY=false
+SOONG_INCREMENTAL_ANALYSIS=false
+============================================
+Running product configuration...
+============================================
+PLATFORM_VERSION_CODENAME=REL
+PLATFORM_VERSION=17
+LINEAGE_VERSION=24.0-20261117-UNOFFICIAL-gta3xlwifi
+PRODUCT_SOURCE_ROOT_DIRS=-kernel/platform -prebuilts/misc/protobuf_vendorcompat
+TARGET_PRODUCT=lineage_gta3xlwifi
+TARGET_BUILD_VARIANT=userdebug
+TARGET_ARCH=arm64
+TARGET_ARCH_VARIANT=armv8-a
+TARGET_CPU_VARIANT=generic
+TARGET_2ND_ARCH=arm
+TARGET_2ND_ARCH_VARIANT=armv8-a
+TARGET_2ND_CPU_VARIANT=generic
+HOST_OS=linux
+HOST_OS_EXTRA=Linux-5.15.0-203-generic-x86_64-Ubuntu-22.04.5-LTS
+HOST_CROSS_OS=windows
+BUILD_ID=CP2A.260605.016
+OUT_DIR=out
+SOONG_ONLY=false
+SOONG_INCREMENTAL_ANALYSIS=true
+============================================
+[100% 1/1] bootstrap blueprint
+Running globs...
+ninja: 
+ninja: SISO_EXPERIMENTS=fallback-on-exec-error enabled
+SISO_EXPERIMENTS=ignore-missing-out-in-depfile enabled
+
+ninja: ignore missing out error in depfile 
+
+[100% 2/2] analyzing Android.bp files and generating ninja file at out/soong/build.lineage_gta3xlwifi.ninja
+ninja: 3m38.78s Build Succeeded: 1 steps - 0.00/s
+
+out/soong/release-config/release_config-lineage_gta3xlwifi-aosp_current.vars was modified, regenerating...
+Adding CUSTOM_LOCALES [ast_ES ckb_IQ ckb_IR gd_GB cy_GB fur_IT nn_NO] to PRODUCT_LOCALES [en_US en_US af_ZA am_ET ar_EG ar_XB as_IN az_AZ be_BY bg_BG bn_BD bs_BA ca_ES cs_CZ da_DK de_DE el_GR en_AU en_CA en_GB en_IN en_XA es_ES es_US et_EE eu_ES fa_IR fi_FI fr_CA fr_FR gl_ES gu_IN hi_IN hr_HR hu_HU hy_AM in_ID is_IS it_IT iw_IL ja_JP ka_GE kk_KZ km_KH kn_IN ko_KR ky_KG lo_LA lt_LT lv_LV mk_MK ml_IN mn_MN mr_IN ms_MY my_MM nb_NO ne_NP nl_NL or_IN pa_IN pl_PL pt_BR pt_PT ro_RO ru_RU si_LK sk_SK sl_SI sq_AL sr_Latn_RS sr_RS sv_SE sw_TZ ta_IN te_IN th_TH tl_PH tr_TR uk_UA ur_PK uz_UZ vi_VN zh_CN zh_HK zh_TW zu_ZA en_XC]
+out/soong/release-config/release_config-lineage_gta3xlwifi-aosp_current.vars was modified, regenerating...
+[100% 3/3] initializing Make module parser
+Adding CUSTOM_LOCALES [ast_ES ckb_IQ ckb_IR gd_GB cy_GB fur_IT nn_NO] to PRODUCT_LOCALES [en_US en_US af_ZA am_ET ar_EG ar_XB as_IN az_AZ be_BY bg_BG bn_BD bs_BA ca_ES cs_CZ da_DK de_DE el_GR en_AU en_CA en_GB en_IN en_XA es_ES es_US et_EE eu_ES fa_IR fi_FI fr_CA fr_FR gl_ES gu_IN hi_IN hr_HR hu_HU hy_AM in_ID is_IS it_IT iw_IL ja_JP ka_GE kk_KZ km_KH kn_IN ko_KR ky_KG lo_LA lt_LT lv_LV mk_MK ml_IN mn_MN mr_IN ms_MY my_MM nb_NO ne_NP nl_NL or_IN pa_IN pl_PL pt_BR pt_PT ro_RO ru_RU si_LK sk_SK sl_SI sq_AL sr_Latn_RS sr_RS sv_SE sw_TZ ta_IN te_IN th_TH tl_PH tr_TR uk_UA ur_PK uz_UZ vi_VN zh_CN zh_HK zh_TW zu_ZA en_XC]
+[ 33% 4/12] including out/soong/installs-lineage_gta3xlwifi.mk
+[ 41% 5/12] including out/soong/Android-lineage_gta3xlwifi.mk
+[ 50% 6/12] including build/make/target/board/android-info.mk
+[ 58% 7/12] including bootable/deprecated-ota/updater/Android.mk
+[ 66% 8/12] including hardware/broadcom/wlan/bcmdhd/Android.mk
+[ 75% 9/12] including hardware/qcom/Android.mk
+[ 83% 10/12] including hardware/synaptics/wlan/synadhd/Android.mk
+[ 91% 11/12] including kernel/samsung/gta3xlwifi/sound/soc/codecs/tas2562/Android.mk
+[100% 12/12] including out/soong/late-lineage_gta3xlwifi.mk
+[100% 13/13] finishing Make module rules
+[100% 14/14] finishing Make module rules: Adding module dependencies
+[100% 15/15] finishing Make packaging rules
+[ 44% 16/36] including build/make/core/tasks/art.mk
+[ 47% 17/36] including build/make/core/tasks/build_custom_images.mk
+[ 50% 18/36] including build/make/core/tasks/dex_preopt_check.mk
+[ 52% 19/36] including build/make/core/tasks/find-shareduid-violation.mk
+[ 55% 20/36] including build/make/core/tasks/fontchain_lint.mk
+[ 58% 21/36] including build/make/core/tasks/host_init_verifier.mk
+[ 61% 22/36] including build/make/core/tasks/meta-lic.mk
+[ 63% 23/36] including build/make/core/tasks/module-info.mk
+[ 66% 24/36] including build/make/core/tasks/oem_image.mk
+[ 69% 25/36] including build/make/core/tasks/offline-sdk-docs.mk
+[ 72% 26/36] including build/make/core/tasks/platform_availability_check.mk
+[ 75% 27/36] including build/make/core/tasks/sdv.mk
+[ 77% 28/36] including build/make/core/tasks/vendor_module_check.mk
+[ 80% 29/36] including build/make/core/tasks/with-license.mk
+[ 83% 30/36] including vendor/lineage/build/tasks/bacon.mk
+[ 86% 31/36] including vendor/lineage/build/tasks/build-manifest_xml.mk
+[ 88% 32/36] including vendor/lineage/build/tasks/dt_image.mk
+[ 91% 33/36] including vendor/lineage/build/tasks/generate_lineage_sdk_coverage.mk
+[ 94% 34/36] including vendor/lineage/build/tasks/kernel.mk
+vendor/lineage/build/tasks/kernel.mk:234: warning: **********************************************************
+vendor/lineage/build/tasks/kernel.mk:235: warning: * Kernel source found and configuration was defined,     *
+vendor/lineage/build/tasks/kernel.mk:236: warning: * but prebuilt kernel is being forced.                   *
+vendor/lineage/build/tasks/kernel.mk:237: warning: * While this is likely intentional,                      *
+vendor/lineage/build/tasks/kernel.mk:238: warning: * it is NOT SUPPORTED WHATSOEVER.                        *
+vendor/lineage/build/tasks/kernel.mk:239: warning: * Generated kernel headers may not align with            *
+vendor/lineage/build/tasks/kernel.mk:240: warning: * the ABI of kernel you're including.                    *
+vendor/lineage/build/tasks/kernel.mk:241: warning: * Please unset TARGET_FORCE_PREBUILT_KERNEL              *
+vendor/lineage/build/tasks/kernel.mk:242: warning: * to build the kernel from source.                       *
+vendor/lineage/build/tasks/kernel.mk:243: warning: **********************************************************
+[ 97% 35/36] including device/generic/goldfish/build/tasks/combine_initramfs.mk
+[100% 36/36] finishing Make packaging rules
+[100% 37/37] finishing Make packaging rules: Adding phony targets
+[100% 38/38] finishing Make packaging rules: Checking licensing and SBOM
+[100% 39/39] writing make module actions
+No need to regenerate ninja file
+Starting ninja...
+ninja: 
+ninja: SISO_EXPERIMENTS=allow-unexpected-rsp-remove enabled
+SISO_EXPERIMENTS=ignore-missing-out-in-depfile enabled
+SISO_EXPERIMENTS=oom-score-adj enabled
+
+ninja: ignore missing out error in depfile 
+
+[  0% 40/13209] //frameworks/native/libs/ui:libui clang++ FrameStats.cpp
+[  3% 41/1366] //frameworks/native/libs/ui:libui clang++ Fence.cpp[arm]
+[  3% 42/1366] //frameworks/native/libs/ui:libui clang++ FenceTime.cpp[arm]
+[  3% 43/1366] //frameworks/native/libs/ui:libui clang++ DependencyMonitor.cpp
+[  3% 44/1366] //frameworks/native/libs/ui:libui clang++ Gralloc.cpp
+[  3% 45/1366] //frameworks/native/libs/ui:libui clang++ DebugUtils.cpp
+[  3% 46/1366] //frameworks/native/libs/ui:libui clang++ Gralloc3.cpp[arm]
+[  3% 47/1366] //frameworks/native/libs/ui:libui clang++ Gralloc2.cpp[arm]
+[  3% 48/1366] //frameworks/native/libs/ui:libui clang++ DeviceProductInfo.cpp
+[  3% 49/1366] //frameworks/native/libs/ui:libui clang++ GraphicBufferMapper.cpp
+[  3% 50/1366] //frameworks/native/libs/ui:libui clang++ GraphicBufferAllocator.cpp
+[  3% 51/1366] //frameworks/native/libs/ui:libui clang++ PictureProfileHandle.cpp
+[  3% 52/1366] //frameworks/native/libs/ui:libui clang++ Gralloc4.cpp[arm]
+stderr:
+frameworks/native/libs/ui/Gralloc4.cpp:1026:25: warning: 'AServiceManager_getService' is deprecated: this polls 5s, use AServiceManager_waitForService or AServiceManager_checkService [-Wdeprecated-declarations]
+ 1026 |                         AServiceManager_getService(kAidlAllocatorServiceName.c_str())));
+      |                         ^
+frameworks/native/libs/binder/ndk/include_platform/android/binder_manager.h:138:3: note: 'AServiceManager_getService' has been explicitly marked deprecated here
+  138 | [[deprecated("this polls 5s, use AServiceManager_waitForService or AServiceManager_checkService")]]
+      |   ^
+1 warning generated.
+[  3% 53/1366] //frameworks/native/libs/ui:libui clang++ PublicFormat.cpp
+[  3% 54/1366] //frameworks/native/libs/ui:libui clang++ StaticAsserts.cpp
+[  4% 55/1366] //frameworks/native/libs/ui:libui clang++ PixelFormat.cpp
+[  4% 56/1366] //frameworks/native/libs/ui:libui clang++ PixelFormat.cpp[arm]
+[  4% 57/1366] //frameworks/native/libs/ui:libui clang++ GraphicBufferAllocator.cpp[arm]
+[  4% 58/1366] //frameworks/native/libs/ui:libui clang++ FenceTime.cpp
+[  4% 59/1366] //frameworks/native/libs/ui:libui clang++ Gralloc5.cpp[arm]
+[  4% 60/1366] //frameworks/native/libs/ui:libui clang++ Fence.cpp
+[  4% 61/1366] //frameworks/native/libs/ui:libui clang++ FrameStats.cpp[arm]
+[  4% 62/1366] //frameworks/native/libs/ui:libui clang++ GraphicBuffer.cpp
+[  4% 63/1366] //frameworks/native/libs/ui:libui clang++ DependencyMonitor.cpp[arm]
+[  4% 64/1366] //frameworks/native/libs/ui:libui clang++ DynamicDisplayInfo.cpp
+[  4% 65/1366] //frameworks/native/libs/ui:libui clang++ Gralloc4.cpp
+stderr:
+frameworks/native/libs/ui/Gralloc4.cpp:1026:25: warning: 'AServiceManager_getService' is deprecated: this polls 5s, use AServiceManager_waitForService or AServiceManager_checkService [-Wdeprecated-declarations]
+ 1026 |                         AServiceManager_getService(kAidlAllocatorServiceName.c_str())));
+      |                         ^
+frameworks/native/libs/binder/ndk/include_platform/android/binder_manager.h:138:3: note: 'AServiceManager_getService' has been explicitly marked deprecated here
+  138 | [[deprecated("this polls 5s, use AServiceManager_waitForService or AServiceManager_checkService")]]
+      |   ^
+1 warning generated.
+[  4% 66/1366] //frameworks/native/libs/ui:libui clang++ Gralloc2.cpp
+[  4% 67/1366] //frameworks/native/libs/ui:libui clang++ DebugUtils.cpp[arm]
+[  4% 68/1366] //frameworks/native/libs/ui:libui clang++ DynamicDisplayInfo.cpp[arm]
+[  5% 69/1366] //frameworks/native/libs/ui:libui clang++ StaticAsserts.cpp[arm]
+[  5% 70/1366] //frameworks/native/libs/ui:libui clang++ PublicFormat.cpp[arm]
+[  5% 71/1366] //frameworks/native/libs/ui:libui clang++ Gralloc3.cpp
+[  5% 72/1366] //frameworks/native/libs/ui:libui clang++ DeviceProductInfo.cpp[arm]
+[  5% 73/1366] //frameworks/native/libs/ui:libui clang++ Gralloc5.cpp
+[  5% 74/1366] //frameworks/native/libs/ui:libui clang++ GraphicBuffer.cpp[arm]
+[  5% 75/1366] //frameworks/native/libs/ui:libui clang++ StaticAsserts.cpp[apex31]
+[  5% 76/1366] //frameworks/native/libs/ui:libui clang++ DependencyMonitor.cpp[apex31]
+[  5% 77/1366] //frameworks/native/libs/ui:libui clang++ FrameStats.cpp[apex31]
+[  5% 78/1366] //frameworks/native/libs/ui:libui clang++ PictureProfileHandle.cpp[arm]
+[  5% 79/1366] //frameworks/native/libs/ui:libui clang++ Gralloc.cpp[arm]
+[  5% 80/1366] //frameworks/native/libs/ui:libui clang++ FenceTime.cpp[apex31]
+[  5% 81/1366] //frameworks/native/libs/ui:libui clang++ GraphicBufferMapper.cpp[arm]
+[  6% 82/1366] //frameworks/native/libs/ui:libui clang++ Gralloc2.cpp[apex31]
+[  6% 83/1366] //frameworks/native/libs/ui:libui clang++ DeviceProductInfo.cpp[apex31]
+[  6% 84/1366] //frameworks/native/libs/ui:libui clang++ PixelFormat.cpp[apex31]
+[  6% 85/1366] //frameworks/native/libs/ui:libui clang++ Fence.cpp[apex31]
+[  6% 86/1366] //frameworks/native/libs/ui:libui clang++ Gralloc3.cpp[apex31]
+[  6% 87/1366] //frameworks/native/libs/ui:libui clang++ GraphicBufferMapper.cpp[apex31]
+[  6% 88/1366] //frameworks/native/libs/ui:libui clang++ GraphicBufferAllocator.cpp[apex31]
+[  6% 89/1366] //frameworks/native/libs/ui:libui clang++ DynamicDisplayInfo.cpp[apex31]
+[  6% 90/1366] //frameworks/native/libs/ui:libui link libui.so[arm]
+[  6% 91/1366] //frameworks/native/libs/ui:libui clang++ PixelFormat.cpp[arm apex31]
+[  6% 92/1366] //frameworks/native/libs/ui:libui clang++ DebugUtils.cpp[apex31]
+[  6% 93/1366] //frameworks/native/libs/ui:libui link libui.so
+[  6% 94/1366] //frameworks/native/libs/ui:libui clang++ FenceTime.cpp[arm apex31]
+[  6% 95/1366] //frameworks/native/libs/ui:libui clang++ PublicFormat.cpp[arm apex31]
+[  7% 96/1366] //frameworks/native/libs/ui:libui clang++ GraphicBuffer.cpp[apex31]
+[  7% 97/1366] //frameworks/native/libs/ui:libui clang++ PublicFormat.cpp[apex31]
+[  7% 98/1366] //frameworks/native/libs/ui:libui strip libui.so[arm]
+[  7% 99/1366] //frameworks/native/libs/ui:libui strip libui.so
+[  7% 100/1366] //frameworks/native/libs/ui:libui copy libui.so[arm]
+[  7% 101/1366] //frameworks/native/libs/ui:libui clang++ DeviceProductInfo.cpp[arm apex31]
+[  7% 102/1366] //frameworks/native/libs/ui:libui copy libui.so
+[  7% 103/1366] //frameworks/native/libs/ui:libui clang++ Gralloc.cpp[apex31]
+[  7% 104/1366] //frameworks/native/libs/ui:libui generate toc libui.so
+[  7% 105/1366] //frameworks/native/libs/ui:libui clang++ FrameStats.cpp[arm apex31]
+[  7% 106/1366] //frameworks/native/libs/ui:libui clang++ Gralloc4.cpp[apex31]
+stderr:
+frameworks/native/libs/ui/Gralloc4.cpp:1026:25: warning: 'AServiceManager_getService' is deprecated: this polls 5s, use AServiceManager_waitForService or AServiceManager_checkService [-Wdeprecated-declarations]
+ 1026 |                         AServiceManager_getService(kAidlAllocatorServiceName.c_str())));
+      |                         ^
+frameworks/native/libs/binder/ndk/include_platform/android/binder_manager.h:138:3: note: 'AServiceManager_getService' has been explicitly marked deprecated here
+  138 | [[deprecated("this polls 5s, use AServiceManager_waitForService or AServiceManager_checkService")]]
+      |   ^
+1 warning generated.
+[  7% 107/1366] //frameworks/native/libs/ui:libui generate toc libui.so[arm]
+[  7% 108/1366] //frameworks/native/libs/ui:libui clang++ PictureProfileHandle.cpp[apex31]
+[  7% 109/1366] //frameworks/native/services/surfaceflinger:libSurfaceFlingerProp link libSurfaceFlingerProp.so
+[  8% 110/1366] //frameworks/base/core/jni:libmedia_jni_utils link libmedia_jni_utils.so
+[  8% 111/1366] //frameworks/native/services/surfaceflinger:libSurfaceFlingerProp link libSurfaceFlingerProp.so[arm]
+[  8% 112/1366] //frameworks/native/services/surfaceflinger:libSurfaceFlingerProp strip libSurfaceFlingerProp.so
+[  8% 113/1366] //frameworks/base/core/jni:libmedia_jni_utils strip libmedia_jni_utils.so
+[  8% 114/1366] //frameworks/native/services/surfaceflinger:libSurfaceFlingerProp generate toc libSurfaceFlingerProp.so
+[  8% 115/1366] //frameworks/native/services/surfaceflinger:libSurfaceFlingerProp copy libSurfaceFlingerProp.so
+[  8% 116/1366] //frameworks/native/services/surfaceflinger:libSurfaceFlingerProp strip libSurfaceFlingerProp.so[arm]
+[  8% 117/1366] //frameworks/base/core/jni:libmedia_jni_utils copy libmedia_jni_utils.so
+[  8% 118/1366] //frameworks/native/services/surfaceflinger:libSurfaceFlingerProp copy libSurfaceFlingerProp.so[arm]
+[  8% 119/1366] //frameworks/base/core/jni:libmedia_jni_utils generate toc libmedia_jni_utils.so
+[  8% 120/1366] //frameworks/native/libs/ui:libui clang++ Gralloc2.cpp[arm apex31]
+[  8% 121/1366] //frameworks/native/services/surfaceflinger:libSurfaceFlingerProp generate toc libSurfaceFlingerProp.so[arm]
+[  8% 122/1366] //frameworks/base/core/jni:libmedia_jni_utils link libmedia_jni_utils.so[arm]
+[  9% 123/1366] //frameworks/native/libs/nativewindow:libnativewindow link libnativewindow.so[arm]
+[  9% 124/1366] //frameworks/native/libs/ui:libui clang++ GraphicBufferMapper.cpp[arm apex31]
+[  9% 125/1366] //frameworks/native/libs/nativewindow:libnativewindow link libnativewindow.so
+[  9% 126/1366] //frameworks/native/libs/ui:libui clang++ PictureProfileHandle.cpp[arm apex31]
+[  9% 127/1366] //frameworks/native/libs/ui:libui clang++ DependencyMonitor.cpp[arm apex31]
+[  9% 128/1366] //frameworks/native/libs/ui:libui clang++ DebugUtils.cpp[arm apex31]
+[  9% 129/1366] //frameworks/native/libs/nativewindow:libnativewindow strip libnativewindow.so[arm]
+[  9% 130/1366] //frameworks/base/core/jni:libmedia_jni_utils strip libmedia_jni_utils.so[arm]
+[  9% 131/1366] //frameworks/native/libs/nativewindow:libnativewindow strip libnativewindow.so
+[  9% 132/1366] //frameworks/native/libs/nativewindow:libnativewindow copy libnativewindow.so[arm]
+[  9% 133/1366] //frameworks/native/libs/nativewindow:libnativewindow copy libnativewindow.so
+[  9% 134/1364] //frameworks/base/core/jni:libmedia_jni_utils copy libmedia_jni_utils.so[arm]
+[  9% 135/1362] //frameworks/native/libs/ui:libui clang++ Gralloc5.cpp[apex31]
+[  9% 136/1362] //frameworks/native/libs/nativewindow:libnativewindow generate toc libnativewindow.so[arm]
+[ 10% 137/1310] //frameworks/base/core/jni:libmedia_jni_utils generate toc libmedia_jni_utils.so[arm]
+[ 10% 138/1300] //frameworks/native/libs/ui:libui clang++ GraphicBuffer.cpp[arm apex31]
+[ 10% 139/1300] //frameworks/native/libs/nativewindow:libnativewindow generate toc libnativewindow.so
+[ 11% 140/1248] //frameworks/native/libs/ui:libui clang++ Fence.cpp[arm apex31]
+[ 11% 141/1238] //frameworks/native/libs/ui:libui clang++ Gralloc3.cpp[arm apex31]
+[ 11% 142/1238] //frameworks/native/libs/ui:libui clang++ Gralloc.cpp[arm apex31]
+[ 11% 143/1238] //frameworks/native/libs/ui:libui clang++ StaticAsserts.cpp[arm apex31]
+[ 11% 144/1238] Install: out/target/product/gta3xlwifi/system/lib/libui.so
+[ 11% 145/1238] Install: out/target/product/gta3xlwifi/system/lib64/libui.so
+[ 11% 146/1238] Install: out/target/product/gta3xlwifi/system/lib/libnativewindow.so
+[ 11% 147/1238] Install: out/target/product/gta3xlwifi/system/lib64/libnativewindow.so
+[ 12% 148/1231] Install: out/target/product/gta3xlwifi/system/lib/libSurfaceFlingerProp.so
+[ 12% 149/1223] Install: out/target/product/gta3xlwifi/system/lib64/libSurfaceFlingerProp.so
+[ 12% 150/1218] Install: out/target/product/gta3xlwifi/system/lib/libmedia_jni_utils.so
+[ 12% 151/1213] Install: out/target/product/gta3xlwifi/system/lib64/libmedia_jni_utils.so
+[ 12% 152/1213] //frameworks/native/libs/ui:libui clang++ Gralloc5.cpp[arm apex31]
+[ 12% 153/1213] //frameworks/native/libs/ui:libui clang++ DynamicDisplayInfo.cpp[arm apex31]
+[ 12% 154/1213] //frameworks/native/libs/ui:libui link libui.so[apex31]
+[ 12% 155/1213] //frameworks/native/libs/ui:libui clang++ GraphicBufferAllocator.cpp[arm apex31]
+[ 12% 156/1213] //frameworks/native/vulkan/libvulkan:libvulkan link libvulkan.so[arm]
+[ 12% 157/1213] //frameworks/native/vulkan/libvulkan:libvulkan link libvulkan.so
+[ 13% 158/1213] //frameworks/native/libs/ui:libui clang++ Gralloc4.cpp[arm apex31]
+stderr:
+frameworks/native/libs/ui/Gralloc4.cpp:1026:25: warning: 'AServiceManager_getService' is deprecated: this polls 5s, use AServiceManager_waitForService or AServiceManager_checkService [-Wdeprecated-declarations]
+ 1026 |                         AServiceManager_getService(kAidlAllocatorServiceName.c_str())));
+      |                         ^
+frameworks/native/libs/binder/ndk/include_platform/android/binder_manager.h:138:3: note: 'AServiceManager_getService' has been explicitly marked deprecated here
+  138 | [[deprecated("this polls 5s, use AServiceManager_waitForService or AServiceManager_checkService")]]
+      |   ^
+1 warning generated.
+[ 13% 159/1213] //build/soong:product_config building product_config.json
+stderr:
+Duplicate key 'BoardPlatform' with identical values found.
+Duplicate key 'ProductModel' with identical values found.
+[ 13% 160/1213] out/host/linux-x86/bin/release-config-internal --top . --quiet `prebuilts/build-tools/path/linux-x86/cat out/soong/release-config/args-lineage_gta3xlwifi.txt` --out_dir out/soong/.intermediates/build/soong/aconfig/build_flags/my_release_config/android_common --container
+[ 13% 161/1213] //frameworks/native/vulkan/libvulkan:libvulkan strip libvulkan.so
+[ 13% 162/1205] //frameworks/native/vulkan/libvulkan:libvulkan strip libvulkan.so[arm]
+[ 13% 163/1205] //frameworks/native/vulkan/libvulkan:libvulkan copy libvulkan.so
+[ 13% 164/1205] //frameworks/native/libs/ui:libui strip libui.so[apex31]
+[ 13% 165/1205] //frameworks/native/vulkan/libvulkan:libvulkan generate toc libvulkan.so
+[ 13% 166/1205] //frameworks/native/vulkan/libvulkan:libvulkan generate toc libvulkan.so[arm]
+[ 13% 167/1203] //frameworks/native/libs/ui:libui generate toc libui.so[apex31]
+[ 13% 168/1203] //frameworks/native/libs/ui:libui copy libui.so[apex31]
+[ 14% 169/1203] Install: out/target/product/gta3xlwifi/system/lib64/libvulkan.so
+[ 14% 170/1203] //frameworks/native/vulkan/libvulkan:libvulkan copy libvulkan.so[arm]
+[ 14% 171/1202] //frameworks/native/libs/ui:libui link libui.so[arm apex31]
+[ 14% 172/1202] Install: out/target/product/gta3xlwifi/system/lib/libvulkan.so
+[ 14% 173/1202] //frameworks/native/libs/ui:libui strip libui.so[arm apex31]
+[ 14% 174/1202] //frameworks/av/media/codec2/vndk:libcodec2_vndk link libcodec2_vndk.so
+[ 14% 175/1202] //frameworks/av/media/codec2/vndk:libcodec2_vndk link libcodec2_vndk.so[arm]
+[ 14% 176/1202] //frameworks/native/libs/ui:libui copy libui.so[arm apex31]
+[ 14% 177/1202] //build/soong:system_ext-build.prop generating build.prop[common]
+[ 14% 178/1202] //build/soong:odm-build.prop generating build.prop[common]
+[ 14% 179/1202] //build/soong:product-build.prop generating build.prop[common]
+[ 14% 180/1202] Install: out/target/product/gta3xlwifi/vendor/odm/etc/build.prop
+[ 15% 181/1202] Install: out/target/product/gta3xlwifi/system/system_ext/etc/build.prop
+[ 15% 182/1202] Install: out/target/product/gta3xlwifi/product/etc/build.prop
+[ 15% 183/1202] //build/soong:system-build.prop generating build.prop[common]
+[ 15% 184/1202] Install: out/target/product/gta3xlwifi/apex/com.android.media.swcodec/lib/libui.so
+[ 15% 185/1202] Install: out/target/product/gta3xlwifi/apex/com.android.media.swcodec/lib64/libui.so
+[ 15% 186/1202] Install: out/target/product/gta3xlwifi/system/build.prop
+[ 15% 187/1202] //frameworks/native/libs/ui:libui generate toc libui.so[arm apex31]
+[ 15% 188/1202] Target recovery buildinfo: out/target/product/gta3xlwifi/recovery/root/prop.default
+[ 15% 189/1202] //build/soong:system_dlkm-build.prop generating build.prop[common]
+[ 15% 190/1202] //frameworks/av/media/codec2/vndk:libcodec2_vndk strip libcodec2_vndk.so
+[ 15% 191/1202] Install: out/target/product/gta3xlwifi/system/system_dlkm/etc/build.prop
+[ 15% 192/1202] //frameworks/av/media/codec2/vndk:libcodec2_vndk strip libcodec2_vndk.so[arm]
+[ 16% 193/1202] //frameworks/av/media/codec2/vndk:libcodec2_vndk copy libcodec2_vndk.so
+[ 16% 194/1202] //frameworks/av/media/codec2/vndk:libcodec2_vndk copy libcodec2_vndk.so[arm]
+[ 16% 195/1202] //frameworks/av/media/codec2/vndk:libcodec2_vndk generate toc libcodec2_vndk.so
+[ 16% 196/1202] Install: out/target/product/gta3xlwifi/system/lib64/libcodec2_vndk.so
+[ 16% 197/1190] Install: out/target/product/gta3xlwifi/system/lib/libcodec2_vndk.so
+[ 16% 198/1187] //frameworks/av/media/codec2/vndk:libcodec2_vndk generate toc libcodec2_vndk.so[arm]
+[ 16% 199/1187] build out/target/product/gta3xlwifi/obj/PACKAGING/recovery_intermediates/ramdisk_files-timestamp
+[ 17% 200/1172] //frameworks/native/libs/gui:libgui link libgui.so
+[ 17% 201/1172] //frameworks/native/libs/gui:libgui link libgui.so[arm]
+[ 17% 202/1172] //frameworks/av/media/codec2/vndk:libcodec2_vndk link libcodec2_vndk.so[apex31]
+[ 17% 203/1172] //frameworks/native/libs/nativewindow:libnativewindow header-abi-linker libnativewindow.so.apex.lsdump[arm]
+[ 17% 204/1172] //frameworks/native/libs/nativewindow:libnativewindow header-abi-linker libnativewindow.so.llndk.lsdump
+[ 17% 205/1172] //frameworks/native/libs/nativewindow:libnativewindow header-abi-linker libnativewindow.so.llndk.lsdump[arm]
+[ 17% 206/1172] //frameworks/native/libs/nativewindow:libnativewindow header-abi-linker libnativewindow.so.apex.lsdump
+[ 17% 207/1172] //frameworks/native/libs/nativewindow:libnativewindow header-abi-diff libnativewindow.so.llndk202504.abidiff[arm]
+[ 17% 208/1172] //frameworks/native/libs/nativewindow:libnativewindow header-abi-diff libnativewindow.so.llndk202504.abidiff
+[ 17% 209/1172] //frameworks/native/libs/nativewindow:libnativewindow header-abi-diff libnativewindow.so.apex36.abidiff[arm]
+[ 17% 210/1172] //frameworks/native/libs/nativewindow:libnativewindow header-abi-diff libnativewindow.so.apex36.abidiff
+[ 18% 211/1172] //frameworks/native/libs/nativewindow:libnativewindow header-abi-diff libnativewindow.so.llndk.abidiff
+[ 18% 212/1172] //frameworks/native/libs/nativewindow:libnativewindow header-abi-diff libnativewindow.so.llndk.abidiff[arm]
+[ 18% 213/1172] //frameworks/av/media/codec2/vndk:libcodec2_vndk link libcodec2_vndk.so[arm apex31]
+[ 18% 214/1172] //frameworks/av/media/codec2/vndk:libcodec2_vndk strip libcodec2_vndk.so[arm apex31]
+[ 18% 215/1172] //frameworks/native/libs/gui:libgui strip libgui.so
+[ 18% 216/1172] //frameworks/av/media/codec2/vndk:libcodec2_vndk copy libcodec2_vndk.so[arm apex31]
+[ 18% 217/1172] //frameworks/native/libs/gui:libgui copy libgui.so
+[ 18% 218/1170] Install: out/target/product/gta3xlwifi/apex/com.android.media.swcodec/lib/libcodec2_vndk.so
+[ 18% 219/1170] Install: out/target/product/gta3xlwifi/system/lib64/libgui.so
+[ 18% 220/1170] //frameworks/native/libs/gui:libgui strip libgui.so[arm]
+[ 18% 221/1170] //frameworks/av/media/codec2/vndk:libcodec2_vndk strip libcodec2_vndk.so[apex31]
+[ 18% 222/1170] //frameworks/native/libs/gui:libgui copy libgui.so[arm]
+[ 19% 223/1170] //frameworks/av/media/codec2/vndk:libcodec2_vndk copy libcodec2_vndk.so[apex31]
+[ 19% 224/1170] Install: out/target/product/gta3xlwifi/apex/com.android.media.swcodec/lib64/libcodec2_vndk.so
+[ 19% 225/1170] Install: out/target/product/gta3xlwifi/system/lib/libgui.so
+[ 19% 226/1170] ----- Making uncompressed recovery ramdisk ------
+[ 19% 227/1170] //frameworks/av/media/codec2/vndk:libcodec2_vndk generate toc libcodec2_vndk.so[arm apex31]
+[ 19% 228/1170] //frameworks/native/libs/gui:libgui generate toc libgui.so
+[ 20% 229/1144] //frameworks/av/media/libstagefright:libstagefright_surface_utils link libstagefright_surface_utils.so
+[ 20% 230/1139] //frameworks/av/media/codec2/vndk:libcodec2_vndk generate toc libcodec2_vndk.so[apex31]
+[ 20% 231/1139] //frameworks/native/libs/gui:libgui generate toc libgui.so[arm]
+[ 22% 232/1025] //frameworks/av/media/module/bqhelper:libstagefright_bufferqueue_helper link libstagefright_bufferqueue_helper.so
+[ 24% 233/959] //frameworks/av/media/codec2/hal/hidl/1.0/utils:libcodec2_hidl_client@1.0 link libcodec2_hidl_client@1.0.so
+[ 24% 234/959] //frameworks/av/media/libstagefright:libstagefright_surface_utils link libstagefright_surface_utils.so[arm]
+[ 24% 235/959] //frameworks/av/media/libstagefright:libstagefright_surface_utils strip libstagefright_surface_utils.so
+[ 24% 236/959] //frameworks/av/media/libmedia:libmedia_omx link libmedia_omx.so
+[ 24% 237/959] ----- Making compressed recovery ramdisk ------
+[ 24% 238/959] //frameworks/native/libs/nativedisplay:libnativedisplay link libnativedisplay.so
+[ 24% 239/959] //frameworks/av/media/codec2/hal/hidl/1.0/utils:libcodec2_hidl_client@1.0 link libcodec2_hidl_client@1.0.so[arm]
+[ 25% 240/959] //frameworks/av/media/libstagefright:libstagefright_framecapture_utils link libstagefright_framecapture_utils.so
+[ 25% 241/959] //frameworks/av/media/module/bqhelper:libstagefright_bufferqueue_helper link libstagefright_bufferqueue_helper.so[arm]
+[ 25% 242/959] //frameworks/av/media/libstagefright:libstagefright_surface_utils copy libstagefright_surface_utils.so
+[ 25% 243/959] //frameworks/av/media/libstagefright:libstagefright_surface_utils generate toc libstagefright_surface_utils.so
+[ 25% 244/959] //frameworks/av/media/codec2/hal/hidl/1.0/utils:libcodec2_hidl_client@1.0 strip libcodec2_hidl_client@1.0.so
+[ 25% 245/959] //frameworks/av/media/libmedia:libmedia_omx link libmedia_omx.so[arm]
+[ 25% 246/959] //frameworks/av/media/codec2/hal/hidl/1.0/utils:libcodec2_hidl_client@1.0 copy libcodec2_hidl_client@1.0.so
+[ 25% 247/959] //frameworks/av/media/module/bqhelper:libstagefright_bufferqueue_helper strip libstagefright_bufferqueue_helper.so
+[ 25% 248/959] //frameworks/av/media/codec2/hal/hidl/1.0/utils:libcodec2_hidl_client@1.0 strip libcodec2_hidl_client@1.0.so[arm]
+[ 25% 249/959] //frameworks/av/media/module/bqhelper:libstagefright_bufferqueue_helper copy libstagefright_bufferqueue_helper.so
+[ 26% 250/959] //frameworks/av/media/codec2/hal/hidl/1.0/utils:libcodec2_hidl_client@1.0 copy libcodec2_hidl_client@1.0.so[arm]
+[ 26% 251/959] //frameworks/av/media/libmedia:libmedia_omx strip libmedia_omx.so
+[ 26% 252/959] //frameworks/av/media/codec2/hal/hidl/1.0/utils:libcodec2_hidl_client@1.0 generate toc libcodec2_hidl_client@1.0.so[arm]
+[ 26% 253/959] //frameworks/av/media/libmedia:libmedia_omx copy libmedia_omx.so
+[ 26% 254/959] //frameworks/av/media/codec2/hal/hidl/1.0/utils:libcodec2_hidl_client@1.0 generate toc libcodec2_hidl_client@1.0.so
+[ 26% 255/959] //frameworks/av/media/libstagefright:libstagefright_surface_utils strip libstagefright_surface_utils.so[arm]
+[ 26% 256/959] //frameworks/av/media/libstagefright:libstagefright_framecapture_utils strip libstagefright_framecapture_utils.so
+[ 26% 257/959] //frameworks/av/media/libstagefright:libstagefright_surface_utils copy libstagefright_surface_utils.so[arm]
+[ 26% 258/959] //frameworks/av/media/module/bqhelper:libstagefright_bufferqueue_helper strip libstagefright_bufferqueue_helper.so[arm]
+[ 27% 259/959] //frameworks/av/media/module/bqhelper:libstagefright_bufferqueue_helper copy libstagefright_bufferqueue_helper.so[arm]
+[ 27% 260/959] //frameworks/av/media/module/bqhelper:libstagefright_bufferqueue_helper generate toc libstagefright_bufferqueue_helper.so
+[ 27% 261/959] //frameworks/av/media/libmedia:libmedia_omx generate toc libmedia_omx.so
+[ 27% 262/947] //frameworks/av/media/libstagefright:libstagefright_framecapture_utils copy libstagefright_framecapture_utils.so
+[ 27% 263/947] //frameworks/av/media/codec2/hal/hidl/1.1/utils:libcodec2_hidl_client@1.1 link libcodec2_hidl_client@1.1.so
+[ 27% 264/947] //frameworks/av/media/codec2/hal/hidl/1.1/utils:libcodec2_hidl_client@1.1 link libcodec2_hidl_client@1.1.so[arm]
+[ 27% 265/947] //frameworks/av/media/libmedia:libmedia_omx strip libmedia_omx.so[arm]
+[ 28% 266/947] //frameworks/av/media/libstagefright:libstagefright_surface_utils generate toc libstagefright_surface_utils.so[arm]
+[ 28% 267/947] //frameworks/av/media/module/bqhelper:libstagefright_bufferqueue_helper generate toc libstagefright_bufferqueue_helper.so[arm]
+[ 28% 268/947] //frameworks/av/media/libstagefright:libstagefright_framecapture_utils generate toc libstagefright_framecapture_utils.so
+[ 28% 269/947] //frameworks/av/media/libmedia:libmedia_omx copy libmedia_omx.so[arm]
+[ 28% 270/943] //frameworks/av/media/libmedia:libmedia_omx generate toc libmedia_omx.so[arm]
+[ 28% 271/935] //frameworks/av/media/codec2/hal/hidl/1.1/utils:libcodec2_hidl_client@1.1 strip libcodec2_hidl_client@1.1.so
+[ 29% 272/935] //frameworks/av/media/codec2/hal/hidl/1.1/utils:libcodec2_hidl_client@1.1 strip libcodec2_hidl_client@1.1.so[arm]
+[ 29% 273/935] //frameworks/av/media/codec2/hal/hidl/1.1/utils:libcodec2_hidl_client@1.1 copy libcodec2_hidl_client@1.1.so
+[ 29% 274/935] //frameworks/av/media/libmedia:libmedia_omx_client link libmedia_omx_client.so
+[ 29% 275/935] //frameworks/av/media/codec2/hal/hidl/1.1/utils:libcodec2_hidl_client@1.1 generate toc libcodec2_hidl_client@1.1.so
+[ 29% 276/935] //frameworks/av/media/codec2/hal/hidl/1.1/utils:libcodec2_hidl_client@1.1 copy libcodec2_hidl_client@1.1.so[arm]
+[ 29% 277/935] //frameworks/av/media/libstagefright:libstagefright_codecbase link libstagefright_codecbase.so
+[ 29% 278/935] //frameworks/native/libs/nativedisplay:libnativedisplay strip libnativedisplay.so
+[ 29% 279/935] //frameworks/av/media/codec2/hal/hidl/1.1/utils:libcodec2_hidl_client@1.1 generate toc libcodec2_hidl_client@1.1.so[arm]
+[ 29% 280/935] //frameworks/av/media/libstagefright:libstagefright_framecapture_utils link libstagefright_framecapture_utils.so[arm]
+[ 30% 281/935] //frameworks/av/media/codec2/hal/hidl/1.2/utils:libcodec2_hidl_client@1.2 link libcodec2_hidl_client@1.2.so
+[ 30% 282/935] //frameworks/av/media/codec2/hal/hidl/1.2/utils:libcodec2_hidl_client@1.2 link libcodec2_hidl_client@1.2.so[arm]
+[ 30% 283/935] //frameworks/av/media/libmedia:libmedia_omx_client strip libmedia_omx_client.so
+[ 30% 284/935] //frameworks/av/media/libstagefright:libstagefright_framecapture_utils strip libstagefright_framecapture_utils.so[arm]
+[ 30% 285/935] //frameworks/native/libs/nativedisplay:libnativedisplay link libnativedisplay.so[arm]
+[ 30% 286/935] //frameworks/av/media/libmedia:libmedia_omx_client copy libmedia_omx_client.so
+[ 30% 287/935] //frameworks/av/media/libstagefright:libstagefright_codecbase strip libstagefright_codecbase.so
+[ 30% 288/935] //frameworks/av/media/libstagefright:libstagefright_framecapture_utils copy libstagefright_framecapture_utils.so[arm]
+[ 30% 289/935] //frameworks/av/media/libstagefright:libstagefright_codecbase copy libstagefright_codecbase.so
+[ 31% 290/935] //frameworks/av/media/libmedia:libmedia_omx_client link libmedia_omx_client.so[arm]
+[ 31% 291/935] //frameworks/av/media/libmedia:libmedia_omx_client generate toc libmedia_omx_client.so
+[ 31% 292/935] //frameworks/av/media/codec2/hal/hidl/1.2/utils:libcodec2_hidl_client@1.2 strip libcodec2_hidl_client@1.2.so
+[ 31% 293/935] //frameworks/av/media/libstagefright:libstagefright_codecbase link libstagefright_codecbase.so[arm]
+[ 31% 294/935] //frameworks/av/media/codec2/hal/hidl/1.2/utils:libcodec2_hidl_client@1.2 copy libcodec2_hidl_client@1.2.so
+[ 31% 295/935] //frameworks/av/media/libstagefright:libstagefright_framecapture_utils generate toc libstagefright_framecapture_utils.so[arm]
+[ 31% 296/935] //frameworks/av/media/libstagefright:libstagefright_codecbase generate toc libstagefright_codecbase.so
+[ 31% 297/935] //frameworks/native/libs/nativedisplay:libnativedisplay copy libnativedisplay.so
+[ 31% 298/935] //frameworks/native/libs/nativedisplay:libnativedisplay generate toc libnativedisplay.so
+[ 31% 299/935] //frameworks/av/media/codec2/hal/hidl/1.2/utils:libcodec2_hidl_client@1.2 strip libcodec2_hidl_client@1.2.so[arm]
+[ 32% 300/935] Install: out/target/product/gta3xlwifi/system/lib64/libcodec2_hidl_client@1.0.so
+[ 32% 301/935] //frameworks/av/media/codec2/hal/hidl/1.2/utils:libcodec2_hidl_client@1.2 copy libcodec2_hidl_client@1.2.so[arm]
+[ 32% 302/935] //frameworks/av/media/codec2/hal/hidl/1.2/utils:libcodec2_hidl_client@1.2 generate toc libcodec2_hidl_client@1.2.so
+[ 32% 303/935] Install: out/target/product/gta3xlwifi/system/lib/libcodec2_hidl_client@1.0.so
+[ 32% 304/935] //frameworks/native/vulkan/libvulkan:libvulkan header-abi-linker libvulkan.so.llndk.lsdump[arm]
+[ 32% 305/935] //frameworks/native/vulkan/libvulkan:libvulkan header-abi-linker libvulkan.so.llndk.lsdump
+[ 32% 306/935] Install: out/target/product/gta3xlwifi/system/lib64/libmedia_omx.so
+[ 32% 307/933] Install: out/target/product/gta3xlwifi/system/lib64/libcodec2_hidl_client@1.1.so
+[ 33% 308/933] //frameworks/av/media/codec2/hal/hidl/1.2/utils:libcodec2_hidl_client@1.2 generate toc libcodec2_hidl_client@1.2.so[arm]
+[ 33% 309/933] Install: out/target/product/gta3xlwifi/system/lib/libmedia_omx.so
+[ 33% 310/933] Install: out/target/product/gta3xlwifi/system/lib/libcodec2_hidl_client@1.1.so
+[ 33% 311/931] //frameworks/av/media/libmedia:libmedia_omx_client strip libmedia_omx_client.so[arm]
+[ 33% 312/931] Install: out/target/product/gta3xlwifi/system/lib64/libstagefright_bufferqueue_helper.so
+[ 33% 313/931] Install: out/target/product/gta3xlwifi/system/lib/libstagefright_bufferqueue_helper.so
+[ 33% 314/930] //frameworks/av/media/libmedia:libmedia_omx_client copy libmedia_omx_client.so[arm]
+[ 33% 315/929] Install: out/target/product/gta3xlwifi/system/lib64/libcodec2_hidl_client@1.2.so
+[ 34% 316/929] Install: out/target/product/gta3xlwifi/system/lib/libcodec2_hidl_client@1.2.so
+[ 34% 317/929] Install: out/target/product/gta3xlwifi/system/lib64/libstagefright_codecbase.so
+[ 34% 318/929] //frameworks/av/media/libmedia:libmedia_omx_client generate toc libmedia_omx_client.so[arm]
+[ 34% 319/929] Install: out/target/product/gta3xlwifi/system/lib/libstagefright_surface_utils.so
+[ 34% 320/929] Install: out/target/product/gta3xlwifi/system/lib64/libmedia_omx_client.so
+[ 34% 321/929] Install: out/target/product/gta3xlwifi/system/lib/libmedia_omx_client.so
+[ 34% 322/929] Install: out/target/product/gta3xlwifi/system/lib/libstagefright_framecapture_utils.so
+[ 34% 323/929] Install: out/target/product/gta3xlwifi/system/lib64/libstagefright_framecapture_utils.so
+[ 34% 324/929] Install: out/target/product/gta3xlwifi/system/lib64/libnativedisplay.so
+[ 34% 325/929] //frameworks/av/media/libstagefright:libstagefright_codecbase strip libstagefright_codecbase.so[arm]
+[ 35% 326/929] Install: out/target/product/gta3xlwifi/system/lib64/libstagefright_surface_utils.so
+[ 35% 327/929] //frameworks/native/libs/nativedisplay:libnativedisplay strip libnativedisplay.so[arm]
+[ 35% 328/929] //frameworks/av/media/libstagefright:libstagefright_codecbase copy libstagefright_codecbase.so[arm]
+[ 35% 329/929] //frameworks/native/libs/nativedisplay:libnativedisplay copy libnativedisplay.so[arm]
+[ 35% 330/929] //frameworks/av/media/libstagefright:libstagefright_codecbase generate toc libstagefright_codecbase.so[arm]
+[ 35% 331/929] Install: out/target/product/gta3xlwifi/system/lib/libstagefright_codecbase.so
+[ 35% 332/929] Install: out/target/product/gta3xlwifi/system/lib/libnativedisplay.so
+[ 35% 333/929] //frameworks/native/libs/nativedisplay:libnativedisplay generate toc libnativedisplay.so[arm]
+[ 35% 334/929] //frameworks/native/vulkan/libvulkan:libvulkan header-abi-diff libvulkan.so.llndk202504.abidiff[arm]
+[ 36% 335/929] //frameworks/av/media/codec2/hal/hidl/1.0/utils:libcodec2_hidl@1.0 link libcodec2_hidl@1.0.so[apex31]
+[ 36% 336/929] //frameworks/native/vulkan/libvulkan:libvulkan header-abi-diff libvulkan.so.llndk202504.abidiff
+[ 36% 337/929] //frameworks/native/vulkan/libvulkan:libvulkan header-abi-diff libvulkan.so.llndk.abidiff[arm]
+[ 36% 338/929] //frameworks/av/media/libstagefright/omx:libstagefright_omx link libstagefright_omx.so[arm]
+[ 36% 339/929] //frameworks/av/media/libstagefright/omx:libstagefright_omx link libstagefright_omx.so
+[ 36% 340/929] //frameworks/native/vulkan/libvulkan:libvulkan header-abi-diff libvulkan.so.llndk.abidiff
+[ 36% 341/929] //frameworks/av/media/libmedia:libmedia link libmedia.so
+[ 36% 342/929] //frameworks/av/media/codec2/hal/hidl/1.0/utils:libcodec2_hidl@1.0 strip libcodec2_hidl@1.0.so[apex31]
+[ 36% 343/929] //frameworks/av/media/codec2/hal/hidl/1.0/utils:libcodec2_hidl@1.0 copy libcodec2_hidl@1.0.so[apex31]
+[ 37% 344/929] Install: out/target/product/gta3xlwifi/apex/com.android.media.swcodec/lib64/libcodec2_hidl@1.0.so
+[ 37% 345/929] //frameworks/av/media/libstagefright/omx:libstagefright_omx strip libstagefright_omx.so[arm]
+[ 37% 346/929] //frameworks/av/media/libstagefright/omx:libstagefright_omx copy libstagefright_omx.so[arm]
+[ 37% 347/929] Install: out/target/product/gta3xlwifi/system/lib/libstagefright_omx.so
+[ 37% 348/929] //frameworks/av/media/codec2/hal/hidl/1.0/utils:libcodec2_hidl@1.0 generate toc libcodec2_hidl@1.0.so[apex31]
+[ 37% 349/929] //frameworks/av/media/codec2/hal/client:libcodec2_client link libcodec2_client.so[arm]
+[ 37% 350/929] //frameworks/av/media/codec2/hal/client:libcodec2_client link libcodec2_client.so
+[ 37% 351/929] //frameworks/av/media/libmedia:libmedia link libmedia.so[arm]
+[ 37% 352/929] rm -rf out/soong/.intermediates/build/soong/compliance/notice_xml_product/android_arm64_armv8-a/NOTICE.xml.gz && out/host/linux-x86/bin/gen_notice_xml --output_file out/soong/.intermediates/build/soong/compliance/notice_xml_product/android_arm64_armv8-a/NOTICE.xml.gz --metadata out/soong/compliance-metadata/lineage_gta3xlwifi/compliance-metadata.db --partition product --product_out out/target/product/gta3xlwifi --soong_out out/soong
+[ 37% 353/929] //frameworks/av/media/libstagefright/omx:libstagefright_omx strip libstagefright_omx.so
+[ 38% 354/929] Install: out/target/product/gta3xlwifi/product/etc/NOTICE.xml.gz
+[ 38% 355/929] //frameworks/av/media/libstagefright/omx:libstagefright_omx copy libstagefright_omx.so
+[ 38% 356/929] //frameworks/av/media/libmedia:libmedia strip libmedia.so
+[ 38% 357/929] Install: out/target/product/gta3xlwifi/system/lib64/libstagefright_omx.so
+[ 38% 358/929] //frameworks/av/media/libmedia:libmedia copy libmedia.so
+[ 38% 359/929] Install: out/target/product/gta3xlwifi/system/lib64/libmedia.so
+[ 38% 360/929] //frameworks/av/media/codec2/hal/hidl/1.1/utils:libcodec2_hidl@1.1 link libcodec2_hidl@1.1.so[apex31]
+[ 38% 361/929] //frameworks/av/media/codec2/hal/aidl:libcodec2_aidl_V2 link libcodec2_aidl_V2.so[apex31]
+[ 38% 362/929] //frameworks/av/media/libmedia:libmedia generate toc libmedia.so
+[ 39% 363/929] Creating linker config: out/target/product/gta3xlwifi/product/etc/linker.config.pb
+[ 40% 364/901] //frameworks/av/media/codec2/hal/client:libcodec2_client strip libcodec2_client.so[arm]
+[ 40% 365/901] //frameworks/av/media/codec2/hal/client:libcodec2_client strip libcodec2_client.so
+[ 40% 366/901] //frameworks/av/media/libmedia:libmedia strip libmedia.so[arm]
+[ 40% 367/901] //frameworks/av/media/libmedia:libmedia copy libmedia.so[arm]
+[ 40% 368/901] //frameworks/av/media/codec2/hal/client:libcodec2_client copy libcodec2_client.so[arm]
+[ 40% 369/901] //frameworks/av/media/codec2/hal/client:libcodec2_client copy libcodec2_client.so
+[ 41% 370/901] Install: out/target/product/gta3xlwifi/system/lib64/libcodec2_client.so
+[ 41% 371/901] Install: out/target/product/gta3xlwifi/system/lib/libmedia.so
+[ 41% 372/901] Install: out/target/product/gta3xlwifi/system/lib/libcodec2_client.so
+[ 41% 373/901] //frameworks/av/media/codec2/hal/client:libcodec2_client generate toc libcodec2_client.so
+[ 41% 374/901] //frameworks/av/media/codec2/hal/client:libcodec2_client generate toc libcodec2_client.so[arm]
+[ 41% 375/901] //frameworks/av/media/libmedia:libmedia generate toc libmedia.so[arm]
+[ 42% 376/886] //frameworks/av/media/codec2/hal/hidl/1.1/utils:libcodec2_hidl@1.1 strip libcodec2_hidl@1.1.so[apex31]
+[ 42% 377/886] //frameworks/av/media/codec2/hal/hidl/1.1/utils:libcodec2_hidl@1.1 copy libcodec2_hidl@1.1.so[apex31]
+[ 42% 378/886] //frameworks/av/media/codec2/hal/aidl:libcodec2_aidl_V2 strip libcodec2_aidl_V2.so[apex31]
+[ 42% 379/886] //frameworks/av/media/codec2/hal/aidl:libcodec2_aidl_V2 copy libcodec2_aidl_V2.so[apex31]
+[ 42% 380/886] Install: out/target/product/gta3xlwifi/apex/com.android.media.swcodec/lib64/libcodec2_aidl_V2.so
+[ 43% 381/886] Install: out/target/product/gta3xlwifi/apex/com.android.media.swcodec/lib64/libcodec2_hidl@1.1.so
+[ 43% 382/886] //frameworks/av/media/codec2/hal/hidl/1.1/utils:libcodec2_hidl@1.1 generate toc libcodec2_hidl@1.1.so[apex31]
+[ 43% 383/886] //frameworks/av/media/codec2/hal/aidl:libcodec2_aidl_V2 generate toc libcodec2_aidl_V2.so[apex31]
+[ 43% 384/886] build out/target/product/gta3xlwifi/recovery.img
+[ 43% 385/886] //frameworks/av/media/codec2/hal/hidl/1.2/utils:libcodec2_hidl@1.2 link libcodec2_hidl@1.2.so[apex31]
+[ 43% 386/886] //frameworks/av/media/codec2/hal/hidl/1.2/utils:libcodec2_hidl@1.2 strip libcodec2_hidl@1.2.so[apex31]
+[ 43% 387/886] //frameworks/av/media/codec2/hal/hidl/1.2/utils:libcodec2_hidl@1.2 copy libcodec2_hidl@1.2.so[apex31]
+[ 43% 388/886] Install: out/target/product/gta3xlwifi/apex/com.android.media.swcodec/lib64/libcodec2_hidl@1.2.so
+[ 43% 389/886] //frameworks/av/media/codec2/hal/hidl/1.2/utils:libcodec2_hidl@1.2 generate toc libcodec2_hidl@1.2.so[apex31]
+[ 44% 390/878] rm -rf out/soong/.intermediates/build/soong/compliance/notice_xml_system/android_arm64_armv8-a/NOTICE.xml.gz && out/host/linux-x86/bin/gen_notice_xml --output_file out/soong/.intermediates/build/soong/compliance/notice_xml_system/android_arm64_armv8-a/NOTICE.xml.gz --metadata out/soong/compliance-metadata/lineage_gta3xlwifi/compliance-metadata.db --partition system --product_out out/target/product/gta3xlwifi --soong_out out/soong
+[ 44% 391/878] Install: out/target/product/gta3xlwifi/system/etc/NOTICE.xml.gz
+[ 44% 392/878] //frameworks/av/media/codec2/sfplugin:libsfplugin_ccodec link libsfplugin_ccodec.so
+[ 44% 393/878] //frameworks/av/media/codec2/sfplugin:libsfplugin_ccodec link libsfplugin_ccodec.so[arm]
+[ 44% 394/878] //frameworks/av/media/codec2/sfplugin:libsfplugin_ccodec strip libsfplugin_ccodec.so
+[ 44% 395/878] //frameworks/av/media/codec2/sfplugin:libsfplugin_ccodec copy libsfplugin_ccodec.so
+[ 45% 396/878] //frameworks/av/media/codec2/sfplugin:libsfplugin_ccodec generate toc libsfplugin_ccodec.so
+[ 45% 397/878] Install: out/target/product/gta3xlwifi/system/lib64/libsfplugin_ccodec.so
+[ 45% 398/878] //frameworks/av/media/codec2/sfplugin:libsfplugin_ccodec strip libsfplugin_ccodec.so[arm]
+[ 45% 399/878] //frameworks/av/media/codec2/sfplugin:libsfplugin_ccodec copy libsfplugin_ccodec.so[arm]
+[ 45% 400/878] Install: out/target/product/gta3xlwifi/system/lib/libsfplugin_ccodec.so
+[ 45% 401/878] //frameworks/av/media/codec2/sfplugin:libsfplugin_ccodec generate toc libsfplugin_ccodec.so[arm]
+[ 45% 402/878] //frameworks/av/apex:com.android.media.swcodec apex[common]
+[ 45% 403/878] //frameworks/av/apex:com.android.media.swcodec signapk[common]
+[ 46% 404/878] run apex_linkerconfig_validation
+[ 46% 405/878] //frameworks/av/apex:com.android.media.swcodec Generate unsigned compressed APEX file[common]
+[ 46% 406/878] run apex_sepolicy_tests
+[ 46% 407/878] run host_apex_verifier
+[ 46% 408/878] //frameworks/av/apex:com.android.media.swcodec sign compressedApex[common]
+[ 46% 409/878] //frameworks/av/media/libstagefright:libstagefright link libstagefright.so[arm]
+[ 46% 410/878] //frameworks/av/media/libstagefright:libstagefright strip libstagefright.so[arm]
+[ 46% 411/878] //frameworks/av/media/libstagefright:libstagefright copy libstagefright.so[arm]
+[ 46% 412/878] //frameworks/av/media/libstagefright:libstagefright link libstagefright.so
+[ 47% 413/878] Install: out/target/product/gta3xlwifi/system/lib/libstagefright.so
+[ 47% 414/878] //frameworks/av/media/libstagefright:libstagefright generate toc libstagefright.so[arm]
+[ 47% 415/878] //frameworks/av/media/libstagefright:libstagefright strip libstagefright.so
+[ 47% 416/878] //frameworks/av/media/libstagefright:libstagefright copy libstagefright.so
+[ 47% 417/878] Install: out/target/product/gta3xlwifi/system/lib64/libstagefright.so
+[ 47% 418/878] //frameworks/av/media/libstagefright:libstagefright generate toc libstagefright.so
+[ 48% 419/867] //frameworks/av/media/libstagefright/wifi-display:libstagefright_wfd link libstagefright_wfd.so[arm]
+[ 48% 420/867] //frameworks/av/media/ndk:libmediandk link libmediandk.so[arm]
+[ 48% 421/867] //frameworks/av/media/ndk:libmediandk link libmediandk.so
+[ 48% 422/867] //frameworks/av/media/ndk:libmediandk strip libmediandk.so[arm]
+[ 48% 423/867] //frameworks/av/media/ndk:libmediandk copy libmediandk.so[arm]
+[ 48% 424/866] Install: out/target/product/gta3xlwifi/system/lib/libmediandk.so
+[ 49% 425/866] //frameworks/av/media/libstagefright/wifi-display:libstagefright_wfd strip libstagefright_wfd.so[arm]
+[ 49% 426/866] //frameworks/av/media/libstagefright/wifi-display:libstagefright_wfd copy libstagefright_wfd.so[arm]
+[ 49% 427/866] //frameworks/av/media/ndk:libmediandk strip libmediandk.so
+[ 49% 428/866] //frameworks/av/media/ndk:libmediandk copy libmediandk.so
+[ 49% 429/864] Install: out/target/product/gta3xlwifi/system/lib64/libmediandk.so
+[ 49% 430/864] Install: out/target/product/gta3xlwifi/system/lib/libstagefright_wfd.so
+[ 49% 431/864] Install: out/target/product/gta3xlwifi/system/apex/com.android.media.swcodec.capex
+[ 50% 432/864] //frameworks/av/media/ndk:libmediandk generate toc libmediandk.so[arm]
+[ 50% 433/864] //frameworks/av/media/libstagefright/wifi-display:libstagefright_wfd generate toc libstagefright_wfd.so[arm]
+[ 50% 434/854] //frameworks/av/media/ndk:libmediandk generate toc libmediandk.so
+[ 52% 435/832] //frameworks/av/media/ndk:libmediandk header-abi-linker libmediandk.so.llndk.lsdump
+[ 52% 436/823] //frameworks/av/media/ndk:libmediandk header-abi-diff libmediandk.so.llndk202504.abidiff
+[ 53% 437/823] //frameworks/av/media/ndk:libmediandk header-abi-linker libmediandk.so.llndk.lsdump[arm]
+[ 53% 438/823] //frameworks/av/media/ndk:libmediandk header-abi-diff libmediandk.so.llndk.abidiff
+[ 53% 439/823] //frameworks/av/media/ndk:libmediandk header-abi-diff libmediandk.so.llndk202504.abidiff[arm]
+[ 53% 440/823] //frameworks/av/media/ndk:libmediandk header-abi-diff libmediandk.so.llndk.abidiff[arm]
+[ 53% 441/823] //frameworks/av/cmds/screenrecord:screenrecord link screenrecord
+[ 53% 442/823] //frameworks/av/cmds/screenrecord:screenrecord strip screenrecord
+[ 53% 443/823] Install: out/target/product/gta3xlwifi/system/bin/screenrecord
+[ 53% 444/823] //frameworks/av/media/ndk:libmediandk header-abi-linker libmediandk.so.apex.lsdump[arm]
+[ 54% 445/823] //frameworks/av/media/ndk:libmediandk header-abi-linker libmediandk.so.apex.lsdump
+[ 54% 446/823] //frameworks/av/media/ndk:libmediandk header-abi-diff libmediandk.so.apex36.abidiff[arm]
+[ 54% 447/823] //frameworks/av/media/ndk:libmediandk header-abi-diff libmediandk.so.apex36.abidiff
+[ 54% 448/823] //external/rust/crabbyavif:libndk_sys rustc sys/ndk-sys/src/lib.rs[arm]
+[ 54% 449/823] //external/rust/crabbyavif:libndk_sys rustc sys/ndk-sys/src/lib.rs
+[ 54% 450/823] //frameworks/av/services/camera/virtualcamera:virtual_camera link virtual_camera
+[ 54% 451/823] //frameworks/av/services/camera/virtualcamera:virtual_camera strip virtual_camera
+[ 54% 452/823] Install: out/target/product/gta3xlwifi/system/bin/virtual_camera
+[ 55% 453/823] //external/rust/crabbyavif:libcrabbyavif_ffi rustc src/lib.rs[arm]
+[ 55% 454/823] //external/rust/crabbyavif:libcrabbyavif_ffi rustc src/lib.rs
+[ 55% 455/823] //frameworks/base/core/jni:libandroid_runtime rustc generated_rust_staticlib/librustlibs.rs
+[ 55% 456/823] //frameworks/base/libs/hwui:libhwui rustc generated_rust_staticlib/librustlibs.rs
+[ 55% 457/823] //frameworks/av/camera/cameraserver:cameraserver link cameraserver
+[ 55% 458/823] //frameworks/native/services/surfaceflinger:surfaceflinger rustc generated_rust_staticlib/librustlibs.rs
+[ 55% 459/823] //frameworks/native/services/surfaceflinger/Tracing/tools:layertracegenerator rustc generated_rust_staticlib/librustlibs.rs
+[ 55% 460/823] //frameworks/base/libs/hwui:libhwui rustc generated_rust_staticlib/librustlibs.rs[arm]
+[ 56% 461/823] //frameworks/av/camera/cameraserver:cameraserver strip cameraserver
+[ 56% 462/823] Install: out/target/product/gta3xlwifi/system/bin/cameraserver
+[ 56% 463/823] //frameworks/base/core/jni:libandroid_runtime rustc generated_rust_staticlib/librustlibs.rs[arm]
+[ 56% 464/823] //frameworks/base/libs/hwui:libhwui link libhwui.so
+[ 56% 465/823] //frameworks/base/libs/hwui:libhwui link libhwui.so[arm]
+[ 56% 466/823] //frameworks/base/libs/hwui:libhwui strip libhwui.so
+[ 56% 467/823] //frameworks/base/libs/hwui:libhwui copy libhwui.so
+[ 56% 468/823] Install: out/target/product/gta3xlwifi/system/lib64/libhwui.so
+[ 56% 469/823] //frameworks/base/libs/hwui:libhwui generate toc libhwui.so
+[ 57% 470/817] //frameworks/base/libs/hwui:libhwui strip libhwui.so[arm]
+[ 57% 471/817] //frameworks/base/libs/hwui:libhwui copy libhwui.so[arm]
+[ 57% 472/817] Install: out/target/product/gta3xlwifi/system/lib/libhwui.so
+[ 57% 473/817] //frameworks/base/native/webview/plat_support:libwebviewchromium_plat_support link libwebviewchromium_plat_support.so
+[ 58% 474/817] //frameworks/base/libs/hwui:libhwui generate toc libhwui.so[arm]
+[ 58% 475/817] //frameworks/base/native/webview/plat_support:libwebviewchromium_plat_support strip libwebviewchromium_plat_support.so
+[ 58% 476/817] //frameworks/base/native/webview/plat_support:libwebviewchromium_plat_support copy libwebviewchromium_plat_support.so
+[ 58% 477/817] Install: out/target/product/gta3xlwifi/system/lib64/libwebviewchromium_plat_support.so
+[ 58% 478/817] //frameworks/base/native/webview/plat_support:libwebviewchromium_plat_support link libwebviewchromium_plat_support.so[arm]
+[ 58% 479/817] //frameworks/base/native/webview/plat_support:libwebviewchromium_plat_support strip libwebviewchromium_plat_support.so[arm]
+[ 58% 480/817] //frameworks/base/native/webview/plat_support:libwebviewchromium_plat_support copy libwebviewchromium_plat_support.so[arm]
+[ 58% 481/817] Install: out/target/product/gta3xlwifi/system/lib/libwebviewchromium_plat_support.so
+[ 58% 482/817] //frameworks/native/services/surfaceflinger:surfaceflinger link surfaceflinger
+[ 59% 483/814] //frameworks/native/services/surfaceflinger/Tracing/tools:layertracegenerator link layertracegenerator
+[ 59% 484/814] //frameworks/native/services/surfaceflinger:surfaceflinger strip surfaceflinger
+[ 59% 485/814] Install: out/target/product/gta3xlwifi/system/bin/surfaceflinger
+[ 59% 486/814] //frameworks/native/services/surfaceflinger/Tracing/tools:layertracegenerator strip layertracegenerator
+[ 59% 487/814] Install: out/target/product/gta3xlwifi/system/bin/layertracegenerator
+[ 59% 488/814] //frameworks/base/core/jni:libandroid_runtime link libandroid_runtime.so[arm]
+[ 60% 489/814] //frameworks/base/core/jni:libandroid_runtime strip libandroid_runtime.so[arm]
+[ 60% 490/814] //frameworks/base/core/jni:libandroid_runtime copy libandroid_runtime.so[arm]
+[ 60% 491/814] Install: out/target/product/gta3xlwifi/system/lib/libandroid_runtime.so
+[ 60% 492/814] //frameworks/base/core/jni:libandroid_runtime generate toc libandroid_runtime.so[arm]
+[ 65% 493/753] //frameworks/base/native/android:libandroid link libandroid.so[arm]
+[ 65% 494/753] //frameworks/base/media/jni:libmedia_jni link libmedia_jni.so[arm]
+[ 65% 495/753] //frameworks/base/core/jni:libandroid_runtime link libandroid_runtime.so
+[ 65% 496/753] //frameworks/base/native/android:libandroid strip libandroid.so[arm]
+[ 66% 497/753] //frameworks/base/native/android:libandroid copy libandroid.so[arm]
+[ 66% 498/753] Install: out/target/product/gta3xlwifi/system/lib/libandroid.so
+[ 66% 499/753] //frameworks/base/native/android:libandroid generate toc libandroid.so[arm]
+[ 67% 500/740] //frameworks/base/rs/jni:librs_jni link librs_jni.so[arm]
+[ 68% 501/733] //frameworks/base/native/android:libandroid header-abi-linker libandroid.so.apex.lsdump[arm]
+[ 68% 502/733] //frameworks/base/native/android:libandroid header-abi-diff libandroid.so.apex36.abidiff[arm]
+[ 68% 503/733] //frameworks/base/media/jni:libmedia_jni strip libmedia_jni.so[arm]
+[ 68% 504/733] //frameworks/base/media/jni:libmedia_jni copy libmedia_jni.so[arm]
+[ 68% 505/733] Install: out/target/product/gta3xlwifi/system/lib/libmedia_jni.so
+[ 69% 506/733] //frameworks/base/rs/jni:librs_jni strip librs_jni.so[arm]
+[ 69% 507/733] //frameworks/base/rs/jni:librs_jni copy librs_jni.so[arm]
+[ 69% 508/733] Install: out/target/product/gta3xlwifi/system/lib/librs_jni.so
+[ 69% 509/733] //frameworks/base/core/jni:libandroid_runtime strip libandroid_runtime.so
+[ 69% 510/733] //frameworks/base/core/jni:libandroid_runtime copy libandroid_runtime.so
+[ 69% 511/733] Install: out/target/product/gta3xlwifi/system/lib64/libandroid_runtime.so
+[ 69% 512/733] //frameworks/base/core/jni:libandroid_runtime generate toc libandroid_runtime.so
+[ 74% 513/691] //frameworks/base/services:libandroid_servers link libandroid_servers.so[arm]
+[ 76% 514/669] //frameworks/base/native/android:libandroid_preapex link libandroid_preapex.so
+[ 76% 515/669] //frameworks/base/native/android:libandroid link libandroid.so
+[ 77% 516/669] //frameworks/base/services:libandroid_servers strip libandroid_servers.so[arm]
+[ 77% 517/669] //frameworks/base/services:libandroid_servers copy libandroid_servers.so[arm]
+[ 77% 518/669] Install: out/target/product/gta3xlwifi/system/lib/libandroid_servers.so
+[ 77% 519/669] //frameworks/base/native/android:libandroid_preapex strip libandroid_preapex.so
+[ 77% 520/669] //frameworks/base/native/android:libandroid_preapex copy libandroid_preapex.so
+[ 77% 521/669] Install: out/target/product/gta3xlwifi/system/lib64/libandroid_preapex.so
+[ 78% 522/669] //frameworks/base/media/jni:libmedia_jni link libmedia_jni.so
+[ 78% 523/669] //frameworks/base/native/android:libandroid_preapex generate toc libandroid_preapex.so
+[ 78% 524/664] //frameworks/base/native/android:libandroid strip libandroid.so
+[ 79% 525/664] //frameworks/base/native/android:libandroid copy libandroid.so
+[ 79% 526/663] Install: out/target/product/gta3xlwifi/system/lib64/libandroid.so
+[ 79% 527/663] //frameworks/base/media/jni:libmedia_jni strip libmedia_jni.so
+[ 80% 528/653] //frameworks/base/media/jni:libmedia_jni copy libmedia_jni.so
+[ 81% 529/653] Install: out/target/product/gta3xlwifi/system/lib64/libmedia_jni.so
+[ 81% 530/653] //frameworks/base/native/android:libandroid generate toc libandroid.so
+[ 89% 531/592] //frameworks/base/cmds/screencap:screencap link screencap
+[ 93% 532/569] //frameworks/base/native/android:libandroid header-abi-linker libandroid.so.apex.lsdump
+[ 93% 533/569] //frameworks/base/cmds/screencap:screencap strip screencap
+[ 93% 534/569] Install: out/target/product/gta3xlwifi/system/bin/screencap
+[ 94% 535/569] //frameworks/base/rs/jni:librs_jni link librs_jni.so
+[ 94% 536/568] //frameworks/base/native/android:libandroid header-abi-diff libandroid.so.apex36.abidiff
+[ 94% 537/568] //frameworks/base/cmds/bootanimation:libbootanimation_preapex link libbootanimation_preapex.so
+[ 94% 538/568] //frameworks/base/rs/jni:librs_jni strip librs_jni.so
+[ 94% 539/568] //frameworks/base/rs/jni:librs_jni copy librs_jni.so
+[ 95% 540/568] Install: out/target/product/gta3xlwifi/system/lib64/librs_jni.so
+[ 95% 541/568] //frameworks/base/cmds/bootanimation:libbootanimation_preapex strip libbootanimation_preapex.so
+[ 95% 542/568] //frameworks/base/cmds/bootanimation:libbootanimation_preapex copy libbootanimation_preapex.so
+[ 95% 543/568] Install: out/target/product/gta3xlwifi/system/lib64/libbootanimation_preapex.so
+[ 95% 544/568] //frameworks/base/cmds/bootanimation:libbootanimation_preapex generate toc libbootanimation_preapex.so
+[ 95% 545/568] //frameworks/base/libs/native_activity_thread:libnative_activity_thread_bindgen rustc native_activity_thread_bindings.rs
+[ 96% 546/565] //frameworks/base/services:libandroid_servers link libandroid_servers.so
+[ 96% 547/565] //frameworks/base/libs/native_activity_thread:libnative_activity_thread clippy src/lib.rs
+[ 96% 548/565] //frameworks/base/services:libandroid_servers strip libandroid_servers.so
+[ 97% 549/565] //frameworks/base/services:libandroid_servers copy libandroid_servers.so
+[ 97% 550/565] Install: out/target/product/gta3xlwifi/system/lib64/libandroid_servers.so
+[ 97% 551/565] //frameworks/base/libs/native_activity_thread:libnative_activity_thread rustc src/lib.rs
+[ 97% 552/565] //frameworks/base/libs/native_activity_thread:libnative_activity_thread strip libnative_activity_thread.dylib.so
+[ 97% 553/565] Install: out/target/product/gta3xlwifi/system/lib64/libnative_activity_thread.dylib.so
+[ 98% 554/565] //system/zygote/zygote:libzygote clippy src/lib.rs
+[ 98% 555/565] //system/zygote/zygote:libzygote rustc src/lib.rs
+[ 98% 556/565] //system/zygote/zygote:zygote_next clippy src/bin/zygote.rs
+[ 98% 557/565] //system/zygote/zygote:libzygote strip libzygote.dylib.so
+[ 98% 558/565] Install: out/target/product/gta3xlwifi/system/lib64/libzygote.dylib.so
+[ 98% 559/565] //system/zygote/zygote:zygote_next rustc src/bin/zygote.rs
+[ 99% 560/565] //system/zygote/zygote:zygote_next strip zygote_next
+[ 99% 561/565] Install: out/target/product/gta3xlwifi/system/bin/zygote_next
+[ 99% 562/565] Creating linker config: out/target/product/gta3xlwifi/system/etc/linker.config.pb
+[ 99% 563/565] Building target files: out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files.zip.list
+stderr:
+2026-11-17 08:16:19 - common.py - WARNING : Failed to read SYSTEM/etc/build.prop
+2026-11-17 08:16:19 - common.py - WARNING : Failed to read VENDOR/etc/build.prop
+2026-11-17 08:16:19 - common.py - WARNING : Failed to read VENDOR/build.prop
+2026-11-17 08:16:19 - common.py - WARNING : Failed to read build.prop for partition vendor
+2026-11-17 08:16:19 - common.py - WARNING : Failed to read SYSTEM_EXT/etc/build.prop
+2026-11-17 08:16:19 - common.py - WARNING : Failed to read SYSTEM_EXT/build.prop
+2026-11-17 08:16:19 - common.py - WARNING : Failed to read build.prop for partition system_ext
+2026-11-17 08:16:19 - common.py - WARNING : Failed to read ODM/etc/build.prop
+2026-11-17 08:16:19 - common.py - WARNING : Failed to read ODM/build.prop
+2026-11-17 08:16:19 - common.py - WARNING : Failed to read build.prop for partition odm
+2026-11-17 08:16:19 - common.py - WARNING : Failed to read VENDOR_DLKM/etc/build.prop
+2026-11-17 08:16:19 - common.py - WARNING : Failed to read VENDOR_DLKM/build.prop
+2026-11-17 08:16:19 - common.py - WARNING : Failed to read build.prop for partition vendor_dlkm
+2026-11-17 08:16:19 - common.py - WARNING : Failed to read ODM_DLKM/etc/build.prop
+2026-11-17 08:16:19 - common.py - WARNING : Failed to read ODM_DLKM/build.prop
+2026-11-17 08:16:19 - common.py - WARNING : Failed to read build.prop for partition odm_dlkm
+2026-11-17 08:16:19 - common.py - WARNING : Failed to read SYSTEM_DLKM/etc/build.prop
+2026-11-17 08:16:19 - common.py - WARNING : Failed to read SYSTEM_DLKM/build.prop
+2026-11-17 08:16:19 - common.py - WARNING : Failed to read build.prop for partition system_dlkm
+2026-11-17 08:16:19 - common.py - WARNING : Failed to read IMAGES/boot.img
+2026-11-17 08:16:19 - common.py - WARNING : Failed to read IMAGES/init_boot.img
+2026-11-17 08:16:19 - common.py - WARNING : Can't find META/ab_partitions.txt
+2026-11-17 08:16:23 - common.py - WARNING : Failed to read SYSTEM/etc/build.prop
+2026-11-17 08:16:23 - common.py - WARNING : Failed to read VENDOR/etc/build.prop
+2026-11-17 08:16:23 - common.py - WARNING : Failed to read VENDOR/build.prop
+2026-11-17 08:16:23 - common.py - WARNING : Failed to read build.prop for partition vendor
+2026-11-17 08:16:23 - common.py - WARNING : Failed to read SYSTEM_EXT/etc/build.prop
+2026-11-17 08:16:23 - common.py - WARNING : Failed to read SYSTEM_EXT/build.prop
+2026-11-17 08:16:23 - common.py - WARNING : Failed to read build.prop for partition system_ext
+2026-11-17 08:16:23 - common.py - WARNING : Failed to read ODM/etc/build.prop
+2026-11-17 08:16:23 - common.py - WARNING : Failed to read ODM/build.prop
+2026-11-17 08:16:23 - common.py - WARNING : Failed to read build.prop for partition odm
+2026-11-17 08:16:23 - common.py - WARNING : Failed to read VENDOR_DLKM/etc/build.prop
+2026-11-17 08:16:23 - common.py - WARNING : Failed to read VENDOR_DLKM/build.prop
+2026-11-17 08:16:23 - common.py - WARNING : Failed to read build.prop for partition vendor_dlkm
+2026-11-17 08:16:23 - common.py - WARNING : Failed to read ODM_DLKM/etc/build.prop
+2026-11-17 08:16:23 - common.py - WARNING : Failed to read ODM_DLKM/build.prop
+2026-11-17 08:16:23 - common.py - WARNING : Failed to read build.prop for partition odm_dlkm
+2026-11-17 08:16:23 - common.py - WARNING : Failed to read SYSTEM_DLKM/etc/build.prop
+2026-11-17 08:16:23 - common.py - WARNING : Failed to read SYSTEM_DLKM/build.prop
+2026-11-17 08:16:23 - common.py - WARNING : Failed to read build.prop for partition system_dlkm
+2026-11-17 08:16:23 - common.py - WARNING : Failed to read IMAGES/boot.img
+2026-11-17 08:16:23 - common.py - WARNING : Failed to read IMAGES/init_boot.img
+2026-11-17 08:16:23 - common.py - WARNING : Can't find META/ab_partitions.txt
+2026-11-17 08:16:23 - add_img_to_target_files.py - INFO    : 
+
+++++ boot  ++++
+
+
+2026-11-17 08:16:23 - common.py - INFO    : using prebuilt boot.img from BOOTABLE_IMAGES...
+2026-11-17 08:16:23 - add_img_to_target_files.py - INFO    : 
+
+++++ recovery  ++++
+
+
+2026-11-17 08:16:23 - common.py - INFO    : using prebuilt recovery.img from BOOTABLE_IMAGES...
+2026-11-17 08:16:24 - add_img_to_target_files.py - INFO    : 
+
+++++ recovery (two-step image)  ++++
+
+
+2026-11-17 08:16:24 - common.py - INFO    : building image from target_files RECOVERY...
+2026-11-17 08:16:24 - common.py - INFO    :   Running: "/srv/android/src/lineage-24.0-arm64/out/host/linux-x86/bin/mkbootfs -f /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/META/recovery_filesystem_config.txt /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/RECOVERY/RAMDISK"
+2026-11-17 08:16:24 - common.py - INFO    :   Running: "gzip"
+2026-11-17 08:16:25 - common.py - INFO    :   Running: "out/host/linux-x86/bin/mkbootimg --kernel /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/RECOVERY/kernel --cmdline androidboot.hardware=exynos7904 androidboot.selinux=enforcing --base 0x10000000 --pagesize 2048 --header_version 1 --kernel_offset 0x00008000 --ramdisk_offset 0x01000000 --tags_offset 0x00000100 --board SRPSA25A005RU --os_version 17 --os_patch_level 2026-10-01 --ramdisk /srv/android/src/lineage-24.0-arm64/out/soong/.temp/tmp5k43e21a --output /srv/android/src/lineage-24.0-arm64/out/soong/.temp/tmpaetdqvw9 --recovery_dtbo /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/RECOVERY/recovery_dtbo"
+2026-11-17 08:16:26 - common.py - INFO    : 
+2026-11-17 08:16:26 - add_img_to_target_files.py - INFO    : 
+
+++++ system  ++++
+
+
+2026-11-17 08:16:26 - add_img_to_target_files.py - INFO    : 
+
+++++ vendor  ++++
+
+
+2026-11-17 08:16:26 - add_img_to_target_files.py - INFO    : creating system.img...
+2026-11-17 08:16:26 - add_img_to_target_files.py - INFO    : vendor.img already exists; no need to rebuild...
+2026-11-17 08:16:26 - add_img_to_target_files.py - INFO    : 
+
+++++ product  ++++
+
+
+2026-11-17 08:16:26 - add_img_to_target_files.py - INFO    : creating product.img...
+2026-11-17 08:16:26 - build_image.py - INFO    : Using fingerprint  for partition product
+2026-11-17 08:16:26 - common.py - INFO    :   Running: "/srv/android/src/lineage-24.0-arm64/out/host/linux-x86/bin/mkuserimg_mke2fs -s /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/PRODUCT /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/IMAGES/product.img ext4 product 327155712 -j 0 -T 1230768000 -C /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/META/product_filesystem_config.txt -L product -M 0 -U 453968ff-b43c-54b7-a506-a6a88682c128 -S 14597608-12ce-579d-8813-28dbbf688d99 --inode_size 256 /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/META/file_contexts.bin"
+2026-11-17 08:16:29 - build_image.py - INFO    : Using fingerprint  for partition /
+2026-11-17 08:16:29 - common.py - INFO    :   Running: "/srv/android/src/lineage-24.0-arm64/out/host/linux-x86/bin/mkuserimg_mke2fs -s /srv/android/src/lineage-24.0-arm64/out/soong/.temp/tmp_fqzohfs /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/IMAGES/system.img ext4 / 3196059648 -j 0 -T 1230768000 -C /srv/android/src/lineage-24.0-arm64/out/soong/.temp/merged_fs_configeqh6tfgn.txt -L / -M 0 -U d392d8bb-6c67-58f7-b0b2-091ad46c5bc2 -S baea5dae-7c08-5576-9e9b-a8d3c3d94800 --inode_size 256 /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/META/file_contexts.bin"
+2026-11-17 08:16:29 - common.py - INFO    : 08:16:27 mkuserimg_mke2fs.py INFO: Env: {'MKE2FS_CONFIG': '/srv/android/src/lineage-24.0-arm64/out/soong/.temp/tmpcixi93tv', 'E2FSPROGS_FAKE_TIME': '1230768000'}
+08:16:27 mkuserimg_mke2fs.py INFO: Running: /srv/android/src/lineage-24.0-arm64/out/host/linux-x86/bin/mke2fs -O ^has_journal -L product -I 256 -M /product -m 0 -U 453968ff-b43c-54b7-a506-a6a88682c128 -E android_sparse,hash_seed=14597608-12ce-579d-8813-28dbbf688d99 -t ext4 -b 4096 /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/IMAGES/product.img 79872
+08:16:27 mkuserimg_mke2fs.py INFO: Env: {'E2FSPROGS_FAKE_TIME': '1230768000'}
+08:16:27 mkuserimg_mke2fs.py INFO: Running: /srv/android/src/lineage-24.0-arm64/out/host/linux-x86/bin/e2fsdroid -T 1230768000 -C /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/META/product_filesystem_config.txt -S /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/META/file_contexts.bin -f /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/PRODUCT -a /product /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/IMAGES/product.img
+mke2fs 1.47.2 (1-Jan-2025)
+Creating filesystem with 79872 4k blocks and 79872 inodes
+Filesystem UUID: 453968ff-b43c-54b7-a506-a6a88682c128
+Superblock backups stored on blocks: 
+	32768
+
+Allocating group tables: 0/3   done                            
+Writing inode tables: 0/3   done                            
+Writing superblocks and filesystem accounting information: 0/3   done
+
+
+loaded 532 fs_config entries
+Created filesystem with 542/79872 inodes and 49996/79872 blocks
+2026-11-17 08:16:29 - common.py - INFO    :   Running: "/srv/android/src/lineage-24.0-arm64/out/host/linux-x86/bin/simg2img /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/IMAGES/product.img /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/IMAGES/unsparse_product.img"
+2026-11-17 08:16:29 - common.py - INFO    : 
+2026-11-17 08:16:29 - common.py - INFO    :   Running: "/srv/android/src/lineage-24.0-arm64/out/host/linux-x86/bin/e2fsck -f -n /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/IMAGES/unsparse_product.img"
+2026-11-17 08:16:35 - common.py - INFO    : e2fsck 1.47.2 (1-Jan-2025)
+Pass 1: Checking inodes, blocks, and sizes
+Pass 2: Checking directory structure
+Pass 3: Checking directory connectivity
+Pass 4: Checking reference counts
+Pass 5: Checking group summary information
+product: 542/79872 files (0.4% non-contiguous), 49996/79872 blocks
+2026-11-17 08:16:35 - sparse_img.py - INFO    : Total of 79872 4096-byte output blocks in 9 input chunks.
+2026-11-17 08:17:30 - common.py - INFO    : 08:16:29 mkuserimg_mke2fs.py INFO: Env: {'MKE2FS_CONFIG': '/srv/android/src/lineage-24.0-arm64/out/soong/.temp/tmp7vtz41ff', 'E2FSPROGS_FAKE_TIME': '1230768000'}
+08:16:29 mkuserimg_mke2fs.py INFO: Running: /srv/android/src/lineage-24.0-arm64/out/host/linux-x86/bin/mke2fs -O ^has_journal -L / -I 256 -M / -m 0 -U d392d8bb-6c67-58f7-b0b2-091ad46c5bc2 -E android_sparse,hash_seed=baea5dae-7c08-5576-9e9b-a8d3c3d94800 -t ext4 -b 4096 /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/IMAGES/system.img 780288
+08:16:29 mkuserimg_mke2fs.py INFO: Env: {'E2FSPROGS_FAKE_TIME': '1230768000'}
+08:16:29 mkuserimg_mke2fs.py INFO: Running: /srv/android/src/lineage-24.0-arm64/out/host/linux-x86/bin/e2fsdroid -T 1230768000 -C /srv/android/src/lineage-24.0-arm64/out/soong/.temp/merged_fs_configeqh6tfgn.txt -S /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/META/file_contexts.bin -f /srv/android/src/lineage-24.0-arm64/out/soong/.temp/tmp_fqzohfs -a / /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/IMAGES/system.img
+mke2fs 1.47.2 (1-Jan-2025)
+Creating filesystem with 780288 4k blocks and 195072 inodes
+Filesystem UUID: d392d8bb-6c67-58f7-b0b2-091ad46c5bc2
+Superblock backups stored on blocks: 
+	32768, 98304, 163840, 229376, 294912
+
+Allocating group tables:  0/24     done                            
+Writing inode tables:  0/24     done                            
+Writing superblocks and filesystem accounting information:  0/24     done
+
+
+loaded 7019 fs_config entries
+Created filesystem with 7028/195072 inodes and 469446/780288 blocks
+2026-11-17 08:17:30 - common.py - INFO    :   Running: "/srv/android/src/lineage-24.0-arm64/out/host/linux-x86/bin/simg2img /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/IMAGES/system.img /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/IMAGES/unsparse_system.img"
+2026-11-17 08:17:31 - common.py - INFO    : 
+2026-11-17 08:17:31 - common.py - INFO    :   Running: "/srv/android/src/lineage-24.0-arm64/out/host/linux-x86/bin/e2fsck -f -n /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/IMAGES/unsparse_system.img"
+2026-11-17 08:18:25 - common.py - INFO    : e2fsck 1.47.2 (1-Jan-2025)
+Pass 1: Checking inodes, blocks, and sizes
+Pass 2: Checking directory structure
+Pass 3: Checking directory connectivity
+Pass 4: Checking reference counts
+Pass 5: Checking group summary information
+/: 7028/195072 files (0.3% non-contiguous), 469446/780288 blocks
+2026-11-17 08:18:25 - sparse_img.py - INFO    : Total of 780288 4096-byte output blocks in 48 input chunks.
+2026-11-17 08:18:25 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer info --print-type /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.adbd.capex"
+2026-11-17 08:18:25 - common.py - INFO    : COMPRESSED
+2026-11-17 08:18:25 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer decompress --input /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.adbd.capex --output /srv/android/src/lineage-24.0-arm64/out/soong/.temp/decompressed-goprvyg3.apex"
+2026-11-17 08:18:26 - common.py - INFO    : 
+2026-11-17 08:18:26 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer info --print-type /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.adservices.capex"
+2026-11-17 08:18:26 - common.py - INFO    : COMPRESSED
+2026-11-17 08:18:26 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer decompress --input /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.adservices.capex --output /srv/android/src/lineage-24.0-arm64/out/soong/.temp/decompressed-5m4nzfdt.apex"
+2026-11-17 08:18:26 - common.py - INFO    : 
+2026-11-17 08:18:26 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer info --print-type /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.apex.cts.shim.apex"
+2026-11-17 08:18:26 - common.py - INFO    : UNCOMPRESSED
+2026-11-17 08:18:26 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer info --print-type /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.appsearch.capex"
+2026-11-17 08:18:26 - common.py - INFO    : COMPRESSED
+2026-11-17 08:18:26 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer decompress --input /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.appsearch.capex --output /srv/android/src/lineage-24.0-arm64/out/soong/.temp/decompressed-6ec2f1ro.apex"
+2026-11-17 08:18:26 - common.py - INFO    : 
+2026-11-17 08:18:26 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer info --print-type /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.art.capex"
+2026-11-17 08:18:27 - common.py - INFO    : COMPRESSED
+2026-11-17 08:18:27 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer decompress --input /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.art.capex --output /srv/android/src/lineage-24.0-arm64/out/soong/.temp/decompressed-qg5udwg4.apex"
+2026-11-17 08:18:27 - common.py - INFO    : 
+2026-11-17 08:18:27 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer info --print-type /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.bt.capex"
+2026-11-17 08:18:27 - common.py - INFO    : COMPRESSED
+2026-11-17 08:18:27 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer decompress --input /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.bt.capex --output /srv/android/src/lineage-24.0-arm64/out/soong/.temp/decompressed-lvvz8g9p.apex"
+2026-11-17 08:18:27 - common.py - INFO    : 
+2026-11-17 08:18:27 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer info --print-type /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.configinfrastructure.capex"
+2026-11-17 08:18:27 - common.py - INFO    : COMPRESSED
+2026-11-17 08:18:27 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer decompress --input /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.configinfrastructure.capex --output /srv/android/src/lineage-24.0-arm64/out/soong/.temp/decompressed-vceugqqb.apex"
+2026-11-17 08:18:28 - common.py - INFO    : 
+2026-11-17 08:18:28 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer info --print-type /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.conscrypt.capex"
+2026-11-17 08:18:28 - common.py - INFO    : COMPRESSED
+2026-11-17 08:18:28 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer decompress --input /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.conscrypt.capex --output /srv/android/src/lineage-24.0-arm64/out/soong/.temp/decompressed-9c9ct5ep.apex"
+2026-11-17 08:18:28 - common.py - INFO    : 
+2026-11-17 08:18:28 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer info --print-type /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.crashrecovery.capex"
+2026-11-17 08:18:28 - common.py - INFO    : COMPRESSED
+2026-11-17 08:18:28 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer decompress --input /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.crashrecovery.capex --output /srv/android/src/lineage-24.0-arm64/out/soong/.temp/decompressed-hlbadi0m.apex"
+2026-11-17 08:18:28 - common.py - INFO    : 
+2026-11-17 08:18:28 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer info --print-type /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.devicelock.apex"
+2026-11-17 08:18:28 - common.py - INFO    : UNCOMPRESSED
+2026-11-17 08:18:28 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer info --print-type /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.extservices.capex"
+2026-11-17 08:18:28 - common.py - INFO    : COMPRESSED
+2026-11-17 08:18:28 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer decompress --input /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.extservices.capex --output /srv/android/src/lineage-24.0-arm64/out/soong/.temp/decompressed-548cb12s.apex"
+2026-11-17 08:18:29 - common.py - INFO    : 
+2026-11-17 08:18:29 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer info --print-type /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.healthfitness.apex"
+2026-11-17 08:18:29 - common.py - INFO    : UNCOMPRESSED
+2026-11-17 08:18:29 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer info --print-type /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.i18n.apex"
+2026-11-17 08:18:29 - common.py - INFO    : UNCOMPRESSED
+2026-11-17 08:18:29 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer info --print-type /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.ipsec.capex"
+2026-11-17 08:18:29 - common.py - INFO    : COMPRESSED
+2026-11-17 08:18:29 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer decompress --input /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.ipsec.capex --output /srv/android/src/lineage-24.0-arm64/out/soong/.temp/decompressed-mned1h4v.apex"
+2026-11-17 08:18:29 - common.py - INFO    : 
+2026-11-17 08:18:29 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer info --print-type /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.media.capex"
+2026-11-17 08:18:29 - common.py - INFO    : COMPRESSED
+2026-11-17 08:18:29 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer decompress --input /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.media.capex --output /srv/android/src/lineage-24.0-arm64/out/soong/.temp/decompressed-if2l5r__.apex"
+2026-11-17 08:18:30 - common.py - INFO    : 
+2026-11-17 08:18:30 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer info --print-type /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.media.swcodec.capex"
+2026-11-17 08:18:30 - common.py - INFO    : COMPRESSED
+2026-11-17 08:18:30 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer decompress --input /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.media.swcodec.capex --output /srv/android/src/lineage-24.0-arm64/out/soong/.temp/decompressed-7z9lrjm3.apex"
+2026-11-17 08:18:30 - common.py - INFO    : 
+2026-11-17 08:18:30 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer info --print-type /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.mediaprovider.capex"
+2026-11-17 08:18:30 - common.py - INFO    : COMPRESSED
+2026-11-17 08:18:30 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer decompress --input /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.mediaprovider.capex --output /srv/android/src/lineage-24.0-arm64/out/soong/.temp/decompressed-93yhxcdn.apex"
+2026-11-17 08:18:31 - common.py - INFO    : 
+2026-11-17 08:18:31 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer info --print-type /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.neuralnetworks.capex"
+2026-11-17 08:18:31 - common.py - INFO    : COMPRESSED
+2026-11-17 08:18:31 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer decompress --input /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.neuralnetworks.capex --output /srv/android/src/lineage-24.0-arm64/out/soong/.temp/decompressed-0htfrci3.apex"
+2026-11-17 08:18:31 - common.py - INFO    : 
+2026-11-17 08:18:31 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer info --print-type /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.nfcservices.capex"
+2026-11-17 08:18:31 - common.py - INFO    : COMPRESSED
+2026-11-17 08:18:31 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer decompress --input /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.nfcservices.capex --output /srv/android/src/lineage-24.0-arm64/out/soong/.temp/decompressed-iz8rv15c.apex"
+2026-11-17 08:18:31 - common.py - INFO    : 
+2026-11-17 08:18:31 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer info --print-type /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.npumanager.capex"
+2026-11-17 08:18:31 - common.py - INFO    : COMPRESSED
+2026-11-17 08:18:31 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer decompress --input /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.npumanager.capex --output /srv/android/src/lineage-24.0-arm64/out/soong/.temp/decompressed-d6plsa3y.apex"
+2026-11-17 08:18:32 - common.py - INFO    : 
+2026-11-17 08:18:32 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer info --print-type /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.ondevicepersonalization.capex"
+2026-11-17 08:18:32 - common.py - INFO    : COMPRESSED
+2026-11-17 08:18:32 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer decompress --input /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.ondevicepersonalization.capex --output /srv/android/src/lineage-24.0-arm64/out/soong/.temp/decompressed-s6uoi7c7.apex"
+2026-11-17 08:18:32 - common.py - INFO    : 
+2026-11-17 08:18:32 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer info --print-type /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.os.statsd.apex"
+2026-11-17 08:18:32 - common.py - INFO    : UNCOMPRESSED
+2026-11-17 08:18:32 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer info --print-type /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.permission.capex"
+2026-11-17 08:18:32 - common.py - INFO    : COMPRESSED
+2026-11-17 08:18:32 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer decompress --input /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.permission.capex --output /srv/android/src/lineage-24.0-arm64/out/soong/.temp/decompressed-b3ypnqg0.apex"
+2026-11-17 08:18:32 - common.py - INFO    : 
+2026-11-17 08:18:32 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer info --print-type /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.profiling.capex"
+2026-11-17 08:18:33 - common.py - INFO    : COMPRESSED
+2026-11-17 08:18:33 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer decompress --input /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.profiling.capex --output /srv/android/src/lineage-24.0-arm64/out/soong/.temp/decompressed-myhsto2n.apex"
+2026-11-17 08:18:33 - common.py - INFO    : 
+2026-11-17 08:18:33 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer info --print-type /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.resolv.capex"
+2026-11-17 08:18:33 - common.py - INFO    : COMPRESSED
+2026-11-17 08:18:33 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer decompress --input /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.resolv.capex --output /srv/android/src/lineage-24.0-arm64/out/soong/.temp/decompressed-xq1l2z35.apex"
+2026-11-17 08:18:33 - common.py - INFO    : 
+2026-11-17 08:18:33 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer info --print-type /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.rkpd.apex"
+2026-11-17 08:18:33 - common.py - INFO    : UNCOMPRESSED
+2026-11-17 08:18:33 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer info --print-type /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.runtime.apex"
+2026-11-17 08:18:33 - common.py - INFO    : UNCOMPRESSED
+2026-11-17 08:18:33 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer info --print-type /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.scheduling.capex"
+2026-11-17 08:18:33 - common.py - INFO    : COMPRESSED
+2026-11-17 08:18:33 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer decompress --input /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.scheduling.capex --output /srv/android/src/lineage-24.0-arm64/out/soong/.temp/decompressed-pis8qlg3.apex"
+2026-11-17 08:18:34 - common.py - INFO    : 
+2026-11-17 08:18:34 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer info --print-type /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.sdkext.apex"
+2026-11-17 08:18:34 - common.py - INFO    : UNCOMPRESSED
+2026-11-17 08:18:34 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer info --print-type /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.telephonycore.capex"
+2026-11-17 08:18:34 - common.py - INFO    : COMPRESSED
+2026-11-17 08:18:34 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer decompress --input /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.telephonycore.capex --output /srv/android/src/lineage-24.0-arm64/out/soong/.temp/decompressed-bw1d1xmq.apex"
+2026-11-17 08:18:34 - common.py - INFO    : 
+2026-11-17 08:18:34 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer info --print-type /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.tethering.capex"
+2026-11-17 08:18:34 - common.py - INFO    : COMPRESSED
+2026-11-17 08:18:34 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer decompress --input /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.tethering.capex --output /srv/android/src/lineage-24.0-arm64/out/soong/.temp/decompressed-2yj8sces.apex"
+2026-11-17 08:18:35 - common.py - INFO    : 
+2026-11-17 08:18:35 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer info --print-type /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.tzdata.apex"
+2026-11-17 08:18:35 - common.py - INFO    : UNCOMPRESSED
+2026-11-17 08:18:35 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer info --print-type /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.uprobestats.capex"
+2026-11-17 08:18:35 - common.py - INFO    : COMPRESSED
+2026-11-17 08:18:35 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer decompress --input /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.uprobestats.capex --output /srv/android/src/lineage-24.0-arm64/out/soong/.temp/decompressed-p7f5b9b2.apex"
+2026-11-17 08:18:35 - common.py - INFO    : 
+2026-11-17 08:18:35 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer info --print-type /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.uwb.capex"
+2026-11-17 08:18:35 - common.py - INFO    : COMPRESSED
+2026-11-17 08:18:35 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer decompress --input /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.uwb.capex --output /srv/android/src/lineage-24.0-arm64/out/soong/.temp/decompressed-oaoakidv.apex"
+2026-11-17 08:18:35 - common.py - INFO    : 
+2026-11-17 08:18:35 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer info --print-type /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.virt.apex"
+2026-11-17 08:18:35 - common.py - INFO    : UNCOMPRESSED
+2026-11-17 08:18:35 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer info --print-type /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.webapp.capex"
+2026-11-17 08:18:36 - common.py - INFO    : COMPRESSED
+2026-11-17 08:18:36 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer decompress --input /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.webapp.capex --output /srv/android/src/lineage-24.0-arm64/out/soong/.temp/decompressed-3wfie0yj.apex"
+2026-11-17 08:18:36 - common.py - INFO    : 
+2026-11-17 08:18:36 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer info --print-type /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.wifi.capex"
+2026-11-17 08:18:36 - common.py - INFO    : COMPRESSED
+2026-11-17 08:18:36 - common.py - INFO    :   Running: "out/host/linux-x86/bin/deapexer decompress --input /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM/apex/com.android.wifi.capex --output /srv/android/src/lineage-24.0-arm64/out/soong/.temp/decompressed-2lcp7dr_.apex"
+2026-11-17 08:18:36 - common.py - INFO    : 
+2026-11-17 08:18:36 - apex_utils.py - INFO    : No APEX directory at path: /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/SYSTEM_EXT/apex
+2026-11-17 08:18:36 - apex_utils.py - INFO    : No APEX directory at path: /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/PRODUCT/apex
+2026-11-17 08:18:36 - apex_utils.py - INFO    : No APEX directory at path: /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/VENDOR/apex
+2026-11-17 08:18:36 - apex_utils.py - INFO    : No APEX directory at path: /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/ODM/apex
+2026-11-17 08:18:36 - add_img_to_target_files.py - INFO    : 
+
+++++ userdata  ++++
+
+
+2026-11-17 08:18:36 - add_img_to_target_files.py - INFO    : 
+
+++++ cache  ++++
+
+
+2026-11-17 08:18:36 - add_img_to_target_files.py - INFO    : creating cache.img...
+2026-11-17 08:18:36 - build_image.py - INFO    : Using fingerprint  for partition cache
+2026-11-17 08:18:36 - common.py - INFO    :   Running: "/srv/android/src/lineage-24.0-arm64/out/host/linux-x86/bin/mkuserimg_mke2fs -s /srv/android/src/lineage-24.0-arm64/out/soong/.temp/tmpajdnor1g /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/IMAGES/cache.img ext4 cache 159383552 -T 1230768000 -L cache -U 22b74bf8-ed3e-5458-bc6a-53779012d742 -S 6b67350b-020f-5fa7-bb3d-2c2a2fcdec10 --inode_size 256 /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/META/file_contexts.bin"
+2026-11-17 08:18:38 - common.py - INFO    : 08:18:36 mkuserimg_mke2fs.py INFO: Env: {'MKE2FS_CONFIG': '/srv/android/src/lineage-24.0-arm64/out/soong/.temp/tmp3n2wl34v', 'E2FSPROGS_FAKE_TIME': '1230768000'}
+08:18:36 mkuserimg_mke2fs.py INFO: Running: /srv/android/src/lineage-24.0-arm64/out/host/linux-x86/bin/mke2fs -L cache -I 256 -M /cache -U 22b74bf8-ed3e-5458-bc6a-53779012d742 -E android_sparse,hash_seed=6b67350b-020f-5fa7-bb3d-2c2a2fcdec10 -t ext4 -b 4096 /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/IMAGES/cache.img 38912
+08:18:38 mkuserimg_mke2fs.py INFO: Env: {'E2FSPROGS_FAKE_TIME': '1230768000'}
+08:18:38 mkuserimg_mke2fs.py INFO: Running: /srv/android/src/lineage-24.0-arm64/out/host/linux-x86/bin/e2fsdroid -T 1230768000 -S /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/META/file_contexts.bin -f /srv/android/src/lineage-24.0-arm64/out/soong/.temp/tmpajdnor1g -a /cache /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/IMAGES/cache.img
+mke2fs 1.47.2 (1-Jan-2025)
+Creating filesystem with 38912 4k blocks and 38912 inodes
+Filesystem UUID: 22b74bf8-ed3e-5458-bc6a-53779012d742
+Superblock backups stored on blocks: 
+	32768
+
+Allocating group tables: 0/2   done                            
+Writing inode tables: 0/2   done                            
+Creating journal (4096 blocks): done
+Writing superblocks and filesystem accounting information: 0/2   done
+
+
+Created filesystem with 11/38912 inodes and 6541/38912 blocks
+2026-11-17 08:18:38 - common.py - INFO    :   Running: "/srv/android/src/lineage-24.0-arm64/out/host/linux-x86/bin/simg2img /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/IMAGES/cache.img /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/IMAGES/unsparse_cache.img"
+2026-11-17 08:18:38 - common.py - INFO    : 
+2026-11-17 08:18:38 - common.py - INFO    :   Running: "/srv/android/src/lineage-24.0-arm64/out/host/linux-x86/bin/e2fsck -f -n /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files/IMAGES/unsparse_cache.img"
+2026-11-17 08:18:41 - common.py - INFO    : e2fsck 1.47.2 (1-Jan-2025)
+Pass 1: Checking inodes, blocks, and sizes
+Pass 2: Checking directory structure
+Pass 3: Checking directory connectivity
+Pass 4: Checking reference counts
+Pass 5: Checking group summary information
+cache: 11/38912 files (0.0% non-contiguous), 6541/38912 blocks
+2026-11-17 08:18:41 - sparse_img.py - INFO    : Total of 38912 4096-byte output blocks in 6 input chunks.
+2026-11-17 08:18:41 - common.py - INFO    :   cache size (155) is 0.00% of limit (159383552)
+2026-11-17 08:18:41 - add_img_to_target_files.py - INFO    : 
+
+++++ dtbo  ++++
+
+
+2026-11-17 08:18:41 - add_img_to_target_files.py - INFO    : 
+
+++++ radio  ++++
+
+
+2026-11-17 08:18:41 - add_img_to_target_files.py - INFO    : done. added image to target files out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files
+[ 99% 564/565] Packaging target files: out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files.zip
+ninja: 19m03.73s Build Succeeded: 525 steps - 0.46/s
+
+
+#### build completed successfully (27:04 (mm:ss)) ####
+
+PASS: 1243 locked projects, 21 exact reviewed patches; no external alternates

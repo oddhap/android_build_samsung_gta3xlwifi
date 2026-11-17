@@ -1,0 +1,19 @@
+[INFO] Fetch '/srv/android/artifacts/lineage-24.0-arm64/runtime13-vintf-20261117-01/vintf/factory/system/etc/vintf/compatibility_matrix.8.xml': OK
+[INFO] Fetch '/srv/android/artifacts/lineage-24.0-arm64/runtime13-vintf-20261117-01/vintf/factory/system/etc/vintf/compatibility_matrix.7.xml': OK
+[INFO] List '/srv/android/artifacts/lineage-24.0-arm64/runtime13-vintf-20261117-01/vintf/factory/system_ext/etc/vintf/': OK
+[INFO] Fetch '/srv/android/artifacts/lineage-24.0-arm64/runtime13-vintf-20261117-01/vintf/factory/system_ext/etc/vintf/manifest.xml': OK
+[INFO] List '/srv/android/artifacts/lineage-24.0-arm64/runtime13-vintf-20261117-01/vintf/factory/product/etc/vintf/': OK
+[INFO] Fetch '/srv/android/artifacts/lineage-24.0-arm64/runtime13-vintf-20261117-01/vintf/factory/product/etc/vintf/compatibility_matrix.lineage.xml': OK
+[INFO] Sysprop apex.all.ready is missing, default to ''
+[INFO] Get modified time '/srv/android/artifacts/lineage-24.0-arm64/runtime13-vintf-20261117-01/vintf/apex/apex-info-list.xml': OK
+[INFO] Sysprop apex.all.ready is missing, default to ''
+[INFO] Get modified time '/srv/android/artifacts/lineage-24.0-arm64/runtime13-vintf-20261117-01/vintf/apex/apex-info-list.xml': OK
+[INFO] Sysprop apex.all.ready is missing, default to ''
+[INFO] Get modified time '/srv/android/artifacts/lineage-24.0-arm64/runtime13-vintf-20261117-01/vintf/apex/apex-info-list.xml': OK
+COMPATIBLE
+[33m[WARN] getKernelLevel: Both device manifest and kernel release do not specify kernel FCM version.[0m
+[33m[WARN] getKernelLevel: Both device manifest and kernel release do not specify kernel FCM version.[0m
+[33m[WARN] getKernelLevel: Both device manifest and kernel release do not specify kernel FCM version.[0m
+[33m[WARN] Both device manifest and kernel release do not specify kernel FCM version.[0m
+[33m[WARN] getKernelLevel: Both device manifest and kernel release do not specify kernel FCM version.[0m
+Offline factory APEX count: 39; VINTF exit: 0

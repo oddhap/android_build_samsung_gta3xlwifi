@@ -4,7 +4,7 @@ Active development target: LineageOS 24.0 / Android 17, ARM64 with ARM32 apps,
 `gta3xlwifi`, physical non-A/B partitions. This is an unfinished source-built
 device port. The first physical test installation has completed; its first Android17 boot failed and is being repaired.
 
-**Current status (November17): snapshot11 reaches graphics startup; snapshot13 builds.**
+**Current status (November17): snapshot11 reaches graphics startup; snapshot13 installed and read back.**
 Actual snapshot11 installation/readbacks passed and normal netd/zygote start.
 SurfaceFlinger repeatedly aborts with `gralloc-mapper is missing` (matched physical
 libui BuildId `1d6d4d54e6a2e1e13a76a5f597afff81`). The preserved vendor declares
@@ -17,7 +17,11 @@ Snapshot13 uses the existing production `soong_config_set_bool` helper. Actual
 Make macro execution reproduces the type difference; 96 actual mapper-constructor
 fixture cases preserve modern preference and mandatory successful HAL loading.
 No mapper source, API property, vendor, kernel, SELinux or encryption is changed.
-A complete audited rebuild/package verification is running. No normal Android17
+The complete snapshot13 build, production dual-ABI compiler flags and rebuilt
+libui identities, all product checks, 39-APEX VINTF, CMS/CRC and every block stream
+pass. Installation completed with updaterRC0 and all ten critical file readbacks;
+boot/vendor and preserved recovery match. Data was retained. The next normal
+Android startup is being observed. No normal Android17
 boot, actual networking or complete CE/FBE validation is claimed.
 
 A clean-data snapshot10 test creates persistent DE0 key files and init_user0
