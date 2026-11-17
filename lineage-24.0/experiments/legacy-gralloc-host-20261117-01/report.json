@@ -1,0 +1,882 @@
+{
+  "passed": true,
+  "scope": "Exercise actual libui mapper requirement/constructor with explicit HAL-load fixtures.\n\nNo actual HAL, Binder, graphics driver or device is executed. A genuine legacy\nmapper must load; missing all mappers remains fatal. Modern selection is retained.\n",
+  "Android17_default_rejects_only_mapper2_reproduced": true,
+  "legacy_path_requires_actual_loaded_mapper": true,
+  "no_available_mapper_remains_fatal": true,
+  "modern_mapper_preference_preserved": true,
+  "source_sha256": {
+    "device/samsung/gta3xlwifi/BoardConfig.mk": "533d2b767cdf176872545acdf62360f690ff41ca05d1299b223683a16d992048"
+  },
+  "unchanged_mapper_source_sha256": "1e6282f21a4a4478e92321bed5e717ccda6bc33efbfe8e7debded1b1e926d7f0",
+  "unchanged_android_bp_sha256": "0be359d49e3a983969c07ca55ae5a11cea162bc9339f0b3c991d383418d93765",
+  "cases": [
+    {
+      "mode": "platform-default",
+      "api": 29,
+      "flag": 0,
+      "available_fixture_mask": 0,
+      "expected_mapper": null,
+      "exit": -6,
+      "trace": "try5\ntry4\ntry3\ntry2\n"
+    },
+    {
+      "mode": "platform-default",
+      "api": 29,
+      "flag": 0,
+      "available_fixture_mask": 4,
+      "expected_mapper": 2,
+      "exit": 0,
+      "trace": "try5\ntry4\ntry3\ntry2\nchosen2\n"
+    },
+    {
+      "mode": "platform-default",
+      "api": 29,
+      "flag": 0,
+      "available_fixture_mask": 8,
+      "expected_mapper": 3,
+      "exit": 0,
+      "trace": "try5\ntry4\ntry3\nchosen3\n"
+    },
+    {
+      "mode": "platform-default",
+      "api": 29,
+      "flag": 0,
+      "available_fixture_mask": 16,
+      "expected_mapper": 4,
+      "exit": 0,
+      "trace": "try5\ntry4\nchosen4\n"
+    },
+    {
+      "mode": "platform-default",
+      "api": 29,
+      "flag": 0,
+      "available_fixture_mask": 32,
+      "expected_mapper": 5,
+      "exit": 0,
+      "trace": "try5\nchosen5\n"
+    },
+    {
+      "mode": "platform-default",
+      "api": 29,
+      "flag": 0,
+      "available_fixture_mask": 20,
+      "expected_mapper": 4,
+      "exit": 0,
+      "trace": "try5\ntry4\nchosen4\n"
+    },
+    {
+      "mode": "platform-default",
+      "api": 29,
+      "flag": 0,
+      "available_fixture_mask": 36,
+      "expected_mapper": 5,
+      "exit": 0,
+      "trace": "try5\nchosen5\n"
+    },
+    {
+      "mode": "platform-default",
+      "api": 29,
+      "flag": 0,
+      "available_fixture_mask": 60,
+      "expected_mapper": 5,
+      "exit": 0,
+      "trace": "try5\nchosen5\n"
+    },
+    {
+      "mode": "platform-default",
+      "api": 29,
+      "flag": 1,
+      "available_fixture_mask": 0,
+      "expected_mapper": null,
+      "exit": -6,
+      "trace": "try5\ntry4\ntry3\ntry2\n"
+    },
+    {
+      "mode": "platform-default",
+      "api": 29,
+      "flag": 1,
+      "available_fixture_mask": 4,
+      "expected_mapper": 2,
+      "exit": 0,
+      "trace": "try5\ntry4\ntry3\ntry2\nchosen2\n"
+    },
+    {
+      "mode": "platform-default",
+      "api": 29,
+      "flag": 1,
+      "available_fixture_mask": 8,
+      "expected_mapper": 3,
+      "exit": 0,
+      "trace": "try5\ntry4\ntry3\nchosen3\n"
+    },
+    {
+      "mode": "platform-default",
+      "api": 29,
+      "flag": 1,
+      "available_fixture_mask": 16,
+      "expected_mapper": 4,
+      "exit": 0,
+      "trace": "try5\ntry4\nchosen4\n"
+    },
+    {
+      "mode": "platform-default",
+      "api": 29,
+      "flag": 1,
+      "available_fixture_mask": 32,
+      "expected_mapper": 5,
+      "exit": 0,
+      "trace": "try5\nchosen5\n"
+    },
+    {
+      "mode": "platform-default",
+      "api": 29,
+      "flag": 1,
+      "available_fixture_mask": 20,
+      "expected_mapper": 4,
+      "exit": 0,
+      "trace": "try5\ntry4\nchosen4\n"
+    },
+    {
+      "mode": "platform-default",
+      "api": 29,
+      "flag": 1,
+      "available_fixture_mask": 36,
+      "expected_mapper": 5,
+      "exit": 0,
+      "trace": "try5\nchosen5\n"
+    },
+    {
+      "mode": "platform-default",
+      "api": 29,
+      "flag": 1,
+      "available_fixture_mask": 60,
+      "expected_mapper": 5,
+      "exit": 0,
+      "trace": "try5\nchosen5\n"
+    },
+    {
+      "mode": "platform-default",
+      "api": 36,
+      "flag": 0,
+      "available_fixture_mask": 0,
+      "expected_mapper": null,
+      "exit": -6,
+      "trace": "try5\ntry4\ntry3\ntry2\n"
+    },
+    {
+      "mode": "platform-default",
+      "api": 36,
+      "flag": 0,
+      "available_fixture_mask": 4,
+      "expected_mapper": 2,
+      "exit": 0,
+      "trace": "try5\ntry4\ntry3\ntry2\nchosen2\n"
+    },
+    {
+      "mode": "platform-default",
+      "api": 36,
+      "flag": 0,
+      "available_fixture_mask": 8,
+      "expected_mapper": 3,
+      "exit": 0,
+      "trace": "try5\ntry4\ntry3\nchosen3\n"
+    },
+    {
+      "mode": "platform-default",
+      "api": 36,
+      "flag": 0,
+      "available_fixture_mask": 16,
+      "expected_mapper": 4,
+      "exit": 0,
+      "trace": "try5\ntry4\nchosen4\n"
+    },
+    {
+      "mode": "platform-default",
+      "api": 36,
+      "flag": 0,
+      "available_fixture_mask": 32,
+      "expected_mapper": 5,
+      "exit": 0,
+      "trace": "try5\nchosen5\n"
+    },
+    {
+      "mode": "platform-default",
+      "api": 36,
+      "flag": 0,
+      "available_fixture_mask": 20,
+      "expected_mapper": 4,
+      "exit": 0,
+      "trace": "try5\ntry4\nchosen4\n"
+    },
+    {
+      "mode": "platform-default",
+      "api": 36,
+      "flag": 0,
+      "available_fixture_mask": 36,
+      "expected_mapper": 5,
+      "exit": 0,
+      "trace": "try5\nchosen5\n"
+    },
+    {
+      "mode": "platform-default",
+      "api": 36,
+      "flag": 0,
+      "available_fixture_mask": 60,
+      "expected_mapper": 5,
+      "exit": 0,
+      "trace": "try5\nchosen5\n"
+    },
+    {
+      "mode": "platform-default",
+      "api": 36,
+      "flag": 1,
+      "available_fixture_mask": 0,
+      "expected_mapper": null,
+      "exit": -6,
+      "trace": "try5\ntry4\n"
+    },
+    {
+      "mode": "platform-default",
+      "api": 36,
+      "flag": 1,
+      "available_fixture_mask": 4,
+      "expected_mapper": null,
+      "exit": -6,
+      "trace": "try5\ntry4\n"
+    },
+    {
+      "mode": "platform-default",
+      "api": 36,
+      "flag": 1,
+      "available_fixture_mask": 8,
+      "expected_mapper": null,
+      "exit": -6,
+      "trace": "try5\ntry4\n"
+    },
+    {
+      "mode": "platform-default",
+      "api": 36,
+      "flag": 1,
+      "available_fixture_mask": 16,
+      "expected_mapper": 4,
+      "exit": 0,
+      "trace": "try5\ntry4\nchosen4\n"
+    },
+    {
+      "mode": "platform-default",
+      "api": 36,
+      "flag": 1,
+      "available_fixture_mask": 32,
+      "expected_mapper": 5,
+      "exit": 0,
+      "trace": "try5\nchosen5\n"
+    },
+    {
+      "mode": "platform-default",
+      "api": 36,
+      "flag": 1,
+      "available_fixture_mask": 20,
+      "expected_mapper": 4,
+      "exit": 0,
+      "trace": "try5\ntry4\nchosen4\n"
+    },
+    {
+      "mode": "platform-default",
+      "api": 36,
+      "flag": 1,
+      "available_fixture_mask": 36,
+      "expected_mapper": 5,
+      "exit": 0,
+      "trace": "try5\nchosen5\n"
+    },
+    {
+      "mode": "platform-default",
+      "api": 36,
+      "flag": 1,
+      "available_fixture_mask": 60,
+      "expected_mapper": 5,
+      "exit": 0,
+      "trace": "try5\nchosen5\n"
+    },
+    {
+      "mode": "platform-default",
+      "api": 37,
+      "flag": 0,
+      "available_fixture_mask": 0,
+      "expected_mapper": null,
+      "exit": -6,
+      "trace": "try5\ntry4\ntry3\ntry2\n"
+    },
+    {
+      "mode": "platform-default",
+      "api": 37,
+      "flag": 0,
+      "available_fixture_mask": 4,
+      "expected_mapper": 2,
+      "exit": 0,
+      "trace": "try5\ntry4\ntry3\ntry2\nchosen2\n"
+    },
+    {
+      "mode": "platform-default",
+      "api": 37,
+      "flag": 0,
+      "available_fixture_mask": 8,
+      "expected_mapper": 3,
+      "exit": 0,
+      "trace": "try5\ntry4\ntry3\nchosen3\n"
+    },
+    {
+      "mode": "platform-default",
+      "api": 37,
+      "flag": 0,
+      "available_fixture_mask": 16,
+      "expected_mapper": 4,
+      "exit": 0,
+      "trace": "try5\ntry4\nchosen4\n"
+    },
+    {
+      "mode": "platform-default",
+      "api": 37,
+      "flag": 0,
+      "available_fixture_mask": 32,
+      "expected_mapper": 5,
+      "exit": 0,
+      "trace": "try5\nchosen5\n"
+    },
+    {
+      "mode": "platform-default",
+      "api": 37,
+      "flag": 0,
+      "available_fixture_mask": 20,
+      "expected_mapper": 4,
+      "exit": 0,
+      "trace": "try5\ntry4\nchosen4\n"
+    },
+    {
+      "mode": "platform-default",
+      "api": 37,
+      "flag": 0,
+      "available_fixture_mask": 36,
+      "expected_mapper": 5,
+      "exit": 0,
+      "trace": "try5\nchosen5\n"
+    },
+    {
+      "mode": "platform-default",
+      "api": 37,
+      "flag": 0,
+      "available_fixture_mask": 60,
+      "expected_mapper": 5,
+      "exit": 0,
+      "trace": "try5\nchosen5\n"
+    },
+    {
+      "mode": "platform-default",
+      "api": 37,
+      "flag": 1,
+      "available_fixture_mask": 0,
+      "expected_mapper": null,
+      "exit": -6,
+      "trace": "try5\ntry4\n"
+    },
+    {
+      "mode": "platform-default",
+      "api": 37,
+      "flag": 1,
+      "available_fixture_mask": 4,
+      "expected_mapper": null,
+      "exit": -6,
+      "trace": "try5\ntry4\n"
+    },
+    {
+      "mode": "platform-default",
+      "api": 37,
+      "flag": 1,
+      "available_fixture_mask": 8,
+      "expected_mapper": null,
+      "exit": -6,
+      "trace": "try5\ntry4\n"
+    },
+    {
+      "mode": "platform-default",
+      "api": 37,
+      "flag": 1,
+      "available_fixture_mask": 16,
+      "expected_mapper": 4,
+      "exit": 0,
+      "trace": "try5\ntry4\nchosen4\n"
+    },
+    {
+      "mode": "platform-default",
+      "api": 37,
+      "flag": 1,
+      "available_fixture_mask": 32,
+      "expected_mapper": 5,
+      "exit": 0,
+      "trace": "try5\nchosen5\n"
+    },
+    {
+      "mode": "platform-default",
+      "api": 37,
+      "flag": 1,
+      "available_fixture_mask": 20,
+      "expected_mapper": 4,
+      "exit": 0,
+      "trace": "try5\ntry4\nchosen4\n"
+    },
+    {
+      "mode": "platform-default",
+      "api": 37,
+      "flag": 1,
+      "available_fixture_mask": 36,
+      "expected_mapper": 5,
+      "exit": 0,
+      "trace": "try5\nchosen5\n"
+    },
+    {
+      "mode": "platform-default",
+      "api": 37,
+      "flag": 1,
+      "available_fixture_mask": 60,
+      "expected_mapper": 5,
+      "exit": 0,
+      "trace": "try5\nchosen5\n"
+    },
+    {
+      "mode": "device-legacy",
+      "api": 29,
+      "flag": 0,
+      "available_fixture_mask": 0,
+      "expected_mapper": null,
+      "exit": -6,
+      "trace": "try5\ntry4\ntry3\ntry2\n"
+    },
+    {
+      "mode": "device-legacy",
+      "api": 29,
+      "flag": 0,
+      "available_fixture_mask": 4,
+      "expected_mapper": 2,
+      "exit": 0,
+      "trace": "try5\ntry4\ntry3\ntry2\nchosen2\n"
+    },
+    {
+      "mode": "device-legacy",
+      "api": 29,
+      "flag": 0,
+      "available_fixture_mask": 8,
+      "expected_mapper": 3,
+      "exit": 0,
+      "trace": "try5\ntry4\ntry3\nchosen3\n"
+    },
+    {
+      "mode": "device-legacy",
+      "api": 29,
+      "flag": 0,
+      "available_fixture_mask": 16,
+      "expected_mapper": 4,
+      "exit": 0,
+      "trace": "try5\ntry4\nchosen4\n"
+    },
+    {
+      "mode": "device-legacy",
+      "api": 29,
+      "flag": 0,
+      "available_fixture_mask": 32,
+      "expected_mapper": 5,
+      "exit": 0,
+      "trace": "try5\nchosen5\n"
+    },
+    {
+      "mode": "device-legacy",
+      "api": 29,
+      "flag": 0,
+      "available_fixture_mask": 20,
+      "expected_mapper": 4,
+      "exit": 0,
+      "trace": "try5\ntry4\nchosen4\n"
+    },
+    {
+      "mode": "device-legacy",
+      "api": 29,
+      "flag": 0,
+      "available_fixture_mask": 36,
+      "expected_mapper": 5,
+      "exit": 0,
+      "trace": "try5\nchosen5\n"
+    },
+    {
+      "mode": "device-legacy",
+      "api": 29,
+      "flag": 0,
+      "available_fixture_mask": 60,
+      "expected_mapper": 5,
+      "exit": 0,
+      "trace": "try5\nchosen5\n"
+    },
+    {
+      "mode": "device-legacy",
+      "api": 29,
+      "flag": 1,
+      "available_fixture_mask": 0,
+      "expected_mapper": null,
+      "exit": -6,
+      "trace": "try5\ntry4\ntry3\ntry2\n"
+    },
+    {
+      "mode": "device-legacy",
+      "api": 29,
+      "flag": 1,
+      "available_fixture_mask": 4,
+      "expected_mapper": 2,
+      "exit": 0,
+      "trace": "try5\ntry4\ntry3\ntry2\nchosen2\n"
+    },
+    {
+      "mode": "device-legacy",
+      "api": 29,
+      "flag": 1,
+      "available_fixture_mask": 8,
+      "expected_mapper": 3,
+      "exit": 0,
+      "trace": "try5\ntry4\ntry3\nchosen3\n"
+    },
+    {
+      "mode": "device-legacy",
+      "api": 29,
+      "flag": 1,
+      "available_fixture_mask": 16,
+      "expected_mapper": 4,
+      "exit": 0,
+      "trace": "try5\ntry4\nchosen4\n"
+    },
+    {
+      "mode": "device-legacy",
+      "api": 29,
+      "flag": 1,
+      "available_fixture_mask": 32,
+      "expected_mapper": 5,
+      "exit": 0,
+      "trace": "try5\nchosen5\n"
+    },
+    {
+      "mode": "device-legacy",
+      "api": 29,
+      "flag": 1,
+      "available_fixture_mask": 20,
+      "expected_mapper": 4,
+      "exit": 0,
+      "trace": "try5\ntry4\nchosen4\n"
+    },
+    {
+      "mode": "device-legacy",
+      "api": 29,
+      "flag": 1,
+      "available_fixture_mask": 36,
+      "expected_mapper": 5,
+      "exit": 0,
+      "trace": "try5\nchosen5\n"
+    },
+    {
+      "mode": "device-legacy",
+      "api": 29,
+      "flag": 1,
+      "available_fixture_mask": 60,
+      "expected_mapper": 5,
+      "exit": 0,
+      "trace": "try5\nchosen5\n"
+    },
+    {
+      "mode": "device-legacy",
+      "api": 36,
+      "flag": 0,
+      "available_fixture_mask": 0,
+      "expected_mapper": null,
+      "exit": -6,
+      "trace": "try5\ntry4\ntry3\ntry2\n"
+    },
+    {
+      "mode": "device-legacy",
+      "api": 36,
+      "flag": 0,
+      "available_fixture_mask": 4,
+      "expected_mapper": 2,
+      "exit": 0,
+      "trace": "try5\ntry4\ntry3\ntry2\nchosen2\n"
+    },
+    {
+      "mode": "device-legacy",
+      "api": 36,
+      "flag": 0,
+      "available_fixture_mask": 8,
+      "expected_mapper": 3,
+      "exit": 0,
+      "trace": "try5\ntry4\ntry3\nchosen3\n"
+    },
+    {
+      "mode": "device-legacy",
+      "api": 36,
+      "flag": 0,
+      "available_fixture_mask": 16,
+      "expected_mapper": 4,
+      "exit": 0,
+      "trace": "try5\ntry4\nchosen4\n"
+    },
+    {
+      "mode": "device-legacy",
+      "api": 36,
+      "flag": 0,
+      "available_fixture_mask": 32,
+      "expected_mapper": 5,
+      "exit": 0,
+      "trace": "try5\nchosen5\n"
+    },
+    {
+      "mode": "device-legacy",
+      "api": 36,
+      "flag": 0,
+      "available_fixture_mask": 20,
+      "expected_mapper": 4,
+      "exit": 0,
+      "trace": "try5\ntry4\nchosen4\n"
+    },
+    {
+      "mode": "device-legacy",
+      "api": 36,
+      "flag": 0,
+      "available_fixture_mask": 36,
+      "expected_mapper": 5,
+      "exit": 0,
+      "trace": "try5\nchosen5\n"
+    },
+    {
+      "mode": "device-legacy",
+      "api": 36,
+      "flag": 0,
+      "available_fixture_mask": 60,
+      "expected_mapper": 5,
+      "exit": 0,
+      "trace": "try5\nchosen5\n"
+    },
+    {
+      "mode": "device-legacy",
+      "api": 36,
+      "flag": 1,
+      "available_fixture_mask": 0,
+      "expected_mapper": null,
+      "exit": -6,
+      "trace": "try5\ntry4\ntry3\ntry2\n"
+    },
+    {
+      "mode": "device-legacy",
+      "api": 36,
+      "flag": 1,
+      "available_fixture_mask": 4,
+      "expected_mapper": 2,
+      "exit": 0,
+      "trace": "try5\ntry4\ntry3\ntry2\nchosen2\n"
+    },
+    {
+      "mode": "device-legacy",
+      "api": 36,
+      "flag": 1,
+      "available_fixture_mask": 8,
+      "expected_mapper": 3,
+      "exit": 0,
+      "trace": "try5\ntry4\ntry3\nchosen3\n"
+    },
+    {
+      "mode": "device-legacy",
+      "api": 36,
+      "flag": 1,
+      "available_fixture_mask": 16,
+      "expected_mapper": 4,
+      "exit": 0,
+      "trace": "try5\ntry4\nchosen4\n"
+    },
+    {
+      "mode": "device-legacy",
+      "api": 36,
+      "flag": 1,
+      "available_fixture_mask": 32,
+      "expected_mapper": 5,
+      "exit": 0,
+      "trace": "try5\nchosen5\n"
+    },
+    {
+      "mode": "device-legacy",
+      "api": 36,
+      "flag": 1,
+      "available_fixture_mask": 20,
+      "expected_mapper": 4,
+      "exit": 0,
+      "trace": "try5\ntry4\nchosen4\n"
+    },
+    {
+      "mode": "device-legacy",
+      "api": 36,
+      "flag": 1,
+      "available_fixture_mask": 36,
+      "expected_mapper": 5,
+      "exit": 0,
+      "trace": "try5\nchosen5\n"
+    },
+    {
+      "mode": "device-legacy",
+      "api": 36,
+      "flag": 1,
+      "available_fixture_mask": 60,
+      "expected_mapper": 5,
+      "exit": 0,
+      "trace": "try5\nchosen5\n"
+    },
+    {
+      "mode": "device-legacy",
+      "api": 37,
+      "flag": 0,
+      "available_fixture_mask": 0,
+      "expected_mapper": null,
+      "exit": -6,
+      "trace": "try5\ntry4\ntry3\ntry2\n"
+    },
+    {
+      "mode": "device-legacy",
+      "api": 37,
+      "flag": 0,
+      "available_fixture_mask": 4,
+      "expected_mapper": 2,
+      "exit": 0,
+      "trace": "try5\ntry4\ntry3\ntry2\nchosen2\n"
+    },
+    {
+      "mode": "device-legacy",
+      "api": 37,
+      "flag": 0,
+      "available_fixture_mask": 8,
+      "expected_mapper": 3,
+      "exit": 0,
+      "trace": "try5\ntry4\ntry3\nchosen3\n"
+    },
+    {
+      "mode": "device-legacy",
+      "api": 37,
+      "flag": 0,
+      "available_fixture_mask": 16,
+      "expected_mapper": 4,
+      "exit": 0,
+      "trace": "try5\ntry4\nchosen4\n"
+    },
+    {
+      "mode": "device-legacy",
+      "api": 37,
+      "flag": 0,
+      "available_fixture_mask": 32,
+      "expected_mapper": 5,
+      "exit": 0,
+      "trace": "try5\nchosen5\n"
+    },
+    {
+      "mode": "device-legacy",
+      "api": 37,
+      "flag": 0,
+      "available_fixture_mask": 20,
+      "expected_mapper": 4,
+      "exit": 0,
+      "trace": "try5\ntry4\nchosen4\n"
+    },
+    {
+      "mode": "device-legacy",
+      "api": 37,
+      "flag": 0,
+      "available_fixture_mask": 36,
+      "expected_mapper": 5,
+      "exit": 0,
+      "trace": "try5\nchosen5\n"
+    },
+    {
+      "mode": "device-legacy",
+      "api": 37,
+      "flag": 0,
+      "available_fixture_mask": 60,
+      "expected_mapper": 5,
+      "exit": 0,
+      "trace": "try5\nchosen5\n"
+    },
+    {
+      "mode": "device-legacy",
+      "api": 37,
+      "flag": 1,
+      "available_fixture_mask": 0,
+      "expected_mapper": null,
+      "exit": -6,
+      "trace": "try5\ntry4\ntry3\ntry2\n"
+    },
+    {
+      "mode": "device-legacy",
+      "api": 37,
+      "flag": 1,
+      "available_fixture_mask": 4,
+      "expected_mapper": 2,
+      "exit": 0,
+      "trace": "try5\ntry4\ntry3\ntry2\nchosen2\n"
+    },
+    {
+      "mode": "device-legacy",
+      "api": 37,
+      "flag": 1,
+      "available_fixture_mask": 8,
+      "expected_mapper": 3,
+      "exit": 0,
+      "trace": "try5\ntry4\ntry3\nchosen3\n"
+    },
+    {
+      "mode": "device-legacy",
+      "api": 37,
+      "flag": 1,
+      "available_fixture_mask": 16,
+      "expected_mapper": 4,
+      "exit": 0,
+      "trace": "try5\ntry4\nchosen4\n"
+    },
+    {
+      "mode": "device-legacy",
+      "api": 37,
+      "flag": 1,
+      "available_fixture_mask": 32,
+      "expected_mapper": 5,
+      "exit": 0,
+      "trace": "try5\nchosen5\n"
+    },
+    {
+      "mode": "device-legacy",
+      "api": 37,
+      "flag": 1,
+      "available_fixture_mask": 20,
+      "expected_mapper": 4,
+      "exit": 0,
+      "trace": "try5\ntry4\nchosen4\n"
+    },
+    {
+      "mode": "device-legacy",
+      "api": 37,
+      "flag": 1,
+      "available_fixture_mask": 36,
+      "expected_mapper": 5,
+      "exit": 0,
+      "trace": "try5\nchosen5\n"
+    },
+    {
+      "mode": "device-legacy",
+      "api": 37,
+      "flag": 1,
+      "available_fixture_mask": 60,
+      "expected_mapper": 5,
+      "exit": 0,
+      "trace": "try5\nchosen5\n"
+    }
+  ],
+  "actual_device_HAL_or_graphics_validated": false,
+  "policy_kernel_vendor_crypto_changed": false,
+  "flash_ready": false
+}

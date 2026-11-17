@@ -4,9 +4,21 @@ Active development target: LineageOS 24.0 / Android 17, ARM64 with ARM32 apps,
 `gta3xlwifi`, physical non-A/B partitions. This is an unfinished source-built
 device port. The first physical test installation has completed; its first Android17 boot failed and is being repaired.
 
-**Current replacement: snapshot11 built and verified; physical testing deferred.** The owner deferred
-further physical testing. The tablet remains in preserved TWRP; no more flashing,
-reboots or formats are planned before the owner returns.
+**Current status (November17): snapshot11 reaches graphics startup; snapshot13 builds.**
+Actual snapshot11 installation/readbacks passed and normal netd/zygote start.
+SurfaceFlinger repeatedly aborts with `gralloc-mapper is missing` (matched physical
+libui BuildId `1d6d4d54e6a2e1e13a76a5f597afff81`). The preserved vendor declares
+mapper2.0 passthrough in both ABIs and contains the actual AArch64 implementation.
+The device did not select libui's existing legacy-HAL support.
+
+Snapshot12 selected that support but failed before compilation because the new
+Soong select requires a boolean and the setting was registered as a string.
+Snapshot13 uses the existing production `soong_config_set_bool` helper. Actual
+Make macro execution reproduces the type difference; 96 actual mapper-constructor
+fixture cases preserve modern preference and mandatory successful HAL loading.
+No mapper source, API property, vendor, kernel, SELinux or encryption is changed.
+A complete audited rebuild/package verification is running. No normal Android17
+boot, actual networking or complete CE/FBE validation is claimed.
 
 A clean-data snapshot10 test creates persistent DE0 key files and init_user0
 exits0. The netd null-global crash is gone. Netd now fails closed with EPROTO:

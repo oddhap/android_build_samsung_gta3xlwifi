@@ -1,0 +1,10 @@
+{
+  "parent_snapshot": "port-20261117-12",
+  "parent_manifest_sha256": "31f142b6c2e5f04f14ed9cdecb3cd6b13716508b428ad8c86d3d3332d6a24594",
+  "parent_lock_sha256": "a99e2715c50f7dd5d687b28de6ed6e6e91fbd57d58eca8051b6863eb1261027d",
+  "composition_selection_sha256": "06a33933aac9be955caa430e4edb68ee67041861cd19ba6c2b2a037300230b2a",
+  "proof_reports_sha256": {
+    "/srv/android/artifacts/lineage-24.0-arm64/legacy-gralloc-host-20261117-02/report.json": "fbb8d61a2af90ca489fc18613af17b8f00fd8733b93caff6539a684e6e676bb6"
+  },
+  "kernel_and_vendor_prebuilts_unchanged": true
+}

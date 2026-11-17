@@ -1,0 +1,73 @@
+PASS: 1243 locked projects, 21 exact reviewed patches; no external alternates
+Looking for dependencies in device/samsung/gta3xlwifi
+device/samsung/gta3xlwifi has no additional dependencies.
+
+============================================
+PLATFORM_VERSION_CODENAME=REL
+PLATFORM_VERSION=17
+LINEAGE_VERSION=24.0-20261117-UNOFFICIAL-gta3xlwifi
+PRODUCT_SOURCE_ROOT_DIRS=-kernel/platform -prebuilts/misc/protobuf_vendorcompat
+TARGET_PRODUCT=lineage_gta3xlwifi
+TARGET_BUILD_VARIANT=userdebug
+TARGET_ARCH=arm64
+TARGET_ARCH_VARIANT=armv8-a
+TARGET_CPU_VARIANT=generic
+TARGET_2ND_ARCH=arm
+TARGET_2ND_ARCH_VARIANT=armv8-a
+TARGET_2ND_CPU_VARIANT=generic
+HOST_OS=linux
+HOST_OS_EXTRA=Linux-5.15.0-203-generic-x86_64-Ubuntu-22.04.5-LTS
+HOST_CROSS_OS=windows
+BUILD_ID=CP2A.260605.016
+OUT_DIR=out
+SOONG_ONLY=false
+SOONG_INCREMENTAL_ANALYSIS=false
+============================================
+Running product configuration...
+============================================
+PLATFORM_VERSION_CODENAME=REL
+PLATFORM_VERSION=17
+LINEAGE_VERSION=24.0-20261117-UNOFFICIAL-gta3xlwifi
+PRODUCT_SOURCE_ROOT_DIRS=-kernel/platform -prebuilts/misc/protobuf_vendorcompat
+TARGET_PRODUCT=lineage_gta3xlwifi
+TARGET_BUILD_VARIANT=userdebug
+TARGET_ARCH=arm64
+TARGET_ARCH_VARIANT=armv8-a
+TARGET_CPU_VARIANT=generic
+TARGET_2ND_ARCH=arm
+TARGET_2ND_ARCH_VARIANT=armv8-a
+TARGET_2ND_CPU_VARIANT=generic
+HOST_OS=linux
+HOST_OS_EXTRA=Linux-5.15.0-203-generic-x86_64-Ubuntu-22.04.5-LTS
+HOST_CROSS_OS=windows
+BUILD_ID=CP2A.260605.016
+OUT_DIR=out
+SOONG_ONLY=false
+SOONG_INCREMENTAL_ANALYSIS=true
+============================================
+[100% 1/1] bootstrap blueprint
+Running globs...
+ninja: 
+ninja: SISO_EXPERIMENTS=fallback-on-exec-error enabled
+SISO_EXPERIMENTS=ignore-missing-out-in-depfile enabled
+
+ninja: ignore missing out error in depfile 
+
+[100% 2/2] analyzing Android.bp files and generating ninja file at out/soong/build.lineage_gta3xlwifi.ninja
+FAILED: out/soong/build.lineage_gta3xlwifi.ninja
+cd "$(dirname "out/host/linux-x86/bin/soong_build")" && BUILDER="$PWD/$(basename "out/host/linux-x86/bin/soong_build")" && cd / && env -i  "$BUILDER"     --top "$TOP"     --soong_out "out/soong"     --out "out"     --soong_variables out/soong/soong.lineage_gta3xlwifi.variables -o out/soong/build.lineage_gta3xlwifi.ninja --incremental-build-actions --kati_suffix -lineage_gta3xlwifi --kati_enabled -l out/.module_paths/Android.bp.list --available_env out/soong/soong.environment.available --used_env out/soong/soong.environment.used.lineage_gta3xlwifi.build Android.bp
+stderr:
+error: frameworks/native/libs/ui/Android.bp:130:11: module "libui" variant "android_arm64_armv8-a_shared": cflags: Expected all branches of a select on condition soong_config_variable("libui", "legacy_gralloc") to have type string, found bool
+FAILED: ninja: 
+1m09.13s Build Failure: 1 done, 1 failed, 0 remaining - 0.01/s
+ 1 steps failed: exit=1
+
+warning: ninja: see ./out/soong/siso_output for full command line and output
+ or ./out/soong/siso.INFO
+use ./out/soong/siso_failed_commands.sh to re-run failed commands
+
+07:48:00 soong bootstrap failed with: exit status 1
+
+#### failed to build some targets (01:25 (mm:ss)) ####
+
+PASS: 1243 locked projects, 21 exact reviewed patches; no external alternates
