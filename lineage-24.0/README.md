@@ -4,13 +4,23 @@ Active development target: LineageOS 24.0 / Android 17, ARM64 with ARM32 apps,
 `gta3xlwifi`, physical non-A/B partitions. This is an unfinished source-built
 device port. The first physical test installation has completed; its first Android17 boot failed and is being repaired.
 
+**Physical boot milestone and remaining blockers.** Snapshot22 reached
+`sys.boot_completed=1` with SELinux Enforcing and user 0 unlocked after a
+guarded ownership correction of a pre-existing empty lock-settings database.
+HWUI render aborts and later system-server watchdog resets prevented stable use.
+Snapshot24 is building with strict ION read access for the five observed clients.
+The source policy and Samsung vendor link retained all 5,881 assertions and
+passed 153 permission queries. A separate LMKD candidate addresses the observed
+in-kernel backend reaching userspace PSI and BPF monitoring at boot completion
+or daemon restart. Its host regression passed. Device validation remains open.
+
 **Snapshot22 full build and all package checks pass.** Complete1,243-project /
 22-patch before/after audits, product checks including actual constructor
 bytecode and service JAR extracted from the real CAPEX payload, fresh contexts,
 39-APEX VINTF, CMS/signature/CRC and all three OTA block streams pass. The archive
 is1,041,046,682 bytes, SHA256
 `373327541ed3f44ac86e4768b771a47e099fa597d12b64ec28784aec3390a2d0`.
-Physical preflight, installation/readbacks and normal boot remain pending.
+Physical installation and all 17 critical readbacks passed.
 
 Snapshot21 is installed/read back and fixes CLAT JNI registration and optional
 aconfig container handling: netstats starts and genuine post-fs flag init exits0.

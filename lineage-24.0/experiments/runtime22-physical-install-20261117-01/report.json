@@ -1,0 +1,129 @@
+{
+  "source_snapshot": "port-20261117-22",
+  "ota_sha256": "373327541ed3f44ac86e4768b771a47e099fa597d12b64ec28784aec3390a2d0",
+  "ota_bytes": 1041046682,
+  "host_sideload_exit": 0,
+  "updater_exit": 0,
+  "physical_prewrite_guards_passed": true,
+  "boot_prefix_sha256": "6027da30a0696db4c946c9984e39491b7ee30d61b83577ccd001b58db0f3d13f",
+  "vendor_entire_partition_sha256": "a64acb1a8d764bfca74287e4002321b9438f38e8242c30a05aae57249e705fea",
+  "recovery_entire_partition_sha256": "053125e1716778c78b03108dd34457a2d390167dea117774c7cdd5cdea1a5a12",
+  "physical_files": {
+    "SYSTEM/lib64/libui.so": {
+      "sha256": "4460b5bedf5e8bd9ed32ae8ef3ab1296a6bfd8c93f8ae67f26785f31a01baeab",
+      "bytes": 432424
+    },
+    "SYSTEM/lib/libui.so": {
+      "sha256": "3e56134922169b0e7faec591115be8c98ca5af3d91ede4fb88c799ed74771095",
+      "bytes": 312488
+    },
+    "SYSTEM/lib64/libmemevents.so": {
+      "sha256": "8b4f4227663bf1629609eee89f2e473a0e64369578808df7be5607b8dee3dd46",
+      "bytes": 44448
+    },
+    "SYSTEM/lib/libmemevents.so": {
+      "sha256": "8b8c43425fe5ae85c8c9e6e8fe785e68c04160e3ee4d747cac48e52ba14dab00",
+      "bytes": 29344
+    },
+    "SYSTEM/bin/lmkd": {
+      "sha256": "852fd2473382a8f00245ea25e179e800ac0578c952c116e275eaf7e99c0183b0",
+      "bytes": 99800
+    },
+    "SYSTEM/bin/netd": {
+      "sha256": "9d3cd879821c34da4f18eb64893439deb1ef522113cf4486a4d20ea4beeeca55",
+      "bytes": 759248,
+      "previous_snapshot10_sha256": "e3aff4261d9770aa8ea076d37a1d31083d6b748cb050d351d7a79df9313813da"
+    },
+    "SYSTEM/bin/vold": {
+      "sha256": "0cfb53996ca815b0bc8179e30979ff39897c8d376420e808d0d83ce94d20cdea",
+      "bytes": 1045824
+    },
+    "SYSTEM/bin/gta3xlwifi_first_stage_init": {
+      "sha256": "17aef32ba433a81c98ac72a4c7155ca924977b5668a47364357d2fab9e4c404c",
+      "bytes": 3323024
+    },
+    "SYSTEM/etc/init/netbpfload.rc": {
+      "sha256": "f4c1474bb171c4cbd4780878d48ab4111184f036e162873d38c55422e59957ee",
+      "bytes": 159
+    },
+    "ROOT/fstab.exynos7904": {
+      "sha256": "ae87c90434eb2cfe64bd04ec52ec4d7da8019d12395b9a67c8515975b48b3742",
+      "bytes": 1103
+    },
+    "SYSTEM/system_ext/etc/selinux/system_ext_file_contexts": {
+      "sha256": "3a6ae9b1c0dfd0a9e742c2f36235f3113670c5793fc9ae20354cc010a7d58e8e",
+      "bytes": 2645
+    },
+    "SYSTEM/system_ext/etc/selinux/system_ext_sepolicy.cil": {
+      "sha256": "abb7dda4d2f6f3ecb59d2a33ad9564c3e26f38a673b3f34f85b35d236dc1ca26",
+      "bytes": 135515
+    },
+    "PRODUCT/etc/init/init.gta3xlwifi.compat.rc": {
+      "sha256": "4bca643b3ed8439d1c15c793d0669c14e34830bbf46011db92619b3737042ca9",
+      "bytes": 1243
+    },
+    "ROOT/init.exynos7904.rc": {
+      "sha256": "5e20ec86b99787f6b043848640ea51d22f0f59f446f744cdbf054308a4505106",
+      "bytes": 1195
+    },
+    "SYSTEM/bin/aconfigd-system": {
+      "sha256": "02e9da4a0e23d72a92667586704f38b00dcb569f5fa88651aa0569fd0892b55c",
+      "bytes": 61672
+    },
+    "SYSTEM/lib64/libaconfigd_rust.dylib.so": {
+      "sha256": "c7fb3aa6f9bc62109ba9702d7121af574334ac308f9e5b43b76a3daf12ae20e0",
+      "bytes": 198776
+    },
+    "SYSTEM/apex/com.android.tethering.capex": {
+      "sha256": "0bd3f82e7e8670fa6d94f2407d43cd3c828a6eca21e3c0537ff26510b7eb7702",
+      "bytes": 17203200
+    }
+  },
+  "passed": true,
+  "scope": "Snapshot22 installation, retained userdata ownership repair, and physical boot diagnosis.",
+  "SELinux_Enforcing": true,
+  "userdata_format_performed": false,
+  "system_and_product_unmounted_before_boot": true,
+  "readonly_metadata_mountpoint_label_verified": true,
+  "Android17_normal_boot_confirmed": true,
+  "Android17_network_graphics_full_FBE_validated": false,
+  "authentication_disabled": false,
+  "legacy_local_network_note_ops_available": false,
+  "private_evidence_sha256": {
+    "runtime22-recovery-after-install.log": "27a16ae592f6e70708be0e167da46fd138ded45f5e4eecf90206918297fd9505",
+    "runtime22-readback.log": "e8c832254a61159294262925402e3205a68ae6e1d22e2d55d656370a40e675ae",
+    "runtime22-root-readback.log": "259b2cb793e712f86da2056e4a441cb3855dafd373d5435c6d4e22f52682ad5e",
+    "runtime22-product-readback.log": "853f1664d480261133929d81fa1cd0581784d8fb7dc7b7637268b54132f5e9d9",
+    "runtime22-metadata-root-readback.log": "7b0dcb440cde0b1fb77a4e63063328aa3c5adbdc158f3f2c87d27a0a1f68603f",
+    "runtime22-sideload.log": "794e22127e55fdc6ad42db91a2c4803b233aa73adfe755281a5af5cdd2cb8019",
+    "runtime22-recovery-preparation.log": "f12f1d1588ad95a88610160a84c314992bec4cf5596faf6ce7951458439423ab",
+    "runtime22-normal-boot/logcat-snapshot-before-recovery.txt": "f18807775685c2b7c616f8c72b18bc7c5009bd8b6dad954d185ba4ff57482714",
+    "runtime22-locksettings-owner-repair/report.json": "d4d3fc698f81e2e7b543aa0c5fa40119c8dc0c9269111f7238b406ceb1b4874a",
+    "runtime22-ownerfix-normal-boot/properties.txt": "a73e2a66d517cf761868981ed7ca8b416237efc688db493629f5f6b0bc79dcc1",
+    "runtime22-ownerfix-normal-boot/logcat-live-0.txt": "075ee4a29df6adff4a9f5ce12b61c747dae2e08206c87fdef4b8e080210159c6",
+    "runtime22-ownerfix-normal-boot/logcat-continuing.txt": "a2d59b0f133b5218e1b58cf13818fa514dea997d213234bbe4dacd29e1f11103",
+    "runtime22-watchdog-private/anr_2026-11-17-19-29-28-711": "f8c5241cc149145b4e14890a27a99209f7087e6d56bbfb106b2d93eb7cae2af9"
+  },
+  "ConnectivityService_started": true,
+  "BPF_observer_constructor_abort_fixed": true,
+  "next_fatal": "TrustManagerService phase500 cannot open the pre-existing root:root 0600 zero-byte locksettings.db (DAC ownership)",
+  "guarded_empty_locksettings_UID_GID_repaired": true,
+  "ROM_rebuilt_or_reflashed_for_owner_repair": false,
+  "credential_or_key_reset_performed": false,
+  "files_deleted": false,
+  "owner_repair_normal_boot_pending": false,
+  "stable_Android17_boot_confirmed": false,
+  "boot_completed_observed": true,
+  "user_0_CE_available_and_running_unlocked_observed": true,
+  "repeated_renderthread_aborts": "HWUI EglManager::damageFrame reports EGL_BAD_ACCESS. Legacy gralloc ion_open receives EACCES.",
+  "observed_ION_AVC_domains": [
+    "mediaswcodec",
+    "system_server",
+    "platform_app",
+    "priv_app",
+    "system_app"
+  ],
+  "watchdog_trace": "ActivityManager main thread waits for LMKD; KillHandler is blocked connecting to the local LMKD socket.",
+  "lmkd_psi_initialization_failure_observed": true,
+  "returned_to_preserved_TWRP": true
+}

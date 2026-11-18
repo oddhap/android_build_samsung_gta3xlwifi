@@ -1,0 +1,25 @@
+--- a/lmkd.cpp
++++ b/lmkd.cpp
+@@ -1624,8 +1624,9 @@
+     case LMK_START_MONITORING:
+         if (nargs != 0)
+             goto wronglen;
+-        // Registration is needed only if it was skipped earlier.
+-        if (monitors_initialized)
++        // The in-kernel LMK backend already handles memory pressure.
++        // Only the userspace backend may have deferred monitor registration.
++        if (use_inkernel_interface || monitors_initialized)
+             return;
+         if (!property_get_bool("sys.boot_completed", false)) {
+             ALOGE("LMK_START_MONITORING cannot be handled before boot completed");
+@@ -3593,6 +3594,10 @@
+ }
+ 
+ static void init_memevent() {
++    // The in-kernel backend does not use userspace reclaim monitoring.
++    // This also applies when lmkd restarts after sys.boot_completed.
++    if (use_inkernel_interface) return;
++
+     if (init_memevent_listener_monitoring()) {
+         ALOGI("Using memevents for direct reclaim and kswapd detection");
+     } else {
