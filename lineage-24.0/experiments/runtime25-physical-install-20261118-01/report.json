@@ -13,7 +13,7 @@
   "SELinux_Enforcing": true,
   "stable_service_pid_window_seconds": 180,
   "launcher_and_settings_started": true,
-  "hardware_touch_verified": false,
+  "hardware_touch_verified": true,
   "wifi_scan_verified": false,
   "observed_wifi_failure": "Retained HIDL supplicant ran as root after denied setuid/setgid and failed to prepare wpa_supplicant.conf.",
   "adb_screencap_failed_due_to_shell_ION_access": true,
@@ -21,5 +21,7 @@
     "logcat-live-0.txt": "b40f657c519d14846b5c673f26a6a11771eb074f17661695265f89949b48e56a",
     "properties.txt": "e1ef52db49a1c5cf04b458b346c98b4514eda2964b3a2ebb4421c659c54a5a46",
     "transport.json": "355ee7a4bfc2271fd4a2138f94e77526c3ae330ff99f6b7fdfd2c3794090f627"
-  }
+  },
+  "manual_brightness_verified": true,
+  "display_touch_and_brightness_evidence": "Physical owner confirmation on snapshot25, 2026-11-18"
 }

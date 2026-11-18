@@ -21,8 +21,9 @@ startup with SELinux Enforcing and CE storage available. The system_server,
 netd and LMKD processes held their PIDs for 180 seconds and Launcher and Settings
 started. Wi-Fi failed when the legacy vendor supplicant could not drop root or
 prepare its configuration. Snapshot26 tests init launching that exact service
-under the Wi-Fi UID with existing networking capabilities. Physical touch and
-Wi-Fi connectivity still require validation.
+under the Wi-Fi UID with existing networking capabilities. The owner confirmed
+physical touch and manual brightness on snapshot25. Wi-Fi connectivity remains
+unverified.
 
 **Snapshot22 full build and all package checks pass.** Complete1,243-project /
 22-patch before/after audits, product checks including actual constructor
