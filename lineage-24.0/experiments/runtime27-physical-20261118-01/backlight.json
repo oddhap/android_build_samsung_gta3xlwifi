@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "source_snapshot": "port-20261118-27",
+  "lights_service_hal_level_at_minimum": 4,
+  "lights_service_hal_level_after_screen_off": 0,
+  "lights_service_hal_level_after_resume": 4,
+  "brightness_restored": true,
+  "physical_pwm_readback": false,
+  "ota_sha256": "e44b17c61b5c79094ce4a6a911d7397b736feb425e72ba1e96d3ef98cacf5918"
+}

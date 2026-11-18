@@ -23,18 +23,30 @@ started. Wi-Fi failed when the legacy vendor supplicant could not drop root or
 prepare its configuration. Snapshot26 starts that service under the Wi-Fi UID.
 The installed build completed boot and the owner confirmed Wi-Fi scanning.
 Password entry triggered an IME crash involving a failed hardware bitmap copy
-and a separate EGL partial-update abort. Snapshot27 retains software bitmaps
-when hardware copies fail, disables partial updates on this Mali device, and
-ports the LineageOS 21 minimum-backlight mapping while preserving screen-off.
-The owner confirmed physical touch and manual brightness on snapshot25.
+and a separate EGL partial-update abort. The installed snapshot27 retains
+software bitmaps when hardware copies fail, disables partial updates on this
+Mali device, and ports the LineageOS 21 minimum-backlight mapping. On the
+tablet, the Lights HAL received level 4 at minimum, 0 with the display off,
+and 4 after wake. Snapshot27 completed boot and kept system_server, netd and
+lmkd stable for 180 seconds with SELinux Enforcing and CE available. LatinIME,
+Calculator, Clock, Calendar and Twelve still abort without a render surface.
+The logs show ordinary app processes receive EACCES from the Samsung ION
+allocator. Snapshot29 will restore the narrowly scoped read-side ION
+permissions on this device. The isolated Android 17/Samsung policy link kept
+all 5,881 assertions and constraints and passed 110 queries for each of the
+baseline and candidate, with no new permissions for isolated, run-as or
+shell domains.
+
 Snapshot26 retains the exact LineageOS 21 MTP vendor init file and passed a
 16 MiB physical upload/download with matching checksums. Wi-Fi password
 association remains unverified. The owner confirmed double-tap wake fails on
 snapshot26 with the setting enabled. Both touch-driver controls are present.
 The shipped system-server JNI lacks the product-scoped LineageOS 21 bridge to
-the device power library. Snapshot28 is queued to restore that bridge after
-snapshot27 package validation. The charger service and its assets are already
-packaged, but powered-off charging has not been tested on Android 17.
+the device power library. Snapshot28 restores that bridge. The host touch
+and boost regressions passed. Snapshot29 will include both the touch bridge
+and app rendering change. Snapshot28 is kept as an offline build while the
+app fixes are validated. The charger service and its assets are already
+packaged, and powered-off charging has yet to be tested on Android 17.
 
 **Snapshot22 full build and all package checks pass.** Complete1,243-project /
 22-patch before/after audits, product checks including actual constructor
