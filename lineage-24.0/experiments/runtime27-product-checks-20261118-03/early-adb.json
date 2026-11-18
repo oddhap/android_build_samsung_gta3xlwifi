@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "scope": "Verify packaged early USB ADB requests retain secure authentication and vendor USB ownership.",
+  "archive_sha256": "62e43392c9f75f646f2f42c3eff5755e18926e3d587ed995f78b6ab3af5d3184",
+  "packaged_rc_sha256": "4bca643b3ed8439d1c15c793d0669c14e34830bbf46011db92619b3737042ca9",
+  "authentication_required": true,
+  "ro_debuggable_unchanged_zero": true,
+  "tcp_listener_added": false,
+  "vendor_configfs_ownership_changed": false,
+  "host_init_verifier_sha256": "a54512026489d4f7517a4696f295fd7d5c7941346baa6898b9c3709964d1b05c",
+  "host_init_verifier_exit": 0,
+  "hardware_ADB_connectivity_proven": false,
+  "flash_ready": false
+}

@@ -1,0 +1,18 @@
+{
+  "passed": true,
+  "scope": "Exercise actual Android17 installer hooks and genuine packaged inputs offline.\n\nBuilds only an in-memory/script ZIP fixture; does not run Edify, touch a device\nor claim that header identity proves FBE decryption.\n",
+  "selected_source_sha256": "8ee5ddbaae3a139e53ace4217cc749ab96bb0c9638b76665cf56340cc8cca820",
+  "packaged_helper_sha256": "fe097d4df9a7288f3a995c834d02cbd129abe8b951f3b629bba2925c470ffa39",
+  "cases": [
+    "actual packaged helper and source hooks produce two read-only guards",
+    "actual packaged vendor accepted with exact digest and real sparse geometry",
+    "Android14 target rejected",
+    "unreviewed kernel rejected",
+    "boot/build Keymaster metadata mismatch rejected",
+    "wrong helper ABI rejected",
+    "unreviewed vendor rejected before image processing"
+  ],
+  "device_touched": false,
+  "Android17_FBE_validated": false,
+  "flash_ready": false
+}

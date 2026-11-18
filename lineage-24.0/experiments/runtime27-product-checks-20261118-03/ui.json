@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "archive_sha256": "62e43392c9f75f646f2f42c3eff5755e18926e3d587ed995f78b6ab3af5d3184",
+  "ui_host_proof_sha256": "f1565565e5c1fd6c51294c672de8f44c5a8ffe53d588ac4a5e8ce33459085940",
+  "jar_sha256": {
+    "framework.jar": "52d43d4d313e9b32ffceac786e258abb6aef1f173170ea190027a4538faf6c94",
+    "services.jar": "af4f7b2986eda33ea9e5a4b54ded5a8e826df5ff4ca15afcc15b47a331407752"
+  },
+  "partial_updates_disabled_on_device": true,
+  "physical_ui_tested": false
+}

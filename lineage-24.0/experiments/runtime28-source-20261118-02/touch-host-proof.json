@@ -1,0 +1,23 @@
+{
+  "passed": true,
+  "source_sha256": {
+    "frameworks/base/services/core/jni/Android.bp": "6035e68f99fa282bd88081425bc3f8b92268ab47b106fbca558d30f0b0e393b5",
+    "frameworks/base/services/core/jni/com_android_server_power_PowerManagerService.cpp": "1bd99fa7bad7271d59e74bc25aa7fc9e7de24de70f9bf25bc04530b6a6b803ab",
+    "device/samsung/gta3xlwifi/power/Android.bp": "77d1bd598bd72b6214697f9f5319be7361111f3fc531554ca1c8a423a1215050",
+    "device/samsung/gta3xlwifi/power/Power.cpp": "53dea82de88a7dcb8d89162016a92b8cbd5137743ef2e8b1d654668732bc9afc",
+    "device/samsung/gta3xlwifi/power/Gta3xlwifiPower.h": "6246c3fe481799685cc38304d57cba048c838938a4c11868db29260ba6ea1445",
+    "device/samsung/gta3xlwifi/power/TouchWake.h": "fe0c0ad96631121262a646d77d7781df8b3e8e3175d740772b0a373e95444457",
+    "device/samsung/gta3xlwifi/power/TouchWakeTest.cpp": "231f6fffe4e2b00d845ad728c1b8df3fdcf89550e0a25d112e0f0b990e3aff27",
+    "device/samsung/gta3xlwifi/power/BoostWindow.h": "d264a8fe997acddd49f5d3b4ffa7b65e084579152d376de513d67e3ecb207285",
+    "device/samsung/gta3xlwifi/power/BoostWindowTest.cpp": "fbfdb684472ac840941e34ddf676a62cf59aaaecc290076ffc3a25b3a27082e1",
+    "device/samsung/gta3xlwifi/BoardConfig.mk": "ece7f0815d05ebdffb2833251ba439cd2a64323685c689b4f764c822203ff29b"
+  },
+  "kernel_sha256": "7ece8d6fd70870811abfe5fd9f947311506f97233491b4016cde441de3578aec",
+  "kernel_driver_control_present": true,
+  "tested_host_binaries": [
+    "TouchWakeTest",
+    "BoostWindowTest"
+  ],
+  "legacy_lineage21_jni_patch_sha256": "e9ac266709a3710680e8dfb36e3758030302ca9c925a3174790c9f3d95ecad27",
+  "physical_double_tap_wake_tested": false
+}

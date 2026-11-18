@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "scope": "Verify actual SAR root init reaches a static current-platform first stage.\n\nChecks actual target-files links/ELF segments/build output identity and all early\nmountpoint directories. Does not execute init or establish a successful device boot.\n",
+  "archive_sha256": "62e43392c9f75f646f2f42c3eff5755e18926e3d587ed995f78b6ab3af5d3184",
+  "root_init_target": "/system/bin/gta3xlwifi_first_stage_init",
+  "static_arm64_first_stage_sha256": "17aef32ba433a81c98ac72a4c7155ca924977b5668a47364357d2fab9e4c404c",
+  "first_stage_matches_build_output": true,
+  "current_platform_selinux_setup_handoff_present": true,
+  "early_mountpoints_present": true,
+  "vendor_product_first_stage_mount_and_FBE_preserved": true,
+  "device_boot_proven": false,
+  "flash_ready": false
+}
