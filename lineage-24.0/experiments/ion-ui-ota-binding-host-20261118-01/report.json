@@ -1,0 +1,16 @@
+{
+  "passed": true,
+  "scope": "Exercise actual old/new OTA vendor guards against the actual reviewed image.",
+  "stale_binding_failure_reproduced": true,
+  "reviewed_vendor_accepted": true,
+  "actual_AOSP_sparse_geometry_validated": true,
+  "tampered_vendor_rejected_before_image_processing": true,
+  "guard_retained": true,
+  "source_sha256": {
+    "device/samsung/gta3xlwifi/releasetools.py": "3cf9497746f227eac7ffa5f875d475d71c95d1cc6723e3f37d8a7c8849eafe75"
+  },
+  "baseline_sha256": "7c9951f553d8f3cab790ad38be71564c7d95e1dd1898afd2620cc4833e980390",
+  "vendor_report_sha256": "ed4b3149bda08b38c128a8e21ea50d9fde45b9ba8c59306cc1295f3fdf100275",
+  "hardware_tested": false,
+  "flash_ready": false
+}

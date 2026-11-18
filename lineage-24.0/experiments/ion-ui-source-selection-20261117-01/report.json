@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "scope": "Select the strictly verified read interface for five observed ION clients with full parent and new revision audits.\nPreserve policy, kernel, vendor, flags and userdata; keep source rollback inputs.\n",
+  "files_selected": 1,
+  "project_count": 1243,
+  "reviewed_patches": 22,
+  "snapshot": "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/snapshots/port-20261117-23",
+  "selection_sha256": "c7e5cd11c99675aa1e9e4c6538cf23104489186d767863e961aa9df65a145d9a",
+  "kernel_and_vendor_prebuilts_unchanged": true,
+  "hardware_tested": false,
+  "flash_ready": false
+}

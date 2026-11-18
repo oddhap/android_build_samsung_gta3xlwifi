@@ -1,0 +1,10 @@
+{
+  "parent_snapshot": "port-20261117-23",
+  "parent_manifest_sha256": "31f142b6c2e5f04f14ed9cdecb3cd6b13716508b428ad8c86d3d3332d6a24594",
+  "parent_lock_sha256": "b4ac5e8c9dc45d5181892b22574496dbd707b889d4b042f7dd27f17cbc16f5f0",
+  "composition_selection_sha256": "2af059e73d7d0e0a4f09a2a63ec06ac321139e0c378f1aa2bca19d58512dbf21",
+  "proof_reports_sha256": {
+    "/srv/android/artifacts/lineage-24.0-arm64/ion-ui-ota-binding-host-20261118-01/report.json": "31712cdf8b534b3ca71916c51d032d48b728065f190fc91ee5bc0bdb9f5b6f35"
+  },
+  "kernel_and_vendor_prebuilts_unchanged": true
+}
