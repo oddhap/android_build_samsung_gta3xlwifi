@@ -1,0 +1,23 @@
+{
+  "scope": "Select and audit the verified LMKD boot handling change.",
+  "parent": "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/snapshots/port-20261118-24",
+  "files": {
+    "system/memory/lmkd/lmkd.cpp": {
+      "project": "system/memory/lmkd",
+      "path": "lmkd.cpp",
+      "before_sha256": "63b6821d591e11536148ab71fd905665575c7679bfbde61b0bacb674cfa20678",
+      "after_sha256": "4fe716360ca8d2a1882e0e745bcfd1a7b7ea7c6b1ac24ac7ab0e38d41549b788"
+    }
+  },
+  "proof_reports_sha256": {
+    "/srv/android/artifacts/lineage-24.0-arm64/lmkd-inkernel-composition-20261118-01/host-report.json": "30547aeddf6e7915e286422449fcf9effe7b9f451dcd4cd94b0d968f7404f82b"
+  },
+  "prebuilts": {
+    "Image": "7ece8d6fd70870811abfe5fd9f947311506f97233491b4016cde441de3578aec",
+    "vendor.img": "b861334da08fac08181e7fd8d5c55e888d7f01c1a3d8f1f1bf04eb970a49449c",
+    "dtbo.img": "b9041c37713a745290d9a0203423436b6caa7a1307ced79b6963b4f1f0271c4b"
+  },
+  "policy_source_changed": false,
+  "vendor_and_kernel_selection_changed": false,
+  "flash_ready": false
+}

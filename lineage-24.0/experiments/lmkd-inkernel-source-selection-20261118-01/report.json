@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "scope": "Select and audit the verified LMKD boot handling change.",
+  "files_selected": 1,
+  "project_count": 1243,
+  "reviewed_patches": 23,
+  "snapshot": "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/snapshots/port-20261118-25",
+  "selection_sha256": "206b4fb9578f7a538623e6aae1b08f104f88d62b9bdb7d45e31f916d7cd21443",
+  "kernel_and_vendor_prebuilts_unchanged": true,
+  "hardware_tested": false,
+  "flash_ready": false
+}

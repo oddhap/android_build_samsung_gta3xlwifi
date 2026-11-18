@@ -1,0 +1,17 @@
+{
+  "passed": true,
+  "scope": "Bind the actual packaged ION labels and strict permissions to physical graphics failures.",
+  "archive_sha256": "1bdf3a6c2c0f09738af89bb00c174fe9ef753f220ebbd0f713f8137189b0f7ba",
+  "context_members": {
+    "SYSTEM/etc/selinux/plat_file_contexts": "bc6f2ee366442c84221049130b8052578f1d9873cfac8d40f90efacd76521d96",
+    "SYSTEM/system_ext/etc/selinux/system_ext_file_contexts": "3a6ae9b1c0dfd0a9e742c2f36235f3113670c5793fc9ae20354cc010a7d58e8e",
+    "PRODUCT/etc/selinux/product_file_contexts": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "VENDOR_IMAGE/etc/selinux/vendor_file_contexts": "0dcf14fc0299035adbffd2a6cba5221843ca7c47c84748ac42f5d245fd2f2065"
+  },
+  "strict_report_sha256": "ed2d60e4b4ce2e1add1d7b60ba1d471ffd7662c83df2c64049ba21ea3f51feda",
+  "label_proof_sha256": "41975aeb5f0f2a60ca13ed32460ea7622ec17d042dc560f380ee0807c0e2b9b0",
+  "permission_proof_sha256": "c3c9511c8a42559a5a82c8f768eefd183a4f4a4f7149f49dbb38392b01f3252b",
+  "generic_device_access_denied": true,
+  "hardware_graphics_proven": false,
+  "flash_ready": false
+}

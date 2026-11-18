@@ -8,11 +8,13 @@ device port. The first physical test installation has completed; its first Andro
 `sys.boot_completed=1` with SELinux Enforcing and user 0 unlocked after a
 guarded ownership correction of a pre-existing empty lock-settings database.
 HWUI render aborts and later system-server watchdog resets prevented stable use.
-Snapshot24 is building with strict ION read access for the five observed clients.
+Snapshot24 passed the complete build and OTA checks with scoped ION read access
+for the five observed clients.
 The source policy and Samsung vendor link retained all 5,881 assertions and
 passed 153 permission queries. A separate LMKD candidate addresses the observed
 in-kernel backend reaching userspace PSI and BPF monitoring at boot completion
-or daemon restart. Its host regression passed. Device validation remains open.
+or daemon restart. Its host regression passed, and snapshot25 is building with
+both corrections. Device validation remains open.
 
 **Snapshot22 full build and all package checks pass.** Complete1,243-project /
 22-patch before/after audits, product checks including actual constructor
