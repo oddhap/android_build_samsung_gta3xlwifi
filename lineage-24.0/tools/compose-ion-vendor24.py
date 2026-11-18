@@ -2,15 +2,16 @@
 # SPDX-License-Identifier: Apache-2.0
 """Compose an isolated vendor image from explicitly selected, strictly linked metadata.
 
-The original Lineage 21 MTP vendor image remains immutable. Only the two reviewed
-CIL inputs, matching strict precompiled policy/hash sidecars, and a ueventd import
-are changed. All other contents and inode security metadata must compare equal.
+The original Lineage 21 MTP vendor image remains immutable. Compose the reviewed
+policy cache and ueventd import, with an explicit opt-in for the observed legacy
+supplicant startup compatibility change.
 This does not select Android prebuilts or authorize installation.
 """
 import argparse,fcntl,hashlib,json,re,shutil,subprocess,sys
 from pathlib import Path
 p=argparse.ArgumentParser(description=__doc__)
 for n in ['top','strict-report','vendor-metadata','output']:p.add_argument('--'+n,type=Path,required=True)
+p.add_argument('--supplicant-as-wifi', action='store_true')
 a=p.parse_args();T=a.top.resolve();O=a.output.resolve();assert not O.exists() and not O.is_relative_to(T)
 lock=Path('/srv/android/logs/lineage-24.0-arm64/build.lock').open('a');fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
 sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
@@ -39,6 +40,29 @@ for part,root in roots.items():
 assert '/etc/ueventd.rc' not in before,'Review existing vendor rules before composing'
 assert '/ueventd.rc' in before and before['/ueventd.rc']['type']=='regular'
 ueventd=staged/'ueventd.rc';ueventd.write_text('# Android 17 Samsung device node configuration.\nimport /vendor/ueventd.rc\nimport /ueventd.exynos7904.rc\n');changes['/etc/ueventd.rc']=ueventd
+if a.supplicant_as_wifi:
+ dest='/etc/init/android.hardware.wifi.supplicant-service.rc'
+ source=(O/'before/tree'/dest.lstrip('/')).read_text()
+ old='''    #   we will start as root and wpa_supplicant will switch to user wifi
+    #   after setting up the capabilities required for WEXT
+    #   user wifi
+    #   group wifi inet keystore
+'''
+ assert source.count(old)==1 and source.startswith('service wpa_supplicant /vendor/bin/hw/wpa_supplicant ')
+ reviewed=staged/'android.hardware.wifi.supplicant-service.rc'
+ reviewed.write_text(source.replace(old,'''    # Android 17 init starts this retained HIDL service as Wi-Fi.
+    user wifi
+    group wifi inet keystore net_raw net_admin
+    capabilities NET_RAW NET_ADMIN
+'''))
+ proprietary='    interface vendor.samsung.hardware.wifi.supplicant@3.0::ISehSupplicant default\n'
+ assert source.count(proprietary)==reviewed.read_text().count(proprietary)==1
+ # The host verifier has no Samsung HIDL registry. Keep its interface in the
+ # package, and omit just that unchanged registration in the parser fixture.
+ fixture=staged/'supplicant-host-fixture.rc'
+ fixture.write_text(reviewed.read_text().replace(proprietary,''))
+ subprocess.run([str(bin/'host_init_verifier'),str(fixture)],check=True)
+ changes[dest]=reviewed
 rc=T/'device/samsung/gta3xlwifi/rootdir/ueventd.exynos7904.rc';assert '/dev/gta3xlwifi_netpolicy 0400 root root' in rc.read_text()
 commands=[];label=staged/'selinux-label';label.write_bytes(b'u:object_r:vendor_configs_file:s0\0')
 for i,(dest,src) in enumerate(changes.items()):

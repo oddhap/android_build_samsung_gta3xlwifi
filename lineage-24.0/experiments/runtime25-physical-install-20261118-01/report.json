@@ -1,0 +1,25 @@
+{
+  "source_snapshot": "port-20261118-25",
+  "ota_sha256": "21ccfe53f438669dd4f3c76e6e50c15397e63802d634e56a8b8906279a17734a",
+  "ota_bytes": 1041052256,
+  "host_sideload_exit": 0,
+  "updater_exit": 0,
+  "physical_readback_passed": true,
+  "boot_prefix_sha256": "6027da30a0696db4c946c9984e39491b7ee30d61b83577ccd001b58db0f3d13f",
+  "vendor_entire_partition_sha256": "506f7e4be9adf12fb12012bafa0da07dc380df09490dc13cdcd8e2828b3d1c3c",
+  "recovery_entire_partition_sha256": "053125e1716778c78b03108dd34457a2d390167dea117774c7cdd5cdea1a5a12",
+  "boot_completed": true,
+  "ce_available": true,
+  "SELinux_Enforcing": true,
+  "stable_service_pid_window_seconds": 180,
+  "launcher_and_settings_started": true,
+  "hardware_touch_verified": false,
+  "wifi_scan_verified": false,
+  "observed_wifi_failure": "Retained HIDL supplicant ran as root after denied setuid/setgid and failed to prepare wpa_supplicant.conf.",
+  "adb_screencap_failed_due_to_shell_ION_access": true,
+  "private_evidence_sha256": {
+    "logcat-live-0.txt": "b40f657c519d14846b5c673f26a6a11771eb074f17661695265f89949b48e56a",
+    "properties.txt": "e1ef52db49a1c5cf04b458b346c98b4514eda2964b3a2ebb4421c659c54a5a46",
+    "transport.json": "355ee7a4bfc2271fd4a2138f94e77526c3ae330ff99f6b7fdfd2c3794090f627"
+  }
+}

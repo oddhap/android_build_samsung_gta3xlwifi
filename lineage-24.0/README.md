@@ -16,7 +16,13 @@ in-kernel backend reaching userspace PSI and BPF monitoring at boot completion
 or daemon restart. Its host regression and compiled artifact checks passed.
 Snapshot25 includes both corrections and passed the full build, after-build
 audit, 39-APEX VINTF inspection, OTA signature and all three block-stream checks.
-Physical installation and runtime checks are in progress.
+Physical installation and all 17 critical readbacks passed. Android 17 completed
+startup with SELinux Enforcing and CE storage available. The system_server,
+netd and LMKD processes held their PIDs for 180 seconds and Launcher and Settings
+started. Wi-Fi failed when the legacy vendor supplicant could not drop root or
+prepare its configuration. Snapshot26 tests init launching that exact service
+under the Wi-Fi UID with existing networking capabilities. Physical touch and
+Wi-Fi connectivity still require validation.
 
 **Snapshot22 full build and all package checks pass.** Complete1,243-project /
 22-patch before/after audits, product checks including actual constructor
