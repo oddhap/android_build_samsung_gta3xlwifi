@@ -26,7 +26,7 @@ python3 "$P/tools/check-acct-root-target24.py" --archive "$archive" --geometry "
 
 python3 "$P/tools/check-vold-metadata-target24.py" --top "$T" --archive "$archive" --geometry "$O/geometry-policy.json" --host-proof "$A/metadata-null-host-20261116-01/report.json" --reference "$A/runtime06-ota-build-20261116-01/target-files.zip" --output "$O/vold-metadata.json"
 
-python3 "$P/tools/check-bpf-kernel-actual-target24.py" --top "$T" --archive "$archive" --geometry "$O/geometry-policy.json" --host-proof "$A/bpf-kernel-actual-host-20261116-01/report.json" --output "$O/bpf-version.json"
+python3 "$P/tools/check-bpf-kernel-actual-target24.py" --top "$T" --archive "$archive" --geometry "$O/geometry-policy.json" --host-proof "$A/bpf-kernel-actual-host-20261118-27/report.json" --output "$O/bpf-version.json"
 
 python3 "$P/tools/check-netd-oneshot-target24.py" --top "$T" --archive "$archive" --geometry "$O/geometry-policy.json" --host-proof "$A/netd-oneshot-global-host-20261116-02/report.json" --reference "$A/runtime09-ota-build-20261116-01/target-files.zip" --output "$O/netd-oneshot.json"
 

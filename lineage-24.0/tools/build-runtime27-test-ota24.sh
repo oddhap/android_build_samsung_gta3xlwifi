@@ -10,7 +10,7 @@ L=/srv/android/logs/lineage-24.0-arm64
 label=${1:?Fresh label required}
 [[ $label =~ ^[a-zA-Z0-9_-]+$ ]] || exit 2
 exec 9>"$L/build.lock"; flock -n 9 || exit 75
-[[ $(cat "$L/ota-tools-build-20261116-01.exit") == 0 && $(cat "$L/runtime27-product-checks-20261118-02.exit") == 0 ]] || exit 1
+[[ $(cat "$L/ota-tools-build-20261116-01.exit") == 0 && $(cat "$L/runtime27-product-checks-20261118-03.exit") == 0 ]] || exit 1
 O=$A/$label
 [[ ! -e $O && ! -e $L/$label.exit ]] || exit 2
 mkdir "$O"
@@ -29,7 +29,7 @@ python3 "$P/tools/audit-port.py" "$T" "$P/snapshots/port-20261118-27" "$O/source
 printf '%s\n' 'ROM and packaging source: port-20261118-27. Includes minimum backlight mapping and legacy keyboard rendering compatibility.' >"$O/provenance.txt"
 archive=$T/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files.zip
 cp --reflink=auto "$archive" "$O/target-files.zip"
-python3 - "$O/target-files.zip" "$A/runtime27-product-checks-20261118-02/geometry-policy.json" <<'PY'
+python3 - "$O/target-files.zip" "$A/runtime27-product-checks-20261118-03/geometry-policy.json" <<'PY'
 import hashlib,json,sys
 from pathlib import Path
 f=Path(sys.argv[1]);r=json.load(open(sys.argv[2]));h=hashlib.sha256()

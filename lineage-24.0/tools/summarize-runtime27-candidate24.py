@@ -10,22 +10,22 @@ def sha(p):
  with p.open('rb') as f:
   for b in iter(lambda:f.read(1024*1024),b''):h.update(b)
  return h.hexdigest()
-paths={'geometry':A/'runtime27-product-checks-20261118-02/geometry-policy.json','hooks':A/'runtime27-product-checks-20261118-02/hooks/report.json','ext4':A/'runtime27-product-checks-20261118-02/ext4/report.json','strict':A/'ion-ui-policy-strict-20261117-01/strict/report.json','assertions':A/'ion-ui-policy-strict-20261117-01/assertions.json','vendor':A/'wifi-supplicant-vendor-20261118-02/report.json','container':A/'runtime27-ota-container-20261118-01/report.json','blocks':A/'runtime27-ota-blocks-20261118-01/report.json','vintf':A/'runtime27-vintf-20261118-01/vintf/report.json'}
-paths['firststage']=A/'runtime27-product-checks-20261118-02/firststage.json'
-paths['cpuacct-root']=A/'runtime27-product-checks-20261118-02/cpuacct-root.json'
-paths['vold-metadata']=A/'runtime27-product-checks-20261118-02/vold-metadata.json'
-paths['bpf-version']=A/'runtime27-product-checks-20261118-02/bpf-version.json'
-paths['netd-oneshot']=A/'runtime27-product-checks-20261118-02/netd-oneshot.json'
-paths['netd-first-guards']=A/'runtime27-product-checks-20261118-02/netd-first-guards.json'
-paths['legacy-gralloc']=A/'runtime27-product-checks-20261118-02/legacy-gralloc.json'
-paths['ion']=A/'runtime27-product-checks-20261118-02/ion.json'
-paths['early-adb']=A/'runtime27-product-checks-20261118-02/early-adb.json'
-paths['aconfig-cache']=A/'runtime27-product-checks-20261118-02/aconfig-cache.json'
-paths['fresh-contexts']=A/'runtime27-product-checks-20261118-02/contexts/report.json'
-paths['clat-bootstrap']=A/'runtime27-product-checks-20261118-02/clat-bootstrap.json'
-paths['local-note-listener']=A/'runtime27-product-checks-20261118-02/local-note-listener.json'
-paths['lmkd']=A/'runtime27-product-checks-20261118-02/lmkd.json'
-paths['display-keyboard']=A/'runtime27-product-checks-20261118-02/ui.json'
+paths={'geometry':A/'runtime27-product-checks-20261118-03/geometry-policy.json','hooks':A/'runtime27-product-checks-20261118-03/hooks/report.json','ext4':A/'runtime27-product-checks-20261118-03/ext4/report.json','strict':A/'ion-ui-policy-strict-20261117-01/strict/report.json','assertions':A/'ion-ui-policy-strict-20261117-01/assertions.json','vendor':A/'wifi-supplicant-vendor-20261118-02/report.json','container':A/'runtime27-ota-container-20261118-01/report.json','blocks':A/'runtime27-ota-blocks-20261118-01/report.json','vintf':A/'runtime27-vintf-20261118-01/vintf/report.json'}
+paths['firststage']=A/'runtime27-product-checks-20261118-03/firststage.json'
+paths['cpuacct-root']=A/'runtime27-product-checks-20261118-03/cpuacct-root.json'
+paths['vold-metadata']=A/'runtime27-product-checks-20261118-03/vold-metadata.json'
+paths['bpf-version']=A/'runtime27-product-checks-20261118-03/bpf-version.json'
+paths['netd-oneshot']=A/'runtime27-product-checks-20261118-03/netd-oneshot.json'
+paths['netd-first-guards']=A/'runtime27-product-checks-20261118-03/netd-first-guards.json'
+paths['legacy-gralloc']=A/'runtime27-product-checks-20261118-03/legacy-gralloc.json'
+paths['ion']=A/'runtime27-product-checks-20261118-03/ion.json'
+paths['early-adb']=A/'runtime27-product-checks-20261118-03/early-adb.json'
+paths['aconfig-cache']=A/'runtime27-product-checks-20261118-03/aconfig-cache.json'
+paths['fresh-contexts']=A/'runtime27-product-checks-20261118-03/contexts/report.json'
+paths['clat-bootstrap']=A/'runtime27-product-checks-20261118-03/clat-bootstrap.json'
+paths['local-note-listener']=A/'runtime27-product-checks-20261118-03/local-note-listener.json'
+paths['lmkd']=A/'runtime27-product-checks-20261118-03/lmkd.json'
+paths['display-keyboard']=A/'runtime27-product-checks-20261118-03/ui.json'
 r={k:json.loads(p.read_text()) for k,p in paths.items()}
 assert r['lmkd']['passed'] and r['display-keyboard']['passed']
 assert r['local-note-listener']['passed']
@@ -40,7 +40,7 @@ assert r['bpf-version']['passed']
 assert r['vold-metadata']['passed']
 assert r['cpuacct-root']['passed']
 assert r['firststage']['passed']
-for name in ['runtime27-product-build-20261118-01','runtime27-product-checks-20261118-02','ota-tools-build-20261116-01','runtime27-ota-build-20261118-01','runtime27-vintf-20261118-01']:
+for name in ['runtime27-product-build-20261118-01','runtime27-product-checks-20261118-03','ota-tools-build-20261116-01','runtime27-ota-build-20261118-01','runtime27-vintf-20261118-01']:
  assert (L/(name+'.exit')).read_text().strip()=='0'
 for k in ['hooks','ext4','assertions','vendor','container','blocks']:assert r[k]['passed']
 assert r['geometry']['artifact_checks_passed'] and r['strict']['passed_strict'] and not r['strict']['explicit_input_overrides']
