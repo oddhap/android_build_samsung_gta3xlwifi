@@ -1,0 +1,95 @@
+{
+  "parent": "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/snapshots/port-20261118-28",
+  "parent_lock_sha256": "c04409153bb1a66d80f84715575d6859a22bd861f0a657d76348e396c373ad9a",
+  "byte_exact_style_approvals_reused": [
+    {
+      "project": "bionic",
+      "sha256": "8da675e6fdaa882f963e453d43dd4b50dea60566e40956b55ca1a4e9d74a3cd0"
+    },
+    {
+      "project": "build/make",
+      "sha256": "2da6097228b30016f54ca1ca9237a1548036d94093fe759af2af1fafe942ede7"
+    },
+    {
+      "project": "device/lineage/sepolicy",
+      "sha256": "eb327ec19fe1ab8bc9c0a98c860cff4a56e638d26e2148b5ae1092678ac04585"
+    },
+    {
+      "project": "external/boringssl",
+      "sha256": "e231c00760a8de6be3dc95f35faf74593a34ce8b3485336d6fadef75771291be"
+    },
+    {
+      "project": "external/chromium-webview/patches",
+      "sha256": "dc954cadd9fe02a55c84ece2de1a2db57dcd07bc268f0c75722d214618d47cf8"
+    },
+    {
+      "project": "external/iptables",
+      "sha256": "3da7b83d277e3365531cd1145c56b9ee3d25531bdc76b4194b7eab0e4b95cbce"
+    },
+    {
+      "project": "frameworks/av",
+      "sha256": "473a6d88eab497214c6e2851690712c9569dc7bd366f06bcae1700786f95db96"
+    },
+    {
+      "project": "frameworks/base",
+      "sha256": "627882bda26eb78a33edd12c4af5761b302d2aa9c6418652f7dd2f8ce74e00a9"
+    },
+    {
+      "project": "frameworks/native",
+      "sha256": "3d2ce918b6a5bde8e778ddbc8034ae3d4bd1fe58233e1129831d6ad571e2c4f8"
+    },
+    {
+      "project": "packages/apps/Backgrounds",
+      "sha256": "68e7108d136794b5858c7f1d3ee184fb7b6065c68d875b2b009b0a28df978fc5"
+    },
+    {
+      "project": "packages/modules/ConfigInfrastructure",
+      "sha256": "48c9ec440737c21b544eeebcf6cde98fab4071fdd080b36c28670254e678d1eb"
+    },
+    {
+      "project": "packages/modules/Connectivity",
+      "sha256": "9c8b46d1037aa231b7d0bc8d4aa00e8eeee490fe8bcdb555fd22a6629d14b694"
+    },
+    {
+      "project": "packages/modules/DnsResolver",
+      "sha256": "a008a9d614dbd5086a46b321f210010becc8c53cf9653db1d6e8bfa8b74e763e"
+    },
+    {
+      "project": "packages/modules/vndk",
+      "sha256": "3f1e7ffa3932c430eccc50863170c83583d80c0171a4b447a9b68e4faafcd7ba"
+    },
+    {
+      "project": "packages/screensavers/PhotoTable",
+      "sha256": "133ae7c59a1d2286c07316d9b5976b1d8dd4acdf39c0052c1536cdf9add105cd"
+    },
+    {
+      "project": "system/core",
+      "sha256": "39d9d16843839e2b87c82d6789a67671500d13f0ce67d4c07f48f7802dcffebb"
+    },
+    {
+      "project": "system/fs/fs_mgr",
+      "sha256": "2e7356d7f084a54cbba6f4b958f41f0fc0dd6b5deadd8db2dd8099116603fec1"
+    },
+    {
+      "project": "system/memory/libmeminfo",
+      "sha256": "1880571a9b1bd45ac4cae776b64b06b1035979ad5c5bf00000e1c92a8380b7f5"
+    },
+    {
+      "project": "system/memory/lmkd",
+      "sha256": "27e004ff098fd8640e9ecb3bee5d42c1fc769b7debf738c051cc2fc77f8c4738"
+    },
+    {
+      "project": "system/netd",
+      "sha256": "5250cfafa05ff12b086a878a45f02f8ddcf212fdbf7fe5f718e622c2a974a736"
+    },
+    {
+      "project": "system/sepolicy",
+      "sha256": "d48fafa939d80b22ee69e8620d0ed78e3c1567eefb4b833d8fbe849945bba771"
+    },
+    {
+      "project": "system/vold",
+      "sha256": "dc44caf79c8f7d63f27765091d427a9e4edb74413df033380e5f96f12fcc2f2e"
+    }
+  ],
+  "changed_patches_style_checked": true
+}

@@ -1,0 +1,17 @@
+{
+  "passed": true,
+  "scope": "Verify full CIL equality after the compiler renumbers known synthetic attributes.",
+  "baseline_report_sha256": "e1eb1996fe88a6bd49d1d266b346339dc96c2926fb6b7bf364f33f6c12b8b4e0",
+  "candidate_report_sha256": "f35788b48ba2d436ebb6157f7834d05097c184c2d69fde333d50cd9da33c11bf",
+  "literal_inventory_report_sha256": "c8587c2c980fd87b4fd1df78a7c7baed782b0774caabd149474a551da3c7525b",
+  "baseline_assertions_and_constraints": 5881,
+  "candidate_assertions_and_constraints": 5881,
+  "permissive_domains": [],
+  "strict_compilation_unmodified": true,
+  "other_input_hashes_equal": true,
+  "full_system_ext_cil_equal_after_alias_renumbering": true,
+  "existing_synthetic_attribute_aliases_renumbered": 19,
+  "added_access": "untrusted_app_all excluding runas_app, ION chr_file getattr/open/read/ioctl/map",
+  "hardware_tested": false,
+  "flash_ready": false
+}

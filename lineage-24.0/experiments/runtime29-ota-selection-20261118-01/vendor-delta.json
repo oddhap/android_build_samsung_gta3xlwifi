@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "changed_contents": [
+    "/etc/selinux/precompiled_sepolicy",
+    "/etc/selinux/precompiled_sepolicy.system_ext_sepolicy_and_mapping.sha256"
+  ],
+  "all_other_contents_and_metadata_unchanged": true,
+  "previous_report_sha256": "e759ef1fadfd76684fb42ca57bb3d3a1ead3802d06bd903c9c5f5693d60d8139",
+  "candidate_report_sha256": "cbcab3169b0224be46539235e55848ce1e67ba9bd052f4dbe2497641db5c53ff"
+}
