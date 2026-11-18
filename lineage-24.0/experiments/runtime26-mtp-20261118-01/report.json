@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "source_snapshot": "port-20261118-26",
+  "device": "gta3xlwifi",
+  "usb_mode_during_transfer": "mtp,adb",
+  "usb_mode_after_test": "adb",
+  "selinux_after_test": "Enforcing",
+  "bytes_transferred_each_way": 16777216,
+  "upload_and_download_sha256": "80b58db180566fb77e8194a4ef210b09cea6fca1ba03ac9778b150a2fb4daaf9",
+  "vendor_usb_init_matches_lineage21": true,
+  "vendor_usb_init_sha256": "500d6fccbb990aad93a7de7fb4cf7e96d00702702bd021d18c9152d74e59ef1d",
+  "test_object_removed": true
+}

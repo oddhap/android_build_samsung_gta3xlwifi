@@ -1,0 +1,31 @@
+diff --git a/aconfigd/src/aconfigd.rs b/aconfigd/src/aconfigd.rs
+index 66a4af8050b38e291b7198e2780d79dca944c578..3ecde00809a39563b2e79a164598c4850f7dc98f 100644
+--- a/aconfigd/src/aconfigd.rs
++++ b/aconfigd/src/aconfigd.rs
+@@ -166,6 +166,7 @@ impl Aconfigd {
+     /// storage files and create new boot storage files for each platform
+     /// partitions
+     pub fn initialize_platform_storage(&mut self) -> Result<(), AconfigdError> {
++        let mut initialized_containers = Vec::new();
+         for container in ["system", "system_ext", "product", "vendor"] {
+             debug!("start initialize {} flags", container);
+ 
+@@ -203,6 +204,7 @@ impl Aconfigd {
+                 &default_flag_val,
+                 &default_flag_info,
+             )?;
++            initialized_containers.push(container);
+         }
+ 
+         self.storage_manager.write_persist_storage_records_to_file(
+@@ -221,7 +223,9 @@ impl Aconfigd {
+                 })?;
+         let fsync_required = (fsync_setting_prop == Some(String::from("on")));
+ 
+-        for container in ["system", "system_ext", "product", "vendor"] {
++        // Missing or empty optional containers were not initialized above.
++        // Keep errors from all genuinely initialized containers observable.
++        for container in initialized_containers {
+             self.storage_manager.apply_all_staged_overrides(container, fsync_required)?;
+         }
+ 

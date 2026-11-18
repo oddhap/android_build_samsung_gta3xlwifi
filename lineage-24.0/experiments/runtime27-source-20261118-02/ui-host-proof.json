@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "tested_minimum_and_maximum_mapping": true,
+  "tested_null_hardware_copy_and_preferred_hardware_copy": true,
+  "screen_off_path_preserved": true,
+  "ui_runtime_tested": false,
+  "source_sha256": {
+    "frameworks/base/services/core/java/com/android/server/display/DisplayDeviceConfig.java": "7d3c173b63a0e74161e863ca164ed4696205fca81fa9cf348f4b9ae0648c26aa",
+    "frameworks/base/services/core/java/com/android/server/display/LocalDisplayAdapter.java": "0f7eae83f39e6bdf7b1dff6094e6cb969e2e45943029a896b96f9b284f5587a7",
+    "frameworks/base/core/java/android/inputmethodservice/navigationbar/KeyButtonDrawable.java": "b18f281b9aad5c77120213175da8025020b9811bfc8e81c4f3821e32ba5d51ea",
+    "frameworks/base/core/java/android/util/Spline.java": "286ee5bd9d60e55ddeda59d981e3be2bbba7fe202ac605a967bad3e85aacf843",
+    "device/samsung/gta3xlwifi/device.mk": "c0f06c5415e5add85c256cbdfbcedfcbc140e9caf16ee5fa0f58af8d440ce377"
+  }
+}

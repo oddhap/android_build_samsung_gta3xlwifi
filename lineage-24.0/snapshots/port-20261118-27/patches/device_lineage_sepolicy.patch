@@ -1,0 +1,25 @@
+diff --git a/common/private/backuptool.te b/common/private/backuptool.te
+index b948b613499f45cc82c97a07113046ece3306c0d..bd8e751aa7a0d5fbafafb5f35f9487a749acbc57 100644
+--- a/common/private/backuptool.te
++++ b/common/private/backuptool.te
+@@ -7,5 +7,7 @@ neverallow {
+ } backuptool:process transition;
+ 
+ userdebug_or_eng(`
+-    permissive backuptool;
++    ifelse(gta3xlwifi_strict_legacy_vendor, `true', `', `
++permissive backuptool;
++')
+ ')
+diff --git a/common/private/genfs_contexts b/common/private/genfs_contexts
+index 57f7e0e46c91d1532ea50bba8dfa1878d0268799..fe8f51f52a35cfe9723856ce76885e923c96e068 100644
+--- a/common/private/genfs_contexts
++++ b/common/private/genfs_contexts
+@@ -1,5 +1,7 @@
+ genfscon sysfs /devices/virtual/timed_output/vibrator u:object_r:sysfs_vibrator:s0
+ genfscon sysfs /module/mmcblk/parameters/perdev_minors u:object_r:sysfs_perdev_minors:s0
+ 
++ifelse(gta3xlwifi_stock_removable_fs, `true', `', `
+ genfscon iso9660 / u:object_r:iso9660:s0
+ genfscon udf / u:object_r:udf:s0
++')

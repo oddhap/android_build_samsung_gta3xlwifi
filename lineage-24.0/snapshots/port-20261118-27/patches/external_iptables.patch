@@ -1,0 +1,727 @@
+diff --git a/extensions/libxt_gta3xlwifi_appid.c b/extensions/libxt_gta3xlwifi_appid.c
+new file mode 100644
+index 0000000000000000000000000000000000000000..586fae0c797c70d8c87d131140d33474e918ba62
+--- /dev/null
++++ b/extensions/libxt_gta3xlwifi_appid.c
+@@ -0,0 +1,50 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++#include <stdio.h>
++#include <xtables.h>
++#include <linux/netfilter/gta3xlwifi_appid.h>
++
++enum { O_APPID = 0 };
++static const struct xt_option_entry appid_options[] = {
++	{ .name = "appid", .id = O_APPID, .type = XTTYPE_UINT32RC,
++	  .min = 0, .max = GTA3XLWIFI_APPID_USER_OFFSET - 1,
++	  .flags = XTOPT_MAND },
++	XTOPT_TABLEEND,
++};
++static void appid_help(void)
++{
++	printf("gta3xlwifi_appid: --appid value[:value] (0 through 99999)\n");
++}
++static void appid_parse(struct xt_option_call *cb)
++{
++	struct gta3xlwifi_appid_match *info = cb->data;
++	xtables_option_parse(cb);
++	info->minimum = cb->val.u32_range[0];
++	info->maximum = cb->val.u32_range[cb->nvals >= 2 ? 1 : 0];
++}
++static void appid_print(const void *ip, const struct xt_entry_match *match, int numeric)
++{
++	const struct gta3xlwifi_appid_match *info = (const void *)match->data;
++	printf(" appid %u:%u", info->minimum, info->maximum);
++}
++static void appid_save(const void *ip, const struct xt_entry_match *match)
++{
++	const struct gta3xlwifi_appid_match *info = (const void *)match->data;
++	printf(" --appid %u:%u", info->minimum, info->maximum);
++}
++static struct xtables_match appid_match = {
++	.family = NFPROTO_UNSPEC,
++	.name = GTA3XLWIFI_APPID_MATCH,
++	.revision = 0,
++	.version = XTABLES_VERSION,
++	.size = XT_ALIGN(sizeof(struct gta3xlwifi_appid_match)),
++	.userspacesize = XT_ALIGN(sizeof(struct gta3xlwifi_appid_match)),
++	.help = appid_help,
++	.print = appid_print,
++	.save = appid_save,
++	.x6_parse = appid_parse,
++	.x6_options = appid_options,
++};
++void _init(void)
++{
++	xtables_register_match(&appid_match);
++}
+diff --git a/extensions/libxt_gta3xlwifi_bad_iif.c b/extensions/libxt_gta3xlwifi_bad_iif.c
+new file mode 100644
+index 0000000000000000000000000000000000000000..821ae849f5688743f73ed1e841b36ffbbb828012
+--- /dev/null
++++ b/extensions/libxt_gta3xlwifi_bad_iif.c
+@@ -0,0 +1,53 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++#include <stdio.h>
++#include <limits.h>
++#include <string.h>
++#include <xtables.h>
++#include <linux/netfilter/gta3xlwifi_ingress.h>
++static const struct xt_option_entry bad_iif_options[] = {
++    { .name = "allowed-iif", .id = 0, .type = XTTYPE_STRING, .flags = XTOPT_MAND },
++    XTOPT_TABLEEND,
++};
++static unsigned bad_iif_index(const char *text)
++{
++    unsigned n = 0;
++    if (!*text) xtables_error(PARAMETER_PROBLEM, "empty allowed interface index");
++    for (; *text; ++text) {
++        if (*text < '0' || *text > '9' || n > (INT_MAX - (unsigned)(*text - '0')) / 10)
++            xtables_error(PARAMETER_PROBLEM, "invalid numeric interface index");
++        n = n * 10 + *text - '0';
++    }
++    return n;
++}
++static void bad_iif_help(void)
++{
++    printf("gta3xlwifi_bad_iif: --allowed-iif INDEX (0: block all non-DNS/non-loopback ingress)\n");
++}
++static void bad_iif_init(struct xt_entry_match *match)
++{
++    memset(match->data, 0, sizeof(struct gta3xlwifi_bad_iif_match));
++}
++static void bad_iif_parse(struct xt_option_call *cb)
++{
++    struct gta3xlwifi_bad_iif_match *info = cb->data;
++    xtables_option_parse(cb);
++    info->allowed_ifindex = bad_iif_index(cb->arg);
++}
++static void bad_iif_print(const void *ip, const struct xt_entry_match *match, int numeric)
++{
++    const struct gta3xlwifi_bad_iif_match *info = (const void *)match->data;
++    printf(" allowed-iif %u", info->allowed_ifindex);
++}
++static void bad_iif_save(const void *ip, const struct xt_entry_match *match)
++{
++    const struct gta3xlwifi_bad_iif_match *info = (const void *)match->data;
++    printf(" --allowed-iif %u", info->allowed_ifindex);
++}
++static struct xtables_match bad_iif_match = {
++    .family = NFPROTO_UNSPEC, .name = GTA3XLWIFI_BAD_IIF_MATCH, .revision = 0,
++    .version = XTABLES_VERSION, .size = XT_ALIGN(sizeof(struct gta3xlwifi_bad_iif_match)),
++    .userspacesize = XT_ALIGN(sizeof(struct gta3xlwifi_bad_iif_match)),
++    .help = bad_iif_help, .init = bad_iif_init, .print = bad_iif_print, .save = bad_iif_save,
++    .x6_parse = bad_iif_parse, .x6_options = bad_iif_options,
++};
++void _init(void) { xtables_register_match(&bad_iif_match); }
+diff --git a/extensions/libxt_gta3xlwifi_guard.c b/extensions/libxt_gta3xlwifi_guard.c
+new file mode 100644
+index 0000000000000000000000000000000000000000..82857eed83a21cb502ea6987a61a098780600f9e
+--- /dev/null
++++ b/extensions/libxt_gta3xlwifi_guard.c
+@@ -0,0 +1,39 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++/* Opt-in leased packet barrier; no rule installation or readiness claim. */
++#include <stdio.h>
++#include <string.h>
++#include <xtables.h>
++#include <linux/netfilter/gta3xlwifi_netpolicy.h>
++
++static void guard_help(void)
++{
++	printf("gta3xlwifi_guard: matches while the leased barrier is held; no options\n");
++}
++
++static void guard_init(struct xt_entry_match *match)
++{
++	memset(match->data, 0, sizeof(struct gta3xlwifi_netpolicy_match));
++}
++
++static void guard_print(const void *ip, const struct xt_entry_match *match,
++			int numeric)
++{
++	printf(" gta3xlwifi_guard");
++}
++
++static struct xtables_match guard_match = {
++	.family = NFPROTO_UNSPEC,
++	.name = GTA3XLWIFI_NETPOLICY_MATCH,
++	.revision = 0,
++	.version = XTABLES_VERSION,
++	.size = XT_ALIGN(sizeof(struct gta3xlwifi_netpolicy_match)),
++	.userspacesize = XT_ALIGN(sizeof(struct gta3xlwifi_netpolicy_match)),
++	.help = guard_help,
++	.init = guard_init,
++	.print = guard_print,
++};
++
++void _init(void)
++{
++	xtables_register_match(&guard_match);
++}
+diff --git a/extensions/libxt_gta3xlwifi_iface_stats.c b/extensions/libxt_gta3xlwifi_iface_stats.c
+new file mode 100644
+index 0000000000000000000000000000000000000000..c63f87467f5b52f009083955ebbde974eb5dfa31
+--- /dev/null
++++ b/extensions/libxt_gta3xlwifi_iface_stats.c
+@@ -0,0 +1,46 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++#include <stdio.h>
++#include <string.h>
++#include <xtables.h>
++#include <linux/netfilter/gta3xlwifi_iface_stats.h>
++static const struct xt_option_entry iface_stats_options[] = {
++    { .name = "direction", .id = 0, .type = XTTYPE_STRING, .flags = XTOPT_MAND },
++    XTOPT_TABLEEND,
++};
++static void iface_stats_help(void)
++{
++    printf("gta3xlwifi_iface_stats: --direction ingress|egress (real interface counters)\n");
++}
++static void iface_stats_init(struct xt_entry_match *match)
++{
++    memset(match->data, 0, sizeof(struct gta3xlwifi_iface_stats_match));
++}
++static void iface_stats_parse(struct xt_option_call *cb)
++{
++    struct gta3xlwifi_iface_stats_match *info = cb->data;
++    unsigned output;
++    xtables_option_parse(cb);
++    if (!strcmp(cb->arg, "ingress")) output = 0;
++    else if (!strcmp(cb->arg, "egress")) output = 1;
++    else xtables_error(PARAMETER_PROBLEM, "direction must be ingress or egress");
++    info->output = output;
++}
++static void iface_stats_print(const void *ip, const struct xt_entry_match *match, int numeric)
++{
++    const struct gta3xlwifi_iface_stats_match *info = (const void *)match->data;
++    printf(" iface-stats %s", info->output ? "egress" : "ingress");
++}
++static void iface_stats_save(const void *ip, const struct xt_entry_match *match)
++{
++    const struct gta3xlwifi_iface_stats_match *info = (const void *)match->data;
++    printf(" --direction %s", info->output ? "egress" : "ingress");
++}
++static struct xtables_match iface_stats_match = {
++    .family = NFPROTO_UNSPEC, .name = GTA3XLWIFI_IFACE_STATS_MATCH, .revision = 0,
++    .version = XTABLES_VERSION, .size = XT_ALIGN(sizeof(struct gta3xlwifi_iface_stats_match)),
++    .userspacesize = XT_ALIGN(sizeof(struct gta3xlwifi_iface_stats_match)),
++    .help = iface_stats_help, .init = iface_stats_init,
++    .print = iface_stats_print, .save = iface_stats_save,
++    .x6_parse = iface_stats_parse, .x6_options = iface_stats_options,
++};
++void _init(void) { xtables_register_match(&iface_stats_match); }
+diff --git a/extensions/libxt_gta3xlwifi_ingress_discard.c b/extensions/libxt_gta3xlwifi_ingress_discard.c
+new file mode 100644
+index 0000000000000000000000000000000000000000..0ea53b1ff16114bbbe4dcc791d00c273c22d8b5a
+--- /dev/null
++++ b/extensions/libxt_gta3xlwifi_ingress_discard.c
+@@ -0,0 +1,78 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++#include <stdio.h>
++#include <limits.h>
++#include <string.h>
++#include <xtables.h>
++#include <linux/netfilter/gta3xlwifi_ingress.h>
++static const struct xt_option_entry ingress_discard_options[] = {
++    { .name = "ingress-daddr", .id = 0, .type = XTTYPE_STRING, .flags = XTOPT_MAND },
++    { .name = "allowed-iif1", .id = 1, .type = XTTYPE_STRING, .flags = XTOPT_MAND },
++    { .name = "allowed-iif2", .id = 2, .type = XTTYPE_STRING, .flags = XTOPT_MAND },
++    XTOPT_TABLEEND,
++};
++static unsigned ingress_discard_index(const char *text)
++{
++    unsigned n = 0;
++    if (!*text) xtables_error(PARAMETER_PROBLEM, "empty allowed interface index");
++    for (; *text; ++text) {
++        if (*text < '0' || *text > '9' || n > (INT_MAX - (unsigned)(*text - '0')) / 10)
++            xtables_error(PARAMETER_PROBLEM, "invalid numeric interface index");
++        n = n * 10 + *text - '0';
++    }
++    return n;
++}
++static void ingress_discard_help(void)
++{
++    printf("gta3xlwifi_ingress_discard: --ingress-daddr HEX32 --allowed-iif1 INDEX --allowed-iif2 INDEX\n");
++}
++static void ingress_discard_init(struct xt_entry_match *match)
++{
++    memset(match->data, 0, sizeof(struct gta3xlwifi_ingress_discard_match));
++}
++static void ingress_discard_parse(struct xt_option_call *cb)
++{
++    struct gta3xlwifi_ingress_discard_match *info = cb->data;
++    unsigned i;
++    xtables_option_parse(cb);
++    if (cb->entry->id == 1) info->allowed_ifindex[0] = ingress_discard_index(cb->arg);
++    else if (cb->entry->id == 2) info->allowed_ifindex[1] = ingress_discard_index(cb->arg);
++    else {
++        unsigned char bytes[16] = {0};
++        static const unsigned char zero[16];
++        static const unsigned char mapped_zero[16] = {0,0,0,0,0,0,0,0,0,0,255,255,0,0,0,0};
++        if (strlen(cb->arg) != 32)
++            xtables_error(PARAMETER_PROBLEM, "destination must have 32 lowercase hex digits");
++        for (i = 0; i < 32; ++i) {
++            char c = cb->arg[i];
++            unsigned v;
++            if (c >= '0' && c <= '9') v = c - '0';
++            else if (c >= 'a' && c <= 'f') v = c - 'a' + 10;
++            else xtables_error(PARAMETER_PROBLEM, "invalid lowercase hex destination");
++            bytes[i / 2] = (bytes[i / 2] << 4) | v;
++        }
++        if (!memcmp(bytes, zero, 16) || !memcmp(bytes, mapped_zero, 16))
++            xtables_error(PARAMETER_PROBLEM, "unassigned destination cannot be protected");
++        memcpy(info->daddr, bytes, sizeof(bytes));
++    }
++}
++static void ingress_discard_save(const void *ip, const struct xt_entry_match *match)
++{
++    const struct gta3xlwifi_ingress_discard_match *info = (const void *)match->data;
++    unsigned i;
++    printf(" --ingress-daddr ");
++    for (i = 0; i < 16; ++i) printf("%02x", info->daddr[i]);
++    printf(" --allowed-iif1 %u --allowed-iif2 %u", info->allowed_ifindex[0], info->allowed_ifindex[1]);
++}
++static void ingress_discard_print(const void *ip, const struct xt_entry_match *match, int numeric)
++{
++    ingress_discard_save(ip, match);
++}
++static struct xtables_match ingress_discard_match = {
++    .family = NFPROTO_UNSPEC, .name = GTA3XLWIFI_INGRESS_DISCARD_MATCH, .revision = 0,
++    .version = XTABLES_VERSION, .size = XT_ALIGN(sizeof(struct gta3xlwifi_ingress_discard_match)),
++    .userspacesize = XT_ALIGN(sizeof(struct gta3xlwifi_ingress_discard_match)),
++    .help = ingress_discard_help, .init = ingress_discard_init,
++    .print = ingress_discard_print, .save = ingress_discard_save,
++    .x6_parse = ingress_discard_parse, .x6_options = ingress_discard_options,
++};
++void _init(void) { xtables_register_match(&ingress_discard_match); }
+diff --git a/extensions/libxt_gta3xlwifi_lna.c b/extensions/libxt_gta3xlwifi_lna.c
+new file mode 100644
+index 0000000000000000000000000000000000000000..b519a33a0486824a18174af7738636b00888f6b1
+--- /dev/null
++++ b/extensions/libxt_gta3xlwifi_lna.c
+@@ -0,0 +1,39 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++/* Independent actual LNA predicate; no rule installation or readiness claim. */
++#include <stdio.h>
++#include <string.h>
++#include <xtables.h>
++#include <linux/netfilter/gta3xlwifi_local_network.h>
++
++static void lna_help(void)
++{
++	printf("gta3xlwifi_lna: actual shared A17 local-network denial; no options\n");
++}
++
++static void lna_init(struct xt_entry_match *match)
++{
++	memset(match->data, 0, sizeof(struct gta3xlwifi_lna_match));
++}
++
++static void lna_print(const void *ip, const struct xt_entry_match *match,
++			int numeric)
++{
++	printf(" gta3xlwifi_lna");
++}
++
++static struct xtables_match lna_match = {
++	.family = NFPROTO_UNSPEC,
++	.name = GTA3XLWIFI_LNA_MATCH,
++	.revision = 0,
++	.version = XTABLES_VERSION,
++	.size = XT_ALIGN(sizeof(struct gta3xlwifi_lna_match)),
++	.userspacesize = XT_ALIGN(sizeof(struct gta3xlwifi_lna_match)),
++	.help = lna_help,
++	.init = lna_init,
++	.print = lna_print,
++};
++
++void _init(void)
++{
++	xtables_register_match(&lna_match);
++}
+diff --git a/extensions/libxt_gta3xlwifi_non_loopback.c b/extensions/libxt_gta3xlwifi_non_loopback.c
+new file mode 100644
+index 0000000000000000000000000000000000000000..50b0e0a8be7a68eab4fb524da59c35cdf6f547ad
+--- /dev/null
++++ b/extensions/libxt_gta3xlwifi_non_loopback.c
+@@ -0,0 +1,39 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++/* Opt-in A17 ordinary-owner packet exemption; no rule installation or readiness claim. */
++#include <stdio.h>
++#include <string.h>
++#include <xtables.h>
++#include <linux/netfilter/gta3xlwifi_owner_skip.h>
++
++static void non_loopback_help(void)
++{
++	printf("gta3xlwifi_non_loopback: actual packet interface index differs from1; no options\n");
++}
++
++static void non_loopback_init(struct xt_entry_match *match)
++{
++	memset(match->data, 0, sizeof(struct gta3xlwifi_owner_skip_match));
++}
++
++static void non_loopback_print(const void *ip, const struct xt_entry_match *match,
++			int numeric)
++{
++	printf(" gta3xlwifi_non_loopback");
++}
++
++static struct xtables_match non_loopback_match = {
++	.family = NFPROTO_UNSPEC,
++	.name = GTA3XLWIFI_NON_LOOPBACK_MATCH,
++	.revision = 0,
++	.version = XTABLES_VERSION,
++	.size = XT_ALIGN(sizeof(struct gta3xlwifi_owner_skip_match)),
++	.userspacesize = XT_ALIGN(sizeof(struct gta3xlwifi_owner_skip_match)),
++	.help = non_loopback_help,
++	.init = non_loopback_init,
++	.print = non_loopback_print,
++};
++
++void _init(void)
++{
++	xtables_register_match(&non_loopback_match);
++}
+diff --git a/extensions/libxt_gta3xlwifi_owner_skip.c b/extensions/libxt_gta3xlwifi_owner_skip.c
+new file mode 100644
+index 0000000000000000000000000000000000000000..9e42986841b38d79dd163e262960b534c198f025
+--- /dev/null
++++ b/extensions/libxt_gta3xlwifi_owner_skip.c
+@@ -0,0 +1,39 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++/* Opt-in A17 ordinary-owner packet exemption; no rule installation or readiness claim. */
++#include <stdio.h>
++#include <string.h>
++#include <xtables.h>
++#include <linux/netfilter/gta3xlwifi_owner_skip.h>
++
++static void owner_skip_help(void)
++{
++	printf("gta3xlwifi_owner_skip: ordinary ESP/RST/ingress FIN exemption; no options\n");
++}
++
++static void owner_skip_init(struct xt_entry_match *match)
++{
++	memset(match->data, 0, sizeof(struct gta3xlwifi_owner_skip_match));
++}
++
++static void owner_skip_print(const void *ip, const struct xt_entry_match *match,
++			int numeric)
++{
++	printf(" gta3xlwifi_owner_skip");
++}
++
++static struct xtables_match owner_skip_match = {
++	.family = NFPROTO_UNSPEC,
++	.name = GTA3XLWIFI_OWNER_SKIP_MATCH,
++	.revision = 0,
++	.version = XTABLES_VERSION,
++	.size = XT_ALIGN(sizeof(struct gta3xlwifi_owner_skip_match)),
++	.userspacesize = XT_ALIGN(sizeof(struct gta3xlwifi_owner_skip_match)),
++	.help = owner_skip_help,
++	.init = owner_skip_init,
++	.print = owner_skip_print,
++};
++
++void _init(void)
++{
++	xtables_register_match(&owner_skip_match);
++}
+diff --git a/extensions/libxt_gta3xlwifi_raw_appid.c b/extensions/libxt_gta3xlwifi_raw_appid.c
+new file mode 100644
+index 0000000000000000000000000000000000000000..23a9ae0d2c02fdfcf004fd822eb9d212da2866ec
+--- /dev/null
++++ b/extensions/libxt_gta3xlwifi_raw_appid.c
+@@ -0,0 +1,50 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++#include <stdio.h>
++#include <xtables.h>
++#include <linux/netfilter/gta3xlwifi_socket_uid.h>
++
++enum { O_RANGE = 0 };
++static const struct xt_option_entry raw_appid_options[] = {
++	{ .name = "raw_appid", .id = O_RANGE, .type = XTTYPE_UINT32RC,
++	  .min = 0, .max = 99999U,
++	  .flags = XTOPT_MAND },
++	XTOPT_TABLEEND,
++};
++static void raw_appid_help(void)
++{
++	printf("gta3xlwifi_raw_appid: --raw_appid value[:value] (0 through 99999)\n");
++}
++static void raw_appid_parse(struct xt_option_call *cb)
++{
++	struct gta3xlwifi_socket_uid_match *info = cb->data;
++	xtables_option_parse(cb);
++	info->minimum = cb->val.u32_range[0];
++	info->maximum = cb->val.u32_range[cb->nvals >= 2 ? 1 : 0];
++}
++static void raw_appid_print(const void *ip, const struct xt_entry_match *match, int numeric)
++{
++	const struct gta3xlwifi_socket_uid_match *info = (const void *)match->data;
++	printf(" raw_appid %u:%u", info->minimum, info->maximum);
++}
++static void raw_appid_save(const void *ip, const struct xt_entry_match *match)
++{
++	const struct gta3xlwifi_socket_uid_match *info = (const void *)match->data;
++	printf(" --raw_appid %u:%u", info->minimum, info->maximum);
++}
++static struct xtables_match raw_appid_match = {
++	.family = NFPROTO_UNSPEC,
++	.name = GTA3XLWIFI_RAW_APPID_MATCH,
++	.revision = 0,
++	.version = XTABLES_VERSION,
++	.size = XT_ALIGN(sizeof(struct gta3xlwifi_socket_uid_match)),
++	.userspacesize = XT_ALIGN(sizeof(struct gta3xlwifi_socket_uid_match)),
++	.help = raw_appid_help,
++	.print = raw_appid_print,
++	.save = raw_appid_save,
++	.x6_parse = raw_appid_parse,
++	.x6_options = raw_appid_options,
++};
++void _init(void)
++{
++	xtables_register_match(&raw_appid_match);
++}
+diff --git a/extensions/libxt_gta3xlwifi_raw_uid.c b/extensions/libxt_gta3xlwifi_raw_uid.c
+new file mode 100644
+index 0000000000000000000000000000000000000000..c4a4625f9fa888441714ef2924ff7a8f0b561eb4
+--- /dev/null
++++ b/extensions/libxt_gta3xlwifi_raw_uid.c
+@@ -0,0 +1,50 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++#include <stdio.h>
++#include <xtables.h>
++#include <linux/netfilter/gta3xlwifi_socket_uid.h>
++
++enum { O_RANGE = 0 };
++static const struct xt_option_entry raw_uid_options[] = {
++	{ .name = "raw_uid", .id = O_RANGE, .type = XTTYPE_UINT32RC,
++	  .min = 0, .max = 0xffffffffU,
++	  .flags = XTOPT_MAND },
++	XTOPT_TABLEEND,
++};
++static void raw_uid_help(void)
++{
++	printf("gta3xlwifi_raw_uid: --raw_uid value[:value] (0 through 4294967295)\n");
++}
++static void raw_uid_parse(struct xt_option_call *cb)
++{
++	struct gta3xlwifi_socket_uid_match *info = cb->data;
++	xtables_option_parse(cb);
++	info->minimum = cb->val.u32_range[0];
++	info->maximum = cb->val.u32_range[cb->nvals >= 2 ? 1 : 0];
++}
++static void raw_uid_print(const void *ip, const struct xt_entry_match *match, int numeric)
++{
++	const struct gta3xlwifi_socket_uid_match *info = (const void *)match->data;
++	printf(" raw_uid %u:%u", info->minimum, info->maximum);
++}
++static void raw_uid_save(const void *ip, const struct xt_entry_match *match)
++{
++	const struct gta3xlwifi_socket_uid_match *info = (const void *)match->data;
++	printf(" --raw_uid %u:%u", info->minimum, info->maximum);
++}
++static struct xtables_match raw_uid_match = {
++	.family = NFPROTO_UNSPEC,
++	.name = GTA3XLWIFI_RAW_UID_MATCH,
++	.revision = 0,
++	.version = XTABLES_VERSION,
++	.size = XT_ALIGN(sizeof(struct gta3xlwifi_socket_uid_match)),
++	.userspacesize = XT_ALIGN(sizeof(struct gta3xlwifi_socket_uid_match)),
++	.help = raw_uid_help,
++	.print = raw_uid_print,
++	.save = raw_uid_save,
++	.x6_parse = raw_uid_parse,
++	.x6_options = raw_uid_options,
++};
++void _init(void)
++{
++	xtables_register_match(&raw_uid_match);
++}
+diff --git a/include/linux/netfilter/gta3xlwifi_appid.h b/include/linux/netfilter/gta3xlwifi_appid.h
+new file mode 100644
+index 0000000000000000000000000000000000000000..37434a36f03c7bd76850925c92a46031a2f8a4af
+--- /dev/null
++++ b/include/linux/netfilter/gta3xlwifi_appid.h
+@@ -0,0 +1,11 @@
++/* SPDX-License-Identifier: GPL-2.0 WITH Linux-syscall-note */
++#ifndef _UAPI_GTA3XLWIFI_APPID_H
++#define _UAPI_GTA3XLWIFI_APPID_H
++#include <linux/types.h>
++#define GTA3XLWIFI_APPID_MATCH "gta3xlwifi_appid"
++#define GTA3XLWIFI_APPID_USER_OFFSET 100000U
++struct gta3xlwifi_appid_match {
++	__u32 minimum;
++	__u32 maximum;
++};
++#endif
+diff --git a/include/linux/netfilter/gta3xlwifi_iface_stats.h b/include/linux/netfilter/gta3xlwifi_iface_stats.h
+new file mode 100644
+index 0000000000000000000000000000000000000000..57539489332d26568fdb5ce3876a0580fd701769
+--- /dev/null
++++ b/include/linux/netfilter/gta3xlwifi_iface_stats.h
+@@ -0,0 +1,25 @@
++/* SPDX-License-Identifier: GPL-2.0 WITH Linux-syscall-note */
++#ifndef _UAPI_GTA3XLWIFI_IFACE_STATS_H
++#define _UAPI_GTA3XLWIFI_IFACE_STATS_H
++#include <linux/types.h>
++#include <linux/ioctl.h>
++#define GTA3XLWIFI_IFACE_STATS_VERSION 1U
++#define GTA3XLWIFI_IFACE_STATS_MAX 1000U
++#define GTA3XLWIFI_IFACE_STATS_MATCH "gta3xlwifi_iface_stats"
++#define GTA3XLWIFI_UID_CAP_IFACE_STATS (1U << 10)
++struct gta3xlwifi_iface_stats_match { __u32 output; __u32 reserved; };
++struct gta3xlwifi_iface_stats_entry {
++    __u32 ifindex; __u32 reserved;
++    __aligned_u64 rx_packets, rx_bytes, tx_packets, tx_bytes;
++};
++/* Non-consuming single snapshot. Input lost_updates/update_sequence MUST be0.
++ * count0+entries0 probes metadata only. A caller needing consistent records
++ * supplies capacity1000 in ONE call; there is no probe/data revision race.
++ * Lost updates saturate at U64_MAX; sequence is opaque modulo2^64.
++ */
++struct gta3xlwifi_iface_stats_transfer {
++    __u32 version, count;
++    __aligned_u64 entries, lost_updates, update_sequence;
++};
++#define GTA3XLWIFI_IFACE_STATS_GET _IOWR('g',0x5a,struct gta3xlwifi_iface_stats_transfer)
++#endif
+diff --git a/include/linux/netfilter/gta3xlwifi_ingress.h b/include/linux/netfilter/gta3xlwifi_ingress.h
+new file mode 100644
+index 0000000000000000000000000000000000000000..c8bc519f1cc0ec0680f20c0461f8ccd5904b46cb
+--- /dev/null
++++ b/include/linux/netfilter/gta3xlwifi_ingress.h
+@@ -0,0 +1,18 @@
++/* SPDX-License-Identifier: GPL-2.0 WITH Linux-syscall-note */
++#ifndef _UAPI_GTA3XLWIFI_INGRESS_H
++#define _UAPI_GTA3XLWIFI_INGRESS_H
++#include <linux/types.h>
++#define GTA3XLWIFI_BAD_IIF_MATCH "gta3xlwifi_bad_iif"
++#define GTA3XLWIFI_INGRESS_DISCARD_MATCH "gta3xlwifi_ingress_discard"
++struct gta3xlwifi_bad_iif_match {
++    /* 0 means reject every non-loopback/non-DNS input (lockdown without IIF).
++     * An explicitly present wildcard IIF=0 is represented by NO drop rule. */
++    __u32 allowed_ifindex;
++    __u32 reserved;
++};
++struct gta3xlwifi_ingress_discard_match {
++    __u8 daddr[16];  /* IPv4 uses exact IPv4-mapped IPv6 representation. */
++    __u32 allowed_ifindex[2];
++    __u32 reserved;
++};
++#endif
+diff --git a/include/linux/netfilter/gta3xlwifi_local_network.h b/include/linux/netfilter/gta3xlwifi_local_network.h
+new file mode 100644
+index 0000000000000000000000000000000000000000..d6d830d2e16b478ae93176c775e3942e72896643
+--- /dev/null
++++ b/include/linux/netfilter/gta3xlwifi_local_network.h
+@@ -0,0 +1,43 @@
++/* SPDX-License-Identifier: GPL-2.0 WITH Linux-syscall-note */
++#ifndef _UAPI_GTA3XLWIFI_LOCAL_NETWORK_H
++#define _UAPI_GTA3XLWIFI_LOCAL_NETWORK_H
++#include <linux/types.h>
++#include <linux/ioctl.h>
++#define GTA3XLWIFI_LNA_VERSION 1U
++#define GTA3XLWIFI_LNA_MAX_ENTRIES 1000U
++#define GTA3XLWIFI_LNA_KEY_BYTES 24U
++#define GTA3XLWIFI_LNA_KEY_BITS 192U
++/* A compiled real store primitive, NEVER complete networking readiness. */
++#define GTA3XLWIFI_UID_CAP_LNA_STORE (1U << 3)
++#define GTA3XLWIFI_UID_CAP_LNA_MATCH (1U << 4)
++/* Socket-aware receive LNA/shared gate only, not complete firewall readiness. */
++#define GTA3XLWIFI_UID_CAP_LNA_RECEIVE (1U << 5)
++#define GTA3XLWIFI_UID_CAP_LNA_EGRESS (1U << 6) /* compiled real output hooks, not whole backend */
++#define GTA3XLWIFI_LNA_MATCH "gta3xlwifi_lna"
++struct gta3xlwifi_lna_match { __u32 reserved; };
++/* Canonical prefix: unused low bits/bytes are zero. Sort by prefix_bits then
++ * memcmp(key); duplicate prefixes are rejected. Native-order UID/ifindex/u16
++ * protocol, network-order address/port bytes match the actual A17 key payload.
++ */
++struct gta3xlwifi_lna_entry {
++    __u32 prefix_bits;
++    __u8 key[GTA3XLWIFI_LNA_KEY_BYTES];
++    __u8 allowed;
++    __u8 reserved[3];
++};
++struct gta3xlwifi_lna_transfer {
++    __u32 version;
++    __u32 network_count;
++    __u32 host_count;
++    __u32 reserved;
++    __aligned_u64 revision;
++    __aligned_u64 network_entries;
++    __aligned_u64 host_entries;
++};
++/* SET: full image, held owner lease only, revision+1 or identical replay.
++ * GET: both count/pointer pairs zero probes metadata; a data read supplies
++ * the exact probed revision and capacity for BOTH actual tables.
++ */
++#define GTA3XLWIFI_LNA_SET_IMAGE _IOW('g', 0x57, struct gta3xlwifi_lna_transfer)
++#define GTA3XLWIFI_LNA_GET_IMAGE _IOWR('g', 0x58, struct gta3xlwifi_lna_transfer)
++#endif
+diff --git a/include/linux/netfilter/gta3xlwifi_netpolicy.h b/include/linux/netfilter/gta3xlwifi_netpolicy.h
+new file mode 100644
+index 0000000000000000000000000000000000000000..60013caaa88f250454d8bce98e2ce61684885a30
+--- /dev/null
++++ b/include/linux/netfilter/gta3xlwifi_netpolicy.h
+@@ -0,0 +1,24 @@
++/* SPDX-License-Identifier: GPL-2.0 WITH Linux-syscall-note */
++#ifndef _UAPI_GTA3XLWIFI_NETPOLICY_H
++#define _UAPI_GTA3XLWIFI_NETPOLICY_H
++#include <linux/ioctl.h>
++#include <linux/types.h>
++
++#define GTA3XLWIFI_NETPOLICY_VERSION 1
++#define GTA3XLWIFI_NETPOLICY_ABI     _IO('g', 0x50)
++#define GTA3XLWIFI_NETPOLICY_HOLD    _IO('g', 0x51)
++#define GTA3XLWIFI_NETPOLICY_RELEASE _IO('g', 0x52)
++#define GTA3XLWIFI_NETPOLICY_STATE   _IO('g', 0x53)
++#define GTA3XLWIFI_NETPOLICY_MATCH "gta3xlwifi_guard"
++
++/* No pointers or arguments: identical ioctl numbers on ARM32 and ARM64.
++ * ABI returns VERSION; STATE returns 1 when held, 0 when released.
++ * All other successful commands return 0. Every argument must be zero.
++ * Opening exclusively acquires a closed lease. Owner close/exit closes the
++ * barrier even if forked children still hold the file. This neither installs
++ * rules nor proves complete networking readiness.
++ */
++struct gta3xlwifi_netpolicy_match {
++	__u8 reserved[4];
++};
++#endif
+diff --git a/include/linux/netfilter/gta3xlwifi_owner_skip.h b/include/linux/netfilter/gta3xlwifi_owner_skip.h
+new file mode 100644
+index 0000000000000000000000000000000000000000..e673c2907a7471ff4211cdffc086c2456c36c174
+--- /dev/null
++++ b/include/linux/netfilter/gta3xlwifi_owner_skip.h
+@@ -0,0 +1,10 @@
++/* SPDX-License-Identifier: GPL-2.0 WITH Linux-syscall-note */
++#ifndef _UAPI_GTA3XLWIFI_OWNER_SKIP_H
++#define _UAPI_GTA3XLWIFI_OWNER_SKIP_H
++#include <linux/types.h>
++#define GTA3XLWIFI_OWNER_SKIP_MATCH "gta3xlwifi_owner_skip"
++#define GTA3XLWIFI_NON_LOOPBACK_MATCH "gta3xlwifi_non_loopback"
++struct gta3xlwifi_owner_skip_match {
++    __u32 reserved;
++};
++#endif
+diff --git a/include/linux/netfilter/gta3xlwifi_socket_uid.h b/include/linux/netfilter/gta3xlwifi_socket_uid.h
+new file mode 100644
+index 0000000000000000000000000000000000000000..fe9222473440ba7ce97c15f5d638e23576aaed4c
+--- /dev/null
++++ b/include/linux/netfilter/gta3xlwifi_socket_uid.h
+@@ -0,0 +1,11 @@
++/* SPDX-License-Identifier: GPL-2.0 WITH Linux-syscall-note */
++#ifndef _UAPI_GTA3XLWIFI_SOCKET_UID_H
++#define _UAPI_GTA3XLWIFI_SOCKET_UID_H
++#include <linux/types.h>
++#define GTA3XLWIFI_RAW_UID_MATCH "gta3xlwifi_raw_uid"
++#define GTA3XLWIFI_RAW_APPID_MATCH "gta3xlwifi_raw_appid"
++struct gta3xlwifi_socket_uid_match {
++	__u32 minimum;
++	__u32 maximum;
++};
++#endif

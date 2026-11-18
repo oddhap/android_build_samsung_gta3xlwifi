@@ -20,10 +20,16 @@ Physical installation and all 17 critical readbacks passed. Android 17 completed
 startup with SELinux Enforcing and CE storage available. The system_server,
 netd and LMKD processes held their PIDs for 180 seconds and Launcher and Settings
 started. Wi-Fi failed when the legacy vendor supplicant could not drop root or
-prepare its configuration. Snapshot26 tests init launching that exact service
-under the Wi-Fi UID with existing networking capabilities. The owner confirmed
-physical touch and manual brightness on snapshot25. Wi-Fi connectivity remains
-unverified.
+prepare its configuration. Snapshot26 starts that service under the Wi-Fi UID.
+The installed build completed boot and the owner confirmed Wi-Fi scanning.
+Password entry triggered an IME crash involving a failed hardware bitmap copy
+and a separate EGL partial-update abort. Snapshot27 retains software bitmaps
+when hardware copies fail, disables partial updates on this Mali device, and
+ports the LineageOS 21 minimum-backlight mapping while preserving screen-off.
+The owner confirmed physical touch and manual brightness on snapshot25.
+Snapshot26 retains the exact LineageOS 21 MTP vendor init file and passed a
+16 MiB physical upload/download with matching checksums. Wi-Fi password
+association remains unverified.
 
 **Snapshot22 full build and all package checks pass.** Complete1,243-project /
 22-patch before/after audits, product checks including actual constructor
