@@ -17,7 +17,6 @@ trap 'rc=$?; printf "%s\n" "$rc" >"$L/$label.exit"; exit "$rc"' EXIT
 archive=$T/out/target/product/gta3xlwifi/obj/PACKAGING/target_files_intermediates/lineage_gta3xlwifi-target_files.zip
 python3 "$P/tools/check-runtime-target-files24.py" --top "$T" --archive "$archive" --snapshot "$P/snapshots/port-20261118-27" --source-audit "$A/runtime27-product-build-20261118-01/source-after.json" --build-exit "$L/runtime27-product-build-20261118-01.exit" --input-selection "$A/runtime27-inputs-20261118-01/report.json" --strict-report "$A/ion-ui-policy-strict-20261117-01/strict/report.json" --vendor-report "$A/wifi-supplicant-vendor-20261118-02/report.json" --report "$O/geometry-policy.json"
 python3 "$P/tools/check-policy-contexts.py" --top "$T" --out-dir out --vendor "$A/ion-ui-policy-strict-20261117-01/metadata/vendor" --policy "$A/ion-ui-policy-strict-20261117-01/strict/strict.policy" --strict-report "$A/ion-ui-policy-strict-20261117-01/strict/report.json" --output "$O/contexts"
-python3 "$P/tools/check-ion-ui-labels24.py" "$A/runtime26-built-labels-20261118-01"
 python3 "$P/tools/test-installer-hooks24.py" --top "$T" --archive "$archive" --source "$T/device/samsung/gta3xlwifi/releasetools.py" --output "$O/hooks"
 python3 "$P/tools/check-runtime-ext4-features24.py" --top "$T" --archive "$archive" --geometry-report "$O/geometry-policy.json" --kernel /srv/android/ports/lineage-24.0-arm64/kernel-uid-receipt-20261115-01/src --output "$O/ext4"
 

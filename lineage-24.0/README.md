@@ -29,7 +29,12 @@ ports the LineageOS 21 minimum-backlight mapping while preserving screen-off.
 The owner confirmed physical touch and manual brightness on snapshot25.
 Snapshot26 retains the exact LineageOS 21 MTP vendor init file and passed a
 16 MiB physical upload/download with matching checksums. Wi-Fi password
-association remains unverified.
+association remains unverified. The owner confirmed double-tap wake fails on
+snapshot26 with the setting enabled. Both touch-driver controls are present.
+The shipped system-server JNI lacks the product-scoped LineageOS 21 bridge to
+the device power library. Snapshot28 is queued to restore that bridge after
+snapshot27 package validation. The charger service and its assets are already
+packaged, but powered-off charging has not been tested on Android 17.
 
 **Snapshot22 full build and all package checks pass.** Complete1,243-project /
 22-patch before/after audits, product checks including actual constructor

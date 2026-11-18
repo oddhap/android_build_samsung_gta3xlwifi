@@ -17,7 +17,7 @@ exec >"$L/$label.log" 2>&1
 trap 'rc=$?; printf "%s\n" "$rc" >"$L/$label.exit"; exit "$rc"' EXIT
 ota=$A/runtime27-ota-build-20261118-01/lineage-24.0-20261118-UNOFFICIAL-gta3xlwifi-test.zip
 target=$A/runtime27-ota-build-20261118-01/target-files.zip
-geometry=$A/runtime27-product-checks-20261118-01/geometry-policy.json
+geometry=$A/runtime27-product-checks-20261118-02/geometry-policy.json
 python3 "$P/tools/check-test-ota-container24.py" --ota "$ota" --target-files "$target" --geometry "$geometry" --certificate "$T/build/make/target/product/security/testkey.x509.pem" --output "$A/runtime27-ota-container-20261118-01"
 python3 "$P/tools/check-ota-block-streams24.py" --top "$T" --ota "$ota" --target-files "$target" --container "$A/runtime27-ota-container-20261118-01/report.json" --geometry "$geometry" --vendor-report "$A/wifi-supplicant-vendor-20261118-02/report.json" --output "$A/runtime27-ota-blocks-20261118-01"
 python3 "$P/tools/summarize-runtime27-candidate24.py" --output "$A/runtime27-ota-build-20261118-01/readiness-report.json"
