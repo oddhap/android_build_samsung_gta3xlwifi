@@ -51,6 +51,9 @@ int main(int argc, char**) {
     assert(memevents == 2 && direct_reclaim_threshold_ms == 21);
 }
 '''
+if len(sys.argv) != 3:
+    raise SystemExit("Usage: test-lmkd-inkernel-boot24.py ORIGINAL_CPP FIXED_CPP")
+
 with tempfile.TemporaryDirectory() as temp:
     for original, name in enumerate(reversed(sys.argv[1:])):
         source = Path(name).read_text()
