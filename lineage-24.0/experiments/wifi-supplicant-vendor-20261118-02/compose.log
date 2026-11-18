@@ -1,0 +1,95 @@
+debugfs: rm /etc/selinux/plat_pub_versioned.cil
+
+debugfs: write /srv/android/artifacts/lineage-24.0-arm64/ion-ui-policy-strict-20261117-01/metadata/vendor/etc/selinux/plat_pub_versioned.cil /etc/selinux/plat_pub_versioned.cil
+Allocated inode: 483
+debugfs: set_inode_field /etc/selinux/plat_pub_versioned.cil mode 0100644
+debugfs: set_inode_field /etc/selinux/plat_pub_versioned.cil uid 0
+debugfs: set_inode_field /etc/selinux/plat_pub_versioned.cil gid 0
+debugfs: ea_set -f /srv/android/artifacts/lineage-24.0-arm64/wifi-supplicant-vendor-20261118-02/staged/selinux-label /etc/selinux/plat_pub_versioned.cil security.selinux
+debugfs: set_inode_field /etc/selinux/plat_pub_versioned.cil atime 1230735600
+debugfs: set_inode_field /etc/selinux/plat_pub_versioned.cil ctime 1230735600
+debugfs: set_inode_field /etc/selinux/plat_pub_versioned.cil mtime 1230735600
+debugfs: set_inode_field /etc/selinux/plat_pub_versioned.cil crtime 1230735600
+debugfs: rm /etc/selinux/vendor_sepolicy.cil
+
+debugfs: write /srv/android/artifacts/lineage-24.0-arm64/ion-ui-policy-strict-20261117-01/metadata/vendor/etc/selinux/vendor_sepolicy.cil /etc/selinux/vendor_sepolicy.cil
+Allocated inode: 498
+debugfs: set_inode_field /etc/selinux/vendor_sepolicy.cil mode 0100644
+debugfs: set_inode_field /etc/selinux/vendor_sepolicy.cil uid 0
+debugfs: set_inode_field /etc/selinux/vendor_sepolicy.cil gid 0
+debugfs: ea_set -f /srv/android/artifacts/lineage-24.0-arm64/wifi-supplicant-vendor-20261118-02/staged/selinux-label /etc/selinux/vendor_sepolicy.cil security.selinux
+debugfs: set_inode_field /etc/selinux/vendor_sepolicy.cil atime 1230735600
+debugfs: set_inode_field /etc/selinux/vendor_sepolicy.cil ctime 1230735600
+debugfs: set_inode_field /etc/selinux/vendor_sepolicy.cil mtime 1230735600
+debugfs: set_inode_field /etc/selinux/vendor_sepolicy.cil crtime 1230735600
+debugfs: rm /etc/selinux/precompiled_sepolicy
+
+debugfs: write /srv/android/artifacts/lineage-24.0-arm64/ion-ui-policy-strict-20261117-01/strict/strict.policy /etc/selinux/precompiled_sepolicy
+Allocated inode: 485
+debugfs: set_inode_field /etc/selinux/precompiled_sepolicy mode 0100644
+debugfs: set_inode_field /etc/selinux/precompiled_sepolicy uid 0
+debugfs: set_inode_field /etc/selinux/precompiled_sepolicy gid 0
+debugfs: ea_set -f /srv/android/artifacts/lineage-24.0-arm64/wifi-supplicant-vendor-20261118-02/staged/selinux-label /etc/selinux/precompiled_sepolicy security.selinux
+debugfs: set_inode_field /etc/selinux/precompiled_sepolicy atime 1230735600
+debugfs: set_inode_field /etc/selinux/precompiled_sepolicy ctime 1230735600
+debugfs: set_inode_field /etc/selinux/precompiled_sepolicy mtime 1230735600
+debugfs: set_inode_field /etc/selinux/precompiled_sepolicy crtime 1230735600
+debugfs: rm /etc/selinux/precompiled_sepolicy.plat_sepolicy_and_mapping.sha256
+
+debugfs: write /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/system/etc/selinux/plat_sepolicy_and_mapping.sha256 /etc/selinux/precompiled_sepolicy.plat_sepolicy_and_mapping.sha256
+Allocated inode: 486
+debugfs: set_inode_field /etc/selinux/precompiled_sepolicy.plat_sepolicy_and_mapping.sha256 mode 0100644
+debugfs: set_inode_field /etc/selinux/precompiled_sepolicy.plat_sepolicy_and_mapping.sha256 uid 0
+debugfs: set_inode_field /etc/selinux/precompiled_sepolicy.plat_sepolicy_and_mapping.sha256 gid 0
+debugfs: ea_set -f /srv/android/artifacts/lineage-24.0-arm64/wifi-supplicant-vendor-20261118-02/staged/selinux-label /etc/selinux/precompiled_sepolicy.plat_sepolicy_and_mapping.sha256 security.selinux
+debugfs: set_inode_field /etc/selinux/precompiled_sepolicy.plat_sepolicy_and_mapping.sha256 atime 1230735600
+debugfs: set_inode_field /etc/selinux/precompiled_sepolicy.plat_sepolicy_and_mapping.sha256 ctime 1230735600
+debugfs: set_inode_field /etc/selinux/precompiled_sepolicy.plat_sepolicy_and_mapping.sha256 mtime 1230735600
+debugfs: set_inode_field /etc/selinux/precompiled_sepolicy.plat_sepolicy_and_mapping.sha256 crtime 1230735600
+debugfs: rm /etc/selinux/precompiled_sepolicy.system_ext_sepolicy_and_mapping.sha256
+
+debugfs: write /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/system/system_ext/etc/selinux/system_ext_sepolicy_and_mapping.sha256 /etc/selinux/precompiled_sepolicy.system_ext_sepolicy_and_mapping.sha256
+Allocated inode: 488
+debugfs: set_inode_field /etc/selinux/precompiled_sepolicy.system_ext_sepolicy_and_mapping.sha256 mode 0100644
+debugfs: set_inode_field /etc/selinux/precompiled_sepolicy.system_ext_sepolicy_and_mapping.sha256 uid 0
+debugfs: set_inode_field /etc/selinux/precompiled_sepolicy.system_ext_sepolicy_and_mapping.sha256 gid 0
+debugfs: ea_set -f /srv/android/artifacts/lineage-24.0-arm64/wifi-supplicant-vendor-20261118-02/staged/selinux-label /etc/selinux/precompiled_sepolicy.system_ext_sepolicy_and_mapping.sha256 security.selinux
+debugfs: set_inode_field /etc/selinux/precompiled_sepolicy.system_ext_sepolicy_and_mapping.sha256 atime 1230735600
+debugfs: set_inode_field /etc/selinux/precompiled_sepolicy.system_ext_sepolicy_and_mapping.sha256 ctime 1230735600
+debugfs: set_inode_field /etc/selinux/precompiled_sepolicy.system_ext_sepolicy_and_mapping.sha256 mtime 1230735600
+debugfs: set_inode_field /etc/selinux/precompiled_sepolicy.system_ext_sepolicy_and_mapping.sha256 crtime 1230735600
+debugfs: rm /etc/selinux/precompiled_sepolicy.product_sepolicy_and_mapping.sha256
+
+debugfs: write /srv/android/src/lineage-24.0-arm64/out/target/product/gta3xlwifi/product/etc/selinux/product_sepolicy_and_mapping.sha256 /etc/selinux/precompiled_sepolicy.product_sepolicy_and_mapping.sha256
+Allocated inode: 487
+debugfs: set_inode_field /etc/selinux/precompiled_sepolicy.product_sepolicy_and_mapping.sha256 mode 0100644
+debugfs: set_inode_field /etc/selinux/precompiled_sepolicy.product_sepolicy_and_mapping.sha256 uid 0
+debugfs: set_inode_field /etc/selinux/precompiled_sepolicy.product_sepolicy_and_mapping.sha256 gid 0
+debugfs: ea_set -f /srv/android/artifacts/lineage-24.0-arm64/wifi-supplicant-vendor-20261118-02/staged/selinux-label /etc/selinux/precompiled_sepolicy.product_sepolicy_and_mapping.sha256 security.selinux
+debugfs: set_inode_field /etc/selinux/precompiled_sepolicy.product_sepolicy_and_mapping.sha256 atime 1230735600
+debugfs: set_inode_field /etc/selinux/precompiled_sepolicy.product_sepolicy_and_mapping.sha256 ctime 1230735600
+debugfs: set_inode_field /etc/selinux/precompiled_sepolicy.product_sepolicy_and_mapping.sha256 mtime 1230735600
+debugfs: set_inode_field /etc/selinux/precompiled_sepolicy.product_sepolicy_and_mapping.sha256 crtime 1230735600
+debugfs: write /srv/android/artifacts/lineage-24.0-arm64/wifi-supplicant-vendor-20261118-02/staged/ueventd.rc /etc/ueventd.rc
+Allocated inode: 1084
+debugfs: set_inode_field /etc/ueventd.rc mode 0100644
+debugfs: set_inode_field /etc/ueventd.rc uid 0
+debugfs: set_inode_field /etc/ueventd.rc gid 0
+debugfs: ea_set -f /srv/android/artifacts/lineage-24.0-arm64/wifi-supplicant-vendor-20261118-02/staged/selinux-label /etc/ueventd.rc security.selinux
+debugfs: set_inode_field /etc/ueventd.rc atime 1230735600
+debugfs: set_inode_field /etc/ueventd.rc ctime 1230735600
+debugfs: set_inode_field /etc/ueventd.rc mtime 1230735600
+debugfs: set_inode_field /etc/ueventd.rc crtime 1230735600
+debugfs: rm /etc/init/android.hardware.wifi.supplicant-service.rc
+
+debugfs: write /srv/android/artifacts/lineage-24.0-arm64/wifi-supplicant-vendor-20261118-02/staged/android.hardware.wifi.supplicant-service.rc /etc/init/android.hardware.wifi.supplicant-service.rc
+Allocated inode: 357
+debugfs: set_inode_field /etc/init/android.hardware.wifi.supplicant-service.rc mode 0100644
+debugfs: set_inode_field /etc/init/android.hardware.wifi.supplicant-service.rc uid 0
+debugfs: set_inode_field /etc/init/android.hardware.wifi.supplicant-service.rc gid 0
+debugfs: ea_set -f /srv/android/artifacts/lineage-24.0-arm64/wifi-supplicant-vendor-20261118-02/staged/selinux-label /etc/init/android.hardware.wifi.supplicant-service.rc security.selinux
+debugfs: set_inode_field /etc/init/android.hardware.wifi.supplicant-service.rc atime 1230735600
+debugfs: set_inode_field /etc/init/android.hardware.wifi.supplicant-service.rc ctime 1230735600
+debugfs: set_inode_field /etc/init/android.hardware.wifi.supplicant-service.rc mtime 1230735600
+debugfs: set_inode_field /etc/init/android.hardware.wifi.supplicant-service.rc crtime 1230735600
+debugfs 1.46.5 (30-Dec-2021)

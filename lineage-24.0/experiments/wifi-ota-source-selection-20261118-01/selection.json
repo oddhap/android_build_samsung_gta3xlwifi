@@ -1,0 +1,23 @@
+{
+  "scope": "Select an explicitly hash-verified source composition and capture a new exact snapshot.\n\nBind the retained strict OTA vendor guard to the explicitly reviewed Wi-Fi service configuration.\nNo comparison is removed, and no policy, kernel, authentication or runtime file is changed.\nNo vendor image, kernel, signing material or user data is changed.\nBackups and the complete parent snapshot remain available for source rollback.\n",
+  "parent": "/srv/android/ports/lineage-24.0-arm64/lineage-24.0/snapshots/port-20261118-25",
+  "files": {
+    "device/samsung/gta3xlwifi/releasetools.py": {
+      "project": "device/samsung/gta3xlwifi",
+      "path": "releasetools.py",
+      "before_sha256": "3cf9497746f227eac7ffa5f875d475d71c95d1cc6723e3f37d8a7c8849eafe75",
+      "after_sha256": "8ee5ddbaae3a139e53ace4217cc749ab96bb0c9638b76665cf56340cc8cca820"
+    }
+  },
+  "proof_reports_sha256": {
+    "/srv/android/artifacts/lineage-24.0-arm64/wifi-ota-binding-host-20261118-01/report.json": "6b39d60fdfa20c06a570d8b0158eaa551831dd05b65d59e9867a865dc675e2d6"
+  },
+  "prebuilts": {
+    "Image": "7ece8d6fd70870811abfe5fd9f947311506f97233491b4016cde441de3578aec",
+    "vendor.img": "b861334da08fac08181e7fd8d5c55e888d7f01c1a3d8f1f1bf04eb970a49449c",
+    "dtbo.img": "b9041c37713a745290d9a0203423436b6caa7a1307ced79b6963b4f1f0271c4b"
+  },
+  "policy_source_changed": false,
+  "vendor_and_kernel_selection_changed": false,
+  "flash_ready": false
+}

@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "changed_path": "/etc/init/android.hardware.wifi.supplicant-service.rc",
+  "previous_sha256": "5c377599f79080c045ad2752cd74d44c06309ff67218029a4d70af836e3b1474",
+  "service_sha256": "1568390e18764e2da5c3b7d16089aa093c504a0636db15304a8ed926ff8bafb3",
+  "vendor_sparse_sha256": "e5ea2382976fe37cf034c199a40fc40955046c991eab4e3c0ee471b21734c131",
+  "vendor_raw_sha256": "e4cf3ea5b177864be86c87758296648e31711ac2d0eeb3751efa32e6783ee21b",
+  "vendor_executables_unchanged": true,
+  "compiled_policy_unchanged": true,
+  "hardware_validated": false
+}

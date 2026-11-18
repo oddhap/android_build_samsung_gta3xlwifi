@@ -1,0 +1,27 @@
+{
+  "passed": true,
+  "scope": "Compose an isolated vendor image from explicitly selected, strictly linked metadata.\n\nThe original Lineage 21 MTP vendor image remains immutable. Compose the reviewed\npolicy cache and ueventd import, with an explicit opt-in for the observed legacy\nsupplicant startup compatibility change.\nThis does not select Android prebuilts or authorize installation.\n",
+  "original_vendor_sha256": "a847a527931d61e5702b8a025210c84eb88a37ef1e60df93b6393a16dae9183a",
+  "strict_report_sha256": "ed2d60e4b4ce2e1add1d7b60ba1d471ffd7662c83df2c64049ba21ea3f51feda",
+  "strict_policy_sha256": "1fd19f8ce7281157941a4c5d2e084a91235fbebde82ed7b462785eb672199db9",
+  "vendor_sparse_sha256": "e5ea2382976fe37cf034c199a40fc40955046c991eab4e3c0ee471b21734c131",
+  "vendor_raw_sha256": "e4cf3ea5b177864be86c87758296648e31711ac2d0eeb3751efa32e6783ee21b",
+  "raw_bytes": 343932928,
+  "entries_before": 1075,
+  "entries_after": 1076,
+  "changed_paths": {
+    "/etc/selinux/plat_pub_versioned.cil": "5478939b47a7980cd4abe373a0825d812c8f103f65d9d2dd8883781f39b20a6f",
+    "/etc/selinux/vendor_sepolicy.cil": "7455615956ed1d316bae5b609fa24e759036478117915f497674ab74e170e161",
+    "/etc/selinux/precompiled_sepolicy": "1fd19f8ce7281157941a4c5d2e084a91235fbebde82ed7b462785eb672199db9",
+    "/etc/selinux/precompiled_sepolicy.plat_sepolicy_and_mapping.sha256": "b7acfebc6dd52e66727ba57ef3f0acff5002852464d922efeb3c3bc496b80554",
+    "/etc/selinux/precompiled_sepolicy.system_ext_sepolicy_and_mapping.sha256": "6ed08a9d58acd83eed1e6b53564ebdbe503955611e7c231fdaf4305ed03c2cf3",
+    "/etc/selinux/precompiled_sepolicy.product_sepolicy_and_mapping.sha256": "c94f4b432da8b59c46dc555a91b033ff28fca1e2b5a1ecdadf56fd59f96e2c1e",
+    "/etc/ueventd.rc": "1547146ab03a1ad2ac3daeeb99891c77809ac46f42ce3f8611f2334abb033ac5",
+    "/etc/init/android.hardware.wifi.supplicant-service.rc": "1568390e18764e2da5c3b7d16089aa093c504a0636db15304a8ed926ff8bafb3"
+  },
+  "all_other_contents_and_security_metadata_identical": true,
+  "original_vendor_unchanged": true,
+  "android_input_selected": false,
+  "hardware_tested": false,
+  "flash_ready": false
+}
