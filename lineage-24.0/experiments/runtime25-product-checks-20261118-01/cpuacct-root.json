@@ -1,0 +1,17 @@
+{
+  "passed": true,
+  "scope": "Bind the immutable-root cpuacct directory to the actual legacy controller contract.",
+  "archive_sha256": "80d999ba8b23ebb04938092589471f15e021e9948173f804102f2f2a25696ad3",
+  "root_acct_directory_present": true,
+  "root_acct_not_world_writable": true,
+  "real_cpuacct_descriptor": {
+    "Controller": "cpuacct",
+    "Path": "/acct",
+    "Mode": "0775",
+    "UID": "system",
+    "GID": "system"
+  },
+  "source_mount_operation_unchanged": true,
+  "device_cgroup_mount_proven": false,
+  "flash_ready": false
+}

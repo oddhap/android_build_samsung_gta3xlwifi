@@ -13,8 +13,10 @@ for the five observed clients.
 The source policy and Samsung vendor link retained all 5,881 assertions and
 passed 153 permission queries. A separate LMKD candidate addresses the observed
 in-kernel backend reaching userspace PSI and BPF monitoring at boot completion
-or daemon restart. Its host regression passed, and snapshot25 is building with
-both corrections. Device validation remains open.
+or daemon restart. Its host regression and compiled artifact checks passed.
+Snapshot25 includes both corrections and passed the full build, after-build
+audit, 39-APEX VINTF inspection, OTA signature and all three block-stream checks.
+Physical installation and runtime checks are in progress.
 
 **Snapshot22 full build and all package checks pass.** Complete1,243-project /
 22-patch before/after audits, product checks including actual constructor
