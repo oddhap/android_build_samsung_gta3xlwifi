@@ -1,0 +1,9 @@
+{
+  "passed": true,
+  "archive_sha256": "845fccdce7c555053768e25880086a5fabc1023c527bd22c0daa7df04d266622",
+  "installed_library_sha256": "a061541abf1064cc6a2eb0f66735e41604b2c372fdbfc08ad1170eef2d4f044c",
+  "elf_build_id": "0ec0c4d16be9789b185e53e41cd7ebce",
+  "touch_host_proof_sha256": "c3871b1342d3429c5e425841472817800dc393d566e36afb606a78f787803302",
+  "kernel_sha256": "7ece8d6fd70870811abfe5fd9f947311506f97233491b4016cde441de3578aec",
+  "physical_double_tap_wake_tested": false
+}
