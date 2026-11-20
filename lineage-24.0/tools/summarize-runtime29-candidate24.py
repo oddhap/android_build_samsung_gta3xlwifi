@@ -3,14 +3,18 @@
 """Bind actual build/package proofs for the guarded SM-T510 test candidate."""
 import argparse,hashlib,json
 from pathlib import Path
-p=argparse.ArgumentParser();p.add_argument('--output',type=Path,required=True);a=p.parse_args();assert not a.output.exists()
+p=argparse.ArgumentParser();p.add_argument('--output',type=Path,required=True);p.add_argument('--container',type=Path,required=True);p.add_argument('--blocks',type=Path,required=True);a=p.parse_args();assert not a.output.exists()
 A=Path('/srv/android/artifacts/lineage-24.0-arm64');L=Path('/srv/android/logs/lineage-24.0-arm64')
 def sha(p):
  h=hashlib.sha256()
  with p.open('rb') as f:
   for b in iter(lambda:f.read(1024*1024),b''):h.update(b)
  return h.hexdigest()
-paths={'geometry':A/'runtime29-product-checks-20261118-01/geometry-policy.json','hooks':A/'runtime29-product-checks-20261118-01/hooks/report.json','ext4':A/'runtime29-product-checks-20261118-01/ext4/report.json','strict':A/'ordinary-app-ion-strict-20261118-01/strict/report.json','assertions':A/'ordinary-app-ion-strict-20261118-01/assertions.json','vendor':A/'ordinary-app-ion-vendor-20261118-01/report.json','container':A/'runtime29-ota-container-20261118-01/report.json','blocks':A/'runtime29-ota-blocks-20261118-01/report.json','vintf':A/'runtime29-vintf-20261118-01/vintf/report.json'}
+paths={'geometry':A/'runtime29-product-checks-20261118-01/geometry-policy.json','hooks':A/'runtime29-product-checks-20261118-01/hooks/report.json','ext4':A/'runtime29-product-checks-20261118-01/ext4/report.json','strict':A/'ordinary-app-ion-strict-20261118-01/strict/report.json','assertions':A/'ordinary-app-ion-strict-20261118-01/assertions.json','vendor':A/'ordinary-app-ion-vendor-20261118-01/report.json','container':a.container,'blocks':a.blocks,'vintf':A/'runtime29-vintf-20261118-01/vintf/report.json'}
+# The literal assertion inventory is expected to fail on 19 compiler-renumbered
+# synthetic attributes; the authoritative proof is the byte-exact normalized CIL
+# comparison bound to that literal inventory and both strict compiler reports.
+paths['assertions-normalized']=A/'ordinary-app-ion-strict-20261118-01/assertions-normalized.json'
 paths['firststage']=A/'runtime29-product-checks-20261118-01/firststage.json'
 paths['cpuacct-root']=A/'runtime29-product-checks-20261118-01/cpuacct-root.json'
 paths['vold-metadata']=A/'runtime29-product-checks-20261118-01/vold-metadata.json'
@@ -43,7 +47,12 @@ assert r['cpuacct-root']['passed']
 assert r['firststage']['passed']
 for name in ['runtime29-product-build-20261118-01','runtime29-product-checks-20261118-01','ota-tools-build-20261116-01','runtime29-ota-build-20261118-01','runtime29-vintf-20261118-01']:
  assert (L/(name+'.exit')).read_text().strip()=='0'
-for k in ['hooks','ext4','assertions','vendor','container','blocks']:assert r[k]['passed']
+for k in ['hooks','ext4','vendor','container','blocks']:assert r[k]['passed']
+n=r['assertions-normalized'];raw=r['assertions']
+assert n['passed'] and n['strict_compilation_unmodified'] and n['other_input_hashes_equal'] and n['full_system_ext_cil_equal_after_alias_renumbering']
+assert n['literal_inventory_report_sha256']==sha(paths['assertions'])
+assert n['candidate_report_sha256']==raw['candidate_report_sha256']==sha(paths['strict']) and n['baseline_report_sha256']==raw['baseline_report_sha256']
+assert n['existing_synthetic_attribute_aliases_renumbered']==len(raw['removed'])==len(raw['added'])==19 and not n['permissive_domains'] and not raw['new_platform_input_overrides']
 assert r['geometry']['artifact_checks_passed'] and r['strict']['passed_strict'] and not r['strict']['explicit_input_overrides']
 assert r['strict']['results'][0]['neverallow_checks_enabled'] and '-N' not in r['strict']['results'][0]['command']
 assert r['vintf']['offline_metadata_passed'] and r['vintf']['factory_apex_count']==39

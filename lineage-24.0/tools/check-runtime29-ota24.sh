@@ -18,6 +18,6 @@ trap 'rc=$?; printf "%s\n" "$rc" >"$L/$label.exit"; exit "$rc"' EXIT
 ota=$A/runtime29-ota-build-20261118-01/lineage-24.0-20261118-UNOFFICIAL-gta3xlwifi-test.zip
 target=$A/runtime29-ota-build-20261118-01/target-files.zip
 geometry=$A/runtime29-product-checks-20261118-01/geometry-policy.json
-python3 "$P/tools/check-test-ota-container24.py" --ota "$ota" --target-files "$target" --geometry "$geometry" --certificate "$T/build/make/target/product/security/testkey.x509.pem" --output "$A/runtime29-ota-container-20261118-01"
-python3 "$P/tools/check-ota-block-streams24.py" --top "$T" --ota "$ota" --target-files "$target" --container "$A/runtime29-ota-container-20261118-01/report.json" --geometry "$geometry" --vendor-report "$A/ordinary-app-ion-vendor-20261118-01/report.json" --output "$A/runtime29-ota-blocks-20261118-01"
-python3 "$P/tools/summarize-runtime29-candidate24.py" --output "$A/runtime29-ota-build-20261118-01/readiness-report.json"
+python3 "$P/tools/check-test-ota-container24.py" --ota "$ota" --target-files "$target" --geometry "$geometry" --certificate "$T/build/make/target/product/security/testkey.x509.pem" --output "$O/container"
+python3 "$P/tools/check-ota-block-streams24.py" --top "$T" --ota "$ota" --target-files "$target" --container "$O/container/report.json" --geometry "$geometry" --vendor-report "$A/ordinary-app-ion-vendor-20261118-01/report.json" --output "$O/blocks"
+python3 "$P/tools/summarize-runtime29-candidate24.py" --container "$O/container/report.json" --blocks "$O/blocks/report.json" --output "$A/runtime29-ota-build-20261118-01/readiness-report.json"
