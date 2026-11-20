@@ -1,0 +1,23 @@
+{
+  "passed": true,
+  "scope": "Bind actual compiled and packaged service to honest BPF observation applicability.\n\nLocal-network permission enforcement and flags remain unchanged. The legacy\nbackend does not supply BPF note-op observations; no events/readiness are faked.\n",
+  "archive_sha256": "35d5ff9df78f312333ef475e95f7c191d26205d278ab07e1c57e3e9c6d34e130",
+  "host_report_sha256": "99cf3137f304c301a97ef6d4649d698806668c4b5e2fee2e68858c6d0fb77cae",
+  "actual_compiled_JAR_sha256": "ce86debc5a8b91b3a35abcbd7a47beae87a21500ac509e947966460f5154cdff",
+  "actual_packaged_service_JAR_sha256": "b54e066282d3143328f2133a756c287863a0e90373655bd35665ce89555386e8",
+  "actual_CAPEX_sha256": "0bd3f82e7e8670fa6d94f2407d43cd3c828a6eca21e3c0537ff26510b7eb7702",
+  "actual_CAPEX_payload_JAR_verified": true,
+  "constructor_bytecode": "eld      #741                // Field mDeps:Lcom/android/server/ConnectivityService$Dependencies;\n    1187: invokevirtual #1017               // Method com/android/server/ConnectivityService$Dependencies.isAtLeastB:()Z\n    1190: ifeq          1242\n    1193: aload_0\n    1194: getfield      #270                // Field mBpfNetMaps:Lcom/android/server/BpfNetMaps;\n    1197: invokevirtual #1020               // Method com/android/server/BpfNetMaps.usesGta3xlwifiNetworking:()Z\n    1200: ifne          1242\n    1203: aload_0\n    1204: aload_0\n    1205: getfield      #741                // Field mDeps:Lcom/android/server/ConnectivityService$Dependencies;\n    1208: aload_0\n    1209: getfield      #768                // Field mContext:Landroid/content/Context;\n    1212: aload_0\n    1213: getfield      #41                 // Field mHandler:Lcom/android/server/ConnectivityService$InternalHandler;\n    1216: invokevirtual #1023               // Method com/android/server/ConnectivityService$InternalHandler.getLooper:()Landroid/os/Looper;\n    1219: aload_0\n    1220: getfield      #270                // Field mBpfNetMaps:Lcom/android/server/BpfNetMaps;\n    1223: invokevirtual #1024               // Method com/android/server/BpfNetMaps.isLocalNetMetricsEnabled:()Z\n    1226: aload_0\n    1227: getfield      #270                // Field mBpfNetMaps:Lcom/android/server/BpfNetMaps;\n    1230: invokevirtual #1027               // Method com/android/server/BpfNetMaps.isAccessLocalNetworkPermissionEnabled:()Z\n    1233: invokevirtual #1030               // Method com/android/server/ConnectivityService$Dependencies.getLocalNetEventListener:(Landroid/content/Context;Landroid/os/Looper;ZZ)Lcom/android/server/connectivity/LocalNetEventListener;\n    1236: putfield      #1034               // Field mLocalNetEventListener:Lcom/android/server/connectivity/LocalNetEventListener;\n    1239: goto          1247\n    1242: aload_0\n    1243: aconst_null\n    124",
+  "unchanged_permission_and_upstream_sources_sha256": {
+    "/srv/android/src/lineage-24.0-arm64/packages/modules/Connectivity/bpf/progs/netd.c": "7dc4fa02952c0268737dc9aad20a0571b55df255f878506a4db91c1d962713b6",
+    "/srv/android/src/lineage-24.0-arm64/packages/modules/Connectivity/service/src/com/android/server/BpfNetMaps.java": "39230902c3eb61f7152ccd8e1cd30fcd52f71df6b8781ab0e8faedf8cd6e0498",
+    "/srv/android/src/lineage-24.0-arm64/packages/modules/Connectivity/service/src/com/android/server/connectivity/LocalNetEventListener.java": "e5cc5d8e7d7e44503a21791975efe30f3c254439002ee609e2f173b9b2486d35",
+    "/srv/android/src/lineage-24.0-arm64/packages/modules/Connectivity/service/native/libs/libeventpolling/LocalNetEventHandler.cpp": "4350ef21246dd1a67e3540c610557e92cab2bbeec6fad5d6f3746f71f47f3977"
+  },
+  "local_network_permission_flags_changed": false,
+  "enforcement_changed": false,
+  "legacy_local_network_note_ops_available": false,
+  "BPF_readiness_synthesized": false,
+  "hardware_boot_or_network_proven": false,
+  "flash_ready": false
+}
