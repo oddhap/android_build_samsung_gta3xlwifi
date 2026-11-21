@@ -2014,3 +2014,40 @@ ioctl number, which netd's SELinux xperm list denied; netd quarantined
 publications, no `EAGAIN`, no timeouts, slowest connect 220 ms.
 Batching of backend publications was not implemented; it would require moving
 the native publish out of the policy lock.
+
+## November 21: TWRP without `/product` and with the correct accent colour
+
+The owner asked for a TWRP that matches the build 40 layout and shows the
+standard blue accent. The new recovery image (SHA256 `33875693…`) was built
+from the installed image (`96b3de24…`) by an offline ramdisk repack. Exactly four
+ramdisk files changed:
+
+- `system/etc/recovery.fstab`: the `/product` line is removed. Since build 40
+  the ROM has no product partition (`/product -> /system/product`), and NikGapps
+  no longer finds the old, unused product partition. The runtime fstab
+  workaround is no longer needed.
+- `system/etc/twrp.fstab`: `/product` and `/product_image` are removed, so the
+  TWRP UI no longer offers to mount, wipe, flash or back up that partition.
+- `system/lib64/libminuitwrp.so`: rebuilt with
+  `TARGET_RECOVERY_PIXEL_FORMAT := "ABGR_8888"`. The decon framebuffer reports
+  BGRA (red offset 16), but the panel shows red and blue swapped, so the theme
+  accent `#0090CA` appeared amber (`#CA9000`). In the generated build files the
+  only flag change is `-DRECOVERY_ABGR` for `libminuitwrp`. A rebuild in a
+  separate output directory without the change reproduced the installed library
+  byte for byte.
+- `ramdisk-files.sha256sum`: the three matching lines.
+
+The TWRP kernel, the recovery DTBO, board, cmdline, Samsung trailer and header
+word `0x220001ab` are byte-identical. Only the ramdisk size and the image id in
+the header were recomputed. The image was written after a full backup and fully
+read back. The new TWRP decrypts `/data`, runs enforcing, and the owner
+confirmed the blue accent. The TWRP device-tree change is in
+`experiments/twrp-fstab-abgr-20261121/device-gta3xlwifi-twrp.patch`, together
+with the repack, write and verification scripts (they expect the private
+recovery images next to them and are not usable without them).
+
+The OTA preflight helper recognizes only exact TWRP images. The next ROM build
+must add `{40271888, "de91185c3dbbed822612c5478780aa0bd4cb1c77c0b20c42e29cd0301b3b65bb"}`
+to `recovery_header_sync.cpp` and keep the previous identities (the same method
+gives `01e34bd1…` for `96b3de24…`). Until then, OTA installs stop with
+"Unrecognized recovery" before any write.

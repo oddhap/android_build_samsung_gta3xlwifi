@@ -1,0 +1,11 @@
+{
+  "owner_request": "TWRP fstab without /product + ABGR colour, 2026-11-21",
+  "scope": "Owner request 2026-11-21: write the reviewed TWRP without /product and with ABGR colour order.\n\nNOT RUN until the owner confirms this concrete plan and the hashes below.\nRuns against TWRP (root shell). Steps, each stopping on any mismatch:\n 1. Recovery partition must be exactly the installed image 96b3de24... (by-name -> mmcblk0p16).\n 2. Full partition backup to the host and SHA verification.\n 3. Push the new image to /tmp, verify its SHA on the device, dd it to the partition, fsync.\n 4. Full readback must equal the new image. On any failure after writing, the backup is\n    written back and verified.\nKernel, recovery DTBO, os_version 0x220001ab and all ramdisk files except recovery.fstab,\ntwrp.fstab, libminuitwrp.so and ramdisk-files.sha256sum are unchanged (see report.json).\nNo other partition is touched; no data is formatted.\n",
+  "before_sha256": "96b3de24d7c36b8abe390db35e8a098e1c4d69500105f0a127ea09beaccb5e61",
+  "after_sha256": "33875693066aeb5e9f27bc2d469c3052b438552395cb476ed0d8340348765f05",
+  "backup": "pre-fstab-abgr-recovery-partition.img",
+  "backup_verified": true,
+  "state": "reviewed image written and fully verified",
+  "passed": true,
+  "readback_partition_sha256": "33875693066aeb5e9f27bc2d469c3052b438552395cb476ed0d8340348765f05"
+}

@@ -1,0 +1,57 @@
+{
+  "passed": true,
+  "scope": "Owner request 2026-11-21: TWRP without /product and with the correct (blue) accent colour.\n\nOffline only; no device access. Input: the installed recovery partition image\n96b3de24... (choice (a) crypto-script image). Changes exactly these ramdisk files:\n  1. system/etc/recovery.fstab: the /product line is removed (build 40+ ROM has\n     no product partition; /product -> /system/product). NikGapps otherwise picks\n     the old, unused product partition.\n  2. system/etc/twrp.fstab: /product and /product_image are removed (TWRP UI no\n     longer offers mounting, wiping, flashing or backing up the unused partition).\n  3. system/lib64/libminuitwrp.so: rebuilt from twrp-12.1-pinfree with only\n     TARGET_RECOVERY_PIXEL_FORMAT := \"ABGR_8888\" added to BoardConfig.mk. The decon\n     fbdev reports BGRA (red offset 16) but the panel shows red/blue swapped, so\n     the theme accent #0090CA appeared as amber #CA9000. The flag adds exactly\n     -DRECOVERY_ABGR to libminuitwrp (gr_color R/B swap, png_set_bgr, JPEG swap).\n     The unchanged-config rebuild in the same separate OUT_DIR reproduced the\n     installed library byte-for-byte (14a17810...).\n  4. ramdisk-files.sha256sum: the three lines get their new hashes.\nAll other cpio entries are copied byte-for-byte; kernel, recovery DTBO, board,\ncmdline, os_version 0x220001ab, addresses and the SEANDROIDENFORCE trailer are\nunchanged. Only ramdisk_size, recovery_dtbo_offset and the SHA1 id are recomputed.\n",
+  "input_partition_sha256": "96b3de24d7c36b8abe390db35e8a098e1c4d69500105f0a127ea09beaccb5e61",
+  "output_partition_sha256": "33875693066aeb5e9f27bc2d469c3052b438552395cb476ed0d8340348765f05",
+  "output_bytes": 47185920,
+  "used_bytes": 40271888,
+  "os_version_word": "0x220001ab",
+  "kernel_sha256": "f170d1015157c6d82cc3880427245254640fcbf20ffc59538151bcf8d0273333",
+  "kernel_identical": true,
+  "recovery_dtbo_identical": true,
+  "ramdisk_old": {
+    "xz_bytes": 14727160,
+    "cpio_bytes": 61432320,
+    "cpio_sha256": "08056bec6b616fb4f257cfc61240ab63afd54d50aaaa799801ddd90fea4ca5df"
+  },
+  "ramdisk_new": {
+    "xz_bytes": 14726088,
+    "cpio_bytes": 61432064,
+    "cpio_sha256": "6a0c324449bf3e53270d591df5a69b4cce2e10bc61e744817250f11693f0d109"
+  },
+  "cpio_entries": 3599,
+  "changed_cpio_entries": [
+    "ramdisk-files.sha256sum",
+    "system/etc/recovery.fstab",
+    "system/etc/twrp.fstab",
+    "system/lib64/libminuitwrp.so"
+  ],
+  "file_sha256_old": {
+    "ramdisk-files.sha256sum": "ea71d6463fbb571bd3f685e3bffd98bad26c0e4ff1f053a1a763f1d3f0b5e475",
+    "system/etc/recovery.fstab": "3b3394475c26bf2f032a0a5a07718d25c003cf9417fede9259b45c2e2f64a60e",
+    "system/etc/twrp.fstab": "6678fbcd9a26bc5be6c70e50ed7055a70a6b0b3c01032a45a173c02c0ab33033",
+    "system/lib64/libminuitwrp.so": "14a178104c617f37767af5ada84e4c72bb8f3b3cec17cc6b05f254b8a4a41124"
+  },
+  "file_sha256_new": {
+    "ramdisk-files.sha256sum": "145ea51ae37377bcf4191918234202f64fd82804e2ce65bc1e3b3c145626e645",
+    "system/etc/recovery.fstab": "8808cee591110126b81087d8143dd7bfa350db3ef54feaf96cbbc84bbe7e05b2",
+    "system/etc/twrp.fstab": "2d7d4df50ff534c767bba92f8c87e80b9d58b1cdd037acd4d1781521c99efa70",
+    "system/lib64/libminuitwrp.so": "24a239bf02102f04ddaf67633c9d57e4180f9c11380922c1c6f2f01484ef4a11"
+  },
+  "header_bytes_changed": [
+    16,
+    595
+  ],
+  "header_fields_changed": [
+    "ramdisk_size",
+    "recovery_dtbo_offset",
+    "id"
+  ],
+  "recovery_dtbo_offset_old": 40108032,
+  "recovery_dtbo_offset_new": 40108032,
+  "ota_preflight_identity": {
+    "length": 40271888,
+    "sha256_bytes44_47_zeroed": "de91185c3dbbed822612c5478780aa0bd4cb1c77c0b20c42e29cd0301b3b65bb"
+  },
+  "device_written": false
+}

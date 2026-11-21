@@ -1,0 +1,35 @@
+diff -ruN a/BoardConfig.mk b/BoardConfig.mk
+--- a/device/samsung/gta3xlwifi/BoardConfig.mk	2026-11-21 17:45:26
++++ b/device/samsung/gta3xlwifi/BoardConfig.mk	2026-11-21 17:45:26
+@@ -58,6 +58,9 @@
+ TARGET_OTA_ASSERT_DEVICE := gta3xlwifi
+ TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/recovery/root/system/etc/recovery.fstab
+ 
++# The decon fbdev reports red at offset 16 (BGRA), but the panel shows
++# R/B swapped (theme accent #0090CA appeared amber). Swap in minuitwrp.
++TARGET_RECOVERY_PIXEL_FORMAT := "ABGR_8888"
+ TW_THEME := portrait_hdpi
+ TARGET_SCREEN_WIDTH := 1200
+ TARGET_SCREEN_HEIGHT := 1920
+diff -ruN a/recovery/root/system/etc/recovery.fstab b/recovery/root/system/etc/recovery.fstab
+--- a/device/samsung/gta3xlwifi/recovery/root/system/etc/recovery.fstab	2026-11-21 17:45:27
++++ b/device/samsung/gta3xlwifi/recovery/root/system/etc/recovery.fstab	2026-11-21 17:45:27
+@@ -5,6 +5,5 @@
+ /dev/block/platform/13500000.dwmmc0/by-name/misc /misc emmc defaults defaults
+ /dev/block/platform/13500000.dwmmc0/by-name/system /system_root ext4 ro wait
+ /dev/block/platform/13500000.dwmmc0/by-name/vendor /vendor ext4 ro wait
+-/dev/block/platform/13500000.dwmmc0/by-name/product /product ext4 ro wait
+ /dev/block/platform/13500000.dwmmc0/by-name/cache /cache ext4 noatime,nosuid,nodev wait,check,formattable
+ /dev/block/platform/13500000.dwmmc0/by-name/userdata /data ext4 noatime,nosuid,nodev wait,check,fileencryption=ice,quota,reservedsize=128M
+diff -ruN a/recovery/root/system/etc/twrp.fstab b/recovery/root/system/etc/twrp.fstab
+--- a/device/samsung/gta3xlwifi/recovery/root/system/etc/twrp.fstab	2026-11-21 17:45:27
++++ b/device/samsung/gta3xlwifi/recovery/root/system/etc/twrp.fstab	2026-11-21 17:45:27
+@@ -8,8 +8,6 @@
+ /system_image   emmc /dev/block/platform/13500000.dwmmc0/by-name/system flags=backup=1;flashimg
+ /vendor         ext4 /dev/block/platform/13500000.dwmmc0/by-name/vendor flags=backup=1;display="Vendor"
+ /vendor_image   emmc /dev/block/platform/13500000.dwmmc0/by-name/vendor flags=backup=1;flashimg
+-/product        ext4 /dev/block/platform/13500000.dwmmc0/by-name/product flags=backup=1;wipeingui;display="Product"
+-/product_image  emmc /dev/block/platform/13500000.dwmmc0/by-name/product flags=backup=1;flashimg
+ /cache          ext4 /dev/block/platform/13500000.dwmmc0/by-name/cache flags=backup=1
+ /data           ext4 /dev/block/platform/13500000.dwmmc0/by-name/userdata flags=fileencryption=ice
+ /external_sd    auto /dev/block/mmcblk1p1 /dev/block/mmcblk1 flags=storage;wipeingui;removable;display="Micro SD card"

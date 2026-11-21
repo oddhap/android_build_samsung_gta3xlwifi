@@ -1,0 +1,23 @@
+{
+  "twrp_decrypted": true,
+  "user_keys_ce0_names": [
+    "encrypted_key",
+    "version"
+  ],
+  "media0_has_Android": true,
+  "fstab_product_counts": [
+    "/etc/recovery.fstab:0",
+    "/etc/twrp.fstab:0"
+  ],
+  "product_in_twrp_log": [],
+  "pixel_format_log": [
+    "  vi.red.offset   =  16   .length =   8",
+    "setting GGL_PIXEL_FORMAT_BGRA_8888"
+  ],
+  "enforcing": true,
+  "recovery_header_word": "220001ab",
+  "recovery_sha256": "33875693066aeb5e9f27bc2d469c3052b438552395cb476ed0d8340348765f05",
+  "libminuitwrp_sha256": "24a239bf02102f04ddaf67633c9d57e4180f9c11380922c1c6f2f01484ef4a11",
+  "at_utc": "2026-11-21T16:42:10.833560+00:00",
+  "owner_confirmed_blue_accent": "2026-11-21 (owner: \"Ja, bl\u00e5\")"
+}
