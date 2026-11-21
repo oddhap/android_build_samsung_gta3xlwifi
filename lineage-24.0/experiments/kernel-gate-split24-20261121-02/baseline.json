@@ -1,0 +1,12 @@
+{
+  "baseline": "kernel-netpolicy-flush-20261120-01",
+  "original_sha256": {
+    "net/netfilter/gta3xlwifi_netpolicy.c": "ed339abcd422f63d727d62cb10e7433ebc1d662f6f4b540a40271a247b7b69c4",
+    "include/uapi/linux/netfilter/gta3xlwifi_netpolicy.h": "fd53c8c287840054ac9234efdabd88302140d95fc1488c57080de499a835d54c"
+  },
+  "candidate_sha256": {
+    "net/netfilter/gta3xlwifi_netpolicy.c": "e6848dd29c914cf9bed54c44c4afc1e687d3cb8816ae3e2818ac95d5ba7da80d",
+    "include/uapi/linux/netfilter/gta3xlwifi_netpolicy.h": "56a082ea2db5d3d157f1ef395d774bba1ab592e284b5bada48ad4ba70e95aa9d"
+  },
+  "supersedes": "kernel-gate-split24-20261121-01 (0x64 ioctl denied by netd SELinux xperm list)"
+}

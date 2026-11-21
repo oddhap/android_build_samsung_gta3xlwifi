@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "scope": "Active netpolicy-flush kernel plus gate split (HOLD(HOLD_UPDATE_ARG) keeps packet gate open; ABI 2; -02) only",
+  "actual_Image_all_modules_and_Gator_built": true,
+  "complete_source_protected_baseline_Android_audits": true,
+  "host_gate_split_cases": 62,
+  "host_report_sha256": "de017ad0615a0b7e6a3494e424fa246afa35b0c1761cc22513f1167c8beff505",
+  "kernel_config_identical_to_active": true,
+  "previous_Image_sha256": "ad56d93cff30262b87ba60b2a16a42e1f6248cb7dc191b042d3a6ff770072f2a",
+  "Image_sha256": "29c2019b17f943bf7c5c96343adffe10dddd69f93db901cb0c0a8f75e24deec3",
+  "selected_prebuilts_changed": false,
+  "hardware_tested": false,
+  "flash_ready": false
+}

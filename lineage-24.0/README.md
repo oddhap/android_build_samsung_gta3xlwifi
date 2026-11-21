@@ -1953,3 +1953,64 @@ image are accepted. A raised header word, a single changed ramdisk byte and an
 unknown image are refused. Build 39 was installed and verified. With this
 change, new ASB months need neither a recovery header change nor another TWRP
 change.
+
+## November 21: GApps, product in system, ION for privileged apps and the network gate split (builds 40–43)
+
+**GApps.** MindTheGapps 17 (official arm64 release 20261022, whole-package
+signature verified) cannot work on this device: Google Play services ship only
+as an EROFS APEX (`com.google.android.gmssystem`) and the Linux 4.4 kernel has
+no EROFS, so apexd fails with `No such device`. NikGapps core 17 (official
+20261119 release, SHA256 matching the release manifest) ships GmsCore as an
+ordinary priv-app; its v3 signing lineage was verified back to Google's
+`f0fd6c5b…` certificate. NikGapps core is installed and confirmed working:
+Google sign-in, Play Store installs and self-updates of Play services/Play Store.
+Play Integrity was not evaluated.
+
+**Build 40: product folded into system.** The physical product partition
+(299,480 KiB ext4) is smaller than even the MindTheGapps low-resource set.
+Snapshot40 sets `TARGET_COPY_OUT_PRODUCT := system/product`, builds no product
+image (`PRODUCT_BUILD_PRODUCT_IMAGE := false`) and drops the first-stage
+`/product` mount. The partition table is unchanged; the old product partition is
+left untouched and unused. `check-runtime40-product-layout-target24.py` checks
+`/product -> /system/product` inside the real `system.img` (debugfs) and compares
+the installer's own size rule with the ext4 free blocks. The first clean build
+(`m installclean`) dropped stale files that earlier builds had carried in
+`system`, among them `/system/bin/linkerconfig` (the runtime APEX provides
+linkerconfig); the checker binds the exact file-set difference.
+
+NikGapps finds a "dedicated" product block through TWRP's `/etc/recovery.fstab`
+and would install into the unused partition. For the test, the `/product` line
+was commented out in TWRP's runtime fstab (RAM only, recovery partition
+untouched) and the old block was set read-only for the session. A release needs
+either a TWRP without that line or matching instructions.
+
+**Build 41: ION read for privileged apps.** Android 17 runs privileged apps
+targeting SDK < 37 as `priv_app_36`, and Play services UI as `gmscore_app`. Both
+were denied ION read, so Samsung gralloc could not allocate buffers and HWUI
+aborted (`drawRenderNode called on a context with no surface`). The owner asked
+for `priv_app`, `priv_app_36`, `priv_app_all` and `gmscore_app`; the new rule is
+`allow { priv_app_all gmscore_app } ion_device:chr_file r_file_perms;` (no write).
+Strict link keeps all 5,881 assertions/constraints, 321 compiled-policy queries
+pass, and the vendor composition changes only the precompiled policy cache.
+
+**Builds 42/43: network gate split.** Every policy publication
+(`SocketPolicyProjection::applyLocked`) holds the private netpolicy lease while
+both families' tables and the kernel images are replaced (about 0.4 s). While
+held, the kernel dropped every ordinary app packet and `socket()` returned
+`EAGAIN` for app UIDs, so bursts of rule changes (for example Play services
+process-state churn) blacked out all apps and pushed TCP into SYN backoff. A
+code-free debuggable test app gave an app-UID shell through `run-as`: 60
+publications on another UID caused 19/136 `EAGAIN` and up to 2,447 ms connects.
+
+The kernel now keeps a packet gate separate from the update lease
+(`experiments/kernel-gate-split24-20261121-02/gate-split.patch`). `HOLD` with
+argument `GTA3XLWIFI_NETPOLICY_HOLD_UPDATE_ARG` takes the update lease without
+closing the gate; plain `HOLD`, opening, and closing/exit of the owner (every
+netd failure path) still close it. ABI version 2. netd uses it only for normal
+commits; framework suspension keeps the gate-closing `HOLD`. Build 42 used a new
+ioctl number, which netd's SELinux xperm list denied; netd quarantined
+(fail-closed) and system_server could not start. Build 43 reuses the allowed
+`HOLD` number; no SELinux change. The same churn test on build 43: 82
+publications, no `EAGAIN`, no timeouts, slowest connect 220 ms.
+Batching of backend publications was not implemented; it would require moving
+the native publish out of the policy lock.

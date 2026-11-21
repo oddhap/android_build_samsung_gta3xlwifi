@@ -1,0 +1,102 @@
+--- a/net/netfilter/gta3xlwifi_netpolicy.c
++++ b/net/netfilter/gta3xlwifi_netpolicy.c
+@@ -39,10 +39,17 @@
+  * private copy of the table, which must not revoke the live owner. */
+ static fl_owner_t netpolicy_owner_files;
+ static bool netpolicy_held = true;
++/* Packet/socket gate, separate from the update lease (gate-split, 2026-11-21).
++ * Closed before the first RELEASE, on HOLD, on owner close/exit and on every
++ * netd failure path (quarantine closes the lease). HOLD with argument
++ * GTA3XLWIFI_NETPOLICY_HOLD_UPDATE_ARG grants the update lease WITHOUT closing it
++ * (same ioctl number, so the existing netd SELinux xperm list is unchanged): each family table swap is atomic, so a
++ * normal policy update no longer blackholes every app for its duration. */
++static bool netpolicy_gate_closed = true;
+ 
+ bool gta3xlwifi_netpolicy_held(void)
+ {
+-	return smp_load_acquire(&netpolicy_held);
++	return smp_load_acquire(&netpolicy_gate_closed);
+ }
+ EXPORT_SYMBOL_GPL(gta3xlwifi_netpolicy_held);
+ 
+@@ -89,6 +96,7 @@
+ 		ret = -EBUSY;
+ 	} else {
+ 		WRITE_ONCE(netpolicy_held, true);
++		WRITE_ONCE(netpolicy_gate_closed, true);
+ 		netpolicy_owner_file = file;
+ 		netpolicy_owner_pid = get_pid(task_tgid(current));
+ 		netpolicy_owner_files = current->files;
+@@ -108,6 +116,7 @@
+ 	    (final_release || (netpolicy_owner_pid == task_tgid(current) &&
+ 			       id == netpolicy_owner_files))) {
+ 		WRITE_ONCE(netpolicy_held, true);
++		WRITE_ONCE(netpolicy_gate_closed, true);
+ 		/* Closing/exit must finish holding before the close completes. */
+ 		synchronize_net();
+ 		gta3xlwifi_runtime_invalidate();
+@@ -215,7 +224,8 @@
+ 	    cmd != GTA3XLWIFI_NETPOLICY_RELEASE &&
+ 	    cmd != GTA3XLWIFI_NETPOLICY_STATE)
+ 		return -ENOTTY;
+-	if (arg)
++	if (arg && !(cmd == GTA3XLWIFI_NETPOLICY_HOLD &&
++		     arg == GTA3XLWIFI_NETPOLICY_HOLD_UPDATE_ARG))
+ 		return -EINVAL;
+ 	if (!netpolicy_privileged())
+ 		return -EPERM;
+@@ -229,8 +239,12 @@
+ 		ret = GTA3XLWIFI_NETPOLICY_VERSION;
+ 	} else if (cmd == GTA3XLWIFI_NETPOLICY_STATE) {
+ 		ret = READ_ONCE(netpolicy_held) ? 1 : 0;
++	} else if (cmd == GTA3XLWIFI_NETPOLICY_HOLD && arg) {
++		/* Update lease only; an already closed gate stays closed. */
++		WRITE_ONCE(netpolicy_held, true);
+ 	} else if (cmd == GTA3XLWIFI_NETPOLICY_HOLD) {
+ 		WRITE_ONCE(netpolicy_held, true);
++		WRITE_ONCE(netpolicy_gate_closed, true);
+ 		synchronize_net();
+ 	} else if (gta3xlwifi_packet_stats_cleanup_pending()) {
+ 		ret = -EBUSY;
+@@ -241,6 +255,7 @@
+ 		 * Drain all such readers while closed before either family opens. */
+ 		synchronize_net();
+ 		smp_store_release(&netpolicy_held, false);
++		smp_store_release(&netpolicy_gate_closed, false);
+ 	}
+ 	mutex_unlock(&netpolicy_lock);
+ 	return ret;
+@@ -249,7 +264,7 @@
+ static bool netpolicy_match(const struct sk_buff *skb,
+ 			    struct xt_action_param *par)
+ {
+-	return smp_load_acquire(&netpolicy_held);
++	return smp_load_acquire(&netpolicy_gate_closed);
+ }
+ 
+ static int netpolicy_check(const struct xt_mtchk_param *par)
+--- a/include/uapi/linux/netfilter/gta3xlwifi_netpolicy.h
++++ b/include/uapi/linux/netfilter/gta3xlwifi_netpolicy.h
+@@ -4,16 +4,19 @@
+ #include <linux/ioctl.h>
+ #include <linux/types.h>
+ 
+-#define GTA3XLWIFI_NETPOLICY_VERSION 1
++#define GTA3XLWIFI_NETPOLICY_VERSION 2
+ #define GTA3XLWIFI_NETPOLICY_ABI     _IO('g', 0x50)
+ #define GTA3XLWIFI_NETPOLICY_HOLD    _IO('g', 0x51)
+ #define GTA3XLWIFI_NETPOLICY_RELEASE _IO('g', 0x52)
+ #define GTA3XLWIFI_NETPOLICY_STATE   _IO('g', 0x53)
++/* v2: HOLD with this argument takes the update lease WITHOUT closing the packet gate. */
++#define GTA3XLWIFI_NETPOLICY_HOLD_UPDATE_ARG 1UL
+ #define GTA3XLWIFI_NETPOLICY_MATCH "gta3xlwifi_guard"
+ 
+ /* No pointers or arguments: identical ioctl numbers on ARM32 and ARM64.
+- * ABI returns VERSION; STATE returns 1 when held, 0 when released.
+- * All other successful commands return 0. Every argument must be zero.
++ * ABI returns VERSION; STATE returns 1 when the update lease is held, 0 when
++ * released. HOLD(0) also closes the packet gate; HOLD(HOLD_UPDATE_ARG) does not.
++ * All other successful commands return 0. Every other argument must be zero.
+  * Opening exclusively acquires a closed lease. Owner close/exit closes the
+  * barrier even if forked children still hold the file. This neither installs
+  * rules nor proves complete networking readiness.
