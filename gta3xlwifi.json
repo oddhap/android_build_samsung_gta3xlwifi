@@ -1,1 +1,17 @@
-[]
+[
+  {
+    "datetime": 1795286472,
+    "type": "unofficial",
+    "version": "24.0",
+    "files": [
+      {
+        "filename": "lineage-24.0-20261121-UNOFFICIAL-gta3xlwifi-test.zip",
+        "os_patch_level": "2026-11-01",
+        "os_sdk_level": 37,
+        "sha256": "9ace4bf99b0eab265fad6acea807025cecd8aefa26cbd7814b752f4887aeea2e",
+        "size": 1041030409,
+        "url": "https://github.com/oddhap/android_build_samsung_gta3xlwifi/releases/download/lineage-24.0-20261121-1795286472/lineage-24.0-20261121-UNOFFICIAL-gta3xlwifi-test.zip"
+      }
+    ]
+  }
+]
