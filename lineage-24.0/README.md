@@ -1933,3 +1933,23 @@ Future ASB months: only the platform/system level changes. Keep
 `BOOT_SECURITY_PATCH`, `_BOOT_SECURITY_PATCH` and the preflight word, and leave
 the TWRP recovery unchanged. Never raise the boot level without a reviewed
 recovery header change, because a raise is one-way for the key blobs.
+
+## November 21: recovery crypto script and preflight identity (build 39)
+
+The owner chose to resolve the limitation above in TWRP. The TWRP ramdisk crypto
+preparation script now requires the system patch month to be equal to or newer
+than the recovery header month. Before, the two months had to be equal. Release
+and format checks and all property copies are unchanged. Only that script and
+its line in TWRP's own repacker hash manifest changed. The TWRP kernel, the
+recovery DTBO and header word `0x220001ab` are byte-identical. The image was
+written after a full backup and fully read back, and the new TWRP decrypts
+`/data`.
+
+The read-only OTA preflight helper recognizes only exact TWRP images, so
+snapshot39 adds the new image identity and keeps the previous ones.
+`test-runtime39-recovery-identity24.py` compiles the helper source in its host
+test mode and runs it against the real images. Both the new and the previous
+image are accepted. A raised header word, a single changed ramdisk byte and an
+unknown image are refused. Build 39 was installed and verified. With this
+change, new ASB months need neither a recovery header change nor another TWRP
+change.
