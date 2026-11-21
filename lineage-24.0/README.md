@@ -1894,3 +1894,42 @@ matching rebuilt Gator118/KUTF43 and all60338/60331+1243/17 source audits pass.
 Image dfd8e7fed78628a6254d61bf619b6afa8c76f8edf296214979a5340c386d4188.
 Receiver lookup still must resolve request/listener lifetime correctly; this
 reader supplies no socket search, permission decision, callback or readiness.
+
+## November 21: fixed boot image patch level (build 38)
+
+Samsung's TEE keymaster binds the FBE key blobs to the OS patch level the
+bootloader reads from the booted image header (offset 44). The installed TWRP
+recovery header carries `0x220001ab` (Android 17 / 2026-11). AOSP builds the boot
+header from `PLATFORM_SECURITY_PATCH` (`INTERNAL_MKBOOTIMG_VERSION_ARGS` in
+`build/make/core/Makefile`). Setting `BOOT_SECURITY_PATCH` alone only affects the
+AVB property, which is unused here because AVB is disabled. Snapshot38 therefore:
+
+- sets `BOOT_SECURITY_PATCH := 2026-11-01` in `BoardConfig.mk`;
+- makes the custom Samsung boot rule in `mkbootimg.mk` pass
+  `--os_patch_level $(BOOT_SECURITY_PATCH)`, and fails the build if it is unset;
+- derives the installer preflight word in `releasetools.py` from the fixed boot
+  level, requires the boot header to equal it and the system level not to be
+  older, and keeps the kernel, release, helper, vendor and recovery guards.
+
+`ro.build.version.security_patch` keeps following the platform. The prebuilt
+vendor image is unchanged. Package checks (`check-runtime38-target-files24.py`,
+`check-runtime38-bootspl-target24.py`) confirm header word `0x220001ab`, system
+level = platform level, and a byte-identical boot.img to build 37. They also
+confirm that the packaged hook keeps the same word for a later system month. The
+build was installed and verified on the tablet. TWRP still decrypts `/data`
+while system and boot levels are equal.
+
+Trade-offs: keymaster rollback protection no longer advances with the boot
+patch level, and attestation reports the fixed boot level.
+
+Known limitation: the TWRP ramdisk's crypto preparation script requires the
+system patch month to equal the recovery header month. After the next ASB
+month, sideload installation keeps working without a header change, but TWRP
+will not unlock `/data` unless that script is reviewed and changed. Whether the
+TEE binds keys to the header level, the normal-world `configure()` system level,
+or both is not yet determined, because all levels are currently 2026-11.
+
+Future ASB months: only the platform/system level changes. Keep
+`BOOT_SECURITY_PATCH`, `_BOOT_SECURITY_PATCH` and the preflight word, and leave
+the TWRP recovery unchanged. Never raise the boot level without a reviewed
+recovery header change, because a raise is one-way for the key blobs.
