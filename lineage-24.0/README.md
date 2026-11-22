@@ -2159,6 +2159,28 @@ the build server.
   against the real TWRP images), `rebind-runtime44-devicemk24.py` (only the URI
   block). The Edify was also parsed with the real edify grammar on the host.
 
+- Build 48 (`port-20261122-48`, parent 46; `run-runtime48-orchestrator24.sh`):
+  F-Droid session installs failed with `RuntimeException: Could not copy bitmap
+  to parcel blob` (`PackageInstaller.Session.requestUserPreapproval`, app icon).
+  Android 17 HWUI (`libs/hwui/jni/Bitmap.cpp` `writeBlob`) parcels bitmaps above
+  12 KiB through a memfd and seals immutable ones with `F_SEAL_FUTURE_WRITE`
+  (Linux 5.1+); the 4.4 kernel returns EINVAL (`mm/shmem.c` `F_ALL_SEALS`), so every
+  immutable bitmap above 12 KiB failed to cross binder. `F_SEAL_WRITE` is no
+  substitute (before Linux 6.7 it refuses the receiver's `PROT_READ` `MAP_SHARED`
+  mapping). Fix: only when that seal fails with EINVAL, fall back to the Android 15
+  path (libcutils ashmem region, copy, protection mask reduced to `PROT_READ` before
+  the fd is shared); one log line per process. No policy, vendor, kernel or DTBO
+  change (`select-runtime48-inputs24.py` rebinds the snapshot46 inputs unchanged);
+  `check-runtime48-hwui-target24.py` binds both libhwui.so builds to the staged
+  source. Released as `release-20261122-02` (OTA `e67aa144…`, published as
+  `lineage-24.0-20261122-1795350767`). Physical result: installed by the owner
+  through the LineageOS Updater (first Updater delivery of a release-signed
+  package), Enforcing, release-keys; an F-Droid install logged the one-time HWUI
+  fallback line and completed (DuckDuckGo 5.301.1, installer org.fdroid.fdroid).
+  A first commit rejected by `PreapprovalDetails ... inconsistent with app label`
+  (F-Droid sent the en-US label while the APK's nb_NO label differs) is stock
+  Android behaviour; F-Droid retried without pre-approval and succeeded.
+
 ### End-to-end result (2026-11-22)
 
 - Build 46 sideloaded over build 44 (`reports/.../runtime46-*`): preflight,
