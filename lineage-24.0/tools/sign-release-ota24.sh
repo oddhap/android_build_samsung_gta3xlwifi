@@ -57,6 +57,18 @@ out/host/linux-x86/bin/sign_target_files_apks -o -d "$K" \
   -k "$sec/networkstack=$K/networkstack" -k "$sec/sdk_sandbox=$K/sdk_sandbox" \
   -k "$sec/bluetooth=$K/bluetooth" -k "$sec/nfc=$K/nfc" \
   "${apex_args[@]}" "$S/target-files.zip" "$O/signed-target-files.zip"
+# sign_target_files_apks drops the prebuilt images it cannot rebuild (no VENDOR/ tree):
+# put back exactly IMAGES/vendor.img and IMAGES/cache.img from the checked archive.
+python3 - "$S/target-files.zip" "$O/signed-target-files.zip" <<'PY'
+import sys,zipfile
+src,dst=sys.argv[1:]
+with zipfile.ZipFile(src) as a,zipfile.ZipFile(dst) as b:missing=sorted(set(a.namelist())-set(b.namelist()))
+assert set(missing)<={'IMAGES/vendor.img','IMAGES/cache.img'},missing
+with zipfile.ZipFile(src) as a,zipfile.ZipFile(dst,'a',allowZip64=True) as b:
+ for n in missing:
+  i=a.getinfo(n);b.writestr(i,a.read(n),compress_type=i.compress_type)
+print('restored',missing)
+PY
 python3 - "$S/target-files.zip" "$O/signed-target-files.zip" "$K/releasekey.x509.pem" <<'PY'
 import io,sys,zipfile
 a,b=zipfile.ZipFile(sys.argv[1]),zipfile.ZipFile(sys.argv[2])

@@ -2214,11 +2214,38 @@ sdk_sandbox, bluetooth, nfc and 39 APEX container/payload keys). They are never
 copied or published; the owner should make an encrypted offline backup. The
 public release certificate is `keys/gta3xlwifi-releasekey.x509.pem` (SHA-256
 fingerprint `8F:74:11:72:AE:0B:6F:7E:25:11:56:AC:EA:98:86:20:FD:5B:BC:7D:DE:BA:E7:DE:46:81:51:82:CE:B8:6D:DF`).
-`tools/sign-release-ota24.sh` (prepared, not yet run) re-signs a checked
-target-files package with these keys (`sign_target_files_apks -o -d`, all APEX
-keys), requires `boot.img`/`vendor.img` to stay byte-identical and otacerts to
-hold only the release key, and builds the OTA with `-k releasekey`. Remaining
-step: run it, adapt the package checks to the signed artifacts, and switch the
-tablet once by sideload with a data backup (the platform/shared/media
-certificate change can need a data wipe). After that, release-signed OTAs
-install through the Updater.
+Release signing was switched on 2026-11-22 (owner request):
+
+- `tools/run-release-ota24.sh release-YYYYMMDD-NN runtimeNN-ota-build-YYYYMMDD-NN`
+  re-signs a fully checked test-OTA build with `tools/sign-release-ota24.sh`
+  (`sign_target_files_apks -o -d` plus networkstack/sdk_sandbox/bluetooth/nfc
+  and all 39 APEX container/payload keys, then `ota_from_target_files -k
+  releasekey`). `sign_target_files_apks` drops the prebuilt `IMAGES/vendor.img`
+  and `IMAGES/cache.img` (no `VENDOR/` tree); they are put back byte-identical.
+- `tools/check-release-signed-target-files24.py` binds the signed archive to the
+  checked one: same entry set; boot.img and vendor.img identical; only re-signed
+  APK/APEX/CAPEX (each signed with an owner certificate, APEX payloads with an
+  owner AVB key), SYSTEM otacerts = release certificate only (the unused AOSP
+  recovery ramdisk may also carry LineageOS's public extra recovery key),
+  build.prop lines changing test-keys -> release-keys (and `ro.build.display.id`
+  losing " test-keys"), `plat_mac_permissions.xml` whose seinfo certificates
+  map back exactly to the AOSP ones, META bookkeeping, and rebuilt
+  system/recovery images. The rebuilt system.img tree (debugfs, contents and
+  metadata) differs only at re-signed entries, and no APK/APEX/CAPEX in it is
+  still signed with an AOSP development certificate. It writes a derived
+  geometry report for the unchanged container, Updater and block-stream checks,
+  which then run against the release certificate; the chain ends with a
+  release `readiness-report.json` that the publish script accepts.
+- First release `release-20261122-01` (build 47 re-signed, 158 APK/APEX):
+  sideloaded over the test-key build 47 with data kept (`reports/.../release1-*`):
+  preflight, updater RC 0, readbacks and all 36 NikGapps files PASS; PackageManager
+  logged "System package ... signature changed; retaining data" for the system
+  packages, no shared-user mismatch, no crash; `ro.build.tags=release-keys`,
+  `/system/etc/security/otacerts.zip` = release certificate only; Google
+  account, GMS, Play Store and the Updater keep working; stable 180 s, Enforcing.
+  Published as a normal (non-pre-release) GitHub release
+  `lineage-24.0-20261121-1795305463`, SHA-256 `501eabc5…`, and as the index entry.
+- From now on: build -> `run-release-ota24.sh` -> `publish-ota-release24.py
+  --from-server release-YYYYMMDD-NN --certificate keys/gta3xlwifi-releasekey.x509.pem --publish`.
+  Devices still on a test-key build must sideload one release-signed package
+  once; after that the Updater accepts only release-signed packages.

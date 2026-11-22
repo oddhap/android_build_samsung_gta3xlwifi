@@ -68,7 +68,7 @@ def gh_api(path, method='GET', fields=None, allow_404=False):
 
 
 def fetch(label, dest):
-    if not re.fullmatch(r'runtime\d+-ota-build-\d{8}-\d\d', label):
+    if not re.fullmatch(r'runtime\d+-ota-build-\d{8}-\d\d|release-\d{8}-\d\d', label):
         die('unexpected server label ' + label)
     dest.mkdir(parents=True, exist_ok=True)
     ssh = ['-i', SSH_KEY, '-o', 'BatchMode=yes']
