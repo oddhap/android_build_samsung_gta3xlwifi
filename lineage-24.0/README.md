@@ -2051,3 +2051,174 @@ must add `{40271888, "de91185c3dbbed822612c5478780aa0bd4cb1c77c0b20c42e29cd0301b
 to `recovery_header_sync.cpp` and keep the previous identities (the same method
 gives `01e34bd1…` for `96b3de24…`). Until then, OTA installs stop with
 "Unrecognized recovery" before any write.
+
+## November 21–22: OTA updates through the LineageOS Updater (builds 44–47)
+
+Owner decisions (2026-11-21): publish on `oddhap/android_build_samsung_gta3xlwifi`
+(GitHub Releases plus a JSON index on the orphan branch `ota` (short, because a non-`ro` property value is limited to 91 bytes)),
+keep GApps across OTAs with addon.d (backuptool), allow two public test-key
+pre-releases only for the end-to-end test, and create private release keys on
+the build server.
+
+### How the Updater finds and installs an update
+
+- `packages/apps/Updater` (LineageOS 24) reads `lineage.updater.uri` and fetches
+  it with OkHttp: HTTPS only, **no redirects**, 10 s call timeout. The index
+  therefore lives on `raw.githubusercontent.com`; `{device}` is replaced with
+  `ro.lineage.device`. Build 44 sets
+  `lineage.updater.uri=https://raw.githubusercontent.com/oddhap/android_build_samsung_gta3xlwifi/ota/{device}.json`
+  (`device.mk`, `PRODUCT_SYSTEM_PROPERTIES`; label `default_prop`, which
+  `updater_app` may read).
+- Index format (`NetworkUpdate.kt`): a JSON list of
+  `{"datetime", "type", "version", "files": [{"filename", "sha256", "size",
+  "url", "os_patch_level", "os_sdk_level"}]}`. `datetime` must be newer than
+  `ro.build.date.utc`, `type` is compared case-insensitively with
+  `ro.lineage.releasetype` (`UNOFFICIAL`), and `os_sdk_level` is required in
+  practice: a missing value counts as 0 and the entry is dropped (SDK 37).
+- Downloads follow one HTTPS redirect (`HttpURLConnectionClient`, duplicate-link
+  handling), so GitHub release asset URLs work. After the download the Updater
+  verifies the whole-file signature against `/system/etc/security/otacerts.zip`
+  (`RecoverySystem.verifyPackage`).
+- Install on this non-A/B device: the package in `/data/lineageos_updates`
+  (FBE-encrypted) is copied to `*.uncrypt`, `uncrypt` writes the block map and
+  the BCB gets `--update_package=@/cache/recovery/block.map`. TWRP 3.7.1
+  (`startupArgs.cpp`) turns this into an OpenRecoveryScript install, skips
+  decryption for `@` paths, reads the package through the block map from the
+  raw userdata blocks, and reboots to system on success. TWRP clears the BCB at
+  startup, so a failed install leaves the tablet in TWRP without a loop.
+
+### OTA package changes
+
+- Build 44 (`port-20261121-44`, parent 43; `stage-runtime44-source24.py`):
+  - `device.mk`: the Updater URI. The first attempt used the branch
+    `updater-lineage-24.0`; the URI was 108 bytes and `post_process_props.py`
+    stopped the build (non-`ro` values are limited to 91 bytes). The source was
+    reverted exactly to snapshot 43 (`revert-runtime44-attempt-a24.py`, `*-failed-a`)
+    and the branch renamed to `ota` (URI exactly 91 bytes).
+  - `releasetools.py`: LineageOS addon.d backup/restore (`backuptool.sh`) between
+    the existing guards, so NikGapps survives an OTA. The backup runs after the
+    recovery preflight and the vendor-unmounted guard; vendor must be unmounted
+    again (and the vendor guard re-run) before the first image write. The
+    restore runs after the last write and before the final recovery recheck, and
+    is skipped if its vendor protection step fails.
+  - `recovery_header_sync.cpp`: identity `de91185c…` for the owner-approved TWRP
+    `33875693…` (fstab without `/product`, ABGR colour). The older identities stay.
+  - Physical result (sideload over build 43): install, readbacks and boot PASS,
+    but backuptool logged `Incompatible ROM version: 24` and skipped both stages
+    (see build 45), so NikGapps was reinstalled. Build 44 must not be offered
+    through the Updater.
+- Build 45 (`port-20261121-45`, parent 44; releasetools only;
+  `stage-runtime45-source24.py`). Each script was first tested on the tablet in
+  TWRP (`reports/.../runtime45-recovery-script-test/`):
+  - `recovery-vendor-quiesce.sh`: TWRP's init mounts `/vendor` read-only at
+    `post-fs` and runs its FBE helpers (mobicore, keymaster, gatekeeper,
+    keystore2) from it. A manual sideload's host preflight stops them; an Updater
+    install is unattended, so the OTA stops exactly these services and unmounts
+    `/vendor` (plain umount, up to 10 attempts). Its result is not trusted: the
+    unchanged vendor-unmounted guard decides. TWRP's `recovery` domain is
+    permissive in TWRP's own policy (`bootable/recovery/sepolicy/twrp.te`).
+  - `recovery-product-link.sh` (asserted): `backuptool.sh` reads
+    `ro.lineage.version` from `/product/etc/build.prop` unless `/product` is a
+    symlink. Product is folded into system and TWRP's `/product` is an empty
+    ramdisk directory, which caused the build 44 skip. The empty, unmounted
+    directory becomes a symlink to backuptool's own system mount
+    (`/mnt/system/system/product`; TWRP creates `/mnt/system` at runtime), in RAM only.
+  - `addon-vendor-guard.sh` replaced: **`blockdev --setro` does not stop a
+    read-write mount on this kernel** (measured: the mount came up `rw` with
+    `getro` = 1). `protect` now mounts vendor read-only at `/vendor`, so
+    backuptool's `mount_extra` (which skips existing mount points) cannot mount
+    it read-write, and refuses the restore when a pre-v3 addon.d script sorts
+    before a v3 script (backuptool would then lazily unmount it and remount
+    read-write). `release` unmounts it and requires vendor and product unmounted.
+  - The measuring test mounted vendor read-write once and changed its ext4
+    metadata; the exact reviewed vendor image was written back from TWRP and read
+    back (`89f31e2c…`, `runtime45-recovery-script-test/vendor-restore.log`).
+  - Build 45 was published as a pre-release, but the Updater UI could not be used
+    on build 44 (next item); the pre-release was deleted.
+- Build 46 (`port-20261122-46-policy` / `port-20261122-46`, parent 45;
+  `run-runtime46-orchestrator24.sh`): the Updater (domain `updater_app`) aborted
+  with `drawRenderNode called on a context with no surface!` because Samsung
+  gralloc's `ion_open` was denied (`avc: denied { read } ... updater_app ...
+  ion_device`). Owner approved (2026-11-22) `allow updater_app
+  ion_device:chr_file r_file_perms;` in `gta3xlwifi_ion.te` (no write), with the
+  full strict chain of build 41: frozen snapshot45 baseline, strict link with
+  5881 unchanged assertions and no permissive domains, 329 compiled-policy
+  queries (updater_app open/read/ioctl/map/getattr allowed, write denied;
+  platform_app_36/isolated_app unchanged), label lookups, vendor policy-cache
+  recomposition (`updion-vendor-20261122-01`, only `precompiled_sepolicy` and the
+  system_ext hash change) and the releasetools vendor hash. Package checks use
+  `check-runtime46-*` (and `check-runtime46-aconfig24.py` for the new policy).
+- Build 47: snapshot46 rebuilt unchanged (new build date), the second
+  consecutive build for the end-to-end test.
+- Checks: `check-runtime44/45/46-updater-target24.py` (URI in `SYSTEM/build.prop`,
+  `ro.lineage.*` from `SYSTEM/product/etc/build.prop`, Updater/uncrypt packaged,
+  otacerts = signing certificate, backuptool = LineageOS source, exact hook
+  order on the real archive), `check-runtime44/45-test-ota-container24.py` (Edify
+  command list and order around all writes), `check-runtime44/45/46-bootspl-target24.py`
+  (edit chain 38 → 46), `test-runtime44-recovery-identity24.py` (host test
+  against the real TWRP images), `rebind-runtime44-devicemk24.py` (only the URI
+  block). The Edify was also parsed with the real edify grammar on the host.
+
+### End-to-end result (2026-11-22)
+
+- Build 46 sideloaded over build 44 (`reports/.../runtime46-*`): preflight,
+  updater RC 0, boot/vendor/recovery and file readbacks PASS, **addon.d kept all
+  36 NikGapps files** without a GApps reinstall, Android 17, CE, Enforcing,
+  stable 180 s. The Updater UI renders; 0 `updater_app` ION denials.
+- Build 47 published with `publish-ota-release24.py --allow-test-keys`, index
+  read back. On the tablet: Settings > System > System updates (resolves to
+  `org.lineageos.updater`) > Check for updates found it (1.0 GB, Android 17,
+  2026-11), download via the GitHub redirect, `Verification successful`,
+  Install > OK. uncrypt, reboot to TWRP, `--update_package=@/cache/recovery/block.map`,
+  backup of 5 GApps packages, image writes, restore of the 5 packages,
+  `script succeeded`, updater RC 0, automatic reboot; about 5 minutes from OK
+  to boot completed. No interaction in TWRP.
+- After the install (`runtime47-updater-*`): build date 1795305463, Enforcing,
+  CE available, GApps system apps installed from `/system`; in TWRP the boot
+  prefix equals build 47, the whole vendor partition equals the reviewed image
+  (`c484fbe3…`, i.e. the restore did not write vendor), recovery `33875693…`,
+  header words `220001ab`, physical product partition unchanged, all 36 NikGapps
+  files identical. The test release was deleted and the index emptied again.
+- Notes: `screencap` hangs on this port (UI driven via `uiautomator dump`);
+  TWRP keeps no `/cache/recovery/log`, so the install log was copied from
+  `/tmp/recovery.log` during the session.
+
+### Publishing a release (one command)
+
+`tools/publish-ota-release24.py` (run on the Mac; needs `gh` logged in):
+
+    tools/publish-ota-release24.py --from-server runtimeNN-ota-build-YYYYMMDD-01 \
+        --certificate keys/gta3xlwifi-releasekey.x509.pem --publish
+
+It fetches the package directory (SHA-checked), requires a passing
+`readiness-report.json`, checks SHA-256/size/name against `SHA256SUMS`, checks the
+OTA metadata (BLOCK, `gta3xlwifi`, SDK 37, no wipe/downgrade), checks that the
+zip holds no key material, and verifies the whole-file signature against the
+given public certificate. It then creates the release
+`lineage-24.0-YYYYMMDD-<post-timestamp>`, uploads only the zip and a `.sha256`
+file, verifies the asset size/digest and the download URL, and adds the entry to
+`gta3xlwifi.json` on `ota` (newest first, `--keep 3`) with an
+API and raw-URL read-back (the raw CDN can serve the old copy for about 5 minutes). Without `--publish` it is a dry run. Test-key
+packages need `--allow-test-keys` and become pre-releases. `--remove-tag TAG
+[--delete-release] --publish` removes an entry; `--init-index` created the
+branch.
+
+### Signing
+
+Test builds are signed with the public AOSP test key
+(`keys/aosp-testkey.x509.pem`); anyone can sign a package that such a build
+accepts, so they are only for the owner-approved test. Owner keys were created
+on 2026-11-21 in `/srv/android/keys/lineage-24.0-gta3xlwifi` (directory 0700,
+files 0600, no password; releasekey, platform, shared, media, networkstack,
+sdk_sandbox, bluetooth, nfc and 39 APEX container/payload keys). They are never
+copied or published; the owner should make an encrypted offline backup. The
+public release certificate is `keys/gta3xlwifi-releasekey.x509.pem` (SHA-256
+fingerprint `8F:74:11:72:AE:0B:6F:7E:25:11:56:AC:EA:98:86:20:FD:5B:BC:7D:DE:BA:E7:DE:46:81:51:82:CE:B8:6D:DF`).
+`tools/sign-release-ota24.sh` (prepared, not yet run) re-signs a checked
+target-files package with these keys (`sign_target_files_apks -o -d`, all APEX
+keys), requires `boot.img`/`vendor.img` to stay byte-identical and otacerts to
+hold only the release key, and builds the OTA with `-k releasekey`. Remaining
+step: run it, adapt the package checks to the signed artifacts, and switch the
+tablet once by sideload with a data backup (the platform/shared/media
+certificate change can need a data wipe). After that, release-signed OTAs
+install through the Updater.
