@@ -2181,6 +2181,22 @@ the build server.
   (F-Droid sent the en-US label while the APK's nb_NO label differs) is stock
   Android behaviour; F-Droid retried without pre-approval and succeeded.
 
+- Build 49 (`port-20261122-49`, parent 48; `run-runtime49-orchestrator24.sh`):
+  the Updater "Recent changes" button opened
+  `https://download.lineageos.org/gta3xlwifi/changes` (string `menu_changelog_url`),
+  which does not exist for this unofficial device. A static device overlay
+  (`overlay/packages/apps/Updater/app/src/main/res/values/strings.xml`, picked up by
+  the existing `DEVICE_PACKAGE_OVERLAYS`) points it at the GitHub releases, which
+  carry the changelog (`publish-ota-release24.py --notes`). Resource-only.
+  `check-runtime49-changelog-target24.py` dumps the packaged Updater.apk with the
+  built aapt2 and requires exactly that URL. Attempt a stopped at a misnamed hwui
+  check call (kept as `*-failed-a`); `run-runtime49-resume24.sh` re-ran the package
+  workflow on the unchanged build. Released as `release-20261122-03`
+  (`lineage-24.0-20261122-1795362636`, OTA `4ca431af…`, with release notes; the
+  build-48 release notes were added afterwards). Physical result: installed by
+  the owner through the Updater, Enforcing, release-keys; "Recent changes" opens
+  the GitHub releases page in the browser.
+
 ### End-to-end result (2026-11-22)
 
 - Build 46 sideloaded over build 44 (`reports/.../runtime46-*`): preflight,
