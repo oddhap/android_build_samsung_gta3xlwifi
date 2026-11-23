@@ -1,0 +1,34 @@
+package {
+    default_applicable_licenses: ["Android-Apache-2.0"],
+}
+cc_library_static {
+    name: "libgta3xlwifi_power",
+    srcs: ["Power.cpp"],
+    export_include_dirs: ["."],
+    defaults: ["android.hardware.power-ndk_shared"],
+    shared_libs: ["libbase", "liblog"],
+    cflags: ["-Wall", "-Wextra", "-Werror"],
+    cpp_std: "c++17",
+}
+cc_test_host {
+    name: "gta3xlwifi-power-window-test",
+    srcs: ["BoostWindowTest.cpp"],
+    cflags: ["-Wall", "-Wextra", "-Werror"],
+    cpp_std: "c++17",
+}
+
+cc_test_host {
+    name: "gta3xlwifi-touch-wake-test",
+    srcs: ["TouchWakeTest.cpp"],
+    gtest: false,
+    cflags: ["-Wall", "-Wextra", "-Werror", "-UNDEBUG"],
+    cpp_std: "c++17",
+}
+
+cc_test_host {
+    name: "gta3xlwifi-power-retry-test",
+    srcs: ["RetryBackoffTest.cpp"],
+    gtest: false,
+    cflags: ["-Wall", "-Wextra", "-Werror", "-UNDEBUG"],
+    cpp_std: "c++17",
+}

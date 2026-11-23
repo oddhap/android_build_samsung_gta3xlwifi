@@ -2229,6 +2229,37 @@ the build server.
   Note: the load average sits near 10 even when idle on this kernel (about ten
   Samsung kernel threads stay in D state); it is not a CPU-load signal.
 
+- Build 51 (`port-20261123-51`, parent 50; `run-runtime51-orchestrator24.sh`,
+  resumed by `run-runtime51-resume24.sh`): the bounded touch/launch CPU-GPU boost
+  ported from LineageOS 21 (`device/samsung/gta3xlwifi/power`, touch 400 ms
+  little 1248 / big 1352 MHz / GPU 545 MHz; launch big 1560 / GPU 676 MHz) works on
+  Android 17, but on build 50 it was found dead before a reboot: big cluster at
+  936 MHz during a 2 s touch, no requests logged while user activity worked. The
+  backend closed its controls and stayed disabled for the life of system_server
+  after the first failed open/write, and the reason had rotated out of the main
+  log. `Power.cpp` now suspends instead: it releases the requests (CPU QoS fds
+  closed, GPU slot cleared), logs op/control/errno to the main and system buffers,
+  and reopens the controls on a later request after a 1 s .. 60 s backoff
+  (`RetryBackoff.h`, host test `gta3xlwifi-power-retry-test`). Window state is
+  tracked while suspended, so a recovery applies the correct floors. Floors,
+  durations, endpoints, policy, vendor and kernel are unchanged. The build runs the
+  retry, window and touch-wake host tests; `check-runtime51-power-target24.py` binds
+  the packaged `libandroid_servers.so`. Attempt a stopped in
+  `check-runtime28-touch-target24.py` (the runtime43 touch proof binds the old
+  `Power.cpp`/`Android.bp` hashes; kept as `*-failed-a`); `rebind-runtime51-touch24.py`
+  requires the touch path verbatim and every other bound file unchanged.
+  Released as `release-20261123-01` (`lineage-24.0-20261123-1795421016`, OTA
+  `be58beae…`). Physical result (installed by the owner through the Updater):
+  release-keys, Enforcing, `enable_uffd_gc=false`; a 1 s touch logged
+  `floor_khz=1248000/1352000/545000 ready=1 failures=0`, big cluster at 1352 MHz,
+  expiry to 0/0/0 afterwards; no suspend/recover lines in the system buffer, no
+  read-barrier mismatches, SystemUI `.oat mmap` about 9 MB, no new ANR/crash entries
+  and no boost-control denials. The retry path itself was not triggered on the
+  device (no failure occurred). The SystemUI shade was measured separately on build 50: the boost
+  does not change it (19.4 % janky / 24 ms median with boost, 17.8 % / 23 ms
+  without; UI about 5 ms, RenderThread 6.7 ms, GPU 10.4 ms; all layers HWC DEVICE;
+  shade frames mostly "Buffer Stuffing", no dropped display frames in the sample).
+
 ### End-to-end result (2026-11-22)
 
 - Build 46 sideloaded over build 44 (`reports/.../runtime46-*`): preflight,
