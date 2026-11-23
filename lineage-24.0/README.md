@@ -2260,6 +2260,38 @@ the build server.
   without; UI about 5 ms, RenderThread 6.7 ms, GPU 10.4 ms; all layers HWC DEVICE;
   shade frames mostly "Buffer Stuffing", no dropped display frames in the sample).
 
+- Build 52 (`port-20261123-52`, parent 51; `run-runtime52-orchestrator24.sh`):
+  issue oddhap/android_build_samsung_gta3xlwifi#5 (build 48, clean install):
+  as soon as Wi-Fi connected, system_server died about every 25 s with
+  `java.io.IOException: Missing real interface history: 0` from
+  `Gta3xlwifiStatsConsumer.prepare`, reached through `BatteryStatsImpl` /
+  `WifiPowerStatsCollector`; setup could not finish. The frozen kernel bank can
+  hold rows whose ifindex has no entry in the interface-name table (ifindex 0).
+  A17 `libnetworkstats/BpfNetworkStats.cpp` drops such rows in every reader
+  (the detail reader consumes them, "these stats will be lost/deleted"; the
+  interface and per-interface readers skip them) and `maybeLogUnknownIface` logs
+  one error per read once the dropped traffic reaches 100 000 bytes. The shim
+  threw instead. `Gta3xlwifiStatsConsumer.prepare`/`readSummary` and
+  `Gta3xlwifiTrafficStats.iface` now skip unnamed rows and log with the same
+  bound and text (`Gta3xlwifiStats: Unknown name for ifindex N with more than B
+  bytes of traffic`). Name-table loss, frozen-bank loss, counter overflow on named
+  rows and durable-store faults still reject without ACK. Sources in
+  `tools/runtime52-stats/`. `test-runtime52-unknown-iface24.py` reruns the complete
+  2026-11-15 stats fixture chain (poll 61, client 1467, consumer, factory,
+  traffic, UID cleanup/receipt, terminal abort, durable removal 62) against the
+  current unchanged Access/Journal/Poller/client: baseline (old code, old
+  fixtures) passes with 327 consumer cases, the updated fixtures fail on the old
+  code with exactly `Missing real interface history: 0`, and pass on the new code
+  with 339 consumer cases. `check-runtime52-stats-target24.py` extracts
+  `service-connectivity.jar` from the packaged tethering CAPEX with the built
+  deapexer and requires the new log text and none of the three old throw texts.
+  No policy, vendor, kernel or DTBO change. Released as `release-20261123-02`
+  (`lineage-24.0-20261123-1795454381`, OTA `993f1453…`, with release notes). The owner's tablet (build 51,
+  Wi-Fi on for 6 h) had never hit the throw, so the trigger is situational. The
+  owner installed build 52 through the Updater (release-keys, Enforcing, Wi-Fi
+  on, no crash entries shortly after boot). The fix is not yet confirmed on a
+  device that showed the crash; the reporter was asked to test.
+
 ### End-to-end result (2026-11-22)
 
 - Build 46 sideloaded over build 44 (`reports/.../runtime46-*`): preflight,
