@@ -29,7 +29,8 @@ exec 9>"$L/build.lock"; flock -n 9 || exit 75
 python3 "$P/tools/check-release-signed-target-files24.py" --top "$T" --readiness "$A/$base/readiness-report.json" \
   --unsigned "$A/$base/target-files.zip" --signed "$O/signed-target-files.zip" --geometry "$checks/geometry-policy.json" \
   --certs "$K" --output "$O/checks/target"
-python3 "$P/tools/check-runtime46-updater-target24.py" "$T" "$O/signed-target-files.zip" "$O/checks/target/geometry-policy.json" "$O/checks/updater.json" "$cert"
+upd=check-runtime46-updater-target24.py; (( n >= 53 )) && upd=check-runtime53-updater-target24.py  # snapshot53 kernel-digest chain
+python3 "$P/tools/$upd" "$T" "$O/signed-target-files.zip" "$O/checks/target/geometry-policy.json" "$O/checks/updater.json" "$cert"
 python3 "$P/tools/check-runtime45-test-ota-container24.py" --ota "$ota" --target-files "$O/signed-target-files.zip" --geometry "$O/checks/target/geometry-policy.json" --certificate "$cert" --output "$O/checks/container"
 python3 "$P/tools/check-runtime40-ota-block-streams24.py" --top "$T" --ota "$ota" --target-files "$O/signed-target-files.zip" --container "$O/checks/container/report.json" --geometry "$O/checks/target/geometry-policy.json" --vendor-report "$A/updion-vendor-20261122-01/report.json" --output "$O/checks/blocks"
 python3 - "$A/$base/readiness-report.json" "$O" "$ota" <<'PY'

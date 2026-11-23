@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "scope": "Active gate-split kernel plus sdfat exfat filesystem alias (fs/sdfat/sdfat.c only; issue 4)",
+  "actual_Image_all_modules_and_Gator_built": true,
+  "complete_source_protected_baseline_Android_audits": true,
+  "host_sdfat_exfat_cases": 10,
+  "host_report_sha256": "d11a04064a33ded591d32f44d4fd79ebf7a7f6c592526849fbe19068df9b36bf",
+  "kernel_config_identical_to_active": true,
+  "previous_Image_sha256": "29c2019b17f943bf7c5c96343adffe10dddd69f93db901cb0c0a8f75e24deec3",
+  "Image_sha256": "a75ac13eaa2ebe4051269b246f4c57c2ff809d0cb1d2cf0df785e447bd70f619",
+  "selected_prebuilts_changed": false,
+  "hardware_tested": false,
+  "flash_ready": false
+}

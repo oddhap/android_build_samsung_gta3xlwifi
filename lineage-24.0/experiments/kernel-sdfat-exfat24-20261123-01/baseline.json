@@ -1,0 +1,11 @@
+{
+  "baseline_kernel": "/srv/android/ports/lineage-24.0-arm64/kernel-gate-split-20261121-02/src",
+  "original_sha256": {
+    "fs/sdfat/sdfat.c": "d318d21c7c7f818fe480c85966f2eaeb42381c268eef9e3e01418de75a83c7a5"
+  },
+  "candidate_sha256": {
+    "fs/sdfat/sdfat.c": "46a0f9926bc5fc142b53e137d9640a7de227a25b0ddd0c0232a5a5243e89b67f"
+  },
+  "patch_sha256": "e3ffcd8e7f35cf9279898ec1e845c01c946e221d7276ae4b12a09627ae24e0cf",
+  "kconfig_changed": false
+}

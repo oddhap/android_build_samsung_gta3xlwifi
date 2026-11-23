@@ -2291,6 +2291,59 @@ the build server.
   owner installed build 52 through the Updater (release-keys, Enforcing, Wi-Fi
   on, no crash entries shortly after boot). The fix is not yet confirmed on a
   device that showed the crash; the reporter was asked to test.
+- Build 53 (`port-20261123-53`, parent 52; `run-runtime53-orchestrator24.sh`):
+  SD-card storage, issue oddhap/android_build_samsung_gta3xlwifi#4 (LineageOS 21
+  report: an SD card formatted as internal storage never mounts; `Failed to set
+  encryption policy ... v1 modes 1/126 flags 0x2: Invalid argument`). The same
+  causes exist in 24.0:
+  - Adoptable volumes are formatted F2FS. On this 4.4 kernel F2FS uses the
+    generic fscrypt code, whose `fscrypt_valid_enc_modes` accepts only
+    AES-256-XTS + AES-256-CTS (plus 128-CBC/CTS and Speck); HEH and Samsung's
+    private mode 127 exist only in Samsung's ext4 crypto. vold's default for
+    `ro.product.first_api_level` <= 29 is AES-256-HEH filenames (mode 126,
+    `FsCrypt.cpp`), so F2FS returns EINVAL. Fix:
+    `ro.crypto.volume.options=aes-256-xts:aes-256-cts:v1` (same v1 policy
+    version, kernel-accepted modes 1/4). Block encryption stays dm-crypt (pre-R
+    launch device), which already worked in the report.
+  - `vold.has_adoptable=0`: the SD line is in the pinned Samsung vendor fstab
+    (`/vendor/etc/fstab.exynos7904`, read before the device tree's root fstab)
+    without `encryptable=userdata`. Owner choice: keep vendor byte-identical and
+    set `persist.sys.adoptable=force_on` (StorageManagerService adds
+    `FLAG_ADOPTABLE`; also offered for USB disks; `sm set-force-adoptable off`
+    reverts it per device).
+  - exFAT: vold mounts exFAT only if `/proc/filesystems` lists `exfat`
+    (`Exfat::IsSupported`). Samsung's built-in sdfat driver implements exFAT but
+    registers only as `sdfat`. Kernel candidate
+    `experiments/kernel-sdfat-exfat24-20261123-01/` (one file,
+    `fs/sdfat/sdfat.c`, `d318d21c…` -> `46a0f992…`) registers a second
+    `file_system_type` named `exfat` with the same mount/teardown paths, as later
+    sdfat releases do with `CONFIG_SDFAT_USE_FOR_EXFAT`; no Kconfig change.
+    `build-kernel-sdfat-exfat24-20261123-01.sh` (baseline: the active gate-split
+    -02 kernel): 10 host cases (`test-kernel-sdfat-exfat24.py`), identical
+    `.config`, Image, all modules and Gator built, `exfat_fs_type` in vmlinux,
+    complete source/protected/baseline/Android audits; Image `29c2019b…` ->
+    `a75ac13e…`. The SELinux `genfscon exfat` label and vold's `sdcard_type`
+    mount rules already exist in the platform policy.
+  - The F2FS quota warning in the report (`Cannot turn on quotas: error -22`) is
+    logged by the kernel and mounting continues; it is not the blocker.
+  - Chain: `select-runtime53-inputs24.py` (kernel Image, rollback copy),
+    `stage-runtime53-source24.py` (product makefile props, releasetools kernel
+    guard digest), `rebind-runtime53-touch-kernel24.py` (touch sources identical),
+    `check-runtime53-bootspl/-updater` (releasetools edit chain + 53),
+    `check-runtime53-storage-target24.py` (packaged props exactly once, kernel
+    mode pair, boot kernel, OTA guard); `run-release-ota24.sh` uses the runtime53
+    Updater check for builds >= 53. The owner's test tablet cannot validate
+    this physically: its SD slot returns DAT1 as a copy of DAT0 (sector 0 of a
+    card that Windows formatted reads with bits 1/5 equal to bits 0/4, `55 aa`
+    -> `77 88`, identically in TWRP), so vold sees no MBR signature and writes
+    fail with `write no crc` / `-110`. That is a slot/contact hardware fault,
+    not part of issue 4.
+  - Released as `release-20261123-03` (`lineage-24.0-20261123-1795459667`,
+    OTA `c7c2927f…`, with release notes). Sideloaded in TWRP over build 52 with
+    data kept: updater RC 0, boot/vendor/recovery and critical-file readbacks,
+    all 36 NikGapps files kept, Android 17 + CE + Enforcing stable 180 s; on the
+    device both properties are set and `/proc/filesystems` lists `exfat`. The
+    reporter was asked to test SD mounting.
 
 ### End-to-end result (2026-11-22)
 
