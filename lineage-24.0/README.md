@@ -2197,6 +2197,38 @@ the build server.
   the owner through the Updater, Enforcing, release-keys; "Recent changes" opens
   the GitHub releases page in the browser.
 
+- Build 50 (`port-20261122-50`, parent 49; `run-runtime50-orchestrator24.sh`):
+  the UI was laggy and SystemUI hit input-dispatch ANRs. The 4.4 kernel has no
+  userfaultfd, so ART runs the concurrent-copying (read-barrier) GC. With
+  `PRODUCT_ENABLE_UFFD_GC` left at "default" and no kernel version file,
+  `build/soong/scripts/uffd_gc_utils.py` assumes CMC (`'<unknown-kernel>'` → true):
+  every boot image/odex was dexpreopted with `-Xgc:CMC` (oat header
+  `concurrent-copying=false`, 181 of 207 oat/odex in build 49) and
+  `ro.dalvik.vm.enable_uffd_gc=true`. The runtime rejected that code
+  (`artd: ValidateOatFile found read barrier state mismatch (oat file: false,
+  runtime: true)`, vdex `executable 'false'`); SystemUI, marked `speed`, mapped
+  44 KB of `.oat` against 17 MB of `.dex`, i.e. framework and apps ran
+  interpreted/JIT, and on-device dexopt kept producing the same unusable code.
+  Fix: `PRODUCT_ENABLE_UFFD_GC := false` in `lineage_gta3xlwifi.mk` (`device.mk`
+  is hash-bound by older checks). Build configuration only; no policy, vendor,
+  kernel or DTBO change. `check-runtime50-uffd-target24.py` requires the prop to be
+  `false`, no `-Xgc:CMC` in any oat/odex, and `concurrent-copying=true` in every
+  oat/odex carrying the key (181), including arm/arm64 `boot.oat`, SystemUI and
+  Launcher3; the target-files check requires the file set to equal build 49.
+  Released as `release-20261122-04` (`lineage-24.0-20261122-1795378235`, OTA
+  `0cef2879…`, with release notes). Physical result (2026-11-23, installed by the
+  owner through the Updater): `ro.dalvik.vm.enable_uffd_gc=false`, release-keys,
+  Enforcing; 0 `read barrier state mismatch` since boot (only one-time stale
+  runtime app-image checksum messages); `.oat mmap` RSS about 9 MB in SystemUI,
+  Launcher3 and system_server (44 KB in SystemUI on build 49). Scripted shade/app
+  drawer sequence (8 rounds, `input swipe`, 9 minutes after boot): Launcher3
+  1.4 % janky frames, median 5 ms; SystemUI 17.8 % janky, median 23 ms, 99th 150 ms.
+  Build 49 reference (hours of normal use, so not an identical workload):
+  Launcher3 15.3 %/20 ms, SystemUI 34.9 %/24 ms, 99th 350 ms. The shade remains
+  above the 16 ms budget (UI thread bound; GPU median 11 ms, no background blur).
+  Note: the load average sits near 10 even when idle on this kernel (about ten
+  Samsung kernel threads stay in D state); it is not a CPU-load signal.
+
 ### End-to-end result (2026-11-22)
 
 - Build 46 sideloaded over build 44 (`reports/.../runtime46-*`): preflight,
