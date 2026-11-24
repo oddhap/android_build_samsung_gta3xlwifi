@@ -1,0 +1,6 @@
+{
+  "build_incremental": "gta3xlwifi.arm64.20261124.190610",
+  "vendor_sha256": "80aaf6c792e6ab97132f05301db3882316325f54a7776fff4d7178c647f63282",
+  "bluetooth_audio_module_sha256": "d3032b492b3f770eb2e419405a82f72e600177bc89286d5f384f517eb4221f16",
+  "hardware_tested": false
+}

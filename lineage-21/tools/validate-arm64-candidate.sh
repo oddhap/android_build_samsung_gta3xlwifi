@@ -50,6 +50,12 @@ check signed-double-tap python3 "$port/tools/verify-double-tap-wake.py" "$releas
 check signed-charger python3 "$port/tools/verify-charger-package.py" "$release/signed-target-files.zip" --report "$release/charger-package-check.json" --init-verifier /srv/android/src/lineage-21.0-arm64/out/host/linux-x86/bin/host_init_verifier
 check signed-mtp python3 "$port/tools/verify-mtp-package.py" "$release/signed-target-files.zip" --report "$release/mtp-package-check.json"
 check signed-brightness python3 "$port/tools/verify-brightness-package.py" "$release/signed-target-files.zip" --report "$release/brightness-package-check.json" --dexdump /srv/android/src/lineage-21.0-arm64/prebuilts/sdk/tools/linux/bin/dexdump
+bt_abi_report=$(python3 - "$port/notes/source-inputs.lock.json" <<'BTPY'
+import json, sys
+print(json.load(open(sys.argv[1]))['inputs']['bluetooth_audio_abi_report'])
+BTPY
+)
+check signed-bluetooth python3 "$port/tools/verify-bluetooth-package.py" "$release/signed-target-files.zip" --report "$release/bluetooth-package-check.json" --abi-report "$bt_abi_report"
 check signing-inputs python3 /srv/android/ports/lineage-21-arm64/check-signing-inputs.py /srv/android/signing/arm64-baseline-sha256.json
 python3 - "$release" <<'PY'
 import json, sys
@@ -65,7 +71,7 @@ result = {'passed': True, 'checked_at_utc': datetime.now(timezone.utc).isoformat
           'checks': ['signatures', 'physical_image_bounds', 'signed_system_layout',
                      'packaged_platform_fixes', 'usage_compatibility',
                      'signed_multilib', 'signed_donor_dependencies',
-                     'signed_double_tap_wake_controls', 'signed_charger_ui_startup', 'signed_mtp_usb_configuration', 'signed_minimum_backlight_mapping', 'unchanged_keys']}
+                     'signed_double_tap_wake_controls', 'signed_charger_ui_startup', 'signed_mtp_usb_configuration', 'signed_minimum_backlight_mapping', 'signed_bluetooth_headphone_audio_path', 'unchanged_keys']}
 (release/'offline-validation.json').write_text(json.dumps(result, indent=2)+'\n')
 PY
 printf 'All offline candidate checks passed: %s\n' "$ota"

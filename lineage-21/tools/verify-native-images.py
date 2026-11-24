@@ -115,7 +115,7 @@ for name, maximum in limits.items():
         item['header_version'] = version
     report['images'][name] = item
 
-if report['images']['vendor.img']['sha256'] != 'a847a527931d61e5702b8a025210c84eb88a37ef1e60df93b6393a16dae9183a':
+if report['images']['vendor.img']['sha256'] != '80aaf6c792e6ab97132f05301db3882316325f54a7776fff4d7178c647f63282':
     raise SystemExit('Packaged vendor image differs from reviewed hybrid vendor image')
 if report['images']['dtbo.img']['sha256'] != 'b9041c37713a745290d9a0203423436b6caa7a1307ced79b6963b4f1f0271c4b':
     raise SystemExit('Packaged DTBO differs from the reviewed source-built container')

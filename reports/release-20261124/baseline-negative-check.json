@@ -1,0 +1,7 @@
+{
+  "passed": true,
+  "baseline": "November 12 signed LineageOS21 target-files",
+  "baseline_rejected_for_missing_a2dp_profile": true,
+  "return_code": 1,
+  "expected_assertion": "a2dp.source"
+}

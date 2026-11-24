@@ -1,3 +1,17 @@
+# Current ARM64 build — 24 November 2026
+
+Classic Bluetooth headphone profiles and the HIDL 2.0 audio path are backported.
+All 13 offline checks, signed-provider ABI, GApps capacity and unchanged signing
+identity pass. Physical LineageOS 21 pairing/playback confirmation is pending.
+No framework source refresh was performed for this Bluetooth backport.
+
+[Downloads](https://github.com/oddhap/lineageos21_gta3xlwifi/releases)
+and [validation](reports/release-20261124/validation-summary.json).
+
+The following dated results are historical.
+
+---
+
 # Current ARM64 release — 12 November 2026
 
 Build `gta3xlwifi.arm64.20261112.200307`, framework SPL `2026-10-01`.

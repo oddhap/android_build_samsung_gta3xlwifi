@@ -163,6 +163,9 @@ three GPU-query APIs remain unavailable and ordinary RAM accounting works.
 
 ## Private signed updates
 
+For the Bluetooth headphone audio backport and its required package/runtime checks,
+see [Bluetooth headphone audio](bluetooth-profiles.md).
+
 Use the [private signing and certificate migration guide](signing.md) for builds
 installed after the key migration. Plain development `bacon` builds use test keys.
 

@@ -1,0 +1,24 @@
+{
+  "passed": true,
+  "vendor_raw_sha256": "e8320fa0ddf09553efb46e5beea3ae6e433014ee39f059fa92009c1b3bfba1c9",
+  "vendor_sparse_sha256": "80aaf6c792e6ab97132f05301db3882316325f54a7776fff4d7178c647f63282",
+  "baseline": "Published LineageOS 21 ARM64 November 12 vendor",
+  "hardware_tested": false,
+  "scope": "Add the reviewed Bluetooth audio shim to the reviewed LineageOS 21 vendor.\n\nExactly three new files (32-bit module, VINTF fragment, AOSP bluetooth audio\npolicy) and one changed file (audio policy include a2dp -> bluetooth). New\nfiles take uid/gid/mode/SELinux label from their existing siblings. Every\nother entry must remain byte- and metadata-identical. No policy change.\n",
+  "base_vendor_report_sha256": "68033d3f807f336e0b3c921823057348b522e2391ef93d0b234ae91efc3ee070",
+  "shim_sha256": "d3032b492b3f770eb2e419405a82f72e600177bc89286d5f384f517eb4221f16",
+  "shim_abi_report_sha256": "b7c0db15d4654cad7f3451aabbd672b6d2646985fa994908de97e82a33edba82",
+  "btaudio_new_paths": {
+    "/lib/hw/audio.bluetooth.exynos7904.so": "d3032b492b3f770eb2e419405a82f72e600177bc89286d5f384f517eb4221f16",
+    "/etc/vintf/manifest/gta3xlwifi_btaudio.xml": "d029ca2cd4ea4458c3d691a3f11258c6787da2c56c071e828b0df90ba77383f2",
+    "/etc/bluetooth_audio_policy_configuration.xml": "877d8745fe542a2e1070d773d64c7c6b3d03168679d3d8355dd8ee283c5ec884"
+  },
+  "btaudio_changed_paths": {
+    "/etc/audio_policy_configuration.xml": "53dce505d9a879bfaa3e5e64be7e61d0728beb615190a3d8d33d53b78ce8b349"
+  },
+  "raw_bytes": 343932928,
+  "entries_before": 1075,
+  "entries_after": 1078,
+  "all_other_contents_and_security_metadata_identical": true,
+  "flash_ready": false
+}

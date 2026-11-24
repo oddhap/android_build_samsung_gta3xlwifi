@@ -1,6 +1,6 @@
 # LineageOS 21 ARM64 for SM-T510
 
-Android 14, build `gta3xlwifi.arm64.20261112.200307`, framework security patch
+Android 14, build `gta3xlwifi.arm64.20261124.190610`, framework security patch
 2026-10-01. **SM-T510 / gta3xlwifi only**, not SM-T515. Native ARM64 Android
 with ARM32 app support, SELinux Enforcing and file-based encryption.
 
@@ -10,7 +10,7 @@ separately. Only ARM64 releases will be maintained going forward.
 
 ## Downloads
 
-- `lineage-21.0-20261112-UNOFFICIAL-gta3xlwifi-arm64.zip`: signed ROM.
+- `lineage-21.0-20261124-UNOFFICIAL-gta3xlwifi-arm64.zip`: signed ROM.
 - `twrp-3.7.1_12-gta3xlwifi-arm64-20261015.img`: native ARM64 TWRP 3.7.1_12,
   with working PIN and automatic PIN-free decryption.
 - `twrp-3.7.1_12-gta3xlwifi-arm64-20261015-ap.tar`: Odin AP archive containing
@@ -23,7 +23,10 @@ Keep a backup outside the tablet and verify SHA256SUMS before flashing.
 Bootloader unlocking erases data and custom firmware can trip Knox. Keep the
 bootloader unlocked with this ROM; leave **Re-Partition disabled**.
 
-## Update an existing signed ARM64 installation
+## Update an existing signed LineageOS 21 ARM64 installation
+
+These update steps apply to LineageOS 21 ARM64. Moving from LineageOS 24 is a
+downgrade and requires the clean-install procedure, including Format Data.
 
 1. Boot the included ARM64 TWRP. If you already use the 15 October ARM64 TWRP,
    keep it. Otherwise install its image using **TWRP → Install → Install Image →
@@ -42,10 +45,10 @@ bootloader unlocked with this ROM; leave **Re-Partition disabled**.
 
    Wait a few seconds, then unmount Vendor. The installer refuses to write
    images while Vendor is mounted; do not bypass that check.
-4. Install the ROM ZIP, or use `adb sideload lineage-21.0-20261112-UNOFFICIAL-gta3xlwifi-arm64.zip`.
+4. Install the ROM ZIP, or use `adb sideload lineage-21.0-20261124-UNOFFICIAL-gta3xlwifi-arm64.zip`.
 5. The ROM retains addon.d support for preserving an existing MindTheGapps
-   installation. Preservation was physically verified with the November 1 ROM; the
-   complete November 12 ROM has not been test-installed. Keep the same Android 14 ARM64
+   installation. Preservation was physically verified with earlier LineageOS 21 ARM64 builds;
+   this November 24 build has not been test-installed. Keep the same Android 14 ARM64
    package available in case recovery reports a restore failure. See the Google apps section before boot.
    **Do not Format Data for a routine update.**
 
@@ -109,8 +112,9 @@ it again and long Power starts Android.
 
 Google login and app installation, ARM64 Google services, both Mali graphics
 ABIs, Wi-Fi/app internet, speaker, both cameras, accelerometer and PIN/PIN-free
-recovery have been tested. Detailed results and exact tested build identities
-are linked from the release notes.
+recovery have been tested. These results apply to earlier LineageOS 21 ARM64 builds. This build passes
+13 offline checks, but Bluetooth pairing, playback and reconnect on LineageOS 21
+require physical confirmation.
 
 Long-term stability, Bluetooth pairing/audio, microphone, video/DRM codecs,
 advanced graphics/storage features, Play Integrity and encrypted backup/restore
