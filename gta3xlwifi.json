@@ -1,5 +1,20 @@
 [
   {
+    "datetime": 1795794422,
+    "type": "unofficial",
+    "version": "24.0",
+    "files": [
+      {
+        "filename": "lineage-24.0-20261127-UNOFFICIAL-gta3xlwifi.zip",
+        "os_patch_level": "2026-11-01",
+        "os_sdk_level": 37,
+        "sha256": "cda1d2d404218f8bc6fb2f226a2c6f28df64eb566072794b2dc8265a8e2ef276",
+        "size": 1054969502,
+        "url": "https://github.com/oddhap/android_build_samsung_gta3xlwifi/releases/download/lineage-24.0-20261127-1795794422/lineage-24.0-20261127-UNOFFICIAL-gta3xlwifi.zip"
+      }
+    ]
+  },
+  {
     "datetime": 1795459667,
     "type": "unofficial",
     "version": "24.0",
@@ -26,21 +41,6 @@
         "sha256": "993f14535ee4a5198320ba9e55019782176646d928c6c4f2b1229614cc726113",
         "size": 1054241435,
         "url": "https://github.com/oddhap/android_build_samsung_gta3xlwifi/releases/download/lineage-24.0-20261123-1795454381/lineage-24.0-20261123-UNOFFICIAL-gta3xlwifi.zip"
-      }
-    ]
-  },
-  {
-    "datetime": 1795421016,
-    "type": "unofficial",
-    "version": "24.0",
-    "files": [
-      {
-        "filename": "lineage-24.0-20261123-UNOFFICIAL-gta3xlwifi.zip",
-        "os_patch_level": "2026-11-01",
-        "os_sdk_level": 37,
-        "sha256": "be58beae942faa453e72bbee7f2a875f6284e0f8036bc5ee9a60e165b412536f",
-        "size": 1054144561,
-        "url": "https://github.com/oddhap/android_build_samsung_gta3xlwifi/releases/download/lineage-24.0-20261123-1795421016/lineage-24.0-20261123-UNOFFICIAL-gta3xlwifi.zip"
       }
     ]
   }
