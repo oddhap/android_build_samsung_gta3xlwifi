@@ -4,6 +4,20 @@ Active development target: LineageOS 24.0 / Android 17, ARM64 with ARM32 apps,
 `gta3xlwifi`, physical non-A/B partitions. This is an unfinished source-built
 device port. The first physical test installation has completed; its first Android17 boot failed and is being repaired.
 
+## Google Cast and Gemini with NikGapps Core
+
+If Google Cast cannot find your receiver, open **Settings → Security & privacy →
+Privacy settings → Permission manager → Nearby devices**. In the three-dot menu,
+choose **Show system**, open **Google Play services**, and select **Allow** if
+needed. Then retry casting. On build 53, this screen was verified on the SM-T510.
+The tested Play services installation already held Android 17's
+`ACCESS_LOCAL_NETWORK` permission. [Android local network permission](https://developer.android.com/privacy-and-security/local-network-permission)
+
+If Gemini asks for the Google app on a NikGapps Core installation, install or
+update **Google** from the Play Store. To use Gemini as the system assistant,
+select **Google** as the default digital assistant app, then open Gemini.
+[Google Gemini setup](https://support.google.com/gemini/answer/14554984)
+
 **Physical boot milestone and remaining blockers.** Snapshot22 reached
 `sys.boot_completed=1` with SELinux Enforcing and user 0 unlocked after a
 guarded ownership correction of a pre-existing empty lock-settings database.
@@ -2347,6 +2361,26 @@ the build server.
 
 ### End-to-end result (2026-11-22)
 
+- Build 54 (`port-20261127-54`, parent `port-20261127-54-sync`; `run-runtime54-orchestrator24.sh`):
+  - Source sync (2026-11-27, `sync-runtime54-fetch24.sh`, `dryrun-runtime54-patches24.py`,
+    `sync-runtime54-checkout24.sh`): all 24 snapshot53 patches apply byte-identically on current
+    lineage-24.0; 32 projects moved (Chromium WebView 158.0.8127.92, frameworks/base, frameworks/av,
+    Launcher3, Settings, vendor/lineage and others). device/lineage/sepolicy changed only atv/ and
+    libperfmgr/vendor policy, which this device does not use. Security patch level unchanged (2026-11-01).
+  - system_server file-descriptor leak: build 53 restarted system_server after about 3.7 days of
+    uptime (`EMFILE`, then a `PowerStatsStore.unlockStoreDirectory` NullPointerException).
+    `Gta3xlwifiStatsJournal.readKernelBootId()` wrapped an `Os.open()` descriptor in
+    `new FileInputStream(fd)`, which on Android does not own the descriptor (libcore
+    `isFdOwner=false`), and the boot id is read on every journal operation. On the device, an
+    `app_process` probe (`tools/runtime54-fdleak/`) leaked 500 descriptors in 500 reads with the old
+    pattern and 0 with the fix (`Os.close(fd)` in `finally`, `tools/runtime54-stats/`).
+    `check-runtime54-journal-target24.py` disassembles the packaged service-connectivity.jar and
+    requires `Os.close` in `readKernelBootId` (build 53 negative control: none).
+  - Full product build, all product checks, VINTF, test OTA
+    `lineage-24.0-20261127-UNOFFICIAL-gta3xlwifi-test.zip` (`3804b313…`) and OTA checks pass.
+    Released as `release-20261127-01` (`lineage-24.0-20261127-1795794422`, OTA `cda1d2d4…`, with
+    release notes). Not yet installed on the maintainer's tablet at release time; the fix is proven
+    on the device only after more than 3.7 days of uptime without a system_server restart.
 - Build 46 sideloaded over build 44 (`reports/.../runtime46-*`): preflight,
   updater RC 0, boot/vendor/recovery and file readbacks PASS, **addon.d kept all
   36 NikGapps files** without a GApps reinstall, Android 17, CE, Enforcing,

@@ -5,7 +5,7 @@ set -euo pipefail
 payload=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
 integration=$(cd -- "$payload/.." && pwd)
 key="/Users/oddi/Documents/Samsung-ARM64/.private/build_ed25519"
-remote=builder@192.168.0.124
+remote=builder@192.168.0.103
 port=/srv/android/ports/lineage-24.0-arm64
 remote_payload="$port/tools/$(date -u +%Y%m%dT%H%M%SZ)-$$"
 ssh_opts=(-i "$key" -o BatchMode=yes -o ConnectTimeout=10)
