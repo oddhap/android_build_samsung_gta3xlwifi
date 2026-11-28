@@ -5,6 +5,7 @@ Native **ARM64 Android 14** with **ARM32 app support**, for Samsung Galaxy Tab A
 release keys, SELinux Enforcing and file-based encryption. Google apps are optional.
 
 - [Download ROM, ARM64 TWRP, clean-install files and checksums](https://github.com/oddhap/lineageos21_gta3xlwifi/releases)
+- [All SM-T510 TWRP images: which TWRP for which ROM](https://github.com/oddhap/twrp_gta3xlwifi)
 - [Installation](INSTALL_ARM64.md) and [GApps integration](docs/gapps-arm64-build.md)
 - [Device tree](https://github.com/oddhap/android_device_samsung_gta3xlwifi/tree/lineage-21.0-arm64)
 
