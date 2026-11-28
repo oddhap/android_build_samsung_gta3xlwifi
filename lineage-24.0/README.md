@@ -2361,6 +2361,27 @@ the build server.
 
 ### End-to-end result (2026-11-22)
 
+- Build 55 (`port-20261128-55`, parent `port-20261127-54`; `run-runtime55-orchestrator24.sh`):
+  - Issue #6 on LineageOS 24.0: the Samsung 4.4 kernel (`CONFIG_EXT4_PRIVATE_ENCRYPTION`, Exynos FMP,
+    `fileencryption=ice`) sets `EXT4_POLICY_FLAGS_PRIVATE_ALGO` (0x04) in the v1 context of every
+    non-directory inode, never in directories. e2fsprogs 1.47.2 (`e2fsck/encrypted_files.c`,
+    byte-identical to the unpatched LineageOS 21 1.46.6 file) compares the full v1 policy, so after an
+    unclean shutdown fs_mgr's `e2fsck -f -y` clears every encrypted entry and moves the files to
+    `lost+found` (user 0 keys gone, `init_user0_failed`). The LineageOS 21 patch
+    (`tools/runtime55-e2fsck/external_e2fsprogs.patch`, f6d36fc9…) applies unchanged: for v1 contexts,
+    ignore 0x04 when contents and filenames modes differ (upstream 0x04 is DIRECT_KEY, valid only
+    with equal modes). Snapshot55 has 1,244 projects and 25 exact patches.
+  - `check-runtime55-e2fsck-target24.py` requires a rebuilt system and recovery `e2fsck` (both differ
+    from build 54) and runs the host `e2fsck` built from the same tree on synthetic images made with
+    stock tools (`runtime55-e2fsck/mkimg.sh`): the Samsung case (directory `01 7f 04 00`, files
+    `01 7f 04 04`) is clean with `-fn` and unchanged with `-fy`; a control with equal modes and a
+    real flag mismatch still reports both errors.
+  - Full product build, all product checks, VINTF, test OTA
+    `lineage-24.0-20261128-UNOFFICIAL-gta3xlwifi-test.zip` (`2baafa86…`) and OTA checks pass. Two
+    preserved `-failed-a` runs: an over-strict assumption in the new check (the recovery `e2fsck` is
+    a separate variant, as in build 54) and a quoting error in the provenance text. Released as
+    `release-20261128-01` (`lineage-24.0-20261128-1795873306`, OTA `a15c3794…`, with release notes).
+    Not yet installed on a device at release time.
 - Build 54 (`port-20261127-54`, parent `port-20261127-54-sync`; `run-runtime54-orchestrator24.sh`):
   - Source sync (2026-11-27, `sync-runtime54-fetch24.sh`, `dryrun-runtime54-patches24.py`,
     `sync-runtime54-checkout24.sh`): all 24 snapshot53 patches apply byte-identically on current

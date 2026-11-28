@@ -1,0 +1,35 @@
+diff --git a/e2fsck/encrypted_files.c b/e2fsck/encrypted_files.c
+index d7a60c7..2eae7bb 100644
+--- a/e2fsck/encrypted_files.c
++++ b/e2fsck/encrypted_files.c
+@@ -33,6 +33,7 @@
+ #define FSCRYPT_KEY_DESCRIPTOR_SIZE	8
+ #define FSCRYPT_KEY_IDENTIFIER_SIZE	16
+ #define FS_KEY_DERIVATION_NONCE_SIZE	16
++#define SAMSUNG_PRIVATE_ALGO_FLAG	0x04
+ 
+ struct fscrypt_context_v1 {
+ 	__u8 version;
+@@ -183,6 +184,22 @@ static __u32 fscrypt_context_to_policy(const void *xattr, size_t xattr_size,
+ 		policy->filenames_encryption_mode =
+ 			ctx->filenames_encryption_mode;
+ 		policy->flags = ctx->flags;
++		/*
++		 * Samsung kernels built with CONFIG_EXT4_PRIVATE_ENCRYPTION
++		 * (Exynos FMP inline encryption) set 0x04
++		 * (EXT4_POLICY_FLAGS_PRIVATE_ALGO) in the context of every
++		 * non-directory inode they create, never in directories, and
++		 * compare only the padding bits.  Upstream 0x04 is
++		 * FSCRYPT_POLICY_FLAG_DIRECT_KEY, which a v1 policy may only
++		 * use when both modes are equal, so with different modes the
++		 * bit can only be Samsung's marker.  Ignore it, or every
++		 * encrypted file looks like it has a different policy than
++		 * its directory and "e2fsck -y" clears all of them.
++		 */
++		if ((policy->flags & SAMSUNG_PRIVATE_ALGO_FLAG) &&
++		    policy->contents_encryption_mode !=
++		    policy->filenames_encryption_mode)
++			policy->flags &= ~SAMSUNG_PRIVATE_ALGO_FLAG;
+ 		memcpy(policy->master_key_descriptor,
+ 		       ctx->master_key_descriptor,
+ 		       sizeof(policy->master_key_descriptor));
