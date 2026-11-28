@@ -1,3 +1,16 @@
+# Current ARM64 build — 27 November 2026
+
+Build `gta3xlwifi.arm64.20261127.194723`. Ported from LineageOS 24: ART CC
+dexpreopt, power-boost retry, SD card exFAT/adoptable storage; built-in Updater
+OTA. All 13 offline checks, vendor runtime-policy/VINTF linking, GApps capacity,
+the fixes check on the signed package and unchanged signing identity pass.
+Not yet physically tested on LineageOS 21.
+
+[Downloads](https://github.com/oddhap/lineageos21_gta3xlwifi/releases)
+and [validation](reports/release-20261127/validation-summary.json).
+
+---
+
 # Current ARM64 build — 24 November 2026
 
 Classic Bluetooth headphone profiles and the HIDL 2.0 audio path are backported.

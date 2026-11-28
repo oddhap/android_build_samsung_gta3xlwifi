@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "scope": "Released LineageOS 21 DT2W kernel plus sdfat exfat alias (fs/sdfat/sdfat.c only; issue 4)",
+  "baseline_source": "/srv/android/src/kernel-gta3xlwifi-dt2w (unchanged, audited before/after)",
+  "released_Image_sha256": "33c1a0d1b9e2696decd53fbedfc2231385b74464f4058a54b93ff06ff7c72553",
+  "copy_reproduces_released_Image_after_build_path_substitution_except_gnu_build_id": true,
+  "build_paths": "same-length copy paths; release string 4.4.302-gefbdbfa3-dirty kept",
+  "Image_sha256": "c7b4a44fcb4f31ea53d86fe000270d6a20d0f9d3e5a84ae9249c9d0acba19aca",
+  "kernel_config_identical_to_released": true,
+  "exported_symbol_crcs_unchanged": true,
+  "host_sdfat_exfat_cases": 10,
+  "hardware_tested": false
+}

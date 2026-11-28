@@ -1,6 +1,6 @@
 # LineageOS 21 ARM64 for SM-T510
 
-Android 14, build `gta3xlwifi.arm64.20261124.190610`, framework security patch
+Android 14, build `gta3xlwifi.arm64.20261127.194723`, framework security patch
 2026-10-01. **SM-T510 / gta3xlwifi only**, not SM-T515. Native ARM64 Android
 with ARM32 app support, SELinux Enforcing and file-based encryption.
 
@@ -10,7 +10,7 @@ separately. Only ARM64 releases will be maintained going forward.
 
 ## Downloads
 
-- `lineage-21.0-20261124-UNOFFICIAL-gta3xlwifi-arm64.zip`: signed ROM.
+- `lineage-21.0-20261127-UNOFFICIAL-gta3xlwifi-arm64.zip`: signed ROM.
 - `twrp-3.7.1_12-gta3xlwifi-arm64-20261015.img`: native ARM64 TWRP 3.7.1_12,
   with working PIN and automatic PIN-free decryption.
 - `twrp-3.7.1_12-gta3xlwifi-arm64-20261015-ap.tar`: Odin AP archive containing
@@ -34,8 +34,10 @@ downgrade and requires the clean-install procedure, including Format Data.
    ARM32 TWRP must be replaced to install ARM64 GApps.
 2. Enter your PIN on the tablet if prompted. Without a PIN, storage decrypts
    automatically. Confirm internal storage is accessible.
-3. Keep **Vendor unmounted**. If recovery crypto services hold it mounted,
-   stop only their recovery instances using Advanced → Terminal or `adb shell`:
+3. The installer stops TWRP's recovery crypto services and unmounts Vendor
+   itself before it writes anything. If it still stops with a message that
+   Vendor is mounted, stop only those recovery instances using
+   Advanced → Terminal or `adb shell`:
 
    ```sh
    for service in keystore2 recovery-keymaster recovery-gatekeeper recovery-mobicore recovery-crypto-props; do
@@ -45,12 +47,29 @@ downgrade and requires the clean-install procedure, including Format Data.
 
    Wait a few seconds, then unmount Vendor. The installer refuses to write
    images while Vendor is mounted; do not bypass that check.
-4. Install the ROM ZIP, or use `adb sideload lineage-21.0-20261124-UNOFFICIAL-gta3xlwifi-arm64.zip`.
+4. Install the ROM ZIP, or use `adb sideload lineage-21.0-20261127-UNOFFICIAL-gta3xlwifi-arm64.zip`.
 5. The ROM retains addon.d support for preserving an existing MindTheGapps
    installation. Preservation was physically verified with earlier LineageOS 21 ARM64 builds;
-   this November 24 build has not been test-installed. Keep the same Android 14 ARM64
+   this November 27 build has not been test-installed. Keep the same Android 14 ARM64
    package available in case recovery reports a restore failure. See the Google apps section before boot.
    **Do not Format Data for a routine update.**
+
+## Built-in updates
+
+From this build on, **Settings → System → Updater** checks this repository for
+new LineageOS 21 releases. Installations older than this build do not know the
+update address: install this build once with the steps above. Later releases
+can then be downloaded and installed from the Updater; the tablet reboots into
+the ARM64 TWRP, which installs the package and preserves MindTheGapps through
+addon.d. Packages are only accepted if signed with the same release key.
+The unattended install path was physically verified with LineageOS 24 and the
+same TWRP; it has not yet been physically tested with LineageOS 21.
+
+## SD card as internal storage
+
+This build supports exFAT SD cards and adopting an SD card as internal storage
+(**Settings → Storage → SD card → Format as internal**). Adopting erases the card.
+Not yet physically tested on LineageOS 21.
 
 ## First installation from stock or another ROM
 
@@ -113,10 +132,11 @@ it again and long Power starts Android.
 Google login and app installation, ARM64 Google services, both Mali graphics
 ABIs, Wi-Fi/app internet, speaker, both cameras, accelerometer and PIN/PIN-free
 recovery have been tested. These results apply to earlier LineageOS 21 ARM64 builds. This build passes
-13 offline checks, but Bluetooth pairing, playback and reconnect on LineageOS 21
-require physical confirmation.
+13 offline checks. Bluetooth pairing, playback and reconnect, the ART, boost,
+SD card and Updater changes in this build require physical confirmation on
+LineageOS 21.
 
 Long-term stability, Bluetooth pairing/audio, microphone, video/DRM codecs,
 advanced graphics/storage features, Play Integrity and encrypted backup/restore
-are not fully validated. Built-in OTA downloads are not configured. Legacy
+are not fully validated. Legacy
 Samsung vendor/kernel components remain older than the framework patch date.

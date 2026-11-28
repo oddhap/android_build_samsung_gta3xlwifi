@@ -1,0 +1,86 @@
+{
+  "passed": true,
+  "build_incremental": "gta3xlwifi.arm64.20261127.194723",
+  "profile_properties_verified": {
+    "bluetooth.profile.a2dp.source.enabled": [
+      "true"
+    ],
+    "bluetooth.profile.avrcp.target.enabled": [
+      "true"
+    ],
+    "bluetooth.profile.bas.client.enabled": [
+      "true"
+    ],
+    "bluetooth.profile.gatt.enabled": [
+      "true"
+    ],
+    "bluetooth.profile.hid.host.enabled": [
+      "true"
+    ],
+    "bluetooth.profile.opp.enabled": [
+      "true"
+    ],
+    "bluetooth.profile.pan.nap.enabled": [
+      "true"
+    ],
+    "bluetooth.profile.pan.panu.enabled": [
+      "true"
+    ],
+    "bluetooth.profile.bap.broadcast.assist.enabled": [
+      "false"
+    ],
+    "bluetooth.profile.bap.broadcast.source.enabled": [
+      "false"
+    ],
+    "bluetooth.profile.bap.unicast.client.enabled": [
+      "false"
+    ],
+    "bluetooth.profile.bass.client.enabled": [
+      "false"
+    ],
+    "bluetooth.profile.ccp.server.enabled": [
+      "false"
+    ],
+    "bluetooth.profile.csip.set_coordinator.enabled": [
+      "false"
+    ],
+    "bluetooth.profile.hap.client.enabled": [
+      "false"
+    ],
+    "bluetooth.profile.hfp.ag.enabled": [
+      "false"
+    ],
+    "bluetooth.profile.mcp.server.enabled": [
+      "false"
+    ],
+    "bluetooth.profile.vcp.controller.enabled": [
+      "false"
+    ]
+  },
+  "profile_property_files": [
+    "PRODUCT/etc/build.prop",
+    "SYSTEM/build.prop",
+    "SYSTEM/system_dlkm/etc/build.prop",
+    "SYSTEM/system_ext/etc/build.prop"
+  ],
+  "vendor_sparse_sha256": "80aaf6c792e6ab97132f05301db3882316325f54a7776fff4d7178c647f63282",
+  "audio_module_sha256": "d3032b492b3f770eb2e419405a82f72e600177bc89286d5f384f517eb4221f16",
+  "hidl_2_0_factory_declared": true,
+  "bluetooth_audio_policy_selected": true,
+  "signed_provider_abi_passed": true,
+  "signed_provider_sha256": {
+    "android.hardware.audio.common@5.0.so": "a9b923ad312df2d689927843036cebcf46dfd649ffef7ddc826f98b9242cd629",
+    "android.hardware.bluetooth.audio@2.0.so": "5f97c2b8a091ca3bbfcefcde5244b867a54f9fcf0770f4b0eb6ca37a1f025140",
+    "libaudioutils.so": "62a292e7b4a99386949608f6c2dae8c37c12b4fd9ec0e9a45e0dae27938e7d2f",
+    "libbinder_ndk.so": "6b8839b06fa9f74579083e73eaca9aa0d2acf1180760e875f91e6ef706c33ec3",
+    "libcutils.so": "75b9867b688f585e87b9ad1969aec562ad30456e427620f21591e367edb037aa",
+    "libfmq.so": "b5d592f017ec6cc232119c05c1003088ca4a4a33f5a40cf91cbe042549b325ff",
+    "libhidlbase.so": "902bf57682dc9ecbe799524ec9a7ffe566898175912014d019f46cfd338dfe61",
+    "liblog.so": "25db7ec0edd2e718c51b95596947cbc1b8dc70c54b1672471d39aac699356a2e",
+    "libutils.so": "f8970f791afcbcabf1bd127f51bd16f63bc909cf678a363a7c33986475453bf1",
+    "libc.so": "3eb4b1731fd482da20392196da0c589857f041fb58e667ad6bd75860fac09f44",
+    "libm.so": "12154586eb44754193b7079370ceccdc5730beb91361975fece7790480e237de",
+    "libdl.so": "3b548e465433331419e66d84be9b0cd5c7f2b4f74966a4554114da57b089690d"
+  },
+  "hardware_tested": false
+}

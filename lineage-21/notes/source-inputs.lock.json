@@ -2,7 +2,7 @@
   "android_device_samsung_gta3xlwifi": {
     "url": "https://github.com/oddhap/android_device_samsung_gta3xlwifi",
     "branch": "lineage-21.0-arm64",
-    "commit": "9432fe43b9156ba1c2ba5db017d77080275a945e",
+    "commit": "8d45348e8543eb6200aec97bf7325e9d2c88139e",
     "publication_pending": false
   },
   "android_kernel_samsung_gta3xlwifi": {
@@ -16,7 +16,7 @@
     "commit": "29e8615b2f4af1da936bd791af45cd9632c286f7"
   },
   "inputs": {
-    "kernel_sha256": "33c1a0d1b9e2696decd53fbedfc2231385b74464f4058a54b93ff06ff7c72553",
+    "kernel_sha256": "c7b4a44fcb4f31ea53d86fe000270d6a20d0f9d3e5a84ae9249c9d0acba19aca",
     "vendor_sha256": "80aaf6c792e6ab97132f05301db3882316325f54a7776fff4d7178c647f63282",
     "dtbo_sha256": "b9041c37713a745290d9a0203423436b6caa7a1307ced79b6963b4f1f0271c4b",
     "gcc_revision": "961622e926a1b21382dba4dd9fe0e5fb3ee5ab7c",
@@ -64,7 +64,8 @@
     "bluetooth_audio_candidate": true,
     "bluetooth_audio_module_sha256": "d3032b492b3f770eb2e419405a82f72e600177bc89286d5f384f517eb4221f16",
     "bluetooth_audio_vendor_report": "/srv/android/artifacts/lineage21-bt-20261124/vendor-bt/report.json",
-    "bluetooth_audio_abi_report": "/srv/android/artifacts/lineage21-bt-20261124/shim-build/abi-v30.json"
+    "bluetooth_audio_abi_report": "/srv/android/artifacts/lineage21-bt-20261124/shim-build/abi-v30.json",
+    "kernel_exfat_alias_patch": "lineage-21/kernel/exfat/sdfat-exfat-alias.patch"
   },
   "upstream_refresh": {
     "passed": true,
@@ -78,11 +79,11 @@
   "validation": {
     "candidate_pending_runtime": true,
     "full_hardware_validation_complete": false,
-    "bluetooth_physical_tested": false,
-    "report": "../../reports/release-20261124/validation-summary.json",
+    "physically_tested_on_lineage21": false,
+    "report": "../../reports/release-20261127/validation-summary.json",
     "offline_checks_passed": true,
-    "build_incremental": "gta3xlwifi.arm64.20261124.190610",
-    "rom_zip_sha256": "b3bc60254a5246089784f801931d01d086aa941fed0cac88b17813c6a78da518"
+    "build_incremental": "gta3xlwifi.arm64.20261127.194723",
+    "rom_zip_sha256": "cb902c61047cca3a23da924d7b0b63b0986e5200ed34be8357983dd79a1571c3"
   },
   "android_device_samsung_gta3xlwifi_twrp": {
     "url": "https://github.com/oddhap/android_device_samsung_gta3xlwifi_twrp",

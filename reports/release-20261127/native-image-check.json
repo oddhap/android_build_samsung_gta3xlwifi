@@ -1,0 +1,37 @@
+{
+  "images": {
+    "system.img": {
+      "path": "/srv/android/artifacts/lineage-21-arm64/release/verified-target-files/IMAGES/system.img",
+      "sha256": "a94692c1a767d918e9750de1ecbbf21f4378b630737637848900d66079329217",
+      "expanded_bytes": 3196059648,
+      "partition_bytes": 3196059648
+    },
+    "product.img": {
+      "path": "/srv/android/artifacts/lineage-21-arm64/release/verified-target-files/IMAGES/product.img",
+      "sha256": "44af06a588faba28f88547fd4e8035ad3d51f1b3a2d4e167b56881f3fd02aab5",
+      "expanded_bytes": 327155712,
+      "partition_bytes": 327155712
+    },
+    "boot.img": {
+      "path": "/srv/android/artifacts/lineage-21-arm64/release/verified-target-files/IMAGES/boot.img",
+      "sha256": "3d89bdae7abed36162ae73a25cc0b1ecaee24d96c40c265b250610655299efb5",
+      "expanded_bytes": 25380880,
+      "partition_bytes": 33554432
+    },
+    "vendor.img": {
+      "path": "/srv/android/artifacts/lineage-21-arm64/release/verified-target-files/IMAGES/vendor.img",
+      "sha256": "80aaf6c792e6ab97132f05301db3882316325f54a7776fff4d7178c647f63282",
+      "expanded_bytes": 343932928,
+      "partition_bytes": 343932928
+    },
+    "dtbo.img": {
+      "path": "/srv/android/artifacts/lineage-21-arm64/release/verified-target-files/IMAGES/dtbo.img",
+      "sha256": "b9041c37713a745290d9a0203423436b6caa7a1307ced79b6963b4f1f0271c4b",
+      "expanded_bytes": 163252,
+      "partition_bytes": 8388608
+    }
+  },
+  "rom_zip": "/srv/android/artifacts/lineage-21-arm64/release/lineage-21.0-20261127-UNOFFICIAL-gta3xlwifi-arm64-privatekeys.zip",
+  "rom_zip_sha256": "cb902c61047cca3a23da924d7b0b63b0986e5200ed34be8357983dd79a1571c3",
+  "ota_metadata": "ota-property-files=metadata:69:391,metadata.pb:528:277                 \nota-required-cache=0\nota-type=BLOCK\npost-build=samsung/lineage_gta3xlwifi/gta3xlwifi:14/AP2A.240905.003/gta3xlwifi.arm64.20261127.194723:userdebug/release-keys\npost-build-incremental=gta3xlwifi.arm64.20261127.194723\npost-sdk-level=34\npost-security-patch-level=2026-10-01\npost-timestamp=1795808843\npre-device=gta3xlwifi\n"
+}
