@@ -82,10 +82,10 @@
     "candidate_pending_runtime": true,
     "full_hardware_validation_complete": false,
     "physically_tested_on_lineage21": false,
-    "report": "../../reports/release-20261128/validation-summary.json",
+    "report": "../../reports/release-20261128-2/validation-summary.json",
     "offline_checks_passed": true,
-    "build_incremental": "gta3xlwifi.arm64.20261128.090043",
-    "rom_zip_sha256": "9bc87b1bf79663eb7dd88029494a9fc9b1a791cf3d0fb1c709a4fdd99e38d80d"
+    "build_incremental": "gta3xlwifi.arm64.20261128.104453",
+    "rom_zip_sha256": "a1c9fcfc4a834fd81f7967bd651fa9f606a1d50c0213db98864b9cd0c804ad2c"
   },
   "android_device_samsung_gta3xlwifi_twrp": {
     "url": "https://github.com/oddhap/android_device_samsung_gta3xlwifi_twrp",

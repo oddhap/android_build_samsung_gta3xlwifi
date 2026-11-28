@@ -1,6 +1,6 @@
 # LineageOS 21 ARM64 for SM-T510
 
-Android 14, build `gta3xlwifi.arm64.20261128.090043`, framework security patch
+Android 14, build `gta3xlwifi.arm64.20261128.104453`, framework security patch
 2026-10-01. **SM-T510 / gta3xlwifi only**, not SM-T515. Native ARM64 Android
 with ARM32 app support, SELinux Enforcing and file-based encryption.
 
@@ -52,7 +52,7 @@ downgrade and requires the clean-install procedure, including Format Data.
 4. Install the ROM ZIP, or use `adb sideload lineage-21.0-20261128-UNOFFICIAL-gta3xlwifi-arm64.zip`.
 5. The ROM retains addon.d support for preserving an existing MindTheGapps
    installation. Preservation was physically verified with earlier LineageOS 21 ARM64 builds;
-   this November 28 build has not been test-installed. Keep the same Android 14 ARM64
+   this build was only tested with a clean install. Keep the same Android 14 ARM64
    package available in case recovery reports a restore failure. See the Google apps section before boot.
    **Do not Format Data for a routine update.**
 
@@ -131,6 +131,10 @@ The ROM retains working double tap to wake and powered-off charging display
 support. Enable **Settings → Display → Tap to wake**. On a full battery, the
 charging display normally blanks after about seven seconds; short Power shows
 it again and long Power starts Android.
+
+The build was physically tested on the tablet with a clean install, MindTheGapps
+and Magisk 31.1, including the unclean "additional setup" reboot that used to
+move all encrypted files to `lost+found` (issue #6).
 
 Google login and app installation, ARM64 Google services, both Mali graphics
 ABIs, Wi-Fi/app internet, speaker, both cameras, accelerometer and PIN/PIN-free

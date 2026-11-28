@@ -1,0 +1,13 @@
+[    7.630499] init: [libfs_mgr] Filesystem on /dev/block/platform/13500000.dwmmc0/by-name/userdata was not cleanly shutdown; state flags: 0x1, incompat feature flags: 0x102c6
+[    7.768535] init: [libfs_mgr] Running /system/bin/e2fsck on /dev/block/mmcblk0p33
+[    7.779681] e2fsck: e2fsck 1.46.6 (1-Feb-2023)
+[    7.826218] e2fsck: Pass 1: Checking inodes, blocks, and sizes
+[    7.957046] e2fsck: Pass 2: Checking directory structure
+[    8.058771] e2fsck: Pass 3: Checking directory connectivity
+[    8.059733] e2fsck: Pass 4: Checking reference counts
+[    8.174753] e2fsck: Pass 5: Checking group summary information
+[    8.217757] e2fsck: /dev/block/platform/13500000.dwmmc0/by-name/userdata: 4316/3551856 files (3.9% non-contiguous), 692713/14204928 blocks
+[    8.223468] init: [libfs_mgr] superblock s_max_mnt_count:65535,/dev/block/platform/13500000.dwmmc0/by-name/userdata
+[    8.225926] EXT4-fs (mmcblk0p33): Root reserved blocks 32768
+[    8.230196] EXT4-fs (mmcblk0p33): mounted filesystem with ordered data mode. Opts: noauto_da_alloc,discard,journal_checksum,data=ordered,errors=panic
+[    8.230373] init: [libfs_mgr] __mount(source=/dev/block/platform/13500000.dwmmc0/by-name/userdata,target=/data,type=ext4)=0: Success

@@ -1,0 +1,16 @@
+<14>[    9.282029]  [7:           init:    1] e2fsck: Encrypted entry '<encrypted name>' in /data/<encrypted dir> (2619963) references inode 2619967, which has a different encryption policy.
+<14>[    9.282639]  [7:           init:    1] e2fsck: Encrypted entry '<encrypted name>' in /data/<encrypted dir> (2620004) references inode 2620005, which has a different encryption policy.
+[... 1868 entries with "different encryption policy" cleared ...]
+<14>[   10.231210]  [6:           init:    1] e2fsck: Pass 3: Checking directory connectivity
+<14>[   10.231873]  [6:           init:    1] e2fsck: Pass 4: Checking reference counts
+<14>[   10.850083]  [3:           init:    1] e2fsck: Pass 5: Checking group summary information
+<14>[   10.952071]  [7:           init:    1] e2fsck: /dev/block/platform/13500000.dwmmc0/by-name/userdata: ***** FILE SYSTEM WAS MODIFIED *****
+<14>[   10.952081]  [7:           init:    1] e2fsck: /dev/block/platform/13500000.dwmmc0/by-name/userdata: 5426/3551856 files (3.9% non-contiguous), 854848/14204928 blocks
+<14>[   17.319798]  [0:           init:    1] init: starting service 'exec 8 (/system/bin/vdc --wait cryptfs init_user0)'...
+<14>[   17.323135]  [6:           init:    1] init: ... started service 'exec 8 (/system/bin/vdc --wait cryptfs init_user0)' has pid 4045
+<14>[   17.323178]  [6:           init:    1] init: SVC_EXEC service 'exec 8 (/system/bin/vdc --wait cryptfs init_user0)' pid 4045 (uid 0 gid 0+0 context default) started; waiting...
+<11>[   17.346819]  [7:            vdc: 4045] vdc: Command: cryptfs init_user0 Failed: Status(-8, EX_SERVICE_SPECIFIC): '0: '
+<14>[   17.347806]  [6:           init:    1] init: Service 'exec 8 (/system/bin/vdc --wait cryptfs init_user0)' (pid 4045) exited with status 25 waiting took 0.025000 seconds
+<14>[   17.347837]  [6:           init:    1] init: Sending signal 9 to service 'exec 8 (/system/bin/vdc --wait cryptfs init_user0)' (pid 4045) process group...
+<11>[   17.348091]  [6:           init:    1] init: Exec service failed, status 25: Rebooting into recovery, reason: init_user0_failed
+[0:       1.144] [ldfw] Pass LDFW partition!

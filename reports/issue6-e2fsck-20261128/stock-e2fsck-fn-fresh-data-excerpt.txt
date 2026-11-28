@@ -1,0 +1,40 @@
+e2fsck 1.46.6 (1-Feb-2023)
+Pass 1: Checking inodes, blocks, and sizes
+Pass 2: Checking directory structure
+Encrypted entry '<encrypted name>' in <encrypted dir> (130946) references inode 130948, which has a different encryption policy.
+Clear? no
+
+Encrypted entry '<encrypted name>' in <encrypted dir> (261926) references inode 261931, which has a different encryption policy.
+Clear? no
+
+Encrypted entry '<encrypted name>' in <encrypted dir> (654723) references inode 654776, which has a different encryption policy.
+Clear? no
+
+Encrypted entry '<encrypted name>' in <encrypted dir> (654725) references inode 654741, which has a different encryption policy.
+Clear? no
+
+Encrypted entry '<encrypted name>' in <encrypted dir> (654725) references inode 654740, which has a different encryption policy.
+Clear? no
+
+Encrypted entry '<encrypted name>' in <encrypted dir> (916610) references inode 916611, which has a different encryption policy.
+Clear? no
+
+Encrypted entry '<encrypted name>' in <encrypted dir> (916610) references inode 917162, which has a different encryption policy.
+Clear? no
+
+Encrypted entry '<encrypted name>' in <encrypted dir> (916610) references inode 917193, which has a different encryption policy.
+Clear? no
+
+Encrypted entry '<encrypted name>' in <encrypted dir> (916612) references inode 916613, which has a different encryption policy.
+Clear? no
+
+[...]
+Pass 3: Checking directory connectivity
+Pass 4: Checking reference counts
+Pass 5: Checking group summary information
+
+/dev/block/by-name/userdata: ********** WARNING: Filesystem still has errors **********
+
+/dev/block/by-name/userdata: 4607/3551856 files (3.8% non-contiguous), 769871/14204928 blocks
+EXIT=4
+policy errors: 1961

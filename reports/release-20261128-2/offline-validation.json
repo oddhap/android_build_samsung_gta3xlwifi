@@ -1,0 +1,23 @@
+{
+  "passed": true,
+  "checked_at_utc": "2026-11-28T13:15:10.593875+00:00",
+  "rom_zip_sha256": "a1c9fcfc4a834fd81f7967bd651fa9f606a1d50c0213db98864b9cd0c804ad2c",
+  "build_incremental": "gta3xlwifi.arm64.20261128.104453",
+  "signed_filesystems_checked": true,
+  "hardware_tested": false,
+  "checks": [
+    "signatures",
+    "physical_image_bounds",
+    "signed_system_layout",
+    "packaged_platform_fixes",
+    "usage_compatibility",
+    "signed_multilib",
+    "signed_donor_dependencies",
+    "signed_double_tap_wake_controls",
+    "signed_charger_ui_startup",
+    "signed_mtp_usb_configuration",
+    "signed_minimum_backlight_mapping",
+    "signed_bluetooth_headphone_audio_path",
+    "unchanged_keys"
+  ]
+}

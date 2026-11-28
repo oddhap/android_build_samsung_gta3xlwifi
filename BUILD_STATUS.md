@@ -1,3 +1,16 @@
+# Current ARM64 build — 28 November 2026 (2)
+
+Build `gta3xlwifi.arm64.20261128.104453`: the 28 November build plus the e2fsck
+fix for Samsung FBE contexts (issue #6). All 13 offline checks, vendor
+runtime-policy/VINTF linking, GApps capacity, the fixes check and unchanged
+signing identity pass. Physically tested: clean install with MindTheGapps,
+Magisk 31.1 and an unclean reboot; the forced boot `e2fsck` repaired nothing.
+
+[Downloads](https://github.com/oddhap/lineageos21_gta3xlwifi/releases)
+and [validation](reports/release-20261128-2/validation-summary.json).
+
+---
+
 # Current ARM64 build — 28 November 2026
 
 Build `gta3xlwifi.arm64.20261128.090043`: the 27 November build plus the OTA

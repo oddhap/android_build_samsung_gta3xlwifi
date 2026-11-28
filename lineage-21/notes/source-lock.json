@@ -205,5 +205,13 @@
     "sha256": "4aefcd555f3e7e8bed24f3e7c4b9c6924b87b4629684734617ab24136bc66a4f",
     "new_files": [],
     "clean_index_patch_check_passed": true
+  },
+  {
+    "project": "external/e2fsprogs",
+    "revision": "d37e9f0ddce5c220aed237c0d97d732c773861cc",
+    "patch": "external_e2fsprogs.patch",
+    "sha256": "f6d36fc92402c546ed019d61c3669b5917809059f427f8ac59e427721456720c",
+    "new_files": [],
+    "clean_index_patch_check_passed": true
   }
 ]

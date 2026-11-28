@@ -1,0 +1,21 @@
+{
+  "boot_kernel_sha256": "c7b4a44fcb4f31ea53d86fe000270d6a20d0f9d3e5a84ae9249c9d0acba19aca",
+  "vendor_image_sha256": "80aaf6c792e6ab97132f05301db3882316325f54a7776fff4d7178c647f63282",
+  "system_props": [
+    "ro.crypto.volume.options",
+    "persist.sys.adoptable",
+    "lineage.updater.uri"
+  ],
+  "product_enable_uffd_gc": "false",
+  "art_oat_odex_concurrent_copying": {
+    "true": 171,
+    "false": 0,
+    "none": 26
+  },
+  "power_retry_in_libandroid_servers": true,
+  "exfatprogs": true,
+  "updater_changelog_url": "https://github.com/oddhap/lineageos21_gta3xlwifi/releases",
+  "releasetools_quiesce_sha256": "ede42a44edbf798fa9945761887335436766bbd281ddf79635cd686bfe6ffd7b",
+  "ota_order_preflight_quiesce_guard_writes": true,
+  "passed": true
+}
