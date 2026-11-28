@@ -8,7 +8,19 @@ release keys, SELinux Enforcing and file-based encryption. Google apps are optio
 - [Installation](INSTALL_ARM64.md) and [GApps integration](docs/gapps-arm64-build.md)
 - [Device tree](https://github.com/oddhap/android_device_samsung_gta3xlwifi/tree/lineage-21.0-arm64)
 
-## 27 November 2026 update
+## 28 November 2026 update
+
+TWRP `twrp-3.7.1_12-gta3xlwifi-arm64-20261128` is the 15 October LineageOS 21
+TWRP with only `libminuitwrp.so` rebuilt for `ABGR_8888` (blue accent instead of
+amber; the same library as in the LineageOS 24 TWRP). fstab (with /product),
+crypto scripts, kernel and header are unchanged. The OTA recovery-header helper
+recognizes the new image, so future builds keep its header in step with the ROM.
+Build `gta3xlwifi.arm64.20261128.090043`; all 13 offline checks pass; not yet
+physically tested on LineageOS 21.
+[Validation](reports/release-20261128/validation-summary.json),
+[TWRP rewrite](lineage-21/twrp/abgr-20261128/).
+
+## Previous update: 27 November 2026
 
 Ports three LineageOS 24 fixes and adds built-in updates:
 

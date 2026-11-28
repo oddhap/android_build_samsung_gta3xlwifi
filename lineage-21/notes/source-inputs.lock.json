@@ -2,7 +2,7 @@
   "android_device_samsung_gta3xlwifi": {
     "url": "https://github.com/oddhap/android_device_samsung_gta3xlwifi",
     "branch": "lineage-21.0-arm64",
-    "commit": "8d45348e8543eb6200aec97bf7325e9d2c88139e",
+    "commit": "e6ef2fedeabe88b28d1899d4f865a05639c4c7ec",
     "publication_pending": false
   },
   "android_kernel_samsung_gta3xlwifi": {
@@ -65,7 +65,9 @@
     "bluetooth_audio_module_sha256": "d3032b492b3f770eb2e419405a82f72e600177bc89286d5f384f517eb4221f16",
     "bluetooth_audio_vendor_report": "/srv/android/artifacts/lineage21-bt-20261124/vendor-bt/report.json",
     "bluetooth_audio_abi_report": "/srv/android/artifacts/lineage21-bt-20261124/shim-build/abi-v30.json",
-    "kernel_exfat_alias_patch": "lineage-21/kernel/exfat/sdfat-exfat-alias.patch"
+    "kernel_exfat_alias_patch": "lineage-21/kernel/exfat/sdfat-exfat-alias.patch",
+    "recommended_twrp_image_sha256": "947d409b9ffb819ab9920f5e5d468ba156c236dfc3a645020c1825ad1f7c9649",
+    "twrp_abgr_rewrite": "lineage-21/twrp/abgr-20261128/"
   },
   "upstream_refresh": {
     "passed": true,
@@ -80,10 +82,10 @@
     "candidate_pending_runtime": true,
     "full_hardware_validation_complete": false,
     "physically_tested_on_lineage21": false,
-    "report": "../../reports/release-20261127/validation-summary.json",
+    "report": "../../reports/release-20261128/validation-summary.json",
     "offline_checks_passed": true,
-    "build_incremental": "gta3xlwifi.arm64.20261127.194723",
-    "rom_zip_sha256": "cb902c61047cca3a23da924d7b0b63b0986e5200ed34be8357983dd79a1571c3"
+    "build_incremental": "gta3xlwifi.arm64.20261128.090043",
+    "rom_zip_sha256": "9bc87b1bf79663eb7dd88029494a9fc9b1a791cf3d0fb1c709a4fdd99e38d80d"
   },
   "android_device_samsung_gta3xlwifi_twrp": {
     "url": "https://github.com/oddhap/android_device_samsung_gta3xlwifi_twrp",

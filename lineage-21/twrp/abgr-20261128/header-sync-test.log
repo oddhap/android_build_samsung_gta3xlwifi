@@ -1,0 +1,15 @@
+PASS new image preflight supported
+PASS new image same level: no write
+PASS future 2026-11 preflight
+PASS future 2026-11 apply
+PASS future 2026-12 preflight
+PASS future 2026-12 apply
+PASS future 2027-06 preflight
+PASS future 2027-06 apply
+PASS downgrade refused, unchanged
+PASS Android 17 word refused, unchanged
+PASS previous TWRP 20261015 still supported
+PASS previous TWRP 20261015 synchronized
+PASS modified image unsupported, unchanged, not blocked
+PASS 20261127 helper: new TWRP unsupported, unchanged
+passed 14 cases

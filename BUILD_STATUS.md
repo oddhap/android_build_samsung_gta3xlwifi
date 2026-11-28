@@ -1,3 +1,16 @@
+# Current ARM64 build — 28 November 2026
+
+Build `gta3xlwifi.arm64.20261128.090043`: the 27 November build plus the OTA
+recovery-header helper identity for the new TWRP (only the ABGR display library
+changed). All 13 offline checks, vendor runtime-policy/VINTF linking, GApps
+capacity, the fixes check, 14 header-helper host cases and unchanged signing
+identity pass. Not yet physically tested on LineageOS 21.
+
+[Downloads](https://github.com/oddhap/lineageos21_gta3xlwifi/releases)
+and [validation](reports/release-20261128/validation-summary.json).
+
+---
+
 # Current ARM64 build — 27 November 2026
 
 Build `gta3xlwifi.arm64.20261127.194723`. Ported from LineageOS 24: ART CC

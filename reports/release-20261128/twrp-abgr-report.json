@@ -1,0 +1,54 @@
+{
+  "passed": true,
+  "scope": "LineageOS 21 TWRP with the correct (blue) accent colour, nothing else changed.\n\nOffline only; no device access. Input: the published LineageOS 21 ARM64 TWRP\ntwrp-3.7.1_12-gta3xlwifi-arm64-20261015.img (10c2c2ee..., os_version 0x1c0001aa).\nChanges exactly two ramdisk files:\n  1. system/lib64/libminuitwrp.so: 14a17810... -> 24a239bf..., the library built\n     from the same twrp-12.1-pinfree tree with only TARGET_RECOVERY_PIXEL_FORMAT :=\n     \"ABGR_8888\" (adds -DRECOVERY_ABGR: R/B swap for the decon fbdev, whose panel\n     shows red/blue swapped; accent #0090CA appeared as amber). The unchanged-config\n     rebuild in the same OUT_DIR reproduced 14a17810... byte for byte. The same\n     library is in the LineageOS 24 TWRP 33875693..., where the owner confirmed the\n     blue accent on 2026-11-21.\n  2. ramdisk-files.sha256sum: the library line gets its new hash.\nfstab files (with /product), the crypto scripts, kernel, recovery DTBO, board,\ncmdline, os_version and the SEANDROIDENFORCE trailer are unchanged. Only\nramdisk_size, recovery_dtbo_offset and the SHA1 id are recomputed (method of the\nLineageOS 24 twrp-fstab-abgr-20261121 rewrite). Also rebuilds the Odin AP tar with\nthe same member layout and the unchanged vbmeta.img.\n",
+  "input_image_sha256": "10c2c2ee77ee593ace840a12fb90145809e4521942b681bcee6e9c3b364370ed",
+  "output_image_sha256": "947d409b9ffb819ab9920f5e5d468ba156c236dfc3a645020c1825ad1f7c9649",
+  "output_bytes": 40273936,
+  "os_version_word": "0x1c0001aa",
+  "kernel_sha256": "f170d1015157c6d82cc3880427245254640fcbf20ffc59538151bcf8d0273333",
+  "kernel_identical": true,
+  "recovery_dtbo_identical": true,
+  "fstab_unchanged_with_product": true,
+  "ramdisk_old": {
+    "xz_bytes": 14730864,
+    "cpio_bytes": 61432064,
+    "cpio_sha256": "39c80c8831a8ee5f5146562b461d612afdf37349a2087a2dcfb8ba4fff92b366"
+  },
+  "ramdisk_new": {
+    "xz_bytes": 14728772,
+    "cpio_bytes": 61432064,
+    "cpio_sha256": "962605796e58d44ee2c985dab6bae13c15eac6c65fcf6614faa3f41058f24c46"
+  },
+  "cpio_entries": 3599,
+  "changed_cpio_entries": [
+    "ramdisk-files.sha256sum",
+    "system/lib64/libminuitwrp.so"
+  ],
+  "file_sha256_old": {
+    "ramdisk-files.sha256sum": "7f5cad7ba52c3f30e2fd6b4eff46a4e75cf01ab90556d4bdb0d29f339c63b7e9",
+    "system/lib64/libminuitwrp.so": "14a178104c617f37767af5ada84e4c72bb8f3b3cec17cc6b05f254b8a4a41124"
+  },
+  "file_sha256_new": {
+    "ramdisk-files.sha256sum": "91c7638dbf5af4d9278a8592b03b3e27cdf16b88a60fa3b82edc52c5d493dbb3",
+    "system/lib64/libminuitwrp.so": "24a239bf02102f04ddaf67633c9d57e4180f9c11380922c1c6f2f01484ef4a11"
+  },
+  "header_fields_changed": [
+    "ramdisk_size",
+    "recovery_dtbo_offset",
+    "id"
+  ],
+  "recovery_dtbo_offset_old": 40112128,
+  "recovery_dtbo_offset_new": 40110080,
+  "ota_preflight_identity": {
+    "length": 40273936,
+    "sha256_bytes44_47_zeroed": "45344fd27769764622738f99d938ff3cce0d186764c7c23ddc872de292468bf0"
+  },
+  "ap_tar": {
+    "name": "twrp-3.7.1_12-gta3xlwifi-arm64-20261128-ap.tar",
+    "sha256": "99db5ccac26a70af22e9722ac052394a37035b4102785d41606c4a8bacc22882",
+    "bytes": 40284160,
+    "vbmeta_sha256": "3e679bb0b8b2e6fb5d94d8316846b7459eead2209cee8f038cbbdda8c6483750"
+  },
+  "device_written": false,
+  "physically_tested": false
+}

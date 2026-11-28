@@ -1,6 +1,6 @@
 # LineageOS 21 ARM64 for SM-T510
 
-Android 14, build `gta3xlwifi.arm64.20261127.194723`, framework security patch
+Android 14, build `gta3xlwifi.arm64.20261128.090043`, framework security patch
 2026-10-01. **SM-T510 / gta3xlwifi only**, not SM-T515. Native ARM64 Android
 with ARM32 app support, SELinux Enforcing and file-based encryption.
 
@@ -10,10 +10,10 @@ separately. Only ARM64 releases will be maintained going forward.
 
 ## Downloads
 
-- `lineage-21.0-20261127-UNOFFICIAL-gta3xlwifi-arm64.zip`: signed ROM.
-- `twrp-3.7.1_12-gta3xlwifi-arm64-20261015.img`: native ARM64 TWRP 3.7.1_12,
-  with working PIN and automatic PIN-free decryption.
-- `twrp-3.7.1_12-gta3xlwifi-arm64-20261015-ap.tar`: Odin AP archive containing
+- `lineage-21.0-20261128-UNOFFICIAL-gta3xlwifi-arm64.zip`: signed ROM.
+- `twrp-3.7.1_12-gta3xlwifi-arm64-20261128.img`: native ARM64 TWRP 3.7.1_12,
+  with working PIN, automatic PIN-free decryption and corrected colours.
+- `twrp-3.7.1_12-gta3xlwifi-arm64-20261128-ap.tar`: Odin AP archive containing
   the same recovery and `vbmeta.img`.
 - `vbmeta-disabled.img`: vbmeta for Heimdall; disables AVB, not storage encryption.
 - `SHA256SUMS`: checksums for all assets.
@@ -28,8 +28,10 @@ bootloader unlocked with this ROM; leave **Re-Partition disabled**.
 These update steps apply to LineageOS 21 ARM64. Moving from LineageOS 24 is a
 downgrade and requires the clean-install procedure, including Format Data.
 
-1. Boot the included ARM64 TWRP. If you already use the 15 October ARM64 TWRP,
-   keep it. Otherwise install its image using **TWRP → Install → Install Image →
+1. Boot the included ARM64 TWRP. The 28 November TWRP is the 15 October ARM64
+   TWRP with corrected colours (blue accent instead of amber); only its display
+   library changed. If you already use the 15 October ARM64 TWRP, you can keep it
+   or update it the same way. Otherwise install its image using **TWRP → Install → Install Image →
    Recovery**, then **Reboot → Recovery**. This does not require Format Data.
    ARM32 TWRP must be replaced to install ARM64 GApps.
 2. Enter your PIN on the tablet if prompted. Without a PIN, storage decrypts
@@ -47,10 +49,10 @@ downgrade and requires the clean-install procedure, including Format Data.
 
    Wait a few seconds, then unmount Vendor. The installer refuses to write
    images while Vendor is mounted; do not bypass that check.
-4. Install the ROM ZIP, or use `adb sideload lineage-21.0-20261127-UNOFFICIAL-gta3xlwifi-arm64.zip`.
+4. Install the ROM ZIP, or use `adb sideload lineage-21.0-20261128-UNOFFICIAL-gta3xlwifi-arm64.zip`.
 5. The ROM retains addon.d support for preserving an existing MindTheGapps
    installation. Preservation was physically verified with earlier LineageOS 21 ARM64 builds;
-   this November 27 build has not been test-installed. Keep the same Android 14 ARM64
+   this November 28 build has not been test-installed. Keep the same Android 14 ARM64
    package available in case recovery reports a restore failure. See the Google apps section before boot.
    **Do not Format Data for a routine update.**
 
@@ -62,8 +64,9 @@ update address: install this build once with the steps above. Later releases
 can then be downloaded and installed from the Updater; the tablet reboots into
 the ARM64 TWRP, which installs the package and preserves MindTheGapps through
 addon.d. Packages are only accepted if signed with the same release key.
-The unattended install path was physically verified with LineageOS 24 and the
-same TWRP; it has not yet been physically tested with LineageOS 21.
+The unattended install path was physically verified with LineageOS 24 and its
+TWRP (same TWRP 3.7.1_12 base); it has not yet been physically tested with
+LineageOS 21.
 
 ## SD card as internal storage
 
@@ -91,7 +94,7 @@ Not yet physically tested on LineageOS 21.
 Heimdall alternative for the recovery installation:
 
 ```sh
-heimdall flash --RECOVERY twrp-3.7.1_12-gta3xlwifi-arm64-20261015.img --VBMETA vbmeta-disabled.img --no-reboot
+heimdall flash --RECOVERY twrp-3.7.1_12-gta3xlwifi-arm64-20261128.img --VBMETA vbmeta-disabled.img --no-reboot
 ```
 
 ## Optional Google apps
